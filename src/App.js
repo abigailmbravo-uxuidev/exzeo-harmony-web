@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Match, Link } from 'react-router';
 import logo from './logo.svg';
 import './App.css';
+
+const Secondary = () => <h3>Secodary Route</h3>;
 
 class App extends Component {
   render() {
@@ -13,6 +16,8 @@ class App extends Component {
         <p className="App-intro">
           Harmony Web Scaffold
         </p>
+        <Link to="/secondary">Secondary</Link>
+        <Match pattern="/secondary" component={Secondary} />
       </div>
     );
   }
