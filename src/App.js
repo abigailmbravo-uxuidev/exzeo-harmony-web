@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Match, Link } from 'react-router';
+import { connect } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
 
@@ -7,6 +8,7 @@ const Secondary = () => <h3>Secodary Route</h3>;
 
 class App extends Component {
   render() {
+    console.log(this.props);
     return (
       <div className="App">
         <div className="App-header">
@@ -23,4 +25,6 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(state => ({
+  features: state.features,
+}))(App);

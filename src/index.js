@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router';
-import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
+import configureStore from './store/configureStore';
+import { client } from './reducers';
 import App from './App';
 import './index.css';
 
-const client = new ApolloClient();
+const store = configureStore();
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <ApolloProvider client={client} store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
