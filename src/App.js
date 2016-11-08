@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { Match, Link } from 'react-router';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import * as featureActions from './actions/featureActions';
 import logo from './logo.svg';
 import './App.css';
 
 const Secondary = () => <h3>Secodary Route</h3>;
 
 class App extends Component {
+  componentDidMount = () => {
+    this.props.actions.initializeLD();
+  }
   render() {
     console.log(this.props);
     return (
@@ -25,6 +30,12 @@ class App extends Component {
   }
 }
 
-export default connect(state => ({
+const mapStateToProps = state => ({
   features: state.features,
-}))(App);
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(featureActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
