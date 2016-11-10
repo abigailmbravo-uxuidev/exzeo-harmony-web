@@ -22,6 +22,12 @@ const data = {
       appTitle: 'Docker',
     }
   },
+  quic: {
+    'appTitle': 'TypTap-DEV',
+    configuration: {
+      appTitle: 'TypTap-DEV',
+    }
+  },
   tryitout: {
     'appTitle': 'TypTap-QA',
     configuration: {
