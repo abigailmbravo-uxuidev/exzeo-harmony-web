@@ -36,12 +36,12 @@ const data = {
   },
 };
 
-app.get('/', (req, res) => {
+const renderApp = (req, res) => {
   console.log(req.headers)
   const fileName = path.resolve(process.cwd(), 'build/index');
   if (process.env.NODE_ENV === 'production') {
     // DO STUFFS
-    const names = req.hostname.split('.');
+    const names = req.headers.http_host.split('.');
     console.log('Names: ', names);
     const company = names[(names.length - 2)];
     console.log('Company: ', company);
@@ -54,9 +54,18 @@ app.get('/', (req, res) => {
     const stuff = data[subdomain] ? data[subdomain] : data.default;
     res.render(fileName, stuff);
   }
+}
+
+app.get('/', (req, res) => {
+  renderApp(req, res);
 });
 
 app.use(express.static(path.resolve(process.cwd(), 'build')));
+
+app.get('*', (req, res) => {
+  renderApp(req, res);
+});
+
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
