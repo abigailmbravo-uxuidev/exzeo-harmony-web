@@ -1,1 +1,2 @@
+export const INITIALIZELD = 'INITIALIZELD';
 export const TOGGLE_FEATURE = 'TOGGLE_FEATURE';

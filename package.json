@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "apollo-client": "^0.5.0",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
     "immutable": "^3.8.1",
     "ldclient-js": "^1.1.4",
     "react": "^15.3.2",
@@ -19,8 +21,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node scripts/genEjs",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest"
   }
 }

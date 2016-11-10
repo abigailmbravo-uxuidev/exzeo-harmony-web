@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
-import { Match, Link } from 'react-router';
+import { Match } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as featureActions from './actions/featureActions';
-import logo from './logo.svg';
+import * as featureActions from '../actions/featureActions';
+import Splash from './Splash';
 import './App.css';
 
 const Secondary = () => <h3>Secodary Route</h3>;
 
 class App extends Component {
-  componentDidMount = () => {
+  componentWillMount = () => {
     this.props.actions.initializeLD();
+  }
+  componentWillReceiveProps = newProps => {
+    if (newProps.features.get('ld-started') && !this.props.features.get('ld-started')) {
+      console.log('do things');
+      this.props.actions.setupFeature('splash-screen');
+      this.props.actions.setupFeature('login-message');
+    }
   }
   render() {
     console.log(this.props);
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Harmony</h2>
-        </div>
-        <p className="App-intro">
-          Harmony Web Scaffold
-        </p>
-        <Link to="/secondary">Secondary</Link>
+        <Match exactly pattern="/" component={Splash} />
         <Match pattern="/secondary" component={Secondary} />
       </div>
     );

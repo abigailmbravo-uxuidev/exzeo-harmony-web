@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 export default {
-  features: []
+  features: new Map({}),
 };

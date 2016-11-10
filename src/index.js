@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router';
 import { ApolloProvider } from 'react-apollo';
 import configureStore from './store/configureStore';
 import { client } from './reducers';
-import App from './App';
+import App from './components/App';
 import './index.css';
 
 const store = configureStore();
