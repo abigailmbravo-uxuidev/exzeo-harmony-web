@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
+const compression = require('compression');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(compression());
 app.set('view engine', 'ejs');
 
 
@@ -35,7 +37,7 @@ const data = {
 };
 
 app.get('/', (req, res) => {
-  console.log(req.hostname)
+  console.log(req.headers)
   const fileName = path.resolve(process.cwd(), 'build/index');
   if (process.env.NODE_ENV === 'production') {
     // DO STUFFS
