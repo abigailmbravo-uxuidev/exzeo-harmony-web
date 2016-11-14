@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as featureActions from '../actions/featureActions';
 import Splash from './Splash';
+import Login from './Login';
+import Home from './Home';
 import './App.css';
 
 const Secondary = () => <h3>Secodary Route</h3>;
@@ -25,6 +27,8 @@ class App extends Component {
       <div className="App">
         <Match exactly pattern="/" component={Splash} />
         <Match pattern="/secondary" component={Secondary} />
+        <Match pattern="/login" component={Login} />
+        <Match pattern="/home" component={Home} />
       </div>
     );
   }
