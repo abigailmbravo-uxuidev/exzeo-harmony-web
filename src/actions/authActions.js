@@ -1,7 +1,6 @@
 import * as types from './actionTypes';
 import Auth0 from 'auth0-js';
 
-
 let auth0 = new Auth0({
     domain:       'harmony.auth0.com',
     clientID:     'Xhs1oIytMrij0k3ixyLalsPEz7d2K1ME',
@@ -41,23 +40,16 @@ export const login = creds => {
                 dispatch(authenticate_error(err));
             }
             else {
-                console.log(results.idToken);
                 localStorage.setItem('id_token', results.idToken);
                 dispatch(authenticated(results.idToken));
-
-                // auth0.getProfile(results.idToken, (err, me) => {
-                //     console.log(me);
-                //     localStorage.setItem('me', me);
-                //     dispatch(authenticated_me(me));
-                // });
-                //
-                // location
-
+                window.location.href = '/home';
             }
         });
 
         dispatch(authenticating("athenticating"));
     }
 }
+
+
 
 
