@@ -19,7 +19,7 @@ const Splash = ({ splashScreen, loginMessage }) => {
             <img src={logo} width="120px" height="120px" alt="harmony-logo" />
             <h2>Welcome to</h2>
             <h1 className="logo-font">Project {window.appConfig.appTitle}</h1>
-            {loginMessage ? <h3>Please <Link to="/secondary">login</Link> to continue</h3> : null}
+            {loginMessage ? <h3>Please <Link to="/login">login</Link> to continue</h3> : null}
           </blockquote>
         </main>
       </div>

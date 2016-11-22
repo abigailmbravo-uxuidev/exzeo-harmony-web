@@ -1,2 +1,8 @@
 export const INITIALIZELD = 'INITIALIZELD';
 export const TOGGLE_FEATURE = 'TOGGLE_FEATURE';
+
+/****** AUTHENTICATION *************/
+export const AUTHENTICATING = 'AUTHENTICATING';
+export const AUTHENTICATED = 'AUTHENTICATED';
+export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
+export const AUTH_ME = 'AUTH_ME';
