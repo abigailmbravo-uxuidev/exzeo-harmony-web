@@ -4,7 +4,7 @@ import Auth0 from 'auth0-js';
 let auth0 = new Auth0({
     domain:       'harmony.auth0.com',
     clientID:     'Xhs1oIytMrij0k3ixyLalsPEz7d2K1ME',
-    callbackURL:  'http://localhost:3000',
+    callbackURL:  '/',
     callbackOnLocationHash: true,
     response: 'token'
 });
@@ -49,7 +49,3 @@ export const login = creds => {
         dispatch(authenticating("athenticating"));
     }
 }
-
-
-
-
