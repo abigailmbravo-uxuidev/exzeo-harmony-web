@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
     "react-scripts": "0.7.0"
   },
   "dependencies": {
@@ -24,10 +30,15 @@
     "typeahead": "^0.2.2"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build && node scripts/genEjs",
-    "test": "echo \"react-scripts test --env=jsdom\"",
     "eject": "react-scripts eject",
-    "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest"
+    "lint": "eslint .",
+    "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest",
+    "start": "react-scripts start",
+    "test": "echo \"react-scripts test --env=jsdom\""
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb"
   }
 }

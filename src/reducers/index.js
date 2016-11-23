@@ -6,8 +6,8 @@ import auth from './authReducer';
 export const client = new ApolloClient();
 
 const rootReducer = combineReducers({
-  features,
   auth,
+  features,
   apollo: client.reducer(),
 });
 

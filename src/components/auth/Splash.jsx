@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import logo from '../img/logo.svg';
+import logo from '../../img/logo.svg';
 import './Splash.css';
 
 const Splash = ({ splashScreen, loginMessage }) => {

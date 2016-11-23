@@ -1,3 +1,5 @@
+/* globals document */
+/* eslint react/jsx-filename-extension:0 */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router';
@@ -15,5 +17,5 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </ApolloProvider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
