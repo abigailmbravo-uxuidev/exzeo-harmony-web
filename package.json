@@ -3,12 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.6.0",
     "eslint": "^3.10.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
+    "mockery": "^2.0.0",
+    "react-addons-test-utils": "^15.4.1",
     "react-scripts": "0.7.0"
   },
   "dependencies": {
@@ -33,12 +42,19 @@
     "build": "react-scripts build && node scripts/genEjs",
     "eject": "react-scripts eject",
     "lint": "eslint .",
+    "pretest": "npm run lint",
     "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest",
     "start": "react-scripts start",
-    "test": "echo \"react-scripts test --env=jsdom\""
+    "test": "mocha --reporter progress test/setup/testSetup.js \"test/**/*.test.js\""
   },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "airbnb"
+  },
+  "babel": {
+    "presets": [
+      "airbnb",
+      "stage-0"
+    ]
   }
 }

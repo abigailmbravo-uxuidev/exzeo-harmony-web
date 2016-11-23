@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router';
 import { ApolloProvider } from 'react-apollo';
 import configureStore from './store/configureStore';
 import { client } from './reducers';
-import App from './components/App';
+import AppConnected from './components/App';
 import './index.css';
 
 const store = configureStore();
@@ -14,7 +14,7 @@ const store = configureStore();
 ReactDOM.render(
   <ApolloProvider client={client} store={store}>
     <BrowserRouter>
-      <App />
+      <AppConnected />
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root'),

@@ -8,7 +8,7 @@ import Login from './auth/Login';
 import Home from './common/Home';
 import './App.css';
 
-class App extends Component {
+export class App extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       initializeLD: PropTypes.func,

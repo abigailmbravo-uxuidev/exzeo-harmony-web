@@ -29,6 +29,8 @@ const Splash = ({ splashScreen, loginMessage }) => {
   }
 }
 
+Splash.displayName = 'Splash';
+
 const mapStateToProps = state => ({
   splashScreen: state.features.get('splash-screen'),
   loginMessage: state.features.get('login-message'),
