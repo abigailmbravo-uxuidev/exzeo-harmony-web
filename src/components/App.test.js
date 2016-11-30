@@ -1,8 +1,6 @@
-/* globals document */
-/* eslint react/jsx-filename-extension:0 */
 import React from 'react';
 import { mount } from 'enzyme';
-import { App } from '../../../src/components/App';
+import { App } from './App';
 
 const props = {
   auth: {

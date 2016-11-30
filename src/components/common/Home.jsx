@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Search from './Search';
+import Search from './search/Search';
 
 class Home extends Component {
   state = {
@@ -8,7 +8,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Search />
+        <Search options={{}} />
       </div>
     );
   }

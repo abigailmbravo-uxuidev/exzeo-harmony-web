@@ -27,5 +27,6 @@ global.navigator = {
 };
 
 global.expect = require('chai').expect;
+global.sinon = require('sinon');
 
 documentRef = document;  // eslint-disable-line no-undef

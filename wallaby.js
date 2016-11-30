@@ -1,16 +1,17 @@
 /* eslint global-require:0 import/no-extraneous-dependencies:0 */
 module.exports = wallaby => ({
   files: [
-    { pattern: './test/setup/*.js*', instrument: false },
+    { pattern: './utils/testSetup/*.js*', instrument: false },
     { pattern: './**/*.svg', instrument: false },
     { pattern: './**/*.css', instrument: false },
     'src/**/*.js*',
+    '!src/**/*.test.js',
   ],
   tests: [
-    'test/**/*.test.js',
+    'src/**/*.test.js',
   ],
   setup: () => {
-    require('./test/setup/testSetup');
+    require('./utils/testSetup');
   },
   // teardown: () => {
   //   require('mockery').disable();

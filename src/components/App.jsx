@@ -26,6 +26,7 @@ export class App extends Component {
     if (newProps.features.get('ld-started') && !this.props.features.get('ld-started')) {
       this.props.actions.setupFeature('splash-screen');
       this.props.actions.setupFeature('login-message');
+      this.props.actions.setupFeature('search');
     }
   }
   render() {
