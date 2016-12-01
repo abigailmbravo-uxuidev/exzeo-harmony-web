@@ -19,6 +19,7 @@
     "mockery": "^2.0.0",
     "react-addons-test-utils": "^15.4.1",
     "react-scripts": "0.7.0",
+    "shelljs": "^0.7.5",
     "sinon": "^1.17.6"
   },
   "dependencies": {
@@ -45,7 +46,7 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest",
-    "start": "react-scripts start",
+    "start": "node scripts/start-api && react-scripts start",
     "test": "mocha --reporter progress test/setup/testSetup.js \"test/**/*.test.js\""
   },
   "eslintConfig": {
