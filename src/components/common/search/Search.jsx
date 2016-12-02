@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import SearchBar from './SearchBar';
+import TypeAhead from './TypeAhead';
 
 class Search extends Component {
   static propTypes = {
@@ -8,13 +9,22 @@ class Search extends Component {
     }).isRequired,
   }
   state = {
-    results: [],
+    searchText: '',
+  }
+  handleChange = (event) => {
+    event.preventDefault();
+    this.setState({ searchText: event.target.value });
   }
   render() {
     const { placeholder } = this.props.options;
+    const { searchText } = this.state;
     return (
       <div>
-        <SearchBar placeholder={placeholder || null} />
+        <SearchBar
+          placeholder={placeholder || null}
+          handleChange={this.handleChange}
+        />
+        <TypeAhead searchText={searchText} />
       </div>
     );
   }

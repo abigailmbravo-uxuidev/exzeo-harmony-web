@@ -1,9 +1,16 @@
 import React, { PropTypes } from 'react';
 
-const Suggestion = ({ suggestion }) => (
+const Suggestion = ({ suggestion: { mapping, heading, results, count } }) => (
   <div>
-    <span className="heading">{suggestion.heading}</span>
-    <span>{suggestion.count}</span>
+    <span className="heading">{heading}</span>
+    <span> {count}</span>
+    <ul>
+      {
+        results ? results.map((result, index) => (
+          <li key={index}>{result[mapping.title]} {result[mapping.details]}</li>
+        )) : null
+      }
+    </ul>
   </div>
 );
 

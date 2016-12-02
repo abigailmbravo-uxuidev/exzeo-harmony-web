@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
   uri = 'http://localhost:4001/api';
 }
 
-const networkInterface = createNetworkInterface(uri);
+const networkInterface = createNetworkInterface({ uri });
 
 networkInterface.use([{
   applyMiddleware(req, next) {

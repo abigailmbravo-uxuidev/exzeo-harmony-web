@@ -1,18 +1,51 @@
 import React, { PropTypes } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import Suggestion from './Suggestion';
 
-const TypeAhead = ({ suggestions }) => (
-  <div>
-    {
-      suggestions ? suggestions.map((s, i) => (
-        <Suggestion key={i} suggestion={s} />
-      )) : null
+const query = gql`
+  query Search($searchText: String!) {
+    search(text:$searchText) {
+      heading
+      count
+      mapping {
+        title
+        details
+      }
+      results {
+        ... on Address {
+          id
+          address1
+          zip
+        }
+      }
     }
-  </div>
-);
+  }
+`;
 
-TypeAhead.propTypes = {
-  suggestions: PropTypes.Array,
+const TypeAhead = ({ data: { search } }) => {
+  console.log(search);
+  return (
+    <div>
+      {
+        search ? search.map((suggestion, index) => (
+          <Suggestion key={index} suggestion={suggestion} />
+        )) : null
+      }
+    </div>
+  );
 };
 
-export default TypeAhead;
+TypeAhead.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    heading: PropTypes.string,
+    mapping: PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
+      details: PropTypes.string,
+    }),
+    results: PropTypes.arrayOf(PropTypes.object),
+  })),
+};
+
+export default graphql(query)(TypeAhead);
