@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import logo from '../img/logo.svg';
+import logo from '../../img/logo.svg';
 import './Splash.css';
 
 const Splash = ({ splashScreen, loginMessage }) => {
@@ -28,6 +28,8 @@ const Splash = ({ splashScreen, loginMessage }) => {
     return <h3>Project | Harmony</h3>;
   }
 }
+
+Splash.displayName = 'Splash';
 
 const mapStateToProps = state => ({
   splashScreen: state.features.get('splash-screen'),

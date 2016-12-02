@@ -3,7 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.7.0"
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.6.0",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
+    "mockery": "^2.0.0",
+    "react-addons-test-utils": "^15.4.1",
+    "react-scripts": "0.7.0",
+    "shelljs": "^0.7.5",
+    "sinon": "^1.17.6"
   },
   "dependencies": {
     "apollo-client": "^0.5.0",
@@ -24,10 +41,36 @@
     "typeahead": "^0.2.2"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build && node scripts/genEjs",
-    "test": "echo \"react-scripts test --env=jsdom\"",
     "eject": "react-scripts eject",
-    "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest"
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest",
+    "start": "node scripts/start-api && react-scripts start",
+    "test": "mocha --reporter progress utils/testSetup \"src/**/*.test.js\""
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "rules": {
+      "import/no-extraneous-dependencies": 0,
+      "no-unused-expressions": 0,
+      "react/jsx-filename-extension": 0
+    },
+    "globals": {
+      "expect": 0,
+      "sinon": 0
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "mocha": true
+    }
+  },
+  "babel": {
+    "presets": [
+      "airbnb",
+      "stage-0"
+    ]
   }
 }

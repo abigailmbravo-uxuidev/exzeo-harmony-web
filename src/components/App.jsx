@@ -1,34 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Match } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as featureActions from '../actions/featureActions';
-import Splash from './Splash';
-import Login from './Login';
-import Home from './Home';
+import Splash from './auth/Splash';
+import Login from './auth/Login';
+import Home from './common/Home';
 import './App.css';
 
-const Secondary = () => <h3>Secodary Route</h3>;
-
-class App extends Component {
+export class App extends Component {
+  static propTypes = {
+    actions: PropTypes.shape({
+      initializeLD: PropTypes.func,
+      setupFeature: PropTypes.func,
+    }),
+    features: PropTypes.shape({
+      get: PropTypes.func,
+    }),
+    loggedIn: PropTypes.bool,
+  }
   componentWillMount = () => {
     this.props.actions.initializeLD();
   }
-  componentWillReceiveProps = newProps => {
+  componentWillReceiveProps = (newProps) => {
     if (newProps.features.get('ld-started') && !this.props.features.get('ld-started')) {
-      console.log('do things');
       this.props.actions.setupFeature('splash-screen');
       this.props.actions.setupFeature('login-message');
+      this.props.actions.setupFeature('search');
     }
   }
   render() {
-    console.log(this.props);
+    const homeScreen = this.props.loggedIn ? Home : Splash;
     return (
       <div className="App">
-        <Match exactly pattern="/" component={Splash} />
-        <Match pattern="/secondary" component={Secondary} />
+        <Match exactly pattern="/" component={homeScreen} />
         <Match pattern="/login" component={Login} />
-        <Match pattern="/home" component={Home} />
       </div>
     );
   }
@@ -36,6 +42,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   features: state.features,
+  loggedIn: typeof state.auth.get('token') !== 'undefined',
 });
 
 const mapDispatchToProps = dispatch => ({
