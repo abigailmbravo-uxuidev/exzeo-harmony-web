@@ -13,9 +13,6 @@ module.exports = wallaby => ({
   setup: () => {
     require('./utils/testSetup');
   },
-  // teardown: () => {
-  //   require('mockery').disable();
-  // },
   compilers: {
     '**/*.js*': wallaby.compilers.babel({ babel: require('babel-core') }),
   },

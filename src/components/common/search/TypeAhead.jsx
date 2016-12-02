@@ -23,21 +23,18 @@ const query = gql`
   }
 `;
 
-const TypeAhead = ({ data: { search } }) => {
-  console.log(search);
-  return (
-    <div>
-      {
-        search ? search.map((suggestion, index) => (
-          <Suggestion key={index} suggestion={suggestion} />
-        )) : null
-      }
-    </div>
-  );
-};
+const TypeAhead = ({ data }) => (
+  <div>
+    {
+      data && data.search ? data.search.map((suggestion, index) => (
+        <Suggestion key={index} data={suggestion} />
+      )) : null
+    }
+  </div>
+);
 
 TypeAhead.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
+  data: PropTypes.shape({
     heading: PropTypes.string,
     mapping: PropTypes.shape({
       title: PropTypes.string,
@@ -45,7 +42,7 @@ TypeAhead.propTypes = {
       details: PropTypes.string,
     }),
     results: PropTypes.arrayOf(PropTypes.object),
-  })),
+  }),
 };
 
 export default graphql(query)(TypeAhead);

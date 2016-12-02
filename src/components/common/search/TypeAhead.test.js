@@ -1,22 +1,32 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import TypeAhead from './TypeAhead';
-import Suggestion from './Suggestion';
 
-const suggestions = [{
-  heading: 'Group 1',
-}, {
-  heading: 'Group 2',
-}, {
-  heading: 'Group 3',
-}];
+const suggestions = {
+  search: [{
+    heading: 'Group 1',
+    mapping: {},
+    results: [],
+    count: 3,
+  }, {
+    heading: 'Group 2',
+    mapping: {},
+    results: [],
+    count: 3,
+  }, {
+    heading: 'Group 3',
+    mapping: {},
+    results: [],
+    count: 3,
+  }],
+};
 
 describe('<TypeAhead />', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = mount(
-      <TypeAhead />,
+      <TypeAhead data={suggestions} />,
     );
   });
 
@@ -25,7 +35,6 @@ describe('<TypeAhead />', () => {
   });
 
   it('should render a list of suggestions', () => {
-    wrapper.setProps({ suggestions });
     expect(wrapper.find('Suggestion')).to.have.lengthOf(3);
   });
 });

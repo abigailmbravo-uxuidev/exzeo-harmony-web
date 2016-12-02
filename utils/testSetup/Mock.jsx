@@ -20,4 +20,9 @@ const reactRouter = {
   Match,
 };
 
+const reactApollo = {
+  graphql: () => component => component,
+};
+
+mockery.registerMock('react-apollo', reactApollo);
 mockery.registerMock('react-router', reactRouter);

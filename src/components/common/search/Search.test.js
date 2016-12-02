@@ -17,7 +17,12 @@ describe('<Search />', () => {
   });
 
   it('should render a <SearchBar />', () => {
-    const result = wrapper.contains(<SearchBar placeholder={null} />);
+    const result = wrapper.contains(
+      <SearchBar
+        placeholder={null}
+        handleChange={wrapper.node.handleChange}
+      />,
+  );
     expect(result).to.be.true;
   });
 });

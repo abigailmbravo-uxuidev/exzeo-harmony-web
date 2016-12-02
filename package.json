@@ -47,7 +47,7 @@
     "pretest": "npm run lint",
     "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest",
     "start": "node scripts/start-api && react-scripts start",
-    "test": "mocha --reporter progress test/setup/testSetup.js \"test/**/*.test.js\""
+    "test": "mocha --reporter progress utils/testSetup \"src/**/*.test.js\""
   },
   "eslintConfig": {
     "parser": "babel-eslint",
