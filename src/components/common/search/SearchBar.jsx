@@ -6,6 +6,7 @@ const SearchBar = ({ placeholder, handleChange, handleSubmit }) => (
       placeholder={placeholder || 'Search...'}
       onChange={handleChange || null}
     />
+    <button>Search</button>
   </form>
 );
 

@@ -9,20 +9,27 @@ class Search extends Component {
     }).isRequired,
   }
   state = {
-    searchText: '',
+    searchText: ''
   }
   handleChange = (event) => {
     event.preventDefault();
     this.setState({ searchText: event.target.value });
   }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+  }
+
   render() {
     const { placeholder } = this.props.options;
     const { searchText } = this.state;
     return (
-      <div>
+      <div className="search">
         <SearchBar
           placeholder={placeholder || null}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
         />
         <TypeAhead searchText={searchText} />
       </div>
