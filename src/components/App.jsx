@@ -6,6 +6,9 @@ import * as featureActions from '../actions/featureActions';
 import Splash from './auth/Splash';
 import Login from './auth/Login';
 import Home from './common/Home';
+import Quote from './Quote';
+import Header from './common/Header';
+import Footer from './common/Footer';
 import './App.css';
 
 export class App extends Component {
@@ -32,9 +35,14 @@ export class App extends Component {
   render() {
     const homeScreen = this.props.loggedIn ? Home : Splash;
     return (
-      <div className="App">
-        <Match exactly pattern="/" component={homeScreen} />
-        <Match pattern="/login" component={Login} />
+      <div>
+        <Header/>
+        <main>
+          <Match exactly pattern="/" component={homeScreen} />
+          <Match pattern="/login" component={Login} />
+          <Match pattern="/quote" component={Quote}/>
+        </main>
+        <Footer/>
       </div>
     );
   }
