@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as featureActions from '../actions/featureActions';
 import Splash from './auth/Splash';
 import Login from './auth/Login';
-import Home from './common/Home';
+import Home from './Home';
 import Quote from './Quote';
 import Header from './common/Header';
 import Footer from './common/Footer';
@@ -34,7 +34,7 @@ export class App extends Component {
     }
   }
   render() {
-    const homeScreen = this.props.loggedIn ? Home : Splash;
+    const homeScreen = !this.props.loggedIn ? Home : Splash;
     return (
       <div className="app-wrapper">
         <Header />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Search from './search/Search';
-import QuoteSearchResults from '../../components/QuoteSearchResults';
+import Search from './common/search/Search';
+import QuoteSearchResults from './QuoteSearchResults';
+import Stepper from './workflows/Stepper';
 
 class Home extends Component {
   state = {
@@ -11,6 +12,7 @@ class Home extends Component {
       <div>
         <Search options={{}} />
         <QuoteSearchResults />
+        <Stepper/>
       </div>
     );
   }
