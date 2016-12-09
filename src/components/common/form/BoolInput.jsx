@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component, PropTypes } from 'react';
 
 class BoolInput extends Component {
@@ -6,12 +7,13 @@ class BoolInput extends Component {
     id: PropTypes.string,
     value: PropTypes.bool,
     handleChange: PropTypes.func,
+    switch: PropTypes.bool,
   }
-  onChange = (event) => {
+  onChange = () => {
     const newEvent = {
       target: {
         name: this.props.id,
-        value: event.target.checked,
+        value: !this.props.value,
       },
     };
     this.props.handleChange(newEvent);
@@ -19,7 +21,7 @@ class BoolInput extends Component {
   render() {
     const { question, id, value } = this.props;
     return (
-      <div className="form-group switch">
+      <div className={this.props.switch ? 'form-group switch' : 'form-group'} >
         <label htmlFor={id || null}>
           {question || null}
           <input
@@ -28,7 +30,7 @@ class BoolInput extends Component {
             checked={value || false}
             onChange={this.onChange}
           />
-          <div />
+          {this.props.switch && <div onClick={this.onChange} />}
         </label>
       </div>
     );

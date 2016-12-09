@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PropTypes } from 'react';
 
 const RadioGroup = ({ question, answers, value, id, handleChange, segmented }) => (
@@ -13,7 +14,7 @@ const RadioGroup = ({ question, answers, value, id, handleChange, segmented }) =
           checked={value === answer}
           onChange={handleChange || null}
         />
-        <span>{answer || null}</span>
+        <span onChange={handleChange}>{answer || null}</span>
       </label>,
     ) : null}
   </div>

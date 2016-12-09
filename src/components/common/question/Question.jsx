@@ -10,10 +10,16 @@ const Question = (props) => {
   let formElement;
   if (answerType === 'radio' && answers && answers.length > 0) {
     formElement = answers.length < 6 ?
-      <RadioGroup {...props.question} value={value} handleChange={handleChange} /> :
+      <RadioGroup {...props.question} value={value} handleChange={handleChange} segmented /> :
       <Dropdown {...props.question} value={value} handleChange={handleChange} />;
   } else if (answerType === 'bool') {
-    formElement = <BoolInput {...props.question} value={value} handleChange={handleChange} />;
+    formElement = (
+      <BoolInput
+        {...props.question}
+        value={value}
+        handleChange={handleChange}
+        switch
+      />);
   } else {
     formElement = <TextInput {...props.question} value={value} handleChange={handleChange} />;
   }

@@ -9,6 +9,7 @@ import Home from './common/Home';
 import Quote from './Quote';
 import Header from './common/Header';
 import Footer from './common/Footer';
+import TestPage from './TestPage';
 import './App.css';
 
 export class App extends Component {
@@ -36,13 +37,14 @@ export class App extends Component {
     const homeScreen = this.props.loggedIn ? Home : Splash;
     return (
       <div className="app-wrapper">
-        <Header/>
+        <Header />
         <main role="document">
           <Match exactly pattern="/" component={homeScreen} />
           <Match pattern="/login" component={Login} />
-          <Match pattern="/quote" component={Quote}/>
+          <Match pattern="/quote" component={Quote} />
+          <Match pattern="/test" component={TestPage} />
         </main>
-        <Footer/>
+        <Footer />
       </div>
     );
   }
