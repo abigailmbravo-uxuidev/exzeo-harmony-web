@@ -4,11 +4,13 @@
 // Copy settings from this file into the provided `_custom.scss` to override
 // the Harmony defaults without modifying key, versioned files.
 
-@import "_color-palette";
+
+
 
 // Table of Contents
 //
-// Colors
+// Colors - see color palette
+@import "_color-palette";
 // Options
 // Spacing
 // Body
@@ -16,6 +18,17 @@
 // Containers
 // Fonts
 // Components
+@import "mixins/_animation";
+
+@include keyframes(fade-in) {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.fade-in {
+    @include animation('fade-in 1s 1');
+}
+
 
 @mixin _assert-ascending($map, $map-name) {
   $prev-key: null;
@@ -96,7 +109,6 @@ $select-border-width: $border-width !default;
 $body-bg:      $white !default;
 $body-color: $warm-gray-14 !default;
 $headline-color: $warm-gray-10 !default;
-$body-padding: $padding;
 
 // Links
 //
@@ -133,7 +145,7 @@ $link-hover-decoration: underline !default;
 
 // Centered container element
 body {
-    padding: $body-padding;
+    padding: 0;
 }
 .container {
     margin-right: auto;

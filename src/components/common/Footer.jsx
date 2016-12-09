@@ -1,10 +1,13 @@
 import React from 'react';
-import './Footer.css';
 
 const Footer = () => {
     return (
     <footer>
-        This is the footer for the UI
+        <div role="banner">
+                    <small>
+                            &copy;2017 TypTap Management Company. All rights reserved.
+                    </small>
+            </div>
     </footer>
     );
 };

@@ -35,9 +35,9 @@ export class App extends Component {
   render() {
     const homeScreen = this.props.loggedIn ? Home : Splash;
     return (
-      <div>
+      <div className="app-wrapper">
         <Header/>
-        <main>
+        <main role="content">
           <Match exactly pattern="/" component={homeScreen} />
           <Match pattern="/login" component={Login} />
           <Match pattern="/quote" component={Quote}/>

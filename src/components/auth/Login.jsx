@@ -28,20 +28,27 @@ class Login extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
-          <br />
-          <input type="password" value={this.state.password} name="password" onChange={this.handleChange} />
-          <br /><br />
-          <button>Login</button>
-        </form>
-        {
-          this.props.auth.get('token') ? (
-            <Redirect to="/" />
-          ) : null
-        }
-      </div>
+        <div className="login fade-in" role="article">
+                <div className="card">
+                        <form className="card-block" onSubmit={this.handleSubmit}>
+                                <div className="form-group">
+                                        <label for="exampleInputText">User name</label>
+                                        <input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
+                                </div>
+                                <div className="form-group">
+                                        <label for="exampleInputText">Password</label>
+                                        <input type="password" value={this.state.password} name="password" onChange={this.handleChange} />
+                                </div>
+                                <button className="btn btn-success">Login</button>
+                        </form>
+                        {
+                          this.props.auth.get('token') ? (
+                            <Redirect to="/" />
+                          ) : null
+                        }
+                </div>
+                <div className="modal"></div>
+        </div>
     );
   }
 }

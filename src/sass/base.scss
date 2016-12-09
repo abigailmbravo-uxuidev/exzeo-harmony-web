@@ -1,33 +1,68 @@
 /*typtap specific styles & layout*/
 @import "partials/_mixins";
-@import "partials/_variables";
-//@import "partials/utilities/_flex";
+@import "partials/_variables"; //@import "partials/utilities/_flex";
 @import "partials/mixins/_hover";
 @import "partials/mixins/_tab-focus";
 @import "partials/mixins/_buttons";
 @import "partials/mixins/_forms";
-
 /*Correct and normalize browser rendering*/
 @import "partials/_normalize";
 @import "partials/_reset";
-
 /*Set base typography*/
+@import "partials/_card";
 @import "partials/_type";
 @import "partials/_form";
 @import "partials/_buttons";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400";
 
 html {
-    body > div#root > div {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        min-height: 100vh;
+    margin: 0;
+    padding: 0;
 
-        main {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            align-items: center;
+    body {
+        margin: 0;
+        padding: 0;
+
+        div#root {
+            margin: 0;
+            padding: 0;
+
+            > div {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+
+                header {
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                }
+
+                main[role="content"] {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    align-items: center;
+
+                    > div[role="article"] {
+                        display: flex;
+                        width: 100%;
+                        flex: 1;
+                    }
+                }
+
+                footer {
+                    display: flex;
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    align-items: center;
+                }
+            }
         }
     }
 }

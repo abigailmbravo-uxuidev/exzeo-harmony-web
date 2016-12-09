@@ -1,7 +1,158 @@
 /*typtap specific styles & layout*/
-@import "https://fonts.googleapis.com/css?family=Roboto:300,400";
-@import "partials/_mixins";
-@import "partials/_variables"; //@import "partials/utilities/_flex";
-@import "partials/mixins/_hover";
-@import "partials/mixins/_tab-focus";
-@import "partials/mixins/_buttons";
+@import "base.scss";
+/*universal typtap styles*/
+a,
+a:visited {
+    color: $bright-blue;
+}
+
+input,
+select,
+textarea {
+    padding: $padding;
+    border-width: 0;
+    border-bottom: 2px solid $cool-gray-03;
+    border-radius: 0;
+}
+
+.btn {
+    padding: 0.625rem 0.75rem;
+    text-transform: uppercase;
+}
+
+.card {
+    background: $white;
+}
+/*specific typtap styles*/
+html {
+    body {
+        div#root {
+            background: $cool-gray-00;
+
+            > div {
+                background: $cool-gray-00;
+
+                header {
+                    padding: $padding $padding*2;
+                    background: $black;
+
+                    > div[role="banner"] {
+                        display: flex;
+                        width: 100%;
+                        align-items: center;
+                        @include for-tablet-landscape-up {
+                            max-width: 64rem;
+                        }
+                        @include for-big-desktop-up {
+                            max-width: 90rem;
+                        }
+
+                        > .logo {
+                            display: block;
+                            width: 7rem;
+                            flex-basis: 7rem;
+                            flex-shrink: 0;
+                        }
+
+                        > h1 {
+                            margin: 0 0 0 1rem;
+                            text-align: center;
+                            color: $white;
+                            font-size: $font-size-h3;
+                            font-weight: 300;
+                        }
+
+                        a {
+                            margin-left: 1rem;
+                            white-space: nowrap;
+                            text-decoration: none;
+                            font-size: $font-size-h6;
+                            @include transition(all .2s ease-in-out);
+
+                            &:hover {
+                                text-decoration: none;
+                                color: $bright-blue-lighten-02;
+                            }
+                        }
+
+                        > nav {
+                            display: flex;
+                            flex: 1;
+                            justify-content: flex-end;
+
+                            > a {
+                                margin-left: 1rem;
+                            }
+                        }
+                    }
+                }
+
+                main {
+                    div[role="article"] {
+                        padding: $padding*2;
+                        background: $white;
+                        @include for-1024-up {
+                            margin-top: $padding;
+                            border-top-width: 0;
+                            border-right: $card-border-width solid $cool-gray-01;
+                            border-left: $card-border-width solid $cool-gray-01;
+                        }
+                        @include for-tablet-landscape-up {
+                            max-width: 64rem;
+                        }
+                        @include for-big-desktop-up {
+                            max-width: 90rem;
+                        }
+
+                        &.login {
+                            border-top: $card-border-width solid $cool-gray-01;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .card {
+                            z-index: 10;
+                        }
+
+                        .modal {
+                            position: absolute;
+                            z-index: 1;
+                            top: 0;
+                            right: 0;
+                            bottom: -4rem;
+                            left: 0;
+                            background: rgba($black, .75);
+                            @include for-1024-up {
+                                bottom: -4rem -$padding;
+                            }
+                        }
+                    }
+                }
+
+                footer {
+                    background: $cool-gray-00;
+
+                    div[role="banner"] {
+                        width: 100%;
+                        margin-bottom: 0;
+                        padding: $padding*2;
+                        background: $white;
+                        flex-basis: 4rem;
+                        @include for-1024-up {
+                            margin-bottom: $padding;
+                            border-right: $card-border-width solid $cool-gray-01;
+                            border-bottom: $card-border-width solid $cool-gray-01;
+                            border-left: $card-border-width solid $cool-gray-01;
+                        }
+                        @include for-tablet-landscape-up {
+                            max-width: 64rem;
+                        }
+                        @include for-big-desktop-up {
+                            max-width: 90rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
