@@ -5,6 +5,7 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
+    "babel-preset-airbnb": "^2.1.1",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
@@ -55,7 +56,8 @@
     "rules": {
       "import/no-extraneous-dependencies": 0,
       "no-unused-expressions": 0,
-      "react/jsx-filename-extension": 0
+      "react/jsx-filename-extension": 0,
+      "linebreak-style": 0
     },
     "globals": {
       "expect": 0,
