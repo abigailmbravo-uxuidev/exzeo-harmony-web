@@ -37,7 +37,7 @@ export class App extends Component {
     return (
       <div className="app-wrapper">
         <Header/>
-        <main role="content">
+        <main role="document">
           <Match exactly pattern="/" component={homeScreen} />
           <Match pattern="/login" component={Login} />
           <Match pattern="/quote" component={Quote}/>

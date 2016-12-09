@@ -1,27 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import logo from '../../img/logo.svg';
-import './Splash.css';
+import logoHarmony from '../../img/logo.svg';
 
 const Splash = ({ splashScreen, loginMessage }) => {
   if (splashScreen) {
     return (
-      <div role="document" className="splash">
-        <header>
-          <div id="logo" className="logo">
-            <img src={logo} width="40px" height="40px" alt="harmony-logo" />
-            <h1><span>Project</span>{window.appConfig.appTitle}</h1>
-          </div>
-        </header>
-        <main role="main">
-          <blockquote>
-            <img src={logo} width="120px" height="120px" alt="harmony-logo" />
-            <h2>Welcome to</h2>
-            <h1 className="logo-font">Project {window.appConfig.appTitle}</h1>
-            {loginMessage ? <h3>Please <Link to="/login">login</Link> to continue</h3> : null}
-          </blockquote>
-        </main>
+      <div className="splash" role="article">
+        <div className="fade-in">
+                <img src={logoHarmony} width="120px" height="120px" alt="harmony-logo" />
+                <small>Powered by</small>
+                <small>PROJECT HARMONY</small>
+                <h2>Welcome to</h2>
+                <h1>Project {window.appConfig.appTitle}</h1>
+                {loginMessage ? <h3>Please <Link to="/login">login</Link> to continue</h3> : null}
+        </div>
       </div>
     )
   } else {

@@ -8,7 +8,7 @@ const Header = () => {
                 <div id="logo" className="logo">
                         <img src={logo} alt="TypTap Insurance" />
                 </div>
-                <h1>Agency App</h1>
+                <h1>Project {window.appConfig.appTitle}</h1>
                 <nav>
                         <a href="https://www.typtap.com"><i className="fa fa-globe"></i> Typtap.com</a>
                         <a class="link-phone" href="tel:+844-289-7968"><i className="fa fa-phone"></i> (844) 289-7968</a>

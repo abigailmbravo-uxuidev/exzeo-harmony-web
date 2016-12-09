@@ -28,8 +28,8 @@ class Login extends Component {
   }
   render() {
     return (
-        <div className="login fade-in" role="article">
-                <div className="card">
+        <div className="login" role="article">
+                <div className="card fade-in">
                         <form className="card-block" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                         <label for="exampleInputText">User name</label>
@@ -47,7 +47,7 @@ class Login extends Component {
                           ) : null
                         }
                 </div>
-                <div className="modal"></div>
+                <div className="modal fade-in"></div>
         </div>
     );
   }
