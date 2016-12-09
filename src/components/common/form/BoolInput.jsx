@@ -22,7 +22,7 @@ class BoolInput extends Component {
     const { question, id, value } = this.props;
     return (
       <div className={this.props.switch ? 'form-group switch' : 'form-group'} >
-        <label htmlFor={id || null}>
+        <label htmlFor={id || null} onClick={this.onChange}>
           {question || null}
           <input
             type="checkbox"
@@ -30,7 +30,7 @@ class BoolInput extends Component {
             checked={value || false}
             onChange={this.onChange}
           />
-          {this.props.switch && <div onClick={this.onChange} />}
+          {this.props.switch && <div />}
         </label>
       </div>
     );
