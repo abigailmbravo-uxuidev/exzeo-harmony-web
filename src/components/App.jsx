@@ -34,7 +34,7 @@ export class App extends Component {
     }
   }
   render() {
-    const homeScreen = !this.props.loggedIn ? Home : Splash;
+    const homeScreen = this.props.loggedIn ? Home : Splash;
     return (
       <div className="app-wrapper">
         <Header />

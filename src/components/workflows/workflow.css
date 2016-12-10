@@ -1,0 +1,51 @@
+.workflow {
+  bottom: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.workflow-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  list-style: none;
+  margin-top: 5px;
+}
+
+.workflow-header > li > a {
+  border: solid 1px;
+  padding: 5px 10px;
+}
+
+.workflow-active-step {
+  height: 100%;
+  animation-name: workflow-in;
+  animation-duration: 1s;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes workflow-in {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+.workflow-steps {
+  width: 75%;
+}
+
+.workflow-steps > button:last-child {
+  float: right;
+}

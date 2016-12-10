@@ -12,7 +12,7 @@ class Home extends Component {
       <div>
         <Search options={{}} />
         <QuoteSearchResults />
-        <Stepper/>
+        <Stepper />
       </div>
     );
   }

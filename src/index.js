@@ -7,7 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import configureStore from './store/configureStore';
 import { client } from './reducers';
 import AppConnected from './components/App';
-import '../node_modules/font-awesome/css/font-awesome.min.css'
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './css/typtap-theme.min.css';
 
 const store = configureStore();

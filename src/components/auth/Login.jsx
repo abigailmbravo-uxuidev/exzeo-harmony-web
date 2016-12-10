@@ -28,27 +28,27 @@ class Login extends Component {
   }
   render() {
     return (
-        <div className="login" role="article">
-                <div className="card fade-in">
-                        <form className="card-block" onSubmit={this.handleSubmit}>
-                                <div className="form-group">
-                                        <label for="exampleInputText">User name</label>
-                                        <input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
-                                </div>
-                                <div className="form-group">
-                                        <label for="exampleInputText">Password</label>
-                                        <input type="password" value={this.state.password} name="password" onChange={this.handleChange} />
-                                </div>
-                                <button className="btn btn-success">Login</button>
-                        </form>
-                        {
-                          this.props.auth.get('token') ? (
-                            <Redirect to="/" />
-                          ) : null
-                        }
-                </div>
-                <div className="modal fade-in"></div>
+      <div className="login" role="article">
+        <div className="card fade-in">
+          <form className="card-block" onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="exampleInputText">User name</label>
+              <input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleInputText">Password</label>
+              <input type="password" value={this.state.password} name="password" onChange={this.handleChange} />
+            </div>
+            <button className="btn btn-success">Login</button>
+          </form>
+          {
+            this.props.auth.get('token') ? (
+              <Redirect to="/" />
+            ) : null
+          }
         </div>
+        <div className="modal fade-in" />
+      </div>
     );
   }
 }
