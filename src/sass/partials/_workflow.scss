@@ -1,0 +1,64 @@
+.workflow {
+    /*ul element*/
+    .workflow-header {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        justify-content: space-around;
+        /*li element*/
+        li {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            flex: 1;
+
+            a {
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                color: $bright-blue;
+                font-weight: $font-weight-bold;
+                flex: 1;
+                align-items: center;
+                @include transition(all .2s ease-in-out);
+
+                i.fa {
+                    width: 2rem;
+                    background: $cool-gray-01;
+                }
+
+                &:focus,
+                &:hover {
+                    text-decoration: none;
+                    color: $bright-blue-lighten-01;
+                }
+
+                &[disabled=disabled] {
+                    cursor: default;
+                    color: $cool-gray-03;
+                }
+
+                &.selected {
+                    cursor: default;
+                    color: $cool-gray-14;
+
+                    i.fa {
+                        color: $green;
+                    }
+                }
+            }
+        }
+    }
+
+    .workflow-steps {
+        display: flex;
+        padding: $padding;
+        justify-content: flex-end;
+        flex-grow: 0;
+        flex-shrink: 0;
+    }
+}

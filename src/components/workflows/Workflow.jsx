@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import WorkflowHeader from './WorkflowHeader';
-import './workflow.css';
 
 class Workflow extends Component {
   static propTypes = {
@@ -28,8 +27,9 @@ class Workflow extends Component {
     const { activeStep } = this.state;
     const ActiveStep = steps[activeStep].component;
     return (
+
         <div className="workflow" role="article">
-                <div className="workflow fade-in">
+                <div className="fade-in">
                         <WorkflowHeader
                         steps={steps}
                         activeStep={activeStep}
@@ -37,8 +37,8 @@ class Workflow extends Component {
                         />
                         {ActiveStep}
                         <div className="workflow-steps">
-                                <button onClick={this.decreaseStep}>prev</button>
-                                <button onClick={this.increaseStep}>next</button>
+                                <button className="btn btn-link" onClick={this.decreaseStep}>prev</button>
+                                <button className="btn btn-primary" onClick={this.increaseStep}>next</button>
                         </div>
                 </div>
         </div>

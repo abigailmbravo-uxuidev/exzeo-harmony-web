@@ -89,8 +89,13 @@ select {
 }
 
 .btn {
+    height: auto;
     padding: 0.625rem 0.75rem;
     text-transform: uppercase;
+
+    &.btn-primary {
+        @include button-variant($white, $bright-blue, $bright-blue);
+    }
 }
 
 .card {
@@ -210,6 +215,22 @@ html {
                                 display: flex;
                                 flex-direction: column;
                                 flex: 1;
+                            }
+                        }
+
+                        &.workflow {
+                            padding: 0;
+
+                            .fade-in {
+                                display: flex;
+                                flex-direction: column;
+                                flex: 1;
+
+                                .workflow-header {
+                                    padding: $padding;
+                                    background-color: $cool-gray-01;
+                                    flex-shrink: 0;
+                                }
                             }
                         }
 
