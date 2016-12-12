@@ -3,6 +3,18 @@ import React, { Component } from 'react';
 import Survey from './common/question/Survey';
 
 const surveyQuestions = [{
+  id: 'firstName',
+  question: 'First Name',
+  description: 'Test for first name',
+  answerType: 'text',
+  styleName: 'name',
+}, {
+  id: 'lastName',
+  question: 'Last Name',
+  description: 'Test for last name',
+  answerType: 'text',
+  styleName: 'name',
+}, {
   id: 'bool-test',
   question: 'Test for bool?',
   description: 'Testing for bool',

@@ -11,6 +11,7 @@ class Survey extends Component {
       answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'radio', 'bool']),
       answers: PropTypes.arrayOf(PropTypes.string),
       optional: PropTypes.bool,
+      styleName: PropTypes.string,
     })),
   }
   state = {}

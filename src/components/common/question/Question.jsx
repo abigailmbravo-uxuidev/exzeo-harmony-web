@@ -18,7 +18,7 @@ const Question = (props) => {
         {...props.question}
         value={value}
         handleChange={handleChange}
-        switch
+        isSwitch
       />);
   } else {
     formElement = <TextInput {...props.question} value={value} handleChange={handleChange} />;
@@ -34,6 +34,7 @@ Question.propTypes = {
     answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'radio', 'bool']),
     answers: PropTypes.arrayOf(PropTypes.string),
     optional: PropTypes.bool,
+    styleName: PropTypes.string,
   }),
   value: PropTypes.oneOfType([
     PropTypes.bool,

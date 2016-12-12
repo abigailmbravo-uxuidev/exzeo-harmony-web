@@ -1,40 +1,40 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-class BoolInput extends Component {
-  static propTypes = {
-    question: PropTypes.string,
-    id: PropTypes.string,
-    value: PropTypes.bool,
-    handleChange: PropTypes.func,
-    switch: PropTypes.bool,
-  }
-  onChange = () => {
+const BoolInput = ({ question, id, value, handleChange, isSwitch, styleName = '' }) => {
+  const onChange = () => {
     const newEvent = {
       target: {
-        name: this.props.id,
-        value: !this.props.value,
+        name: id,
+        value: !value,
       },
     };
-    this.props.handleChange(newEvent);
-  }
-  render() {
-    const { question, id, value } = this.props;
-    return (
-      <div className={this.props.switch ? 'form-group switch' : 'form-group'} >
-        <label htmlFor={id || null} onClick={this.onChange}>
-          {question || null}
-          <input
-            type="checkbox"
-            name={id || null}
-            checked={value || false}
-            onChange={this.onChange}
-          />
-          {this.props.switch && <div />}
-        </label>
-      </div>
-    );
-  }
-}
+    handleChange(newEvent);
+  };
+  const classnames = isSwitch ? `form-group switch ${styleName}` : `form-group ${styleName}`;
+  return (
+    <div className={classnames} >
+      <label htmlFor={id || null} onClick={onChange}>
+        {question || null}
+        <input
+          type="checkbox"
+          name={id || null}
+          checked={value || false}
+          onChange={onChange}
+        />
+        {isSwitch && <div />}
+      </label>
+    </div>
+  );
+};
+
+BoolInput.propTypes = {
+  question: PropTypes.string,
+  id: PropTypes.string,
+  value: PropTypes.bool,
+  handleChange: PropTypes.func,
+  isSwitch: PropTypes.bool,
+  styleName: PropTypes.string,
+};
 
 export default BoolInput;

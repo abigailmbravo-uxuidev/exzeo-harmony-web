@@ -1,7 +1,7 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for */
 import React, { PropTypes } from 'react';
 
-const RadioGroup = ({ question, answers, value, id, handleChange, segmented }) => {
+const RadioGroup = ({ question, answers, value, id, handleChange, segmented, styleName = '' }) => {
   const onClick = (answer) => {
     const newEvent = {
       target: {
@@ -11,9 +11,9 @@ const RadioGroup = ({ question, answers, value, id, handleChange, segmented }) =
     };
     handleChange(newEvent);
   };
-
+  const classnames = segmented ? `form-group segmented ${styleName}` : `form-group ${styleName}`;
   return (
-    <div className={segmented ? 'form-group segmented' : 'form-group'} role="group">
+    <div className={classnames} role="group">
       <label className="group-label">{question || null}</label>
       {answers && answers.length > 0 ? answers.map((answer, index) =>
         <label htmlFor={index} key={index}>
@@ -39,6 +39,7 @@ RadioGroup.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.string),
   handleChange: PropTypes.func,
   segmented: PropTypes.bool,
+  styleName: PropTypes.string,
 };
 
 export default RadioGroup;
