@@ -19,7 +19,8 @@ const Results = ({addresses}) => (
 
 
 
-const SearchResults = ({data, type}) => {
+const SearchResults = ({data}) => {
+    console.log(data)
     return(
         <div className="results">
             <Results addresses={data.searchAddress} />

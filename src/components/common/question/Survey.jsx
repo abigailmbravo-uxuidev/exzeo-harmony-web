@@ -4,7 +4,7 @@ import Question from './Question';
 class Survey extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func,
-    questions: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.shape({
       id: PropTypes.string,
       question: PropTypes.string,
       description: PropTypes.string,
@@ -12,17 +12,17 @@ class Survey extends Component {
       answers: PropTypes.arrayOf(PropTypes.string),
       optional: PropTypes.bool,
       styleName: PropTypes.string,
-    })),
+    }),
   }
   state = {}
-  componentWillMount() {
+  componentDidlMount() {
     this.resetForm();
   }
   resetForm = (event) => {
     if (event) event.preventDefault();
-    const { questions } = this.props;
-    if (questions && questions.length > 0) {
-      const answerState = questions.reduce((values, question) => {
+    const { underwritingQuestions } = this.props.data;
+    if (underwritingQuestions && underwritingQuestions.length > 0) {
+      const answerState = underwritingQuestions.reduce((values, question) => {
         switch (question.answerType) {
           case 'radio':
             if (question.answers && question.answers.length > 0) {
@@ -51,12 +51,12 @@ class Survey extends Component {
     this.props.handleSubmit(this.state);
   }
   render() {
-    const { questions } = this.props;
+    const { underwritingQuestions } = this.props.data;
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group" role="group">
-          {questions && questions.length > 0 ?
-            questions.map((question, index) => (
+          {underwritingQuestions && underwritingQuestions.length > 0 ?
+            underwritingQuestions.map((question, index) => (
               <Question
                 key={index}
                 question={question}
