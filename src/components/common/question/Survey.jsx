@@ -8,7 +8,7 @@ class Survey extends Component {
       id: PropTypes.string,
       question: PropTypes.string,
       description: PropTypes.string,
-      answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'radio', 'bool']),
+      answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
       answers: PropTypes.arrayOf(PropTypes.string),
       optional: PropTypes.bool,
       styleName: PropTypes.string,

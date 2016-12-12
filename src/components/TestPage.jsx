@@ -7,13 +7,13 @@ const surveyQuestions = [{
   question: 'First Name',
   description: 'Test for first name',
   answerType: 'text',
-  styleName: 'firstName stuff',
+  styleName: 'firstName',
 }, {
   id: 'lastName',
   question: 'Last Name',
   description: 'Test for last name',
   answerType: 'text',
-  styleName: 'name',
+  styleName: 'lastName',
 }, {
   id: 'bool-test',
   question: 'Test for bool?',

@@ -28,18 +28,20 @@ class Workflow extends Component {
     const { activeStep } = this.state;
     const ActiveStep = steps[activeStep].component;
     return (
-      <div className="workflow">
-        <WorkflowHeader
-          steps={steps}
-          activeStep={activeStep}
-          updateStep={this.updateStep}
-        />
-        {ActiveStep}
-        <div className="workflow-steps">
-          <button onClick={this.decreaseStep}>prev</button>
-          <button onClick={this.increaseStep}>next</button>
+        <div className="workflow" role="article">
+                <div className="workflow fade-in">
+                        <WorkflowHeader
+                        steps={steps}
+                        activeStep={activeStep}
+                        updateStep={this.updateStep}
+                        />
+                        {ActiveStep}
+                        <div className="workflow-steps">
+                                <button onClick={this.decreaseStep}>prev</button>
+                                <button onClick={this.increaseStep}>next</button>
+                        </div>
+                </div>
         </div>
-      </div>
     );
   }
 }
