@@ -10,6 +10,7 @@ import Quote from './Quote';
 import Header from './common/Header';
 import Footer from './common/Footer';
 import TestPage from './TestPage';
+import SearchBar from './common/search/SearchBar';
 import './App.css';
 
 export class App extends Component {
@@ -38,6 +39,7 @@ export class App extends Component {
     return (
       <div className="app-wrapper">
         <Header />
+        <SearchBar />
         <main role="document">
           <Match exactly pattern="/" component={homeScreen} />
           <Match pattern="/login" component={Login} />
