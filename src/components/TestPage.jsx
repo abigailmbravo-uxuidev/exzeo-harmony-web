@@ -1,55 +1,6 @@
 // Test page for components
 import React, { Component } from 'react';
-import Question from './common/question/Question';
 import Survey from './common/question/Survey';
-
-const boolQuestion = {
-  question: {
-    id: 'bool-test',
-    question: 'Test for bool?',
-    description: 'Testing for bool',
-    answerType: 'bool',
-  },
-};
-
-const textQuestion = {
-  question: {
-    id: 'text-test',
-    question: 'Test for text?',
-    description: 'Testing for text',
-    answerType: 'text',
-  },
-};
-
-const passwordQuestion = {
-  question: {
-    id: 'password-test',
-    question: 'Test for password?',
-    description: 'Testing for password',
-    answerType: 'password',
-  },
-};
-
-// Needs 6 or more answers to activate
-const dropdownQuestion = {
-  question: {
-    id: 'dropdown-test',
-    question: 'Test for dropdown?',
-    description: 'Testing for dropdown',
-    answerType: 'radio',
-    answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6'],
-  },
-};
-
-const radioQuestion = {
-  question: {
-    id: 'radio-test',
-    question: 'Test for radio?',
-    description: 'Testing for radio',
-    answerType: 'radio',
-    answers: ['answer1', 'answer2', 'answer3'],
-  },
-};
 
 const surveyQuestions = [{
   id: 'bool-test',
@@ -93,9 +44,8 @@ class TestPage extends Component {
     state[event.target.name] = event.target.value;
     this.setState(state);
   }
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("wew"); // eslint-disable-line
+  handleSubmit = (form) => {
+    console.log(form); // eslint-disable-line
   }
   render() {
     return (
