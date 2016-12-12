@@ -20,7 +20,7 @@ const query = gql`
 
 const underwritingQuestions = gql`
     query UnderwritingQuestions($modelName: ID!) {
-        underwritingQuestions(quoteNumber:$modelName){
+        questions: underwritingQuestions(quoteNumber:$modelName){
             id
             question
             description
@@ -42,7 +42,6 @@ const Share = graphql(underwritingQuestions)(Survey);
 const BillingInfo = graphql(underwritingQuestions)(Survey);
 const VerifyWrite = graphql(underwritingQuestions)(Survey);
 
-console.log(PropertySearch)
 const steps = [{
   name: 'Property address',
   icon: 'fa-map-marker',
