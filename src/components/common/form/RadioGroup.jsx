@@ -19,13 +19,13 @@ const RadioGroup = ({ question, answers, value, id, handleChange, segmented, sty
         <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
           <input
             type="radio"
-            value={answer || null}
+            value={answer.answer || null}
             key={index}
             name={id || null}
-            checked={value === answer}
+            checked={value === answer.answer}
             onChange={handleChange || null}
           />
-          <span onClick={() => onClick(answer)}>{answer || null}</span>
+          <span onClick={() => onClick(answer.answer)}>{answer.answer || null}</span>
         </label>,
       ) : null}
     </div>
@@ -36,7 +36,10 @@ RadioGroup.propTypes = {
   question: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.string,
-  answers: PropTypes.arrayOf(PropTypes.string),
+  answers: PropTypes.arrayOf(PropTypes.shape({
+    answer: PropTypes.string,
+    image: PropTypes.string,
+  })),
   handleChange: PropTypes.func,
   segmented: PropTypes.bool,
   styleName: PropTypes.string,

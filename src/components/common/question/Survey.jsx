@@ -9,7 +9,10 @@ class Survey extends Component {
       question: PropTypes.string,
       description: PropTypes.string,
       answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
-      answers: PropTypes.arrayOf(PropTypes.string),
+      answers: PropTypes.arrayOf(PropTypes.shape({
+        answer: PropTypes.string,
+        image: PropTypes.string,
+      })),
       optional: PropTypes.bool,
       styleName: PropTypes.string,
     }),
@@ -21,12 +24,15 @@ class Survey extends Component {
   resetForm = (event) => {
     if (event) event.preventDefault();
     const { underwritingQuestions } = this.props.data;
+    console.log(underwritingQuestions);
+    console.log(this.props);
     if (underwritingQuestions && underwritingQuestions.length > 0) {
       const answerState = underwritingQuestions.reduce((values, question) => {
         switch (question.answerType) {
           case 'radio':
             if (question.answers && question.answers.length > 0) {
-              values[question.id] = question.answers[0]; // eslint-disable-line no-param-reassign
+              // eslint-disable-next-line no-param-reassign
+              values[question.id] = question.answers[0].answer;
               return values;
             }
           case 'bool': // eslint-disable-line no-fallthrough
