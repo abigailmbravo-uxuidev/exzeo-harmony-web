@@ -12,15 +12,24 @@ class Workflow extends Component {
     activeStep: 0,
   }
   updateStep = (step) => {
-    this.setState({ activeStep: step });
+    const { steps } = this.props;
+    if (step >= 0 && step < steps.length) {
+      this.setState({ activeStep: step });
+    }
   }
   decreaseStep = () => {
+    const { steps } = this.props;
     const activeStep = this.state.activeStep - 1;
-    this.setState({ activeStep });
+    if (activeStep >= 0 && activeStep < steps.length) {
+      this.setState({ activeStep });
+    }
   }
   increaseStep = () => {
+    const { steps } = this.props;
     const activeStep = this.state.activeStep + 1;
-    this.setState({ activeStep });
+    if (activeStep >= 0 && activeStep < steps.length) {
+      this.setState({ activeStep });
+    }
   }
   render() {
     const { steps } = this.props;
