@@ -7,6 +7,7 @@ const WorkflowHeader = ({ steps, updateStep }) => (
         <li key={index}>
           <a className={status} tabIndex={index} onClick={() => { updateStep(index); }}>
             <i className={`fa ${step.icon}`} />
+            <span>{step.name}</span>
           </a>
         </li>
       ))
