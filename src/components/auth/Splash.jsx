@@ -13,7 +13,7 @@ const Splash = ({ splashScreen, loginMessage }) => {
           <small>PROJECT HARMONY</small>
           <h2>Welcome to</h2>
           <h1>Project {window.appConfig.appTitle}</h1>
-          {loginMessage ? <h3>Please <Link to="/login">login</Link> to continue</h3> : null}
+          {loginMessage ? <h3>Please <Link to="/login">login</Link> to continue!</h3> : null}
         </div>
       </div>
     );
