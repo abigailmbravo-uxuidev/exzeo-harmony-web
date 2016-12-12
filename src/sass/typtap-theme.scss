@@ -14,46 +14,64 @@ textarea {
     border-radius: 0;
 }
 
-
-
 .form-group {
     &.segmented {
         flex-wrap: wrap;
-        
+
         .group-label {
+            border-right-width: 0;
             flex-basis: 100%;
         }
+
+        label {
+            border-right-width: 0;
+
+            span {
+                border-width: 2px 0 2px 2px;
+                @include button-variant($btn-default-color, $white, $bright-blue);
+            }
+
+            &:last-child {
+                span {
+                    border-right-width: 2px;
+                }
+            }
+        }
     }
+
     &.switch {
         label {
             cursor: pointer;
 
             div {
+                width: 3.5rem;
                 height: 1.5rem;
-                border-radius: .75rem;
+                border-radius: 0.75rem;
                 background: $cool-gray-02;
                 flex-basis: 3.5rem;
-                width: 3.5rem;
 
                 &:before {
                     width: 1.5rem;
                     height: 1.5rem;
                     border-color: $cool-gray-05;
                 }
+
                 &:after {
-                        top: 0.375rem;
-                        left: 2rem;
+                    top: 0.375rem;
+                    left: 2rem;
                 }
             }
+
             input[type="checkbox"] {
                 &:checked {
                     +div {
                         &:before {
                             transform: translateX(2rem);
                         }
+
                         &:after {
                             top: 0.375rem;
-                            left: .5rem;
+                            left: 0.5rem;
                         }
                     }
                 }
@@ -77,6 +95,11 @@ select {
 
 .card {
     background: $white;
+
+    .card-block {
+        display: flex;
+        flex-direction: column;
+    }
 }
 /*specific typtap styles*/
 html {
@@ -89,8 +112,8 @@ html {
 
                 header {
                     padding: $padding $padding*2;
-                    background: $black;
                     border-bottom: 2px solid $green;
+                    background: $black;
 
                     > div[role="banner"] {
                         display: flex;
@@ -114,9 +137,9 @@ html {
                             margin: 0 0 0 1rem;
                             text-align: center;
                             color: $white;
+                            color: $cool-gray-10;
                             font-size: $font-size-h3;
                             font-weight: 300;
-                            color: $cool-gray-10;
                         }
 
                         a {
@@ -166,6 +189,7 @@ html {
                             align-items: center;
                             justify-content: center;
                         }
+
                         &.splash {
                             border-top: $card-border-width solid $cool-gray-01;
                             align-items: center;
@@ -176,6 +200,16 @@ html {
                                 flex-direction: column;
                                 align-items: center;
                                 justify-content: center;
+                            }
+                        }
+
+                        &.survey {
+                            border-top: $card-border-width solid $cool-gray-01;
+
+                            .fade-in {
+                                display: flex;
+                                flex-direction: column;
+                                flex: 1;
                             }
                         }
 

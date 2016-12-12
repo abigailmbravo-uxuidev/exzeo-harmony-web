@@ -211,17 +211,17 @@ label {
             border-right: 1px solid $warm-gray-01;
             flex: 1;
 
-            &:first-child {
-                span {
-                    border-radius: $border-radius 0 0 $border-radius;
+            &.label-segmented {
+                &.label-segmented:nth-of-type(2) {
+                    span {
+                        border-radius: $border-radius 0 0 $border-radius;
+                    }
                 }
-            }
+                &:last-child {
 
-            &:last-child {
-                border-right-width: 0;
-
-                span {
-                    border-radius: 0 $border-radius $border-radius 0;
+                    span {
+                        border-radius: 0 $border-radius $border-radius 0;
+                    }
                 }
             }
         }

@@ -99,15 +99,11 @@ class TestPage extends Component {
   }
   render() {
     return (
-      <div>
-        <br />
-        <Question {...boolQuestion} handleChange={this.handleChange} value={this.state['bool-test']} />
-        <Question {...textQuestion} handleChange={this.handleChange} value={this.state['text-test']} />
-        <Question {...passwordQuestion} handleChange={this.handleChange} value={this.state['password-test']} />
-        <Question {...dropdownQuestion} handleChange={this.handleChange} value={this.state['dropdown-test']} />
-        <Question {...radioQuestion} handleChange={this.handleChange} value={this.state['radio-test']} />
-        <Survey questions={surveyQuestions} handleSubmit={this.handleSubmit} />
-      </div>
+        <div className="survey" role="article">
+                <div className="fade-in">
+                        <Survey questions={surveyQuestions} handleSubmit={this.handleSubmit} />
+                </div>
+        </div>
     );
   }
 }

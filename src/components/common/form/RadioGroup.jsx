@@ -14,9 +14,9 @@ const RadioGroup = ({ question, answers, value, id, handleChange, segmented }) =
 
   return (
     <div className={segmented ? 'form-group segmented' : 'form-group'} role="group">
-      <label className="group-label">{question || null}</label>
+      <label className={segmented ? 'group-label label-segmented' : 'group-label'}>{question || null}</label>
       {answers && answers.length > 0 ? answers.map((answer, index) =>
-        <label htmlFor={index} key={index}>
+        <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
           <input
             type="radio"
             value={answer || null}
