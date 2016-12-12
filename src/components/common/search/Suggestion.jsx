@@ -4,12 +4,12 @@ const Suggestion = ({ data }) => {
   const { heading, mapping, results, count } = data;
   return (
     <div>
-      <span className="heading">{heading}</span>
-      <span> {count}</span>
+      <span className="heading">{heading} <span> {count}</span></span>
+
       <ul>
         {
           results && results.length > 0 ? results.map((result, index) => (
-            <li key={index}>{result[mapping.title]} {result[mapping.details]}</li>
+            <li key={index}><a>{result[mapping.title]} {result[mapping.details]}</a></li>
           )) : null
         }
       </ul>

@@ -14,6 +14,7 @@
 @import "partials/_form";
 @import "partials/_buttons";
 @import "partials/_workflow";
+@import "partials/_search";
 @import "https://fonts.googleapis.com/css?family=Roboto:300,400";
 
 html {
@@ -35,6 +36,7 @@ html {
                 min-height: 100vh;
                 margin: 0;
                 padding: 0;
+                align-items: center;
 
                 header {
                     display: flex;
@@ -48,6 +50,7 @@ html {
                     flex-direction: column;
                     flex: 1;
                     align-items: center;
+                    width: 100%;
 
                     > div[role="article"] {
                         display: flex;

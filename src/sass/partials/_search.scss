@@ -1,0 +1,106 @@
+.search {
+    position: relative;
+    margin-bottom: 0;
+    padding: $padding;
+    flex-grow: 0;
+
+    form {
+        display: flex;
+        flex-grow: 1;
+
+        input {
+            flex: 1;
+        }
+
+        button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            line-height: 1;
+        }
+    }
+
+    > div {
+        position: absolute;
+        z-index: 10;
+        top: 2.875rem;
+        right: $padding;
+        left: $padding;
+        border: $card-border-width solid $card-border-color;
+        background: $cool-gray-00;
+        box-shadow: $card-box-shadow;
+
+        .heading {
+                                display: flex;
+                                flex-direction: row;
+                                margin: 0;
+                                padding: ($padding/2) $padding;
+                                color: $cool-gray-08;
+                                border-top: $card-border-width solid $card-border-color;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                &:first-child {
+                                    border-top: none;
+                                }
+
+                                span {
+                                    display: inline-flex;
+                                    padding: ($padding/2) $padding;
+                                    color: $cool-gray-06;
+                                    border-radius: 0.71875rem;
+                                    background: $cool-gray-01;
+                                    font-size: 0.8rem;
+                                    justify-content: center;
+                                }
+                            }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            flex-wrap: wrap;
+
+            li {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                border-bottom: $card-border-width dotted $card-border-color;
+                background: $white;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                &:first-child {
+                    border-top: $card-border-width solid $card-border-color;
+                }
+
+                a {
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    padding: ($padding/2) $padding;
+                    cursor: pointer;
+                    @include transition(all .2s ease-in-out);
+
+                    span {
+                        flex-grow: 1;
+                    }
+
+                    i {
+                        text-align: right;
+                        line-height: 1.45;
+                        flex-basis: 1rem;
+                    }
+
+                    &:focus,
+                    &:hover {
+                        text-decoration: none;
+                        color: $white;
+                        background: $bright-blue;
+                    }
+                }
+            }
+        }
+    }
+}

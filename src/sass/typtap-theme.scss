@@ -172,6 +172,24 @@ html {
                     }
                 }
 
+                .search {
+                        z-index: 10;
+                        width: 100%;
+                        display: flex;
+                        align-items: flex-start;
+                        margin-bottom: 0;
+
+                        @include for-1024-up {
+
+                        }
+                        @include for-tablet-landscape-up {
+                            max-width: 64rem;
+                        }
+                        @include for-big-desktop-up {
+                            max-width: 90rem;
+                        }
+                }
+
                 main {
                     div[role="article"] {
                         padding: $padding*2;
