@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-const TextInput = ({ question, description, id, value, answerType, handleChange }) => (
-  <div className="form-group">
+const TextInput = ({ question, description, id, value, answerType, handleChange, styleName = '' }) => (
+  <div className={`form-group ${styleName}`}>
     <label htmlFor={id || null}>{question || null}</label>
     <input
       type={answerType || 'text'}
@@ -20,6 +20,7 @@ TextInput.propTypes = {
   value: PropTypes.string,
   answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'radio', 'bool']),
   handleChange: PropTypes.func,
+  styleName: PropTypes.string,
 };
 
 export default TextInput;

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-const Dropdown = ({ question, handleChange, answers, value, id }) => (
-  <div className="form-group">
+const Dropdown = ({ question, handleChange, answers, value, id, styleName = '' }) => (
+  <div className={`form-group ${styleName}`}>
     <label htmlFor={id || null}>
       {question || null}
       {answers && answers.length > 0 ?
@@ -20,6 +20,7 @@ Dropdown.propTypes = {
   value: PropTypes.string,
   answers: PropTypes.arrayOf(PropTypes.string),
   handleChange: PropTypes.func,
+  styleName: PropTypes.string,
 };
 
 export default Dropdown;
