@@ -20,37 +20,44 @@ class Survey extends Component {
     }),
   }
   state = {}
-  // shouldComponentUpdate(nextProps) {
-  //   if (!nextProps.data.loading) {
-  //     this.resetForm();
-  //     return true;
-  //   }
-  //   return false;
-  // }
-  // resetForm = (event) => {
-  //   if (event) event.preventDefault();
-  //   const { questions } = this.props.data;
-  //   if (questions && questions.length > 0) {
-  //     const answerState = questions.reduce((values, question) => {
-  //       switch (question.answerType) {
-  //         case 'radio':
-  //           if (question.answers && question.answers.length > 0) {
-  //             // eslint-disable-next-line no-param-reassign
-  //             values[question.id] = question.answers[0].answer;
-  //             return values;
-  //           }
-  //         case 'bool': // eslint-disable-line no-fallthrough
-  //           values[question.id] = false; // eslint-disable-line no-param-reassign
-  //           break;
-  //         default:
-  //           values[question.id] = ''; // eslint-disable-line no-param-reassign
-  //           break;
-  //       }
-  //       return values;
-  //     }, {});
-  //     this.setState(answerState);
-  //   }
-  // }
+  shouldComponentUpdate(nextProps) {
+    if (!nextProps.data.loading) {
+      this.resetForm(nextProps);
+      return true;
+    }
+    return false;
+  }
+  resetForm = (nextProps) => {
+    let questions;
+    if (nextProps) {
+      questions = nextProps.data.questions;
+    } else {
+      questions = this.props.data.questions;
+    }
+    if (questions && questions.length > 0) {
+      const answerState = questions.reduce((values, question) => {
+        switch (question.answerType) {
+          case 'radio':
+            if (question.answers && question.answers.length > 0) {
+              // eslint-disable-next-line no-param-reassign
+              values[question.id] = question.answers[0].answer;
+              return values;
+            }
+          case 'range': // eslint-disable-line no-fallthrough
+            values[question.id] = 50; // eslint-disable-line no-param-reassign
+            break;
+          case 'bool':
+            values[question.id] = false; // eslint-disable-line no-param-reassign
+            break;
+          default:
+            values[question.id] = ''; // eslint-disable-line no-param-reassign
+            break;
+        }
+        return values;
+      }, {});
+      this.setState(answerState);
+    }
+  }
   handleChange = (event) => {
     const state = this.state;
     state[event.target.name] = event.target.value;
