@@ -334,9 +334,9 @@ html {
                     div[role="banner"] {
                         width: 100%;
                         margin-bottom: 0;
-                        padding: $padding*2;
+                        padding: $padding ($padding*2);
                         background: $white;
-                        flex-basis: 4rem;
+                        border-top: 1px dotted $cool-gray-00;
                         @include for-1024-up {
                             margin-bottom: $padding;
                             border-right: $card-border-width solid $cool-gray-01;
