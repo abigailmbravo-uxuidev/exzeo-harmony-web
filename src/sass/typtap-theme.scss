@@ -161,16 +161,6 @@ html {
                                 color: $bright-blue-lighten-02;
                             }
                         }
-
-                        > nav {
-                            display: flex;
-                            flex: 1;
-                            justify-content: flex-end;
-
-                            > a {
-                                margin-left: 1rem;
-                            }
-                        }
                     }
                 }
 
@@ -281,6 +271,9 @@ html {
                                     padding: $padding;
                                     background-color: $cool-gray-01;
                                     flex-shrink: 0;
+                                }
+                                @include for-tablet-portrait-up {
+                                    .workflow-header {padding: $padding*2;}
                                 }
                             }
                         }

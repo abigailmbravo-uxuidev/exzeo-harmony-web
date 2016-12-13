@@ -42,6 +42,40 @@ html {
                     display: flex;
                     width: 100%;
                     justify-content: center;
+
+                    div[role="banner"] {
+                        h1 {
+                            display: none;
+                        }
+
+                        >nav {
+                            display: none;
+                        }
+                        .userName {
+                            text-align: right;
+                            flex-grow: 0;
+                        }
+                        @include for-phone-only {
+                            .userName {
+                                flex-grow: 1;
+                            }
+                        }
+                        @include for-tablet-landscape-up {
+                            h1 {display:block;}
+                        }
+
+                        @include for-tablet-portrait-up {
+                            > nav {
+                                display: flex;
+                                flex: 1;
+                                justify-content: flex-end;
+
+                                > a {
+                                    margin-left: 1rem;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 main[role="document"] {

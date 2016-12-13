@@ -31,6 +31,32 @@
                     background: $cool-gray-01;
                 }
 
+                span {
+                    display: none;
+                }
+                @include for-phone-only {
+                    i.fa {
+                        font-size: $font-size-h4;
+                    }
+                }
+                @include for-tablet-portrait-up {
+                    span {
+                        display: block;
+                        font-size: $font-size-h6;
+                    }
+                    i.fa {
+                        font-size: $font-size-h3;
+                    }
+                }
+                @include for-big-desktop-up {
+                    span {
+                        font-size:  $font-size-h5;
+                    }
+                    i.fa {
+                        font-size: $font-size-h2;
+                    }
+                }
+
                 &:focus,
                 &:hover {
                     text-decoration: none;
