@@ -31,29 +31,41 @@ class Workflow extends Component {
       this.setState({ activeStep });
     }
   }
+  handleSubmit = (data) => {
+    console.log(this.state.activeStep, ': step'); // eslint-disable-line
+    console.log('back to parent', data); // eslint-disable-line
+    this.increaseStep();
+  }
   render() {
     const { steps } = this.props;
     const { activeStep } = this.state;
     const ActiveStep = steps[activeStep].component;
     return (
 
-        <div className="workflow" role="article">
-                <div className="fade-in">
-                        <WorkflowHeader
-                        steps={steps}
-                        activeStep={activeStep}
-                        updateStep={this.updateStep}
-                        />
-                <div className="workflow-content">
-                        <aside></aside>
-                        <section>{ActiveStep}</section>
-                </div>
-                <div className="workflow-steps">
-                        <button className="btn btn-link" onClick={this.decreaseStep}>prev</button>
-                        <button className="btn btn-primary" onClick={this.increaseStep}>next</button>
-                </div>
-                </div>
+      <div className="workflow" role="article">
+        <div className="fade-in">
+          <WorkflowHeader
+            steps={steps}
+            activeStep={activeStep}
+            updateStep={this.updateStep}
+          />
+          <div className="workflow-content">
+            <aside></aside>
+            <section>{React.cloneElement(
+              ActiveStep,
+              { handleSubmit: this.handleSubmit },
+            )}
+            </section>
+          </div>
+          <div className="workflow-steps">
+            <button className="btn btn-link" onClick={this.decreaseStep}>prev</button>
+            {activeStep !== 0 ?
+              <button className="btn btn-primary" type="submit" form="survey">next</button> :
+              <button className="btn btn-primary" onClick={this.increaseStep}>next</button>
+            }
+          </div>
         </div>
+      </div>
     );
   }
 }

@@ -58,6 +58,19 @@ class Survey extends Component {
       this.setState(answerState);
     }
   }
+  validateForm = () => {
+    // Put in some sort of form validation later
+    if (!Object.keys(this.state).length) {
+      return false;
+    }
+    // eslint-disable-next-line
+    for (const key in this.state) {
+      if (!this.state[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
   handleChange = (event) => {
     const state = this.state;
     state[event.target.name] = event.target.value;
@@ -65,12 +78,16 @@ class Survey extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.handleSubmit(this.state);
+    if (this.validateForm()) {
+      this.props.handleSubmit(this.state);
+    } else {
+      console.log('nope'); // eslint-disable-line
+    }
   }
   render() {
     const { questions } = this.props.data;
     return (
-      <form className="fade-in" onSubmit={this.handleSubmit}>
+      <form className="fade-in" id="survey" onSubmit={this.handleSubmit}>
         <div className="form-group survey-wrapper" role="group">
           {questions && questions.length > 0 ?
             questions.map((question, index) => (
