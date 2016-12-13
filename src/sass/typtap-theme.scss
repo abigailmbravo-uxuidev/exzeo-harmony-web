@@ -11,9 +11,17 @@ html body {
     textarea {
         width: 100%;
         padding: $padding;
+        box-shadow: none;
         border-width: 0;
         border-bottom: 2px solid $cool-gray-03;
         border-radius: 0;
+
+        // Placeholder
+        &::placeholder {
+            // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+            opacity: 1;
+            color: $cool-gray-02;
+        }
     }
 
     .form-group {
