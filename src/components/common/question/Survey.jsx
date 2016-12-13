@@ -20,8 +20,8 @@ class Survey extends Component {
     }),
   }
   state = {}
-  shouldComponentUpdate(nextProps) {
-    if (!nextProps.data.loading) {
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.data.loading && !Object.keys(this.state).length) {
       this.resetForm(nextProps);
       return true;
     }
@@ -82,12 +82,6 @@ class Survey extends Component {
               />
             )) : null
           }
-          <div className="form-group submit-button-group">
-            {/*
-            <button type="reset" className="btn-secondary" onClick={this.resetForm}>Reset</button>
-            */}
-            <button type="submit" className="btn-primary">Submit</button>
-          </div>
         </div>
       </form>
     );
