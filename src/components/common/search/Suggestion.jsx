@@ -9,7 +9,7 @@ const Suggestion = ({ data }) => {
       <ul>
         {
           results && results.length > 0 ? results.map((result, index) => (
-            <li key={index}><a>{result[mapping.title]} {result[mapping.details]}</a></li>
+            <li key={index}><a><span>{result[mapping.title]} {result[mapping.details]}</span><i className="fa fa-chevron-circle-right"></i></a></li>
           )) : null
         }
       </ul>
