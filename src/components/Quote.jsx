@@ -50,19 +50,19 @@ const steps = [{
   required: true,
   component: <PropertySearch searchText="123 Main" />,
 }, {
-  name: 'Undewriting Q & A',
-  icon: 'fa-file-text-o',
-  url: '/underwriting',
-  status: 'disabled',
-  required: true,
-  component: <UnderWritingQA modelName="23456" />,
-}, {
   name: 'Demographics',
   icon: 'fa fa-user',
   url: '/demographics',
   status: 'disabled',
   required: true,
   component: <Demographics modelName="23456" />,
+}, {
+  name: 'Undewriting Q & A',
+  icon: 'fa-file-text-o',
+  url: '/underwriting',
+  status: 'disabled',
+  required: true,
+  component: <UnderWritingQA modelName="23456" />,
 }, {
   name: 'Coverage',
   icon: 'fa-umbrella',

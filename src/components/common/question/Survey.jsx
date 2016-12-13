@@ -70,8 +70,8 @@ class Survey extends Component {
   render() {
     const { questions } = this.props.data;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="form-group" role="group">
+      <form className="fade-in" onSubmit={this.handleSubmit}>
+        <div className="form-group survey-wrapper" role="group">
           {questions && questions.length > 0 ?
             questions.map((question, index) => (
               <Question

@@ -169,6 +169,15 @@ html {
                                         }
                                     }
                                 }
+                                .survey-wrapper {
+                                    flex-direction: row;
+                                    flex-wrap: wrap;
+                                    padding: ($padding*2) ($padding*2) $padding;
+
+                                    .form-group {
+                                        margin-bottom: 1.45rem;
+                                    }
+                                }
                             }
                         }
                     }

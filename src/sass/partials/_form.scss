@@ -31,6 +31,10 @@ textarea {
         line-height: 1;
     }
 
+    &[type="range"] {
+        box-shadow: none;
+    }
+
     &[type="radio"] {
         position: relative;
         width: 1rem;

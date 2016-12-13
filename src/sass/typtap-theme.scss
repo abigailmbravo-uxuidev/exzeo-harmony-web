@@ -9,6 +9,7 @@ html body {
 
     input,
     textarea {
+        width: 100%;
         padding: $padding;
         border-width: 0;
         border-bottom: 2px solid $cool-gray-03;
@@ -16,6 +17,8 @@ html body {
     }
 
     .form-group {
+        width: 100%;
+
         &.segmented {
             flex-wrap: wrap;
 
@@ -39,8 +42,8 @@ html body {
                 }
             }
         }
-
         &.switch {
+
             label {
                 cursor: pointer;
 
@@ -78,6 +81,9 @@ html body {
                     }
                 }
             }
+        }
+        input {
+            width: 100%;
         }
     }
 
@@ -293,10 +299,12 @@ html {
 
                                             &.disabled {
                                                 color: $cool-gray-03;
+                                                outline: none;
                                             }
 
                                             &.active {
                                                 color: $cool-gray-14;
+                                                outline: none;
 
                                                 i.fa {
                                                     color: $green;
@@ -364,7 +372,7 @@ html {
                                                                 }
                                                             }
                                                             &.fa-chevron-circle-right {
-                                                                color: $cool-gray-02;
+                                                                color: $bright-blue;
                                                                 font-size: 2rem;
                                                             }
                                                         }
@@ -385,11 +393,18 @@ html {
 
                                                             i {
                                                                 &.fa-chevron-circle-right {
-                                                                    color: $bright-blue;
+                                                                    color: $bright-blue-lighten-01;
                                                                 }
                                                             }
                                                         }
                                                     }
+                                                }
+                                            }
+                                        }
+                                        .survey-wrapper {
+                                            .form-group {
+                                                label {
+                                                    font-size: $font-size-h4;
                                                 }
                                             }
                                         }
