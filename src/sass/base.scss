@@ -1,6 +1,6 @@
 /*typtap specific styles & layout*/
 @import "partials/_mixins";
-@import "partials/_variables"; //@import "partials/utilities/_flex";
+@import "partials/_variables";
 @import "partials/mixins/_hover";
 @import "partials/mixins/_flexbox";
 @import "partials/mixins/_tab-focus";
@@ -10,8 +10,9 @@
 @import "partials/_normalize";
 @import "partials/_reset";
 /*Set base typography*/
-@import "partials/_card";
 @import "partials/_type";
+@import "partials/_range";
+@import "partials/_card";
 @import "partials/_form";
 @import "partials/_buttons";
 @import "partials/_workflow";

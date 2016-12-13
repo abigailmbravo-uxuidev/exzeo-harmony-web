@@ -646,3 +646,27 @@ $pre-bg:                      $warm-gray-01!default;
 $pre-color:                   $warm-gray-14 !default;
 $pre-border-color:            $warm-gray-04 !default;
 $pre-scrollable-max-height:   340px !default;
+
+//range
+
+$track-color:           $cool-gray-02 !default;
+$thumb-color:        $bright-blue !default;
+$thumb-radius: 50% !default;
+$thumb-height: 1.41rem!default;
+$thumb-width: 1.41rem !default;
+$thumb-shadow-size: 1px !default;
+$thumb-shadow-blur: 1px !default;
+$thumb-shadow-color: $cool-gray-03 !default;
+$thumb-border-width: 1px !default;
+$thumb-border-color: $bright-blue!default;
+
+$track-width: 100% !default;
+$track-height: .8rem !default;
+$track-shadow-size: 0 !default;
+$track-shadow-blur: 2px !default;
+$track-shadow-color: $cool-gray-03 !default;
+$track-border-width: 0 !default;
+$track-border-color: $cool-gray-02 !default;
+
+$track-radius: .125rem !default;
+$contrast: 5% !default;

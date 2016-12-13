@@ -23,6 +23,10 @@ html body {
             color: $cool-gray-02;
             font-style: italic;
         }
+
+        &[type="range"] {
+            border-bottom-width: 0;
+        }
     }
 
     .form-group {
