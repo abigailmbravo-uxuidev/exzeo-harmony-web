@@ -170,7 +170,9 @@ html {
                     width: 100%;
                     margin-bottom: 0;
                     align-items: flex-start;
-                    @include for-1024-up {}
+                    @include for-1024-up {
+                        padding: $padding 0;
+                    }
                     @include for-tablet-landscape-up {
                         max-width: 64rem;
                     }
@@ -271,9 +273,38 @@ html {
                                     padding: $padding;
                                     background-color: $cool-gray-01;
                                     flex-shrink: 0;
-                                }
-                                @include for-tablet-portrait-up {
-                                    .workflow-header {padding: $padding*2;}
+
+                                    .rule {
+                                        background: $cool-gray-03;
+                                    }
+
+                                    li {
+                                        a {
+                                            i.fa {
+                                                width: 2rem;
+                                                background: $cool-gray-01;
+                                            }
+
+                                            span {}
+
+                                            &:focus,
+                                            &:hover {
+                                                color: $bright-blue-lighten-01;
+                                            }
+
+                                            &.disabled {
+                                                color: $cool-gray-03;
+                                            }
+
+                                            &.active {
+                                                color: $cool-gray-14;
+
+                                                i.fa {
+                                                    color: $green;
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
