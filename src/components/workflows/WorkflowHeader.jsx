@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 const WorkflowHeader = ({ steps, updateStep }) => (
   <ul className="workflow-header">
+          <div className="rule"></div>
     {
       steps.map((step, index) => (
         <li key={index}>

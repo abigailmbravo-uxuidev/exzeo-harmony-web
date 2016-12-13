@@ -44,11 +44,14 @@ class Workflow extends Component {
                         activeStep={activeStep}
                         updateStep={this.updateStep}
                         />
-                        {ActiveStep}
-                        <div className="workflow-steps">
-                                <button className="btn btn-link" onClick={this.decreaseStep}>prev</button>
-                                <button className="btn btn-primary" onClick={this.increaseStep}>next</button>
-                        </div>
+                <div className="workflow-content">
+                        <aside></aside>
+                        <section>{ActiveStep}</section>
+                </div>
+                <div className="workflow-steps">
+                        <button className="btn btn-link" onClick={this.decreaseStep}>prev</button>
+                        <button className="btn btn-primary" onClick={this.increaseStep}>next</button>
+                </div>
                 </div>
         </div>
     );

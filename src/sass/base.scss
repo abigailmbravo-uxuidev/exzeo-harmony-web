@@ -90,11 +90,16 @@ html {
                         display: flex;
                         width: 100%;
                         flex: 1;
+
+                        .workflow-content {
+                            display: flex;
+                            flex-direction: row;
+                            flex-grow: 1;
+                        }
                     }
                 }
 
                 footer {
-                    display: flex;
                     display: flex;
                     flex-direction: column;
                     width: 100%;
