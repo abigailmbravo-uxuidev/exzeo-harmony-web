@@ -171,7 +171,7 @@ html {
                     margin-bottom: 0;
                     align-items: flex-start;
                     @include for-1024-up {
-                        padding: $padding 0;
+                        //padding: $padding 0;
                     }
                     @include for-tablet-landscape-up {
                         max-width: 64rem;
@@ -220,7 +220,7 @@ html {
                         padding: $padding*2;
                         background: $white;
                         @include for-1024-up {
-                            margin-top: $padding;
+                            //margin-top: $padding;
                             border-top-width: 0;
                             border-right: $card-border-width solid $cool-gray-01;
                             border-left: $card-border-width solid $cool-gray-01;
@@ -306,6 +306,96 @@ html {
                                         }
                                     }
                                 }
+
+                                .workflow-content {
+                                    section {
+                                        .results {
+                                            ul {
+                                                margin: 0;
+                                                padding: $padding;
+
+                                                li {
+                                                    a {
+                                                        z-index: 1;
+                                                        display: flex;
+                                                        flex-direction: row;
+                                                        width: 100%;
+                                                        padding: $padding $padding*1.5;
+                                                        text-decoration: none;
+                                                        border: $card-border-width solid $card-border-color;
+                                                        border-radius: $card-border-radius;
+                                                        background: $white;
+                                                        box-shadow: $card-box-shadow;
+                                                        align-items: center;
+                                                        @include transition(all .2s ease-in-out);
+
+                                                        section {
+                                                            flex-grow: 1;
+
+                                                            h2,
+                                                            h3,
+                                                            h4,
+                                                            h5 {
+                                                                margin: 0;
+                                                                color: $cool-gray-14;
+                                                            }
+
+                                                            p {
+                                                                margin: 0;
+                                                                color: $cool-gray-12;
+                                                            }
+                                                        }
+
+                                                        i {
+                                                            display: flex;
+                                                            flex-direction: row;
+                                                            width: 1rem;
+                                                            height: 1rem;
+                                                            font-size: $font-size-h4;
+                                                            align-items: center;
+                                                            @include transition(all .2s ease-in-out);
+
+                                                            &.card-icon {
+                                                                color: $green;
+                                                                font-size: 2rem;
+                                                                flex-basis: 2rem;
+
+                                                                &:before {
+                                                                    width: 2rem;
+                                                                }
+                                                            }
+                                                            &.fa-chevron-circle-right {
+                                                                color: $cool-gray-02;
+                                                                font-size: 2rem;
+                                                            }
+                                                        }
+
+                                                        &:focus,
+                                                        &:hover {
+                                                            z-index: 2;
+                                                            transform: scale(1.004);
+                                                            box-shadow: $card-box-shadow-hover;
+
+                                                            h2,
+                                                            h3,
+                                                            h4,
+                                                            h5,
+                                                            p {
+                                                                color: $bright-blue;
+                                                            }
+
+                                                            i {
+                                                                &.fa-chevron-circle-right {
+                                                                    color: $bright-blue;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
 
@@ -335,8 +425,8 @@ html {
                         width: 100%;
                         margin-bottom: 0;
                         padding: $padding ($padding*2);
-                        background: $white;
                         border-top: 1px dotted $cool-gray-00;
+                        background: $white;
                         @include for-1024-up {
                             margin-bottom: $padding;
                             border-right: $card-border-width solid $cool-gray-01;

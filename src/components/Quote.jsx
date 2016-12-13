@@ -46,7 +46,7 @@ const steps = [{
   name: 'Property address',
   icon: 'fa-map-marker',
   url: '/property-address',
-  status: 'selected',
+  status: 'active',
   required: true,
   component: <PropertySearch searchText="123 Main" />,
 }, {

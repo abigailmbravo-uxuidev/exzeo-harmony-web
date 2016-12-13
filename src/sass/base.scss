@@ -44,26 +44,16 @@ html {
                     justify-content: center;
 
                     div[role="banner"] {
-                        h1 {
-                            display: none;
-                        }
-
-                        >nav {
-                            display: none;
-                        }
-                        .userName {
-                            text-align: right;
-                            flex-grow: 0;
-                        }
                         @include for-phone-only {
                             .userName {
                                 flex-grow: 1;
                             }
                         }
                         @include for-tablet-landscape-up {
-                            h1 {display:block;}
+                            h1 {
+                                display: block;
+                            }
                         }
-
                         @include for-tablet-portrait-up {
                             > nav {
                                 display: flex;
@@ -74,6 +64,19 @@ html {
                                     margin-left: 1rem;
                                 }
                             }
+                        }
+
+                        h1 {
+                            display: none;
+                        }
+
+                        > nav {
+                            display: none;
+                        }
+
+                        .userName {
+                            text-align: right;
+                            flex-grow: 0;
                         }
                     }
                 }
@@ -92,9 +95,77 @@ html {
                         flex: 1;
 
                         .workflow-content {
-                            display: flex;
-                            flex-direction: row;
-                            flex-grow: 1;
+                            section {
+                                .results {
+                                    ul {
+                                        z-index: 1;
+                                        margin: 0;
+                                        padding: 0;
+                                        list-style: none;
+
+                                        li {
+                                            display: flex;
+                                            flex-direction: row;
+                                            margin-bottom: $padding/2;
+
+                                            a {
+                                                z-index: 1;
+                                                display: flex;
+                                                flex-direction: row;
+                                                width: 100%;
+                                                padding: $padding $padding*1.5;
+                                                text-decoration: none;
+                                                border: $card-border-width solid $card-border-color;
+                                                border-radius: $card-border-radius;
+                                                background: $white;
+                                                box-shadow: $card-box-shadow;
+                                                align-items: center;
+                                                @include transition(all .2s ease-in-out);
+
+                                                section {
+                                                    flex-grow: 1;
+
+                                                    h2,
+                                                    h3,
+                                                    h4,
+                                                    h5 {
+                                                        margin: 0;
+                                                    }
+
+                                                    p {
+                                                        margin: 0;
+                                                    }
+                                                }
+
+                                                i {
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    width: 1rem;
+                                                    height: 1rem;
+                                                    font-size: $font-size-h4;
+                                                    align-items: center;
+                                                    justify-content: flex-end;
+                                                    @include transition(all .2s ease-in-out);
+                                                }
+
+                                                &:hover {
+                                                    z-index: 2;
+                                                    transform: scale(1.004);
+                                                    box-shadow: $card-box-shadow-hover;
+                                                    cursor: pointer;
+
+                                                    h2,
+                                                    h3,
+                                                    h4,
+                                                    h5 {
+                                                        color: $bright-blue-darken-02;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
