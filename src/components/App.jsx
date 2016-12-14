@@ -6,7 +6,7 @@ import * as featureActions from '../actions/featureActions';
 import Splash from './auth/Splash';
 import Login from './auth/Login';
 import Home from './Home';
-import Quote from './Quote';
+import Quote from './quote/Quote';
 import Header from './common/Header';
 import Footer from './common/Footer';
 import TestPage from './TestPage';

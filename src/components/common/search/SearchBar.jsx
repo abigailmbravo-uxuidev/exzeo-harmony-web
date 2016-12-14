@@ -6,7 +6,7 @@ const SearchBar = ({ placeholder, handleChange, handleSubmit }) => (
       placeholder={placeholder || 'Search...'}
       onChange={handleChange || null}
     />
-    <button className="btn btn-success"><i className="fa fa-search"></i> Search</button>
+    <button className="btn btn-success"><i className="fa fa-search" /> Search</button>
   </form>
 );
 

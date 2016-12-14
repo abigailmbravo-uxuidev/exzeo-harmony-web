@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Search from './common/search/Search';
-import QuoteSearchResults from './QuoteSearchResults';
+import QuoteSearchResults from './quote/QuoteSearchResults';
 import Stepper from './workflows/Stepper';
 
 class Home extends Component {

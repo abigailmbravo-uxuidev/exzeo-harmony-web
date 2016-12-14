@@ -21,6 +21,7 @@ describe('<Search />', () => {
       <SearchBar
         placeholder={null}
         handleChange={wrapper.node.handleChange}
+        handleSubmit={wrapper.node.handleSubmit}
       />,
   );
     expect(result).to.be.true;

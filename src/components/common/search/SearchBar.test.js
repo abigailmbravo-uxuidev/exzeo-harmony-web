@@ -53,6 +53,7 @@ describe('<SearchBar />', () => {
       const result = wrapper.contains(
         <form onSubmit={null}>
           <input placeholder="Search..." onChange={null} />
+          <button className="btn btn-success"><i className="fa fa-search" /> Search</button>
         </form>,
       );
       expect(result).to.be.true;

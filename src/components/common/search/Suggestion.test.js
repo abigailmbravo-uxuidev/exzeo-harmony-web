@@ -30,7 +30,7 @@ describe('<Suggestion />', () => {
 
   it('should display the heading', () => {
     const result = wrapper.contains(
-      <span className="heading">{data.heading}</span>,
+      <span className="heading">{data.heading} <span> {data.count}</span></span>,
     );
     expect(result).to.be.true;
   });

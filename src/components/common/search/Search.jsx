@@ -9,7 +9,7 @@ class Search extends Component {
     }).isRequired,
   }
   state = {
-    searchText: ''
+    searchText: '',
   }
   handleChange = (event) => {
     event.preventDefault();
@@ -18,7 +18,6 @@ class Search extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
   }
 
   render() {

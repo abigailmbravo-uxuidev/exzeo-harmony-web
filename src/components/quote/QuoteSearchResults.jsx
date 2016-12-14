@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import SearchResults from './common/search/SearchResults';
+import SearchResults from '../common/search/SearchResults';
 
 const query = gql`
     query SearchAddress($searchText: String!) {
@@ -19,13 +19,13 @@ const query = gql`
 const SearchResultsWithQuery = graphql(query)(SearchResults);
 
 const QuoteSearchResults = ({ data }) => {
-    let searchText = '123 Main';
-    let type = 'card';
-    return (
-        <div>
-            <SearchResultsWithQuery searchText={searchText} type={type}/>
-        </div>
-    )
+  const searchText = '123 Main';
+  const type = 'card';
+  return (
+    <div>
+      <SearchResultsWithQuery searchText={searchText} type={type} />
+    </div>
+  );
 };
 
 export default QuoteSearchResults;
