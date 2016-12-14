@@ -1,5 +1,6 @@
 /*typtap specific styles & layout*/
 @import "base.scss";
+$margin-bottom: 1.45rem;
 /*universal typtap styles*/
 html body {
     a,
@@ -11,11 +12,10 @@ html body {
     textarea {
         width: 100%;
         padding: $padding;
-        box-shadow: none;
         border-width: 0;
         border-bottom: 2px solid $cool-gray-03;
         border-radius: 0;
-
+        box-shadow: none;
         // Placeholder
         &::placeholder {
             // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
@@ -41,11 +41,11 @@ html body {
             }
 
             label {
-                border-right-width: 0;
+                border-right: none;
 
                 span {
                     border-width: 2px 0 2px 2px;
-                    @include button-variant($btn-default-color, $white, $bright-blue);
+                    @include button-variant($btn-default-color, $white, $cool-gray-02);
                 }
 
                 &:last-child {
@@ -53,10 +53,20 @@ html body {
                         border-right-width: 2px;
                     }
                 }
+
+                input[type="radio"]:checked {
+                    + span {
+                        color: $body-color;
+                        background: $white;
+                        border-color: $cool-gray-02;
+                        box-shadow: 0 0 0 2px $green inset;
+
+                    }
+                }
             }
         }
-        &.switch {
 
+        &.switch {
             label {
                 cursor: pointer;
 
@@ -82,6 +92,7 @@ html body {
                 input[type="checkbox"] {
                     &:checked {
                         +div {
+                            background: $green;
                             &:before {
                                 transform: translateX(2rem);
                             }
@@ -95,6 +106,7 @@ html body {
                 }
             }
         }
+
         input {
             width: 100%;
         }
@@ -102,6 +114,7 @@ html body {
 
     select {
         border-width: 2px;
+        border-color: $cool-gray-02;
 
         &:not([size]):not([multiple]) {
             height: 2.375rem;
@@ -110,7 +123,6 @@ html body {
 
     .btn {
         height: auto;
-        padding: 0.625rem 0.75rem;
         text-transform: uppercase;
 
         &.btn-primary {
@@ -328,7 +340,63 @@ html {
                                 }
 
                                 .workflow-content {
+                                    aside {
+                                        display: flex;
+
+                                        .sidePanel {
+                                            display: none;
+                                            margin: $padding 0 $padding $padding;
+                                            padding: $padding;
+
+                                            @include for-tablet-landscape-up {
+                                                display: flex;
+                                                flex-direction: column;
+                                                flex-basis: 12rem;
+                                                width: 12rem;
+                                                flex-shrink: 0;
+                                                flex-grow: 0;
+                                            }
+                                            section {
+                                                flex-grow: 0;
+                                                flex-shrink: 0;
+                                                margin-bottom: $margin-bottom;
+                                                dl {
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    margin: 0;
+
+                                                    dt {
+                                                        margin: 0;
+                                                    }
+
+                                                    dd {
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        margin: 0 0 ($padding/2);
+
+                                                        &:last-child {
+                                                            margin-bottom: 0;
+                                                        }
+                                                    }
+                                                }
+
+                                                &.premium {
+                                                    padding: $padding;
+                                                    margin: (-$padding) (-$padding) ($margin-bottom - $padding);
+                                                    background-color: $yellow-lighten-04;
+
+                                                    dl {
+                                                        dt {}
+                                                        dd {}
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     section {
+                                        flex-grow: 1;
+
                                         .results {
                                             ul {
                                                 margin: 0;
@@ -384,6 +452,7 @@ html {
                                                                     width: 2rem;
                                                                 }
                                                             }
+
                                                             &.fa-chevron-circle-right {
                                                                 color: $bright-blue;
                                                                 font-size: 2rem;
@@ -414,6 +483,7 @@ html {
                                                 }
                                             }
                                         }
+
                                         .survey-wrapper {
                                             .form-group {
                                                 label {

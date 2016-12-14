@@ -50,7 +50,43 @@ class Workflow extends Component {
             updateStep={this.updateStep}
           />
           <div className="workflow-content">
-            <aside></aside>
+            <aside>
+                <div className="sidePanel" role="contentinfo">
+                    <section id="premium" className="premium">
+                                <dl>
+                                        <dt>Annual premium</dt>
+                                        <dd>$1000.00</dd>
+                                </dl>
+                        </section>
+                        <section id="quoteDetails" class="quoteDetails">
+                                <dl>
+                                        <dt>Quote number</dt>
+                                        <dd>TT-HO3-1234567890</dd>
+                                </dl>
+                        </section>
+                        <section id="propertyDetails" class="propertyDetails">
+                                <dl>
+                                        <dt>Address</dt>
+                                        <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
+
+                                        <dt>Year built</dt>
+                                        <dd>2000</dd>
+                                </dl>
+                        </section>
+                        <section id="coverageDetails" class="coverageDetails">
+                                <dl>
+                                        <dt>Coverage A</dt>
+                                        <dd>$10,000.00</dd>
+
+                                        <dt>Coverage B</dt>
+                                        <dd>$10,000.00</dd>
+
+                                        <dt>Coverage C</dt>
+                                        <dd>$10,000.00</dd>
+                                </dl>
+                        </section>
+                </div>
+            </aside>
             <section>{React.cloneElement(
               ActiveStep,
               { handleSubmit: this.handleSubmit },
