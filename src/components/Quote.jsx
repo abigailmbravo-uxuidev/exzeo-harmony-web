@@ -1,22 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Workflow from './workflows/Workflow';
-import SearchResults from './common/search/SearchResults';
+import {Match} from 'react-router';
+//import SearchResults from './common/search/SearchResults';
+import QuoteSearchResults from './QuoteSearchResults';
 import Survey from './common/question/Survey';
 
-const query = gql`
-    query SearchAddress($searchText: String!) {
-        searchAddress(address:$searchText) {
-            id
-            address1
-            address2
-            city
-            state
-            zip
-        }
-    }
-`;
+// const query = gql`
+//     query SearchAddress($searchText: String!) {
+//         searchAddress(address:$searchText) {
+//             id
+//             address1
+//             address2
+//             city
+//             state
+//             zip
+//         }
+//     }
+// `;
 
 const underwritingQuestions = gql`
     query UnderwritingQuestions($modelName: ID!) {
@@ -34,7 +36,7 @@ const underwritingQuestions = gql`
     }
 `;
 
-const PropertySearch = graphql(query)(SearchResults);
+//const PropertySearch = graphql(query)(SearchResults);
 const Demographics = graphql(underwritingQuestions)(Survey);
 const UnderWritingQA = graphql(underwritingQuestions)(Survey);
 const Coverage = graphql(underwritingQuestions)(Survey);
@@ -48,7 +50,7 @@ const steps = [{
   url: '/property-address',
   status: 'active',
   required: true,
-  component: <PropertySearch searchText="123 Main" />,
+  component: <Match pattern="/quote/address/:address" component={QuoteSearchResults} />,
 }, {
   name: 'Demographics',
   icon: 'fa fa-user',
@@ -93,10 +95,14 @@ const steps = [{
   component: <VerifyWrite modelName="23456" />,
 }];
 
-const Quote = () => {
-  return (
-    <Workflow steps={steps} />
-  );
+class Quote extends Component {
+    state = {};
+
+    render () {
+        return (
+            <Workflow steps={steps}/>
+        )
+    };
 };
 
 export default Quote;

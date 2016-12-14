@@ -14,6 +14,7 @@ import Search from './common/search/Search';
 import './App.css';
 
 export class App extends Component {
+
   static propTypes = {
     actions: PropTypes.shape({
       initializeLD: PropTypes.func,
@@ -24,9 +25,15 @@ export class App extends Component {
     }),
     loggedIn: PropTypes.bool,
   }
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   componentWillMount = () => {
     this.props.actions.initializeLD();
   }
+
   componentWillReceiveProps = (newProps) => {
     if (newProps.features.get('ld-started') && !this.props.features.get('ld-started')) {
       this.props.actions.setupFeature('splash-screen');
@@ -39,11 +46,11 @@ export class App extends Component {
     return (
       <div className="app-wrapper">
         <Header />
-        <Search options={{}} />
+        <Search options={{}}/>
         <main role="document">
           <Match exactly pattern="/" component={homeScreen} />
           <Match pattern="/login" component={Login} />
-          <Match pattern="/quote" component={Quote} />
+          <Match pattern="/quote/:location/:address" component={Quote} />
           <Match pattern="/test" component={TestPage} />
         </main>
         <Footer />
