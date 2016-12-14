@@ -57,6 +57,11 @@ class Workflow extends Component {
       this.setState({ activeStep });
     }
   }
+  handleSubmit = (data) => {
+    console.log(this.state.activeStep, ': step'); // eslint-disable-line
+    console.log('back to parent', data); // eslint-disable-line
+    this.increaseStep();
+  }
   render() {
     console.log('WORKFLOW: ', this.state);
     const { activeStep, workflowSteps } = this.state;
@@ -70,10 +75,56 @@ class Workflow extends Component {
             activeStep={activeStep}
             updateStep={this.updateStep}
           />
-          {ActiveStep}
+          <div className="workflow-content">
+            <aside>
+              <div className="sidePanel" role="contentinfo">
+                <section id="premium" className="premium">
+                  <dl>
+                    <dt>Annual premium</dt>
+                    <dd>$1000.00</dd>
+                  </dl>
+                </section>
+                <section id="quoteDetails" className="quoteDetails">
+                  <dl>
+                    <dt>Quote number</dt>
+                    <dd>TT-HO3-1234567890</dd>
+                  </dl>
+                </section>
+                <section id="propertyDetails" className="propertyDetails">
+                  <dl>
+                    <dt>Address</dt>
+                    <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
+
+                    <dt>Year built</dt>
+                    <dd>2000</dd>
+                  </dl>
+                </section>
+                <section id="coverageDetails" className="coverageDetails">
+                  <dl>
+                    <dt>Coverage A</dt>
+                    <dd>$10,000.00</dd>
+
+                    <dt>Coverage B</dt>
+                    <dd>$10,000.00</dd>
+
+                    <dt>Coverage C</dt>
+                    <dd>$10,000.00</dd>
+                  </dl>
+                </section>
+              </div>
+            </aside>
+            <section>{React.cloneElement(
+              ActiveStep,
+              { handleSubmit: this.handleSubmit },
+            )}
+            </section>
+          </div>
           <div className="workflow-steps">
             <button className="btn btn-link" onClick={this.decreaseStep}>prev</button>
-            <button className="btn btn-primary" onClick={this.increaseStep}>next</button>
+            {activeStep !== 0 ?
+              <button className="btn btn-primary" type="submit" form="survey">next</button> :
+              <button className="btn btn-primary" onClick={this.increaseStep}>next</button>
+            }
           </div>
         </div>
       </div>

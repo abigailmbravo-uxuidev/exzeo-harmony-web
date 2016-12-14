@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 const SearchBar = ({ placeholder, handleChange, handleSubmit }) => (
   <form onSubmit={handleSubmit || null}>
     <input
+        name="search-address"
       placeholder={placeholder || 'Search...'}
       onChange={handleChange || null}
     />

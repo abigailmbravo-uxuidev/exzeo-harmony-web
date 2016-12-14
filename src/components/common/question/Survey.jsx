@@ -20,37 +20,57 @@ class Survey extends Component {
     }),
   }
   state = {}
-  // shouldComponentUpdate(nextProps) {
-  //   if (!nextProps.data.loading) {
-  //     this.resetForm();
-  //     return true;
-  //   }
-  //   return false;
-  // }
-  // resetForm = (event) => {
-  //   if (event) event.preventDefault();
-  //   const { questions } = this.props.data;
-  //   if (questions && questions.length > 0) {
-  //     const answerState = questions.reduce((values, question) => {
-  //       switch (question.answerType) {
-  //         case 'radio':
-  //           if (question.answers && question.answers.length > 0) {
-  //             // eslint-disable-next-line no-param-reassign
-  //             values[question.id] = question.answers[0].answer;
-  //             return values;
-  //           }
-  //         case 'bool': // eslint-disable-line no-fallthrough
-  //           values[question.id] = false; // eslint-disable-line no-param-reassign
-  //           break;
-  //         default:
-  //           values[question.id] = ''; // eslint-disable-line no-param-reassign
-  //           break;
-  //       }
-  //       return values;
-  //     }, {});
-  //     this.setState(answerState);
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.data.loading && !Object.keys(this.state).length) {
+      this.resetForm(nextProps);
+      return true;
+    }
+    return false;
+  }
+  resetForm = (nextProps) => {
+    let questions;
+    if (nextProps) {
+      questions = nextProps.data.questions;
+    } else {
+      questions = this.props.data.questions;
+    }
+    if (questions && questions.length > 0) {
+      const answerState = questions.reduce((values, question) => {
+        switch (question.answerType) {
+          case 'radio':
+            if (question.answers && question.answers.length > 0) {
+              // eslint-disable-next-line no-param-reassign
+              values[question.id] = question.answers[0].answer;
+              return values;
+            }
+          case 'range': // eslint-disable-line no-fallthrough
+            values[question.id] = 50; // eslint-disable-line no-param-reassign
+            break;
+          case 'bool':
+            values[question.id] = false; // eslint-disable-line no-param-reassign
+            break;
+          default:
+            values[question.id] = ''; // eslint-disable-line no-param-reassign
+            break;
+        }
+        return values;
+      }, {});
+      this.setState(answerState);
+    }
+  }
+  validateForm = () => {
+    // Put in some sort of form validation later
+    if (!Object.keys(this.state).length) {
+      return false;
+    }
+    // eslint-disable-next-line
+    for (const key in this.state) {
+      if (!this.state[key]) {
+        return false;
+      }
+    }
+    return true;
+  }
   handleChange = (event) => {
     const state = this.state;
     state[event.target.name] = event.target.value;
@@ -58,13 +78,17 @@ class Survey extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.handleSubmit(this.state);
+    if (this.validateForm()) {
+      this.props.handleSubmit(this.state);
+    } else {
+      console.log('nope'); // eslint-disable-line
+    }
   }
   render() {
     const { questions } = this.props.data;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="form-group" role="group">
+      <form className="fade-in" id="survey" onSubmit={this.handleSubmit}>
+        <div className="form-group survey-wrapper" role="group">
           {questions && questions.length > 0 ?
             questions.map((question, index) => (
               <Question
@@ -75,12 +99,6 @@ class Survey extends Component {
               />
             )) : null
           }
-          <div className="form-group submit-button-group">
-            {/*
-            <button type="reset" className="btn-secondary" onClick={this.resetForm}>Reset</button>
-            */}
-            <button type="submit" className="btn-primary">Submit</button>
-          </div>
         </div>
       </form>
     );

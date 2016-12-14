@@ -100,6 +100,8 @@ $green-darken-04: mix($shadow, $green, 60%);
 
 //yellow pallet
 $yellow: $yellow;
+$yellow-lighten-06: mix($highlight, $yellow, 90%);
+$yellow-lighten-05: mix($highlight, $yellow, 75%);
 $yellow-lighten-04: mix($highlight, $yellow, 60%);
 $yellow-lighten-03: mix($highlight, $yellow, 45%);
 $yellow-lighten-02: mix($highlight, $yellow, 30%);

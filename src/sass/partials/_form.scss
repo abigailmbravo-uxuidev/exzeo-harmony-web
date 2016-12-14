@@ -31,6 +31,10 @@ textarea {
         line-height: 1;
     }
 
+    &[type="range"] {
+        box-shadow: none;
+    }
+
     &[type="radio"] {
         position: relative;
         width: 1rem;
@@ -81,6 +85,8 @@ textarea {
 }
 
 select {
+    box-shadow: none;
+    
     &:not([size]):not([multiple]) {
         height: calc(#{$input-height} - #{$select-border-width});
         $select-border-width: ($border-width * 2);

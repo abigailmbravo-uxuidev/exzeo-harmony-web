@@ -18,6 +18,11 @@ class Search extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    window.location = '/quote?address' + this.state.searchText;
+  }
+
+  handleSelect = (event) => {
+    window.location = '/quote?address' + event.target.innerText;
   }
 
   render() {
@@ -30,7 +35,7 @@ class Search extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        <TypeAhead searchText={searchText} />
+        <TypeAhead searchText={searchText} handleSelect={this.handleSelect} />
       </div>
     );
   }

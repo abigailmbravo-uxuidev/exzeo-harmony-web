@@ -42,6 +42,7 @@ Question.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
+    PropTypes.number,
   ]),
   handleChange: PropTypes.func,
 };

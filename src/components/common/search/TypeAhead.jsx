@@ -23,15 +23,20 @@ const query = gql`
   }
 `;
 
-const TypeAhead = ({ data }) => (
-  <div>
-    {
-      data && data.search ? data.search.map((suggestion, index) => (
-        <Suggestion key={index} data={suggestion} />
-      )) : null
-    }
-  </div>
-);
+
+
+const TypeAhead = ({ data, handleSelect }) => {
+
+  return (
+    <div>
+      {
+        data && data.search ? data.search.map((suggestion, index) => (
+            <Suggestion key={index} data={suggestion} handleSelect={handleSelect}/>
+        )) : null
+      }
+    </div>
+  );
+};
 
 TypeAhead.propTypes = {
   data: PropTypes.shape({

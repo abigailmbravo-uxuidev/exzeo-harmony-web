@@ -1,7 +1,8 @@
 /*typtap specific styles & layout*/
 @import "partials/_mixins";
-@import "partials/_variables"; //@import "partials/utilities/_flex";
+@import "partials/_variables";
 @import "partials/mixins/_hover";
+@import "partials/mixins/_flexbox";
 @import "partials/mixins/_tab-focus";
 @import "partials/mixins/_buttons";
 @import "partials/mixins/_forms";
@@ -9,8 +10,9 @@
 @import "partials/_normalize";
 @import "partials/_reset";
 /*Set base typography*/
-@import "partials/_card";
 @import "partials/_type";
+@import "partials/_range";
+@import "partials/_card";
 @import "partials/_form";
 @import "partials/_buttons";
 @import "partials/_workflow";
@@ -37,42 +39,51 @@ html {
                 margin: 0;
                 padding: 0;
                 align-items: center;
+                flex-shrink: 0;
 
                 header {
                     display: flex;
                     width: 100%;
                     justify-content: center;
+                    flex-shrink: 0;
 
                     div[role="banner"] {
-                        h1 {
-                            display: none;
-                        }
-
-                        >nav {
-                            display: none;
-                        }
-                        .userName {
-                            text-align: right;
-                            flex-grow: 0;
-                        }
                         @include for-phone-only {
+                            h1 {
+                                display: none;
+                            }
+
+                            > nav {
+                                display: none;
+                            }
+
                             .userName {
+                                text-align: right;
                                 flex-grow: 1;
                             }
                         }
-                        @include for-tablet-landscape-up {
-                            h1 {display:block;}
-                        }
-
                         @include for-tablet-portrait-up {
                             > nav {
-                                display: flex;
-                                flex: 1;
-                                justify-content: flex-end;
+                                display: none;
 
                                 > a {
                                     margin-left: 1rem;
                                 }
+                            }
+                        }
+                        @include for-tablet-landscape-up {
+                            > nav {
+                                display: flex;
+                                flex: 1;
+                                justify-content: flex-end;
+                            }
+
+                            h1 {
+                                display: block;
+                            }
+
+                            .username {
+                                flex-grow: 0;
                             }
                         }
                     }
@@ -90,17 +101,120 @@ html {
                         display: flex;
                         width: 100%;
                         flex: 1;
+
+                        .workflow-content {
+                            aside {
+                                .sidePanel {
+
+                                }
+                            }
+                            section {
+                                .results {
+                                    ul {
+                                        z-index: 1;
+                                        margin: 0;
+                                        padding: 0;
+                                        list-style: none;
+
+                                        li {
+                                            display: flex;
+                                            flex-direction: row;
+                                            margin-bottom: $padding/2;
+
+                                            a {
+                                                z-index: 1;
+                                                display: flex;
+                                                flex-direction: row;
+                                                width: 100%;
+                                                padding: $padding $padding*1.5;
+                                                text-decoration: none;
+                                                border: $card-border-width solid $card-border-color;
+                                                border-radius: $card-border-radius;
+                                                background: $white;
+                                                box-shadow: $card-box-shadow;
+                                                align-items: center;
+                                                @include transition(all .2s ease-in-out);
+
+                                                section {
+                                                    flex-grow: 1;
+
+                                                    h2,
+                                                    h3,
+                                                    h4,
+                                                    h5 {
+                                                        margin: 0;
+                                                    }
+
+                                                    p {
+                                                        margin: 0;
+                                                    }
+                                                }
+
+                                                i {
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    width: 1rem;
+                                                    height: 1rem;
+                                                    font-size: $font-size-h4;
+                                                    align-items: center;
+                                                    justify-content: flex-end;
+                                                    @include transition(all .2s ease-in-out);
+                                                }
+
+                                                &:hover {
+                                                    z-index: 2;
+                                                    cursor: pointer;
+                                                    transform: scale(1.004);
+                                                    box-shadow: $card-box-shadow-hover;
+
+                                                    h2,
+                                                    h3,
+                                                    h4,
+                                                    h5 {
+                                                        color: $bright-blue-darken-02;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                .survey-wrapper {
+                                    flex-direction: row;
+                                    flex-wrap: wrap;
+                                    padding: ($padding*2) ($padding*2) $padding;
+
+                                    .form-group {
+                                        margin-bottom: 1.45rem;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
                 footer {
                     display: flex;
-                    display: flex;
                     flex-direction: column;
                     width: 100%;
                     align-items: center;
+                    flex-shrink: 0
                 }
             }
         }
     }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    //border-color: $green;
+  -webkit-box-shadow: 0 0 0px 1000px $yellow-lighten-06 inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
