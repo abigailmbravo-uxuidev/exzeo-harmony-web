@@ -113,10 +113,8 @@ class Workflow extends Component {
                 </section>
               </div>
             </aside>
-            <section>{React.cloneElement(
-              ActiveStep,
-              { handleSubmit: this.handleSubmit },
-            )}
+            <section>
+              {ActiveStep}
             </section>
           </div>
           <div className="workflow-steps">
