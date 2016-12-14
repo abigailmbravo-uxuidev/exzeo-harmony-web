@@ -345,6 +345,9 @@ html {
                                     aside {
                                         display: flex;
 
+                                        @include for-phone-only {
+                                            background-color: $cool-gray-00;
+                                        }
 
                                         .sidePanel {
                                             padding: $padding;
@@ -359,7 +362,7 @@ html {
                                             @include for-phone-only {
                                                 flex-grow: 1;
                                                 flex-basis: auto;
-                                                margin: $padding;
+                                                margin: 0;
                                             }
                                             section {
                                                 flex-grow: 0;
@@ -385,6 +388,9 @@ html {
                                                         }
                                                         dt {
                                                             flex-basis: auto;
+                                                            @include for-phone-only {
+                                                                flex-basis: 40%;
+                                                            }
                                                         }
                                                         dd {
                                                             display: flex;
@@ -408,6 +414,10 @@ html {
                                                     padding: $padding;
                                                     margin: (-$padding) (-$padding) ($margin-bottom - $padding);
                                                     background-color: $yellow-lighten-04;
+
+                                                    @include for-phone-only {
+                                                        margin-bottom: 0;
+                                                    }
 
                                                     dl {
                                                         dt {}
