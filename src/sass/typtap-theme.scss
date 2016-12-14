@@ -147,7 +147,7 @@ html {
 
             > div {
                 background: $cool-gray-00;
-
+                /*header*/
                 header {
                     padding: $padding $padding*2;
                     border-bottom: 2px solid $green;
@@ -194,16 +194,13 @@ html {
                         }
                     }
                 }
-
+                /*search*/
                 .search {
                     z-index: 10;
                     display: flex;
                     width: 100%;
                     margin-bottom: 0;
                     align-items: flex-start;
-                    @include for-1024-up {
-                        //padding: $padding 0;
-                    }
                     @include for-tablet-landscape-up {
                         max-width: 64rem;
                     }
@@ -245,7 +242,7 @@ html {
                         }
                     }
                 }
-
+                /*main*/
                 main {
                     div[role="article"] {
                         padding: $padding*2;
@@ -340,21 +337,29 @@ html {
                                 }
 
                                 .workflow-content {
+                                    flex-direction: row;
+
+                                    @include for-phone-only {
+                                        flex-direction: column;
+                                    }
                                     aside {
                                         display: flex;
 
-                                        .sidePanel {
-                                            display: none;
-                                            margin: $padding 0 $padding $padding;
-                                            padding: $padding;
 
-                                            @include for-tablet-landscape-up {
-                                                display: flex;
-                                                flex-direction: column;
-                                                flex-basis: 12rem;
-                                                width: 12rem;
-                                                flex-shrink: 0;
-                                                flex-grow: 0;
+                                        .sidePanel {
+                                            padding: $padding;
+                                            margin: $padding 0 $padding $padding;
+                                            display: flex;
+                                            flex-direction: column;
+                                            flex-basis: 12rem;
+                                            width: 12rem;
+                                            flex-shrink: 0;
+                                            flex-grow: 0;
+
+                                            @include for-phone-only {
+                                                flex-grow: 1;
+                                                flex-basis: auto;
+                                                margin: $padding;
                                             }
                                             section {
                                                 flex-grow: 0;
@@ -362,17 +367,24 @@ html {
                                                 margin-bottom: $margin-bottom;
                                                 dl {
                                                     display: flex;
-                                                    flex-direction: column;
                                                     margin: 0;
+                                                    flex-wrap: wrap;
+                                                    flex-direction: column;
+
+                                                    @include for-phone-only {
+                                                        flex-direction: row;
+                                                    }
 
                                                     dt {
                                                         margin: 0;
+                                                        flex-basis: auto;
                                                     }
 
                                                     dd {
                                                         display: flex;
                                                         flex-direction: column;
                                                         margin: 0 0 ($padding/2);
+                                                        flex-basis: auto;
 
                                                         &:last-child {
                                                             margin-bottom: 0;
@@ -514,7 +526,7 @@ html {
                         }
                     }
                 }
-
+                /*footer*/
                 footer {
                     background: $cool-gray-00;
 
