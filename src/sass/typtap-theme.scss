@@ -365,29 +365,41 @@ html {
                                                 flex-grow: 0;
                                                 flex-shrink: 0;
                                                 margin-bottom: $margin-bottom;
+
+                                                @include for-phone-only {
+                                                    margin-bottom: 0;
+                                                }
                                                 dl {
                                                     display: flex;
                                                     margin: 0;
-                                                    flex-wrap: wrap;
                                                     flex-direction: column;
 
-                                                    @include for-phone-only {
-                                                        flex-direction: row;
-                                                    }
-
-                                                    dt {
-                                                        margin: 0;
-                                                        flex-basis: auto;
-                                                    }
-
-                                                    dd {
+                                                    div {
                                                         display: flex;
+                                                        margin: 0;
+                                                        flex-wrap: wrap;
                                                         flex-direction: column;
-                                                        margin: 0 0 ($padding/2);
-                                                        flex-basis: auto;
 
+                                                        @include for-phone-only {
+                                                            flex-direction: row;
+                                                        }
+                                                        dt {
+                                                            flex-basis: auto;
+                                                        }
+                                                        dd {
+                                                            display: flex;
+                                                            flex-direction: column;
+                                                            flex-basis: auto;
+
+                                                            @include for-phone-only {
+                                                                margin: 0 0 0 $padding;
+                                                            }
+                                                        }
                                                         &:last-child {
-                                                            margin-bottom: 0;
+                                                            dd {
+                                                                margin-bottom: 0;
+                                                            }
+
                                                         }
                                                     }
                                                 }
