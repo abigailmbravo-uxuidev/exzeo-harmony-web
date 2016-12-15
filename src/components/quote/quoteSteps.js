@@ -48,7 +48,7 @@ const steps = {
     url: '/property-address',
     status: 'selected',
     required: true,
-    component: <PropertySearch searchText="123 Main" />,
+    componentType: <PropertySearch searchText="123 Main" />,
   },
   askUWAnswers: {
     name: 'Undewriting Q & A',

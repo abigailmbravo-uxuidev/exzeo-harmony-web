@@ -18,7 +18,8 @@ const query = gql`
 
 const SearchResultsWithQuery = graphql(query)(SearchResults);
 
-const QuoteSearchResults = ({ data }) => {
+const QuoteSearchResults = (x) => {
+  console.log('fdsafdsafdsfasd, ', x);
   const searchText = '123 Main';
   const type = 'card';
   return (

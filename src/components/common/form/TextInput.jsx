@@ -21,7 +21,7 @@ TextInput.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
+  answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   handleChange: PropTypes.func,
   styleName: PropTypes.string,
 };

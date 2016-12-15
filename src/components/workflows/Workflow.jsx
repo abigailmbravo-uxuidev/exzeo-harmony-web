@@ -14,8 +14,39 @@ mutation startWorkFlow($input:WorkflowInput) {
 }
 `;
 
+const completeStep = gql`
+  mutation CompleteStep($input:CompleteStepInput) {
+    completeStep(input:$input)
+  }
+`;
+
+const Step = graphql(completeStep)(({ component, workflowId, stepName, mutate }) => {
+  function mutateStep(args) {
+    console.log(args);
+    const data = [];
+    data.push({
+      key: 'selectedAddress',
+      value: args.address1,
+    });
+    mutate({ variables: { input: { workflowId, stepName, data } } })
+      .then(fdsa => console.log('task completed: ', fdsa))
+      .catch(error => console.log(error));
+  }
+  return (
+    <div>
+      {
+        component ? React.cloneElement(
+          component,
+          { completeStep: (x) => { mutateStep(x); } },
+        ) : null
+      }
+    </div>
+  );
+});
+
 class Workflow extends Component {
   static propTypes = {
+    id: '',
     steps: PropTypes.object,
   }
   state = {
@@ -30,10 +61,12 @@ class Workflow extends Component {
         const workflowSteps = [];
         data.startWorkflow.steps.forEach((step) => {
           if (steps && steps[step.name]) {
-            workflowSteps.push(steps[step.name]);
+            const newStep = steps[step.name];
+            newStep.taskName = step.name;
+            workflowSteps.push(newStep);
           }
         });
-        this.setState({ workflowSteps });
+        this.setState({ workflowSteps, id: data.startWorkflow.id });
       })
       .catch(x => console.log('err: ', x))
   }
@@ -63,10 +96,10 @@ class Workflow extends Component {
     this.increaseStep();
   }
   render() {
-    console.log('WORKFLOW: ', this.state);
+    console.log('WORKFLOW: ', this.props);
     const { activeStep, workflowSteps } = this.state;
     const ActiveStep = workflowSteps && workflowSteps[activeStep] ?
-      workflowSteps[activeStep].component : null;
+      workflowSteps[activeStep] : null;
     return (
       <div className="workflow" role="article">
         <div className="fade-in">
@@ -114,7 +147,11 @@ class Workflow extends Component {
               </div>
             </aside>
             <section>
-              {ActiveStep}
+              <Step
+                component={ActiveStep ? ActiveStep.component : null}
+                workflowId={this.state.id}
+                stepName={ActiveStep ? ActiveStep.taskName : null}
+              />
             </section>
           </div>
           <div className="workflow-steps">

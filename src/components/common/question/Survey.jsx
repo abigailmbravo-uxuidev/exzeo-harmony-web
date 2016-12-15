@@ -9,7 +9,7 @@ class Survey extends Component {
         id: PropTypes.string,
         question: PropTypes.string,
         description: PropTypes.string,
-        answerType: PropTypes.oneOf(['email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
+        answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
         answers: PropTypes.arrayOf(PropTypes.shape({
           answer: PropTypes.string,
           image: PropTypes.string,
@@ -85,6 +85,7 @@ class Survey extends Component {
     }
   }
   render() {
+    console.log('SURVEY: ', this);
     const { questions } = this.props.data;
     return (
       <form className="fade-in" id="survey" onSubmit={this.handleSubmit}>
