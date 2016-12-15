@@ -1,10 +1,5 @@
 
 // Variables
-//
-// Copy settings from this file into the provided `_custom.scss` to override
-// the Harmony defaults without modifying key, versioned files.
-
-
 
 
 // Table of Contents
@@ -20,20 +15,21 @@
 // Components
 @import "mixins/_animation";
 
+//fade in animation
 @include keyframes(fade-in) {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
-
 .fade-in {
     @include animation('fade-in 1s 1');
 }
-
 
 @mixin _assert-ascending($map, $map-name) {
   $prev-key: null;
   $prev-num: null;
   @each $key, $num in $map {
+    $prev-key: $key;
+    $prev-num: $num;
     @if $prev-num == null {
       // Do nothing
     } @else if not comparable($prev-num, $num) {
@@ -41,8 +37,6 @@
     } @else if $prev-num >= $num {
       @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
     }
-    $prev-key: $key;
-    $prev-num: $num;
   }
 }
 
@@ -56,17 +50,7 @@
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
-/*
-/////////////////// remove if possible ////////////////////////////
-$enable-flex:               false !default;
-$enable-shadows:            false !default;
-$enable-gradients:          false !default;
-$enable-transitions:        false !default;
-$enable-grid-classes:       true !default;
-$enable-print-styles:       true !default;
-/////////////////// remove if possible ////////////////////////////
-*/
-
+$enable-shadows:            true !default;
 $enable-hover-media-query:  false !default;
 $enable-rounded:                    true !default;
 
@@ -77,6 +61,7 @@ $enable-rounded:                    true !default;
 // You can add more entries to the $spacers map, should you need more variation.
 
 $margin: 1rem;
+$margin-bottom: 1.45rem;
 $padding: ($margin/2);
 
 $spacer:   1rem !default;
@@ -101,6 +86,7 @@ $spacers: (
   )
 ) !default;
 $border-width: 1px !default;
+$border-color: $warm-gray-03 !default;
 $select-border-width: $border-width !default;
 // Body
 //
@@ -148,11 +134,11 @@ body {
     padding: 0;
 }
 .container {
+    display: flex;
     margin-right: auto;
     margin-left: auto;
-    padding-left: $padding / 2;
     padding-right: $padding / 2;
-    display: flex;
+    padding-left: $padding / 2;
 }
 /* X-small screens */
 // up to 568px
@@ -638,10 +624,8 @@ $code-padding-x:              .4rem !default;
 $code-padding-y:              .2rem !default;
 $code-color:                  $red-darken-01 !default;
 $code-bg:                     $warm-gray-03 !default;
-
 $kbd-color:                   $white !default;
 $kbd-bg:                      $warm-gray-07 !default;
-
 $pre-bg:                      $warm-gray-01!default;
 $pre-color:                   $warm-gray-14 !default;
 $pre-border-color:            $warm-gray-04 !default;
@@ -659,7 +643,6 @@ $thumb-shadow-blur: 1px !default;
 $thumb-shadow-color: $cool-gray-03 !default;
 $thumb-border-width: 1px !default;
 $thumb-border-color: $bright-blue!default;
-
 $track-width: 100% !default;
 $track-height: .8rem !default;
 $track-shadow-size: 0 !default;
@@ -667,6 +650,21 @@ $track-shadow-blur: 2px !default;
 $track-shadow-color: $cool-gray-03 !default;
 $track-border-width: 0 !default;
 $track-border-color: $cool-gray-02 !default;
-
 $track-radius: .125rem !default;
 $contrast: 5% !default;
+
+//chrome autofill bonus
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px $yellow-lighten-06 inset;
+}
