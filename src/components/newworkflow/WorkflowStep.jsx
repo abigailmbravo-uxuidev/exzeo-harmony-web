@@ -61,11 +61,6 @@ class WorkflowStep extends Component {
     return (
       <div className="workflow-content">
         <section>
-          <hr />
-          {
-            steps ? steps.name : null
-          }
-          <hr />
           <Survey
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
