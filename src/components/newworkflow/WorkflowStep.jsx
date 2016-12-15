@@ -15,24 +15,31 @@ class WorkflowStep extends Component {
     workflowId: PropTypes.string,
     completeStep: PropTypes.func,
   }
+  static contextTypes = {
+    router: PropTypes.any,
+  }
   state = {
     questions: {},
   }
   handleChange = (event) => {
     const { questions } = this.state;
+    console.log(event.target.name, event.target.value);
     questions[event.target.name] = Number(event.target.value) ?
      Number(event.target.value) : event.target.value;
     this.setState({ questions });
   }
   handleSubmit = (event) => {
-    event.preventDefault();
+    if (event && event.preventDefault) event.preventDefault();
     this.props.completeStep({ variables: { input: {
       workflowId: this.props.workflowId,
       stepName: this.props.data.steps.name,
       data: this.formatData(),
     } } })
       .then(() => {
-        this.props.data.refetch();
+        this.props.data.refetch()
+          .then(({ data }) => {
+            this.context.router.transitionTo(`/workflow/${data.steps.name}`);
+          });
       })
       .catch(error => console.log(error));
   }
@@ -47,42 +54,23 @@ class WorkflowStep extends Component {
     return answers;
   }
   render() {
-    console.log(this);
+    console.log('STEPS: ', this);
     const { steps } = this.props.data;
     return (
-      <div>
-        <h2>Survey Component</h2>
-        <hr />
-        {
-          steps ? steps.name : null
-        }
-        <hr />
-        <Survey data={{ questions: steps ? steps.inputs : null }} />
-        <br />
-        <hr />
-        {
-          steps ? steps.name : null
-        }
-        <hr />
-        <br />
-        <h2>Hard Coded Form</h2>
-        <form onSubmit={this.handleSubmit}>
+      <div className="workflow-content">
+        <section>
+          <hr />
           {
-            steps ? steps.inputs.map((i, index) => (
-              <div key={index}>
-                <label htmlFor={i.question}>{i.question}</label>
-                <input
-                  id={i.question}
-                  name={i.question}
-                  value={this.state.questions[i.question] || ''}
-                  onChange={this.handleChange}
-                  type={i.answerType}
-                />
-              </div>
-            )) : null
+            steps ? steps.name : null
           }
-          <button type="submit">Submit</button>
-        </form>
+          <hr />
+          <Survey
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            questions={steps ? steps.inputs : null}
+            answers={this.state.questions}
+          />
+        </section>
       </div>
     );
   }

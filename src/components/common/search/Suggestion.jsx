@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 
 const Suggestion = ({ data, handleSelect }) => {
+
   const { heading, mapping, results, count } = data;
+
   return (
     <div>
       <span className="heading">{heading} <span> {count}</span></span>
@@ -10,7 +12,7 @@ const Suggestion = ({ data, handleSelect }) => {
         {
           results && results.length > 0 ? results.map((result, index) => (
             <li key={index}>
-                <a onClick={handleSelect}>
+                <a onClick={handleSelect} >
                     <span>{result[mapping.title]} {result[mapping.details]}</span><i className="fa fa-chevron-circle-right"></i>
                 </a>
             </li>

@@ -18,15 +18,13 @@ const query = gql`
 
 const SearchResultsWithQuery = graphql(query)(SearchResults);
 
-const QuoteSearchResults = (x) => {
-  console.log('fdsafdsafdsfasd, ', x);
-  const searchText = '123 Main';
-  const type = 'card';
-  return (
-    <div>
-      <SearchResultsWithQuery searchText={searchText} type={type} />
-    </div>
-  );
+const QuoteSearchResults = (props) => {
+    let type = 'card';
+    return (
+        <div>
+            <SearchResultsWithQuery searchText={props.params.address} type={type}/>
+        </div>
+    )
 };
 
 export default QuoteSearchResults;

@@ -1,20 +1,28 @@
 import React, { PropTypes } from 'react';
 
-const WorkflowHeader = ({ steps, updateStep }) => (
-  <ul className="workflow-header">
-          <div className="rule"></div>
-    {
-      steps.map((step, index) => (
-        <li key={index}>
-          <a className={status} tabIndex={index} onClick={() => { updateStep(index); }}>
-            <i className={`fa ${step.icon}`} />
-            <span>{step.name}</span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-);
+const WorkflowHeader = (d, f) => {
+  return (
+    <ul className="workflow-header">
+      <div className="rule" />
+      {
+        d.steps ? d.steps.map((step, index) => {
+          let status;
+          if (location.pathname.indexOf(step.name) > -1) {
+            status = 'active';
+          }
+          return (
+            <li key={index}>
+              <a className={status || 'disabled'} tabIndex={index} onClick={() => { d.updateStep(index); }}>
+                <i className={`fa ${step.icon || 'fa-circle'}`} />
+                <span>{step.name}</span>
+              </a>
+            </li>
+          )
+        }) : null
+      }
+    </ul>
+  );
+};
 
 WorkflowHeader.propTypes = {
   steps: PropTypes.arrayOf(PropTypes.shape({
@@ -23,6 +31,10 @@ WorkflowHeader.propTypes = {
     complete: PropTypes.bool,
   })),
   updateStep: PropTypes.func,
+};
+
+WorkflowHeader.contextTypes = {
+  location: PropTypes.any,
 };
 
 export default WorkflowHeader;

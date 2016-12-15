@@ -31,7 +31,7 @@ const TypeAhead = ({ data, handleSelect }) => {
     <div>
       {
         data && data.search ? data.search.map((suggestion, index) => (
-            <Suggestion key={index} data={suggestion} handleSelect={handleSelect}/>
+            <Suggestion key={index} data={suggestion} handleSelect={handleSelect} />
         )) : null
       }
     </div>

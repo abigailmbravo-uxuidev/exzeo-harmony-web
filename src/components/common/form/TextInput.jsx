@@ -5,7 +5,7 @@ const TextInput = ({ question, description, id, value, answerType, handleChange,
     <label htmlFor={id || null}>{question || null}</label>
     <input
       type={answerType || 'text'}
-      name={id || null}
+      name={question || null}
       value={value || ''}
       onChange={handleChange || null}
     />

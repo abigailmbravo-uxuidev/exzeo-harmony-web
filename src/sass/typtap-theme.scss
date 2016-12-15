@@ -1,13 +1,15 @@
 /*typtap specific styles & layout*/
 @import "base.scss";
-$margin-bottom: 1.45rem;
 /*universal typtap styles*/
 html body {
+
+    //links
     a,
     a:visited {
         color: $bright-blue;
     }
 
+    //inputs
     input,
     textarea {
         width: 100%;
@@ -23,9 +25,53 @@ html body {
             color: $cool-gray-02;
             font-style: italic;
         }
+        //range input
+        @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
+            box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
+        }
+        @mixin thumb() {
+            cursor: pointer;
+            border: $thumb-border-width solid $thumb-border-color;
+            background: $thumb-color;
+            @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+        }
 
         &[type="range"] {
             border-bottom-width: 0;
+
+            &::-webkit-slider-runnable-track {
+                border: $track-border-width solid $track-border-color;
+                background: $track-color;
+                @include track();
+                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            }
+
+            &::-moz-range-track {
+                border: $track-border-width solid $track-border-color;
+                background: $track-color;
+                @include track();
+                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            }
+
+            &::-ms-fill-lower {
+                border: $track-border-width solid $track-border-color;
+                background: darken($track-color, $contrast);
+                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            }
+
+            &::-ms-fill-upper {
+                border: $track-border-width solid $track-border-color;
+                background: $track-color;
+                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            }
+
+            &:focus::-ms-fill-lower {
+                background: $track-color;
+            }
+
+            &:focus::-ms-fill-upper {
+                background: lighten($track-color, $contrast);
+            }
         }
     }
 
@@ -57,10 +103,9 @@ html body {
                 input[type="radio"]:checked {
                     + span {
                         color: $body-color;
-                        background: $white;
                         border-color: $cool-gray-02;
+                        background: $white;
                         box-shadow: 0 0 0 2px $green inset;
-
                     }
                 }
             }
@@ -93,6 +138,7 @@ html body {
                     &:checked {
                         +div {
                             background: $green;
+
                             &:before {
                                 transform: translateX(2rem);
                             }
@@ -121,6 +167,7 @@ html body {
         }
     }
 
+    //buttons
     .btn {
         height: auto;
         text-transform: uppercase;
@@ -130,6 +177,7 @@ html body {
         }
     }
 
+    //cards
     .card {
         background: $white;
 
@@ -142,81 +190,39 @@ html body {
 /*specific typtap styles*/
 html {
     body {
+
+        //site background
         div#root {
             background: $cool-gray-00;
 
             > div {
                 background: $cool-gray-00;
 
+                //header
                 header {
-                    padding: $padding $padding*2;
                     border-bottom: 2px solid $green;
                     background: $black;
 
-                    > div[role="banner"] {
-                        display: flex;
-                        width: 100%;
-                        align-items: center;
-                        @include for-tablet-landscape-up {
-                            max-width: 64rem;
-                        }
-                        @include for-big-desktop-up {
-                            max-width: 90rem;
-                        }
+                    div[role="banner"] {
 
                         > .logo {
-                            display: block;
-                            width: 7rem;
-                            flex-basis: 7rem;
-                            flex-shrink: 0;
+
                         }
 
                         > h1 {
-                            margin: 0 0 0 1rem;
-                            text-align: center;
-                            color: $white;
                             color: $cool-gray-10;
-                            font-size: $font-size-h3;
-                            font-weight: 300;
                         }
 
                         a {
-                            margin-left: 1rem;
-                            white-space: nowrap;
-                            text-decoration: none;
-                            font-size: $font-size-h6;
-                            @include transition(all .2s ease-in-out);
 
                             &:hover {
-                                text-decoration: none;
                                 color: $bright-blue-lighten-02;
                             }
                         }
                     }
                 }
-
+                //search
                 .search {
-                    z-index: 10;
-                    display: flex;
-                    width: 100%;
-                    margin-bottom: 0;
-                    align-items: flex-start;
-                    @include for-1024-up {
-                        //padding: $padding 0;
-                    }
-                    @include for-tablet-landscape-up {
-                        max-width: 64rem;
-                    }
-                    @include for-big-desktop-up {
-                        max-width: 90rem;
-                    }
-
-                    form {
-                        input {}
-
-                        button {}
-                    }
-
                     > div {
                         > div {
                             background: $cool-gray-00;
@@ -245,64 +251,31 @@ html {
                         }
                     }
                 }
-
+                //main
                 main {
                     div[role="article"] {
-                        padding: $padding*2;
                         background: $white;
                         @include for-1024-up {
-                            border-top-width: 0;
                             border-right: $card-border-width solid $cool-gray-01;
                             border-left: $card-border-width solid $cool-gray-01;
-                        }
-                        @include for-tablet-landscape-up {
-                            max-width: 64rem;
-                        }
-                        @include for-big-desktop-up {
-                            max-width: 90rem;
                         }
 
                         &.login {
                             border-top: $card-border-width solid $cool-gray-01;
-                            align-items: center;
-                            justify-content: center;
                         }
 
                         &.splash {
                             border-top: $card-border-width solid $cool-gray-01;
-                            align-items: center;
-                            justify-content: center;
-
-                            .fade-in {
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                justify-content: center;
-                            }
                         }
 
                         &.survey {
                             border-top: $card-border-width solid $cool-gray-01;
-
-                            .fade-in {
-                                display: flex;
-                                flex-direction: column;
-                                flex: 1;
-                            }
                         }
 
                         &.workflow {
-                            padding: 0;
-
                             .fade-in {
-                                display: flex;
-                                flex-direction: column;
-                                flex: 1;
-
                                 .workflow-header {
-                                    padding: $padding;
                                     background-color: $cool-gray-01;
-                                    flex-shrink: 0;
 
                                     .rule {
                                         background: $cool-gray-03;
@@ -310,26 +283,28 @@ html {
 
                                     li {
                                         a {
+
+                                            color: $cool-gray-03;
+
                                             i.fa {
-                                                width: 2rem;
                                                 background: $cool-gray-01;
                                             }
 
-                                            span {}
+                                            &.active {
+                                                color: $bright-blue;
 
-                                            &:focus,
-                                            &:hover {
-                                                color: $bright-blue-lighten-01;
+                                                &:focus,
+                                                &:hover {
+                                                    color: $bright-blue-lighten-01;
+                                                }
                                             }
 
                                             &.disabled {
                                                 color: $cool-gray-03;
-                                                outline: none;
                                             }
 
-                                            &.active {
+                                            &.selected {
                                                 color: $cool-gray-14;
-                                                outline: none;
 
                                                 i.fa {
                                                     color: $green;
@@ -340,131 +315,57 @@ html {
                                 }
 
                                 .workflow-content {
+                                    flex-direction: row;
+                                    @include for-phone-only {
+                                        flex-direction: column;
+                                    }
+
                                     aside {
-                                        display: flex;
+                                        @include for-phone-only {
+                                            background-color: $cool-gray-00;
+                                        }
 
                                         .sidePanel {
-                                            display: none;
-                                            margin: $padding 0 $padding $padding;
-                                            padding: $padding;
-
-                                            @include for-tablet-landscape-up {
-                                                display: flex;
-                                                flex-direction: column;
-                                                flex-basis: 12rem;
-                                                width: 12rem;
-                                                flex-shrink: 0;
-                                                flex-grow: 0;
-                                            }
                                             section {
-                                                flex-grow: 0;
-                                                flex-shrink: 0;
-                                                margin-bottom: $margin-bottom;
-                                                dl {
-                                                    display: flex;
-                                                    flex-direction: column;
-                                                    margin: 0;
-
-                                                    dt {
-                                                        margin: 0;
-                                                    }
-
-                                                    dd {
-                                                        display: flex;
-                                                        flex-direction: column;
-                                                        margin: 0 0 ($padding/2);
-
-                                                        &:last-child {
-                                                            margin-bottom: 0;
-                                                        }
-                                                    }
-                                                }
-
                                                 &.premium {
-                                                    padding: $padding;
-                                                    margin: (-$padding) (-$padding) ($margin-bottom - $padding);
-                                                    background-color: $yellow-lighten-04;
-
-                                                    dl {
-                                                        dt {}
-                                                        dd {}
-                                                    }
+                                                    //background-color: $yellow-lighten-04;
                                                 }
                                             }
                                         }
                                     }
 
                                     section {
-                                        flex-grow: 1;
-
                                         .results {
                                             ul {
-                                                margin: 0;
-                                                padding: $padding;
-
                                                 li {
                                                     a {
-                                                        z-index: 1;
-                                                        display: flex;
-                                                        flex-direction: row;
-                                                        width: 100%;
-                                                        padding: $padding $padding*1.5;
-                                                        text-decoration: none;
-                                                        border: $card-border-width solid $card-border-color;
-                                                        border-radius: $card-border-radius;
                                                         background: $white;
-                                                        box-shadow: $card-box-shadow;
-                                                        align-items: center;
-                                                        @include transition(all .2s ease-in-out);
 
                                                         section {
-                                                            flex-grow: 1;
-
                                                             h2,
                                                             h3,
                                                             h4,
                                                             h5 {
-                                                                margin: 0;
                                                                 color: $cool-gray-14;
                                                             }
 
                                                             p {
-                                                                margin: 0;
                                                                 color: $cool-gray-12;
                                                             }
                                                         }
 
                                                         i {
-                                                            display: flex;
-                                                            flex-direction: row;
-                                                            width: 1rem;
-                                                            height: 1rem;
-                                                            font-size: $font-size-h4;
-                                                            align-items: center;
-                                                            @include transition(all .2s ease-in-out);
-
                                                             &.card-icon {
                                                                 color: $green;
-                                                                font-size: 2rem;
-                                                                flex-basis: 2rem;
-
-                                                                &:before {
-                                                                    width: 2rem;
-                                                                }
                                                             }
 
                                                             &.fa-chevron-circle-right {
                                                                 color: $bright-blue;
-                                                                font-size: 2rem;
                                                             }
                                                         }
 
                                                         &:focus,
                                                         &:hover {
-                                                            z-index: 2;
-                                                            transform: scale(1.004);
-                                                            box-shadow: $card-box-shadow-hover;
-
                                                             h2,
                                                             h3,
                                                             h4,
@@ -483,58 +384,27 @@ html {
                                                 }
                                             }
                                         }
-
-                                        .survey-wrapper {
-                                            .form-group {
-                                                label {
-                                                    font-size: $font-size-h4;
-                                                }
-                                            }
-                                        }
                                     }
                                 }
                             }
                         }
 
-                        .card {
-                            z-index: 10;
-                        }
-
                         .modal {
-                            position: absolute;
-                            z-index: 1;
-                            top: 0;
-                            right: 0;
-                            bottom: -4rem;
-                            left: 0;
                             background: rgba($black, .75);
-                            @include for-1024-up {
-                                bottom: -4rem -$padding;
-                            }
                         }
                     }
                 }
-
+                //footer
                 footer {
                     background: $cool-gray-00;
 
                     div[role="banner"] {
-                        width: 100%;
-                        margin-bottom: 0;
-                        padding: $padding ($padding*2);
-                        border-top: 1px dotted $cool-gray-00;
+                        border-top: $border-width dotted $cool-gray-00;
                         background: $white;
                         @include for-1024-up {
-                            margin-bottom: $padding;
                             border-right: $card-border-width solid $cool-gray-01;
                             border-bottom: $card-border-width solid $cool-gray-01;
                             border-left: $card-border-width solid $cool-gray-01;
-                        }
-                        @include for-tablet-landscape-up {
-                            max-width: 64rem;
-                        }
-                        @include for-big-desktop-up {
-                            max-width: 90rem;
                         }
                     }
                 }

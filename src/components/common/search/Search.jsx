@@ -17,12 +17,16 @@ class Search extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
-    window.location = '/quote?address' + this.state.searchText;
+    window.location = '/quote/address/' + this.state.searchText;
   }
 
   handleSelect = (event) => {
-    window.location = '/quote?address' + event.target.innerText;
+    window.location = '/quote/address/' + event.target.innerText;
+  }
+
+  componentWillMount(){
+      let address = decodeURIComponent(window.location.pathname.split('/')[3]);
+      this.setState({ searchText: (address !== 'undefined' ? address : '') })
   }
 
   render() {
@@ -34,6 +38,7 @@ class Search extends Component {
           placeholder={placeholder || null}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          searchText={this.state.searchText}
         />
         <TypeAhead searchText={searchText} handleSelect={this.handleSelect} />
       </div>

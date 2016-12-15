@@ -21,7 +21,9 @@ const Question = (props) => {
         isSwitch
       />);
   } else {
-    formElement = <TextInput {...props.question} value={value} handleChange={handleChange} />;
+    formElement = (
+      <TextInput {...props.question} value={props.answer} handleChange={handleChange} />
+    );
   }
   return formElement;
 };

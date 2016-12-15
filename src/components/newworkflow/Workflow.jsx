@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import WorkflowStep from './WorkflowStep';
+import WorkflowHeader from '../workflows/WorkflowHeader';
 
 class Workflow extends Component {
   static propTypes = {
@@ -18,13 +19,20 @@ class Workflow extends Component {
       .catch(error => console.log(error));
   }
   render() {
-    // console.log('WORKFLOW: ', this.state);
+    console.log('WORKFLOW: ', this);
     const { workflow } = this.state;
     return (
-      <div>
-        {
-          workflow.id ? <WorkflowStep workflowId={workflow.id} /> : null
-        }
+      <div className="workflow" role="article">
+        <div className="fade-in">
+          <WorkflowHeader
+            steps={workflow.steps}
+            activeStep={0}
+            updateStep={this.updateStep}
+          />
+          {
+            workflow.id ? <WorkflowStep workflowId={workflow.id} /> : null
+          }
+        </div>
       </div>
     );
   }

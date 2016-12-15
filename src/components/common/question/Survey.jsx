@@ -4,35 +4,33 @@ import Question from './Question';
 class Survey extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func,
-    data: PropTypes.shape({
-      questions: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        question: PropTypes.string,
-        description: PropTypes.string,
-        answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
-        answers: PropTypes.arrayOf(PropTypes.shape({
-          answer: PropTypes.string,
-          image: PropTypes.string,
-        })),
-        optional: PropTypes.bool,
-        styleName: PropTypes.string,
+    handleChange: PropTypes.func,
+    questions: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      question: PropTypes.string,
+      description: PropTypes.string,
+      answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
+      answers: PropTypes.arrayOf(PropTypes.shape({
+        answer: PropTypes.string,
+        image: PropTypes.string,
       })),
-    }),
+      optional: PropTypes.bool,
+      styleName: PropTypes.string,
+    })),
   }
-  state = {}
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.data.loading && !Object.keys(this.state).length) {
-      this.resetForm(nextProps);
-      return true;
-    }
-    return false;
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (!nextProps.data.loading && !Object.keys(this.state).length) {
+  //     this.resetForm(nextProps);
+  //     return true;
+  //   }
+  //   return false;
+  // }
   resetForm = (nextProps) => {
     let questions;
     if (nextProps) {
-      questions = nextProps.data.questions;
+      questions = nextProps.questions;
     } else {
-      questions = this.props.data.questions;
+      questions = this.props.questions;
     }
     if (questions && questions.length > 0) {
       const answerState = questions.reduce((values, question) => {
@@ -58,35 +56,16 @@ class Survey extends Component {
       this.setState(answerState);
     }
   }
-  validateForm = () => {
-    // Put in some sort of form validation later
-    if (!Object.keys(this.state).length) {
-      return false;
-    }
-    // eslint-disable-next-line
-    for (const key in this.state) {
-      if (!this.state[key]) {
-        return false;
-      }
-    }
-    return true;
-  }
   handleChange = (event) => {
-    const state = this.state;
-    state[event.target.name] = event.target.value;
-    this.setState(state);
+    this.props.handleChange(event);
   }
   handleSubmit = (event) => {
-    event.preventDefault();
-    if (this.validateForm()) {
-      this.props.handleSubmit(this.state);
-    } else {
-      console.log('nope'); // eslint-disable-line
-    }
+    if (event && event.preventDefault) event.preventDefault();
+    this.props.handleSubmit();
   }
   render() {
     console.log('SURVEY: ', this);
-    const { questions } = this.props.data;
+    const { questions } = this.props;
     return (
       <form className="fade-in" id="survey" onSubmit={this.handleSubmit}>
         <div className="form-group survey-wrapper" role="group">
@@ -95,8 +74,8 @@ class Survey extends Component {
               <Question
                 key={index}
                 question={question}
+                answer={this.props.answers[question.question]}
                 handleChange={this.handleChange}
-                value={this.state[question.id]}
               />
             )) : null
           }

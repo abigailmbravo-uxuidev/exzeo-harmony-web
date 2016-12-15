@@ -4,6 +4,10 @@
     padding: $padding;
     flex-grow: 0;
 
+    @include for-big-desktop-up {
+        padding: $padding*2;
+    }
+
     form {
         display: flex;
         flex-grow: 1;

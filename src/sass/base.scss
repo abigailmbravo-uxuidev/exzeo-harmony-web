@@ -26,10 +26,11 @@ html {
     body {
         margin: 0;
         padding: 0;
-
+        //site background
         div#root {
             margin: 0;
             padding: 0;
+            background: $white;
 
             > div {
                 display: flex;
@@ -38,16 +39,24 @@ html {
                 min-height: 100vh;
                 margin: 0;
                 padding: 0;
+                background: $white;
                 align-items: center;
                 flex-shrink: 0;
 
+                //header
                 header {
                     display: flex;
                     width: 100%;
+                    padding: $padding $padding*2;
+                    border-bottom: 2px solid $green;
+                    background: $black;
                     justify-content: center;
                     flex-shrink: 0;
 
                     div[role="banner"] {
+                        display: flex;
+                        width: 100%;
+                        align-items: center;
                         @include for-phone-only {
                             h1 {
                                 display: none;
@@ -72,6 +81,11 @@ html {
                             }
                         }
                         @include for-tablet-landscape-up {
+                            max-width: 64rem;
+                        }
+                        @include for-tablet-landscape-up {
+                            max-width: 64rem;
+
                             > nav {
                                 display: flex;
                                 flex: 1;
@@ -86,9 +100,84 @@ html {
                                 flex-grow: 0;
                             }
                         }
+                        @include for-big-desktop-up {
+                            max-width: 90rem;
+                        }
+
+                        > .logo {
+                            display: block;
+                            width: 7rem;
+                            flex-basis: 7rem;
+                            flex-shrink: 0;
+                        }
+
+                        > h1 {
+                            margin: 0 0 0 1rem;
+                            text-align: center;
+                            color: $white;
+                            font-size: $font-size-h3;
+                            font-weight: 300;
+                        }
+
+                        a {
+                            margin-left: 1rem;
+                            white-space: nowrap;
+                            text-decoration: none;
+                            font-size: $font-size-h6;
+                            @include transition(all .2s ease-in-out);
+
+                            &:hover {
+                                text-decoration: none;
+                                color: $bright-blue;
+                            }
+                        }
                     }
                 }
 
+                //search
+                .search {
+                    z-index: 10;
+                    display: flex;
+                    width: 100%;
+                    margin-bottom: 0;
+                    align-items: flex-start;
+                    @include for-tablet-landscape-up {
+                        max-width: 64rem;
+                    }
+                    @include for-big-desktop-up {
+                        max-width: 90rem;
+                    }
+
+                    > div {
+                        > div {
+                            background: $warm-gray-01;
+
+                            .heading {
+                                color: $body-color;
+
+                                span {
+                                    color: $warm-gray-06;
+                                    background: $warm-gray-02;
+                                }
+                            }
+                        }
+
+                        ul {
+                            li {
+                                background: $white;
+
+                                a {
+                                    &:hover {
+                                        color: $white;
+                                        background: $bright-blue;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //main
                 main[role="document"] {
                     position: relative;
                     display: flex;
@@ -100,121 +189,350 @@ html {
                     > div[role="article"] {
                         display: flex;
                         width: 100%;
+                        padding: $padding*2;
+                        background: $white;
                         flex: 1;
+                        @include for-1024-up {
+                            border-top-width: 0;
+                            border-right: $card-border-width solid $card-border-color;
+                            border-left: $card-border-width solid $card-border-color;
+                        }
+                        @include for-tablet-landscape-up {
+                            max-width: 64rem;
+                        }
+                        @include for-big-desktop-up {
+                            max-width: 90rem;
+                        }
 
-                        .workflow-content {
-                            aside {
-                                .sidePanel {
+                        &.login {
+                            border-top: $card-border-width solid $card-border-color;
+                            align-items: center;
+                            justify-content: center;
+                        }
 
-                                }
+                        &.splash {
+                            border-top: $card-border-width solid $card-border-color;
+                            align-items: center;
+                            justify-content: center;
+
+                            .fade-in {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
                             }
-                            section {
-                                .results {
-                                    ul {
-                                        z-index: 1;
-                                        margin: 0;
-                                        padding: 0;
-                                        list-style: none;
+                        }
 
-                                        li {
-                                            display: flex;
-                                            flex-direction: row;
-                                            margin-bottom: $padding/2;
+                        &.survey {
+                            border-top: $card-border-width solid $card-border-color;
 
-                                            a {
-                                                z-index: 1;
-                                                display: flex;
-                                                flex-direction: row;
-                                                width: 100%;
-                                                padding: $padding $padding*1.5;
-                                                text-decoration: none;
-                                                border: $card-border-width solid $card-border-color;
-                                                border-radius: $card-border-radius;
-                                                background: $white;
-                                                box-shadow: $card-box-shadow;
-                                                align-items: center;
-                                                @include transition(all .2s ease-in-out);
+                            .fade-in {
+                                display: flex;
+                                flex-direction: column;
+                                flex: 1;
+                            }
+                        }
 
-                                                section {
-                                                    flex-grow: 1;
+                        &.workflow {
+                            padding: 0;
 
-                                                    h2,
-                                                    h3,
-                                                    h4,
-                                                    h5 {
-                                                        margin: 0;
-                                                    }
+                            .fade-in {
+                                display: flex;
+                                flex-direction: column;
+                                flex: 1;
 
-                                                    p {
-                                                        margin: 0;
-                                                    }
-                                                }
+                                .workflow-header {
+                                    padding: $padding;
+                                    background-color: $warm-gray-01;
+                                    flex-shrink: 0;
 
-                                                i {
-                                                    display: flex;
-                                                    flex-direction: row;
-                                                    width: 1rem;
-                                                    height: 1rem;
-                                                    font-size: $font-size-h4;
-                                                    align-items: center;
-                                                    justify-content: flex-end;
-                                                    @include transition(all .2s ease-in-out);
-                                                }
+                                    .rule {
+                                        background: $warm-gray-03;
+                                    }
 
+                                    li {
+                                        a {
+
+                                            color: $warm-gray-03;
+
+                                            i.fa {
+                                                width: 2rem;
+                                                background: $warm-gray-01;
+                                            }
+
+                                            &.active {
+
+                                                color: $bright-blue;
+
+                                                &:focus,
                                                 &:hover {
-                                                    z-index: 2;
-                                                    cursor: pointer;
-                                                    transform: scale(1.004);
-                                                    box-shadow: $card-box-shadow-hover;
+                                                    color: $bright-blue-lighten-01;
+                                                }
+                                            }
 
-                                                    h2,
-                                                    h3,
-                                                    h4,
-                                                    h5 {
-                                                        color: $bright-blue-darken-02;
-                                                    }
+                                            &.disabled {
+                                                color: $warm-gray-03;
+                                                outline: none;
+                                            }
+
+                                            &.selected {
+                                                color: $warm-gray-14;
+                                                outline: none;
+
+                                                i.fa {
+                                                    color: $bright-blue;
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                .survey-wrapper {
-                                    flex-direction: row;
-                                    flex-wrap: wrap;
-                                    padding: ($padding*2) ($padding*2) $padding;
 
-                                    .form-group {
-                                        margin-bottom: 1.45rem;
+                                .workflow-content {
+                                    flex-direction: row;
+                                    @include for-phone-only {
+                                        flex-direction: column;
+                                    }
+
+                                    aside {
+                                        display: flex;
+                                        @include for-phone-only {
+                                            background-color: $white;
+                                        }
+
+                                        .sidePanel {
+                                            display: flex;
+                                            flex-direction: column;
+                                            width: 12rem;
+                                            margin: $padding 0 $padding $padding;
+                                            padding: $padding;
+                                            flex-basis: 12rem;
+                                            flex-shrink: 0;
+                                            flex-grow: 0;
+                                            @include for-phone-only {
+                                                margin: 0;
+                                                flex-grow: 1;
+                                                flex-basis: auto;
+                                            }
+
+                                            section {
+                                                margin-bottom: $margin-bottom;
+                                                flex-grow: 0;
+                                                flex-shrink: 0;
+                                                @include for-phone-only {
+                                                    margin-bottom: 0;
+                                                }
+
+                                                dl {
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    margin: 0;
+
+                                                    div {
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        margin: 0;
+                                                        flex-wrap: wrap;
+                                                        @include for-phone-only {
+                                                            flex-direction: row;
+                                                        }
+
+                                                        dt {
+                                                            flex-basis: auto;
+                                                            @include for-phone-only {
+                                                                flex-basis: 40%;
+                                                            }
+                                                        }
+
+                                                        dd {
+                                                            display: flex;
+                                                            flex-direction: column;
+                                                            flex-basis: auto;
+                                                            @include for-phone-only {
+                                                                margin: 0 0 0 $padding;
+                                                            }
+                                                        }
+
+                                                        &:last-child {
+                                                            dd {
+                                                                margin-bottom: 0;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+
+                                                &.premium {
+                                                    margin: (-$padding) (-$padding) ($margin-bottom - $padding);
+                                                    padding: $padding;
+                                                    background-color: $yellow-lighten-04;
+                                                    @include for-phone-only {
+                                                        margin-bottom: 0;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    section {
+                                        flex-grow: 1;
+
+                                        .results {
+                                            ul {
+                                                z-index: 1;
+                                                margin: 0;
+                                                padding: 0;
+                                                list-style: none;
+
+                                                li {
+                                                    display: flex;
+                                                    flex-direction: row;
+                                                    margin-bottom: $padding/2;
+
+                                                    a {
+                                                        z-index: 1;
+                                                        display: flex;
+                                                        flex-direction: row;
+                                                        width: 100%;
+                                                        padding: $padding $padding*1.5;
+                                                        text-decoration: none;
+                                                        border: $card-border-width solid $card-border-color;
+                                                        border-radius: $card-border-radius;
+                                                        background: $white;
+                                                        box-shadow: $card-box-shadow;
+                                                        align-items: center;
+                                                        @include transition(all .2s ease-in-out);
+
+                                                        section {
+                                                            flex-grow: 1;
+
+                                                            h2,
+                                                            h3,
+                                                            h4,
+                                                            h5 {
+                                                                margin: 0;
+                                                                color: $body-color;
+                                                            }
+
+                                                            p {
+                                                                margin: 0;
+                                                                color: $body-color;
+                                                            }
+                                                        }
+
+                                                        i {
+                                                            display: flex;
+                                                            flex-direction: row;
+                                                            width: 1rem;
+                                                            height: 1rem;
+                                                            font-size: $font-size-h4;
+                                                            align-items: center;
+                                                            justify-content: flex-end;
+                                                            @include transition(all .2s ease-in-out);
+
+                                                            &.card-icon {
+                                                                color: $blue;
+                                                                font-size: 2rem;
+                                                                flex-basis: 2rem;
+
+                                                                &:before {
+                                                                    width: 2rem;
+                                                                }
+                                                            }
+
+                                                            &.fa-chevron-circle-right {
+                                                                color: $blue;
+                                                                font-size: 2rem;
+                                                            }
+                                                        }
+
+                                                        &:focus,
+                                                        &:hover {
+                                                            z-index: 2;
+                                                            cursor: pointer;
+                                                            transform: scale(1.004);
+                                                            box-shadow: $card-box-shadow-hover;
+
+                                                            h2,
+                                                            h3,
+                                                            h4,
+                                                            h5,
+                                                            p {
+                                                                color: $bright-blue;
+                                                            }
+
+                                                            i {
+                                                                &.fa-chevron-circle-right {
+                                                                    color: $bright-blue;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        .survey-wrapper {
+                                            flex-direction: row;
+                                            padding: ($padding*2) ($padding*2) $padding;
+                                            flex-wrap: wrap;
+
+                                            .form-group {
+                                                margin-bottom: 1.45rem;
+
+                                                label {
+                                                    font-size: $font-size-h4;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
+
+                        .card {
+                            z-index: 10;
+                        }
+
+                        .modal {
+                            position: absolute;
+                            z-index: 1;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            background: rgba($black, .75);
+                        }
                     }
                 }
 
+                //footer
                 footer {
                     display: flex;
                     flex-direction: column;
                     width: 100%;
                     align-items: center;
-                    flex-shrink: 0
+                    flex-shrink: 0;
+
+                    div[role="banner"] {
+                        width: 100%;
+                        margin-bottom: 0;
+                        padding: $padding ($padding*2);
+                        border-top: $border-width dotted $border-color;
+                        background: $white;
+                        @include for-1024-up {
+                            margin-bottom: $padding;
+                            border-right: $card-border-width solid $border-color;
+                            border-bottom: $card-border-width solid $border-color;
+                            border-left: $card-border-width solid $border-color;
+                        }
+                        @include for-tablet-landscape-up {
+                            max-width: 64rem;
+                        }
+                        @include for-big-desktop-up {
+                            max-width: 90rem;
+                        }
+                    }
                 }
             }
         }
     }
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-    //border-color: $green;
-  -webkit-box-shadow: 0 0 0px 1000px $yellow-lighten-06 inset;
-  transition: background-color 5000s ease-in-out 0s;
 }
