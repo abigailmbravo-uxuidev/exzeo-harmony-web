@@ -76,16 +76,20 @@
                     font-weight: $font-weight-bold;
                 }
 
-                &:focus,
-                &:hover {
-                    text-decoration: none;
+                &.active {
+                    cursor: pointer;
+
+                    &:focus,
+                    &:hover {
+                        text-decoration: none;
+                    }
                 }
 
                 &.disabled {
                     cursor: default;
                 }
 
-                &.active {
+                &.selected {
                     cursor: default;
                 }
             }
