@@ -76,10 +76,12 @@ class Survey extends Component {
                 question={question}
                 answer={this.props.answers[question.question]}
                 handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
               />
             )) : null
           }
         </div>
+        <button type="submit">Next</button>
       </form>
     );
   }
