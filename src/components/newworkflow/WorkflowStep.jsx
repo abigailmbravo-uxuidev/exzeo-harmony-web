@@ -60,6 +60,38 @@ class WorkflowStep extends Component {
     const { steps } = this.props.data;
     return (
       <div className="workflow-content">
+        <aside>
+          <div className="sidePanel" role="contentinfo">
+            <section id="premium" className="premium">
+              <dl>
+                <div>
+                  <dt>Annual premium</dt>
+                  <dd>$1000.00</dd>
+                </div>
+              </dl>
+            </section>
+            <section id="quoteDetails" className="quoteDetails">
+              <dl>
+                <div>
+                  <dt>Quote number</dt>
+                  <dd>TTIC-HO3-1234567890</dd>
+                </div>
+              </dl>
+            </section>
+            <section id="propertyDetails" className="propertyDetails">
+              <dl>
+                <div>
+                  <dt>Address</dt>
+                  <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
+                </div>
+                <div>
+                  <dt>Year built</dt>
+                  <dd>2000</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+        </aside>
         <section>
           <Survey
             handleChange={this.handleChange}
