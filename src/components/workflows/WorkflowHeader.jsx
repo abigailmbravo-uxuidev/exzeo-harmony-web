@@ -1,16 +1,19 @@
 import React, { PropTypes } from 'react';
 
 function getStatus(step, completedSteps) {
+  let status;
   if (location.pathname.indexOf(step.name) > -1) {
-    return 'selected';
+    status = 'selected';
+  } else {
+    completedSteps.forEach((c) => {
+      console.log(step.name, ' ', c);
+      console.log(c === step.name);
+      if (step.name === c) {
+        status = 'active';
+      }
+    });
   }
-  completedSteps.forEach((c) => {
-    console.log(step.name, ' ', c);
-    console.log(c === step.name);
-    if (step.name === c) {
-      return 'active';
-    }
-  });
+  return status;
 }
 
 const WorkflowHeader = (d, f) => {
