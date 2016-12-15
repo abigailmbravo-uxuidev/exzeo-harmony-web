@@ -283,20 +283,27 @@ html {
 
                                     li {
                                         a {
+
+                                            color: $cool-gray-03;
+
                                             i.fa {
                                                 background: $cool-gray-01;
                                             }
 
-                                            &:focus,
-                                            &:hover {
-                                                color: $bright-blue-lighten-01;
+                                            &.active {
+                                                color: $bright-blue;
+
+                                                &:focus,
+                                                &:hover {
+                                                    color: $bright-blue-lighten-01;
+                                                }
                                             }
 
                                             &.disabled {
                                                 color: $cool-gray-03;
                                             }
 
-                                            &.active {
+                                            &.selected {
                                                 color: $cool-gray-14;
 
                                                 i.fa {

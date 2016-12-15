@@ -252,14 +252,22 @@ html {
 
                                     li {
                                         a {
+
+                                            color: $warm-gray-03;
+
                                             i.fa {
                                                 width: 2rem;
                                                 background: $warm-gray-01;
                                             }
 
-                                            &:focus,
-                                            &:hover {
-                                                color: $bright-blue-lighten-01;
+                                            &.active {
+
+                                                color: $bright-blue;
+
+                                                &:focus,
+                                                &:hover {
+                                                    color: $bright-blue-lighten-01;
+                                                }
                                             }
 
                                             &.disabled {
@@ -267,7 +275,7 @@ html {
                                                 outline: none;
                                             }
 
-                                            &.active {
+                                            &.selected {
                                                 color: $warm-gray-14;
                                                 outline: none;
 
