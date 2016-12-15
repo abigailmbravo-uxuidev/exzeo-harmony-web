@@ -23,7 +23,7 @@ class WorkflowStep extends Component {
   }
   handleChange = (event) => {
     const { questions } = this.state;
-    console.log(event.target.name, event.target.value);
+    // console.log(event.target.name, event.target.value);
     questions[event.target.name] = Number(event.target.value) ?
      Number(event.target.value) : event.target.value;
     this.setState({ questions });
@@ -38,7 +38,9 @@ class WorkflowStep extends Component {
       .then(() => {
         this.props.data.refetch()
           .then(({ data }) => {
+            // console.log('ggggggg', data)
             this.context.router.transitionTo(`/workflow/${data.steps.name}`);
+            this.props.updateCompletedSteps(data.steps.completedSteps);
           });
       })
       .catch(error => console.log(error));
@@ -54,7 +56,7 @@ class WorkflowStep extends Component {
     return answers;
   }
   render() {
-    console.log('STEPS: ', this);
+    // console.log('STEPS: ', this);
     const { steps } = this.props.data;
     return (
       <div className="workflow-content">
@@ -84,6 +86,7 @@ export default graphql(gql`
         question
         answerType
       }
+      completedSteps
     }
   }
 `)(graphql(gql`

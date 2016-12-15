@@ -1,18 +1,28 @@
 import React, { PropTypes } from 'react';
 
+function getStatus(step, completedSteps) {
+  if (location.pathname.indexOf(step.name) > -1) {
+    return 'selected';
+  }
+  completedSteps.forEach((c) => {
+    console.log(step.name, ' ', c);
+    console.log(c === step.name);
+    if (step.name === c) {
+      return 'active';
+    }
+  });
+}
+
 const WorkflowHeader = (d, f) => {
+  // console.log(d);
   return (
     <ul className="workflow-header">
       <div className="rule" />
       {
         d.steps ? d.steps.map((step, index) => {
-          let status;
-          if (location.pathname.indexOf(step.name) > -1) {
-            status = 'active';
-          }
           return (
             <li key={index}>
-              <a className={status || 'disabled'} tabIndex={index} onClick={() => { d.updateStep(index); }}>
+              <a className={getStatus(step, d.completedSteps)} tabIndex={index} onClick={() => { d.updateStep(index); }}>
                 <i className={`fa ${step.icon || 'fa-circle'}`} />
                 <span>{step.name}</span>
               </a>

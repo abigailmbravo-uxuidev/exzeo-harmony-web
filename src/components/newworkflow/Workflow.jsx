@@ -10,6 +10,7 @@ class Workflow extends Component {
   }
   state = {
     workflow: {},
+    completedSteps: [],
   }
   componentWillMount = () => {
     this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
@@ -18,19 +19,21 @@ class Workflow extends Component {
       })
       .catch(error => console.log(error));
   }
+  updateCompletedSteps = (completedSteps) => {
+    this.setState({ completedSteps });
+  }
   render() {
-    console.log('WORKFLOW: ', this);
+    // console.log('WORKFLOW: ', this);
     const { workflow } = this.state;
     return (
       <div className="workflow" role="article">
         <div className="fade-in">
           <WorkflowHeader
             steps={workflow.steps}
-            activeStep={0}
-            updateStep={this.updateStep}
+            completedSteps={this.state.completedSteps}
           />
           {
-            workflow.id ? <WorkflowStep workflowId={workflow.id} /> : null
+            workflow.id ? <WorkflowStep workflowId={workflow.id} updateCompletedSteps={this.updateCompletedSteps} /> : null
           }
         </div>
       </div>

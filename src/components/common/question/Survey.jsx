@@ -64,7 +64,7 @@ class Survey extends Component {
     this.props.handleSubmit();
   }
   render() {
-    console.log('SURVEY: ', this);
+    // console.log('SURVEY: ', this);
     const { questions } = this.props;
     return (
       <form className="fade-in" id="survey" onSubmit={this.handleSubmit}>
