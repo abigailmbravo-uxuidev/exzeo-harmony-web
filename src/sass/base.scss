@@ -48,8 +48,8 @@ html {
                     display: flex;
                     width: 100%;
                     padding: $padding $padding*2;
-                    border-bottom: 2px solid $green;
-                    background: $black;
+                    border-bottom: 2px solid $blue;
+                    background: $blue;
                     justify-content: center;
                     flex-shrink: 0;
 
@@ -125,6 +125,7 @@ html {
                             text-decoration: none;
                             font-size: $font-size-h6;
                             @include transition(all .2s ease-in-out);
+                            color:
 
                             &:hover {
                                 text-decoration: none;
@@ -280,6 +281,15 @@ html {
                                                 outline: none;
 
                                                 i.fa {
+                                                    color: $bright-blue;
+                                                }
+                                            }
+
+                                            &.complete {
+                                                color: $bright-blue-lighten-03;
+
+                                                &:focus,
+                                                &:hover {
                                                     color: $bright-blue;
                                                 }
                                             }

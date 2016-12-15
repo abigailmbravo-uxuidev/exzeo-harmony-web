@@ -1,3 +1,5 @@
+
+//workdlow
 .workflow {
     /*ul element*/
     .workflow-header {
@@ -38,6 +40,11 @@
                 font-weight: $font-weight-bold;
                 flex: 1;
                 align-items: center;
+                &:focus,
+                &:hover {
+                    text-decoration: none;
+                    cursor: default;
+                }
                 @include transition(all .2s ease-in-out);
                 @include for-phone-only {
                     padding: 0;
@@ -91,6 +98,14 @@
 
                 &.selected {
                     cursor: default;
+                }
+                &.complete {
+                    cursor: pointer;
+
+                    &:focus,
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
         }
