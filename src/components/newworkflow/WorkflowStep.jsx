@@ -84,7 +84,7 @@ class WorkflowStep extends Component {
                   <dt>Address</dt>
                   <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
                 </div>
-                <div>
+                <div className="hide-for-phone-only">
                   <dt>Year built</dt>
                   <dd>2000</dd>
                 </div>

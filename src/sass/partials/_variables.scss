@@ -112,6 +112,11 @@ $link-hover-decoration: underline !default;
 @mixin for-phone-only {
   @media (max-width: 599px) { @content; }
 }
+@include for-phone-only {
+    .hide-for-phone-only {
+        display: none !important;
+    }
+}
 @mixin for-tablet-portrait-up {
   @media (min-width: 600px) { @content; }
 }

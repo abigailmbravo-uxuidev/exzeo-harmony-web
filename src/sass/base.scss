@@ -311,10 +311,10 @@ html {
                                         .sidePanel {
                                             display: flex;
                                             flex-direction: column;
-                                            width: 12rem;
-                                            margin: $padding 0 $padding $padding;
+                                            width: 12.8rem;
+                                            margin: ($padding*2) 0 ($padding) ($padding*3);
                                             padding: $padding;
-                                            flex-basis: 12rem;
+                                            flex-basis: 12.8rem;
                                             flex-shrink: 0;
                                             flex-grow: 0;
                                             @include for-phone-only {
@@ -322,13 +322,17 @@ html {
                                                 flex-grow: 1;
                                                 flex-basis: auto;
                                             }
-
+                                            @include for-big-desktop-up {
+                                                width: 17.975rem;
+                                                flex-basis: 17.975rem;
+                                            }
                                             section {
                                                 margin-bottom: $margin-bottom;
                                                 flex-grow: 0;
                                                 flex-shrink: 0;
                                                 @include for-phone-only {
-                                                    margin-bottom: 0;
+                                                    margin: 0 ($padding);
+                                                    padding: $padding ($padding*2);
                                                 }
 
                                                 dl {
@@ -370,11 +374,12 @@ html {
                                                 }
 
                                                 &.premium {
-                                                    margin: (-$padding) (-$padding) ($margin-bottom - $padding);
-                                                    padding: $padding;
+                                                    margin: (-$padding*2) (-$padding*2) ($margin-bottom - $padding);
+                                                    padding: $padding*2;
                                                     background-color: $yellow-lighten-04;
                                                     @include for-phone-only {
-                                                        margin-bottom: 0;
+                                                        margin: (-$padding) (-$padding) 0;
+                                                        padding: $padding ($padding*4);
                                                     }
                                                 }
                                             }
@@ -481,7 +486,7 @@ html {
 
                                         .survey-wrapper {
                                             flex-direction: row;
-                                            padding: ($padding*2) ($padding*2) $padding;
+                                            padding: ($padding*2) ($padding*4) 0;
                                             flex-wrap: wrap;
 
                                             .form-group {
