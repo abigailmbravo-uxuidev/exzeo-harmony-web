@@ -242,9 +242,15 @@ html {
                                 background: $white;
 
                                 a {
+                                    i {
+                                        color: $bright-blue;
+                                    }
                                     &:hover {
                                         color: $white;
                                         background: $bright-blue;
+                                        i {
+                                            color: $white;
+                                        }
                                     }
                                 }
                             }
