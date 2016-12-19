@@ -61,7 +61,7 @@ class WorkflowStep extends Component {
     return (
       <div className="workflow-content">
         <aside>
-          <div className="sidePanel" role="contentinfo">
+          <div className="side-panel" role="contentinfo">
             <section id="premium" className="premium">
               <dl>
                 <div>

@@ -302,19 +302,20 @@ html {
 
                                 .workflow-content {
                                     flex-direction: row;
-                                    overflow-y: auto;
+
                                     @include for-phone-only {
                                         flex-direction: column;
                                     }
 
                                     aside {
+                                        overflow-y: auto;
                                         display: flex;
                                         flex-shrink: 0;
                                         @include for-phone-only {
                                             background-color: $white;
                                         }
 
-                                        .sidePanel {
+                                        .side-panel {
                                             display: flex;
                                             flex-direction: column;
                                             width: 12.8rem;
@@ -323,6 +324,7 @@ html {
                                             flex-basis: 12.8rem;
                                             flex-shrink: 0;
                                             flex-grow: 0;
+                                            position: relative;
                                             @include for-phone-only {
                                                 margin: 0;
                                                 flex-grow: 1;
@@ -332,67 +334,70 @@ html {
                                                 width: 17.975rem;
                                                 flex-basis: 17.975rem;
                                             }
-                                            section {
-                                                margin-bottom: $margin-bottom;
-                                                flex-grow: 0;
-                                                flex-shrink: 0;
-                                                @include for-phone-only {
-                                                    margin: 0 ($padding);
-                                                    padding: $padding ($padding*2);
-                                                }
 
-                                                dl {
-                                                    display: flex;
-                                                    flex-direction: column;
-                                                    margin: 0;
+                                                section {
+                                                    margin-bottom: $margin-bottom;
+                                                    flex-grow: 0;
+                                                    flex-shrink: 0;
+                                                    @include for-phone-only {
+                                                        margin: 0 ($padding);
+                                                        padding: $padding ($padding*2);
+                                                    }
 
-                                                    div {
+                                                    dl {
                                                         display: flex;
                                                         flex-direction: column;
                                                         margin: 0;
-                                                        flex-wrap: wrap;
-                                                        @include for-phone-only {
-                                                            flex-direction: row;
-                                                        }
 
-                                                        dt {
-                                                            flex-basis: auto;
-                                                            @include for-phone-only {
-                                                                flex-basis: 40%;
-                                                            }
-                                                        }
-
-                                                        dd {
+                                                        div {
                                                             display: flex;
                                                             flex-direction: column;
-                                                            flex-basis: auto;
+                                                            margin: 0;
+                                                            flex-wrap: wrap;
                                                             @include for-phone-only {
-                                                                margin: 0 0 0 $padding;
+                                                                flex-direction: row;
                                                             }
-                                                        }
 
-                                                        &:last-child {
+                                                            dt {
+                                                                flex-basis: auto;
+                                                                @include for-phone-only {
+                                                                    flex-basis: 40%;
+                                                                }
+                                                            }
+
                                                             dd {
-                                                                margin-bottom: 0;
+                                                                display: flex;
+                                                                flex-direction: column;
+                                                                flex-basis: auto;
+                                                                @include for-phone-only {
+                                                                    margin: 0 0 0 $padding;
+                                                                }
                                                             }
+
+                                                            &:last-child {
+                                                                dd {
+                                                                    margin-bottom: 0;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    &.premium {
+                                                        margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
+                                                        padding: $padding*2;
+                                                        background-color: $yellow-lighten-04;
+                                                        @include for-phone-only {
+                                                            margin: (-$padding) (-$padding) 0;
+                                                            padding: $padding ($padding*4);
                                                         }
                                                     }
                                                 }
 
-                                                &.premium {
-                                                    margin: (-$padding*2) (-$padding*2) ($margin-bottom - $padding);
-                                                    padding: $padding*2;
-                                                    background-color: $yellow-lighten-04;
-                                                    @include for-phone-only {
-                                                        margin: (-$padding) (-$padding) 0;
-                                                        padding: $padding ($padding*4);
-                                                    }
-                                                }
-                                            }
                                         }
                                     }
 
                                     section {
+                                        overflow-y: auto;
                                         flex-grow: 1;
 
                                         .results {

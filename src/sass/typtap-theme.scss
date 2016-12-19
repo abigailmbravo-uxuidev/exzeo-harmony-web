@@ -330,13 +330,14 @@ html {
                                         @include for-phone-only {
                                             background-color: $cool-gray-00;
                                         }
+                                        .side-panel {
 
-                                        .sidePanel {
-                                            section {
-                                                &.premium {
-                                                    //background-color: $yellow-lighten-04;
+                                                section {
+                                                    &.premium {
+                                                        //background-color: $yellow-lighten-04;
+                                                    }
                                                 }
-                                            }
+
                                         }
                                     }
 
