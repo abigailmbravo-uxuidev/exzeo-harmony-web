@@ -47,15 +47,15 @@ export class App extends Component {
     return (
       <div className="app-wrapper">
         <Header />
-        <Search options={{}}/>
         <main role="document">
+          <Search options={{}}/>
           <Match exactly pattern="/" component={homeScreen} />
           <Match pattern="/login" component={Login} />
           <Match pattern="/quote/:location/:address" component={Quote} />
           <Match pattern="/test" component={TestPage} />
           <Match pattern="/workflow" component={NewWorkflow} />
+          <Footer />
         </main>
-        <Footer />
       </div>
     );
   }

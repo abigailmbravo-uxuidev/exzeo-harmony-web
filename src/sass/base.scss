@@ -26,6 +26,7 @@ html {
     body {
         margin: 0;
         padding: 0;
+        width: 100vw;
         //site background
         div#root {
             margin: 0;
@@ -52,6 +53,7 @@ html {
                     background: $blue;
                     justify-content: center;
                     flex-shrink: 0;
+                    flex-basis: 3.375rem;
 
                     div[role="banner"] {
                         display: flex;
@@ -186,6 +188,8 @@ html {
                     width: 100%;
                     flex: 1;
                     align-items: center;
+                    height: calc(100vh - 3.75rem);
+                    min-height: calc(100vh - 3.75rem);
 
                     > div[role="article"] {
                         display: flex;
@@ -298,12 +302,14 @@ html {
 
                                 .workflow-content {
                                     flex-direction: row;
+                                    overflow-y: auto;
                                     @include for-phone-only {
                                         flex-direction: column;
                                     }
 
                                     aside {
                                         display: flex;
+                                        flex-shrink: 0;
                                         @include for-phone-only {
                                             background-color: $white;
                                         }
@@ -514,6 +520,37 @@ html {
                             bottom: 0;
                             left: 0;
                             background: rgba($black, .75);
+                        }
+                    }
+
+                    &.scroll-up {
+                        .search {
+                            height: 0;
+                            overflow: hidden;
+                            padding: 0;
+                            @include transition(all .2s ease-in-out);
+                        }
+                        .workflow {
+                            .workflow-header {
+                                .rule {
+                                    top: 1rem;
+                                }
+
+                                li {
+                                    a {
+                                        padding: 0;
+
+                                        span {
+                                            display: none;
+                                        }
+
+                                        i.fa {
+                                            font-size: $font-size-h4;
+                                            width: 3rem;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
