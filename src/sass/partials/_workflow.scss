@@ -21,6 +21,9 @@
             @include for-phone-only {
                 top: 1rem;
             }
+            @include for-big-desktop-up {
+                top: 2rem;
+            }
         }
         /*li element*/
         li {
@@ -79,6 +82,10 @@
 
                 i.fa {
                     width: 2rem;
+
+                    @include for-big-desktop-up {
+                        width: 4rem;
+                    }
                 }
 
                 span {
