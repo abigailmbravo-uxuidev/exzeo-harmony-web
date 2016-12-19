@@ -30,42 +30,130 @@ const surveyQuestions = [{
   description: 'Testing for password',
   answerType: 'password',
 }, {
+  id: 'date-test',
+  question: 'Test for dates?',
+  description: 'Testing for questions',
+  answerType: 'date',
+}, {
+  id: 'range-test',
+  question: 'Test for range?',
+  description: 'Testing for range',
+  answerType: 'range',
+}, {
   id: 'dropdown-test',
   question: 'Test for dropdown?',
   description: 'Testing for dropdown',
   answerType: 'radio',
-  answers: ['answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6'],
+  answers: [{
+    answer: 'answer1',
+  }, {
+    answer: 'answer2',
+  }, {
+    answer: 'answer3',
+  }, {
+    answer: 'answer4',
+  }, {
+    answer: 'answer5',
+  }, {
+    answer: 'answer6',
+  }],
 }, {
   id: 'radio-test',
   question: 'Test for radio?',
   description: 'Testing for radio',
   answerType: 'radio',
-  answers: ['answer1', 'answer2', 'answer3'],
+  answers: [{
+    answer: 'answer1',
+  }, {
+    answer: 'answer2',
+  }, {
+    answer: 'answer3',
+  }],
 }];
 
 class TestPage extends Component {
   state = {
-    'bool-test': false,
-    'text-test': '',
-    'password-test': '',
-    'dropdown-test': 'answer1',
-    'radio-test': 'answer1',
+    questions: {},
   }
   handleChange = (event) => {
-    const state = this.state;
-    state[event.target.name] = event.target.value;
-    this.setState(state);
+    const { questions } = this.state;
+    // console.log(event.target.name, event.target.value);
+    questions[event.target.name] = Number(event.target.value) ?
+     Number(event.target.value) : event.target.value;
+    this.setState({ questions });
   }
-  handleSubmit = (form) => {
-    console.log(form); // eslint-disable-line
+  formatData = () => {
+    const answers = [];
+    Object.keys(this.state.questions).forEach((key) => {
+      answers.push({
+        key,
+        value: this.state.questions[key],
+      });
+    });
+    return answers;
+  }
+  handleSubmit = (event) => {
+    if (event && event.preventDefault) event.preventDefault();
+    console.log('attempt');
+  }
+  formatData = () => {
+    const answers = [];
+    Object.keys(this.state.questions).forEach((key) => {
+      answers.push({
+        key,
+        value: this.state.questions[key],
+      });
+    });
+    return answers;
   }
   render() {
     return (
-        <div className="survey" role="article">
-                <div className="fade-in">
-                        <Survey questions={surveyQuestions} handleSubmit={this.handleSubmit} />
-                </div>
+      <div className="workflow" role="article">
+        <div className="fade-in">
+          <div className="workflow-content">
+            <aside>
+              <div className="sidePanel" role="contentinfo">
+                <section id="premium" className="premium">
+                  <dl>
+                    <div>
+                      <dt>Annual premium</dt>
+                      <dd>$1000.00</dd>
+                    </div>
+                  </dl>
+                </section>
+                <section id="quoteDetails" className="quoteDetails">
+                  <dl>
+                    <div>
+                      <dt>Quote number</dt>
+                      <dd>TTIC-HO3-1234567890</dd>
+                    </div>
+                  </dl>
+                </section>
+                <section id="propertyDetails" className="propertyDetails">
+                  <dl>
+                    <div>
+                      <dt>Address</dt>
+                      <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
+                    </div>
+                    <div className="hide-for-phone-only">
+                      <dt>Year built</dt>
+                      <dd>2000</dd>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </aside>
+            <section>
+              <Survey
+                questions={surveyQuestions}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                answers={this.state.questions}
+              />
+            </section>
+          </div>
         </div>
+      </div>
     );
   }
 }

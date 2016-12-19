@@ -5,7 +5,7 @@ const RadioGroup = ({ question, answers, value, id, handleChange, segmented, sty
   const onClick = (answer) => {
     const newEvent = {
       target: {
-        name: id,
+        name: question,
         value: answer,
       },
     };

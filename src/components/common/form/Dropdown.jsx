@@ -5,7 +5,7 @@ const Dropdown = ({ question, handleChange, answers, value, id, styleName = '' }
     <label htmlFor={id || null}>
       {question || null}
       {answers && answers.length > 0 ?
-        <select value={value || ''} name={id || null} onChange={handleChange || null}>
+        <select value={value || ''} name={question || null} onChange={handleChange || null}>
           {answers.map((answer, index) => (
             <option value={answer.answer || null} key={index}>{answer.answer || null}</option>
           ))}

@@ -74,7 +74,7 @@ class Survey extends Component {
               <Question
                 key={index}
                 question={question}
-                answer={this.props.answers[question.question]}
+                answer={this.props.answers[question.question] || ''}
                 handleChange={this.handleChange}
               />
             )) : null

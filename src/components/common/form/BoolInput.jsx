@@ -5,7 +5,7 @@ const BoolInput = ({ question, id, value, handleChange, isSwitch, styleName = ''
   const onChange = () => {
     const newEvent = {
       target: {
-        name: id,
+        name: question,
         value: !value,
       },
     };
@@ -31,7 +31,10 @@ const BoolInput = ({ question, id, value, handleChange, isSwitch, styleName = ''
 BoolInput.propTypes = {
   question: PropTypes.string,
   id: PropTypes.string,
-  value: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
   handleChange: PropTypes.func,
   isSwitch: PropTypes.bool,
   styleName: PropTypes.string,
