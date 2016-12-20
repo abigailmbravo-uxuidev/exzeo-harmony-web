@@ -1,46 +1,45 @@
 // Test page for components
 import React, { Component } from 'react';
 import Survey from './common/question/Survey';
+import './TestPage.css';
 
 const surveyQuestions = [{
-  id: 'firstName',
+  name: 'firstName',
   question: 'First Name',
   description: 'Test for first name',
   answerType: 'text',
-  styleName: 'firstName',
 }, {
-  id: 'lastName',
+  name: 'lastName',
   question: 'Last Name',
   description: 'Test for last name',
   answerType: 'text',
-  styleName: 'lastName',
 }, {
-  id: 'bool-test',
+  name: 'bool-test',
   question: 'Test for bool?',
   description: 'Testing for bool',
   answerType: 'bool',
 }, {
-  id: 'text-test',
+  name: 'text-test',
   question: 'Test for text?',
   description: 'Testing for text',
   answerType: 'text',
 }, {
-  id: 'password-test',
+  name: 'password-test',
   question: 'Test for password?',
   description: 'Testing for password',
   answerType: 'password',
 }, {
-  id: 'date-test',
+  name: 'date-test',
   question: 'Test for dates?',
   description: 'Testing for questions',
   answerType: 'date',
 }, {
-  id: 'range-test',
+  name: 'range-test',
   question: 'Test for range?',
   description: 'Testing for range',
   answerType: 'range',
 }, {
-  id: 'dropdown-test',
+  name: 'dropdown-test',
   question: 'Test for dropdown?',
   description: 'Testing for dropdown',
   answerType: 'radio',
@@ -58,7 +57,7 @@ const surveyQuestions = [{
     answer: 'answer6',
   }],
 }, {
-  id: 'radio-test',
+  name: 'radio-test',
   question: 'Test for radio?',
   description: 'Testing for radio',
   answerType: 'radio',
@@ -94,7 +93,6 @@ class TestPage extends Component {
   }
   handleSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
-    console.log('attempt');
   }
   formatData = () => {
     const answers = [];

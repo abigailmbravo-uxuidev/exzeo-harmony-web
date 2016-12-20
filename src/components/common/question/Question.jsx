@@ -30,7 +30,7 @@ const Question = (props) => {
 
 Question.propTypes = {
   question: PropTypes.shape({
-    id: PropTypes.string,
+    name: PropTypes.string,
     question: PropTypes.string,
     description: PropTypes.string,
     answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
@@ -39,7 +39,6 @@ Question.propTypes = {
       image: PropTypes.string,
     })),
     optional: PropTypes.bool,
-    styleName: PropTypes.string,
   }),
   answer: PropTypes.oneOfType([
     PropTypes.bool,
