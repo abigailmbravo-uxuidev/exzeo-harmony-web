@@ -44,8 +44,7 @@ export class App extends Component {
     }
   }
   shouldComponentUpdate = (nextProps, nextState) => (
-    !(nextState.lastScrollPos < this.state.lastScrollPos && this.state.direction === 'top') &&
-    !(nextState.lastScrollPos > this.state.lastScrollPos && this.state.direction === 'bottom')
+    !(this.state.direction === nextState.direction)
   )
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
