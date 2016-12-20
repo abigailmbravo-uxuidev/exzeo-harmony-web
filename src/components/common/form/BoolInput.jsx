@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PropTypes } from 'react';
 
-const BoolInput = ({ question, id, value, handleChange, isSwitch, styleName = '' }) => {
+const BoolInput = ({ question, name, value, handleChange, isSwitch, styleName = '' }) => {
   const onChange = () => {
     const newEvent = {
       target: {
@@ -11,14 +11,14 @@ const BoolInput = ({ question, id, value, handleChange, isSwitch, styleName = ''
     };
     handleChange(newEvent);
   };
-  const classnames = isSwitch ? `form-group switch ${styleName}` : `form-group ${styleName}`;
+  const classnames = `form-group ${isSwitch ? 'switch' : ''} ${styleName} ${name}`;
   return (
     <div className={classnames} >
-      <label htmlFor={id || null} onClick={onChange}>
+      <label htmlFor={name || null} onClick={onChange}>
         {question || null}
         <input
           type="checkbox"
-          name={id || null}
+          name={name || null}
           checked={value || false}
           onChange={onChange}
         />
@@ -30,7 +30,7 @@ const BoolInput = ({ question, id, value, handleChange, isSwitch, styleName = ''
 
 BoolInput.propTypes = {
   question: PropTypes.string,
-  id: PropTypes.string,
+  name: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,

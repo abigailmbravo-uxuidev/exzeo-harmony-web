@@ -6,7 +6,7 @@ class Survey extends Component {
     handleSubmit: PropTypes.func,
     handleChange: PropTypes.func,
     questions: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string,
+      name: PropTypes.string,
       question: PropTypes.string,
       description: PropTypes.string,
       answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
@@ -25,37 +25,37 @@ class Survey extends Component {
   //   }
   //   return false;
   // }
-  resetForm = (nextProps) => {
-    let questions;
-    if (nextProps) {
-      questions = nextProps.questions;
-    } else {
-      questions = this.props.questions;
-    }
-    if (questions && questions.length > 0) {
-      const answerState = questions.reduce((values, question) => {
-        switch (question.answerType) {
-          case 'radio':
-            if (question.answers && question.answers.length > 0) {
-              // eslint-disable-next-line no-param-reassign
-              values[question.id] = question.answers[0].answer;
-              return values;
-            }
-          case 'range': // eslint-disable-line no-fallthrough
-            values[question.id] = 50; // eslint-disable-line no-param-reassign
-            break;
-          case 'bool':
-            values[question.id] = false; // eslint-disable-line no-param-reassign
-            break;
-          default:
-            values[question.id] = ''; // eslint-disable-line no-param-reassign
-            break;
-        }
-        return values;
-      }, {});
-      this.setState(answerState);
-    }
-  }
+  // resetForm = (nextProps) => {
+  //   let questions;
+  //   if (nextProps) {
+  //     questions = nextProps.questions;
+  //   } else {
+  //     questions = this.props.questions;
+  //   }
+  //   if (questions && questions.length > 0) {
+  //     const answerState = questions.reduce((values, question) => {
+  //       switch (question.answerType) {
+  //         case 'radio':
+  //           if (question.answers && question.answers.length > 0) {
+  //             // eslint-disable-next-line no-param-reassign
+  //             values[question.id] = question.answers[0].answer;
+  //             return values;
+  //           }
+  //         case 'range': // eslint-disable-line no-fallthrough
+  //           values[question.id] = 50; // eslint-disable-line no-param-reassign
+  //           break;
+  //         case 'bool':
+  //           values[question.id] = false; // eslint-disable-line no-param-reassign
+  //           break;
+  //         default:
+  //           values[question.id] = ''; // eslint-disable-line no-param-reassign
+  //           break;
+  //       }
+  //       return values;
+  //     }, {});
+  //     this.setState(answerState);
+  //   }
+  // }
   handleChange = (event) => {
     this.props.handleChange(event);
   }

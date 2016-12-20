@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const Dropdown = ({ question, handleChange, answers, value, id, styleName = '' }) => (
-  <div className={`form-group ${styleName}`}>
+  <div className={`form-group ${styleName} ${name}`}>
     <label htmlFor={id || null}>
       {question || null}
       {answers && answers.length > 0 ?
