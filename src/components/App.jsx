@@ -43,13 +43,19 @@ export class App extends Component {
       this.props.actions.setupFeature('search');
     }
   }
+  shouldComponentUpdate = (nextProps, nextState) => (
+    !(nextState.lastScrollPos < this.state.lastScrollPos && this.state.direction === 'top') &&
+    !(nextState.lastScrollPos > this.state.lastScrollPos && this.state.direction === 'bottom')
+  )
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
+      // console.log('top');
       this.setState({
         direction: 'top',
         lastScrollPos: event.target.scrollTop,
       });
     } else if (this.state.lastScrollPos < event.target.scrollTop) {
+      // console.log('woah');
       this.setState({
         direction: 'bottom',
         lastScrollPos: event.target.scrollTop,
