@@ -4,7 +4,7 @@
 //
 // Textual form controls
 //
-
+html body {
 input,
 select,
 textarea {
@@ -47,6 +47,7 @@ textarea {
         width: 100%;
         //box-shadow: none;
     }
+
     // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
     @if $enable-rounded {
         // Manually use the if/else instead of the mixin to account for iOS override
@@ -86,7 +87,7 @@ textarea {
 
 select {
     box-shadow: none;
-    
+
     &:not([size]):not([multiple]) {
         height: calc(#{$input-height} - #{$select-border-width});
         $select-border-width: ($border-width * 2);
@@ -103,6 +104,7 @@ select {
         background-color: $input-bg;
     }
 }
+
 // Make file inputs better match text inputs by forcing them to new lines.
 
 .form-control-range {
@@ -174,6 +176,12 @@ label {
 }
 
 .form-group {
+
+    input[type="date"] {
+        width: 12rem;
+        //box-shadow: none;
+    }
+
     &.segmented {
         flex-direction: row;
 
@@ -332,4 +340,5 @@ label {
         cursor: $cursor-disabled;
         color: $text-muted;
     }
+}
 }
