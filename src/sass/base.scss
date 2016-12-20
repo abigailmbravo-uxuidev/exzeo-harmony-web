@@ -144,6 +144,9 @@ html {
                     width: 100%;
                     margin-bottom: 0;
                     align-items: flex-start;
+                    height: auto;
+                    max-height: 4rem;
+                    opacity: 1;
                     @include for-tablet-landscape-up {
                         max-width: 64rem;
                     }
@@ -342,6 +345,7 @@ html {
                                                     @include for-phone-only {
                                                         margin: 0 ($padding);
                                                         padding: $padding ($padding*2);
+                                                        flex-direction: row;
                                                     }
 
                                                     dl {
@@ -349,19 +353,20 @@ html {
                                                         flex-direction: column;
                                                         margin: 0;
 
+
                                                         div {
                                                             display: flex;
                                                             flex-direction: column;
                                                             margin: 0;
                                                             flex-wrap: wrap;
                                                             @include for-phone-only {
-                                                                flex-direction: row;
+                                                                //flex-direction: row;
                                                             }
 
                                                             dt {
                                                                 flex-basis: auto;
                                                                 @include for-phone-only {
-                                                                    flex-basis: 40%;
+                                                                    //flex-basis: 40%;
                                                                 }
                                                             }
 
@@ -370,7 +375,7 @@ html {
                                                                 flex-direction: column;
                                                                 flex-basis: auto;
                                                                 @include for-phone-only {
-                                                                    margin: 0 0 0 $padding;
+                                                                    //margin: 0 0 0 $padding;
                                                                 }
                                                             }
 
@@ -505,6 +510,10 @@ html {
 
                                                 label {
                                                     font-size: $font-size-h4;
+
+                                                    @include for-phone-only {
+                                                        font-size: $font-size-h5;
+                                                    }
                                                 }
                                             }
                                         }
@@ -530,30 +539,20 @@ html {
 
                     &.scroll-up {
                         .search {
-                            height: 0;
-                            overflow: hidden;
-                            padding: 0;
-                            @include transition(all .2s ease-in-out);
+                            @include for-phone-only {
+                                display: none;
+                            }
                         }
                         .workflow {
                             .workflow-header {
-                                .rule {
-                                    top: 1rem;
-                                }
 
-                                li {
-                                    a {
-                                        padding: 0;
+                            }
 
-                                        span {
-                                            display: none;
-                                        }
-
-                                        i.fa {
-                                            font-size: $font-size-h4;
-                                            width: 3rem;
-                                        }
-                                    }
+                            aside{
+                                @include for-phone-only {
+                                    height: 0;
+                                    overflow: hidden;
+                                    padding: 0;
                                 }
                             }
                         }
@@ -574,6 +573,11 @@ html {
                         padding: $padding ($padding*2);
                         border-top: $border-width dotted $border-color;
                         background: $white;
+                        @include for-phone-only {
+                            small {
+                                font-size: $xsmall-font-size;
+                            }
+                        }
                         @include for-1024-up {
                             margin-bottom: $padding;
                             border-right: $card-border-width solid $border-color;

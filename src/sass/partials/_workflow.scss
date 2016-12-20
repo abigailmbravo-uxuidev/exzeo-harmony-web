@@ -48,7 +48,6 @@
                     text-decoration: none;
                     cursor: default;
                 }
-                @include transition(all .2s ease-in-out);
                 @include for-phone-only {
                     padding: 0;
 
