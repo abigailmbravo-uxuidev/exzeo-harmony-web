@@ -44,9 +44,8 @@ class Survey extends Component {
           }
         </div>
         <div className="workflow-steps">
-          <button className="btn btn-primary" type="submit" form="survey">next</button> :
-
-         </div>
+          <button className="btn btn-primary" type="submit" form="survey">next</button>
+        </div>
       </form>
     );
   }
