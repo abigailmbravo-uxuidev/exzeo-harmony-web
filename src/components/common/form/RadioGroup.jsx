@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for */
 import React, { PropTypes } from 'react';
 
-const RadioGroup = ({ question, answers, value, name, handleChange, segmented, styleName = '' }) => {
+const RadioGroup = ({ question, name, value, answers, handleChange, segmented, styleName = '' }) => {
   const onClick = (answer) => {
     const newEvent = {
       target: {
-        name: question,
+        name,
         value: answer,
       },
     };

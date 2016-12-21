@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 
-const TextInput = ({ question, description, name, value, answerType, handleChange, styleName = '' }) => (
+const TextInput = ({ question, name, description, value, answerType, handleChange, styleName = '' }) => (
   <div className={`form-group ${styleName} ${name}`}>
     <label htmlFor={name || null}>{question || null}</label>
     <input
       type={answerType || 'text'}
-      name={question || null}
+      name={name || null}
       value={value || ''}
       onChange={handleChange || null}
     />

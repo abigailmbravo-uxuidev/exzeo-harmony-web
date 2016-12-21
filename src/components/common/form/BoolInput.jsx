@@ -5,7 +5,7 @@ const BoolInput = ({ question, name, value, handleChange, isSwitch, styleName = 
   const onChange = () => {
     const newEvent = {
       target: {
-        name: question,
+        name: name,
         value: !value,
       },
     };

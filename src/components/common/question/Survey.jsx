@@ -74,12 +74,16 @@ class Survey extends Component {
               <Question
                 key={index}
                 question={question}
-                answer={this.props.answers[question.question] || ''}
+                answer={this.props.answers[question.name] || ''}
                 handleChange={this.handleChange}
               />
             )) : null
           }
         </div>
+        <div className="workflow-steps">
+          <button className="btn btn-primary" type="submit" form="survey">next</button> :
+
+         </div>
       </form>
     );
   }
