@@ -24,9 +24,9 @@ html {
     padding: 0;
 
     body {
+        width: 100vw;
         margin: 0;
         padding: 0;
-        width: 100vw;
         //site background
         div#root {
             margin: 0;
@@ -43,7 +43,6 @@ html {
                 background: $white;
                 align-items: center;
                 flex-shrink: 0;
-
                 //header
                 header {
                     display: flex;
@@ -127,7 +126,6 @@ html {
                             text-decoration: none;
                             font-size: $font-size-h6;
                             @include transition(all .2s ease-in-out);
-                            color:
 
                             &:hover {
                                 text-decoration: none;
@@ -136,17 +134,19 @@ html {
                         }
                     }
                 }
-
                 //search
                 .search {
                     z-index: 10;
                     display: flex;
                     width: 100%;
-                    margin-bottom: 0;
-                    align-items: flex-start;
                     height: auto;
                     max-height: 4rem;
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    transition: margin 0.5s;
                     opacity: 1;
+                    background: $warm-gray-01;
+                    align-items: flex-start;
                     @include for-tablet-landscape-up {
                         max-width: 64rem;
                     }
@@ -182,17 +182,16 @@ html {
                         }
                     }
                 }
-
                 //main
                 main[role="document"] {
                     position: relative;
                     display: flex;
                     flex-direction: column;
                     width: 100%;
-                    flex: 1;
-                    align-items: center;
                     height: calc(100vh - 3.75rem);
                     min-height: calc(100vh - 3.75rem);
+                    flex: 1;
+                    align-items: center;
 
                     > div[role="article"] {
                         display: flex;
@@ -260,7 +259,6 @@ html {
 
                                     li {
                                         a {
-
                                             color: $warm-gray-03;
 
                                             i.fa {
@@ -268,7 +266,6 @@ html {
                                             }
 
                                             &.active {
-
                                                 color: $bright-blue;
 
                                                 &:focus,
@@ -305,20 +302,20 @@ html {
 
                                 .workflow-content {
                                     flex-direction: row;
-
                                     @include for-phone-only {
                                         flex-direction: column;
                                     }
 
                                     aside {
-                                        overflow-y: auto;
                                         display: flex;
+                                        overflow-y: auto;
                                         flex-shrink: 0;
                                         @include for-phone-only {
                                             background-color: $white;
                                         }
 
                                         .side-panel {
+                                            position: relative;
                                             display: flex;
                                             flex-direction: column;
                                             width: 12.8rem;
@@ -327,77 +324,81 @@ html {
                                             flex-basis: 12.8rem;
                                             flex-shrink: 0;
                                             flex-grow: 0;
-                                            position: relative;
                                             @include for-phone-only {
+                                                flex-direction: row;
                                                 margin: 0;
                                                 flex-grow: 1;
                                                 flex-basis: auto;
+                                                flex-wrap: wrap;
                                             }
                                             @include for-big-desktop-up {
                                                 width: 17.975rem;
                                                 flex-basis: 17.975rem;
                                             }
 
-                                                section {
-                                                    margin-bottom: $margin-bottom;
-                                                    flex-grow: 0;
-                                                    flex-shrink: 0;
-                                                    @include for-phone-only {
-                                                        margin: 0 ($padding);
-                                                        padding: $padding ($padding*2);
-                                                        flex-direction: row;
-                                                    }
+                                            section {
+                                                margin-bottom: $margin-bottom;
+                                                flex-grow: 0;
+                                                flex-shrink: 0;
+                                                @include for-phone-only {
+                                                    flex-direction: row;
+                                                    width: 50%;
+                                                    margin: 0;
+                                                    padding: ($padding/2) $padding;
+                                                }
 
-                                                    dl {
+                                                dl {
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    margin: 0;
+
+                                                    div {
                                                         display: flex;
                                                         flex-direction: column;
                                                         margin: 0;
+                                                        flex-wrap: wrap;
+                                                        @include for-phone-only {
+                                                            //flex-direction: row;
+                                                        }
 
-
-                                                        div {
-                                                            display: flex;
-                                                            flex-direction: column;
-                                                            margin: 0;
-                                                            flex-wrap: wrap;
+                                                        dt {
+                                                            flex-basis: auto;
                                                             @include for-phone-only {
-                                                                //flex-direction: row;
-                                                            }
-
-                                                            dt {
-                                                                flex-basis: auto;
-                                                                @include for-phone-only {
-                                                                    //flex-basis: 40%;
-                                                                }
-                                                            }
-
-                                                            dd {
-                                                                display: flex;
-                                                                flex-direction: column;
-                                                                flex-basis: auto;
-                                                                @include for-phone-only {
-                                                                    //margin: 0 0 0 $padding;
-                                                                }
-                                                            }
-
-                                                            &:last-child {
-                                                                dd {
-                                                                    margin-bottom: 0;
-                                                                }
+                                                                //flex-basis: 40%;
+                                                                font-size: 0.64rem;
                                                             }
                                                         }
-                                                    }
 
-                                                    &.premium {
-                                                        margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
-                                                        padding: $padding*2;
-                                                        background-color: $yellow-lighten-04;
-                                                        @include for-phone-only {
-                                                            margin: (-$padding) (-$padding) 0;
-                                                            padding: $padding ($padding*4);
+                                                        dd {
+                                                            display: flex;
+                                                            flex-direction: column;
+                                                            flex-basis: auto;
+                                                            @include for-phone-only {
+                                                                margin-bottom: 0;
+                                                                //margin: 0 0 0 $padding;
+                                                                font-size: 0.8rem;
+                                                            }
+                                                        }
+
+                                                        &:last-child {
+                                                            dd {
+                                                                margin-bottom: 0;
+                                                            }
                                                         }
                                                     }
                                                 }
 
+                                                &.premium {
+                                                    margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
+                                                    padding: $padding*2;
+                                                    background-color: $yellow-lighten-04;
+                                                    @include for-phone-only {
+                                                        width: 50%;
+                                                        margin: -$padding 0 0;
+                                                        padding: $padding;
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
 
@@ -510,7 +511,6 @@ html {
 
                                                 label {
                                                     font-size: $font-size-h4;
-
                                                     @include for-phone-only {
                                                         font-size: $font-size-h5;
                                                     }
@@ -540,25 +540,25 @@ html {
                     &.scroll-up {
                         .search {
                             @include for-phone-only {
-                                display: none;
+                                //display: none;
+                                margin-top: -3.5rem;
+                                transition: margin 0.5s;
                             }
                         }
+
                         .workflow {
-                            .workflow-header {
+                            .workflow-header {}
 
-                            }
-
-                            aside{
+                            aside {
                                 @include for-phone-only {
-                                    height: 0;
                                     overflow: hidden;
+                                    height: 0;
                                     padding: 0;
                                 }
                             }
                         }
                     }
                 }
-
                 //footer
                 footer {
                     display: flex;

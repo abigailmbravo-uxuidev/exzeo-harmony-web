@@ -179,7 +179,16 @@ label {
 
     input[type="date"] {
         width: 12rem;
-        //box-shadow: none;
+         @include for-phone-only {
+             width: 100%;
+         }
+    }
+
+    input[type="tel"] {
+        width: 16rem;
+        @include for-phone-only {
+            width: 100%;
+        }
     }
 
     &.segmented {
