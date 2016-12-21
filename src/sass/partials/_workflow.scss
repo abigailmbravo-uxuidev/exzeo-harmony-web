@@ -1,5 +1,5 @@
 
-//workdlow
+//workflow
 .workflow {
     /*ul element*/
     .workflow-header {
@@ -15,11 +15,14 @@
             position: absolute;
             z-index: 1;
             top: 1.75rem;
-            width: 80%;
+            width: 90%;
             height: 1px;
             background: $body-color;
             @include for-phone-only {
                 top: 1rem;
+            }
+            @include for-big-desktop-up {
+                top: 2rem;
             }
         }
         /*li element*/
@@ -45,7 +48,6 @@
                     text-decoration: none;
                     cursor: default;
                 }
-                @include transition(all .2s ease-in-out);
                 @include for-phone-only {
                     padding: 0;
 
@@ -77,7 +79,13 @@
                     }
                 }
 
-                i.fa {}
+                i.fa {
+                    width: 2rem;
+
+                    @include for-big-desktop-up {
+                        width: 4rem;
+                    }
+                }
 
                 span {
                     font-weight: $font-weight-bold;
@@ -126,7 +134,7 @@
 
     .workflow-steps {
         display: flex;
-        padding: $padding ($padding*2);
+        padding: $padding ($padding*4);
         justify-content: flex-end;
         flex-grow: 0;
         flex-shrink: 0;

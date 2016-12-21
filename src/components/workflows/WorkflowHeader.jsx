@@ -6,8 +6,8 @@ function getStatus(step, completedSteps) {
     status = 'selected';
   } else {
     completedSteps.forEach((c) => {
-      console.log(step.name, ' ', c);
-      console.log(c === step.name);
+      // console.log(step.name, ' ', c);
+      // console.log(c === step.name);
       if (step.name === c) {
         status = 'completed';
       }

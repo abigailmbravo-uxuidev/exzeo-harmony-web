@@ -16,6 +16,7 @@ html body {
         padding: $padding;
         border-width: 0;
         border-bottom: 2px solid $cool-gray-03;
+        background: lighten( $cool-gray-00, 2.5% );
         border-radius: 0;
         box-shadow: none;
         // Placeholder
@@ -24,6 +25,10 @@ html body {
             opacity: 1;
             color: $cool-gray-02;
             font-style: italic;
+        }
+
+        &:focus {
+            background: lighten( $cool-gray-00, 2.5% );
         }
         //range input
         @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
@@ -169,7 +174,7 @@ html body {
 
     //buttons
     .btn {
-        height: auto;
+        //height: auto;
         text-transform: uppercase;
 
         &.btn-primary {
@@ -201,7 +206,7 @@ html {
                 //header
                 header {
                     border-bottom: 2px solid $green;
-                    background: $black;
+                    background: #222;
 
                     div[role="banner"] {
 
@@ -223,6 +228,7 @@ html {
                 }
                 //search
                 .search {
+                    background: $cool-gray-00;
                     > div {
                         > div {
                             background: $cool-gray-00;
@@ -242,9 +248,15 @@ html {
                                 background: $white;
 
                                 a {
+                                    i {
+                                        color: $bright-blue;
+                                    }
                                     &:hover {
                                         color: $white;
                                         background: $bright-blue;
+                                        i {
+                                            color: $white;
+                                        }
                                     }
                                 }
                             }
@@ -324,13 +336,14 @@ html {
                                         @include for-phone-only {
                                             background-color: $cool-gray-00;
                                         }
+                                        .side-panel {
 
-                                        .sidePanel {
-                                            section {
-                                                &.premium {
-                                                    //background-color: $yellow-lighten-04;
+                                                section {
+                                                    &.premium {
+                                                        //background-color: $yellow-lighten-04;
+                                                    }
                                                 }
-                                            }
+
                                         }
                                     }
 
@@ -391,6 +404,10 @@ html {
 
                         .modal {
                             background: rgba($black, .75);
+                            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)),
+                            url('../img/typtap-login.jpg');
+                            background-position: center center;
+                            background-size: cover;
                         }
                     }
                 }
@@ -405,6 +422,33 @@ html {
                             border-right: $card-border-width solid $cool-gray-01;
                             border-bottom: $card-border-width solid $cool-gray-01;
                             border-left: $card-border-width solid $cool-gray-01;
+                        }
+                    }
+                }
+
+                //form layout
+                form {
+                    &.askAdditionalCustomerData {
+                        @include for-tablet-landscape-up {
+                            .PH1FirstName {
+                                width: 50%;
+                                padding-right: $padding*2;
+                            }
+                            .PH1LastName {
+                                width: 50%;
+                            }
+                            .agentID {
+                                width: 50%;
+                                padding-right: $padding*2;
+                            }
+                        }
+                        @include for-tablet-portrait-up {
+                            .phoneNumber {
+                                width: 50%;
+                            }
+                            .effectiveDate {
+                                width: 50%
+                            }
                         }
                     }
                 }

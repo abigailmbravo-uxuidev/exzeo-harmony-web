@@ -9,6 +9,7 @@ class WorkflowStep extends Component {
       steps: PropTypes.shape({
         name: PropTypes.string,
         inputs: PropTypes.array,
+        questions: PropTypes.array,
       }),
       refetch: PropTypes.func,
     }),
@@ -23,9 +24,10 @@ class WorkflowStep extends Component {
   }
   handleChange = (event) => {
     const { questions } = this.state;
-    // console.log(event.target.name, event.target.value);
+    console.log(event.target.name, event.target.value);
     questions[event.target.name] = Number(event.target.value) ?
      Number(event.target.value) : event.target.value;
+     console.log(questions, 'state');
     this.setState({ questions });
   }
   handleSubmit = (event) => {
@@ -61,17 +63,46 @@ class WorkflowStep extends Component {
     const { steps } = this.props.data;
     return (
       <div className="workflow-content">
+        <aside>
+          <div className="side-panel" role="contentinfo">
+            <section id="premium" className="premium">
+              <dl>
+                <div>
+                  <dt>Annual premium</dt>
+                  <dd>$1000.00</dd>
+                </div>
+              </dl>
+            </section>
+            <section id="quoteDetails" className="quoteDetails">
+              <dl>
+                <div>
+                  <dt>Quote number</dt>
+                  <dd>TTIC-HO3-1234567890</dd>
+                </div>
+              </dl>
+            </section>
+            <section id="propertyDetails" className="propertyDetails">
+              <dl>
+                <div>
+                  <dt>Address</dt>
+                  <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
+                </div>
+                <div className="hide-for-phone-only">
+                  <dt>Year built</dt>
+                  <dd>2000</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+        </aside>
         <section>
-          <hr />
-          {
-            steps ? steps.name : null
-          }
-          <hr />
           <Survey
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
-            questions={steps ? steps.inputs : null}
+            questions={steps && steps.questions && steps.questions.length > 0 ?
+              steps.questions : null}
             answers={this.state.questions}
+            styleName={steps && steps.name ? steps.name : ''}
           />
         </section>
       </div>
@@ -83,9 +114,13 @@ export default graphql(gql`
   query GetActiveStep($workflowId:ID!) {
     steps(id:$workflowId) {
       name
-      inputs {
+      questions {
+        name
         question
         answerType
+        answers {
+          answer
+        }
       }
       completedSteps
     }

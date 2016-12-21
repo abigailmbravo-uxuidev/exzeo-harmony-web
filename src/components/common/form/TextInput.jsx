@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
-const TextInput = ({ question, description, id, value, answerType, handleChange, styleName = '' }) => (
-  <div className={`form-group ${styleName}`}>
-    <label htmlFor={id || null}>{question || null}</label>
+const TextInput = ({ question, name, description, value, answerType, handleChange, styleName = '' }) => (
+  <div className={`form-group ${styleName} ${name}`}>
+    <label htmlFor={name || null}>{question || null}</label>
     <input
       type={answerType || 'text'}
-      name={question || null}
-      value={value || ''}
+      name={name || null}
+      value={value || (answerType === 'number' ? 0 : '')}
       onChange={handleChange || null}
     />
     <small>{description}</small>
@@ -15,7 +15,7 @@ const TextInput = ({ question, description, id, value, answerType, handleChange,
 
 TextInput.propTypes = {
   question: PropTypes.string,
-  id: PropTypes.string,
+  name: PropTypes.string,
   description: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,

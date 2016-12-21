@@ -6,17 +6,17 @@ import BoolInput from '../form/BoolInput';
 
 const Question = (props) => {
   const { answerType, answers } = props.question;
-  const { handleChange, value } = props;
+  const { handleChange, answer } = props;
   let formElement;
   if (answerType === 'radio' && answers && answers.length > 0) {
     formElement = answers.length < 6 ?
-      <RadioGroup {...props.question} value={value} handleChange={handleChange} segmented /> :
-      <Dropdown {...props.question} value={value} handleChange={handleChange} />;
+      <RadioGroup {...props.question} value={answer} handleChange={handleChange} segmented /> :
+      <Dropdown {...props.question} value={answer} handleChange={handleChange} />;
   } else if (answerType === 'bool') {
     formElement = (
       <BoolInput
         {...props.question}
-        value={value}
+        value={answer || false}
         handleChange={handleChange}
         isSwitch
       />);
@@ -30,7 +30,7 @@ const Question = (props) => {
 
 Question.propTypes = {
   question: PropTypes.shape({
-    id: PropTypes.string,
+    name: PropTypes.string,
     question: PropTypes.string,
     description: PropTypes.string,
     answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
@@ -39,9 +39,8 @@ Question.propTypes = {
       image: PropTypes.string,
     })),
     optional: PropTypes.bool,
-    styleName: PropTypes.string,
   }),
-  value: PropTypes.oneOfType([
+  answer: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
     PropTypes.number,

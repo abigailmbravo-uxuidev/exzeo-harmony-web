@@ -112,6 +112,11 @@ $link-hover-decoration: underline !default;
 @mixin for-phone-only {
   @media (max-width: 599px) { @content; }
 }
+@include for-phone-only {
+    .hide-for-phone-only {
+        display: none !important;
+    }
+}
 @mixin for-tablet-portrait-up {
   @media (min-width: 600px) { @content; }
 }
@@ -227,6 +232,7 @@ $lead-font-size:   1.25rem !default;
 $lead-font-weight: 300 !default;
 
 $small-font-size: 0.8rem !default;
+$xsmall-font-size: 0.64rem !default;
 
 $text-muted: $warm-gray-05 !default;
 
