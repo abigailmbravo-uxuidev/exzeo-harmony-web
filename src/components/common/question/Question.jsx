@@ -3,6 +3,7 @@ import TextInput from '../form/TextInput';
 import Dropdown from '../form/Dropdown';
 import RadioGroup from '../form/RadioGroup';
 import BoolInput from '../form/BoolInput';
+import SliderInput from '../form/SliderInput';
 
 const Question = (props) => {
   const { answerType, answers } = props.question;
@@ -20,9 +21,22 @@ const Question = (props) => {
         handleChange={handleChange}
         isSwitch
       />);
+  } else if (answerType === 'range') {
+    formElement = (
+      <SliderInput
+        {...props.question}
+        value={answer || null}
+        handleChange={handleChange}
+      />
+    );
   } else {
     formElement = (
-      <TextInput {...props.question} value={props.answer} handleChange={handleChange} handleSubmit={props.handleSubmit} />
+      <TextInput
+        {...props.question}
+        value={props.answer}
+        handleChange={handleChange}
+        handleSubmit={props.handleSubmit}
+      />
     );
   }
   return formElement;

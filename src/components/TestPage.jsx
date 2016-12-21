@@ -68,6 +68,15 @@ const surveyQuestions = [{
   }, {
     answer: 'answer3',
   }],
+}, {
+  name: 'slider-test',
+  question: 'Test for slider',
+  description: 'Testing for slider',
+  answerType: 'range',
+  minValue: 100,
+  maxValue: 200,
+  leftLabel: '$100',
+  rightLabel: '$200',
 }];
 
 class TestPage extends Component {

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for, eqeqeq */
 import React, { PropTypes } from 'react';
 
-const RadioGroup = ({ question, name, value, answers, handleChange, segmented, styleName = '' }) => {
+const RadioGroup = ({ question, name, description, value, answers, handleChange, segmented, styleName = '' }) => {
   const onClick = (answer) => {
     const newEvent = {
       target: {
@@ -14,7 +14,11 @@ const RadioGroup = ({ question, name, value, answers, handleChange, segmented, s
   const classnames = `form-group ${segmented ? 'segmented' : ''} ${name} ${styleName}`;
   return (
     <div className={classnames} role="group">
-      <label className={`group-label ${segmented ? 'label-segmented' : ''}`}>{question || null}</label>
+      <label className={`group-label ${segmented ? 'label-segmented' : ''}`}>
+        {question || null}
+        &nbsp;
+        {description && <span className="tooltip"><i className="fa fa-info-circle" aria-hidden="true" /><span className="tooltiptext">{description}</span></span>}
+      </label>
       {answers && answers.length > 0 ? answers.map((answer, index) =>
         <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
           <input
@@ -35,6 +39,7 @@ const RadioGroup = ({ question, name, value, answers, handleChange, segmented, s
 RadioGroup.propTypes = {
   question: PropTypes.string,
   name: PropTypes.string,
+  description: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
