@@ -6,7 +6,7 @@ const TextInput = ({ question, name, description, value, answerType, handleChang
     <input
       type={answerType || 'text'}
       name={name || null}
-      value={value || (answerType === 'number' ? 0 : '')}
+      value={value || (answerType === 'number' ? null : '')}
       onChange={handleChange || null}
     />
     <small>{description}</small>

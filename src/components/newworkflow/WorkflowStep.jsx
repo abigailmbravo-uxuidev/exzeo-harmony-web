@@ -24,10 +24,11 @@ class WorkflowStep extends Component {
   }
   handleChange = (event) => {
     const { questions } = this.state;
-    console.log(event.target.name, event.target.value);
-    questions[event.target.name] = Number(event.target.value) ?
-     Number(event.target.value) : event.target.value;
-     console.log(questions, 'state');
+    // console.log(event.target.name, event.target.value);
+    // questions[event.target.name] = Number(event.target.value) ?
+    //  Number(event.target.value) : event.target.value;
+    //  console.log(questions, 'state');
+    questions[event.target.name] = event.target.value;
     this.setState({ questions });
   }
   handleSubmit = (event) => {
