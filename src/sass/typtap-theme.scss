@@ -322,6 +322,13 @@ html {
                                                     color: $green;
                                                 }
                                             }
+                                            &.completed {
+                                                color: $bright-blue-lighten-03;
+
+                                                i.fa {
+                                                    color: $bright-blue-lighten-03;
+                                                }
+                                            }
                                         }
                                     }
                                 }
