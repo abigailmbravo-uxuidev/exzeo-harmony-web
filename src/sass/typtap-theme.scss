@@ -404,6 +404,10 @@ html {
 
                         .modal {
                             background: rgba($black, .75);
+                            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)),
+                            url('../img/typtap-login.jpg');
+                            background-position: center center;
+                            background-size: cover;
                         }
                     }
                 }
