@@ -6,7 +6,7 @@ const Dropdown = ({ question, name, value, answers, handleChange, styleName = ''
       {question || null}
       {answers && answers.length > 0 ?
         <select value={value || ''} name={name || null} onChange={handleChange || null}>
-          <option disabled selected value>Please select...</option>
+          <option disabled value={''}>Please select...</option>
           {answers.map((answer, index) => (
             <option value={answer.answer || null} key={index}>{answer.answer || null}</option>
           ))}
