@@ -32,6 +32,7 @@ class WorkflowStep extends Component {
   }
   handleSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
+    console.log('COMPLETE TASK');
     this.props.completeStep({ variables: { input: {
       workflowId: this.props.workflowId,
       stepName: this.props.data.steps.name,

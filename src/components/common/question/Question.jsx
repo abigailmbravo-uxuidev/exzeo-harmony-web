@@ -22,7 +22,7 @@ const Question = (props) => {
       />);
   } else {
     formElement = (
-      <TextInput {...props.question} value={answer} handleChange={handleChange} />
+      <TextInput {...props.question} value={props.answer} handleChange={handleChange} handleSubmit={props.handleSubmit} />
     );
   }
   return formElement;

@@ -9,7 +9,7 @@ function getStatus(step, completedSteps) {
       // console.log(step.name, ' ', c);
       // console.log(c === step.name);
       if (step.name === c) {
-        status = 'active';
+        status = 'completed';
       }
     });
   }
@@ -23,11 +23,19 @@ const WorkflowHeader = (d, f) => {
       <div className="rule" />
       {
         d.steps ? d.steps.map((step, index) => {
+          console.log(step);
           return (
             <li key={index}>
               <a className={getStatus(step, d.completedSteps)} tabIndex={index} onClick={() => { d.updateStep(index); }}>
                 <i className={`fa ${step.icon || 'fa-circle'}`} />
-                <span>{step.name}</span>
+                <span>
+                  {
+                    step.name// insert a space before all caps
+                      .replace(/([A-Z])/g, ' $1')
+                      // uppercase the first character
+                      .replace(/^./, str => str.toUpperCase())
+                  }
+                </span>
               </a>
             </li>
           )

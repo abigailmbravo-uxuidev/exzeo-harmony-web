@@ -39,6 +39,7 @@ class Survey extends Component {
                 question={question}
                 answer={this.props.answers[question.name] || ''}
                 handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
               />
             )) : null
           }
