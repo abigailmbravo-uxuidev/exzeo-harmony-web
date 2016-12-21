@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for, eqeqeq */
 import React, { PropTypes } from 'react';
 
 const RadioGroup = ({ question, name, value, answers, handleChange, segmented, styleName = '' }) => {
@@ -22,7 +22,7 @@ const RadioGroup = ({ question, name, value, answers, handleChange, segmented, s
             value={answer.answer || null}
             key={index}
             name={name || null}
-            checked={value === answer.answer}
+            checked={value == answer.answer}
             onChange={handleChange || null}
           />
           <span onClick={() => onClick(answer.answer)}>{answer.answer || null}</span>
@@ -35,7 +35,10 @@ const RadioGroup = ({ question, name, value, answers, handleChange, segmented, s
 RadioGroup.propTypes = {
   question: PropTypes.string,
   name: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.string,
     image: PropTypes.string,
