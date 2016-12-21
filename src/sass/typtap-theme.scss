@@ -16,6 +16,7 @@ html body {
         padding: $padding;
         border-width: 0;
         border-bottom: 2px solid $cool-gray-03;
+        background: lighten( $cool-gray-00, 2.5% );
         border-radius: 0;
         box-shadow: none;
         // Placeholder
@@ -24,6 +25,10 @@ html body {
             opacity: 1;
             color: $cool-gray-02;
             font-style: italic;
+        }
+
+        &:focus {
+            background: lighten( $cool-gray-00, 2.5% );
         }
         //range input
         @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
@@ -223,6 +228,7 @@ html {
                 }
                 //search
                 .search {
+                    background: $cool-gray-00;
                     > div {
                         > div {
                             background: $cool-gray-00;
@@ -412,6 +418,33 @@ html {
                             border-right: $card-border-width solid $cool-gray-01;
                             border-bottom: $card-border-width solid $cool-gray-01;
                             border-left: $card-border-width solid $cool-gray-01;
+                        }
+                    }
+                }
+
+                //form layout
+                form {
+                    &.askAdditionalCustomerData {
+                        @include for-tablet-landscape-up {
+                            .PH1FirstName {
+                                width: 50%;
+                                padding-right: $padding*2;
+                            }
+                            .PH1LastName {
+                                width: 50%;
+                            }
+                            .agentID {
+                                width: 50%;
+                                padding-right: $padding*2;
+                            }
+                        }
+                        @include for-tablet-portrait-up {
+                            .phoneNumber {
+                                width: 50%;
+                            }
+                            .effectiveDate {
+                                width: 50%
+                            }
                         }
                     }
                 }
