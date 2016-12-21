@@ -101,6 +101,7 @@ class WorkflowStep extends Component {
             questions={steps && steps.questions && steps.questions.length > 0 ?
               steps.questions : null}
             answers={this.state.questions}
+            styleName={steps && steps.name ? steps.name : ''}
           />
         </section>
       </div>
