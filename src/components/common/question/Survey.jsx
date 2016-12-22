@@ -17,6 +17,7 @@ class Survey extends Component {
       optional: PropTypes.bool,
       styleName: PropTypes.string,
     })),
+    answers: PropTypes.object, //eslint-disable-line
     styleName: PropTypes.string,
   }
   handleChange = (event) => {
@@ -28,7 +29,7 @@ class Survey extends Component {
   }
   render() {
     // console.log('SURVEY: ', this);
-    const { questions, styleName } = this.props;
+    const { questions, styleName, answers } = this.props;
     return (
       <form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={this.handleSubmit}>
         <div className="form-group survey-wrapper" role="group">
@@ -37,7 +38,9 @@ class Survey extends Component {
               <Question
                 key={index}
                 question={question}
-                answer={this.props.answers[question.name] || ''}
+                answer={answers[question.name].value}
+                disabled={answers[question.name].disabled || false}
+                hidden={answers[question.name].hidden || false}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
               />

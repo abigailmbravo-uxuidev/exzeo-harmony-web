@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const TextInput = ({ question, name, description, value, answerType, handleChange, styleName = '' }) => (
+const TextInput = ({ question, name, description, value, answerType, handleChange, disabled = false, styleName = '' }) => (
   <div className={`form-group ${styleName} ${name}`}>
     <label htmlFor={name || null}>
       {question || null}
@@ -12,6 +12,7 @@ const TextInput = ({ question, name, description, value, answerType, handleChang
       name={name || null}
       value={value || (answerType === 'number' ? null : '')}
       onChange={handleChange || null}
+      disabled={disabled}
     />
   </div>
 );
@@ -26,6 +27,7 @@ TextInput.propTypes = {
   ]),
   answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   handleChange: PropTypes.func,
+  disabled: PropTypes.bool,
   styleName: PropTypes.string,
 };
 

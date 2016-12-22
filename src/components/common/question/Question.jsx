@@ -7,18 +7,31 @@ import SliderInput from '../form/SliderInput';
 
 const Question = (props) => {
   const { answerType, answers } = props.question;
-  const { handleChange, answer } = props;
+  const { handleChange, answer, disabled, hidden } = props;
+  if (hidden) return null;
   let formElement;
   if (answerType === 'radio' && answers && answers.length > 0) {
     formElement = answers.length < 6 ?
-      <RadioGroup {...props.question} value={answer} handleChange={handleChange} segmented /> :
-      <Dropdown {...props.question} value={answer} handleChange={handleChange} />;
+      (<RadioGroup
+        {...props.question}
+        value={answer}
+        handleChange={handleChange}
+        disabled={disabled}
+        segmented
+      />) :
+      (<Dropdown
+        {...props.question}
+        value={answer}
+        handleChange={handleChange}
+        disabled={disabled}
+      />);
   } else if (answerType === 'bool') {
     formElement = (
       <BoolInput
         {...props.question}
         value={answer || false}
         handleChange={handleChange}
+        disabled={disabled}
         isSwitch
       />);
   } else if (answerType === 'range') {
@@ -27,6 +40,7 @@ const Question = (props) => {
         {...props.question}
         value={answer || null}
         handleChange={handleChange}
+        disabled={disabled}
       />
     );
   } else {
@@ -35,7 +49,7 @@ const Question = (props) => {
         {...props.question}
         value={props.answer}
         handleChange={handleChange}
-        handleSubmit={props.handleSubmit}
+        disabled={disabled}
       />
     );
   }
@@ -60,6 +74,8 @@ Question.propTypes = {
     PropTypes.number,
   ]),
   handleChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  hidden: PropTypes.bool,
 };
 
 export default Question;

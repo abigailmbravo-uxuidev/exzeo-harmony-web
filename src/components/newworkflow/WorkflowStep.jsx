@@ -22,18 +22,98 @@ class WorkflowStep extends Component {
   state = {
     questions: {},
   }
+  componentWillReceiveProps(newProps) {
+    if (!this.props.data.steps || (!newProps.data.loading &&
+      this.props.data.steps.name !== newProps.data.steps.name)) {
+      const { questions } = this.state;
+      const { steps } = newProps.data;
+      steps.questions.forEach((question) => {
+        let value = '';
+        if ('defaultValue' in question) {
+          value = question.defaultValue;
+        } else if (question.answerType === 'bool') {
+          value = false;
+        }
+        questions[question.name] = {
+          value,
+          hidden: false,
+          disabled: false,
+        };
+      });
+      steps.questions.forEach((question) => {
+        if (question.conditional && question.conditional.display) {
+          questions[question.name].hidden = false;
+          questions[question.name].disabled = false;
+          const { display } = question.conditional;
+          display.forEach((condition) => {
+            switch (condition.operator) { // eslint-disable-line
+              case 'equal':
+                if (!questions[question.name][condition.type]) {
+                  questions[question.name][condition.type] =
+                    !(questions[condition.dependency].value === condition.trigger);
+                }
+                break;
+              case 'greaterThan':
+                if (!questions[question.name][condition.type]) {
+                  questions[question.name][condition.type] =
+                    !(questions[condition.dependency].value > condition.trigger);
+                }
+                break;
+              case 'lessThan':
+                if (!questions[question.name][condition.type]) {
+                  questions[question.name][condition.type] =
+                    !(questions[condition.dependency].value < condition.trigger);
+                }
+                break;
+            }
+          });
+        }
+      });
+      this.setState({ questions });
+    }
+  }
   handleChange = (event) => {
     const { questions } = this.state;
+    const { steps } = this.props.data;
     // console.log(event.target.name, event.target.value);
     // questions[event.target.name] = Number(event.target.value) ?
     //  Number(event.target.value) : event.target.value;
     //  console.log(questions, 'state');
-    questions[event.target.name] = event.target.value;
+    questions[event.target.name].value = event.target.value;
+    steps.questions.forEach((question) => {
+      if (question.conditional && question.conditional.display) {
+        questions[question.name].hidden = false;
+        questions[question.name].disabled = false;
+        const { display } = question.conditional;
+        display.forEach((condition) => {
+          switch (condition.operator) { // eslint-disable-line
+            case 'equal':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value === condition.trigger);
+              }
+              break;
+            case 'greaterThan':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value > condition.trigger);
+              }
+              break;
+            case 'lessThan':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value < condition.trigger);
+              }
+              break;
+          }
+        });
+      }
+    });
     this.setState({ questions });
   }
   handleSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
-    console.log('COMPLETE TASK');
+    console.log('COMPLETE TASK'); // eslint-disable-line
     this.props.completeStep({ variables: { input: {
       workflowId: this.props.workflowId,
       stepName: this.props.data.steps.name,
@@ -54,7 +134,7 @@ class WorkflowStep extends Component {
     Object.keys(this.state.questions).forEach((key) => {
       answers.push({
         key,
-        value: this.state.questions[key],
+        value: this.state.questions[key].value,
       });
     });
     return answers;
@@ -121,6 +201,14 @@ export default graphql(gql`
         answerType
         answers {
           answer
+        }
+        conditional {
+          display {
+            type
+            operator
+            trigger
+            dependency
+          }
         }
       }
       completedSteps

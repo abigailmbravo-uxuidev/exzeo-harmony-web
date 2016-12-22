@@ -4,90 +4,218 @@ import Survey from './common/question/Survey';
 import './TestPage.css';
 
 const surveyQuestions = [{
-  name: 'firstName',
-  question: 'First Name',
-  description: 'Test for first name',
-  answerType: 'text',
-}, {
-  name: 'lastName',
-  question: 'Last Name',
-  description: 'Test for last name',
-  answerType: 'text',
-}, {
-  name: 'bool-test',
-  question: 'Test for bool?',
-  description: 'Testing for bool',
+//   name: 'firstName',
+//   question: 'First Name',
+//   description: 'Test for first name',
+//   answerType: 'text',
+// }, {
+//   name: 'lastName',
+//   question: 'Last Name',
+//   description: 'Test for last name',
+//   answerType: 'text',
+// }, {
+//   name: 'bool-test',
+//   question: 'Test for bool?',
+//   answerType: 'bool',
+//   defaultValue: false,
+// }, {
+//   name: 'text-test',
+//   question: 'Test for text?',
+//   description: 'Testing for text',
+//   answerType: 'text',
+// }, {
+//   name: 'password-test',
+//   question: 'Test for password?',
+//   description: 'Testing for password',
+//   answerType: 'password',
+// }, {
+//   name: 'date-test',
+//   question: 'Test for dates?',
+//   description: 'Testing for questions',
+//   answerType: 'date',
+// }, {
+//   name: 'range-test',
+//   question: 'Test for range?',
+//   description: 'Testing for range',
+//   answerType: 'range',
+// }, {
+//   name: 'dropdown-test',
+//   question: 'Test for dropdown?',
+//   description: 'Testing for dropdown',
+//   answerType: 'radio',
+//   answers: [{
+//     answer: 'answer1',
+//   }, {
+//     answer: 'answer2',
+//   }, {
+//     answer: 'answer3',
+//   }, {
+//     answer: 'answer4',
+//   }, {
+//     answer: 'answer5',
+//   }, {
+//     answer: 'answer6',
+//   }],
+// }, {
+//   name: 'radio-test',
+//   question: 'Test for radio?',
+//   description: 'Testing for radio',
+//   answerType: 'radio',
+//   answers: [{
+//     answer: 'answer1',
+//   }, {
+//     answer: 'answer2',
+//   }, {
+//     answer: 'answer3',
+//   }],
+// }, {
+//   name: 'slider-test',
+//   question: 'Test for slider',
+//   description: 'Testing for slider',
+//   answerType: 'range',
+//   minValue: 100,
+//   maxValue: 200,
+//   leftLabel: '$100',
+//   rightLabel: '$200',
+// }, {
+  name: 'dep-test1',
+  question: 'Disabled test 1',
   answerType: 'bool',
+  defaultValue: false,
 }, {
-  name: 'text-test',
-  question: 'Test for text?',
-  description: 'Testing for text',
+  name: 'dep-test2',
+  question: 'Disabled test 2',
+  answerType: 'bool',
+  defaultValue: false,
+}, {
+  name: 'dep-test3',
+  question: 'Disabled test 3',
+  answerType: 'bool',
+  defaultValue: false,
+}, {
+  name: 'dep-test4',
+  question: 'Hidden test 4',
+  answerType: 'bool',
+  defaultValue: false,
+}, {
+  name: 'dep-test5',
+  question: 'Hidden test 5',
+  answerType: 'bool',
+  defaultValue: false,
+}, {
+  name: 'dependent-test',
+  question: 'Test me',
   answerType: 'text',
-}, {
-  name: 'password-test',
-  question: 'Test for password?',
-  description: 'Testing for password',
-  answerType: 'password',
-}, {
-  name: 'date-test',
-  question: 'Test for dates?',
-  description: 'Testing for questions',
-  answerType: 'date',
-}, {
-  name: 'range-test',
-  question: 'Test for range?',
-  description: 'Testing for range',
-  answerType: 'range',
-}, {
-  name: 'dropdown-test',
-  question: 'Test for dropdown?',
-  description: 'Testing for dropdown',
-  answerType: 'radio',
-  answers: [{
-    answer: 'answer1',
-  }, {
-    answer: 'answer2',
-  }, {
-    answer: 'answer3',
-  }, {
-    answer: 'answer4',
-  }, {
-    answer: 'answer5',
-  }, {
-    answer: 'answer6',
-  }],
-}, {
-  name: 'radio-test',
-  question: 'Test for radio?',
-  description: 'Testing for radio',
-  answerType: 'radio',
-  answers: [{
-    answer: 'answer1',
-  }, {
-    answer: 'answer2',
-  }, {
-    answer: 'answer3',
-  }],
-}, {
-  name: 'slider-test',
-  question: 'Test for slider',
-  description: 'Testing for slider',
-  answerType: 'range',
-  minValue: 100,
-  maxValue: 200,
-  leftLabel: '$100',
-  rightLabel: '$200',
+  conditional: {
+    display: [{
+      type: 'disabled',
+      operator: 'equal',
+      trigger: true,
+      dependency: 'dep-test1',
+    }, {
+      type: 'disabled',
+      operator: 'equal',
+      trigger: true,
+      dependency: 'dep-test3',
+    }, {
+      type: 'disabled',
+      operator: 'equal',
+      trigger: true,
+      dependency: 'dep-test2',
+    }, {
+      type: 'hidden',
+      operator: 'equal',
+      trigger: true,
+      dependency: 'dep-test4',
+    }, {
+      type: 'hidden',
+      operator: 'equal',
+      trigger: true,
+      dependency: 'dep-test5',
+    }],
+  },
 }];
 
 class TestPage extends Component {
   state = {
     questions: {},
   }
+  componentWillMount = () => {
+    const { questions } = this.state;
+    surveyQuestions.forEach((question) => {
+      let value = '';
+      if ('defaultValue' in question) {
+        value = question.defaultValue;
+      } else if (question.answerType === 'bool') {
+        value = false;
+      }
+      questions[question.name] = {
+        value,
+        hidden: false,
+        disabled: false,
+      };
+    });
+    surveyQuestions.forEach((question) => {
+      if (question.conditional && question.conditional.display) {
+        const { display } = question.conditional;
+        display.forEach((condition) => {
+          switch (condition.operator) { // eslint-disable-line
+            case 'equal':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value === condition.trigger);
+              }
+              break;
+            case 'greaterThan':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value > condition.trigger);
+              }
+              break;
+            case 'lessThan':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value < condition.trigger);
+              }
+              break;
+          }
+        });
+      }
+    });
+    this.setState({ questions });
+  }
   handleChange = (event) => {
     const { questions } = this.state;
-    // console.log(event.target.name, event.target.value);
-    questions[event.target.name] = Number(event.target.value) ?
-     Number(event.target.value) : event.target.value;
+    questions[event.target.name].value = event.target.value;
+    surveyQuestions.forEach((question) => {
+      if (question.conditional && question.conditional.display) {
+        questions[question.name].hidden = false;
+        questions[question.name].disabled = false;
+        const { display } = question.conditional;
+        display.forEach((condition) => {
+          switch (condition.operator) { // eslint-disable-line
+            case 'equal':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value === condition.trigger);
+              }
+              break;
+            case 'greaterThan':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value > condition.trigger);
+              }
+              break;
+            case 'lessThan':
+              if (!questions[question.name][condition.type]) {
+                questions[question.name][condition.type] =
+                  !(questions[condition.dependency].value < condition.trigger);
+              }
+              break;
+          }
+        });
+      }
+    });
     this.setState({ questions });
   }
   formatData = () => {
@@ -102,6 +230,7 @@ class TestPage extends Component {
   }
   handleSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
+    console.log(this.state.questions); // eslint-disable-line
   }
   formatData = () => {
     const answers = [];
@@ -118,38 +247,6 @@ class TestPage extends Component {
       <div className="workflow" role="article">
         <div className="fade-in">
           <div className="workflow-content">
-            <aside>
-              <div className="side-panel" role="contentinfo">
-                <section id="premium" className="premium">
-                  <dl>
-                    <div>
-                      <dt>Annual premium</dt>
-                      <dd>$1000.00</dd>
-                    </div>
-                  </dl>
-                </section>
-                <section id="quoteDetails" className="quoteDetails">
-                  <dl>
-                    <div>
-                      <dt>Quote number</dt>
-                      <dd>TTIC-HO3-1234567890</dd>
-                    </div>
-                  </dl>
-                </section>
-                <section id="propertyDetails" className="propertyDetails">
-                  <dl>
-                    <div>
-                      <dt>Address</dt>
-                      <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
-                    </div>
-                    <div className="hide-for-phone-only">
-                      <dt>Year built</dt>
-                      <dd>2000</dd>
-                    </div>
-                  </dl>
-                </section>
-              </div>
-            </aside>
             <section>
               <Survey
                 questions={surveyQuestions}
