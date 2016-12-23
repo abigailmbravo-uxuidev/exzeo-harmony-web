@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PropTypes } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 const BoolInput = ({
+  description,
   disabled = false,
   handleChange,
   isSwitch = false,
@@ -25,6 +27,13 @@ const BoolInput = ({
     <div className={classnames} >
       <label htmlFor={name || null} onClick={onChange}>
         {question || null}
+        &nbsp;
+        {description &&
+          <span>
+            <i className="fa fa-info-circle" data-tip data-for={name} />
+            <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
+          </span>
+        }
         <input
           type="checkbox"
           name={name || null}
@@ -39,6 +48,7 @@ const BoolInput = ({
 };
 
 BoolInput.propTypes = {
+  description: PropTypes.string,
   disabled: PropTypes.bool,
   handleChange: PropTypes.func,
   isSwitch: PropTypes.bool,

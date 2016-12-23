@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for, eqeqeq */
 import React, { PropTypes } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 const RadioGroup = ({
   answers,
@@ -27,6 +28,10 @@ const RadioGroup = ({
     <div className={classnames} role="group">
       <label className={`group-label ${segmented ? 'label-segmented' : ''}`}>
         {question || null}
+        &nbsp;
+        {description && <i className="fa fa-info-circle" data-tip data-for={name} />}
+        {description && <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>}
+
       </label>
       {answers && answers.length > 0 ? answers.map((answer, index) =>
         <div onClick={() => onClick(answer.answer)} key={index}>

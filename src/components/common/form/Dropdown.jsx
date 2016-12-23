@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 const Dropdown = ({
   answers,
@@ -14,7 +15,12 @@ const Dropdown = ({
     <label htmlFor={name || null}>
       {question || null}
       &nbsp;
-      {description && <span className="tooltip"><i className="fa fa-info-circle" aria-hidden="true" /><span className="tooltiptext">{description}</span></span>}
+      {description &&
+        <span>
+          <i className="fa fa-info-circle" data-tip data-for={name} />
+          <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
+        </span>
+      }
       {answers && answers.length > 0 ?
         <select value={value || ''} name={name || null} disabled={disabled} onChange={handleChange || null}>
           <option disabled value={''}>Please select...</option>

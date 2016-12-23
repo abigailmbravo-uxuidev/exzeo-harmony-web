@@ -33,6 +33,8 @@ class WorkflowStep extends Component {
           value = question.defaultValue;
         } else if (question.answerType === 'bool') {
           value = false;
+        } else if (question.answerType === 'range') {
+          value = 0;
         }
         questions[question.name] = {
           value,

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactTooltip from 'react-tooltip';
 
 const SliderInput = ({
   description,
@@ -17,6 +18,13 @@ const SliderInput = ({
   <div className={`form-group ${styleName} ${name}`}>
     <label htmlFor={name || null}>
       {question || null}
+      &nbsp;
+      {description &&
+        <span>
+          <i className="fa fa-info-circle" data-tip data-for={name} />
+          <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
+        </span>
+      }
     </label>
     <span>{leftLabel || Math.ceil(minValue) || null}</span>
     <input
@@ -50,7 +58,10 @@ SliderInput.propTypes = {
   question: PropTypes.string,
   step: PropTypes.number,
   styleName: PropTypes.string,
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 export default SliderInput;
