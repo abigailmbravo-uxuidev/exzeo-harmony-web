@@ -119,6 +119,7 @@ export default graphql(gql`
         name
         question
         answerType
+        description
         answers {
           answer
         }

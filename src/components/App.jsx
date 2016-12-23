@@ -12,6 +12,7 @@ import Footer from './common/Footer';
 import TestPage from './TestPage';
 import Search from './common/search/Search';
 import NewWorkflow from './newworkflow/Workflow';
+import Admin from './admin/Admin';
 import './App.css';
 
 export class App extends Component {
@@ -74,6 +75,7 @@ export class App extends Component {
           <Match pattern="/quote/:location/:address" component={Quote} />
           <Match pattern="/test" component={TestPage} />
           <Match pattern="/workflow" component={NewWorkflow} />
+          <Match pattern="/admin/" component={Admin} />
           <Footer />
         </main>
       </div>
