@@ -33,6 +33,7 @@ html body {
 
         &[type="range"] {
             box-shadow: none;
+            border-width: 0;
         }
 
         &[type="radio"] {
@@ -102,10 +103,6 @@ html body {
             color: $input-color;
             background-color: $input-bg;
         }
-    }
-    // Make file inputs better match text inputs by forcing them to new lines.
-    .form-control-range {
-        border: none;
     }
     //
     // Legends

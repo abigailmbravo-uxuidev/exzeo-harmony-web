@@ -15,34 +15,36 @@ const SliderInput = ({
   styleName = '',
   value,
 }) => (
-  <div className={`form-group ${styleName} ${name}`}>
+  <div className={`form-group range-component ${styleName} ${name}`}>
     <label htmlFor={name || null}>
       {question || null}
       &nbsp;
-      {description &&
-        <span>
-          <i className="fa fa-info-circle" data-tip data-for={name} />
-          <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
-        </span>
-      }
+      {description && <i className="fa fa-info-circle" data-tip data-for={name} />}
+      {description && <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>}
     </label>
-    <span>{leftLabel || Math.ceil(minValue) || null}</span>
-    <input
-      type={'range'}
-      name={name || null}
-      min={Math.ceil(minValue)}
-      max={Math.floor(maxValue)}
-      step={step || (maxValue - minValue) / 40}
-      value={value || minValue}
-      onChange={handleChange || null}
-    />
-    <span>{rightLabel || Math.floor(maxValue) || null}</span>
-    <span><input
-      type="text"
-      value={value}
-      onChange={handleChange}
-      name={name}
-    /></span>
+    <div className="range-wrapper">
+      <div className="range-control-wrapper">
+        <span className="range-limit">{leftLabel || Math.ceil(minValue) || null}</span>
+        <input
+          type="range"
+          name={name || null}
+          min={Math.ceil(minValue)}
+          max={Math.floor(maxValue)}
+          step={step}
+          value={value || minValue}
+          onChange={handleChange || null}
+        />
+        <span className="range-limit">{rightLabel || Math.floor(maxValue) || null}</span>
+      </div>
+      <span className="range-value">
+        <input
+          type="text"
+          value={value}
+          onChange={handleChange}
+          name={name}
+        />
+      </span>
+    </div>
   </div>
 );
 
