@@ -1,46 +1,17 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PropTypes } from 'react';
 
-// class BoolInput extends Component {
-//   componentWillMount = () => {
-//     this.props.handleChange({
-//       target: {
-//         name: this.props.name,
-//         value: false,
-//       },
-//     });
-//   }
-//   onChange = () => {
-//     this.props.handleChange({
-//       target: {
-//         name: this.props.name,
-//         value: !this.props.value,
-//       },
-//     });
-//   }
-//   render() {
-//     const { isSwitch, styleName, name, value, question } = this.props;
-//     const classnames = `form-group ${isSwitch ? 'switch' : ''} ${styleName} ${name}`;
-//     return (
-//       <div className={classnames} >
-//         <label htmlFor={name || null} onClick={this.onChange}>
-//           {question || null}
-//           <input
-//             type="checkbox"
-//             name={name || null}
-//             checked={value || false}
-//             onChange={this.onChange}
-//           />
-//           {isSwitch && <div />}
-//         </label>
-//       </div>
-//     );
-//   }
-// }
-
-const BoolInput = ({ question, name, disabled, value, handleChange, isSwitch, styleName = '' }) => {
+const BoolInput = ({
+  disabled = false,
+  handleChange,
+  isSwitch = false,
+  name,
+  question,
+  styleName = '',
+  value,
+}) => {
   const onChange = () => {
-          if (disabled) return
+    if (disabled) return;
     const newEvent = {
       target: {
         name,
@@ -68,16 +39,16 @@ const BoolInput = ({ question, name, disabled, value, handleChange, isSwitch, st
 };
 
 BoolInput.propTypes = {
-  question: PropTypes.string,
-  name: PropTypes.string,
   disabled: PropTypes.bool,
+  handleChange: PropTypes.func,
+  isSwitch: PropTypes.bool,
+  name: PropTypes.string,
+  question: PropTypes.string,
+  styleName: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
   ]),
-  handleChange: PropTypes.func,
-  isSwitch: PropTypes.bool,
-  styleName: PropTypes.string,
 };
 
 export default BoolInput;

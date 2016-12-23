@@ -86,6 +86,7 @@ const surveyQuestions = [{
   defaultValue: 150000,
   minValue: 100000,
   maxValue: 200000,
+  step: 1000,
 }, {
   name: 'pp-bool',
   question: 'Do you want personal property?',
@@ -97,6 +98,7 @@ const surveyQuestions = [{
   conditional: {
     value: {
       dependency: 'covOneSlider',
+      step: 0.0005,
       min: 0.25,
       default: 0.35,
       max: 0.5,

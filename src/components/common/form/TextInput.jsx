@@ -1,6 +1,15 @@
 import React, { PropTypes } from 'react';
 
-const TextInput = ({ question, name, description, value, answerType, handleChange, disabled = false, styleName = '' }) => (
+const TextInput = ({
+  answerType,
+  description,
+  disabled = false,
+  handleChange,
+  name,
+  question,
+  styleName = '',
+  value,
+}) => (
   <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
     <label htmlFor={name || null}>
       {question || null}
@@ -18,17 +27,17 @@ const TextInput = ({ question, name, description, value, answerType, handleChang
 );
 
 TextInput.propTypes = {
-  question: PropTypes.string,
-  name: PropTypes.string,
+  answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   description: PropTypes.string,
+  disabled: PropTypes.bool,
+  handleChange: PropTypes.func,
+  name: PropTypes.string,
+  question: PropTypes.string,
+  styleName: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
-  answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
-  handleChange: PropTypes.func,
-  disabled: PropTypes.bool,
-  styleName: PropTypes.string,
 };
 
 export default TextInput;

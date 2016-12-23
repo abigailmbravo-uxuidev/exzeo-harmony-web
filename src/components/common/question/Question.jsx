@@ -5,61 +5,28 @@ import RadioGroup from '../form/RadioGroup';
 import BoolInput from '../form/BoolInput';
 import SliderInput from '../form/SliderInput';
 
-const Question = (props) => {
-  const { answerType, answers } = props.question;
-  const { handleChange, answer, disabled, hidden } = props;
+const Question = ({ question, answer, disabled, hidden, handleChange }) => {
   if (hidden) return null;
-  let formElement;
   const inputProps = {
-    ...props.question,
+    ...question,
     value: answer,
     handleChange,
     disabled,
   };
-  if (answerType === 'radio' && answers && answers.length > 0) {
-    formElement = answers.length < 6 ?
-      (<RadioGroup
-        {...props.question}
-        value={answer}
-        handleChange={handleChange}
-        disabled={disabled}
-        segmented
-      />) :
-      (<Dropdown
-        {...props.question}
-        value={answer}
-        handleChange={handleChange}
-        disabled={disabled}
-      />);
-  } else if (answerType === 'bool') {
-    formElement = (
-      <BoolInput
-        {...props.question}
-        value={answer || false}
-        handleChange={handleChange}
-        disabled={disabled}
-        isSwitch
-      />);
-  } else if (answerType === 'range') {
-    formElement = (
-      <SliderInput
-        {...props.question}
-        value={answer || null}
-        handleChange={handleChange}
-        disabled={disabled}
-      />
-    );
-  } else {
-    formElement = (
-      <TextInput
-        {...props.question}
-        value={props.answer}
-        handleChange={handleChange}
-        disabled={disabled}
-      />
-    );
+  switch (question.answerType) {
+    case 'radio':
+      if (question.answers && question.answers.length > 0) {
+        return question.answers.length < 6 ?
+          <RadioGroup {...inputProps} segmented /> :
+          <Dropdown {...inputProps} />;
+      }
+    case 'bool': // eslint-disable-line
+      return <BoolInput {...inputProps} isSwitch />;
+    case 'range':
+      return <SliderInput {...inputProps} />;
+    default:
+      return <TextInput {...inputProps} />;
   }
-  return formElement;
 };
 
 Question.propTypes = {
