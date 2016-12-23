@@ -7,16 +7,23 @@ const SliderInput = ({ question, name, description, value, minValue, maxValue, l
       &nbsp;
       {description && <span className="tooltip"><i className="fa fa-info-circle" aria-hidden="true" /><span className="tooltiptext">{description}</span></span>}
     </label>
-    <span>{leftLabel || minValue || null}</span>
+    <span>{leftLabel || Math.ceil(minValue) || null}</span>
     <input
       type={answerType || 'range'}
       name={name || null}
-      min={minValue}
-      max={maxValue}
+      min={Math.ceil(minValue)}
+      max={Math.floor(maxValue)}
+      step={1000}
       value={value || minValue}
       onChange={handleChange || null}
     />
-    <span>{rightLabel || maxValue || null}</span>
+    <span>{rightLabel || Math.floor(maxValue) || null}</span>
+    <span><input
+      type="text"
+      value={value}
+      onChange={handleChange}
+      name={name}
+    /></span>
   </div>
 );
 

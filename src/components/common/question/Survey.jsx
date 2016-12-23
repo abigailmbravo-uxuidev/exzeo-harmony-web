@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Question from './Question';
+import DependentQuestion from './DependentQuestion';
 
 class Survey extends Component {
   static propTypes = {
@@ -35,15 +36,23 @@ class Survey extends Component {
         <div className="form-group survey-wrapper" role="group">
           {questions && questions.length > 0 ?
             questions.map((question, index) => (
-              <Question
-                key={index}
-                question={question}
-                answer={answers[question.name].value}
-                disabled={answers[question.name].disabled || false}
-                hidden={answers[question.name].hidden || false}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-              />
+              question.conditional && question.conditional.value ?
+                <DependentQuestion
+                  key={index}
+                  question={question}
+                  answer={answers[question.name].value}
+                  disabled={answers[question.name].disabled || false}
+                  hidden={answers[question.name].hidden || false}
+                  handleChange={this.handleChange}
+                  answers={answers}
+                /> : <Question
+                  key={index}
+                  question={question}
+                  answer={answers[question.name].value}
+                  disabled={answers[question.name].disabled || false}
+                  hidden={answers[question.name].hidden || false}
+                  handleChange={this.handleChange}
+                />
             )) : null
           }
         </div>

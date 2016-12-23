@@ -78,6 +78,37 @@ const surveyQuestions = [{
 //   leftLabel: '$100',
 //   rightLabel: '$200',
 // }, {
+  name: 'covOneSlider',
+  question: 'Slider one',
+  answerType: 'range',
+  defaultValue: 150000,
+  minValue: 100000,
+  maxValue: 200000,
+}, {
+  name: 'pp-bool',
+  question: 'Do you want personal property?',
+  answerType: 'bool',
+}, {
+  name: 'pp-slider',
+  question: 'Personal Property',
+  answerType: 'range',
+  conditional: {
+    value: {
+      dependency: 'covOneSlider',
+      min: 0.25,
+      default: 0.35,
+      max: 0.5,
+      hardMin: 30000,
+      hardMax: 90000,
+    },
+    display: [{
+      dependency: 'pp-bool',
+      trigger: true,
+      operator: 'equal',
+      type: 'hidden',
+    }],
+  },
+}, {
   name: 'dep-test1',
   question: 'Disabled test 1',
   answerType: 'bool',
