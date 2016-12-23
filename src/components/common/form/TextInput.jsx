@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const TextInput = ({ question, name, description, value, answerType, handleChange, disabled = false, styleName = '' }) => (
-  <div className={`form-group ${styleName} ${name}`}>
+  <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
     <label htmlFor={name || null}>
       {question || null}
       &nbsp;

@@ -40,6 +40,7 @@ import React, { PropTypes } from 'react';
 
 const BoolInput = ({ question, name, disabled, value, handleChange, isSwitch, styleName = '' }) => {
   const onChange = () => {
+          if (disabled) return
     const newEvent = {
       target: {
         name,
@@ -48,7 +49,7 @@ const BoolInput = ({ question, name, disabled, value, handleChange, isSwitch, st
     };
     handleChange(newEvent);
   };
-  const classnames = `form-group ${isSwitch ? 'switch' : ''} ${styleName} ${name}`;
+  const classnames = `form-group ${isSwitch ? 'switch' : ''} ${styleName} ${name} ${disabled ? 'disabled' : ''}`;
   return (
     <div className={classnames} >
       <label htmlFor={name || null} onClick={onChange}>
