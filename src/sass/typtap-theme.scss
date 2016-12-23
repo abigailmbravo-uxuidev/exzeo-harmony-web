@@ -40,76 +40,76 @@ html body {
     .form-group {
         width: 100%;
 
-        &.segmented {
-            flex-wrap: wrap;
-
-            .group-label {
-                border-right-width: 0;
-                flex-basis: 100%;
-            }
-
-            label {
-                border-right: none;
-
-                span {
-                    border-width: 2px 0 2px 2px;
-                    @include button-variant($btn-default-color, $white, $cool-gray-02);
-                }
-
-                &:last-child {
-                    span {
-                        border-right-width: 2px;
-                    }
-                }
-
-                input[type="radio"]:checked {
-                    + span {
-                        color: $green-darken-01;
-                        border-color: $green;
-                        background: $white;
-                        box-shadow: 0 0 0 2px $green inset;
-                    }
-                }
-            }
-
-            &.disabled, &.disabled.invalid {
-                span {
-                    border-color: $cool-gray-01;
-                }
-                label {
-                    color: $cool-gray-01;
-                    &.label-segmented {
-                        span {
-                            color: $cool-gray-01;
-                            border-color: $cool-gray-01;
-                        }
-                    }
-                }
-
-                input[type=radio] {
-
-                    &:checked {
-                        + span {
-                            color: $cool-gray-02;
-                            background: $cool-gray-00;
-                            box-shadow: 0 0 0 2px $cool-gray-00 inset;
-                            border-color: $cool-gray-01;
-                        }
-                    }
-                }
-            }
-            &.invalid {
-
-                input[type=radio] {
-
-                    &:checked {
-                        + span {
-                            box-shadow: 0 0 0 2px $red-lighten-01 inset;
-                        }
-                    }
-                }
-            }
-        }
+        // &.segmented {
+        //     flex-wrap: wrap;
+        //
+        //     .group-label {
+        //         border-right-width: 0;
+        //         flex-basis: 100%;
+        //     }
+        //
+        //     label {
+        //         border-right: none;
+        //
+        //         span {
+        //             border-width: 2px 0 2px 2px;
+        //             @include button-variant($btn-default-color, $white, $cool-gray-02);
+        //         }
+        //
+        //         &:last-child {
+        //             span {
+        //                 border-right-width: 2px;
+        //             }
+        //         }
+        //
+        //         input[type="radio"]:checked {
+        //             + span {
+        //                 color: $green-darken-01;
+        //                 border-color: $green;
+        //                 background: $white;
+        //                 box-shadow: 0 0 0 2px $green inset;
+        //             }
+        //         }
+        //     }
+        //
+        //     &.disabled, &.disabled.invalid {
+        //         span {
+        //             border-color: $cool-gray-01;
+        //         }
+        //         label {
+        //             color: $cool-gray-01;
+        //             &.label-segmented {
+        //                 span {
+        //                     color: $cool-gray-01;
+        //                     border-color: $cool-gray-01;
+        //                 }
+        //             }
+        //         }
+        //
+        //         input[type=radio] {
+        //
+        //             &:checked {
+        //                 + span {
+        //                     color: $cool-gray-02;
+        //                     background: $cool-gray-00;
+        //                     box-shadow: 0 0 0 2px $cool-gray-00 inset;
+        //                     border-color: $cool-gray-01;
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     &.invalid {
+        //
+        //         input[type=radio] {
+        //
+        //             &:checked {
+        //                 + span {
+        //                     box-shadow: 0 0 0 2px $red-lighten-01 inset;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         &.switch {
             label {

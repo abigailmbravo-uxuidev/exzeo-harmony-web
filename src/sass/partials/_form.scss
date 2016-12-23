@@ -197,7 +197,42 @@ html body {
         }
 
         &.segmented {
-            flex-direction: row;
+
+            .segmented-answer-wrapper {
+                display: flex;
+                flex-direction: row;
+
+                div {
+                    display: flex;
+                    flex-grow: 1;
+                    flex-shrink: 0;
+                    flex-direction: column;
+
+                    label-segmented  {
+                        border-right: 1px solid $warm-gray-01;
+                        flex: 1;
+
+                        span {
+                            display: flex;
+                            white-space: initial;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                    }
+                }
+
+                div:first-child {
+                    span {
+                        border-radius: $border-radius 0 0 $border-radius;
+                    }
+                }
+
+                div:last-child {
+                    span {
+                        border-radius: 0 $border-radius $border-radius 0;
+                    }
+                }
+            }
 
             span {
                 display: inline-block;
@@ -206,7 +241,7 @@ html body {
                 user-select: none;
                 text-align: center;
                 vertical-align: middle;
-                white-space: nowrap;
+                //white-space: nowrap;
                 border: $input-btn-border-width solid transparent;
                 font-weight: $btn-font-weight;
                 line-height: $btn-line-height;
@@ -235,35 +270,9 @@ html body {
                 }
             }
 
-            label {
-                border-right: 1px solid $warm-gray-01;
-                flex: 1;
 
-                &.label-segmented {
-                    display: flex;
-                    flex-grow: 1;
-                    flex-shrink: 0;
 
-                    &.label-segmented:nth-of-type(2) {
-                        span {
-                            border-radius: $border-radius 0 0 $border-radius;
-                        }
-                    }
 
-                    &:last-child {
-                        span {
-                            border-radius: 0 $border-radius $border-radius 0;
-                        }
-                    }
-
-                    span {
-                        display: flex;
-                        white-space: initial;
-                        justify-content: center;
-                        align-items: center;
-                    }
-                }
-            }
 
             &.disabled,
             &.disabled.invalid {
