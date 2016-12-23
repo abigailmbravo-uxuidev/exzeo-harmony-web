@@ -35,55 +35,6 @@ html body {
             background: lighten($cool-gray-00, 10%);
             border-bottom-color: $cool-gray-00;
         }
-
-        //range input
-        @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
-            box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
-        }
-        @mixin thumb() {
-            cursor: pointer;
-            border: $thumb-border-width solid $thumb-border-color;
-            background: $thumb-color;
-            @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
-        }
-
-        &[type="range"] {
-            border-bottom-width: 0;
-
-            &::-webkit-slider-runnable-track {
-                border: $track-border-width solid $track-border-color;
-                background: $track-color;
-                @include track();
-                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
-            }
-
-            &::-moz-range-track {
-                border: $track-border-width solid $track-border-color;
-                background: $track-color;
-                @include track();
-                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
-            }
-
-            &::-ms-fill-lower {
-                border: $track-border-width solid $track-border-color;
-                background: darken($track-color, $contrast);
-                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
-            }
-
-            &::-ms-fill-upper {
-                border: $track-border-width solid $track-border-color;
-                background: $track-color;
-                @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
-            }
-
-            &:focus::-ms-fill-lower {
-                background: $track-color;
-            }
-
-            &:focus::-ms-fill-upper {
-                background: lighten($track-color, $contrast);
-            }
-        }
     }
 
     .form-group {
@@ -235,6 +186,76 @@ html body {
 
         input {
             width: 100%;
+        }
+
+        //range input
+        &.range-component {
+            label {
+
+            }
+            .range-wrapper {
+                display: flex;
+                align-items: flex-end;
+                .range-control-wrapper {
+
+                    [type="range"] {
+                        border-bottom-width: 0;
+
+                        &::-webkit-slider-runnable-track {
+                            border: $track-border-width solid $track-border-color;
+                            background: $cool-gray-03;
+                            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+                        }
+
+                        &::-moz-range-track {
+                            border: $track-border-width solid $track-border-color;
+                            background: $cool-gray-03;
+                            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+                        }
+
+                        &::-ms-fill-lower {
+                            border: $track-border-width solid $track-border-color;
+                            background: darken($cool-gray-03, $contrast);
+                            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+                        }
+
+                        &::-ms-fill-upper {
+                            border: $track-border-width solid $track-border-color;
+                            background: $cool-gray-03;
+                            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+                        }
+
+                        &:focus::-ms-fill-lower {
+                            background: $cool-gray-03;
+                        }
+
+                        &:focus::-ms-fill-upper {
+                            background: lighten($cool-gray-03, $contrast);
+                        }
+
+                        @import "partials/_variables";
+                        @mixin thumb() {
+                          @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+                          border: 2px solid $cool-gray-01;
+                          background: lighten($cool-gray-00, 10%);
+                        }
+
+                        &::-webkit-slider-thumb {
+                          @include thumb();
+                          -webkit-appearance: none;
+                          margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+                        }
+
+                        &::-moz-range-thumb {
+                          @include thumb();
+                        }
+
+                        &::-ms-thumb {
+                          @include thumb();
+                        }
+                    }
+                }
+            }
         }
 
         &.disabled, &.disabled.invalid {
