@@ -57,18 +57,20 @@ const surveyQuestions = [{
 //     answer: 'answer6',
 //   }],
 // }, {
-//   name: 'radio-test',
-//   question: 'Test for radio?',
-//   description: 'Testing for radio',
-//   answerType: 'radio',
-//   answers: [{
-//     answer: 'answer1',
-//   }, {
-//     answer: 'answer2',
-//   }, {
-//     answer: 'answer3',
-//   }],
-// }, {
+  name: 'radio-test',
+  question: 'Test for radio?',
+  answerType: 'radio',
+  answers: [{
+    answer: 'answer1',
+    image: 'http://cdn.bleacherreport.net/images/team_logos/64x64/dallas_cowboys.png',
+  }, {
+    answer: 'answer2',
+    image: 'http://cdn.bleacherreport.net/images/team_logos/64x64/dallas_cowboys.png',
+  }, {
+    answer: 'answer3',
+    image: 'http://cdn.bleacherreport.net/images/team_logos/64x64/dallas_cowboys.png',
+  }],
+}, {
 //   name: 'slider-test',
 //   question: 'Test for slider',
 //   description: 'Testing for slider',

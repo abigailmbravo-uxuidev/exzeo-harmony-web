@@ -21,6 +21,8 @@ const RadioGroup = ({ question, disabled, name, description, value, answers, han
         {description && <span className="tooltip"><i className="fa fa-info-circle" aria-hidden="true" /><span className="tooltiptext">{description}</span></span>}
       </label>
       {answers && answers.length > 0 ? answers.map((answer, index) =>
+        <div onClick={() => onClick(answer.answer)}>
+        {answer.image && <img src={answer.image} role="presentation" />}
         <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
           <input
             type="radio"
@@ -31,7 +33,7 @@ const RadioGroup = ({ question, disabled, name, description, value, answers, han
             onChange={handleChange || null}
           />
           <span onClick={() => onClick(answer.answer)}>{answer.answer || null}</span>
-        </label>,
+        </label></div>,
       ) : null}
     </div>
   );
