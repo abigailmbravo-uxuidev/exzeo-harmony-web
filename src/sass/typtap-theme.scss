@@ -121,14 +121,16 @@ html body {
                 }
             }
 
-            &.disabled {
+            &.disabled, &.disabled.invalid {
                 span {
                     border-color: $cool-gray-01;
                 }
                 label {
+                    color: $cool-gray-01;
                     &.label-segmented {
                         span {
                             color: $cool-gray-01;
+                            border-color: $cool-gray-01;
                         }
                     }
                 }
@@ -145,6 +147,17 @@ html body {
                     }
                 }
             }
+            &.invalid {
+
+                input[type=radio] {
+
+                    &:checked {
+                        + span {
+                            box-shadow: 0 0 0 2px $red-lighten-01 inset;
+                        }
+                    }
+                }
+            }
         }
 
         &.switch {
@@ -155,19 +168,21 @@ html body {
                     width: 3.5rem;
                     height: 1.5rem;
                     border-radius: 0.75rem;
-                    background: $cool-gray-02;
+                    background: $cool-gray-04;
                     flex-basis: 3.5rem;
 
                     &:before {
                         width: 1.5rem;
                         height: 1.5rem;
-                        border-color: $cool-gray-03;
+                        border-color: $cool-gray-01;
+                        border-width: 2px;
                         background-color: lighten($cool-gray-00, 10%);
                     }
 
                     &:after {
                         top: 0.375rem;
                         left: 2rem;
+                        color: $white;
                     }
                 }
 
@@ -188,10 +203,10 @@ html body {
                     }
                 }
             }
-            &.disabled {
+            &.disabled, &.disabled.invalid {
 
                 div {
-                    background-color: $cool-gray-00;
+                    background-color: $cool-gray-01;
 
                     &:after {
                         color: $cool-gray-02;
@@ -222,7 +237,7 @@ html body {
             width: 100%;
         }
 
-        &.disabled {
+        &.disabled, &.disabled.invalid {
             label {
                 color: $cool-gray-01;
             }
