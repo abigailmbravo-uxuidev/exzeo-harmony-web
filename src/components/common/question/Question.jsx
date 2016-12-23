@@ -10,6 +10,12 @@ const Question = (props) => {
   const { handleChange, answer, disabled, hidden } = props;
   if (hidden) return null;
   let formElement;
+  const inputProps = {
+    ...props.question,
+    value: answer,
+    handleChange,
+    disabled,
+  };
   if (answerType === 'radio' && answers && answers.length > 0) {
     formElement = answers.length < 6 ?
       (<RadioGroup
