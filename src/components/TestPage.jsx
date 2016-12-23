@@ -105,7 +105,14 @@ const surveyQuestions = [{
 }, {
   name: 'dependent-test',
   question: 'Test me',
-  answerType: 'text',
+  answerType: 'bool',
+  // answers: [{
+  // answer: 'answer1',
+  // }, {
+  //   answer: 'answer2',
+  // }, {
+  //   answer: 'answer3',
+  // }],
   conditional: {
     display: [{
       type: 'disabled',

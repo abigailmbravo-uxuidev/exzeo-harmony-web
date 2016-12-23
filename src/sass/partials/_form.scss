@@ -177,6 +177,12 @@ label {
 
 .form-group {
 
+    &.disabled {
+        label {
+            color: $warm-gray-06;
+        }
+    }
+
     input[type="date"] {
         width: 12rem;
          @include for-phone-only {
@@ -235,6 +241,10 @@ label {
             flex: 1;
 
             &.label-segmented {
+                flex-grow: 1;
+                flex-shrink: 0;
+                display: flex;
+
                 &.label-segmented:nth-of-type(2) {
                     span {
                         border-radius: $border-radius 0 0 $border-radius;
@@ -244,6 +254,35 @@ label {
 
                     span {
                         border-radius: 0 $border-radius $border-radius 0;
+                    }
+                }
+
+                span {
+                    white-space: initial;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+        &.disabled {
+            span {
+                border-color: $warm-gray-02;
+            }
+            label {
+                &.label-segmented {
+                    span {
+                        color: $warm-gray-03;
+                    }
+                }
+            }
+
+            input[type=radio] {
+
+                &:checked {
+                    + span {
+                        color: $warm-gray-03;
+                        background: $warm-gray-01;
                     }
                 }
             }
@@ -280,6 +319,14 @@ label {
                             left: 0.25rem;
                             content: "Yes";
                             color: $white;
+                        }
+
+                        &.disabled {
+                            background-color: $cool-gray-00;
+
+                            &:after {
+                                color: $cool-gray-01;
+                            }
                         }
                     }
                 }
@@ -322,6 +369,34 @@ label {
                     font-size: 0.7rem;
                     font-weight: $font-weight-bold;
                     line-height: 1;
+                }
+            }
+        }
+        &.disabled {
+
+            div {
+                background-color: $warm-gray-01;
+
+                &:after {
+                    color: $warm-gray-03;
+                }
+                &:before {
+                    border-color: $warm-gray-02;
+                    background-color: $warm-gray-01;
+                }
+            }
+
+            input[type="checkbox"], input[type="radio"] {
+                display: none;
+
+                &:checked {
+                    + div {
+                        background-color: $warm-gray-01;
+
+                        &:after {
+                            color: $warm-gray-03;
+                        }
+                    }
                 }
             }
         }

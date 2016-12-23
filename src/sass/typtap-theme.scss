@@ -30,6 +30,12 @@ html body {
         &:focus {
             background: lighten( $cool-gray-00, 2.5% );
         }
+        //disabled & read-only text input-box-shadow
+        &:disabled {
+            background: lighten($cool-gray-00, 10%);
+            border-bottom-color: $cool-gray-00;
+        }
+
         //range input
         @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
             box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
@@ -107,10 +113,35 @@ html body {
 
                 input[type="radio"]:checked {
                     + span {
-                        color: $body-color;
-                        border-color: $cool-gray-02;
+                        color: $green-darken-01;
+                        border-color: $green;
                         background: $white;
                         box-shadow: 0 0 0 2px $green inset;
+                    }
+                }
+            }
+
+            &.disabled {
+                span {
+                    border-color: $cool-gray-01;
+                }
+                label {
+                    &.label-segmented {
+                        span {
+                            color: $cool-gray-01;
+                        }
+                    }
+                }
+
+                input[type=radio] {
+
+                    &:checked {
+                        + span {
+                            color: $cool-gray-02;
+                            background: $cool-gray-00;
+                            box-shadow: 0 0 0 2px $cool-gray-00 inset;
+                            border-color: $cool-gray-01;
+                        }
                     }
                 }
             }
@@ -130,7 +161,8 @@ html body {
                     &:before {
                         width: 1.5rem;
                         height: 1.5rem;
-                        border-color: $cool-gray-05;
+                        border-color: $cool-gray-03;
+                        background-color: lighten($cool-gray-00, 10%);
                     }
 
                     &:after {
@@ -156,10 +188,44 @@ html body {
                     }
                 }
             }
+            &.disabled {
+
+                div {
+                    background-color: $cool-gray-00;
+
+                    &:after {
+                        color: $cool-gray-02;
+                    }
+                    &:before {
+                        border-color: $cool-gray-01;
+                        background-color: $cool-gray-00;
+                    }
+                }
+
+                input[type="checkbox"], input[type="radio"] {
+                    display: none;
+
+                    &:checked {
+                        + div {
+                            background-color: $cool-gray-00;
+
+                            &:after {
+                                color: $cool-gray-02;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         input {
             width: 100%;
+        }
+
+        &.disabled {
+            label {
+                color: $cool-gray-01;
+            }
         }
     }
 
