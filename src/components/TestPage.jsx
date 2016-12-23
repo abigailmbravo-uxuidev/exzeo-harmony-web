@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import Survey from './common/question/Survey';
 import './TestPage.css';
+// Uncomment and change the surveyQuestions object name below
+// import surveyQuestions from './CoverageQuestions';
 
 const surveyQuestions = [{
   name: 'dep-test1',
@@ -173,6 +175,8 @@ class TestPage extends Component {
         value = question.defaultValue;
       } else if (question.answerType === 'bool') {
         value = false;
+      } else if (question.answerType === 'range') {
+        value = '0';
       }
       questions[question.name] = {
         value,
@@ -256,16 +260,6 @@ class TestPage extends Component {
   handleSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
     console.log(this.state.questions); // eslint-disable-line
-  }
-  formatData = () => {
-    const answers = [];
-    Object.keys(this.state.questions).forEach((key) => {
-      answers.push({
-        key,
-        value: this.state.questions[key],
-      });
-    });
-    return answers;
   }
   render() {
     return (

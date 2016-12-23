@@ -24,7 +24,7 @@ const SliderInput = ({
     </label>
     <div className="range-wrapper">
       <div className="range-control-wrapper">
-        <span className="range-limit">{leftLabel || Math.ceil(minValue) || null}</span>
+        <span className="range-limit">{leftLabel || Math.ceil(minValue) || '0'}</span>
         <input
           type="range"
           name={name || null}
