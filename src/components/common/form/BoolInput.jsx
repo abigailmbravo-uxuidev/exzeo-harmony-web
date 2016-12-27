@@ -41,7 +41,7 @@ const BoolInput = ({
           onChange={onChange}
           disabled={disabled}
         />
-        {isSwitch && <div />}
+{isSwitch && <div className="switch-div" />}
       </label>
     </div>
   );

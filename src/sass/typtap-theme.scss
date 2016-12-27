@@ -40,82 +40,79 @@ html body {
     .form-group {
         width: 100%;
 
-        // &.segmented {
-        //     flex-wrap: wrap;
-        //
-        //     .group-label {
-        //         border-right-width: 0;
-        //         flex-basis: 100%;
-        //     }
-        //
-        //     label {
-        //         border-right: none;
-        //
-        //         span {
-        //             border-width: 2px 0 2px 2px;
-        //             @include button-variant($btn-default-color, $white, $cool-gray-02);
-        //         }
-        //
-        //         &:last-child {
-        //             span {
-        //                 border-right-width: 2px;
-        //             }
-        //         }
-        //
-        //         input[type="radio"]:checked {
-        //             + span {
-        //                 color: $green-darken-01;
-        //                 border-color: $green;
-        //                 background: $white;
-        //                 box-shadow: 0 0 0 2px $green inset;
-        //             }
-        //         }
-        //     }
-        //
-        //     &.disabled, &.disabled.invalid {
-        //         span {
-        //             border-color: $cool-gray-01;
-        //         }
-        //         label {
-        //             color: $cool-gray-01;
-        //             &.label-segmented {
-        //                 span {
-        //                     color: $cool-gray-01;
-        //                     border-color: $cool-gray-01;
-        //                 }
-        //             }
-        //         }
-        //
-        //         input[type=radio] {
-        //
-        //             &:checked {
-        //                 + span {
-        //                     color: $cool-gray-02;
-        //                     background: $cool-gray-00;
-        //                     box-shadow: 0 0 0 2px $cool-gray-00 inset;
-        //                     border-color: $cool-gray-01;
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     &.invalid {
-        //
-        //         input[type=radio] {
-        //
-        //             &:checked {
-        //                 + span {
-        //                     box-shadow: 0 0 0 2px $red-lighten-01 inset;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        &.segmented {
+
+            .segmented-answer-wrapper {
+                div {
+                    .label-segmented  {
+                        border-right-width: 0;
+
+                        input[type=radio] {
+
+                            &:checked {
+                                + span {
+                                    color: $green-darken-01;
+                                    border-color: $green;
+                                    background: $white;
+                                    box-shadow: 0 0 0 2px $green inset;
+                                }
+                            }
+                        }
+                        span {
+                            border: 2px solid $cool-gray-02;
+                            @include button-variant($body-color, $white, $cool-gray-02);
+                            box-shadow: 0 0 0 0 $green inset;
+
+                            &,
+                            &.active,
+                            &:active {
+                                &.focus,
+                                &:focus {
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.disabled,
+            &.disabled.invalid {
+                .segmented-answer-wrapper {
+                    div {
+                        img {
+                            -webkit-filter: grayscale(100%);
+                            filter: grayscale(100%);
+                            -webkit-filter: opacity(.5);
+                            filter: opacity(.5);
+                        }
+                        .label-segmented  {
+                            span {
+                                @include button-variant($cool-gray-02, $cool-gray-00, $cool-gray-00);
+                            }
+
+                            input[type=radio] {
+
+                                &:checked {
+                                    + span {
+                                        color: $cool-gray-02;
+                                        background: $cool-gray-00;
+                                        box-shadow: 0 0 0 2px $cool-gray-02 inset;
+                                        border-color: $cool-gray-02;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         &.switch {
             label {
                 cursor: pointer;
 
-                div {
+                div.switch-div {
                     width: 3.5rem;
                     height: 1.5rem;
                     border-radius: 0.75rem;
@@ -139,7 +136,7 @@ html body {
 
                 input[type="checkbox"] {
                     &:checked {
-                        +div {
+                        +div.switch-div {
                             background: $green;
 
                             &:before {
@@ -156,7 +153,7 @@ html body {
             }
             &.disabled, &.disabled.invalid {
 
-                div {
+                div.switch-div {
                     background-color: $cool-gray-01;
 
                     &:after {
@@ -172,7 +169,7 @@ html body {
                     display: none;
 
                     &:checked {
-                        + div {
+                        + div.switch-div {
                             background-color: $cool-gray-00;
 
                             &:after {

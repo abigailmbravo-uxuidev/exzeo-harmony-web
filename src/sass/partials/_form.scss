@@ -171,6 +171,10 @@ html body {
     }
 
     .form-group {
+        .__react_component_tooltip {
+            z-index: 900;
+        }
+
         label {
             @include transition(all .2s ease-in-out);
         }
@@ -204,19 +208,53 @@ html body {
 
                 div {
                     display: flex;
-                    flex-grow: 1;
-                    flex-shrink: 0;
+                    flex-grow: 0;
+                    flex-shrink: 1;
                     flex-direction: column;
+                    width: 100%;
 
-                    label-segmented  {
+                    .label-segmented  {
                         border-right: 1px solid $warm-gray-01;
                         flex: 1;
+                        flex-basis: 100%;
 
                         span {
                             display: flex;
                             white-space: initial;
                             justify-content: center;
                             align-items: center;
+                            height: 100%;
+                            width: 100%;
+                            cursor: pointer;
+                            user-select: none;
+                            text-align: center;
+                            vertical-align: middle;
+                            border: $input-btn-border-width solid transparent;
+                            font-weight: $btn-font-weight;
+                            line-height: $btn-line-height;
+                            @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, 0);
+                            @include transition(all .2s ease-in-out);
+                            @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+
+                            &,
+                            &.active,
+                            &:active {
+                                &.focus,
+                                &:focus {
+                                    @include tab-focus();
+                                }
+                            }
+                        }
+
+                        input[type=radio] {
+                            display: none;
+
+                            &:checked {
+                                + span {
+                                    color: $white;
+                                    background: $bright-blue;
+                                }
+                            }
                         }
                     }
                 }
@@ -228,55 +266,45 @@ html body {
                 }
 
                 div:last-child {
+                    .label-segmented  {border-right-width: 0;}
                     span {
                         border-radius: 0 $border-radius $border-radius 0;
                     }
                 }
             }
 
-            span {
-                display: inline-block;
-                width: 100%;
-                cursor: pointer;
-                user-select: none;
-                text-align: center;
-                vertical-align: middle;
-                //white-space: nowrap;
-                border: $input-btn-border-width solid transparent;
-                font-weight: $btn-font-weight;
-                line-height: $btn-line-height;
-                @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, 0);
-                @include transition(all .2s ease-in-out);
-                @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
-
-                &,
-                &.active,
-                &:active {
-                    &.focus,
-                    &:focus {
-                        @include tab-focus();
-                    }
-                }
-            }
-
-            input[type=radio] {
-                display: none;
-
-                &:checked {
-                    + span {
-                        color: $white;
-                        background: $bright-blue;
-                    }
-                }
-            }
-
-
-
-
-
             &.disabled,
             &.disabled.invalid {
                 cursor: not-allowed;
+
+                .segmented-answer-wrapper {
+                    cursor: not-allowed;
+                    div {
+                        cursor: not-allowed;
+
+                        .label-segmented  {
+                            cursor: not-allowed;
+                            border-right: 1px solid $warm-gray-01;
+
+                            span {
+                                cursor: not-allowed;
+                                @include button-variant($warm-gray-04, $warm-gray-01, $warm-gray-01);
+                            }
+
+                            input[type=radio] {
+
+                                &:checked {
+                                    cursor: not-allowed;
+                                    + span {
+                                        cursor: not-allowed;
+                                        color: $warm-gray-05;
+                                        background: $warm-gray-03;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
                 span {
                     cursor: not-allowed;
@@ -352,7 +380,7 @@ html body {
                     display: none;
 
                     &:checked {
-                        + div {
+                        + div.switch-div {
                             background-color: $bright-blue;
 
                             &:before {
@@ -379,7 +407,7 @@ html body {
                     }
                 }
 
-                div {
+                div.switch-div {
                     position: relative;
                     width: 2.5rem;
                     height: 1rem;
