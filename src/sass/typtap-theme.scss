@@ -255,7 +255,6 @@ html body {
 
             .range-wrapper {
                 display: flex;
-                align-items: flex-end;
 
                 .range-control-wrapper {
                     [type="range"] {
@@ -314,40 +313,40 @@ html body {
                         }
                         &:active {
                             &::-webkit-slider-runnable-track {
-                                border: $track-border-width solid $bright-blue-lighten-04;
-                                background: $bright-blue-lighten-04;
-                                @include shadow($track-shadow-size, $track-shadow-blur, $bright-blue-lighten-04);
+                                border: $track-border-width solid $cool-gray-02;
+                                background: $cool-gray-02;
+                                @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
                             }
 
                             &::-moz-range-track {
-                                border: $track-border-width solid $bright-blue-lighten-04;
-                                background: $bright-blue-lighten-04;
-                                @include shadow($track-shadow-size, $track-shadow-blur, $bright-blue-lighten-04);
+                                border: $track-border-width solid $cool-gray-02;
+                                background: $cool-gray-02;
+                                @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
                             }
 
                             &::-ms-fill-lower {
-                                border: $track-border-width solid $bright-blue-lighten-04;
-                                background: darken($bright-blue-lighten-04, $contrast);
-                                @include shadow($track-shadow-size, $track-shadow-blur, $bright-blue-lighten-04);
+                                border: $track-border-width solid $cool-gray-02;
+                                background: darken($cool-gray-02, $contrast);
+                                @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
                             }
 
                             &::-ms-fill-upper {
-                                border: $track-border-width solid $bright-blue-lighten-04;
-                                background: $bright-blue-lighten-04;
-                                @include shadow($track-shadow-size, $track-shadow-blur, $bright-blue-lighten-04);
+                                border: $track-border-width solid $cool-gray-02;
+                                background: $cool-gray-02;
+                                @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
                             }
 
                             &:focus::-ms-fill-lower {
-                                background: $bright-blue-lighten-04;
+                                background: $cool-gray-02;
                             }
 
                             &:focus::-ms-fill-upper {
-                                background: lighten($bright-blue-lighten-04, $contrast);
+                                background: lighten($cool-gray-02, $contrast);
                             }
 
                             @mixin thumb() {
-                                border: 2px solid $bright-blue-darken-01;
-                                background: $bright-blue;
+                                border: 2px solid $green;
+                                background: $white;
                                 @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
                             }
 
@@ -365,6 +364,21 @@ html body {
                                 @include thumb();
                             }
                         }
+                    }
+                }
+                .range-value {
+                    position: relative;
+                    margin-left: 1.5rem;
+
+                    &:before {
+                        content: "";
+                        width: 0;
+                    	height: 0;
+                    	border-top: 1.1875rem solid transparent;
+                    	border-right: 1.5rem solid lighten( $cool-gray-00, 2.5% );
+                    	border-bottom: 1.1875rem solid transparent;
+                        position: absolute;
+                        left: -1.5rem;
                     }
                 }
             }

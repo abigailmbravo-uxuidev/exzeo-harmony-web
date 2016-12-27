@@ -32,8 +32,8 @@ html body {
         }
 
         &[type="range"] {
-            box-shadow: none;
             border-width: 0;
+            box-shadow: none;
         }
 
         &[type="radio"] {
@@ -74,8 +74,8 @@ html body {
         // disabled if the fieldset is disabled. Due to implementation difficulty, we
         // don't honor that edge case; we style them as disabled anyway.
         &:disabled,
-        &[readonly],
-        &[disabled="disabled"] {
+        &[disabled="disabled"],
+        &[readonly] {
             // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
             opacity: 1;
             background-color: $input-bg-disabled;
@@ -111,7 +111,6 @@ html body {
     //
     // For use with horizontal and inline forms, when you need the legend text to
     // be the same size as regular labels, and to align with the form controls.
-
     .col-form-legend {
         margin-bottom: 0;
         padding-top: $input-padding-y;
@@ -122,7 +121,6 @@ html body {
     //
     // Apply class to an element to make any string of text align with labels in a
     // horizontal form layout.
-
     .form-control-static {
         padding-top: $input-padding-y;
         padding-bottom: $input-padding-y;
@@ -134,7 +132,6 @@ html body {
     //
     // Designed to help with the organization and spacing of vertical forms. For
     // horizontal forms, use the predefined grid classes.
-
     label {
         font-weight: $font-weight-bold;
     }
@@ -203,37 +200,36 @@ html body {
         }
 
         &.segmented {
-
             .segmented-answer-wrapper {
                 display: flex;
                 flex-direction: row;
 
                 div {
                     display: flex;
-                    flex-grow: 0;
-                    flex-shrink: 1;
                     flex-direction: column;
                     width: 100%;
+                    flex-grow: 0;
+                    flex-shrink: 1;
 
-                    .label-segmented  {
+                    .label-segmented {
                         border-right: 1px solid $warm-gray-01;
                         flex: 1;
                         flex-basis: 100%;
 
                         span {
                             display: flex;
-                            white-space: initial;
-                            justify-content: center;
-                            align-items: center;
-                            height: 100%;
                             width: 100%;
+                            height: 100%;
                             cursor: pointer;
                             user-select: none;
                             text-align: center;
                             vertical-align: middle;
+                            white-space: initial;
                             border: $input-btn-border-width solid transparent;
                             font-weight: $btn-font-weight;
                             line-height: $btn-line-height;
+                            justify-content: center;
+                            align-items: center;
                             @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, 0);
                             @include transition(all .2s ease-in-out);
                             @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
@@ -268,7 +264,10 @@ html body {
                 }
 
                 div:last-child {
-                    .label-segmented  {border-right-width: 0;}
+                    .label-segmented {
+                        border-right-width: 0;
+                    }
+
                     span {
                         border-radius: 0 $border-radius $border-radius 0;
                     }
@@ -281,10 +280,11 @@ html body {
 
                 .segmented-answer-wrapper {
                     cursor: not-allowed;
+
                     div {
                         cursor: not-allowed;
 
-                        .label-segmented  {
+                        .label-segmented {
                             cursor: not-allowed;
                             border-right: 1px solid $warm-gray-01;
 
@@ -294,9 +294,9 @@ html body {
                             }
 
                             input[type=radio] {
-
                                 &:checked {
                                     cursor: not-allowed;
+
                                     + span {
                                         cursor: not-allowed;
                                         color: $warm-gray-05;
