@@ -3,29 +3,30 @@ import TextInput from '../form/TextInput';
 import Dropdown from '../form/Dropdown';
 import RadioGroup from '../form/RadioGroup';
 import BoolInput from '../form/BoolInput';
+import SliderInput from '../form/SliderInput';
 
-const Question = (props) => {
-  const { answerType, answers } = props.question;
-  const { handleChange, answer } = props;
-  let formElement;
-  if (answerType === 'radio' && answers && answers.length > 0) {
-    formElement = answers.length < 6 ?
-      <RadioGroup {...props.question} value={answer} handleChange={handleChange} segmented /> :
-      <Dropdown {...props.question} value={answer} handleChange={handleChange} />;
-  } else if (answerType === 'bool') {
-    formElement = (
-      <BoolInput
-        {...props.question}
-        value={answer || false}
-        handleChange={handleChange}
-        isSwitch
-      />);
-  } else {
-    formElement = (
-      <TextInput {...props.question} value={props.answer} handleChange={handleChange} handleSubmit={props.handleSubmit} />
-    );
+const Question = ({ question, answer, disabled, hidden, handleChange }) => {
+  if (hidden) return null;
+  const inputProps = {
+    ...question,
+    value: answer,
+    handleChange,
+    disabled,
+  };
+  switch (question.answerType) {
+    case 'radio':
+      if (question.answers && question.answers.length > 0) {
+        return question.answers.length < 6 ?
+          <RadioGroup {...inputProps} segmented /> :
+          <Dropdown {...inputProps} />;
+      }
+    case 'bool': // eslint-disable-line
+      return <BoolInput {...inputProps} isSwitch />;
+    case 'range':
+      return <SliderInput {...inputProps} />;
+    default:
+      return <TextInput {...inputProps} />;
   }
-  return formElement;
 };
 
 Question.propTypes = {
@@ -46,6 +47,8 @@ Question.propTypes = {
     PropTypes.number,
   ]),
   handleChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  hidden: PropTypes.bool,
 };
 
 export default Question;
