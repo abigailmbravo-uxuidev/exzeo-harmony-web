@@ -7,7 +7,7 @@ services:
   harmony-web:
     build:
       context: .
-      dockerfile: dev.dockerfile
+      dockerfile: both.dockerfile
     command: npm run dev
     environment:
       - PORT=80

@@ -4,7 +4,13 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import features from './featureReducer';
 import auth from './authReducer';
 
-const uri = '/api';
+let uri = '/api';
+console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
+console.log(process.env.NODE_ENV);
+console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
+if (process.env.NODE_ENV === 'runBoth') {
+  uri = 'http://localhost:4001/api';
+}
 
 const networkInterface = createNetworkInterface({ uri });
 
