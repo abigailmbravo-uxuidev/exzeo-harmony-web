@@ -484,6 +484,12 @@ html body {
                 background-color: lighten($red-lighten-04, 20%);
             }
         }
+
+        i.fa-info-circle {
+            font-size: 1rem;
+            line-height: 1.25rem;
+            color: $bright-blue;
+        }
     }
 
     select {
@@ -602,6 +608,14 @@ html {
                             border-top: $card-border-width solid $cool-gray-01;
                         }
 
+                        &.admin {
+                            border-top: $card-border-width solid $card-border-color;
+                            .fade-in {
+                                .content {
+                                }
+                            }
+                        }
+
                         &.workflow {
                             .fade-in {
                                 .workflow-header {
@@ -652,10 +666,6 @@ html {
                                 }
 
                                 .workflow-content {
-                                    flex-direction: row;
-                                    @include for-phone-only {
-                                        flex-direction: column;
-                                    }
 
                                     aside {
                                         @include for-phone-only {
@@ -719,6 +729,12 @@ html {
                                                         }
                                                     }
                                                 }
+                                            }
+                                        }
+
+                                        .survey-wrapper {
+                                            .form-group {
+                                                border-bottom-color: $cool-gray-01;
                                             }
                                         }
                                     }
