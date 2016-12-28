@@ -4,13 +4,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import features from './featureReducer';
 import auth from './authReducer';
 
-let uri;
-
-if (process.env.NODE_ENV === 'production') {
-  uri = '/api';
-} else {
-  uri = 'http://localhost:4001/api';
-}
+const uri = '/api';
 
 const networkInterface = createNetworkInterface({ uri });
 
@@ -21,7 +15,7 @@ networkInterface.use([{
     }
 
     const token = localStorage.getItem('token');
-    req.options.headers.id_token = token;
+    req.options.headers.authorization = token;
     next();
   },
 }]);
