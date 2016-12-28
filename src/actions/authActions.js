@@ -4,7 +4,7 @@ import * as types from './actionTypes';
 
 const auth0 = new Auth0({
   domain: 'harmony.auth0.com',
-  clientID: 'Xhs1oIytMrij0k3ixyLalsPEz7d2K1ME',
+  clientID: 'PplwmQlbI12PB0yYTgfOXMkMKnpPU3Zg',
   callbackURL: '/',
   callbackOnLocationHash: true,
   response: 'token',
@@ -32,14 +32,15 @@ export const authenticatedMe = me => ({
 
 export const login = creds => (dispatch) => {
   auth0.login({
-    connection: 'Harmony',
+    connection: 'Username-Password-Authentication',
     username: creds.username,
     password: creds.password,
   }, (err, results) => {
+    console.log('Error on Login:' + err);
     if (err) {
       dispatch(authenticateError(err));
     } else {
-      localStorage.setItem('access_token', results.idToken);
+      localStorage.setItem('token', results.idToken);
       dispatch(authenticated(results.idToken));
     }
   });
