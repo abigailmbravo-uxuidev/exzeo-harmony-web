@@ -26,26 +26,27 @@ class PermissionMananger extends Component {
     const data = this.props.data;
     return (
       <div>
-        <button onClick={this.togglePermission}>Add Permission</button>
-        {this.state.addPermission ? <AddPermission permissionAdded={this.permissionAdded} /> : null}
-        {
-          data && data.permission ? data.permission.map((p, index) => {
-            return (
-              <div key={index}>
-                <div>{p.name}</div>
-                <div>{p.description}</div>
-                <ul>
-                  {
-                    p.rights.map((right, index) => (
-                      <li key={index} className={right.active ? 'active' : null}>{right.name}</li>
-                    ))
-                  }
-                </ul>
-                <i className="fa fa-trash" onClick={() => { this.deletePermission(p.name); }} />
-              </div>
-            )
-          }) : null
-        }
+                <button className="btn btn-secondary" onClick={this.togglePermission}>Add Permission</button>
+                {this.state.addPermission ? <AddPermission permissionAdded={this.permissionAdded} /> : null}
+                {
+                  data && data.permission ? data.permission.map((p, index) => {
+                    return (
+                      <div key={index}>
+                        <div>{p.name}</div>
+                        <div>{p.description}</div>
+                        <ul>
+                          {
+                            p.rights.map((right, index) => (
+                              <li key={index} className={right.active ? 'active' : null}>{right.name}</li>
+                            ))
+                          }
+                        </ul>
+                        <i className="fa fa-trash" onClick={() => { this.deletePermission(p.name); }} />
+                      </div>
+                    )
+                  }) : null
+                }
+
       </div>
     );
   }

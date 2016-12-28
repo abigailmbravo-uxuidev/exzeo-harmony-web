@@ -241,6 +241,87 @@ html {
                             }
                         }
 
+                        &.admin {
+                            padding: 0;
+
+                            .fade-in {
+                                display: flex;
+                                flex-direction: column;
+                                flex: 1;
+
+                                .content {
+                                    display: flex;
+                                    flex-direction: row;
+                                    @include for-phone-only {
+                                        flex-direction: column;
+                                    }
+
+                                    aside {
+                                        display: flex;
+                                        overflow-y: auto;
+                                        flex-shrink: 0;
+                                        @include for-phone-only {
+                                            background-color: $white;
+                                        }
+
+                                        .side-panel {
+                                            position: relative;
+                                            display: flex;
+                                            flex-direction: column;
+                                            width: 12.8rem;
+                                            margin: ($padding*2) 0 ($padding) ($padding*3);
+                                            padding: $padding;
+                                            flex-basis: 12.8rem;
+                                            flex-shrink: 0;
+                                            flex-grow: 0;
+                                            @include for-phone-only {
+                                                flex-direction: row;
+                                                margin: 0;
+                                                flex-grow: 1;
+                                                flex-basis: auto;
+                                                flex-wrap: wrap;
+                                            }
+                                            @include for-big-desktop-up {
+                                                width: 17.975rem;
+                                                flex-basis: 17.975rem;
+                                            }
+
+                                            section {
+                                                margin-bottom: $margin-bottom;
+                                                flex-grow: 0;
+                                                flex-shrink: 0;
+                                                @include for-phone-only {
+                                                    flex-direction: row;
+                                                    width: 50%;
+                                                    margin: 0;
+                                                    padding: ($padding/2) $padding;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    section {
+                                        overflow-y: auto;
+                                        flex-grow: 1;
+                                        position: relative;
+
+                                        .content {
+                                            flex-direction: row;
+                                            padding: ($padding*2) ($padding*4) 0;
+                                            flex-wrap: wrap;
+
+                                            label {
+                                                font-size: $font-size-h4;
+                                                @include for-phone-only {
+                                                    font-size: $font-size-h5;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         &.workflow {
                             padding: 0;
 
@@ -509,6 +590,8 @@ html {
 
                                             .form-group {
                                                 margin-bottom: 1.45rem;
+                                                padding-bottom: 1.45rem;
+                                                border-bottom: 1px dashed $warm-gray-02;
 
                                                 label {
                                                     font-size: $font-size-h4;
