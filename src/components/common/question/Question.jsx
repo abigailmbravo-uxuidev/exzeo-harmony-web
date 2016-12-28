@@ -4,6 +4,7 @@ import Dropdown from '../form/Dropdown';
 import RadioGroup from '../form/RadioGroup';
 import BoolInput from '../form/BoolInput';
 import SliderInput from '../form/SliderInput';
+import ListSelection from '../form/ListSelection';
 
 const Question = ({ question, answer, disabled, hidden, handleChange }) => {
   if (hidden) return null;
@@ -13,6 +14,7 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
     handleChange,
     disabled,
   };
+  console.log(question.answerType);
   switch (question.answerType) {
     case 'radio':
       if (question.answers && question.answers.length > 0) {
@@ -24,6 +26,8 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
       return <BoolInput {...inputProps} isSwitch />;
     case 'range':
       return <SliderInput {...inputProps} />;
+    case 'list':
+      return <ListSelection {...inputProps} />;
     default:
       return <TextInput {...inputProps} />;
   }
