@@ -15,6 +15,7 @@
 @import "partials/_card";
 @import "partials/_form";
 @import "partials/_buttons";
+@import "partials/_nav";
 @import "partials/_workflow";
 @import "partials/_search";
 @import "https://fonts.googleapis.com/css?family=Roboto:300,400";
@@ -317,11 +318,9 @@ html {
                         width: 100%;
 
                         li {
-                          &.items-cards {
                             display: flex;
                             flex-direction: row;
                             margin-bottom: $padding/2;
-                          }
                         }
                       }
 

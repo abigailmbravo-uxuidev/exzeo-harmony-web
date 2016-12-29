@@ -9,8 +9,10 @@ const Admin = () => (
       <div className="content">
         <aside>
           <div className="side-panel">
-            <Link to="roleManagement" activeOnlyWhenExact className="role-tab tab">Roles</Link>
-            <Link to="permissionManagement" activeOnlyWhenExact className="permission-tab tab">Permissions</Link>
+            <nav>
+              <Link to="/admin/roleManagement" className="role-tab tab" activeClassName="selected">Roles</Link>
+              <Link to="/admin/permissionManagement" className="permission-tab tab" activeClassName="selected">Permissions</Link>
+            </nav>
           </div>
         </aside>
         <section>

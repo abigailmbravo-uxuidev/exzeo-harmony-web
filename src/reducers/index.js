@@ -4,7 +4,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import features from './featureReducer';
 import auth from './authReducer';
 
-let uri = '/api';
+let uri = 'http://harmony-ins.com/api';
 console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
 console.log(process.env.NODE_ENV);
 console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');

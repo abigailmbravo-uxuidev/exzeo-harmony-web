@@ -514,6 +514,40 @@ html body {
       @include button-variant($white, $bright-blue, $bright-blue);
     }
   }
+  //vertical tabs
+  .side-panel {
+      nav {
+          display: flex;
+          flex-direction: column;
+          border-right: 1px solid $warm-gray-01;
+
+          a {
+              color: $bright-blue;
+
+              &:hover, &:focus {
+                  text-decoration: none;
+              }
+
+              &.active {
+                color: $bright-blue;
+
+                &:focus,
+                &:hover {
+                  color: $bright-blue-lighten-01;
+                }
+              }
+
+              &.disabled {
+                color: $cool-gray-03;
+              }
+
+              &.selected {
+                color: $cool-gray-14;
+                border-color: $green;
+              }
+          }
+      }
+  }
   //cards
   .card {
     background: $white;
@@ -522,6 +556,16 @@ html body {
       display: flex;
       flex-direction: column;
     }
+  }
+  //side panel navigation
+  .side-panel {
+      nav {
+          border-color: $cool-gray-01;
+
+          a {
+
+          }
+      }
   }
 }
 /*specific typtap styles*/

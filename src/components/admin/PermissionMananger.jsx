@@ -37,10 +37,12 @@ class PermissionMananger extends Component {
         {data && data.permission
           ? data.permission.map((p, index) => {
             return (
-              <ul className="list">
-                <li className="items items-cards" key={index}>
-                  <div>{p.name}</div>
-                  <div>{p.description}</div>
+              <ul className="list list-cards">
+                <li key={index}>
+                  <section>
+                    <h4>{p.name}</h4>
+                    <p>{p.description}</p>
+                  </section>
                   <ul>
                     {p.rights.map((right, index) => (
                       <li key={index} className={right.active
