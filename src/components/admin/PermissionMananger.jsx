@@ -29,15 +29,20 @@ class PermissionMananger extends Component {
     console.log(this);
     const data = this.props.data;
     return (
-      <div className="content">
-        <button className="btn btn-secondary" onClick={this.togglePermission}>Add Permission</button>
-        {this.state.addPermission
-          ? <AddPermission permissionAdded={this.permissionAdded}/>
-          : null}
-        {data && data.permission
-          ? data.permission.map((p, index) => {
-            return (
-              <ul className="list list-cards">
+      <div className="content fade-in">
+        <div className="admin-header">
+          <h3>Permissions</h3>
+          <button className="btn-success btn-round" onClick={this.togglePermission}>
+            <i className="fa fa-plus"></i>
+          </button>
+        </div>
+        <ul className="list list-cards">
+          {this.state.addPermission
+            ? <AddPermission permissionAdded={this.permissionAdded}/>
+            : null}
+          {data && data.permission
+            ? data.permission.map((p, index) => {
+              return (
                 <li key={index}>
                   <section>
                     <h4>{p.name}</h4>
@@ -55,12 +60,11 @@ class PermissionMananger extends Component {
                     this.deletePermission(p.name);
                   }}/>
                 </li>
-              </ul>
-            )
-          })
-          : null
+              )
+            })
+            : null
 }
-
+        </ul>
       </div>
     );
   }

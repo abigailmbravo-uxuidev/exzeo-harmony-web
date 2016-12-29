@@ -661,7 +661,9 @@ html {
               border-top: $card-border-width solid $card-border-color;
 
               .fade-in {
-                .content {}
+                .content {
+                    
+                }
               }
             }
 
@@ -798,6 +800,7 @@ html {
               background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
               background-position: center center;
               background-size: cover;
+              z-index: 10;
             }
           }
         }

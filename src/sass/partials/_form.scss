@@ -558,42 +558,75 @@ html body {
   }
 }
 
-ul.results, ul.list {
+ul.list,
+ul.results {
   z-index: 1;
   margin: 0;
   padding: 0;
   list-style: none;
 
-    &.list-cards {
-        li {
-            z-index: 1;
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            padding: $padding $padding*1.5;
-            text-decoration: none;
-            border: $card-border-width solid $card-border-color;
-            border-radius: $card-border-radius;
-            box-shadow: $card-box-shadow;
-            align-items: center;
-            @include transition(all .2s ease-in-out);
+  &.list-cards {
+    li {
+      z-index: 1;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      padding: $padding $padding*1.5;
+      text-decoration: none;
+      border: $card-border-width solid $card-border-color;
+      border-top-width: 0;
+      border-radius: 0;
+      box-shadow: $card-box-shadow;
+      align-items: flex-start;
+      @include transition(all .2s ease-in-out);
 
-            section {
-              flex-grow: 1;
+      &:first-child {
+          border-top-width: $card-border-width;
+          border-top-left-radius: $card-border-radius;
+          border-top-right-radius: $card-border-radius;
+      }
 
-              h2,
-              h3,
-              h4,
-              h5 {
-                margin: 0;
-              }
+      &:last-child {
+          border-bottom-left-radius: $card-border-radius;
+          border-bottom-right-radius: $card-border-radius;
+      }
 
-              p {
-                margin: 0;
-              }
-            }
+      section {
+        flex-grow: 1;
+
+        h2,
+        h3,
+        h4,
+        h5 {
+          margin: 0;
         }
+
+        p {
+          margin: 0;
+        }
+      }
+
+      ul {
+          flex-basis: 12rem;
+          width: 12rem;
+          flex-grow: 0;
+          flex-shrink: 0;
+      }
+
+      i {
+          &.fa-trash {
+              width: 2rem;
+              height: 2rem;
+              font-size: $font-size-h4;
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              cursor: pointer;
+              margin: 0;
+          }
+      }
     }
+  }
 
   &.result-cards {
     li {

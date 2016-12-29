@@ -116,6 +116,19 @@ input[type="submit"] {
     @include button-outline-variant($btn-danger-bg);
 }
 
+.btn-round {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+
+    }
+}
+
 .btn-send {
     border-radius: 50%;
     display: flex;

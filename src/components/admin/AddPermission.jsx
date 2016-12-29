@@ -61,25 +61,27 @@ class AddPermission extends Component {
   render() {
     const permission = this.state.permission;
     return (
-      <div className="card fade-in">
-        <div className="card-block">
-          <form onSubmit={this.addPermission}>
-            <label htmlFor="name">Name:</label>
-            <input onChange={this.updatePermission} name="name" id="name" value={permission.name}/>
-            <label htmlFor="description">Description:</label>
-            <input onChange={this.updatePermission} name="description" id="description" value={permission.description}/>
-            <ul>
-              {permission.rights.map((right, index) => (
-                <li key={index}>{right.name}</li>
-              ))
-}
-            </ul>
-            <button className="btn btn-secondary">Cancel</button>
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </form>
-          <form onSubmit={this.addRight}>
-            <input onChange={this.updateRight} value={this.state.right.name}/>
-          </form>
+      <div className="modal">
+        <div className="card fade-in">
+          <div className="card-block">
+            <form onSubmit={this.addPermission}>
+              <label htmlFor="name">Name:</label>
+              <input onChange={this.updatePermission} name="name" id="name" value={permission.name}/>
+              <label htmlFor="description">Description:</label>
+              <input onChange={this.updatePermission} name="description" id="description" value={permission.description}/>
+              <ul>
+                {permission.rights.map((right, index) => (
+                  <li key={index}>{right.name}</li>
+                ))
+                }
+              </ul>
+              <button className="btn btn-secondary">Cancel</button>
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </form>
+            <form onSubmit={this.addRight}>
+              <input onChange={this.updateRight} value={this.state.right.name}/>
+            </form>
+          </div>
         </div>
       </div>
     );
