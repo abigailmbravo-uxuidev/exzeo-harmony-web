@@ -3,7 +3,9 @@ import React from 'react';
 const RoleManager = (x) => {
   console.log(x);
   return (
-    <div>test</div>
+    <div className="content">
+      test
+    </div>
   );
 };
 

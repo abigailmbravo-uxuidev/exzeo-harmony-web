@@ -253,7 +253,6 @@ html {
                   display: flex;
                   flex-direction: row;
                   @include for-phone-only {
-                    flex-direction: column;
                   }
 
                   aside {
@@ -315,6 +314,7 @@ html {
                         margin: 0;
                         padding: 0;
                         list-style: none;
+                        width: 100%;
 
                         li {
                           &.items-cards {

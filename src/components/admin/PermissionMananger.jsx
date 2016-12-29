@@ -29,7 +29,7 @@ class PermissionMananger extends Component {
     console.log(this);
     const data = this.props.data;
     return (
-      <div>
+      <div className="content">
         <button className="btn btn-secondary" onClick={this.togglePermission}>Add Permission</button>
         {this.state.addPermission
           ? <AddPermission permissionAdded={this.permissionAdded}/>
