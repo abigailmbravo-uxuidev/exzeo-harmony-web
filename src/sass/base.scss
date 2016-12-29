@@ -20,626 +20,652 @@
 @import "https://fonts.googleapis.com/css?family=Roboto:300,400";
 
 html {
+  margin: 0;
+  padding: 0;
+
+  body {
+    width: 100vw;
     margin: 0;
     padding: 0;
+    //site background
+    div#root {
+      margin: 0;
+      padding: 0;
+      background: $white;
 
-    body {
-        width: 100vw;
+      > div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 100vh;
         margin: 0;
         padding: 0;
-        //site background
-        div#root {
-            margin: 0;
-            padding: 0;
-            background: $white;
+        background: $white;
+        align-items: center;
+        flex-shrink: 0;
+        //header
+        header {
+          display: flex;
+          width: 100%;
+          padding: $padding $padding*2;
+          border-bottom: 2px solid $blue;
+          background: $blue;
+          justify-content: center;
+          flex-shrink: 0;
+          flex-basis: 3.375rem;
 
+          div[role="banner"] {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            @include for-phone-only {
+              h1 {
+                display: none;
+              }
+
+              > nav {
+                display: none;
+              }
+
+              .userName {
+                text-align: right;
+                flex-grow: 1;
+              }
+            }
+            @include for-tablet-portrait-up {
+              > nav {
+                display: none;
+
+                > a {
+                  margin-left: 1rem;
+                }
+              }
+            }
+            @include for-tablet-landscape-up {
+              max-width: 64rem;
+            }
+            @include for-tablet-landscape-up {
+              max-width: 64rem;
+
+              > nav {
+                display: flex;
+                flex: 1;
+                justify-content: flex-end;
+              }
+
+              h1 {
+                display: block;
+              }
+
+              .username {
+                flex-grow: 0;
+              }
+            }
+            @include for-big-desktop-up {
+              max-width: 90rem;
+            }
+
+            > .logo {
+              display: block;
+              width: 7rem;
+              flex-basis: 7rem;
+              flex-shrink: 0;
+            }
+
+            > h1 {
+              margin: 0 0 0 1rem;
+              text-align: center;
+              color: $white;
+              font-size: $font-size-h3;
+              font-weight: 300;
+            }
+
+            a {
+              margin-left: 1rem;
+              white-space: nowrap;
+              text-decoration: none;
+              font-size: $font-size-h6;
+              @include transition(all .2s ease-in-out);
+
+              &:hover {
+                text-decoration: none;
+                color: $bright-blue;
+              }
+            }
+          }
+        }
+        //search
+        .search {
+          z-index: 10;
+          display: flex;
+          width: 100%;
+          height: auto;
+          max-height: 4rem;
+          margin-top: 0;
+          margin-bottom: 0;
+          transition: margin 0.5s;
+          opacity: 1;
+          background: $warm-gray-01;
+          align-items: flex-start;
+          @include for-tablet-landscape-up {
+            max-width: 64rem;
+          }
+          @include for-big-desktop-up {
+            max-width: 90rem;
+          }
+
+          > div {
             > div {
+              background: $warm-gray-01;
+
+              .heading {
+                color: $body-color;
+
+                span {
+                  color: $warm-gray-06;
+                  background: $warm-gray-02;
+                }
+              }
+            }
+
+            ul {
+              li {
+                background: $white;
+
+                a {
+                  &:hover {
+                    color: $white;
+                    background: $bright-blue;
+                  }
+                }
+              }
+            }
+          }
+        }
+        //main
+        main[role="document"] {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: calc(100vh - 3.75rem);
+          min-height: calc(100vh - 3.75rem);
+          flex: 1;
+          align-items: center;
+
+          > div[role="article"] {
+            display: flex;
+            width: 100%;
+            padding: $padding*2;
+            background: $white;
+            flex: 1;
+            @include for-1024-up {
+              border-top-width: 0;
+              border-right: $card-border-width solid $card-border-color;
+              border-left: $card-border-width solid $card-border-color;
+            }
+            @include for-tablet-landscape-up {
+              max-width: 64rem;
+            }
+            @include for-big-desktop-up {
+              max-width: 90rem;
+            }
+
+            &.login {
+              z-index: 20;
+              border-top: $card-border-width solid $card-border-color;
+              align-items: center;
+              justify-content: center;
+            }
+
+            &.splash {
+              border-top: $card-border-width solid $card-border-color;
+              align-items: center;
+              justify-content: center;
+
+              .fade-in {
                 display: flex;
                 flex-direction: column;
-                width: 100%;
-                min-height: 100vh;
-                margin: 0;
-                padding: 0;
-                background: $white;
                 align-items: center;
-                flex-shrink: 0;
-                //header
-                header {
+                justify-content: center;
+              }
+            }
+
+            &.survey {
+              border-top: $card-border-width solid $card-border-color;
+
+              .fade-in {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+              }
+            }
+
+            &.admin {
+              padding: 0;
+
+              .fade-in {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .content {
+                  display: flex;
+                  flex-direction: row;
+                  @include for-phone-only {
+                    flex-direction: column;
+                  }
+
+                  aside {
                     display: flex;
-                    width: 100%;
-                    padding: $padding $padding*2;
-                    border-bottom: 2px solid $blue;
-                    background: $blue;
-                    justify-content: center;
+                    overflow-y: auto;
                     flex-shrink: 0;
-                    flex-basis: 3.375rem;
+                    @include for-phone-only {
+                      background-color: $white;
+                    }
 
-                    div[role="banner"] {
-                        display: flex;
-                        width: 100%;
-                        align-items: center;
+                    .side-panel {
+                      position: relative;
+                      display: flex;
+                      flex-direction: column;
+                      width: 12.8rem;
+                      margin: ($padding*2) 0 ($padding) ($padding*3);
+                      padding: $padding;
+                      flex-basis: 12.8rem;
+                      flex-shrink: 0;
+                      flex-grow: 0;
+                      @include for-phone-only {
+                        flex-direction: row;
+                        margin: 0;
+                        flex-grow: 1;
+                        flex-basis: auto;
+                        flex-wrap: wrap;
+                      }
+                      @include for-big-desktop-up {
+                        width: 17.975rem;
+                        flex-basis: 17.975rem;
+                      }
+
+                      section {
+                        margin-bottom: $margin-bottom;
+                        flex-grow: 0;
+                        flex-shrink: 0;
                         @include for-phone-only {
-                            h1 {
-                                display: none;
-                            }
-
-                            > nav {
-                                display: none;
-                            }
-
-                            .userName {
-                                text-align: right;
-                                flex-grow: 1;
-                            }
+                          flex-direction: row;
+                          width: 50%;
+                          margin: 0;
+                          padding: ($padding/2) $padding;
                         }
-                        @include for-tablet-portrait-up {
-                            > nav {
-                                display: none;
-
-                                > a {
-                                    margin-left: 1rem;
-                                }
-                            }
-                        }
-                        @include for-tablet-landscape-up {
-                            max-width: 64rem;
-                        }
-                        @include for-tablet-landscape-up {
-                            max-width: 64rem;
-
-                            > nav {
-                                display: flex;
-                                flex: 1;
-                                justify-content: flex-end;
-                            }
-
-                            h1 {
-                                display: block;
-                            }
-
-                            .username {
-                                flex-grow: 0;
-                            }
-                        }
-                        @include for-big-desktop-up {
-                            max-width: 90rem;
-                        }
-
-                        > .logo {
-                            display: block;
-                            width: 7rem;
-                            flex-basis: 7rem;
-                            flex-shrink: 0;
-                        }
-
-                        > h1 {
-                            margin: 0 0 0 1rem;
-                            text-align: center;
-                            color: $white;
-                            font-size: $font-size-h3;
-                            font-weight: 300;
-                        }
-
-                        a {
-                            margin-left: 1rem;
-                            white-space: nowrap;
-                            text-decoration: none;
-                            font-size: $font-size-h6;
-                            @include transition(all .2s ease-in-out);
-
-                            &:hover {
-                                text-decoration: none;
-                                color: $bright-blue;
-                            }
-                        }
+                      }
                     }
+                  }
+
+                  section {
+                    position: relative;
+                    overflow-y: auto;
+                    flex-grow: 1;
+
+                    .content {
+                      flex-direction: row;
+                      padding: ($padding*2) ($padding*4) 0;
+                      flex-wrap: wrap;
+
+                      ul.list {
+                        z-index: 1;
+                        margin: 0;
+                        padding: 0;
+                        list-style: none;
+
+                        li {
+                          &.items-cards {
+                            display: flex;
+                            flex-direction: row;
+                            margin-bottom: $padding/2;
+                          }
+                        }
+                      }
+
+                      label {
+                        font-size: $font-size-h4;
+                        @include for-phone-only {
+                          font-size: $font-size-h5;
+                        }
+                      }
+                    }
+                  }
                 }
-                //search
-                .search {
-                    z-index: 10;
+              }
+            }
+
+            &.workflow {
+              padding: 0;
+
+              .fade-in {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .workflow-header {
+                  padding: $padding;
+                  background-color: $warm-gray-01;
+                  flex-shrink: 0;
+
+                  .rule {
+                    background: $warm-gray-03;
+                  }
+
+                  li {
+                    a {
+                      color: $warm-gray-03;
+
+                      i.fa {
+                        background: $warm-gray-01;
+                      }
+
+                      &.active {
+                        color: $bright-blue;
+
+                        &:focus,
+                        &:hover {
+                          color: $bright-blue-lighten-01;
+                        }
+                      }
+
+                      &.disabled {
+                        color: $warm-gray-03;
+                        outline: none;
+                      }
+
+                      &.selected {
+                        color: $warm-gray-14;
+                        outline: none;
+
+                        i.fa {
+                          color: $bright-blue;
+                        }
+                      }
+
+                      &.complete {
+                        color: $bright-blue-lighten-03;
+
+                        &:focus,
+                        &:hover {
+                          color: $bright-blue;
+                        }
+                      }
+                    }
+                  }
+                }
+
+                .workflow-content {
+                  flex-direction: row;
+                  @include for-phone-only {
+                    flex-direction: column;
+                  }
+
+                  aside {
                     display: flex;
-                    width: 100%;
-                    height: auto;
-                    max-height: 4rem;
-                    margin-top: 0;
-                    margin-bottom: 0;
-                    transition: margin 0.5s;
-                    opacity: 1;
-                    background: $warm-gray-01;
-                    align-items: flex-start;
-                    @include for-tablet-landscape-up {
-                        max-width: 64rem;
-                    }
-                    @include for-big-desktop-up {
-                        max-width: 90rem;
+                    overflow-y: auto;
+                    flex-shrink: 0;
+                    @include for-phone-only {
+                      background-color: $white;
                     }
 
-                    > div {
-                        > div {
-                            background: $warm-gray-01;
+                    .side-panel {
+                      position: relative;
+                      display: flex;
+                      flex-direction: column;
+                      width: 12.8rem;
+                      margin: ($padding*2) 0 ($padding) ($padding*3);
+                      padding: $padding;
+                      flex-basis: 12.8rem;
+                      flex-shrink: 0;
+                      flex-grow: 0;
+                      @include for-phone-only {
+                        flex-direction: row;
+                        margin: 0;
+                        flex-grow: 1;
+                        flex-basis: auto;
+                        flex-wrap: wrap;
+                      }
+                      @include for-big-desktop-up {
+                        width: 17.975rem;
+                        flex-basis: 17.975rem;
+                      }
 
-                            .heading {
-                                color: $body-color;
-
-                                span {
-                                    color: $warm-gray-06;
-                                    background: $warm-gray-02;
-                                }
-                            }
+                      section {
+                        margin-bottom: $margin-bottom;
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        @include for-phone-only {
+                          flex-direction: row;
+                          width: 65%;
+                          margin: 0 0 0 35%;
+                          padding: ($padding/2) $padding;
                         }
 
-                        ul {
-                            li {
-                                background: $white;
+                        dl {
+                          display: flex;
+                          flex-direction: column;
+                          margin: 0;
+
+                          div {
+                            display: flex;
+                            flex-direction: column;
+                            margin: 0;
+                            flex-wrap: wrap;
+                            @include for-phone-only {
+                              //flex-direction: row;
+                            }
+
+                            dt {
+                              flex-basis: auto;
+                              @include for-phone-only {
+                                //flex-basis: 40%;
+                                font-size: 0.64rem;
+                              }
+                            }
+
+                            dd {
+                              display: flex;
+                              flex-direction: column;
+                              flex-basis: auto;
+                              @include for-phone-only {
+                                margin-bottom: 0;
+                                //margin: 0 0 0 $padding;
+                                font-size: 0.8rem;
+                              }
+                            }
+
+                            &:last-child {
+                              dd {
+                                margin-bottom: 0;
+                              }
+                            }
+                          }
+                        }
+
+                        &.premium {
+                          margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
+                          padding: $padding*2;
+                          background-color: $yellow-lighten-04;
+                          @include for-phone-only {
+                            position: absolute;
+                            display: flex;
+                            width: 30vw;
+                            height: 100%;
+                            margin: (-$padding) 0 0 (-$padding);
+                            padding: 0;
+                            text-align: center;
+                            align-items: center;
+                            justify-content: center;
+
+                            dl {
+                              dd {
+                                font-size: $font-size-h5;
+                                font-weight: $font-weight-bold;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  section {
+                    display: flex;
+                    flex-grow: 1;
+
+                    form {
+                      overflow-y: auto;
+
+                      .survey-wrapper {
+                        flex-direction: row;
+                        padding: ($padding*2) ($padding*4) 0;
+                        flex-wrap: wrap;
+                        flex-shrink: 0;
+
+                        .form-group {
+                          //margin-bottom: 1.45rem;
+                          padding-bottom: 1.45rem;
+                          border-bottom: 1px dashed $warm-gray-02;
+
+                          label {
+                            font-size: $font-size-h4;
+                            @include for-phone-only {
+                              font-size: $font-size-h5;
+                            }
+                          }
+
+                          ul.results {
+                            &.result-cards {
+                              li {
+                                margin-bottom: $padding/2;
 
                                 a {
-                                    &:hover {
-                                        color: $white;
-                                        background: $bright-blue;
+                                  padding: $padding $padding*1.5;
+                                  border: $card-border-width solid $card-border-color;
+                                  border-radius: $card-border-radius;
+                                  background: $white;
+                                  align-items: center;
+
+                                  section {
+                                    flex-direction: column;
+                                    flex-grow: 1;
+
+                                    h2,
+                                    h3,
+                                    h4,
+                                    h5 {
+                                      margin: 0;
                                     }
+
+                                    p {
+                                      margin: 0;
+                                    }
+                                  }
+
+                                  i {
+                                    width: 2rem;
+                                    height: 2rem;
+                                    font-size: $font-size-h2;
+
+                                    &.fa-map-marker {
+                                      justify-content: center;
+                                    }
+                                  }
+
+                                  &:hover {
+                                    h2,
+                                    h3,
+                                    h4,
+                                    h5 {
+                                      color: $bright-blue-darken-02;
+                                    }
+                                  }
                                 }
+                              }
                             }
+                          }
                         }
+                      }
                     }
+                  }
                 }
-                //main
-                main[role="document"] {
-                    position: relative;
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                    height: calc(100vh - 3.75rem);
-                    min-height: calc(100vh - 3.75rem);
-                    flex: 1;
-                    align-items: center;
-
-                    > div[role="article"] {
-                        display: flex;
-                        width: 100%;
-                        padding: $padding*2;
-                        background: $white;
-                        flex: 1;
-                        @include for-1024-up {
-                            border-top-width: 0;
-                            border-right: $card-border-width solid $card-border-color;
-                            border-left: $card-border-width solid $card-border-color;
-                        }
-                        @include for-tablet-landscape-up {
-                            max-width: 64rem;
-                        }
-                        @include for-big-desktop-up {
-                            max-width: 90rem;
-                        }
-
-                        &.login {
-                            border-top: $card-border-width solid $card-border-color;
-                            align-items: center;
-                            justify-content: center;
-                            z-index: 20;
-                        }
-
-                        &.splash {
-                            border-top: $card-border-width solid $card-border-color;
-                            align-items: center;
-                            justify-content: center;
-
-                            .fade-in {
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                justify-content: center;
-                            }
-                        }
-
-                        &.survey {
-                            border-top: $card-border-width solid $card-border-color;
-
-                            .fade-in {
-                                display: flex;
-                                flex-direction: column;
-                                flex: 1;
-                            }
-                        }
-
-                        &.admin {
-                            padding: 0;
-
-                            .fade-in {
-                                display: flex;
-                                flex-direction: column;
-                                flex: 1;
-
-                                .content {
-                                    display: flex;
-                                    flex-direction: row;
-                                    @include for-phone-only {
-                                        flex-direction: column;
-                                    }
-
-                                    aside {
-                                        display: flex;
-                                        overflow-y: auto;
-                                        flex-shrink: 0;
-                                        @include for-phone-only {
-                                            background-color: $white;
-                                        }
-
-                                        .side-panel {
-                                            position: relative;
-                                            display: flex;
-                                            flex-direction: column;
-                                            width: 12.8rem;
-                                            margin: ($padding*2) 0 ($padding) ($padding*3);
-                                            padding: $padding;
-                                            flex-basis: 12.8rem;
-                                            flex-shrink: 0;
-                                            flex-grow: 0;
-                                            @include for-phone-only {
-                                                flex-direction: row;
-                                                margin: 0;
-                                                flex-grow: 1;
-                                                flex-basis: auto;
-                                                flex-wrap: wrap;
-                                            }
-                                            @include for-big-desktop-up {
-                                                width: 17.975rem;
-                                                flex-basis: 17.975rem;
-                                            }
-
-                                            section {
-                                                margin-bottom: $margin-bottom;
-                                                flex-grow: 0;
-                                                flex-shrink: 0;
-                                                @include for-phone-only {
-                                                    flex-direction: row;
-                                                    width: 50%;
-                                                    margin: 0;
-                                                    padding: ($padding/2) $padding;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    section {
-                                        overflow-y: auto;
-                                        flex-grow: 1;
-                                        position: relative;
-
-                                        .content {
-                                            flex-direction: row;
-                                            padding: ($padding*2) ($padding*4) 0;
-                                            flex-wrap: wrap;
-
-                                            label {
-                                                font-size: $font-size-h4;
-                                                @include for-phone-only {
-                                                    font-size: $font-size-h5;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        &.workflow {
-                            padding: 0;
-
-                            .fade-in {
-                                display: flex;
-                                flex-direction: column;
-                                flex: 1;
-
-                                .workflow-header {
-                                    padding: $padding;
-                                    background-color: $warm-gray-01;
-                                    flex-shrink: 0;
-
-                                    .rule {
-                                        background: $warm-gray-03;
-                                    }
-
-                                    li {
-                                        a {
-                                            color: $warm-gray-03;
-
-                                            i.fa {
-                                                background: $warm-gray-01;
-                                            }
-
-                                            &.active {
-                                                color: $bright-blue;
-
-                                                &:focus,
-                                                &:hover {
-                                                    color: $bright-blue-lighten-01;
-                                                }
-                                            }
-
-                                            &.disabled {
-                                                color: $warm-gray-03;
-                                                outline: none;
-                                            }
-
-                                            &.selected {
-                                                color: $warm-gray-14;
-                                                outline: none;
-
-                                                i.fa {
-                                                    color: $bright-blue;
-                                                }
-                                            }
-
-                                            &.complete {
-                                                color: $bright-blue-lighten-03;
-
-                                                &:focus,
-                                                &:hover {
-                                                    color: $bright-blue;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                .workflow-content {
-                                    flex-direction: row;
-                                    @include for-phone-only {
-                                        flex-direction: column;
-                                    }
-
-                                    aside {
-                                        display: flex;
-                                        overflow-y: auto;
-                                        flex-shrink: 0;
-                                        @include for-phone-only {
-                                            background-color: $white;
-                                        }
-
-                                        .side-panel {
-                                            position: relative;
-                                            display: flex;
-                                            flex-direction: column;
-                                            width: 12.8rem;
-                                            margin: ($padding*2) 0 ($padding) ($padding*3);
-                                            padding: $padding;
-                                            flex-basis: 12.8rem;
-                                            flex-shrink: 0;
-                                            flex-grow: 0;
-                                            @include for-phone-only {
-                                                flex-direction: row;
-                                                margin: 0;
-                                                flex-grow: 1;
-                                                flex-basis: auto;
-                                                flex-wrap: wrap;
-                                            }
-                                            @include for-big-desktop-up {
-                                                width: 17.975rem;
-                                                flex-basis: 17.975rem;
-                                            }
-
-                                            section {
-                                                margin-bottom: $margin-bottom;
-                                                flex-grow: 0;
-                                                flex-shrink: 0;
-                                                @include for-phone-only {
-                                                    flex-direction: row;
-                                                    width: 50%;
-                                                    margin: 0;
-                                                    padding: ($padding/2) $padding;
-                                                }
-
-                                                dl {
-                                                    display: flex;
-                                                    flex-direction: column;
-                                                    margin: 0;
-
-                                                    div {
-                                                        display: flex;
-                                                        flex-direction: column;
-                                                        margin: 0;
-                                                        flex-wrap: wrap;
-                                                        @include for-phone-only {
-                                                            //flex-direction: row;
-                                                        }
-
-                                                        dt {
-                                                            flex-basis: auto;
-                                                            @include for-phone-only {
-                                                                //flex-basis: 40%;
-                                                                font-size: 0.64rem;
-                                                            }
-                                                        }
-
-                                                        dd {
-                                                            display: flex;
-                                                            flex-direction: column;
-                                                            flex-basis: auto;
-                                                            @include for-phone-only {
-                                                                margin-bottom: 0;
-                                                                //margin: 0 0 0 $padding;
-                                                                font-size: 0.8rem;
-                                                            }
-                                                        }
-
-                                                        &:last-child {
-                                                            dd {
-                                                                margin-bottom: 0;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-                                                &.premium {
-                                                    margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
-                                                    padding: $padding*2;
-                                                    background-color: $yellow-lighten-04;
-                                                    @include for-phone-only {
-                                                        width: 50%;
-                                                        margin: -$padding 0 0;
-                                                        padding: $padding;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    section {
-                                        display: flex;
-                                        flex-grow: 1;
-
-                                        form {
-                                            overflow-y: auto;
-
-                                            .survey-wrapper {
-                                                flex-direction: row;
-                                                padding: ($padding*2) ($padding*4) 0;
-                                                flex-wrap: wrap;
-                                                flex-shrink: 0;
-
-                                                .form-group {
-                                                    //margin-bottom: 1.45rem;
-                                                    padding-bottom: 1.45rem;
-                                                    border-bottom: 1px dashed $warm-gray-02;
-
-                                                    label {
-                                                        font-size: $font-size-h4;
-                                                        @include for-phone-only {
-                                                            font-size: $font-size-h5;
-                                                        }
-                                                    }
-
-                                                    ul.results {
-
-                                                            &.result-cards {
-                                                                li {
-                                                                    margin-bottom: $padding/2;
-
-                                                                    a {
-                                                                        padding: $padding $padding*1.5;
-                                                                        border: $card-border-width solid $card-border-color;
-                                                                        border-radius: $card-border-radius;
-                                                                        background: $white;
-                                                                        align-items: center;
-
-                                                                        section {
-                                                                            flex-grow: 1;
-                                                                            flex-direction: column;
-
-                                                                            h2,
-                                                                            h3,
-                                                                            h4,
-                                                                            h5 {
-                                                                                margin: 0;
-                                                                            }
-
-                                                                            p {
-                                                                                margin: 0;
-                                                                            }
-                                                                        }
-
-                                                                        i {
-                                                                            width: 2rem;
-                                                                            height: 2rem;
-                                                                            font-size: $font-size-h2;
-
-                                                                            &.fa-map-marker {
-                                                                                justify-content: center;
-                                                                            }
-                                                                        }
-
-                                                                        &:hover {
-
-                                                                            h2,
-                                                                            h3,
-                                                                            h4,
-                                                                            h5 {
-                                                                                color: $bright-blue-darken-02;
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        .card {
-                            z-index: 10;
-                        }
-
-                        .modal {
-                            position: absolute;
-                            z-index: 1;
-                            top: 0;
-                            right: 0;
-                            bottom: 0;
-                            left: 0;
-                            background: rgba($black, .75);
-                        }
-                    }
-
-                    &.scroll-up {
-                        .search {
-                            @include for-phone-only {
-                                //display: none;
-                                margin-top: -3.5rem;
-                                transition: margin 0.5s;
-                            }
-                        }
-
-                        .workflow {
-                            .workflow-header {}
-
-                            aside {
-                                @include for-phone-only {
-                                    overflow: hidden;
-                                    height: 0;
-                                    padding: 0;
-                                }
-                            }
-                        }
-                    }
-                }
-                //footer
-                footer {
-                    display: flex;
-                    flex-direction: column;
-                    width: 100%;
-                    align-items: center;
-                    flex-shrink: 0;
-
-                    div[role="banner"] {
-                        width: 100%;
-                        margin-bottom: 0;
-                        padding: $padding ($padding*2);
-                        border-top: $border-width dotted $border-color;
-                        background: $white;
-                        @include for-phone-only {
-                            small {
-                                font-size: $xsmall-font-size;
-                            }
-                        }
-                        @include for-1024-up {
-                            margin-bottom: $padding;
-                            border-right: $card-border-width solid $border-color;
-                            border-bottom: $card-border-width solid $border-color;
-                            border-left: $card-border-width solid $border-color;
-                        }
-                        @include for-tablet-landscape-up {
-                            max-width: 64rem;
-                        }
-                        @include for-big-desktop-up {
-                            max-width: 90rem;
-                        }
-                    }
-                }
+              }
             }
+
+            .card {
+              z-index: 10;
+            }
+
+            .modal {
+              position: absolute;
+              z-index: 1;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0;
+              background: rgba($black, .75);
+            }
+          }
+
+          &.scroll-up {
+            .search {
+              @include for-phone-only {
+                //display: none;
+                margin-top: -3.5rem;
+                transition: margin 0.5s;
+              }
+            }
+
+            .workflow {
+              .workflow-header {}
+
+              aside {
+                @include for-phone-only {
+                  overflow: hidden;
+                  height: 0;
+                  padding: 0;
+                }
+              }
+            }
+          }
         }
+        //footer
+        footer {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          align-items: center;
+          flex-shrink: 0;
+
+          div[role="banner"] {
+            width: 100%;
+            margin-bottom: 0;
+            padding: $padding ($padding*2);
+            border-top: $border-width dotted $border-color;
+            background: $white;
+            @include for-phone-only {
+              small {
+                font-size: $xsmall-font-size;
+              }
+            }
+            @include for-1024-up {
+              margin-bottom: $padding;
+              border-right: $card-border-width solid $border-color;
+              border-bottom: $card-border-width solid $border-color;
+              border-left: $card-border-width solid $border-color;
+            }
+            @include for-tablet-landscape-up {
+              max-width: 64rem;
+            }
+            @include for-big-desktop-up {
+              max-width: 90rem;
+            }
+          }
+        }
+      }
     }
+  }
 }
