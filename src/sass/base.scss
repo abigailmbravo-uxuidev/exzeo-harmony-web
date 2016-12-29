@@ -485,119 +485,82 @@ html {
                                     }
 
                                     section {
-                                        overflow-y: auto;
+                                        display: flex;
                                         flex-grow: 1;
 
-                                        .results {
-                                            ul {
-                                                z-index: 1;
-                                                margin: 0;
-                                                padding: 0;
-                                                list-style: none;
+                                        form {
+                                            overflow-y: auto;
 
-                                                li {
-                                                    display: flex;
-                                                    flex-direction: row;
-                                                    margin-bottom: $padding/2;
+                                            .survey-wrapper {
+                                                flex-direction: row;
+                                                padding: ($padding*2) ($padding*4) 0;
+                                                flex-wrap: wrap;
+                                                flex-shrink: 0;
 
-                                                    a {
-                                                        z-index: 1;
-                                                        display: flex;
-                                                        flex-direction: row;
-                                                        width: 100%;
-                                                        padding: $padding $padding*1.5;
-                                                        text-decoration: none;
-                                                        border: $card-border-width solid $card-border-color;
-                                                        border-radius: $card-border-radius;
-                                                        background: $white;
-                                                        box-shadow: $card-box-shadow;
-                                                        align-items: center;
-                                                        @include transition(all .2s ease-in-out);
+                                                .form-group {
+                                                    //margin-bottom: 1.45rem;
+                                                    padding-bottom: 1.45rem;
+                                                    border-bottom: 1px dashed $warm-gray-02;
 
-                                                        section {
-                                                            flex-grow: 1;
-
-                                                            h2,
-                                                            h3,
-                                                            h4,
-                                                            h5 {
-                                                                margin: 0;
-                                                                color: $body-color;
-                                                            }
-
-                                                            p {
-                                                                margin: 0;
-                                                                color: $body-color;
-                                                            }
+                                                    label {
+                                                        font-size: $font-size-h4;
+                                                        @include for-phone-only {
+                                                            font-size: $font-size-h5;
                                                         }
+                                                    }
 
-                                                        i {
-                                                            display: flex;
-                                                            flex-direction: row;
-                                                            width: 1rem;
-                                                            height: 1rem;
-                                                            font-size: $font-size-h4;
-                                                            align-items: center;
-                                                            justify-content: flex-end;
-                                                            @include transition(all .2s ease-in-out);
+                                                    ul.results {
 
-                                                            &.card-icon {
-                                                                color: $blue;
-                                                                font-size: 2rem;
-                                                                flex-basis: 2rem;
+                                                            &.result-cards {
+                                                                li {
+                                                                    margin-bottom: $padding/2;
 
-                                                                &:before {
-                                                                    width: 2rem;
-                                                                }
-                                                            }
+                                                                    a {
+                                                                        padding: $padding $padding*1.5;
+                                                                        border: $card-border-width solid $card-border-color;
+                                                                        border-radius: $card-border-radius;
+                                                                        background: $white;
+                                                                        align-items: center;
 
-                                                            &.fa-chevron-circle-right {
-                                                                color: $blue;
-                                                                font-size: 2rem;
-                                                            }
-                                                        }
+                                                                        section {
+                                                                            flex-grow: 1;
+                                                                            flex-direction: column;
 
-                                                        &:focus,
-                                                        &:hover {
-                                                            z-index: 2;
-                                                            cursor: pointer;
-                                                            transform: scale(1.004);
-                                                            box-shadow: $card-box-shadow-hover;
+                                                                            h2,
+                                                                            h3,
+                                                                            h4,
+                                                                            h5 {
+                                                                                margin: 0;
+                                                                            }
 
-                                                            h2,
-                                                            h3,
-                                                            h4,
-                                                            h5,
-                                                            p {
-                                                                color: $bright-blue;
-                                                            }
+                                                                            p {
+                                                                                margin: 0;
+                                                                            }
+                                                                        }
 
-                                                            i {
-                                                                &.fa-chevron-circle-right {
-                                                                    color: $bright-blue;
+                                                                        i {
+                                                                            width: 2rem;
+                                                                            height: 2rem;
+                                                                            font-size: $font-size-h2;
+
+                                                                            &.fa-map-marker {
+                                                                                justify-content: center;
+                                                                            }
+                                                                        }
+
+                                                                        &:hover {
+
+                                                                            h2,
+                                                                            h3,
+                                                                            h4,
+                                                                            h5 {
+                                                                                color: $bright-blue-darken-02;
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 }
                                                             }
                                                         }
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        .survey-wrapper {
-                                            flex-direction: row;
-                                            padding: ($padding*2) ($padding*4) 0;
-                                            flex-wrap: wrap;
-
-                                            .form-group {
-                                                margin-bottom: 1.45rem;
-                                                padding-bottom: 1.45rem;
-                                                border-bottom: 1px dashed $warm-gray-02;
-
-                                                label {
-                                                    font-size: $font-size-h4;
-                                                    @include for-phone-only {
-                                                        font-size: $font-size-h5;
-                                                    }
                                                 }
                                             }
                                         }

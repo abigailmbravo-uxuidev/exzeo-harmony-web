@@ -488,6 +488,7 @@ html body {
         i.fa-info-circle {
             font-size: 1rem;
             line-height: 1.25rem;
+            cursor: help;
             color: $bright-blue;
         }
     }
@@ -552,6 +553,7 @@ html {
                     background: $cool-gray-00;
 
                     > div {
+
                         > div {
                             background: $cool-gray-00;
 
@@ -673,68 +675,74 @@ html {
                                         }
 
                                         .side-panel {
+
                                             section {
+
                                                 &.premium {
                                                     //background-color: $yellow-lighten-04;
                                                 }
                                             }
                                         }
                                     }
-
                                     section {
-                                        .results {
-                                            ul {
-                                                li {
-                                                    a {
-                                                        background: $white;
 
-                                                        section {
-                                                            h2,
-                                                            h3,
-                                                            h4,
-                                                            h5 {
-                                                                color: $cool-gray-14;
-                                                            }
+                                        form {
+                                            .survey-wrapper {
 
-                                                            p {
-                                                                color: $cool-gray-12;
-                                                            }
-                                                        }
+                                                .form-group {
+                                                    border-bottom-color: $cool-gray-01;
 
-                                                        i {
-                                                            &.card-icon {
-                                                                color: $green;
-                                                            }
+                                                    ul.results {
 
-                                                            &.fa-chevron-circle-right {
-                                                                color: $bright-blue;
-                                                            }
-                                                        }
+                                                        &.result-cards {
+                                                            li {
+                                                                a {
+                                                                    background: $white;
 
-                                                        &:focus,
-                                                        &:hover {
-                                                            h2,
-                                                            h3,
-                                                            h4,
-                                                            h5,
-                                                            p {
-                                                                color: $bright-blue;
-                                                            }
+                                                                    section {
+                                                                        h2,
+                                                                        h3,
+                                                                        h4,
+                                                                        h5 {
+                                                                            color: $cool-gray-14;
+                                                                        }
 
-                                                            i {
-                                                                &.fa-chevron-circle-right {
-                                                                    color: $bright-blue-lighten-01;
+                                                                        p {
+                                                                            color: $cool-gray-12;
+                                                                        }
+                                                                    }
+
+                                                                    i {
+                                                                        &.card-icon {
+                                                                            color: $green;
+                                                                        }
+
+                                                                        &.fa-chevron-circle-right {
+                                                                            color: $bright-blue;
+                                                                        }
+                                                                    }
+
+                                                                    &:focus,
+                                                                    &:hover {
+                                                                        h2,
+                                                                        h3,
+                                                                        h4,
+                                                                        h5,
+                                                                        p {
+                                                                            color: $bright-blue;
+                                                                        }
+
+                                                                        i {
+                                                                            &.fa-chevron-circle-right {
+                                                                                color: $bright-blue-lighten-01;
+                                                                            }
+                                                                        }
+                                                                    }
                                                                 }
                                                             }
                                                         }
                                                     }
                                                 }
-                                            }
-                                        }
-
-                                        .survey-wrapper {
-                                            .form-group {
-                                                border-bottom-color: $cool-gray-01;
                                             }
                                         }
                                     }

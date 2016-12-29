@@ -579,7 +579,6 @@ ul.results {
                     text-decoration: none;
                     border: $card-border-width solid $card-border-color;
                     border-radius: $card-border-radius;
-                    background: $white;
                     box-shadow: $card-box-shadow;
                     align-items: center;
                     @include transition(all .2s ease-in-out);
@@ -620,7 +619,7 @@ ul.results {
                         h3,
                         h4,
                         h5 {
-                            color: $bright-blue-darken-02;
+
                         }
                     }
                 }
