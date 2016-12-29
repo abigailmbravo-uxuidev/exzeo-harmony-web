@@ -51,6 +51,6 @@ Survey.propTypes = {
   })),
   answers: PropTypes.object, //eslint-disable-line
   styleName: PropTypes.string,
-}
+};
 
 export default Survey;

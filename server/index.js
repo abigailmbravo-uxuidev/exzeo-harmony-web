@@ -44,7 +44,7 @@ const data = {
 const renderApp = (req, res) => {
   console.log(req.headers); // eslint-disable-line no-console
   const fileName = path.resolve(process.cwd(), 'build/index');
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     // DO STUFFS
     const names = req.headers.http_host.split('.');
     console.log('Names: ', names); // eslint-disable-line no-console
