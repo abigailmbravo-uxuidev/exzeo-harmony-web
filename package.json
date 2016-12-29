@@ -50,7 +50,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "push": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:develop . && docker push exzeo/harmony-web:develop",
+    "push": "npm run build && docker build -f dev.dockerfile -t exzeo/harmony-web:develop . && docker push exzeo/harmony-web:develop",
     "both": "node scripts/start-both",
     "start": "node scripts/start-api",
     "dev": "react-scripts start",

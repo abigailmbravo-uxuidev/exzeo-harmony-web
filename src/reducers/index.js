@@ -9,7 +9,7 @@ console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
 console.log(process.env.NODE_ENV);
 console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
 if (process.env.NODE_ENV === 'runBoth') {
-  uri = 'http://localhost:4001/api';
+  uri = 'http://harmony-ins.com/api';
 }
 
 const networkInterface = createNetworkInterface({ uri });

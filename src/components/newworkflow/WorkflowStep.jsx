@@ -197,6 +197,16 @@ export default graphql(gql`
   query GetActiveStep($workflowId:ID!) {
     steps(id:$workflowId) {
       name
+      data {
+        ... on Property {
+          physicalAddress {
+            address1
+          }
+        }
+        ... on Address {
+          address1
+        }
+      }
       questions {
         name
         question

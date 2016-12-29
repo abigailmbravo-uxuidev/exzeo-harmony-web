@@ -1,7 +1,7 @@
 FROM mhart/alpine-node:6
 MAINTAINER Exzeo
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
 RUN apk add --no-cache nano && export TERM=xterm
 RUN mkdir -p /app
@@ -17,11 +17,7 @@ COPY package.json /app/
 
 RUN npm install
 
-COPY src/* /app/src/
-COPY public/* /app/public/
-COPY scripts/* /app/scripts/
-COPY server/* /app/server/
-COPY utils/* /app/utils/
+COPY .  /app
 
 # RUN apk update && apk --no-cache add bash libc6-compat && \
 #   addgroup -S appuser && adduser -S -g appuser appuser && \
@@ -29,6 +25,6 @@ COPY utils/* /app/utils/
 #   npm install && \
 #   npm cache clean
 
-RUN npm install
+ENTRYPOINT ["node", "server"]
 
 # USER appuser
