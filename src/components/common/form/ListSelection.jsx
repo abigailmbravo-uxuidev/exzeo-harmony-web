@@ -24,7 +24,7 @@ const ListSelection = ({
     </label>
     <ul className="results result-cards">
       <li>
-        <a href="">
+        <a onClick={handleChange || null}>
           <i className="card-icon fa fa-map-marker"></i>
           <section>
             <h4>1234 Main Street</h4>

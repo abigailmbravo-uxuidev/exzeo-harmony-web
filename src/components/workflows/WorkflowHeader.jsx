@@ -30,7 +30,7 @@ const WorkflowHeader = (d, f) => {
                 <i className={`fa ${step.icon || 'fa-circle'}`} />
                 <span>
                   {
-                    step.name// insert a space before all caps
+                    step.label// insert a space before all caps
                       .replace(/([A-Z])/g, ' $1')
                       // uppercase the first character
                       .replace(/^./, str => str.toUpperCase())

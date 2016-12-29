@@ -47,6 +47,7 @@ export default graphql(gql`
       id
       steps {
         name
+        label
         icon
       }
     }
