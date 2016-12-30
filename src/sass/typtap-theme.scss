@@ -662,7 +662,7 @@ html {
 
               .fade-in {
                 .content {
-                    
+
                 }
               }
             }
@@ -733,8 +733,18 @@ html {
                   }
 
                   section {
-                    form {
+                    form, div.fade-in {
                       .survey-wrapper {
+                          h1, h2, h3, h4, h5, h6 {
+                              margin-top:0;
+
+                              &.step-title {
+                                  color: $cool-gray-08;
+                              }
+                              &.step-sub-title {
+                                  color: $green;
+                              }
+                          }
                         .form-group {
                           border-bottom-color: $cool-gray-01;
 
