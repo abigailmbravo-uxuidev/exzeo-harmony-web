@@ -206,14 +206,27 @@ class WorkflowStep extends Component {
           </div>
         </aside>
         <section>
-          <Survey
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            questions={steps && steps.questions && steps.questions.length > 0 ?
-              steps.questions : null}
-            answers={this.state.questions}
-            styleName={steps && steps.name ? steps.name : ''}
-          />
+          {
+            steps.type === 'Selection' ? (
+              <ul className="results result-cards">
+                {
+                  steps.data ? steps.data.map((address) => {
+                    return (<li key={address.id}>
+                      <a>
+                        <i className="card-icon fa fa-map-marker"></i>
+                        <section>
+                          <h4>{address.address1}</h4>
+                          <p>{address.city}, {address.state} {address.zip}</p>
+                        </section>
+                        <i className="fa fa-caret-right circle"></i>
+                      </a>
+                    </li>)
+                  }) : null
+                }
+              </ul>
+            ) : (< Survey handleChange={this.handleChange} handleSubmit={this.handleSubmit} questions={steps && steps.questions && steps.questions.length > 0 ?
+            steps.questions : null} answers={this.state.questions} styleName={steps && steps.name ? steps.name : ''} />)
+          }
         </section>
       </div>
     ) : <div className="workflow-content">
