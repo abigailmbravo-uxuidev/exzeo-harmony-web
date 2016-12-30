@@ -51,6 +51,7 @@ class WorkflowStep extends Component {
           value: newProps.data.steps.questions[0].name,
           placeholder: newProps.data.steps.questions[0].question,
           focus: true,
+          showLinks: false,
         });
       }
       steps.questions.forEach((question) => {
