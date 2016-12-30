@@ -41,7 +41,7 @@ class WorkflowStep extends Component {
         this.handleSubmit();
     }
     if (!this.props.data.steps || (!newProps.data.loading &&
-      this.props.data.steps.name !== newProps.data.steps.name)) {
+      this.props.data.steps && this.props.data.steps.name !== newProps.data.steps.name)) {
       const { questions } = this.state;
       const { steps } = newProps.data;
       this.props.searchActions.clearSearchConfig();
