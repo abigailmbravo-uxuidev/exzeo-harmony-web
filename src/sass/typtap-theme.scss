@@ -42,7 +42,7 @@ html body {
     width: 100%;
 
     .__react_component_tooltip {
-        max-width: 16rem;
+      max-width: 16rem;
     }
 
     &.segmented {
@@ -516,37 +516,38 @@ html body {
   }
   //vertical tabs
   .side-panel {
-      nav {
-          display: flex;
-          flex-direction: column;
-          border-right: 1px solid $warm-gray-01;
+    nav {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid $warm-gray-01;
 
-          a {
-              color: $bright-blue;
+      a {
+        color: $bright-blue;
 
-              &:hover, &:focus {
-                  text-decoration: none;
-              }
+        &:focus,
+        &:hover {
+          text-decoration: none;
+        }
 
-              &.active {
-                color: $bright-blue;
+        &.active {
+          color: $bright-blue;
 
-                &:focus,
-                &:hover {
-                  color: $bright-blue-lighten-01;
-                }
-              }
-
-              &.disabled {
-                color: $cool-gray-03;
-              }
-
-              &.selected {
-                color: $cool-gray-14;
-                border-color: $green;
-              }
+          &:focus,
+          &:hover {
+            color: $bright-blue-lighten-01;
           }
+        }
+
+        &.disabled {
+          color: $cool-gray-03;
+        }
+
+        &.selected {
+          color: $cool-gray-14;
+          border-color: $green;
+        }
       }
+    }
   }
   //cards
   .card {
@@ -559,13 +560,11 @@ html body {
   }
   //side panel navigation
   .side-panel {
-      nav {
-          border-color: $cool-gray-01;
+    nav {
+      border-color: $cool-gray-01;
 
-          a {
-
-          }
-      }
+      a {}
+    }
   }
 }
 /*specific typtap styles*/
@@ -661,9 +660,7 @@ html {
               border-top: $card-border-width solid $card-border-color;
 
               .fade-in {
-                .content {
-
-                }
+                .content {}
               }
             }
 
@@ -733,64 +730,72 @@ html {
                   }
 
                   section {
-                    form, div.fade-in {
+                    div.fade-in,
+                    form {
                       .survey-wrapper {
-                          h1, h2, h3, h4, h5, h6 {
-                              margin-top:0;
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5,
+                        h6 {
+                          margin-top: 0;
 
-                              &.step-title {
-                                  color: $cool-gray-08;
-                              }
-                              &.step-sub-title {
-                                  color: $green;
-                              }
+                          &.step-title {
+                            color: $cool-gray-08;
                           }
+
+                          &.step-sub-title {
+                            color: $green;
+                          }
+                        }
+
                         .form-group {
                           border-bottom-color: $cool-gray-01;
+                        }
 
-                          ul.results {
-                            &.result-cards {
-                              li {
-                                a {
-                                  background: $white;
+                        ul.results {
+                          &.result-cards {
+                            li {
+                              a {
+                                background: $white;
 
-                                  section {
-                                    h2,
-                                    h3,
-                                    h4,
-                                    h5 {
-                                      color: $cool-gray-14;
-                                    }
+                                section {
+                                  h2,
+                                  h3,
+                                  h4,
+                                  h5 {
+                                    color: $cool-gray-14;
+                                  }
 
-                                    p {
-                                      color: $cool-gray-12;
-                                    }
+                                  p {
+                                    color: $cool-gray-12;
+                                  }
+                                }
+
+                                i {
+                                  &.card-icon {
+                                    color: $green;
+                                  }
+
+                                  &.fa-chevron-circle-right {
+                                    color: $bright-blue;
+                                  }
+                                }
+
+                                &:focus,
+                                &:hover {
+                                  h2,
+                                  h3,
+                                  h4,
+                                  h5,
+                                  p {
+                                    color: $bright-blue;
                                   }
 
                                   i {
-                                    &.card-icon {
-                                      color: $green;
-                                    }
-
                                     &.fa-chevron-circle-right {
-                                      color: $bright-blue;
-                                    }
-                                  }
-
-                                  &:focus,
-                                  &:hover {
-                                    h2,
-                                    h3,
-                                    h4,
-                                    h5,
-                                    p {
-                                      color: $bright-blue;
-                                    }
-
-                                    i {
-                                      &.fa-chevron-circle-right {
-                                        color: $bright-blue-lighten-01;
-                                      }
+                                      color: $bright-blue-lighten-01;
                                     }
                                   }
                                 }
@@ -806,11 +811,11 @@ html {
             }
 
             .modal {
+              z-index: 10;
               background: rgba($black, .75);
               background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
               background-position: center center;
               background-size: cover;
-              z-index: 10;
             }
           }
         }
