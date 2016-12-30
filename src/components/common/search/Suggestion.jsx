@@ -17,7 +17,7 @@ const Suggestion = ({ data, handleSelect, showLinks }) => {
           results && results.length > 0 ? results.map((result, index) => (
             <li key={index}>
               <a onClick={handleSelect} >
-                <span>{result[mapping.title]} {result[mapping.details]}</span>{showLinks ? links : null}<i className="fa fa-chevron-circle-right" />
+                <span>{result[mapping.title]} {result[mapping.details]}</span><div className="workflow-links">{showLinks ? links : null}</div><i className="fa fa-chevron-circle-right" />
               </a>
             </li>
           )) : null

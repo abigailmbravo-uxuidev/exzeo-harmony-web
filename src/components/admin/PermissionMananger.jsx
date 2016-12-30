@@ -48,7 +48,7 @@ class PermissionMananger extends Component {
                     <h4>{p.name}</h4>
                     <p>{p.description}</p>
                   </section>
-                  <ul>
+                  <ul className="list">
                     {p.rights.map((right, index) => (
                       <li key={index} className={right.active
                         ? 'active'
