@@ -12,53 +12,58 @@
     flex-grow: 1;
 
     input {
-      flex: 1;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+      flex: 1;
       @keyframes glow {
         0% {
-          box-shadow: 0 0 5px rgba($bright-blue, 0), inset 0 0 5px rgba($bright-blue-lighten-03, 0);
           border-bottom-color: $cool-gray-02;
+          box-shadow: 0 0 5px rgba($bright-blue, 0), inset 0 0 5px rgba($bright-blue-lighten-03, 0);
         }
+
         50% {
-          box-shadow: 0 0 10px rgba($bright-blue, .6), inset 0 0 10px rgba($bright-blue-lighten-03, .4);
           border-bottom-color: $cool-gray-04;
+          box-shadow: 0 0 10px rgba($bright-blue, .6), inset 0 0 10px rgba($bright-blue-lighten-03, .4);
         }
+
         100% {
-          box-shadow: 0 0 5px rgba($bright-blue, 0), inset 0 0 5px rgba($bright-blue-lighten-03, 0);
           border-bottom-color: $cool-gray-02;
+          box-shadow: 0 0 5px rgba($bright-blue, 0), inset 0 0 5px rgba($bright-blue-lighten-03, 0);
         }
       }
       @keyframes blink {
-          0% {
-              background-color: $green-darken-01;
-          }
-          5% {
-              background-color: $green-darken-02;
-          }
-          10% {
-              background-color: $green-darken-01;
-          }
-          100% {
-              background-color: $green-darken-01;
-          }
+        0% {
+          background-color: $green-darken-01;
+        }
+
+        5% {
+          background-color: $green-darken-02;
+        }
+
+        10% {
+          background-color: $green-darken-01;
+        }
+
+        100% {
+          background-color: $green-darken-01;
+        }
       }
 
       &.focus-user {
         animation: glow 3200ms ease-out infinite alternate;
-        box-shadow: 0 0 5px rgba( $bright-blue, 0 ), inset 0 0 5px rgba($bright-blue, 0);
         outline: none;
+        box-shadow: 0 0 5px rgba( $bright-blue, 0 ), inset 0 0 5px rgba($bright-blue, 0);
 
         &:focus {
-            animation: none;
+          animation: none;
 
-            ~ button {
-                animation: none;
-            }
+          ~ button {
+            animation: none;
+          }
         }
 
         ~ button {
-            animation: blink 3200ms ease-out infinite alternate;
+          animation: blink 3200ms ease-out infinite alternate;
         }
       }
     }
@@ -113,6 +118,7 @@
           flex-direction: row;
           width: 100%;
           border-bottom: $card-border-width dotted $card-border-color;
+          @include transition(all .2s ease-in-out);
 
           &:last-child {
             border-bottom: none;
@@ -132,12 +138,26 @@
 
             span {
               flex-grow: 1;
+              @include transition(all .2s ease-in-out);
+            }
+
+            .workflow-links {
+                span {
+                    padding: ($padding/4) ($padding*2);
+                    border-radius: $btn-border-radius;
+                    @include transition(all .2s ease-in-out);
+
+                    &:hover {
+                        background: $bright-blue-lighten-03;
+                        color: $body-color;
+                    }
+                }
             }
 
             i {
               text-align: right;
               line-height: 1.45;
-              flex-basis: 1rem;
+              flex-basis: 2rem;
             }
 
             &:focus,
