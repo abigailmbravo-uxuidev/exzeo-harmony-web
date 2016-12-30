@@ -219,7 +219,7 @@ html {
               justify-content: center;
 
               .card {
-                  z-index: 30;
+                z-index: 30;
               }
             }
 
@@ -258,8 +258,7 @@ html {
                   display: flex;
                   flex-direction: row;
                   height: 100%;
-                  @include for-phone-only {
-                  }
+                  @include for-phone-only {}
 
                   aside {
                     display: flex;
@@ -316,37 +315,41 @@ html {
                       flex-wrap: wrap;
 
                       .admin-header {
-                          margin-bottom: $padding;
-                          display: flex;
+                        display: flex;
+                        margin-bottom: $padding;
 
-                          h1, h2, h3, h4, h5 {
-                              flex-grow: 1;
-                              margin: 0;
-                          }
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5 {
+                          margin: 0;
+                          flex-grow: 1;
+                        }
                       }
 
                       .modal {
-                          background: rgba($black, .25);
-                          background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, .35));
-                          display: flex;
-                          align-items: center;
-                          justify-content: center;
+                        display: flex;
+                        background: rgba($black, .25);
+                        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, .35));
+                        align-items: center;
+                        justify-content: center;
 
-                          .card {
-                              max-width: 24rem;
-                          }
+                        .card {
+                          max-width: 24rem;
+                        }
                       }
 
                       ul.list {
                         z-index: 1;
+                        width: 100%;
                         margin: 0;
                         padding: 0;
                         list-style: none;
-                        width: 100%;
 
                         li {
-                            display: flex;
-                            flex-direction: row;
+                          display: flex;
+                          flex-direction: row;
                         }
                       }
 
@@ -541,7 +544,8 @@ html {
                     display: flex;
                     flex-grow: 1;
 
-                    form, div.fade-in {
+                    div.fade-in,
+                    form {
                       overflow-y: auto;
 
                       .survey-wrapper {
@@ -550,15 +554,21 @@ html {
                         flex-wrap: wrap;
                         flex-shrink: 0;
 
-                        h1, h2, h3, h4, h5, h6 {
-                            margin-top:0;
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5,
+                        h6 {
+                          margin-top: 0;
 
-                            &.step-title {
-                                color: $body-color;
-                            }
-                            &.step-sub-title {
-                                color: $warm-gray-11;
-                            }
+                          &.step-title {
+                            color: $body-color;
+                          }
+
+                          &.step-sub-title {
+                            color: $warm-gray-11;
+                          }
                         }
 
                         .form-group {
@@ -572,52 +582,52 @@ html {
                               font-size: $font-size-h5;
                             }
                           }
+                        }
 
-                          ul.results {
-                            &.result-cards {
-                              li {
-                                margin-bottom: $padding/2;
+                        ul.results {
+                          &.result-cards {
+                            li {
+                              margin-bottom: $padding/2;
 
-                                a {
-                                  padding: $padding $padding*1.5;
-                                  border: $card-border-width solid $card-border-color;
-                                  border-radius: $card-border-radius;
-                                  background: $white;
-                                  align-items: center;
+                              a {
+                                padding: $padding $padding*1.5;
+                                border: $card-border-width solid $card-border-color;
+                                border-radius: $card-border-radius;
+                                background: $white;
+                                align-items: center;
 
-                                  section {
-                                    flex-direction: column;
-                                    flex-grow: 1;
+                                section {
+                                  flex-direction: column;
+                                  flex-grow: 1;
 
-                                    h2,
-                                    h3,
-                                    h4,
-                                    h5 {
-                                      margin: 0;
-                                    }
-
-                                    p {
-                                      margin: 0;
-                                    }
+                                  h2,
+                                  h3,
+                                  h4,
+                                  h5 {
+                                    margin: 0;
                                   }
 
-                                  i {
-                                    width: 2rem;
-                                    height: 2rem;
-                                    font-size: $font-size-h2;
-
-                                    &.fa-map-marker {
-                                      justify-content: center;
-                                    }
+                                  p {
+                                    margin: 0;
                                   }
+                                }
 
-                                  &:hover {
-                                    h2,
-                                    h3,
-                                    h4,
-                                    h5 {
-                                      color: $bright-blue-darken-02;
-                                    }
+                                i {
+                                  width: 2rem;
+                                  height: 2rem;
+                                  font-size: $font-size-h2;
+
+                                  &.fa-map-marker {
+                                    justify-content: center;
+                                  }
+                                }
+
+                                &:hover {
+                                  h2,
+                                  h3,
+                                  h4,
+                                  h5 {
+                                    color: $bright-blue-darken-02;
                                   }
                                 }
                               }

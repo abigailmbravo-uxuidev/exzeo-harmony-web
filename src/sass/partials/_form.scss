@@ -137,7 +137,10 @@ html body {
   }
 
   .form-group {
+    display: flex;
+    flex-direction: column;
     margin-bottom: $form-group-margin-bottom;
+    padding: 0 $padding/2;
 
     .h1,
     .h2,
@@ -153,12 +156,6 @@ html body {
     h6 {
       flex-basis: 100%;
     }
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    padding: 0 $padding/2;
 
     &.row[role="group"] {
       margin: 0 -($padding/2);
@@ -167,9 +164,7 @@ html body {
     &.row {
       flex-direction: row;
     }
-  }
 
-  .form-group {
     .__react_component_tooltip {
       z-index: 900;
     }
@@ -581,14 +576,14 @@ ul.results {
       @include transition(all .2s ease-in-out);
 
       &:first-child {
-          border-top-width: $card-border-width;
-          border-top-left-radius: $card-border-radius;
-          border-top-right-radius: $card-border-radius;
+        border-top-width: $card-border-width;
+        border-top-left-radius: $card-border-radius;
+        border-top-right-radius: $card-border-radius;
       }
 
       &:last-child {
-          border-bottom-left-radius: $card-border-radius;
-          border-bottom-right-radius: $card-border-radius;
+        border-bottom-right-radius: $card-border-radius;
+        border-bottom-left-radius: $card-border-radius;
       }
 
       section {
@@ -606,24 +601,39 @@ ul.results {
         }
       }
 
-      ul {
-          flex-basis: 12rem;
-          width: 12rem;
-          flex-grow: 0;
-          flex-shrink: 0;
+      ul.list {
+        width: 12rem;
+        flex-basis: 12rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        border-right: 1px solid $border-color;
+
+        li {
+          border-width: 0;
+          box-shadow: none;
+
+          &:first-child {
+            border-width: 0;
+          }
+        }
       }
 
       i {
-          &.fa-trash {
-              width: 2rem;
-              height: 2rem;
-              font-size: $font-size-h4;
-              display: flex;
-              align-items: center;
-              justify-content: flex-end;
-              cursor: pointer;
-              margin: 0;
+        &.fa-trash {
+          display: flex;
+          width: 2rem;
+          height: 2.4rem;
+          margin: 0;
+          cursor: pointer;
+          font-size: $font-size-h4;
+          align-items: center;
+          justify-content: flex-end;
+          @include transition(all .2s ease-in-out);
+
+          &:hover {
+            color: $red;
           }
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { graphql } from 'react-apollo';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
@@ -9,50 +9,34 @@ import Survey from '../common/question/Survey';
 class WorkflowStep extends Component {
   static propTypes = {
     data: PropTypes.shape({
-      steps: PropTypes.shape({
-        name: PropTypes.string,
-        inputs: PropTypes.array,
-        questions: PropTypes.array,
-      }),
-      refetch: PropTypes.func,
+      steps: PropTypes.shape({name: PropTypes.string, inputs: PropTypes.array, questions: PropTypes.array}),
+      refetch: PropTypes.func
     }),
     workflowId: PropTypes.string,
-    completeStep: PropTypes.func,
+    completeStep: PropTypes.func
   }
   static contextTypes = {
-    router: PropTypes.any,
+    router: PropTypes.any
   }
   state = {
-    questions: {},
+    questions: {}
   }
   componentWillReceiveProps(newProps) {
-    if (newProps
-      && newProps.data
-      && newProps.data.steps
-      && newProps.data.steps.type === 'Search'
-      && newProps.location.query
-      && newProps.location.query[newProps.data.steps.questions[0].name]) {
-        const questions = this.state.questions;
-        Object.keys(questions).forEach((q) => {
-          questions[q].value = newProps.location.query[q];
-        });
-        this.setState({ questions });
-        console.log(this.state);
-        this.handleSubmit();
+    if (newProps && newProps.data && newProps.data.steps && newProps.data.steps.type === 'Search' && newProps.location.query && newProps.location.query[newProps.data.steps.questions[0].name]) {
+      const questions = this.state.questions;
+      Object.keys(questions).forEach((q) => {
+        questions[q].value = newProps.location.query[q];
+      });
+      this.setState({questions});
+      console.log(this.state);
+      this.handleSubmit();
     }
-    if (!this.props.data.steps || (!newProps.data.loading &&
-      this.props.data.steps && this.props.data.steps.name !== newProps.data.steps.name)) {
-      const { questions } = this.state;
-      const { steps } = newProps.data;
+    if (!this.props.data.steps || (!newProps.data.loading && this.props.data.steps && this.props.data.steps.name !== newProps.data.steps.name)) {
+      const {questions} = this.state;
+      const {steps} = newProps.data;
       this.props.searchActions.clearSearchConfig();
       if (steps.type === 'Search') {
-        this.props.searchActions.setSearchConfig({
-          type: 'append',
-          value: newProps.data.steps.questions[0].name,
-          placeholder: newProps.data.steps.questions[0].question,
-          focus: true,
-          showLinks: false,
-        });
+        this.props.searchActions.setSearchConfig({type: 'append', value: newProps.data.steps.questions[0].name, placeholder: newProps.data.steps.questions[0].question, focus: true, showLinks: false});
       }
       steps.questions.forEach((question) => {
         let value = '';
@@ -66,44 +50,41 @@ class WorkflowStep extends Component {
         questions[question.name] = {
           value,
           hidden: false,
-          disabled: false,
+          disabled: false
         };
       });
       steps.questions.forEach((question) => {
         if (question.conditional && question.conditional.display) {
           questions[question.name].hidden = false;
           questions[question.name].disabled = false;
-          const { display } = question.conditional;
+          const {display} = question.conditional;
           display.forEach((condition) => {
             switch (condition.operator) { // eslint-disable-line
               case 'equal':
                 if (!questions[question.name][condition.type]) {
-                  questions[question.name][condition.type] =
-                    !(questions[condition.dependency].value === condition.trigger);
+                  questions[question.name][condition.type] = !(questions[condition.dependency].value === condition.trigger);
                 }
                 break;
               case 'greaterThan':
                 if (!questions[question.name][condition.type]) {
-                  questions[question.name][condition.type] =
-                    !(questions[condition.dependency].value > condition.trigger);
+                  questions[question.name][condition.type] = !(questions[condition.dependency].value > condition.trigger);
                 }
                 break;
               case 'lessThan':
                 if (!questions[question.name][condition.type]) {
-                  questions[question.name][condition.type] =
-                    !(questions[condition.dependency].value < condition.trigger);
+                  questions[question.name][condition.type] = !(questions[condition.dependency].value < condition.trigger);
                 }
                 break;
             }
           });
         }
       });
-      this.setState({ questions });
+      this.setState({questions});
     }
   }
   handleChange = (event) => {
-    const { questions } = this.state;
-    const { steps } = this.props.data;
+    const {questions} = this.state;
+    const {steps} = this.props.data;
     // console.log(event.target.name, event.target.value);
     // questions[event.target.name] = Number(event.target.value) ?
     //  Number(event.target.value) : event.target.value;
@@ -113,136 +94,136 @@ class WorkflowStep extends Component {
       if (question.conditional && question.conditional.display) {
         questions[question.name].hidden = false;
         questions[question.name].disabled = false;
-        const { display } = question.conditional;
+        const {display} = question.conditional;
         display.forEach((condition) => {
           switch (condition.operator) { // eslint-disable-line
             case 'equal':
               if (!questions[question.name][condition.type]) {
-                questions[question.name][condition.type] =
-                  !(questions[condition.dependency].value === condition.trigger);
+                questions[question.name][condition.type] = !(questions[condition.dependency].value === condition.trigger);
               }
               break;
             case 'greaterThan':
               if (!questions[question.name][condition.type]) {
-                questions[question.name][condition.type] =
-                  !(questions[condition.dependency].value > condition.trigger);
+                questions[question.name][condition.type] = !(questions[condition.dependency].value > condition.trigger);
               }
               break;
             case 'lessThan':
               if (!questions[question.name][condition.type]) {
-                questions[question.name][condition.type] =
-                  !(questions[condition.dependency].value < condition.trigger);
+                questions[question.name][condition.type] = !(questions[condition.dependency].value < condition.trigger);
               }
               break;
           }
         });
       }
     });
-    this.setState({ questions });
+    this.setState({questions});
   }
   handleSubmit = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
+    if (event && event.preventDefault)
+      event.preventDefault();
     console.log('COMPLETE TASK'); // eslint-disable-line
-    this.props.completeStep({ variables: { input: {
-      workflowId: this.props.workflowId,
-      stepName: this.props.data.steps.name,
-      data: this.formatData(),
-    } } })
-      .then(() => {
-        this.props.data.refetch()
-          .then(({ data }) => {
-            // console.log('ggggggg', data)
-            this.context.router.transitionTo(`/workflow/${data.steps.name}`);
-            this.props.updateCompletedSteps(data.steps.completedSteps);
-          });
-      })
-      .catch(error => console.log(error));
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: this.props.workflowId,
+          stepName: this.props.data.steps.name,
+          data: this.formatData()
+        }
+      }
+    }).then(() => {
+      this.props.data.refetch().then(({data}) => {
+        // console.log('ggggggg', data)
+        this.context.router.transitionTo(`/workflow/${data.steps.name}`);
+        this.props.updateCompletedSteps(data.steps.completedSteps);
+      });
+    }).catch(error => console.log(error));
   }
   formatData = () => {
     const answers = [];
     Object.keys(this.state.questions).forEach((key) => {
-      answers.push({
-        key,
-        value: this.state.questions[key].value,
-      });
+      answers.push({key, value: this.state.questions[key].value});
     });
     return answers;
   }
   render() {
-    const { steps } = this.props.data;
-    if (steps && steps.data && steps.data.length > 0) console.log(steps.data);
-    return (steps && steps.type !== 'Search') ? (
-      <div className="workflow-content">
-        <aside>
-          <div className="side-panel" role="contentinfo">
-            <section id="premium" className="premium">
-              <dl>
-                <div>
-                  <dt>Annual premium</dt>
-                  <dd>$1000.00</dd>
-                </div>
-              </dl>
-            </section>
-            <section id="quoteDetails" className="quoteDetails">
-              <dl>
-                <div>
-                  <dt>Quote number</dt>
-                  <dd>TTIC-HO3-1234567890</dd>
-                </div>
-              </dl>
-            </section>
-            <section id="propertyDetails" className="propertyDetails">
-              <dl>
-                <div>
-                  <dt>Address</dt>
-                  <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
-                </div>
-                <div className="hide-for-phone-only">
-                  <dt>Year built</dt>
-                  <dd>2000</dd>
-                </div>
-              </dl>
-            </section>
-          </div>
-        </aside>
+    const {steps} = this.props.data;
+    if (steps && steps.data && steps.data.length > 0)
+      console.log(steps.data);
+    return (steps && steps.type !== 'Search')
+      ? (
+        <div className="workflow-content">
+
+          <section>
+            <div className="fade-in">
+              <div className="survey-wrapper">
+                {steps.type === 'Selection'
+                  ? (
+                    <ul className="results result-cards">
+                      {steps.data
+                        ? steps.data.map((address) => {
+                          return (
+                            <li key={address.id}>
+                              <a>
+                                <i className="card-icon fa fa-map-marker"></i>
+                                <section>
+                                  <h4>{address.address1}</h4>
+                                  <p>{address.city}, {address.state}
+                                    {address.zip}</p>
+                                </section>
+                                <i className="fa fa-caret-right circle"></i>
+                              </a>
+                            </li>
+                          )
+                        })
+                        : null
+}
+                    </ul>
+                  )
+                  : (< Survey handleChange = {
+                    this.handleChange
+                  }
+                  handleSubmit = {
+                    this.handleSubmit
+                  }
+                  questions = {
+                    steps && steps.questions && steps.questions.length > 0
+                      ? steps.questions
+                      : null
+                  }
+                  answers = {
+                    this.state.questions
+                  }
+                  styleName = {
+                    steps && steps.name
+                      ? steps.name
+                      : ''
+                  } />)
+}
+              </div>
+            </div>
+          </section>
+        </div>
+      )
+      : <div className="workflow-content">
         <section>
-          {
-            steps.type === 'Selection' ? (
-              <ul className="results result-cards">
-                {
-                  steps.data ? steps.data.map((address) => {
-                    return (<li key={address.id}>
-                      <a>
-                        <i className="card-icon fa fa-map-marker"></i>
-                        <section>
-                          <h4>{address.address1}</h4>
-                          <p>{address.city}, {address.state} {address.zip}</p>
-                        </section>
-                        <i className="fa fa-caret-right circle"></i>
-                      </a>
-                    </li>)
-                  }) : null
-                }
-              </ul>
-            ) : (< Survey handleChange={this.handleChange} handleSubmit={this.handleSubmit} questions={steps && steps.questions && steps.questions.length > 0 ?
-            steps.questions : null} answers={this.state.questions} styleName={steps && steps.name ? steps.name : ''} />)
-          }
+          <div className="fade-in">
+            <div className="survey-wrapper">
+              <h3 className="step-title">Start a homeowner's insurance quote</h3>
+              <h4 className="step-sub-title">
+                <i className="fa fa-search"></i> Search for a {steps ? steps.name : null}</h4>
+              <p>To start a homeowner's insurance quote, enter the street address of the property to be insured in the search bar above. You only need to enter the street number and name to return a list of possible matches.</p>
+            </div>
+          </div>
         </section>
-      </div>
-    ) : <div className="workflow-content">
-        <section><div className="fade-in"><div className="survey-wrapper">
-                <h3 className="step-title">Start a homeowner's insurance quote</h3>
-                <h4 className="step-sub-title"><i className="fa fa-search"></i> Search for a {steps ? steps.name : null}</h4>
-                <p>To start a homeowner's insurance quote, enter the street address of the property to be insured in the search bar above. You only need to enter the street number and name to return a list of possible matches.</p>
-        </div></div></section></div>;
+      </div>;
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  searchActions: bindActionCreators(searchActions, dispatch),
+  searchActions: bindActionCreators(searchActions, dispatch)
 });
 
-export default graphql(gql`
+export default graphql(gql `
   query GetActiveStep($workflowId:ID!) {
     steps(id:$workflowId) {
       name
@@ -281,8 +262,8 @@ export default graphql(gql`
       completedSteps
     }
   }
-`)(graphql(gql`
+`)(graphql(gql `
   mutation CompleteStep($input:CompleteStepInput) {
     completeStep(input:$input)
   }
-`, { name: 'completeStep' })(connect(null, mapDispatchToProps)(WorkflowStep)));
+`, {name: 'completeStep'})(connect(null, mapDispatchToProps)(WorkflowStep)));
