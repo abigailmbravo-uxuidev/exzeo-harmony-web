@@ -1,8 +1,9 @@
 /* eslint no-param-reassign:0 */
 import { combineReducers } from 'redux';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import features from './featureReducer';
 import auth from './authReducer';
+import features from './featureReducer';
+import search from './searchReducer';
 
 let uri = 'http://harmony-ins.com/api';
 console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
@@ -31,6 +32,7 @@ export const client = new ApolloClient({ networkInterface });
 const rootReducer = combineReducers({
   auth,
   features,
+  search,
   apollo: client.reducer(),
 });
 

@@ -1,9 +1,18 @@
 import React, { PropTypes } from 'react';
 
-const SearchBar = ({ placeholder, handleChange, handleSubmit, handleOnFocus, handleOnBlur, searchText }) => (
+const SearchBar = ({
+  placeholder,
+  handleChange,
+  handleSubmit,
+  handleOnFocus,
+  handleOnBlur,
+  searchText,
+  focus,
+}) => (
   <form onSubmit={handleSubmit || null}>
     <input
         name="search-address"
+        className={focus ? 'focus-user' : ''}
         placeholder={placeholder || 'Search...'}
         onChange={handleChange || null}
         onFocus={handleOnFocus}

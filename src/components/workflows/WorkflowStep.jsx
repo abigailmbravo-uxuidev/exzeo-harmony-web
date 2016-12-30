@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
 
 class WorkflowStep extends Component {
@@ -23,10 +26,33 @@ class WorkflowStep extends Component {
     questions: {},
   }
   componentWillReceiveProps(newProps) {
+    if (newProps
+      && newProps.data
+      && newProps.data.steps
+      && newProps.data.steps.type === 'Search'
+      && newProps.location.query
+      && newProps.location.query[newProps.data.steps.questions[0].name]) {
+        const questions = this.state.questions;
+        Object.keys(questions).forEach((q) => {
+          questions[q].value = newProps.location.query[q];
+        });
+        this.setState({ questions });
+        console.log(this.state);
+        this.handleSubmit();
+    }
     if (!this.props.data.steps || (!newProps.data.loading &&
       this.props.data.steps.name !== newProps.data.steps.name)) {
       const { questions } = this.state;
       const { steps } = newProps.data;
+      this.props.searchActions.clearSearchConfig();
+      if (steps.type === 'Search') {
+        this.props.searchActions.setSearchConfig({
+          type: 'append',
+          value: newProps.data.steps.questions[0].name,
+          placeholder: newProps.data.steps.questions[0].question,
+          focus: true,
+        });
+      }
       steps.questions.forEach((question) => {
         let value = '';
         if ('defaultValue' in question) {
@@ -142,9 +168,9 @@ class WorkflowStep extends Component {
     return answers;
   }
   render() {
-    // console.log('STEPS: ', this);
     const { steps } = this.props.data;
-    return (
+    if (steps && steps.data && steps.data.length > 0) console.log(steps.data);
+    return (steps && steps.type !== 'Search') ? (
       <div className="workflow-content">
         <aside>
           <div className="side-panel" role="contentinfo">
@@ -189,9 +215,13 @@ class WorkflowStep extends Component {
           />
         </section>
       </div>
-    );
+    ) : <h4>Please search for a {steps ? steps.name : null}</h4>;
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  searchActions: bindActionCreators(searchActions, dispatch),
+});
 
 export default graphql(gql`
   query GetActiveStep($workflowId:ID!) {
@@ -205,8 +235,13 @@ export default graphql(gql`
         }
         ... on Address {
           address1
+          city
+          state
+          zip
+          id
         }
       }
+      type
       questions {
         name
         question
@@ -231,4 +266,4 @@ export default graphql(gql`
   mutation CompleteStep($input:CompleteStepInput) {
     completeStep(input:$input)
   }
-`, { name: 'completeStep' })(WorkflowStep));
+`, { name: 'completeStep' })(connect(null, mapDispatchToProps)(WorkflowStep)));

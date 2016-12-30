@@ -16,29 +16,35 @@ function getStatus(step, completedSteps) {
   return status;
 }
 
-const WorkflowHeader = (d, f) => {
+const WorkflowHeader = (d) => {
   // console.log(d);
   return (
     <ul className="workflow-header">
       <div className="rule" />
       {
         d.steps ? d.steps.map((step, index) => {
-          console.log(step);
-          return (
-            <li key={index}>
-              <a className={getStatus(step, d.completedSteps)} tabIndex={index} onClick={() => { d.updateStep(index); }}>
-                <i className={`fa ${step.icon || 'fa-circle'}`} />
-                <span>
-                  {
-                    step.label// insert a space before all caps
-                      .replace(/([A-Z])/g, ' $1')
-                      // uppercase the first character
-                      .replace(/^./, str => str.toUpperCase())
-                  }
-                </span>
-              </a>
-            </li>
-          )
+          if (step.type !== 'Search') {
+            return (
+              <li key={index}>
+                <a
+                  className={getStatus(step, d.completedSteps)}
+                  tabIndex={index}
+                  onClick={() => { d.updateStep(index); }}
+                >
+                  <i className={`fa ${step.icon || 'fa-circle'}`} />
+                  <span>
+                    {
+                      step.label// insert a space before all caps
+                        .replace(/([A-Z])/g, ' $1')
+                        // uppercase the first character
+                        .replace(/^./, str => str.toUpperCase())
+                    }
+                  </span>
+                </a>
+              </li>
+            );
+          }
+          return null;
         }) : null
       }
     </ul>

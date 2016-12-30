@@ -11,7 +11,7 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 import TestPage from './TestPage';
 import Search from './common/search/Search';
-import NewWorkflow from './newworkflow/Workflow';
+import NewWorkflow from './workflows/Workflow';
 import Admin from './admin/Admin';
 import './App.css';
 
@@ -69,7 +69,7 @@ export class App extends Component {
       <div className="app-wrapper">
         <Header />
         <main role="document" onScroll={this.handleScroll} className={cssName}>
-          <Search options={{}} />
+          <Match pattern="/" component={Search} />
           <Match exactly pattern="/" component={homeScreen} />
           <Match pattern="/login" component={Login} />
           <Match pattern="/quote/:location/:address" component={Quote} />

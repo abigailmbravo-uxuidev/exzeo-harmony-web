@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import SearchBar from './SearchBar';
 import TypeAhead from './TypeAhead';
 
@@ -6,7 +7,10 @@ class Search extends Component {
   static propTypes = {
     options: PropTypes.shape({
       placeholder: PropTypes.string,
-    }).isRequired,
+    }),
+  }
+  static contextTypes = {
+    router: PropTypes.object,
   }
   state = {
     searchText: '',
@@ -17,7 +21,16 @@ class Search extends Component {
   }
 
   handleSubmit = (event) => {
-    window.location = '/quote/address/' + this.state.searchText;
+    // window.location = '/quote/address/' + this.state.searchText;
+    if (event && event.preventDefault) event.preventDefault();
+    if (this.props.searchConfig.type === 'append') {
+      const query = {};
+      query[this.props.searchConfig.value] = this.state.searchText;
+      this.context.router.transitionTo({
+        query,
+      });
+      this.setState({ searchText: '' });
+    }
   }
 
   handleSelect = (event) => {
@@ -30,15 +43,22 @@ class Search extends Component {
   }
 
   render() {
-    const { placeholder } = this.props.options;
+    const options = this.props.options;
     const { searchText } = this.state;
+    let placeholder
+    if (this.props.searchConfig && this.props.searchConfig.placeholder) {
+      placeholder = this.props.searchConfig.placeholder;
+    } else {
+      placeholder = options ? options.placeholder : null;
+    }
     return (
       <div className="search">
         <SearchBar
-          placeholder={placeholder || null}
+          placeholder={placeholder}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           searchText={this.state.searchText}
+          focus={this.props.searchConfig ? this.props.searchConfig.focus : false}
         />
         <TypeAhead searchText={searchText} handleSelect={this.handleSelect} />
       </div>
@@ -46,4 +66,8 @@ class Search extends Component {
   }
 }
 
-export default Search;
+const mapStateToProps = state => ({
+  searchConfig: state.search.get('config'),
+});
+
+export default connect(mapStateToProps)(Search);
