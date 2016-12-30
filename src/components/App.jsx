@@ -13,6 +13,7 @@ import TestPage from './TestPage';
 import Search from './common/search/Search';
 import NewWorkflow from './workflows/Workflow';
 import Admin from './admin/Admin';
+import Cms from './cms/CMS';
 import './App.css';
 
 export class App extends Component {
@@ -76,6 +77,7 @@ export class App extends Component {
           <Match pattern="/test" component={TestPage} />
           <Match pattern="/workflow" component={NewWorkflow} />
           <Match pattern="/admin/" component={Admin} />
+          <Match pattern="/cms" component={Cms} />
           <Footer />
         </main>
       </div>
