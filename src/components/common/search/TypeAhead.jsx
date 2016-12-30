@@ -11,6 +11,7 @@ const query = gql`
       mapping {
         title
         details
+        links
       }
       results {
         ... on Address {
@@ -23,10 +24,7 @@ const query = gql`
   }
 `;
 
-
-
 const TypeAhead = ({ data, handleSelect }) => {
-
   return (
     <div>
       {
