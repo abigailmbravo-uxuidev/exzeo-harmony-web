@@ -147,7 +147,7 @@
                     border-radius: $btn-border-radius;
                     @include transition(all .2s ease-in-out);
 
-                    &:hover {
+                    &:hover, &:focus {
                         background: $bright-blue-lighten-03;
                         color: $body-color;
                     }

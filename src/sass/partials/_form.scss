@@ -182,6 +182,7 @@ html body {
 
     input[type="date"] {
       width: 12rem;
+      padding: ($padding*.65) $padding;
       @include for-phone-only {
         width: 100%;
       }

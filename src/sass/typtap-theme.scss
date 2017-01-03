@@ -767,7 +767,7 @@ html {
                         .form-group {
                           border-bottom-color: $cool-gray-01;
                         }
-
+                        //result cards
                         ul.results {
                           &.result-cards {
                             li {
@@ -859,7 +859,6 @@ html {
         }
         //form layout
         form {
-          &.askAdditionalCustomerData {
             @include for-tablet-landscape-up {
               .PH1FirstName {
                 width: 50%;
@@ -876,15 +875,17 @@ html {
               }
 
               .phoneNumber {
-                width: 50%;
+                //width: 50%;
+                width: auto;
+                padding-right: $padding*2;
               }
 
               .effectiveDate {
-                width: 50%;
+                //width: 50%;
+                width: auto;
               }
             }
             @include for-tablet-portrait-up {}
-          }
         }
       }
     }

@@ -64,34 +64,34 @@ class AddPermission extends Component {
       <div className="modal">
         <div className="card fade-in">
           <div className="card-header">
-                  <h3>Add Permission</h3>
+            <h3>Add Permission</h3>
           </div>
           <div className="card-block">
             <form onSubmit={this.addPermission}>
               <div className="form-group">
-                      <label htmlFor="name">Name:</label>
-                      <input onChange={this.updatePermission} name="name" id="name" value={permission.name}/>
-                      </div>
-                      <div className="form-group">
-                      <label htmlFor="description">Description:</label>
-                      <input onChange={this.updatePermission} name="description" id="description" value={permission.description}/>
-                      </div>
+                <label htmlFor="name">Name:</label>
+                <input onChange={this.updatePermission} name="name" id="name" value={permission.name}/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description:</label>
+                <input onChange={this.updatePermission} name="description" id="description" value={permission.description}/>
+              </div>
 
               <ul>
                 {permission.rights.map((right, index) => (
                   <li key={index}>{right.name}</li>
                 ))
-                }
+}
               </ul>
               <div className="submit-button-group">
-              <button className="btn btn-secondary">Cancel</button>
-              <button type="submit" className="btn btn-primary">Submit</button>
+                <button className="btn btn-secondary">Cancel</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
               </div>
 
             </form>
             <form onSubmit={this.addRight}>
               <div className="form-group">
-                      <input onChange={this.updateRight} value={this.state.right.name}/>
+                <input onChange={this.updateRight} value={this.state.right.name}/>
               </div>
             </form>
           </div>
