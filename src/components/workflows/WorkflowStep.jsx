@@ -190,7 +190,7 @@ class WorkflowStep extends Component {
                                 <p>{address.city}, {address.state}
                                   {address.zip}</p>
                               </section>
-                              <i className="fa fa-caret-right circle" />
+                              <i className="fa fa-angle-right" />
                             </a>
                           </li>
                         )) : null

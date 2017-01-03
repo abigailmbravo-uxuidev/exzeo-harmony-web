@@ -330,8 +330,8 @@ html {
 
                       .modal {
                         display: flex;
-                        background: rgba($black, .25);
-                        background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, .35));
+                        background: rgba($black, .5);
+                        background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .5));
                         align-items: center;
                         justify-content: center;
 
@@ -341,15 +341,80 @@ html {
                       }
 
                       ul.list {
-                        z-index: 1;
-                        width: 100%;
-                        margin: 0;
-                        padding: 0;
-                        list-style: none;
+                          z-index: 1;
+                          width: 100%;
+                          margin: 0;
+                          padding: 0;
+                          list-style: none;
 
-                        li {
-                          display: flex;
-                          flex-direction: row;
+                        &.list-cards {
+                          li {
+                              display: flex;
+                              flex-direction: row;
+
+                            section {
+
+                              h2,
+                              h3,
+                              h4,
+                              h5 {
+                              }
+
+                              p {
+                              }
+                            }
+
+                            ul.list {
+                              //border-color: $red;
+
+                              li {
+
+                                &:first-child {
+                                }
+                              }
+                            }
+
+                            i {
+                              &.fa-trash {
+
+                                &:hover {
+                                  color: $red;
+                                }
+                              }
+                            }
+                          }
+                        }
+
+                        &.result-cards {
+                          li {
+
+                            a {
+                              border: $card-border-width solid $card-border-color;
+
+                              section {
+
+                                h2,
+                                h3,
+                                h4,
+                                h5 {
+                                }
+
+                                p {
+                                }
+                              }
+
+                              i {
+                              }
+
+                              &:hover {
+
+                                h2,
+                                h3,
+                                h4,
+                                h5 {}
+                              }
+                            }
+                          }
                         }
                       }
 
@@ -360,6 +425,7 @@ html {
                         }
                       }
                     }
+
                   }
                 }
               }
@@ -554,6 +620,10 @@ html {
                         flex-wrap: wrap;
                         flex-shrink: 0;
 
+                        &.form-group {
+                            margin-bottom: 0;
+                        }
+
                         h1,
                         h2,
                         h3,
@@ -618,11 +688,13 @@ html {
                                   font-size: $font-size-h2;
 
                                   &.fa-map-marker {
-                                    justify-content: center;
+                                    justify-content: flex-start;
                                   }
                                 }
 
                                 &:hover {
+                                    cursor: pointer;
+
                                   h2,
                                   h3,
                                   h4,
@@ -643,6 +715,14 @@ html {
 
             .card {
               z-index: 10;
+
+              .card-header {
+                  background-color: $warm-gray-01;
+
+                  h1, h2, h3, h4, h5, h6 {
+                      margin: 0;
+                  }
+              }
             }
 
             .modal {
