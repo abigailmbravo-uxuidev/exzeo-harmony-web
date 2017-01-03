@@ -169,20 +169,44 @@ class WorkflowStep extends Component {
     });
     return answers;
   }
+  makeAddressSelection = (address) => {
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: this.props.workflowId,
+          stepName: this.props.data.steps.name,
+          data: [{
+            key: 'stateCode',
+            value: address.state,
+          }, {
+            key: 'igdId',
+            value: address.id,
+          }],
+        },
+      },
+    }).then(() => {
+      this.props.data.refetch().then(({ data }) => {
+        // console.log('ggggggg', data)
+        this.context.router.transitionTo(`/workflow/${data.steps.name}`);
+        this.props.updateCompletedSteps(data.steps.completedSteps);
+      });
+    }).catch(error => console.log(error));
+  }
   render() {
     const { steps } = this.props.data;
-    if (steps && steps.data && steps.data.length > 0) {
+    console.log('CURRENT STEP: ', this);
+    if (steps && steps.data) {
       return (steps && steps.type !== 'Search') ? (
         <div className="workflow-content">
           <section>
             <div className="fade-in">
               <div className="survey-wrapper">
-                {steps.type === 'Selection'
-                  ? (
+                {
+                  steps.type === 'Selection' ? (
                     <ul className="results result-cards">
                       {steps.data
                         ? steps.data.map((address, i) => (
-                          <li key={i}>
+                          <li key={i} onClick={() => { this.makeAddressSelection(address); }}>
                             <a>
                               <i className="card-icon fa fa-map-marker" />
                               <section>
@@ -214,22 +238,24 @@ class WorkflowStep extends Component {
           </section>
         </div>
       )
-      : (<div className="workflow-content">
-        <section>
-          <div className="fade-in">
-            <div className="survey-wrapper">
-              <h3 className="step-title">Start a homeowner insurance quote</h3>
-              <h4 className="step-sub-title">
-                <i className="fa fa-search" /> Search for a {steps ? steps.name : null}</h4>
-              <p>To start a homeowner insurance quote, enter the street address
-                of the property to be insured in the search bar above. You onl
-                need to enter the street number and name to return a list of
-                possible matches.
-              </p>
+      : (
+        <div className="workflow-content">
+          <section>
+            <div className="fade-in">
+              <div className="survey-wrapper">
+                <h3 className="step-title">Start a homeowner insurance quote</h3>
+                <h4 className="step-sub-title">
+                  <i className="fa fa-search" /> Search for a {steps ? steps.name : null}</h4>
+                <p>To start a homeowner insurance quote, enter the street address
+                  of the property to be insured in the search bar above. You onl
+                  need to enter the street number and name to return a list of
+                  possible matches.
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
-      </div>);
+          </section>
+        </div>
+      );
     }
     return null;
   }

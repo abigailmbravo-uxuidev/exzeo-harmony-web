@@ -1,4 +1,4 @@
-/* eslint react/forbid-prop-types:0 */
+/* eslint react/forbid-prop-types:0, jsx-a11y/no-static-element-interactions:0, react/no-direct-mutation-state:0 */
 import React, { Component, PropTypes } from 'react';
 import Question from '../common/question/Question';
 
@@ -14,8 +14,6 @@ const answerType = {
     answer: 'range',
   }],
 };
-
-let newAnswer = '';
 
 class ContentManager extends Component {
   state = {

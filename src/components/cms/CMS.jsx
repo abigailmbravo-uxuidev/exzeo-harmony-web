@@ -1,3 +1,4 @@
+/* eslint react/no-direct-mutation-state:0 */
 import React, { Component } from 'react';
 import Survey from '../common/question/Survey';
 import ContentManager from './ContentManager';
