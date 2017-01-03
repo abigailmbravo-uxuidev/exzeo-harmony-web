@@ -870,19 +870,18 @@ html {
               }
 
               .agentID {
-                width: 50%;
-                padding-right: $padding*2;
+                width: auto;
+                flex-grow: 1;
               }
 
               .phoneNumber {
-                //width: 50%;
                 width: auto;
                 padding-right: $padding*2;
               }
 
               .effectiveDate {
-                //width: 50%;
                 width: auto;
+                padding-right: $padding*2;
               }
             }
             @include for-tablet-portrait-up {}

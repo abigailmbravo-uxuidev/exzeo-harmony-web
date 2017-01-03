@@ -89,6 +89,7 @@ html body {
 
   select {
     box-shadow: none;
+    margin-top: $padding*.825;
 
     &:not([size]):not([multiple]) {
       width: 100%;
