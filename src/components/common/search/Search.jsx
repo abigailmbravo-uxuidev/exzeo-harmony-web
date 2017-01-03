@@ -16,7 +16,7 @@ class Search extends Component {
     searchText: '',
   }
   handleChange = (event) => {
-    event.preventDefault();
+    if (event && event.preventDefault) event.preventDefault();
     this.setState({ searchText: event.target.value });
   }
 
@@ -34,7 +34,16 @@ class Search extends Component {
   }
 
   handleSelect = (event) => {
-    window.location = '/quote/address/' + event.target.innerText;
+    if (event && event.preventDefault) event.preventDefault();
+    if (this.props.searchConfig.type === 'append') {
+      const query = {};
+      query[this.props.searchConfig.value] = this.state.searchText;
+      this.context.router.transitionTo({
+        query,
+      });
+      this.setState({ searchText: '' });
+    }
+    //window.location = '/quote/address/' + event.target.innerText;
   }
 
   componentWillMount(){
