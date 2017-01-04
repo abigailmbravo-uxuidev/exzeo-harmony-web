@@ -884,7 +884,17 @@ html {
                 padding-right: $padding*2;
               }
             }
-            @include for-tablet-portrait-up {}
+            @include for-tablet-portrait-up {
+                .phoneNumber {
+                  width: auto;
+                  padding-right: $padding*2;
+                }
+
+                .effectiveDate {
+                  width: auto;
+                  flex-grow: 1;
+                }
+            }
         }
       }
     }
