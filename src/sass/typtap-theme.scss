@@ -885,12 +885,12 @@ html {
         //form layout
         form {
             @include for-tablet-landscape-up {
-              .PH1FirstName {
+              .PH1FirstName, .FirstName {
                 width: 50%;
                 padding-right: $padding*2;
               }
 
-              .PH1LastName {
+              .PH1LastName, .LastName {
                 width: 50%;
               }
 
