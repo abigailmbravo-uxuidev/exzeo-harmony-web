@@ -33,24 +33,27 @@ const RadioGroup = ({
         {description && <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>}
 
       </label>
-        <div className="segmented-answer-wrapper">
-                {answers && answers.length > 0 ? answers.map((answer, index) =>
-                <div onClick={() => onClick(answer.answer)} key={index}>
-                  {answer.image && <img src={answer.image} role="presentation" />}
-                  <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
-                    <input
-                      type="radio"
-                      value={answer.answer || null}
-                      key={index}
-                      name={name || null}
-                      checked={value == answer.answer}
-                      onChange={handleChange || null}
-                    />
-                    <span>{answer.answer || null}</span>
-                  </label>
-                </div>,
-                ) : null}
-        </div>
+      <div className="segmented-answer-wrapper">
+        {answers && answers.length > 0 ? answers.map((answer, index) =>
+          <div
+            className={`radio-column-${answers.length}${value === answer.answer ? ' selected' : ''}`}
+            onClick={() => onClick(answer.answer)} key={index}
+          >
+            {answer.image && <img src={answer.image} role="presentation" />}
+            <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
+              <input
+                type="radio"
+                value={answer.answer || null}
+                key={index}
+                name={name || null}
+                checked={value == answer.answer}
+                onChange={handleChange || null}
+              />
+              <span>{answer.answer || null}</span>
+            </label>
+          </div>,
+          ) : null}
+      </div>
     </div>
   );
 };
