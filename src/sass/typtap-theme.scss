@@ -64,7 +64,7 @@ html body {
 
             span {
               border: 2px solid $cool-gray-02;
-              box-shadow: 0 0 0 0 $green inset;
+              box-shadow: 0 0 0 2px $white inset;
               @include button-variant($body-color, $white, $cool-gray-02);
 
               &,
@@ -748,8 +748,21 @@ html {
 
                     .side-panel {
                       section {
-                        &.premium {
+                        &.premium, &.AnnualPremium {
                           background-color: $yellow-lighten-04;
+                          order: 0;
+                        }
+                        &.QuoteNumber {
+                            order: 1;
+                        }
+                        &.Address {
+                            order: 2;
+                        }
+                        &.YearBuilt, &.CoverageA, &.CoverageB, &.CoverageC {
+                            order: 3;
+                            @include for-phone-only {
+                                display: none;
+                            }
                         }
                       }
                     }

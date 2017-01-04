@@ -528,7 +528,7 @@ html {
                       }
 
                       section {
-                        margin-bottom: $margin-bottom;
+                        margin-bottom: $margin-bottom/2;
                         flex-grow: 0;
                         flex-shrink: 0;
                         @include for-phone-only {
@@ -579,7 +579,7 @@ html {
                           }
                         }
 
-                        &.premium {
+                        &.premium, &.AnnualPremium {
                           margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
                           padding: $padding*2;
                           background-color: $yellow-lighten-04;
