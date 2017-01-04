@@ -8,7 +8,7 @@ const WorkflowDetails = ({ details }) => {
         {
           details.map((d, index) => {
             return d ? (
-              <section key={index}>
+              <section key={index} className={d.name.replace(/\s+/g, '')}>
                 <dl>
                   <div>
                     <dt>{d.name}</dt>

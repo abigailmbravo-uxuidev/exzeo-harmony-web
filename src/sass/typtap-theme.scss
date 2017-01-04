@@ -748,8 +748,21 @@ html {
 
                     .side-panel {
                       section {
-                        &.premium {
+                        &.premium, &.AnnualPremium {
                           background-color: $yellow-lighten-04;
+                          order: 0;
+                        }
+                        &.QuoteNumber {
+                            order: 1;
+                        }
+                        &.Address {
+                            order: 2;
+                        }
+                        &.YearBuilt, &.CoverageA, &.CoverageB, &.CoverageC {
+                            order: 3;
+                            @include for-phone-only {
+                                display: none;
+                            }
                         }
                       }
                     }

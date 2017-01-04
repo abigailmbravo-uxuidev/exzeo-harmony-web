@@ -579,7 +579,7 @@ html {
                           }
                         }
 
-                        &.premium {
+                        &.premium, &.AnnualPremium {
                           margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
                           padding: $padding*2;
                           background-color: $yellow-lighten-04;

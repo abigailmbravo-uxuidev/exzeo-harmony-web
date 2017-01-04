@@ -256,15 +256,13 @@ class WorkflowStep extends Component {
             <section>
               <div className="fade-in">
                 <div className="survey-wrapper">
-                  <h3 className="step-title">Start a homeowner insurance quote</h3>
-                  <h4 className="step-sub-title">
+                  <h4 className="step-title">Homeowner's insurance quote</h4>
+                  <h3 className="step-sub-title">
                     {/* <i className="fa fa-search"/> Search for a {steps ? steps.name : null} */}
                     <i className="fa fa-search" /> Search for a property address.
-                  </h4>
-                  <p>To start a homeowner insurance quote, enter the street address
-                    of the property to be insured in the search bar above. You only
-                    Sneed to enter the street number and name to return a list of possible matches.
-                  </p>
+                  </h3>
+                  <p>To start a homeowner's insurance quote, enter the street address of the property to be insured in the search bar above.
+                  You only need to enter the <strong>street number and name</strong> to return a list of possible matches.</p>
                 </div>
               </div>
             </section>

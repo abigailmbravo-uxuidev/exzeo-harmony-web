@@ -190,7 +190,7 @@ html body {
     }
 
     input[type="tel"] {
-      width: 16rem;
+      width: 14rem;
       @include for-phone-only {
         width: 100%;
       }
