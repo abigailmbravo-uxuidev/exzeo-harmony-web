@@ -204,9 +204,9 @@ html body {
         div {
           display: flex;
           flex-direction: column;
-          width: 100%;
-          flex-grow: 0;
-          flex-shrink: 1;
+          flex-grow: 1;
+          flex-shrink: 0;
+          width: auto;
 
           img {
               height: 100px;
@@ -217,8 +217,7 @@ html body {
 
           .label-segmented {
             border-right: 1px solid $warm-gray-01;
-            flex: 1;
-            flex-basis: 100%;
+            display: flex;
 
             span {
               display: flex;

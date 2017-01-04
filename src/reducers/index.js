@@ -8,7 +8,7 @@ import search from './searchReducer';
 let uri = 'http://harmony-ins.com/api';
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
-  uri = 'http://localhost:4001/api';
+  uri = 'http://harmony-ins.com/api';
 }
 
 const networkInterface = createNetworkInterface({ uri });
