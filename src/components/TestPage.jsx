@@ -143,13 +143,13 @@ const surveyQuestions = [{
   answerType: 'radio',
   answers: [{
     answer: 'answer1',
-    image: 'http://cdn.bleacherreport.net/images/team_logos/64x64/dallas_cowboys.png',
+    image: 'https://s3-us-west-2.amazonaws.com/harmony-images/roof-hip.svg',
   }, {
     answer: 'answer2',
-    image: 'http://cdn.bleacherreport.net/images/team_logos/64x64/dallas_cowboys.png',
+    image: 'https://s3-us-west-2.amazonaws.com/harmony-images/roof-hip.svg',
   }, {
     answer: 'answer3',
-    image: 'http://cdn.bleacherreport.net/images/team_logos/64x64/dallas_cowboys.png',
+    image: 'https://s3-us-west-2.amazonaws.com/harmony-images/roof-hip.svg',
   }],
 }, {
   name: 'slider-test',
