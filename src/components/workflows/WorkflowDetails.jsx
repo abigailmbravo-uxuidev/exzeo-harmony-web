@@ -4,7 +4,7 @@ const WorkflowDetails = ({ details }) => {
   console.log(details);
   return (
     <aside>
-      <div className="sidePanel" role="contentinfo">
+      <div className="side-panel" role="contentinfo">
         {
           details.map((d, index) => {
             return d ? (
