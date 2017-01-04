@@ -208,6 +208,13 @@ html body {
           flex-grow: 0;
           flex-shrink: 1;
 
+          img {
+              height: 100px;
+              @include for-phone-only {
+                height: 50px;
+              }
+          }
+
           .label-segmented {
             border-right: 1px solid $warm-gray-01;
             flex: 1;

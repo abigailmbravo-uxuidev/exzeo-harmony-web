@@ -199,7 +199,6 @@ class WorkflowStep extends Component {
     const { steps } = this.props.data;
     console.log('CURRENT STEP: ', this);
     if (steps && steps.data) {
-            console.log('CURRENT STEP DETAILS: ', steps.details);
       return (steps && steps.type !== 'Search')
         ? (
           <div className="workflow-content">
