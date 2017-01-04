@@ -5,6 +5,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
+import WorkflowDetails from './WorkflowDetails';
 
 class WorkflowStep extends Component {
   static propTypes = {
@@ -198,6 +199,7 @@ class WorkflowStep extends Component {
     if (steps && steps.data) {
       return (steps && steps.type !== 'Search') ? (
         <div className="workflow-content">
+          {steps.details ? <WorkflowDetails details={steps.details} /> : null}
           <section>
             <div className="fade-in">
               <div className="survey-wrapper">
@@ -229,7 +231,7 @@ class WorkflowStep extends Component {
                           ? steps.questions : null
                       }
                       answers={this.state.questions}
-                      styleName={steps && steps.name ? steps.namev : ''}
+                      styleName={steps && steps.name ? steps.name : ''}
                     />
                   )
                 }
@@ -269,6 +271,10 @@ export default graphql(gql `
   query GetActiveStep($workflowId:ID!) {
     steps(id:$workflowId) {
       name
+      details {
+        name
+        value
+      }
       data {
         ... on Property {
           physicalAddress {
@@ -291,6 +297,7 @@ export default graphql(gql `
         description
         answers {
           answer
+          image
         }
         conditional {
           display {

@@ -49,6 +49,7 @@
     "build": "react-scripts build && node scripts/genEjs",
     "eject": "react-scripts eject",
     "lint": "eslint .",
+    "local": "cross-env NODE_ENV=local react-scripts start",
     "pretest": "npm run lint",
     "push": "npm run build && docker build -f dev.dockerfile -t exzeo/harmony-web:develop . && docker push exzeo/harmony-web:develop",
     "both": "node scripts/start-both",

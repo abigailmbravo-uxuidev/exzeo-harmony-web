@@ -6,11 +6,9 @@ import features from './featureReducer';
 import search from './searchReducer';
 
 let uri = 'http://harmony-ins.com/api';
-console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
 console.log(process.env.NODE_ENV);
-console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD');
-if (process.env.NODE_ENV === 'runBoth') {
-  uri = 'http://harmony-ins.com/api';
+if (process.env.NODE_ENV === 'development') {
+  uri = 'http://localhost:4001/api';
 }
 
 const networkInterface = createNetworkInterface({ uri });
