@@ -341,42 +341,35 @@ html {
                       }
 
                       ul.list {
-                          z-index: 1;
-                          width: 100%;
-                          margin: 0;
-                          padding: 0;
-                          list-style: none;
+                        z-index: 1;
+                        width: 100%;
+                        margin: 0;
+                        padding: 0;
+                        list-style: none;
 
                         &.list-cards {
                           li {
-                              display: flex;
-                              flex-direction: row;
+                            display: flex;
+                            flex-direction: row;
 
                             section {
-
                               h2,
                               h3,
                               h4,
-                              h5 {
-                              }
+                              h5 {}
 
-                              p {
-                              }
+                              p {}
                             }
 
                             ul.list {
                               //border-color: $red;
-
                               li {
-
-                                &:first-child {
-                                }
+                                &:first-child {}
                               }
                             }
 
                             i {
                               &.fa-trash {
-
                                 &:hover {
                                   color: $red;
                                 }
@@ -387,27 +380,21 @@ html {
 
                         &.result-cards {
                           li {
-
                             a {
                               border: $card-border-width solid $card-border-color;
 
                               section {
-
                                 h2,
                                 h3,
                                 h4,
-                                h5 {
-                                }
+                                h5 {}
 
-                                p {
-                                }
+                                p {}
                               }
 
-                              i {
-                              }
+                              i {}
 
                               &:hover {
-
                                 h2,
                                 h3,
                                 h4,
@@ -425,7 +412,6 @@ html {
                         }
                       }
                     }
-
                   }
                 }
               }
@@ -579,7 +565,8 @@ html {
                           }
                         }
 
-                        &.premium, &.AnnualPremium {
+                        &.AnnualPremium,
+                        &.premium {
                           margin: (-$padding*2) 0 ($margin-bottom - $padding) (-$padding*2);
                           padding: $padding*2;
                           background-color: $yellow-lighten-04;
@@ -621,7 +608,7 @@ html {
                         flex-shrink: 0;
 
                         &.form-group {
-                            margin-bottom: 0;
+                          margin-bottom: 0;
                         }
 
                         h1,
@@ -693,7 +680,7 @@ html {
                                 }
 
                                 &:hover {
-                                    cursor: pointer;
+                                  cursor: pointer;
 
                                   h2,
                                   h3,
@@ -717,11 +704,16 @@ html {
               z-index: 10;
 
               .card-header {
-                  background-color: $warm-gray-01;
+                background-color: $warm-gray-01;
 
-                  h1, h2, h3, h4, h5, h6 {
-                      margin: 0;
-                  }
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6 {
+                  margin: 0;
+                }
               }
             }
 

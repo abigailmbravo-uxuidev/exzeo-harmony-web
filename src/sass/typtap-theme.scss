@@ -665,27 +665,28 @@ html {
 
               .fade-in {
                 .content {
-                    section {
-                        .content {
+                  section {
+                    .content {
+                      ul.list {
+                        &.list-cards {
+                          li {
                             ul.list {
-                                &.list-cards {
-                                    li {
-                                        ul.list {
-                                            border-right-color: $cool-gray-00;
-                                        }
-                                    }
-                                }
+                              border-right-color: $cool-gray-00;
                             }
-                            .modal  {
-                                background: rgba($white, .5);
-                                background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
-
-                                .card {
-                                    box-shadow: $card-box-shadow-alt;
-                                }
-                            }
+                          }
                         }
+                      }
+
+                      .modal {
+                        background: rgba($white, .5);
+                        background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
+
+                        .card {
+                          box-shadow: $card-box-shadow-alt;
+                        }
+                      }
                     }
+                  }
                 }
               }
             }
@@ -748,21 +749,28 @@ html {
 
                     .side-panel {
                       section {
-                        &.premium, &.AnnualPremium {
+                        &.AnnualPremium,
+                        &.premium {
                           background-color: $yellow-lighten-04;
                           order: 0;
                         }
+
                         &.QuoteNumber {
-                            order: 1;
+                          order: 1;
                         }
+
                         &.Address {
-                            order: 2;
+                          order: 2;
                         }
-                        &.YearBuilt, &.CoverageA, &.CoverageB, &.CoverageC {
-                            order: 3;
-                            @include for-phone-only {
-                                display: none;
-                            }
+
+                        &.CoverageA,
+                        &.CoverageB,
+                        &.CoverageC,
+                        &.YearBuilt {
+                          order: 3;
+                          @include for-phone-only {
+                            display: none;
+                          }
                         }
                       }
                     }
@@ -858,12 +866,15 @@ html {
             }
 
             .card {
-
               .card-header {
-                  background-color: $cool-gray-00;
+                background-color: $cool-gray-00;
 
-                  h1, h2, h3, h4, h5, h6 {
-                  }
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6 {}
               }
             }
           }
@@ -884,42 +895,44 @@ html {
         }
         //form layout
         form {
-            @include for-tablet-landscape-up {
-              .PH1FirstName, .FirstName {
-                width: 50%;
-                padding-right: $padding*2;
-              }
-
-              .PH1LastName, .LastName {
-                width: 50%;
-              }
-
-              .agentID {
-                width: auto;
-                flex-grow: 1;
-              }
-
-              .phoneNumber {
-                width: auto;
-                padding-right: $padding*2;
-              }
-
-              .effectiveDate {
-                width: auto;
-                padding-right: $padding*2;
-              }
+          @include for-tablet-landscape-up {
+            .FirstName,
+            .PH1FirstName {
+              width: 50%;
+              padding-right: $padding*2;
             }
-            @include for-tablet-portrait-up {
-                .phoneNumber {
-                  width: auto;
-                  padding-right: $padding*2;
-                }
 
-                .effectiveDate {
-                  width: auto;
-                  flex-grow: 1;
-                }
+            .LastName,
+            .PH1LastName {
+              width: 50%;
             }
+
+            .agentID {
+              width: auto;
+              flex-grow: 1;
+            }
+
+            .phoneNumber {
+              width: auto;
+              padding-right: $padding*2;
+            }
+
+            .effectiveDate {
+              width: auto;
+              padding-right: $padding*2;
+            }
+          }
+          @include for-tablet-portrait-up {
+            .phoneNumber {
+              width: auto;
+              padding-right: $padding*2;
+            }
+
+            .effectiveDate {
+              width: auto;
+              flex-grow: 1;
+            }
+          }
         }
       }
     }
