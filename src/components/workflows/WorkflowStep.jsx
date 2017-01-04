@@ -203,7 +203,7 @@ class WorkflowStep extends Component {
       return (steps && steps.type !== 'Search')
         ? (
           <div className="workflow-content">
-            {steps.details.filter(f => f !== null).length > 0 ? <WorkflowDetails details={steps.details} /> : null}
+            {steps.details ? <WorkflowDetails details={steps.details} /> : null}
             <section>
 
               {steps.type === 'Selection'
