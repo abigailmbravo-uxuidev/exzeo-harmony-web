@@ -1,14 +1,24 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router';
 
-let links = [
-  <span key="ho3">Home</span>,
-  <span key="af3">Flood</span>,
-];
+// let links = [
+//   <span key="ho3">Home</span>,
+//   <span key="af3">Flood</span>,
+// ];
+
+const Links = ({details}) => {
+    console.log('LINKS HERE:', details);
+    return (
+      <div>
+        <Link onClick={(event) => {event.stopPropagation()}} to={{pathname: "/workflow", query: {address: details.address1}}}>Home</Link>
+        <a onClick={(event) => {event.stopPropagation()}} href={`https://www.typtap.com/flood/?addr=${details.address1} ${details.zip}`} target="_blank" key="ho3">Flood</a>
+      </div>
+    );
+};
 
 const Suggestion = ({ data, handleSelect, showLinks }) => {
   const { heading, mapping, results, count } = data;
-  links = links.filter(a => (mapping.links ? mapping.links.includes(a.key) : null));
   return (
     <div>
       <span className="heading">{heading} <span> {count}</span></span>
@@ -16,8 +26,10 @@ const Suggestion = ({ data, handleSelect, showLinks }) => {
         {
           results && results.length > 0 ? results.map((result, index) => (
             <li key={index}>
-              <a onClick={handleSelect} >
-                <span>{result[mapping.title]} {result[mapping.details]}</span><div className="workflow-links">{showLinks ? links : null}</div><i className="fa fa-chevron-circle-right" />
+              <a onClick={handleSelect}>
+                <span>{result[mapping.title]} {result[mapping.details]}</span>
+                <div className="workflow-links">{showLinks ? <Links details={result} />  : null}</div>
+                <i className="fa fa-chevron-circle-right" />
               </a>
             </li>
           )) : null
