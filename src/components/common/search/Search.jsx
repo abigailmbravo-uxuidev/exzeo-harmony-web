@@ -35,9 +35,10 @@ class Search extends Component {
 
   handleSelect = (event) => {
     if (event && event.preventDefault) event.preventDefault();
+
     if (this.props.searchConfig.type === 'append') {
       const query = {};
-      query[this.props.searchConfig.value] = this.state.searchText;
+      query[this.props.searchConfig.value] = event.target.innerText;
       this.context.router.transitionTo({
         query,
       });

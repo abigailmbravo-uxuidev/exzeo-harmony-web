@@ -513,6 +513,10 @@ html body {
     &.btn-primary {
       @include button-variant($white, $bright-blue, $bright-blue);
     }
+
+    &.btn-secondary {
+      @include button-variant($bright-blue, $white, $bright-blue);
+    }
   }
   //vertical tabs
   .side-panel {
@@ -672,6 +676,14 @@ html {
                                     }
                                 }
                             }
+                            .modal  {
+                                background: rgba($white, .5);
+                                background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
+
+                                .card {
+                                    box-shadow: $card-box-shadow-alt;
+                                }
+                            }
                         }
                     }
                 }
@@ -767,7 +779,7 @@ html {
                         .form-group {
                           border-bottom-color: $cool-gray-01;
                         }
-
+                        //result cards
                         ul.results {
                           &.result-cards {
                             li {
@@ -859,7 +871,6 @@ html {
         }
         //form layout
         form {
-          &.askAdditionalCustomerData {
             @include for-tablet-landscape-up {
               .PH1FirstName {
                 width: 50%;
@@ -871,20 +882,31 @@ html {
               }
 
               .agentID {
-                width: 50%;
-                padding-right: $padding*2;
+                width: auto;
+                flex-grow: 1;
               }
 
               .phoneNumber {
-                width: 50%;
+                width: auto;
+                padding-right: $padding*2;
               }
 
               .effectiveDate {
-                width: 50%;
+                width: auto;
+                padding-right: $padding*2;
               }
             }
-            @include for-tablet-portrait-up {}
-          }
+            @include for-tablet-portrait-up {
+                .phoneNumber {
+                  width: auto;
+                  padding-right: $padding*2;
+                }
+
+                .effectiveDate {
+                  width: auto;
+                  flex-grow: 1;
+                }
+            }
         }
       }
     }

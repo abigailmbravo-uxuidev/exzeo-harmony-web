@@ -176,13 +176,15 @@ class WorkflowStep extends Component {
         input: {
           workflowId: this.props.workflowId,
           stepName: this.props.data.steps.name,
-          data: [{
-            key: 'stateCode',
-            value: address.state,
-          }, {
-            key: 'igdId',
-            value: address.id,
-          }],
+          data: [
+            {
+              key: 'stateCode',
+              value: address.state,
+            }, {
+              key: 'igdId',
+              value: address.id,
+            },
+          ],
         },
       },
     }).then(() => {
@@ -197,67 +199,76 @@ class WorkflowStep extends Component {
     const { steps } = this.props.data;
     console.log('CURRENT STEP: ', this);
     if (steps && steps.data) {
-      return (steps && steps.type !== 'Search') ? (
-        <div className="workflow-content">
-          {steps.details ? <WorkflowDetails details={steps.details} /> : null}
-          <section>
-            <div className="fade-in">
-              <div className="survey-wrapper">
-                {
-                  steps.type === 'Selection' ? (
-                    <ul className="results result-cards">
-                      {steps.data
-                        ? steps.data.map((address, i) => (
-                          <li key={i} onClick={() => { this.makeAddressSelection(address); }}>
-                            <a>
-                              <i className="card-icon fa fa-map-marker" />
-                              <section>
-                                <h4>{address.address1}</h4>
-                                <p>{address.city}, {address.state}
-                                  {address.zip}</p>
-                              </section>
-                              <i className="fa fa-angle-right" />
-                            </a>
-                          </li>
-                        )) : null
-                      }
-                    </ul>
-                  ) : (
-                    <Survey
-                      handleChange={this.handleChange}
-                      handleSubmit={this.handleSubmit}
-                      questions={
-                        steps && steps.questions && steps.questions.length > 0
-                          ? steps.questions : null
-                      }
-                      answers={this.state.questions}
-                      styleName={steps && steps.name ? steps.name : ''}
-                    />
-                  )
-                }
+      return (steps && steps.type !== 'Search')
+        ? (
+          <div className="workflow-content">
+            <section>
+              {steps.details ? <WorkflowDetails details={steps.details} /> : null}
+              {steps.type === 'Selection'
+                ? (
+                  <div className="fade-in">
+                    <div className="survey-wrapper">
+                      <ul className="results result-cards">
+                        {steps.data
+                          ? steps.data.map((address, i) => (
+                            <li
+                              key={i}
+                              onClick={() => {
+                                this.makeAddressSelection(address);
+                              }}
+                            >
+                              <a>
+                                <i className="card-icon fa fa-map-marker" />
+                                <section>
+                                  <h4>{address.address1}</h4>
+                                  <p>{address.city}, {address.state}
+                                    {address.zip}</p>
+                                </section>
+                                <i className="fa fa-angle-right" />
+                              </a>
+                            </li>
+                          ))
+                          : null
+}
+                      </ul>
+                    </div>
+                  </div>
+                )
+                : (
+                  <Survey
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                    questions={steps && steps.questions && steps.questions.length > 0
+                      ? steps.questions
+                      : null} answers={this.state.questions} styleName={steps && steps.name
+                      ? steps.namev
+                      : ''}
+                  />
+                )
+}
+
+            </section>
+          </div>
+        )
+        : (
+          <div className="workflow-content">
+            <section>
+              <div className="fade-in">
+                <div className="survey-wrapper">
+                  <h3 className="step-title">Start a homeowner insurance quote</h3>
+                  <h4 className="step-sub-title">
+                    {/* <i className="fa fa-search"/> Search for a {steps ? steps.name : null} */}
+                    <i className="fa fa-search" /> Search for a property address.
+                  </h4>
+                  <p>To start a homeowner insurance quote, enter the street address
+                    of the property to be insured in the search bar above. You only
+                    Sneed to enter the street number and name to return a list of possible matches.
+                  </p>
+                </div>
               </div>
-            </div>
-          </section>
-        </div>
-      )
-      : (
-        <div className="workflow-content">
-          <section>
-            <div className="fade-in">
-              <div className="survey-wrapper">
-                <h3 className="step-title">Start a homeowner insurance quote</h3>
-                <h4 className="step-sub-title">
-                  <i className="fa fa-search" /> Search for a {steps ? steps.name : null}</h4>
-                <p>To start a homeowner insurance quote, enter the street address
-                  of the property to be insured in the search bar above. You onl
-                  need to enter the street number and name to return a list of
-                  possible matches.
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-      );
+            </section>
+          </div>
+        );
     }
     return null;
   }

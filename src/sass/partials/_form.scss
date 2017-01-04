@@ -89,6 +89,7 @@ html body {
 
   select {
     box-shadow: none;
+    margin-top: $padding*.825;
 
     &:not([size]):not([multiple]) {
       width: 100%;
@@ -182,6 +183,7 @@ html body {
 
     input[type="date"] {
       width: 12rem;
+      padding: ($padding*.65) $padding;
       @include for-phone-only {
         width: 100%;
       }
