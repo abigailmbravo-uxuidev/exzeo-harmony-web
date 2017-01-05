@@ -1,24 +1,39 @@
 import React from 'react';
 
-const WorkflowDetails = ({ details }) => {
+const WorkflowDetails = ({details}) => {
   console.log(details);
   return (
     <aside>
       <div className="side-panel" role="contentinfo">
-        {
-          details.map((d, index) => {
-            return d ? (
+        {details.map((d, index) => {
+
+          if (!d)
+            return null;
+          if (d.name.replace(/\s+/g, '') === "AnnualPremium" || d.name.replace(/\s+/g, '') === "CoverageA" || d.name.replace(/\s+/g, '') === "CoverageB" || d.name.replace(/\s+/g, '') === "CoverageC")
+            return (
               <section key={index} className={d.name.replace(/\s+/g, '')}>
                 <dl>
                   <div>
                     <dt>{d.name}</dt>
-                    <dd>{d.value}</dd>
+                    <dd>{d.name.replace(/\s+/g, '') === "AnnualPremium"
+                        ? '$ ' + d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+                        : d.value}</dd>
                   </div>
                 </dl>
               </section>
-            ) : null;
-          })
-        }
+            );
+          return (
+            <section key={index} className={d.name.replace(/\s+/g, '')}>
+              <dl>
+                <div>
+                  <dt>{d.name}</dt>
+                  <dd>{d.value}</dd>
+                </div>
+              </dl>
+            </section>
+          );
+        })
+}
         {/* <section id="premium" className="premium">
           <dl>
             <div>

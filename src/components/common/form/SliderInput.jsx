@@ -38,7 +38,7 @@ const SliderInput = ({
       </div>
       <span className="range-value">
         <input
-          type="text"
+          type="number"
           value={value}
           onChange={handleChange}
           name={name}

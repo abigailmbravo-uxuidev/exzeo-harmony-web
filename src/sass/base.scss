@@ -607,6 +607,10 @@ html {
                         flex-wrap: wrap;
                         flex-shrink: 0;
 
+                        @include for-phone-only {
+                            padding: ($padding*2) ($padding*2) 0;
+                        }
+
                         &.form-group {
                           margin-bottom: 0;
                         }
@@ -699,6 +703,93 @@ html {
                 }
               }
             }
+
+            &.cms {
+              padding: 0;
+
+              .fade-in {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .content {
+                  display: flex;
+                  flex-direction: row;
+                  height: 100%;
+                  @include for-phone-only {}
+
+                  aside {
+                    display: flex;
+                    overflow-y: auto;
+                    flex-shrink: 0;
+                    @include for-phone-only {
+                      background-color: $white;
+                    }
+
+                    .side-panel {
+                      position: relative;
+                      display: flex;
+                      flex-direction: column;
+                      width: 12.8rem;
+                      margin: ($padding*2) 0 ($padding) ($padding*3);
+                      padding: $padding;
+                      flex-basis: 12.8rem;
+                      flex-shrink: 0;
+                      flex-grow: 0;
+                      @include for-phone-only {
+                        flex-direction: row;
+                        margin: 0;
+                        flex-grow: 1;
+                        flex-basis: auto;
+                        flex-wrap: wrap;
+                      }
+                      @include for-big-desktop-up {
+                        width: 17.975rem;
+                        flex-basis: 17.975rem;
+                      }
+
+                      section {
+                        margin-bottom: $margin-bottom;
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        @include for-phone-only {
+                          flex-direction: row;
+                          width: 50%;
+                          margin: 0;
+                          padding: ($padding/2) $padding;
+                        }
+                      }
+                    }
+                  }
+
+                  section {
+                    position: relative;
+                    overflow-y: auto;
+                    flex-grow: 1;
+
+                    .content {
+                      flex-direction: column;
+                      padding: ($padding*2) ($padding*4) 0;
+                      flex-wrap: wrap;
+
+                      .admin-header {
+                        display: flex;
+                        margin-bottom: $padding;
+
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5 {
+                          margin: 0;
+                          flex-grow: 1;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+          }
 
             .card {
               z-index: 10;
