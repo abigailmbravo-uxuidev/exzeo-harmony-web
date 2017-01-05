@@ -145,13 +145,13 @@ class WorkflowStep extends Component {
               }
               break;
             case 'greaterThan':
-              const { details } = this.props.data.steps;
-              console.log('CURRENT DEBUG:: ', this, details);
+              const { details } = this.state;
+              console.log('CURRENT DEBUG:: ', details);
               if (details && details.find(d => d.name === condition.detail)) {
                 const expected = details.find(d => d.name === condition.detail).value;
                 console.log(expected, condition.trigger);
-                questions[question.name][condition.type] = true
-                  // expected > condition.trigger;
+                questions[question.name][condition.type] =
+                  expected > condition.trigger;
               } else if (!questions[question.name][condition.type]) {
                 questions[question.name][condition.type] =
                   !(questions[condition.dependency].value > condition.trigger);
@@ -335,6 +335,9 @@ export default graphql(gql `
         question
         answerType
         description
+        minValue
+        maxValue
+        valueDefault
         answers {
           answer
           image

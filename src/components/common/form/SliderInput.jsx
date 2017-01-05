@@ -8,6 +8,7 @@ const SliderInput = ({
   leftLabel,
   maxValue,
   minValue,
+  valueDefault,
   name,
   question,
   rightLabel,
@@ -31,7 +32,7 @@ const SliderInput = ({
           min={Math.ceil(minValue)}
           max={Math.floor(maxValue)}
           step={step}
-          value={value || minValue}
+          value={value || valueDefault || minValue}
           onChange={handleChange || null}
         />
         <span className="range-limit">{rightLabel || Math.floor(maxValue) || null}</span>
@@ -39,7 +40,8 @@ const SliderInput = ({
       <span className="range-value">
         <input
           type="text"
-          value={`$ ${value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}` }
+          value={`$ ${value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}` ||
+            `$ ${valueDefault.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}
           onChange={handleChange}
           name={name}
         />
