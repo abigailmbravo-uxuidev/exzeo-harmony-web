@@ -17,7 +17,7 @@ class Workflow extends Component {
   }
   componentWillMount = () => {
     this.context.router.transitionTo('/workflow');
-    this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
+    this.props.startWorkflow({ variables: { input: { name: 'quoteSandbox', product: '', state: '' } } })
       .then(({ data }) => {
         this.setState({ workflow: data.startWorkflow });
       })
