@@ -14,7 +14,7 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
     handleChange,
     disabled,
   };
-  console.log(question.answerType);
+  // console.log('QUESTION: ', question);
   switch (question.answerType) {
     case 'radio':
       if (question.answers && question.answers.length > 0) {

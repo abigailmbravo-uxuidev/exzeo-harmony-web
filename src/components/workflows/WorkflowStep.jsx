@@ -30,6 +30,7 @@ class WorkflowStep extends Component {
   }
   state = {
     questions: {},
+    details: [],
   }
   componentWillReceiveProps(newProps) {
     if (newProps && newProps.data && newProps.data.steps && newProps.data.steps.type === 'Search' && newProps.location.query && newProps.location.query[newProps.data.steps.questions[0].name]) {
@@ -40,15 +41,16 @@ class WorkflowStep extends Component {
       this.setState({ questions });
       this.handleSubmit();
     }
-    if (!this.props.data.steps ||
+    if ((!this.props.data.steps && newProps.data.steps) ||
       (!newProps.data.loading &&
         this.props.data.steps &&
+        // newProps.data.steps &&
         this.props.data.steps.name !== newProps.data.steps.name
       )) {
       const { questions } = this.state;
       const { steps } = newProps.data;
       this.props.searchActions.clearSearchConfig();
-      console.log(steps);
+      // console.log(steps);
       if (steps.type === 'Search') {
         this.props.searchActions.setSearchConfig({
           type: 'append',
@@ -78,7 +80,9 @@ class WorkflowStep extends Component {
           questions[question.name].hidden = false;
           questions[question.name].disabled = false;
           const { display } = question.conditional;
+          // console.log('WORKFLOW STEP DATA: ', display);
           display.forEach((condition) => {
+            // console.log(condition);
             switch (condition.operator) { // eslint-disable-line
               case 'equal':
                 if (!questions[question.name][condition.type]) {
@@ -86,8 +90,21 @@ class WorkflowStep extends Component {
                     !(questions[condition.dependency].value === condition.trigger);
                 }
                 break;
-              case 'greaterThan':
+              case 'notEqualTo':
                 if (!questions[question.name][condition.type]) {
+                  questions[question.name][condition.type] =
+                    (questions[condition.dependency].value === condition.trigger);
+                }
+                break;
+              case 'greaterThan':
+                const { details } = this.state;
+                console.log('CURRENT DEBUG:: ', details);
+                if (details && details.find(d => d.name === condition.detail)) {
+                  const expected = details.find(d => d.name === condition.detail).value;
+                  console.log(expected, condition.trigger);
+                  questions[question.name][condition.type] =
+                    expected > condition.trigger;
+                } else if (!questions[question.name][condition.type]) {
                   questions[question.name][condition.type] =
                     !(questions[condition.dependency].value > condition.trigger);
                 }
@@ -118,6 +135,7 @@ class WorkflowStep extends Component {
         questions[question.name].hidden = false;
         questions[question.name].disabled = false;
         const { display } = question.conditional;
+        console.log(display);
         display.forEach((condition) => {
           switch (condition.operator) { // eslint-disable-line
             case 'equal':
@@ -127,7 +145,14 @@ class WorkflowStep extends Component {
               }
               break;
             case 'greaterThan':
-              if (!questions[question.name][condition.type]) {
+              const { details } = this.props.data.steps;
+              console.log('CURRENT DEBUG:: ', this, details);
+              if (details && details.find(d => d.name === condition.detail)) {
+                const expected = details.find(d => d.name === condition.detail).value;
+                console.log(expected, condition.trigger);
+                questions[question.name][condition.type] = true
+                  // expected > condition.trigger;
+              } else if (!questions[question.name][condition.type]) {
                 questions[question.name][condition.type] =
                   !(questions[condition.dependency].value > condition.trigger);
               }
@@ -155,9 +180,14 @@ class WorkflowStep extends Component {
           data: this.formatData(),
         },
       },
-    }).then(() => {
+    }).then((updatedModel) => {
+      // this.context.router.transitionTo(`/workflow/${updatedModel.data.completeStep.name}`);
+      // this.props.updateCompletedSteps(updatedModel.data.completeStep.completedSteps);
+      if (updatedModel.data.completeStep && updatedModel.data.completeStep.details)
+        this.setState({ details: updatedModel.data.completeStep.details });
+      console.log('DATA IN THE D: ', updatedModel);
       this.props.data.refetch().then(({ data }) => {
-        // console.log('ggggggg', data)
+        console.log('ggggggg', data)
         this.context.router.transitionTo(`/workflow/${data.steps.name}`);
         this.props.updateCompletedSteps(data.steps.completedSteps);
       });
@@ -197,7 +227,7 @@ class WorkflowStep extends Component {
   }
   render() {
     const { steps } = this.props.data;
-    console.log('CURRENT STEP: ', this);
+    // console.log('CURRENT STEP: ', this);
     if (steps && steps.data) {
       return (steps && steps.type !== 'Search')
         ? (
@@ -315,6 +345,7 @@ export default graphql(gql `
             operator
             trigger
             dependency
+            detail
           }
         }
       }
@@ -323,6 +354,47 @@ export default graphql(gql `
   }
 `)(graphql(gql `
   mutation CompleteStep($input:CompleteStepInput) {
-    completeStep(input:$input)
+    completeStep(input:$input) {
+      name
+      details {
+        name
+        value
+      }
+      data {
+        ... on Property {
+          physicalAddress {
+            address1
+          }
+        }
+        ... on Address {
+          address1
+          city
+          state
+          zip
+          id
+        }
+      }
+      type
+      questions {
+        name
+        question
+        answerType
+        description
+        answers {
+          answer
+          image
+        }
+        conditional {
+          display {
+            type
+            operator
+            trigger
+            dependency
+            detail
+          }
+        }
+      }
+      completedSteps
+    }
   }
 `, { name: 'completeStep' })(connect(null, mapDispatchToProps)(WorkflowStep)));
