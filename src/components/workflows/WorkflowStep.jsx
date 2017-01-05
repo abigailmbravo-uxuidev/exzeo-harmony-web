@@ -227,14 +227,15 @@ class WorkflowStep extends Component {
   }
   render() {
     const { steps } = this.props.data;
-    // console.log('CURRENT STEP: ', this);
+    console.log('CURRENT STEP: ', this);
     if (steps && steps.data) {
       return (steps && steps.type !== 'Search')
         ? (
           <div className="workflow-content">
-            {steps.details ? <WorkflowDetails details={steps.details} /> : null}
+            {(steps.details && steps.showDetail) ? (
+              <WorkflowDetails details={steps.details} />
+            ) : null}
             <section>
-
               {steps.type === 'Selection'
                 ? (
                   <div className="fade-in">
@@ -266,15 +267,19 @@ class WorkflowStep extends Component {
                   </div>
                 )
                 : (
-                  <Survey
-                    handleChange={this.handleChange}
-                    handleSubmit={this.handleSubmit}
-                    questions={steps && steps.questions && steps.questions.length > 0
-                      ? steps.questions
-                      : null} answers={this.state.questions} styleName={steps && steps.name
-                      ? steps.namev
-                      : ''}
-                  />
+                (steps && steps.name === 'customizeDefaultQuote') ? (
+                    <h1>WAFFLES ARE TASTY</h1>
+                  ) : (
+                    <Survey
+                      handleChange={this.handleChange}
+                      handleSubmit={this.handleSubmit}
+                      questions={steps && steps.questions && steps.questions.length > 0
+                        ? steps.questions
+                        : null} answers={this.state.questions} styleName={steps && steps.name
+                        ? steps.namev
+                        : ''}
+                    />
+                  )
                 )
 }
 
@@ -315,6 +320,7 @@ export default graphql(gql `
         name
         value
       }
+      showDetail
       data {
         ... on Property {
           physicalAddress {
