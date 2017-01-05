@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
 import WorkflowDetails from './WorkflowDetails';
+import logoHarmony from '../../img/logo.svg';
 
 class WorkflowStep extends Component {
   static propTypes = {
@@ -268,7 +269,15 @@ class WorkflowStep extends Component {
                 )
                 : (
                 (steps && steps.name === 'customizeDefaultQuote') ? (
-                    <h1>WAFFLES ARE TASTY</h1>
+
+	<div className="tempPage">
+                <h1>Customize Quote</h1>
+                <h3>Coming Soon</h3>
+          <div className="image-wrapper"><img src={logoHarmony} width="300px" height="300px" alt="harmony-logo" /></div>
+
+
+	</div>
+
                   ) : (
                     <Survey
                       handleChange={this.handleChange}

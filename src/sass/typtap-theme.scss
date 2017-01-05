@@ -942,3 +942,22 @@ html {
     }
   }
 }
+
+
+.tempPage {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .image-wrapper {
+        flex-basis: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    h1, h3 {
+        text-align: center;
+    }
+}
