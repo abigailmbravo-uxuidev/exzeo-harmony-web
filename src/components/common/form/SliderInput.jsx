@@ -38,8 +38,8 @@ const SliderInput = ({
       </div>
       <span className="range-value">
         <input
-          type="number"
-          value={value}
+          type="text"
+          value={`$ ${value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}` }
           onChange={handleChange}
           name={name}
         />

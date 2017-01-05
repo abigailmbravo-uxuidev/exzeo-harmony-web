@@ -15,9 +15,7 @@ const WorkflowDetails = ({details}) => {
                 <dl>
                   <div>
                     <dt>{d.name}</dt>
-                    <dd>{d.name.replace(/\s+/g, '') === "AnnualPremium"
-                        ? '$ ' + d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-                        : d.value}</dd>
+                    <dd>{'$ ' + d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</dd>
                   </div>
                 </dl>
               </section>
