@@ -142,14 +142,17 @@
             }
 
             .workflow-links {
-                span {
-                    padding: ($padding/4) ($padding*2);
-                    border-radius: $btn-border-radius;
-                    @include transition(all .2s ease-in-out);
+                > div {
+                    display: flex;
+                    a {
+                        padding: ($padding/4) ($padding*2);
+                        border-radius: $btn-border-radius;
+                        @include transition(all .2s ease-in-out);
 
-                    &:hover, &:focus {
-                        background: $bright-blue-lighten-03;
-                        color: $body-color;
+                        &:hover, &:focus {
+                            background: $bright-blue-lighten-02;
+                            color: $body-color;
+                        }
                     }
                 }
             }
@@ -163,6 +166,16 @@
             &:focus,
             &:hover {
               text-decoration: none;
+
+              .workflow-links {
+                  > div {
+
+                      a {
+                          background: $bright-blue-lighten-02;
+                          color: $body-color;
+                      }
+                  }
+              }
             }
           }
         }

@@ -10,9 +10,9 @@ import {Link} from 'react-router';
 const Links = ({details}) => {
     console.log('LINKS HERE:', details);
     return (
-      <div>
-        <Link onClick={(event) => {event.stopPropagation()}} to={{pathname: "/workflow", query: {address: details.address1}}}>Home</Link>
-        <a onClick={(event) => {event.stopPropagation()}} href={`https://www.typtap.com/flood/?addr=${details.address1} ${details.zip}`} target="_blank" key="ho3">Flood</a>
+      <div className="type-ahead-links">
+        <Link className="home-link btn btn-secondary" onClick={(event) => {event.stopPropagation()}} to={{pathname: "/workflow", query: {address: details.address1}}}>H03 Quote</Link>
+        <a className="flood-link btn btn-secondary" onClick={(event) => {event.stopPropagation()}} href={`https://www.typtap.com/flood/?addr=${details.address1} ${details.zip}`} target="_blank" key="ho3">Flood Quote</a>
       </div>
     );
 };

@@ -29,18 +29,23 @@ class ContentManager extends Component {
   render() {
     const { addQuestion, addAnswer, questions, toggleEdit, updateQuestions } = this.props;
     return (
-      <div>
-        <button onClick={() => { addQuestion(); }}>+</button>
+      <div className="content">
+        <div className="cms-header">
+          <h3>Questions</h3>
+          <button className="btn-success btn-round" onClick={() => { addQuestion(); }}><i className="fa fa-plus"></i></button>
+        </div>
+        <div className="cms-question-wrapper">
         {
           questions.map((q, index) => (
-            <div key={index} className={q.editing ? 'editing-question' : null}>
-              <div onClick={() => { toggleEdit(q.name); }}>{q.name}<span>Edit {q.editing ? '+' : '-'}</span></div>
-              <label htmlFor="value">Value:</label>
-              <input onChange={(event) => { updateQuestions(event, q.name); }} name="value" id="value" placeholder="value" />
-              <label htmlFor="description">Description:</label>
-              <input onChange={(event) => { updateQuestions(event, q.name); }} name="description" id="description" placeholder="description" />
+            <div key={index} className={q.editing ? ' editing-question' : null}>
+              <h4 onClick={() => { toggleEdit(q.name); }}>{q.name} <span>Edit {q.editing ? <i className="fa fa-plus"></i> : <i className="fa fa-minus"></i> }</span></h4>
+
               <label htmlFor="question">Question:</label>
               <input onChange={(event) => { updateQuestions(event, q.name); }} name="question" id="question" placeholder="question" />
+              <label htmlFor="description">Description:</label>
+              <input onChange={(event) => { updateQuestions(event, q.name); }} name="description" id="description" placeholder="description" />
+              <label htmlFor="value">Value:</label>
+              <input onChange={(event) => { updateQuestions(event, q.name); }} name="value" id="value" placeholder="value" />
               <Question
                 question={answerType}
                 handleChange={(e) => {
@@ -67,6 +72,7 @@ class ContentManager extends Component {
             </div>
           ))
         }
+        </div>
       </div>
     );
   }

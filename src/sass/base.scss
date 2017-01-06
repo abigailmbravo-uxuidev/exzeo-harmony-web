@@ -202,8 +202,8 @@ html {
             flex: 1;
             @include for-1024-up {
               border-top-width: 0;
-              border-right: $card-border-width solid $card-border-color;
-              border-left: $card-border-width solid $card-border-color;
+              //border-right: $card-border-width solid $card-border-color;
+              //border-left: $card-border-width solid $card-border-color;
             }
             @include for-tablet-landscape-up {
               max-width: 64rem;
@@ -419,11 +419,17 @@ html {
 
             &.workflow {
               padding: 0;
+              background-color: $warm-gray-01;
 
               .fade-in {
+                background: $white;
                 display: flex;
                 flex-direction: column;
                 flex: 1;
+                margin-bottom: 0;
+                @include for-1024-up {
+                  margin-bottom: $padding;
+                }
 
                 .workflow-header {
                   padding: $padding;
@@ -600,12 +606,15 @@ html {
                     div.fade-in,
                     form {
                       overflow-y: auto;
+                      margin-bottom: 0;
 
                       .survey-wrapper {
                         flex-direction: row;
                         padding: ($padding*2) ($padding*4) 0;
                         flex-wrap: wrap;
                         flex-shrink: 0;
+                        flex-grow: 1;
+                        align-content: flex-start;
 
                         @include for-phone-only {
                             padding: ($padding*2) ($padding*2) 0;
@@ -636,6 +645,8 @@ html {
                           //margin-bottom: 1.45rem;
                           padding-bottom: 1.45rem;
                           border-bottom: 1px dashed $warm-gray-02;
+                          flex-shrink: 0;
+                          flex-grow: 0;
 
                           label {
                             font-size: $font-size-h4;
@@ -720,43 +731,71 @@ html {
 
                   aside {
                     display: flex;
-                    overflow-y: auto;
-                    flex-shrink: 0;
-                    @include for-phone-only {
-                      background-color: $white;
-                    }
+                    flex-grow: 1;
+                    width: 40%;
+                    @include for-phone-only {}
 
                     .side-panel {
                       position: relative;
                       display: flex;
                       flex-direction: column;
-                      width: 12.8rem;
-                      margin: ($padding*2) 0 ($padding) ($padding*3);
-                      padding: $padding;
-                      flex-basis: 12.8rem;
-                      flex-shrink: 0;
-                      flex-grow: 0;
-                      @include for-phone-only {
-                        flex-direction: row;
-                        margin: 0;
-                        flex-grow: 1;
-                        flex-basis: auto;
-                        flex-wrap: wrap;
-                      }
-                      @include for-big-desktop-up {
-                        width: 17.975rem;
-                        flex-basis: 17.975rem;
+                      width: 100%;
+                      padding: 0;
+                      @include for-phone-only {}
+                      @include for-big-desktop-up {}
+
+                      .cms-header {
+                        display: flex;
+                        padding: $padding ($padding*2);
+                        flex-shrink: 0;
+                        border-bottom: 1px dotted $warm-gray-01;
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5 {
+                          margin: 0;
+                          flex-grow: 1;
+                          line-height: 2rem;
+                        }
                       }
 
-                      section {
-                        margin-bottom: $margin-bottom;
-                        flex-grow: 0;
+                      form {
+                        margin-bottom: 0;
+                        display: flex;
+                        flex-grow: 1;
                         flex-shrink: 0;
-                        @include for-phone-only {
-                          flex-direction: row;
-                          width: 50%;
-                          margin: 0;
-                          padding: ($padding/2) $padding;
+                        padding: ($padding*2) ($padding*4) 0;
+                        overflow-y: auto;
+                        @include for-phone-only {}
+
+                        .form-group.survey-wrapper {
+                            margin: 0;
+                            padding: 0;
+                            border-bottom: 1px dashed $warm-gray-01;
+                            flex-shrink: 0;
+                            flex-grow: 0;
+
+                            .form-group {
+                                border-top: 1px dashed $warm-gray-01;
+                                padding-top: .5rem;
+                                flex-shrink: 0;
+                                flex-grow: 0;
+                                @include animation('fade-in 1s 1');
+
+                                &:first-child {
+                                    border-top-width: 0;
+                                    padding-top: 0;
+                                }
+                            }
+                        }
+
+                        .workflow-steps {
+                            display: flex;
+                            justify-content: flex-end;
+                            padding: 1rem 0;
+                            flex-shrink: 0;
+                            flex-grow: 0;
                         }
                       }
                     }
@@ -766,15 +805,18 @@ html {
                     position: relative;
                     overflow-y: auto;
                     flex-grow: 1;
+                    width: 60%;
 
                     .content {
                       flex-direction: column;
-                      padding: ($padding*2) ($padding*4) 0;
-                      flex-wrap: wrap;
+                      padding: 0;
 
-                      .admin-header {
+                      .cms-header {
                         display: flex;
-                        margin-bottom: $padding;
+                        padding: $padding ($padding*2);
+                        flex-shrink: 0;
+                        border-bottom: 1px dotted $warm-gray-01;
+                        line-height: 2rem;
 
                         h1,
                         h2,
@@ -784,6 +826,16 @@ html {
                           margin: 0;
                           flex-grow: 1;
                         }
+                      }
+
+                      .cms-question-wrapper {
+                          overflow-y: auto;
+                          padding: 0 ($padding*4);
+
+                          > div {
+                              border-bottom: 1px dashed $warm-gray-01;
+                              margin-bottom: 1rem;
+                          }
                       }
                     }
                   }
@@ -823,8 +875,8 @@ html {
             .search {
               @include for-phone-only {
                 //display: none;
-                margin-top: -3.5rem;
-                transition: margin 0.5s;
+                //margin-top: -3.5rem;
+                //transition: margin 0.5s;
               }
             }
 
@@ -856,15 +908,17 @@ html {
             border-top: $border-width dotted $border-color;
             background: $white;
             @include for-phone-only {
+                //position: absolute;
+                //bottom: 0;
               small {
                 font-size: $xsmall-font-size;
               }
             }
             @include for-1024-up {
-              margin-bottom: $padding;
-              border-right: $card-border-width solid $border-color;
-              border-bottom: $card-border-width solid $border-color;
-              border-left: $card-border-width solid $border-color;
+              //margin-bottom: $padding;
+              //border-right: $card-border-width solid $border-color;
+              //border-bottom: $card-border-width solid $border-color;
+              //border-left: $card-border-width solid $border-color;
             }
             @include for-tablet-landscape-up {
               max-width: 64rem;

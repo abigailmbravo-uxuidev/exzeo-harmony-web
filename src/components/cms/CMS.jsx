@@ -64,10 +64,23 @@ class CMS extends Component {
       <div className="cms" role="article">
         <div className="fade-in">
           <div className="content">
-                  <aside><div className="side-panel"><Survey handleChange={this.handleChange} handleSubmit={this.handleSubmit} questions={questions} answers={answers}/></div></aside>
-
-             <section>
-    <ContentManager questions={questions} toggleEdit={this.toggleEdit} addAnswer={this.addAnswer} addQuestion={this.addQuestion} updateQuestions={this.updateQuestions}/>
+            <aside>
+              <div className="side-panel">
+                <div className="cms-header">
+                  <h4>Demo form</h4>  
+                </div>
+                <Survey handleChange={this.handleChange}
+                          handleSubmit={this.handleSubmit}
+                          questions={questions}
+                          answers={answers}/>
+              </div>
+            </aside>
+            <section>
+              <ContentManager questions={questions}
+                      toggleEdit={this.toggleEdit}
+                      addAnswer={this.addAnswer}
+                      addQuestion={this.addQuestion}
+                      updateQuestions={this.updateQuestions}/>
             </section>
           </div>
         </div>

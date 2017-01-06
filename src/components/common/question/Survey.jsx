@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
+import Footer from '../Footer';
 
 const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) => (
   <form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}>
@@ -30,6 +31,7 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) =
     <div className="workflow-steps">
       <button className="btn btn-primary" type="submit" form="survey">next</button>
     </div>
+    <Footer />
   </form>
 );
 
