@@ -192,7 +192,12 @@ class WorkflowStep extends Component {
         this.context.router.transitionTo(`/workflow/${data.steps.name}`);
         this.props.updateCompletedSteps(data.steps.completedSteps);
       });
-    }).catch(error => console.log(error));
+    }).catch(error => {
+      // Error catching for mutations can be found here
+      // Not sure about queries
+      this.context.router.transitionTo('/error')
+      console.log('errors from graphql', error);
+    });
   }
   formatData = () => {
     const answers = [];

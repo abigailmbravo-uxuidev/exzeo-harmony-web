@@ -8,7 +8,7 @@ import Login from './auth/Login';
 import Home from './Home';
 import Quote from './quote/Quote';
 import Header from './common/Header';
-
+import ErrorPage from './common/ErrorPage';
 import TestPage from './TestPage';
 import Search from './common/search/Search';
 import NewWorkflow from './workflows/Workflow';
@@ -78,7 +78,7 @@ export class App extends Component {
           <Match pattern="/workflow" component={NewWorkflow} />
           <Match pattern="/admin/" component={Admin} />
           <Match pattern="/cms" component={Cms} />
-
+          <Match pattern="/error" component={ErrorPage} />
         </main>
       </div>
     );
