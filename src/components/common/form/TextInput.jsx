@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
+import Validation from 'react-validation';
 
 const TextInput = ({
   answerType,
   description,
+  validations,
   disabled = false,
   handleChange,
   name,
@@ -22,12 +24,14 @@ const TextInput = ({
         </span>
       }
     </label>
-    <input
+    <Validation.components.Input
+      errorClassName="is-invalid-input"
       type={answerType || 'text'}
       name={name || null}
       value={value || (answerType === 'number' ? null : '')}
       onChange={handleChange || null}
       disabled={disabled}
+      validations={validations ? validations : []}
     />
   </div>
 );

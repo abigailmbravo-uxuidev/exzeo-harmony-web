@@ -32,13 +32,13 @@ class ContentManager extends Component {
       <div className="content">
         <div className="cms-header">
           <h3>Questions</h3>
-          <button className="btn-success btn-round" onClick={() => { addQuestion(); }}><i className="fa fa-plus"></i></button>
+          <button className="btn-success btn-round" onClick={() => { addQuestion(); }}><i className="fa fa-plus" /></button>
         </div>
         <div className="cms-question-wrapper">
-        {
+          {
           questions.map((q, index) => (
             <div key={index} className={q.editing ? ' editing-question' : null}>
-              <h4 onClick={() => { toggleEdit(q.name); }}>{q.name} <span>Edit {q.editing ? <i className="fa fa-plus"></i> : <i className="fa fa-minus"></i> }</span></h4>
+              <h4 onClick={() => { toggleEdit(q.name); }}>{q.name} <span>Edit {q.editing ? <i className="fa fa-plus" /> : <i className="fa fa-minus" /> }</span></h4>
 
               <label htmlFor="question">Question:</label>
               <input onChange={(event) => { updateQuestions(event, q.name); }} name="question" id="question" placeholder="question" />

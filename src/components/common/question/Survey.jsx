@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
+import Validation from 'react-validation';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';
 
 const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) => (
-  <form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}>
+  <Validation.components.Form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}>
     <div className="form-group survey-wrapper" role="group">
       {questions && questions.length > 0 ?
         questions.map((question, index) => (
@@ -29,10 +30,10 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) =
       }
     </div>
     <div className="workflow-steps">
-      <button className="btn btn-primary" type="submit" form="survey">next</button>
+      <Validation.components.Button className="btn btn-primary" type="submit" form="survey">next</Validation.components.Button>
     </div>
     <Footer />
-  </form>
+  </Validation.components.Form>
 );
 
 

@@ -15,6 +15,7 @@ import NewWorkflow from './workflows/Workflow';
 import Admin from './admin/Admin';
 import Cms from './cms/CMS';
 import './App.css';
+import './Rules';
 
 export class App extends Component {
 
