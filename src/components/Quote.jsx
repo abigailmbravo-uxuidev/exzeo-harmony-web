@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Workflow from './workflows/Workflow';
-import {Match} from 'react-router';
-//import SearchResults from './common/search/SearchResults';
+import { Match } from 'react-router';
+// import SearchResults from './common/search/SearchResults';
 import QuoteSearchResults from './QuoteSearchResults';
 import Survey from './common/question/Survey';
 
@@ -36,7 +36,7 @@ const underwritingQuestions = gql`
     }
 `;
 
-//const PropertySearch = graphql(query)(SearchResults);
+// const PropertySearch = graphql(query)(SearchResults);
 const Demographics = graphql(underwritingQuestions)(Survey);
 const UnderWritingQA = graphql(underwritingQuestions)(Survey);
 const Coverage = graphql(underwritingQuestions)(Survey);
@@ -96,13 +96,13 @@ const steps = [{
 }];
 
 class Quote extends Component {
-    state = {};
+  state = {};
 
-    render () {
-        return (
-            <Workflow steps={steps}/>
-        )
-    };
-};
+  render() {
+    return (
+      <Workflow steps={steps} />
+    );
+  }
+}
 
 export default Quote;

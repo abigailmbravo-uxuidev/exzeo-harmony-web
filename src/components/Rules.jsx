@@ -1,10 +1,6 @@
 import React from 'react';
-// NOTE: Deprecated
 import Validation from 'react-validation';
-// From v2.10.0
-// import { rules, Form, Input, Select, Textarea, Button } from 'react-validation/lib/build/validation.rc'
 import validator from 'validator';
-
 // Use Object.assign or any similar API to merge a rules
 // NOTE: IE10 doesn't have Object.assign API natively. Use polyfill/babel plugin.
 Object.assign(Validation.rules, {
@@ -15,7 +11,7 @@ Object.assign(Validation.rules, {
     rule: value => value.toString().trim(),
         // Function to return hint
         // You may use current value to inject it in some way to the hint
-    hint: value => <span style={{ color: 'red' }} className="form-error is-visible">field is Required</span>,
+    hint: () => <span style={{ color: 'red' }} className="form-error is-visible">field is Required</span>,
   },
   email: {
         // Example usage with external 'validator'
@@ -55,13 +51,12 @@ Object.assign(Validation.rules, {
   },
     // Define API rule to show hint after API error response
   api: {
-        // We don't need the rule here because we will call the 'showError' method by hand on API error
     hint: value => (
       <button
         style={{ color: 'red' }}
         className="form-error is-visible"
       >
-                API Error on "{value}" value. Focus to hide.
+                API Error on {value} value. Focus to hide.
             </button>
         ),
   },

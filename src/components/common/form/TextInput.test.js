@@ -63,7 +63,7 @@ describe('<TextInput />', () => {
     it('should <TextInput />', () => {
       wrapper.setProps({ ...question });
       const result = wrapper.contains(
-        <div className={`form-group ${styleName}`}>
+        <div className={'form-group '}>
           <label htmlFor={question.id}>{question.question}</label>
           <input
             type={question.answerType}

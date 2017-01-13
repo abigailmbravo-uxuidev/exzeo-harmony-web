@@ -36,7 +36,7 @@ export const login = creds => (dispatch) => {
     username: creds.username,
     password: creds.password,
   }, (err, results) => {
-    console.log('Error on Login:' + err);
+    console.log(`Error on Login:${err}`);
     if (err) {
       dispatch(authenticateError(err));
     } else {
