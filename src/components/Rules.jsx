@@ -15,12 +15,22 @@ Object.assign(Validation.rules, {
     rule: value => value.toString().trim(),
         // Function to return hint
         // You may use current value to inject it in some way to the hint
-    hint: value => <span className="form-error is-visible">Required</span>,
+    hint: value => <span style={{ color: 'red' }} className="form-error is-visible">field is Required</span>,
   },
   email: {
         // Example usage with external 'validator'
     rule: value => validator.isEmail(value),
-    hint: value => <span className="form-error is-visible">{value} isnt an Email.</span>,
+    hint: value => <span style={{ color: 'red' }} className="form-error is-visible">{value} is not a valid Email.</span>,
+  },
+  date: {
+        // Example usage with external 'validator'
+    rule: value => validator.isDate(value),
+    hint: value => <span style={{ color: 'red' }} className="form-error is-visible">{value} is not a valid Date.</span>,
+  },
+  phone: {
+        // Example usage with external 'validator'
+    rule: value => value.match(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g),
+    hint: value => <span style={{ color: 'red' }} className="form-error is-visible">{value} is not a valid Phone Number.</span>,
   },
     // This example shows a way to handle common task - compare two fields for equality
   password: {
@@ -41,13 +51,14 @@ Object.assign(Validation.rules, {
 
       return password.value === passwordConfirm.value;
     },
-    hint: () => <span className="form-error is-visible">Passwords should be equal.</span>,
+    hint: () => <span style={{ color: 'red' }} className="form-error is-visible">Passwords should be equal.</span>,
   },
     // Define API rule to show hint after API error response
   api: {
         // We don't need the rule here because we will call the 'showError' method by hand on API error
     hint: value => (
       <button
+        style={{ color: 'red' }}
         className="form-error is-visible"
       >
                 API Error on "{value}" value. Focus to hide.
