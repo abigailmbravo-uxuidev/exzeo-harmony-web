@@ -12,6 +12,7 @@ const TextInput = ({
   question,
   styleName = '',
   value,
+  validateFormElement,
 }) => (
   <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
     <label htmlFor={name || null}>
@@ -25,7 +26,8 @@ const TextInput = ({
       }
     </label>
     <Validation.components.Input
-      errorClassName="is-invalid-input"
+      errorContainerClassName="form-group error"
+      onBlur={event => validateFormElement(event.target.name)}
       type={answerType || 'text'}
       name={name || null}
       value={value || (answerType === 'number' ? null : '')}
@@ -37,6 +39,7 @@ const TextInput = ({
 );
 
 TextInput.propTypes = {
+  validateFormElement: PropTypes.func,
   answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   description: PropTypes.string,
   disabled: PropTypes.bool,
