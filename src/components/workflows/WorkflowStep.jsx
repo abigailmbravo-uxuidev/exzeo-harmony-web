@@ -184,19 +184,18 @@ class WorkflowStep extends Component {
     }).then((updatedModel) => {
       // this.context.router.transitionTo(`/workflow/${updatedModel.data.completeStep.name}`);
       // this.props.updateCompletedSteps(updatedModel.data.completeStep.completedSteps);
-      if (updatedModel.data.completeStep && updatedModel.data.completeStep.details) {
+      if (updatedModel.data.completeStep && updatedModel.data.completeStep.details)
         this.setState({ details: updatedModel.data.completeStep.details });
-      }
       console.log('DATA IN THE D: ', updatedModel);
       this.props.data.refetch().then(({ data }) => {
-        console.log('ggggggg', data);
+        console.log('ggggggg', data)
         this.context.router.transitionTo(`/workflow/${data.steps.name}`);
         this.props.updateCompletedSteps(data.steps.completedSteps);
       });
-    }).catch((error) => {
+    }).catch(error => {
       // Error catching for mutations can be found here
       // Not sure about queries
-      this.context.router.transitionTo('/error');
+      this.context.router.transitionTo('/error')
       console.log('errors from graphql', error);
     });
   }
@@ -276,7 +275,7 @@ class WorkflowStep extends Component {
                 )
                 : (
                 (steps && steps.name === 'customizeDefaultQuote') ? (
-                  <div />
+                        <div></div>
                   ) : (
                     <Survey
                       handleChange={this.handleChange}
@@ -346,7 +345,6 @@ export default graphql(gql `
       type
       questions {
         name
-        required
         question
         answerType
         description

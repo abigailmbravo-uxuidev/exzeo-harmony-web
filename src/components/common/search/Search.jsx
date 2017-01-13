@@ -44,18 +44,18 @@ class Search extends Component {
       });
       this.setState({ searchText: '' });
     }
-    // window.location = '/quote/address/' + event.target.innerText;
+    //window.location = '/quote/address/' + event.target.innerText;
   }
 
-  componentWillMount() {
-    const address = decodeURIComponent(window.location.pathname.split('/')[3]);
-    this.setState({ searchText: (address !== 'undefined' ? address : '') });
+  componentWillMount(){
+      let address = decodeURIComponent(window.location.pathname.split('/')[3]);
+      this.setState({ searchText: (address !== 'undefined' ? address : '') })
   }
 
   render() {
     const options = this.props.options;
     const { searchText } = this.state;
-    let placeholder;
+    let placeholder
     if (this.props.searchConfig && this.props.searchConfig.placeholder) {
       placeholder = this.props.searchConfig.placeholder;
     } else {

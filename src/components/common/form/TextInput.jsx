@@ -4,7 +4,6 @@ import ReactTooltip from 'react-tooltip';
 const TextInput = ({
   answerType,
   description,
-  required,
   disabled = false,
   handleChange,
   name,
@@ -29,7 +28,6 @@ const TextInput = ({
       value={value || (answerType === 'number' ? null : '')}
       onChange={handleChange || null}
       disabled={disabled}
-      required={required}
     />
   </div>
 );
@@ -38,7 +36,6 @@ TextInput.propTypes = {
   answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   description: PropTypes.string,
   disabled: PropTypes.bool,
-  required: PropTypes.bool,
   handleChange: PropTypes.func,
   name: PropTypes.string,
   question: PropTypes.string,
