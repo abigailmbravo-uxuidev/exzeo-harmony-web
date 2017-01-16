@@ -74,6 +74,15 @@ html body {
                 &:focus {}
               }
             }
+
+            .selected {
+                span {
+                  color: $green-darken-01;
+                  border-color: $green;
+                  background: $white;
+                  box-shadow: 0 0 0 2px $green inset;
+                }
+            }
           }
         }
       }
