@@ -249,6 +249,13 @@ html body {
               -webkit-filter: drop-shadow(0 0 4px rgba($green, 0.8));
               filter: drop-shadow(0 0 4px rgba($green, 0.8));
             }
+
+            .label-segmented {
+                span {
+                    color: $white;
+                    background: $bright-blue;
+                }
+            }
           }
 
           .label-segmented {

@@ -75,13 +75,16 @@ html body {
               }
             }
           }
-          .selected {
+
+          &.selected {
+            .label-segmented {
               span {
                 color: $green-darken-01;
                 border-color: $green;
                 background: $white;
                 box-shadow: 0 0 0 2px $green inset;
               }
+            }
           }
         }
       }
@@ -395,9 +398,7 @@ html body {
             border-bottom: 1.1875rem solid transparent;
           }
 
-          input {
-
-          }
+          input {}
         }
       }
 
@@ -704,10 +705,11 @@ html {
             }
 
             &.workflow {
-                background: $cool-gray-00;
+              background: $cool-gray-00;
 
               .fade-in {
-                  background: $white;
+                background: $white;
+
                 .workflow-header {
                   background-color: $cool-gray-01;
 
@@ -909,50 +911,50 @@ html {
           }
         }
         //form layout
-        main[role="document"]>div[role="article"].workflow .fade-in .workflow-content section {
-            form {
-                .survey-wrapper {
-                  @include for-tablet-landscape-up {
-                    .FirstName,
-                    .PH1FirstName {
-                      width: 50%;
-                      padding-right: $padding*2;
-                    }
+        main[role="document"] > div[role="article"].workflow .fade-in .workflow-content section {
+          form {
+            .survey-wrapper {
+              @include for-tablet-landscape-up {
+                .FirstName,
+                .PH1FirstName {
+                  width: 50%;
+                  padding-right: $padding*2;
+                }
 
-                    .LastName,
-                    .PH1LastName {
-                      width: 50%;
-                    }
+                .LastName,
+                .PH1LastName {
+                  width: 50%;
+                }
 
-                    .agentID {
-                      width: auto;
-                      flex-grow: 1;
-                    }
+                .agentID {
+                  width: auto;
+                  flex-grow: 1;
+                }
 
-                    .phoneNumber {
-                      width: auto;
-                      padding-right: $padding*2;
-                    }
+                .phoneNumber {
+                  width: auto;
+                  padding-right: $padding*2;
+                }
 
-                    .effectiveDate {
-                      width: auto;
-                      padding-right: $padding*2;
-                      flex-grow: 1;
-                    }
-                  }
-                  @include for-tablet-portrait-up {
-                    .phoneNumber {
-                      width: auto;
-                      padding-right: $padding*2;
-                    }
+                .effectiveDate {
+                  width: auto;
+                  padding-right: $padding*2;
+                  flex-grow: 1;
+                }
+              }
+              @include for-tablet-portrait-up {
+                .phoneNumber {
+                  width: auto;
+                  padding-right: $padding*2;
+                }
 
-                    .effectiveDate {
-                      width: auto;
-                      flex-grow: 1;
-                    }
-                  }
+                .effectiveDate {
+                  width: auto;
+                  flex-grow: 1;
+                }
               }
             }
+          }
         }
       }
     }
