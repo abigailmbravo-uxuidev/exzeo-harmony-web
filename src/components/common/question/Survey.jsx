@@ -20,6 +20,7 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) =
         questions.map((question, index) => (
           question.conditional && question.conditional.value ?
             <DependentQuestion
+              validateFormElement={validateFormElement}
               key={index}
               question={question}
               answer={answers[question.name].value}

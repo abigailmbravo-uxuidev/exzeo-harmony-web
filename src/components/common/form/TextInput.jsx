@@ -5,7 +5,6 @@ import Validation from 'react-validation';
 const TextInput = ({
   answerType,
   description,
-  validations,
   disabled = false,
   handleChange,
   name,
@@ -13,6 +12,8 @@ const TextInput = ({
   styleName = '',
   value,
   validateFormElement,
+  /* eslint-disable react/prop-types */
+  validations,
 }) => (
   <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
     <label htmlFor={name || null}>
@@ -33,7 +34,7 @@ const TextInput = ({
       value={value || (answerType === 'number' ? null : '')}
       onChange={handleChange || null}
       disabled={disabled}
-      validations={validations ? validations : []}
+      validations={validations || []}
     />
   </div>
 );

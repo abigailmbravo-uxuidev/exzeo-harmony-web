@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for, eqeqeq */
 import React, { PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
+import Validation from 'react-validation';
 
 const RadioGroup = ({
   answers,
@@ -12,6 +13,9 @@ const RadioGroup = ({
   styleName = '',
   question,
   value,
+  validateFormElement,
+  /* eslint-disable react/prop-types */
+  validations,
 }) => {
   const onClick = (answer) => {
     if (disabled) return;
@@ -41,13 +45,15 @@ const RadioGroup = ({
           >
             {answer.image && <img src={answer.image} role="presentation" />}
             <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
-              <input
+              <Validation.components.Input
                 type="radio"
+                onBlur={event => validateFormElement(event.target.name)}
                 value={answer.answer || null}
                 key={index}
                 name={name || null}
                 checked={value == answer.answer}
                 onChange={handleChange || null}
+                validations={validations || []}
               />
               <span>{answer.answer || null}</span>
             </label>
@@ -63,6 +69,7 @@ RadioGroup.propTypes = {
     answer: PropTypes.string,
     image: PropTypes.string,
   })),
+  validateFormElement: PropTypes.func,
   description: PropTypes.string,
   disabled: PropTypes.bool,
   handleChange: PropTypes.func,
