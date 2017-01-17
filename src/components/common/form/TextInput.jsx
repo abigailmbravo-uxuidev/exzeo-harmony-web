@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
+import Rules from '../../Rules';
 
 const TextInput = ({
   answerType,
@@ -10,17 +11,23 @@ const TextInput = ({
   name,
   question,
   styleName = '',
-  value,
+  validations,
 }) => {
-  const required = value => value ? undefined : 'Required';
+  const ruleArray = [];
 
-  const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  if (validations) {
+    for (let i = 0; i < validations.length; i++) {
+      ruleArray.push(Rules[`${validations[i]}`]);
+    }
+    console.log(ruleArray);
+  }
+
+  const renderField = ({ input, label, type, value, meta: { touched, error, warning } }) => (
     <div>
-      <input {...input} placeholder={label} type={type} />
+      <input {...input} type={type} />
       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
 );
-
   return (
     <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
       <label htmlFor={name || null}>
@@ -40,7 +47,7 @@ const TextInput = ({
         name={name || null}
         onChange={handleChange || null}
         disabled={disabled}
-        validate={[required]}
+        validate={ruleArray}
       />
     </div>
   );
@@ -54,6 +61,7 @@ TextInput.propTypes = {
   name: PropTypes.string,
   question: PropTypes.string,
   styleName: PropTypes.string,
+  validations: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

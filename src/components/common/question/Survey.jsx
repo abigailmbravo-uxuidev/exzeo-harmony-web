@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, Form } from 'redux-form';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';
 
 const Survey = ({ questions, styleName, answers, handleSubmit, handleChange,
-   pristine, reset, submitting }) => (
-     <form
+   pristine, reset, submitting, error, invalid }) => (
+     <Form
        className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}
        noValidate
      >
@@ -34,10 +34,10 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange,
       }
        </div>
        <div className="workflow-steps">
-         <button className="btn btn-primary" type="submit" form="survey" disabled={pristine || submitting}>next</button>
+         <button className="btn btn-primary" type="submit" form="survey" disabled={invalid}>next</button>
        </div>
        <Footer />
-     </form>
+     </Form>
   );
 
 Survey.propTypes = {

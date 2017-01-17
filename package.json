@@ -45,7 +45,8 @@
     "redux": "^3.6.0",
     "redux-form": "^6.4.3",
     "redux-thunk": "^2.1.0",
-    "typeahead": "^0.2.2"
+    "typeahead": "^0.2.2",
+    "validator": "^6.2.1"
   },
   "scripts": {
     "build": "react-scripts build && node scripts/genEjs",
