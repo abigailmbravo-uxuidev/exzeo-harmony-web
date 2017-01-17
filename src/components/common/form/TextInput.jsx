@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
-import Validation from 'react-validation';
 
 const TextInput = ({
   answerType,
@@ -11,9 +10,7 @@ const TextInput = ({
   question,
   styleName = '',
   value,
-  validateFormElement,
-  /* eslint-disable react/prop-types */
-  validations,
+  hasError,
 }) => (
   <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
     <label htmlFor={name || null}>
@@ -26,21 +23,23 @@ const TextInput = ({
         </span>
       }
     </label>
-    <Validation.components.Input
-      errorContainerClassName="form-group error"
-      onBlur={event => validateFormElement(event.target.name)}
+    <input
+      className={hasError ? 'error' : ''}
       type={answerType || 'text'}
       name={name || null}
       value={value || (answerType === 'number' ? null : '')}
       onChange={handleChange || null}
       disabled={disabled}
-      validations={validations || []}
     />
+    {hasError &&
+      <span style={'color:red;'}>
+        { 'Error' }
+      </span>
+    }
   </div>
 );
 
 TextInput.propTypes = {
-  validateFormElement: PropTypes.func,
   answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   description: PropTypes.string,
   disabled: PropTypes.bool,

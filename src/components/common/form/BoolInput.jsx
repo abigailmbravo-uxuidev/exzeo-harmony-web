@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
-import Validation from 'react-validation';
 
 const BoolInput = ({
   description,
@@ -12,9 +11,6 @@ const BoolInput = ({
   question,
   styleName = '',
   value,
-  validateFormElement,
-  /* eslint-disable react/prop-types */
-  validations,
 }) => {
   const onChange = () => {
     if (disabled) return;
@@ -38,14 +34,12 @@ const BoolInput = ({
             <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
           </span>
         }
-        <Validation.components.Input
+        <input
           type="checkbox"
-          onBlur={event => validateFormElement(event.target.name)}
           name={name || null}
           checked={value || false}
           onChange={onChange}
           disabled={disabled}
-          validations={validations || []}
         />
         {isSwitch && <div className="switch-div" />}
       </label>
@@ -54,7 +48,6 @@ const BoolInput = ({
 };
 
 BoolInput.propTypes = {
-  validateFormElement: PropTypes.func,
   description: PropTypes.string,
   disabled: PropTypes.bool,
   handleChange: PropTypes.func,

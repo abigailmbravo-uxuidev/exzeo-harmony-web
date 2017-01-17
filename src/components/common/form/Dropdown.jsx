@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
-import Validation from 'react-validation';
 
 const Dropdown = ({
   answers,
@@ -11,9 +10,6 @@ const Dropdown = ({
   question,
   styleName = '',
   value,
-  validateFormElement,
-  /* eslint-disable react/prop-types */
-  validations,
 }) => (
   <div className={`form-group ${styleName} ${name}`}>
     <label htmlFor={name || null}>
@@ -26,16 +22,15 @@ const Dropdown = ({
         </span>
       }
       {answers && answers.length > 0 ?
-        <Validation.components.Select
-          onBlur={event => validateFormElement(event.target.name)}
+        <select
           value={value || ''} name={name || null} disabled={disabled}
-          onChange={handleChange || null} validations={validations || []}
+          onChange={handleChange || null}
         >
           <option disabled value={''}>Please select...</option>
           {answers.map((answer, index) => (
             <option value={answer.answer || null} key={index}>{answer.answer || null}</option>
           ))}
-        </Validation.components.Select> : null}
+        </select> : null}
     </label>
   </div>
 );
@@ -45,7 +40,6 @@ Dropdown.propTypes = {
     answer: PropTypes.string,
     image: PropTypes.string,
   })),
-  validateFormElement: PropTypes.func,
   description: PropTypes.string,
   disabled: PropTypes.bool,
   handleChange: PropTypes.func,

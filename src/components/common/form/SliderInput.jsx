@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
-import Validation from 'react-validation';
 
 const SliderInput = ({
   description,
@@ -16,9 +15,6 @@ const SliderInput = ({
   step,
   styleName = '',
   value,
-  validateFormElement,
-  /* eslint-disable react/prop-types */
-  validations,
 }) => {
   let formattedValue;
   if (value) {
@@ -52,13 +48,11 @@ const SliderInput = ({
           <span className="range-limit">{rightLabel || Math.floor(maxValue) || null}</span>
         </div>
         <span className="range-value">
-          <Validation.components.Input
-            onBlur={event => validateFormElement(event.target.name)}
+          <input
             type="text"
             value={formattedValue}
             onChange={handleChange}
             name={name}
-            validations={validations || []}
           />
         </span>
       </div>

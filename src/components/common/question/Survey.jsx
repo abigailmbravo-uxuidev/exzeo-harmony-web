@@ -1,26 +1,18 @@
 import React, { PropTypes } from 'react';
-import Validation from 'react-validation';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';
 
-const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) => {
-  let form;
-  const validateFormElement = function validateFormElement(name) {
-    form.validate(name);
-  };
-
-  return (
-    <Validation.components.Form
-      className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}
-      noValidate ref={(c) => { form = c; }}
-    >
-      <div className="form-group survey-wrapper" role="group">
-        {questions && questions.length > 0 ?
+const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) => (
+  <form
+    className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}
+    noValidate
+  >
+    <div className="form-group survey-wrapper" role="group">
+      {questions && questions.length > 0 ?
         questions.map((question, index) => (
           question.conditional && question.conditional.value ?
             <DependentQuestion
-              validateFormElement={validateFormElement}
               key={index}
               question={question}
               answer={answers[question.name].value}
@@ -29,7 +21,6 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) =
               handleChange={handleChange}
               answers={answers}
             /> : <Question
-              validateFormElement={validateFormElement}
               key={index}
               question={question}
               answer={answers[question.name].value}
@@ -39,14 +30,13 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) =
             />
         )) : null
       }
-      </div>
-      <div className="workflow-steps">
-        <Validation.components.Button className="btn btn-primary" type="submit" form="survey">next</Validation.components.Button>
-      </div>
-      <Footer />
-    </Validation.components.Form>
+    </div>
+    <div className="workflow-steps">
+      <button className="btn btn-primary" type="submit" form="survey">next</button>
+    </div>
+    <Footer />
+  </form>
   );
-};
 
 Survey.propTypes = {
   handleSubmit: PropTypes.func,
