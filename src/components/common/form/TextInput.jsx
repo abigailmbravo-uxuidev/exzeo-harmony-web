@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Field, reduxForm } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
-import Validation from 'react-validation';
 
 const TextInput = ({
   answerType,
@@ -11,36 +11,42 @@ const TextInput = ({
   question,
   styleName = '',
   value,
-  validateFormElement,
-  /* eslint-disable react/prop-types */
-  validations,
-}) => (
-  <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
-    <label htmlFor={name || null}>
-      {question || null}
+}) => {
+  const required = value => value ? undefined : 'Required';
+
+  const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+    <div>
+      <input {...input} placeholder={label} type={type} />
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+);
+
+  return (
+    <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
+      <label htmlFor={name || null}>
+        {question || null}
       &nbsp;
-      {description &&
+        {description &&
         <span>
           <i className="fa fa-info-circle" data-tip data-for={name} />
           <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
         </span>
       }
-    </label>
-    <Validation.components.Input
-      errorContainerClassName="form-group error"
-      onBlur={event => validateFormElement(event.target.name)}
-      type={answerType || 'text'}
-      name={name || null}
-      value={value || (answerType === 'number' ? null : '')}
-      onChange={handleChange || null}
-      disabled={disabled}
-      validations={validations || []}
-    />
-  </div>
-);
+      </label>
+      <Field
+        label={name}
+        component={renderField}
+        type={answerType || 'text'}
+        name={name || null}
+        onChange={handleChange || null}
+        disabled={disabled}
+        validate={[required]}
+      />
+    </div>
+  );
+};
 
 TextInput.propTypes = {
-  validateFormElement: PropTypes.func,
   answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   description: PropTypes.string,
   disabled: PropTypes.bool,

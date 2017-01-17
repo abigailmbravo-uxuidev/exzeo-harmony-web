@@ -6,14 +6,13 @@ import BoolInput from '../form/BoolInput';
 import SliderInput from '../form/SliderInput';
 import ListSelection from '../form/ListSelection';
 
-const Question = ({ question, answer, disabled, hidden, handleChange, validateFormElement }) => {
+const Question = ({ question, answer, disabled, hidden, handleChange }) => {
   if (hidden) return null;
   const inputProps = {
     ...question,
     value: answer,
     handleChange,
     disabled,
-    validateFormElement,
   };
   // console.log('QUESTION: ', question);
   switch (question.answerType) {
@@ -51,7 +50,6 @@ Question.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  validateFormElement: PropTypes.func,
   handleChange: PropTypes.func,
   disabled: PropTypes.bool,
   hidden: PropTypes.bool,

@@ -4,6 +4,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import auth from './authReducer';
 import features from './featureReducer';
 import search from './searchReducer';
+import { reducer as formReducer } from 'redux-form';
 
 let uri = 'http://localhost:4001/api';
 console.log(process.env.NODE_ENV);
@@ -28,6 +29,7 @@ networkInterface.use([{
 export const client = new ApolloClient({ networkInterface });
 
 const rootReducer = combineReducers({
+  form: formReducer,
   auth,
   features,
   search,
