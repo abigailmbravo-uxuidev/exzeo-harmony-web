@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for, eqeqeq */
 import React, { PropTypes } from 'react';
+import { Field } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
+import Rules from '../../Rules';
 
 const RadioGroup = ({
   answers,
@@ -12,7 +14,17 @@ const RadioGroup = ({
   styleName = '',
   question,
   value,
+  validations,
 }) => {
+  const ruleArray = [];
+
+  if (validations) {
+    for (let i = 0; i < validations.length; i++) {
+      ruleArray.push(Rules[`${validations[i]}`]);
+    }
+    console.log(ruleArray);
+  }
+
   const onClick = (answer) => {
     if (disabled) return;
     const newEvent = {
@@ -40,14 +52,15 @@ const RadioGroup = ({
             onClick={() => onClick(answer.answer)} key={index}
           >
             {answer.image && <img src={answer.image} role="presentation" />}
-            <label className={segmented ? 'label-segmented' : ''} htmlFor={index} key={index}>
-              <input
+            <label className={segmented ? 'label-segmented' : ''} key={index}>
+              <Field
                 type="radio"
-                value={answer.answer || null}
+                component="input"
+                value={answer.answer}
                 key={index}
-                name={name || null}
-                checked={value == answer.answer}
-                onChange={handleChange || null}
+                name={name}
+                onChange={handleChange}
+                validate={ruleArray}
               />
               <span>{answer.answer || null}</span>
             </label>
