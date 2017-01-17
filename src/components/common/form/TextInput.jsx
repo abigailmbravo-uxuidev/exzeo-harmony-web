@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
-import Rules from '../../Rules';
+import { combineRules } from '../../Rules';
 
 const TextInput = ({
   answerType,
@@ -13,14 +13,7 @@ const TextInput = ({
   styleName = '',
   validations,
 }) => {
-  const ruleArray = [];
-
-  if (validations) {
-    for (let i = 0; i < validations.length; i++) {
-      ruleArray.push(Rules[`${validations[i]}`]);
-    }
-    console.log(ruleArray);
-  }
+  const ruleArray = combineRules(validations);
 
   const renderField = ({ input, label, type, value, meta: { touched, error, warning } }) => (
     <div>

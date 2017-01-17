@@ -11,4 +11,15 @@ Object.assign(rules, {
   date: value => validator.isDate(value) ? value : 'is not a valid Date.',
 });
 
+export function combineRules(validations) {
+  const ruleArray = [];
+
+  if (validations) {
+    for (let i = 0; i < validations.length; i++) {
+      ruleArray.push(rules[`${validations[i]}`]);
+    }
+  }
+  return ruleArray;
+}
+
 export default rules;

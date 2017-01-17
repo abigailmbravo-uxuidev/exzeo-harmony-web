@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
-import Rules from '../../Rules';
+import { combineRules } from '../../Rules';
 
 const RadioGroup = ({
   answers,
@@ -16,14 +16,7 @@ const RadioGroup = ({
   value,
   validations,
 }) => {
-  const ruleArray = [];
-
-  if (validations) {
-    for (let i = 0; i < validations.length; i++) {
-      ruleArray.push(Rules[`${validations[i]}`]);
-    }
-    console.log(ruleArray);
-  }
+  const ruleArray = combineRules(validations);
 
   const onClick = (answer) => {
     if (disabled) return;
