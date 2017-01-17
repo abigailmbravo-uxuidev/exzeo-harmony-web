@@ -173,6 +173,8 @@ class WorkflowStep extends Component {
     this.setState({ questions });
   }
   handleSubmit = (event) => {
+    console.log('Event', event); //
+
     if (event && event.preventDefault) event.preventDefault();
     console.log('COMPLETE TASK'); // eslint-disable-line
     this.props.completeStep({

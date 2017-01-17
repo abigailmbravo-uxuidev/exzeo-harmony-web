@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react';
+import { Field, reduxForm } from 'redux-form';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';
 
-const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) => (
-  <form
-    className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}
-    noValidate
-  >
-    <div className="form-group survey-wrapper" role="group">
-      {questions && questions.length > 0 ?
+const Survey = ({ questions, styleName, answers, handleSubmit, handleChange,
+   pristine, reset, submitting }) => (
+     <form
+       className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}
+       noValidate
+     >
+       <div className="form-group survey-wrapper" role="group">
+         {questions && questions.length > 0 ?
         questions.map((question, index) => (
           question.conditional && question.conditional.value ?
             <DependentQuestion
@@ -30,12 +32,12 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange }) =
             />
         )) : null
       }
-    </div>
-    <div className="workflow-steps">
-      <button className="btn btn-primary" type="submit" form="survey">next</button>
-    </div>
-    <Footer />
-  </form>
+       </div>
+       <div className="workflow-steps">
+         <button className="btn btn-primary" type="submit" form="survey" disabled={pristine || submitting}>next</button>
+       </div>
+       <Footer />
+     </form>
   );
 
 Survey.propTypes = {
@@ -57,4 +59,6 @@ Survey.propTypes = {
   styleName: PropTypes.string,
 };
 
-export default Survey;
+export default reduxForm({
+  form: 'survey',  // a unique identifier for this form
+})(Survey);
