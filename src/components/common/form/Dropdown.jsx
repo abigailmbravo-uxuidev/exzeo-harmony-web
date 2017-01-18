@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
+import { Field, reduxForm } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
+import { combineRules } from '../../Rules';
 
 const Dropdown = ({
   answers,
@@ -10,8 +12,11 @@ const Dropdown = ({
   question,
   styleName = '',
   value,
-}) => (
-  <div className={`form-group ${styleName} ${name}`}>
+  validations,
+}) => {
+  const ruleArray = combineRules(validations);
+
+  return (<div className={`form-group ${styleName} ${name}`}>
     <label htmlFor={name || null}>
       {question || null}
       &nbsp;
@@ -22,7 +27,9 @@ const Dropdown = ({
         </span>
       }
       {answers && answers.length > 0 ?
-        <select
+        <Field
+          component="select"
+          validate={ruleArray}
           value={value || ''} name={name || null} disabled={disabled}
           onChange={handleChange || null}
         >
@@ -30,10 +37,11 @@ const Dropdown = ({
           {answers.map((answer, index) => (
             <option value={answer.answer || null} key={index}>{answer.answer || null}</option>
           ))}
-        </select> : null}
+        </Field> : null}
     </label>
   </div>
-);
+  );
+};
 
 Dropdown.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.shape({

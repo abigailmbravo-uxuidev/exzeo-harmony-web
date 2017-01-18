@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PropTypes } from 'react';
+import { Field, reduxForm } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
+import { combineRules } from '../../Rules';
 
 const BoolInput = ({
   description,
@@ -11,7 +13,10 @@ const BoolInput = ({
   question,
   styleName = '',
   value,
+  validations,
 }) => {
+  const ruleArray = combineRules(validations);
+
   const onChange = () => {
     if (disabled) return;
     const newEvent = {
@@ -34,12 +39,13 @@ const BoolInput = ({
             <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
           </span>
         }
-        <input
-          type="checkbox"
+        <Field
+          component="input" type="checkbox"
           name={name || null}
           checked={value || false}
           onChange={onChange}
           disabled={disabled}
+          validate={ruleArray}
         />
         {isSwitch && <div className="switch-div" />}
       </label>
