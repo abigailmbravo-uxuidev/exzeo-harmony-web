@@ -16,23 +16,24 @@ const TextInput = ({
   const ruleArray = combineRules(validations);
 
   const renderField = ({ input, label, type, value, meta: { touched, error, warning } }) => (
-    <div>
+    <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''} ${touched && error ? 'error' : ''}`}>
+            <label htmlFor={name || null}>
+              {question || null}
+            &nbsp;
+              {description &&
+              <span>
+                <i className="fa fa-info-circle" data-tip data-for={name} />
+                <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
+              </span>
+            }
+            </label>
       <input {...input} type={type} />
       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
 );
   return (
-    <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
-      <label htmlFor={name || null}>
-        {question || null}
-      &nbsp;
-        {description &&
-        <span>
-          <i className="fa fa-info-circle" data-tip data-for={name} />
-          <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
-        </span>
-      }
-      </label>
+
+
       <Field
         label={name}
         component={renderField}
@@ -42,7 +43,7 @@ const TextInput = ({
         disabled={disabled}
         validate={ruleArray}
       />
-    </div>
+
   );
 };
 
@@ -54,7 +55,6 @@ TextInput.propTypes = {
   name: PropTypes.string,
   question: PropTypes.string,
   styleName: PropTypes.string,
-  validations: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
