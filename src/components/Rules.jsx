@@ -18,4 +18,5 @@ export function combineRules(validations) {
   return ruleArray;
 }
 
+
 export default rules;

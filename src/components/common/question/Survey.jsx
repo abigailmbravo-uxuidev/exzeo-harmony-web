@@ -7,7 +7,7 @@ import Footer from '../Footer';
 const Survey = ({ questions, styleName, answers, handleSubmit, handleChange,
    pristine, reset, submitting, error, invalid }) => (
      <Form
-       className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit}
+       className={`fade-in ${styleName || ''}`} id="survey" onSubmit={event => handleSubmit(event, invalid)}
        noValidate
      >
        <div className="form-group survey-wrapper" role="group">
@@ -34,7 +34,7 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange,
       }
        </div>
        <div className="workflow-steps">
-         <button className="btn btn-primary" type="submit" form="survey" disabled={invalid}>next</button>
+         <button className="btn btn-primary" type="submit" form="survey">next</button>
        </div>
        <Footer />
      </Form>
