@@ -1,10 +1,11 @@
 /* eslint react/no-direct-mutation-state:0 */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Survey from '../common/question/Survey';
 import ContentManager from './ContentManager';
+import { Field, reduxForm, Form } from 'redux-form';
 
 function mapQuestions(state) {
-  const {questions, answers} = state;
+  const { questions, answers } = state;
   // //////////////////////
   questions.forEach((question) => {
     let value = '';
@@ -18,17 +19,17 @@ function mapQuestions(state) {
     answers[question.name] = {
       value,
       hidden: false,
-      disabled: false
+      disabled: false,
     };
   });
   // //////////////////
-  return {questions, answers};
+  return { questions, answers };
 }
 
 class CMS extends Component {
   state = {
     questions: [],
-    answers: {}
+    answers: {},
   }
   handleChange = () => {}
   handleSubmit = () => {}
@@ -37,7 +38,7 @@ class CMS extends Component {
     if (this.state.questions.find(q => q.name === newName)) {
       console.error('question already exists');
     } else {
-      this.state.questions.push({name: newName, value: 'new'});
+      this.state.questions.push({ name: newName, value: 'new' });
       console.log(mapQuestions(this.state));
       this.setState(mapQuestions(this.state));
     }
@@ -55,10 +56,10 @@ class CMS extends Component {
   }
   addAnswer = (newAnswer, name) => {
     this.state.questions.find(q => q.name === name).answers = this.state.questions.find(q => q.name === name).answers || [];
-    this.state.questions.find(q => q.name === name).answers.push({answer: newAnswer});
+    this.state.questions.find(q => q.name === name).answers.push({ answer: newAnswer });
   }
   render() {
-    const {questions, answers} = this.state;
+    const { questions, answers } = this.state;
     return (
 
       <div className="cms" role="article">
@@ -67,20 +68,24 @@ class CMS extends Component {
             <aside>
               <div className="side-panel">
                 <div className="cms-header">
-                  <h4>Demo form</h4>  
+                  <h4>Demo form</h4>
                 </div>
-                <Survey handleChange={this.handleChange}
-                          handleSubmit={this.handleSubmit}
-                          questions={questions}
-                          answers={answers}/>
+                <Survey
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  questions={questions}
+                  answers={answers}
+                />
               </div>
             </aside>
             <section>
-              <ContentManager questions={questions}
-                      toggleEdit={this.toggleEdit}
-                      addAnswer={this.addAnswer}
-                      addQuestion={this.addQuestion}
-                      updateQuestions={this.updateQuestions}/>
+              <ContentManager
+                questions={questions}
+                toggleEdit={this.toggleEdit}
+                addAnswer={this.addAnswer}
+                addQuestion={this.addQuestion}
+                updateQuestions={this.updateQuestions}
+              />
             </section>
           </div>
         </div>
@@ -90,4 +95,6 @@ class CMS extends Component {
   }
 }
 
-export default CMS;
+export default reduxForm({
+  form: 'CMS',  // a unique identifier for this form
+})(CMS);

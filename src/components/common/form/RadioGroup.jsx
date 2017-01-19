@@ -51,7 +51,7 @@ const RadioGroup = ({
                 component="input"
                 value={answer.answer}
                 key={index}
-                name={name}
+                name={name || ''}
                 onChange={handleChange}
                 validate={ruleArray}
               />
