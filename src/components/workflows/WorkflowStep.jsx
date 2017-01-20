@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { SubmissionError } from 'redux-form';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
 import WorkflowDetails from './WorkflowDetails';
@@ -41,7 +40,7 @@ class WorkflowStep extends Component {
         questions[q].value = newProps.location.query[q];
       });
       this.setState({ questions });
-      this.handleSubmit();
+      this.handleOnSubmit();
     }
     console.log('newProps', newProps.data);
 
@@ -173,14 +172,10 @@ class WorkflowStep extends Component {
     });
     this.setState({ questions });
   }
-  handleSubmit = (event, invalid) => {
+  handleOnSubmit = (event, invalid) => {
     console.log('Event', event); //
     console.log('invalid', invalid); //
     if (event && event.preventDefault) event.preventDefault();
-
-    if (invalid) {
-      return;
-    }
 
     console.log('COMPLETE TASK'); // eslint-disable-line
     this.props.completeStep({
@@ -290,7 +285,7 @@ class WorkflowStep extends Component {
                   ) : (
                     <Survey
                       handleChange={this.handleChange}
-                      handleSubmit={this.handleSubmit}
+                      handleOnSubmit={this.handleOnSubmit}
                       questions={steps && steps.questions && steps.questions.length > 0
                         ? steps.questions
                         : null} answers={this.state.questions} styleName={steps && steps.name

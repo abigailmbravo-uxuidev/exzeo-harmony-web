@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import { Field, reduxForm, Form } from 'redux-form';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';
 
-const Survey = ({ questions, styleName, answers, handleSubmit, handleChange,
+const Survey = ({ questions, styleName, answers, handleSubmit, handleOnSubmit, handleChange,
    pristine, reset, submitting, error, invalid }) => (
      <Form
-       className={`fade-in ${styleName || ''}`} id="survey" onSubmit={event => handleSubmit(event, invalid)}
+       className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit(handleOnSubmit)}
        noValidate
      >
        <div className="form-group survey-wrapper" role="group">
@@ -41,6 +42,7 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleChange,
   );
 
 Survey.propTypes = {
+  handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
   questions: PropTypes.arrayOf(PropTypes.shape({
@@ -60,5 +62,5 @@ Survey.propTypes = {
 };
 
 export default reduxForm({
-  form: 'survey',  // a unique identifier for this form
+  form: 'survey', // a unique identifier for this form
 })(Survey);

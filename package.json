@@ -35,6 +35,7 @@
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "ldclient-js": "^1.1.4",
+    "lodash": "^4.17.4",
     "react": "^15.3.2",
     "react-apollo": "^0.5.16",
     "react-dom": "^15.3.2",
