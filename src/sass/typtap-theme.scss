@@ -75,17 +75,6 @@ html body {
               }
             }
           }
-
-          &.selected {
-            .label-segmented {
-              span {
-                color: $green-darken-01;
-                border-color: $green;
-                background: $white;
-                box-shadow: 0 0 0 2px $green inset;
-              }
-            }
-          }
         }
       }
 
@@ -586,17 +575,19 @@ html body {
 }
 /*specific typtap styles*/
 html {
+    background: $cool-gray-10;
   body {
     //site background
+    background: $cool-gray-10;
     div#root {
       background: $cool-gray-00;
-
-      > div {
-        background: $cool-gray-00;
+      .app-wrapper {
+        //background: $cool-gray-00;
+        background: $cool-gray-10;
         //header
         header {
-          border-bottom: 2px solid $green;
-          background: #222;
+          border-bottom: 2px solid $bright-blue;
+          background: $black;
 
           div[role="banner"] {
             > .logo {}
@@ -614,7 +605,7 @@ html {
         }
         //search
         .search {
-          background: $cool-gray-00;
+          background: $cool-gray-01;
 
           > div {
             > div {
@@ -654,215 +645,269 @@ html {
         }
         //main
         main[role="document"] {
-          > div[role="article"] {
-            background: $white;
-            @include for-1024-up {
-              //border-right: $card-border-width solid $cool-gray-01;
-              //border-left: $card-border-width solid $cool-gray-01;
+            .content-panel-left {
+                background-image: url("../img/TypTap-graphic.svg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position-x: center;
+                background-position-y: -8rem;
+                background-color: $cool-gray-12;
+                align-self: stretch;
+                background-blend-mode: soft-light;
+
             }
+            .content-wrapper {
+              > div[role="article"] {
+                background: $white;
+                @include for-1024-up {
+                  //border-right: $card-border-width solid $cool-gray-01;
+                  //border-left: $card-border-width solid $cool-gray-01;
+                }
 
-            &.login {
-              border-top: $card-border-width solid $cool-gray-01;
-            }
+                &.login {
+                  border-top: $card-border-width solid $cool-gray-01;
+                }
 
-            &.splash {
-              border-top: $card-border-width solid $cool-gray-01;
-            }
+                &.splash {
+                  border-top: $card-border-width solid $cool-gray-01;
+                }
 
-            &.survey {
-              border-top: $card-border-width solid $cool-gray-01;
-            }
+                &.survey {
+                  border-top: $card-border-width solid $cool-gray-01;
+                }
 
-            &.admin {
-              border-top: $card-border-width solid $card-border-color;
+                &.admin {
+                  border-top: $card-border-width solid $card-border-color;
 
-              .fade-in {
-                .content {
-                  section {
+                  .fade-in {
                     .content {
-                      ul.list {
-                        &.list-cards {
-                          li {
-                            ul.list {
-                              border-right-color: $cool-gray-00;
+                      section {
+                        .content {
+                          ul.list {
+                            &.list-cards {
+                              li {
+                                ul.list {
+                                  border-right-color: $cool-gray-00;
+                                }
+                              }
+                            }
+                          }
+
+                          .modal {
+                            background: rgba($white, .5);
+                            background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
+
+                            .card {
+                              box-shadow: $card-box-shadow-alt;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+                &.workflow {
+                  background: $cool-gray-00;
+
+                  .fade-in {
+                    background: $white;
+
+                    .workflow-header {
+                      background-color: $cool-gray-01;
+
+                      .rule {
+                        background: $cool-gray-03;
+                      }
+
+                      li {
+                        a {
+                          color: $cool-gray-03;
+
+                          i.fa {
+                            background: $cool-gray-01;
+                          }
+
+                          &.active {
+                            color: $bright-blue;
+
+                            &:focus,
+                            &:hover {
+                              color: $bright-blue-lighten-01;
+                            }
+                          }
+
+                          &.disabled {
+                            color: $cool-gray-03;
+                          }
+
+                          &.selected {
+                            color: $cool-gray-14;
+
+                            i.fa {
+                              color: $green;
+                            }
+                          }
+
+                          &.completed {
+                            color: $bright-blue-lighten-03;
+
+                            i.fa {
+                              color: $bright-blue-lighten-03;
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                    .workflow-content {
+                      aside {
+                        @include for-phone-only {
+                          border-bottom: 1px dotted $cool-gray-00;
+                          background: lighten($cool-gray-00, 3%);
+                        }
+
+                        .side-panel {
+                          section {
+                            &.AnnualPremium,
+                            &.premium {
+                              background-color: $yellow-lighten-04;
+                              order: 0;
+                            }
+
+                            &.QuoteNumber {
+                              order: 1;
+                            }
+
+                            &.Address {
+                              order: 2;
+                            }
+
+                            &.CoverageA,
+                            &.CoverageB,
+                            &.CoverageC,
+                            &.YearBuilt {
+                              order: 3;
+                              @include for-phone-only {
+                                display: none;
+                              }
                             }
                           }
                         }
                       }
 
-                      .modal {
-                        background: rgba($white, .5);
-                        background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
-
-                        .card {
-                          box-shadow: $card-box-shadow-alt;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            &.workflow {
-              background: $cool-gray-00;
-
-              .fade-in {
-                background: $white;
-
-                .workflow-header {
-                  background-color: $cool-gray-01;
-
-                  .rule {
-                    background: $cool-gray-03;
-                  }
-
-                  li {
-                    a {
-                      color: $cool-gray-03;
-
-                      i.fa {
-                        background: $cool-gray-01;
-                      }
-
-                      &.active {
-                        color: $bright-blue;
-
-                        &:focus,
-                        &:hover {
-                          color: $bright-blue-lighten-01;
-                        }
-                      }
-
-                      &.disabled {
-                        color: $cool-gray-03;
-                      }
-
-                      &.selected {
-                        color: $cool-gray-14;
-
-                        i.fa {
-                          color: $green;
-                        }
-                      }
-
-                      &.completed {
-                        color: $bright-blue-lighten-03;
-
-                        i.fa {
-                          color: $bright-blue-lighten-03;
-                        }
-                      }
-                    }
-                  }
-                }
-
-                .workflow-content {
-                  aside {
-                    @include for-phone-only {
-                      border-bottom: 1px dotted $cool-gray-00;
-                      background: lighten($cool-gray-00, 3%);
-                    }
-
-                    .side-panel {
                       section {
-                        &.AnnualPremium,
-                        &.premium {
-                          background-color: $yellow-lighten-04;
-                          order: 0;
-                        }
+                        div.fade-in,
+                        form {
+                          .survey-wrapper {
+                            h1,
+                            h2,
+                            h3,
+                            h4,
+                            h5,
+                            h6 {
+                              margin-top: 0;
 
-                        &.QuoteNumber {
-                          order: 1;
-                        }
+                              &.step-title {
+                                color: $cool-gray-08;
+                              }
 
-                        &.Address {
-                          order: 2;
-                        }
+                              &.step-sub-title {
+                                color: $green;
+                              }
+                            }
 
-                        &.CoverageA,
-                        &.CoverageB,
-                        &.CoverageC,
-                        &.YearBuilt {
-                          order: 3;
-                          @include for-phone-only {
-                            display: none;
-                          }
-                        }
-                      }
-                    }
-                  }
+                            .form-group {
+                              border-bottom-color: $cool-gray-01;
+                            }
+                            //result cards
+                            ul.results {
+                              &.result-cards {
+                                li {
+                                  a {
+                                    background: $white;
 
-                  section {
-                    div.fade-in,
-                    form {
-                      .survey-wrapper {
-                        h1,
-                        h2,
-                        h3,
-                        h4,
-                        h5,
-                        h6 {
-                          margin-top: 0;
+                                    section {
+                                      h2,
+                                      h3,
+                                      h4,
+                                      h5 {
+                                        color: $cool-gray-14;
+                                      }
 
-                          &.step-title {
-                            color: $cool-gray-08;
-                          }
+                                      p {
+                                        color: $cool-gray-12;
+                                      }
+                                    }
 
-                          &.step-sub-title {
-                            color: $green;
-                          }
-                        }
+                                    i {
+                                      &.card-icon {
+                                        color: $green;
+                                      }
 
-                        .form-group {
-                          border-bottom-color: $cool-gray-01;
-                        }
-                        //result cards
-                        ul.results {
-                          &.result-cards {
-                            li {
-                              a {
-                                background: $white;
+                                      &.fa-angle-right {
+                                        color: $bright-blue;
+                                      }
+                                    }
 
-                                section {
-                                  h2,
-                                  h3,
-                                  h4,
-                                  h5 {
-                                    color: $cool-gray-14;
-                                  }
+                                    &:focus,
+                                    &:hover {
+                                      h2,
+                                      h3,
+                                      h4,
+                                      h5,
+                                      p {
+                                        color: $bright-blue;
+                                      }
 
-                                  p {
-                                    color: $cool-gray-12;
-                                  }
-                                }
-
-                                i {
-                                  &.card-icon {
-                                    color: $green;
-                                  }
-
-                                  &.fa-angle-right {
-                                    color: $bright-blue;
-                                  }
-                                }
-
-                                &:focus,
-                                &:hover {
-                                  h2,
-                                  h3,
-                                  h4,
-                                  h5,
-                                  p {
-                                    color: $bright-blue;
-                                  }
-
-                                  i {
-                                    &.fa-chevron-circle-right {
-                                      color: $bright-blue-lighten-01;
+                                      i {
+                                        &.fa-chevron-circle-right {
+                                          color: $bright-blue-lighten-01;
+                                        }
+                                      }
                                     }
                                   }
                                 }
+                              }
+                            }
+                            //form layout
+                            @include for-tablet-landscape-up {
+                              .FirstName,
+                              .PH1FirstName {
+                                width: 50%;
+                                padding-right: $padding*2;
+                              }
+
+                              .LastName,
+                              .PH1LastName {
+                                width: 50%;
+                              }
+
+                              .agentID {
+                                width: auto;
+                                flex-grow: 1;
+                              }
+
+                              .phoneNumber {
+                                width: auto;
+                                padding-right: $padding*2;
+                              }
+
+                              .effectiveDate {
+                                width: auto;
+                                padding-right: $padding*2;
+                                flex-grow: 1;
+                              }
+                            }
+                            @include for-tablet-portrait-up {
+                              .phoneNumber {
+                                width: auto;
+                                padding-right: $padding*2;
+                              }
+
+                              .effectiveDate {
+                                width: auto;
+                                flex-grow: 1;
                               }
                             }
                           }
@@ -871,31 +916,31 @@ html {
                     }
                   }
                 }
+
+                .modal {
+                  z-index: 10;
+                  background: rgba($black, .75);
+                  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
+                  background-position: center center;
+                  background-size: cover;
+                }
+
+                .card {
+                  .card-header {
+                    background-color: $cool-gray-00;
+
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5,
+                    h6 {}
+                  }
+                }
               }
-            }
-
-            .modal {
-              z-index: 10;
-              background: rgba($black, .75);
-              background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
-              background-position: center center;
-              background-size: cover;
-            }
-
-            .card {
-              .card-header {
-                background-color: $cool-gray-00;
-
-                h1,
-                h2,
-                h3,
-                h4,
-                h5,
-                h6 {}
-              }
-            }
           }
         }
+
         //footer
         footer {
           background: $cool-gray-00;
@@ -907,52 +952,6 @@ html {
               //border-right: $card-border-width solid $cool-gray-01;
               //border-bottom: $card-border-width solid $cool-gray-01;
               //border-left: $card-border-width solid $cool-gray-01;
-            }
-          }
-        }
-        //form layout
-        main[role="document"] > div[role="article"].workflow .fade-in .workflow-content section {
-          form {
-            .survey-wrapper {
-              @include for-tablet-landscape-up {
-                .FirstName,
-                .PH1FirstName {
-                  width: 50%;
-                  padding-right: $padding*2;
-                }
-
-                .LastName,
-                .PH1LastName {
-                  width: 50%;
-                }
-
-                .agentID {
-                  width: auto;
-                  flex-grow: 1;
-                }
-
-                .phoneNumber {
-                  width: auto;
-                  padding-right: $padding*2;
-                }
-
-                .effectiveDate {
-                  width: auto;
-                  padding-right: $padding*2;
-                  flex-grow: 1;
-                }
-              }
-              @include for-tablet-portrait-up {
-                .phoneNumber {
-                  width: auto;
-                  padding-right: $padding*2;
-                }
-
-                .effectiveDate {
-                  width: auto;
-                  flex-grow: 1;
-                }
-              }
             }
           }
         }

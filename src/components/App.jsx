@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { Match } from 'react-router';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React, {Component, PropTypes} from 'react';
+import {Match} from 'react-router';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import * as featureActions from '../actions/featureActions';
 import Splash from './auth/Splash';
 import Login from './auth/Login';
@@ -20,21 +20,16 @@ import './Rules';
 export class App extends Component {
 
   static propTypes = {
-    actions: PropTypes.shape({
-      initializeLD: PropTypes.func,
-      setupFeature: PropTypes.func,
-    }),
-    features: PropTypes.shape({
-      get: PropTypes.func,
-    }),
-    loggedIn: PropTypes.bool,
+    actions: PropTypes.shape({initializeLD: PropTypes.func, setupFeature: PropTypes.func}),
+    features: PropTypes.shape({get: PropTypes.func}),
+    loggedIn: PropTypes.bool
   }
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   }
   state = {
     direction: '',
-    lastScrollPos: 0,
+    lastScrollPos: 0
   }
   componentWillMount = () => {
     this.props.actions.initializeLD();
@@ -46,22 +41,14 @@ export class App extends Component {
       this.props.actions.setupFeature('search');
     }
   }
-  shouldComponentUpdate = (nextProps, nextState) => (
-    !(this.state.direction === nextState.direction)
-  )
+  shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
       // console.log('top');
-      this.setState({
-        direction: 'top',
-        lastScrollPos: event.target.scrollTop,
-      });
+      this.setState({direction: 'top', lastScrollPos: event.target.scrollTop});
     } else if (this.state.lastScrollPos < event.target.scrollTop) {
       // console.log('woah');
-      this.setState({
-        direction: 'bottom',
-        lastScrollPos: event.target.scrollTop,
-      });
+      this.setState({direction: 'bottom', lastScrollPos: event.target.scrollTop});
     }
   }
   render() {
@@ -69,18 +56,39 @@ export class App extends Component {
     const cssName = this.state.direction === 'bottom' ? 'scroll-up' : '';
     return (
       <div className="app-wrapper">
-        <Header />
+        <Header/>
+
         <main role="document" onScroll={this.handleScroll} className={cssName}>
-          <Match pattern="/" component={Search} />
-          <Match exactly pattern="/" component={homeScreen} />
-          <Match pattern="/login" component={Login} />
-          <Match pattern="/quote/:location/:address" component={Quote} />
-          <Match pattern="/test" component={TestPage} />
-          <Match pattern="/workflow" component={NewWorkflow} />
-          <Match pattern="/admin/" component={Admin} />
-          <Match pattern="/cms" component={Cms} />
-          <Match pattern="/error" component={ErrorPage} />
+          <aside className="content-panel-left">
+            <div className="user">
+              <i className="fa fa-user-circle-o user-icon"></i>
+              <h4 className="user-name">
+                <span>ABC Agency</span>
+                <i className="fa fa-gear"></i>
+              </h4>
+            </div>
+            <nav className="site-nav">
+              <ul>
+                <li className="active">
+                  <a href="">
+                    <i className="fa fa-quote-right"></i>New Quote</a>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+          <div className="content-wrapper">
+            <Match pattern="/" component={Search}/>
+            <Match exactly pattern="/" component={homeScreen}/>
+            <Match pattern="/login" component={Login}/>
+            <Match pattern="/quote/:location/:address" component={Quote}/>
+            <Match pattern="/test" component={TestPage}/>
+            <Match pattern="/workflow" component={NewWorkflow}/>
+            <Match pattern="/admin/" component={Admin}/>
+            <Match pattern="/cms" component={Cms}/>
+            <Match pattern="/error" component={ErrorPage}/>
+          </div>
         </main>
+
       </div>
     );
   }
@@ -88,11 +96,11 @@ export class App extends Component {
 
 const mapStateToProps = state => ({
   features: state.features,
-  loggedIn: typeof state.auth.get('token') !== 'undefined',
+  loggedIn: typeof state.auth.get('token') !== 'undefined'
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(featureActions, dispatch),
+  actions: bindActionCreators(featureActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

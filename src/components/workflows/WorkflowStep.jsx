@@ -303,8 +303,7 @@ class WorkflowStep extends Component {
 
             </section>
           </div>
-        )
-        : (
+        ) : (
           <div className="workflow-content">
             <section>
               <div className="fade-in">

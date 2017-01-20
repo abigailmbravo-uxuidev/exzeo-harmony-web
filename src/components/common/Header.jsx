@@ -7,12 +7,11 @@ const Header = () => (
       <div id="logo" className="logo">
         <img src={logo} alt="TypTap Insurance" />
       </div>
-      <h1>Project {window.appConfig.appTitle}</h1>
+
       <nav>
         <a href="https://www.typtap.com"><i className="fa fa-globe" /> Typtap.com</a>
         <a className="link-phone" href="tel:+844-289-7968"><i className="fa fa-phone" /> (844) 289-7968</a>
       </nav>
-      <a className="userName" href=""><i className="fa fa-user-circle-o" /> Jane Doe</a>
     </div>
   </header>
 );

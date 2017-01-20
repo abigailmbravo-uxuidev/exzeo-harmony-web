@@ -41,7 +41,7 @@ const RadioGroup = ({
       <div className="segmented-answer-wrapper">
         {answers && answers.length > 0 ? answers.map((answer, index) =>
           <div
-            className={`radio-column-${answers.length}${value === answer.answer ? ' selected' : ''}`}
+            className={`radio-column-${answers.length}`}
             onClick={() => onClick(answer.answer)} key={index}
           >
             {answer.image && <img src={answer.image} role="presentation" />}
