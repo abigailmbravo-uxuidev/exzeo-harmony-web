@@ -4,17 +4,54 @@ import { Field } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
 import { combineRules } from '../../Rules';
 
+const RenderField = ({ input, segmented, answers, value, click, label, name,
+  description, question, styleName, disabled,
+   meta: { touched, error, warning } }) => {
+  console.log('input', input);
+  const classnames = `form-group ${segmented ? 'segmented' : ''} ${label} ${styleName} ${disabled ? 'disabled' : ''}`;
+  return (
+    <div className={classnames} role="group">
+      <label className={`group-label ${segmented ? 'label-segmented' : ''}`}>
+        {question || null}
+           &nbsp;
+        {description && <i className="fa fa-info-circle" data-tip data-for={label} />}
+        {description && <ReactTooltip place="right" id={label} type="dark" effect="float">{description}</ReactTooltip>}
+
+      </label>
+      <div className={`segmented-answer-wrapper ${touched && error ? 'error' : ''}`}>
+        {answers && answers.length > 0 ? answers.map((answer, index) =>
+          <div
+            className={`radio-column-${answers.length}${value === answer.answer ? ' selected' : ''}`}
+            onClick={() => click(answer.answer)} key={index}
+          >
+            {answer.image && <img src={answer.image} role="presentation" />}
+            <label className={segmented ? 'label-segmented' : ''} key={index}>
+              <input
+                onChange={input.onChange || ''}
+                name={input.name || ''}
+                type="radio"
+                value={answer.answer}
+              />
+              <span>{answer.answer || null}</span>
+            </label>
+          </div>,
+             ) : null}
+      </div>
+    </div>
+  );
+};
+
 const RadioGroup = ({
   answers,
   description,
   disabled = false,
   handleChange,
-  name,
   segmented = false,
   styleName = '',
   question,
   value,
   validations,
+  name,
 }) => {
   const ruleArray = combineRules(validations);
 
@@ -28,39 +65,23 @@ const RadioGroup = ({
     };
     handleChange(newEvent);
   };
-  const classnames = `form-group ${segmented ? 'segmented' : ''} ${name} ${styleName} ${disabled ? 'disabled' : ''}`;
-  return (
-    <div className={classnames} role="group">
-      <label className={`group-label ${segmented ? 'label-segmented' : ''}`}>
-        {question || null}
-        &nbsp;
-        {description && <i className="fa fa-info-circle" data-tip data-for={name} />}
-        {description && <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>}
 
-      </label>
-      <div className="segmented-answer-wrapper">
-        {answers && answers.length > 0 ? answers.map((answer, index) =>
-          <div
-            className={`radio-column-${answers.length}${value === answer.answer ? ' selected' : ''}`}
-            onClick={() => onClick(answer.answer)} key={index}
-          >
-            {answer.image && <img src={answer.image} role="presentation" />}
-            <label className={segmented ? 'label-segmented' : ''} key={index}>
-              <Field
-                type="radio"
-                component="input"
-                value={answer.answer}
-                key={index}
-                name={name || ''}
-                onChange={handleChange}
-                validate={ruleArray}
-              />
-              <span>{answer.answer || null}</span>
-            </label>
-          </div>,
-          ) : null}
-      </div>
-    </div>
+  return (
+    <Field
+      type="radio"
+      name={name || ''}
+      label={name}
+      click={onClick}
+      component={RenderField}
+      question={question}
+      description={description}
+      answers={answers}
+      segmented={segmented}
+      value={value}
+      styleName={styleName}
+      onChange={handleChange || null}
+      validate={ruleArray}
+    />
   );
 };
 

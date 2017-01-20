@@ -35,7 +35,7 @@ const Survey = ({ questions, styleName, answers, handleSubmit, handleOnSubmit, h
       }
        </div>
        <div className="workflow-steps">
-         <button className="btn btn-primary" type="submit" form="survey">next</button>
+         <button className="btn btn-primary" type="submit" form="survey" disabled={submitting}>next</button>
        </div>
        <Footer />
      </Form>
