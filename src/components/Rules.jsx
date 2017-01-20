@@ -1,5 +1,6 @@
 import validator from 'validator';
 
+
 const rules = {
   required: value => value ? undefined : 'Field Required',
   email: value => validator.isEmail(value) ? undefined : 'Not a valid email address',
@@ -17,6 +18,5 @@ export function combineRules(validations) {
   }
   return ruleArray;
 }
-
 
 export default rules;

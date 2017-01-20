@@ -18,7 +18,7 @@ const RenderField = ({ input, label, type,
           }
        </label>
        <input {...input} type={type} />
-       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+       {touched && ((error && <span style={{ color: 'red' }}>{error}</span>) || (warning && <span>{warning}</span>))}
      </div>
 );
 
