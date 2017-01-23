@@ -109,35 +109,38 @@ html body {
         }
       }
 
-      &.error {
-        .segmented-answer-wrapper {
-          div {
-            img {
-              -webkit-filter: grayscale(100%);
-              filter: grayscale(100%);
-              -webkit-filter: opacity(.5);
-              filter: opacity(.5);
-            }
+    .segmented-answer-wrapper {
+          &.error {
+              div {
+                img {
+                  -webkit-filter: grayscale(100%);
+                  filter: grayscale(100%);
+                  -webkit-filter: opacity(.5);
+                  filter: opacity(.5);
+                }
 
-            .label-segmented {
-              span {
-                @include button-variant($red, $white, $red);
-              }
+                .label-segmented {
+                  span {
+                      color: $body-color;
+                      border-color: $red-lighten-01;
+                      background-color: lighten($red-lighten-04, 20%);
+                  }
 
-              input[type=radio] {
-                &:checked {
-                  + span {
-                    color: $red;
-                    border-color: $red;
-                    background: lighten($red-lighten-04, 20%);
-                    box-shadow: 0 0 0 2px $red inset;
+                  input[type=radio] {
+                    &:checked {
+                      + span {
+                        color: $red;
+                        border-color: $red;
+                        background: lighten($red-lighten-04, 20%);
+                        box-shadow: 0 0 0 2px $red inset;
+                      }
+                    }
                   }
                 }
               }
-            }
+
           }
         }
-      }
     }
 
     &.switch {
