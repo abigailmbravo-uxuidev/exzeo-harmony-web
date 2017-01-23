@@ -44,7 +44,7 @@ class Workflow extends Component {
                 <dd>1234567890</dd>
               </div>
             </dl>
-            <dl>
+            <dl className="annualPremium">
               <div>
                 <dt>Annual Premium</dt>
                 <dd>$ --</dd>

@@ -66,32 +66,6 @@ const RadioGroup = ({
     handleChange(newEvent);
   };
 
-<<<<<<< HEAD
-      </label>
-      <div className="segmented-answer-wrapper">
-        {answers && answers.length > 0 ? answers.map((answer, index) =>
-          <div
-            className={`radio-column-${answers.length}`}
-            onClick={() => onClick(answer.answer)} key={index}
-          >
-            {answer.image && <img src={answer.image} role="presentation" />}
-            <label className={segmented ? 'label-segmented' : ''} key={index}>
-              <Field
-                type="radio"
-                component="input"
-                value={answer.answer}
-                key={index}
-                name={name || ''}
-                onChange={handleChange}
-                validate={ruleArray}
-              />
-              <span>{answer.answer || null}</span>
-            </label>
-          </div>,
-          ) : null}
-      </div>
-    </div>
-=======
   return (
     <Field
       type="radio"
@@ -108,7 +82,6 @@ const RadioGroup = ({
       onChange={handleChange || null}
       validate={ruleArray}
     />
->>>>>>> 275d4b4667473b2f066cbdc0afd87136a462a1f5
   );
 };
 
