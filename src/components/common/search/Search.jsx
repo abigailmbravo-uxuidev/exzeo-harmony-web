@@ -47,6 +47,10 @@ class Search extends Component {
     // window.location = '/quote/address/' + event.target.innerText;
   }
 
+  clearSearch = () => {
+    this.setState({ searchText: '' });
+  }
+
   componentWillMount() {
     const address = decodeURIComponent(window.location.pathname.split('/')[3]);
     this.setState({ searchText: (address !== 'undefined' ? address : '') });
@@ -70,7 +74,11 @@ class Search extends Component {
           searchText={this.state.searchText}
           focus={this.props.searchConfig ? this.props.searchConfig.focus : false}
         />
-        <TypeAhead searchText={searchText} handleSelect={this.handleSelect} />
+        <TypeAhead
+          searchText={searchText}
+          handleSelect={this.handleSelect}
+          clearSearch={this.clearSearch}
+        />
       </div>
     );
   }

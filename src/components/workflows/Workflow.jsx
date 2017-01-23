@@ -16,7 +16,9 @@ class Workflow extends Component {
     completedSteps: [],
   }
   componentWillMount = () => {
-    this.context.router.transitionTo('/workflow');
+    if (!(this.props.location && this.props.location.query && this.props.location.query.address)) {
+      this.context.router.transitionTo('/workflow');
+    }
     this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
       .then(({ data }) => {
         this.setState({ workflow: data.startWorkflow });

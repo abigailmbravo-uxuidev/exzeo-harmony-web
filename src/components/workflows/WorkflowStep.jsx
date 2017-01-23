@@ -34,15 +34,25 @@ class WorkflowStep extends Component {
     details: [],
   }
   componentWillReceiveProps(newProps) {
-    if (newProps && newProps.data && newProps.data.steps && newProps.data.steps.type === 'Search' && newProps.location.query && newProps.location.query[newProps.data.steps.questions[0].name]) {
+    if (newProps && newProps.data && newProps.data.steps && newProps.data.steps.type === 'Search' &&
+      newProps.location.query && newProps.location.query[newProps.data.steps.questions[0].name]) {
       const questions = this.state.questions;
-      Object.keys(questions).forEach((q) => {
-        questions[q].value = newProps.location.query[q];
-      });
-      this.setState({ questions });
-      this.handleOnSubmit();
+      if (newProps.data.steps.questions) {
+        try {
+          newProps.data.steps.questions.forEach((q) => {
+            questions[q.name] = {
+              value: newProps.location.query[q.name],
+            };
+          });
+          this.setState({ questions });
+          this.manualSubmit(newProps, questions);
+          return;
+        } catch (e) {
+          console.log(e); // eslint-disable-line
+        }
+      }
     }
-    console.log('newProps', newProps.data);
+    console.log('newProps', newProps.data); // eslint-disable-line
 
     if ((!this.props.data.steps && newProps.data.steps) ||
       (!newProps.data.loading &&
@@ -172,6 +182,34 @@ class WorkflowStep extends Component {
     });
     this.setState({ questions });
   }
+  manualSubmit = (newProps, questions) => {
+    const answers = [];
+    console.log(questions);
+    Object.keys(questions).forEach((key) => {
+      answers.push({ key, value: questions[key].value });
+    });
+    console.log(answers);
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: newProps.workflowId,
+          stepName: newProps.data.steps.name,
+          data: answers,
+        },
+      },
+    }).then((updatedModel) => {
+      if (updatedModel.data.completeStep && updatedModel.data.completeStep.details) {
+        this.setState({ details: updatedModel.data.completeStep.details });
+      }
+      this.props.data.refetch().then(({ data }) => {
+        this.context.router.transitionTo(`/workflow/${data.steps.name}`);
+        this.props.updateCompletedSteps(data.steps.completedSteps);
+      });
+    }).catch((error) => {
+      this.context.router.transitionTo('/error');
+      console.log('errors from graphql', error); // eslint-disable-line
+    });
+  }
   handleOnSubmit = (event, invalid) => {
     console.log('Event', event); //
     console.log('invalid', invalid); //
@@ -278,24 +316,17 @@ class WorkflowStep extends Component {
                     </div>
                     <Footer />
                   </div>
-                )
-                : (
-                (steps && steps.name === 'customizeDefaultQuote') ? (
-                  <div />
-                  ) : (
-                    <Survey
-                      handleChange={this.handleChange}
-                      handleOnSubmit={this.handleOnSubmit}
-                      questions={steps && steps.questions && steps.questions.length > 0
-                        ? steps.questions
-                        : null} answers={this.state.questions} styleName={steps && steps.name
-                        ? steps.namev
-                        : ''}
-                    />
-                  )
-                )
-}
-
+                ) :
+                  <Survey
+                    handleChange={this.handleChange}
+                    handleOnSubmit={this.handleOnSubmit}
+                    questions={steps && steps.questions && steps.questions.length > 0
+                      ? steps.questions
+                      : null} answers={this.state.questions} styleName={steps && steps.name
+                      ? steps.namev
+                      : ''}
+                  />
+              }
             </section>
           </div>
         ) : (

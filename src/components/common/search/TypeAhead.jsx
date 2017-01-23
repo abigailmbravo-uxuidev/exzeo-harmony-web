@@ -24,12 +24,12 @@ const query = gql`
   }
 `;
 
-const TypeAhead = ({ data, handleSelect }) => {
+const TypeAhead = ({ data, handleSelect, clearSearch }) => {
   return (
     <div>
       {
         data && data.search ? data.search.map((suggestion, index) => (
-            <Suggestion key={index} data={suggestion} handleSelect={handleSelect} />
+            <Suggestion key={index} data={suggestion} handleSelect={handleSelect} clearSearch={clearSearch} />
         )) : null
       }
     </div>
