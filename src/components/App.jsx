@@ -61,17 +61,19 @@ export class App extends Component {
         <main role="document" onScroll={this.handleScroll} className={cssName}>
           <aside className="content-panel-left">
             <div className="user">
-              <i className="fa fa-user-circle-o user-icon"></i>
-              <h4 className="user-name">
+              <span className="user-icon">
+                <i className="fa fa-user-circle-o"></i>
+              </span>
+              <h5 className="user-name">
                 <span>ABC Insurance Agency</span>
                 <i className="fa fa-gear"></i>
-              </h4>
+              </h5>
             </div>
             <nav className="site-nav">
               <ul>
                 <li className="active">
                   <a href="">
-                    <i className="fa fa-quote-right"></i>New Quote</a>
+                    <i className="fa fa-quote-right"></i><span>New Quote</span></a>
                 </li>
               </ul>
             </nav>

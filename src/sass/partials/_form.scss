@@ -321,6 +321,17 @@ html body {
             border-radius: 0 $border-radius $border-radius 0;
           }
         }
+
+        &.error {
+            div {
+                .label-segmented {
+                    span {
+                      color: $red-lighten-01;
+                      border-color: $red-lighten-01;
+                    }
+                }        
+            }
+        }
       }
 
       &.disabled,
@@ -385,29 +396,6 @@ html body {
               cursor: not-allowed;
               color: $warm-gray-03;
               background: $warm-gray-01;
-            }
-          }
-        }
-      }
-
-      &.error {
-        label {
-          color: $red-lighten-01;
-
-          &.label-segmented {
-            span {
-              color: $red-lighten-01;
-              border-color: $red-lighten-01;
-            }
-          }
-        }
-
-        input[type=radio] {
-          &:checked {
-            + span {
-              color: $white;
-              border-color: $red-lighten-01;
-              background-color: $red-lighten-01;
             }
           }
         }
