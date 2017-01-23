@@ -211,30 +211,27 @@ html {
             width: auto;
             flex-shrink: 0;
             flex-grow: 0;
-            padding: $padding*2;
+
             background: $warm-gray-12;
             color: $white;
 
             .user {
-                flex-basis: 8rem;
-                width: 12rem;
+                padding: ($padding*2) ($padding*2) 0;
 
                 .user-icon {
-
-                    &.fa {
-                        font-size: 4rem;
-                    }
+                    background-color: $bright-blue;
+                    border-radius: 50%;
+                    overflow: hidden;
                 }
                 .user-name {
                     display: flex;
-                    margin: $padding 0;
+                    margin: $padding 0 0;
                     color: $white;
                     align-items: center;
 
                     span {
                         flex-grow: 0;
                         flex-shrink: 0;
-                        flex-basis: 11rem;
                         padding-right: $padding;
                     }
                     i {
@@ -245,15 +242,66 @@ html {
                         font-size: 1rem;
                     }
                 }
+                @include for-phone-only {
+                    .user-icon {
+                        display: flex;
+                        flex-basis: 2.5rem;
+                        width: 2.5rem;
+
+                        .fa {
+                            font-size: 2.5rem;
+                        }
+                    }
+                    .user-name {
+                        display: none;
+                    }
+                }
+                @include for-tablet-portrait-up {
+                    .user-icon {
+                        display: flex;
+                        flex-basis: 3rem;
+                        width: 3rem;
+
+                        .fa {
+                            font-size: 3rem;
+                        }
+                    }
+                    .user-name {
+                        display: none;
+                    }
+                }
+                @include for-tablet-landscape-up {
+                    width: 12rem;
+
+                    .user-icon {
+                        display: flex;
+                        flex-basis: 4rem;
+                        width: 4rem;
+
+                        .fa {
+                            font-size: 4rem;
+                        }
+                    }
+
+                    .user-name {
+                        display: flex;
+
+                        span {
+                            flex-basis: 9rem;
+                            width: 9rem;
+                        }
+                    }
+                }
             }
             .site-nav {
+                padding: $padding*2;
+
                 ul {
                     list-style: none;
                     margin: 0;
                     padding: 0;
 
                     li {
-
                         margin: 0 (-$padding*2) 0 (-$padding);
                         display: flex;
 
@@ -266,6 +314,9 @@ html {
                                 width: 4rem;
                                 text-align: center;
                             }
+                            span {
+
+                            }
                         }
 
                         &.active {
@@ -274,7 +325,64 @@ html {
                     }
                 }
             }
+            @include for-phone-only {
+                position: absolute;
+                bottom: 0;
+                top: 0;
+                z-index: 100;
+
+                .site-nav {
+                    ul {
+                        li {
+                            a {
+                                i {
+
+                                }
+                                span {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            @include for-tablet-portrait-up {
+                .site-nav {
+                    ul {
+                        li {
+                            a {
+                                i {
+
+                                }
+                                span {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            @include for-tablet-landscape-up {
+                .site-nav {
+                    width: 12rem;
+
+                    ul {
+                        li {
+                            a {
+                                i {
+
+                                }
+                                span {
+                                    display: flex;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
           }
+
           //content wrap
           .content-wrapper {
             display: flex;
@@ -517,12 +625,18 @@ html {
                   //margin-bottom: $padding;
                   //}
                   .quote-details {
-                      padding: $padding ($padding*2);
                       background: $warm-gray-08;
                       display: flex;
+                      justify-content: space-between;
 
                       dl {
                           margin: 0;
+                          padding: ($padding/2) $padding;
+                          margin: 0 ($padding/2);
+                          display: flex;
+                          flex-direction: column;
+                          justify-content: center;
+
                           div {
                               dt {
                                   font-size: $font-size-sm;
@@ -532,6 +646,22 @@ html {
                               dd {
                                   margin: 0;
                                   color: $white;
+                              }
+                          }
+
+                          &.annualPremium {
+                              background: $yellow-lighten-05;
+                              margin: ($padding/2) (-$padding/2) ($padding/2) ($padding);
+                              padding: ($padding/2) ($padding*2);
+                              box-shadow: $card-box-shadow-alt;
+
+                              div {
+                                  dt {
+                                      color: $body-color;
+                                  }
+                                  dd {
+                                      color: $body-color;
+                                  }
                               }
                           }
                       }
@@ -713,7 +843,7 @@ html {
 
                         .survey-wrapper {
                           flex-direction: row;
-                          padding: ($padding*2) ($padding*4);
+                          padding: ($padding*2) ($padding/2);
                           flex-wrap: wrap;
                           flex-shrink: 0;
                           flex-grow: 1;
