@@ -18,7 +18,7 @@ const RenderField = ({ input, segmented, answers, value, click, label, name,
         {description && <ReactTooltip place="right" id={label} type="dark" effect="float">{description}</ReactTooltip>}
 
       </label>
-      <div className={'segmented-answer-wrapper'}>
+      <div className={`segmented-answer-wrapper ${touched && error ? 'error' : ''}`}>
         {answers && answers.length > 0 ? answers.map((answer, index) =>
           <div
             className={`radio-column-${answers.length}${value === answer.answer ? ' selected' : ''}`}
@@ -32,7 +32,7 @@ const RenderField = ({ input, segmented, answers, value, click, label, name,
                 type="radio"
                 value={answer.answer}
               />
-              <span style={touched && error ? { 'border-color': 'red' } : {}}>{answer.answer || null}</span>
+              <span>{answer.answer || null}</span>
             </label>
           </div>,
              ) : null}
