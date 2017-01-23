@@ -54,7 +54,6 @@ const TextInput = ({
 }) => {
   const ruleArray = combineRules(validations);
 
-  console.log(value);
   return (
     <Field
       description={description}
