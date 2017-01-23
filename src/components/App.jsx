@@ -63,7 +63,7 @@ export class App extends Component {
             <div className="user">
               <i className="fa fa-user-circle-o user-icon"></i>
               <h4 className="user-name">
-                <span>ABC Agency</span>
+                <span>ABC Insurance Agency</span>
                 <i className="fa fa-gear"></i>
               </h4>
             </div>

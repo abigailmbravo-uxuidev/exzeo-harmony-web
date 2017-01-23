@@ -473,7 +473,7 @@ html body {
 
     &.error {
       label {
-        color: $red;
+        //color: $red;
       }
 
       small {
@@ -488,6 +488,18 @@ html body {
       select {
         border-color: $red;
         background-color: lighten($red-lighten-04, 20%);
+      }
+    }
+
+    &.valid {
+      input {
+        border-color: $green;
+        background-color: lighten($green-lighten-04, 20%);
+      }
+
+      select {
+        border-color: $green;
+        background-color: lighten($green-lighten-04, 20%);
       }
     }
 
@@ -575,15 +587,18 @@ html body {
 }
 /*specific typtap styles*/
 html {
-    background: $cool-gray-10;
+  background: $cool-gray-14;
+
   body {
     //site background
-    background: $cool-gray-10;
+    background: $cool-gray-14;
+
     div#root {
       background: $cool-gray-00;
+
       .app-wrapper {
         //background: $cool-gray-00;
-        background: $cool-gray-10;
+        background: $cool-gray-14;
         //header
         header {
           border-bottom: 2px solid $bright-blue;
@@ -645,302 +660,343 @@ html {
         }
         //main
         main[role="document"] {
-            .content-panel-left {
-                background-image: url("../img/TypTap-graphic.svg");
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position-x: center;
-                background-position-y: -8rem;
-                background-color: $cool-gray-12;
-                align-self: stretch;
-                background-blend-mode: soft-light;
+          .content-panel-left {
+            background-color: $cool-gray-12;
+            background-image:
+            url("../img/TypTap-graphic.svg");
+            background-repeat: no-repeat;
+            background-position-x: center;
+            background-position-y: -8rem;
+            background-size: cover;
+            align-self: stretch;
+            background-blend-mode: soft-light;
 
+            .site-nav {
+              ul {
+                li {
+                  a {
+                    i {}
+                  }
+
+                  &.active {
+                    a {
+                      color: $body-color;
+                      font-weight: $font-weight-bold;
+
+                      i {
+                        color: $green;
+                      }
+
+                      &:hover {
+                        text-decoration: none;
+                      }
+                    }
+                  }
+                }
+              }
             }
-            .content-wrapper {
-              > div[role="article"] {
-                background: $white;
-                @include for-1024-up {
-                  //border-right: $card-border-width solid $cool-gray-01;
-                  //border-left: $card-border-width solid $cool-gray-01;
-                }
+          }
 
-                &.login {
-                  border-top: $card-border-width solid $cool-gray-01;
-                }
+          .content-wrapper {
+            > div[role="article"] {
+              background: $white;
+              @include for-1024-up {
+                //border-right: $card-border-width solid $cool-gray-01;
+                //border-left: $card-border-width solid $cool-gray-01;
+              }
 
-                &.splash {
-                  border-top: $card-border-width solid $cool-gray-01;
-                }
+              &.login {
+                border-top: $card-border-width solid $cool-gray-01;
+              }
 
-                &.survey {
-                  border-top: $card-border-width solid $cool-gray-01;
-                }
+              &.splash {
+                border-top: $card-border-width solid $cool-gray-01;
+              }
 
-                &.admin {
-                  border-top: $card-border-width solid $card-border-color;
+              &.survey {
+                border-top: $card-border-width solid $cool-gray-01;
+              }
 
-                  .fade-in {
-                    .content {
-                      section {
-                        .content {
-                          ul.list {
-                            &.list-cards {
-                              li {
-                                ul.list {
-                                  border-right-color: $cool-gray-00;
-                                }
+              &.admin {
+                border-top: $card-border-width solid $card-border-color;
+
+                .fade-in {
+                  .content {
+                    section {
+                      .content {
+                        ul.list {
+                          &.list-cards {
+                            li {
+                              ul.list {
+                                border-right-color: $cool-gray-00;
                               }
                             }
                           }
+                        }
 
-                          .modal {
-                            background: rgba($white, .5);
-                            background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
+                        .modal {
+                          background: rgba($white, .5);
+                          background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
 
-                            .card {
-                              box-shadow: $card-box-shadow-alt;
-                            }
+                          .card {
+                            box-shadow: $card-box-shadow-alt;
                           }
                         }
                       }
                     }
                   }
                 }
+              }
 
-                &.workflow {
-                  background: $cool-gray-00;
+              &.workflow {
+                background: $cool-gray-00;
 
-                  .fade-in {
-                    background: $white;
+                .fade-in {
+                  background: $white;
 
-                    .workflow-header {
-                      background-color: $cool-gray-01;
+                  .quote-details {
+                      background: $bright-blue;
 
-                      .rule {
-                        background: $cool-gray-03;
+                      dl {
+                          div {
+                              dt {
+                                  color: $white;
+                              }
+                              dd {
+                                  color: $white;
+                              }
+                          }
                       }
+                  }
 
-                      li {
-                        a {
+                  .workflow-header {
+                    background-color: $cool-gray-01;
+
+                    .rule {
+                      background: $cool-gray-03;
+                    }
+
+                    li {
+                      a {
+                        color: $cool-gray-03;
+
+                        i.fa {
+                          background: $cool-gray-01;
+                        }
+
+                        &.active {
+                          color: $bright-blue;
+
+                          &:focus,
+                          &:hover {
+                            color: $bright-blue-lighten-01;
+                          }
+                        }
+
+                        &.disabled {
                           color: $cool-gray-03;
+                        }
+
+                        &.selected {
+                          color: $cool-gray-14;
 
                           i.fa {
-                            background: $cool-gray-01;
+                            color: $green;
                           }
+                        }
 
-                          &.active {
-                            color: $bright-blue;
+                        &.completed {
+                          color: $bright-blue-lighten-03;
 
-                            &:focus,
-                            &:hover {
-                              color: $bright-blue-lighten-01;
-                            }
-                          }
-
-                          &.disabled {
-                            color: $cool-gray-03;
-                          }
-
-                          &.selected {
-                            color: $cool-gray-14;
-
-                            i.fa {
-                              color: $green;
-                            }
-                          }
-
-                          &.completed {
+                          i.fa {
                             color: $bright-blue-lighten-03;
+                          }
+                        }
+                      }
+                    }
+                  }
 
-                            i.fa {
-                              color: $bright-blue-lighten-03;
+                  .workflow-content {
+                    aside {
+                      @include for-phone-only {
+                        border-bottom: 1px dotted $cool-gray-00;
+                        background: lighten($cool-gray-00, 3%);
+                      }
+
+                      .side-panel {
+                        section {
+                          &.AnnualPremium,
+                          &.premium {
+                            background-color: $yellow-lighten-04;
+                            order: 0;
+                          }
+
+                          &.QuoteNumber {
+                            order: 1;
+                          }
+
+                          &.Address {
+                            order: 2;
+                          }
+
+                          &.CoverageA,
+                          &.CoverageB,
+                          &.CoverageC,
+                          &.YearBuilt {
+                            order: 3;
+                            @include for-phone-only {
+                              display: none;
                             }
                           }
                         }
                       }
                     }
 
-                    .workflow-content {
-                      aside {
-                        @include for-phone-only {
-                          border-bottom: 1px dotted $cool-gray-00;
-                          background: lighten($cool-gray-00, 3%);
-                        }
-
-                        .side-panel {
-                          section {
-                            &.AnnualPremium,
-                            &.premium {
-                              background-color: $yellow-lighten-04;
-                              order: 0;
+                    section {
+                      div.fade-in,
+                      form {
+                        .survey-wrapper {
+                          //form layout
+                          @include for-tablet-landscape-up {
+                            .FirstName,
+                            .PH1FirstName {
+                              width: 50%;
+                              padding-right: $padding*2;
                             }
 
-                            &.QuoteNumber {
-                              order: 1;
+                            .LastName,
+                            .PH1LastName {
+                              width: 50%;
                             }
 
-                            &.Address {
-                              order: 2;
+                            .agentID {
+                              width: auto;
+                              flex-grow: 1;
                             }
 
-                            &.CoverageA,
-                            &.CoverageB,
-                            &.CoverageC,
-                            &.YearBuilt {
-                              order: 3;
-                              @include for-phone-only {
-                                display: none;
-                              }
+                            .phoneNumber {
+                              width: auto;
+                              padding-right: $padding*2;
+                            }
+
+                            .effectiveDate {
+                              width: auto;
+                              padding-right: $padding*2;
+                              flex-grow: 1;
                             }
                           }
-                        }
-                      }
-
-                      section {
-                        div.fade-in,
-                        form {
-                          .survey-wrapper {
-                            h1,
-                            h2,
-                            h3,
-                            h4,
-                            h5,
-                            h6 {
-                              margin-top: 0;
-
-                              &.step-title {
-                                color: $cool-gray-08;
-                              }
-
-                              &.step-sub-title {
-                                color: $green;
-                              }
+                          @include for-tablet-portrait-up {
+                            .phoneNumber {
+                              width: auto;
+                              padding-right: $padding*2;
                             }
 
-                            .form-group {
-                              border-bottom-color: $cool-gray-01;
+                            .effectiveDate {
+                              width: auto;
+                              flex-grow: 1;
                             }
-                            //result cards
-                            ul.results {
-                              &.result-cards {
-                                li {
-                                  a {
-                                    background: $white;
+                          }
 
-                                    section {
-                                      h2,
-                                      h3,
-                                      h4,
-                                      h5 {
-                                        color: $cool-gray-14;
-                                      }
+                          h1,
+                          h2,
+                          h3,
+                          h4,
+                          h5,
+                          h6 {
+                            margin-top: 0;
 
-                                      p {
-                                        color: $cool-gray-12;
-                                      }
+                            &.step-title {
+                              color: $cool-gray-08;
+                            }
+
+                            &.step-sub-title {
+                              color: $green;
+                            }
+                          }
+
+                          .form-group {
+                            border-bottom-color: $cool-gray-01;
+                          }
+                          //result cards
+                          ul.results {
+                            &.result-cards {
+                              li {
+                                a {
+                                  background: $white;
+
+                                  section {
+                                    h2,
+                                    h3,
+                                    h4,
+                                    h5 {
+                                      color: $cool-gray-14;
+                                    }
+
+                                    p {
+                                      color: $cool-gray-12;
+                                    }
+                                  }
+
+                                  i {
+                                    &.card-icon {
+                                      color: $green;
+                                    }
+
+                                    &.fa-angle-right {
+                                      color: $bright-blue;
+                                    }
+                                  }
+
+                                  &:focus,
+                                  &:hover {
+                                    h2,
+                                    h3,
+                                    h4,
+                                    h5,
+                                    p {
+                                      color: $bright-blue;
                                     }
 
                                     i {
-                                      &.card-icon {
-                                        color: $green;
-                                      }
-
-                                      &.fa-angle-right {
-                                        color: $bright-blue;
-                                      }
-                                    }
-
-                                    &:focus,
-                                    &:hover {
-                                      h2,
-                                      h3,
-                                      h4,
-                                      h5,
-                                      p {
-                                        color: $bright-blue;
-                                      }
-
-                                      i {
-                                        &.fa-chevron-circle-right {
-                                          color: $bright-blue-lighten-01;
-                                        }
+                                      &.fa-chevron-circle-right {
+                                        color: $bright-blue-lighten-01;
                                       }
                                     }
                                   }
                                 }
                               }
                             }
-                            //form layout
-                            @include for-tablet-landscape-up {
-                              .FirstName,
-                              .PH1FirstName {
-                                width: 50%;
-                                padding-right: $padding*2;
-                              }
-
-                              .LastName,
-                              .PH1LastName {
-                                width: 50%;
-                              }
-
-                              .agentID {
-                                width: auto;
-                                flex-grow: 1;
-                              }
-
-                              .phoneNumber {
-                                width: auto;
-                                padding-right: $padding*2;
-                              }
-
-                              .effectiveDate {
-                                width: auto;
-                                padding-right: $padding*2;
-                                flex-grow: 1;
-                              }
-                            }
-                            @include for-tablet-portrait-up {
-                              .phoneNumber {
-                                width: auto;
-                                padding-right: $padding*2;
-                              }
-
-                              .effectiveDate {
-                                width: auto;
-                                flex-grow: 1;
-                              }
-                            }
                           }
                         }
                       }
                     }
                   }
                 }
+              }
 
-                .modal {
-                  z-index: 10;
-                  background: rgba($black, .75);
-                  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
-                  background-position: center center;
-                  background-size: cover;
-                }
+              .modal {
+                z-index: 10;
+                background: rgba($black, .75);
+                background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
+                background-position: center center;
+                background-size: cover;
+              }
 
-                .card {
-                  .card-header {
-                    background-color: $cool-gray-00;
+              .card {
+                .card-header {
+                  background-color: $cool-gray-00;
 
-                    h1,
-                    h2,
-                    h3,
-                    h4,
-                    h5,
-                    h6 {}
-                  }
+                  h1,
+                  h2,
+                  h3,
+                  h4,
+                  h5,
+                  h6 {}
                 }
               }
+            }
           }
         }
-
         //footer
         footer {
           background: $cool-gray-00;

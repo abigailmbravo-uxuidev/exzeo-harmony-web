@@ -6,7 +6,7 @@ import { combineRules } from '../../Rules';
 const RenderField = ({ input, label, type,
   description, question, name, styleName, disabled,
    meta: { touched, error, warning } }) => (
-     <div className={`form-group ${styleName} ${label} ${disabled ? 'disabled' : ''} ${touched && error ? 'error' : ''}`}>
+     <div className={`form-group ${styleName} ${label} ${disabled ? 'disabled' : ''} ${touched && error ? 'error' : ''} ${touched && !error ? 'valid' : ''}`}>
        <label htmlFor={name || null}>
          {question || null}
           &nbsp;

@@ -390,7 +390,7 @@ html body {
         }
       }
 
-      &.invalid {
+      &.error {
         label {
           color: $red-lighten-01;
 
@@ -545,7 +545,7 @@ html body {
         }
       }
 
-      &.invalid {
+      &.error {
         label {
           color: $red-lighten-01;
         }

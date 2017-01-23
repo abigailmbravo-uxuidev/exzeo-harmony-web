@@ -227,16 +227,22 @@ html {
                 }
                 .user-name {
                     display: flex;
-                    margin: ($padding*2) 0;
+                    margin: $padding 0;
                     color: $white;
+                    align-items: center;
 
                     span {
-                        flex-grow: 1;
+                        flex-grow: 0;
                         flex-shrink: 0;
+                        flex-basis: 11rem;
+                        padding-right: $padding;
                     }
                     i {
                         flex-grow: 0;
                         flex-shrink: 0;
+                        flex-basis: 1rem;
+                        text-align: center;
+                        font-size: 1rem;
                     }
                 }
             }
@@ -247,11 +253,19 @@ html {
                     padding: 0;
 
                     li {
-                        padding: ($padding*2);
+
                         margin: 0 (-$padding*2) 0 (-$padding);
+                        display: flex;
 
-                        i {
-
+                        a {
+                            align-items: center;
+                            height: 3rem;
+                            flex-grow: 1;
+                            display: flex;
+                            i {
+                                width: 4rem;
+                                text-align: center;
+                            }
                         }
 
                         &.active {
@@ -502,6 +516,26 @@ html {
                   //@include for-1024-up {
                   //margin-bottom: $padding;
                   //}
+                  .quote-details {
+                      padding: $padding ($padding*2);
+                      background: $warm-gray-08;
+                      display: flex;
+
+                      dl {
+                          margin: 0;
+                          div {
+                              dt {
+                                  font-size: $font-size-sm;
+                                  font-weight: $font-weight-bold;
+                                  color: $white;
+                              }
+                              dd {
+                                  margin: 0;
+                                  color: $white;
+                              }
+                          }
+                      }
+                  }
                   .workflow-header {
                     padding: $padding;
                     background-color: $warm-gray-01;

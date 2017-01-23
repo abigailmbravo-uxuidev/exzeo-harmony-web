@@ -31,6 +31,26 @@ class Workflow extends Component {
     return (
       <div className="workflow" role="article">
         <div className="fade-in">
+          <div className="quote-details" role="contentinfo">
+            <dl>
+              <div>
+                <dt>Quote Number</dt>
+                <dd>1234567890</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Address</dt>
+                <dd>1234567890</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Annual Premium</dt>
+                <dd>$ --</dd>
+              </div>
+            </dl>
+          </div>
           <WorkflowHeader
             steps={workflow.steps}
             completedSteps={this.state.completedSteps}
