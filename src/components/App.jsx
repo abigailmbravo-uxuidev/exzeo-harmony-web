@@ -57,7 +57,6 @@ export class App extends Component {
     return (
       <div className="app-wrapper">
         <Header/>
-
         <main role="document" onScroll={this.handleScroll} className={cssName}>
           <aside className="content-panel-left">
             <div className="user">

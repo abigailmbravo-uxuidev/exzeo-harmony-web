@@ -9,7 +9,9 @@ const Header = () => (
       </div>
 
       <nav>
-        <a href="https://www.typtap.com"><i className="fa fa-globe" /> Typtap.com</a>
+        <a href="https://www.typtap.com">HOME</a>
+        <a href="https://www.typtap.com" className="active">AGENTS</a>
+        <a href="https://www.typtap.com">POLICYHOLDERS</a>
         <a className="link-phone" href="tel:+844-289-7968"><i className="fa fa-phone" /> (844) 289-7968</a>
       </nav>
     </div>

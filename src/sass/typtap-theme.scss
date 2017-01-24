@@ -618,6 +618,15 @@ html {
               &:hover {
                 color: $bright-blue-lighten-02;
               }
+
+              &.active {
+                  border-bottom-color: $bright-blue;
+                  color: $cool-gray-00;
+
+                  &:hover {
+                      color: $cool-gray-00;
+                  }
+              }
             }
           }
         }
@@ -828,11 +837,6 @@ html {
 
                       .side-panel {
                         section {
-                          &.AnnualPremium,
-                          &.premium {
-                            background-color: $yellow-lighten-04;
-                            order: 0;
-                          }
 
                           &.QuoteNumber {
                             order: 1;
