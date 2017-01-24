@@ -109,38 +109,37 @@ html body {
         }
       }
 
-    .segmented-answer-wrapper {
-          &.error {
-              div {
-                img {
-                  -webkit-filter: grayscale(100%);
-                  filter: grayscale(100%);
-                  -webkit-filter: opacity(.5);
-                  filter: opacity(.5);
-                }
+      .segmented-answer-wrapper {
+        &.error {
+          div {
+            img {
+              -webkit-filter: grayscale(100%);
+              filter: grayscale(100%);
+              -webkit-filter: opacity(.5);
+              filter: opacity(.5);
+            }
 
-                .label-segmented {
-                  span {
-                      color: $body-color;
-                      border-color: $red-lighten-01;
-                      background-color: lighten($red-lighten-04, 20%);
-                  }
+            .label-segmented {
+              span {
+                color: $body-color;
+                border-color: $red-lighten-01;
+                background-color: lighten($red-lighten-04, 20%);
+              }
 
-                  input[type=radio] {
-                    &:checked {
-                      + span {
-                        color: $red;
-                        border-color: $red;
-                        background: lighten($red-lighten-04, 20%);
-                        box-shadow: 0 0 0 2px $red inset;
-                      }
-                    }
+              input[type=radio] {
+                &:checked {
+                  + span {
+                    color: $red;
+                    border-color: $red;
+                    background: lighten($red-lighten-04, 20%);
+                    box-shadow: 0 0 0 2px $red inset;
                   }
                 }
               }
-
+            }
           }
         }
+      }
     }
 
     &.switch {
@@ -614,19 +613,115 @@ html {
               color: $cool-gray-10;
             }
 
-            a {
-              &:hover {
-                color: $bright-blue-lighten-02;
-              }
+            > nav {
+              a {
 
-              &.active {
+                &:hover {
+                  color: $bright-blue-lighten-02;
+                }
+
+                &.active {
                   border-bottom-color: $bright-blue;
                   color: $cool-gray-00;
 
                   &:hover {
-                      color: $cool-gray-00;
+                    color: $cool-gray-00;
                   }
+                }
+
+                &.btn {}
               }
+
+              @include for-phone-only {
+                background: $white;
+                border: 1px solid $cool-gray-00;
+
+                a {
+                  border-top: 1px dashed $warm-gray-02;
+
+                  &:first-child,
+                  &:last-child {
+                    border-top-width: 0;
+                  }
+
+                  &.active {
+                    color: $body-color;
+
+                    &:hover {
+                      color: $body-color;
+                    }
+                  }
+
+                  &.link-phone {
+                    border: 2px solid $bright-blue;
+                  }
+                }
+              }
+              @include for-tablet-portrait-up {
+                background: $white;
+                border: 1px solid $cool-gray-00;
+
+                a {
+                  border-top: 1px dashed $warm-gray-02;
+                  color: $bright-blue;
+
+                  &:first-child {
+                    border-top-width: 0;
+                  }
+
+                  &.active {
+                    color: $body-color;
+
+                    &:hover {
+                      color: $body-color;
+                    }
+                  }
+
+                  &.link-phone {
+                    color: $bright-blue;
+                  }
+                }
+              }
+              @include for-tablet-landscape-up {
+                background: transparent;
+                border-width: 0;
+
+                a {
+                  border-top-width: 0;
+                  color: $cool-gray-04;
+
+                  &:hover {
+                    color: $white;
+                  }
+
+                  &.active {
+                    color: $white;
+
+                    &:hover {
+                      color: $white;
+                    }
+                  }
+
+                  &.link-phone {
+                    color: $cool-gray-04;
+
+                    &:hover {
+                      span {
+                        color: $white;
+                      }
+
+                      i {
+                        color: $white;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .btn-ellipsis-v  {
+                i {
+                    color: $white;
+                }
             }
           }
         }
@@ -674,8 +769,7 @@ html {
         main[role="document"] {
           .content-panel-left {
             background-color: $cool-gray-12;
-            background-image:
-            url("../img/TypTap-graphic.svg");
+            background-image: url("../img/TypTap-graphic.svg");
             background-repeat: no-repeat;
             background-position-x: center;
             background-position-y: -8rem;
@@ -767,18 +861,19 @@ html {
                   background: $white;
 
                   .quote-details {
-                      background: $bright-blue;
+                    background: $bright-blue-darken-03;
 
-                      dl {
-                          div {
-                              dt {
-                                  color: $white;
-                              }
-                              dd {
-                                  color: $white;
-                              }
-                          }
+                    dl {
+                      div {
+                        dt {
+                          color: $white;
+                        }
+
+                        dd {
+                          color: $white;
+                        }
                       }
+                    }
                   }
 
                   .workflow-header {
@@ -837,7 +932,6 @@ html {
 
                       .side-panel {
                         section {
-
                           &.QuoteNumber {
                             order: 1;
                           }

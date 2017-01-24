@@ -20,7 +20,7 @@ const SearchBar = ({
         autoComplete="off"
         value={searchText}
     />
-    <button className="btn btn-success"><i className="fa fa-search" /> Search</button>
+    <button className="btn btn-success"><i className="fa fa-search" />Search</button>
   </form>
 );
 

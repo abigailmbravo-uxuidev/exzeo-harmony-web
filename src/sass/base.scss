@@ -60,9 +60,6 @@ html {
           @include for-tablet-landscape-up {
             max-width: 64rem;
           }
-          @include for-tablet-landscape-up {
-            max-width: 64rem;
-          }
           @include for-desktop-up {
             max-width: 80rem;
           }
@@ -80,7 +77,45 @@ html {
               }
 
               > nav {
-                display: none;
+                  display: flex;
+                  flex-direction: column;
+                  width: auto;
+                  padding: $padding;
+                  position: absolute;
+                  right: $padding;
+                  z-index: 200;
+                  top: 3.375rem;
+                  background: $warm-gray-01;
+                  border: 1px solid $warm-gray-02;
+                  box-shadow: $card-box-shadow-alt;
+
+                  > a.btn.link-phone {
+                      position: absolute;
+                      top: -3rem;
+                      right: 4rem;
+                      height: 2.375rem;
+                      width: 2.375rem;
+                      font-size: 1.5rem;
+                      border-radius: 50%;
+
+                      i {
+                          margin: 0;
+                      }
+
+                      span {
+                          display: none;
+                      }
+                  }
+              }
+              .btn-ellipsis-v {
+                  display: flex;
+                  position: absolute;
+                  right: 1rem;
+
+                  i {
+                      color: $body-color;
+                      font-size: 1.5rem;
+                  }
               }
 
               .userName {
@@ -90,11 +125,36 @@ html {
             }
             @include for-tablet-portrait-up {
               > nav {
-                display: none;
+                display: flex;
+                flex-direction: column;
+                width: auto;
+                padding: $padding;
+                position: absolute;
+                right: $padding;
+                z-index: 200;
+                top: 3.375rem;
+                background: $warm-gray-01;
+                border: 1px solid $warm-gray-02;
+                border-top-width: 0;
+                box-shadow: $card-box-shadow-alt;
 
-                > a {
-                  margin-left: 1rem;
+                .link-phone.btn {
+                    height: 3.375rem;
+
+                    &:hover {
+                        color: $bright-blue-lighten-02;
+                    }
                 }
+              }
+              .btn-ellipsis-v {
+                  display: flex;
+                  position: absolute;
+                  right: 1rem;
+
+                  i {
+                      color: $white;
+                      font-size: 1.5rem;
+                  }
               }
             }
             @include for-tablet-landscape-up {
@@ -102,26 +162,97 @@ html {
                 display: flex;
                 flex: 1;
                 justify-content: flex-end;
+                align-items: center;
+                position: relative;
+                width: auto;
+                background-color: transparent;
+                flex-direction: row;
+                top: 0;
+                right: 0;
+                padding: 0;
+                border-width: 0;
+                box-shadow: none;
+                border-top-width: 0;
+
+                > a {
+                  margin-left: 1rem;
+                  color: $warm-gray-06;
+
+                  &:hover {
+
+                  }
+
+                  &.active {
+                    border-bottom: 5px solid $white;
+                    padding-top: 5px;
+                    color: $white;
+
+                    &:hover {
+
+                    }
+                  }
+                  &.btn {
+
+                      &:hover {
+
+                      }
+                  }
+                }
+
+                h1 {
+                  display: block;
+                }
+
+                .username {
+                  flex-grow: 0;
+                }
               }
 
-              h1 {
-                display: block;
-              }
-
-              .username {
-                flex-grow: 0;
+              .btn-ellipsis-v {
+                  display: none;
               }
             }
-
             > .logo {
               display: block;
               width: 7rem;
               flex-basis: 7rem;
               flex-shrink: 0;
+            }
 
-              @include for-phone-only {
-                  margin: 0 auto;
-              }
+            >nav {
+                > a {
+                  padding: 0 $padding;
+                  white-space: nowrap;
+                  text-decoration: none;
+                  font-size: $font-size-h6;
+                  font-weight: $font-weight-bold;
+                  height: 3.375rem;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  @include transition(all .2s ease-in-out);
+
+                  &:hover {
+                    text-decoration: none;
+                    color: $bright-blue;
+                  }
+
+                  &.active {
+                    color: $white;
+                    cursor: default;
+
+                    &:hover {
+                      color: $white;
+                    }
+                  }
+                  &.btn {
+                      height: 2rem;
+
+                      &:hover {
+                          color: $white;
+                      }
+                  }
+                }
             }
 
             > h1 {
@@ -130,34 +261,6 @@ html {
               color: $white;
               font-size: $font-size-h3;
               font-weight: 300;
-            }
-
-            a {
-              padding: 0 $padding;
-              white-space: nowrap;
-              text-decoration: none;
-              font-size: $font-size-h6;
-              height: 3.375rem;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              @include transition(all .2s ease-in-out);
-
-              &:hover {
-                text-decoration: none;
-                color: $bright-blue;
-              }
-
-              &.active {
-                  color: $white;
-                  cursor: default;
-                  border-bottom: 5px solid $white;
-                  padding-top: 5px;
-
-                  &:hover {
-                      color: $white;
-                  }
-              }
             }
           }
         }
@@ -218,10 +321,7 @@ html {
           flex-shrink: 0;
           //align-items: center;
           align-items: flex-start;
-
-          @include for-phone-only {
-
-          }
+          @include for-phone-only {}
           @include for-tablet-landscape-up {
             max-width: 64rem;
           }
@@ -270,7 +370,6 @@ html {
                   flex-basis: 1rem;
                 }
               }
-
               @include for-phone-only {
                 .user-icon {
                   display: flex;
@@ -357,7 +456,6 @@ html {
                 }
               }
             }
-
             @include for-phone-only {
               position: absolute;
               z-index: 100;
@@ -365,11 +463,14 @@ html {
               bottom: 0;
 
               .site-nav {
-                  width: 4rem;
+                width: 4rem;
+
                 ul {
                   li {
                     a {
-                      i {width: 3.5rem;}
+                      i {
+                        width: 3.5rem;
+                      }
 
                       span {
                         display: none;
@@ -681,7 +782,7 @@ html {
                       }
 
                       &.annualPremium {
-                        margin: ($padding/2) (-$padding/2) ($padding/2) ($padding);
+                        margin: ($padding) (-$padding/2) ($padding) ($padding);
                         padding: ($padding/2) ($padding*2);
                         background: $yellow-lighten-05;
                         box-shadow: $card-box-shadow-alt;

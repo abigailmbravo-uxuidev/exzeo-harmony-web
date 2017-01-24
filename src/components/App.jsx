@@ -71,7 +71,7 @@ export class App extends Component {
             <nav className="site-nav">
               <ul>
                 <li className="active">
-                  <a href="">
+                  <a href="/workflow">
                     <i className="fa fa-quote-right"></i><span>New Quote</span></a>
                 </li>
               </ul>

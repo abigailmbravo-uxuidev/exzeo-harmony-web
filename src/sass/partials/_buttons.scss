@@ -1,3 +1,4 @@
+
 //
 // Base styles
 //
@@ -47,6 +48,10 @@ input[type="submit"] {
     cursor: $cursor-disabled;
     opacity: 0.65;
     @include box-shadow(none);
+  }
+
+  i {
+      margin-right: $padding;
   }
 }
 //
@@ -219,4 +224,21 @@ input[type="submit"] {
   }
 
   input[type="file"] {}
+}
+
+.btn-icon {
+    background: rgba($bright-blue, 0.1);
+    border-width: 0;
+    color: $body-color;
+    box-shadow: none;
+
+    &:hover {
+        background: rgba($bright-blue, 0.2);
+        border-width: 0;
+        color: $body-color;
+    }
+
+    i {
+        margin: 0;
+    }
 }
