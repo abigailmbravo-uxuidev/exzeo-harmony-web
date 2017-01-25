@@ -37,13 +37,14 @@ class Workflow extends Component {
             <dl>
               <div>
                 <dt>Quote Number</dt>
-                <dd>1234567890</dd>
+                <dd>TT-12345678-01</dd>
               </div>
             </dl>
             <dl>
               <div>
                 <dt>Address</dt>
-                <dd>1234567890</dd>
+                <dd>123 East Beachfront Avenue</dd>
+                <dd>Osprey, FL 33333</dd>
               </div>
             </dl>
             <dl className="annualPremium">

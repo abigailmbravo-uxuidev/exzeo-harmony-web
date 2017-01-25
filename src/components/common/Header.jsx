@@ -4,6 +4,7 @@ import logo from '../../img/TypTap.svg';
 const Header = () => (
   <header>
     <div role="banner">
+      <button className="btn-icon btn-bars"><i className="fa fa-bars"></i></button>
       <div id="logo" className="logo">
         <img src={logo} alt="TypTap Insurance" />
       </div>
@@ -11,7 +12,7 @@ const Header = () => (
       <nav>
         <a href="https://www.typtap.com">HOME</a>
         <a href="" className="active">AGENTS</a>
-        <a href="https://www.typtap.com">POLICYHOLDERS</a>
+        <a href="https://policyholder.typtap.com/login">POLICYHOLDERS</a>
         <a className="link-phone btn" href="tel:+844-289-7968"><i className="fa fa-phone" /><span>844-289-7968</span></a>
       </nav>
     </div>

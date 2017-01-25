@@ -22,7 +22,7 @@
                 top: 1rem;
             }
             @include for-big-desktop-up {
-                top: 2rem;
+                top: 1.75rem;
             }
         }
         /*li element*/
@@ -75,7 +75,7 @@
                     }
 
                     i.fa {
-                        font-size: $font-size-h2;
+                        font-size: $font-size-h3;
                     }
                 }
 

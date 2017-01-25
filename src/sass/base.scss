@@ -61,10 +61,10 @@ html {
             max-width: 64rem;
           }
           @include for-desktop-up {
-            max-width: 80rem;
+            max-width: 96rem;
           }
           @include for-big-desktop-up {
-            max-width: 96rem;
+            max-width: 120rem;
           }
 
           div[role="banner"] {
@@ -118,6 +118,17 @@ html {
                   }
               }
 
+              .btn-bars  {
+                  display: flex;
+                  position: absolute;
+                  left: 1rem;
+
+                  i {
+                      color: $body-color;
+                      font-size: 1.5rem;
+                  }
+              }
+
               .userName {
                 text-align: right;
                 flex-grow: 1;
@@ -155,6 +166,9 @@ html {
                       color: $white;
                       font-size: 1.5rem;
                   }
+              }
+              .btn-bars  {
+                  display: none;
               }
             }
             @include for-tablet-landscape-up {
@@ -208,7 +222,7 @@ html {
                 }
               }
 
-              .btn-ellipsis-v {
+              .btn-ellipsis-v, .btn-bars {
                   display: none;
               }
             }
@@ -217,6 +231,10 @@ html {
               width: 7rem;
               flex-basis: 7rem;
               flex-shrink: 0;
+
+              @include for-phone-only {
+                  margin-left: 3rem;
+              }
             }
 
             >nav {
@@ -326,10 +344,10 @@ html {
             max-width: 64rem;
           }
           @include for-desktop-up {
-            max-width: 80rem;
+            max-width: 96rem;
           }
           @include for-big-desktop-up {
-            max-width: 96rem;
+            max-width: 120rem;
           }
           //left aside
           .content-panel-left {
@@ -382,7 +400,7 @@ html {
                 }
 
                 .user-name {
-                  display: none;
+                  max-width: 11rem;
                 }
               }
               @include for-tablet-portrait-up {
@@ -463,7 +481,7 @@ html {
               bottom: 0;
 
               .site-nav {
-                width: 4rem;
+                width: 14rem;
 
                 ul {
                   li {
@@ -473,7 +491,7 @@ html {
                       }
 
                       span {
-                        display: none;
+
                       }
                     }
                   }
@@ -523,6 +541,10 @@ html {
             flex-grow: 1;
             flex-wrap: wrap;
             align-self: stretch;
+
+            @include for-phone-only {
+                padding: 0;
+            }
 
             > div[role="article"] {
               display: flex;
@@ -764,20 +786,36 @@ html {
                     dl {
                       display: flex;
                       flex-direction: column;
-                      margin: 0 ($padding/2);
+                      margin: ($padding/2);
                       padding: ($padding/2) $padding;
-                      justify-content: center;
+                      justify-content: flex-start;
 
                       div {
                         dt {
                           color: $white;
                           font-size: $font-size-sm;
                           font-weight: $font-weight-bold;
+
+                          @include for-phone-only {
+                              font-size: $font-size-xs;
+                          }
                         }
 
                         dd {
                           margin: 0;
                           color: $white;
+
+                          + dd {
+                              font-size: $font-size-sm;
+                          }
+
+                          @include for-phone-only {
+                              font-size: $font-size-sm;
+
+                              +dd {
+                                  font-size: $font-size-xs;
+                              }
+                          }
                         }
                       }
 
@@ -786,6 +824,10 @@ html {
                         padding: ($padding/2) ($padding*2);
                         background: $yellow-lighten-05;
                         box-shadow: $card-box-shadow-alt;
+
+                        @include for-phone-only {
+                            margin-right: 0;
+                        }
 
                         div {
                           dt {
