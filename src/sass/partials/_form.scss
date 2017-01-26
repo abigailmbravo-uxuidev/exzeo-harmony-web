@@ -329,7 +329,7 @@ html body {
                       color: $red-lighten-01;
                       border-color: $red-lighten-01;
                     }
-                }        
+                }
             }
         }
       }
@@ -566,6 +566,69 @@ html body {
             }
           }
         }
+      }
+
+      &.verification {
+          flex-direction: column;
+          
+          label {
+              justify-content: flex-start;
+              flex-direction: row-reverse;
+              margin-right: 2rem;
+              div {
+                      margin-right: .5rem;
+              }
+              span {
+                      margin-right: .5rem;
+                      height: 1px;
+                      background: $warm-gray-02;
+                      flex-grow: 1;
+                      position: relative;
+                      cursor: pointer;
+
+                      &:before {
+                          font: normal normal normal 1rem FontAwesome;
+                          content: '\f14a';
+                          position: absolute;
+                          left: -.75rem;
+                          background: $yellow;
+                          color: $yellow-lighten-05;
+                          display: block;
+                          padding: .25rem;
+                          top: -.75rem;
+                          text-align: center;
+                          width: 1.5rem;
+                          border-top-left-radius: .125rem;
+                          border-bottom-left-radius: .125rem;
+                      }
+                      &:after {
+                          content:'';
+                          position: absolute;
+                          width: 0;
+                          height: 0;
+                          border-top: .75rem solid transparent;
+                          border-left: 1rem solid $yellow;
+                          border-bottom: .75rem solid transparent;
+                          top: -.75rem;
+                          left: .75rem;
+                      }
+              }
+              input[type="checkbox"] {
+
+                  &:checked {
+                      ~ span {
+                          &:before {
+                              //content: '\f14a';
+                              color: $green;
+                              background: $warm-gray-02;
+                          }
+                          &:after {
+                              border-left-color: $warm-gray-02;
+                          }
+                      }
+                  }
+              }
+          }
       }
     }
   }

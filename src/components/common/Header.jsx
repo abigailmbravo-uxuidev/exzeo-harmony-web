@@ -9,7 +9,7 @@ const Header = () => (
         <img src={logo} alt="TypTap Insurance" />
       </div>
       <button className="btn-icon btn-ellipsis-v"><i className="fa fa-ellipsis-v"></i></button>
-      <nav>
+      <nav className="fade-in">
         <a href="https://www.typtap.com">HOME</a>
         <a href="" className="active">AGENTS</a>
         <a href="https://policyholder.typtap.com/login">POLICYHOLDERS</a>
