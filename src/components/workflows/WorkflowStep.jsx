@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Match } from 'react-router';
+import ErrorPage from '../common/ErrorPage';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
 import Summary from '../common/question/Summary';
@@ -74,7 +76,8 @@ class WorkflowStep extends Component {
           showLinks: false,
         });
       }
-      steps.questions.forEach((question) => {
+      if (steps.questions) {
+        steps.questions.forEach((question) => {
         let value = '';
         if ('defaultValue' in question) {
           value = question.defaultValue;
@@ -89,7 +92,7 @@ class WorkflowStep extends Component {
           disabled: false,
         };
       });
-      steps.questions.forEach((question) => {
+        steps.questions.forEach((question) => {
         if (question.conditional && question.conditional.display) {
           questions[question.name].hidden = false;
           questions[question.name].disabled = false;
@@ -133,6 +136,7 @@ class WorkflowStep extends Component {
           });
         }
       });
+      }
       this.setState({ questions });
     }
   }
@@ -328,15 +332,16 @@ class WorkflowStep extends Component {
                     ? steps.namev
                     : ''}
                 /> :
-                    <Survey
-                      handleChange={this.handleChange}
-                      handleOnSubmit={this.handleOnSubmit}
-                      questions={steps && steps.questions && steps.questions.length > 0
-                      ? steps.questions
-                      : null} answers={this.state.questions} styleName={steps && steps.name
-                      ? steps.namev
-                      : ''}
-                    />
+                (steps.type === 'Error') ? <ErrorPage /> :
+                <Survey
+                  handleChange={this.handleChange}
+                  handleOnSubmit={this.handleOnSubmit}
+                  questions={steps && steps.questions && steps.questions.length > 0
+                  ? steps.questions
+                  : null} answers={this.state.questions} styleName={steps && steps.name
+                  ? steps.namev
+                  : ''}
+                />
               }
             </section>
           </div>

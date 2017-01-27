@@ -23,7 +23,7 @@ const WorkflowHeader = (d) => {
       <div className="rule" />
       {
         d.steps ? d.steps.map((step, index) => {
-          if (step.type !== 'Search') {
+          if (step.type !== 'Search' && step.type !== 'Error') {
             return (
               <li key={index}>
                 <a
