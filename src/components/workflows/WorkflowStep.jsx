@@ -42,7 +42,7 @@ class WorkflowStep extends Component {
         try {
           newProps.data.steps.questions.forEach((q) => {
             questions[q.name] = {
-              value: newProps.location.query[q.name],
+              value: newProps.location.query[q.name].replace(/\r?\n|\r/g, ''), // Replace random new lines
             };
           });
           this.setState({ questions });
