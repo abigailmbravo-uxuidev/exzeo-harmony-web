@@ -14,13 +14,19 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
     handleChange,
     disabled,
   };
-  // console.log('QUESTION: ', question);
   switch (question.answerType) {
     case 'radio':
       if (question.answers && question.answers.length > 0) {
-        return question.answers.length < 6 ?
-          <RadioGroup {...inputProps} segmented /> :
-          <Dropdown {...inputProps} />;
+        if (question.answers.length > 6) {
+          return <Dropdown {...inputProps} />;
+        }
+        const maxChars = window.innerWidth / (12 * question.answers.length);
+        let isDropdown = false;
+        question.answers.some((a) => {
+          isDropdown = a.answer && a.answer.length > maxChars;
+          return isDropdown;
+        });
+        return isDropdown ? <Dropdown {...inputProps} /> : <RadioGroup {...inputProps} segmented />;
       }
     case 'bool': // eslint-disable-line
       return <BoolInput {...inputProps} isSwitch />;
