@@ -4,6 +4,57 @@ import { Field, reduxForm } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
 import { combineRules } from '../../Rules';
 
+const renderField = ({
+  input,
+  handleChange,
+  isSwitch,
+  description,
+  question,
+  styleName
+}) => {
+  const onChange = () => {
+    if (input.disabled) return;
+    const newEvent = {
+      target: {
+        name: input.name,
+        value: !input.value,
+      },
+    };
+    handleChange(newEvent);
+  };
+  const classnames = `form-group ${isSwitch ? 'switch' : ''} ${styleName} ${name} ${input.disabled ? 'disabled' : ''}`;
+  return (
+    <div className={classnames} >
+      <label
+        htmlFor={input.name || null}
+        onClick={(event) => {
+          input.onChange(!input.value);
+          onChange(event);
+        }}
+      >
+        {question || null}
+        &nbsp;
+        {description &&
+          <span>
+            <i className="fa fa-info-circle" data-tip data-for={name} />
+            <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
+          </span>
+        }
+        <input
+          {...input}
+          type="checkbox"
+          checked={input.value}
+          onChange={(event) => {
+            input.onChange(!input.value);
+            onChange(event);
+          }}
+        />
+        {isSwitch && <div className="switch-div" />}
+      </label>
+    </div>
+  );
+};
+
 const BoolInput = ({
   description,
   disabled = false,
@@ -16,40 +67,19 @@ const BoolInput = ({
   validations,
 }) => {
   const ruleArray = combineRules(validations);
-
-  const onChange = () => {
-    if (disabled) return;
-    const newEvent = {
-      target: {
-        name,
-        value: !value,
-      },
-    };
-    handleChange(newEvent);
-  };
-  const classnames = `form-group ${isSwitch ? 'switch' : ''} ${styleName} ${name} ${disabled ? 'disabled' : ''}`;
+  console.log(value);
   return (
-    <div className={classnames} >
-      <label htmlFor={name || null} onClick={onChange}>
-        {question || null}
-        &nbsp;
-        {description &&
-          <span>
-            <i className="fa fa-info-circle" data-tip data-for={name} />
-            <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
-          </span>
-        }
-        <Field
-          component="input" type="checkbox"
-          name={name || null}
-          checked={value || false}
-          onChange={onChange}
-          disabled={disabled}
-          validate={ruleArray}
-        />
-        {isSwitch && <div className="switch-div" />}
-      </label>
-    </div>
+    <Field
+      disabled={disabled}
+      component={renderField}
+      name={name || null}
+      value={value}
+      handleChange={handleChange}
+      question={question}
+      isSwitch={isSwitch}
+      styleName={styleName}
+      validate={ruleArray}
+    />
   );
 };
 
