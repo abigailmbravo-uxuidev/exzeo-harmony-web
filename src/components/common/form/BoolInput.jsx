@@ -67,10 +67,11 @@ const BoolInput = ({
   validations,
 }) => {
   const ruleArray = combineRules(validations);
-  console.log(value);
+
   return (
     <Field
       disabled={disabled}
+      description={description}
       component={renderField}
       name={name || null}
       value={value}
