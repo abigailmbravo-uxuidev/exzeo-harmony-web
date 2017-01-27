@@ -5,6 +5,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
+import Summary from '../common/question/Summary';
 import WorkflowDetails from './WorkflowDetails';
 import Footer from '../common/Footer';
 
@@ -278,6 +279,7 @@ class WorkflowStep extends Component {
   render() {
     const { steps } = this.props.data;
     console.log('CURRENT STEP: ', this);
+    console.log('CURRENT STEP TYPE: ', steps ? steps.type : null);
     if (steps && steps.data) {
       return (steps && steps.type !== 'Search')
         ? (
@@ -317,15 +319,24 @@ class WorkflowStep extends Component {
                     <Footer />
                   </div>
                 ) :
-                  <Survey
-                    handleChange={this.handleChange}
-                    handleOnSubmit={this.handleOnSubmit}
-                    questions={steps && steps.questions && steps.questions.length > 0
+                (steps.type === 'Summary') ? <Summary
+                  handleChange={this.handleChange}
+                  handleOnSubmit={this.handleOnSubmit}
+                  quote={steps && steps.quote
+                    ? steps.quote
+                    : null} styleName={steps && steps.name
+                    ? steps.namev
+                    : ''}
+                /> :
+                    <Survey
+                      handleChange={this.handleChange}
+                      handleOnSubmit={this.handleOnSubmit}
+                      questions={steps && steps.questions && steps.questions.length > 0
                       ? steps.questions
                       : null} answers={this.state.questions} styleName={steps && steps.name
                       ? steps.namev
                       : ''}
-                  />
+                    />
               }
             </section>
           </div>
