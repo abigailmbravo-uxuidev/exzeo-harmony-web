@@ -7,7 +7,7 @@ import { Match } from 'react-router';
 import ErrorPage from '../common/ErrorPage';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
-import Summary from '../common/question/Summary';
+import Summary from '../common/summary/Summary';
 import WorkflowDetails from './WorkflowDetails';
 import Footer from '../common/Footer';
 
@@ -78,27 +78,27 @@ class WorkflowStep extends Component {
       }
       if (steps.questions) {
         steps.questions.forEach((question) => {
-        let value = '';
-        if ('defaultValue' in question) {
-          value = question.defaultValue;
-        } else if (question.answerType === 'bool') {
-          value = false;
-        } else if (question.answerType === 'range') {
-          value = 0;
-        }
-        questions[question.name] = {
-          value,
-          hidden: false,
-          disabled: false,
-        };
-      });
+          let value = '';
+          if ('defaultValue' in question) {
+            value = question.defaultValue;
+          } else if (question.answerType === 'bool') {
+            value = false;
+          } else if (question.answerType === 'range') {
+            value = 0;
+          }
+          questions[question.name] = {
+            value,
+            hidden: false,
+            disabled: false,
+          };
+        });
         steps.questions.forEach((question) => {
-        if (question.conditional && question.conditional.display) {
-          questions[question.name].hidden = false;
-          questions[question.name].disabled = false;
-          const { display } = question.conditional;
+          if (question.conditional && question.conditional.display) {
+            questions[question.name].hidden = false;
+            questions[question.name].disabled = false;
+            const { display } = question.conditional;
           // console.log('WORKFLOW STEP DATA: ', display);
-          display.forEach((condition) => {
+            display.forEach((condition) => {
             // console.log(condition);
             switch (condition.operator) { // eslint-disable-line
               case 'equal':
@@ -133,9 +133,9 @@ class WorkflowStep extends Component {
                 }
                 break;
             }
-          });
-        }
-      });
+            });
+          }
+        });
       }
       this.setState({ questions });
     }

@@ -144,17 +144,25 @@ html {
                 display: flex;
                 flex-direction: column;
                 width: auto;
-                padding: $padding;
+                padding: 0;
                 border: 1px solid $warm-gray-02;
                 background: $warm-gray-01;
                 box-shadow: $card-box-shadow-alt;
+
+                &.active {
+                    padding: $padding;
+
+                    > a {
+                        display: flex
+                    }
+                }
               }
               @include for-tablet-portrait-up {
                 position: absolute;
                 z-index: 200;
                 top: 3.375rem;
                 right: $padding;
-                display: flex;
+                display: none;
                 flex-direction: column;
                 width: auto;
                 padding: $padding;
@@ -162,6 +170,10 @@ html {
                 border-top-width: 0;
                 background: $warm-gray-01;
                 box-shadow: $card-box-shadow-alt;
+
+                &.active {
+                    display: flex;
+                }
               }
               @include for-tablet-landscape-up {
                 position: relative;
@@ -191,6 +203,9 @@ html {
                 justify-content: center;
                 align-items: center;
                 @include transition(all .2s ease-in-out);
+                @include for-phone-only {
+                    display: none;
+                }
                 @include for-tablet-landscape-up {
                   margin-left: 1rem;
                   color: $warm-gray-06;
@@ -231,6 +246,7 @@ html {
                       height: 2.375rem;
                       border-radius: 50%;
                       font-size: 1.5rem;
+                      display: inline-block;
 
                       i {
                         margin: 0;
@@ -332,8 +348,8 @@ html {
               z-index: 100;
               top: 0;
               bottom: 0;
-              //left: -14rem
-              left: 0;
+              left: -14rem;
+              //left: 0;
 
               &.active {
                 left: 0;
@@ -1118,6 +1134,188 @@ html {
                     }
                   }
                 }
+              }
+
+              &.error-page {
+                  padding: 0;
+                  flex-direction: column;
+
+                  .quote-details {
+                    display: flex;
+                    background: $warm-gray-08;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    justify-content: space-between;
+
+                    dl {
+                      display: flex;
+                      flex-direction: column;
+                      margin: ($padding/2);
+                      padding: ($padding/2) $padding;
+                      justify-content: flex-start;
+
+                      div {
+                        dt {
+                          color: $white;
+                          font-size: $font-size-sm;
+                          font-weight: $font-weight-bold;
+                          @include for-phone-only {
+                            font-size: $font-size-xs;
+                          }
+                        }
+
+                        dd {
+                          margin: 0;
+                          color: $white;
+                          @include for-phone-only {
+                            font-size: $font-size-sm;
+                          }
+
+                          + dd {
+                            font-size: $font-size-sm;
+                            @include for-phone-only {
+                              font-size: $font-size-xs;
+                            }
+                          }
+                        }
+                      }
+
+                      &.annualPremium {
+                        margin: ($padding) (-$padding/2) ($padding) ($padding);
+                        padding: ($padding/2) ($padding*2);
+                        background: $yellow-lighten-05;
+                        box-shadow: $card-box-shadow-alt;
+                        @include for-phone-only {
+                          margin-right: 0;
+                        }
+
+                        div {
+                          dt {
+                            color: $body-color;
+                          }
+
+                          dd {
+                            color: $body-color;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  .workflow-header {
+                    padding: $padding;
+                    background-color: $warm-gray-01;
+                    flex-shrink: 0;
+
+                    .error-message-header {
+                        position: absolute;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        z-index: 10;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        margin: 0;
+                        background: $red-lighten-03;
+
+                        i {
+                            margin-right: $padding;
+                        }
+                    }
+
+                    .rule {
+                      background: $warm-gray-03;
+                    }
+
+                    li {
+                      a {
+                        color: $warm-gray-03;
+
+                        i.fa {
+                          background: $warm-gray-01;
+                        }
+
+                        &.active {
+                          color: $bright-blue;
+
+                          &:focus,
+                          &:hover {
+                            color: $bright-blue-lighten-01;
+                          }
+                        }
+
+                        &.disabled {
+                          color: $warm-gray-03;
+                          outline: none;
+                        }
+
+                        &.selected {
+                          color: $warm-gray-14;
+                          outline: none;
+
+                          i.fa {
+                            color: $bright-blue;
+                          }
+                        }
+
+                        &.complete {
+                          color: $bright-blue-lighten-03;
+
+                          &:focus,
+                          &:hover {
+                            color: $bright-blue;
+                          }
+                        }
+                      }
+                    }
+                  }
+                  .workflow-content {
+                      .survey-wrapper {
+                        flex-direction: row;
+                        padding: $padding ($padding/2);
+                        flex-wrap: wrap;
+                        flex-shrink: 0;
+                        flex-grow: 1;
+                        align-content: flex-start;
+
+                        h1, h2, h3, h4, h5, h6 {
+                            margin-top: 0;
+                        }
+
+
+                        @include for-phone-only {
+                          padding: ($padding*2) ($padding*2) 0;
+                        }
+                    }
+
+                  }
+                  .contact-info {
+                      @include for-phone-only {
+                          padding: $padding;
+                      }
+
+                      dl {
+                          dt {
+                              font-size: $font-size-h4;
+                          }
+                          dd {
+                              a {
+                                  margin-right: $padding*2;
+
+                                  @include for-phone-only {
+                                      width: 100%;
+                                      display: block;
+                                      padding: 1rem 0;
+                                  }
+                                  i {
+                                      margin-right: $padding/2;
+                                  }
+                              }
+                          }
+                      }
+                  }
               }
             }
 
