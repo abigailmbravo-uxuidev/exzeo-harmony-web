@@ -72,7 +72,7 @@ export class App extends Component {
               <ul>
                 <li className="active">
                   <a href="/workflow">
-                    <i className="fa fa-quote-right"></i><span>New Quote</span></a>
+                    <i className="fa fa-home"></i><span>Home</span></a>
                 </li>
               </ul>
             </nav>
