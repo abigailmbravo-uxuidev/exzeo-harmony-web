@@ -329,7 +329,7 @@ class WorkflowStep extends Component {
                     ? steps.namev
                     : ''}
                 /> :
-                (steps.type === 'Error') ? <ErrorPage /> :
+                (steps.type === 'Error') ? <ErrorPage errorType={1} /> :
                 <Survey
                   handleChange={this.handleChange}
                   handleOnSubmit={this.handleOnSubmit}
