@@ -55,7 +55,7 @@ class WorkflowStep extends Component {
         }
       }
     }
-    console.log('newProps', newProps.data); // eslint-disable-line
+    // console.log('newProps', newProps.data); // eslint-disable-line
 
     if ((!this.props.data.steps && newProps.data.steps) ||
       (!newProps.data.loading &&
@@ -189,11 +189,9 @@ class WorkflowStep extends Component {
   }
   manualSubmit = (newProps, questions) => {
     const answers = [];
-    console.log(questions);
     Object.keys(questions).forEach((key) => {
       answers.push({ key, value: questions[key].value });
     });
-    console.log(answers);
     this.props.completeStep({
       variables: {
         input: {
@@ -235,9 +233,9 @@ class WorkflowStep extends Component {
       if (updatedModel.data.completeStep && updatedModel.data.completeStep.details) {
         this.setState({ details: updatedModel.data.completeStep.details });
       }
-      console.log('DATA IN THE D: ', updatedModel);
+      // console.log('DATA IN THE D: ', updatedModel);
       this.props.data.refetch().then(({ data }) => {
-        console.log('ggggggg', data);
+        console.log("REFETCHED DATA:", data);
         this.context.router.transitionTo(`/workflow/${data.steps.name}`);
         this.props.updateCompletedSteps(data.steps.completedSteps);
       });
@@ -282,8 +280,8 @@ class WorkflowStep extends Component {
   }
   render() {
     const { steps } = this.props.data;
-    console.log('CURRENT STEP: ', this);
-    console.log('CURRENT STEP TYPE: ', steps ? steps.type : null);
+    // console.log('CURRENT STEP: ', this);
+    // console.log('CURRENT STEP TYPE: ', steps ? steps.type : null);
     if (steps && steps.data) {
       return (steps && steps.type !== 'Search')
         ? (
@@ -381,6 +379,15 @@ export default graphql(gql `
       }
       showDetail
       data {
+        ... on Quote {
+          coverageLimits {
+            dwelling {
+              maxAmount
+              minAmount
+              amount
+            }
+          }
+        }
         ... on Property {
           physicalAddress {
             address1
@@ -430,6 +437,15 @@ export default graphql(gql `
         value
       }
       data {
+        ... on Quote {
+          coverageLimits {
+            dwelling {
+              maxAmount
+              minAmount
+              amount
+            }
+          }
+        }
         ... on Property {
           physicalAddress {
             address1
