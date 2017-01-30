@@ -2,6 +2,7 @@ import React from 'react';
 
 const ErrorPage = () => (
   <div className="error-page" role="article">
+          {/*HARD STOP WORKFLOW ERROR*/}
     <div className="fade-in">
       <div className="quote-details" role="contentinfo">
         <dl>
@@ -62,6 +63,7 @@ const ErrorPage = () => (
         </dl>
       </div>
     </div>
+    {/*SOFT STOP WORKFLOW ERROR*/}
     <div className="fade-in">
       <div className="quote-details" role="contentinfo">
         <dl>
@@ -121,7 +123,10 @@ const ErrorPage = () => (
         </dl>
       </div>
     </div>
-
+    {/*APP ERROR*/}
+    <div className="fade-in">
+            
+    </div>
   </div>
 
 );
