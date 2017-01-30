@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Match } from 'react-router';
 import ErrorPage from '../common/ErrorPage';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
@@ -115,10 +114,10 @@ class WorkflowStep extends Component {
                 break;
               case 'greaterThan':
                 const { details } = this.state;
-                console.log('CURRENT DEBUG:: ', details);
+                // console.log('CURRENT DEBUG:: ', details);
                 if (details && details.find(d => d.name === condition.detail)) {
                   const expected = details.find(d => d.name === condition.detail).value;
-                  console.log(expected, condition.trigger);
+                  // console.log(expected, condition.trigger);
                   questions[question.name][condition.type] =
                     expected > condition.trigger;
                 } else if (!questions[question.name][condition.type]) {

@@ -1,8 +1,9 @@
 /* eslint react/no-direct-mutation-state:0 */
 import React, { Component } from 'react';
+import { reduxForm } from 'redux-form';
 import Survey from '../common/question/Survey';
 import ContentManager from './ContentManager';
-import { Field, reduxForm, Form } from 'redux-form';
+
 
 function mapQuestions(state) {
   const { questions, answers } = state;
