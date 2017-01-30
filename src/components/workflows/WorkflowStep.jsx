@@ -164,7 +164,6 @@ class WorkflowStep extends Component {
               break;
             case 'greaterThan':
               const { details } = this.state;
-              console.log('CURRENT DEBUG:: ', details);
               if (details && details.find(d => d.name === condition.detail)) {
                 const expected = details.find(d => d.name === condition.detail).value;
                 console.log(expected, condition.trigger);
@@ -214,8 +213,8 @@ class WorkflowStep extends Component {
     });
   }
   handleOnSubmit = (event, invalid) => {
-    console.log('Event', event); //
-    console.log('invalid', invalid); //
+    // console.log('Event', event); //
+    // console.log('invalid', invalid); //
     if (event && event.preventDefault) event.preventDefault();
 
     console.log('COMPLETE TASK'); // eslint-disable-line
