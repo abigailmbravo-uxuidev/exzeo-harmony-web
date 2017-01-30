@@ -157,7 +157,85 @@ module.exports = {
       _id: '5866c036a46eb72908f3f551',
     },
   },
-  additionalInterests: [],
-  policyHolders: [],
+  additionalInterests: [
+    {
+      type: 'Mortgagee',
+      name1: 'BB1',
+      name2: 'CC1',
+      active: true,
+      mailingAddress: {
+        address1: '123 this way dr',
+        city: 'Tampa',
+        state: 'FL',
+        zip: '33611',
+        country: {
+          code: 'US',
+          displayText: 'United States',
+        },
+      },
+    },
+    {
+      type: 'Mortgagee',
+      name1: 'BB2',
+      name2: 'CC2',
+      active: true,
+      mailingAddress: {
+        address1: '123 this way dr',
+        city: 'Tampa',
+        state: 'FL',
+        zip: '33611',
+        country: {
+          code: 'US',
+          displayText: 'United States',
+        },
+      },
+    },
+    {
+      type: 'Mortgagee',
+      name1: 'BB3',
+      name2: 'CC3',
+      active: true,
+      mailingAddress: {
+        address1: '123 this way dr',
+        city: 'Tampa',
+        state: 'FL',
+        zip: '33611',
+        country: {
+          code: 'US',
+          displayText: 'United States',
+        },
+      },
+    },
+  ],
+  policyHolderMailingAddress: {
+    careOf: null,
+    address1: '1000 Poplar Ave',
+    address2: null,
+    city: 'Tampa',
+    state: 'FL',
+    zip: '33607',
+    country: {
+      code: 'USA',
+      displayText: 'United States of America',
+    },
+  },
+  policyHolders: [
+    {
+      id: 'DFBDFBDF1',
+      order: 1,
+      entityType: 'Person',
+      firstName: 'Bryan1',
+      lastName: 'BBBB',
+      emailAddress: 'bb1@bb.com',
+    },
+    {
+      id: 'DFBDFBDF2',
+      order: 2,
+      entityType: 'Person',
+      firstName: 'Bryan2',
+      lastName: 'BBBB',
+      emailAddress: 'bb2@bb.com',
+    },
+  ],
   __v: 0,
 };

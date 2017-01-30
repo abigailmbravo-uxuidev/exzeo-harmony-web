@@ -9,7 +9,7 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
    pristine, reset, submitting, error, invalid }) => {
   const property = quoteTest.property;
   const coverageLimits = quoteTest.coverageLimits;
-
+  const mailingAddress = quoteTest.policyHolderMailingAddress;
   return (
     <div className="workflow" role="article">
       <div className="fade-in">
@@ -123,7 +123,7 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                     quoteTest.policyHolders.length > 0) ?
                     quoteTest.policyHolders.map((policyHolder, index) => (
                       <dl>
-                        <h5>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h5>
+                        <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
                         <div>
                           <dt>Name</dt>
                           <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
@@ -131,6 +131,58 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                           <dd>{policyHolder.phoneNumber}</dd>
                           <dt>Email</dt>
                           <dd>{policyHolder.emailAddress}</dd>
+                        </div>
+                      </dl>
+                  )) : null}
+
+                  <h4>Mailing Address</h4>
+                  <dl>
+                    <div>
+                      <dt>Address</dt>
+                      <dd>{mailingAddress.address1}</dd>
+                      <dd>{mailingAddress.address2}</dd>
+                      <dt>City/State/Zip</dt>
+                      <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
+                      <dt>Country</dt>
+                      <dd>{mailingAddress.country.displayText}</dd>
+                    </div>
+                  </dl>
+
+                  {/* BoolInput component with addition of class: "verification"*/}
+                  <div className="form-group switch  verification">
+                    <label htmlFor="test">Confirmed
+                                                  <input
+                                                    type="checkbox"
+                                                    name="test"
+                                                    checked={false}
+                                                  />
+                      <div className="switch-div" />
+                      {/* needed to add a span element for marker icon*/}
+                      <span />
+                    </label>
+                  </div>
+
+
+                </section>
+
+                <section className="display-element demographics">
+                  <h3>Additional Interests</h3>
+                  {(quoteTest.additionalInterests &&
+                    quoteTest.additionalInterests.length > 0) ?
+                    quoteTest.additionalInterests.map((additionalInterests, index) => (
+                      <dl>
+                        <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                        <div>
+                          <dt>Name</dt>
+                          <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
+                          <dt>Address</dt>
+                          <dd>{additionalInterests.mailingAddress.address1}</dd>
+                          <dd>{additionalInterests.mailingAddress.address2}</dd>
+                          <dt>City/State/Zip</dt>
+                          <dd>{additionalInterests.mailingAddress.city},
+                            {additionalInterests.mailingAddress.state}
+                            {additionalInterests.mailingAddress.zip}
+                          </dd>
                         </div>
                       </dl>
                   )) : null}
@@ -148,7 +200,6 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                       <span />
                     </label>
                   </div>
-
 
                 </section>
 
