@@ -33,8 +33,10 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                       <dt>Property Address</dt>
                       <dd>{property.physicalAddress.address1}</dd>
                       <dd>{property.physicalAddress.address2}</dd>
+                      <dt>Year Built</dt>
                       <dd>{property.yearBuilt}</dd>
-                      <dd>{`Flood Zone: "${property.protectionClass}"`}</dd>
+                      <dt>Flood Zone</dt>
+                      <dd>{property.protectionClass}</dd>
                     </div>
                   </dl>
                   <dl>
