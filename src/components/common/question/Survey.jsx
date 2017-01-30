@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
-import { Field, reduxForm, Form } from 'redux-form';
+// import _ from 'lodash';
+import { reduxForm, Form } from 'redux-form';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';

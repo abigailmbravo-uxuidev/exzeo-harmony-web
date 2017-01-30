@@ -1,7 +1,6 @@
 import React from 'react';
 
 const WorkflowDetails = ({details}) => {
-  console.log(details);
   return (
     <aside>
       <div className="side-panel" role="contentinfo">

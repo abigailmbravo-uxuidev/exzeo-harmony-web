@@ -125,7 +125,7 @@ const ErrorPage = () => (
     </div>
     {/*APP ERROR*/}
     <div className="fade-in">
-            
+
     </div>
   </div>
 

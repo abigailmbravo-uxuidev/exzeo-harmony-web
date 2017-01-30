@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
 import { combineRules } from '../../Rules';
 

@@ -7,7 +7,6 @@ import { combineRules } from '../../Rules';
 const RenderField = ({ input, segmented, answers, value, click, label, name,
   description, question, styleName, disabled,
    meta: { touched, error, warning } }) => {
-  console.log('input', input);
   const classnames = `form-group ${segmented ? 'segmented' : ''} ${label} ${styleName} ${disabled ? 'disabled' : ''}`;
   return (
     <div className={classnames} role="group">

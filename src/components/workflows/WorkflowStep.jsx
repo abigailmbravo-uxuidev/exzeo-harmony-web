@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Match } from 'react-router';
 import ErrorPage from '../common/ErrorPage';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
-import Summary from '../common/question/Summary';
+import Summary from '../common/summary/Summary';
 import WorkflowDetails from './WorkflowDetails';
 import Footer from '../common/Footer';
 
@@ -55,7 +54,7 @@ class WorkflowStep extends Component {
         }
       }
     }
-    console.log('newProps', newProps.data); // eslint-disable-line
+    // console.log('newProps', newProps.data); // eslint-disable-line
 
     if ((!this.props.data.steps && newProps.data.steps) ||
       (!newProps.data.loading &&
@@ -78,27 +77,27 @@ class WorkflowStep extends Component {
       }
       if (steps.questions) {
         steps.questions.forEach((question) => {
-        let value = '';
-        if ('defaultValue' in question) {
-          value = question.defaultValue;
-        } else if (question.answerType === 'bool') {
-          value = false;
-        } else if (question.answerType === 'range') {
-          value = 0;
-        }
-        questions[question.name] = {
-          value,
-          hidden: false,
-          disabled: false,
-        };
-      });
+          let value = '';
+          if ('defaultValue' in question) {
+            value = question.defaultValue;
+          } else if (question.answerType === 'bool') {
+            value = false;
+          } else if (question.answerType === 'range') {
+            value = 0;
+          }
+          questions[question.name] = {
+            value,
+            hidden: false,
+            disabled: false,
+          };
+        });
         steps.questions.forEach((question) => {
-        if (question.conditional && question.conditional.display) {
-          questions[question.name].hidden = false;
-          questions[question.name].disabled = false;
-          const { display } = question.conditional;
+          if (question.conditional && question.conditional.display) {
+            questions[question.name].hidden = false;
+            questions[question.name].disabled = false;
+            const { display } = question.conditional;
           // console.log('WORKFLOW STEP DATA: ', display);
-          display.forEach((condition) => {
+            display.forEach((condition) => {
             // console.log(condition);
             switch (condition.operator) { // eslint-disable-line
               case 'equal':
@@ -115,10 +114,10 @@ class WorkflowStep extends Component {
                 break;
               case 'greaterThan':
                 const { details } = this.state;
-                console.log('CURRENT DEBUG:: ', details);
+                // console.log('CURRENT DEBUG:: ', details);
                 if (details && details.find(d => d.name === condition.detail)) {
                   const expected = details.find(d => d.name === condition.detail).value;
-                  console.log(expected, condition.trigger);
+                  // console.log(expected, condition.trigger);
                   questions[question.name][condition.type] =
                     expected > condition.trigger;
                 } else if (!questions[question.name][condition.type]) {
@@ -133,9 +132,9 @@ class WorkflowStep extends Component {
                 }
                 break;
             }
-          });
-        }
-      });
+            });
+          }
+        });
       }
       this.setState({ questions });
     }
@@ -164,7 +163,6 @@ class WorkflowStep extends Component {
               break;
             case 'greaterThan':
               const { details } = this.state;
-              console.log('CURRENT DEBUG:: ', details);
               if (details && details.find(d => d.name === condition.detail)) {
                 const expected = details.find(d => d.name === condition.detail).value;
                 console.log(expected, condition.trigger);
@@ -189,11 +187,9 @@ class WorkflowStep extends Component {
   }
   manualSubmit = (newProps, questions) => {
     const answers = [];
-    console.log(questions);
     Object.keys(questions).forEach((key) => {
       answers.push({ key, value: questions[key].value });
     });
-    console.log(answers);
     this.props.completeStep({
       variables: {
         input: {
@@ -216,8 +212,8 @@ class WorkflowStep extends Component {
     });
   }
   handleOnSubmit = (event, invalid) => {
-    console.log('Event', event); //
-    console.log('invalid', invalid); //
+    // console.log('Event', event); //
+    // console.log('invalid', invalid); //
     if (event && event.preventDefault) event.preventDefault();
 
     console.log('COMPLETE TASK'); // eslint-disable-line
@@ -235,9 +231,9 @@ class WorkflowStep extends Component {
       if (updatedModel.data.completeStep && updatedModel.data.completeStep.details) {
         this.setState({ details: updatedModel.data.completeStep.details });
       }
-      console.log('DATA IN THE D: ', updatedModel);
+      // console.log('DATA IN THE D: ', updatedModel);
       this.props.data.refetch().then(({ data }) => {
-        console.log('ggggggg', data);
+        console.log("REFETCHED DATA:", data);
         this.context.router.transitionTo(`/workflow/${data.steps.name}`);
         this.props.updateCompletedSteps(data.steps.completedSteps);
       });
@@ -282,8 +278,8 @@ class WorkflowStep extends Component {
   }
   render() {
     const { steps } = this.props.data;
-    console.log('CURRENT STEP: ', this);
-    console.log('CURRENT STEP TYPE: ', steps ? steps.type : null);
+    // console.log('CURRENT STEP: ', this);
+    // console.log('CURRENT STEP TYPE: ', steps ? steps.type : null);
     if (steps && steps.data) {
       return (steps && steps.type !== 'Search')
         ? (
@@ -332,7 +328,7 @@ class WorkflowStep extends Component {
                     ? steps.namev
                     : ''}
                 /> :
-                (steps.type === 'Error') ? <ErrorPage /> :
+                (steps.type === 'Error') ? <ErrorPage errorType={1} /> :
                 <Survey
                   handleChange={this.handleChange}
                   handleOnSubmit={this.handleOnSubmit}
@@ -381,6 +377,15 @@ export default graphql(gql `
       }
       showDetail
       data {
+        ... on Quote {
+          coverageLimits {
+            dwelling {
+              maxAmount
+              minAmount
+              amount
+            }
+          }
+        }
         ... on Property {
           physicalAddress {
             address1
@@ -430,6 +435,15 @@ export default graphql(gql `
         value
       }
       data {
+        ... on Quote {
+          coverageLimits {
+            dwelling {
+              maxAmount
+              minAmount
+              amount
+            }
+          }
+        }
         ... on Property {
           physicalAddress {
             address1

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import logoHarmony from '../../img/logo.svg';
-import BoolInput from '../common/form/BoolInput'
+// import BoolInput from '../common/form/BoolInput'
 
 const Splash = ({ splashScreen, loginMessage }) => {
   if (splashScreen) {
