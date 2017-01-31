@@ -696,6 +696,11 @@ html {
                     flex-grow: 0;
                     flex-shrink: 0;
                     justify-content: space-between;
+                    position: relative;
+
+                    @include for-phone-only {
+                        flex-direction: column;
+                    }
 
                     dl {
                       display: flex;
@@ -703,6 +708,15 @@ html {
                       margin: ($padding/2);
                       padding: ($padding/2) $padding;
                       justify-content: flex-start;
+
+                      @include for-phone-only {
+                          margin: 0 35% 0 ($padding/2);
+                          padding: 0 $padding ($padding/2);
+
+                          &:first-child {
+                              padding-top: $padding/2;
+                          }
+                      }
 
                       div {
                         dt {
@@ -729,23 +743,70 @@ html {
                           }
                         }
                       }
+                      &.quoteID {
+                          flex-shrink: 0;
+                      }
+
+                      &.coverage {
+                          margin-right: 6.875rem;
+                          div {
+                              display: flex;
+                              flex-wrap: wrap;
+
+                              dt {
+                                  width: 100%;
+                              }
+                              dd {
+                                  margin-right: $padding*2;
+                                  + dd {
+                                      font-size: $font-size-h5;
+
+                                      @include for-phone-only {
+                                        font-size: $font-size-sm;
+                                      }
+                                  }
+                              }
+                          }
+                      }
 
                       &.annualPremium {
-                        margin: ($padding) (-$padding/2) ($padding) ($padding);
-                        padding: ($padding/2) ($padding*2);
+
                         background: $yellow-lighten-05;
                         box-shadow: $card-box-shadow-alt;
+                        width: auto;
+                        position: absolute;
+                        margin: 0;
+                        padding: ($padding/2) $padding;
+                        right: $padding/2;
+                        top: $padding/2;
+                        justify-content: center;
+                        align-items: center;
+
                         @include for-phone-only {
-                          margin-right: 0;
+                            right: $padding/2;
                         }
+
+                        @include for-tablet-portrait-up {
+                            right: (-$padding/2);
+                        }
+
 
                         div {
                           dt {
                             color: $body-color;
+
+                            @include for-phone-only {
+                                font-size: $font-size-h6;
+                                font-weight: $font-weight-bold;
+                            }
                           }
 
                           dd {
                             color: $body-color;
+
+                            @include for-phone-only {
+                                font-size: $font-size-h4;
+                            }
                           }
                         }
                       }
@@ -828,11 +889,7 @@ html {
                         flex-shrink: 0;
                         flex-grow: 0;
                         @include for-phone-only {
-                          flex-direction: row;
-                          margin: 0;
-                          flex-grow: 1;
-                          flex-basis: auto;
-                          flex-wrap: wrap;
+                          display: none;
                         }
                         @include for-big-desktop-up {
                           width: 17.975rem;
@@ -843,12 +900,6 @@ html {
                           margin-bottom: $margin-bottom/2;
                           flex-grow: 0;
                           flex-shrink: 0;
-                          @include for-phone-only {
-                            flex-direction: row;
-                            width: 65%;
-                            margin: 0 0 0 35%;
-                            padding: ($padding/2) $padding;
-                          }
 
                           dl {
                             display: flex;
@@ -874,10 +925,6 @@ html {
                                 display: flex;
                                 flex-direction: column;
                                 flex-basis: auto;
-                                @include for-phone-only {
-                                  margin-bottom: 0;
-                                  font-size: 0.8rem;
-                                }
                               }
 
                               &:last-child {
@@ -1152,12 +1199,20 @@ html {
                     flex-shrink: 0;
                     justify-content: space-between;
 
+                    @include for-phone-only {
+                        flex-direction: column;
+                    }
+
                     dl {
                       display: flex;
                       flex-direction: column;
                       margin: ($padding/2);
                       padding: ($padding/2) $padding;
                       justify-content: flex-start;
+
+                      @include for-phone-only {
+                          flex-direction: row;
+                      }
 
                       div {
                         dt {
@@ -1215,9 +1270,9 @@ html {
                         position: absolute;
                         display: flex;
                         align-items: center;
-                        justify-content: center;
                         width: 100%;
                         z-index: 10;
+                        padding-left: $padding;
                         top: 0;
                         right: 0;
                         bottom: 0;

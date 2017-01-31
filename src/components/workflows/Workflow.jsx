@@ -34,17 +34,25 @@ class Workflow extends Component {
       <div className="workflow" role="article">
         <div className="fade-in">
           <div className="quote-details" role="contentinfo">
-            <dl>
+            <dl className="quoteID">
               <div>
                 <dt>Quote Number</dt>
                 <dd>TT-12345678-01</dd>
               </div>
             </dl>
-            <dl>
+            <dl className="address">
               <div>
                 <dt>Address</dt>
                 <dd>123 East Beachfront Avenue</dd>
                 <dd>Osprey, FL 33333</dd>
+              </div>
+            </dl>
+            <dl className="coverage">
+              <div>
+                <dt>Coverage</dt>
+                <dd>A: $ --</dd>
+                <dd>B: $ --</dd>
+                <dd>C: $ --</dd>
               </div>
             </dl>
             <dl className="annualPremium">
