@@ -233,7 +233,7 @@ class WorkflowStep extends Component {
       }
       // console.log('DATA IN THE D: ', updatedModel);
       this.props.data.refetch().then(({ data }) => {
-        console.log("REFETCHED DATA:", data);
+        console.log('REFETCHED DATA:', data);
         this.context.router.transitionTo(`/workflow/${data.steps.name}`);
         this.props.updateCompletedSteps(data.steps.completedSteps);
       });
@@ -325,7 +325,7 @@ class WorkflowStep extends Component {
                   quote={steps && steps.quote
                     ? steps.quote
                     : null} styleName={steps && steps.name
-                    ? steps.name
+                    ? steps.namev
                     : ''}
                 /> :
                 (steps.type === 'Error') ? <ErrorPage errorType={1} /> :
@@ -335,7 +335,7 @@ class WorkflowStep extends Component {
                   questions={steps && steps.questions && steps.questions.length > 0
                   ? steps.questions
                   : null} answers={this.state.questions} styleName={steps && steps.name
-                  ? steps.name
+                  ? steps.namev
                   : ''}
                 />
               }

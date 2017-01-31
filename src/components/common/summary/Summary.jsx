@@ -5,8 +5,10 @@ import moment from 'moment';
 import Footer from '../Footer';
 import BoolInput from '../form/BoolInput';
 import quoteTest from './quoteTest';
+import TextInput from '../form/TextInput';
 
-let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
+let Summary = ({ initialValues, quote, state, styleName, handleSubmit, handleOnSubmit, handleChange,
+  effectiveDate,
   editConfirmAdditionalInterests,
   editConfirmPolicyHolder,
   editConfirmQuote,
@@ -19,6 +21,9 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
   const property = quoteTest.property;
   const coverageLimits = quoteTest.coverageLimits;
   const mailingAddress = quoteTest.policyHolderMailingAddress;
+
+  initialValues.effectiveDate = moment(quoteTest.effectiveDate).format('YYYY-MM-DD');
+
   return (
     <div className="workflow" role="article">
       <div className="fade-in">
@@ -43,6 +48,8 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                       <dt>Property Address</dt>
                       <dd>{property.physicalAddress.address1}</dd>
                       <dd>{property.physicalAddress.address2}</dd>
+                      <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
+                         property.physicalAddress.zip}`}</dd>
                       <dt>Year Built</dt>
                       <dd>{property.yearBuilt}</dd>
                       <dt>Flood Zone</dt>
@@ -52,21 +59,22 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   <dl>
                     <div>
                       <dt>Effective Date</dt>
-                      <dd>{moment(quoteTest.effectiveDate).format('MM/DD/YYYY')}</dd>
+                      <dd>{moment(effectiveDate).format('MM/DD/YYYY')}</dd>
                     </div>
                   </dl>
                   <dl>
-                    <div>
+                    {!confirmProperyDetails && <div>
                       <label className="btn" htmlFor="editProperty">
                         <i className="fa fa-pencil" /> Edit </label>
                       <Field
                         name="editProperty" id="editProperty" component="input" type="checkbox"
                         style={{ display: 'none' }}
                       />
-                    </div>
+                    </div>}
                   </dl>
 
                   <BoolInput
+                    disabled={editProperty}
                     name={'confirmProperyDetails'}
                     question={'Confirmed'}
                     handleChange={function () { }}
@@ -76,6 +84,52 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
 
                 </section>
               }
+                {editProperty &&
+                <section className="display-element demographics">
+                  <h3>Property Details</h3>
+                  <dl>
+                    <div>
+                      <dt>Quote Number</dt>
+                      <dd>{quoteTest.quoteNumber}</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>Property Address</dt>
+                      <dd>{property.physicalAddress.address1}</dd>
+                      <dd>{property.physicalAddress.address2}</dd>
+                      <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
+                         property.physicalAddress.zip}`}</dd>
+                      <dt>Year Built</dt>
+                      <dd>{property.yearBuilt}</dd>
+                      <dt>Flood Zone</dt>
+                      <dd>{property.protectionClass}</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <TextInput
+                        answerType="date"
+                        handleChange={function () {}}
+                        name="effectiveDate"
+                        question={'Effective Date'}
+                        validations={['required', 'date']}
+                      />
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <label className="btn" htmlFor="editProperty">
+                        <i className="fa fa-file" /> Save </label>
+                      <Field
+                        name="editProperty" id="editProperty" component="input" type="checkbox"
+                        style={{ display: 'none' }}
+                      />
+                    </div>
+                  </dl>
+
+                </section>
+            }
                 {!editConfirmQuote &&
                 <section className="display-element demographics">
                   <h3>Quote Details</h3>
@@ -116,14 +170,14 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                     </div>
                   </dl>
                   <dl>
-                    <div>
+                    {!confirmQuoteDetails && <div>
                       <label className="btn" htmlFor="editConfirmQuote">
                         <i className="fa fa-pencil" /> Edit </label>
                       <Field
                         name="editConfirmQuote" id="editConfirmQuote" component="input" type="checkbox"
                         style={{ display: 'none' }}
                       />
-                    </div>
+                    </div>}
                   </dl>
                   <BoolInput
                     name={'confirmQuoteDetails'}
@@ -167,14 +221,14 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                     </div>
                   </dl>
                   <dl>
-                    <div>
+                    {confirmPolicyHolderDetails && <div>
                       <label className="btn" htmlFor="editConfirmPolicyHolder">
                         <i className="fa fa-pencil" /> Edit </label>
                       <Field
                         name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox"
                         style={{ display: 'none' }}
                       />
-                    </div>
+                    </div> }
                   </dl>
                   <BoolInput
                     name={'confirmPolicyHolderDetails'}
@@ -250,6 +304,7 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
 };
 
 Summary.propTypes = {
+  effectiveDate: PropTypes.string,
   editConfirmAdditionalInterests: PropTypes.bool,
   editConfirmPolicyHolder: PropTypes.bool,
   editConfirmQuote: PropTypes.bool,
@@ -282,8 +337,13 @@ Summary = connect(
     const confirmQuoteDetails = selector(state, 'confirmQuoteDetails');
     const confirmPolicyHolderDetails = selector(state, 'confirmPolicyHolderDetails');
     const confirmAdditionalInterestsDetails = selector(state, 'confirmAdditionalInterestsDetails');
+    const effectiveDate = selector(state, 'effectiveDate');
 
     return {
+      initialValues: {
+        effectiveDate,
+      },
+      effectiveDate,
       editConfirmAdditionalInterests,
       editConfirmPolicyHolder,
       editConfirmQuote,

@@ -10,7 +10,7 @@ const renderField = ({
   isSwitch,
   description,
   question,
-  styleName
+  styleName,
 }) => {
   const onChange = () => {
     if (input.disabled) return;
@@ -57,7 +57,7 @@ const renderField = ({
 
 const BoolInput = ({
   description,
-  disabled = false,
+  disabled,
   handleChange,
   isSwitch = false,
   name,
@@ -70,7 +70,7 @@ const BoolInput = ({
 
   return (
     <Field
-      disabled={disabled}
+      disabled={disabled || false}
       description={description}
       component={renderField}
       name={name || null}
