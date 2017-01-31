@@ -1,12 +1,16 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Form, formValueSelector } from 'redux-form';
+import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
 import moment from 'moment';
 import Footer from '../Footer';
 import BoolInput from '../form/BoolInput';
 import quoteTest from './quoteTest';
 
 let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
+  editConfirmAdditionalInterests,
+  editConfirmPolicyHolder,
+  editConfirmQuote,
+  editProperty,
   confirmProperyDetails,
   confirmQuoteDetails,
   confirmPolicyHolderDetails,
@@ -25,6 +29,7 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
               noValidate
             >
               <div className="form-group survey-wrapper">
+                {!editProperty &&
                 <section className="display-element demographics">
                   <h3>Property Details</h3>
                   <dl>
@@ -52,8 +57,12 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   </dl>
                   <dl>
                     <div>
-                      <a className="btn">
-                        <i className="fa fa-pencil" /> Edit </a>
+                      <label className="btn" htmlFor="editProperty">
+                        <i className="fa fa-pencil" /> Edit </label>
+                      <Field
+                        name="editProperty" id="editProperty" component="input" type="checkbox"
+                        style={{ display: 'none' }}
+                      />
                     </div>
                   </dl>
 
@@ -66,7 +75,8 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   />
 
                 </section>
-
+              }
+                {!editConfirmQuote &&
                 <section className="display-element demographics">
                   <h3>Quote Details</h3>
                   <dl>
@@ -107,8 +117,12 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   </dl>
                   <dl>
                     <div>
-                      <a className="btn">
-                        <i className="fa fa-pencil" /> Edit </a>
+                      <label className="btn" htmlFor="editConfirmQuote">
+                        <i className="fa fa-pencil" /> Edit </label>
+                      <Field
+                        name="editConfirmQuote" id="editConfirmQuote" component="input" type="checkbox"
+                        style={{ display: 'none' }}
+                      />
                     </div>
                   </dl>
                   <BoolInput
@@ -120,7 +134,8 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   />
 
                 </section>
-
+              }
+                {!editConfirmPolicyHolder &&
                 <section className="display-element demographics">
                   <h3>Policy Holder Details</h3>
                   {(quoteTest.policyHolders &&
@@ -153,8 +168,12 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   </dl>
                   <dl>
                     <div>
-                      <a className="btn">
-                        <i className="fa fa-pencil" /> Edit </a>
+                      <label className="btn" htmlFor="editConfirmPolicyHolder">
+                        <i className="fa fa-pencil" /> Edit </label>
+                      <Field
+                        name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox"
+                        style={{ display: 'none' }}
+                      />
                     </div>
                   </dl>
                   <BoolInput
@@ -167,7 +186,8 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                     isSwitch
                   />
                 </section>
-
+              }
+                {!editConfirmAdditionalInterests &&
                 <section className="display-element demographics">
                   <h3>Additional Interests</h3>
                   {(quoteTest.additionalInterests &&
@@ -191,8 +211,13 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   )) : null}
                   <dl>
                     <div>
-                      <a className="btn">
-                        <i className="fa fa-pencil" /> Edit </a>
+                      <label className="btn" htmlFor="editConfirmAdditionalInterests">
+                        <i className="fa fa-pencil" /> Edit </label>
+                      <Field
+                        name="editConfirmAdditionalInterests" id="editConfirmAdditionalInterests"
+                        component="input" type="checkbox"
+                        style={{ display: 'none' }}
+                      />
                     </div>
                   </dl>
                   <BoolInput
@@ -205,7 +230,7 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                     isSwitch
                   />
                 </section>
-
+              }
               </div>
               <div className="workflow-steps">
                 <button
@@ -225,6 +250,10 @@ let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
 };
 
 Summary.propTypes = {
+  editConfirmAdditionalInterests: PropTypes.bool,
+  editConfirmPolicyHolder: PropTypes.bool,
+  editConfirmQuote: PropTypes.bool,
+  editProperty: PropTypes.bool,
   confirmProperyDetails: PropTypes.bool,
   confirmQuoteDetails: PropTypes.bool,
   confirmPolicyHolderDetails: PropTypes.bool,
@@ -245,12 +274,20 @@ const selector = formValueSelector('Summary'); // <-- same as form name
 Summary = connect(
   (state) => {
     // can select values individually
+    const editConfirmAdditionalInterests = selector(state, 'editConfirmAdditionalInterests');
+    const editConfirmPolicyHolder = selector(state, 'editConfirmPolicyHolder');
+    const editConfirmQuote = selector(state, 'editConfirmQuote');
+    const editProperty = selector(state, 'editProperty');
     const confirmProperyDetails = selector(state, 'confirmProperyDetails');
     const confirmQuoteDetails = selector(state, 'confirmQuoteDetails');
     const confirmPolicyHolderDetails = selector(state, 'confirmPolicyHolderDetails');
     const confirmAdditionalInterestsDetails = selector(state, 'confirmAdditionalInterestsDetails');
 
     return {
+      editConfirmAdditionalInterests,
+      editConfirmPolicyHolder,
+      editConfirmQuote,
+      editProperty,
       confirmProperyDetails,
       confirmQuoteDetails,
       confirmPolicyHolderDetails,
