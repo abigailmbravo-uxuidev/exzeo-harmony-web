@@ -1,11 +1,16 @@
 import React, { PropTypes } from 'react';
-import { reduxForm, Form } from 'redux-form';
+import { connect } from 'react-redux';
+import { reduxForm, Form, formValueSelector } from 'redux-form';
 import moment from 'moment';
 import Footer from '../Footer';
 import BoolInput from '../form/BoolInput';
 import quoteTest from './quoteTest';
 
-const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
+let Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
+  confirmProperyDetails,
+  confirmQuoteDetails,
+  confirmPolicyHolderDetails,
+  confirmAdditionalInterestsDetails,
    pristine, reset, submitting, error, invalid }) => {
   const property = quoteTest.property;
   const coverageLimits = quoteTest.coverageLimits;
@@ -16,7 +21,7 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
         <div className="workflow-content">
           <section>
             <Form
-              className={`fade-in ${styleName || ''}`} id="survey" onSubmit={null}
+              className={`fade-in ${styleName || ''}`} id="survey" onSubmit={function () { }}
               noValidate
             >
               <div className="form-group survey-wrapper">
@@ -45,22 +50,20 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                       <dd>{moment(quoteTest.effectiveDate).format('MM/DD/YYYY')}</dd>
                     </div>
                   </dl>
+                  <dl>
+                    <div>
+                      <a className="btn">
+                        <i className="fa fa-pencil" /> Edit </a>
+                    </div>
+                  </dl>
 
-
-                  {/* BoolInput component with addition of class: "verification"*/}
-                  <div className="form-group switch  verification">
-                    <label htmlFor="test">Confirmed
-                                                  <input
-                                                    type="checkbox"
-                                                    name="test"
-                                                    checked={false}
-                                                  />
-                      <div className="switch-div" />
-                      {/* needed to add a span element for marker icon*/}
-                      <span />
-                    </label>
-                  </div>
-
+                  <BoolInput
+                    name={'confirmProperyDetails'}
+                    question={'Confirmed'}
+                    handleChange={function () { }}
+                    value={false}
+                    isSwitch
+                  />
 
                 </section>
 
@@ -102,20 +105,19 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                       <dd>${coverageLimits.personalProperty.amount}</dd>
                     </div>
                   </dl>
-                  {/* BoolInput component with addition of class: "verification"*/}
-                  <div className="form-group switch  verification">
-                    <label htmlFor="test">Confirmed
-                                                  <input
-                                                    type="checkbox"
-                                                    name="test"
-                                                    checked={false}
-                                                  />
-                      <div className="switch-div" />
-                      {/* needed to add a span element for marker icon*/}
-                      <span />
-                    </label>
-                  </div>
-
+                  <dl>
+                    <div>
+                      <a className="btn">
+                        <i className="fa fa-pencil" /> Edit </a>
+                    </div>
+                  </dl>
+                  <BoolInput
+                    name={'confirmQuoteDetails'}
+                    question={'Confirmed'}
+                    handleChange={function () { }}
+                    value={confirmQuoteDetails}
+                    isSwitch
+                  />
 
                 </section>
 
@@ -124,7 +126,7 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   {(quoteTest.policyHolders &&
                     quoteTest.policyHolders.length > 0) ?
                     quoteTest.policyHolders.map((policyHolder, index) => (
-                      <dl>
+                      <dl key={`ph${index}`}>
                         <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
                         <div>
                           <dt>Name</dt>
@@ -149,22 +151,21 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                       <dd>{mailingAddress.country.displayText}</dd>
                     </div>
                   </dl>
+                  <dl>
+                    <div>
+                      <a className="btn">
+                        <i className="fa fa-pencil" /> Edit </a>
+                    </div>
+                  </dl>
+                  <BoolInput
+                    name={'confirmPolicyHolderDetails'}
+                    question={'Confirmed'}
+                    handleChange={function () {
 
-                  {/* BoolInput component with addition of class: "verification"*/}
-                  <div className="form-group switch  verification">
-                    <label htmlFor="test">Confirmed
-                                                  <input
-                                                    type="checkbox"
-                                                    name="test"
-                                                    checked={false}
-                                                  />
-                      <div className="switch-div" />
-                      {/* needed to add a span element for marker icon*/}
-                      <span />
-                    </label>
-                  </div>
-
-
+                    }}
+                    value={confirmPolicyHolderDetails}
+                    isSwitch
+                  />
                 </section>
 
                 <section className="display-element demographics">
@@ -172,7 +173,7 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                   {(quoteTest.additionalInterests &&
                     quoteTest.additionalInterests.length > 0) ?
                     quoteTest.additionalInterests.map((additionalInterests, index) => (
-                      <dl>
+                      <dl key={`ai${index}`}>
                         <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
                         <div>
                           <dt>Name</dt>
@@ -188,26 +189,32 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
                         </div>
                       </dl>
                   )) : null}
+                  <dl>
+                    <div>
+                      <a className="btn">
+                        <i className="fa fa-pencil" /> Edit </a>
+                    </div>
+                  </dl>
+                  <BoolInput
+                    name={'confirmAdditionalInterestsDetails'}
+                    question={'Confirmed'}
+                    handleChange={function () {
 
-                  {/* BoolInput component with addition of class: "verification"*/}
-                  <div className="form-group switch  verification">
-                    <label htmlFor="test">Confirmed
-                                                  <input
-                                                    type="checkbox"
-                                                    name="test"
-                                                    checked={false}
-                                                  />
-                      <div className="switch-div" />
-                      {/* needed to add a span element for marker icon*/}
-                      <span />
-                    </label>
-                  </div>
-
+                    }}
+                    value={confirmAdditionalInterestsDetails}
+                    isSwitch
+                  />
                 </section>
 
               </div>
               <div className="workflow-steps">
-                <button className="btn btn-primary" type="submit" form="survey">next</button></div>
+                <button
+                  disabled={!confirmProperyDetails ||
+                !confirmQuoteDetails || !confirmPolicyHolderDetails ||
+              !confirmAdditionalInterestsDetails}
+                  className="btn btn-primary" type="submit" form="survey"
+
+                >next</button></div>
               <Footer />
             </Form>
           </section>
@@ -218,6 +225,10 @@ const Summary = ({ quote, styleName, handleSubmit, handleOnSubmit, handleChange,
 };
 
 Summary.propTypes = {
+  confirmProperyDetails: PropTypes.bool,
+  confirmQuoteDetails: PropTypes.bool,
+  confirmPolicyHolderDetails: PropTypes.bool,
+  confirmAdditionalInterestsDetails: PropTypes.bool,
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
@@ -225,6 +236,27 @@ Summary.propTypes = {
   styleName: PropTypes.string,
 };
 
-export default reduxForm({
+Summary = reduxForm({
   form: 'Summary', // a unique identifier for this form
 })(Summary);
+
+const selector = formValueSelector('Summary'); // <-- same as form name
+
+Summary = connect(
+  (state) => {
+    // can select values individually
+    const confirmProperyDetails = selector(state, 'confirmProperyDetails');
+    const confirmQuoteDetails = selector(state, 'confirmQuoteDetails');
+    const confirmPolicyHolderDetails = selector(state, 'confirmPolicyHolderDetails');
+    const confirmAdditionalInterestsDetails = selector(state, 'confirmAdditionalInterestsDetails');
+
+    return {
+      confirmProperyDetails,
+      confirmQuoteDetails,
+      confirmPolicyHolderDetails,
+      confirmAdditionalInterestsDetails,
+    };
+  },
+)(Summary);
+
+export default Summary;
