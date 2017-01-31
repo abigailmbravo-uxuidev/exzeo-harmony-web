@@ -84,6 +84,7 @@ export class App extends Component {
             <Match pattern="/quote/:location/:address" component={Quote}/>
             <Match pattern="/test" component={TestPage}/>
             <Match pattern="/workflow" component={NewWorkflow}/>
+            <Match pattern="/workflow/error" component={ErrorPage}/>
             <Match pattern="/admin/" component={Admin}/>
             <Match pattern="/cms" component={Cms}/>
             <Match pattern="/error" component={ErrorPage}/>

@@ -31,7 +31,7 @@ const WorkflowHeader = (d) => {
                   tabIndex={index}
                   onClick={() => { d.updateStep(index); }}
                 >
-                  <i className={`fa ${step.icon || 'fa-circle'}`} />
+                  <i className={step.name} />
                   <span>{step.label}</span>
                 </a>
               </li>

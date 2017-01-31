@@ -325,7 +325,7 @@ class WorkflowStep extends Component {
                   quote={steps && steps.quote
                     ? steps.quote
                     : null} styleName={steps && steps.name
-                    ? steps.namev
+                    ? steps.name
                     : ''}
                 /> :
                 (steps.type === 'Error') ? <ErrorPage errorType={1} /> :
@@ -335,7 +335,7 @@ class WorkflowStep extends Component {
                   questions={steps && steps.questions && steps.questions.length > 0
                   ? steps.questions
                   : null} answers={this.state.questions} styleName={steps && steps.name
-                  ? steps.namev
+                  ? steps.name
                   : ''}
                 />
               }
