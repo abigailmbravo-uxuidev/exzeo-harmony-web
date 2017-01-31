@@ -227,6 +227,7 @@ module.exports = {
       firstName: 'Bryan1',
       lastName: 'BBBB',
       emailAddress: 'bb1@bb.com',
+      primaryPhoneNumber: '813-555-3456',
     },
     {
       id: 'DFBDFBDF2',
@@ -235,6 +236,7 @@ module.exports = {
       firstName: 'Bryan2',
       lastName: 'BBBB',
       emailAddress: 'bb2@bb.com',
+      primaryPhoneNumber: '813-555-3456',
     },
   ],
   __v: 0,
