@@ -61,8 +61,8 @@ const renderPolicyHolder = ({ fields, InterestType, handleChange, meta: { touche
           onClick={() => fields.remove(index)}
         >Remove {InterestType}</button>
         <br /> <br />
-        <h4>{InterestType} #{index + 1}</h4>
-        <PolicyHolder handleChange={function () {}} name={`${InterestType + index + 1}.`} />
+        <h4>{InterestType} #{index + 2}</h4>
+        <PolicyHolder handleChange={function () {}} name={`${InterestType + index + 2}.`} />
       </div>,
     )}
   </div>
