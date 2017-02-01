@@ -16,7 +16,7 @@ import Admin from './admin/Admin';
 import Cms from './cms/CMS';
 import './App.css';
 import './Rules';
-import Demographics from './common/Demographics/Demographics';
+import Demographics from './workflows/Demographics';
 import Verify from './common/verify/Verify';
 
 export class App extends Component {
