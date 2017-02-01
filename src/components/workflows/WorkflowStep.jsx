@@ -6,7 +6,6 @@ import gql from 'graphql-tag';
 import ErrorPage from '../common/ErrorPage';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
-import Summary from '../common/summary/Summary';
 import WorkflowDetails from './WorkflowDetails';
 import Footer from '../common/Footer';
 
@@ -319,15 +318,6 @@ class WorkflowStep extends Component {
                     <Footer />
                   </div>
                 ) :
-                (steps.type === 'Summary') ? <Summary
-                  handleChange={this.handleChange}
-                  handleOnSubmit={this.handleOnSubmit}
-                  quote={steps && steps.quote
-                    ? steps.quote
-                    : null} styleName={steps && steps.name
-                    ? steps.namev
-                    : ''}
-                /> :
                 (steps.type === 'Error') ? <ErrorPage errorType={1} /> :
                 <Survey
                   handleChange={this.handleChange}
