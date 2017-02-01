@@ -6,18 +6,18 @@ import TextInput from '../form/TextInput';
 
 const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange,
    pristine, reset, submitting, error, invalid }) => (
-     <div className="form-group Survey-wrapper" role="group">
+     <div className="form-group survey-wrapper" role="group">
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="firstName"
+         name="FirstName"
          question={'First Name'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="lastName"
+         name="LastName"
          question={'Last Name'}
          validations={['required']}
        />
