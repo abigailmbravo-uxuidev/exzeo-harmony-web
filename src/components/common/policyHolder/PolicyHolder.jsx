@@ -10,28 +10,28 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="FirstName"
+         name={`${name}FirstName`}
          question={'First Name'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="LastName"
+         name={`${name}LastName`}
          question={'Last Name'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="EmailAddress"
+         name={`${name}lastName`}
          question={'Email Address'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="primaryPhoneNumber"
+         name={`${name}primaryPhoneNumber`}
          question={'Phone Number'}
          validations={['required', 'phone']}
        />
