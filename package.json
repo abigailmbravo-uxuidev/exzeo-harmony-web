@@ -42,6 +42,7 @@
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.5",
+    "react-router-dom": "^4.0.0-beta.3",
     "react-simple-currency": "^1.0.11",
     "react-tooltip": "^3.2.2",
     "redux": "^3.6.0",
