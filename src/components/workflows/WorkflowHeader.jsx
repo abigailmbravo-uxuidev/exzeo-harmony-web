@@ -4,6 +4,7 @@ import Demographics from '../workflows/Demographics';
 import Customize from '../workflows/CustomizeQuote';
 import Share from '../workflows/Share';
 import UWQuestions from '../workflows/UWQuestions';
+import Billing from '../workflows/Billing';
 
 // function getStatus(step, completedSteps) {
 //   let status;
@@ -49,6 +50,7 @@ const WorkflowHeader = (d) => {
         <Route path="/workflow/underwriting" component={UWQuestions}/>
         <Route path="/workflow/customize" component={Customize}/>
         <Route path="/workflow/share" component={Share}/>
+        <Route path="/workflow/billing" component={Billing}/>
       </div>
     </div>
   </Router>

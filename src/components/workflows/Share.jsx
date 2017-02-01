@@ -11,24 +11,24 @@ class Share extends Component {
       <div>
         <div>
           <p>Coverages</p>
-          <p>Dwelling: $100,000</p>
-          <p>Other Structures: $100,000</p>
-          <p>Personal Property: $50000</p>
-          <p>Personal Property Replacement Cost: Yes</p>
-          <p>Loss Of Use: $10,000</p>
-          <p>Personal Liability: $100,000</p>
-          <p>Medical Payments: $2,000</p>
-          <p>Mold Property: $10,000</p>
-          <p>Mold Liability: $50,000</p>
-          <p>Ordinance or Law: 25,000</p>
-          <p>Property Incidental Occupancies: Yes</p>
-          <p>Sinkhole Coverage: Yes</p>
-          <p>All Other Perils: $500</p>
-          <p>Hurricane: 2,000</p>
-          <p>Sinkhole Deductible: Yes</p>
+          <p><label>Dwelling:</label> $100,000</p>
+          <p><label>Other Structures:</label> $100,000</p>
+          <p><label>Personal Property:</label> $50000</p>
+          <p><label>Personal Property Replacement Cost:</label> Yes</p>
+          <p><label>Loss Of Use:</label> $10,000</p>
+          <p><label>Personal Liability:</label> $100,000</p>
+          <p><label>Medical Payments:</label> $2,000</p>
+          <p><label>Mold Property:</label> $10,000</p>
+          <p><label>Mold Liability:</label> $50,000</p>
+          <p><label>Ordinance or Law:</label> 25,000</p>
+          <p><label>Property Incidental Occupancies:</label> Yes</p>
+          <p><label>Sinkhole Coverage:</label> Yes</p>
+          <p><label>All Other Perils:</label> $500</p>
+          <p><label>Hurricane:</label> 2,000</p>
+          <p><label>Sinkhole Deductible:</label> Yes</p>
         </div>
         <div className="workflow-steps">
-          <button className="btn btn-primary" type="submit" form="survey">Customize</button>
+          <button className="btn btn-primary" type="submit " form="survey">Customize</button>
           <button className="btn btn-primary" type="submit" form="survey">share</button>
           <button className="btn btn-primary" type="submit" form="survey">next</button>
         </div>
