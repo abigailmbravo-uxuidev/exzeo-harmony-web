@@ -24,17 +24,16 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-
   //links
   a,
   a:visited {
-    color: $blue;
     text-decoration: none;
+    color: $blue;
     @include transition(all .2s ease-in-out);
 
     &:hover {
-        color: $blue-darken-02;
-        text-decoration: none;
+      text-decoration: none;
+      color: $blue-darken-02;
     }
   }
 
@@ -163,11 +162,11 @@ html {
                 box-shadow: $card-box-shadow-alt;
 
                 &.active {
-                    padding: $padding;
+                  padding: $padding;
 
-                    > a {
-                        display: flex
-                    }
+                  > a {
+                    display: flex;
+                  }
                 }
               }
               @include for-tablet-portrait-up {
@@ -185,7 +184,7 @@ html {
                 box-shadow: $card-box-shadow-alt;
 
                 &.active {
-                    display: flex;
+                  display: flex;
                 }
               }
               @include for-tablet-landscape-up {
@@ -217,7 +216,7 @@ html {
                 align-items: center;
                 @include transition(all .2s ease-in-out);
                 @include for-phone-only {
-                    display: none;
+                  display: none;
                 }
                 @include for-tablet-landscape-up {
                   margin-left: 1rem;
@@ -255,11 +254,11 @@ html {
                       position: absolute;
                       top: -3rem;
                       right: 4rem;
+                      display: inline-block;
                       width: 2.375rem;
                       height: 2.375rem;
                       border-radius: 50%;
                       font-size: 1.5rem;
-                      display: inline-block;
 
                       i {
                         margin: 0;
@@ -363,7 +362,6 @@ html {
               bottom: 0;
               left: -14rem;
               //left: 0;
-
               &.active {
                 left: 0;
               }
@@ -542,8 +540,7 @@ html {
                   justify-content: center;
 
                   .products {
-                      display: flex;
-
+                    display: flex;
                   }
                 }
               }
@@ -704,15 +701,14 @@ html {
                   flex: 1;
 
                   .quote-details {
+                    position: relative;
                     display: flex;
                     background: $warm-gray-08;
                     flex-grow: 0;
                     flex-shrink: 0;
                     justify-content: flex-start;
-                    position: relative;
-
                     @include for-phone-only {
-                        flex-direction: column;
+                      flex-direction: column;
                     }
 
                     dl {
@@ -721,14 +717,13 @@ html {
                       margin: ($padding/2);
                       padding: ($padding/2) $padding;
                       justify-content: flex-start;
-
                       @include for-phone-only {
-                          margin: 0 35% 0 ($padding/2);
-                          padding: 0 $padding ($padding/2);
+                        margin: 0 35% 0 ($padding/2);
+                        padding: 0 $padding ($padding/2);
 
-                          &:first-child {
-                              padding-top: $padding/2;
-                          }
+                        &:first-child {
+                          padding-top: $padding/2;
+                        }
                       }
 
                       div {
@@ -756,69 +751,66 @@ html {
                           }
                         }
                       }
+
                       &.quoteID {
-                          flex-shrink: 0;
+                        flex-shrink: 0;
                       }
 
                       &.coverage {
-                          margin-right: 6.875rem;
-                          div {
-                              display: flex;
-                              flex-wrap: wrap;
+                        margin-right: 6.875rem;
 
-                              dt {
-                                  width: 100%;
-                              }
-                              dd {
-                                  margin-right: $padding*2;
-                                  + dd {
-                                      font-size: $font-size-h5;
+                        div {
+                          display: flex;
+                          flex-wrap: wrap;
 
-                                      @include for-phone-only {
-                                        font-size: $font-size-sm;
-                                      }
-                                  }
-                              }
+                          dt {
+                            width: 100%;
                           }
+
+                          dd {
+                            margin-right: $padding*2;
+
+                            + dd {
+                              font-size: $font-size-h5;
+                              @include for-phone-only {
+                                font-size: $font-size-sm;
+                              }
+                            }
+                          }
+                        }
                       }
 
                       &.annualPremium {
-
-                        background: $yellow-lighten-05;
-                        box-shadow: $card-box-shadow-alt;
-                        width: auto;
                         position: absolute;
+                        top: $padding/2;
+                        right: $padding/2;
+                        width: auto;
                         margin: 0;
                         padding: ($padding/2) $padding;
-                        right: $padding/2;
-                        top: $padding/2;
+                        background: $yellow-lighten-05;
+                        box-shadow: $card-box-shadow-alt;
                         justify-content: center;
                         align-items: center;
-
                         @include for-phone-only {
-                            right: $padding/2;
+                          right: $padding/2;
                         }
-
                         @include for-tablet-portrait-up {
-                            right: (-$padding/2);
+                          right: (-$padding/2);
                         }
-
 
                         div {
                           dt {
                             color: $body-color;
-
                             @include for-phone-only {
-                                font-size: $font-size-h6;
-                                font-weight: $font-weight-bold;
+                              font-size: $font-size-h6;
+                              font-weight: $font-weight-bold;
                             }
                           }
 
                           dd {
                             color: $body-color;
-
                             @include for-phone-only {
-                                font-size: $font-size-h4;
+                              font-size: $font-size-h4;
                             }
                           }
                         }
@@ -843,46 +835,51 @@ html {
                           background: $warm-gray-01;
 
                           &:before {
-                              content: "\f1db";
+                            content: "\f1db";
                           }
 
                           &.chooseAddress {
-                              &:before {
-                                  content: "\f041";
-                              }
+                            &:before {
+                              content: "\f041";
+                            }
                           }
-                          &.askAdditionalCustomerData {
-                              &:before {
-                                  content: "\f007";
-                              }
-                          }
-                          &.askUWAnswers {
-                              &:before {
-                                  content: "\f0f6";
-                              }
-                          }
-                          &.askToCustomizeDefaultQuote {
 
+                          &.askAdditionalCustomerData {
+                            &:before {
+                              content: "\f007";
+                            }
                           }
+
+                          &.askUWAnswers {
+                            &:before {
+                              content: "\f0f6";
+                            }
+                          }
+
+                          &.askToCustomizeDefaultQuote {}
+
                           &.customizeDefaultQuote {
-                              &:before {
-                                  content: "\f1de";
-                              }
+                            &:before {
+                              content: "\f1de";
+                            }
                           }
+
                           &.shareIt {
-                              &:before {
-                                  content: "\f1e0";
-                              }
+                            &:before {
+                              content: "\f1e0";
+                            }
                           }
+
                           &.billingInfo {
-                              &:before {
-                                  content: "\f155";
-                              }
+                            &:before {
+                              content: "\f155";
+                            }
                           }
+
                           &.verifyWrite {
-                              &:before {
-                                  content: "\f14a";
-                              }
+                            &:before {
+                              content: "\f14a";
+                            }
                           }
                         }
 
@@ -1117,89 +1114,98 @@ html {
                       }
 
                       .error-page {
-                          padding: 0;
-                          flex-direction: column;
+                        flex-direction: column;
+                        padding: 0;
 
-                          .workflow-content {
-                              .survey-wrapper {
-                                flex-direction: row;
-                                padding: $padding ($padding/2) 0;
-                                flex-wrap: wrap;
-                                flex-shrink: 0;
-                                flex-grow: 1;
-                                align-content: flex-start;
-
-                                h1, h2, h3, h4, h5, h6 {
-                                    margin-top: 0;
-                                }
-
-                                @include for-phone-only {
-                                  padding: ($padding*2) ($padding*2) 0;
-                                }
+                        .workflow-content {
+                          .survey-wrapper {
+                            flex-direction: row;
+                            padding: $padding ($padding/2) 0;
+                            flex-wrap: wrap;
+                            flex-shrink: 0;
+                            flex-grow: 1;
+                            align-content: flex-start;
+                            @include for-phone-only {
+                              padding: ($padding*2) ($padding*2) 0;
                             }
 
+                            h1,
+                            h2,
+                            h3,
+                            h4,
+                            h5,
+                            h6 {
+                              margin-top: 0;
+                            }
                           }
-                          .contact-info {
-                              padding: 0 ($padding/2) $padding;
-                              @include for-phone-only {
-                                  padding: 0 ($padding*2) $padding;
-                              }
-                              dl {
-                                  div {
-                                      dt {
-                                          display: flex;
-                                          font-size: $font-size-h4;
-                                          @include for-phone-only {
-                                              padding-top: $padding*2;
-                                              border-top: 1px dashed $warm-gray-02;
-                                              justify-content: center;
-                                          }
-                                      }
-                                      dd {
-                                          display: flex;
-                                          @include for-phone-only {
-                                              flex-direction: row-reverse;
-                                              justify-content: space-around;
-                                          }
-                                          a {
-                                              display: flex;
-                                              align-items: center;
-                                              @include for-phone-only {
-                                                  height: 2.5rem;
-                                                  border-radius: 2rem;
-                                                  display: flex;
-                                                  padding-right: $padding;
-                                              }
-                                              +a {
-                                                  margin-left: $padding*2;
-                                                  @include for-phone-only {
-                                                      margin-left: 0;
-                                                      border-width: 0;
-                                                      padding-right: 0;
-                                                  }
-                                              }
-                                              i {
-                                                  margin-right: $padding/2;
+                        }
 
-                                                  &.fa-phone {
-                                                      @include for-phone-only {
-                                                          font-size: 1.5rem;
-                                                          border: 2px solid $bright-blue;
-                                                          width: 2.5rem;
-                                                          height: 2.5rem;
-                                                          display: flex;
-                                                          border-radius: 2rem;
-                                                          align-items: center;
-                                                          justify-content: center;
-                                                          margin-right: $padding/2;
-                                                      }
-                                                  }
-                                              }
-                                          }
-                                      }
-                                  }
-                              }
+                        .contact-info {
+                          padding: 0 ($padding/2) $padding;
+                          @include for-phone-only {
+                            padding: 0 ($padding*2) $padding;
                           }
+
+                          dl {
+                            div {
+                              dt {
+                                display: flex;
+                                font-size: $font-size-h4;
+                                @include for-phone-only {
+                                  padding-top: $padding*2;
+                                  border-top: 1px dashed $warm-gray-02;
+                                  justify-content: center;
+                                }
+                              }
+
+                              dd {
+                                display: flex;
+                                @include for-phone-only {
+                                  flex-direction: row-reverse;
+                                  justify-content: space-around;
+                                }
+
+                                a {
+                                  display: flex;
+                                  align-items: center;
+                                  @include for-phone-only {
+                                    display: flex;
+                                    height: 2.5rem;
+                                    padding-right: $padding;
+                                    border-radius: 2rem;
+                                  }
+
+                                  +a {
+                                    margin-left: $padding*2;
+                                    @include for-phone-only {
+                                      margin-left: 0;
+                                      padding-right: 0;
+                                      border-width: 0;
+                                    }
+                                  }
+
+                                  i {
+                                    margin-right: $padding/2;
+
+                                    &.fa-phone {
+                                      @include for-phone-only {
+                                        display: flex;
+                                        width: 2.5rem;
+                                        height: 2.5rem;
+                                        margin-right: $padding/2;
+                                        border: 2px solid $bright-blue;
+                                        border-radius: 2rem;
+                                        font-size: 1.5rem;
+                                        align-items: center;
+                                        justify-content: center;
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -1331,165 +1337,165 @@ html {
               }
 
               &.error-page {
-                  display: flex;
-                  flex-direction: column;
+                display: flex;
+                flex-direction: column;
 
-                  .fade-in {
-                      .workflow-content {
-                          section {
-                              .fade-in {
-                                  .survey-wrapper {
-                                      h1, h2, h3, h4, h5, h6 {
-                                          margin-top: 0;
-                                      }
-                                  }
-                              }
+                .fade-in {
+                  .workflow-content {
+                    section {
+                      .fade-in {
+                        .survey-wrapper {
+                          h1,
+                          h2,
+                          h3,
+                          h4,
+                          h5,
+                          h6 {
+                            margin-top: 0;
                           }
+                        }
                       }
-                      .contact-info {
-                          @include for-phone-only {
+                    }
+                  }
 
-                          }
-                          dl {
-                              div {
-                                  dt {
-                                      display: flex;
-                                      font-size: $font-size-h4;
-                                      @include for-phone-only {
-                                          padding-top: $padding*2;
-                                          border-top: 1px dashed $warm-gray-02;
-                                          justify-content: center;
-                                      }
-                                  }
-                                  dd {
-                                      display: flex;
-                                      @include for-phone-only {
-                                          flex-direction: row-reverse;
-                                          justify-content: space-around;
-                                      }
-                                      a {
-                                          display: flex;
-                                          align-items: center;
-                                          @include for-phone-only {
-                                              height: 2.5rem;
-                                              border-radius: 2rem;
-                                              display: flex;
-                                              padding-right: $padding;
-                                          }
-                                          +a {
-                                              margin-left: $padding*2;
-                                              @include for-phone-only {
-                                                  margin-left: 0;
-                                                  border-width: 0;
-                                                  padding-right: 0;
-                                              }
-                                          }
-                                          i {
-                                              margin-right: $padding/2;
-
-                                              &.fa-phone {
-                                                  @include for-phone-only {
-                                                      font-size: 1.5rem;
-                                                      border: 2px solid $bright-blue;
-                                                      width: 2.5rem;
-                                                      height: 2.5rem;
-                                                      display: flex;
-                                                      border-radius: 2rem;
-                                                      align-items: center;
-                                                      justify-content: center;
-                                                      margin-right: $padding/2;
-                                                  }
-                                              }
-                                          }
-                                      }
-                                  }
-                              }
-                          }
-                      }
-
-                      &.app-error {
-                          position: absolute;
-                          top: 0;
-                          left: 0;
-                          right: 0;
-                          bottom: 0;
-                          background: $white;
-                          z-index: 10;
+                  .contact-info {
+                    dl {
+                      div {
+                        dt {
                           display: flex;
-                          align-items: center;
-                          justify-content: center;
-                          flex-direction: column;
-                          overflow-x: hidden;
+                          font-size: $font-size-h4;
+                          @include for-phone-only {
+                            padding-top: $padding*2;
+                            border-top: 1px dashed $warm-gray-02;
+                            justify-content: center;
+                          }
+                        }
 
-                          .workflow-content {
-                              width: 100%;
+                        dd {
+                          display: flex;
+                          @include for-phone-only {
+                            flex-direction: row-reverse;
+                            justify-content: space-around;
+                          }
+
+                          a {
+                            display: flex;
+                            align-items: center;
+                            @include for-phone-only {
                               display: flex;
+                              height: 2.5rem;
+                              padding-right: $padding;
+                              border-radius: 2rem;
+                            }
+
+                            +a {
+                              margin-left: $padding*2;
+                              @include for-phone-only {
+                                margin-left: 0;
+                                padding-right: 0;
+                                border-width: 0;
+                              }
+                            }
+
+                            i {
+                              margin-right: $padding/2;
+
+                              &.fa-phone {
+                                @include for-phone-only {
+                                  display: flex;
+                                  width: 2.5rem;
+                                  height: 2.5rem;
+                                  margin-right: $padding/2;
+                                  border: 2px solid $bright-blue;
+                                  border-radius: 2rem;
+                                  font-size: 1.5rem;
+                                  align-items: center;
+                                  justify-content: center;
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  &.app-error {
+                    position: absolute;
+                    z-index: 10;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    display: flex;
+                    overflow-x: hidden;
+                    flex-direction: column;
+                    background: $white;
+                    align-items: center;
+                    justify-content: center;
+
+                    .workflow-content {
+                      display: flex;
+                      width: 100%;
+                      align-items: center;
+                      justify-content: center;
+                      flex-grow: 0;
+
+                      section {
+                        z-index: 10;
+                        padding: ($padding*2) $padding;
+                        background: rgba($white, .75);
+                        box-shadow: $card-box-shadow-alt;
+
+                        .fade-in {
+                            flex-grow: 0;
+                            flex-shrink: 0;
+                          .survey-wrapper {
+                            display: flex;
+                            flex-direction: column;
+                            background: none;
+                            box-shadow: none;
+                            align-items: center;
+                            justify-content: center;
+
+                            article {
+                              &.error-message {
+                                display: flex;
+                                flex-direction: column;
+                                margin-bottom: $padding*4;
+                                align-items: center;
+                                justify-content: center;
+                              }
+                            }
+
+                            .contact-info {
+                              display: flex;
+                              flex-direction: column;
                               align-items: center;
                               justify-content: center;
-                              flex-grow: 0;
 
-                              section {
-                                  padding: ($padding*2) $padding;
-                                  z-index: 10;
-                                  background: rgba($white, .75);
-                                  box-shadow: $card-box-shadow-alt;
-
-                                  .fade-in {
-                                      .survey-wrapper {
-                                          background: none;
-                                          box-shadow: none;
-                                          display: flex;
-                                          flex-direction: column;
-                                          align-items: center;
-                                          justify-content: center;
-
-                                          article {
-                                              &.error-message {
-                                                  display: flex;
-                                                  flex-direction: column;
-                                                  align-items: center;
-                                                  justify-content: center;
-                                                  margin-bottom: $padding*4;
-                                              }
-                                          }
-                                          .contact-info {
-                                              display: flex;
-                                              flex-direction: column;
-                                              align-items: center;
-                                              justify-content: center;
-
-                                              dl {
-                                                  div {
-                                                      display: flex;
-                                                      flex-direction: column;
-                                                      align-items: center;
-                                                      justify-content: center;
-                                                  }
-                                              }
-                                          }
-                                      }
-                                  }
-
-
-                                  .fade-in {
-                                      flex-grow: 0;
-                                      flex-shrink: 0;
-                                  }
+                              dl {
+                                div {
+                                  display: flex;
+                                  flex-direction: column;
+                                  align-items: center;
+                                  justify-content: center;
+                                }
                               }
+                            }
                           }
-
-                          .contact-info {
-                              z-index: 10;
-                              width: 100%;
-                          }
-
-                          .waves {
-
-                          }
-
-
+                        }
                       }
+                    }
+
+                    .contact-info {
+                      z-index: 10;
+                      width: 100%;
+                    }
+
+                    .waves {}
                   }
+                }
               }
             }
 

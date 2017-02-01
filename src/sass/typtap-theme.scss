@@ -1068,6 +1068,7 @@ html {
   }
 }
 //FORM LAYOUT
+
 html {
   body {
     div#root {
@@ -1142,10 +1143,19 @@ html {
 }
 //ERROR PAGE animation
 @keyframes waves {
-   0%   {background-position: 0 0;}
-   50% {background-position: 50% 100x;}
-   100% {background-position: 100% 0;}
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 50% 100x;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
 }
+
 html {
   body {
     div#root {
@@ -1154,30 +1164,24 @@ html {
           .content-wrapper {
             > div[role="article"] {
               &.error-page {
-
                 .fade-in {
-
                   &.app-error {
-
-                    .workflow-content {
-
-
-                    }
+                    .workflow-content {}
 
                     .waves {
-                        background-image: url('../img/water.svg');
-                        background-size: 150%;
-                          background-repeat: repeat-x;
-                          padding: 100px 0 100px;
-                          animation-name: waves;
-                         animation-duration: 5s;
-                          animation-iteration-count: infinite;
-                          animation-direction: alternate;
-                          animation-timing-function: linear;
-                          width: 100%;
-                          bottom: 0;
-                          top: 5%;
-                          position: absolute;
+                      position: absolute;
+                      top: 5%;
+                      bottom: 0;
+                      width: 100%;
+                      padding: 100px 0;
+                      animation-name: waves;
+                      animation-duration: 5s;
+                      animation-timing-function: linear;
+                      animation-iteration-count: infinite;
+                      animation-direction: alternate;
+                      background-image: url('../img/water.svg');
+                      background-repeat: repeat-x;
+                      background-size: 150%;
                     }
                   }
                 }
