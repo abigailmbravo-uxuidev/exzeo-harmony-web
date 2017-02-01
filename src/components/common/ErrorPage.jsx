@@ -2,41 +2,8 @@ import React from 'react';
 
 const ErrorPage = () => (
   <div className="error-page" role="article">
-          {/*HARD STOP WORKFLOW ERROR*/}
+    {/*HARD STOP WORKFLOW ERROR*/}
     <div className="fade-in">
-      <div className="quote-details" role="contentinfo">
-        <dl>
-          <div>
-            <dt>Quote Number</dt>
-            <dd>TT-12345678-01</dd>
-          </div>
-        </dl>
-        <dl>
-          <div>
-            <dt>Address</dt>
-            <dd>123 East Beachfront Avenue</dd>
-            <dd>Osprey, FL 33333</dd>
-          </div>
-        </dl>
-        <dl className="annualPremium">
-          <div>
-            <dt>Annual Premium</dt>
-            <dd>$ --</dd>
-          </div>
-        </dl>
-      </div>
-      <ul className="workflow-header">
-        <div className="rule"></div>
-        <li>
-          <a>
-            <i className="fa fa-circle-thin"></i>
-            <span></span>
-          </a>
-        </li>
-        <h3 className="error-message-header">
-          <i className="fa fa-frown-o"></i>
-          Sorry</h3>
-      </ul>
       <div className="workflow-content">
         <section>
           <div className="fade-in">
@@ -54,10 +21,12 @@ const ErrorPage = () => (
             <dd>
               <a href="tel:8442897968">
                 <i className="fa fa-phone"></i>
-                (844) 289-7968</a>
-              <a href="tel:8442897968">
+                (844) 289-7968
+              </a>
+              <a href="mailto:customerservice@typtap.com">
                 <i className="fa fa-envelope"></i>
-                customerservice@typtap.com</a>
+                email us
+              </a>
             </dd>
           </div>
         </dl>
@@ -65,38 +34,6 @@ const ErrorPage = () => (
     </div>
     {/*SOFT STOP WORKFLOW ERROR*/}
     <div className="fade-in">
-      <div className="quote-details" role="contentinfo">
-        <dl>
-          <div>
-            <dt>Quote Number</dt>
-            <dd>TT-12345678-01</dd>
-          </div>
-        </dl>
-        <dl>
-          <div>
-            <dt>Address</dt>
-            <dd>123 East Beachfront Avenue</dd>
-            <dd>Osprey, FL 33333</dd>
-          </div>
-        </dl>
-        <dl className="annualPremium">
-          <div>
-            <dt>Annual Premium</dt>
-            <dd>$ --</dd>
-          </div>
-        </dl>
-      </div>
-      <ul className="workflow-header">
-        <li>
-          <a>
-            <i className="fa fa-circle-thin"></i>
-            <span></span>
-          </a>
-        </li>
-        <h3 className="error-message-header">
-          <i className="fa fa-phone"></i>
-          Call us</h3>
-      </ul>
       <div className="workflow-content">
         <section>
           <div className="fade-in">
@@ -114,18 +51,51 @@ const ErrorPage = () => (
             <dd>
               <a href="tel:8442897968">
                 <i className="fa fa-phone"></i>
-                (844) 289-7968</a>
-              <a href="tel:8442897968">
+                (844) 289-7968
+              </a>
+              <a href="mailto:customerservice@typtap.com">
                 <i className="fa fa-envelope"></i>
-                customerservice@typtap.com</a>
+                email us
+              </a>
             </dd>
           </div>
         </dl>
       </div>
     </div>
     {/*APP ERROR*/}
-    <div className="fade-in">
+    <div className="fade-in app-error">
+      <div className="workflow-content">
+        <section>
+          <div className="fade-in">
+            <section className="survey-wrapper">
+              <article className="error-message">
+                <h2>Oh no! You Flooded the Website!</h2>
+                <p>Just kidding, something went wrong or the page you are looking for cannot be found.</p>
+                <a href="./" className="btn btn-success">Return Home</a>
+              </article>
+              <div className="contact-info">
+                <dl>
+                  <div>
+                    <dt>Customer service</dt>
+                    <dd>
+                      <a href="tel:8442897968">
+                        <i className="fa fa-phone"></i>
+                        (844) 289-7968
+                      </a>
+                      <a href="mailto:customerservice@typtap.com">
+                        <i className="fa fa-envelope"></i>
+                        email us
+                      </a>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
 
+      <div className="waves"></div>
     </div>
   </div>
 

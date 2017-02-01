@@ -54,8 +54,12 @@
           text-decoration: none;
         }
 
-        i.fa {
+        i {
           width: 2rem;
+
+          &:before {
+              font-family: FontAwesome;
+          }
           @include for-phone-only {
             font-size: $font-size-h4;
           }
