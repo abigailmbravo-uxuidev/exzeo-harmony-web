@@ -263,6 +263,44 @@ class TestPage extends Component {
             </div>
             {/*END UW QUESTIONS COMPONENT*/}
 
+            {/*MAILING ADDRESS COMPONENT*/}
+            <section>
+              <form className="fade-in" id="MailingAddress">
+                <div className="form-group survey-wrapper" role="group">
+                  <div className="form-group  CompanyName">
+                    <label>Company Name</label><input type="text" name="CompanyName" value=""/></div>
+                  <div className="form-group  MailingAddress">
+                    <label>Mailing Address</label><input type="text" name="MailingAddress" value=""/></div>
+                  <div className="form-group  MailingAddress2">
+                    <label>Mailing Address 2</label><input type="text" name="MailingAddress2" value=""/></div>
+                  <div className="form-group  City">
+                    <label>City</label><input type="text" name="City" value=""/></div>
+                  <div className="form-group  State">
+                    <label>State</label>
+                    <select name="State" value="">
+                            <option value="al">Alabama</option>
+                            <option value="ak">Alaska</option>
+                            <option value="az">Arizona</option>
+                            <option value="ar">Arkansas</option>
+                            <option value="ca">California</option>
+                    </select>
+                  </div>
+                  <div className="form-group  Zip">
+                    <label>City</label><input type="number" name="Zip" value=""/></div>
+                  <div className="form-group  LoanNumber">
+                    <label>Loan Number</label><input type="text" name="LoanNumber" value=""/></div>
+                </div>
+                <div className="form-group  Mortgage">
+                  <label>MortgageType</label>
+                <select name="MortgageType" value="">
+                  <option value="primary">1st Mortgage</option>
+                  <option value="secondary">2nd Mortgage</option>
+                </select>
+                </div>
+              </form>
+            </section>
+            {/*END MAILING ADDRESS COMPONENT*/}
+
           </div>
         </div>
       </div>
