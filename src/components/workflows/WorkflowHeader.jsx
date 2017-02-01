@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Demographics from '../workflows/Demographics';
 import Customize from '../workflows/CustomizeQuote';
 import Share from '../workflows/Share';
 import UWQuestions from '../workflows/UWQuestions';
-
+import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
+import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
 // function getStatus(step, completedSteps) {
 //   let status;
 //   if (location.pathname.indexOf(step.name) > -1) {
@@ -33,8 +34,8 @@ const WorkflowHeader = (d) => {
               if (step.type !== 'Search' && step.type !== 'Error') {
                 return (
                   <li key={index}>
-                    <Link to={"/workflow/" + step.link}>
-                      <i className={'fa ' + step.name} />
+                    <Link to={`/workflow/${step.link}`}>
+                      <i className={`fa ${step.name}`} />
                       <span>{step.label}</span>
                     </Link>
                   </li>
@@ -43,15 +44,17 @@ const WorkflowHeader = (d) => {
               return null;
             }) : null
           }
-      </ul>
-      <div>
-        <Route path="/workflow/demographics" component={Demographics}/>
-        <Route path="/workflow/underwriting" component={UWQuestions}/>
-        <Route path="/workflow/customize" component={Customize}/>
-        <Route path="/workflow/share" component={Share}/>
+        </ul>
+        <div>
+          <Route path="/workflow/demographics" component={Demographics} />
+          <Route path="/workflow/underwriting" component={UWQuestions} />
+          <Route path="/workflow/customize" component={Customize} />
+          <Route path="/workflow/share" component={Share} />
+          <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm} />
+          <Route path="/workflow/MailingAddress" component={MailingAddressForm} />
+        </div>
       </div>
-    </div>
-  </Router>
+    </Router>
   );
 };
 

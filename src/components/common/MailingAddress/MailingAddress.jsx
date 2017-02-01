@@ -3,43 +3,50 @@ import React, { PropTypes } from 'react';
 import { reduxForm, Form } from 'redux-form';
 import Footer from '../Footer';
 import TextInput from '../form/TextInput';
+import Dropdown from '../form/Dropdown';
 
-const MailingAddress = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange,
+const MailingAddress = ({ styleName, handleChange, name,
    pristine, reset, submitting, error, invalid }) => (
      <div className="form-group survey-wrapper" role="group">
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="FirstName"
-         question={'First Name'}
+         name={`${name}address1`}
+         question={'Address 1'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="LastName"
-         question={'Last Name'}
+         name={`${name}address2`}
+         question={'Address 2'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="lastName"
-         question={'Email Address'}
+         name={`${name}city`}
+         question={'City'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name="primaryPhoneNumber"
-         question={'Phone Number'}
-         validations={['required', 'phone']}
+         name={`${name}state`}
+         question={'State'}
+         validations={['required']}
+       />
+       <Dropdown
+         answers={[{ answer: 'USA' }, { answer: 'CANADA' }]}
+         handleChange={handleChange}
+         name={`${name}country`}
+         question={'Country'}
+         validations={['required']}
        />
      </div>
   );
 
 MailingAddress.propTypes = {
-  askDate: PropTypes.bool,
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
