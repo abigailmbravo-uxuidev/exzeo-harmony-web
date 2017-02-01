@@ -15,16 +15,17 @@ let Demographics = (props) => {
       className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(() => { })}
       noValidate
     >
-      <h3>Demographics</h3>
       <PolicyHolder {...props} />
+      <div className="form-group survey-wrapper" role="group">
       <TextInput
         answerType="date"
         handleChange={handleChange}
         name="effectiveDate"
         defaultValue={effectiveDate}
-        question={'Phone Number'}
+        question={'Effective Date'}
         validations={['required', 'date']}
       />
+        </div>
       <div className="workflow-steps">
         <button className="btn btn-primary" type="submit" form="Demographics">next</button>
       </div>

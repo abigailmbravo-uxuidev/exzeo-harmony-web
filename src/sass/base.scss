@@ -997,120 +997,122 @@ html {
 
                       div.fade-in,
                       form {
-                        .survey-wrapper {
-                          flex-direction: row;
-                          padding: $padding ($padding/2);
-                          flex-wrap: wrap;
-                          flex-shrink: 0;
-                          flex-grow: 1;
-                          align-content: flex-start;
-                          @include for-phone-only {
-                            padding: ($padding*2) ($padding*2) 0;
-                          }
-
-                          &.form-group {
-                            margin-bottom: 0;
-
-                            .display-element {
-                              display: flex;
-                              flex-direction: column;
-                              width: 100%;
-
-                              h1,
-                              h2,
-                              h3,
-                              h4,
-                              h5,
-                              h6 {
-                                flex-basis: auto;
-                              }
-                            }
-                          }
-
-                          h1,
-                          h2,
-                          h3,
-                          h4,
-                          h5,
-                          h6 {
-                            margin-top: 0;
-
-                            &.step-title {
-                              color: $body-color;
-                            }
-
-                            &.step-sub-title {
-                              color: $warm-gray-11;
-                            }
-                          }
-
-                          .form-group {
-                            padding-bottom: 1.45rem;
-                            border-bottom: 1px dashed $warm-gray-02;
-                            flex-shrink: 0;
-                            flex-grow: 0;
-
-                            label {
-                              font-size: $font-size-h4;
-                              @include for-phone-only {
-                                font-size: $font-size-h5;
-                              }
-                            }
-                          }
-
-                          ul.results {
-                            &.result-cards {
-                              li {
-                                margin-bottom: $padding/2;
-
-                                a {
-                                  padding: $padding $padding*1.5;
-                                  border: $card-border-width solid $card-border-color;
-                                  border-radius: $card-border-radius;
-                                  background: $white;
-                                  align-items: center;
-
-                                  section {
-                                    flex-direction: column;
-                                    flex-grow: 1;
-
-                                    h2,
-                                    h3,
-                                    h4,
-                                    h5 {
-                                      margin: 0;
-                                    }
-
-                                    p {
-                                      margin: 0;
-                                    }
-                                  }
-
-                                  i {
-                                    width: 2rem;
-                                    height: 2rem;
-                                    font-size: $font-size-h2;
-
-                                    &.fa-map-marker {
-                                      justify-content: flex-start;
-                                    }
-                                  }
-
-                                  &:hover {
-                                    cursor: pointer;
-
-                                    h2,
-                                    h3,
-                                    h4,
-                                    h5 {
-                                      color: $bright-blue-darken-02;
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
+                          //!REFACTOR
+                        // .survey-wrapper {
+                        //   flex-direction: row;
+                        //   padding: $padding ($padding/2);
+                        //   flex-wrap: wrap;
+                        //   flex-shrink: 0;
+                        //   flex-grow: 1;
+                        //   align-content: flex-start;
+                        //   @include for-phone-only {
+                        //     padding: ($padding*2) ($padding*2) 0;
+                        //   }
+                        //
+                        //   &.form-group {
+                        //     margin-bottom: 0;
+                        //
+                        //     .display-element {
+                        //       display: flex;
+                        //       flex-direction: column;
+                        //       width: 100%;
+                        //
+                        //       h1,
+                        //       h2,
+                        //       h3,
+                        //       h4,
+                        //       h5,
+                        //       h6 {
+                        //         flex-basis: auto;
+                        //       }
+                        //     }
+                        //   }
+                        //
+                        //   h1,
+                        //   h2,
+                        //   h3,
+                        //   h4,
+                        //   h5,
+                        //   h6 {
+                        //     margin-top: 0;
+                        //
+                        //     &.step-title {
+                        //       color: $body-color;
+                        //     }
+                        //
+                        //     &.step-sub-title {
+                        //       color: $warm-gray-11;
+                        //     }
+                        //   }
+                        //
+                        //   .form-group {
+                        //     padding-bottom: 1.45rem;
+                        //     border-bottom: 1px dashed $warm-gray-02;
+                        //     flex-shrink: 0;
+                        //     flex-grow: 0;
+                        //
+                        //     label {
+                        //       font-size: $font-size-h4;
+                        //       @include for-phone-only {
+                        //         font-size: $font-size-h5;
+                        //       }
+                        //     }
+                        //   }
+                        //
+                        //   ul.results {
+                        //     &.result-cards {
+                        //       li {
+                        //         margin-bottom: $padding/2;
+                        //
+                        //         a {
+                        //           padding: $padding $padding*1.5;
+                        //           border: $card-border-width solid $card-border-color;
+                        //           border-radius: $card-border-radius;
+                        //           background: $white;
+                        //           align-items: center;
+                        //
+                        //           section {
+                        //             flex-direction: column;
+                        //             flex-grow: 1;
+                        //
+                        //             h2,
+                        //             h3,
+                        //             h4,
+                        //             h5 {
+                        //               margin: 0;
+                        //             }
+                        //
+                        //             p {
+                        //               margin: 0;
+                        //             }
+                        //           }
+                        //
+                        //           i {
+                        //             width: 2rem;
+                        //             height: 2rem;
+                        //             font-size: $font-size-h2;
+                        //
+                        //             &.fa-map-marker {
+                        //               justify-content: flex-start;
+                        //             }
+                        //           }
+                        //
+                        //           &:hover {
+                        //             cursor: pointer;
+                        //
+                        //             h2,
+                        //             h3,
+                        //             h4,
+                        //             h5 {
+                        //               color: $bright-blue-darken-02;
+                        //             }
+                        //           }
+                        //         }
+                        //       }
+                        //     }
+                        //   }
+                        // }
+                        //!REFACTOR
                       }
 
                       .error-page {
@@ -1269,27 +1271,28 @@ html {
                             flex-shrink: 0;
                             flex-grow: 0;
 
-                            .form-group {
-                              padding-top: 0.5rem;
-                              border-top: 1px dashed $warm-gray-01;
-                              flex-shrink: 0;
-                              flex-grow: 0;
-                              @include animation( 'fade-in 1s 1');
-
-                              &:first-child {
-                                padding-top: 0;
-                                border-top-width: 0;
-                              }
-                            }
+                            // .form-group {
+                            //   padding-top: 0.5rem;
+                            //   border-top: 1px dashed $warm-gray-01;
+                            //   flex-shrink: 0;
+                            //   flex-grow: 0;
+                            //   @include animation( 'fade-in 1s 1');
+                            //
+                            //   &:first-child {
+                            //     padding-top: 0;
+                            //     border-top-width: 0;
+                            //   }
+                            // }
                           }
-
-                          .workflow-steps {
-                            display: flex;
-                            padding: 1rem 0;
-                            justify-content: flex-end;
-                            flex-shrink: 0;
-                            flex-grow: 0;
-                          }
+                          //!REFACTOR
+                        //   .workflow-steps {
+                        //     display: flex;
+                        //     padding: 1rem 0;
+                        //     justify-content: flex-end;
+                        //     flex-shrink: 0;
+                        //     flex-grow: 0;
+                        //   }
+                          //!REFACTOR
                         }
                       }
                     }
@@ -1551,4 +1554,131 @@ html {
       }
     }
   }
+}
+
+
+html body {
+//SURVEYS
+.survey-wrapper {
+  flex-direction: row;
+
+  padding: $padding ($padding/2) 0;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  flex-grow: 1;
+  align-content: flex-start;
+  @include for-phone-only {
+    padding: ($padding*2) ($padding*2) 0;
+  }
+
+  &.form-group {
+    margin-bottom: 0;
+
+    .display-element {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        flex-basis: auto;
+      }
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+
+    &.step-title {
+      color: $body-color;
+    }
+
+    &.step-sub-title {
+      color: $warm-gray-11;
+    }
+  }
+
+  .form-group {
+    padding-bottom: 1.45rem;
+    border-bottom: 1px dashed $warm-gray-02;
+    //flex-shrink: 0;
+    //flex-grow: 0;
+
+    label {
+      font-size: $font-size-h4;
+      @include for-phone-only {
+        font-size: $font-size-h5;
+      }
+    }
+  }
+  ul.results {
+    &.result-cards {
+      li {
+        margin-bottom: $padding/2;
+
+        a {
+          padding: $padding $padding*1.5;
+          border: $card-border-width solid $card-border-color;
+          border-radius: $card-border-radius;
+          background: $white;
+          align-items: center;
+
+          section {
+            flex-direction: column;
+            flex-grow: 1;
+
+            h2,
+            h3,
+            h4,
+            h5 {
+              margin: 0;
+            }
+
+            p {
+              margin: 0;
+            }
+          }
+
+          i {
+            width: 2rem;
+            height: 2rem;
+            font-size: $font-size-h2;
+
+            &.fa-map-marker {
+              justify-content: flex-start;
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+
+            h2,
+            h3,
+            h4,
+            h5 {
+              color: $bright-blue-darken-02;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.workflow-steps {
+  display: flex;
+  padding: 1rem 0;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
 }
