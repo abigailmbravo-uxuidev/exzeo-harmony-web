@@ -1,46 +1,57 @@
 import React, { PropTypes } from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import Demographics from '../workflows/Demographics';
+import Customize from '../workflows/CustomizeQuote';
+import Share from '../workflows/Share';
+import UWQuestions from '../workflows/UWQuestions';
 
-function getStatus(step, completedSteps) {
-  let status;
-  if (location.pathname.indexOf(step.name) > -1) {
-    status = 'selected';
-  } else {
-    completedSteps.forEach((c) => {
-      // console.log(step.name, ' ', c);
-      // console.log(c === step.name);
-      if (step.name === c) {
-        status = 'completed';
-      }
-    });
-  }
-  return status;
-}
+// function getStatus(step, completedSteps) {
+//   let status;
+//   if (location.pathname.indexOf(step.name) > -1) {
+//     status = 'selected';
+//   } else {
+//     completedSteps.forEach((c) => {
+//       // console.log(step.name, ' ', c);
+//       // console.log(c === step.name);
+//       if (step.name === c) {
+//         status = 'completed';
+//       }
+//     });
+//   }
+//   return status;
+// }
 
 const WorkflowHeader = (d) => {
-  // console.log(d);
+  console.log(d);
   return (
-    <ul className="workflow-header">
-      <div className="rule" />
-      {
-        d.steps ? d.steps.map((step, index) => {
-          if (step.type !== 'Search' && step.type !== 'Error') {
-            return (
-              <li key={index}>
-                <a
-                  className={getStatus(step, d.completedSteps)}
-                  tabIndex={index}
-                  onClick={() => { d.updateStep(index); }}
-                >
-                  <i className={'fa ' + step.name} />
-                  <span>{step.label}</span>
-                </a>
-              </li>
-            );
+    <Router>
+      <div>
+        <ul className="workflow-header">
+          <div className="rule" />
+          {
+            d.steps ? d.steps.map((step, index) => {
+              if (step.type !== 'Search' && step.type !== 'Error') {
+                return (
+                  <li key={index}>
+                    <Link to={"/workflow/" + step.link}>
+                      <i className={'fa ' + step.name} />
+                      <span>{step.label}</span>
+                    </Link>
+                  </li>
+                );
+              }
+              return null;
+            }) : null
           }
-          return null;
-        }) : null
-      }
-    </ul>
+      </ul>
+      <div>
+        <Route path="/workflow/demographics" component={Demographics}/>
+        <Route path="/workflow/underwriting" component={UWQuestions}/>
+        <Route path="/workflow/customize" component={Customize}/>
+        <Route path="/workflow/share" component={Share}/>
+      </div>
+    </div>
+  </Router>
   );
 };
 
