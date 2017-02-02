@@ -8,6 +8,7 @@ import quoteTest from './quoteTest';
 import TextInput from '../form/TextInput';
 import EffectiveDateForm from '../EffectiveDate/EffectiveDateForm';
 import PolicyHolderUpdateForm from '../policyHolder/PolicyHolderUpdateForm';
+import AdditionalInterestUpdateForm from '../AdditionalInterests/AdditionalInterestUpdateForm';
 import MailingAddressForm from '../MailingAddress/MailingAddressForm';
 
 let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, handleOnSubmit, handleChange,
@@ -332,51 +333,17 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
               />
             </section>
               }
-            {editConfirmAdditionalInterests &&
             <section className="display-element demographics">
-              <h3>Additional Interests</h3>
-              {(quoteTest.additionalInterests &&
-                  quoteTest.additionalInterests.length > 0) ?
-                  quoteTest.additionalInterests.map((additionalInterests, index) => (
-                    <dl key={`ai_edit${index}`}>
-                      <div>
-                        <dt>Name</dt>
-                        <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
-                        <dt>Address</dt>
-                        <dd>{additionalInterests.mailingAddress.address1}</dd>
-                        <dd>{additionalInterests.mailingAddress.address2}</dd>
-                        <dt>City/State/Zip</dt>
-                        <dd>{additionalInterests.mailingAddress.city},
-                          {additionalInterests.mailingAddress.state}
-                          {additionalInterests.mailingAddress.zip}
-                        </dd>
-                      </div>
-                    </dl>
-                )) : null}
-              {!confirmAdditionalInterestsDetails && <dl>
+              {editConfirmAdditionalInterests &&
                 <div>
-                  <label className="btn" htmlFor="editConfirmAdditionalInterests">
-                    <i className="fa fa-save" /> Save </label>
-                  <Field
-                    disabled={invalid}
-                    name="editConfirmAdditionalInterests" id="editConfirmAdditionalInterests"
-                    component="input" type="checkbox"
-                    style={{ display: 'none' }}
+                  <AdditionalInterestUpdateForm
+                    additionalInterests={quoteTest.additionalInterests}
+                    handleOnSubmit={updateQuote}
                   />
                 </div>
-              </dl>}
-              <BoolInput
-                styleName="verification"
-                name={'confirmAdditionalInterestsDetails'}
-                question={'Confirmed'}
-                handleChange={function () {
-
-                }}
-                value={confirmAdditionalInterestsDetails}
-                isSwitch
-              />
+              }
             </section>
-            }
+
             <section>
               <Form
                 className={`fade-in ${styleName || ''}`} id="survey" onSubmit={function () { }}
