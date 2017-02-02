@@ -1,6 +1,64 @@
 import React, {Component, PropTypes} from 'react';
-//import WorkflowStep from './WorkflowStep';
-import WorkflowHeader from '../workflows/WorkflowHeader';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import Demographics from '../workflows/Demographics';
+import Customize from '../workflows/CustomizeQuote';
+import Share from '../workflows/Share';
+import UWQuestions from '../workflows/UWQuestions';
+import Billing from '../workflows/Billing';
+import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
+import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
+import _ from 'lodash';
+
+const WorkflowHeader = (d) => {
+  console.log(d);
+  return (
+        <ul className="workflow-header">
+          <div className="rule"></div>
+          {d.steps
+            ? d.steps.map((step, index) => {
+            if (step.type !== 'Search' && step.type !== 'Error') {
+              return (
+                <li key={index}>
+                  <Link to={`/workflow/${step.link}`}>
+                    <i className={`fa ${step.name}`}/>
+                    <span>{step.label}</span>
+                  </Link>
+                </li>
+              );
+            }
+            return null;
+          })
+            : null
+          }
+        </ul>
+  );
+};
+
+
+const WorkflowFooter = ({...s}) => {
+  let prev = null;
+  let next = null;
+  if(s.steps){
+    const index = s.steps.findIndex(step => step.link === s.activeStep);
+    if(index > 0)
+      prev = s.steps[(index - 1)];
+    if(index < s.steps.length)
+      next = s.steps[(index + 1)];
+  }
+  return (
+      <div className="footer">
+          <ul>
+            {
+              prev ? (<Link to={{ pathname: '/workflow/' + prev.link}} className="prev">{prev.label}</Link>) : null
+            }
+            {
+              next ? (<Link className="next" to={'/workflow/' + next.link}>{next.label}</Link>) : null
+            }
+          </ul>
+    </div>
+  )
+}
+
 
 class Workflow extends Component {
 
@@ -16,7 +74,8 @@ class Workflow extends Component {
     workflow: {
       steps: []
     },
-    completedSteps: []
+    completedSteps: [],
+    activeStep: "billing",
   }
   componentWillMount = () => {
     let steps = [
@@ -60,7 +119,7 @@ class Workflow extends Component {
     this.setState({completedSteps});
   }
   render() {
-    const {workflow} = this.state;
+    const {workflow, activeStep} = this.state;
     console.log(workflow)
     return (
       <div className="workflow" role="article">
@@ -121,7 +180,21 @@ class Workflow extends Component {
               </dl>
             </section>
           </div>
-          <WorkflowHeader steps={workflow.steps} completedSteps={this.state.completedSteps}/>
+          <Router>
+            <div>
+              <WorkflowHeader steps={workflow.steps}/>
+              <div>
+                <Route path="/workflow/demographics" component={Demographics}/>
+                <Route path="/workflow/underwriting" component={UWQuestions}/>
+                <Route path="/workflow/customize" component={Customize}/>
+                <Route path="/workflow/share" component={Share}/>
+                <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm}/>
+                <Route path="/workflow/MailingAddress" component={MailingAddressForm}/>
+                <Route path="/workflow/billing" component={Billing}/>
+              </div>
+              <WorkflowFooter steps={workflow.steps} activeStep={activeStep} />
+            </div>
+          </Router>
         </div>
       </div>
     );

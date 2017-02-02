@@ -59,22 +59,30 @@ const RouteWithSubRoutes = (route) => (
   )}/>
 )
 
-const Workflow = () => (
-  <Router>
-    <div>
-      <ul>
+const Workflow = () => {
+  let workflow = {
+    steps: [],
+    completedSteps: [],
+    activeStep: ""
+  };
+
+
+  return (
+    <Router>
+      <div>
+        <ul>
+          {routes.map((route, i) => (
+            <Link key={i} to={route.path}>{route.name}</Link>
+          ))}
+        </ul>
+
         {routes.map((route, i) => (
-          <Link key={i} to={route.path}>{route.name}</Link>
+          <RouteWithSubRoutes key={i} {...route}/>
         ))}
-      </ul>
-
-      {routes.map((route, i) => (
-        <RouteWithSubRoutes key={i} {...route}/>
-      ))}
-    </div>
-  </Router>
-);
-
+      </div>
+    </Router>
+  );
+}
 export default Workflow;
 
 //
