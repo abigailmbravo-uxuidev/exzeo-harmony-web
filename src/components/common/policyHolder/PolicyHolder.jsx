@@ -26,7 +26,7 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
          handleChange={handleChange}
          name={`${name}Email`}
          question={'Email Address'}
-         validations={['required']}
+         validations={['required', 'email']}
        />
        <TextInput
          answerType="text"

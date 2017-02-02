@@ -19,17 +19,17 @@ class Billing extends Component {
           <label className="group-label label-segmented">Bill Plan</label>
           <div className="segmented-answer-wrapper">
             <div className="radio-column-3">
-              <label className="label-segmented" for="0"><input type="radio" value="A" name="Annual"/>
+              <label className="label-segmented"><input type="radio" value="A" name="Annual"/>
                 <span>Annual</span>
               </label>
             </div>
             <div className="radio-column-3">
-              <label className="label-segmented" for="1"><input type="radio" value="S" name="semiannual"/>
+              <label className="label-segmented"><input type="radio" value="S" name="semiannual"/>
                 <span>Semi-Annual</span>
               </label>
             </div>
             <div className="radio-column-3">
-              <label className="label-segmented" for="2"><input type="radio" value="Q" name="quaterly"/>
+              <label className="label-segmented"><input type="radio" value="Q" name="quaterly"/>
                 <span>Quaterly</span>
               </label>
             </div>
