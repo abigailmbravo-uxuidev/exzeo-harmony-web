@@ -2,6 +2,64 @@ import React, {Component, PropTypes} from 'react';
 //import WorkflowStep from './WorkflowStep';
 import WorkflowHeader from '../workflows/WorkflowHeader';
 
+const WorkflowDetails = () => (
+        <div className="detailHeader">
+          <section id="quoteDetails" className="quoteDetails">
+            <dl>
+              <div>
+                <dt>Quote number</dt>
+                <dd>TTIC-HO3-<span>12345</span>
+                </dd>
+              </div>
+            </dl>
+          </section>
+          <section id="propertyDetails" className="propertyDetails">
+            <dl>
+              <div>
+                <dt>Address</dt>
+                <dd>123 Main Street</dd>
+                <dd>Fort Lauderdale, FL 12345</dd>
+              </div>
+            </dl>
+          </section>
+          <section id="propertyDetails" className="propertyDetails">
+            <dl>
+              <div>
+                <dt>Year built</dt>
+                <dd>2000</dd>
+              </div>
+            </dl>
+          </section>
+          <section id="coverageDetails" className="coverageDetails">
+            <dl>
+              <div>
+                <dt>Coverage A</dt>
+                <dd>$100,000</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Coverage B</dt>
+                <dd>$100,000</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Coverage C</dt>
+                <dd>$50,000</dd>
+              </div>
+            </dl>
+          </section>
+          <section id="premium" className="premium">
+            <dl>
+              <div>
+                <dt>Annual premium</dt>
+                <dd>$10,000</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+)
 class Workflow extends Component {
 
   static propTypes = {
@@ -65,62 +123,7 @@ class Workflow extends Component {
     return (
       <div className="workflow" role="article">
         <div className="fade-in">
-          <div className="detailHeader">
-            <section id="quoteDetails" className="quoteDetails">
-              <dl>
-                <div>
-                  <dt>Quote number</dt>
-                  <dd>TTIC-HO3-<span>12345</span>
-                  </dd>
-                </div>
-              </dl>
-            </section>
-            <section id="propertyDetails" className="propertyDetails">
-              <dl>
-                <div>
-                  <dt>Address</dt>
-                  <dd>123 Main Street</dd>
-                  <dd>Fort Lauderdale, FL, 12345</dd>
-                </div>
-              </dl>
-            </section>
-            <section id="propertyDetails" className="propertyDetails">
-              <dl>
-                <div>
-                  <dt>Year built</dt>
-                  <dd>2000</dd>
-                </div>
-              </dl>
-            </section>
-            <section id="coverageDetails" className="coverageDetails">
-              <dl>
-                <div>
-                  <dt>Coverage A</dt>
-                  <dd>$100,000</dd>
-                </div>
-              </dl>
-              <dl>
-                <div>
-                  <dt>Coverage B</dt>
-                  <dd>$100,000</dd>
-                </div>
-              </dl>
-              <dl>
-                <div>
-                  <dt>Coverage C</dt>
-                  <dd>$50,000</dd>
-                </div>
-              </dl>
-            </section>
-            <section id="premium" className="premium">
-              <dl>
-                <div>
-                  <dt>Annual premium</dt>
-                  <dd>$10,000</dd>
-                </div>
-              </dl>
-            </section>
-          </div>
+          <WorkflowDetails />
           <WorkflowHeader steps={workflow.steps} completedSteps={this.state.completedSteps}/>
         </div>
       </div>

@@ -1082,6 +1082,32 @@ html {
     }
   }
 }
+
+html {
+  body {
+.detail-content-wrapper  {
+.detail-wrapper {
+    .detail-group {
+      border-bottom-color: $cool-gray-01;
+
+      .summary-section {
+
+          dl {
+              &:nth-of-type(odd) {
+                  background: $cool-gray-00;
+              }
+          }
+      }
+    }
+}
+}
+}
+}
+
+
+
+
+
 //FORM LAYOUT
 
 .survey-wrapper {

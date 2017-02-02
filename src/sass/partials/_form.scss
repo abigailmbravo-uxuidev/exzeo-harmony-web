@@ -570,11 +570,40 @@ html body {
 
       &.verification {
           flex-direction: column;
-          
+          position: relative;;
+
           label {
               justify-content: flex-start;
               flex-direction: row-reverse;
               margin-right: 2rem;
+
+              &:before {
+                  font: normal normal normal 1rem FontAwesome;
+                  content: '\f14a';
+                  position: absolute;
+                  left: -.75rem;
+                  background: $yellow;
+                  color: $yellow-lighten-05;
+                  display: block;
+                  padding: .25rem;
+                  top: .25rem;
+                  text-align: center;
+                  width: 1.5rem;
+                  border-top-left-radius: .125rem;
+                  border-bottom-left-radius: .125rem;
+              }
+              &:after {
+                  content:'';
+                  position: absolute;
+                  width: 0;
+                  height: 0;
+                  border-top: .75rem solid transparent;
+                  border-left: 1rem solid $yellow;
+                  border-bottom: .75rem solid transparent;
+                  top: .25rem;
+                  left: .75rem;
+              }
+
               div {
                       margin-right: .5rem;
               }

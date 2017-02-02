@@ -387,7 +387,6 @@ html body {
 //SURVEYS
 .survey-wrapper {
   flex-direction: row;
-
   padding: $padding ($padding/2) 0;
   flex-wrap: wrap;
   flex-shrink: 0;
@@ -436,8 +435,6 @@ html body {
   .form-group {
     padding-bottom: 1.45rem;
     border-bottom: 1px dashed $warm-gray-02;
-    //flex-shrink: 0;
-    //flex-grow: 0;
 
     label {
       font-size: $font-size-h4;
@@ -449,6 +446,91 @@ html body {
 
 }
 
+.detail-content-wrapper {
+    padding-bottom: 1.45rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed $warm-gray-02;
+    display: flex;
+    padding: $padding ($padding/2) 0;
+    @include for-phone-only {
+      padding: ($padding*2) ($padding*2) 0;
+    }
+
+    aside {
+        margin-right: 1rem;
+        width: 12rem;
+        flex-basis: 12rem;
+        flex-grow: 0;
+        flex-shirk: 0;
+
+        dl {
+            dt {font-size:$font-size-h4;}
+            dd {}
+        }
+    }
+
+    .detail-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shirk: 0;
+
+    flex-shrink: 0;
+    flex-grow: 1;
+    align-content: flex-start;
+
+
+    .detail-group {
+      padding-bottom: 0;
+      margin-bottom: 1rem;
+      border-bottom: 1px dashed $warm-gray-02;
+      position: relative;
+
+      &:last-child {
+          margin-bottom: 0;
+          border-bottom-width: 0;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          margin-top: 0;
+      }
+
+      .edit-btn {
+          position: absolute;
+          right: 0;
+          top: 0;
+      }
+
+      .summary-section {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          margin-bottom: $padding;
+
+          dl {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 0;
+              padding: ($padding/2) ($padding);
+
+              &:nth-of-type(odd) {
+                  background: $warm-gray-01;
+              }
+
+              dt {
+                  span {
+                      margin-right: $padding;
+                  }
+              }
+              dd {
+                  margin-bottom: 0;
+              }
+          }
+      }
+    }
+}
+}
 .workflow-steps {
   display: flex;
   padding: 1rem 0;
