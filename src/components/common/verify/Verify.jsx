@@ -113,7 +113,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
               </dl>
 
               <BoolInput
-                      styleName="verification"
+                styleName="verification"
                 disabled={editProperty}
                 name={'confirmProperyDetails'}
                 question={'Confirmed'}
@@ -193,6 +193,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                 </div>
               </dl>
               <BoolInput
+                styleName="verification"
                 name={'confirmQuoteDetails'}
                 question={'Confirmed'}
                 handleChange={function () { }}
@@ -255,6 +256,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                   </div> }
                 </dl>
                 <BoolInput
+                  styleName="verification"
                   name={'confirmPolicyHolderDetails'}
                   question={'Confirmed'}
                   handleChange={function () {
@@ -319,6 +321,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                 </div>
               </dl>}
               <BoolInput
+                styleName="verification"
                 name={'confirmAdditionalInterestsDetails'}
                 question={'Confirmed'}
                 handleChange={function () {
@@ -363,6 +366,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                 </div>
               </dl>}
               <BoolInput
+                styleName="verification"
                 name={'confirmAdditionalInterestsDetails'}
                 question={'Confirmed'}
                 handleChange={function () {
