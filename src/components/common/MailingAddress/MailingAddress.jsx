@@ -20,7 +20,7 @@ const MailingAddress = ({ styleName, handleChange, name,
          handleChange={handleChange}
          name={`${name}address2`}
          question={'Address 2'}
-         validations={['required']}
+         validations={[]}
        />
        <TextInput
          answerType="text"
