@@ -73,6 +73,8 @@ const AdditionalInterests = (props) => {
 
   return (
     <div>
+      <h3>Mailing Address</h3>
+      <MailingAddress {...props} />
       <FieldArray name="mortgagees.Mortgagee" component={rendermortgagees} InterestType={'Mortgagee'} />
       <br /><br />
       <FieldArray name="mortgagees.leinholder" component={rendermortgagees} InterestType={'Lienholder'} />
