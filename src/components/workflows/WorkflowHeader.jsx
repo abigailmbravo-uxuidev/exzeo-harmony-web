@@ -1,5 +1,5 @@
-import React, {PropTypes} from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import React, { PropTypes } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Demographics from '../workflows/Demographics';
 import Customize from '../workflows/CustomizeQuote';
 import Share from '../workflows/Share';
@@ -7,6 +7,7 @@ import UWQuestions from '../workflows/UWQuestions';
 import Billing from '../workflows/Billing';
 import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
 import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
+import Verify from '../common/verify/Verify';
 
 // function getStatus(step, completedSteps) {
 //   let status;
@@ -32,14 +33,14 @@ const WorkflowHeader = (d) => {
         <div>
 
           <ul className="workflow-header">
-            <div className="rule"></div>
+            <div className="rule" />
             {d.steps
               ? d.steps.map((step, index) => {
                 if (step.type !== 'Search' && step.type !== 'Error') {
                   return (
                     <li key={index}>
                       <Link to={`/workflow/${step.link}`}>
-                        <i className={`fa ${step.name}`}/>
+                        <i className={`fa ${step.name}`} />
                         <span>{step.label}</span>
                       </Link>
                     </li>
@@ -51,13 +52,14 @@ const WorkflowHeader = (d) => {
 }
           </ul>
           <div>
-            <Route path="/workflow/demographics" component={Demographics}/>
-            <Route path="/workflow/underwriting" component={UWQuestions}/>
-            <Route path="/workflow/customize" component={Customize}/>
-            <Route path="/workflow/share" component={Share}/>
-            <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm}/>
-            <Route path="/workflow/MailingAddress" component={MailingAddressForm}/>
-            <Route path="/workflow/billing" component={Billing}/>
+            <Route path="/workflow/demographics" component={Demographics} />
+            <Route path="/workflow/underwriting" component={UWQuestions} />
+            <Route path="/workflow/customize" component={Customize} />
+            <Route path="/workflow/share" component={Share} />
+            <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm} />
+            <Route path="/workflow/MailingAddress" component={MailingAddressForm} />
+            <Route path="/workflow/billing" component={Billing} />
+            <Route path="/workflow/Verify" component={Verify} />
           </div>
         </div>
       </Router>
@@ -66,12 +68,12 @@ const WorkflowHeader = (d) => {
 };
 
 WorkflowHeader.propTypes = {
-  steps: PropTypes.arrayOf(PropTypes.shape({icon: PropTypes.string, active: PropTypes.bool, complete: PropTypes.bool})),
-  updateStep: PropTypes.func
+  steps: PropTypes.arrayOf(PropTypes.shape({ icon: PropTypes.string, active: PropTypes.bool, complete: PropTypes.bool })),
+  updateStep: PropTypes.func,
 };
 
 WorkflowHeader.contextTypes = {
-  location: PropTypes.any
+  location: PropTypes.any,
 };
 
 export default WorkflowHeader;
