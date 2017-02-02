@@ -18,6 +18,10 @@ class CustomizeQuote extends Component {
     moldProperty: 10000,
     moldLiability: 50000,
     ordinanceOrLaw: 0.25,
+    propertyIncidentalOccupancies: 'None',
+    sinkholeCoverage: false,
+    allOtherPerils: 500,
+    hurricane: 0.02,
   }
   handleChange = (event) => {
     const { state } = this;
@@ -36,9 +40,9 @@ class CustomizeQuote extends Component {
           <section>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group" role="group">
-                <h2>Coverage Limits</h2>
+                <h3>Coverage Limits</h3>
                 <div className="form-group range-component">
-                  <label htmlFor="dwellingLimit">
+                  <label htmlFor="dwellingAmount">
                     Dwelling Limit
                   </label>
                   <div className="range-wrapper">
@@ -404,6 +408,189 @@ class CustomizeQuote extends Component {
                           value={0.5}
                         />
                         <span>50% of Dwelling Limit</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="form-group" role="group">
+                <h3>Coverage Options</h3>
+                <div className="form-group segmented" role="group">
+                  <label className="group-label label-segmented">
+                    Property Permitted Incidental Occupancies
+                  </label>
+                  <div className="segmented-answer-wrapper">
+                    <div
+                      className={`radio-column-3${this.state.propertyIncidentalOccupancies === 'Main Dwelling' ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'propertyIncidentalOccupancies', value: 'Main Dwelling' } })}
+                    >
+                      <label className="label-segmented" htmlFor="propertyIncidentalOccupancies">
+                        <input
+                          type="radio"
+                          name="propertyIncidentalOccupancies"
+                          onChange={() => this.handleChange({ target: { name: 'propertyIncidentalOccupancies', value: 'Main Dwelling' } })}
+                          value="Main Dwelling"
+                        />
+                        <span>Main Dwelling</span>
+                      </label>
+                    </div>
+                    <div
+                      className={`radio-column-3${this.state.propertyIncidentalOccupancies === 'Other Structures' ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'propertyIncidentalOccupancies', value: 'Other Structures' } })}
+                    >
+                      <label className="label-segmented" htmlFor="propertyIncidentalOccupancies">
+                        <input
+                          type="radio"
+                          name="propertyIncidentalOccupancies"
+                          onChange={() => this.handleChange({ target: { name: 'propertyIncidentalOccupancies', value: 'Other Structures' } })}
+                          value="Other Structures"
+                        />
+                        <span>Other Structures</span>
+                      </label>
+                    </div>
+                    <div
+                      className={`radio-column-3${this.state.propertyIncidentalOccupancies === 'None' ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'propertyIncidentalOccupancies', value: 'None' } })}
+                    >
+                      <label className="label-segmented" htmlFor="propertyIncidentalOccupancies">
+                        <input
+                          type="radio"
+                          name="propertyIncidentalOccupancies"
+                          onChange={() => this.handleChange({ target: { name: 'propertyIncidentalOccupancies', value: 'None' } })}
+                          value="None"
+                        />
+                        <span>None</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group switch">
+                  <label
+                    htmlFor="sinkholeCoverage"
+                    onClick={() => this.handleChange({
+                      target: {
+                        name: 'sinkholeCoverage',
+                        value: !this.state.sinkholeCoverage,
+                      },
+                    })}
+                  >
+                    Do you want sinkhole coverage?
+                    <input
+                      type="checkbox"
+                      name="sinkholeCoverage"
+                      checked={this.state.sinkholeCoverage}
+                      onChange={() => this.handleChange({
+                        target: {
+                          name: 'sinkholeCoverage',
+                          value: !this.state.sinkholeCoverage,
+                        },
+                      })}
+                    />
+                    <div className="switch-div" />
+                  </label>
+                </div>
+              </div>
+              <div className="form-group" role="group">
+                <h3>Deductibles</h3>
+                <div className="form-group segmented" role="group">
+                  <label className="group-label label-segmented">
+                    All Other Perils Deductible
+                  </label>
+                  <div className="segmented-answer-wrapper">
+                    <div
+                      className={`radio-column-3${this.state.allOtherPerils === 500 ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'allOtherPerils', value: 500 } })}
+                    >
+                      <label className="label-segmented" htmlFor="allOtherPerils">
+                        <input
+                          type="radio"
+                          name="allOtherPerils"
+                          onChange={() => this.handleChange({ target: { name: 'allOtherPerils', value: 500 } })}
+                          value={500}
+                        />
+                        <span>$500</span>
+                      </label>
+                    </div>
+                    <div
+                      className={`radio-column-3${this.state.allOtherPerils === 1000 ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'allOtherPerils', value: 1000 } })}
+                    >
+                      <label className="label-segmented" htmlFor="allOtherPerils">
+                        <input
+                          type="radio"
+                          name="allOtherPerils"
+                          onChange={() => this.handleChange({ target: { name: 'allOtherPerils', value: 1000 } })}
+                          value={1000}
+                        />
+                        <span>$1000</span>
+                      </label>
+                    </div>
+                    <div
+                      className={`radio-column-3${this.state.allOtherPerils === 2500 ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'allOtherPerils', value: 2500 } })}
+                    >
+                      <label className="label-segmented" htmlFor="allOtherPerils">
+                        <input
+                          type="radio"
+                          name="allOtherPerils"
+                          onChange={() => this.handleChange({ target: { name: 'allOtherPerils', value: 2500 } })}
+                          value={2500}
+                        />
+                        <span>$2500</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group segmented" role="group">
+                  <label className="group-label label-segmented">
+                    Hurricane Deductible
+                    <input
+                      type="text"
+                      value={this.state.hurricane * this.state.dwellingAmount}
+                      readOnly
+                    />
+                  </label>
+                  <div className="segmented-answer-wrapper">
+                    <div
+                      className={`radio-column-3${this.state.hurricane === 0.02 ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'hurricane', value: 0.02 } })}
+                    >
+                      <label className="label-segmented" htmlFor="hurricane">
+                        <input
+                          type="radio"
+                          name="hurricane"
+                          onChange={() => this.handleChange({ target: { name: 'hurricane', value: 0.02 } })}
+                          value={0.02}
+                        />
+                        <span>2% of Dwelling Limit</span>
+                      </label>
+                    </div>
+                    <div
+                      className={`radio-column-3${this.state.hurricane === 0.05 ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'hurricane', value: 0.05 } })}
+                    >
+                      <label className="label-segmented" htmlFor="hurricane">
+                        <input
+                          type="radio"
+                          name="hurricane"
+                          onChange={() => this.handleChange({ target: { name: 'hurricane', value: 0.05 } })}
+                          value={0.05}
+                        />
+                        <span>5% of Dwelling Limit</span>
+                      </label>
+                    </div>
+                    <div
+                      className={`radio-column-3${this.state.hurricane === 0.1 ? ' selected' : ''}`}
+                      onClick={() => this.handleChange({ target: { name: 'hurricane', value: 0.1 } })}
+                    >
+                      <label className="label-segmented" htmlFor="hurricane">
+                        <input
+                          type="radio"
+                          name="hurricane"
+                          onChange={() => this.handleChange({ target: { name: 'hurricane', value: 0.1 } })}
+                          value={0.1}
+                        />
+                        <span>10% of Dwelling Limit</span>
                       </label>
                     </div>
                   </div>

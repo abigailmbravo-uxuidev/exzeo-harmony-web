@@ -17,7 +17,6 @@ import Admin from './admin/Admin';
 import Cms from './cms/CMS';
 import './App.css';
 import './Rules';
-import Demographics from './common/Demographics/Demographics';
 import Verify from './common/verify/Verify';
 
 export class App extends Component {
@@ -92,7 +91,6 @@ export class App extends Component {
             <Match pattern="/cms" component={Cms} />
             <Match pattern="/error" component={ErrorPage} />
             <Match pattern="/Verify" component={Verify} />
-            <Match pattern="/Demographics" component={Demographics} />
           </div>
         </main>
 
