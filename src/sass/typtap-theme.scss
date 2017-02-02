@@ -864,17 +864,32 @@ html {
                 .fade-in {
                   background: $white;
 
-                  .quote-details {
+                  .detailHeader {
                     background: $bright-blue-darken-03;
 
-                    dl {
-                      div {
-                        dt {
-                          color: $yellow-lighten-04;
-                        }
+                    section {
+                      dl {
+                        div {
+                          dt {
+                            color: $yellow-lighten-04;
+                          }
 
-                        dd {
-                          color: $white;
+                          dd {
+                            color: $white;
+                          }
+                        }
+                      }
+                      &.premium {
+                        dl {
+                          div {
+                            dt {
+                              color: $cool-gray-15;
+                            }
+
+                            dd {
+                              color: $body-color;
+                            }
+                          }
                         }
                       }
                     }
@@ -1085,14 +1100,14 @@ html {
   }
 
   .EmailAddress {
-    @include for-tablet-portrait-up  {
+    @include for-tablet-portrait-up {
       width: 68%;
       padding-right: $padding*2;
     }
   }
 
   .primaryPhoneNumber {
-    @include for-tablet-portrait-up  {
+    @include for-tablet-portrait-up {
       width: 32%;
       padding-right: $padding*2;
       flex-grow: 1;
@@ -1163,7 +1178,8 @@ html {
     }
   }
 }
-
-
 //SPECIAL STUFF TO ADD BACK IN LATER
-html body div#root .app-wrapper main[role="document"] .content-wrapper>div[role="article"].workflow .fade-in .workflow-content {display: flex; flex-direction: column;}
+html body div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article"].workflow .fade-in .workflow-content {
+  display: flex;
+  flex-direction: column;
+}
