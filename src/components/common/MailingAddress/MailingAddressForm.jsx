@@ -10,7 +10,7 @@ let MailingAddressForm = (props) => {
           pristine, reset, submitting, error, invalid } = props;
   return (
     <Form
-      className={`fade-in ${styleName || ''}`} id="MailingAddressForm" onSubmit={handleSubmit(() => { })}
+      className={`fade-in ${styleName || ''}`} id="MailingAddressForm" onSubmit={handleSubmit(handleOnSubmit)}
       noValidate
     >
       <h3>Mailing Address</h3>

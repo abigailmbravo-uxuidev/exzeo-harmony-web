@@ -7,7 +7,8 @@ import BoolInput from '../form/BoolInput';
 import quoteTest from './quoteTest';
 import TextInput from '../form/TextInput';
 import EffectiveDateForm from '../EffectiveDate/EffectiveDateForm';
-
+import PolicyHolderUpdateForm from '../policyHolder/PolicyHolderUpdateForm';
+import MailingAddressForm from '../MailingAddress/MailingAddressForm';
 
 let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, handleOnSubmit, handleChange,
   effectiveDate,
@@ -28,6 +29,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
   editConfirmAdditionalInterests,
   editConfirmPolicyHolder,
   editProperty,
+  editMailingAddress,
   confirmProperyDetails,
   confirmQuoteDetails,
   confirmPolicyHolderDetails,
@@ -60,6 +62,8 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
 
   function updateQuote() {
     dispatch(change('Verify', 'editProperty', false));
+    dispatch(change('Verify', 'editConfirmPolicyHolder', false));
+    dispatch(change('Verify', 'editMailingAddress', false));
     // Object.assign({}, state, { whatever: action.value });
     alert('quote updated');
   }
@@ -216,20 +220,6 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                       </div>
                     </dl>
                 )) : null}
-
-              <h4>Mailing Address</h4>
-              <dl>
-                <div>
-                  <dt>Address</dt>
-                  <dd>{mailingAddress.address1}</dd>
-                  <dd>{mailingAddress.address2}</dd>
-                  <dt>City/State/Zip</dt>
-                  <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
-                  <dt>Country</dt>
-                  <dd>{mailingAddress.country.displayText}</dd>
-                </div>
-              </dl>
-              <dl>
                 {!confirmPolicyHolderDetails && <div>
                   <label className="btn" htmlFor="editConfirmPolicyHolder">
                     <i className="fa fa-pencil" /> Edit </label>
@@ -238,131 +228,61 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                     style={{ display: 'none' }}
                   />
                 </div> }
-              </dl>
-              <BoolInput
-                name={'confirmPolicyHolderDetails'}
-                question={'Confirmed'}
-                handleChange={function () {
 
-                }}
-                value={confirmPolicyHolderDetails}
-                isSwitch
-              />
+
+              {!editMailingAddress && <div>
+                <h4>Mailing Address</h4>
+                <dl>
+                  <div>
+                    <dt>Address</dt>
+                    <dd>{mailingAddress.address1}</dd>
+                    <dd>{mailingAddress.address2}</dd>
+                    <dt>City/State/Zip</dt>
+                    <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
+                    <dt>Country</dt>
+                    <dd>{mailingAddress.country.displayText}</dd>
+                  </div>
+                </dl>
+                <dl>
+                  {!confirmPolicyHolderDetails && <div>
+                    <label className="btn" htmlFor="editMailingAddress">
+                      <i className="fa fa-pencil" /> Edit </label>
+                    <Field
+                      name="editMailingAddress" id="editMailingAddress" component="input" type="checkbox"
+                      style={{ display: 'none' }}
+                    />
+                  </div> }
+                </dl>
+                <BoolInput
+                  name={'confirmPolicyHolderDetails'}
+                  question={'Confirmed'}
+                  handleChange={function () {
+
+                  }}
+                  value={confirmPolicyHolderDetails}
+                  isSwitch
+                />
+              </div>
+            }
             </section>
             }
 
-            {editConfirmPolicyHolder &&
-            <section className="display-element demographics">
-              <h3>Policy Holder Details</h3>
-              {(quoteTest.policyHolders &&
-                    quoteTest.policyHolders.length > 0) ?
-                    quoteTest.policyHolders.map((policyHolder, index) => (
-                      <dl key={`ph_edit${index}`}>
-                        <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                        <div>
-                          <TextInput
-                            answerType="text"
-                            handleChange={function () {}}
-                            name={`policyHolderFirstName${index + 1}`}
-                            question={'First Name'}
-                            validations={['required']}
-                          />
-                          <TextInput
-                            answerType="text"
-                            handleChange={function () {}}
-                            name={`policyHolderLastName${index + 1}`}
-                            question={'LastName'}
-                            validations={['required']}
-                          />
-                        </div>
-                        <div>
-                          <TextInput
-                            answerType="text"
-                            handleChange={function () {}}
-                            name={`policyHolderPhoneNumber${index + 1}`}
-                            question={'Phone Number'}
-                            validations={['required', 'phone']}
-                          />
-                          <TextInput
-                            answerType="text"
-                            handleChange={function () {}}
-                            name={`policyHolderEmail${index + 1}`}
-                            question={'Email'}
-                            validations={['required']}
-                          />
-                        </div>
-                      </dl>
-                  )) : null}
 
-              <h4>Mailing Address</h4>
-              <dl>
+            <section className="display-element demographics">
+              {editConfirmPolicyHolder &&
                 <div>
-                  <TextInput
-                    answerType="text"
-                    handleChange={function () {}}
-                    name={'policyHolderAddress1'}
-                    question={'Address 1'}
-                    validations={['required']}
-                  />
-                  <TextInput
-                    answerType="text"
-                    handleChange={function () {}}
-                    name={'policyHolderAddress2'}
-                    question={'Address 2'}
-                    validations={[]}
-                  />
-                  <TextInput
-                    answerType="text"
-                    handleChange={function () {}}
-                    name={'policyHolderCity'}
-                    question={'City'}
-                    validations={['required']}
-                  />
-                  <TextInput
-                    answerType="text"
-                    handleChange={function () {}}
-                    name={'policyHolderState'}
-                    question={'State'}
-                    validations={['required']}
-                  />
-                  <TextInput
-                    answerType="text"
-                    handleChange={function () {}}
-                    name={'policyHolderZip'}
-                    question={'Zip'}
-                    validations={['required']}
-                  />
-                  <TextInput
-                    answerType="text"
-                    handleChange={function () {}}
-                    name={'policyHolderCountry'}
-                    question={'Country'}
-                    validations={['required']}
+                  <PolicyHolderUpdateForm
+                    policyHolders={quoteTest.policyHolders}
+                    handleOnSubmit={updateQuote}
                   />
                 </div>
-              </dl>
-              <dl>
-                {!confirmPolicyHolderDetails && <div>
-                  <label className="btn" htmlFor="editConfirmPolicyHolder">
-                    <i className="fa fa-save" /> Save </label>
-                  <Field
-                    disabled={invalid}
-                    name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox"
-                    style={{ display: 'none' }}
-                  />
-                </div> }
-              </dl>
-              <BoolInput
-                name={'confirmPolicyHolderDetails'}
-                question={'Confirmed'}
-                handleChange={function () {
-
-                }}
-                value={confirmPolicyHolderDetails}
-                isSwitch
-              />
-            </section>
               }
+              {editMailingAddress && <MailingAddressForm
+                mailingAddress={quoteTest.policyHolderMailingAddress}
+                handleOnSubmit={updateQuote}
+              />}
+            </section>
+
 
             {!editConfirmAdditionalInterests &&
             <section className="display-element demographics">
@@ -500,6 +420,7 @@ Verify = connect(
     // can select values individually
     const editConfirmAdditionalInterests = selector(state, 'editConfirmAdditionalInterests');
     const editConfirmPolicyHolder = selector(state, 'editConfirmPolicyHolder');
+    const editMailingAddress = selector(state, 'editMailingAddress');
     const editProperty = selector(state, 'editProperty');
     const confirmProperyDetails = selector(state, 'confirmProperyDetails');
     const confirmQuoteDetails = selector(state, 'confirmQuoteDetails');
@@ -561,6 +482,7 @@ Verify = connect(
       editConfirmAdditionalInterests,
       editConfirmPolicyHolder,
       editProperty,
+      editMailingAddress,
       confirmProperyDetails,
       confirmQuoteDetails,
       confirmPolicyHolderDetails,

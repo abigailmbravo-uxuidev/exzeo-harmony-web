@@ -4,7 +4,7 @@ import { reduxForm, Form } from 'redux-form';
 import Footer from '../Footer';
 import TextInput from '../form/TextInput';
 
-const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange,
+const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange, name,
    pristine, reset, submitting, error, invalid }) => (
      <div className="form-group survey-wrapper" role="group">
        <TextInput
@@ -24,14 +24,14 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}lastName`}
+         name={`${name}Email`}
          question={'Email Address'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}primaryPhoneNumber`}
+         name={`${name}PhoneNumber`}
          question={'Phone Number'}
          validations={['required', 'phone']}
        />
