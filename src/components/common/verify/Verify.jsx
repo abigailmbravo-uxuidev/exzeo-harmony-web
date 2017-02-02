@@ -113,6 +113,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
               </dl>
 
               <BoolInput
+                      styleName="verification"
                 disabled={editProperty}
                 name={'confirmProperyDetails'}
                 question={'Confirmed'}
