@@ -278,6 +278,7 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                 </div>
               }
               {editMailingAddress && <MailingAddressForm
+                name={''}
                 mailingAddress={quoteTest.policyHolderMailingAddress}
                 handleOnSubmit={updateQuote}
               />}

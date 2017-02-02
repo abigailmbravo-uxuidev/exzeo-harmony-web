@@ -38,6 +38,12 @@ const selector = formValueSelector('MailingAddressForm'); // <-- same as form na
 MailingAddressForm = connect(
     state => ({
       initialValues: {
+        address1: state.form.Verify.values.policyHolderAddress1,
+        address2: state.form.Verify.values.policyHolderAddress2,
+        city: state.form.Verify.values.policyHolderCity,
+        state: state.form.Verify.values.policyHolderState,
+        zip: state.form.Verify.values.policyHolderZip,
+        country: state.form.Verify.values.policyHolderCountry,
       },
     }),
   )(MailingAddressForm);
