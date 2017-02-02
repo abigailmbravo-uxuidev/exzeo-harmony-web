@@ -11,6 +11,7 @@ import Header from './common/Header';
 import ErrorPage from './common/ErrorPage';
 import TestPage from './TestPage';
 import Search from './common/search/Search';
+import SearchResults from './common/search/SearchResults';
 import NewWorkflow from './workflows/Workflow';
 import Admin from './admin/Admin';
 import Cms from './cms/CMS';
@@ -80,11 +81,12 @@ export class App extends Component {
           </aside>
           <div className="content-wrapper">
             <Match pattern="/" component={Search} />
+            <Match pattern="/search" component={SearchResults} />
             <Match exactly pattern="/" component={homeScreen} />
             <Match pattern="/login" component={Login} />
             <Match pattern="/quote/:location/:address" component={Quote} />
             <Match pattern="/test" component={TestPage} />
-            <Match pattern="/workflow" component={NewWorkflow} />
+            <Match pattern="/workflow/:step" component={NewWorkflow} />
             <Match pattern="/admin/" component={Admin} />
             <Match pattern="/cms" component={Cms} />
             <Match pattern="/error" component={ErrorPage} />

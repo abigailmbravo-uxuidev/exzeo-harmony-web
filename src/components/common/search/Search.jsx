@@ -22,28 +22,28 @@ class Search extends Component {
 
   handleSubmit = (event) => {
     // window.location = '/quote/address/' + this.state.searchText;
-    if (event && event.preventDefault) event.preventDefault();
-    if (this.props.searchConfig.type === 'append') {
-      const query = {};
-      query[this.props.searchConfig.value] = this.state.searchText;
-      this.context.router.transitionTo({
-        query,
-      });
-      this.setState({ searchText: '' });
-    }
+    // if (event && event.preventDefault) event.preventDefault();
+    // if (this.props.searchConfig.type === 'append') {
+    //   const query = {};
+    //   query[this.props.searchConfig.value] = this.state.searchText;
+    //   this.context.router.transitionTo({
+    //     query,
+    //   });
+    //   this.setState({ searchText: '' });
+    // }
   }
 
   handleSelect = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
-
-    if (this.props.searchConfig.type === 'append') {
-      const query = {};
-      query[this.props.searchConfig.value] = event.target.innerText;
-      this.context.router.transitionTo({
-        query,
-      });
-      this.setState({ searchText: '' });
-    }
+    // if (event && event.preventDefault) event.preventDefault();
+    //
+    // if (this.props.searchConfig.type === 'append') {
+    //   const query = {};
+    //   query[this.props.searchConfig.value] = event.target.innerText;
+    //   this.context.router.transitionTo({
+    //     query,
+    //   });
+    //   this.setState({ searchText: '' });
+    // }
     // window.location = '/quote/address/' + event.target.innerText;
   }
 
@@ -52,19 +52,15 @@ class Search extends Component {
   }
 
   componentWillMount() {
-    const address = decodeURIComponent(window.location.pathname.split('/')[3]);
-    this.setState({ searchText: (address !== 'undefined' ? address : '') });
+    // const address = decodeURIComponent(window.location.pathname.split('/')[3]);
+    // this.setState({ searchText: (address !== 'undefined' ? address : '') });
   }
 
   render() {
-    const options = this.props.options;
+    const {options} = this.props;
     const { searchText } = this.state;
-    let placeholder;
-    if (this.props.searchConfig && this.props.searchConfig.placeholder) {
-      placeholder = this.props.searchConfig.placeholder;
-    } else {
-      placeholder = options ? options.placeholder : null;
-    }
+    let placeholder = options ? options.placeholder : "Search...";
+
     return (
       <div className="search">
         <SearchBar
@@ -73,11 +69,6 @@ class Search extends Component {
           handleSubmit={this.handleSubmit}
           searchText={this.state.searchText}
           focus={this.props.searchConfig ? this.props.searchConfig.focus : false}
-        />
-        <TypeAhead
-          searchText={searchText}
-          handleSelect={this.handleSelect}
-          clearSearch={this.clearSearch}
         />
       </div>
     );
