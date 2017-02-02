@@ -17,19 +17,18 @@ let Demographics = (props) => {
     >
       <PolicyHolder {...props} />
       <div className="form-group survey-wrapper" role="group">
-      <TextInput
-        answerType="date"
-        handleChange={handleChange}
-        name="effectiveDate"
-        defaultValue={effectiveDate}
-        question={'Effective Date'}
-        validations={['required', 'date']}
-      />
-        </div>
+        <TextInput
+          answerType="date"
+          handleChange={handleChange}
+          name="effectiveDate"
+          defaultValue={effectiveDate}
+          question={'Effective Date'}
+          validations={['required', 'date']}
+        />
+      </div>
       <div className="workflow-steps">
         <button className="btn btn-primary" type="submit" form="Demographics">next</button>
       </div>
-      <Footer />
     </Form>
   );
 };

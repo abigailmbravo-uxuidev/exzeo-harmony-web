@@ -20,7 +20,6 @@ let AdditionalInterestsForm = (props) => {
       <div className="workflow-steps">
         <button className="btn btn-primary" type="submit" form="AdditionalInterestsForm">next</button>
       </div>
-      <Footer />
     </Form>
   );
 };

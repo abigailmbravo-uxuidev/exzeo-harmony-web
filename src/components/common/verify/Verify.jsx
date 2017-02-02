@@ -389,7 +389,6 @@ let Verify = ({ dispatch, initialValues, quote, state, styleName, handleSubmit, 
                 !confirmAdditionalInterestsDetails}
                     className="btn btn-primary" type="submit" form="survey"
                   >next</button></div>
-                <Footer />
               </Form>
             </section>
           </div>
