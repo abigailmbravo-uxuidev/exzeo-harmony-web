@@ -1738,17 +1738,10 @@ ul.results {
     .product-wrapper {
         display: flex;
         justify-content: space-around;
-        flex-grow: 1;
-        flex-shrink: 0;
 
         .product {
             flex-grow: 1;
             flex-shrink: 0;
-            padding: 0 ($padding*2);
-
-            .product-name {
-                text-align: center;
-            }
         }
     }
 }
