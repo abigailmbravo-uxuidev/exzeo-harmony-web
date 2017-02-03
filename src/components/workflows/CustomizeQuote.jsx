@@ -126,7 +126,7 @@ class CustomizeQuote extends Component {
           <section>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group" role="group">
-                <h3>Coverage Limits</h3>
+                <h2>Coverage Limits</h2>
                 <div className="form-group range-component">
                   <label htmlFor="dwellingAmount">
                     Dwelling Limit
@@ -161,7 +161,7 @@ class CustomizeQuote extends Component {
                     <input
                       type="text"
                       value={this.state.dwellingAmount * (this.state.otherStructuresAmount / 100)}
-                      disabled
+                      readOnly
                     />
                   </label>
                   <div className="segmented-answer-wrapper">
@@ -257,7 +257,7 @@ class CustomizeQuote extends Component {
                         value={
                           this.state.dwellingAmount * (this.state.personalPropertyAmount / 100)
                         }
-                        disabled
+                        readOnly
                       />
                     </label>
                     <div className="segmented-answer-wrapper">
@@ -502,7 +502,7 @@ class CustomizeQuote extends Component {
                 </div>
               </div>
               <div className="form-group" role="group">
-                <h3>Coverage Options</h3>
+                <h2>Coverage Options</h2>
                 <div className="form-group segmented" role="group">
                   <label className="group-label label-segmented">
                     Property Permitted Incidental Occupancies
@@ -579,7 +579,7 @@ class CustomizeQuote extends Component {
                 </div>
               </div>
               <div className="form-group" role="group">
-                <h3>Deductibles</h3>
+                <h2>Deductibles</h2>
                 <div className="form-group segmented" role="group">
                   <label className="group-label label-segmented">
                     All Other Perils Deductible
