@@ -30,7 +30,7 @@ const AdditionalInterests = (props) => {
   return (
     <div>
       <h3>Mailing Address</h3>
-      <MailingAddress {...props} />
+      <MailingAddress {...props} name={''} />
       <FieldArray name="mortgagees.Mortgagee" component={Interest} InterestType={'Mortgagee'} InterestTypeName={'Mortgagee'} />
 
       <FieldArray name="mortgagees.leinholder" component={Interest} InterestType={'Lienholder'} InterestTypeName={'Lienholder'} />

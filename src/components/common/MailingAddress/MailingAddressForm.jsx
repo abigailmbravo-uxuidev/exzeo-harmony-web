@@ -14,7 +14,7 @@ let MailingAddressForm = (props) => {
       noValidate
     >
       <h3>Mailing Address</h3>
-      <MailingAddress {...props} />
+      <MailingAddress {...props} name={''} />
       <div className="workflow-steps">
         <button className="btn btn-primary" type="submit" form="MailingAddressForm">next</button>
       </div>
