@@ -1675,3 +1675,74 @@ ul.results {
   }
 }
 }
+
+
+//MailingAddress Component
+.MailingAddress-component {
+    .address1 {
+        width: 100%;
+        flex-grow: 1;
+        flex-shrink: 0;
+    }
+    .address2 {
+        width: 100%;
+        flex-grow: 1;
+        flex-shrink: 0;
+    }
+    .country {
+        width: 100%;
+        flex-grow: 1;
+        flex-shrink: 0;
+    }
+    .city {
+        width: 100%;
+        flex-grow: 1;
+        flex-shrink: 0;
+        @include for-tablet-portrait-up {
+            width: auto;
+        }
+    }
+    .state {
+        width: 100%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        @include for-tablet-portrait-up {
+            width: 6rem;
+            flex-grow: 0;
+        }
+    }
+    .zip {
+        width: 100%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        @include for-tablet-portrait-up {
+            width: 8rem;
+            flex-grow: 0;
+        }
+    }
+}
+
+
+
+//Home Page
+.fade-in {
+    height: 100%;
+.home {
+    padding: $padding ($padding/2);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 100%;
+
+    .product-wrapper {
+        display: flex;
+        justify-content: space-around;
+
+        .product {
+            flex-grow: 1;
+            flex-shrink: 0;
+        }
+    }
+}
+}

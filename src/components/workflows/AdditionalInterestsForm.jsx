@@ -15,7 +15,6 @@ let AdditionalInterestsForm = (props) => {
       className={`fade-in ${styleName || ''}`} id="AdditionalInterestsForm" onSubmit={handleSubmit(() => { })}
       noValidate
     >
-      <h3>AdditionalInterestsForm</h3>
       <AdditionalInterests {...props} />
       <div className="workflow-steps">
         <button className="btn btn-primary" type="submit" form="AdditionalInterestsForm">next</button>
