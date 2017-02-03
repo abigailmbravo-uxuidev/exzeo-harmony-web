@@ -57,6 +57,7 @@ class Demographics extends Component {
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="Demographics">next</button>
         </div>
+        <Footer />
       </Form>
     );
   }
