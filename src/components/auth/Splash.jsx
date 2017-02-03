@@ -7,119 +7,34 @@ import logoHarmony from '../../img/logo.svg';
 const Splash = ({ splashScreen, loginMessage }) => {
   if (splashScreen) {
     return (
-      <div className="splash" role="article">
-        <div className="fade-in">
-          <img src={logoHarmony} width="120px" height="120px" alt="harmony-logo" />
-          <small>Powered by</small>
-          <small>PROJECT HARMONY</small>
-          <h2>Welcome to</h2>
-          <h1>Project {window.appConfig.appTitle}</h1>
-          {loginMessage ? <h3>Please <Link to="/login">login</Link> to continue!</h3> : null}
-        </div>
-      </div>
-
-
-      // <div className="workflow" role="article">
+      // <div className="splash" role="article">
       //   <div className="fade-in">
-      //           <div className="workflow-content">
-      //                   <section>
-      //                   <form className="fade-in " id="survey" novalidate="">
-      //                           <div className="form-group survey-wrapper">
-      //
-      //                                   <section className="display-element demographics">
-      //                                   <h3>Quote details</h3>
-      //
-      //                                     <dl>
-      //                                       <div>
-      //                                         <dt>Quote Number</dt>
-      //                                         <dd>TT-12345678-01</dd>
-      //                                       </div>
-      //                                     </dl>
-      //                                     <dl>
-      //                                       <div>
-      //                                         <dt>Property address</dt>
-      //                                         <dd>1234 South Main Street</dd>
-      //                                       </div>
-      //                                     </dl>
-      //                                     <dl>
-      //                                       <div>
-      //                                         <dt>Annual premium</dt>
-      //                                         <dd>$123456</dd>
-      //                                       </div>
-      //                                     </dl>
-      //
-      //
-      //
-      //                                   {/*BoolInput component with addition of class: "verification"*/}
-      //                                   <div className="form-group switch  verification">
-      //                                     <label htmlFor="test">Confirmed
-      //                                       <input
-      //                                         type="checkbox"
-      //                                         name="test"
-      //                                         checked={false}
-      //                                       />
-      //                                       <div className="switch-div" />
-      //                                       {/*needed to add a span element for marker icon*/}
-      //                                       <span></span>
-      //                                     </label>
-      //                                   </div>
-      //
-      //
-      //                                   </section>
-      //
-      //
-      //                                   <section className="display-element demographics">
-      //                                   <h3>Demographics</h3>
-      //
-      //                                     <dl>
-      //                                       <div>
-      //                                         <dt>Policyholder first name</dt>
-      //                                         <dd>John</dd>
-      //                                       </div>
-      //                                     </dl>
-      //                                     <dl>
-      //                                       <div>
-      //                                         <dt>Policyholder last name</dt>
-      //                                         <dd>Doe</dd>
-      //                                       </div>
-      //                                     </dl>
-      //                                     <dl>
-      //                                       <div>
-      //                                         <dt>Email address</dt>
-      //                                         <dd>john.doe@gmail.com</dd>
-      //                                       </div>
-      //                                     </dl>
-      //
-      //
-      //
-      //                                   {/*BoolInput component with addition of class: "verification"*/}
-      //                                   <div className="form-group switch  verification">
-      //                                     <label htmlFor="test">Confirmed
-      //                                       <input
-      //                                         type="checkbox"
-      //                                         name="test"
-      //                                         checked={false}
-      //                                       />
-      //                                       <div className="switch-div" />
-      //                                       {/*needed to add a span element for marker icon*/}
-      //                                       <span></span>
-      //                                     </label>
-      //                                   </div>
-      //
-      //
-      //                                   </section>
-      //
-      //                           </div>
-      //                           <div className="workflow-steps">
-      //                           <button className="btn btn-primary" type="submit" form="survey">next</button></div>
-      //                           <footer><div role="banner">
-      //                                   <small>©2017 TypTap Management Company. All rights reserved.</small></div>
-      //                           </footer>
-      //                   </form>
-      //           </section>
-      //           </div>
+      //     <img src={logoHarmony} width="120px" height="120px" alt="harmony-logo" />
+      //     <small>Powered by</small>
+      //     <small>PROJECT HARMONY</small>
+      //     <h2>Welcome to</h2>
+      //     <h1>Project {window.appConfig.appTitle}</h1>
+      //     {loginMessage ? <h3>Please <Link to="/login">login</Link> to continue!</h3> : null}
       //   </div>
       // </div>
+
+
+
+      // TEMP HOME PAGE - TRANSFER ONCE AUTHENTICATION IS WORKING
+      <div className="fade-in">
+              <div className="home">
+                      <div className="product-wrapper">
+                              <div className="product">
+                                      <h2 className="product-name">Flood Insurance</h2>
+                                      <a href="https://www.typtap.com/agency?agentToken=eFE3Sv8NG5fgjH4Bj1MfOb6vxx9ikSiFZ4lAxepkxZqbDyO4ORoTKDPg_eVBr2AtsOT8YAGSeQLXLsdRedZbyzm7VTU5DxTkDx1Zq4F8rauLsur6ins3h47AZZMuZfg44Tkbk5PTdl5P7dIhnh7SdNv80PBbFmMMza_S0cMV4zR1frqxhsmr8y8jUspE-_lJgAsvkRQYcNOeMcs0ZXxAsqlGZI0n2-k6qQnaRy-Of85fcO2_Ymg7zlDplgl8vjbIWxQwp2kk8pNPhqUbDdGW9tgCHfZK5uIInXI38PWZ88GnaNXPTnW9guJDZNkfgYxHAfbad0vEDiX3oJ-s4LoP-thQgqmx2ruZxRsOa_dop2NcmLOtbI65apdHcagIhj72BfCLYL3DtnlSb-JaZJKeNxcmWydErMXXpu_b4hwlIHx9a-2tewhJCxAABESWDGJU0D9BMQuNHsXltUw74FgVUtJjEEzvZF0ThCvu0smpgmrgecIBLoI_eUE_yNMu7xwo5fzykp75ZPRdlCKU7x_w84S8imdI-vfJvzyYcpb0dEPerd7OhvpkT-qX9wrqhDaB6N24s8Mz4bP5I0nRM-uFyuXfuV-fYGStCQbWVosb73xSs3aFKuFJ08BIAxU2i06C_mTxA5i0Oy7NW6xep0IKchxP7KbBcdki4J3VU2GQONqJWcle1MPHO1L2Us4Pnk1UlvdPyw" className="btn btn-primary">Start</a>
+                              </div>
+                              <div className="product">
+                                      <h2 className="product-name">Homeowners Insurance</h2>
+                                      <a href="/search" className="btn btn-primary">Start</a>
+                              </div>
+                      </div>
+              </div>
+      </div>
     );
   }
   return <h3>Project | Harmony</h3>;

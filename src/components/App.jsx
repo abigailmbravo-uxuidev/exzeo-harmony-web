@@ -73,14 +73,14 @@ export class App extends Component {
             <nav className="site-nav">
               <ul>
                 <li className="active">
-                  <a href="/workflow">
+                  <a href="/">
                     <i className="fa fa-home" /><span>Home</span></a>
                 </li>
               </ul>
             </nav>
           </aside>
           <div className="content-wrapper">
-            <Match pattern="/" component={Search} />
+            <Match pattern="/search" component={Search} />
             <Match pattern="/search" component={SearchResults} />
             <Match exactly pattern="/" component={homeScreen} />
             <Match pattern="/login" component={Login} />
