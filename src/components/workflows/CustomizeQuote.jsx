@@ -1,12 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/label-has-for */
-import React, { Component } from 'react';
-
-// Can this all be imported from cg? Initial Values from the quote?
-const dwelling = {
-  min: 10000,
-  amount: 12000,
-  max: 20000,
-};
+import React, { Component, PropTypes } from 'react';
 
 const quoteInfo = {
   coverageLimits: {
@@ -86,7 +79,12 @@ const quoteInfo = {
 
 
 class CustomizeQuote extends Component {
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   state = {
+    updated: false,
     dwellingAmount: quoteInfo.coverageLimits.dwelling.amount,
     otherStructuresAmount: quoteInfo.coverageLimits.otherStructures.amount,
     personalPropertyReplacementCostCoverage: false,
@@ -101,16 +99,26 @@ class CustomizeQuote extends Component {
     allOtherPerils: quoteInfo.deductibles.allOtherPerils.amount,
     hurricane: quoteInfo.deductibles.hurricane.amount,
   }
+
   handleChange = (event) => {
     const { state } = this;
     state[event.target.name] = event.target.value;
+    state.updated = true;
     this.setState(state);
   }
 
   handleSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
-    console.log(this.state.questions); // eslint-disable-line
+    const { state } = this;
+    if (state.updated) {
+      // Do two mutations
+      state.updated = false;
+      this.setState(state);
+    } else {
+      this.context.router.push('/workflow/shareQuote');
+    }
   }
+
   render() {
     return (
       <div className="workflow" role="article">
@@ -677,7 +685,9 @@ class CustomizeQuote extends Component {
                 </div>
               </div>
               <div className="workflow-steps">
-                <button className="btn btn-primary" type="submit" form="survey">next</button>
+                <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>
+                  {this.state.updated ? 'update' : 'next'}
+                </button>
               </div>
             </form>
           </section>
