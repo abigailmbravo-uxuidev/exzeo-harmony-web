@@ -32,15 +32,15 @@ const AdditionalInterests = (props) => {
       <h3>Mailing Address</h3>
       <MailingAddress {...props} />
       <FieldArray name="mortgagees.Mortgagee" component={Interest} InterestType={'Mortgagee'} InterestTypeName={'Mortgagee'} />
-      <br /><br />
+
       <FieldArray name="mortgagees.leinholder" component={Interest} InterestType={'Lienholder'} InterestTypeName={'Lienholder'} />
-      <br /><br />
+
       <FieldArray name="mortgagees.AdditionalInterest" component={Interest} InterestType={'AdditionalInterest'} InterestTypeName={'Additional Interest'} />
-      <br /><br />
+
       <FieldArray name="mortgagees.AdditionalInsured" component={Interest} InterestType={'AdditionalInsured'} InterestTypeName={'Additional Insured'} />
-      <br /><br />
+
       <FieldArray name="mortgagees.BillPayer" component={Interest} InterestType={'BillPayer'} InterestTypeName={'Bill Payer'} />
-      <br /><br />
+
       <FieldArray name="additionalPolicyHolder" component={renderPolicyHolder} InterestType={'AdditionalPolicyHolder'} InterestTypeName={'Additional Policy Holder'} />
     </div>
   );
