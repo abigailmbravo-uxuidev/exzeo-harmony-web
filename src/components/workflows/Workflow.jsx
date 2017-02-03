@@ -118,6 +118,7 @@ const WorkflowDetails = () => (
           </section>
         </div>
 )
+
 class Workflow extends Component {
 
   static propTypes = {
@@ -176,9 +177,21 @@ class Workflow extends Component {
   updateCompletedSteps = (completedSteps) => {
     this.setState({completedSteps});
   }
+
+  handleOnSubmit = (...d) => {
+    //this.context.router.transitionTo('/workflow/underwriting');
+    //let steps = this.state.workflow.steps;
+
+    //<Redirect to="/workflow/underwriting" />
+  }
+
+  handleChange = (event) => {
+    //let steps = this.state.workflow.steps;
+
+    //<Redirect to="/workflow/underwriting" />
+  }
   render() {
     const {workflow, activeStep} = this.state;
-    console.log(workflow)
     return (
       <div className="workflow" role="article">
         <div className="fade-in">
@@ -187,7 +200,7 @@ class Workflow extends Component {
             <div>
               <WorkflowHeader steps={workflow.steps}/>
               <div>
-                <Route path="/workflow/demographics" component={Demographics}/>
+                <Route path="/workflow/demographics" component={Demographics} />
                 <Route path="/workflow/underwriting" component={UWQuestions}/>
                 <Route path="/workflow/customize" component={Customize}/>
                 <Route path="/workflow/share" component={Share}/>
