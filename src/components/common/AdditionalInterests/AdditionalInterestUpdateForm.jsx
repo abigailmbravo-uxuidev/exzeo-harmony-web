@@ -36,15 +36,11 @@ AdditionalInterestUpdateForm = reduxForm({
 const selector = formValueSelector('AdditionalInterestUpdateForm'); // <-- same as form name
 
 AdditionalInterestUpdateForm = connect(
-    (state) => {
-      console.log('state.form.Verify', state.form.Verify);
-
-      return {
-        initialValues: {
-          additionalInterests: state.form.Verify.values.additionalInterests,
-        },
-      };
-    },
+    state => ({
+      initialValues: {
+        additionalInterests: state.form.Verify.values.additionalInterests,
+      },
+    }),
   )(AdditionalInterestUpdateForm);
 
 

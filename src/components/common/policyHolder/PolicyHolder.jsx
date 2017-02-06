@@ -8,10 +8,7 @@ import Dropdown from '../form/Dropdown';
 const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange, name, state, formName,
    pristine, reset, submitting, error, invalid }) => {
   const selector = formValueSelector(formName);
-
   const entityType = selector(state, `${name}.entityType`);
-
-  console.log('state--', state);
 
   return (
     <div className="form-group survey-wrapper policyHolder-component" role="group">

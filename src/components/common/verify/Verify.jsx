@@ -48,8 +48,6 @@ let Verify = ({
   initialValues.policyHolders = quoteTest.policyHolders;
   initialValues.policyHolderMailingAddress = quoteTest.policyHolderMailingAddress;
 
-  console.log('state', state);
-
   function updateQuote() {
     dispatch(change('Verify', 'editProperty', false));
     dispatch(change('Verify', 'editConfirmPolicyHolder', false));

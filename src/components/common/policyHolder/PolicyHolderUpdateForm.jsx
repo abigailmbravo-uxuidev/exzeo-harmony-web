@@ -9,7 +9,8 @@ const renderPolicyHolder = ({ fieldState, fields, formName, InterestType, Intere
   <div>
     {fields.length === 1 && <button type="button" onClick={() => fields.push({})}>+ Add Secondary {InterestTypeName}</button>}
     {fields.length === 2 && <button type="button" onClick={() => fields.remove(1)}>+ Remove Secondary {InterestTypeName}</button>}
-    <br />            <br />
+    <br />
+    <br />
     {touched && error && <span>{error}</span>}
     {fields.map((policyHolder, index) =>
       <div key={index}>
@@ -28,7 +29,6 @@ const renderPolicyHolder = ({ fieldState, fields, formName, InterestType, Intere
 let PolicyHolderUpdateForm = (props) => {
   const { formName, initialValues, styleName, handleSubmit, handleOnSubmit, handleChange, state,
           pristine, reset, submitting, error, invalid } = props;
-  console.log('state=dd', state);
   return (
     <Form
       className={`fade-in ${styleName || ''}`} id="PolicyHolderUpdateForm" onSubmit={handleSubmit(handleOnSubmit)}
@@ -55,17 +55,13 @@ PolicyHolderUpdateForm = reduxForm({
 const selector = formValueSelector('PolicyHolderUpdateForm'); // <-- same as form name
 
 PolicyHolderUpdateForm = connect(
-    (state) => {
-      console.log('state.form.Verify', state.form.Verify);
-
-      return {
-        initialValues: {
-          policyHolders: state.form.Verify.values.policyHolders,
-        },
-        formName: 'PolicyHolderUpdateForm',
-        state,
-      };
-    },
+    state => ({
+      initialValues: {
+        policyHolders: state.form.Verify.values.policyHolders,
+      },
+      formName: 'PolicyHolderUpdateForm',
+      state,
+    }),
   )(PolicyHolderUpdateForm);
 
 
