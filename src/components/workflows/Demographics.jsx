@@ -3,7 +3,6 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
-import Footer from '../common/Footer';
 import TextInput from '../common/form/TextInput';
 import PolicyHolder from '../common/policyHolder/PolicyHolder';
 import {Link} from 'react-router-dom';
@@ -35,7 +34,7 @@ class Demographics extends Component {
 
   render() {
     const {
-      effectiveDate, styleName, handleSubmit, handleChange,
+      effectiveDate, styleName, handleSubmit,
       pristine, reset, submitting, error, invalid
     } = this.props;
     return (
@@ -71,7 +70,6 @@ class Demographics extends Component {
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="Demographics">next</button>
         </div>
-        <Footer />
       </Form>
     );
   }

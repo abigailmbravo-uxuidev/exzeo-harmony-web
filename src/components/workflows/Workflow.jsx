@@ -8,6 +8,8 @@ import Billing from '../workflows/Billing';
 import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
 import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
 import Verify from '../common/verify/Verify';
+
+import Footer from '../common/Footer';
 import _ from 'lodash';
 
 const WorkflowHeader = (d) => {
@@ -210,7 +212,7 @@ class Workflow extends Component {
               <Route path="/workflow/MailingAddress" component={MailingAddressForm}/>
               <Route path="/workflow/billing" component={Billing}/>
               <Route path="/workflow/verify" component={Verify}/>
-              <WorkflowFooter steps={workflow.steps} activeStep={activeStep} />
+              <Footer />
             </div>
           </Router>
         </div>

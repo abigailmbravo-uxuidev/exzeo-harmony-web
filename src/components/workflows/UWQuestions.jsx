@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import Footer from '../common/Footer';
+import React, {Component, PropTypes} from 'react';
 
 // import Stepper from './workflows/Stepper';
 
@@ -7,6 +6,16 @@ class UWQuestions extends Component {
   state = {
     // Some state will go here
   }
+
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
+  handleSubmit = (event) => {
+    if (event && event.preventDefault) event.preventDefault();
+    this.context.router.push('/workflow/customize');
+  }
+
   render() {
     return (
       <form className="fade-in">
@@ -128,9 +137,8 @@ class UWQuestions extends Component {
           </div>
         </div>
         <div className="workflow-steps">
-          <button className="btn btn-primary" type="submit" form="Demographics">next</button>
+          <button className="btn btn-primary" type="submit" form="Demographics" onClick={this.handleSubmit}>next</button>
         </div>
-        <Footer />
       </form>
     );
   }
