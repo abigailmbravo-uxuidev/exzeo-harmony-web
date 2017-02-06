@@ -85,7 +85,7 @@ let Verify = ({
         <div className="detail-content-wrapper route-verify">
           <div className="detail-wrapper">
             {!editProperty && <div className="detail-group property-details">
-              <h4><i className="fa fa-map-marker"></i> Property Details</h4>
+              <h4 className="section-group-header"><i className="fa fa-map-marker"></i> Property Details</h4>
               {!confirmProperyDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editProperty">
                   <i className="fa fa-pencil"/>
@@ -125,7 +125,7 @@ let Verify = ({
               <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Verified'} handleChange={function() {}} value={false} isSwitch/>
             </div>}
             {editProperty && <div className="detail-group property-details edit">
-              <h4><i className="fa fa-map-marker"></i> Property Details</h4>
+              <h4 className="section-group-header"><i className="fa fa-map-marker"></i> Property Details</h4>
               <div className="editing"><i className="fa fa-pencil"></i> Editing</div>
               <section className="display-element">
                 <dl className="quote-number">
@@ -154,7 +154,7 @@ let Verify = ({
             </div>}
 
             <div className="detail-group quote-details">
-              <h4><i className="fa fa-list"></i> Quote Details</h4>
+              <h4 className="section-group-header"><i className="fa fa-list"></i> Quote Details</h4>
               <section className="display-element">
                 <dl>
                   <div>
@@ -197,7 +197,7 @@ let Verify = ({
             </div>
 
             {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
-              <h4><i className="fa fa-vcard-o"></i> Policy Holder Details</h4>
+              <h4 className="section-group-header"><i className="fa fa-vcard-o"></i> Policy Holder Details</h4>
               {!confirmPolicyHolderDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
                   <i className="fa fa-pencil"/>
@@ -224,14 +224,15 @@ let Verify = ({
               </section>
             </div>}
             {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
-              <h4><i className="fa fa-vcard-o"></i> Policy Holder Details</h4>
+              <h4 className="section-group-header"><i className="fa fa-vcard-o"></i> Policy Holder Details</h4>
+              <div className="editing"><i className="fa fa-pencil"></i> Editing</div>
               <section className="display-element">
                 <PolicyHolderUpdateForm policyHolders={quoteTest.policyHolders} handleOnSubmit={updateQuote}/>
               </section>
             </div>}
 
             {!editMailingAddress && <div className="detail-group mailing-address-details">
-              <h4><i className="fa fa-envelope-open-o"></i> Mailing Address</h4>
+              <h4 className="section-group-header"><i className="fa fa-envelope-open-o"></i> Mailing Address</h4>
               <section className="display-element">
                 <dl>
                   <div>
@@ -260,14 +261,15 @@ let Verify = ({
               <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function() {}} value={confirmPolicyHolderDetails} isSwitch/>
             </div>}
             {editMailingAddress && <div className="detail-group mailing-address-details edit">
-              <h4><i className="fa fa-envelope-open-o"></i> Mailing Address</h4>
+              <h4 className="section-group-header"><i className="fa fa-envelope-open-o"></i> Mailing Address</h4>
+              <div className="editing"><i className="fa fa-pencil"></i> Editing</div>
               <section className="display-element">
                 <MailingAddressForm name={''} mailingAddress={quoteTest.policyHolderMailingAddress} handleOnSubmit={updateQuote}/>
               </section>
             </div>}
 
             {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
-              <h4><i className="fa fa-bank"></i> Additional Interests</h4>
+              <h4 className="section-group-header"><i className="fa fa-bank"></i> Additional Interests</h4>
               {!confirmAdditionalInterestsDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
                   <i className="fa fa-pencil"/>
@@ -299,7 +301,8 @@ let Verify = ({
               </section>
             </div>}
             {editConfirmAdditionalInterests && <div className="detail-group additional-interests-details edit">
-              <h4><i className="fa fa-bank"></i> Additional Interests</h4>
+              <h4 className="section-group-header"><i className="fa fa-bank"></i> Additional Interests</h4>
+              <div className="editing"><i className="fa fa-pencil"></i> Editing</div>
               <section className="display-element">
                 <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={updateQuote}/>
               </section>

@@ -453,7 +453,7 @@ html {
     margin-bottom: 1rem;
     border-bottom: 1px dashed $warm-gray-02;
     display: flex;
-    padding: $padding ($padding/2) 0;
+    //padding: $padding ($padding/2) 0;
     @include for-phone-only {
       padding: ($padding*2) ($padding*2) 0;
     }
@@ -1356,7 +1356,7 @@ html {
 
               form {
                 display: flex;
-                overflow-y: auto;
+                //overflow-y: hidden;
                 margin-bottom: 0;
                 padding: ($padding*2) ($padding*4) 0;
                 flex-grow: 1;
@@ -1679,7 +1679,11 @@ ul.results {
 }
 
 
+
 //Routes
+.route {
+    overflow-y: auto;
+}
 //Home Page
 .fade-in {
     height: 100%;
@@ -1707,11 +1711,6 @@ ul.results {
 .route-verify {
     .detail-wrapper {
         .detail-group {
-            > h1, > h2, > h3, > h4, > h5, > h6 {
-                i {
-                    color: $green;
-                }
-            }
             .edit-btn {
                 &:hover {
                     text-decoration: none;
@@ -1720,8 +1719,28 @@ ul.results {
 
             &.edit {
                 border: 2px solid $warm-gray-07;
-                margin: (-$padding)(-$padding/2)($padding);
-                padding: ($padding);
+                //margin: (-$padding)(-$padding/2)($padding);
+                //padding: ($padding);
+
+                .editing {
+                    position: absolute;
+                    top: $padding;
+                    right: $padding;
+                    color: $white;
+                    text-transform: uppercase;
+                }
+
+                .section-group-header {
+                    background: $bright-blue;
+                }
+
+                .display-element {
+                    padding: ($padding);
+
+                    .workflow-steps {
+                        padding: 0;
+                    }
+                }
             }
             &.property-details {
                 .display-element {
@@ -1787,6 +1806,14 @@ ul.results {
             }
         }
     }
+}
+
+//form color & form layout
+.survey-wrapper, .detail-wrapper {
+
+  .section-group-header {
+      color: $warm-gray-08;
+  }
 }
 
 
