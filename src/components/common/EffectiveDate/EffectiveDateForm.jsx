@@ -18,9 +18,8 @@ let EffectiveDateForm = (props) => {
       <div className="form-group survey-wrapper" role="group">
         <TextInput
           answerType="date"
-          handleChange={handleChange}
+          handleChange={function () { }}
           name="effectiveDate"
-          defaultValue={effectiveDate}
           question={'Effective Date'}
           validations={['required', 'date']}
         />

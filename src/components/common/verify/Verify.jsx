@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {reduxForm, Form, formValueSelector, Field, change} from 'redux-form';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import moment from 'moment';
 import Footer from '../Footer';
 import BoolInput from '../form/BoolInput';
@@ -21,20 +21,6 @@ let Verify = ({
   handleOnSubmit,
   handleChange,
   effectiveDate,
-  policyHolderFirstName1,
-  policyHolderLastName1,
-  policyHolderPhoneNumber1,
-  policyHolderEmail1,
-  policyHolderFirstName2,
-  policyHolderLastName2,
-  policyHolderPhoneNumber2,
-  policyHolderEmail2,
-  policyHolderAddress1,
-  policyHolderAddress2,
-  policyHolderCity,
-  policyHolderState,
-  policyHolderZip,
-  policyHolderCountry,
   editConfirmAdditionalInterests,
   editConfirmPolicyHolder,
   editProperty,
@@ -47,7 +33,7 @@ let Verify = ({
   reset,
   submitting,
   error,
-  invalid
+  invalid,
 }) => {
   const property = quoteTest.property;
   const coverageLimits = quoteTest.coverageLimits;
@@ -58,21 +44,11 @@ let Verify = ({
 
   initialValues.effectiveDate = moment(quoteTest.effectiveDate).format('YYYY-MM-DD');
 
-  initialValues.policyHolderFirstName1 = policyHolder1.firstName;
-  initialValues.policyHolderLastName1 = policyHolder1.lastName;
-  initialValues.policyHolderPhoneNumber1 = policyHolder1.primaryPhoneNumber;
-  initialValues.policyHolderEmail1 = policyHolder1.emailAddress;
-  initialValues.policyHolderFirstName2 = policyHolder2.firstName;
-  initialValues.policyHolderLastName2 = policyHolder2.lastName;
-  initialValues.policyHolderPhoneNumber2 = policyHolder2.primaryPhoneNumber;
-  initialValues.policyHolderEmail2 = policyHolder2.emailAddress;
+  initialValues.additionalInterests = quoteTest.additionalInterests;
+  initialValues.policyHolders = quoteTest.policyHolders;
+  initialValues.policyHolderMailingAddress = quoteTest.policyHolderMailingAddress;
 
-  initialValues.policyHolderAddress1 = mailingAddress.address1;
-  initialValues.policyHolderAddress2 = mailingAddress.address2;
-  initialValues.policyHolderCity = mailingAddress.city;
-  initialValues.policyHolderState = mailingAddress.state;
-  initialValues.policyHolderZip = mailingAddress.zip;
-  initialValues.policyHolderCountry = mailingAddress.country.displayText;
+  console.log(initialValues.additionalInterests);
 
   function updateQuote() {
     dispatch(change('Verify', 'editProperty', false));
@@ -92,12 +68,14 @@ let Verify = ({
               <h4>Property Details</h4>
               {!confirmProperyDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editProperty">
-                  <i className="fa fa-pencil"/>
+                  <i className="fa fa-pencil" />
                   Edit
                 </label>
-                <Field name="editProperty" id="editProperty" component="input" type="checkbox" style={{
-                  display: 'none'
-                }}/>
+                <Field
+                  name="editProperty" id="editProperty" component="input" type="checkbox" style={{
+                    display: 'none',
+                  }}
+                />
               </div>}
               <section className="display-element">
                 <dl>
@@ -122,11 +100,11 @@ let Verify = ({
                 <dl>
                   <div>
                     <dt>Effective Date</dt>
-                    <dd>{moment(effectiveDate).format('MM/DD/YYYY')}</dd>
+                    <dd>{moment(quoteTest.effectiveDate).format('MM/DD/YYYY')}</dd>
                   </div>
                 </dl>
               </section>
-              <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Confirmed'} handleChange={function() {}} value={false} isSwitch/>
+              <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Confirmed'} handleChange={function () {}} value={false} isSwitch />
             </div>}
             {editProperty && <div className="detail-group">
               <h4>Property Details</h4>
@@ -152,7 +130,7 @@ let Verify = ({
                 </dl>
                 <dl>
                   <div>
-                    <EffectiveDateForm handleOnSubmit={updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')}/>
+                    <EffectiveDateForm handleOnSubmit={updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')} />
                   </div>
                 </dl>
               </section>
@@ -198,40 +176,42 @@ let Verify = ({
                   </div>
                 </dl>
               </section>
-              <BoolInput styleName="verification" name={'confirmQuoteDetails'} question={'Confirmed'} handleChange={function() {}} value={confirmQuoteDetails} isSwitch/>
+              <BoolInput styleName="verification" name={'confirmQuoteDetails'} question={'Confirmed'} handleChange={function () {}} value={confirmQuoteDetails} isSwitch />
             </div>
 
             {!editConfirmPolicyHolder && <div className="detail-group">
               <h4>Policy Holder Details</h4>
               {!confirmPolicyHolderDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
-                  <i className="fa fa-pencil"/>
+                  <i className="fa fa-pencil" />
                   Edit
                 </label>
-                <Field name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox" style={{
-                  display: 'none'
-                }}/>
+                <Field
+                  name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox" style={{
+                    display: 'none',
+                  }}
+                />
               </div>}
               <section className="display-element">
                 {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ? quoteTest.policyHolders.map((policyHolder, index) => (
-                    <dl key={`ph${index}`}>
-                      <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                      <div>
-                        <dt>Name</dt>
-                        <dd>{index === 0 ? `${policyHolderFirstName1} ${policyHolderLastName1}` : `${policyHolderFirstName2} ${policyHolderLastName2}`}</dd>
-                        <dt>Phone Number</dt>
-                        <dd>{index === 0 ? policyHolderPhoneNumber1 : policyHolderPhoneNumber2}</dd>
-                        <dt>Email</dt>
-                        <dd>{index === 0 ? policyHolderEmail1 : policyHolderEmail2}</dd>
-                      </div>
-                    </dl>
+                  <dl key={`ph${index}`}>
+                    <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                    <div>
+                      <dt>Name</dt>
+                      <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                      <dt>Phone Number</dt>
+                      <dd>{policyHolder.primaryPhoneNumber}</dd>
+                      <dt>Email</dt>
+                      <dd>{policyHolder.emailAddress}</dd>
+                    </div>
+                  </dl>
                   )) : null}
               </section>
             </div>}
             {editConfirmPolicyHolder && <div className="detail-group">
               <h4>Policy Holder Details</h4>
               <section className="display-element">
-                <PolicyHolderUpdateForm policyHolders={quoteTest.policyHolders} handleOnSubmit={updateQuote}/>
+                <PolicyHolderUpdateForm handleOnSubmit={updateQuote} />
               </section>
             </div>}
 
@@ -253,21 +233,23 @@ let Verify = ({
                 <dl>
                   {!confirmPolicyHolderDetails && <div>
                     <label className="btn btn-link edit-btn" htmlFor="editMailingAddress">
-                      <i className="fa fa-pencil"/>
+                      <i className="fa fa-pencil" />
                       Edit
                     </label>
-                    <Field name="editMailingAddress" id="editMailingAddress" component="input" type="checkbox" style={{
-                      display: 'none'
-                    }}/>
+                    <Field
+                      name="editMailingAddress" id="editMailingAddress" component="input" type="checkbox" style={{
+                        display: 'none',
+                      }}
+                    />
                   </div>}
                 </dl>
               </section>
-              <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Confirmed'} handleChange={function() {}} value={confirmPolicyHolderDetails} isSwitch/>
+              <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Confirmed'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
             </div>}
             {editMailingAddress && <div className="detail-group">
               <h4>Mailing Address</h4>
               <section className="display-element">
-                <MailingAddressForm name={''} mailingAddress={quoteTest.policyHolderMailingAddress} handleOnSubmit={updateQuote}/>
+                <MailingAddressForm name={'policyHolderMailingAddress.'} handleOnSubmit={updateQuote} />
               </section>
             </div>}
 
@@ -275,43 +257,45 @@ let Verify = ({
               <h4>Additional Interests</h4>
               {!confirmAdditionalInterestsDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
-                  <i className="fa fa-pencil"/>
+                  <i className="fa fa-pencil" />
                   Edit
                 </label>
-                <Field name="editConfirmAdditionalInterests" id="editConfirmAdditionalInterests" component="input" type="checkbox" style={{
-                  display: 'none'
-                }}/>
+                <Field
+                  name="editConfirmAdditionalInterests" id="editConfirmAdditionalInterests" component="input" type="checkbox" style={{
+                    display: 'none',
+                  }}
+                />
               </div>}
               <section className="display-element">
 
                 {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ? quoteTest.additionalInterests.map((additionalInterests, index) => (
-                    <dl key={`ai${index}`}>
-                      <div>
-                        <dt>Name</dt>
-                        <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
-                        <dt>Address</dt>
-                        <dd>{additionalInterests.mailingAddress.address1}</dd>
-                        <dd>{additionalInterests.mailingAddress.address2}</dd>
-                        <dt>City/State/Zip</dt>
-                        <dd>{additionalInterests.mailingAddress.city}, {additionalInterests.mailingAddress.state}
-                          {additionalInterests.mailingAddress.zip}
-                        </dd>
-                      </div>
-                    </dl>
+                  <dl key={`ai${index}`}>
+                    <div>
+                      <dt>Name</dt>
+                      <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
+                      <dt>Address</dt>
+                      <dd>{additionalInterests.mailingAddress.address1}</dd>
+                      <dd>{additionalInterests.mailingAddress.address2}</dd>
+                      <dt>City/State/Zip</dt>
+                      <dd>{additionalInterests.mailingAddress.city}, {additionalInterests.mailingAddress.state}
+                        {additionalInterests.mailingAddress.zip}
+                      </dd>
+                    </div>
+                  </dl>
                   )) : null}
 
-                <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Confirmed'} handleChange={function() {}} value={confirmAdditionalInterestsDetails} isSwitch/>
+                <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Confirmed'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
               </section>
             </div>}
             {editConfirmAdditionalInterests && <div className="detail-group">
               <h4>Additional Interests</h4>
               <section className="display-element">
-                <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={updateQuote}/>
+                <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={updateQuote} />
               </section>
             </div>}
 
             <section>
-              <Form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={function() {}} noValidate>
+              <Form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={function () {}} noValidate>
                 <div className="workflow-steps">
                   <button disabled={!confirmProperyDetails || !confirmQuoteDetails || !confirmPolicyHolderDetails || !confirmAdditionalInterestsDetails} className="btn btn-primary" type="submit" form="survey">next</button>
                 </div>
@@ -326,6 +310,7 @@ let Verify = ({
 };
 
 Verify.propTypes = {
+  editMailingAddress: PropTypes.bool,
   effectiveDate: PropTypes.string,
   editConfirmAdditionalInterests: PropTypes.bool,
   editConfirmPolicyHolder: PropTypes.bool,
@@ -338,7 +323,7 @@ Verify.propTypes = {
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
   quote: PropTypes.object, //eslint-disable-line
-  styleName: PropTypes.string
+  styleName: PropTypes.string,
 };
 
 Verify = reduxForm({
@@ -360,55 +345,13 @@ Verify = connect((state) => {
 
   const effectiveDate = selector(state, 'effectiveDate');
 
-  const policyHolderFirstName1 = selector(state, 'policyHolderFirstName1');
-  const policyHolderLastName1 = selector(state, 'policyHolderLastName1');
-  const policyHolderPhoneNumber1 = selector(state, 'policyHolderPhoneNumber1');
-  const policyHolderEmail1 = selector(state, 'policyHolderEmail1');
-  const policyHolderFirstName2 = selector(state, 'policyHolderFirstName2');
-  const policyHolderLastName2 = selector(state, 'policyHolderLastName2');
-  const policyHolderPhoneNumber2 = selector(state, 'policyHolderPhoneNumber2');
-  const policyHolderEmail2 = selector(state, 'policyHolderEmail2');
-
-  const policyHolderAddress1 = selector(state, 'policyHolderAddress1');
-  const policyHolderAddress2 = selector(state, 'policyHolderAddress2');
-  const policyHolderCity = selector(state, 'policyHolderCity');
-  const policyHolderState = selector(state, 'policyHolderState');
-  const policyHolderZip = selector(state, 'policyHolderZip');
-  const policyHolderCountry = selector(state, 'policyHolderCountry');
-
   return {
     initialValues: {
-      effectiveDate,
-      policyHolderFirstName1,
-      policyHolderLastName1,
-      policyHolderPhoneNumber1,
-      policyHolderEmail1,
-      policyHolderFirstName2,
-      policyHolderLastName2,
-      policyHolderPhoneNumber2,
-      policyHolderEmail2,
-      policyHolderAddress1,
-      policyHolderAddress2,
-      policyHolderCity,
-      policyHolderState,
-      policyHolderZip,
-      policyHolderCountry
+      policyHolderMailingAddress: {},
+      additionalInterests: [],
+      policyHolders: [],
     },
     effectiveDate,
-    policyHolderFirstName1,
-    policyHolderLastName1,
-    policyHolderPhoneNumber1,
-    policyHolderEmail1,
-    policyHolderFirstName2,
-    policyHolderLastName2,
-    policyHolderPhoneNumber2,
-    policyHolderEmail2,
-    policyHolderAddress1,
-    policyHolderAddress2,
-    policyHolderCity,
-    policyHolderState,
-    policyHolderZip,
-    policyHolderCountry,
     editConfirmAdditionalInterests,
     editConfirmPolicyHolder,
     editProperty,
@@ -416,8 +359,8 @@ Verify = connect((state) => {
     confirmProperyDetails,
     confirmQuoteDetails,
     confirmPolicyHolderDetails,
-    confirmAdditionalInterestsDetails
+    confirmAdditionalInterestsDetails,
   };
-},)(Verify);
+})(Verify);
 
 export default Verify;

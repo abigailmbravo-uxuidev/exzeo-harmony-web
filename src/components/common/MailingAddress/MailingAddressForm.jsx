@@ -6,7 +6,9 @@ import Footer from '../Footer';
 import MailingAddress from './MailingAddress';
 
 let MailingAddressForm = (props) => {
-  const { styleName, handleSubmit, handleOnSubmit, handleChange,
+  const { initialValues, styleName, handleSubmit,
+     handleOnSubmit = handleOnSubmit || function () { },
+     handleChange = handleChange || function () {}, name,
           pristine, reset, submitting, error, invalid } = props;
   return (
     <Form
@@ -14,7 +16,7 @@ let MailingAddressForm = (props) => {
       noValidate
     >
       <h3>Mailing Address</h3>
-      <MailingAddress {...props} name={''} />
+      <MailingAddress {...props} name={name || ''} handleChange={handleChange} />
       <div className="workflow-steps">
         <button className="btn btn-primary" type="submit" form="MailingAddressForm">next</button>
       </div>
@@ -37,12 +39,8 @@ const selector = formValueSelector('MailingAddressForm'); // <-- same as form na
 MailingAddressForm = connect(
     state => ({
       initialValues: {
-        address1: state.form.Verify.values.policyHolderAddress1,
-        address2: state.form.Verify.values.policyHolderAddress2,
-        city: state.form.Verify.values.policyHolderCity,
-        state: state.form.Verify.values.policyHolderState,
-        zip: state.form.Verify.values.policyHolderZip,
-        country: state.form.Verify.values.policyHolderCountry,
+        policyHolderMailingAddress: state.form.Verify ?
+        state.form.Verify.values.policyHolderMailingAddress : {},
       },
     }),
   )(MailingAddressForm);

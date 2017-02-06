@@ -12,7 +12,7 @@ const MailingAddress = ({ styleName, handleChange, name,
          answerType="text"
          handleChange={handleChange}
          name={`${name}address1`}
-         styleName={`address1`}
+         styleName={'address1'}
          question={'Address 1'}
          validations={['required']}
        />
@@ -20,14 +20,14 @@ const MailingAddress = ({ styleName, handleChange, name,
          answerType="text"
          handleChange={handleChange}
          name={`${name}address2`}
-         styleName={`address2`}
+         styleName={'address2'}
          question={'Address 2'}
          validations={[]}
        />
        <Dropdown
          answers={[{ answer: 'USA' }, { answer: 'CANADA' }]}
          handleChange={handleChange}
-         name={`country`}
+         name={`${name}country`}
          question={'Country'}
          validations={['required']}
        />
@@ -35,7 +35,7 @@ const MailingAddress = ({ styleName, handleChange, name,
          answerType="text"
          handleChange={handleChange}
          name={`${name}city`}
-         styleName={`city`}
+         styleName={'city'}
          question={'City'}
          validations={['required']}
        />
@@ -43,7 +43,7 @@ const MailingAddress = ({ styleName, handleChange, name,
          answerType="text"
          handleChange={handleChange}
          name={`${name}state`}
-         styleName={`state`}
+         styleName={'state'}
          question={'State'}
          validations={['required']}
        />
@@ -51,7 +51,7 @@ const MailingAddress = ({ styleName, handleChange, name,
          answerType="tel"
          handleChange={handleChange}
          name={`${name}zip`}
-         styleName={`zip`}
+         styleName={'zip'}
          question={'Zip'}
          validations={['required']}
        />

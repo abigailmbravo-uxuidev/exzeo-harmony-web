@@ -5,14 +5,16 @@ import { reduxForm, Form, formValueSelector, FieldArray } from 'redux-form';
 import Interest from './Interest';
 
 let AdditionalInterestUpdateForm = (props) => {
-  const { styleName, handleSubmit, handleOnSubmit, handleChange, additionalInterests,
+  const { initialValues, styleName, handleSubmit, handleOnSubmit, handleChange,
           pristine, reset, submitting, error, invalid } = props;
+
+
   return (
     <Form
       className={`fade-in ${styleName || ''}`} id="AdditionalInterestUpdateForm" onSubmit={handleSubmit(handleOnSubmit)}
       noValidate
     >
-      <FieldArray name="policyHolder" component={Interest} InterestType={'PolicyHolder'} fields={additionalInterests} />
+      <FieldArray name="additionalInterests" component={Interest} InterestType={'PolicyHolder'} />
       <div className="workflow-steps">
         <button className="btn btn-primary" type="submit" form="AdditionalInterestUpdateForm">next</button>
       </div>
@@ -39,6 +41,7 @@ AdditionalInterestUpdateForm = connect(
 
       return {
         initialValues: {
+          additionalInterests: state.form.Verify.values.additionalInterests,
         },
       };
     },

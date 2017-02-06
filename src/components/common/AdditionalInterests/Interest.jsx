@@ -7,7 +7,7 @@ const Interest = ({ fields, InterestType, InterestTypeName, handleChange, meta: 
   <div>
     <button type="button" onClick={() => fields.push({})}>+ Add {InterestTypeName}</button>
     {touched && error && <span>{error}</span>}
-    {fields.map((ai, index) =>
+    {fields.map((additionalInterest, index) =>
       <div key={index}>
         <button
           type="button"
@@ -18,32 +18,32 @@ const Interest = ({ fields, InterestType, InterestTypeName, handleChange, meta: 
         <TextInput
           answerType="text"
           handleChange={function () {}}
-          name={`${InterestType + (index + 1)}.name1`}
+          name={`${additionalInterest}.name1`}
           question={'Name 1'}
           validations={['required']}
         />
         <TextInput
           answerType="text"
           handleChange={function () {}}
-          name={`${InterestType + (index + 1)}.name2`}
+          name={`${additionalInterest}.name2`}
           question={'Name 2'}
           validations={['required']}
         />
         <TextInput
           answerType="text"
           handleChange={function () {}}
-          name={`${InterestType + (index + 1)}.phoneNumber`}
+          name={`${additionalInterest}.phoneNumber`}
           question={'Phone Number'}
           validations={['required', 'phone']}
         />
         <TextInput
           answerType="text"
           handleChange={function () {}}
-          name={`${InterestType + (index + 1)}.referenceNumber`}
+          name={`${additionalInterest}.referenceNumber`}
           question={'Reference Number'}
           validations={['required']}
         />
-        <MailingAddress handleChange={function () {}} name={`${InterestType + index + 1}.`} />
+        <MailingAddress handleChange={function () {}} name={`${additionalInterest}.mailingAddress.`} />
       </div>,
     )}
   </div>
