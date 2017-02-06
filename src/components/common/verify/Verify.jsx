@@ -48,7 +48,7 @@ let Verify = ({
   initialValues.policyHolders = quoteTest.policyHolders;
   initialValues.policyHolderMailingAddress = quoteTest.policyHolderMailingAddress;
 
-  console.log(initialValues.additionalInterests);
+  console.log('state', state);
 
   function updateQuote() {
     dispatch(change('Verify', 'editProperty', false));
@@ -207,7 +207,7 @@ let Verify = ({
         {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
           <h4><i className="fa fa-vcard-o" /> Policy Holder Details</h4>
           <section className="display-element">
-            <PolicyHolderUpdateForm handleOnSubmit={updateQuote} />
+            <PolicyHolderUpdateForm handleOnSubmit={updateQuote} state={state} />
           </section>
         </div>}
 
@@ -344,6 +344,7 @@ Verify = connect((state) => {
       additionalInterests: [],
       policyHolders: [],
     },
+    state,
     effectiveDate,
     editConfirmAdditionalInterests,
     editConfirmPolicyHolder,
