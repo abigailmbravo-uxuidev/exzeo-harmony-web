@@ -1,5 +1,5 @@
 import React from 'react';
-import {Match, Link} from 'react-router';
+import {Route, Link} from 'react-router-dom';
 import RoleManager from './RoleManager';
 import PermissionMananger from './PermissionMananger';
 
@@ -16,8 +16,8 @@ const Admin = () => (
           </div>
         </aside>
         <section>
-          <Match pattern="roleManagement" component={RoleManager}/>
-          <Match pattern="permissionManagement" component={PermissionMananger}/>
+          <Route pattern="roleManagement" component={RoleManager}/>
+          <Route pattern="permissionManagement" component={PermissionMananger}/>
         </section>
       </div>
     </div>

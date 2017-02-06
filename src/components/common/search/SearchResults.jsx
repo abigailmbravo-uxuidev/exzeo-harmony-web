@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 const Results = ({ addresses, handleClick }) => (
   <ul className="results result-cards">
     {
-
       addresses ? addresses.map((address, index) => (
-        <li id={address.id} key={index} onClick={() => { handleClick(address); }}>
-          <a>
+        <li id={address.id} key={index}>
+          <Link to="/workflow/demographics">
             <i className="card-icon fa fa-map-marker" />
             <section>
               <h4>{address.address1}</h4>
               <p>{address.city}, {address.state} {address.zip}</p>
             </section>
             <i className="fa fa-chevron-circle-right" />
-          </a>
+          </Link>
         </li>
       )) : null
     }
@@ -41,8 +41,19 @@ class SearchResults extends Component {
     const {results} = this.state;
 
     return (
-      <div className="results fade-in">
-        <Results addresses={results}/>
+      <div className="workflow">
+        <div className="fade-in">
+          <div className="workflow-content">
+            <section>
+              <div className="fade-in">
+                <div className="survey-wrapper">
+                  <Results addresses={results}/>
+                </div>
+              </div>
+
+            </section>
+          </div>
+        </div>
       </div>
     )
   }
