@@ -57,253 +57,245 @@ let Verify = ({
     // Object.assign({}, state, { whatever: action.value });
     alert('quote updated');
   }
-
   return (
-    <div className="workflow" role="article">
-      <div className="fade-in">
-        <div className="detail-content-wrapper ">
-          <div className="detail-wrapper">
-
-            {!editProperty && <div className="detail-group">
-              <h4>Property Details</h4>
-              {!confirmProperyDetails && <div>
-                <label className="btn btn-link edit-btn" htmlFor="editProperty">
-                  <i className="fa fa-pencil" />
+    <div className="detail-content-wrapper route-verify">
+      <div className="detail-wrapper">
+        {!editProperty && <div className="detail-group property-details">
+          <h4><i className="fa fa-map-marker" /> Property Details</h4>
+          {!confirmProperyDetails && <div>
+            <label className="btn btn-link edit-btn" htmlFor="editProperty">
+              <i className="fa fa-pencil" />
                   Edit
                 </label>
-                <Field
-                  name="editProperty" id="editProperty" component="input" type="checkbox" style={{
-                    display: 'none',
-                  }}
-                />
-              </div>}
-              <section className="display-element">
-                <dl>
-                  <div>
-                    <dt>Quote Number</dt>
-                    <dd>{quoteTest.quoteNumber}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Property Address</dt>
-                    <dd>{property.physicalAddress.address1}</dd>
-                    <dd>{property.physicalAddress.address2}</dd>
-                    <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
+            <Field
+              name="editProperty" id="editProperty" component="input" type="checkbox" style={{
+                display: 'none',
+              }}
+            />
+          </div>}
+          <section className="display-element">
+            <dl className="quote-number">
+              <div>
+                <dt>Quote Number</dt>
+                <dd>{quoteTest.quoteNumber}</dd>
+              </div>
+            </dl>
+            <dl className="property-information">
+              <div>
+                <dt>Property Address</dt>
+                <dd>{property.physicalAddress.address1}</dd>
+                <dd>{property.physicalAddress.address2}</dd>
+                <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
                       property.physicalAddress.zip}`}</dd>
-                    <dt>Year Built</dt>
-                    <dd>{property.yearBuilt}</dd>
-                    <dt>Flood Zone</dt>
-                    <dd>{property.protectionClass}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Effective Date</dt>
-                    <dd>{moment(quoteTest.effectiveDate).format('MM/DD/YYYY')}</dd>
-                  </div>
-                </dl>
-              </section>
-              <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Confirmed'} handleChange={function () {}} value={false} isSwitch />
-            </div>}
-            {editProperty && <div className="detail-group">
-              <h4>Property Details</h4>
-              <section className="display-element">
-                <dl>
-                  <div>
-                    <dt>Quote Number</dt>
-                    <dd>{quoteTest.quoteNumber}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Property Address</dt>
-                    <dd>{property.physicalAddress.address1}</dd>
-                    <dd>{property.physicalAddress.address2}</dd>
-                    <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
+                <dt>Year Built</dt>
+                <dd>{property.yearBuilt}</dd>
+                <dt>Flood Zone</dt>
+                <dd>{property.protectionClass}</dd>
+              </div>
+            </dl>
+            <dl className="effective-date">
+              <div>
+                <dt>Effective Date</dt>
+                <dd>{moment(quoteTest.effectiveDate).format('MM/DD/YYYY')}</dd>
+              </div>
+            </dl>
+          </section>
+          <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Verified'} handleChange={function () {}} value={false} isSwitch />
+        </div>}
+        {editProperty && <div className="detail-group property-details edit">
+          <h4><i className="fa fa-map-marker" /> Property Details</h4>
+          <div className="editing"><i className="fa fa-pencil" /> Editing</div>
+          <section className="display-element">
+            <dl className="quote-number">
+              <div>
+                <dt>Quote Number</dt>
+                <dd>{quoteTest.quoteNumber}</dd>
+              </div>
+            </dl>
+            <dl className="property-information">
+              <div>
+                <dt>Property Address</dt>
+                <dd>{property.physicalAddress.address1}</dd>
+                <dd>{property.physicalAddress.address2}</dd>
+                <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
                       property.physicalAddress.zip}`}</dd>
-                    <dt>Year Built</dt>
-                    <dd>{property.yearBuilt}</dd>
-                    <dt>Flood Zone</dt>
-                    <dd>{property.protectionClass}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <EffectiveDateForm handleOnSubmit={updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')} />
-                  </div>
-                </dl>
-              </section>
-            </div>}
-
-            <div className="detail-group">
-              <h4>Quote Details</h4>
-              <section className="display-element">
-                <dl>
-                  <div>
-                    <dt>Yearly Premium</dt>
-                    <dd>${12345}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Building Limit</dt>
-                    <dd>${coverageLimits.dwelling.amount}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Building Deductible</dt>
-                    <dd>${coverageLimits.dwelling.maxAmount}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Personal Property</dt>
-                    <dd>${coverageLimits.personalProperty.amount}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Personal Property Deductible</dt>
-                    <dd>${coverageLimits.personalProperty.amount}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Personal Property Replacement Cost</dt>
-                    <dd>${coverageLimits.personalProperty.amount}</dd>
-                  </div>
-                </dl>
-              </section>
-              <BoolInput styleName="verification" name={'confirmQuoteDetails'} question={'Confirmed'} handleChange={function () {}} value={confirmQuoteDetails} isSwitch />
+                <dt>Year Built</dt>
+                <dd>{property.yearBuilt}</dd>
+                <dt>Flood Zone</dt>
+                <dd>{property.protectionClass}</dd>
+              </div>
+            </dl>
+            <div className="effective-date">
+              <EffectiveDateForm handleOnSubmit={updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')} />
             </div>
+          </section>
+        </div>}
 
-            {!editConfirmPolicyHolder && <div className="detail-group">
-              <h4>Policy Holder Details</h4>
-              {!confirmPolicyHolderDetails && <div>
-                <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
-                  <i className="fa fa-pencil" />
+        <div className="detail-group quote-details">
+          <h4><i className="fa fa-list" /> Quote Details</h4>
+          <section className="display-element">
+            <dl>
+              <div>
+                <dt>Yearly Premium</dt>
+                <dd>${12345}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Building Limit</dt>
+                <dd>${coverageLimits.dwelling.amount}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Building Deductible</dt>
+                <dd>${coverageLimits.dwelling.maxAmount}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Personal Property</dt>
+                <dd>${coverageLimits.personalProperty.amount}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Personal Property Deductible</dt>
+                <dd>${coverageLimits.personalProperty.amount}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt>Personal Property Replacement Cost</dt>
+                <dd>${coverageLimits.personalProperty.amount}</dd>
+              </div>
+            </dl>
+          </section>
+          <BoolInput styleName="verification" name={'confirmQuoteDetails'} question={'Verified'} handleChange={function () {}} value={confirmQuoteDetails} isSwitch />
+        </div>
+
+        {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
+          <h4><i className="fa fa-vcard-o" /> Policy Holder Details</h4>
+          {!confirmPolicyHolderDetails && <div>
+            <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
+              <i className="fa fa-pencil" />
                   Edit
                 </label>
-                <Field
-                  name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox" style={{
-                    display: 'none',
-                  }}
-                />
-              </div>}
-              <section className="display-element">
-                {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ? quoteTest.policyHolders.map((policyHolder, index) => (
-                  <dl key={`ph${index}`}>
-                    <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                    <div>
-                      <dt>Name</dt>
-                      <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
-                      <dt>Phone Number</dt>
-                      <dd>{policyHolder.primaryPhoneNumber}</dd>
-                      <dt>Email</dt>
-                      <dd>{policyHolder.emailAddress}</dd>
-                    </div>
-                  </dl>
+            <Field
+              name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox" style={{
+                display: 'none',
+              }}
+            />
+          </div>}
+          <section className="display-element">
+            {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ? quoteTest.policyHolders.map((policyHolder, index) => (
+              <dl key={`ph${index}`}>
+                <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                <div>
+                  <dt>Name</dt>
+                  <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                  <dt>Phone Number</dt>
+                  <dd>{policyHolder.primaryPhoneNumber}</dd>
+                  <dt>Email</dt>
+                  <dd>{policyHolder.emailAddress}</dd>
+                </div>
+              </dl>
                   )) : null}
-              </section>
-            </div>}
-            {editConfirmPolicyHolder && <div className="detail-group">
-              <h4>Policy Holder Details</h4>
-              <section className="display-element">
-                <PolicyHolderUpdateForm handleOnSubmit={updateQuote} />
-              </section>
-            </div>}
+          </section>
+        </div>}
+        {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
+          <h4><i className="fa fa-vcard-o" /> Policy Holder Details</h4>
+          <section className="display-element">
+            <PolicyHolderUpdateForm handleOnSubmit={updateQuote} />
+          </section>
+        </div>}
 
-            {!editMailingAddress && <div className="detail-group">
-              <h4>Mailing Address</h4>
-              <section className="display-element">
-                <dl>
-                  <div>
-                    <dt>Address</dt>
-                    <dd>{mailingAddress.address1}</dd>
-                    <dd>{mailingAddress.address2}</dd>
-                    <dt>City/State/Zip</dt>
-                    <dd>{mailingAddress.city}, {mailingAddress.state}
-                      {mailingAddress.zip}</dd>
-                    <dt>Country</dt>
-                    <dd>{mailingAddress.country.displayText}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  {!confirmPolicyHolderDetails && <div>
-                    <label className="btn btn-link edit-btn" htmlFor="editMailingAddress">
-                      <i className="fa fa-pencil" />
+        {!editMailingAddress && <div className="detail-group mailing-address-details">
+          <h4><i className="fa fa-envelope-open-o" /> Mailing Address</h4>
+          <section className="display-element">
+            <dl>
+              <div>
+                <dt>Address</dt>
+                <dd>{mailingAddress.address1}</dd>
+                <dd>{mailingAddress.address2}</dd>
+                <dt>City/State/Zip</dt>
+                <dd>{mailingAddress.city}, {mailingAddress.state}
+                  {mailingAddress.zip}</dd>
+                <dt>Country</dt>
+                <dd>{mailingAddress.country.displayText}</dd>
+              </div>
+            </dl>
+            <dl>
+              {!confirmPolicyHolderDetails && <div>
+                <label className="btn btn-link edit-btn" htmlFor="editMailingAddress">
+                  <i className="fa fa-pencil" />
                       Edit
                     </label>
-                    <Field
-                      name="editMailingAddress" id="editMailingAddress" component="input" type="checkbox" style={{
-                        display: 'none',
-                      }}
-                    />
-                  </div>}
-                </dl>
-              </section>
-              <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Confirmed'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
-            </div>}
-            {editMailingAddress && <div className="detail-group">
-              <h4>Mailing Address</h4>
-              <section className="display-element">
-                <MailingAddressForm name={'policyHolderMailingAddress.'} handleOnSubmit={updateQuote} />
-              </section>
-            </div>}
-
-            {!editConfirmAdditionalInterests && <div className="detail-group">
-              <h4>Additional Interests</h4>
-              {!confirmAdditionalInterestsDetails && <div>
-                <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
-                  <i className="fa fa-pencil" />
-                  Edit
-                </label>
                 <Field
-                  name="editConfirmAdditionalInterests" id="editConfirmAdditionalInterests" component="input" type="checkbox" style={{
+                  name="editMailingAddress" id="editMailingAddress" component="input" type="checkbox" style={{
                     display: 'none',
                   }}
                 />
               </div>}
-              <section className="display-element">
+            </dl>
+          </section>
+          <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
+        </div>}
+        {editMailingAddress && <div className="detail-group mailing-address-details edit">
+          <h4><i className="fa fa-envelope-open-o" /> Mailing Address</h4>
+          <section className="display-element">
+            <MailingAddressForm name={'policyHolderMailingAddress.'} handleOnSubmit={updateQuote} />
+          </section>
+        </div>}
 
-                {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ? quoteTest.additionalInterests.map((additionalInterests, index) => (
-                  <dl key={`ai${index}`}>
-                    <div>
-                      <dt>Name</dt>
-                      <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
-                      <dt>Address</dt>
-                      <dd>{additionalInterests.mailingAddress.address1}</dd>
-                      <dd>{additionalInterests.mailingAddress.address2}</dd>
-                      <dt>City/State/Zip</dt>
-                      <dd>{additionalInterests.mailingAddress.city}, {additionalInterests.mailingAddress.state}
-                        {additionalInterests.mailingAddress.zip}
-                      </dd>
-                    </div>
-                  </dl>
+        {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
+          <h4><i className="fa fa-bank" /> Additional Interests</h4>
+          {!confirmAdditionalInterestsDetails && <div>
+            <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
+              <i className="fa fa-pencil" />
+                  Edit
+                </label>
+            <Field
+              name="editConfirmAdditionalInterests" id="editConfirmAdditionalInterests" component="input" type="checkbox" style={{
+                display: 'none',
+              }}
+            />
+          </div>}
+          <section className="display-element">
+
+            {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ? quoteTest.additionalInterests.map((additionalInterests, index) => (
+              <dl key={`ai${index}`}>
+                <div>
+                  <dt>Name</dt>
+                  <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
+                  <dt>Address</dt>
+                  <dd>{additionalInterests.mailingAddress.address1}</dd>
+                  <dd>{additionalInterests.mailingAddress.address2}</dd>
+                  <dt>City/State/Zip</dt>
+                  <dd>{additionalInterests.mailingAddress.city}, {additionalInterests.mailingAddress.state}
+                    {additionalInterests.mailingAddress.zip}
+                  </dd>
+                </div>
+              </dl>
                   )) : null}
 
-                <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Confirmed'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
-              </section>
-            </div>}
-            {editConfirmAdditionalInterests && <div className="detail-group">
-              <h4>Additional Interests</h4>
-              <section className="display-element">
-                <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={updateQuote} />
-              </section>
-            </div>}
+            <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
+          </section>
+        </div>}
+        {editConfirmAdditionalInterests && <div className="detail-group additional-interests-details edit">
+          <h4><i className="fa fa-bank" /> Additional Interests</h4>
+          <section className="display-element">
+            <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={updateQuote} />
+          </section>
+        </div>}
 
-            <section>
-              <Form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={function () {}} noValidate>
-                <div className="workflow-steps">
-                  <button disabled={!confirmProperyDetails || !confirmQuoteDetails || !confirmPolicyHolderDetails || !confirmAdditionalInterestsDetails} className="btn btn-primary" type="submit" form="survey">next</button>
-                </div>
-              </Form>
-            </section>
-
-          </div>
-        </div>
+        <section>
+          <Form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={function () {}} noValidate>
+            <div className="workflow-steps">
+              <button disabled={!confirmProperyDetails || !confirmQuoteDetails || !confirmPolicyHolderDetails || !confirmAdditionalInterestsDetails} className="btn btn-primary" type="submit" form="survey">next</button>
+            </div>
+          </Form>
+        </section>
       </div>
     </div>
   );
