@@ -96,6 +96,7 @@ const WorkflowDetails = () => (
                 <dd>$100,000</dd>
               </div>
             </dl>
+            {/*
             <dl>
               <div>
                 <dt>Coverage B</dt>
@@ -108,6 +109,7 @@ const WorkflowDetails = () => (
                 <dd>$50,000</dd>
               </div>
             </dl>
+            */}
           </section>
           <section id="premium" className="premium">
             <dl>
@@ -198,22 +200,19 @@ class Workflow extends Component {
         <div className="fade-in">
           <WorkflowDetails />
           <Router>
-            <div>
+            <div className="route">
               <WorkflowHeader steps={workflow.steps}/>
-              <div>
-                <Route path="/workflow/demographics" component={Demographics} />
-                <Route path="/workflow/underwriting" component={UWQuestions}/>
-                <Route path="/workflow/customize" component={Customize}/>
-                <Route path="/workflow/share" component={Share}/>
-                <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm}/>
-                <Route path="/workflow/MailingAddress" component={MailingAddressForm}/>
-                <Route path="/workflow/billing" component={Billing}/>
-                <Route path="/workflow/verify" component={Verify}/>
-              </div>
+              <Route path="/workflow/demographics" component={Demographics} />
+              <Route path="/workflow/underwriting" component={UWQuestions}/>
+              <Route path="/workflow/customize" component={Customize}/>
+              <Route path="/workflow/share" component={Share}/>
+              <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm}/>
+              <Route path="/workflow/MailingAddress" component={MailingAddressForm}/>
+              <Route path="/workflow/billing" component={Billing}/>
+              <Route path="/workflow/verify" component={Verify}/>
               <WorkflowFooter steps={workflow.steps} activeStep={activeStep} />
             </div>
           </Router>
-
         </div>
       </div>
     );

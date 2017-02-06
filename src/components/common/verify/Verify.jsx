@@ -81,15 +81,11 @@ let Verify = ({
     // Object.assign({}, state, { whatever: action.value });
     alert('quote updated');
   }
-
   return (
-    <div className="workflow" role="article">
-      <div className="fade-in">
-        <div className="detail-content-wrapper ">
+        <div className="detail-content-wrapper route-verify">
           <div className="detail-wrapper">
-
-            {!editProperty && <div className="detail-group">
-              <h4>Property Details</h4>
+            {!editProperty && <div className="detail-group property-details">
+              <h4><i className="fa fa-map-marker"></i> Property Details</h4>
               {!confirmProperyDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editProperty">
                   <i className="fa fa-pencil"/>
@@ -100,13 +96,13 @@ let Verify = ({
                 }}/>
               </div>}
               <section className="display-element">
-                <dl>
+                <dl className="quote-number">
                   <div>
                     <dt>Quote Number</dt>
                     <dd>{quoteTest.quoteNumber}</dd>
                   </div>
                 </dl>
-                <dl>
+                <dl className="property-information">
                   <div>
                     <dt>Property Address</dt>
                     <dd>{property.physicalAddress.address1}</dd>
@@ -119,25 +115,26 @@ let Verify = ({
                     <dd>{property.protectionClass}</dd>
                   </div>
                 </dl>
-                <dl>
+                <dl className="effective-date">
                   <div>
                     <dt>Effective Date</dt>
                     <dd>{moment(effectiveDate).format('MM/DD/YYYY')}</dd>
                   </div>
                 </dl>
               </section>
-              <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Confirmed'} handleChange={function() {}} value={false} isSwitch/>
+              <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Verified'} handleChange={function() {}} value={false} isSwitch/>
             </div>}
-            {editProperty && <div className="detail-group">
-              <h4>Property Details</h4>
+            {editProperty && <div className="detail-group property-details edit">
+              <h4><i className="fa fa-map-marker"></i> Property Details</h4>
+              <div className="editing"><i className="fa fa-pencil"></i> Editing</div>
               <section className="display-element">
-                <dl>
+                <dl className="quote-number">
                   <div>
                     <dt>Quote Number</dt>
                     <dd>{quoteTest.quoteNumber}</dd>
                   </div>
                 </dl>
-                <dl>
+                <dl className="property-information">
                   <div>
                     <dt>Property Address</dt>
                     <dd>{property.physicalAddress.address1}</dd>
@@ -150,16 +147,14 @@ let Verify = ({
                     <dd>{property.protectionClass}</dd>
                   </div>
                 </dl>
-                <dl>
-                  <div>
-                    <EffectiveDateForm handleOnSubmit={updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')}/>
-                  </div>
-                </dl>
+                <div className="effective-date">
+                  <EffectiveDateForm handleOnSubmit={updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')}/>
+                </div>
               </section>
             </div>}
 
-            <div className="detail-group">
-              <h4>Quote Details</h4>
+            <div className="detail-group quote-details">
+              <h4><i className="fa fa-list"></i> Quote Details</h4>
               <section className="display-element">
                 <dl>
                   <div>
@@ -198,11 +193,11 @@ let Verify = ({
                   </div>
                 </dl>
               </section>
-              <BoolInput styleName="verification" name={'confirmQuoteDetails'} question={'Confirmed'} handleChange={function() {}} value={confirmQuoteDetails} isSwitch/>
+              <BoolInput styleName="verification" name={'confirmQuoteDetails'} question={'Verified'} handleChange={function() {}} value={confirmQuoteDetails} isSwitch/>
             </div>
 
-            {!editConfirmPolicyHolder && <div className="detail-group">
-              <h4>Policy Holder Details</h4>
+            {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
+              <h4><i className="fa fa-vcard-o"></i> Policy Holder Details</h4>
               {!confirmPolicyHolderDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
                   <i className="fa fa-pencil"/>
@@ -215,7 +210,7 @@ let Verify = ({
               <section className="display-element">
                 {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ? quoteTest.policyHolders.map((policyHolder, index) => (
                     <dl key={`ph${index}`}>
-                      <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                      <h5>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h5>
                       <div>
                         <dt>Name</dt>
                         <dd>{index === 0 ? `${policyHolderFirstName1} ${policyHolderLastName1}` : `${policyHolderFirstName2} ${policyHolderLastName2}`}</dd>
@@ -228,15 +223,15 @@ let Verify = ({
                   )) : null}
               </section>
             </div>}
-            {editConfirmPolicyHolder && <div className="detail-group">
-              <h4>Policy Holder Details</h4>
+            {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
+              <h4><i className="fa fa-vcard-o"></i> Policy Holder Details</h4>
               <section className="display-element">
                 <PolicyHolderUpdateForm policyHolders={quoteTest.policyHolders} handleOnSubmit={updateQuote}/>
               </section>
             </div>}
 
-            {!editMailingAddress && <div className="detail-group">
-              <h4>Mailing Address</h4>
+            {!editMailingAddress && <div className="detail-group mailing-address-details">
+              <h4><i className="fa fa-envelope-open-o"></i> Mailing Address</h4>
               <section className="display-element">
                 <dl>
                   <div>
@@ -262,17 +257,17 @@ let Verify = ({
                   </div>}
                 </dl>
               </section>
-              <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Confirmed'} handleChange={function() {}} value={confirmPolicyHolderDetails} isSwitch/>
+              <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function() {}} value={confirmPolicyHolderDetails} isSwitch/>
             </div>}
-            {editMailingAddress && <div className="detail-group">
-              <h4>Mailing Address</h4>
+            {editMailingAddress && <div className="detail-group mailing-address-details edit">
+              <h4><i className="fa fa-envelope-open-o"></i> Mailing Address</h4>
               <section className="display-element">
                 <MailingAddressForm name={''} mailingAddress={quoteTest.policyHolderMailingAddress} handleOnSubmit={updateQuote}/>
               </section>
             </div>}
 
-            {!editConfirmAdditionalInterests && <div className="detail-group">
-              <h4>Additional Interests</h4>
+            {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
+              <h4><i className="fa fa-bank"></i> Additional Interests</h4>
               {!confirmAdditionalInterestsDetails && <div>
                 <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
                   <i className="fa fa-pencil"/>
@@ -300,11 +295,11 @@ let Verify = ({
                     </dl>
                   )) : null}
 
-                <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Confirmed'} handleChange={function() {}} value={confirmAdditionalInterestsDetails} isSwitch/>
+                <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function() {}} value={confirmAdditionalInterestsDetails} isSwitch/>
               </section>
             </div>}
-            {editConfirmAdditionalInterests && <div className="detail-group">
-              <h4>Additional Interests</h4>
+            {editConfirmAdditionalInterests && <div className="detail-group additional-interests-details edit">
+              <h4><i className="fa fa-bank"></i> Additional Interests</h4>
               <section className="display-element">
                 <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={updateQuote}/>
               </section>
@@ -317,11 +312,8 @@ let Verify = ({
                 </div>
               </Form>
             </section>
-
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 

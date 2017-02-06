@@ -1,7 +1,7 @@
 /*typtap specific styles & layout*/
 @import "base.scss";
 /*universal typtap styles*/
-html body {
+
   //links
   a,
   a:visited {
@@ -90,6 +90,17 @@ html body {
                 &:focus {}
               }
             }
+          }
+
+          &.selected {
+              .label-segmented {
+                  span {
+                    color: $body-color;
+                    border-color: $green;
+                    background: $white;
+                    box-shadow: 0 0 0 2px $green inset;
+                  }
+              }
           }
         }
       }
@@ -602,7 +613,7 @@ html body {
       a {}
     }
   }
-}
+
 /*specific typtap styles*/
 html {
   background: $cool-gray-14;
@@ -865,13 +876,13 @@ html {
                   background: $white;
 
                   .detailHeader {
-                    background: $bright-blue-darken-03;
+                    background: $black;
 
                     section {
                       dl {
                         div {
                           dt {
-                            color: $yellow-lighten-04;
+                            color: $green-lighten-01;
                           }
 
                           dd {
@@ -880,6 +891,7 @@ html {
                         }
                       }
                       &.premium {
+                          background: $green-lighten-04;
                         dl {
                           div {
                             dt {
@@ -1083,74 +1095,145 @@ html {
   }
 }
 
-html {
-  body {
 .detail-content-wrapper  {
-.detail-wrapper {
-    .detail-group {
-      border-bottom-color: $cool-gray-01;
+    .detail-wrapper {
+        .detail-group {
+          border-bottom-color: $cool-gray-01;
 
-      .summary-section {
+          .summary-section {
 
-          dl {
-              &:nth-of-type(odd) {
-                  background: $cool-gray-00;
+              dl {
+                  &:nth-of-type(odd) {
+                      background: $cool-gray-00;
+                  }
               }
           }
-      }
+        }
     }
 }
+
+
+
+
+
+//Routes
+//Home Page
+.fade-in {
+
+    .home {
+
+        .product-wrapper {
+
+            .product {
+
+            }
+        }
+    }
 }
+
+//verify & write policy
+.route-verify {
+    .detail-wrapper {
+        .detail-group {
+            > h1, > h2, > h3, > h4, > h5, > h6 {
+                i {
+                    color: $green;
+                }
+            }
+
+            &.edit {
+                border: 2px solid $bright-blue;
+            }
+            &.quote-details {
+                .display-element {
+
+                    dl {
+
+                        &:nth-of-type(odd) {
+                            background: $cool-gray-00;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
-}
 
 
 
 
 
-//FORM LAYOUT
+//form color & form layout
 .survey-wrapper {
-  //form layout
-  .FirstName {
-    @include for-tablet-portrait-up {
-      width: 50%;
-      padding-right: $padding*2;
-    }
-  }
 
-  .LastName {
-    @include for-tablet-portrait-up {
-      width: 50%;
-    }
-  }
-
-  .EmailAddress {
-    @include for-tablet-portrait-up {
-      width: 68%;
-      padding-right: $padding*2;
-    }
-  }
-
-  .primaryPhoneNumber {
-    @include for-tablet-portrait-up {
-      width: 32%;
-      padding-right: $padding*2;
-      flex-grow: 1;
-    }
-  }
-
-  .effectiveDate {
-    @include for-tablet-portrait-up {
-      width: auto;
-      flex-grow: 1;
-    }
-  }
-
-  .agentID {
-    width: auto;
-    flex-grow: 1;
+  .section-group-header {
+      color: $bright-blue-lighten-04;
   }
 }
+
+//Demographics page
+#Demographics {
+    .form-group {
+      .FirstName {
+          @include for-tablet-portrait-up {
+            width: 40%;
+            padding-right: $padding*2;
+          }
+      }
+      .LastName {
+          @include for-tablet-portrait-up {
+            width: 60%;
+          }
+      }
+      .Email {
+        @include for-tablet-portrait-up {
+          width: 60%;
+          flex-grow: 1;
+          padding-right: $padding*2;
+        }
+      }
+      .PhoneNumber {
+        @include for-tablet-portrait-up {
+          width: 40%;
+          padding-right: 0;
+          flex-grow: 1;
+        }
+      }
+      .effectiveDate {
+        @include for-tablet-portrait-up {
+            width: 40%;
+          flex-grow: 1;
+          padding-right: 0;
+        }
+      }
+      .agentID {
+        @include for-tablet-portrait-up {
+          width: 60%;
+          flex-grow: 1;
+          padding-right: $padding*2;
+        }
+      }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //ERROR PAGE animation
 @keyframes waves {
   0% {
@@ -1165,8 +1248,7 @@ html {
     background-position: 100% 0;
   }
 }
-html {
-  body {
+
     div#root {
       .app-wrapper {
         main[role="document"] {
@@ -1200,10 +1282,9 @@ html {
         }
       }
     }
-  }
-}
+
 //SPECIAL STUFF TO ADD BACK IN LATER
-html body div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article"].workflow .fade-in .workflow-content {
+div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article"].workflow .fade-in .workflow-content {
   display: flex;
   flex-direction: column;
 }

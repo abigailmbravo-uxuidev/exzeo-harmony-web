@@ -6,7 +6,7 @@ import TextInput from '../form/TextInput';
 
 const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange, name,
    pristine, reset, submitting, error, invalid }) => (
-     <div className="form-group survey-wrapper" role="group">
+     <div className="form-group survey-wrapper policyHolder-component" role="group">
        <TextInput
          answerType="text"
          handleChange={handleChange}

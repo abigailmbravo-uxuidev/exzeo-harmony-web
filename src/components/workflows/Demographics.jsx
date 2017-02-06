@@ -45,6 +45,19 @@ class Demographics extends Component {
       >
         <PolicyHolder {...this.props} />
         <div className="form-group survey-wrapper" role="group">
+                <div className="form-group agentID"  role="group">
+                              <label>Agent</label>
+                              <select name="agentID">
+                                      <option value="agent1">Adam Doe</option>
+                                      <option value="agent2">Betsy Doe</option>
+                                      <option value="agent3">Cathy Doe</option>
+                                      <option value="agent3">Daniel Doe</option>
+                                      <option value="agent3">Ethan Doe</option>
+                                      <option value="agent3">Frank Doe</option>
+                                      <option value="agent3">Gail Doe</option>
+                                      <option value="agent3">Helen Doe</option>
+                              </select>
+                      </div>
           <TextInput
             answerType="date"
             handleChange={this.handleChange}
@@ -53,6 +66,7 @@ class Demographics extends Component {
             question={'Effective Date'}
             validations={['required', 'date']}
           />
+
         </div>
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="Demographics">next</button>
