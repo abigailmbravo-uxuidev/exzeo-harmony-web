@@ -28,21 +28,21 @@ let Billing = (props) => {
           <label className="group-label label-segmented">Bill Plan</label>
           <div className="segmented-answer-wrapper">
             <div className="radio-column-3">
-              <label className="label-segmented"><input type="radio" value="A" name="Annual"/>
+              <label className="label-segmented"><input type="radio" value="A" name="Annual" />
                 <span>Annual <br />
                   $2,500</span>
               </label>
             </div>
             <div className="radio-column-3">
-              <label className="label-segmented"><input type="radio" value="S" name="semiannual"/>
-                <span>Semi-Annual <br/>
-                  1st Installment: $1,250 <br/>
+              <label className="label-segmented"><input type="radio" value="S" name="semiannual" />
+                <span>Semi-Annual <br />
+                  1st Installment: $1,250 <br />
                   2nd Installment: $1,250</span>
               </label>
             </div>
             <div className="radio-column-3">
-              <label className="label-segmented"><input type="radio" value="Q" name="quaterly"/>
-                <span>Quaterly <br/>
+              <label className="label-segmented"><input type="radio" value="Q" name="quaterly" />
+                <span>Quaterly <br />
                   1st Installment: $625 <br />
                   2nd Installment: $625 <br />
                   3rd Installment: $625 <br />
@@ -53,7 +53,7 @@ let Billing = (props) => {
         </div>
       </div>
       <div className="workflow-steps">
-        <button className="btn btn-primary" type="submit" form="MailingAddressForm">next</button>
+        <button className="btn btn-primary" type="submit" form="Billing">next</button>
       </div>
     </Form>
   );
