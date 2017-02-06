@@ -45,6 +45,9 @@ let Billing = (props) => {
           </div>
         </div>
       </div>
+      <div className="workflow-steps">
+        <button className="btn btn-primary" type="submit" form="MailingAddressForm">next</button>
+      </div>
     </Form>
   );
 };

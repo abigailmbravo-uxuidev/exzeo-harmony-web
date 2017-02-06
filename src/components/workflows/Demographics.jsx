@@ -46,7 +46,7 @@ class Demographics extends Component {
         <PolicyHolder {...this.props} name="policyHolders[0]" />
         <div className="form-group survey-wrapper" role="group">
           <div className="form-group agentID" role="group">
-            <label>Agent</label>
+            <label htmlFor="agentId">Agent</label>
             <select name="agentId">
               <option value="60000">Adam Doe</option>
               <option value="60001">Betsy Doe</option>
