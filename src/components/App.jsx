@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Match } from 'react-router';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as featureActions from '../actions/featureActions';
@@ -79,19 +79,27 @@ export class App extends Component {
               </ul>
             </nav>
           </aside>
-          <div className="content-wrapper">
-            <Match pattern="/search" component={Search} />
-            <Match pattern="/search" component={SearchResults} />
-            <Match exactly pattern="/" component={homeScreen} />
-            <Match pattern="/login" component={Login} />
-            <Match pattern="/quote/:location/:address" component={Quote} />
-            <Match pattern="/test" component={TestPage} />
-            <Match pattern="/workflow/:step" component={NewWorkflow} />
-            <Match pattern="/admin/" component={Admin} />
-            <Match pattern="/cms" component={Cms} />
-            <Match pattern="/error" component={ErrorPage} />
-            <Match pattern="/Verify" component={Verify} />
-          </div>
+          <Router>
+            <div className="content-wrapper">
+              <Route exact path="/" component={homeScreen} />
+              <Route path="/search" component={Search} />
+              <Route path="/search" component={SearchResults} />
+              <Route path="/login" component={Login} />
+              <Route path="/workflow/:step" component={NewWorkflow} />
+
+              {/*<Match pattern="/search" component={Search} />*/}
+              {/*<Match pattern="/search" component={SearchResults} />*/}
+              {/*<Match exactly pattern="/" component={homeScreen} />*/}
+              {/*<Match pattern="/login" component={Login} />*/}
+              {/*<Match pattern="/quote/:location/:address" component={Quote} />*/}
+              {/*<Match pattern="/test" component={TestPage} />*/}
+              {/*<Match pattern="/workflow/:step" component={NewWorkflow} />*/}
+              {/*<Match pattern="/admin/" component={Admin} />*/}
+              {/*<Match pattern="/cms" component={Cms} />*/}
+              {/*<Match pattern="/error" component={ErrorPage} />*/}
+              {/*<Match pattern="/Verify" component={Verify} />*/}
+            </div>
+          </Router>
         </main>
 
       </div>

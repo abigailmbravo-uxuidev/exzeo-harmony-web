@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import logoHarmony from '../../img/logo.svg';
 // import BoolInput from '../common/form/BoolInput'
@@ -36,7 +36,7 @@ const Splash = ({ splashScreen, loginMessage }) => {
                                       <div className="card-block">
                                               <p>Brief description of flood product offering.</p>
                                               <p>Agents can <b>quote</b> and <b>retrieve</b> saved flood quotes.</p>
-                                              <a href="https://www.typtap.com/agency?agentToken=eFE3Sv8NG5fgjH4Bj1MfOb6vxx9ikSiFZ4lAxepkxZqbDyO4ORoTKDPg_eVBr2AtsOT8YAGSeQLXLsdRedZbyzm7VTU5DxTkDx1Zq4F8rauLsur6ins3h47AZZMuZfg44Tkbk5PTdl5P7dIhnh7SdNv80PBbFmMMza_S0cMV4zR1frqxhsmr8y8jUspE-_lJgAsvkRQYcNOeMcs0ZXxAsqlGZI0n2-k6qQnaRy-Of85fcO2_Ymg7zlDplgl8vjbIWxQwp2kk8pNPhqUbDdGW9tgCHfZK5uIInXI38PWZ88GnaNXPTnW9guJDZNkfgYxHAfbad0vEDiX3oJ-s4LoP-thQgqmx2ruZxRsOa_dop2NcmLOtbI65apdHcagIhj72BfCLYL3DtnlSb-JaZJKeNxcmWydErMXXpu_b4hwlIHx9a-2tewhJCxAABESWDGJU0D9BMQuNHsXltUw74FgVUtJjEEzvZF0ThCvu0smpgmrgecIBLoI_eUE_yNMu7xwo5fzykp75ZPRdlCKU7x_w84S8imdI-vfJvzyYcpb0dEPerd7OhvpkT-qX9wrqhDaB6N24s8Mz4bP5I0nRM-uFyuXfuV-fYGStCQbWVosb73xSs3aFKuFJ08BIAxU2i06C_mTxA5i0Oy7NW6xep0IKchxP7KbBcdki4J3VU2GQONqJWcle1MPHO1L2Us4Pnk1UlvdPyw" className="btn btn-primary">Start</a>
+                                              <Link to="https://www.typtap.com/agency?agentToken=eFE3Sv8NG5fgjH4Bj1MfOb6vxx9ikSiFZ4lAxepkxZqbDyO4ORoTKDPg_eVBr2AtsOT8YAGSeQLXLsdRedZbyzm7VTU5DxTkDx1Zq4F8rauLsur6ins3h47AZZMuZfg44Tkbk5PTdl5P7dIhnh7SdNv80PBbFmMMza_S0cMV4zR1frqxhsmr8y8jUspE-_lJgAsvkRQYcNOeMcs0ZXxAsqlGZI0n2-k6qQnaRy-Of85fcO2_Ymg7zlDplgl8vjbIWxQwp2kk8pNPhqUbDdGW9tgCHfZK5uIInXI38PWZ88GnaNXPTnW9guJDZNkfgYxHAfbad0vEDiX3oJ-s4LoP-thQgqmx2ruZxRsOa_dop2NcmLOtbI65apdHcagIhj72BfCLYL3DtnlSb-JaZJKeNxcmWydErMXXpu_b4hwlIHx9a-2tewhJCxAABESWDGJU0D9BMQuNHsXltUw74FgVUtJjEEzvZF0ThCvu0smpgmrgecIBLoI_eUE_yNMu7xwo5fzykp75ZPRdlCKU7x_w84S8imdI-vfJvzyYcpb0dEPerd7OhvpkT-qX9wrqhDaB6N24s8Mz4bP5I0nRM-uFyuXfuV-fYGStCQbWVosb73xSs3aFKuFJ08BIAxU2i06C_mTxA5i0Oy7NW6xep0IKchxP7KbBcdki4J3VU2GQONqJWcle1MPHO1L2Us4Pnk1UlvdPyw" className="btn btn-primary">Start</Link>
                                       </div>
                               </div>
                               <div className="product card">
@@ -46,7 +46,7 @@ const Splash = ({ splashScreen, loginMessage }) => {
                                       <div className="card-block">
                                               <p>Brief description of HO3 product offering.</p>
                                               <p>Agents can <b>quote</b> and <b>retrieve</b> saved flood quotes.</p>
-                                              <a href="/search" className="btn btn-primary">Start</a>
+                                              <Link to="/search" className="btn btn-primary">Start</Link>
                                       </div>
                               </div>
                       </div>
