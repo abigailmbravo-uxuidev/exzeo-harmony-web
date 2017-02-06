@@ -43,7 +43,7 @@ const Interest = ({ fields, InterestType, InterestTypeName, handleChange, meta: 
           question={'Reference Number'}
           validations={['required']}
         />
-        <MailingAddress handleChange={function () {}} name={`${additionalInterest}.mailingAddress.`} />
+        <MailingAddress handleChange={function () {}} name={`${additionalInterest}.mailingAddress`} />
       </div>,
     )}
   </div>

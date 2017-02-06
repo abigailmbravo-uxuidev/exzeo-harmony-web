@@ -11,7 +11,7 @@ const MailingAddress = ({ styleName, handleChange, name,
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}address1`}
+         name={`${name}.address1`}
          styleName={'address1'}
          question={'Address 1'}
          validations={['required']}
@@ -19,7 +19,7 @@ const MailingAddress = ({ styleName, handleChange, name,
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}address2`}
+         name={`${name}.address2`}
          styleName={'address2'}
          question={'Address 2'}
          validations={[]}
@@ -27,14 +27,14 @@ const MailingAddress = ({ styleName, handleChange, name,
        <Dropdown
          answers={[{ answer: 'USA' }, { answer: 'CANADA' }]}
          handleChange={handleChange}
-         name={`${name}country`}
+         name={`${name}.country`}
          question={'Country'}
          validations={['required']}
        />
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}city`}
+         name={`${name}.city`}
          styleName={'city'}
          question={'City'}
          validations={['required']}
@@ -42,7 +42,7 @@ const MailingAddress = ({ styleName, handleChange, name,
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}state`}
+         name={`${name}.state`}
          styleName={'state'}
          question={'State'}
          validations={['required']}
@@ -50,7 +50,7 @@ const MailingAddress = ({ styleName, handleChange, name,
        <TextInput
          answerType="tel"
          handleChange={handleChange}
-         name={`${name}zip`}
+         name={`${name}.zip`}
          styleName={'zip'}
          question={'Zip'}
          validations={['required']}
