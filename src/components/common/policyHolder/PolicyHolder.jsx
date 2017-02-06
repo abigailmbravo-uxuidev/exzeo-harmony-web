@@ -10,7 +10,7 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}FirstName`}
+         name={`${name}.firstName`}
          styleName={`${name}FirstName FirstName`}
          question={'First Name'}
          validations={['required']}
@@ -18,7 +18,7 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}LastName`}
+         name={`${name}.lastName`}
          styleName={`${name}LastName LastName`}
          question={'Last Name'}
          validations={['required']}
@@ -26,7 +26,7 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}Email`}
+         name={`${name}.emailAddress`}
          styleName={`${name}Email Email`}
          question={'Email Address'}
          validations={['required', 'email']}
@@ -34,7 +34,7 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
        <TextInput
          answerType="text"
          handleChange={handleChange}
-         name={`${name}PhoneNumber`}
+         name={`${name}.primaryPhoneNumber`}
          styleName={`${name}PhoneNumber PhoneNumber`}
          question={'Phone Number'}
          validations={['required', 'phone']}
