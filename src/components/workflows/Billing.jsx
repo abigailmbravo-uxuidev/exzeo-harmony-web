@@ -1,12 +1,21 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
+import MailingAddress from '../../components/common/MailingAddress/MailingAddress';
+// import _ from 'lodash';
+import { connect } from 'react-redux';
+import { reduxForm, Form, formValueSelector } from 'redux-form';
 
-class Billing extends Component {
-  state = {
-    // Some state will go here
-  };
-  render() {
-    return (
+let Billing = (props) => {
+  const { initialValues, styleName, handleSubmit, name,
+          pristine, reset, submitting, error, invalid } = props;
+  return (
+    <Form
+      className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(() => {})}
+      noValidate
+    >
       <div>
+        <h3>Mailing Address</h3>
+        <MailingAddress {...props} name={'policyHolderMailingddress'} />
+
         <div className="form-group  BillTo">
           <label>Bill To</label>
           <select name="BillTo" value="">
@@ -43,8 +52,32 @@ class Billing extends Component {
           </div>
         </div>
       </div>
-    );
-  }
-}
+      <div className="workflow-steps">
+        <button className="btn btn-primary" type="submit" form="MailingAddressForm">next</button>
+      </div>
+    </Form>
+  );
+};
+
+Billing.propTypes = {
+  handleOnSubmit: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  handleChange: PropTypes.func,
+};
+
+Billing = reduxForm({
+  form: 'Billing', // a unique identifier for this form
+})(Billing);
+
+const selector = formValueSelector('Billing'); // <-- same as form name
+
+Billing = connect(
+    state => ({
+      initialValues: {
+        policyHolderMailingAddress: {},
+      },
+    }),
+  )(Billing);
+
 
 export default Billing;

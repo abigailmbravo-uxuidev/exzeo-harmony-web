@@ -24,6 +24,7 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
+}
   //links
   a,
   a:visited {
@@ -42,6 +43,7 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
+}
     //site background
     div#root {
       height: 100%;
@@ -349,8 +351,6 @@ html {
         }
       }
     }
-  }
-}
 
 
 
@@ -383,7 +383,9 @@ html {
 
 
 
-html body {
+
+
+
 //SURVEYS
 .survey-wrapper {
   flex-direction: row;
@@ -451,7 +453,7 @@ html body {
     margin-bottom: 1rem;
     border-bottom: 1px dashed $warm-gray-02;
     display: flex;
-    padding: $padding ($padding/2) 0;
+    //padding: $padding ($padding/2) 0;
     @include for-phone-only {
       padding: ($padding*2) ($padding*2) 0;
     }
@@ -1124,6 +1126,7 @@ html body {
   flex-grow: 1;
   flex-wrap: wrap;
   align-self: stretch;
+
   @include for-phone-only {
     padding: 0;
   }
@@ -1353,7 +1356,7 @@ html body {
 
               form {
                 display: flex;
-                overflow-y: auto;
+                //overflow-y: hidden;
                 margin-bottom: 0;
                 padding: ($padding*2) ($padding*4) 0;
                 flex-grow: 1;
@@ -1674,6 +1677,143 @@ ul.results {
     }
   }
 }
+
+
+
+//Routes
+.route {
+    overflow-y: auto;
+}
+//Home Page
+.fade-in {
+    height: 100%;
+    .home {
+        padding: $padding ($padding/2);
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-shrink: 0;
+        height: 100%;
+
+        .product-wrapper {
+            display: flex;
+            justify-content: space-around;
+
+            .product {
+                flex-grow: 1;
+                flex-shrink: 0;
+            }
+        }
+    }
+}
+
+//verify & write policy
+.route-verify {
+    .detail-wrapper {
+        .detail-group {
+            .edit-btn {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            &.edit {
+                border: 2px solid $warm-gray-07;
+                //margin: (-$padding)(-$padding/2)($padding);
+                //padding: ($padding);
+
+                .editing {
+                    position: absolute;
+                    top: $padding;
+                    right: $padding;
+                    color: $white;
+                    text-transform: uppercase;
+                }
+
+                .section-group-header {
+                    background: $bright-blue;
+                }
+
+                .display-element {
+                    padding: ($padding);
+
+                    .workflow-steps {
+                        padding: 0;
+                    }
+                }
+            }
+            &.property-details {
+                .display-element {
+                    dl {
+                        div {
+                            dd {
+                                margin-bottom: 0;
+                                +dd {
+                                    font-size: $font-size-h6;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.quote-details {
+                .display-element {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    margin-bottom: $padding;
+
+                    dl {
+                        display: flex;
+                        margin-bottom: 0;
+                        padding: ($padding/2) ($padding);
+
+                        &:nth-of-type(odd) {
+                            background: $warm-gray-01;
+                        }
+                        div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            width: 100%;
+
+                            dt {
+                                span {
+                                    margin-right: $padding;
+                                }
+                            }
+                            dd {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+            &.policyholder-details {
+                .display-element {
+                    dl {
+                        margin-right: $padding*2;
+                        div {
+                            dd {
+                                margin-bottom: 0;
+                                +dd {
+                                    font-size: $font-size-h6;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//form color & form layout
+.survey-wrapper, .detail-wrapper {
+
+  .section-group-header {
+      color: $warm-gray-08;
+  }
 }
 
 
@@ -1724,25 +1864,42 @@ ul.results {
 
 
 
-//Home Page
-.fade-in {
-    height: 100%;
-.home {
-    padding: $padding ($padding/2);
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    flex-shrink: 0;
-    height: 100%;
-
-    .product-wrapper {
-        display: flex;
-        justify-content: space-around;
-
-        .product {
-            flex-grow: 1;
-            flex-shrink: 0;
+.form-group {
+    .FirstName {
+        @include for-tablet-portrait-up {
+          width: 50%;
+          padding-right: $padding*2;
         }
     }
-}
+    .LastName {
+        @include for-tablet-portrait-up {
+          width: 50%;
+        }
+    }
+    .Email {
+      @include for-tablet-portrait-up {
+        width: 50%;
+        padding-right: $padding*2;
+      }
+    }
+    .PhoneNumber {
+      @include for-tablet-portrait-up {
+        width: 50%;
+        padding-right: $padding*2;
+      }
+    }
+    .effectiveDate {
+      @include for-tablet-portrait-up {
+        width: 13rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        padding-right: $padding*2;
+      }
+    }
+    .agentID {
+      @include for-tablet-portrait-up {
+        width: 50%;
+        padding-right: $padding*2;
+      }
+    }
 }

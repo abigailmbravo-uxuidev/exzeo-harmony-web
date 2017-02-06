@@ -4,7 +4,6 @@
 // Textual form controls
 //
 
-html body {
   input,
   select,
   textarea {
@@ -88,7 +87,7 @@ html body {
   }
 
   select {
-    margin-top: $padding*.825;
+    //margin-top: $padding*.825;
     box-shadow: none;
 
     &:not([size]):not([multiple]) {
@@ -182,7 +181,6 @@ html body {
     }
 
     input[type="date"] {
-      width: 12rem;
       padding: ($padding*.65) $padding;
       @include for-phone-only {
         width: 100%;
@@ -578,7 +576,7 @@ html body {
                   font: normal normal normal 1rem FontAwesome;
                   content: '\f14a';
                   position: absolute;
-                  left: -.75rem;
+                  left: -.5rem;
                   background: $yellow;
                   color: $yellow-lighten-05;
                   display: block;
@@ -598,7 +596,7 @@ html body {
                   border-left: 1rem solid $yellow;
                   border-bottom: .75rem solid transparent;
                   top: .25rem;
-                  left: .75rem;
+                  left: 1rem;
               }
 
               div {
@@ -683,7 +681,7 @@ html body {
       color: $text-muted;
     }
   }
-}
+
 
 ul.list,
 ul.results {

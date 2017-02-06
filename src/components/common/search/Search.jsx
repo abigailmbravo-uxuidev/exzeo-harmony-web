@@ -62,7 +62,7 @@ class Search extends Component {
     let placeholder = options ? options.placeholder : "Search...";
 
     return (
-      <div className="search">
+      <div>
         <SearchBar
           placeholder={placeholder}
           handleChange={this.handleChange}

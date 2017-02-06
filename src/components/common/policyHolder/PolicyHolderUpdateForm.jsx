@@ -17,23 +17,23 @@ const renderPolicyHolder = ({ fields, InterestType, InterestTypeName, handleChan
           onClick={() => fields.remove(index)}
         >Remove {InterestTypeName}</button>
       } */}
-        <PolicyHolder handleChange={function () {}} name={`${InterestType + (index + 1)}`} />
+        <PolicyHolder handleChange={function () {}} name={`${policyHolder}`} />
       </div>,
     )}
   </div>
 );
 
 let PolicyHolderUpdateFormForm = (props) => {
-  const { styleName, handleSubmit, handleOnSubmit, handleChange, policyHolders,
+  const { initialValues, styleName, handleSubmit, handleOnSubmit, handleChange,
           pristine, reset, submitting, error, invalid } = props;
   return (
     <Form
       className={`fade-in ${styleName || ''}`} id="PolicyHolderUpdateFormForm" onSubmit={handleSubmit(handleOnSubmit)}
       noValidate
     >
-      <FieldArray name="policyHolder" component={renderPolicyHolder} InterestType={'PolicyHolder'} InterestTypeName={'Policy Holder'} fields={policyHolders} />
+      <FieldArray name="policyHolders" component={renderPolicyHolder} InterestType={'PolicyHolder'} InterestTypeName={'Policy Holder'} />
       <div className="workflow-steps">
-        <button className="btn btn-primary" type="submit" form="PolicyHolderUpdateFormForm">next</button>
+        <button className="btn btn-primary" type="submit" form="PolicyHolderUpdateFormForm">Save</button>
       </div>
     </Form>
   );
@@ -57,14 +57,7 @@ PolicyHolderUpdateFormForm = connect(
 
       return {
         initialValues: {
-          PolicyHolder1FirstName: state.form.Verify.values.policyHolderFirstName1,
-          PolicyHolder1LastName: state.form.Verify.values.policyHolderLastName1,
-          PolicyHolder1PhoneNumber: state.form.Verify.values.policyHolderPhoneNumber1,
-          PolicyHolder1Email: state.form.Verify.values.policyHolderEmail1,
-          PolicyHolder2FirstName: state.form.Verify.values.policyHolderFirstName2,
-          PolicyHolder2LastName: state.form.Verify.values.policyHolderLastName2,
-          PolicyHolder2PhoneNumber: state.form.Verify.values.policyHolderPhoneNumber2,
-          PolicyHolder2Email: state.form.Verify.values.policyHolderEmail2,
+          policyHolders: state.form.Verify.values.policyHolders,
         },
       };
     },

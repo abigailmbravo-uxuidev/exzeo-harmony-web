@@ -6,7 +6,7 @@ import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
 import Footer from '../common/Footer';
 import TextInput from '../common/form/TextInput';
 import PolicyHolder from '../common/policyHolder/PolicyHolder';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Demographics extends Component {
   static contextTypes = {
@@ -30,21 +30,34 @@ class Demographics extends Component {
     //   this.setState(state);
     // } else {
     //   this.context.router.push('/workflow/shareQuote');
-    //}
+    // }
   }
 
   render() {
     const {
       effectiveDate, styleName, handleSubmit, handleChange,
-      pristine, reset, submitting, error, invalid
+      pristine, reset, submitting, error, invalid,
     } = this.props;
     return (
       <Form
         className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
         noValidate
       >
-        <PolicyHolder {...this.props} />
+        <PolicyHolder {...this.props} name="policyHolders[0]" />
         <div className="form-group survey-wrapper" role="group">
+          <div className="form-group agentID" role="group">
+            <label htmlFor="agentId">Agent</label>
+            <select name="agentId">
+              <option value="60000">Adam Doe</option>
+              <option value="60001">Betsy Doe</option>
+              <option value="60002">Cathy Doe</option>
+              <option value="60003">Daniel Doe</option>
+              <option value="60004">Ethan Doe</option>
+              <option value="60005">Frank Doe</option>
+              <option value="60006">Gail Doe</option>
+              <option value="60007">Helen Doe</option>
+            </select>
+          </div>
           <TextInput
             answerType="date"
             handleChange={this.handleChange}
@@ -53,6 +66,7 @@ class Demographics extends Component {
             question={'Effective Date'}
             validations={['required', 'date']}
           />
+
         </div>
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="Demographics">next</button>
