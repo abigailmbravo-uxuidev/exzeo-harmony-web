@@ -33,7 +33,7 @@ let PolicyHolderUpdateFormForm = (props) => {
     >
       <FieldArray name="policyHolders" component={renderPolicyHolder} InterestType={'PolicyHolder'} InterestTypeName={'Policy Holder'} />
       <div className="workflow-steps">
-        <button className="btn btn-primary" type="submit" form="PolicyHolderUpdateFormForm">next</button>
+        <button className="btn btn-primary" type="submit" form="PolicyHolderUpdateFormForm">Save</button>
       </div>
     </Form>
   );

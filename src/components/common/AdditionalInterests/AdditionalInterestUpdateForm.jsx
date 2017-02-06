@@ -16,7 +16,7 @@ let AdditionalInterestUpdateForm = (props) => {
     >
       <FieldArray name="additionalInterests" component={Interest} InterestType={'PolicyHolder'} />
       <div className="workflow-steps">
-        <button className="btn btn-primary" type="submit" form="AdditionalInterestUpdateForm">next</button>
+        <button className="btn btn-primary" type="submit" form="AdditionalInterestUpdateForm">Save</button>
       </div>
     </Form>
   );

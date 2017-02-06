@@ -54,6 +54,7 @@ let Verify = ({
     dispatch(change('Verify', 'editProperty', false));
     dispatch(change('Verify', 'editConfirmPolicyHolder', false));
     dispatch(change('Verify', 'editMailingAddress', false));
+    dispatch(change('Verify', 'editConfirmAdditionalInterests', false));
     // Object.assign({}, state, { whatever: action.value });
     alert('quote updated');
   }

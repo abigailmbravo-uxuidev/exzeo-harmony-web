@@ -25,7 +25,7 @@ let EffectiveDateForm = (props) => {
         />
       </div>
       <div className="workflow-steps">
-        <button className="btn btn-primary" type="submit" form="EffectiveDateForm">next</button>
+        <button className="btn btn-primary" type="submit" form="EffectiveDateForm">Save</button>
       </div>
     </Form>
   );
