@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import Demographics from '../workflows/Demographics';
 import Customize from '../workflows/CustomizeQuote';
 import Share from '../workflows/Share';
@@ -8,7 +10,6 @@ import Billing from '../workflows/Billing';
 import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
 import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
 import Verify from '../common/verify/Verify';
-
 import Footer from '../common/Footer';
 import _ from 'lodash';
 
@@ -178,7 +179,15 @@ class Workflow extends Component {
     this.setState({workflow: {
         steps
       }});
+
+      // this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
+      // .then(({ data }) => {
+      //   console.log(data);
+      //   this.setState({ workflow: data.startWorkflow });
+      // })
+      // .catch(error => console.log(error));
   }
+
   updateCompletedSteps = (completedSteps) => {
     this.setState({completedSteps});
   }
@@ -204,10 +213,10 @@ class Workflow extends Component {
           <Router>
             <div className="route">
               <WorkflowHeader steps={workflow.steps}/>
-              <Route path="/workflow/demographics" component={Demographics} />
-              <Route path="/workflow/underwriting" component={UWQuestions}/>
-              <Route path="/workflow/customize" component={Customize}/>
-              <Route path="/workflow/share" component={Share}/>
+              <Route path="/quote/demographics" component={Demographics} />
+              <Route path="underwriting" component={UWQuestions}/>
+              <Route path="customize" component={Customize}/>
+              <Route path="share" component={Share}/>
               <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm}/>
               <Route path="/workflow/MailingAddress" component={MailingAddressForm}/>
               <Route path="/workflow/billing" component={Billing}/>
@@ -221,4 +230,16 @@ class Workflow extends Component {
   }
 }
 
-export default Workflow;
+export default graphql(gql`
+    mutation StartWorkflow($input:WorkflowInput) {
+        startWorkflow(input:$input) {
+            id
+            steps {
+                name
+                label
+                icon
+                type
+            }
+        }
+    }
+`, { name: 'startWorkflow' })(Workflow);

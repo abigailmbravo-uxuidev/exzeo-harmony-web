@@ -54,7 +54,7 @@ export class App extends Component {
     }
   }
   render() {
-    const homeScreen = this.props.loggedIn ? Home : Splash;
+    const homeScreen = Splash;
     const cssName = this.state.direction === 'bottom' ? 'scroll-up' : '';
     return (
       <div className="app-wrapper">
@@ -85,8 +85,9 @@ export class App extends Component {
               <Route path="/search" component={Search} />
               <Route path="/search" component={SearchResults} />
               <Route path="/login" component={Login} />
-              <Route path="/workflow/:step" component={NewWorkflow} />
-
+              {/*<Route path="/workflow/:step" component={NewWorkflow} />*/}
+              <Route exact path="/quote" component={Quote} />
+              <Route path="/quote/:activeStep" component={Quote} />
               {/*<Match pattern="/search" component={Search} />*/}
               {/*<Match pattern="/search" component={SearchResults} />*/}
               {/*<Match exactly pattern="/" component={homeScreen} />*/}
