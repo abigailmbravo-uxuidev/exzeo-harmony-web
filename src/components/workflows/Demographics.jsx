@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
+import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import Footer from '../common/Footer';
 import TextInput from '../common/form/TextInput';
 import PolicyHolder from '../common/policyHolder/PolicyHolder';
@@ -12,6 +12,10 @@ class Demographics extends Component {
   static contextTypes = {
     router: PropTypes.object,
   }
+  componentWillMount() {
+    this.props.dispatch(change('Demographics', 'policyHolders[0].entityType', 'Person'));
+  }
+
   handleChange = (event) => {
     // const { state } = this;
     // state[event.target.name] = event.target.value;
@@ -35,9 +39,10 @@ class Demographics extends Component {
 
   render() {
     const {
-      state, formName, effectiveDate, styleName, handleSubmit, handleChange,
+      dispatch, state, formName, effectiveDate, styleName, handleSubmit, handleChange,
       pristine, reset, submitting, error, invalid,
     } = this.props;
+
     return (
       <Form
         className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
