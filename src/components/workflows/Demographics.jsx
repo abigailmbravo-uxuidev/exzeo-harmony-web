@@ -5,7 +5,7 @@ import moment from 'moment';
 import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import Footer from '../common/Footer';
 import TextInput from '../common/form/TextInput';
-import PolicyHolder from '../common/policyHolder/PolicyHolder';
+import PolicyHolderDemographics from '../common/policyHolder/PolicyHolderDemographics';
 import { Link } from 'react-router-dom';
 
 class Demographics extends Component {
@@ -13,7 +13,7 @@ class Demographics extends Component {
     router: PropTypes.object,
   }
   componentWillMount() {
-    this.props.dispatch(change('Demographics', 'policyHolders[0].entityType', 'Person'));
+    this.props.dispatch(change('Demographics', 'entityType', 'Person'));
   }
 
   handleChange = (event) => {
@@ -48,11 +48,11 @@ class Demographics extends Component {
         className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
         noValidate
       >
-        <PolicyHolder {...this.props} name="policyHolders[0]" state={state} />
+        <PolicyHolderDemographics {...this.props} state={state} />
         <div className="form-group survey-wrapper" role="group">
           <div className="form-group agentID" role="group">
-            <label htmlFor="agentId">Agent</label>
-            <select name="agentId">
+            <label htmlFor="agencyID">Agent</label>
+            <select name="agencyID">
               <option value="60000">Adam Doe</option>
               <option value="60001">Betsy Doe</option>
               <option value="60002">Cathy Doe</option>
