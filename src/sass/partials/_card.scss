@@ -1,0 +1,36 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    margin-right: $card-deck-margin;
+    margin-bottom: 0; // Margin balancing
+    margin-left: $card-deck-margin;
+    border: $card-border-width solid $card-border-color;
+    border-radius: $card-border-radius;
+    background: $card-bg;
+    box-shadow: $card-box-shadow;
+}
+
+.card-header {
+    margin-bottom: 0; // Removes the default margin-bottom of <hN>
+    padding: $card-spacer-y $card-spacer-x;
+    border-bottom: $card-border-width solid $card-border-color;
+    background-color: $card-cap-bg;
+
+    &:first-child {
+        @include border-radius($card-border-radius-inner $card-border-radius-inner 0 0);
+    }
+}
+
+.card-block {
+    padding: $card-spacer-x;
+}
+
+.card-footer {
+    padding: $card-spacer-y $card-spacer-x;
+    border-top: $card-border-width solid $card-border-color;
+    background-color: $card-cap-bg;
+
+    &:last-child {
+        @include border-radius(0 0 $card-border-radius-inner $card-border-radius-inner);
+    }
+}

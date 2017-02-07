@@ -1,14 +1,14 @@
 /* eslint no-param-reassign:0 */
 import { combineReducers } from 'redux';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import features from './featureReducer';
 import auth from './authReducer';
+import features from './featureReducer';
+import search from './searchReducer';
+import { reducer as formReducer } from 'redux-form';
 
-let uri;
-
-if (process.env.NODE_ENV === 'production') {
-  uri = '/api';
-} else {
+let uri = 'http://localhost:4001/api';
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
   uri = 'http://localhost:4001/api';
 }
 
@@ -21,7 +21,7 @@ networkInterface.use([{
     }
 
     const token = localStorage.getItem('token');
-    req.options.headers.id_token = token;
+    req.options.headers.authorization = token;
     next();
   },
 }]);
@@ -29,8 +29,10 @@ networkInterface.use([{
 export const client = new ApolloClient({ networkInterface });
 
 const rootReducer = combineReducers({
+  form: formReducer,
   auth,
   features,
+  search,
   apollo: client.reducer(),
 });
 

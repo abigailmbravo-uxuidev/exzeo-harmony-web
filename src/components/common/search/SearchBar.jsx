@@ -1,11 +1,26 @@
 import React, { PropTypes } from 'react';
 
-const SearchBar = ({ placeholder, handleChange, handleSubmit }) => (
+const SearchBar = ({
+  placeholder,
+  handleChange,
+  handleSubmit,
+  handleOnFocus,
+  handleOnBlur,
+  searchText,
+  focus,
+}) => (
   <form onSubmit={handleSubmit || null}>
     <input
-      placeholder={placeholder || 'Search...'}
-      onChange={handleChange || null}
+        name="search-address"
+        className={focus ? 'focus-user' : ''}
+        placeholder={placeholder || 'Search...'}
+        onChange={handleChange || null}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
+        autoComplete="off"
+        value={searchText}
     />
+    <button className="btn btn-success"><i className="fa fa-search" />Search</button>
   </form>
 );
 

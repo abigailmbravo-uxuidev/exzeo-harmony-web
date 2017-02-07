@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import Search from './search/Search';
+import Search from './Search';
 
 class Home extends Component {
-  state = {
-    // Some state will go here
-  }
   render() {
+    const {me} = this.state;
     return (
       <div>
-        <Search options={{}} />
+        <Search />
       </div>
-    );
+    )
   }
 }
-
-Home.displayName = 'Home';
 
 export default Home;

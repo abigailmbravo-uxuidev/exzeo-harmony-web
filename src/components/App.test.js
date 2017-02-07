@@ -19,6 +19,8 @@ describe('<App />', () => {
   let wrapper;
 
   beforeEach(() => {
+    window.appConfig = {};
+    window.appConfig.appTitle = 'Waffles';
     wrapper = mount(
       <App actions={actions} loggedIn={false} features={props.features} />,
     );

@@ -1,10 +1,11 @@
 {
   "name": "harmony-web",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
+    "babel-preset-airbnb": "^2.1.1",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
@@ -17,36 +18,49 @@
     "jsdom": "^9.8.3",
     "mocha": "^3.1.2",
     "mockery": "^2.0.0",
+    "node-sass": "^4.0.0",
+    "opn": "^4.0.2",
     "react-addons-test-utils": "^15.4.1",
     "react-scripts": "0.7.0",
     "shelljs": "^0.7.5",
     "sinon": "^1.17.6"
   },
   "dependencies": {
-    "apollo-client": "^0.5.0",
+    "apollo-client": "0.5.0",
     "auth0-js": "^7.4.0",
     "axios": "^0.15.2",
     "compression": "^1.6.2",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
+    "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "ldclient-js": "^1.1.4",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
     "react": "^15.3.2",
     "react-apollo": "^0.5.16",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.5",
+    "react-router-dom": "^4.0.0-beta.3",
+    "react-simple-currency": "^1.0.11",
+    "react-tooltip": "^3.2.2",
     "redux": "^3.6.0",
+    "redux-form": "^6.5.0",
     "redux-thunk": "^2.1.0",
-    "typeahead": "^0.2.2"
+    "typeahead": "^0.2.2",
+    "validator": "^6.2.1"
   },
   "scripts": {
     "build": "react-scripts build && node scripts/genEjs",
     "eject": "react-scripts eject",
     "lint": "eslint .",
+    "local": "cross-env NODE_ENV=local react-scripts start",
     "pretest": "npm run lint",
-    "publish": "docker build -f .docker/prod.dockerfile -t exzeo/harmony-web:latest . && docker push exzeo/harmony-web:latest",
-    "start": "node scripts/start-api && react-scripts start",
+    "push": "npm run build && docker build -f dev.dockerfile -t exzeo/harmony-web:develop . && docker push exzeo/harmony-web:develop",
+    "both": "node scripts/start-both",
+    "start": "node scripts/start-api",
+    "dev": "react-scripts start",
     "test": "mocha --reporter progress utils/testSetup \"src/**/*.test.js\""
   },
   "eslintConfig": {
@@ -55,7 +69,8 @@
     "rules": {
       "import/no-extraneous-dependencies": 0,
       "no-unused-expressions": 0,
-      "react/jsx-filename-extension": 0
+      "react/jsx-filename-extension": 0,
+      "linebreak-style": 0
     },
     "globals": {
       "expect": 0,
@@ -71,6 +86,9 @@
     "presets": [
       "airbnb",
       "stage-0"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
     ]
   }
 }
