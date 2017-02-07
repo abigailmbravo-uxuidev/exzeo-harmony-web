@@ -28,7 +28,7 @@ class Demographics extends Component {
       variables: {
         input: {
           workflowId: 257738,
-          stepName: "askAdditionalCustomerData",
+          stepName: 'askAdditionalCustomerData',
           data: this.formatData(event),
         },
       },
@@ -37,7 +37,7 @@ class Demographics extends Component {
       const activeLink = updatedModel.data.completeStep.link;
       this.context.router.push(`${activeLink}`);
     }).catch((error) => {
-      //this.context.router.transitionTo('/error');
+      // this.context.router.transitionTo('/error');
       console.log('errors from graphql', error); // eslint-disable-line
     });
   }
@@ -52,7 +52,7 @@ class Demographics extends Component {
 
   render() {
     const {
-      dispatch, state, formName, effectiveDate, styleName, handleSubmit, handleChange,
+      dispatch, state, formName, effectiveDate, styleName, handleSubmit,
       pristine, reset, submitting, error, invalid,
     } = this.props;
 
@@ -61,7 +61,7 @@ class Demographics extends Component {
         className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
         noValidate
       >
-        <PolicyHolderDemographics {...this.props} state={state} />
+        <PolicyHolderDemographics {...this.props} state={state} handleChange={this.handleChange} />
         <div className="form-group survey-wrapper" role="group">
           <div className="form-group agentID" role="group">
             <label htmlFor="agencyID">Agent</label>
@@ -97,7 +97,6 @@ class Demographics extends Component {
 
 Demographics.propTypes = {
   effectiveDate: PropTypes.string,
-  handleChange: PropTypes.func,
 };
 
 Demographics = reduxForm({
