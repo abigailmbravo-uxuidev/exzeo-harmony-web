@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import Demographics from '../workflows/Demographics';
-import Customize from '../workflows/CustomizeQuote';
+import Customize from '../workflows/CustomizeQuote_';
 import Share from '../workflows/Share';
 import UWQuestions from '../workflows/UWQuestions';
 import Billing from '../workflows/Billing';
@@ -173,9 +175,23 @@ class Workflow extends Component {
         link: "verify"
       }
     ];
-    this.setState({workflow: {
-        steps
-      }});
+    const { workflow } = this.state;
+    // if (!workflow.id) {
+    //   this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
+    //     .then(({ data }) => {
+    //       this.setState({
+    //         workflow: {
+    //           id: data.startWorkflow.id,
+    //           steps,
+    //         }
+    //       });
+    //       this.context.router.push('/workflow/demographics');
+    //     })
+    //     .catch(error => console.log(error));
+    // } else {
+      workflow.steps = steps;
+      this.setState(workflow);
+    // }
   }
   updateCompletedSteps = (completedSteps) => {
     this.setState({completedSteps});
@@ -218,5 +234,16 @@ class Workflow extends Component {
     );
   }
 }
-
-export default Workflow;
+export default graphql(gql`
+  mutation StartWorkflow($input:WorkflowInput) {
+    startWorkflow(input:$input) {
+      id
+      steps {
+        name
+        label
+        icon
+        type
+      }
+    }
+  }
+`, { name: 'startWorkflow' })(Workflow);

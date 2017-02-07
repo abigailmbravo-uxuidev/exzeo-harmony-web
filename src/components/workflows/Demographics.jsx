@@ -35,7 +35,7 @@ class Demographics extends Component {
 
   render() {
     const {
-      effectiveDate, styleName, handleSubmit, handleChange,
+      state, formName, effectiveDate, styleName, handleSubmit, handleChange,
       pristine, reset, submitting, error, invalid,
     } = this.props;
     return (
@@ -43,7 +43,7 @@ class Demographics extends Component {
         className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
         noValidate
       >
-        <PolicyHolder {...this.props} name="policyHolders[0]" />
+        <PolicyHolder {...this.props} name="policyHolders[0]" state={state} />
         <div className="form-group survey-wrapper" role="group">
           <div className="form-group agentID" role="group">
             <label htmlFor="agentId">Agent</label>
@@ -96,7 +96,9 @@ Demographics = connect(
         initialValues: {
           effectiveDate: moment().format('YYYY-MM-DD'),
         },
+        formName: 'Demographics',
         effectiveDate,
+        state,
       };
     },
   )(Demographics);

@@ -48,8 +48,6 @@ let Verify = ({
   initialValues.policyHolders = quoteTest.policyHolders;
   initialValues.policyHolderMailingAddress = quoteTest.policyHolderMailingAddress;
 
-  console.log(initialValues.additionalInterests);
-
   function updateQuote() {
     dispatch(change('Verify', 'editProperty', false));
     dispatch(change('Verify', 'editConfirmPolicyHolder', false));
@@ -208,7 +206,7 @@ let Verify = ({
           <h4 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h4>
           <div className="editing"><i className="fa fa-pencil" /> Editing</div>
           <section className="display-element">
-            <PolicyHolderUpdateForm handleOnSubmit={updateQuote} />
+            <PolicyHolderUpdateForm handleOnSubmit={updateQuote} state={state} />
           </section>
         </div>}
 
@@ -347,6 +345,7 @@ Verify = connect((state) => {
       additionalInterests: [],
       policyHolders: [],
     },
+    state,
     effectiveDate,
     editConfirmAdditionalInterests,
     editConfirmPolicyHolder,
