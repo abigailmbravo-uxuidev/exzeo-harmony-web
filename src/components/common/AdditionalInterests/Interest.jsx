@@ -5,7 +5,7 @@ import MailingAddress from '../MailingAddress/MailingAddress';
 
 const Interest = ({ fields, InterestType, InterestTypeName, handleChange, meta: { touched, error } }) => (
   <div>
-    <button type="button" onClick={() => fields.push({})}>+ Add {InterestTypeName}</button>
+    <button type="button" className="btn btn-secondary" onClick={() => fields.push({})}>+ Add {InterestTypeName}</button>
     {touched && error && <span>{error}</span>}
     {fields.map((additionalInterest, index) =>
       <div key={index}>
