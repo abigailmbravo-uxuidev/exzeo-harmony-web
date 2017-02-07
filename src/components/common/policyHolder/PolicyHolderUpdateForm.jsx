@@ -5,9 +5,12 @@ import { reduxForm, Form, formValueSelector, FieldArray } from 'redux-form';
 import Footer from '../Footer';
 import PolicyHolder from './PolicyHolder';
 
-const renderPolicyHolder = ({ fields, InterestType, InterestTypeName, handleChange, meta: { touched, error } }) => (
+const renderPolicyHolder = ({ fieldState, fields, formName, InterestType, InterestTypeName, handleChange, meta: { touched, error } }) => (
   <div>
-    {fields.length < 1 && <button type="button" onClick={() => fields.push({})}>+ Add {InterestTypeName}</button>}
+    {fields.length === 1 && <button type="button" onClick={() => fields.push({})}>+ Add Secondary {InterestTypeName}</button>}
+    {fields.length === 2 && <button type="button" onClick={() => fields.remove(1)}>+ Remove Secondary {InterestTypeName}</button>}
+    <br />
+    <br />
     {touched && error && <span>{error}</span>}
     {fields.map((policyHolder, index) =>
       <div key={index}>
@@ -17,58 +20,49 @@ const renderPolicyHolder = ({ fields, InterestType, InterestTypeName, handleChan
           onClick={() => fields.remove(index)}
         >Remove {InterestTypeName}</button>
       } */}
-        <PolicyHolder handleChange={function () {}} name={`${InterestType + (index + 1)}`} />
+        <PolicyHolder handleChange={function () {}} name={`${policyHolder}`} formName={formName} state={fieldState} />
       </div>,
     )}
   </div>
-);
+  );
 
-let PolicyHolderUpdateFormForm = (props) => {
-  const { styleName, handleSubmit, handleOnSubmit, handleChange, policyHolders,
+let PolicyHolderUpdateForm = (props) => {
+  const { formName, initialValues, styleName, handleSubmit, handleOnSubmit, handleChange, state,
           pristine, reset, submitting, error, invalid } = props;
   return (
     <Form
-      className={`fade-in ${styleName || ''}`} id="PolicyHolderUpdateFormForm" onSubmit={handleSubmit(handleOnSubmit)}
+      className={`fade-in ${styleName || ''}`} id="PolicyHolderUpdateForm" onSubmit={handleSubmit(handleOnSubmit)}
       noValidate
     >
-      <FieldArray name="policyHolder" component={renderPolicyHolder} InterestType={'PolicyHolder'} InterestTypeName={'Policy Holder'} fields={policyHolders} />
+      <FieldArray name="policyHolders" component={renderPolicyHolder} InterestType={'PolicyHolder'} InterestTypeName={'Policy Holder'} formName={formName} fieldState={state} />
       <div className="workflow-steps">
-        <button className="btn btn-primary" type="submit" form="PolicyHolderUpdateFormForm">next</button>
+        <button className="btn btn-primary" type="submit" form="PolicyHolderUpdateForm">Save</button>
       </div>
     </Form>
   );
 };
 
-PolicyHolderUpdateFormForm.propTypes = {
+PolicyHolderUpdateForm.propTypes = {
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
 };
 
-PolicyHolderUpdateFormForm = reduxForm({
-  form: 'PolicyHolderUpdateFormForm', // a unique identifier for this form
-})(PolicyHolderUpdateFormForm);
+PolicyHolderUpdateForm = reduxForm({
+  form: 'PolicyHolderUpdateForm', // a unique identifier for this form
+})(PolicyHolderUpdateForm);
 
-const selector = formValueSelector('PolicyHolderUpdateFormForm'); // <-- same as form name
+const selector = formValueSelector('PolicyHolderUpdateForm'); // <-- same as form name
 
-PolicyHolderUpdateFormForm = connect(
-    (state) => {
-      console.log('state.form.Verify', state.form.Verify);
-
-      return {
-        initialValues: {
-          PolicyHolder1FirstName: state.form.Verify.values.policyHolderFirstName1,
-          PolicyHolder1LastName: state.form.Verify.values.policyHolderLastName1,
-          PolicyHolder1PhoneNumber: state.form.Verify.values.policyHolderPhoneNumber1,
-          PolicyHolder1Email: state.form.Verify.values.policyHolderEmail1,
-          PolicyHolder2FirstName: state.form.Verify.values.policyHolderFirstName2,
-          PolicyHolder2LastName: state.form.Verify.values.policyHolderLastName2,
-          PolicyHolder2PhoneNumber: state.form.Verify.values.policyHolderPhoneNumber2,
-          PolicyHolder2Email: state.form.Verify.values.policyHolderEmail2,
-        },
-      };
-    },
-  )(PolicyHolderUpdateFormForm);
+PolicyHolderUpdateForm = connect(
+    state => ({
+      initialValues: {
+        policyHolders: state.form.Verify.values.policyHolders,
+      },
+      formName: 'PolicyHolderUpdateForm',
+      state,
+    }),
+  )(PolicyHolderUpdateForm);
 
 
-export default PolicyHolderUpdateFormForm;
+export default PolicyHolderUpdateForm;

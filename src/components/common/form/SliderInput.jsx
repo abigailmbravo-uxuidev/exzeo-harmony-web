@@ -6,25 +6,24 @@ const SliderInput = ({
   disabled = false,
   handleChange,
   leftLabel,
-  maxValue,
-  minValue,
-  valueDefault,
+  max,
+  min,
+  value,
   name,
   question,
   rightLabel,
   step,
   styleName = '',
-  value,
 }) => {
-  let formattedValue;
-  if (value) {
-    formattedValue = `$ ${value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
-  } else if (valueDefault) {
-    formattedValue = `$ ${valueDefault.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
-  }
-  console.log('FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE');
-  console.log(formattedValue);
-  console.log('FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE');
+  // let formattedValue;
+  // if (value) {
+  //   formattedValue = `$ ${value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
+  // } else if (valueDefault) {
+  //   formattedValue = `$ ${valueDefault.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
+  // }
+  // console.log('FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE');
+  // console.log(formattedValue);
+  // console.log('FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE FORMATTED VALUE');
   return (
     <div className={`form-group range-component ${styleName} ${name}`}>
       <label htmlFor={name || null}>
@@ -35,22 +34,22 @@ const SliderInput = ({
       </label>
       <div className="range-wrapper">
         <div className="range-control-wrapper">
-          <span className="range-limit">{leftLabel || Math.ceil(minValue) || '0'}</span>
+          <span className="range-limit">{leftLabel || min || '0'}</span>
           <input
             type="range"
             name={name || null}
-            min={Math.ceil(minValue)}
-            max={Math.floor(maxValue)}
+            min={min}
+            max={max}
             step={step}
-            value={value || valueDefault || minValue}
-            onChange={handleChange || null}
+            value={value}
+            onChange={handleChange}
           />
-          <span className="range-limit">{rightLabel || Math.floor(maxValue) || null}</span>
+          <span className="range-limit">{rightLabel || max || null}</span>
         </div>
         <span className="range-value">
           <input
             type="text"
-            value={formattedValue}
+            value={value}
             onChange={handleChange}
             name={name}
           />

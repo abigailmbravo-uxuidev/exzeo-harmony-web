@@ -2,61 +2,80 @@ import React, { PropTypes, Component } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
+import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
+import Footer from '../common/Footer';
 import TextInput from '../common/form/TextInput';
-import PolicyHolder from '../common/policyHolder/PolicyHolder';
-import {Link} from 'react-router-dom';
+import PolicyHolderDemographics from '../common/policyHolder/PolicyHolderDemographics';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class Demographics extends Component {
   static contextTypes = {
     router: PropTypes.object,
   }
+  componentWillMount() {
+    this.props.dispatch(change('Demographics', 'entityType', 'Person'));
+  }
+
   handleChange = (event) => {
-    // const { state } = this;
-    // state[event.target.name] = event.target.value;
-    // state.updated = true;
-    // this.setState(state);
+
   }
 
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
 
-    this.context.router.push('/workflow/underwriting');
-    // const { state } = this;
-    // if (state.updated) {
-    //   // Do two mutations
-    //   state.updated = false;
-    //   this.setState(state);
-    // } else {
-    //   this.context.router.push('/workflow/shareQuote');
-    //}
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: 257738,
+          stepName: "askAdditionalCustomerData",
+          data: this.formatData(event),
+        },
+      },
+    }).then((updatedModel) => {
+      console.log(updatedModel);
+      const activeLink = updatedModel.data.completeStep.link;
+      this.context.router.push(`${activeLink}`);
+    }).catch((error) => {
+      //this.context.router.transitionTo('/error');
+      console.log('errors from graphql', error); // eslint-disable-line
+    });
+  }
+
+  formatData = (demographicAnswers) => {
+    const answers = [];
+    Object.keys(demographicAnswers).forEach((key) => {
+      answers.push({ key, value: demographicAnswers[key] });
+    });
+    return answers;
   }
 
   render() {
     const {
-      effectiveDate, styleName, handleSubmit,
-      pristine, reset, submitting, error, invalid
+      dispatch, state, formName, effectiveDate, styleName, handleSubmit, handleChange,
+      pristine, reset, submitting, error, invalid,
     } = this.props;
+
     return (
       <Form
         className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
         noValidate
       >
-        <PolicyHolder {...this.props} />
+        <PolicyHolderDemographics {...this.props} state={state} />
         <div className="form-group survey-wrapper" role="group">
-                <div className="form-group agentID"  role="group">
-                              <label>Agent</label>
-                              <select name="agentID">
-                                      <option value="agent1">Adam Doe</option>
-                                      <option value="agent2">Betsy Doe</option>
-                                      <option value="agent3">Cathy Doe</option>
-                                      <option value="agent3">Daniel Doe</option>
-                                      <option value="agent3">Ethan Doe</option>
-                                      <option value="agent3">Frank Doe</option>
-                                      <option value="agent3">Gail Doe</option>
-                                      <option value="agent3">Helen Doe</option>
-                              </select>
-                      </div>
+          <div className="form-group agentID" role="group">
+            <label htmlFor="agencyID">Agent</label>
+            <select name="agencyID">
+              <option value="60000">Adam Doe</option>
+              <option value="60001">Betsy Doe</option>
+              <option value="60002">Cathy Doe</option>
+              <option value="60003">Daniel Doe</option>
+              <option value="60004">Ethan Doe</option>
+              <option value="60005">Frank Doe</option>
+              <option value="60006">Gail Doe</option>
+              <option value="60007">Helen Doe</option>
+            </select>
+          </div>
           <TextInput
             answerType="date"
             handleChange={this.handleChange}
@@ -70,6 +89,7 @@ class Demographics extends Component {
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="Demographics">next</button>
         </div>
+        <Footer />
       </Form>
     );
   }
@@ -94,10 +114,21 @@ Demographics = connect(
         initialValues: {
           effectiveDate: moment().format('YYYY-MM-DD'),
         },
+        formName: 'Demographics',
         effectiveDate,
+        state,
       };
     },
-  )(Demographics);
+  )(graphql(gql `
+    mutation CompleteStep($input:CompleteStepInput) {
+        completeStep(input:$input) {
+            name
+            icon
+            type
+            link
+        }
+    }
+`, { name: 'completeStep' })(Demographics));
 
 
 export default Demographics;

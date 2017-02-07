@@ -4,6 +4,9 @@ module.exports = {
   state: 'FL',
   product: 'HO3',
   quoteNumber: '509011-100000-01',
+  billToId: '5866c036a46eb72908f3f547',
+  billPlan: 'Annual',
+  eligibility: 'Yes',
   effectiveDate: '2017-01-04T20:14:46.793Z',
   endDate: '2018-01-04T20:14:46.793Z',
   agencyId: '20000',
@@ -163,6 +166,8 @@ module.exports = {
       name1: 'BB1',
       name2: 'CC1',
       active: true,
+      referenceNumber: '1001',
+      phoneNumber: '1234567890',
       mailingAddress: {
         address1: '123 this way dr',
         city: 'Tampa',
@@ -179,6 +184,8 @@ module.exports = {
       name1: 'BB2',
       name2: 'CC2',
       active: true,
+      referenceNumber: '1001',
+      phoneNumber: '1234567890',
       mailingAddress: {
         address1: '123 this way dr',
         city: 'Tampa',
@@ -193,6 +200,8 @@ module.exports = {
     {
       type: 'Mortgagee',
       name1: 'BB3',
+      referenceNumber: '1001',
+      phoneNumber: '1234567890',
       name2: 'CC3',
       active: true,
       mailingAddress: {

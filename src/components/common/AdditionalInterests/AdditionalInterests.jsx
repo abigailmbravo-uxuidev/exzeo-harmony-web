@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import TextInput from '../form/TextInput';
-import MailingAddress from '../MailingAddress/MailingAddress';
 import PolicyHolder from '../policyHolder/PolicyHolder';
 import Interest from '../AdditionalInterests/Interest';
 
@@ -29,11 +28,10 @@ const AdditionalInterests = (props) => {
 
   return (
     <div>
-      <h3>Mailing Address</h3>
-      <MailingAddress {...props} name={''} />
+
       <FieldArray name="mortgagees.Mortgagee" component={Interest} InterestType={'Mortgagee'} InterestTypeName={'Mortgagee'} />
 
-      <FieldArray name="mortgagees.leinholder" component={Interest} InterestType={'Lienholder'} InterestTypeName={'Lienholder'} />
+      <FieldArray name="mortgagees.Lienholder" component={Interest} InterestType={'Lienholder'} InterestTypeName={'Lienholder'} />
 
       <FieldArray name="mortgagees.AdditionalInterest" component={Interest} InterestType={'AdditionalInterest'} InterestTypeName={'Additional Interest'} />
 

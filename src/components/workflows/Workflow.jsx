@@ -3,14 +3,13 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Demographics from '../workflows/Demographics';
-import Customize from '../workflows/CustomizeQuote';
+import Customize from '../workflows/CustomizeQuote_';
 import Share from '../workflows/Share';
 import UWQuestions from '../workflows/UWQuestions';
 import Billing from '../workflows/Billing';
 import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
 import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
 import Verify from '../common/verify/Verify';
-import Footer from '../common/Footer';
 import _ from 'lodash';
 
 const WorkflowHeader = (d) => {
@@ -176,18 +175,24 @@ class Workflow extends Component {
         link: "verify"
       }
     ];
-    this.setState({workflow: {
-        steps
-      }});
-
-      // this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
-      // .then(({ data }) => {
-      //   console.log(data);
-      //   this.setState({ workflow: data.startWorkflow });
-      // })
-      // .catch(error => console.log(error));
+    const { workflow } = this.state;
+    // if (!workflow.id) {
+    //   this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
+    //     .then(({ data }) => {
+    //       this.setState({
+    //         workflow: {
+    //           id: data.startWorkflow.id,
+    //           steps,
+    //         }
+    //       });
+    //       this.context.router.push('/workflow/demographics');
+    //     })
+    //     .catch(error => console.log(error));
+    // } else {
+      workflow.steps = steps;
+      this.setState(workflow);
+    // }
   }
-
   updateCompletedSteps = (completedSteps) => {
     this.setState({completedSteps});
   }
@@ -214,14 +219,14 @@ class Workflow extends Component {
             <div className="route">
               <WorkflowHeader steps={workflow.steps}/>
               <Route path="/quote/demographics" component={Demographics} />
-              <Route path="underwriting" component={UWQuestions}/>
-              <Route path="customize" component={Customize}/>
-              <Route path="share" component={Share}/>
+              <Route path="/quote/underwriting" component={UWQuestions}/>
+              <Route path="/quote/customize" component={Customize}/>
+              <Route path="/quote/share" component={Share}/>
               <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm}/>
               <Route path="/workflow/MailingAddress" component={MailingAddressForm}/>
               <Route path="/workflow/billing" component={Billing}/>
               <Route path="/workflow/verify" component={Verify}/>
-              <Footer />
+              <WorkflowFooter steps={workflow.steps} activeStep={activeStep} />
             </div>
           </Router>
         </div>
@@ -229,17 +234,16 @@ class Workflow extends Component {
     );
   }
 }
-
 export default graphql(gql`
-    mutation StartWorkflow($input:WorkflowInput) {
-        startWorkflow(input:$input) {
-            id
-            steps {
-                name
-                label
-                icon
-                type
-            }
-        }
+  mutation StartWorkflow($input:WorkflowInput) {
+    startWorkflow(input:$input) {
+      id
+      steps {
+        name
+        label
+        icon
+        type
+      }
     }
+  }
 `, { name: 'startWorkflow' })(Workflow);

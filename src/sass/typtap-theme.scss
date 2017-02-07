@@ -882,7 +882,7 @@ html {
                       dl {
                         div {
                           dt {
-                            color: $green-lighten-01;
+                            color: $green-darken-01;
                           }
 
                           dd {
@@ -1135,9 +1135,10 @@ html {
 .route-verify {
     .detail-wrapper {
         .detail-group {
-            > h1, > h2, > h3, > h4, > h5, > h6 {
-                i {
-                    color: $green;
+            .edit-btn {
+                color: $white;
+                &:hover {
+                    color: $white;
                 }
             }
 
@@ -1167,7 +1168,22 @@ html {
 .survey-wrapper {
 
   .section-group-header {
-      color: $bright-blue-lighten-04;
+      background-color: $cool-gray-10;
+      margin: (-$padding) (-$padding/2) ($padding*2);
+      padding: ($padding) ($padding*1.5);
+      width: 100%;
+      flex-grow: 1;
+      color: $white;
+  }
+}
+.detail-wrapper {
+
+  .section-group-header {
+      background-color: $cool-gray-10;
+      padding: ($padding);
+      width: 100%;
+      flex-grow: 1;
+      color: $white;
   }
 }
 

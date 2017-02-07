@@ -16,31 +16,36 @@ class Quote extends Component {
 
   state = {
     workflow: {
-      steps: []
-    },
-    completedSteps: [],
-    activeStep: "billing",
+      steps: [],
+      activeStep:'',
+      completedSteps: [],
+    }
   }
 
   componentWillMount(){
-    //console.log(this.context)
-    const self = this;
-    this.props.startWorkflow({ variables: { input: { name: 'quoteNoSearch', product: '', state: '' } } })
-      .then(({ data }) => {
-        this.setState({ workflow: data.startWorkflow });
-        this.context.router.push('/quote/demographics');
-      })
-      .catch(error => console.log(error));
+    const {match} = this.props;
+    if(!match.params.activeStep){
+      this.props.startWorkflow({ variables: { input: { name: 'quoteNoSearch', product: '', state: '' } } })
+        .then(({ data }) => {
+          let workflow = data.startWorkflow;
+          this.setState({ workflow });
+          let activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
+          this.context.router.push(`quote/${activeLink}`)
+        })
+        .catch(error => console.log(error));
+    }
+
 
     //console.log(this.props)
   }
   render() {
 
     const {match} = this.props;
+    const {workflow} = this.state;
 
     return (
       <div>
-        <Workflow steps={steps}/>
+        <Workflow steps={workflow.steps}/>
       </div>
     );
   }
@@ -53,10 +58,11 @@ export default graphql(gql`
             steps {
                 name
                 label
+                link
                 icon
                 type
-                activeStep
-            }
+            },
+            activeStep
         }
     }
 `, { name: 'startWorkflow' })(Quote);
