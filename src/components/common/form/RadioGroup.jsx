@@ -4,9 +4,25 @@ import { Field } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
 import { combineRules } from '../../Rules';
 
-const RenderField = ({ input, segmented, answers, value, click, label, name,
-  description, question, styleName, disabled,
-   meta: { touched, error, warning } }) => {
+const RenderField = ({
+  input,
+  segmented,
+  answers,
+  value,
+  displayValue,
+  click,
+  label,
+  name,
+  description,
+  question,
+  styleName,
+  disabled,
+  meta: {
+    touched,
+    error,
+    warning
+  }
+}) => {
   const classnames = `form-group ${segmented ? 'segmented' : ''} ${label} ${styleName} ${disabled ? 'disabled' : ''}`;
   return (
     <div className={classnames} role="group">
@@ -15,12 +31,16 @@ const RenderField = ({ input, segmented, answers, value, click, label, name,
            &nbsp;
         {description && <i className="fa fa-info-circle" data-tip data-for={label} />}
         {description && <ReactTooltip place="right" id={label} type="dark" effect="float">{description}</ReactTooltip>}
-
+        {displayValue && <input
+          type="text"
+          value={displayValue}
+          readOnly
+        />}
       </label>
       <div className={`segmented-answer-wrapper ${touched && error ? 'error' : ''}`}>
         {answers && answers.length > 0 ? answers.map((answer, index) =>
           <div
-            className={`radio-column-${answers.length}${value === answer.answer ? ' selected' : ''}`}
+            className={`radio-column-${answers.length}${input.value === answer.answer ? ' selected' : ''}`}
             onClick={() => click(answer.answer)} key={index}
           >
             {answer.image && <img src={answer.image} role="presentation" />}
@@ -31,7 +51,7 @@ const RenderField = ({ input, segmented, answers, value, click, label, name,
                 type="radio"
                 value={answer.answer}
               />
-              <span>{answer.answer || null}</span>
+              <span>{answer.display || answer.answer || null}</span>
             </label>
           </div>,
              ) : null}
@@ -43,6 +63,7 @@ const RenderField = ({ input, segmented, answers, value, click, label, name,
 const RadioGroup = ({
   answers,
   description,
+  displayValue,
   disabled = false,
   handleChange,
   segmented = false,
@@ -78,6 +99,7 @@ const RadioGroup = ({
       segmented={segmented}
       value={value}
       styleName={styleName}
+      displayValue={displayValue}
       onChange={handleChange || null}
       validate={ruleArray}
     />
@@ -86,7 +108,14 @@ const RadioGroup = ({
 
 RadioGroup.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.shape({
-    answer: PropTypes.string,
+    answer: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    display: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     image: PropTypes.string,
   })),
   description: PropTypes.string,

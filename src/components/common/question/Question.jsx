@@ -5,9 +5,10 @@ import RadioGroup from '../form/RadioGroup';
 import BoolInput from '../form/BoolInput';
 import SliderInput from '../form/SliderInput';
 import ListSelection from '../form/ListSelection';
+import DisplayInput from '../form/DisplayInput';
+import Heading from '../form/Heading';
 
 const Question = ({ question, answer, disabled, hidden, handleChange }) => {
-  if (hidden) return null;
   const inputProps = {
     ...question,
     value: answer,
@@ -31,9 +32,14 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
     case 'bool': // eslint-disable-line
       return <BoolInput {...inputProps} isSwitch />;
     case 'range':
+    case 'slider':
       return <SliderInput {...inputProps} />;
     case 'list':
       return <ListSelection {...inputProps} />;
+    case 'display':
+      return <DisplayInput {...inputProps} />;
+    case 'heading':
+      return <Heading {...inputProps} />;
     default:
       return <TextInput {...inputProps} />;
   }
@@ -44,9 +50,33 @@ Question.propTypes = {
     name: PropTypes.string,
     question: PropTypes.string,
     description: PropTypes.string,
-    answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
+    answerType: PropTypes.oneOf([
+      'heading',
+      'string',
+      'email',
+      'password',
+      'text',
+      'number',
+      'date',
+      'range',
+      'slider',
+      'tel',
+      'search',
+      'radio',
+      'bool',
+      'display',
+    ]),
     answers: PropTypes.arrayOf(PropTypes.shape({
-      answer: PropTypes.string,
+      answer: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.string,
+        PropTypes.number,
+      ]),
+      display: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.string,
+        PropTypes.number,
+      ]),
       image: PropTypes.string,
     })),
     optional: PropTypes.bool,

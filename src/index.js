@@ -2,7 +2,6 @@
 /* eslint react/jsx-filename-extension:0 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router';
 import { ApolloProvider } from 'react-apollo';
 import axios from 'axios';
 import configureStore from './store/configureStore';
@@ -39,9 +38,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <ApolloProvider client={client} store={store}>
-    <BrowserRouter>
-      <AppConnected />
-    </BrowserRouter>
+    <AppConnected />
   </ApolloProvider>,
   document.getElementById('root'),
 );
