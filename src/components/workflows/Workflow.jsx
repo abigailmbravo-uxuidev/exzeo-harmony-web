@@ -6,6 +6,8 @@ import Demographics from '../workflows/Demographics';
 import Search from '../common/search/Search';
 import SearchResults from '../common/search/SearchResults';
 import UWQuestions from '../workflows/UWQuestions_Form';
+import Customize from '../common/Customize/Customize';
+import ThankYou from '../common/ThankYou';
 import _ from 'lodash';
 
 const WorkflowHeader = (d) => {
@@ -219,6 +221,8 @@ class Workflow extends Component {
               <Route path="/quote/search/:address" component={SearchResults} />
               <Route path="/quote/demographics" component={Demographics} />
               <Route path="/quote/underwriting" component={UWQuestions} />
+              <Route path="/quote/customize" component={Customize} />
+              <Route path="/quote/thankyou" component={ThankYou} />
               {/*<Route path="/quote/share" component={Share} />*/}
               {/*<Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm} />*/}
               {/*<Route path="/workflow/MailingAddress" component={MailingAddressForm} />*/}
