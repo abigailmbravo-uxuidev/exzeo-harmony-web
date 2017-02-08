@@ -218,7 +218,7 @@ class Workflow extends Component {
           <Router>
             <div className="route">
               <Route path="/quote/search" component={Search} />
-              <Route path="/quote/search/:address" component={SearchResults} />
+              <Route exact path="/quote/search/:address" component={SearchResults} />
               <Route path="/quote/demographics" component={Demographics} />
               <Route path="/quote/underwriting" component={UWQuestions} />
               <Route path="/quote/customize" component={Customize} />

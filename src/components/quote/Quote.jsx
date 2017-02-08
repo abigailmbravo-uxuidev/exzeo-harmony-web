@@ -28,12 +28,11 @@ class Quote extends Component {
     if(!match.params.activeStep){
       this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
         .then(({ data }) => {
-          //console.log(data);
+          console.log('workflow started:', data);
           let workflow = data.startWorkflow;
-          this.setState({ workflow });
+          localStorage.setItem('newWorkflowId', workflow.id);
           let activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
-          localStorage.setItem('workflowId', workflow.id);
-          this.context.router.push(`quote/${activeLink}`)
+          this.context.router.push(`quote/${activeLink}`);
         })
         .catch(error => console.log(error));
     }
@@ -44,11 +43,10 @@ class Quote extends Component {
   render() {
 
     const {match} = this.props;
-    const {workflow} = this.state;
 
     return (
       <div>
-        <Workflow steps={workflow.steps}/>
+        <Workflow />
       </div>
     );
   }
