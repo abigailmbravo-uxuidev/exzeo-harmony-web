@@ -228,7 +228,6 @@ class Workflow extends Component {
               {/*<Route path="/workflow/MailingAddress" component={MailingAddressForm} />*/}
               {/*<Route path="/workflow/billing" component={Billing} />*/}
               {/*<Route path="/workflow/verify" component={Verify} />*/}
-              <WorkflowFooter steps={workflow.steps} activeStep={activeStep} />
             </div>
           </Router>
         </div>
