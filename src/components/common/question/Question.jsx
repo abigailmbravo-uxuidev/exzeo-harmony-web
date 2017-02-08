@@ -41,7 +41,7 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
     case 'heading':
       return <Heading {...inputProps} />;
     default:
-      return <TextInput {...inputProps} />;
+      return <RadioGroup {...inputProps} segmented />;
   }
 };
 
