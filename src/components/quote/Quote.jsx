@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Workflow from '../workflows/Workflow';
@@ -7,52 +7,51 @@ import steps from './quoteSteps';
 class Quote extends Component {
 
   static propTypes = {
-    startWorkflow: PropTypes.func
+    startWorkflow: PropTypes.func,
   }
 
   static contextTypes = {
-    router: PropTypes.any
+    router: PropTypes.any,
   }
 
   state = {
     workflow: {
       id: '',
       steps: [],
-      activeStep:'',
+      activeStep: '',
       completedSteps: [],
-    }
+    },
   }
 
-  componentWillMount(){
-    const {match} = this.props;
-    if(!match.params.activeStep){
+  componentWillMount() {
+    const { match } = this.props;
+    if (!match.params.activeStep) {
       this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
         .then(({ data }) => {
-          //console.log(data);
-          let workflow = data.startWorkflow;
+          // console.log(data);
+          const workflow = data.startWorkflow;
           this.setState({ workflow });
-          let activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
+          const activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
           localStorage.setItem('workflowId', workflow.id);
-          this.context.router.push(`quote/${activeLink}`)
+          this.context.router.push(`quote/${activeLink}`);
         })
         .catch(error => console.log(error));
     }
 
 
-    //console.log(this.props)
+    // console.log(this.props)
   }
   render() {
-
-    const {match} = this.props;
-    const {workflow} = this.state;
+    const { match } = this.props;
+    const { workflow } = this.state;
 
     return (
       <div>
-        <Workflow steps={workflow.steps}/>
+        <Workflow steps={workflow.steps} />
       </div>
     );
   }
-};
+}
 
 export default graphql(gql`
     mutation StartWorkflow($input:WorkflowInput) {
@@ -69,4 +68,4 @@ export default graphql(gql`
         }
     }
 `, { name: 'startWorkflow' })(Quote);
-//export default Quote;
+// export default Quote;
