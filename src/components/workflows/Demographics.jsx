@@ -27,7 +27,7 @@ class Demographics extends Component {
     this.props.completeStep({
       variables: {
         input: {
-          workflowId: 257738,
+          workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askAdditionalCustomerData',
           data: this.formatData(event),
         },

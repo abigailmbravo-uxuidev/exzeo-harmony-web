@@ -29,7 +29,7 @@ class Search extends Component {
     this.props.completeStep({
       variables: {
         input: {
-          workflowId: localStorage.getItem('workflowId'),
+          workflowId: localStorage.getItem('newWorkflowId'),
           stepName: "askAddress",
           data: [
             {
@@ -42,11 +42,11 @@ class Search extends Component {
     }).then((updatedStep) => {
       //console.log(data)
       let workflow = updatedStep.data.completeStep;
-      console.log(workflow)
       if(workflow && workflow.link)
-        this.context.router.push(`${workflow.link}/${this.state.searchText}`);
-
-      this.setState({ searchText: '' });
+        this.props.data.refetch().then((data) => {
+          this.context.router.push(`${workflow.link}/${this.state.searchText}`);
+          this.setState({ searchText: '' });
+        });
     }).catch(error => console.log(error));
 
   }
@@ -105,7 +105,7 @@ export default connect(mapStateToProps)(graphql(gql`
             completedSteps
         }
     }`,
-  { options: { variables: { workflowId: localStorage.getItem('workflowId') } }},
+  { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } }},
   {name: 'activeStep'})
 (graphql(gql `
     mutation CompleteStep($input:CompleteStepInput) {

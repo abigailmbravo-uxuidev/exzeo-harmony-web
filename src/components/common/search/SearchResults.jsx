@@ -8,7 +8,7 @@ const Results = ({ addresses, handleClick }) => (
     {
       addresses ? addresses.map((address, index) => (
         <li id={address.id} key={index}>
-          <a onClick={handleClick}>
+          <a onClick={() => handleClick(address)}>
             <i className="card-icon fa fa-map-marker" />
             <section>
               <h4>{address.address1}</h4>
@@ -24,17 +24,55 @@ const Results = ({ addresses, handleClick }) => (
 
 class SearchResults extends Component {
   state = {
+    workflowId: '',
+    loading: '',
     results: []
   }
 
+  static propTypes = {
+    data: PropTypes.shape({
+      loading: PropTypes.bool.isRequired,
+      steps: PropTypes.object,
+    }).isRequired,
+  };
+
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   componentWillReceiveProps(newProps){
-    //this.setState({results: newProps.activeStep});
+    if(newProps !== this.props){
+      this.setState({loading: newProps.data.loading, results: newProps.data.steps.data});
+    }
   }
   componentWillMount(){
+    this.setState({workflowId: localStorage.getItem('newWorkflowId')});
   }
 
-  handleClick(event){
-
+  makeAddressSelection = (address) => {
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: localStorage.getItem('newWorkflowId'),
+          stepName: this.props.data.steps.name,
+          data: [
+            {
+              key: 'stateCode',
+              value: address.state,
+            }, {
+              key: 'igdId',
+              value: address.id,
+            },
+          ],
+        },
+      },
+    }).then((updatedStep) => {
+      let workflow = updatedStep.data.completeStep;
+      if(workflow && workflow.link)
+        this.props.data.refetch().then((data) => {
+          this.context.router.push(`/quote/${workflow.link}`);
+        });
+    }).catch(error => console.log(error));
   }
 
 
@@ -48,7 +86,7 @@ class SearchResults extends Component {
             <section>
               <div className="fade-in">
                 <div className="survey-wrapper">
-                  <Results addresses={results} handleClick={this.handleClick} />
+                  <Results addresses={results} handleClick={this.makeAddressSelection} />
                 </div>
               </div>
 
@@ -71,11 +109,6 @@ export default connect(null)(graphql(gql`
             }
             showDetail
             data {
-                ... on Property {
-                    physicalAddress {
-                        address1
-                    }
-                }
                 ... on Address {
                     address1
                     city
@@ -88,7 +121,7 @@ export default connect(null)(graphql(gql`
             completedSteps
         }
     }`,
-    { options: { variables: { workflowId: localStorage.getItem('workflowId') } }},
+    { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } }},
     {name: 'activeStep'})
 (graphql(gql `
     mutation CompleteStep($input:CompleteStepInput) {
