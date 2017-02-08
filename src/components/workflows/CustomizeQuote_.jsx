@@ -2,8 +2,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
+import _ from 'lodash';
+import SliderInput from '../common/form/SliderInput';
+import RadioGroup from '../common/form/RadioGroup';
+import BoolInput from '../common/form/BoolInput';
+import DisplayInput from '../common/form/DisplayInput';
 import Footer from '../common/Footer';
-import PolicyHolder from '../common/policyHolder/PolicyHolder';
+import DependentQuestion from '../common/question/DependentQuestion';
+import customizeQuestions from './customizeQuestions';
 
 const quoteInfo = {
   coverageLimits: {
@@ -91,19 +97,24 @@ class Customize extends Component {
 
   state = {
     updated: false,
-    dwellingAmount: quoteInfo.coverageLimits.dwelling.amount,
-    otherStructuresAmount: quoteInfo.coverageLimits.otherStructures.amount,
-    personalPropertyReplacementCostCoverage: false,
-    personalPropertyAmount: quoteInfo.coverageLimits.personalProperty.amount,
-    personalLiability: quoteInfo.coverageLimits.personalLiability.amount,
-    moldProperty: quoteInfo.coverageLimits.moldProperty.amount,
-    moldLiability: quoteInfo.coverageLimits.moldLiability.amount,
-    lossOfUse: quoteInfo.coverageLimits.lossOfUse.amount,
-    ordinanceOrLaw: quoteInfo.coverageLimits.ordinanceOrLaw.amount,
-    propertyIncidentalOccupancies: 'None',
-    sinkholeCoverage: quoteInfo.coverageOptions.sinkholePerilCoverage.answer,
-    allOtherPerils: quoteInfo.deductibles.allOtherPerils.amount,
-    hurricane: quoteInfo.deductibles.hurricane.amount,
+  }
+
+  componentWillMount() {
+    console.log(customizeQuestions);
+    const { state } = this;
+
+    // Set up default values
+    customizeQuestions.forEach((question) => {
+      if (_.has(question, 'defaultValue')) {
+        state[question.name] = question.defaultValue;
+      } else if (question.defaultValueLocation) {
+        state[question.name] = _.get(quoteInfo, question.defaultValueLocation);
+      } else {
+        state[question.name] = '';
+      }
+
+    });
+    this.setState(state);
   }
 
   handleChange = (event) => {
@@ -121,7 +132,8 @@ class Customize extends Component {
       state.updated = false;
       this.setState(state);
     } else {
-      this.context.router.push('/workflow/shareQuote');
+      // Do one mutation
+      this.context.router.push('/workflow/share');
     }
   }
 
@@ -141,12 +153,23 @@ class Customize extends Component {
     } = this.props;
     return (
       <Form
-        className={`fade-in ${styleName}`}
+        className={`fade-in ${styleName || ''}`}
         id="Customize"
         onSubmit={handleSubmit(this.handleOnSubmit)}
         noValidate
       >
+        <div className="form-group survey-wrapper" role="group">
+          {customizeQuestions && customizeQuestions.map((question, index) => (
+            <DependentQuestion
+              data={quoteInfo}
+              question={question}
+              answers={this.state}
+              handleChange={this.handleChange}
+              key={index}
+            />
+          ))}
 
+        </div>
         <div className="workflow-steps">
           <button
             className="btn btn-primary"
