@@ -15,6 +15,9 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
     handleChange,
     disabled,
   };
+
+  if (question.hidden) inputProps.answerType = 'hidden';
+
   switch (question.answerType) {
     case 'radio':
       if (question.answers && question.answers.length > 0) {
@@ -36,6 +39,8 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
       return <SliderInput {...inputProps} />;
     case 'list':
       return <ListSelection {...inputProps} />;
+    case 'text':
+      return <TextInput {...inputProps} />;
     case 'display':
       return <DisplayInput {...inputProps} />;
     case 'heading':
@@ -47,6 +52,7 @@ const Question = ({ question, answer, disabled, hidden, handleChange }) => {
 
 Question.propTypes = {
   question: PropTypes.shape({
+    hidden: PropTypes.bool,
     name: PropTypes.string,
     question: PropTypes.string,
     description: PropTypes.string,

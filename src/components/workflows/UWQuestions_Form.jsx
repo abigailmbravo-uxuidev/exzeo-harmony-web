@@ -208,6 +208,7 @@ export default (connect(null))(graphql(gql `
                 value
             }
             questions {
+                hidden
                 name
                 validations
                 question
@@ -215,8 +216,9 @@ export default (connect(null))(graphql(gql `
                 description
                 minValue
                 maxValue
-                valueDefault
+                defaultAnswer
                 answers {
+                    default
                     answer
                     image
                 }
