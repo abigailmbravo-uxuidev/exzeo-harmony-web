@@ -11,11 +11,11 @@ class Customize extends Component {
     router: PropTypes.any,
   }
   submit = async () => {
-    console.log('SUBMITTING')
+    console.log('SUBMITTING');
     const buildSubmission = (stepName, data) => ({
       variables: {
         input: {
-          workflowId: 265050, // plugin workflow id or uncomment next line
+          workflowId: localStorage.getItem('newWorkflowId'), // plugin workflow id or uncomment next line
           // workflowId: localStorage.getItem('newWorkflowId'),
           stepName,
           data,
@@ -40,11 +40,10 @@ class Customize extends Component {
       console.log('ask additional questions submit', data);
       data = await this.props.completeStep(buildSubmission('askScheduleInspectionDates', []));
       console.log('Last data');
-      this.context.router.push('quote/thanks');
+      this.context.router.push('thankyou');
     } catch (error) {
       console.log(error);
     }
-
   }
   render() {
     return (
