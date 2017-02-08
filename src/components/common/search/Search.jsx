@@ -79,8 +79,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(graphql(gql`
-    query {
-        steps(id: 260871) {
+    query GetActiveStep($workflowId:ID!) {
+        steps(id: $workflowId) {
             name
             details {
                 name
@@ -104,7 +104,9 @@ export default connect(mapStateToProps)(graphql(gql`
             type
             completedSteps
         }
-    }`, {name: 'activeStep'})
+    }`,
+  { options: { variables: { workflowId: localStorage.getItem('workflowId') } }},
+  {name: 'activeStep'})
 (graphql(gql `
     mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {

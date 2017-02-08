@@ -62,8 +62,8 @@ class SearchResults extends Component {
 
 
 export default connect(null)(graphql(gql`
-    query {
-        steps(id: 262478) {
+    query GetActiveStep($workflowId:ID!){
+        steps(id: $workflowId) {
             name
             details {
                 name
@@ -87,7 +87,9 @@ export default connect(null)(graphql(gql`
             type
             completedSteps
         }
-    }`, {name: 'activeStep'})
+    }`,
+    { options: { variables: { workflowId: localStorage.getItem('workflowId') } }},
+    {name: 'activeStep'})
 (graphql(gql `
     mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
