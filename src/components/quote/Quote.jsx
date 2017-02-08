@@ -32,7 +32,7 @@ class Quote extends Component {
           let workflow = data.startWorkflow;
           localStorage.setItem('newWorkflowId', workflow.id);
           let activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
-          this.context.router.push(`quote/${activeLink}`);
+          this.context.router.push(`/quote/${activeLink}`);
         })
         .catch(error => console.log(error));
     }

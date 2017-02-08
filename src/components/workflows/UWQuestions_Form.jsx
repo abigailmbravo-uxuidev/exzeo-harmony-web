@@ -23,78 +23,78 @@ class UWQuestions extends Component {
   componentWillMount() {
   }
   componentWillReceiveProps(newProps) {
-    if ((!this.props.data.steps && newProps.data.steps) ||
-      (!newProps.data.loading &&
-        this.props.data.steps &&
-        // newProps.data.steps &&
-        this.props.data.steps.name !== newProps.data.steps.name
-      )) {
-      const { questions } = this.state;
-      const { steps } = newProps.data;
-
-      if (steps.questions) {
-        steps.questions.forEach((question) => {
-          let value = '';
-          if ('defaultValue' in question) {
-            value = question.defaultValue;
-          } else if (question.answerType === 'bool') {
-            value = false;
-          } else if (question.answerType === 'range') {
-            value = 0;
-          }
-          questions[question.name] = {
-            value,
-            hidden: false,
-            disabled: false,
-          };
-        });
-        steps.questions.forEach((question) => {
-          if (question.conditional && question.conditional.display) {
-            questions[question.name].hidden = false;
-            questions[question.name].disabled = false;
-            const { display } = question.conditional;
-          // console.log('WORKFLOW STEP DATA: ', display);
-            display.forEach((condition) => {
-            // console.log(condition);
-            switch (condition.operator) { // eslint-disable-line
-              case 'equal':
-                if (!questions[question.name][condition.type]) {
-                  questions[question.name][condition.type] =
-                    !(questions[condition.dependency].value === condition.trigger);
-                }
-                break;
-              case 'notEqualTo':
-                if (!questions[question.name][condition.type]) {
-                  questions[question.name][condition.type] =
-                    (questions[condition.dependency].value === condition.trigger);
-                }
-                break;
-              case 'greaterThan':
-                const { details } = this.state;
-                // console.log('CURRENT DEBUG:: ', details);
-                if (details && details.find(d => d.name === condition.detail)) {
-                  const expected = details.find(d => d.name === condition.detail).value;
-                  // console.log(expected, condition.trigger);
-                  questions[question.name][condition.type] =
-                    expected > condition.trigger;
-                } else if (!questions[question.name][condition.type]) {
-                  questions[question.name][condition.type] =
-                    !(questions[condition.dependency].value > condition.trigger);
-                }
-                break;
-              case 'lessThan':
-                if (!questions[question.name][condition.type]) {
-                  questions[question.name][condition.type] =
-                    !(questions[condition.dependency].value < condition.trigger);
-                }
-                break;
-            }
-            });
-          }
-        });
-      }
-      this.setState({ questions });
-    }
+    // if ((!this.props.data.steps && newProps.data.steps) ||
+    //   (!newProps.data.loading &&
+    //     this.props.data.steps &&
+    //     // newProps.data.steps &&
+    //     this.props.data.steps.name !== newProps.data.steps.name
+    //   )) {
+    //   const { questions } = this.state;
+    //   const { steps } = newProps.data;
+    //
+    //   if (steps.questions) {
+    //     steps.questions.forEach((question) => {
+    //       let value = '';
+    //       if ('defaultValue' in question) {
+    //         value = question.defaultValue;
+    //       } else if (question.answerType === 'bool') {
+    //         value = false;
+    //       } else if (question.answerType === 'range') {
+    //         value = 0;
+    //       }
+    //       questions[question.name] = {
+    //         value,
+    //         hidden: false,
+    //         disabled: false,
+    //       };
+    //     });
+    //     steps.questions.forEach((question) => {
+    //       if (question.conditional && question.conditional.display) {
+    //         questions[question.name].hidden = false;
+    //         questions[question.name].disabled = false;
+    //         const { display } = question.conditional;
+    //       // console.log('WORKFLOW STEP DATA: ', display);
+    //         display.forEach((condition) => {
+    //         // console.log(condition);
+    //         switch (condition.operator) { // eslint-disable-line
+    //           case 'equal':
+    //             if (!questions[question.name][condition.type]) {
+    //               questions[question.name][condition.type] =
+    //                 !(questions[condition.dependency].value === condition.trigger);
+    //             }
+    //             break;
+    //           case 'notEqualTo':
+    //             if (!questions[question.name][condition.type]) {
+    //               questions[question.name][condition.type] =
+    //                 (questions[condition.dependency].value === condition.trigger);
+    //             }
+    //             break;
+    //           case 'greaterThan':
+    //             const { details } = this.state;
+    //             // console.log('CURRENT DEBUG:: ', details);
+    //             if (details && details.find(d => d.name === condition.detail)) {
+    //               const expected = details.find(d => d.name === condition.detail).value;
+    //               // console.log(expected, condition.trigger);
+    //               questions[question.name][condition.type] =
+    //                 expected > condition.trigger;
+    //             } else if (!questions[question.name][condition.type]) {
+    //               questions[question.name][condition.type] =
+    //                 !(questions[condition.dependency].value > condition.trigger);
+    //             }
+    //             break;
+    //           case 'lessThan':
+    //             if (!questions[question.name][condition.type]) {
+    //               questions[question.name][condition.type] =
+    //                 !(questions[condition.dependency].value < condition.trigger);
+    //             }
+    //             break;
+    //         }
+    //         });
+    //       }
+    //     });
+    //   }
+    //   this.setState({ questions });
+    // }
   }
 
   handleChange = (event) => {
@@ -151,7 +151,7 @@ class UWQuestions extends Component {
     this.props.completeStep({
       variables: {
         input: {
-          workflowId: 265554,
+          workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askUWAnswers',
           data: this.formatData(event),
         },
@@ -171,7 +171,7 @@ class UWQuestions extends Component {
     Object.keys(demographicAnswers).forEach((key) => {
       answers.push({ key, value: demographicAnswers[key] });
     });
-    answers.push({ key: 'shouldCustomizeQuote', value: 'No' });
+    //answers.push({ key: 'shouldCustomizeQuote', value: 'No' });
     return answers;
   }
 
@@ -201,116 +201,94 @@ UWQuestions.propTypes = {
 };
 
 export default (connect(null))(graphql(gql `
-  query {
-    steps(id:265554) {
-      name
-      details {
-        name
-        value
-      }
-      showDetail
-      data {
-        ... on Quote {
-          coverageLimits {
-            dwelling {
-              maxAmount
-              minAmount
-              amount
+    query GetActiveStep($workflowId:ID!) {
+        steps(id: $workflowId) {
+            name
+            details {
+                name
+                value
+            }
+            questions {
+                name
+                validations
+                question
+                answerType
+                description
+                minValue
+                maxValue
+                valueDefault
+                answers {
+                    answer
+                    image
+                }
+                conditional {
+                    display {
+                        type
+                        operator
+                        trigger
+                        dependency
+                        detail
+                    }
+                }
+            }
+            completedSteps
+            type
+            completedSteps
+        }
+    }`, { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } }},
+        {name: 'activeStep'})
+    (graphql(gql `
+      mutation CompleteStep($input:CompleteStepInput) {
+        completeStep(input:$input) {
+          name
+          details {
+            name
+            value
+          }
+          data {
+            ... on Quote {
+              coverageLimits {
+                dwelling {
+                  maxAmount
+                  minAmount
+                  amount
+                }
+              }
+            }
+            ... on Property {
+              physicalAddress {
+                address1
+              }
+            }
+            ... on Address {
+              address1
+              city
+              state
+              zip
+              id
             }
           }
-        }
-        ... on Property {
-          physicalAddress {
-            address1
-          }
-        }
-        ... on Address {
-          address1
-          city
-          state
-          zip
-          id
-        }
-      }
-      type
-      questions {
-        name
-        validations
-        question
-        answerType
-        description
-        minValue
-        maxValue
-        valueDefault
-        answers {
-          answer
-          image
-        }
-        conditional {
-          display {
-            type
-            operator
-            trigger
-            dependency
-            detail
-          }
-        }
-      }
-      completedSteps
-    }
-  }
-`)(graphql(gql `
-  mutation CompleteStep($input:CompleteStepInput) {
-    completeStep(input:$input) {
-      name
-      details {
-        name
-        value
-      }
-      data {
-        ... on Quote {
-          coverageLimits {
-            dwelling {
-              maxAmount
-              minAmount
-              amount
+          type
+          questions {
+            name
+            question
+            answerType
+            description
+            answers {
+              answer
+              image
+            }
+            conditional {
+              display {
+                type
+                operator
+                trigger
+                dependency
+                detail
+              }
             }
           }
-        }
-        ... on Property {
-          physicalAddress {
-            address1
-          }
-        }
-        ... on Address {
-          address1
-          city
-          state
-          zip
-          id
+          completedSteps
         }
       }
-      type
-      questions {
-        name
-        question
-        answerType
-        description
-        answers {
-          answer
-          image
-        }
-        conditional {
-          display {
-            type
-            operator
-            trigger
-            dependency
-            detail
-          }
-        }
-      }
-      completedSteps
-    }
-  }
-`, { name: 'completeStep' })(UWQuestions)));
+    `, { name: 'completeStep' })(UWQuestions)));
