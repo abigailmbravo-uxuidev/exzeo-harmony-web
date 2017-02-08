@@ -46,7 +46,7 @@ const Splash = ({ splashScreen, loginMessage }) => {
                                       <div className="card-block">
                                               <p>Brief description of HO3 product offering.</p>
                                               <p>Agents can <b>quote</b> and <b>retrieve</b> saved flood quotes.</p>
-                                              <Link to="/search" className="btn btn-primary">Start</Link>
+                                              <Link to="/quote" className="btn btn-primary">Start</Link>
                                       </div>
                               </div>
                       </div>

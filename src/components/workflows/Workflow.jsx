@@ -3,13 +3,9 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Demographics from '../workflows/Demographics';
-import Customize from '../workflows/CustomizeQuote_';
-import Share from '../workflows/Share';
+import Search from '../common/search/Search';
+import SearchResults from '../common/search/SearchResults';
 import UWQuestions from '../workflows/UWQuestions_Form';
-import Billing from '../workflows/Billing';
-import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
-import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
-import Verify from '../common/verify/Verify';
 import _ from 'lodash';
 
 const WorkflowHeader = (d) => {
@@ -219,15 +215,15 @@ class Workflow extends Component {
           <WorkflowDetails />
           <Router>
             <div className="route">
-              <WorkflowHeader steps={workflow.steps} />
+              <Route path="/quote/search" component={Search} />
+              <Route path="/quote/search/:address" component={SearchResults} />
               <Route path="/quote/demographics" component={Demographics} />
               <Route path="/quote/underwriting" component={UWQuestions} />
-              <Route path="/quote/customize" component={Customize} />
-              <Route path="/quote/share" component={Share} />
-              <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm} />
-              <Route path="/workflow/MailingAddress" component={MailingAddressForm} />
-              <Route path="/workflow/billing" component={Billing} />
-              <Route path="/workflow/verify" component={Verify} />
+              {/*<Route path="/quote/share" component={Share} />*/}
+              {/*<Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm} />*/}
+              {/*<Route path="/workflow/MailingAddress" component={MailingAddressForm} />*/}
+              {/*<Route path="/workflow/billing" component={Billing} />*/}
+              {/*<Route path="/workflow/verify" component={Verify} />*/}
               <WorkflowFooter steps={workflow.steps} activeStep={activeStep} />
             </div>
           </Router>

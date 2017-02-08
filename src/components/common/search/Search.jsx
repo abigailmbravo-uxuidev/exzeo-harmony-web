@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SearchBar from './SearchBar';
-import TypeAhead from './TypeAhead';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 
 class Search extends Component {
   static propTypes = {
@@ -15,45 +17,42 @@ class Search extends Component {
   state = {
     searchText: '',
   }
+
   handleChange = (event) => {
     if (event && event.preventDefault) event.preventDefault();
     this.setState({ searchText: event.target.value });
   }
 
   handleSubmit = (event) => {
-    // window.location = '/quote/address/' + this.state.searchText;
-    // if (event && event.preventDefault) event.preventDefault();
-    // if (this.props.searchConfig.type === 'append') {
-    //   const query = {};
-    //   query[this.props.searchConfig.value] = this.state.searchText;
-    //   this.context.router.transitionTo({
-    //     query,
-    //   });
-    //   this.setState({ searchText: '' });
-    // }
-  }
+    if (event && event.preventDefault) event.preventDefault();
 
-  handleSelect = (event) => {
-    // if (event && event.preventDefault) event.preventDefault();
-    //
-    // if (this.props.searchConfig.type === 'append') {
-    //   const query = {};
-    //   query[this.props.searchConfig.value] = event.target.innerText;
-    //   this.context.router.transitionTo({
-    //     query,
-    //   });
-    //   this.setState({ searchText: '' });
-    // }
-    // window.location = '/quote/address/' + event.target.innerText;
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: localStorage.getItem('workflowId'),
+          stepName: "askAddress",
+          data: [
+            {
+              key: 'address',
+              value: this.state.searchText,
+            }
+          ],
+        },
+      },
+    }).then((updatedStep) => {
+      //console.log(data)
+      let workflow = updatedStep.data.completeStep;
+      console.log(workflow)
+      if(workflow && workflow.link)
+        this.context.router.push(`${workflow.link}/${this.state.searchText}`);
+
+      this.setState({ searchText: '' });
+    }).catch(error => console.log(error));
+
   }
 
   clearSearch = () => {
     this.setState({ searchText: '' });
-  }
-
-  componentWillMount() {
-    // const address = decodeURIComponent(window.location.pathname.split('/')[3]);
-    // this.setState({ searchText: (address !== 'undefined' ? address : '') });
   }
 
   render() {
@@ -79,4 +78,40 @@ const mapStateToProps = state => ({
   searchConfig: state.search.get('config'),
 });
 
-export default connect(mapStateToProps)(Search);
+export default connect(mapStateToProps)(graphql(gql`
+    query {
+        steps(id: 260871) {
+            name
+            details {
+                name
+                value
+            }
+            showDetail
+            data {
+                ... on Property {
+                    physicalAddress {
+                        address1
+                    }
+                }
+                ... on Address {
+                    address1
+                    city
+                    state
+                    zip
+                    id
+                }
+            }
+            type
+            completedSteps
+        }
+    }`, {name: 'activeStep'})
+(graphql(gql `
+    mutation CompleteStep($input:CompleteStepInput) {
+        completeStep(input:$input) {
+            name
+            type
+            link
+        }
+    }
+`, { name: 'completeStep' })(Search)));
+
