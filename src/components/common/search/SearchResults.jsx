@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -8,7 +8,7 @@ const Results = ({ addresses, handleClick }) => (
     {
       addresses ? addresses.map((address, index) => (
         <li id={address.id} key={index}>
-          <a onClick={() => handleClick(address)}>
+          <a onClick={() => handleClick(address)} tabIndex="-1">
             <i className="card-icon fa fa-map-marker" />
             <section>
               <h4>{address.address1}</h4>
@@ -22,31 +22,40 @@ const Results = ({ addresses, handleClick }) => (
   </ul>
 );
 
+Results.propTypes = {
+  addresses: PropTypes.Object,
+  handleClick: PropTypes.func,
+};
+
 class SearchResults extends Component {
-  state = {
-    workflowId: '',
-    loading: '',
-    results: []
-  }
 
   static propTypes = {
     data: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
       steps: PropTypes.object,
+      refetch: PropTypes.func,
     }).isRequired,
+    completeStep: PropTypes.func,
   };
 
   static contextTypes = {
     router: PropTypes.object,
   }
 
-  componentWillReceiveProps(newProps){
-    if(newProps !== this.props){
-      this.setState({loading: newProps.data.loading, results: newProps.data.steps.data});
-    }
+  state = {
+    workflowId: '',
+    loading: '',
+    results: [],
   }
-  componentWillMount(){
-    this.setState({workflowId: localStorage.getItem('newWorkflowId')});
+
+  componentWillMount() {
+    this.setState({ workflowId: localStorage.getItem('newWorkflowId') });
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps !== this.props) {
+      this.setState({ loading: newProps.data.loading, results: newProps.data.steps.data });
+    }
   }
 
   makeAddressSelection = (address) => {
@@ -67,17 +76,18 @@ class SearchResults extends Component {
         },
       },
     }).then((updatedStep) => {
-      let workflow = updatedStep.data.completeStep;
-      if(workflow && workflow.link)
-        this.props.data.refetch().then((data) => {
+      const workflow = updatedStep.data.completeStep;
+      if (workflow && workflow.link) {
+        this.props.data.refetch().then(() => {
           this.context.router.push(`/quote/${workflow.link}`);
         });
+      }
     }).catch(error => console.log(error));
   }
 
 
   render() {
-    const {results} = this.state;
+    const { results } = this.state;
 
     return (
       <div className="workflow">
@@ -94,9 +104,9 @@ class SearchResults extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
-};
+}
 
 
 export default connect(null)(graphql(gql`
@@ -121,9 +131,9 @@ export default connect(null)(graphql(gql`
             completedSteps
         }
     }`,
-    { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } }},
-    {name: 'activeStep'})
-(graphql(gql `
+    { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } } },
+    { name: 'activeStep' },
+)(graphql(gql `
     mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
             name
