@@ -33,6 +33,7 @@ class Demographics extends Component {
         },
       },
     }).then((updatedModel) => {
+      this.setState({ details: updatedModel.data.completeStep.details });
       console.log(updatedModel);
       const activeLink = updatedModel.data.completeStep.link;
       this.context.router.push(`${activeLink}`);

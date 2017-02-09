@@ -32,6 +32,9 @@ class UWQuestions extends Component {
       const { questions } = this.state;
       const { steps } = newProps.data;
 
+      console.log('steps.details', steps.details);
+      localStorage.setItem('details', JSON.stringify(steps.details));
+
       if (steps.questions) {
         steps.questions.forEach((question) => {
           let value = '';
@@ -147,6 +150,8 @@ class UWQuestions extends Component {
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
 
+    console.log('this.state.details', this.state.details);
+
     this.props.completeStep({
       variables: {
         input: {
@@ -199,7 +204,11 @@ UWQuestions.propTypes = {
   handleChange: PropTypes.func,
 };
 
-export default (connect(null))(graphql(gql `
+const mapDispatchToProps = dispatch => ({
+  searchActions: bindActionCreators(searchActions, dispatch),
+});
+
+export default (connect(null, mapDispatchToProps))(graphql(gql `
     query GetActiveStep($workflowId:ID!) {
         steps(id: $workflowId) {
             name
