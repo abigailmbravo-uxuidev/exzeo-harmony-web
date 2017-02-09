@@ -12,14 +12,14 @@ const PolicyHolderDemographics = ({ askDate, styleName, handleSubmit, handleOnSu
 
   return (
     <div className="form-group survey-wrapper policyHolder-component" role="group">
-      {/*<Dropdown*/}
-        {/*answers={[{ answer: 'Company' }, { answer: 'Person' }]}*/}
-        {/*handleChange={handleChange}*/}
-        {/*defaultValue={'Person'}*/}
-        {/*name={'entityType'}*/}
-        {/*question={'Entity Type'}*/}
-        {/*validations={['required']}*/}
-      {/*/>*/}
+      {/* <Dropdown*/}
+      {/* answers={[{ answer: 'Company' }, { answer: 'Person' }]}*/}
+      {/* handleChange={handleChange}*/}
+      {/* defaultValue={'Person'}*/}
+      {/* name={'entityType'}*/}
+      {/* question={'Entity Type'}*/}
+      {/* validations={['required']}*/}
+      {/* />*/}
 
       {entityType === 'Person' && <TextInput
         answerType="text"

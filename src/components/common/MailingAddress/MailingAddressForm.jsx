@@ -2,14 +2,12 @@ import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
 import { reduxForm, Form, formValueSelector } from 'redux-form';
-import Footer from '../Footer';
 import MailingAddress from './MailingAddress';
 
 let MailingAddressForm = (props) => {
-  const { initialValues, styleName, handleSubmit,
-     handleOnSubmit = handleOnSubmit || function () { },
-     handleChange = handleChange || function () {}, name,
-          pristine, reset, submitting, error, invalid } = props;
+  const { styleName, handleSubmit,
+     handleOnSubmit,
+     handleChange, name } = props;
   return (
     <Form
       className={`fade-in ${styleName || ''}`} id="MailingAddressForm" onSubmit={handleSubmit(handleOnSubmit)}
@@ -25,6 +23,8 @@ let MailingAddressForm = (props) => {
 };
 
 MailingAddressForm.propTypes = {
+  name: PropTypes.string,
+  styleName: PropTypes.string,
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
