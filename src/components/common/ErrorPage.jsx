@@ -2,14 +2,17 @@ import React from 'react';
 
 const ErrorPage = () => (
   <div className="error-page" role="article">
-    {/*HARD STOP WORKFLOW ERROR*/}
+    {/* HARD STOP WORKFLOW ERROR*/}
     <div className="fade-in">
       <div className="workflow-content">
         <section>
           <div className="fade-in">
             <div className="survey-wrapper">
               <h4>An error occured while trying to complete your quote.</h4>
-              <p>We apologize, we are unable to provide an automated quote for your property at this time. Please contact one of our representatives so they may further assist you in obtaining a quote.</p>
+              <p>We apologize, we are unable to provide an automated quote
+                for your property at this time. Please contact one of our
+                representatives so they may further assist you in obtaining
+                a quote.</p>
             </div>
           </div>
         </section>
@@ -20,11 +23,11 @@ const ErrorPage = () => (
             <dt>Customer service</dt>
             <dd>
               <a href="tel:8442897968">
-                <i className="fa fa-phone"></i>
+                <i className="fa fa-phone" />
                 (844) 289-7968
               </a>
               <a href="mailto:customerservice@typtap.com">
-                <i className="fa fa-envelope"></i>
+                <i className="fa fa-envelope" />
                 email us
               </a>
             </dd>
@@ -32,7 +35,7 @@ const ErrorPage = () => (
         </dl>
       </div>
     </div>
-    {/*SOFT STOP WORKFLOW ERROR*/}
+    {/* SOFT STOP WORKFLOW ERROR*/}
     <div className="fade-in">
       <div className="workflow-content">
         <section>
@@ -50,11 +53,11 @@ const ErrorPage = () => (
             <dt>Customer service</dt>
             <dd>
               <a href="tel:8442897968">
-                <i className="fa fa-phone"></i>
+                <i className="fa fa-phone" />
                 (844) 289-7968
               </a>
               <a href="mailto:customerservice@typtap.com">
-                <i className="fa fa-envelope"></i>
+                <i className="fa fa-envelope" />
                 email us
               </a>
             </dd>
@@ -62,7 +65,7 @@ const ErrorPage = () => (
         </dl>
       </div>
     </div>
-    {/*APP ERROR*/}
+    {/* APP ERROR*/}
     <div className="fade-in app-error">
       <div className="workflow-content">
         <section>
@@ -70,7 +73,8 @@ const ErrorPage = () => (
             <section className="survey-wrapper">
               <article className="error-message">
                 <h2>Oh no! You Flooded the Website!</h2>
-                <p>Just kidding, something went wrong or the page you are looking for cannot be found.</p>
+                <p>Just kidding, something went wrong or the
+                  page you are looking for cannot be found.</p>
                 <a href="./" className="btn btn-success">Return Home</a>
               </article>
               <div className="contact-info">
@@ -79,11 +83,11 @@ const ErrorPage = () => (
                     <dt>Customer service</dt>
                     <dd>
                       <a href="tel:8442897968">
-                        <i className="fa fa-phone"></i>
+                        <i className="fa fa-phone" />
                         (844) 289-7968
                       </a>
                       <a href="mailto:customerservice@typtap.com">
-                        <i className="fa fa-envelope"></i>
+                        <i className="fa fa-envelope" />
                         email us
                       </a>
                     </dd>
@@ -94,8 +98,7 @@ const ErrorPage = () => (
           </div>
         </section>
       </div>
-
-      <div className="waves"></div>
+      <div className="waves" />
     </div>
   </div>
 

@@ -1,48 +1,47 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Workflow from '../workflows/Workflow';
-import steps from './quoteSteps';
 
 class Quote extends Component {
 
   static propTypes = {
-    startWorkflow: PropTypes.func
+    startWorkflow: PropTypes.func,
+    match: PropTypes.any,// eslint-disable-line
   }
 
   static contextTypes = {
-    router: PropTypes.any
+    router: PropTypes.any,
   }
 
   state = {
     workflow: {
       id: '',
       steps: [],
-      activeStep:'',
+      activeStep: '',
       completedSteps: [],
-    }
+    },
   }
 
-  componentWillMount(){
-    const {match} = this.props;
-    if(!match.params.activeStep){
+  componentWillMount() {
+    const { match } = this.props;
+    if (!match.params.activeStep) {
       this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
         .then(({ data }) => {
           console.log('workflow started:', data);
-          let workflow = data.startWorkflow;
+          const workflow = data.startWorkflow;
           localStorage.setItem('newWorkflowId', workflow.id);
-          let activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
+          const activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
           window.location.href = `/quote/${activeLink}`;
         })
         .catch(error => console.log(error));
     }
 
 
-    //console.log(this.props)
+    // console.log(this.props)
   }
   render() {
-
-    const {match} = this.props;
+    // const { match } = this.props;
 
     return (
       <div>
@@ -50,7 +49,7 @@ class Quote extends Component {
       </div>
     );
   }
-};
+}
 
 export default graphql(gql`
     mutation StartWorkflow($input:WorkflowInput) {
@@ -67,4 +66,4 @@ export default graphql(gql`
         }
     }
 `, { name: 'startWorkflow' })(Quote);
-//export default Quote;
+// export default Quote;

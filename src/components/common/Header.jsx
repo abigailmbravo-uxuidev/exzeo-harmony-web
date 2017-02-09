@@ -4,11 +4,11 @@ import logo from '../../img/TypTap.svg';
 const Header = () => (
   <header>
     <div role="banner">
-      <button className="btn-icon btn-bars"><i className="fa fa-bars"></i></button>
+      <button className="btn-icon btn-bars"><i className="fa fa-bars" /></button>
       <div id="logo" className="logo">
         <img src={logo} alt="TypTap Insurance" />
       </div>
-      <button className="btn-icon btn-ellipsis-v"><i className="fa fa-ellipsis-v"></i></button>
+      <button className="btn-icon btn-ellipsis-v"><i className="fa fa-ellipsis-v" /></button>
       <nav className="fade-in">
         <a href="https://www.typtap.com">HOME</a>
         <a href="" className="active">AGENTS</a>
