@@ -1,13 +1,14 @@
+/*
+eslint import/no-mutable-exports:0
+*/
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
-import { reduxForm, Form, formValueSelector, FieldArray } from 'redux-form';
+import { reduxForm, Form, FieldArray } from 'redux-form';
 import Interest from './Interest';
 
 let AdditionalInterestUpdateForm = (props) => {
-  const { initialValues, styleName, handleSubmit, handleOnSubmit, handleChange,
-          pristine, reset, submitting, error, invalid } = props;
-
+  const { styleName, handleSubmit, handleOnSubmit } = props;
 
   return (
     <Form
@@ -25,7 +26,7 @@ let AdditionalInterestUpdateForm = (props) => {
 AdditionalInterestUpdateForm.propTypes = {
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
+  styleName: PropTypes.string,
 };
 
 AdditionalInterestUpdateForm = reduxForm({
@@ -33,7 +34,7 @@ AdditionalInterestUpdateForm = reduxForm({
   form: 'AdditionalInterestUpdateForm', // a unique identifier for this form
 })(AdditionalInterestUpdateForm);
 
-const selector = formValueSelector('AdditionalInterestUpdateForm'); // <-- same as form name
+// const selector = formValueSelector('AdditionalInterestUpdateForm'); // <-- same as form name
 
 AdditionalInterestUpdateForm = connect(
     state => ({

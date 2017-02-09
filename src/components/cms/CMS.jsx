@@ -52,12 +52,16 @@ class CMS extends Component {
     this.setState(this.state);
   }
   toggleEdit = (name) => {
-    this.state.questions.find(q => q.name === name).editing = !this.state.questions.find(q => q.name === name).editing;
+    this.state.questions.find(q => q.name === name)
+    .editing = !this.state.questions.find(q => q.name === name).editing;
     this.setState(this.state);
   }
   addAnswer = (newAnswer, name) => {
-    this.state.questions.find(q => q.name === name).answers = this.state.questions.find(q => q.name === name).answers || [];
-    this.state.questions.find(q => q.name === name).answers.push({ answer: newAnswer });
+    this.state.questions
+    .find(q => q.name === name)
+    .answers = this.state.questions.find(q => q.name === name).answers || [];
+    this.state.questions
+    .find(q => q.name === name).answers.push({ answer: newAnswer });
   }
   render() {
     const { questions, answers } = this.state;
