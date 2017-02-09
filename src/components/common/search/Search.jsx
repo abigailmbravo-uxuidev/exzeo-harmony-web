@@ -59,8 +59,7 @@ class Search extends Component {
 
   render() {
     const { options } = this.props;
-    const { searchText } = this.state;
-    let placeholder = options ? options.placeholder : 'Search...';
+    const placeholder = options ? options.placeholder : 'Search...';
 
     return (
       <div className="search">
@@ -82,37 +81,36 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(
   graphql(gql`query GetActiveStep($workflowId:ID!) {
-        steps(id: $workflowId) {
-            name
-            details {
-                name
-                value
-            }
-            showDetail
-            data {
-                ... on Property {
-                    physicalAddress {
-                        address1
-                    }
-                }
-                ... on Address {
-                    address1
-                    city
-                    state
-                    zip
-                    id
-                }
-            }
-            type
-            completedSteps
-        }
+      steps(id: $workflowId) {
+          name
+          details {
+              name
+              value
+          }
+          showDetail
+          data {
+              ... on Property {
+                  physicalAddress {
+                      address1
+                  }
+              }
+              ... on Address {
+                  address1
+                  city
+                  state
+                  zip
+                  id
+              }
+          }
+          type
+          completedSteps
+      }
     }`,
     {
       options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } },
     },
     { name: 'activeStep' },
-)
-( graphql(gql `mutation CompleteStep($input:CompleteStepInput) {
+)(graphql(gql `mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
             name
             type
