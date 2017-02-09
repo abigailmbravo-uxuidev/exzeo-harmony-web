@@ -3,7 +3,6 @@ import { FieldArray } from 'redux-form';
 import PolicyHolder from '../policyHolder/PolicyHolder';
 import Interest from '../AdditionalInterests/Interest';
 
-
 const renderPolicyHolder = ({ fields, InterestType, InterestTypeName,
    handleChange, meta: { touched, error } }) => (
      <div>

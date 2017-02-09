@@ -35,6 +35,10 @@ const Details = ({ details }) => (
     </section>
   </div>);
 
+Details.propTypes = {
+    details: PropTypes.any,// eslint-disable-line
+};
+
 class Customize extends Component {
   static propTypes = {
     // workflowId: PropTypes.string,
