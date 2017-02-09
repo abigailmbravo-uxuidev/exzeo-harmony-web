@@ -1,7 +1,10 @@
+/*
+eslint import/no-mutable-exports:0
+*/
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
-import { reduxForm, Form, formValueSelector } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import MailingAddress from './MailingAddress';
 
 let MailingAddressForm = (props) => {
@@ -33,8 +36,6 @@ MailingAddressForm.propTypes = {
 MailingAddressForm = reduxForm({
   form: 'MailingAddressForm', // a unique identifier for this form
 })(MailingAddressForm);
-
-const selector = formValueSelector('MailingAddressForm'); // <-- same as form name
 
 MailingAddressForm = connect(
     state => ({
