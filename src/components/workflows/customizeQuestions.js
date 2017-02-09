@@ -13,8 +13,8 @@ export default [{
     slider: {
       minLocation: 'coverageLimits.dwelling.minAmount',
       maxLocation: 'coverageLimits.dwelling.maxAmount',
-    }
-  }
+    },
+  },
 }, {
   name: 'otherStructuresAmount',
   question: 'Other Structures Limit',
@@ -38,8 +38,8 @@ export default [{
       type: 'percent',
       location: 'state',
       dependency: 'dwellingAmount',
-    }
-  }
+    },
+  },
 }, {
   name: 'personalPropertyCoverage',
   question: 'Do you want personal property coverage?',
@@ -70,8 +70,8 @@ export default [{
       dependency: 'personalPropertyCoverage',
       location: 'state',
       operator: 'equal',
-    }]
-  }
+    }],
+  },
 }, {
   name: 'personalPropertyReplacementCostCoverage',
   question: 'Do you want personal property replacement cost coverage?',
@@ -84,8 +84,8 @@ export default [{
       dependency: 'personalPropertyCoverage',
       location: 'state',
       operator: 'equal',
-    }]
-  }
+    }],
+  },
 }, {
   name: 'lossOfUseAmount',
   question: 'Loss Of Use Limit',
@@ -96,8 +96,8 @@ export default [{
       type: 'percent',
       location: 'state',
       dependency: 'dwellingAmount',
-    }
-  }
+    },
+  },
 }, {
   name: 'personalLiability',
   question: 'Personal Liability Limit',
@@ -109,7 +109,7 @@ export default [{
   }, {
     answer: 300000,
     display: '$ 300,000',
-  }]
+  }],
 }, {
   name: 'medicalPayments',
   question: 'Medical Payments to Others',
@@ -129,7 +129,7 @@ export default [{
   }, {
     answer: 50000,
     display: '$ 50,000',
-  }]
+  }],
 }, {
   name: 'moldLiability',
   question: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
@@ -137,11 +137,11 @@ export default [{
   answerType: 'radio',
   answers: [{
     answer: 50000,
-    display: "$ 50,000",
+    display: '$ 50,000',
   }, {
     answer: 100000,
-    display: "$ 100,000",
-  }]
+    display: '$ 100,000',
+  }],
 }, {
   name: 'ordinanceOrLaw',
   question: 'Ordinance Or Law Coverage Limit',
@@ -159,8 +159,8 @@ export default [{
       type: 'percent',
       location: 'state',
       dependency: 'dwellingAmount',
-    }
-  }
+    },
+  },
 }, {
   name: 'coverageOptions',
   question: 'Coverage Options',
@@ -172,12 +172,12 @@ export default [{
   defaultValue: 'None',
   answerType: 'radio',
   answers: [{
-    answer: 'Main Dwelling'
+    answer: 'Main Dwelling',
   }, {
-    answer: 'Other Structures'
+    answer: 'Other Structures',
   }, {
-    answer: 'None'
-  }]
+    answer: 'None',
+  }],
 }, {
   name: 'sinkholeCoverage',
   question: 'Do you want Sinkhole Loss Coverage? ',
@@ -202,7 +202,7 @@ export default [{
   }, {
     answer: 2500,
     display: '$ 2500',
-  }]
+  }],
 }, {
   name: 'hurricane',
   question: 'Other Structures Limit',
@@ -223,6 +223,6 @@ export default [{
       type: 'percent',
       location: 'state',
       dependency: 'dwellingAmount',
-    }
-  }
-}]
+    },
+  },
+}];
