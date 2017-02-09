@@ -91,16 +91,16 @@ textarea {
           }
         }
 
-        &.selected {
-          .label-segmented {
-            span {
-              color: $body-color;
-              border-color: $green;
-              background: $white;
-              box-shadow: 0 0 0 2px $green inset;
-            }
-          }
-        }
+        // &.selected {
+        //   .label-segmented {
+        //     span {
+        //       color: $body-color;
+        //       border-color: $green;
+        //       background: $white;
+        //       box-shadow: 0 0 0 2px $green inset;
+        //     }
+        //   }
+        // }
       }
     }
 
