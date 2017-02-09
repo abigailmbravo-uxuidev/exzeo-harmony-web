@@ -61,7 +61,7 @@ class Search extends Component {
     let placeholder = options ? options.placeholder : "Search...";
 
     return (
-      <div>
+      <div className="search">
         <SearchBar
           placeholder={placeholder}
           handleChange={this.handleChange}
@@ -116,4 +116,3 @@ export default connect(mapStateToProps)(graphql(gql`
         }
     }
 `, { name: 'completeStep' })(Search)));
-
