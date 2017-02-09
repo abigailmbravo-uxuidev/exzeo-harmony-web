@@ -1,10 +1,10 @@
 /* eslint no-param-reassign:0 */
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import auth from './authReducer';
 import features from './featureReducer';
 import search from './searchReducer';
-import { reducer as formReducer } from 'redux-form';
 
 let uri = 'http://localhost:4001/api';
 console.log(process.env.NODE_ENV);

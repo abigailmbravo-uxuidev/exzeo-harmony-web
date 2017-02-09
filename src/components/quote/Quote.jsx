@@ -16,6 +16,7 @@ class Quote extends Component {
 
   state = {
     workflow: {
+      id: '',
       steps: [],
       activeStep:'',
       completedSteps: [],
@@ -25,12 +26,13 @@ class Quote extends Component {
   componentWillMount(){
     const {match} = this.props;
     if(!match.params.activeStep){
-      this.props.startWorkflow({ variables: { input: { name: 'quoteNoSearch', product: '', state: '' } } })
+      this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
         .then(({ data }) => {
+          console.log('workflow started:', data);
           let workflow = data.startWorkflow;
-          this.setState({ workflow });
+          localStorage.setItem('newWorkflowId', workflow.id);
           let activeLink = workflow.steps.find(s => s.name === workflow.activeStep).link;
-          this.context.router.push(`quote/${activeLink}`)
+          window.location.href = `/quote/${activeLink}`;
         })
         .catch(error => console.log(error));
     }
@@ -41,11 +43,10 @@ class Quote extends Component {
   render() {
 
     const {match} = this.props;
-    const {workflow} = this.state;
 
     return (
       <div>
-        <Workflow steps={workflow.steps}/>
+        <Workflow />
       </div>
     );
   }

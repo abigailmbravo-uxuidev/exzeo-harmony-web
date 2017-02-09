@@ -1,47 +1,70 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 // import _ from 'lodash';
-import { reduxForm, Form } from 'redux-form';
+import { connect } from 'react-redux';
+import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';
+import _ from 'lodash';
 
-const Survey = ({ questions, styleName, answers, handleSubmit, handleOnSubmit, handleChange,
-   pristine, reset, submitting, error, invalid }) => (
-     <Form
-       className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit(handleOnSubmit)}
-       noValidate
-     >
-       <div className="form-group survey-wrapper" role="group">
-         {questions && questions.length > 0 ?
-        questions.map((question, index) => (
-          question.conditional && question.conditional.value ?
-            <DependentQuestion
-              key={index}
-              question={question}
-              answer={answers[question.name].value}
-              disabled={answers[question.name].disabled || false}
-              hidden={answers[question.name].hidden || false}
-              handleChange={handleChange}
-              answers={answers}
-            /> : <Question
-              key={index}
-              question={question}
-              answer={answers[question.name].value}
-              disabled={answers[question.name].disabled || false}
-              hidden={answers[question.name].hidden || false}
-              handleChange={handleChange}
-            />
-        )) : null
+class Survey extends Component {
+
+  componentWillMount() {
+    console.log('this.props', this.props);
+
+    const questions = this.props.questions;
+
+    for (let i = 0; i < questions.length; i += 1) {
+      const question = questions[i];
+      if (question.hidden) {
+        const defaultField = _.find(question.answers, 'default');
+        this.props.dispatch(change('survey', question.name, defaultField.answer));
       }
-       </div>
-       <div className="workflow-steps">
-         <button className="btn btn-primary" type="submit" form="survey" disabled={submitting}>next</button>
-       </div>
-       <Footer />
-     </Form>
-  );
+    }
+  }
+
+  render() {
+    const { dispatch, questions, styleName, answers, handleSubmit, handleOnSubmit, handleChange,
+       pristine, reset, submitting, error, invalid } = this.props;
+    return (
+      <Form
+        className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit(handleOnSubmit)}
+        noValidate
+      >
+        <div className="form-group survey-wrapper" role="group">
+          {questions && questions.length > 0 ?
+         questions.map((question, index) => (
+           question.conditional && question.conditional.value ?
+             <DependentQuestion
+               key={index}
+               question={question}
+               answer={answers[question.name].value}
+               disabled={answers[question.name].disabled || false}
+               hidden={answers[question.name].hidden || false}
+               handleChange={handleChange}
+               answers={answers}
+             /> : <Question
+               key={index}
+               question={question}
+               answer={answers[question.name].value}
+               disabled={answers[question.name].disabled || false}
+               hidden={answers[question.name].hidden || false}
+               handleChange={handleChange}
+             />
+         )) : null
+       }
+        </div>
+        <div className="workflow-steps">
+          <button className="btn btn-primary" type="submit" form="survey" disabled={submitting}>next</button>
+        </div>
+        <Footer />
+      </Form>
+    );
+  }
+}
 
 Survey.propTypes = {
+  dispatch: PropTypes.any,//eslint-disable-line
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,

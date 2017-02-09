@@ -5,6 +5,7 @@ import ReactTooltip from 'react-tooltip';
 import { combineRules } from '../../Rules';
 
 const RenderField = ({
+  answerType,
   input,
   segmented,
   answers,
@@ -20,10 +21,13 @@ const RenderField = ({
   meta: {
     touched,
     error,
-    warning
-  }
+    warning,
+  },
 }) => {
   const classnames = `form-group ${segmented ? 'segmented' : ''} ${label} ${styleName} ${disabled ? 'disabled' : ''}`;
+  if (answerType === 'hidden') {
+    return (<Field name={input.name} component="input" type="hidden" />);
+  }
   return (
     <div className={classnames} role="group">
       <label className={`group-label ${segmented ? 'label-segmented' : ''}`}>
@@ -61,6 +65,7 @@ const RenderField = ({
 };
 
 const RadioGroup = ({
+  answerType,
   answers,
   description,
   displayValue,
@@ -88,6 +93,7 @@ const RadioGroup = ({
 
   return (
     <Field
+      answerType={answerType}
       type="radio"
       name={name || ''}
       label={name}
