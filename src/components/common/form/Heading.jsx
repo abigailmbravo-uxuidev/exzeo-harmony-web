@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Heading = ({
-  name,
   question,
   icon,
 }) => (
@@ -9,6 +8,11 @@ const Heading = ({
     <i className={icon} />
     &nbsp;{question}
   </h4>
-)
+);
+
+Heading.propTypes = {
+  question: PropTypes.any, // eslint-disable-line
+  icon: PropTypes.any, // eslint-disable-line
+};
 
 export default Heading;

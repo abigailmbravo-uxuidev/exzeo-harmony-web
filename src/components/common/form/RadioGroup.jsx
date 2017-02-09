@@ -9,11 +9,9 @@ const RenderField = ({
   input,
   segmented,
   answers,
-  value,
   displayValue,
   click,
   label,
-  name,
   description,
   question,
   styleName,
@@ -21,7 +19,6 @@ const RenderField = ({
   meta: {
     touched,
     error,
-    warning,
   },
 }) => {
   const classnames = `form-group ${segmented ? 'segmented' : ''} ${label} ${styleName} ${disabled ? 'disabled' : ''}`;
@@ -63,6 +60,33 @@ const RenderField = ({
     </div>
   );
 };
+
+RenderField.propTypes = {
+  click: PropTypes.func,
+  answerType: PropTypes.string,
+  displayValue: PropTypes.string,
+  validations: PropTypes.any, // eslint-disable-line
+  meta: PropTypes.any, // eslint-disable-line
+  answers: PropTypes.arrayOf(PropTypes.shape({
+    answer: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    display: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    image: PropTypes.string,
+  })),
+  label: PropTypes.string,
+  description: PropTypes.string,
+  disabled: PropTypes.bool,
+  question: PropTypes.string,
+  segmented: PropTypes.bool,
+  styleName: PropTypes.string,
+  input: PropTypes.any,  // eslint-disable-line
+};
+
 
 const RadioGroup = ({
   answerType,
@@ -113,6 +137,9 @@ const RadioGroup = ({
 };
 
 RadioGroup.propTypes = {
+  displayValue: PropTypes.string,
+  validations: PropTypes.any, // eslint-disable-line
+  answerType: PropTypes.string,
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.oneOfType([
       PropTypes.string,

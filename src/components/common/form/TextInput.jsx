@@ -19,7 +19,7 @@ const RenderField = ({ input, label, type,
        </label>
        <input
          {...input}
-         onChange={event => {
+         onChange={(event) => {
            input.onChange(event);
            handleChange(event);
          }}
@@ -35,6 +35,7 @@ RenderField.propTypes = {
   name: PropTypes.string,
   question: PropTypes.string,
   styleName: PropTypes.string,
+  validations: PropTypes.any, // eslint-disable-line
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
