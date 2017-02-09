@@ -80,6 +80,7 @@ class Customize extends Component {
       this.context.router.push('thankyou');
     } catch (error) {
       console.log(error);
+      this.context.router.push('error');
     }
   }
   render() {
