@@ -25,14 +25,9 @@ const RenderField = ({
   },
 }) => {
   const classnames = `form-group ${segmented ? 'segmented' : ''} ${label} ${styleName} ${disabled ? 'disabled' : ''}`;
-  // if (answerType === 'hidden') {
-  //   return (<input
-  //     name={input.name}
-  //     type="hidden"
-  //     defaultValue={'Yes'}
-  //     readOnly
-  //   />);
-  // }
+  if (answerType === 'hidden') {
+    return (<Field name={input.name} component="input" type="hidden" />);
+  }
   return (
     <div className={classnames} role="group">
       <label className={`group-label ${segmented ? 'label-segmented' : ''}`}>
