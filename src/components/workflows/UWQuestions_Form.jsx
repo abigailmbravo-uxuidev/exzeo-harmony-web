@@ -156,8 +156,6 @@ class UWQuestions extends Component {
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
 
-    console.log('this.state.details', this.state.details);
-
     this.props.completeStep({
       variables: {
         input: {
@@ -301,4 +299,4 @@ export default (connect(null, mapDispatchToProps))(graphql(gql `
           completedSteps
         }
       }
-    `, { name: 'completeStep' })(UWQuestions)));
+    `)(UWQuestions)));
