@@ -36,6 +36,7 @@
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "ldclient-js": "^1.1.4",
+    "localStorage": "^1.0.3",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "react": "^15.3.2",

@@ -6,6 +6,7 @@ import moment from 'moment';
 import { reduxForm, Form, formValueSelector, change } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import localStorage from 'localStorage';
 import Footer from '../common/Footer';
 import TextInput from '../common/form/TextInput';
 import PolicyHolderDemographics from '../common/policyHolder/PolicyHolderDemographics';

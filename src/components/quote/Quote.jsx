@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import localStorage from 'localStorage';
 import Workflow from '../workflows/Workflow';
 
 class Quote extends Component {

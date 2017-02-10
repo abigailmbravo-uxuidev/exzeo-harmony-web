@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import localStorage from 'localStorage';
 
 const Results = ({ addresses, handleClick }) => (
   <ul className="results result-cards">
@@ -142,4 +143,3 @@ export default connect(null)(graphql(gql`
         }
     }
 `, { name: 'completeStep' })(SearchResults)));
-
