@@ -1,58 +1,51 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-import { bindActionCreators } from 'redux';
+import {bindActionCreators} from 'redux';
 import localStorage from 'localStorage';
+import Footer from '../Footer';
 import * as searchActions from '../../../actions/searchActions';
 
-const Details = ({ details }) => (
-  <div className="detail-group quote-details">
-    <h4><i className="fa fa-list" /> Quote Details</h4>
-    <section className="display-element">
-      {details.map((d, index) => {
-        if (d.name.replace(/\s+/g, '') === 'AnnualPremium' ||
-        d.name.replace(/\s+/g, '') === 'CoverageA' || d.name.replace(/\s+/g, '') === 'CoverageB' ||
-         d.name.replace(/\s+/g, '') === 'CoverageC') {
-          return (
-            <dl key={`${index}d`}>
-              <div>
-                <dt>{d.name}</dt>
-                <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
-              </div>
-            </dl>
-          );
-        }
+const Details = ({details}) => (
+  <div className="side-panel">
+    {details.map((d, index) => {
+      if (d.name.replace(/\s+/g, '') === 'AnnualPremium' || d.name.replace(/\s+/g, '') === 'CoverageA' || d.name.replace(/\s+/g, '') === 'CoverageB' || d.name.replace(/\s+/g, '') === 'CoverageC') {
         return (
           <dl key={`${index}d`}>
             <div>
               <dt>{d.name}</dt>
-              <dd>{d.value}</dd>
+              <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
             </div>
           </dl>
         );
-      })
-  }
-    </section>
+      }
+      return (
+        <dl key={`${index}d`}>
+          <div>
+            <dt>{d.name}</dt>
+            <dd>{d.value}</dd>
+          </div>
+        </dl>
+      );
+    })}
   </div>);
 
 Details.propTypes = {
-    details: PropTypes.any,// eslint-disable-line
+  details: PropTypes.any, // eslint-disable-line
 };
 
 class Customize extends Component {
   static propTypes = {
     // workflowId: PropTypes.string,
-    completeStep: PropTypes.func,
+    completeStep: PropTypes.func
   }
   static contextTypes = {
-    router: PropTypes.any,
+    router: PropTypes.any
   }
 
-  componentWillMount() {
-
-  }
-  submit = async () => {
+  componentWillMount() {}
+  submit = async() => {
     console.log('SUBMITTING');
     const buildSubmission = (stepName, data) => ({
       variables: {
@@ -60,23 +53,27 @@ class Customize extends Component {
           workflowId: localStorage.getItem('newWorkflowId'), // plugin workflow id or uncomment next line
           // workflowId: localStorage.getItem('newWorkflowId'),
           stepName,
-          data,
-        },
-      },
+          data
+        }
+      }
     });
     try {
       let data;
-      data = await this.props.completeStep(buildSubmission('askToCustomizeDefaultQuote', [{
-        key: 'shouldCustomizeQuote',
-        value: 'No',
-      }]));
+      data = await this.props.completeStep(buildSubmission('askToCustomizeDefaultQuote', [
+        {
+          key: 'shouldCustomizeQuote',
+          value: 'No'
+        }
+      ]));
       console.log('ask to customize defuault quote submit', data);
       data = await this.props.completeStep(buildSubmission('showCustomizedQuoteAndContinue', []));
       console.log('show customize quote and cont submit', data);
-      data = await this.props.completeStep(buildSubmission('saveAndSendEmail', [{
-        key: 'shouldGeneratePdfAndEmail',
-        value: 'No',
-      }]));
+      data = await this.props.completeStep(buildSubmission('saveAndSendEmail', [
+        {
+          key: 'shouldGeneratePdfAndEmail',
+          value: 'No'
+        }
+      ]));
       console.log('should generate pdf and email submit', data);
       data = await this.props.completeStep(buildSubmission('askAdditionalQuestions', []));
       console.log('ask additional questions submit', data);
@@ -93,29 +90,27 @@ class Customize extends Component {
     console.log(details);
 
     return (
-      <div className="workflow-steps">
-        <div className="form-group survey-wrapper">
-          <section className="display-element demographics">
-            <Details details={details} />
-          </section>
-          <button
-            className="btn btn-primary"
-            onClick={this.submit}
-          >
-          Submit
-        </button>
-        </div>
+      <div className="workflow-content">
+        <aside><Details details={details}/></aside>
+        <section className="">
+          <div className="fade-in">
+            <div className="form-group survey-wrapper">CUSTOMIZE QUOTE GOES HERE</div>
+            <div className="workflow-steps">
+              <button className="btn btn-primary" onClick={this.submit}>Submit</button>
+            </div>
+            <Footer/>
+          </div>
+        </section>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  searchActions: bindActionCreators(searchActions, dispatch),
+  searchActions: bindActionCreators(searchActions, dispatch)
 });
 
-
-export default (connect(null, mapDispatchToProps))(graphql(gql `
+export default(connect(null, mapDispatchToProps))(graphql(gql `
     query GetActiveStep($workflowId:ID!) {
       steps(id: $workflowId) {
           name
@@ -127,11 +122,17 @@ export default (connect(null, mapDispatchToProps))(graphql(gql `
           type
           completedSteps
       }
-    }`, { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } } })(graphql(gql `
+    }`, {
+  options: {
+    variables: {
+      workflowId: localStorage.getItem('newWorkflowId')
+    }
+  }
+})(graphql(gql `
       mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
           name
           completedSteps
         }
       }
-    `, { name: 'completeStep' })(Customize)));
+    `, {name: 'completeStep'})(Customize)));
