@@ -57,34 +57,13 @@
     "build": "react-scripts build && node scripts/genEjs",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "local": "cross-env NODE_ENV=local react-scripts start",
+    "local": "react-scripts start",
     "pretest": "npm run lint",
     "push": "npm run build && docker build -f dev.dockerfile -t exzeo/harmony-web:develop . && docker push exzeo/harmony-web:develop",
     "both": "node scripts/start-both",
     "start": "node scripts/start-api",
     "dev": "react-scripts start",
-    "test": "mocha --reporter progress utils/testSetup \"src/**/*.test.js\""
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "rules": {
-      "import/no-mutable-exports": 0,
-      "import/no-extraneous-dependencies": 0,
-      "no-unused-expressions": 0,
-      "react/jsx-filename-extension": 0,
-      "linebreak-style": 0,
-      "jsx-a11y/no-static-element-interactions": 0
-    },
-    "globals": {
-      "expect": 0,
-      "sinon": 0
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true
-    }
+    "test": "mocha --reporter progress utils/testSetup \"src/**/*.Spec.js\""
   },
   "babel": {
     "presets": [
