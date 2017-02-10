@@ -12,24 +12,29 @@ const Details = ({details}) => (
     {details.map((d, index) => {
       if (d.name.replace(/\s+/g, '') === 'AnnualPremium' || d.name.replace(/\s+/g, '') === 'CoverageA' || d.name.replace(/\s+/g, '') === 'CoverageB' || d.name.replace(/\s+/g, '') === 'CoverageC') {
         return (
-          <dl key={`${index}d`}>
-            <div>
-              <dt>{d.name}</dt>
-              <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
-            </div>
-          </dl>
+          <section className={d.name}>
+            <dl key={`${index}d`}>
+              <div>
+                <dt>{d.name}</dt>
+                <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
+              </div>
+            </dl>
+          </section>
         );
       }
       return (
-        <dl key={`${index}d`}>
-          <div>
-            <dt>{d.name}</dt>
-            <dd>{d.value}</dd>
-          </div>
-        </dl>
+        <section className={d.name}>
+          <dl key={`${index}d`}>
+            <div>
+              <dt>{d.name}</dt>
+              <dd>{d.value}</dd>
+            </div>
+          </dl>
+        </section>
       );
     })}
-  </div>);
+  </div>
+);
 
 Details.propTypes = {
   details: PropTypes.any, // eslint-disable-line
