@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import localStorage from 'localStorage';
 import auth from './authReducer';
 import features from './featureReducer';
 import search from './searchReducer';

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { bindActionCreators } from 'redux';
+import localStorage from 'localStorage';
 import * as searchActions from '../../../actions/searchActions';
 
 const Details = ({ details }) => (
