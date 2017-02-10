@@ -50,6 +50,7 @@ const RenderField = ({
                 onChange={input.onChange || ''}
                 name={input.name || ''}
                 type="radio"
+                defaultChecked={input.value === answer.answer}
                 value={answer.answer}
               />
               <span>{answer.display || answer.answer || null}</span>

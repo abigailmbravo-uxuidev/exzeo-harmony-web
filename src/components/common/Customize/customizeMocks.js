@@ -1,4 +1,80 @@
-export default [{
+export const quoteInfo = {
+  coverageLimits: {
+    personalProperty: {
+      // format: 'Currency',
+      // amount: 238000,
+      format: 'Percentage',
+      amount: 50,
+    },
+    otherStructures: {
+      format: 'Percentage',
+      amount: 10,
+    },
+    medicalPayments: {
+      format: 'Currency',
+      amount: 2000,
+    },
+    moldProperty: {
+      format: 'Currency',
+      amount: 10000,
+    },
+    ordinanceOrLaw: {
+      format: 'Percentage',
+      amount: 25,
+    },
+    lossOfUse: {
+      format: 'Percentage',
+      amount: 10,
+    },
+    personalLiability: {
+      format: 'Currency',
+      amount: 100000,
+    },
+    dwelling: {
+      format: 'Currency',
+      maxAmount: 618800,
+      amount: 476000,
+      minAmount: 428400,
+    },
+    moldLiability: {
+      format: 'Currency',
+      amount: 50000,
+    },
+  },
+  coverageOptions: {
+    sinkholePerilCoverage: {
+      answer: false,
+    },
+    propertyIncidentalOccupanciesOtherStructures: {
+      answer: false,
+    },
+    liabilityIncidentalOccupancies: {
+      answer: false,
+    },
+    personalPropertyReplacementCost: {
+      answer: false,
+    },
+    propertyIncidentalOccupanciesMainDwelling: {
+      answer: false,
+    },
+  },
+  deductibles: {
+    sinkhole: {
+      format: 'Percentage',
+      amount: 10,
+    },
+    hurricane: {
+      format: 'Percentage',
+      amount: 10,
+    },
+    allOtherPerils: {
+      format: 'Currency',
+      amount: 2500,
+    },
+  },
+};
+
+export const customizeQuestions = [{
   name: 'coverageLimits',
   question: 'Coverage Limits',
   answerType: 'heading',
@@ -89,7 +165,7 @@ export default [{
 }, {
   name: 'lossOfUseAmount',
   question: 'Loss Of Use Limit',
-  answerType: 'display',
+  answerType: 'text',
   defaultValueLocation: 'coverageLimits.lossOfUse.amount',
   conditional: {
     readOnly: {

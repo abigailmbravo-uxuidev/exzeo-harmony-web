@@ -1,13 +1,14 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {graphql} from 'react-apollo';
+import React, { Component, PropTypes } from 'react';
+import { reduxForm, Form, formValueSelector } from 'redux-form';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import {bindActionCreators} from 'redux';
 import localStorage from 'localStorage';
+import _ from 'lodash';
+import { quoteInfo, customizeQuestions } from './customizeMocks';
 import Footer from '../Footer';
-import * as searchActions from '../../../actions/searchActions';
+import DependentQuestion from '../question/DependentQuestion';
 
-const Details = ({details}) => (
+const Details = ({ details }) => (
   <div className="side-panel">
     {details.map((d, index) => {
       if (d.name.replace(/\s+/g, '') === 'AnnualPremium' || d.name.replace(/\s+/g, '') === 'CoverageA' || d.name.replace(/\s+/g, '') === 'CoverageB' || d.name.replace(/\s+/g, '') === 'CoverageC') {
@@ -38,67 +39,179 @@ Details.propTypes = {
 class Customize extends Component {
   static propTypes = {
     // workflowId: PropTypes.string,
-    completeStep: PropTypes.func
-  }
-  static contextTypes = {
-    router: PropTypes.any
+    completeStep: PropTypes.func,
   }
 
-  componentWillMount() {}
-  submit = async() => {
-    console.log('SUBMITTING');
-    const buildSubmission = (stepName, data) => ({
-      variables: {
-        input: {
-          workflowId: localStorage.getItem('newWorkflowId'), // plugin workflow id or uncomment next line
-          // workflowId: localStorage.getItem('newWorkflowId'),
-          stepName,
-          data
-        }
+  static contextTypes = {
+    router: PropTypes.any,
+  }
+
+  state = {
+    updated: false,
+  }
+
+  componentWillMount() {
+    const { state } = this;
+
+    // Set up default values
+    customizeQuestions.forEach((question) => {
+      if (_.has(question, 'defaultValue')) {
+        state[question.name] = question.defaultValue;
+      } else if (question.defaultValueLocation) {
+        state[question.name] = _.get(quoteInfo, question.defaultValueLocation);
+      } else {
+        state[question.name] = '';
       }
     });
+    this.setState(state);
+  }
+
+  handleChange = (event) => {
+    const { state } = this;
+    state[event.target.name] = event.target.value;
+    state.updated = true;
+    this.setState(state);
+  }
+
+  handleOnSubmit = (event) => {
+    if (event && event.preventDefault) event.preventDefault();
+    const { state } = this;
+    if (state.updated) {
+      // Do two mutations
+      state.updated = false;
+      this.setState(state);
+    } else {
+      // Do one mutation
+      this.context.router.push('/workflow/share');
+    }
+  }
+
+  formatData = (data) => {
+    const answers = [];
+    Object.keys(data).forEach((key) => {
+      answers.push({ key, value: data[key] });
+    });
+    return answers;
+  }
+
+  buildSubmission = (stepName, data) => ({
+    variables: {
+      input: {
+        workflowId: localStorage.getItem('newWorkflowId'), // plugin workflow id or uncomment next line
+        // workflowId: localStorage.getItem('newWorkflowId'),
+        stepName,
+        data,
+      },
+    },
+  });
+
+  update = async () => {
+    // const { completeStep } = this.props;
     try {
-      let data;
-      data = await this.props.completeStep(buildSubmission('askToCustomizeDefaultQuote', [
-        {
-          key: 'shouldCustomizeQuote',
-          value: 'No'
-        }
-      ]));
-      console.log('ask to customize defuault quote submit', data);
-      data = await this.props.completeStep(buildSubmission('showCustomizedQuoteAndContinue', []));
-      console.log('show customize quote and cont submit', data);
-      data = await this.props.completeStep(buildSubmission('saveAndSendEmail', [
-        {
-          key: 'shouldGeneratePdfAndEmail',
-          value: 'No'
-        }
-      ]));
-      console.log('should generate pdf and email submit', data);
-      data = await this.props.completeStep(buildSubmission('askAdditionalQuestions', []));
-      console.log('ask additional questions submit', data);
-      data = await this.props.completeStep(buildSubmission('askScheduleInspectionDates', []));
-      console.log('Last data');
-      this.context.router.push('thankyou');
+      // let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', [
+      //   {
+      //     key: 'shouldCustomizeQuote',
+      //     value: 'Yes',
+      //   },
+      // ]));
+      // await completeStep(
+      //  this.buildSubmission('customizeDefaultQuote', this.formatData(this.state))
+      // );
+      const { state } = this;
+      state.updated = false;
+      this.setState(state);
     } catch (error) {
-      console.log(error);
+      console.log('Error: ', error);
       this.context.router.push('error');
     }
   }
+
+  save = async () => {
+    const { completeStep } = this.props;
+    try {
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', [
+        {
+          key: 'shouldCustomizeQuote',
+          value: 'No',
+        },
+      ]));
+      console.log('ask to customize no', data);
+      data = await completeStep(this.buildSubmission('showCustomizedQuoteAndContinue', []));
+      console.log('show customize', data);
+      data = await completeStep(this.buildSubmission('saveAndSendEmail', [
+        {
+          key: 'shouldGeneratePdfAndEmail',
+          value: 'No',
+        },
+      ]));
+      console.log('save and send email', data);
+      data = await completeStep(this.buildSubmission('askAdditionalQuestions', []));
+      console.log('ask additional questions', data);
+      data = await completeStep(this.buildSubmission('askScheduleInspectionDates', []));
+      console.log('ask to inspection', data);
+      this.context.router.push('thankyou');
+    } catch (error) {
+      console.log('Error: ', error);
+      this.context.router.push('error');
+    }
+  }
+
+  submit = (event) => {
+    if (event && event.preventDefault) event.preventDefault();
+    this.state.updated ? this.update() : this.save();
+  }
+
   render() {
+    const {
+      state,
+      formName,
+      effectiveDate,
+      styleName,
+      handleSubmit,
+      handleChange,
+      pristine,
+      reset,
+      submitting,
+      error,
+      invalid,
+    } = this.props;
+
     const details = JSON.parse(localStorage.getItem('details'));
-    console.log(details);
 
     return (
       <div className="workflow-content">
-        <aside><Details details={details}/></aside>
+        <aside><Details details={details} /></aside>
         <section className="">
           <div className="fade-in">
-            <div className="form-group survey-wrapper">CUSTOMIZE QUOTE GOES HERE</div>
-            <div className="workflow-steps">
-              <button className="btn btn-primary" onClick={this.submit}>Submit</button>
-            </div>
-            <Footer/>
+            <Form
+              className={`fade-in ${styleName || ''}`}
+              id="Customize"
+              onSubmit={handleSubmit(this.submit)}
+              noValidate
+            >
+              <div className="form-group survey-wrapper" role="group">
+                {customizeQuestions && customizeQuestions.map((question, index) => (
+                  <DependentQuestion
+                    data={quoteInfo}
+                    question={question}
+                    answers={this.state}
+                    handleChange={this.handleChange}
+                    key={index}
+                  />
+                ))}
+
+              </div>
+              <div className="workflow-steps">
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                  form="Customize"
+                >
+                  {this.state.updated ? 'update' : 'save'}
+                </button>
+              </div>
+              <Footer />
+            </Form>
           </div>
         </section>
       </div>
@@ -106,33 +219,131 @@ class Customize extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  searchActions: bindActionCreators(searchActions, dispatch)
-});
+const CustomizeQuote = reduxForm({
+  form: 'Customize',
+})(Customize);
 
-export default(connect(null, mapDispatchToProps))(graphql(gql `
+const selector = formValueSelector('Customize'); // <-- same as form name
+
+export default (graphql(gql `
     query GetActiveStep($workflowId:ID!) {
-      steps(id: $workflowId) {
+        steps(id: $workflowId) {
+            name
+            details {
+                name
+                value
+            }
+            data {
+              ... on Quote {
+                coverageLimits {
+                  dwelling {
+                    maxAmount
+                    minAmount
+                    amount
+                  }
+                }
+              }
+              ... on Property {
+                physicalAddress {
+                  address1
+                }
+              }
+              ... on Address {
+                address1
+                city
+                state
+                zip
+                id
+              }
+            }
+            questions {
+                hidden
+                name
+                validations
+                question
+                answerType
+                description
+                minValue
+                maxValue
+                defaultAnswer
+                answers {
+                    default
+                    answer
+                    image
+                }
+                conditional {
+                    display {
+                        type
+                        operator
+                        trigger
+                        dependency
+                        detail
+                    }
+                }
+            }
+            completedSteps
+            type
+            completedSteps
+        }
+    }`, {
+      options: {
+        variables: {
+          workflowId: localStorage.getItem('newWorkflowId'),
+        },
+      },
+    })(graphql(gql `
+      mutation CompleteStep($input:CompleteStepInput) {
+        completeStep(input:$input) {
           name
+          link
           details {
             name
             value
           }
-          showDetail
+          data {
+            ... on Quote {
+              coverageLimits {
+                dwelling {
+                  maxAmount
+                  minAmount
+                  amount
+                }
+              }
+            }
+            ... on Property {
+              physicalAddress {
+                address1
+              }
+            }
+            ... on Address {
+              address1
+              city
+              state
+              zip
+              id
+            }
+          }
           type
-          completedSteps
-      }
-    }`, {
-  options: {
-    variables: {
-      workflowId: localStorage.getItem('newWorkflowId')
-    }
-  }
-})(graphql(gql `
-      mutation CompleteStep($input:CompleteStepInput) {
-        completeStep(input:$input) {
-          name
+          questions {
+            name
+            question
+            answerType
+            description
+            answers {
+              answer
+              image
+            }
+            conditional {
+              display {
+                type
+                operator
+                trigger
+                dependency
+                detail
+              }
+            }
+          }
           completedSteps
         }
       }
-    `, {name: 'completeStep'})(Customize)));
+    `, { name: 'completeStep' })(CustomizeQuote)));
