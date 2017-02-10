@@ -174,66 +174,66 @@ html {
     }
 
     .detail-wrapper {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    flex-shirk: 0;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-shirk: 0;
 
-    flex-shrink: 0;
-    flex-grow: 1;
-    align-content: flex-start;
+        flex-shrink: 0;
+        flex-grow: 1;
+        align-content: flex-start;
 
 
-    .detail-group {
-      padding-bottom: 0;
-      margin-bottom: 1rem;
-      border-bottom: 1px dashed $warm-gray-02;
-      position: relative;
+        .detail-group {
+          padding-bottom: 0;
+          margin-bottom: 1rem;
+          border-bottom: 1px dashed $warm-gray-02;
+          position: relative;
 
-      &:last-child {
-          margin-bottom: 0;
-          border-bottom-width: 0;
-      }
-
-      h1, h2, h3, h4, h5, h6 {
-          margin-top: 0;
-      }
-
-      .edit-btn {
-          position: absolute;
-          right: 0;
-          top: 0;
-      }
-
-      .summary-section {
-          display: flex;
-          flex-wrap: wrap;
-          flex-direction: column;
-          margin-bottom: $padding;
-
-          dl {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
+          &:last-child {
               margin-bottom: 0;
-              padding: ($padding/2) ($padding);
+              border-bottom-width: 0;
+          }
 
-              &:nth-of-type(odd) {
-                  background: $warm-gray-01;
-              }
+          h1, h2, h3, h4, h5, h6 {
+              margin-top: 0;
+          }
 
-              dt {
-                  span {
-                      margin-right: $padding;
+          .edit-btn {
+              position: absolute;
+              right: 0;
+              top: 0;
+          }
+
+          .summary-section {
+              display: flex;
+              flex-wrap: wrap;
+              flex-direction: column;
+              margin-bottom: $padding;
+
+              dl {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-bottom: 0;
+                  padding: ($padding/2) ($padding);
+
+                  &:nth-of-type(odd) {
+                      background: $warm-gray-01;
+                  }
+
+                  dt {
+                      span {
+                          margin-right: $padding;
+                      }
+                  }
+                  dd {
+                      margin-bottom: 0;
                   }
               }
-              dd {
-                  margin-bottom: 0;
-              }
           }
-      }
+        }
     }
-}
 }
 .workflow-steps {
   display: flex;
@@ -241,6 +241,7 @@ html {
   justify-content: flex-end;
   flex-shrink: 0;
   flex-grow: 0;
+  width: auto;
 }
 
 .workflow {
