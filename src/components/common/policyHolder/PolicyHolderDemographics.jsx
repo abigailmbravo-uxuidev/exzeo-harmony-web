@@ -1,25 +1,23 @@
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
-import { reduxForm, Form, formValueSelector } from 'redux-form';
-import Footer from '../Footer';
+import { formValueSelector } from 'redux-form';
 import TextInput from '../form/TextInput';
-import Dropdown from '../form/Dropdown';
 
-const PolicyHolderDemographics = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange, name, state, formName,
-   pristine, reset, submitting, error, invalid }) => {
+const PolicyHolderDemographics = ({ handleChange, state, formName,
+  }) => {
   const selector = formValueSelector(formName);
   const entityType = selector(state, 'entityType');
 
   return (
     <div className="form-group survey-wrapper policyHolder-component" role="group">
-      {/*<Dropdown*/}
-        {/*answers={[{ answer: 'Company' }, { answer: 'Person' }]}*/}
-        {/*handleChange={handleChange}*/}
-        {/*defaultValue={'Person'}*/}
-        {/*name={'entityType'}*/}
-        {/*question={'Entity Type'}*/}
-        {/*validations={['required']}*/}
-      {/*/>*/}
+      {/* <Dropdown*/}
+      {/* answers={[{ answer: 'Company' }, { answer: 'Person' }]}*/}
+      {/* handleChange={handleChange}*/}
+      {/* defaultValue={'Person'}*/}
+      {/* name={'entityType'}*/}
+      {/* question={'Entity Type'}*/}
+      {/* validations={['required']}*/}
+      {/* />*/}
 
       {entityType === 'Person' && <TextInput
         answerType="text"
@@ -69,9 +67,8 @@ const PolicyHolderDemographics = ({ askDate, styleName, handleSubmit, handleOnSu
 };
 
 PolicyHolderDemographics.propTypes = {
-  askDate: PropTypes.bool,
-  handleOnSubmit: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  state: PropTypes.any,// eslint-disable-line
+  formName: PropTypes.string,
   handleChange: PropTypes.func,
 };
 

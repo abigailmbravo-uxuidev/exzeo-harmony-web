@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import SearchResults from '../common/search/SearchResults';
@@ -19,12 +19,16 @@ const query = gql`
 const SearchResultsWithQuery = graphql(query)(SearchResults);
 
 const QuoteSearchResults = (props) => {
-    let type = 'card';
-    return (
-        <div>
-            <SearchResultsWithQuery searchText={props.params.address} type={type}/>
-        </div>
-    )
+  const type = 'card';
+  return (
+    <div>
+      <SearchResultsWithQuery searchText={props.params.address} type={type} />
+    </div>
+  );
+};
+
+QuoteSearchResults.propTypes = {
+  params: PropTypes.any, // eslint-disable-line
 };
 
 export default QuoteSearchResults;

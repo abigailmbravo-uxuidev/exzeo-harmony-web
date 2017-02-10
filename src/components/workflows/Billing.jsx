@@ -1,12 +1,13 @@
+/* eslint import/no-mutable-exports:0 jsx-a11y/label-has-for:0 */
 import React, { PropTypes } from 'react';
-import MailingAddress from '../../components/common/MailingAddress/MailingAddress';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
-import { reduxForm, Form, formValueSelector } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
+import MailingAddress from '../../components/common/MailingAddress/MailingAddress';
+
 
 let Billing = (props) => {
-  const { initialValues, styleName, handleSubmit, name,
-          pristine, reset, submitting, error, invalid } = props;
+  const { styleName, handleSubmit } = props;
   return (
     <Form
       className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(() => {})}
@@ -60,23 +61,21 @@ let Billing = (props) => {
 };
 
 Billing.propTypes = {
-  handleOnSubmit: PropTypes.func,
+  styleName: PropTypes.string,
   handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
 };
 
 Billing = reduxForm({
   form: 'Billing', // a unique identifier for this form
 })(Billing);
 
-const selector = formValueSelector('Billing'); // <-- same as form name
 
 Billing = connect(
-    state => ({
-      initialValues: {
-        policyHolderMailingAddress: {},
-      },
-    }),
+    // state => ({
+    //   initialValues: {
+    //     policyHolderMailingAddress: {},
+    //   },
+    // }),
   )(Billing);
 
 

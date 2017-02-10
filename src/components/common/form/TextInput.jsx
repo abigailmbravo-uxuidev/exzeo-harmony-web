@@ -4,7 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import { combineRules } from '../../Rules';
 
 const RenderField = ({ input, label, type,
-  description, question, name, styleName, disabled, value, handleChange,
+  description, question, name, styleName, disabled, handleChange,
    meta: { touched, error, warning } }) => (
      <div className={`form-group ${styleName} ${label} ${disabled ? 'disabled' : ''} ${touched && error ? 'error' : ''} ${touched && !error ? 'valid' : ''}`}>
        <label htmlFor={name || null}>
@@ -30,16 +30,18 @@ const RenderField = ({ input, label, type,
 );
 
 RenderField.propTypes = {
+  input: PropTypes.any, // eslint-disable-line
+  label: PropTypes.any, // eslint-disable-line
+  type: PropTypes.any, // eslint-disable-line
+  value: PropTypes.any, // eslint-disable-line
+  meta: PropTypes.any, // eslint-disable-line
+  handleChange: PropTypes.func,
   description: PropTypes.string,
   disabled: PropTypes.bool,
   name: PropTypes.string,
   question: PropTypes.string,
   styleName: PropTypes.string,
   validations: PropTypes.any, // eslint-disable-line
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
 };
 
 const TextInput = ({
@@ -74,6 +76,7 @@ const TextInput = ({
 };
 
 TextInput.propTypes = {
+  validations: PropTypes.any, // eslint-disable-line
   answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
   description: PropTypes.string,
   disabled: PropTypes.bool,

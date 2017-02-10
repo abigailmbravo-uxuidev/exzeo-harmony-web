@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
-import { reduxForm, Form, formValueSelector } from 'redux-form';
-import Footer from '../Footer';
+import { formValueSelector } from 'redux-form';
 import TextInput from '../form/TextInput';
 import Dropdown from '../form/Dropdown';
 
-const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handleChange, name, state, formName,
-   pristine, reset, submitting, error, invalid }) => {
+const PolicyHolder = ({ handleChange, name, state, formName }) => {
   const selector = formValueSelector(formName);
   const entityType = selector(state, `${name}.entityType`);
 
@@ -69,9 +67,9 @@ const PolicyHolder = ({ askDate, styleName, handleSubmit, handleOnSubmit, handle
 };
 
 PolicyHolder.propTypes = {
-  askDate: PropTypes.bool,
-  handleOnSubmit: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  name: PropTypes.string,
+  state: PropTypes.any,// eslint-disable-line
+  formName: PropTypes.string,
   handleChange: PropTypes.func,
 };
 

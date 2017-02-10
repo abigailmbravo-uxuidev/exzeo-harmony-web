@@ -1,13 +1,13 @@
+/*
+eslint no-class-assign:0
+*/
 import React, { PropTypes, Component } from 'react';
 // import _ from 'lodash';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import moment from 'moment';
-import Footer from '../Footer';
 import BoolInput from '../form/BoolInput';
 import quoteTest from './quoteTest';
-import TextInput from '../form/TextInput';
 import EffectiveDateForm from '../EffectiveDate/EffectiveDateForm';
 import PolicyHolderUpdateForm from '../policyHolder/PolicyHolderUpdateForm';
 import AdditionalInterestUpdateForm from '../AdditionalInterests/AdditionalInterestUpdateForm';
@@ -21,7 +21,7 @@ class Verify extends Component {
 
   }
 
-  handleChange = (event) => {
+  handleChange = () => {
     // const { state } = this;
     // state[event.target.name] = event.target.value;
     // state.updated = true;
@@ -54,9 +54,7 @@ class Verify extends Component {
   render() {
     const {
       handleSubmit,
-      dispatch,
       initialValues,
-      quote,
       state,
       styleName,
       effectiveDate,
@@ -68,19 +66,11 @@ class Verify extends Component {
       confirmQuoteDetails,
       confirmPolicyHolderDetails,
       confirmAdditionalInterestsDetails,
-      pristine,
-      reset,
-      submitting,
-      error,
-      invalid,
     } = this.props;
 
     const property = quoteTest.property;
     const coverageLimits = quoteTest.coverageLimits;
     const mailingAddress = quoteTest.policyHolderMailingAddress;
-
-    const policyHolder1 = quoteTest.policyHolders.length > 0 ? quoteTest.policyHolders[0] : [];
-    const policyHolder2 = quoteTest.policyHolders.length > 1 ? quoteTest.policyHolders[1] : [];
 
     initialValues.effectiveDate = moment(quoteTest.effectiveDate).format('YYYY-MM-DD');
 
@@ -219,18 +209,19 @@ class Verify extends Component {
               />
             </div>}
             <section className="display-element">
-              {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ? quoteTest.policyHolders.map((policyHolder, index) => (
-                <dl key={`ph${index}`}>
-                  <h5>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h5>
-                  <div>
-                    <dt>Name</dt>
-                    <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
-                    <dt>Phone Number</dt>
-                    <dd>{policyHolder.primaryPhoneNumber}</dd>
-                    <dt>Email</dt>
-                    <dd>{policyHolder.emailAddress}</dd>
-                  </div>
-                </dl>
+              {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ?
+                 quoteTest.policyHolders.map((policyHolder, index) => (
+                   <dl key={`ph${index}`}>
+                     <h5>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h5>
+                     <div>
+                       <dt>Name</dt>
+                       <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                       <dt>Phone Number</dt>
+                       <dd>{policyHolder.primaryPhoneNumber}</dd>
+                       <dt>Email</dt>
+                       <dd>{policyHolder.emailAddress}</dd>
+                     </div>
+                   </dl>
                     )) : null}
             </section>
           </div>}
@@ -296,20 +287,22 @@ class Verify extends Component {
             </div>}
             <section className="display-element">
 
-              {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ? quoteTest.additionalInterests.map((additionalInterests, index) => (
-                <dl key={`ai${index}`}>
-                  <div>
-                    <dt>Name</dt>
-                    <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
-                    <dt>Address</dt>
-                    <dd>{additionalInterests.mailingAddress.address1}</dd>
-                    <dd>{additionalInterests.mailingAddress.address2}</dd>
-                    <dt>City/State/Zip</dt>
-                    <dd>{additionalInterests.mailingAddress.city}, {additionalInterests.mailingAddress.state}
-                      {additionalInterests.mailingAddress.zip}
-                    </dd>
-                  </div>
-                </dl>
+              {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ?
+                 quoteTest.additionalInterests.map((additionalInterests, index) => (
+                   <dl key={`ai${index}`}>
+                     <div>
+                       <dt>Name</dt>
+                       <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
+                       <dt>Address</dt>
+                       <dd>{additionalInterests.mailingAddress.address1}</dd>
+                       <dd>{additionalInterests.mailingAddress.address2}</dd>
+                       <dt>City/State/Zip</dt>
+                       <dd>{additionalInterests.mailingAddress.city},
+                      {additionalInterests.mailingAddress.state}
+                         {additionalInterests.mailingAddress.zip}
+                       </dd>
+                     </div>
+                   </dl>
                     )) : null}
 
               <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
@@ -319,7 +312,10 @@ class Verify extends Component {
             <h4 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h4>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
-              <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={this.updateQuote} />
+              <AdditionalInterestUpdateForm
+                additionalInterests={quoteTest.additionalInterests}
+                handleOnSubmit={this.updateQuote}
+              />
             </section>
           </div>}
 
@@ -337,6 +333,9 @@ class Verify extends Component {
 }
 
 Verify.propTypes = {
+  state: PropTypes.any, //eslint-disable-line
+  dispatch: PropTypes.any, //eslint-disable-line
+  initialValues: PropTypes.any, //eslint-disable-line
   editMailingAddress: PropTypes.bool,
   effectiveDate: PropTypes.string,
   editConfirmAdditionalInterests: PropTypes.bool,

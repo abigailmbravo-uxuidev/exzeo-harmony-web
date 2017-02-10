@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import TextInput from '../form/TextInput';
 import MailingAddress from '../MailingAddress/MailingAddress';
 

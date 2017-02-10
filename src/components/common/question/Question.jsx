@@ -8,7 +8,7 @@ import ListSelection from '../form/ListSelection';
 import DisplayInput from '../form/DisplayInput';
 import Heading from '../form/Heading';
 
-const Question = ({ question, answer, disabled, hidden, handleChange }) => {
+const Question = ({ question, answer, disabled, handleChange }) => {
   const inputProps = {
     ...question,
     value: answer,
@@ -94,7 +94,6 @@ Question.propTypes = {
   ]),
   handleChange: PropTypes.func,
   disabled: PropTypes.bool,
-  hidden: PropTypes.bool,
 };
 
 export default Question;

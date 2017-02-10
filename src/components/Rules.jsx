@@ -1,5 +1,5 @@
+/* eslint no-confusing-arrow :0 */
 import validator from 'validator';
-
 
 const rules = {
   required: value => value ? undefined : 'Field Required',
