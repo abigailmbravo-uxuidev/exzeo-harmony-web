@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const DisplayInput = ({
   name,
@@ -18,5 +18,13 @@ const DisplayInput = ({
     />
   </div>
 );
+
+DisplayInput.propTypes = {
+  validations: PropTypes.any,// eslint-disable-line
+  displayValue: PropTypes.string,
+  name: PropTypes.string,
+  question: PropTypes.string,
+  value: PropTypes.any,// eslint-disable-line
+};
 
 export default DisplayInput;

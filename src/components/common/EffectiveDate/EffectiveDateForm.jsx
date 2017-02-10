@@ -1,14 +1,13 @@
+/*
+eslint import/no-mutable-exports:0
+*/
 import React, { PropTypes } from 'react';
-// import _ from 'lodash';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
-import Footer from '../Footer';
+import { reduxForm, Form } from 'redux-form';
 import TextInput from '../form/TextInput';
 
 let EffectiveDateForm = (props) => {
-  const { effectiveDate, styleName, handleSubmit, handleOnSubmit, handleChange,
-          pristine, reset, submitting, error, invalid } = props;
+  const { styleName, handleSubmit, handleOnSubmit } = props;
 
   return (
     <Form
@@ -18,7 +17,6 @@ let EffectiveDateForm = (props) => {
       <div className="form-group survey-wrapper" role="group">
         <TextInput
           answerType="date"
-          handleChange={function () { }}
           name="effectiveDate"
           question={'Effective Date'}
           validations={['required', 'date']}
@@ -32,17 +30,14 @@ let EffectiveDateForm = (props) => {
 };
 
 EffectiveDateForm.propTypes = {
-  effectiveDate: PropTypes.string,
+  styleName: PropTypes.string,
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
 };
 
 EffectiveDateForm = reduxForm({
   form: 'EffectiveDateForm', // a unique identifier for this form
 })(EffectiveDateForm);
-
-const selector = formValueSelector('EffectiveDateForm'); // <-- same as form name
 
 EffectiveDateForm = connect(
     state => ({

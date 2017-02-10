@@ -1,3 +1,4 @@
+/* eslint no-unused-vars :0 */
 import React, { Component, PropTypes } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
@@ -9,7 +10,6 @@ import UWQuestions from '../workflows/UWQuestions_Form';
 import Customize from '../common/Customize/Customize';
 import ThankYou from '../common/ThankYou';
 import ErrorPage from '../common/ErrorPage';
-import _ from 'lodash';
 
 const WorkflowHeader = (d) => {
   console.log(d);
@@ -178,7 +178,8 @@ class Workflow extends Component {
     ];
     const { workflow } = this.state;
     // if (!workflow.id) {
-    //   this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })
+    //   this.props.startWorkflow({ variables:
+    // { input: { name: 'quote', product: '', state: '' } } })
     //     .then(({ data }) => {
     //       this.setState({
     //         workflow: {
@@ -226,7 +227,8 @@ class Workflow extends Component {
               <Route path="/quote/thankyou" component={ThankYou} />
               <Route path="/quote/error" component={ErrorPage} />
               {/* <Route path="/quote/share" component={Share} />*/}
-              {/* <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm} />*/}
+              {/* <Route path="/workflow/AdditionalInterests"
+                  component={AdditionalInterestsForm} />*/}
               {/* <Route path="/workflow/MailingAddress" component={MailingAddressForm} />*/}
               {/* <Route path="/workflow/billing" component={Billing} />*/}
               {/* <Route path="/workflow/verify" component={Verify} />*/}

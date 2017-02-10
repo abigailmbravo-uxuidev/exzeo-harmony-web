@@ -1,11 +1,9 @@
 import React, { PropTypes, Component } from 'react';
-// import _ from 'lodash';
-import { connect } from 'react-redux';
-import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
+import _ from 'lodash';
+import { reduxForm, Form, change } from 'redux-form';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
 import Footer from '../Footer';
-import _ from 'lodash';
 
 class Survey extends Component {
 
@@ -24,8 +22,8 @@ class Survey extends Component {
   }
 
   render() {
-    const { dispatch, questions, styleName, answers, handleSubmit, handleOnSubmit, handleChange,
-       pristine, reset, submitting, error, invalid } = this.props;
+    const { questions, styleName, answers,
+       handleSubmit, handleOnSubmit, handleChange, submitting } = this.props;
     return (
       <Form
         className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit(handleOnSubmit)}
@@ -64,6 +62,7 @@ class Survey extends Component {
 }
 
 Survey.propTypes = {
+  submitting: PropTypes.bool,
   dispatch: PropTypes.any,//eslint-disable-line
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,

@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import ErrorPage from '../common/ErrorPage';
+import localStorage from 'localStorage';
 import * as searchActions from '../../actions/searchActions';
 import Survey from '../common/question/Survey';
-import WorkflowDetails from './WorkflowDetails';
-import Footer from '../common/Footer';
 
 class UWQuestions extends Component {
   static propTypes = {
-    data: PropTypes.any,
+    data: PropTypes.any, // eslint-disable-line
+    completeStep: PropTypes.func,
   }
   static contextTypes = {
     router: PropTypes.any,
@@ -60,19 +59,21 @@ class UWQuestions extends Component {
             display.forEach((condition) => {
             // console.log(condition);
             switch (condition.operator) { // eslint-disable-line
-              case 'equal':
+              case 'equal': {
                 if (!questions[question.name][condition.type]) {
                   questions[question.name][condition.type] =
                     !(questions[condition.dependency].value === condition.trigger);
                 }
                 break;
-              case 'notEqualTo':
+              }
+              case 'notEqualTo': {
                 if (!questions[question.name][condition.type]) {
                   questions[question.name][condition.type] =
                     (questions[condition.dependency].value === condition.trigger);
                 }
                 break;
-              case 'greaterThan':
+              }
+              case 'greaterThan': {
                 const { details } = this.state;
                 // console.log('CURRENT DEBUG:: ', details);
                 if (details && details.find(d => d.name === condition.detail)) {
@@ -85,12 +86,14 @@ class UWQuestions extends Component {
                     !(questions[condition.dependency].value > condition.trigger);
                 }
                 break;
-              case 'lessThan':
+              }
+              case 'lessThan': {
                 if (!questions[question.name][condition.type]) {
                   questions[question.name][condition.type] =
                     !(questions[condition.dependency].value < condition.trigger);
                 }
                 break;
+              }
             }
             });
           }
@@ -116,13 +119,14 @@ class UWQuestions extends Component {
         console.log(display);
         display.forEach((condition) => {
           switch (condition.operator) { // eslint-disable-line
-            case 'equal':
+            case 'equal': {
               if (!questions[question.name][condition.type]) {
                 questions[question.name][condition.type] =
                   !(questions[condition.dependency].value === condition.trigger);
               }
               break;
-            case 'greaterThan':
+            }
+            case 'greaterThan': {
               const { details } = this.state;
               if (details && details.find(d => d.name === condition.detail)) {
                 const expected = details.find(d => d.name === condition.detail).value;
@@ -134,12 +138,14 @@ class UWQuestions extends Component {
                   !(questions[condition.dependency].value > condition.trigger);
               }
               break;
-            case 'lessThan':
+            }
+            case 'lessThan': {
               if (!questions[question.name][condition.type]) {
                 questions[question.name][condition.type] =
                   !(questions[condition.dependency].value < condition.trigger);
               }
               break;
+            }
           }
         });
       }
@@ -198,11 +204,6 @@ class UWQuestions extends Component {
     return null;
   }
 }
-
-UWQuestions.propTypes = {
-  effectiveDate: PropTypes.string,
-  handleChange: PropTypes.func,
-};
 
 const mapDispatchToProps = dispatch => ({
   searchActions: bindActionCreators(searchActions, dispatch),

@@ -1,37 +1,37 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const WorkflowDetails = ({details}) => {
-  return (
-    <aside>
-      <div className="side-panel" role="contentinfo">
-        {details.map((d, index) => {
-
-          if (!d)
-            return null;
-          if (d.name.replace(/\s+/g, '') === "AnnualPremium" || d.name.replace(/\s+/g, '') === "CoverageA" || d.name.replace(/\s+/g, '') === "CoverageB" || d.name.replace(/\s+/g, '') === "CoverageC")
-            return (
-              <section key={index} className={d.name.replace(/\s+/g, '')}>
-                <dl>
-                  <div>
-                    <dt>{d.name}</dt>
-                    <dd>{'$ ' + d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</dd>
-                  </div>
-                </dl>
-              </section>
-            );
+const WorkflowDetails = ({ details }) => (
+  <aside>
+    <div className="side-panel" role="contentinfo">
+      {details.map((d, index) => {
+        if (!d) {
+          return null;
+        }
+        if (d.name.replace(/\s+/g, '') === 'AnnualPremium' || d.name.replace(/\s+/g, '') === 'CoverageA' || d.name.replace(/\s+/g, '') === 'CoverageB' || d.name.replace(/\s+/g, '') === 'CoverageC') {
           return (
             <section key={index} className={d.name.replace(/\s+/g, '')}>
               <dl>
                 <div>
                   <dt>{d.name}</dt>
-                  <dd>{d.value}</dd>
+                  <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
                 </div>
               </dl>
             </section>
           );
-        })
+        }
+        return (
+          <section key={index} className={d.name.replace(/\s+/g, '')}>
+            <dl>
+              <div>
+                <dt>{d.name}</dt>
+                <dd>{d.value}</dd>
+              </div>
+            </dl>
+          </section>
+        );
+      })
 }
-        {/* <section id="premium" className="premium">
+      {/* <section id="premium" className="premium">
           <dl>
             <div>
               <dt>Annual premium</dt>
@@ -75,9 +75,12 @@ const WorkflowDetails = ({details}) => {
             </div>
           </dl>
         </section> */}
-      </div>
-    </aside>
-  )
+    </div>
+  </aside>
+  );
+
+WorkflowDetails.propTypes = {
+    details: PropTypes.array,// eslint-disable-line
 };
 
 export default WorkflowDetails;

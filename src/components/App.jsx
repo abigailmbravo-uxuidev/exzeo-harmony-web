@@ -1,3 +1,4 @@
+/* eslint no-unused-vars :0 */
 import React, { Component, PropTypes } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -24,7 +25,7 @@ export class App extends Component {
   static propTypes = {
     actions: PropTypes.shape({ initializeLD: PropTypes.func, setupFeature: PropTypes.func }),
     features: PropTypes.shape({ get: PropTypes.func }),
-    loggedIn: PropTypes.bool,
+    // loggedIn: PropTypes.bool,
   }
   static contextTypes = {
     router: PropTypes.object,
@@ -43,7 +44,8 @@ export class App extends Component {
       this.props.actions.setupFeature('search');
     }
   }
-  shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
+  shouldComponentUpdate = (nextProps, nextState) =>
+  (!(this.state.direction === nextState.direction))
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
       // console.log('top');
@@ -85,20 +87,20 @@ export class App extends Component {
               <Route path="/search" component={Search} />
               <Route path="/search" component={SearchResults} />
               <Route path="/login" component={Login} />
-              {/*<Route path="/workflow/:step" component={NewWorkflow} />*/}
+              {/* <Route path="/workflow/:step" component={NewWorkflow} />*/}
               <Route exact path="/quote" component={Quote} />
               <Route path="/quote/:activeStep" component={Quote} />
-              {/*<Match pattern="/search" component={Search} />*/}
-              {/*<Match pattern="/search" component={SearchResults} />*/}
-              {/*<Match exactly pattern="/" component={homeScreen} />*/}
-              {/*<Match pattern="/login" component={Login} />*/}
-              {/*<Match pattern="/quote/:location/:address" component={Quote} />*/}
-              {/*<Match pattern="/test" component={TestPage} />*/}
-              {/*<Match pattern="/workflow/:step" component={NewWorkflow} />*/}
-              {/*<Match pattern="/admin/" component={Admin} />*/}
-              {/*<Match pattern="/cms" component={Cms} />*/}
-              {/*<Match pattern="/error" component={ErrorPage} />*/}
-              {/*<Match pattern="/Verify" component={Verify} />*/}
+              {/* <Match pattern="/search" component={Search} />*/}
+              {/* <Match pattern="/search" component={SearchResults} />*/}
+              {/* <Match exactly pattern="/" component={homeScreen} />*/}
+              {/* <Match pattern="/login" component={Login} />*/}
+              {/* <Match pattern="/quote/:location/:address" component={Quote} />*/}
+              {/* <Match pattern="/test" component={TestPage} />*/}
+              {/* <Match pattern="/workflow/:step" component={NewWorkflow} />*/}
+              {/* <Match pattern="/admin/" component={Admin} />*/}
+              {/* <Match pattern="/cms" component={Cms} />*/}
+              {/* <Match pattern="/error" component={ErrorPage} />*/}
+              {/* <Match pattern="/Verify" component={Verify} />*/}
             </div>
           </Router>
         </main>

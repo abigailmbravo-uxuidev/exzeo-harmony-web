@@ -11,10 +11,15 @@ const Links = ({ details, clearSearch }) => {
   console.log('LINKS HERE:', details);
   return (
     <div className="type-ahead-links">
-      <Link className="home-link btn btn-secondary" onClick={(event) => { event.stopPropagation(); clearSearch() }} to={{ pathname: '/workflow', query: { address: details.address1 } }}>H03 Quote</Link>
+      <Link className="home-link btn btn-secondary" onClick={(event) => { event.stopPropagation(); clearSearch(); }} to={{ pathname: '/workflow', query: { address: details.address1 } }}>H03 Quote</Link>
       <a className="flood-link btn btn-secondary" onClick={(event) => { event.stopPropagation(); }} href={`https://www.typtap.com/flood/?addr=${details.address1} ${details.zip}`} rel="noopener noreferrer" target="_blank" key="ho3">Flood Quote</a>
     </div>
   );
+};
+
+Links.propTypes = {
+  details: PropTypes.Object,
+  clearSearch: PropTypes.func,
 };
 
 const Suggestion = ({ data, handleSelect, showLinks, clearSearch }) => {
@@ -26,7 +31,7 @@ const Suggestion = ({ data, handleSelect, showLinks, clearSearch }) => {
         {
           results && results.length > 0 ? results.map((result, index) => (
             <li key={index}>
-              <a onClick={handleSelect}>
+              <a onClick={handleSelect} tabIndex="-1">
                 <span>{result[mapping.title]} {result[mapping.details]}</span>
                 <div className="workflow-links">{showLinks ? <Links details={result} clearSearch={clearSearch} /> : null}</div>
                 <i className="fa fa-chevron-circle-right" />
@@ -44,6 +49,9 @@ Suggestion.propTypes = {
     heading: PropTypes.String,
     handleSelect: PropTypes.func,
   }),
+  handleSelect: PropTypes.func,
+  showLinks: PropTypes.func,
+  clearSearch: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

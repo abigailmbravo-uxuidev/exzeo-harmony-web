@@ -68,8 +68,9 @@ const WorkflowHeader = (d) => {
 };
 
 WorkflowHeader.propTypes = {
-  steps: PropTypes.arrayOf(PropTypes.shape({ icon: PropTypes.string, active: PropTypes.bool, complete: PropTypes.bool })),
-  updateStep: PropTypes.func,
+  // steps: PropTypes.arrayOf(PropTypes.shape({
+  // icon: PropTypes.string, active: PropTypes.bool, complete: PropTypes.bool })),
+  // updateStep: PropTypes.func,
 };
 
 WorkflowHeader.contextTypes = {

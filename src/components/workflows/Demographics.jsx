@@ -1,13 +1,15 @@
+/* eslint no-class-assign :0 */
 import React, { PropTypes, Component } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
+import { reduxForm, Form, formValueSelector, change } from 'redux-form';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import localStorage from 'localStorage';
 import Footer from '../common/Footer';
 import TextInput from '../common/form/TextInput';
 import PolicyHolderDemographics from '../common/policyHolder/PolicyHolderDemographics';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 
 class Demographics extends Component {
   static contextTypes = {
@@ -17,7 +19,7 @@ class Demographics extends Component {
     this.props.dispatch(change('Demographics', 'entityType', 'Person'));
   }
 
-  handleChange = (event) => {
+  handleChange = () => {
 
   }
 
@@ -52,9 +54,7 @@ class Demographics extends Component {
   }
 
   render() {
-    const {
-      dispatch, state, formName, effectiveDate, styleName, handleSubmit,
-      pristine, reset, submitting, error, invalid,
+    const { state, effectiveDate, styleName, handleSubmit,
     } = this.props;
 
     return (
@@ -98,6 +98,11 @@ class Demographics extends Component {
 
 Demographics.propTypes = {
   effectiveDate: PropTypes.string,
+  completeStep: PropTypes.func,
+  dispatch:PropTypes.any,// eslint-disable-line
+  handleSubmit: PropTypes.func,
+  state:PropTypes.any,// eslint-disable-line
+  styleName:PropTypes.any,// eslint-disable-line
 };
 
 Demographics = reduxForm({

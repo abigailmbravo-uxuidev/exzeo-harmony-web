@@ -1,15 +1,21 @@
-import React, {Component} from 'react';
-import {graphql} from 'react-apollo';
+import React, { Component, PropTypes } from 'react';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import AddPermission from './AddPermission';
 
 class PermissionMananger extends Component {
-  state = {
-    addPermission: false
+
+  static propTypes = {
+    data: PropTypes.any,// eslint-disable-line
+    deletePermission: PropTypes.func,
   }
+  state = {
+    addPermission: false,
+  }
+
   togglePermission = () => {
     this.setState({
-      addPermission: !this.state.addPermission
+      addPermission: !this.state.addPermission,
     });
   }
   permissionAdded = () => {
@@ -19,8 +25,8 @@ class PermissionMananger extends Component {
   deletePermission = (name) => {
     this.props.deletePermission({
       variables: {
-        input: name
-      }
+        input: name,
+      },
     }).then(() => {
       this.props.data.refetch();
     }).catch(error => console.error(error));
@@ -33,42 +39,44 @@ class PermissionMananger extends Component {
         <div className="admin-header">
           <h3>Permissions</h3>
           <button className="btn-success btn-round" onClick={this.togglePermission}>
-            <i className="fa fa-plus"></i>
+            <i className="fa fa-plus" />
           </button>
         </div>
         <ul className="list list-cards">
           {this.state.addPermission
-            ? <AddPermission permissionAdded={this.permissionAdded}/>
+            ? <AddPermission permissionAdded={this.permissionAdded} />
             : null}
           {data && data.permission
-            ? data.permission.map((p, index) => {
-              return (
-                <li key={index}>
-                  <section>
-                    <h4>{p.name}</h4>
-                    <p>{p.description}</p>
-                  </section>
-                  <ul className="list">
-                    {p.rights.map((right, index) => (
-                      <li key={index} className={right.active
+            ? data.permission.map((p, index) => (
+              <li key={index}>
+                <section>
+                  <h4>{p.name}</h4>
+                  <p>{p.description}</p>
+                </section>
+                <ul className="list">
+                  {p.rights.map((right, i) => (
+                    <li
+                      key={i} className={right.active
                         ? 'active'
-                        : null}>{right.name}</li>
+                        : null}
+                    >{right.name}</li>
                     ))
 }
-                  </ul>
-                  <i className="fa fa-trash" onClick={() => {
+                </ul>
+                <i
+                  className="fa fa-trash" onClick={() => {
                     this.deletePermission(p.name);
-                  }}/>
-                </li>
-              )
-            })
+                  }}
+                />
+              </li>
+              ))
             : null
 }
         </ul>
       </div>
     );
   }
-};
+}
 
 export default graphql(gql `
   query GetPermissions {
@@ -85,4 +93,4 @@ export default graphql(gql `
   mutation DeletePermission($input:String!) {
     deletePermission(input:$input)
   }
-  `, {name: 'deletePermission'})(PermissionMananger));
+  `, { name: 'deletePermission' })(PermissionMananger));

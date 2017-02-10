@@ -1,11 +1,12 @@
+/*
+eslint import/no-mutable-exports:0, no-param-reassign:0
+*/
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import moment from 'moment';
-import Footer from '../Footer';
 import BoolInput from '../form/BoolInput';
 import quoteTest from './quoteTest';
-import TextInput from '../form/TextInput';
 import EffectiveDateForm from '../EffectiveDate/EffectiveDateForm';
 import PolicyHolderUpdateForm from '../policyHolder/PolicyHolderUpdateForm';
 import AdditionalInterestUpdateForm from '../AdditionalInterests/AdditionalInterestUpdateForm';
@@ -14,12 +15,8 @@ import MailingAddressForm from '../MailingAddress/MailingAddressForm';
 let Verify = ({
   dispatch,
   initialValues,
-  quote,
   state,
   styleName,
-  handleSubmit,
-  handleOnSubmit,
-  handleChange,
   effectiveDate,
   editConfirmAdditionalInterests,
   editConfirmPolicyHolder,
@@ -29,18 +26,10 @@ let Verify = ({
   confirmQuoteDetails,
   confirmPolicyHolderDetails,
   confirmAdditionalInterestsDetails,
-  pristine,
-  reset,
-  submitting,
-  error,
-  invalid,
 }) => {
   const property = quoteTest.property;
   const coverageLimits = quoteTest.coverageLimits;
   const mailingAddress = quoteTest.policyHolderMailingAddress;
-
-  const policyHolder1 = quoteTest.policyHolders.length > 0 ? quoteTest.policyHolders[0] : [];
-  const policyHolder2 = quoteTest.policyHolders.length > 1 ? quoteTest.policyHolders[1] : [];
 
   initialValues.effectiveDate = moment(quoteTest.effectiveDate).format('YYYY-MM-DD');
 
@@ -187,18 +176,19 @@ let Verify = ({
             />
           </div>}
           <section className="display-element">
-            {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ? quoteTest.policyHolders.map((policyHolder, index) => (
-              <dl key={`ph${index}`}>
-                <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                <div>
-                  <dt>Name</dt>
-                  <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
-                  <dt>Phone Number</dt>
-                  <dd>{policyHolder.primaryPhoneNumber}</dd>
-                  <dt>Email</dt>
-                  <dd>{policyHolder.emailAddress}</dd>
-                </div>
-              </dl>
+            {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ?
+              quoteTest.policyHolders.map((policyHolder, index) => (
+                <dl key={`ph${index}`}>
+                  <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                  <div>
+                    <dt>Name</dt>
+                    <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                    <dt>Phone Number</dt>
+                    <dd>{policyHolder.primaryPhoneNumber}</dd>
+                    <dt>Email</dt>
+                    <dd>{policyHolder.emailAddress}</dd>
+                  </div>
+                </dl>
                   )) : null}
           </section>
         </div>}
@@ -262,20 +252,22 @@ let Verify = ({
           </div>}
           <section className="display-element">
 
-            {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ? quoteTest.additionalInterests.map((additionalInterests, index) => (
-              <dl key={`ai${index}`}>
-                <div>
-                  <dt>Name</dt>
-                  <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
-                  <dt>Address</dt>
-                  <dd>{additionalInterests.mailingAddress.address1}</dd>
-                  <dd>{additionalInterests.mailingAddress.address2}</dd>
-                  <dt>City/State/Zip</dt>
-                  <dd>{additionalInterests.mailingAddress.city}, {additionalInterests.mailingAddress.state}
-                    {additionalInterests.mailingAddress.zip}
-                  </dd>
-                </div>
-              </dl>
+            {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ?
+              quoteTest.additionalInterests.map((additionalInterests, index) => (
+                <dl key={`ai${index}`}>
+                  <div>
+                    <dt>Name</dt>
+                    <dd>{`${additionalInterests.name1} ${additionalInterests.name2}`}</dd>
+                    <dt>Address</dt>
+                    <dd>{additionalInterests.mailingAddress.address1}</dd>
+                    <dd>{additionalInterests.mailingAddress.address2}</dd>
+                    <dt>City/State/Zip</dt>
+                    <dd>{additionalInterests.mailingAddress.city},
+                    {additionalInterests.mailingAddress.state}
+                      {additionalInterests.mailingAddress.zip}
+                    </dd>
+                  </div>
+                </dl>
                   )) : null}
 
             <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
@@ -284,7 +276,10 @@ let Verify = ({
         {editConfirmAdditionalInterests && <div className="detail-group additional-interests-details edit">
           <h4><i className="fa fa-bank" /> Additional Interests</h4>
           <section className="display-element">
-            <AdditionalInterestUpdateForm additionalInterests={quoteTest.additionalInterests} handleOnSubmit={updateQuote} />
+            <AdditionalInterestUpdateForm
+              additionalInterests={quoteTest.additionalInterests}
+              handleOnSubmit={updateQuote}
+            />
           </section>
         </div>}
 
@@ -301,6 +296,9 @@ let Verify = ({
 };
 
 Verify.propTypes = {
+  state: PropTypes.any,//eslint-disable-line
+  initialValues: PropTypes.any,//eslint-disable-line
+  dispatch: PropTypes.func,
   editMailingAddress: PropTypes.bool,
   effectiveDate: PropTypes.string,
   editConfirmAdditionalInterests: PropTypes.bool,
@@ -310,9 +308,6 @@ Verify.propTypes = {
   confirmQuoteDetails: PropTypes.bool,
   confirmPolicyHolderDetails: PropTypes.bool,
   confirmAdditionalInterestsDetails: PropTypes.bool,
-  handleOnSubmit: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
   quote: PropTypes.object, //eslint-disable-line
   styleName: PropTypes.string,
 };

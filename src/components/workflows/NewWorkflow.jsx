@@ -7,6 +7,7 @@ import WorkflowHeader from '../workflows/WorkflowHeader';
 class Workflow extends Component {
   static propTypes = {
     startWorkflow: PropTypes.func,
+    location: PropTypes.any,// eslint-disable-line
   }
   static contextTypes = {
     router: PropTypes.any,

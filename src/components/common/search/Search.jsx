@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import SearchBar from './SearchBar';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import localStorage from 'localStorage';
+import SearchBar from './SearchBar';
 
 
 class Search extends Component {
@@ -10,6 +11,9 @@ class Search extends Component {
     options: PropTypes.shape({
       placeholder: PropTypes.string,
     }),
+    completeStep: PropTypes.Object,
+    data: PropTypes.Object,
+    searchConfig: PropTypes.Object,
   }
   static contextTypes = {
     router: PropTypes.object,
@@ -30,25 +34,24 @@ class Search extends Component {
       variables: {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
-          stepName: "askAddress",
+          stepName: 'askAddress',
           data: [
             {
               key: 'address',
               value: this.state.searchText,
-            }
+            },
           ],
         },
       },
     }).then((updatedStep) => {
-      //console.log(data)
-      let workflow = updatedStep.data.completeStep;
-      if(workflow && workflow.link)
-        this.props.data.refetch().then((data) => {
+      const workflow = updatedStep.data.completeStep;
+      if (workflow && workflow.link) {
+        this.props.data.refetch().then(() => {
           this.context.router.push(`${workflow.link}/${this.state.searchText}`);
           this.setState({ searchText: '' });
         });
+      }
     }).catch(error => console.log(error));
-
   }
 
   clearSearch = () => {
@@ -56,9 +59,8 @@ class Search extends Component {
   }
 
   render() {
-    const {options} = this.props;
-    const { searchText } = this.state;
-    let placeholder = options ? options.placeholder : "Search...";
+    const { options } = this.props;
+    const placeholder = options ? options.placeholder : 'Search...';
 
     return (
       <div className="search">
@@ -78,41 +80,41 @@ const mapStateToProps = state => ({
   searchConfig: state.search.get('config'),
 });
 
-export default connect(mapStateToProps)(graphql(gql`
-    query GetActiveStep($workflowId:ID!) {
-        steps(id: $workflowId) {
-            name
-            details {
-                name
-                value
-            }
-            showDetail
-            data {
-                ... on Property {
-                    physicalAddress {
-                        address1
-                    }
-                }
-                ... on Address {
-                    address1
-                    city
-                    state
-                    zip
-                    id
-                }
-            }
-            type
-            completedSteps
-        }
+export default connect(mapStateToProps)(
+  graphql(gql`query GetActiveStep($workflowId:ID!) {
+      steps(id: $workflowId) {
+          name
+          details {
+              name
+              value
+          }
+          showDetail
+          data {
+              ... on Property {
+                  physicalAddress {
+                      address1
+                  }
+              }
+              ... on Address {
+                  address1
+                  city
+                  state
+                  zip
+                  id
+              }
+          }
+          type
+          completedSteps
+      }
     }`,
-  { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } }},
-  {name: 'activeStep'})
-(graphql(gql `
-    mutation CompleteStep($input:CompleteStepInput) {
+    {
+      options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } },
+    },
+    { name: 'activeStep' },
+)(graphql(gql `mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
             name
             type
             link
         }
-    }
-`, { name: 'completeStep' })(Search)));
+    }`, { name: 'completeStep' })(Search)));

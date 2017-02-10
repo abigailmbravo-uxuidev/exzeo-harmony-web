@@ -55,6 +55,16 @@ const renderField = ({
   );
 };
 
+renderField.propTypes = {
+  input: PropTypes.any,// eslint-disable-line
+  handleChange: PropTypes.any,// eslint-disable-line
+  isSwitch: PropTypes.any,// eslint-disable-line
+  description: PropTypes.any,// eslint-disable-line
+  question: PropTypes.any,// eslint-disable-line
+  styleName: PropTypes.any,// eslint-disable-line
+  meta: PropTypes.any,// eslint-disable-line
+};
+
 const BoolInput = ({
   description,
   disabled,
@@ -85,6 +95,7 @@ const BoolInput = ({
 };
 
 BoolInput.propTypes = {
+  validations: PropTypes.any,// eslint-disable-line
   description: PropTypes.string,
   disabled: PropTypes.bool,
   handleChange: PropTypes.func,

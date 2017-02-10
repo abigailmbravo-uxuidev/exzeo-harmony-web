@@ -44,6 +44,7 @@ const Dropdown = ({
 };
 
 Dropdown.propTypes = {
+  validations: PropTypes.any, // eslint-disable-line
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.string,
     image: PropTypes.string,
