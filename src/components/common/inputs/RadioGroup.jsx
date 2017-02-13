@@ -53,7 +53,7 @@ const RenderField = ({
                 defaultChecked={input.value === answer.answer}
                 value={answer.answer}
               />
-              <span>{answer.display || answer.answer || null}</span>
+              <span>{answer.label || answer.answer || null}</span>
             </label>
           </div>,
              ) : null}
@@ -73,7 +73,7 @@ RenderField.propTypes = {
       PropTypes.string,
       PropTypes.number,
     ]),
-    display: PropTypes.oneOfType([
+    label: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]),
