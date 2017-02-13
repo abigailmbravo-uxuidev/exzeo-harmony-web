@@ -5,49 +5,23 @@ import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import _ from 'lodash';
 import { quoteInfo, customizeQuestions } from './customizeMocks';
+import Details from './Details';
 import Footer from '../../common/Footer';
 import DependentQuestion from '../../common/question/DependentQuestion';
 
-const Details = ({ details }) => (
-  <div className="side-panel">
-    {details.map((d, index) => {
-      if (d.name.replace(/\s+/g, '') === 'AnnualPremium' || d.name.replace(/\s+/g, '') === 'CoverageA' || d.name.replace(/\s+/g, '') === 'CoverageB' || d.name.replace(/\s+/g, '') === 'CoverageC') {
-        return (
-          <dl key={`${index}d`}>
-            <div>
-              <dt>{d.name}</dt>
-              <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
-            </div>
-          </dl>
-        );
-      }
-      return (
-        <dl key={`${index}d`}>
-          <div>
-            <dt>{d.name}</dt>
-            <dd>{d.value}</dd>
-          </div>
-        </dl>
-      );
-    })}
-  </div>);
-
-Details.propTypes = {
-  details: PropTypes.any, // eslint-disable-line
-};
-
 class Customize extends Component {
   static propTypes = {
-    // workflowId: PropTypes.string,
     completeStep: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    styleName: PropTypes.string
   }
 
   static contextTypes = {
-    router: PropTypes.any,
+    router: PropTypes.any
   }
 
   state = {
-    updated: false,
+    updated: false
   }
 
   componentWillMount() {
@@ -97,12 +71,11 @@ class Customize extends Component {
   buildSubmission = (stepName, data) => ({
     variables: {
       input: {
-        workflowId: localStorage.getItem('newWorkflowId'), // plugin workflow id or uncomment next line
-        // workflowId: localStorage.getItem('newWorkflowId'),
+        workflowId: localStorage.getItem('newWorkflowId'),
         stepName,
-        data,
-      },
-    },
+        data
+      }
+    }
   });
 
   update = async () => {
@@ -121,7 +94,7 @@ class Customize extends Component {
       state.updated = false;
       this.setState(state);
     } catch (error) {
-      console.log('Error: ', error);
+      console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
     }
   }
@@ -132,26 +105,31 @@ class Customize extends Component {
       let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', [
         {
           key: 'shouldCustomizeQuote',
-          value: 'No',
+          value: 'No'
         },
       ]));
-      console.log('ask to customize no', data);
+      console.log('ask to customize no', data); // eslint-disable-line
+
       data = await completeStep(this.buildSubmission('showCustomizedQuoteAndContinue', []));
-      console.log('show customize', data);
+      console.log('show customize', data); // eslint-disable-line
+
       data = await completeStep(this.buildSubmission('saveAndSendEmail', [
         {
           key: 'shouldGeneratePdfAndEmail',
-          value: 'No',
+          value: 'No'
         },
       ]));
-      console.log('save and send email', data);
+      console.log('save and send email', data); // eslint-disable-line
+
       data = await completeStep(this.buildSubmission('askAdditionalQuestions', []));
-      console.log('ask additional questions', data);
+      console.log('ask additional questions', data); // eslint-disable-line
+
       data = await completeStep(this.buildSubmission('askScheduleInspectionDates', []));
-      console.log('ask to inspection', data);
+      console.log('ask to inspection', data); // eslint-disable-line
+
       this.context.router.push('thankyou');
     } catch (error) {
-      console.log('Error: ', error);
+      console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
     }
   }
@@ -214,7 +192,7 @@ const CustomizeQuote = reduxForm({
   form: 'Customize',
 })(Customize);
 
-//const selector = formValueSelector('Customize'); // <-- same as form name
+// const selector = formValueSelector('Customize'); // <-- same as form name
 
 export default (graphql(gql `
     query GetActiveStep($workflowId:ID!) {
@@ -231,6 +209,11 @@ export default (graphql(gql `
                     maxAmount
                     minAmount
                     amount
+                  }
+                }
+                property {
+                  physicalAddress {
+                    address1
                   }
                 }
               }
