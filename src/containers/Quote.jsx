@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
-import Workflow from '../workflows/Workflow';
+import Workflow from '../components/workflows/Workflow';
 
 class Quote extends Component {
 
@@ -46,6 +46,7 @@ class Quote extends Component {
 
     return (
       <div>
+        safsafsdafsa
         <Workflow />
       </div>
     );
@@ -67,4 +68,3 @@ export default graphql(gql`
         }
     }
 `, { name: 'startWorkflow' })(Quote);
-// export default Quote;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import RoleManager from './RoleManager';
-import PermissionMananger from './PermissionMananger';
+import RoleManager from '../components/admin/RoleManager';
+import PermissionMananger from '../components/admin/PermissionMananger';
 
 const Admin = () => (
   <div className="admin" role="article">

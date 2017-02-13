@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
-import AdditionalInterests from '../common/AdditionalInterests/AdditionalInterests';
+import AdditionalInterests from '../forms/AdditionalInterests/AdditionalInterests';
 
 let AdditionalInterestsForm = (props) => {
   const { styleName, handleSubmit } = props;

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { FieldArray } from 'redux-form';
 import PolicyHolder from '../policyHolder/PolicyHolder';
-import Interest from '../AdditionalInterests/Interest';
+import Interest from './Interest';
 
 const renderPolicyHolder = ({ fields, InterestType, InterestTypeName,
    handleChange, meta: { touched, error } }) => (

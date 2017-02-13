@@ -1,7 +1,7 @@
 // Test page for components
 /* eslint max-len:0, jsx-a11y/label-has-for:0 */
 import React, { Component } from 'react';
-import Survey from './common/question/Survey';
+import Survey from '../components/common/question/Survey';
 import './TestPage.css';
 // Uncomment and change the surveyQuestions object name below
 // import surveyQuestions from './CoverageQuestions';

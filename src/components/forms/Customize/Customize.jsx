@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form, formValueSelector } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import _ from 'lodash';
 import { quoteInfo, customizeQuestions } from './customizeMocks';
-import Footer from '../Footer';
-import DependentQuestion from '../question/DependentQuestion';
+import Footer from '../../common/Footer';
+import DependentQuestion from '../../common/question/DependentQuestion';
 
 const Details = ({ details }) => (
   <div className="side-panel">
@@ -163,17 +163,8 @@ class Customize extends Component {
 
   render() {
     const {
-      state,
-      formName,
-      effectiveDate,
       styleName,
-      handleSubmit,
-      handleChange,
-      pristine,
-      reset,
-      submitting,
-      error,
-      invalid,
+      handleSubmit
     } = this.props;
 
     const details = JSON.parse(localStorage.getItem('details'));
@@ -223,7 +214,7 @@ const CustomizeQuote = reduxForm({
   form: 'Customize',
 })(Customize);
 
-const selector = formValueSelector('Customize'); // <-- same as form name
+//const selector = formValueSelector('Customize'); // <-- same as form name
 
 export default (graphql(gql `
     query GetActiveStep($workflowId:ID!) {

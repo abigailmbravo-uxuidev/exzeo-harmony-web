@@ -8,8 +8,8 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import Footer from '../common/Footer';
-import TextInput from '../common/form/TextInput';
-import PolicyHolderDemographics from '../common/policyHolder/PolicyHolderDemographics';
+import TextInput from '../common/inputs/TextInput';
+import PolicyHolderDemographics from '../forms/policyHolder/PolicyHolderDemographics';
 
 class Demographics extends Component {
   static contextTypes = {

@@ -7,10 +7,10 @@ import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import moment from 'moment';
 import BoolInput from '../form/BoolInput';
 import quoteTest from './quoteTest';
-import EffectiveDateForm from '../EffectiveDate/EffectiveDateForm';
-import PolicyHolderUpdateForm from '../policyHolder/PolicyHolderUpdateForm';
-import AdditionalInterestUpdateForm from '../AdditionalInterests/AdditionalInterestUpdateForm';
-import MailingAddressForm from '../MailingAddress/MailingAddressForm';
+import EffectiveDateForm from '../../forms/EffectiveDate/EffectiveDateForm';
+import PolicyHolderUpdateForm from '../../forms/policyHolder/PolicyHolderUpdateForm';
+import AdditionalInterestUpdateForm from '../../forms/AdditionalInterests/AdditionalInterestUpdateForm';
+import MailingAddressForm from '../../forms/MailingAddress/MailingAddressForm';
 
 let Verify = ({
   dispatch,

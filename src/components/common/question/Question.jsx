@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import TextInput from '../form/TextInput';
-import Dropdown from '../form/Dropdown';
-import RadioGroup from '../form/RadioGroup';
-import BoolInput from '../form/BoolInput';
-import SliderInput from '../form/SliderInput';
-import ListSelection from '../form/ListSelection';
-import DisplayInput from '../form/DisplayInput';
-import Heading from '../form/Heading';
+import TextInput from '../inputs/TextInput';
+import Dropdown from '../inputs/Dropdown';
+import RadioGroup from '../inputs/RadioGroup';
+import BoolInput from '../inputs/BoolInput';
+import SliderInput from '../inputs/SliderInput';
+import ListSelection from '../inputs/ListSelection';
+import DisplayInput from '../inputs/DisplayInput';
+import Heading from '../inputs/Heading';
 
 const Question = ({ question, answer, disabled, handleChange }) => {
   const inputProps = {

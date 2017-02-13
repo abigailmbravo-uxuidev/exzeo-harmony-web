@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { formValueSelector } from 'redux-form';
-import TextInput from '../form/TextInput';
+import TextInput from '../../common/inputs/TextInput';
 
 const PolicyHolderDemographics = ({ handleChange, state, formName,
   }) => {

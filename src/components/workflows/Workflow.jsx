@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Demographics from '../workflows/Demographics';
-import Search from '../common/search/Search';
-import SearchResults from '../common/search/SearchResults';
+import Search from '../search/Search';
+import SearchResults from '../search/SearchResults';
 import UWQuestions from '../workflows/UWQuestions_Form';
-import Customize from '../common/Customize/Customize';
-import ThankYou from '../common/ThankYou';
-import ErrorPage from '../common/ErrorPage';
+import Customize from '../forms/Customize/Customize';
+import ThankYou from './ThankYou';
+import ErrorPage from './ErrorPage';
 
 const WorkflowHeader = (d) => {
   console.log(d);

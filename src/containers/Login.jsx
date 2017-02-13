@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import * as authActions from '../../actions/authActions';
+import * as authActions from '../actions/authActions';
 
 class Login extends Component {
   static propTypes = {

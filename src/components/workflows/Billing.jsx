@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
-import MailingAddress from '../../components/common/MailingAddress/MailingAddress';
+import MailingAddress from '../forms/MailingAddress/MailingAddress';
 
 
 let Billing = (props) => {

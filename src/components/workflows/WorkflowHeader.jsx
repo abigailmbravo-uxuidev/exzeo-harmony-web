@@ -6,8 +6,8 @@ import Share from '../workflows/Share';
 import UWQuestions from '../workflows/UWQuestions';
 import Billing from '../workflows/Billing';
 import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
-import MailingAddressForm from '../common/MailingAddress/MailingAddressForm';
-import Verify from '../common/verify/Verify';
+import MailingAddressForm from '../forms/MailingAddress/MailingAddressForm';
+import Verify from './verify/Verify';
 
 // function getStatus(step, completedSteps) {
 //   let status;
