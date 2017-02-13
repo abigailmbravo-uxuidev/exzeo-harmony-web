@@ -32,45 +32,50 @@ const DependentQuestion = ({
   }
 
   // For read only/display boxes
-  if (question.conditional.readOnly) {
-    const { readOnly } = question.conditional;
-    const depValue = readOnly.location === 'state' ? answers[readOnly.dependency] :
-      _.get(data, readOnly.dependency);
-    const calcValue = depValue * answers[question.name];
-    question.displayValue = `$ ${readOnly.type === 'percent' ? calcValue / 100 : calcValue}`;
+  if (question.conditional.value) {
+    const { value } = question.conditional;
+    const parentValue = _.get(answers, value.parent);
+    const calculatedValue = parentValue * answers[question.name];
+    question.displayValue = `$ ${value.type === 'percent' ? calculatedValue / 100 : calculatedValue}`;
   }
 
 /**
  * type: 'hidden',
  trigger: true,
  dependency: 'personalPropertyConverage',
- location: 'state',
  operator: 'equal',
+
+  if the parent's value is {operator} to/than {trigger},
+  then the child will be !{type}, else child will be {type}
  */
   if (question.conditional.display && question.conditional.display.length > 0) {
     const { display } = question.conditional;
     display.forEach((d) => {
-      const { type, trigger, dependency, location, operator } = d;
-      const depValue = location === 'state' ? answers[dependency] : _.get(data, dependency);
+      const {
+        type,
+        trigger,
+        parent,
+        operator
+      } = d;
+      const parentValue = _.get(answers, parent);
       switch (operator) {
         case 'equal':
-          // Hidden/disabled if dependency value does not equal trigger
-          question[type] = !(depValue === trigger);
+          // Hidden/disabled if parent value does not equal trigger
+          question[type] = !(parentValue === trigger);
           break;
         case 'notEqual':
-          // Hidden/disabled if dependency value equals trigger
-          question[type] = (depValue === trigger);
+          // Hidden/disabled if parent value equals trigger
+          question[type] = !(parentValue !== trigger);
           break;
         case 'greaterThan':
-          // Hidden/disabled if dependency value is less than or equal to trigger
-          question[type] = depValue <= trigger;
+          // Hidden/disabled if parent value is less than or equal to trigger
+          question[type] = !(parentValue > trigger);
           break;
         case 'lessThan':
-          // Hidden/disabled if dependency value is greater than or equal to trigger
-          question[type] = depValue >= trigger;
+          // Hidden/disabled if parent value is greater than or equal to trigger
+          question[type] = !(parentValue < trigger);
           break;
         default:
-
       }
     });
   }

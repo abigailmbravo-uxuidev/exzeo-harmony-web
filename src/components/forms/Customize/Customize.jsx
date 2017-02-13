@@ -19,7 +19,7 @@ class Customize extends Component {
   static contextTypes = {
     router: PropTypes.any
   }
-
+  // TODO: push up data props into state
   state = {
     updated: false
   }

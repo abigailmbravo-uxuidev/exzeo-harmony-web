@@ -98,16 +98,16 @@ export const customizeQuestions = [{
   answerType: 'radio',
   answers: [{
     answer: 0,
-    display: '0%',
+    label: '0%',
   }, {
     answer: 2,
-    display: '2%',
+    label: '2%',
   }, {
     answer: 5,
-    display: '5%',
+    label: '5%',
   }, {
     answer: 10,
-    display: '10%',
+    label: '10%',
   }],
   conditional: {
     readOnly: {
@@ -128,24 +128,29 @@ export const customizeQuestions = [{
   answerType: 'radio',
   answers: [{
     answer: 0,
-    display: '0%',
+    label: '0%',
   }, {
     answer: 25,
-    display: '25%',
+    label: '25%',
   }, {
     answer: 35,
-    display: '35%',
+    label: '35%',
   }, {
     answer: 50,
-    display: '50%',
+    label: '50%',
+    // TODO: Add dependency on this stuff
   }],
   conditional: {
     display: [{
       type: 'hidden',
       trigger: true,
-      dependency: 'personalPropertyCoverage',
-      location: 'state',
+      parent: 'personalPropertyCoverage',
       operator: 'equal',
+    // }, {
+    //   type: 'radio',
+    //   parent: 'dwellingLimit',
+    //   trigger: 500000,
+    //   operator: 'lessThan',
     }],
   },
 }, {
@@ -157,20 +162,18 @@ export const customizeQuestions = [{
     display: [{
       type: 'hidden',
       trigger: true,
-      dependency: 'personalPropertyCoverage',
-      location: 'state',
+      parent: 'personalPropertyCoverage',
       operator: 'equal',
     }],
   },
 }, {
   name: 'lossOfUseAmount',
   question: 'Loss Of Use Limit',
-  answerType: 'text',
+  answerType: 'display',
   defaultValueLocation: 'coverageLimits.lossOfUse.amount',
   conditional: {
-    readOnly: {
+    value: {
       type: 'percent',
-      location: 'state',
       dependency: 'dwellingAmount',
     },
   },
