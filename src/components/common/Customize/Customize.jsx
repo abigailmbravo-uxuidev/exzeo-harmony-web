@@ -148,4 +148,4 @@ export default(connect(null, mapDispatchToProps))(graphql(gql `
           completedSteps
         }
       }
-    `)(Customize)));
+    `, { name: 'completeStep' })(Customize)));
