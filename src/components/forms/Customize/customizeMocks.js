@@ -110,10 +110,9 @@ export const customizeQuestions = [{
     label: '10%',
   }],
   conditional: {
-    readOnly: {
+    value: {
       type: 'percent',
-      location: 'state',
-      dependency: 'dwellingAmount',
+      parent: 'dwellingAmount',
     },
   },
 }, {
@@ -145,12 +144,7 @@ export const customizeQuestions = [{
       type: 'hidden',
       trigger: true,
       parent: 'personalPropertyCoverage',
-      operator: 'equal',
-    // }, {
-    //   type: 'radio',
-    //   parent: 'dwellingLimit',
-    //   trigger: 500000,
-    //   operator: 'lessThan',
+      operator: 'equal'
     }],
   },
 }, {
@@ -174,7 +168,7 @@ export const customizeQuestions = [{
   conditional: {
     value: {
       type: 'percent',
-      dependency: 'dwellingAmount',
+      parent: 'dwellingAmount',
     },
   },
 }, {
@@ -234,10 +228,9 @@ export const customizeQuestions = [{
     display: '50%',
   }],
   conditional: {
-    readOnly: {
+    value: {
       type: 'percent',
-      location: 'state',
-      dependency: 'dwellingAmount',
+      parent: 'dwellingAmount',
     },
   },
 }, {
@@ -274,13 +267,13 @@ export const customizeQuestions = [{
   answerType: 'radio',
   answers: [{
     answer: 500,
-    display: '$ 500',
+    label: '$ 500',
   }, {
     answer: 1000,
-    display: '$ 1000',
+    label: '$ 1000',
   }, {
     answer: 2500,
-    display: '$ 2500',
+    label: '$ 2500',
   }],
 }, {
   name: 'hurricane',
@@ -289,19 +282,18 @@ export const customizeQuestions = [{
   answerType: 'radio',
   answers: [{
     answer: 2,
-    display: '2%',
+    label: '2%',
   }, {
     answer: 5,
-    display: '5%',
+    label: '5%',
   }, {
     answer: 10,
-    display: '10%',
+    label: '10%',
   }],
   conditional: {
-    readOnly: {
+    value: {
       type: 'percent',
-      location: 'state',
-      dependency: 'dwellingAmount',
+      parent: 'dwellingAmount',
     },
   },
 }];

@@ -26,7 +26,6 @@ class Customize extends Component {
 
   componentWillMount() {
     const { state } = this;
-
     // Set up default values
     customizeQuestions.forEach((question) => {
       if (_.has(question, 'defaultValue')) {
@@ -39,6 +38,24 @@ class Customize extends Component {
     });
     this.setState(state);
   }
+
+  //  // this needs to happen only once
+  //  componentWillReceiveProps(nextProps) {
+  //   const { state } = this;
+  //   if (nextProps.data && nextProps.data.steps && nextProps.data.steps.data &&
+  //     nextProps.data.steps.data.length > 0) {
+  //     const { data } = nextProps.data.steps;
+  //     customizeQuestions.forEach((question) => {
+  //       if (_.has(question, 'defaultValue')) {
+  //         state[question.name] = question.defaultValue;
+  //       } else if (question.defaultValueLocation) {
+  //         state[question.name] = _.get(data[0], question.defaultValueLocation);
+  //       } else {
+  //         state[question.name] = '';
+  //       }
+  //     });
+  //   }
+  // }
 
   handleChange = (event) => {
     const { state } = this;
@@ -144,7 +161,9 @@ class Customize extends Component {
       styleName,
       handleSubmit
     } = this.props;
-
+    if (this.props.data && this.props.data.steps) {
+      console.log(this.props.data.steps.data);
+    }
     const details = JSON.parse(localStorage.getItem('details'));
 
     return (
@@ -209,6 +228,70 @@ export default (graphql(gql `
                     maxAmount
                     minAmount
                     amount
+                    format
+                  }
+                  otherStructures {
+                    amount
+                    format
+                  }
+                  personalProperty {
+                    amount
+                    format
+                  }
+                  lossOfUse {
+                    amount
+                    format
+                  }
+                  personalLiability {
+                    amount
+                    format
+                  }
+                  medicalPayments {
+                    amount
+                    format
+                  }
+                  ordinanceOrLaw {
+                    amount
+                    format
+                  }
+                  moldProperty {
+                    amount
+                    format
+                  }
+                  moldLiability {
+                    amount
+                    format
+                  }
+                }
+                coverageOptions {
+                  personalPropertyReplacementCost {
+                    answer
+                  }
+                  sinkholePerilCoverage {
+                    answer
+                  }
+                  propertyIncidentalOccupanciesMainDwelling {
+                    answer
+                  }
+                  propertyIncidentalOccupanciesOtherStructures {
+                    answer
+                  }
+                  liabilityIncidentalOccupancies {
+                    answer
+                  }
+                }
+                deductibles {
+                  hurricane {
+                    amount
+                    format
+                  }
+                  sinkhole {
+                    amount
+                    format
+                  }
+                  allOtherPerils {
+                    amount
+                    format
                   }
                 }
                 property {
@@ -281,6 +364,75 @@ export default (graphql(gql `
                   maxAmount
                   minAmount
                   amount
+                  format
+                }
+                otherStructures {
+                  amount
+                  format
+                }
+                personalProperty {
+                  amount
+                  format
+                }
+                lossOfUse {
+                  amount
+                  format
+                }
+                personalLiability {
+                  amount
+                  format
+                }
+                medicalPayments {
+                  amount
+                  format
+                }
+                ordinanceOrLaw {
+                  amount
+                  format
+                }
+                moldProperty {
+                  amount
+                  format
+                }
+                moldLiability {
+                  amount
+                  format
+                }
+              }
+              coverageOptions {
+                personalPropertyReplacementCost {
+                  answer
+                }
+                sinkholePerilCoverage {
+                  answer
+                }
+                propertyIncidentalOccupanciesMainDwelling {
+                  answer
+                }
+                propertyIncidentalOccupanciesOtherStructures {
+                  answer
+                }
+                liabilityIncidentalOccupancies {
+                  answer
+                }
+              }
+              deductibles {
+                hurricane {
+                  amount
+                  format
+                }
+                sinkhole {
+                  amount
+                  format
+                }
+                allOtherPerils {
+                  amount
+                  format
+                }
+              }
+              property {
+                physicalAddress {
+                  address1
                 }
               }
             }
