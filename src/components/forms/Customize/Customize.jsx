@@ -11,6 +11,7 @@ import DependentQuestion from '../../question/DependentQuestion';
 
 class Customize extends Component {
   static propTypes = {
+    data: PropTypes.any, // eslint-disable-line
     completeStep: PropTypes.func,
     handleSubmit: PropTypes.func,
     styleName: PropTypes.string
@@ -24,19 +25,36 @@ class Customize extends Component {
     updated: false
   }
 
+
   componentWillMount() {
-    const { state } = this;
-    // Set up default values
-    customizeQuestions.forEach((question) => {
-      if (_.has(question, 'defaultValue')) {
-        state[question.name] = question.defaultValue;
-      } else if (question.defaultValueLocation) {
-        state[question.name] = _.get(quoteInfo, question.defaultValueLocation);
-      } else {
-        state[question.name] = '';
-      }
-    });
-    this.setState(state);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if ((!this.props.data.steps && newProps.data.steps) ||
+    (!newProps.data.loading &&
+      this.props.data.steps &&
+      // newProps.data.steps &&
+      this.props.data.steps.name !== newProps.data.steps.name
+    )) {
+      const { steps } = newProps.data;
+
+      const { state } = this;
+      // Set up default values
+      const questions = steps.questions;
+      const realQuote = steps.data;
+
+      questions.forEach((question) => {
+        if (_.has(question, 'defaultValue')) {
+          state[question.name] = question.defaultValue;
+        } else if (question.defaultValueLocation) {
+          state[question.name] = _.get(realQuote, question.defaultValueLocation);
+        } else {
+          state[question.name] = '';
+        }
+      });
+      console.log('state', state);
+      this.setState(state);
+    }
   }
 
   //  // this needs to happen only once
@@ -161,8 +179,11 @@ class Customize extends Component {
       styleName,
       handleSubmit
     } = this.props;
+    let questions = [];
+
     if (this.props.data && this.props.data.steps) {
       console.log(this.props.data.steps.data);
+      questions = this.props.data.steps.questions;
     }
     const details = JSON.parse(localStorage.getItem('details'));
 
@@ -178,7 +199,7 @@ class Customize extends Component {
               noValidate
             >
               <div className="form-group survey-wrapper" role="group">
-                {customizeQuestions && customizeQuestions.map((question, index) => (
+                {questions && questions.map((question, index) => (
                   <DependentQuestion
                     data={quoteInfo}
                     question={question}
