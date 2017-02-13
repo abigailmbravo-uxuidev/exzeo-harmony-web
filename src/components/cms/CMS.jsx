@@ -1,7 +1,7 @@
 /* eslint react/no-direct-mutation-state:0 */
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import Survey from '../common/question/Survey';
+import Survey from '../question/Survey';
 import ContentManager from './ContentManager';
 
 

@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { quoteInfo, customizeQuestions } from './customizeMocks';
 import Details from './Details';
 import Footer from '../../common/Footer';
-import DependentQuestion from '../../common/question/DependentQuestion';
+import DependentQuestion from '../../question/DependentQuestion';
 
 class Customize extends Component {
   static propTypes = {

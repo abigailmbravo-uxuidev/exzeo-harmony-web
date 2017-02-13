@@ -1,7 +1,7 @@
 /* eslint react/forbid-prop-types:0, jsx-a11y/no-static-element-interactions:0,
  react/no-direct-mutation-state:0 */
 import React, { Component, PropTypes } from 'react';
-import Question from '../common/question/Question';
+import Question from '../question/Question';
 
 const answerType = {
   answerType: 'radio',

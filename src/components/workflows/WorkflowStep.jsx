@@ -7,7 +7,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import ErrorPage from './ErrorPage';
 import * as searchActions from '../../actions/searchActions';
-import Survey from '../common/question/Survey';
+import Survey from '../question/Survey';
 import WorkflowDetails from './WorkflowDetails';
 import Footer from '../common/Footer';
 

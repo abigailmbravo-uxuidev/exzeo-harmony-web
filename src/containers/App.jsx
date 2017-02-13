@@ -34,7 +34,7 @@ export class App extends Component {
     //   this.props.actions.setupFeature('search');
     // }
   }
-  shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
+  //shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
 
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
@@ -51,7 +51,7 @@ export class App extends Component {
     return (
       <div className="app-wrapper">
         <Header />
-        <main role="document" onScroll={this.handleScroll} className={cssName}>
+        <main role="document" className={cssName}>
           <aside className="content-panel-left">
             <div className="user">
               <span className="user-icon">

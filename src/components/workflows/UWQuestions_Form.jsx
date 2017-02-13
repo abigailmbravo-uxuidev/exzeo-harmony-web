@@ -5,7 +5,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import * as searchActions from '../../actions/searchActions';
-import Survey from '../common/question/Survey';
+import Survey from '../question/Survey';
 
 class UWQuestions extends Component {
   static propTypes = {

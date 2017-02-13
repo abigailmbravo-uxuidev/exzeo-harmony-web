@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
-import { combineRules } from '../../forms/Rules';
+import { combineRules } from '../forms/Rules';
 
 const Dropdown = ({
   answers,

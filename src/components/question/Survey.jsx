@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { reduxForm, Form, change } from 'redux-form';
 import Question from './Question';
 import DependentQuestion from './DependentQuestion';
-import Footer from '../Footer';
+import Footer from '../common/Footer';
 
 class Survey extends Component {
 
