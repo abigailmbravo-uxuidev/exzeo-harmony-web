@@ -299,4 +299,4 @@ export default (connect(null, mapDispatchToProps))(graphql(gql `
           completedSteps
         }
       }
-    `)(UWQuestions)));
+    `, { name: 'completeStep' })(UWQuestions)));
