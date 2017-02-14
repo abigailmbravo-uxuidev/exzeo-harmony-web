@@ -356,13 +356,18 @@ export default (graphql(gql `
                     minLocation
                     maxLocation
                   }
-                    display {
-                        type
-                        operator
-                        trigger
-                        dependency
-                        detail
-                    }
+                  display {
+                    type
+                    operator
+                    trigger
+                    dependency
+                    detail
+                    parent
+                  }
+                  value {
+                    type
+                    parent
+                  }
                 }
             }
             completedSteps
@@ -493,6 +498,10 @@ export default (graphql(gql `
                 trigger
                 dependency
                 detail
+              }
+              value {
+                type
+                parent
               }
             }
           }
