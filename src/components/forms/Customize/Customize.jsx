@@ -180,13 +180,13 @@ class Customize extends Component {
       handleSubmit
     } = this.props;
     let questions = [];
+    let details = [];
 
     if (this.props.data && this.props.data.steps) {
       console.log(this.props.data.steps.data);
       questions = _.sortBy(this.props.data.steps.questions, ['order']);
+      details = this.props.data.steps.details;
     }
-    const details = JSON.parse(localStorage.getItem('details'));
-
     return (
       <div className="workflow-content">
         <aside><Details details={details} /></aside>
@@ -348,6 +348,7 @@ export default (graphql(gql `
                 maxValue
                 defaultAnswer
                 answers {
+                    label
                     default
                     answer
                     image
