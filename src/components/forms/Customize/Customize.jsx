@@ -367,6 +367,7 @@ export default (graphql(gql `
                   value {
                     type
                     parent
+                    value
                   }
                 }
             }
