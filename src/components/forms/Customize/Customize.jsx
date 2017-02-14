@@ -41,7 +41,7 @@ class Customize extends Component {
       const { state } = this;
       // Set up default values
       const questions = steps.questions;
-      const realQuote = steps.data;
+      const realQuote = steps.data[0];
 
       questions.forEach((question) => {
         if (_.has(question, 'defaultValue')) {
@@ -183,7 +183,7 @@ class Customize extends Component {
 
     if (this.props.data && this.props.data.steps) {
       console.log(this.props.data.steps.data);
-      questions = this.props.data.steps.questions;
+      questions = _.sortBy(this.props.data.steps.questions, ['order']);
     }
     const details = JSON.parse(localStorage.getItem('details'));
 
@@ -335,6 +335,8 @@ export default (graphql(gql `
               }
             }
             questions {
+                defaultValueLocation
+                order
                 hidden
                 name
                 validations
@@ -350,6 +352,10 @@ export default (graphql(gql `
                     image
                 }
                 conditional {
+                  slider {
+                    minLocation
+                    maxLocation
+                  }
                     display {
                         type
                         operator
