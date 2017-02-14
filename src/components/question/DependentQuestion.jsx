@@ -40,6 +40,13 @@ const DependentQuestion = ({
     question.displayValue = `$ ${value.type === 'percent' ? Math.ceil(parentValue * (value.value / 100)) : calculatedValue}`;
   }
 
+  if (question.conditional.dependency) {
+    const { dependency } = question.conditional;
+    const parentValue = _.get(answers, dependency.parent);
+    const calculatedValue = parentValue * answers[question.name];
+    question.displayValue = `$ ${dependency.type === 'percent' ? calculatedValue / 100 : calculatedValue}`;
+  }
+
 /**
  * type: 'hidden',
  trigger: true,

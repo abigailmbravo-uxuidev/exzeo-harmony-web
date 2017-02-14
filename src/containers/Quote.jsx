@@ -46,7 +46,6 @@ class Quote extends Component {
 
     return (
       <div>
-        safsafsdafsa
         <Workflow />
       </div>
     );

@@ -44,8 +44,8 @@ class Customize extends Component {
       const realQuote = steps.data[0];
 
       questions.forEach((question) => {
-        if (_.has(question, 'defaultValue')) {
-          state[question.name] = question.defaultValue;
+        if (question.readOnlyValue) {
+          state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
           state[question.name] = _.get(realQuote, question.defaultValueLocation);
         } else {
@@ -335,6 +335,7 @@ export default (graphql(gql `
               }
             }
             questions {
+                readOnlyValue
                 defaultValueLocation
                 order
                 hidden
@@ -368,6 +369,10 @@ export default (graphql(gql `
                     type
                     parent
                     value
+                  }
+                  dependency {
+                    type
+                    parent
                   }
                 }
             }
