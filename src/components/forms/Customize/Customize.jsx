@@ -349,6 +349,7 @@ export default (graphql(gql `
                 minValue
                 maxValue
                 defaultAnswer
+                step
                 answers {
                     label
                     default
