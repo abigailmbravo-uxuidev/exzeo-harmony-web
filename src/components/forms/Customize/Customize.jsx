@@ -47,35 +47,35 @@ class Customize extends Component {
         if (question.readOnlyValue) {
           state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
-          console.log('DEFAULT VALUE', question.defaultValueLocation);
           state[question.name] = _.get(realQuote, question.defaultValueLocation);
         } else {
           state[question.name] = '';
         }
       });
       state.quoteInfo = realQuote;
-      console.log('state', state);
+
+      // Go through and check if percent or currency is provided as initial
+      questions.forEach((question) => {
+        if (question.conditional && question.conditional.dependency &&
+          question.answers && question.answers.length > 0) {
+          const exists = question.answers.find(a => a.answer == state[question.name]); // eslint-disable-line
+          if (!exists) {
+            const { dependency } = question.conditional;
+            const parentValue = _.get(state, dependency.parent);
+            // const calculatedValue = parentValue / 100;
+            const newValue = question.answers.find(a =>
+              (dependency.type === 'percent' ? (parentValue * a.answer) / 100 : parentValue * a.answer) === state[question.name]);
+            if (newValue) {
+              state[question.name] = newValue.answer;
+            }
+          }
+        }
+      });
+
+      console.log('state', state); // eslint-disable-line
       this.setState(state);
     }
   }
-
-  //  // this needs to happen only once
-  //  componentWillReceiveProps(nextProps) {
-  //   const { state } = this;
-  //   if (nextProps.data && nextProps.data.steps && nextProps.data.steps.data &&
-  //     nextProps.data.steps.data.length > 0) {
-  //     const { data } = nextProps.data.steps;
-  //     customizeQuestions.forEach((question) => {
-  //       if (_.has(question, 'defaultValue')) {
-  //         state[question.name] = question.defaultValue;
-  //       } else if (question.defaultValueLocation) {
-  //         state[question.name] = _.get(data[0], question.defaultValueLocation);
-  //       } else {
-  //         state[question.name] = '';
-  //       }
-  //     });
-  //   }
-  // }
 
   handleChange = (event) => {
     const { state } = this;

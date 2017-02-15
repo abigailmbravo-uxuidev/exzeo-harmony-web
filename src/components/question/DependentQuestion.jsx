@@ -30,12 +30,11 @@ const DependentQuestion = ({
       question.max = Math.floor(_.get(data, slider.maxLocation));
     }
   }
-
   // For read only/display boxes
   if (question.conditional.value) {
     const { value } = question.conditional;
     const parentValue = _.get(answers, value.parent);
-    const calculatedValue = parentValue * answers[question.name];
+    const calculatedValue = parentValue * value.value;
     // console.log('PERCENTAGE CONDITION: ', question, value);
     question.displayValue = `$ ${value.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue}`;
   }
