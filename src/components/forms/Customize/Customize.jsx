@@ -10,6 +10,7 @@ import Footer from '../../common/Footer';
 import DependentQuestion from '../../question/DependentQuestion';
 
 let defaultState;
+let defaultQuestions;
 
 class Customize extends Component {
   static propTypes = {
@@ -44,6 +45,8 @@ class Customize extends Component {
       // Set up default values
       const questions = steps.questions;
       const realQuote = steps.data[0];
+
+      defaultQuestions = _.cloneDeep(questions);
 
       questions.forEach((question) => {
         if (question.readOnlyValue) {
@@ -82,7 +85,7 @@ class Customize extends Component {
 
 
       console.log('state', state); // eslint-disable-line
-      defaultState = state;
+      defaultState = _.cloneDeep(state);
       this.setState(state);
     }
   }
@@ -108,6 +111,14 @@ class Customize extends Component {
   }
 
   resetState = () => {
+    this.props.data.steps.questions = [];
+    const self = this;
+    setTimeout(() => {
+      self.props.data.steps.questions = defaultQuestions;
+
+      self.setState(defaultState);
+    }, 1);
+
     this.setState(defaultState);
   }
   recalculateQuote = () => {
