@@ -36,8 +36,8 @@ const DependentQuestion = ({
     const { value } = question.conditional;
     const parentValue = _.get(answers, value.parent);
     const calculatedValue = parentValue * answers[question.name];
-    console.log('PERCENTAGE CONDITION: ', value);
-    question.displayValue = `$ ${value.type === 'percent' ? Math.ceil(parentValue * (value.value / 100)) : calculatedValue}`;
+    // console.log('PERCENTAGE CONDITION: ', question, value);
+    question.displayValue = `$ ${value.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue}`;
   }
 
   if (question.conditional.dependency) {

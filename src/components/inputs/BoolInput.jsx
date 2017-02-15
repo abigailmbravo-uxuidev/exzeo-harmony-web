@@ -106,6 +106,7 @@ BoolInput.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
+    PropTypes.string,
   ]),
 };
 

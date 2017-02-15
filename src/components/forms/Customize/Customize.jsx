@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import _ from 'lodash';
-import { quoteInfo, customizeQuestions } from './customizeMocks';
+// import { quoteInfo, customizeQuestions } from './customizeMocks';
 import Details from './Details';
 import Footer from '../../common/Footer';
 import DependentQuestion from '../../question/DependentQuestion';
@@ -47,11 +47,13 @@ class Customize extends Component {
         if (question.readOnlyValue) {
           state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
+          console.log('DEFAULT VALUE', question.defaultValueLocation);
           state[question.name] = _.get(realQuote, question.defaultValueLocation);
         } else {
           state[question.name] = '';
         }
       });
+      state.quoteInfo = realQuote;
       console.log('state', state);
       this.setState(state);
     }
@@ -201,7 +203,7 @@ class Customize extends Component {
               <div className="form-group survey-wrapper" role="group">
                 {questions && questions.map((question, index) => (
                   <DependentQuestion
-                    data={quoteInfo}
+                    data={this.state.quoteInfo}
                     question={question}
                     answers={this.state}
                     handleChange={this.handleChange}
