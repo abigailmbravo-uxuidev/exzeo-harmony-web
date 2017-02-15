@@ -9,6 +9,8 @@ import Details from './Details';
 import Footer from '../../common/Footer';
 import DependentQuestion from '../../question/DependentQuestion';
 
+let defaultState;
+
 class Customize extends Component {
   static propTypes = {
     data: PropTypes.any, // eslint-disable-line
@@ -17,6 +19,7 @@ class Customize extends Component {
     styleName: PropTypes.string
   }
 
+
   static contextTypes = {
     router: PropTypes.any
   }
@@ -24,7 +27,6 @@ class Customize extends Component {
   state = {
     updated: false
   }
-
 
   componentWillMount() {
   }
@@ -80,6 +82,7 @@ class Customize extends Component {
 
 
       console.log('state', state); // eslint-disable-line
+      defaultState = state;
       this.setState(state);
     }
   }
@@ -102,6 +105,13 @@ class Customize extends Component {
       // Do one mutation
       this.context.router.push('/workflow/share');
     }
+  }
+
+  resetState = () => {
+    this.setState(defaultState);
+  }
+  recalculateQuote = () => {
+    alert('Recalculate');
   }
 
   formatData = (data) => {
@@ -220,6 +230,18 @@ class Customize extends Component {
 
               </div>
               <div className="workflow-steps">
+                {this.state.updated && <button
+                  className="btn btn-primary"
+                  onClick={this.resetState}
+                  type="button"
+                > Reset </button>
+                }
+                {this.state.updated && <button
+                  className="btn btn-primary"
+                  onClick={this.recalculateQuote}
+                  type="button"
+                > Recalculate </button>
+                }
                 <button
                   className="btn btn-primary"
                   type="submit"
