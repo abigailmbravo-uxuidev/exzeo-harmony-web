@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form } from 'redux-form';
+import { reduxForm, Form, reset } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
@@ -14,6 +14,7 @@ let defaultQuestions;
 
 class Customize extends Component {
   static propTypes = {
+    dispatch: PropTypes.func,
     data: PropTypes.any, // eslint-disable-line
     completeStep: PropTypes.func,
     handleSubmit: PropTypes.func,
@@ -111,6 +112,7 @@ class Customize extends Component {
   }
 
   resetState = () => {
+    this.props.dispatch(reset('Customize'));
     this.props.data.steps.questions = [];
     const self = this;
     setTimeout(() => {
