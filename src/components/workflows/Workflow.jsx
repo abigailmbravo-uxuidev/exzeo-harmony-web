@@ -10,6 +10,7 @@ import UWQuestions from '../workflows/UWQuestions_Form';
 import Customize from '../forms/Customize/Customize';
 import ThankYou from './ThankYou';
 import ErrorPage from './ErrorPage';
+import WorkflowDetails from './WorkflowDetails';
 
 const WorkflowHeader = (d) => {
   console.log(d);
@@ -62,68 +63,6 @@ const WorkflowFooter = ({ ...s }) => {
     </div>
   );
 };
-
-
-const WorkflowDetails = () => (
-  <div className="detailHeader">
-    <section id="quoteDetails" className="quoteDetails">
-      <dl>
-        <div>
-          <dt>Quote number</dt>
-          <dd>TTIC-HO3-<span>12345</span>
-          </dd>
-        </div>
-      </dl>
-    </section>
-    <section id="propertyDetails" className="propertyDetails">
-      <dl>
-        <div>
-          <dt>Address</dt>
-          <dd>123 Main Street</dd>
-          <dd>Fort Lauderdale, FL 12345</dd>
-        </div>
-      </dl>
-    </section>
-    <section id="propertyDetails" className="propertyDetails">
-      <dl>
-        <div>
-          <dt>Year built</dt>
-          <dd>2000</dd>
-        </div>
-      </dl>
-    </section>
-    <section id="coverageDetails" className="coverageDetails">
-      <dl>
-        <div>
-          <dt>Coverage A</dt>
-          <dd>$100,000</dd>
-        </div>
-      </dl>
-      {/*
-            <dl>
-              <div>
-                <dt>Coverage B</dt>
-                <dd>$100,000</dd>
-              </div>
-            </dl>
-            <dl>
-              <div>
-                <dt>Coverage C</dt>
-                <dd>$50,000</dd>
-              </div>
-            </dl>
-            */}
-    </section>
-    <section id="premium" className="premium">
-      <dl>
-        <div>
-          <dt>Annual premium</dt>
-          <dd>$10,000</dd>
-        </div>
-      </dl>
-    </section>
-  </div>
-);
 
 class Workflow extends Component {
 
@@ -212,11 +151,41 @@ class Workflow extends Component {
     // <Redirect to="/workflow/underwriting" />
   }
   render() {
+    const details = [{
+      name: 'Quote Number',
+      value: '509011-102220-01',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Annual Premium',
+      value: '11140',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Address',
+      value: '19101 SW 56 ST',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Year Built',
+      value: '1993',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Coverage A',
+      value: '549000',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Coverage B',
+      value: '54900',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Coverage C',
+      value: '274500',
+      __typename: 'WorkflowDetail'
+    }];
+
     const { workflow, activeStep } = this.state;
     return (
       <div className="workflow" role="article">
         <div className="fade-in">
-          <WorkflowDetails />
+          <WorkflowDetails details={details} />
           <Router>
             <div className="route">
               <Route path="/quote/search" component={Search} />
