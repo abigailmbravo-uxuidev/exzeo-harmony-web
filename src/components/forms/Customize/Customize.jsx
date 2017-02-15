@@ -47,11 +47,14 @@ class Customize extends Component {
         if (question.readOnlyValue) {
           state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
-          state[question.name] = _.get(realQuote, question.defaultValueLocation);
+          const val = _.get(realQuote, question.defaultValueLocation);
+          state[question.name] = String(val) ?
+            String(val) : val;
         } else {
           state[question.name] = '';
         }
       });
+
       state.quoteInfo = realQuote;
 
       // Go through and check if percent or currency is provided as initial
@@ -62,15 +65,19 @@ class Customize extends Component {
           if (!exists) {
             const { dependency } = question.conditional;
             const parentValue = _.get(state, dependency.parent);
+
+            const stateValue = Number(state[question.name]) ?
+               Number(state[question.name]) : state[question.name];
             // const calculatedValue = parentValue / 100;
             const newValue = question.answers.find(a =>
-              (dependency.type === 'percent' ? (parentValue * a.answer) / 100 : parentValue * a.answer) === state[question.name]);
+              (dependency.type === 'percent' ? (parentValue * a.answer) / 100 : parentValue * a.answer) === stateValue);
             if (newValue) {
               state[question.name] = newValue.answer;
             }
           }
         }
       });
+
 
       console.log('state', state); // eslint-disable-line
       this.setState(state);
