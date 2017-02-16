@@ -16,6 +16,7 @@ class UWQuestions extends Component {
     router: PropTypes.any,
   }
   state = {
+    underwritingQuestions: [],
     questions: [],
     details: [],
   }
@@ -99,7 +100,7 @@ class UWQuestions extends Component {
           }
         });
       }
-      this.setState({ questions });
+      this.setState({ underwritingQuestions: steps.questions });
     }
   }
 
@@ -151,6 +152,7 @@ class UWQuestions extends Component {
       }
     });
     this.setState({ questions });
+    this.setState({ underwritingQuestions: steps.questions });
   }
 
   handleOnSubmit = (event) => {
@@ -186,16 +188,15 @@ class UWQuestions extends Component {
   }
 
   render() {
+    const { underwritingQuestions, questions } = this.state;
     const { steps } = this.props.data;
     console.log('CURRENT STEP: ', this.props);
     console.log('CURRENT STEP TYPE: ', steps ? steps.type : null);
-    if (steps && steps.questions) {
+    if (underwritingQuestions && underwritingQuestions.length > 0) {
       return (<Survey
         handleChange={this.handleChange}
         handleOnSubmit={this.handleOnSubmit}
-        questions={steps && steps.questions && steps.questions.length > 0
-          ? steps.questions
-          : null} answers={this.state.questions} styleName={steps && steps.name
+        questions={underwritingQuestions} answers={questions} styleName={steps && steps.name
           ? steps.name
           : ''}
       />
