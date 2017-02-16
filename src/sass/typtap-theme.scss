@@ -1255,7 +1255,35 @@ ul.results {
 }
 //Customize Quote page
 #Customize {
-    
+    .form-group.survey-wrapper {
+
+        input[readonly] {
+            color: $cool-gray-03;
+            background-color: $cool-gray-00;
+            border-bottom: 2px solid $cool-gray-02;
+        }
+
+        .form-group {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            >input[type="text"] {
+                    flex-basis: 6.5rem;
+                    margin-top: -$padding;
+            }
+
+            &.range-component, &.segmented, &.range-component {
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content:flex-start;
+
+                label, .range-wrapper, .segmented-answer-wrapper {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 //ERROR PAGE animation
 @keyframes waves {
