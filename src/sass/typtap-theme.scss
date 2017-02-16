@@ -1159,9 +1159,29 @@ ul.results {
     width: 100%;
     margin: (-$padding) (-$padding/2) ($padding*2);
     padding: ($padding) ($padding*1.5);
-    color: $white;
-    background-color: $cool-gray-10;
+    color: $body-color;
+    background-color: $cool-gray-01;
     flex-grow: 1;
+
+    i {
+        &.Coverage {
+            &.Limits {
+                &:before {
+                    content: "\f1fe";
+                }
+            }
+            &.Options {
+                &:before {
+                    content: "\f044";
+                }
+            }
+        }
+        &.Deductibles {
+            &:before {
+                content: "\f0c4"
+            }
+        }
+    }
   }
 }
 
@@ -1169,8 +1189,8 @@ ul.results {
   .section-group-header {
     width: 100%;
     padding: ($padding);
-    color: $white;
-    background-color: $cool-gray-10;
+    color: $body-color;
+    background-color: $cool-gray-01;
     flex-grow: 1;
   }
 }

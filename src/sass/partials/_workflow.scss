@@ -58,7 +58,7 @@
           width: 2rem;
 
           &:before {
-              font-family: FontAwesome;
+              font-family: $font-family-icon;
           }
           @include for-phone-only {
             font-size: $font-size-h4;

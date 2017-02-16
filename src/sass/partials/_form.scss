@@ -573,7 +573,7 @@
               margin-right: 2rem;
 
               &:before {
-                  font: normal normal normal 1rem FontAwesome;
+                  font: normal normal normal 1rem $font-family-icon;
                   content: '\f14a';
                   position: absolute;
                   left: -.5rem;
@@ -611,7 +611,7 @@
                       cursor: pointer;
 
                       &:before {
-                          font: normal normal normal 1rem FontAwesome;
+                          font: normal normal normal 1rem $font-family-icon;
                           content: '\f14a';
                           position: absolute;
                           left: -.75rem;
