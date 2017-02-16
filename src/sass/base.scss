@@ -1912,13 +1912,13 @@ ul.results {
           width: 50%;
         }
     }
-    .Email {
+    .EmailAddress {
       @include for-tablet-portrait-up {
         width: 50%;
         padding-right: $padding*2;
       }
     }
-    .PhoneNumber {
+    .phoneNumber {
       @include for-tablet-portrait-up {
         width: 50%;
         padding-right: $padding*2;

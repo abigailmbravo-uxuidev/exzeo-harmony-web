@@ -1160,10 +1160,20 @@ ul.results {
     margin: (-$padding) (-$padding/2) ($padding*2);
     padding: ($padding) ($padding*1.5);
     color: $body-color;
-    background-color: $cool-gray-01;
+    color: $bright-blue-darken-03;
+    //background-color: $cool-gray-01;
+    //background-color: $bright-blue-darken-03;
+    //background-color: rgba($cool-gray-01, .25);
     flex-grow: 1;
 
+    &:first-child {
+
+    }
+
     i {
+        //color: $green;
+        //color: $bright-blue;
+        margin-right: $padding;
         &.Coverage {
             &.Limits {
                 &:before {
@@ -1172,13 +1182,13 @@ ul.results {
             }
             &.Options {
                 &:before {
-                    content: "\f044";
+                    content: "\f200";
                 }
             }
         }
         &.Deductibles {
             &:before {
-                content: "\f0c4"
+                content: "\f0d6"
             }
         }
     }
@@ -1218,7 +1228,7 @@ ul.results {
       }
     }
 
-    .PhoneNumber {
+    .phoneNumber {
       @include for-tablet-portrait-up {
         width: 40%;
         padding-right: 0;
@@ -1229,7 +1239,7 @@ ul.results {
     .effectiveDate {
       @include for-tablet-portrait-up {
         width: 40%;
-        padding-right: 0;
+        padding-right: $padding*2;
         flex-grow: 1;
       }
     }
@@ -1237,11 +1247,15 @@ ul.results {
     .agentID {
       @include for-tablet-portrait-up {
         width: 60%;
-        padding-right: $padding*2;
+        padding-right: 0;
         flex-grow: 1;
       }
     }
   }
+}
+//Customize Quote page
+#Customize {
+    
 }
 //ERROR PAGE animation
 @keyframes waves {
