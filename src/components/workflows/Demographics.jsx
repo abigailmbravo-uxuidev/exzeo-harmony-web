@@ -14,23 +14,22 @@ class Demographics extends Component {
   }
 
   state = {
-    questions:[]
+    questions: []
   };
 
   componentWillMount() {
-    //this.props.dispatch(change('Demographics', 'entityType', 'Person'));
+    // this.props.dispatch(change('Demographics', 'entityType', 'Person'));
   }
 
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
       (!newProps.data.loading &&
         this.props.data.steps &&
-        //newProps.data.steps &&
+        // newProps.data.steps &&
         this.props.data.steps.name !== newProps.data.steps.name
       )) {
-
       const { steps } = newProps.data;
-      this.setState({questions: steps.questions});
+      this.setState({ questions: steps.questions });
     }
   }
 
@@ -67,8 +66,8 @@ class Demographics extends Component {
   }
 
   render() {
-    const { styleName, handleSubmit} = this.props;
-    const {questions} = this.state;
+    const { styleName, handleSubmit } = this.props;
+    const { questions } = this.state;
 
     return (
       <div className="workflow-content">
@@ -145,10 +144,6 @@ Demographics = connect(
   query GetActiveStep($workflowId:ID!) {
     steps(id: $workflowId) {
       name
-      details {
-        name
-        value
-      }
       questions {
         readOnlyValue
         defaultValueLocation
@@ -159,8 +154,6 @@ Demographics = connect(
         question
         answerType
         description
-        minValue
-        maxValue
         defaultAnswer
         step
         answers {
@@ -169,40 +162,17 @@ Demographics = connect(
           answer
           image
         }
-        conditional {
-          slider {
-            minLocation
-            maxLocation
-          }
-          display {
-            type
-            operator
-            trigger
-            dependency
-            detail
-            parent
-          }
-          value {
-            type
-            parent
-            value
-          }
-          dependency {
-            type
-            parent
-          }
-        }
       }
       completedSteps
       type
     }
   }`, {
-  options: {
-    variables: {
-      workflowId: localStorage.getItem('newWorkflowId'),
+    options: {
+      variables: {
+        workflowId: localStorage.getItem('newWorkflowId'),
+      },
     },
-  },
-})(graphql(gql `
+  })(graphql(gql `
     mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
             name
