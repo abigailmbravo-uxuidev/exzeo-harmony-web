@@ -41,6 +41,8 @@ const Question = ({ question, answer, disabled, handleChange }) => {
       return <ListSelection {...inputProps} />;
     case 'text':
       return <TextInput {...inputProps} />;
+    case 'date':
+      return <TextInput {...inputProps} />;
     case 'display':
       return <DisplayInput {...inputProps} />;
     case 'heading':
