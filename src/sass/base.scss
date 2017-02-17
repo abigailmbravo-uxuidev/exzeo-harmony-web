@@ -208,7 +208,6 @@ div#root {
 .workflow-steps {
   display: flex;
   width: auto;
-  //padding: 1rem 0;
   justify-content: flex-end;
   flex-shrink: 0;
   flex-grow: 0;
@@ -662,7 +661,8 @@ div#root {
 
 .content-wrapper {
   display: flex;
-  overflow-y: auto;
+  //overflow-y: auto;
+  overflow-y: hidden;
   flex-direction: column;
   width: 100%;
   padding: $padding;
@@ -672,454 +672,463 @@ div#root {
   @include for-phone-only {
     padding: 0;
   }
+  > div {
+      overflow: hidden;
+      height: 100%;
 
-  > div[role="article"] {
-    display: flex;
-    width: 100%;
-    background: $white;
-    flex-shrink: 0;
-    flex-grow: 0;
-    flex: 1;
-
-    &.login {
-      z-index: 20;
-      border-top: $card-border-width solid $card-border-color;
-      align-items: center;
-      justify-content: center;
-
-      .card {
-        z-index: 30;
-      }
-    }
-
-    &.splash {
-      border-top: $card-border-width solid $card-border-color;
-      align-items: center;
-      justify-content: center;
-
-      .fade-in {
+      > div[role="article"] {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        width: 100%;
+        background: $white;
+        flex-shrink: 0;
+        flex-grow: 0;
+        flex: 1;
 
-        .products {
-          display: flex;
+        &.workflow {
+            overflow: hidden;
+            height: 100%;
         }
-      }
-    }
 
-    &.survey {
-      border-top: $card-border-width solid $card-border-color;
+        &.login {
+          z-index: 20;
+          border-top: $card-border-width solid $card-border-color;
+          align-items: center;
+          justify-content: center;
 
-      .fade-in {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-      }
-    }
+          .card {
+            z-index: 30;
+          }
+        }
 
-    &.admin {
-      padding: 0;
+        &.splash {
+          border-top: $card-border-width solid $card-border-color;
+          align-items: center;
+          justify-content: center;
 
-      .fade-in {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-
-        .content {
-          display: flex;
-          flex-direction: row;
-          height: 100%;
-
-          aside {
+          .fade-in {
             display: flex;
-            overflow-y: auto;
-            flex-shrink: 0;
-            @include for-phone-only {
-              background-color: $white;
-            }
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-            .side-panel {
-              position: relative;
+            .products {
               display: flex;
-              flex-direction: column;
-              margin: ($padding*2) 0 ($padding) ($padding*3);
-              padding: $padding;
-              flex-basis: 8rem;
-              flex-shrink: 0;
-              flex-grow: 0;
-              @include for-phone-only {
-                flex-direction: row;
-                margin: 0;
-                flex-grow: 1;
-                flex-basis: auto;
-                flex-wrap: wrap;
-              }
-              @include for-big-desktop-up {
-                width: 17.975rem;
-                flex-basis: 17.975rem;
+            }
+          }
+        }
+
+        &.survey {
+          border-top: $card-border-width solid $card-border-color;
+
+          .fade-in {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+          }
+        }
+
+        &.admin {
+          padding: 0;
+
+          .fade-in {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            .content {
+              display: flex;
+              flex-direction: row;
+              height: 100%;
+
+              aside {
+                display: flex;
+                overflow-y: auto;
+                flex-shrink: 0;
+                @include for-phone-only {
+                  background-color: $white;
+                }
+
+                .side-panel {
+                  position: relative;
+                  display: flex;
+                  flex-direction: column;
+                  margin: ($padding*2) 0 ($padding) ($padding*3);
+                  padding: $padding;
+                  flex-basis: 8rem;
+                  flex-shrink: 0;
+                  flex-grow: 0;
+                  @include for-phone-only {
+                    flex-direction: row;
+                    margin: 0;
+                    flex-grow: 1;
+                    flex-basis: auto;
+                    flex-wrap: wrap;
+                  }
+                  @include for-big-desktop-up {
+                    width: 17.975rem;
+                    flex-basis: 17.975rem;
+                  }
+
+                  section {
+                    margin-bottom: $margin-bottom;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    @include for-phone-only {
+                      flex-direction: row;
+                      width: 50%;
+                      margin: 0;
+                      padding: ($padding/2) $padding;
+                    }
+                  }
+                }
               }
 
               section {
-                margin-bottom: $margin-bottom;
-                flex-grow: 0;
-                flex-shrink: 0;
-                @include for-phone-only {
-                  flex-direction: row;
-                  width: 50%;
-                  margin: 0;
-                  padding: ($padding/2) $padding;
+                position: relative;
+                overflow-y: auto;
+                flex-grow: 1;
+
+                .content {
+                  flex-direction: column;
+                  padding: ($padding*2) ($padding*4) 0;
+                  flex-wrap: wrap;
+
+                  .admin-header {
+                    display: flex;
+                    margin-bottom: $padding;
+
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5 {
+                      margin: 0;
+                      flex-grow: 1;
+                    }
+                  }
+
+                  .modal {
+                    display: flex;
+                    background: rgba($black, .5);
+                    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .5));
+                    align-items: center;
+                    justify-content: center;
+
+                    .card {
+                      max-width: 24rem;
+                    }
+                  }
+
+                  ul.list {
+                    z-index: 1;
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+
+                    &.list-cards {
+                      li {
+                        display: flex;
+                        flex-direction: row;
+
+                        i {
+                          &.fa-trash {
+                            &:hover {
+                              color: $red;
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                    &.result-cards {
+                      li {
+                        a {
+                          border: $card-border-width solid $card-border-color;
+                        }
+                      }
+                    }
+                  }
+
+                  label {
+                    font-size: $font-size-h4;
+                    @include for-phone-only {
+                      font-size: $font-size-h5;
+                    }
+                  }
                 }
               }
             }
           }
+        }
 
-          section {
-            position: relative;
-            overflow-y: auto;
-            flex-grow: 1;
+        &.cms {
+          padding: 0;
+
+          .fade-in {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
 
             .content {
-              flex-direction: column;
-              padding: ($padding*2) ($padding*4) 0;
-              flex-wrap: wrap;
+              display: flex;
+              flex-direction: row;
+              height: 100%;
 
-              .admin-header {
+              aside {
                 display: flex;
-                margin-bottom: $padding;
+                width: 40%;
+                flex-grow: 1;
 
-                h1,
-                h2,
-                h3,
-                h4,
-                h5 {
-                  margin: 0;
-                  flex-grow: 1;
-                }
-              }
+                .side-panel {
+                  position: relative;
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+                  padding: 0;
 
-              .modal {
-                display: flex;
-                background: rgba($black, .5);
-                background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, .5));
-                align-items: center;
-                justify-content: center;
-
-                .card {
-                  max-width: 24rem;
-                }
-              }
-
-              ul.list {
-                z-index: 1;
-                width: 100%;
-                margin: 0;
-                padding: 0;
-                list-style: none;
-
-                &.list-cards {
-                  li {
+                  .cms-header {
                     display: flex;
-                    flex-direction: row;
+                    padding: $padding ($padding*2);
+                    border-bottom: 1px dotted $warm-gray-01;
+                    flex-shrink: 0;
 
-                    i {
-                      &.fa-trash {
-                        &:hover {
-                          color: $red;
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5 {
+                      margin: 0;
+                      line-height: 2rem;
+                      flex-grow: 1;
+                    }
+                  }
+
+                  form {
+                    display: flex;
+                    //overflow-y: hidden;
+                    margin-bottom: 0;
+                    padding: ($padding*2) ($padding*4) 0;
+                    flex-grow: 1;
+                    flex-shrink: 0;
+
+                    .form-group.survey-wrapper {
+                      margin: 0;
+                      padding: 0;
+                      border-bottom: 1px dashed $warm-gray-01;
+                      flex-shrink: 0;
+                      flex-grow: 0;
+                    }
+                  }
+                }
+              }
+
+              section {
+                position: relative;
+                overflow-y: auto;
+                width: 60%;
+                flex-grow: 1;
+
+                .content {
+                  flex-direction: column;
+                  padding: 0;
+
+                  .cms-header {
+                    display: flex;
+                    padding: $padding ($padding*2);
+                    border-bottom: 1px dotted $warm-gray-01;
+                    line-height: 2rem;
+                    flex-shrink: 0;
+
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5 {
+                      margin: 0;
+                      flex-grow: 1;
+                    }
+                  }
+
+                  .cms-question-wrapper {
+                    overflow-y: auto;
+                    padding: 0 ($padding*4);
+
+                    > div {
+                      margin-bottom: 1rem;
+                      border-bottom: 1px dashed $warm-gray-01;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.error-page {
+          display: flex;
+          flex-direction: column;
+
+          .fade-in {
+            .workflow-content {
+              section {
+                .fade-in {
+                  .survey-wrapper {
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5,
+                    h6 {
+                      margin-top: 0;
+                    }
+                  }
+                }
+              }
+            }
+
+            .contact-info {
+              dl {
+                div {
+                  dt {
+                    display: flex;
+                    font-size: $font-size-h4;
+                    @include for-phone-only {
+                      padding-top: $padding*2;
+                      border-top: 1px dashed $warm-gray-02;
+                      justify-content: center;
+                    }
+                  }
+
+                  dd {
+                    display: flex;
+                    @include for-phone-only {
+                      flex-direction: row-reverse;
+                      justify-content: space-around;
+                    }
+
+                    a {
+                      display: flex;
+                      align-items: center;
+                      @include for-phone-only {
+                        display: flex;
+                        height: 2.5rem;
+                        padding-right: $padding;
+                        border-radius: 2rem;
+                      }
+
+                      +a {
+                        margin-left: $padding*2;
+                        @include for-phone-only {
+                          margin-left: 0;
+                          padding-right: 0;
+                          border-width: 0;
+                        }
+                      }
+
+                      i {
+                        margin-right: $padding/2;
+
+                        &.fa-phone {
+                          @include for-phone-only {
+                            display: flex;
+                            width: 2.5rem;
+                            height: 2.5rem;
+                            margin-right: $padding/2;
+                            border: 2px solid $bright-blue;
+                            border-radius: 2rem;
+                            font-size: 1.5rem;
+                            align-items: center;
+                            justify-content: center;
+                          }
                         }
                       }
                     }
                   }
                 }
-
-                &.result-cards {
-                  li {
-                    a {
-                      border: $card-border-width solid $card-border-color;
-                    }
-                  }
-                }
-              }
-
-              label {
-                font-size: $font-size-h4;
-                @include for-phone-only {
-                  font-size: $font-size-h5;
-                }
               }
             }
-          }
-        }
-      }
-    }
 
-    &.cms {
-      padding: 0;
-
-      .fade-in {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-
-        .content {
-          display: flex;
-          flex-direction: row;
-          height: 100%;
-
-          aside {
-            display: flex;
-            width: 40%;
-            flex-grow: 1;
-
-            .side-panel {
-              position: relative;
-              display: flex;
-              flex-direction: column;
-              width: 100%;
-              padding: 0;
-
-              .cms-header {
-                display: flex;
-                padding: $padding ($padding*2);
-                border-bottom: 1px dotted $warm-gray-01;
-                flex-shrink: 0;
-
-                h1,
-                h2,
-                h3,
-                h4,
-                h5 {
-                  margin: 0;
-                  line-height: 2rem;
-                  flex-grow: 1;
-                }
-              }
-
-              form {
-                display: flex;
-                //overflow-y: hidden;
-                margin-bottom: 0;
-                padding: ($padding*2) ($padding*4) 0;
-                flex-grow: 1;
-                flex-shrink: 0;
-
-                .form-group.survey-wrapper {
-                  margin: 0;
-                  padding: 0;
-                  border-bottom: 1px dashed $warm-gray-01;
-                  flex-shrink: 0;
-                  flex-grow: 0;
-                }
-              }
-            }
-          }
-
-          section {
-            position: relative;
-            overflow-y: auto;
-            width: 60%;
-            flex-grow: 1;
-
-            .content {
-              flex-direction: column;
-              padding: 0;
-
-              .cms-header {
-                display: flex;
-                padding: $padding ($padding*2);
-                border-bottom: 1px dotted $warm-gray-01;
-                line-height: 2rem;
-                flex-shrink: 0;
-
-                h1,
-                h2,
-                h3,
-                h4,
-                h5 {
-                  margin: 0;
-                  flex-grow: 1;
-                }
-              }
-
-              .cms-question-wrapper {
-                overflow-y: auto;
-                padding: 0 ($padding*4);
-
-                > div {
-                  margin-bottom: 1rem;
-                  border-bottom: 1px dashed $warm-gray-01;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &.error-page {
-      display: flex;
-      flex-direction: column;
-
-      .fade-in {
-        .workflow-content {
-          section {
-            .fade-in {
-              .survey-wrapper {
-                h1,
-                h2,
-                h3,
-                h4,
-                h5,
-                h6 {
-                  margin-top: 0;
-                }
-              }
-            }
-          }
-        }
-
-        .contact-info {
-          dl {
-            div {
-              dt {
-                display: flex;
-                font-size: $font-size-h4;
-                @include for-phone-only {
-                  padding-top: $padding*2;
-                  border-top: 1px dashed $warm-gray-02;
-                  justify-content: center;
-                }
-              }
-
-              dd {
-                display: flex;
-                @include for-phone-only {
-                  flex-direction: row-reverse;
-                  justify-content: space-around;
-                }
-
-                a {
-                  display: flex;
-                  align-items: center;
-                  @include for-phone-only {
-                    display: flex;
-                    height: 2.5rem;
-                    padding-right: $padding;
-                    border-radius: 2rem;
-                  }
-
-                  +a {
-                    margin-left: $padding*2;
-                    @include for-phone-only {
-                      margin-left: 0;
-                      padding-right: 0;
-                      border-width: 0;
-                    }
-                  }
-
-                  i {
-                    margin-right: $padding/2;
-
-                    &.fa-phone {
-                      @include for-phone-only {
-                        display: flex;
-                        width: 2.5rem;
-                        height: 2.5rem;
-                        margin-right: $padding/2;
-                        border: 2px solid $bright-blue;
-                        border-radius: 2rem;
-                        font-size: 1.5rem;
-                        align-items: center;
-                        justify-content: center;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        &.app-error {
-          position: absolute;
-          z-index: 10;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          display: flex;
-          overflow-x: hidden;
-          flex-direction: column;
-          background: $white;
-          align-items: center;
-          justify-content: center;
-
-          .workflow-content {
-            display: flex;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 0;
-
-            section {
+            &.app-error {
+              position: absolute;
               z-index: 10;
-              padding: ($padding*2) $padding;
-              background: rgba($white, .75);
-              box-shadow: $card-box-shadow-alt;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0;
+              display: flex;
+              overflow-x: hidden;
+              flex-direction: column;
+              background: $white;
+              align-items: center;
+              justify-content: center;
 
-              .fade-in {
+              .workflow-content {
+                display: flex;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
                 flex-grow: 0;
-                flex-shrink: 0;
 
-                .survey-wrapper {
-                  display: flex;
-                  flex-direction: column;
-                  background: none;
-                  box-shadow: none;
-                  align-items: center;
-                  justify-content: center;
+                section {
+                  z-index: 10;
+                  padding: ($padding*2) $padding;
+                  background: rgba($white, .75);
+                  box-shadow: $card-box-shadow-alt;
 
-                  article {
-                    &.error-message {
+                  .fade-in {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+
+                    .survey-wrapper {
                       display: flex;
                       flex-direction: column;
-                      margin-bottom: $padding*4;
+                      background: none;
+                      box-shadow: none;
                       align-items: center;
                       justify-content: center;
-                    }
-                  }
 
-                  .contact-info {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
+                      article {
+                        &.error-message {
+                          display: flex;
+                          flex-direction: column;
+                          margin-bottom: $padding*4;
+                          align-items: center;
+                          justify-content: center;
+                        }
+                      }
 
-                    dl {
-                      div {
+                      .contact-info {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
+
+                        dl {
+                          div {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                          }
+                        }
                       }
                     }
                   }
                 }
               }
+
+              .contact-info {
+                z-index: 10;
+                width: 100%;
+              }
+
+              .waves {}
             }
           }
-
-          .contact-info {
-            z-index: 10;
-            width: 100%;
-          }
-
-          .waves {}
         }
       }
-    }
-  }
+      }
 }
 .app-wrapper {
   display: flex;
@@ -1145,11 +1154,11 @@ div#root {
       max-width: 64rem;
     }
     @include for-desktop-up {
-      max-width: 96rem;
+      max-width: 84rem;
     }
-    @include for-big-desktop-up {
-      max-width: 120rem;
-    }
+    //@include for-big-desktop-up {
+      //max-width: 120rem;
+    //}
 
     div[role="banner"] {
       display: flex;
@@ -1412,11 +1421,11 @@ div#root {
       max-width: 64rem;
     }
     @include for-desktop-up {
-      max-width: 96rem;
+      max-width: 84rem;
     }
-    @include for-big-desktop-up {
-      max-width: 120rem;
-    }
+    //@include for-big-desktop-up {
+      //max-width: 120rem;
+    //}
   }
 }
 //footer
@@ -1538,6 +1547,7 @@ ul.results {
   flex-grow: 0;
   flex-shrink: 0;
   justify-content: flex-start;
+  min-height: 4.5rem;
   @include for-phone-only {
     flex-direction: column;
   }
@@ -1580,6 +1590,7 @@ ul.results {
 
           + dd {
             font-size: $font-size-sm;
+            line-height: 1;
             @include for-phone-only {
               font-size: $font-size-xs;
             }
@@ -1651,7 +1662,7 @@ ul.results {
         right: $padding/2;
       }
       @include for-tablet-portrait-up {
-        right: (-$padding/2);
+        right: ($padding/2);
       }
 
       dl {
@@ -1839,11 +1850,40 @@ ul.results {
 .detail-wrapper,
 .survey-wrapper {
   .section-group-header {
-    color: $warm-gray-01;
+      color: $body-color;
+      width: 100%;
+      margin: (-$padding) (-$padding/2) ($padding*2);
+      padding: ($padding) ($padding*1.5);
+      flex-grow: 1;
+      font-size: $font-size-h2;
+      @include for-phone-only {
+          font-size: $font-size-h3;
+      }
 
     i {
+      margin-right: $padding;
       &:before {
         font-family: $font-family-icon;
+      }
+
+      &.Coverage {
+        &.Limits {
+          &:before {
+            content: "\f201";
+          }
+        }
+
+        &.Options {
+          &:before {
+            content: "\f0ae";
+          }
+        }
+      }
+
+      &.Deductibles {
+        &:before {
+          content: "\f0d6";
+        }
       }
     }
   }

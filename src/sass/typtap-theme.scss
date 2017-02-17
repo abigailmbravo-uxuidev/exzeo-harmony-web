@@ -1158,46 +1158,11 @@ ul.results {
   }
 }
 //form color & form layout
-
 .survey-wrapper {
   .section-group-header {
-    width: 100%;
-    margin: (-$padding) (-$padding/2) ($padding*2);
-    padding: ($padding) ($padding*1.5);
-    color: $body-color;
     color: $bright-blue-darken-03;
-    //background-color: $cool-gray-01;
-    //background-color: $bright-blue-darken-03;
-    //background-color: rgba($cool-gray-01, .25);
-    flex-grow: 1;
 
     &:first-child {}
-
-    i {
-      //color: $green;
-      //color: $bright-blue;
-      margin-right: $padding;
-
-      &.Coverage {
-        &.Limits {
-          &:before {
-            content: "\f201";
-          }
-        }
-
-        &.Options {
-          &:before {
-            content: "\f0ae";
-          }
-        }
-      }
-
-      &.Deductibles {
-        &:before {
-          content: "\f0d6";
-        }
-      }
-    }
   }
 }
 
@@ -1211,7 +1176,6 @@ ul.results {
   }
 }
 //Demographics page
-
 #Demographics {
   .form-group {
     .FirstName {

@@ -4,10 +4,10 @@ const Heading = ({
   question,
   icon,
 }) => (
-  <h2 className="section-group-header">
+  <span className="section-group-header">
     <i className={'fa ' + question} />
     &nbsp;{question}
-  </h2>
+  </span>
 );
 
 Heading.propTypes = {
