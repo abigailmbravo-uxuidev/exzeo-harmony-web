@@ -149,17 +149,10 @@ class Customize extends Component {
     const { completeStep } = this.props;
     console.log('STATE BEFORE SENDING RECALC', this.state);
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', [
-        {
-          key: 'shouldCustomizeQuote',
-          value: 'Yes',
-        },
-      ]));
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
       console.log('THIS IS shouldCustomizeQuote', data);
 
-      data = await completeStep(
-       this.buildSubmission('customizeDefaultQuote', this.formatData(this.state))
-      );
+      data = await completeStep(this.buildSubmission('customizeDefaultQuote', this.state));
 
       console.log('THIS IS customizeDefaultQuote', data);
 
@@ -167,7 +160,7 @@ class Customize extends Component {
       state.updated = false;
       this.setState(state);
 
-      console.log('DATA AFTER SUBMISSION:', data);
+      this.context.router.push(`${data.data.completeStep.link}`)
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
