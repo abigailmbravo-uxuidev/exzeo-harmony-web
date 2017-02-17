@@ -125,15 +125,6 @@ class Customize extends Component {
     this.setState(defaultState);
   }
 
-
-  formatData = (data) => {
-    const answers = [];
-    Object.keys(data).forEach((key) => {
-      answers.push({ key, value: data[key] });
-    });
-    return answers;
-  }
-
   buildSubmission = (stepName, data) => ({
     variables: {
       input: {
@@ -170,32 +161,27 @@ class Customize extends Component {
   save = async () => {
     const { completeStep } = this.props;
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', [
-        {
-          key: 'shouldCustomizeQuote',
-          value: 'No'
-        },
-      ]));
-      console.log('ask to customize no', data); // eslint-disable-line
-
-      data = await completeStep(this.buildSubmission('showCustomizedQuoteAndContinue', []));
-      console.log('show customize', data); // eslint-disable-line
-
-      data = await completeStep(this.buildSubmission('saveAndSendEmail', [
-        {
-          key: 'shouldGeneratePdfAndEmail',
-          value: 'No'
-        },
-      ]));
-      console.log('save and send email', data); // eslint-disable-line
-
-      data = await completeStep(this.buildSubmission('askAdditionalQuestions', []));
-      console.log('ask additional questions', data); // eslint-disable-line
-
-      data = await completeStep(this.buildSubmission('askScheduleInspectionDates', []));
-      console.log('ask to inspection', data); // eslint-disable-line
-
-      this.context.router.push('thankyou');
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote',{shouldCustomizeQuote: 'No'}));
+      // console.log('ask to customize no', data); // eslint-disable-line
+      //
+      // data = await completeStep(this.buildSubmission('showCustomizedQuoteAndContinue', []));
+      // console.log('show customize', data); // eslint-disable-line
+      //
+      // data = await completeStep(this.buildSubmission('saveAndSendEmail', [
+      //   {
+      //     key: 'shouldGeneratePdfAndEmail',
+      //     value: 'No'
+      //   },
+      // ]));
+      // console.log('save and send email', data); // eslint-disable-line
+      //
+      // data = await completeStep(this.buildSubmission('askAdditionalQuestions', []));
+      // console.log('ask additional questions', data); // eslint-disable-line
+      //
+      // data = await completeStep(this.buildSubmission('askScheduleInspectionDates', []));
+      // console.log('ask to inspection', data); // eslint-disable-line
+      //
+      // this.context.router.push('thankyou');
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
@@ -260,8 +246,9 @@ class Customize extends Component {
                   className="btn btn-primary"
                   type="submit"
                   form="Customize"
+                  disabled={this.state.updated}
                 >
-                  {this.state.updated ? 'update' : 'save'}
+                  Next
                 </button>
               </div>
               <Footer />
