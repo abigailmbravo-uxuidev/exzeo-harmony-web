@@ -29,7 +29,7 @@ const WorkflowDetails = ({ details }) => (
         </section>);
       }
       if (d.name.replace(/\s+/g, '') === 'YearBuilt') {
-        return (<section key={index} id="propertyDetails" className="propertyDetails">
+        return (<section key={index} id="yearBuilt" className="yearBuilt">
           <dl>
             <div>
               <dt>{d.name}</dt>

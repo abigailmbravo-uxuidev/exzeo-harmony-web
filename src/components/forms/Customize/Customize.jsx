@@ -208,7 +208,7 @@ class Customize extends Component {
     }
     return (
       <div className="workflow-content">
-        <aside><Details details={details} /></aside>
+        {/*<aside><Details details={details} /></aside>*/}
         <section className="">
           <div className="fade-in">
             <Form
@@ -231,7 +231,7 @@ class Customize extends Component {
               </div>
               <div className="workflow-steps">
                 {this.state.updated && <button
-                  className="btn btn-primary"
+                  className="btn btn-secondary"
                   onClick={this.resetState}
                   type="button"
                 > Reset </button>
@@ -242,14 +242,13 @@ class Customize extends Component {
                   type="button"
                 > Recalculate </button>
                 }
-                <button
+                {!this.state.updated && <button
                   className="btn btn-primary"
                   type="submit"
                   form="Customize"
                   disabled={this.state.updated}
-                >
-                  Next
-                </button>
+                > Next </button>
+                }
               </div>
               <Footer />
             </Form>

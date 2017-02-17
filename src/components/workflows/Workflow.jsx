@@ -153,7 +153,7 @@ class Workflow extends Component {
   render() {
     const details = [{
       name: 'Quote Number',
-      value: '509011-102220-01',
+      value: '12-1234567-12',
       __typename: 'WorkflowDetail'
     }, {
       name: 'Annual Premium',

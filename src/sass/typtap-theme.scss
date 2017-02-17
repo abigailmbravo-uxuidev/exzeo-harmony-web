@@ -2,6 +2,7 @@
 @import "base.scss";
 /*universal typtap styles*/
 //links
+
 a,
 a:visited {
   text-decoration: none;
@@ -23,6 +24,7 @@ a:visited {
   }
 }
 //inputs
+
 input,
 textarea {
   width: 100%;
@@ -90,7 +92,6 @@ textarea {
             }
           }
         }
-
         // &.selected {
         //   .label-segmented {
         //     span {
@@ -548,6 +549,7 @@ select {
   }
 }
 //buttons
+
 .btn {
   //height: auto;
   text-transform: uppercase;
@@ -561,6 +563,7 @@ select {
   }
 }
 //vertical tabs
+
 .side-panel {
   nav {
     display: flex;
@@ -596,6 +599,7 @@ select {
   }
 }
 //cards
+
 .card {
   background: $white;
 
@@ -605,6 +609,7 @@ select {
   }
 }
 //side panel navigation
+
 .side-panel {
   nav {
     border-color: $cool-gray-01;
@@ -637,11 +642,11 @@ html {
 
             > nav {
               @include for-phone-only {
-                border: 1px solid $cool-gray-00;
+                //border: 1px solid $cool-gray-00;
                 background: $white;
               }
               @include for-tablet-portrait-up {
-                border: 1px solid $cool-gray-00;
+                //border: 1px solid $cool-gray-00;
                 background: $white;
               }
               @include for-tablet-landscape-up {
@@ -796,8 +801,7 @@ html {
             background-position-y: -8rem;
             background-size: cover;
             align-self: stretch;
-            background-blend-mode: soft-light;
-
+            //background-blend-mode: soft-light;
             .site-nav {
               ul {
                 li {
@@ -872,8 +876,6 @@ html {
 
                 .fade-in {
                   background: $white;
-
-
 
                   .workflow-header {
                     background-color: $cool-gray-01;
@@ -987,10 +989,8 @@ html {
         }
         //footer
         footer {
-          background: $cool-gray-00;
-
           div[role="banner"] {
-            border-top: $border-width dotted $cool-gray-00;
+            border-top: $border-width dotted $cool-gray-01;
             background: $white;
           }
         }
@@ -1015,6 +1015,7 @@ html {
   }
 }
 //result cards
+
 ul.results {
   &.result-cards {
     li {
@@ -1067,6 +1068,7 @@ ul.results {
   }
 }
 //modal
+
 .modal {
   z-index: 10;
   background: rgba($black, .75);
@@ -1075,12 +1077,14 @@ ul.results {
   background-size: cover;
 }
 //card
+
 .card {
   .card-header {
     background-color: $cool-gray-00;
   }
 }
 //workflow detail header
+
 .detailHeader {
   background: $black;
 
@@ -1114,7 +1118,6 @@ ul.results {
     }
   }
 }
-
 //Routes
 //Home Page
 
@@ -1126,6 +1129,7 @@ ul.results {
   }
 }
 //verify & write policy
+
 .route-verify {
   .detail-wrapper {
     .detail-group {
@@ -1154,6 +1158,7 @@ ul.results {
   }
 }
 //form color & form layout
+
 .survey-wrapper {
   .section-group-header {
     width: 100%;
@@ -1166,31 +1171,32 @@ ul.results {
     //background-color: rgba($cool-gray-01, .25);
     flex-grow: 1;
 
-    &:first-child {
-
-    }
+    &:first-child {}
 
     i {
-        //color: $green;
-        //color: $bright-blue;
-        margin-right: $padding;
-        &.Coverage {
-            &.Limits {
-                &:before {
-                    content: "\f1fe";
-                }
-            }
-            &.Options {
-                &:before {
-                    content: "\f200";
-                }
-            }
+      //color: $green;
+      //color: $bright-blue;
+      margin-right: $padding;
+
+      &.Coverage {
+        &.Limits {
+          &:before {
+            content: "\f201";
+          }
         }
-        &.Deductibles {
-            &:before {
-                content: "\f0d6"
-            }
+
+        &.Options {
+          &:before {
+            content: "\f0ae";
+          }
         }
+      }
+
+      &.Deductibles {
+        &:before {
+          content: "\f0d6";
+        }
+      }
     }
   }
 }
@@ -1205,6 +1211,7 @@ ul.results {
   }
 }
 //Demographics page
+
 #Demographics {
   .form-group {
     .FirstName {
@@ -1254,36 +1261,40 @@ ul.results {
   }
 }
 //Customize Quote page
+
 #Customize {
-    .form-group.survey-wrapper {
-
-        input[readonly] {
-            color: $cool-gray-03;
-            background-color: $cool-gray-00;
-            border-bottom: 2px solid $cool-gray-02;
-        }
-
-        .form-group {
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-
-            >input[type="text"] {
-                    flex-basis: 6.5rem;
-                    margin-top: -$padding;
-            }
-
-            &.range-component, &.segmented, &.range-component {
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content:flex-start;
-
-                label, .range-wrapper, .segmented-answer-wrapper {
-                    width: 100%;
-                }
-            }
-        }
+  .form-group.survey-wrapper {
+    input[readonly] {
+      color: $cool-gray-03;
+      border-bottom: 2px solid $cool-gray-02;
+      background-color: $cool-gray-00;
     }
+
+    .form-group {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      > input[type="text"] {
+        margin-top: -$padding;
+        flex-basis: 6.5rem;
+      }
+
+      &.range-component,
+      &.range-component,
+      &.segmented {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        .range-wrapper,
+        .segmented-answer-wrapper,
+        label {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 //ERROR PAGE animation
 @keyframes waves {
@@ -1334,18 +1345,17 @@ div#root {
   }
 }
 //SPECIAL STUFF TO ADD BACK IN LATER
+
 div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article"].workflow .fade-in .workflow-content {
   display: flex;
   flex-direction: column;
 }
 
-
-
 .rocky {
-    background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 500px;
-    display: block;
+  display: block;
+  width: 100%;
+  height: 500px;
+  background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
