@@ -44,7 +44,7 @@ class Demographics extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askAdditionalCustomerData',
-          data: this.formatData(event),
+          data: event,
         },
       },
     }).then((updatedModel) => {

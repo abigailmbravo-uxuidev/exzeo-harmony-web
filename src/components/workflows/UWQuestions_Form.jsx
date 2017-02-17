@@ -165,7 +165,7 @@ class UWQuestions extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askUWAnswers',
-          data: this.formatData(event),
+          data: event,
         },
       },
     }).then((updatedModel) => {

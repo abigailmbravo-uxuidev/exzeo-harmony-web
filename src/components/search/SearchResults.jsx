@@ -65,15 +65,7 @@ class SearchResults extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: this.props.data.steps.name,
-          data: [
-            {
-              key: 'stateCode',
-              value: address.state,
-            }, {
-              key: 'igdId',
-              value: address.id,
-            },
-          ],
+          data: {stateCode: address.state, igdId: address.id}
         },
       },
     }).then((updatedStep) => {

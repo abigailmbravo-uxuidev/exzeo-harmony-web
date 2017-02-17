@@ -35,12 +35,7 @@ class Search extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askAddress',
-          data: [
-            {
-              key: 'address',
-              value: this.state.searchText,
-            },
-          ],
+          data: {address:this.state.searchText},
         },
       },
     }).then((updatedStep) => {

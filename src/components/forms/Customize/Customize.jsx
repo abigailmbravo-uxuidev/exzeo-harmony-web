@@ -54,12 +54,13 @@ class Customize extends Component {
           state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
           const val = _.get(realQuote, question.defaultValueLocation);
-          state[question.name] = String(val) ?
-            String(val) : val;
+          state[question.name] = _.isString(val) ? String(val) : val;
         } else {
           state[question.name] = '';
         }
       });
+
+      //console.log('STATE AFTER CONVERIONS: ', this.state);
 
       state.quoteInfo = realQuote;
 
@@ -123,9 +124,7 @@ class Customize extends Component {
 
     this.setState(defaultState);
   }
-  recalculateQuote = () => {
-    alert('Recalculate');
-  }
+
 
   formatData = (data) => {
     const answers = [];
@@ -145,21 +144,30 @@ class Customize extends Component {
     }
   });
 
-  update = async () => {
-    // const { completeStep } = this.props;
+  recalculateQuote = async () => {
+
+    const { completeStep } = this.props;
+    console.log('STATE BEFORE SENDING RECALC', this.state);
     try {
-      // let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', [
-      //   {
-      //     key: 'shouldCustomizeQuote',
-      //     value: 'Yes',
-      //   },
-      // ]));
-      // await completeStep(
-      //  this.buildSubmission('customizeDefaultQuote', this.formatData(this.state))
-      // );
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', [
+        {
+          key: 'shouldCustomizeQuote',
+          value: 'Yes',
+        },
+      ]));
+      console.log('THIS IS shouldCustomizeQuote', data);
+
+      data = await completeStep(
+       this.buildSubmission('customizeDefaultQuote', this.formatData(this.state))
+      );
+
+      console.log('THIS IS customizeDefaultQuote', data);
+
       const { state } = this;
       state.updated = false;
       this.setState(state);
+
+      console.log('DATA AFTER SUBMISSION:', data);
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
