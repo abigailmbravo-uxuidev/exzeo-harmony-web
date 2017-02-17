@@ -1,6 +1,7 @@
 /* eslint no-unused-vars :0 */
 import React, { Component, PropTypes } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Demographics from '../workflows/Demographics';
@@ -75,6 +76,7 @@ class Workflow extends Component {
   }
 
   state = {
+    details: [],
     workflow: {
       steps: [],
     },
@@ -134,6 +136,21 @@ class Workflow extends Component {
     this.setState(workflow);
     // }
   }
+
+  componentWillReceiveProps(newProps) {
+    if ((!this.props.data.steps && newProps.data.steps) ||
+      (!newProps.data.loading &&
+        this.props.data.steps &&
+         newProps.data.steps &&
+        (this.props.data.steps.name !== newProps.data.steps.name)
+      )) {
+      const { steps } = newProps.data;
+
+      console.log('steps.details', steps.details);
+      this.setState({ details: steps.details });
+    }
+  }
+
   updateCompletedSteps = (completedSteps) => {
     this.setState({ completedSteps });
   }
@@ -151,41 +168,42 @@ class Workflow extends Component {
     // <Redirect to="/workflow/underwriting" />
   }
   render() {
-    const details = [{
-      name: 'Quote Number',
-      value: '12-1234567-12',
-      __typename: 'WorkflowDetail'
-    }, {
-      name: 'Annual Premium',
-      value: '11140',
-      __typename: 'WorkflowDetail'
-    }, {
-      name: 'Address',
-      value: '19101 SW 56 ST',
-      __typename: 'WorkflowDetail'
-    }, {
-      name: 'Year Built',
-      value: '1993',
-      __typename: 'WorkflowDetail'
-    }, {
-      name: 'Coverage A',
-      value: '549000',
-      __typename: 'WorkflowDetail'
-    }, {
-      name: 'Coverage B',
-      value: '54900',
-      __typename: 'WorkflowDetail'
-    }, {
-      name: 'Coverage C',
-      value: '274500',
-      __typename: 'WorkflowDetail'
-    }];
+
+    // const details = [{
+    //   name: 'Quote Number',
+    //   value: '509011-102220-01',
+    //   __typename: 'WorkflowDetail'
+    // }, {
+    //   name: 'Annual Premium',
+    //   value: '11140',
+    //   __typename: 'WorkflowDetail'
+    // }, {
+    //   name: 'Address',
+    //   value: '19101 SW 56 ST',
+    //   __typename: 'WorkflowDetail'
+    // }, {
+    //   name: 'Year Built',
+    //   value: '1993',
+    //   __typename: 'WorkflowDetail'
+    // }, {
+    //   name: 'Coverage A',
+    //   value: '549000',
+    //   __typename: 'WorkflowDetail'
+    // }, {
+    //   name: 'Coverage B',
+    //   value: '54900',
+    //   __typename: 'WorkflowDetail'
+    // }, {
+    //   name: 'Coverage C',
+    //   value: '274500',
+    //   __typename: 'WorkflowDetail'
+    // }];
 
     const { workflow, activeStep } = this.state;
     return (
       <div className="workflow" role="article">
         <div className="fade-in">
-          <WorkflowDetails details={details} />
+          <WorkflowDetails details={this.state.details || []} />
           <Router>
             <div className="route">
               <Route path="/quote/search" component={Search} />
@@ -208,7 +226,16 @@ class Workflow extends Component {
     );
   }
 }
-export default graphql(gql`
+export default (connect())(graphql(gql `
+    query GetActiveStep($workflowId:ID!) {
+        steps(id: $workflowId) {
+            name
+            details {
+                name
+                value
+            }
+        }
+    }`, { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } } })(graphql(gql`
   mutation StartWorkflow($input:WorkflowInput) {
     startWorkflow(input:$input) {
       id
@@ -220,4 +247,4 @@ export default graphql(gql`
       }
     }
   }
-`, { name: 'startWorkflow' })(Workflow);
+`, { name: 'startWorkflow' })(Workflow)));
