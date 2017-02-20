@@ -84,16 +84,12 @@ class SearchResults extends Component {
     const { results } = this.state;
 
     return (
-          <div className="workflow-content">
-            <section>
-              <div className="fade-in">
-                <div className="survey-wrapper">
-                  <Results addresses={results} handleClick={this.makeAddressSelection} />
-                </div>
-                <Footer />
-              </div>
-            </section>
-          </div>
+      <div className="fade-in">
+        <div className="survey-wrapper">
+          <Results addresses={results} handleClick={this.makeAddressSelection} />
+        </div>
+        <Footer />
+      </div>
     );
   }
 }
