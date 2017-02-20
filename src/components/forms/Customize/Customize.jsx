@@ -60,7 +60,7 @@ class Customize extends Component {
         }
       });
 
-      //console.log('STATE AFTER CONVERIONS: ', this.state);
+      // console.log('STATE AFTER CONVERIONS: ', this.state);
 
       state.quoteInfo = realQuote;
 
@@ -136,11 +136,10 @@ class Customize extends Component {
   });
 
   recalculateQuote = async () => {
-
     const { completeStep } = this.props;
     console.log('STATE BEFORE SENDING RECALC', this.state);
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
       console.log('THIS IS shouldCustomizeQuote', data);
 
       data = await completeStep(this.buildSubmission('customizeDefaultQuote', this.state));
@@ -151,7 +150,7 @@ class Customize extends Component {
       state.updated = false;
       this.setState(state);
 
-      this.context.router.push(`${data.data.completeStep.link}`)
+      this.context.router.push(`${data.data.completeStep.link}`);
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
@@ -161,27 +160,24 @@ class Customize extends Component {
   save = async () => {
     const { completeStep } = this.props;
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote',{shouldCustomizeQuote: 'No'}));
-      // console.log('ask to customize no', data); // eslint-disable-line
-      //
-      // data = await completeStep(this.buildSubmission('showCustomizedQuoteAndContinue', []));
-      // console.log('show customize', data); // eslint-disable-line
-      //
-      // data = await completeStep(this.buildSubmission('saveAndSendEmail', [
-      //   {
-      //     key: 'shouldGeneratePdfAndEmail',
-      //     value: 'No'
-      //   },
-      // ]));
-      // console.log('save and send email', data); // eslint-disable-line
-      //
-      // data = await completeStep(this.buildSubmission('askAdditionalQuestions', []));
-      // console.log('ask additional questions', data); // eslint-disable-line
-      //
-      // data = await completeStep(this.buildSubmission('askScheduleInspectionDates', []));
-      // console.log('ask to inspection', data); // eslint-disable-line
-      //
-      // this.context.router.push('thankyou');
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'No' }));
+      console.log('ask to customize no', data); // eslint-disable-line
+
+      data = await completeStep(this.buildSubmission('showCustomizedQuoteAndContinue', {}));
+      console.log('show customize', data); // eslint-disable-line
+
+      data = await completeStep(this.buildSubmission('saveAndSendEmail',
+        { shouldGeneratePdfAndEmail: 'No' },
+      ));
+      console.log('save and send email', data); // eslint-disable-line
+
+      data = await completeStep(this.buildSubmission('askAdditionalQuestions', {}));
+      console.log('ask additional questions', data); // eslint-disable-line
+
+      data = await completeStep(this.buildSubmission('askScheduleInspectionDates', {}));
+      console.log('ask to inspection', data); // eslint-disable-line
+
+      this.context.router.push('thankyou');
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
@@ -208,7 +204,7 @@ class Customize extends Component {
     }
     return (
       <div className="workflow-content">
-        {/*<aside><Details details={details} /></aside>*/}
+        {/* <aside><Details details={details} /></aside>*/}
         <section className="">
           <div className="fade-in">
             <Form
