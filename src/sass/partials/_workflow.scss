@@ -58,7 +58,7 @@
           width: 2rem;
 
           &:before {
-              font-family: FontAwesome;
+              font-family: $font-family-icon;
           }
           @include for-phone-only {
             font-size: $font-size-h4;
@@ -136,10 +136,10 @@
 
   .workflow-steps {
     display: flex;
-    padding: 0 ($padding*4) $padding;
     justify-content: flex-end;
     flex-grow: 0;
     flex-shrink: 0;
+    padding: 0 ($padding*2) ($padding*2);
 
     .btn {
       margin-left: $padding;

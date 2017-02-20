@@ -3,6 +3,7 @@
   margin-bottom: 0;
   padding: $padding;
   flex-grow: 0;
+  flex-shrink: 0;
   @include for-big-desktop-up {
     padding: $padding*2;
   }
@@ -15,55 +16,14 @@
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       flex: 1;
-      @keyframes glow {
-        0% {
-          border-bottom-color: $cool-gray-02;
-          box-shadow: 0 0 5px rgba($bright-blue, 0), inset 0 0 5px rgba($bright-blue-lighten-03, 0);
-        }
-
-        50% {
-          border-bottom-color: $cool-gray-04;
-          box-shadow: 0 0 10px rgba($bright-blue, .6), inset 0 0 10px rgba($bright-blue-lighten-03, .4);
-        }
-
-        100% {
-          border-bottom-color: $cool-gray-02;
-          box-shadow: 0 0 5px rgba($bright-blue, 0), inset 0 0 5px rgba($bright-blue-lighten-03, 0);
-        }
-      }
-      @keyframes blink {
-        0% {
-          background-color: $green-darken-01;
-        }
-
-        5% {
-          background-color: $green-darken-02;
-        }
-
-        10% {
-          background-color: $green-darken-01;
-        }
-
-        100% {
-          background-color: $green-darken-01;
-        }
-      }
 
       &.focus-user {
-        animation: glow 3200ms ease-out infinite alternate;
+        //animation: glow 3200ms ease-out infinite alternate;
         outline: none;
         box-shadow: 0 0 5px rgba( $bright-blue, 0 ), inset 0 0 5px rgba($bright-blue, 0);
 
         &:focus {
           animation: none;
-
-          ~ button {
-            animation: none;
-          }
-        }
-
-        ~ button {
-          animation: blink 3200ms ease-out infinite alternate;
         }
       }
     }
@@ -142,19 +102,21 @@
             }
 
             .workflow-links {
-                > div {
-                    display: flex;
-                    a {
-                        padding: ($padding/4) ($padding*2);
-                        border-radius: $btn-border-radius;
-                        @include transition(all .2s ease-in-out);
+              > div {
+                display: flex;
 
-                        &:hover, &:focus {
-                            background: $bright-blue-lighten-02;
-                            color: $body-color;
-                        }
-                    }
+                a {
+                  padding: ($padding/4) ($padding*2);
+                  border-radius: $btn-border-radius;
+                  @include transition(all .2s ease-in-out);
+
+                  &:focus,
+                  &:hover {
+                    color: $body-color;
+                    background: $bright-blue-lighten-02;
+                  }
                 }
+              }
             }
 
             i {
@@ -168,13 +130,12 @@
               text-decoration: none;
 
               .workflow-links {
-                  > div {
-
-                      a {
-                          background: $bright-blue-lighten-02;
-                          color: $body-color;
-                      }
+                > div {
+                  a {
+                    color: $body-color;
+                    background: $bright-blue-lighten-02;
                   }
+                }
               }
             }
           }

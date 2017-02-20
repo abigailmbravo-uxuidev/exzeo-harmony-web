@@ -1,7 +1,7 @@
 /* eslint react/no-direct-mutation-state:0 */
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import Survey from '../common/question/Survey';
+import Survey from '../question/Survey';
 import ContentManager from './ContentManager';
 
 
@@ -52,12 +52,16 @@ class CMS extends Component {
     this.setState(this.state);
   }
   toggleEdit = (name) => {
-    this.state.questions.find(q => q.name === name).editing = !this.state.questions.find(q => q.name === name).editing;
+    this.state.questions.find(q => q.name === name)
+    .editing = !this.state.questions.find(q => q.name === name).editing;
     this.setState(this.state);
   }
   addAnswer = (newAnswer, name) => {
-    this.state.questions.find(q => q.name === name).answers = this.state.questions.find(q => q.name === name).answers || [];
-    this.state.questions.find(q => q.name === name).answers.push({ answer: newAnswer });
+    this.state.questions
+    .find(q => q.name === name)
+    .answers = this.state.questions.find(q => q.name === name).answers || [];
+    this.state.questions
+    .find(q => q.name === name).answers.push({ answer: newAnswer });
   }
   render() {
     const { questions, answers } = this.state;

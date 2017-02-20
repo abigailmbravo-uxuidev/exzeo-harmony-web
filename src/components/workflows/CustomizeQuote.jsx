@@ -123,7 +123,7 @@ class CustomizeQuote extends Component {
     return (
     <form className="fade-in" id="customize-quote" onSubmit={this.handleSubmit}>
       <div className="form-group survey-wrapper" role="group">
-        <h4 className="section-group-header"><i className="fa fa-balance-scale"></i> Coverage Limits</h4>
+        <h3 className="section-group-header"><i className="fa fa-balance-scale"></i> Coverage Limits</h3>
         <div className="form-group range-component">
           <label htmlFor="dwellingAmount">
             Dwelling Limit
@@ -499,7 +499,7 @@ class CustomizeQuote extends Component {
         </div>
       </div>
       <div className="form-group survey-wrapper" role="group">
-        <h4 className="section-group-header"><i className="fa fa-tasks"></i> Coverage Options</h4>
+        <h3 className="section-group-header"><i className="fa fa-tasks"></i> Coverage Options</h3>
         <div className="form-group segmented" role="group">
           <label className="group-label label-segmented">
             Property Permitted Incidental Occupancies
@@ -576,7 +576,7 @@ class CustomizeQuote extends Component {
         </div>
       </div>
       <div className="form-group survey-wrapper" role="group">
-        <h4 className="section-group-header"><i className="fa fa-money"></i> Deductibles</h4>
+        <h3 className="section-group-header"><i className="fa fa-money"></i> Deductibles</h3>
         <div className="form-group segmented" role="group">
           <label className="group-label label-segmented">
             All Other Perils Deductible

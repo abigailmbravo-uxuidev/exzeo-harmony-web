@@ -1,15 +1,12 @@
+/* eslint import/no-mutable-exports:0 */
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { reduxForm, Form, formValueSelector, Field } from 'redux-form';
-import Footer from '../common/Footer';
-import TextInput from '../common/form/TextInput';
-import AdditionalInterests from '../common/AdditionalInterests/AdditionalInterests';
+import { reduxForm, Form } from 'redux-form';
+import AdditionalInterests from '../forms/AdditionalInterests/AdditionalInterests';
 
 let AdditionalInterestsForm = (props) => {
-  const { effectiveDate, styleName, handleSubmit, handleOnSubmit, handleChange,
-          pristine, reset, submitting, error, invalid } = props;
+  const { styleName, handleSubmit } = props;
   return (
     <Form
       className={`fade-in ${styleName || ''}`} id="AdditionalInterestsForm" onSubmit={handleSubmit(() => { })}
@@ -24,22 +21,19 @@ let AdditionalInterestsForm = (props) => {
 };
 
 AdditionalInterestsForm.propTypes = {
-  handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
+  styleName: PropTypes.string,
 };
 
 AdditionalInterestsForm = reduxForm({
   form: 'AdditionalInterestsForm', // a unique identifier for this form
 })(AdditionalInterestsForm);
 
-const selector = formValueSelector('AdditionalInterestsForm'); // <-- same as form name
-
 AdditionalInterestsForm = connect(
-    state => ({
-      initialValues: {
-      },
-    }),
+    // state => ({
+    //   initialValues: {
+    //   },
+    // }),
   )(AdditionalInterestsForm);
 
 

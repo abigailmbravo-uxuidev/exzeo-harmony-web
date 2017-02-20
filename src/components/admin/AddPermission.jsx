@@ -1,49 +1,49 @@
-import React, {Component, PropTypes} from 'react';
-import {graphql} from 'react-apollo';
+import React, { Component, PropTypes } from 'react';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class AddPermission extends Component {
   static propTypes = {
     addPermission: PropTypes.func,
-    permissionAdded: PropTypes.func
+    permissionAdded: PropTypes.func,
   }
   state = {
     permission: {
       name: '',
       description: '',
-      rights: []
+      rights: [],
     },
     right: {
       name: '',
-      active: true
-    }
+      active: true,
+    },
   }
   updatePermission = (event) => {
     const permission = this.state.permission;
     permission[event.target.name] = event.target.value;
-    this.setState({permission});
+    this.setState({ permission });
   }
   addPermission = (event) => {
     event.preventDefault();
     this.props.addPermission({
       variables: {
-        input: this.state.permission
-      }
-    }).then(({data}) => {
+        input: this.state.permission,
+      },
+    }).then(({ data }) => {
       this.props.permissionAdded(data.createPermission);
     }).catch(error => console.error(error));
     this.setState({
       permission: {
         name: '',
         description: '',
-        rights: []
-      }
+        rights: [],
+      },
     });
   }
   updateRight = (event) => {
     const right = this.state.right;
     right.name = event.target.value;
-    this.setState({right});
+    this.setState({ right });
   }
   addRight = (event) => {
     event.preventDefault();
@@ -54,8 +54,8 @@ class AddPermission extends Component {
       permission,
       right: {
         name: '',
-        active: true
-      }
+        active: true,
+      },
     });
   }
   render() {
@@ -70,11 +70,11 @@ class AddPermission extends Component {
             <form onSubmit={this.addPermission}>
               <div className="form-group">
                 <label htmlFor="name">Name:</label>
-                <input onChange={this.updatePermission} name="name" id="name" value={permission.name}/>
+                <input onChange={this.updatePermission} name="name" id="name" value={permission.name} />
               </div>
               <div className="form-group">
                 <label htmlFor="description">Description:</label>
-                <input onChange={this.updatePermission} name="description" id="description" value={permission.description}/>
+                <input onChange={this.updatePermission} name="description" id="description" value={permission.description} />
               </div>
 
               <ul>
@@ -91,7 +91,7 @@ class AddPermission extends Component {
             </form>
             <form onSubmit={this.addRight}>
               <div className="form-group">
-                <input onChange={this.updateRight} value={this.state.right.name}/>
+                <input onChange={this.updateRight} value={this.state.right.name} />
               </div>
             </form>
           </div>
@@ -112,4 +112,4 @@ export default graphql(gql `
       }
     }
   }
-`, {name: 'addPermission'})(AddPermission);
+`, { name: 'addPermission' })(AddPermission);

@@ -1,11 +1,13 @@
+/* eslint no-class-assign :0, no-case-declarations:0, no-unused-vars:0,
+no-nested-ternary:0, react/no-unescaped-entities :0 */
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import ErrorPage from '../common/ErrorPage';
+import ErrorPage from './ErrorPage';
 import * as searchActions from '../../actions/searchActions';
-import Survey from '../common/question/Survey';
+import Survey from '../question/Survey';
 import WorkflowDetails from './WorkflowDetails';
 import Footer from '../common/Footer';
 
@@ -341,8 +343,10 @@ class WorkflowStep extends Component {
                     {/* <i className="fa fa-search"/> Search for a {steps ? steps.name : null} */}
                     <i className="fa fa-search" /> Search for a property address.
                   </h3>
-                  <p>To start a homeowner's insurance quote, enter the street address of the property to be insured in the search bar above.
-                  You only need to enter the <strong>street number and name</strong> to return a list of possible matches.</p>
+                  <p>To start a homeowner's insurance quote, enter the street
+                    address of the property to be insured in the search bar above.
+                  You only need to enter the <strong>street number and name</strong>
+                  to return a list of possible matches.</p>
                 </div>
               </div>
             </section>

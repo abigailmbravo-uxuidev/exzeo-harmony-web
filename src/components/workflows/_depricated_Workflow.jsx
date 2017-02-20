@@ -47,8 +47,9 @@ const Step = graphql(completeStep)(({ component, workflowId, stepName, mutate })
 
 class Workflow extends Component {
   static propTypes = {
-    id: '',
-    steps: PropTypes.object,
+    id: PropTypes.any,// eslint-disable-line
+    steps: PropTypes.object,// eslint-disable-line
+    mutate: PropTypes.any,// eslint-disable-line
   }
   state = {
     workflowSteps: [],
@@ -69,7 +70,7 @@ class Workflow extends Component {
         });
         this.setState({ workflowSteps, id: data.startWorkflow.id });
       })
-      .catch(x => console.log('err: ', x))
+      .catch(x => console.log('err: ', x));
   }
   updateStep = (step) => {
     const { workflowSteps } = this.state;
@@ -114,46 +115,46 @@ class Workflow extends Component {
               <div className="sidePanel" role="contentinfo">
                 <section id="premium" className="premium">
                   <dl>
-                          <div>
-                                    <dt>Annual premium</dt>
-                                    <dd>$1000.00</dd>
-                            </div>
+                    <div>
+                      <dt>Annual premium</dt>
+                      <dd>$1000.00</dd>
+                    </div>
                   </dl>
                 </section>
                 <section id="quoteDetails" className="quoteDetails">
                   <dl>
-                        <div>
-                                <dt>Quote number</dt>
-                                <dd>TT-HO3-1234567890</dd>
-                        </div>
+                    <div>
+                      <dt>Quote number</dt>
+                      <dd>TT-HO3-1234567890</dd>
+                    </div>
                   </dl>
                 </section>
                 <section id="propertyDetails" className="propertyDetails">
                   <dl>
-                        <div>
-                                <dt>Address</dt>
-                                <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
-                        </div>
-                        <div>
-                                <dt>Year built</dt>
-                                <dd>2000</dd>
-                        </div>
+                    <div>
+                      <dt>Address</dt>
+                      <dd>123 Main Street<small>Fort Lauderdale, FL, 12345</small></dd>
+                    </div>
+                    <div>
+                      <dt>Year built</dt>
+                      <dd>2000</dd>
+                    </div>
                   </dl>
                 </section>
                 <section id="coverageDetails" className="coverageDetails">
                   <dl>
-                        <div>
-                                <dt>Coverage A</dt>
-                                <dd>$10,000.00</dd>
-                        </div>
-                        <div>
-                                <dt>Coverage B</dt>
-                                <dd>$10,000.00</dd>
-                        </div>
-                        <div>
-                                <dt>Coverage C</dt>
-                                <dd>$10,000.00</dd>
-                        </div>
+                    <div>
+                      <dt>Coverage A</dt>
+                      <dd>$10,000.00</dd>
+                    </div>
+                    <div>
+                      <dt>Coverage B</dt>
+                      <dd>$10,000.00</dd>
+                    </div>
+                    <div>
+                      <dt>Coverage C</dt>
+                      <dd>$10,000.00</dd>
+                    </div>
                   </dl>
                 </section>
               </div>

@@ -5,6 +5,7 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-airbnb": "^2.1.1",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
@@ -35,6 +36,7 @@
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
     "ldclient-js": "^1.1.4",
+    "localStorage": "^1.0.3",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "react": "^15.3.2",
@@ -55,32 +57,13 @@
     "build": "react-scripts build && node scripts/genEjs",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "local": "cross-env NODE_ENV=local react-scripts start",
+    "local": "react-scripts start",
     "pretest": "npm run lint",
     "push": "npm run build && docker build -f dev.dockerfile -t exzeo/harmony-web:develop . && docker push exzeo/harmony-web:develop",
     "both": "node scripts/start-both",
     "start": "node scripts/start-api",
     "dev": "react-scripts start",
-    "test": "mocha --reporter progress utils/testSetup \"src/**/*.test.js\""
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "rules": {
-      "import/no-extraneous-dependencies": 0,
-      "no-unused-expressions": 0,
-      "react/jsx-filename-extension": 0,
-      "linebreak-style": 0
-    },
-    "globals": {
-      "expect": 0,
-      "sinon": 0
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true
-    }
+    "test": "mocha --reporter progress utils/testSetup \"src/**/*.Spec.js\""
   },
   "babel": {
     "presets": [
@@ -88,7 +71,7 @@
       "stage-0"
     ],
     "plugins": [
-      "transform-decorators-legacy"
+      "babel-plugin-transform-decorators-legacy"
     ]
   }
 }

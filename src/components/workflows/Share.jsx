@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Footer from '../common/Footer';
 
 // import Stepper from './workflows/Stepper';
 const CoverageDetails = () => (
   <div className="CoverageDetails detail-group">
     <h4>Coverages</h4>
-    <button className="btn btn-link edit-btn" type="" form=""><i className="fa fa-pencil"></i>Edit</button>
+    <button className="btn btn-link edit-btn" type="" form=""><i className="fa fa-pencil" />Edit</button>
     <section className="summary-section">
       <dl>
         <dt>
@@ -41,11 +41,11 @@ const CoverageDetails = () => (
       </dl>
     </section>
   </div>
-)
+);
 const RatingDetails = () => (
   <div className="RatingDetails detail-group">
     <h4>Rating</h4>
-    <button className="btn btn-link edit-btn" type="" form=""><i className="fa fa-pencil"></i>Edit</button>
+    <button className="btn btn-link edit-btn" type="" form=""><i className="fa fa-pencil" />Edit</button>
     <section className="summary-section">
       <dl>
         <dt>Mold Property</dt>
@@ -81,7 +81,7 @@ const RatingDetails = () => (
       </dl>
     </section>
   </div>
-)
+);
 class Share extends Component {
   state = {
     // Some state will go here
@@ -106,8 +106,8 @@ class Share extends Component {
             </dl>
           </aside>
           <div className="detail-wrapper">
-            <CoverageDetails/>
-            <RatingDetails/>
+            <CoverageDetails />
+            <RatingDetails />
           </div>
         </div>
         <div className="workflow-steps">

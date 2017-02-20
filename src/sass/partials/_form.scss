@@ -192,6 +192,7 @@
     }
 
     &.segmented {
+
       .segmented-answer-wrapper {
         display: flex;
         flex-direction: row;
@@ -245,12 +246,12 @@
               filter: drop-shadow(0 0 4px rgba($green, 0.8));
             }
 
-            .label-segmented {
-                span {
-                    color: $white;
-                    background: $bright-blue;
-                }
-            }
+            // .label-segmented {
+            //     span {
+            //         color: $white;
+            //         background: $bright-blue;
+            //     }
+            // }
           }
 
           .label-segmented {
@@ -327,6 +328,18 @@
                 }
             }
         }
+      }
+
+      label {
+          &.label-segmented {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                >input[type="text"] {
+                        flex-basis: 6.5rem;
+                }
+          }
       }
 
       &.disabled,
@@ -573,7 +586,7 @@
               margin-right: 2rem;
 
               &:before {
-                  font: normal normal normal 1rem FontAwesome;
+                  font: normal normal normal 1rem $font-family-icon;
                   content: '\f14a';
                   position: absolute;
                   left: -.5rem;
@@ -611,7 +624,7 @@
                       cursor: pointer;
 
                       &:before {
-                          font: normal normal normal 1rem FontAwesome;
+                          font: normal normal normal 1rem $font-family-icon;
                           content: '\f14a';
                           position: absolute;
                           left: -.75rem;

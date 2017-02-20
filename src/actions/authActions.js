@@ -1,5 +1,6 @@
 /* eslint no-undef:1 */
 import Auth0 from 'auth0-js';
+import localStorage from 'localStorage';
 import * as types from './actionTypes';
 
 const auth0 = new Auth0({

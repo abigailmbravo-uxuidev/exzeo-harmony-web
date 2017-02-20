@@ -1,12 +1,13 @@
 /* eslint no-param-reassign:0 */
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import localStorage from 'localStorage';
 import auth from './authReducer';
 import features from './featureReducer';
 import search from './searchReducer';
-import { reducer as formReducer } from 'redux-form';
 
-let uri = 'http://localhost:4001/api';
+let uri = `${(process.env.REACT_APP_API_URL || 'http://localhost:4001')}/api`;
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   uri = 'http://localhost:4001/api';
