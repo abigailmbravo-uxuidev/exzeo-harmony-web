@@ -7,6 +7,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import DependentQuestion from '../question/DependentQuestion';
+import Footer from '../common/Footer';
 
 class Demographics extends Component {
   static contextTypes = {
@@ -104,6 +105,7 @@ class Demographics extends Component {
               <div className="workflow-steps">
                 <button className="btn btn-primary" type="submit" form="Demographics">next</button>
               </div>
+              <Footer />
             </Form>
           </div>
         </section>

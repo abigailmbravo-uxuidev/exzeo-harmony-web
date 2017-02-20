@@ -201,7 +201,7 @@ class Workflow extends Component {
 
     const { workflow, activeStep } = this.state;
     return (
-      <div className="workflow" role="article">
+
         <div className="fade-in">
           <WorkflowDetails details={this.state.details || []} />
           <Router>
@@ -222,7 +222,7 @@ class Workflow extends Component {
             </div>
           </Router>
         </div>
-      </div>
+
     );
   }
 }

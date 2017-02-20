@@ -19,11 +19,24 @@
 @import "partials/_workflow";
 @import "partials/_search";
 @import "https://fonts.googleapis.com/css?family=Roboto:300,400";
-
+//base
 html {
   height: 100%;
   margin: 0;
   padding: 0;
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  //site background
+  div#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: $white;
+  }
 }
 //links
 a,
@@ -38,23 +51,10 @@ a:visited {
   }
 }
 
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-//site background
-div#root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: $white;
-}
 //SURVEYS
 .survey-wrapper {
   flex-direction: row;
-  padding: $padding ($padding/2) 0;
+  padding: $padding $padding 0;
   flex-wrap: wrap;
   flex-shrink: 0;
   flex-grow: 1;
@@ -215,7 +215,7 @@ div#root {
 
 .workflow {
   padding: 0;
-  background-color: $warm-gray-01;
+  display: flex;
 
   .fade-in {
     display: flex;
@@ -665,7 +665,7 @@ div#root {
   overflow-y: hidden;
   flex-direction: column;
   width: 100%;
-  padding: $padding;
+  //padding: $padding;
   flex-grow: 1;
   flex-wrap: wrap;
   align-self: stretch;
@@ -1695,29 +1695,37 @@ ul.results {
 //Routes
 .route {
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 //Home Page
-.fade-in {
-  height: 100%;
-
-  .home {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: $padding ($padding/2);
-    flex-grow: 1;
-    flex-shrink: 0;
-
-    .product-wrapper {
+.dashboard {
+    .fade-in {
+      height: 100%;
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
+      height: 100%;
+      flex-grow: 1;
+      flex-shrink: 0;
 
-      .product {
-        flex-grow: 1;
-        flex-shrink: 0;
+      .dashboard-message {
+          padding: $padding;
       }
+
+        .product-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+
+          .product {
+            flex-grow: 1;
+            flex-shrink: 0;
+            margin-bottom: $padding;
+          }
+        }
+
     }
-  }
 }
 //verify & write policy
 .route-verify {
@@ -1853,7 +1861,7 @@ ul.results {
       color: $body-color;
       width: 100%;
       margin: (-$padding) (-$padding/2) ($padding*2);
-      padding: ($padding) ($padding*1.5);
+      padding: ($padding);
       flex-grow: 1;
       font-size: $font-size-h2;
       @include for-phone-only {

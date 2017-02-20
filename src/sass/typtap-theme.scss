@@ -2,7 +2,6 @@
 @import "base.scss";
 /*universal typtap styles*/
 //links
-
 a,
 a:visited {
   text-decoration: none;
@@ -13,7 +12,6 @@ a:visited {
     color: $bright-blue-darken-02;
   }
 }
-
 .btn {
   &.btn-success {
     color: $white;
@@ -23,8 +21,8 @@ a:visited {
     }
   }
 }
-//inputs
 
+//inputs
 input,
 textarea {
   width: 100%;
@@ -41,7 +39,6 @@ textarea {
     color: $cool-gray-02;
     font-style: italic;
   }
-
   &:focus {
     background: lighten( $cool-gray-00, 2.5% );
   }
@@ -634,6 +631,7 @@ html {
         header {
           border-bottom: 2px solid $bright-blue;
           background: $black;
+          box-shadow: 0 0 15px 0 $black;
 
           div[role="banner"] {
             > h1 {
@@ -793,12 +791,13 @@ html {
         }
         //main
         main[role="document"] {
+          box-shadow: 0 15px 15px 0 $black;
           .content-panel-left {
             background-color: $cool-gray-12;
             background-image: url("../img/TypTap-graphic.svg");
             background-repeat: no-repeat;
             background-position-x: center;
-            background-position-y: -8rem;
+            background-position-y: -6.5rem;
             background-size: cover;
             align-self: stretch;
             //background-blend-mode: soft-light;
@@ -1086,13 +1085,14 @@ ul.results {
 //workflow detail header
 
 .detailHeader {
-  background: $black;
+  //background: $black;
+  background-color: mix($cool-gray-12, $bright-blue, 80);
 
   section {
     dl {
       div {
         dt {
-          color: $green-darken-01;
+          color: $green-lighten-02;
         }
 
         dd {
