@@ -8,81 +8,130 @@ import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 // import _ from 'lodash';
 
-const CoverageDetails = () => (
+const CoverageDetails = data => (
   <div className="CoverageDetails detail-group">
     <h4>Coverages</h4>
     <section className="summary-section">
       <dl>
         <dt>
-          <span>A</span>Dwelling</dt>
-        <dd>$100,000</dd>
+          <span>A</span> Dwelling</dt>
+        <dd>${data.dwelling}</dd>
       </dl>
       <dl>
         <dt>
-          <span>B</span>
-          Other Structures</dt>
-        <dd>$100,000</dd>
+          <span>B</span> Other Structures</dt>
+        <dd>${data.otherStructures}</dd>
       </dl>
       <dl>
         <dt>
-          <span>C</span>Personal Property</dt>
-        <dd>$50000</dd>
+          <span>C</span> Personal Property</dt>
+        <dd>${data.personalProperty}</dd>
       </dl>
       <dl>
         <dt>Personal Property Replacement Cost</dt>
-        <dd>Yes</dd>
+        <dd>{data.personalProperty > 0 ? 'Yes' : 'No'}</dd>
       </dl>
       <dl>
         <dt>Loss Of Use</dt>
-        <dd>$10,000</dd>
+        <dd>${data.lossOfUse}</dd>
       </dl>
       <dl>
         <dt>Personal Liability</dt>
-        <dd>$100,000</dd>
+        <dd>${data.personalLiability}</dd>
       </dl>
       <dl>
         <dt>Medical Payments</dt>
-        <dd>$2,000</dd>
+        <dd>${data.medicalPayments}</dd>
+      </dl>
+      <dl>
+        <dt>Mold Property</dt>
+        <dd>${data.moldProperty}</dd>
+      </dl>
+      <dl>
+        <dt>Mold Liability</dt>
+        <dd>${data.moldLiability}</dd>
+      </dl>
+      <dl>
+        <dt>Ordinance or Law</dt>
+        <dd>${data.ordinanceOrLaw}</dd>
       </dl>
     </section>
   </div>
 );
-const RatingDetails = () => (
+
+const CoverageOptionsDetails = data => (
   <div className="RatingDetails detail-group">
-    <h4>Rating</h4>
+    <h4>Coverage Options</h4>
     <section className="summary-section">
+
       <dl>
-        <dt>Mold Property</dt>
-        <dd>$10,000</dd>
+        <dt>Personal Property Replacement Coverage</dt>
+        <dd>{data.personalPropertyReplacementCost}</dd>
       </dl>
       <dl>
-        <dt>Mold Liability</dt>
-        <dd>$50,000</dd>
+        <dt>Sinkhole Peril Coverage</dt>
+        <dd>{data.sinkholePerilCoverage}</dd>
       </dl>
       <dl>
-        <dt>Ordinance or Law</dt>
-        <dd>$25,000</dd>
+        <dt>Property Permitted Incidental Occupancies Main Dwelling</dt>
+        <dd>{data.propertyIncidentalOccupanciesMainDwelling}</dd>
       </dl>
       <dl>
-        <dt>Property Incidental Occupancies</dt>
-        <dd>Yes</dd>
+        <dt>Property Permitted Incidental Occupancies Other Structures</dt>
+        <dd>{data.propertyIncidentalOccupanciesOtherStructures}</dd>
       </dl>
+      <dl>
+        <dt>Liability Permitted Incidental Occupancies</dt>
+        <dd>{data.liabilityIncidentalOccupancies}</dd>
+      </dl>
+    </section>
+  </div>
+);
+
+const DeductiblesDetails = data => (
+  <div className="RatingDetails detail-group">
+    <h4>Deductibles</h4>
+    <section className="summary-section">
+
       <dl>
         <dt>Hurricane</dt>
-        <dd>$2,000</dd>
+        <dd>{data.hurricane} %</dd>
       </dl>
       <dl>
-        <dt>Sinkhole Coverage</dt>
-        <dd>Yes</dd>
-      </dl>
-      <dl>
-        <dt>Sinkhole Deductible</dt>
-        <dd>Yes</dd>
+        <dt>Sinkhole</dt>
+        <dd>{data.sinkhole} %</dd>
       </dl>
       <dl>
         <dt>All Other Perils</dt>
-        <dd>$500</dd>
+        <dd>${data.allOtherPerils}</dd>
       </dl>
+    </section>
+  </div>
+);
+
+const RatingDetails = data => (
+  <div className="RatingDetails detail-group">
+    <h4>Rating</h4>
+    <section className="summary-section">
+
+      <dl>
+        <dt>Net Premium</dt>
+        <dd>${data.netPremium}</dd>
+      </dl>
+      <dl>
+        <dt>Total Fees</dt>
+        <dd>${data.totalFees}</dd>
+      </dl>
+      <dl>
+        <dt>Total Premium</dt>
+        <dd>${data.totalPremium}</dd>
+      </dl>
+      {
+        data.windMitigationDiscount && <dl>
+          <dt>Wind Mitigation discount</dt>
+          <dd>{data.windMitigationDiscount}</dd>
+        </dl>
+     }
     </section>
   </div>
 );
@@ -150,6 +199,8 @@ class SharePage extends Component {
       handleSubmit
     } = this.props;
 
+    const quote = this.state.quote;
+
     return (
       <div className="workflow-content">
         <section className="">
@@ -162,21 +213,26 @@ class SharePage extends Component {
                 <aside>
                   <dl>
                     <dt>Quote number</dt>
-                    <dd>TTIC-HO3-12345</dd>
+                    <dd>{quote.quoteNumber}</dd>
                   </dl>
                   <dl>
                     <dt>Address</dt>
-                    <dd>123 Main Street</dd>
-                    <dd>Fort lauderdale, FL 12345</dd>
+                    <dd>{quote.property.physicalAddress.address1}</dd>
+                    <dd>{quote.property.physicalAddress.address2}</dd>
+                    <dd>{quote.property.physicalAddress.city},
+                      {quote.property.physicalAddress.state}
+                      {quote.property.physicalAddress.zip}</dd>
                   </dl>
                   <dl>
                     <dt>Year Built</dt>
-                    <dd>2000</dd>
+                    <dd>{quote.property.yearBuilt}</dd>
                   </dl>
                 </aside>
                 <div className="detail-wrapper">
-                  <CoverageDetails />
-                  <RatingDetails />
+                  <CoverageDetails data={quote.coverageLimits} />
+                  <CoverageOptionsDetails data={quote.coverageOptions} />
+                  <DeductiblesDetails data={quote.deductibles} />
+                  <RatingDetails data={quote.rating} />
                 </div>
               </div>
               <div className="workflow-steps">
@@ -407,29 +463,6 @@ SharePage = connect()(graphql(gql `
             }
           }
           type
-          questions {
-            name
-            question
-            answerType
-            description
-            answers {
-              answer
-              image
-            }
-            conditional {
-              display {
-                type
-                operator
-                trigger
-                dependency
-                detail
-              }
-              value {
-                type
-                parent
-              }
-            }
-          }
           completedSteps
         }
       }
