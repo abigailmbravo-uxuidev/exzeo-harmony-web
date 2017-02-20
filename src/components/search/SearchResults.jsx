@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
+import Footer from '../common/Footer';
 
 const Results = ({ addresses, handleClick }) => (
   <ul className="results result-cards">
@@ -83,20 +84,16 @@ class SearchResults extends Component {
     const { results } = this.state;
 
     return (
-      <div className="workflow">
-        <div className="fade-in">
           <div className="workflow-content">
             <section>
               <div className="fade-in">
                 <div className="survey-wrapper">
                   <Results addresses={results} handleClick={this.makeAddressSelection} />
                 </div>
+                <Footer />
               </div>
-
             </section>
           </div>
-        </div>
-      </div>
     );
   }
 }
