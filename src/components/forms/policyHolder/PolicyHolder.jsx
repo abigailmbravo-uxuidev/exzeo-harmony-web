@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
 import { formValueSelector } from 'redux-form';
-import TextInput from '../form/TextInput';
-import Dropdown from '../form/Dropdown';
+import TextInput from '../../inputs/TextInput';
+import Dropdown from '../../inputs/Dropdown';
 
 const PolicyHolder = ({ handleChange, name, state, formName }) => {
   const selector = formValueSelector(formName);

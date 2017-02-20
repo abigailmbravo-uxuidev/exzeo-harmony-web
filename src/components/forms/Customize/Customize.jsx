@@ -101,15 +101,25 @@ class Customize extends Component {
 
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
+
     const { state } = this;
     if (state.updated) {
       // Do two mutations
       state.updated = false;
       this.setState(state);
-    } else {
-      // Do one mutation
-      this.context.router.push('/workflow/share');
     }
+
+    this.props.completeStep(this.buildSubmission(
+      'askToCustomizeDefaultQuote',
+     { shouldCustomizeQuote: 'No' }
+   )).then((updatedModel) => {
+     console.log('UPDATED MODEL : ', updatedModel);
+     const activeLink = updatedModel.data.completeStep.link;
+     this.context.router.push(`${activeLink}`);
+   }).catch((error) => {
+      // this.context.router.transitionTo('/error');
+      console.log('errors from graphql', error); // eslint-disable-line
+   });
   }
 
   resetState = () => {
@@ -186,7 +196,7 @@ class Customize extends Component {
 
   submit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
-    this.state.updated ? this.update() : this.save();
+    this.state.updated ? this.update() : this.handleOnSubmit();
   }
 
   render() {
@@ -210,7 +220,7 @@ class Customize extends Component {
             <Form
               className={`fade-in ${styleName || ''}`}
               id="Customize"
-              onSubmit={handleSubmit(this.submit)}
+              onSubmit={handleSubmit(this.handleOnSubmit)}
               noValidate
             >
               <div className="form-group survey-wrapper" role="group">

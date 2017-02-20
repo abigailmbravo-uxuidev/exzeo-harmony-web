@@ -11,8 +11,9 @@ import UWQuestions from '../workflows/UWQuestions_Form';
 import Customize from '../forms/Customize/Customize';
 import ThankYou from './ThankYou';
 import ErrorPage from './ErrorPage';
-import SharePage from './SharePage';
+import Verify from './verify/VerifyClass';
 import WorkflowDetails from './WorkflowDetails';
+import Share from './SharePage';
 
 const WorkflowHeader = (d) => {
   console.log(d);
@@ -210,7 +211,8 @@ class Workflow extends Component {
             <Route path="/quote/demographics" component={Demographics} />
             <Route path="/quote/underwriting" component={UWQuestions} />
             <Route path="/quote/customize" component={Customize} />
-            <Route path="/quote/share" component={SharePage} />
+            <Route path="/quote/share" component={Share} />
+            <Route path="/quote/verify" component={Verify} />
             <Route path="/quote/thankyou" component={ThankYou} />
             <Route path="/quote/error" component={ErrorPage} />
             {/* <Route path="/quote/share" component={Share} />*/}

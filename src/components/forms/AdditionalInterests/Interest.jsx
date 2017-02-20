@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import TextInput from '../form/TextInput';
+import TextInput from '../../inputs/TextInput';
 import MailingAddress from '../MailingAddress/MailingAddress';
 
 const Interest = ({ fields, InterestTypeName, meta: { touched, error } }) => (
