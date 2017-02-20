@@ -7,11 +7,8 @@ import auth from './authReducer';
 import features from './featureReducer';
 import search from './searchReducer';
 
-let uri = `${(process.env.REACT_APP_API_URL || 'http://localhost:4001')}/api`;
+const uri = `${(process.env.REACT_APP_API_URL || 'http://localhost:4001')}/api`;
 console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV === 'development') {
-  uri = 'http://localhost:4001/api';
-}
 
 const networkInterface = createNetworkInterface({ uri });
 
