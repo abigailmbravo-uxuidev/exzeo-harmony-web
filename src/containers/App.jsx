@@ -8,7 +8,6 @@ import Splash from './Splash';
 import Login from './Login';
 import Quote from './Quote';
 import Header from '../components/common/Header';
-import './App.css';
 import '../components/forms/Rules';
 
 export class App extends Component {
@@ -75,7 +74,7 @@ export class App extends Component {
                 <li className="">
                   <a href="/quote">
                     <i className="fa fa-home" /><span>Quote HO3</span></a>
-                </li>        
+                </li>
               </ul>
             </nav>
           </aside>

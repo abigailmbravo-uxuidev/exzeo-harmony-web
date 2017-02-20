@@ -3,6 +3,7 @@
   margin-bottom: 0;
   padding: $padding;
   flex-grow: 0;
+  flex-shrink: 0;
   @include for-big-desktop-up {
     padding: $padding*2;
   }

@@ -45,7 +45,7 @@ class Quote extends Component {
     // const { match } = this.props;
 
     return (
-      <div>
+      <div className="workflow" role="article">
         <Workflow />
       </div>
     );
