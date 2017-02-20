@@ -1120,7 +1120,6 @@ ul.results {
 }
 //Routes
 //Home Page
-
 .fade-in {
   .home {
     .product-wrapper {
@@ -1129,7 +1128,6 @@ ul.results {
   }
 }
 //verify & write policy
-
 .route-verify {
   .detail-wrapper {
     .detail-group {
@@ -1165,7 +1163,6 @@ ul.results {
     &:first-child {}
   }
 }
-
 .detail-wrapper {
   .section-group-header {
     width: 100%;
@@ -1225,7 +1222,6 @@ ul.results {
   }
 }
 //Customize Quote page
-
 #Customize {
   .form-group.survey-wrapper {
     input[readonly] {
@@ -1259,6 +1255,10 @@ ul.results {
       }
     }
   }
+}
+//Quote Error
+.error-content {
+    
 }
 //ERROR PAGE animation
 @keyframes waves {

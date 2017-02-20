@@ -33,6 +33,8 @@ class Customize extends Component {
   componentWillMount() {
   }
 
+
+
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
     (!newProps.data.loading &&
@@ -54,7 +56,7 @@ class Customize extends Component {
           state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
           const val = _.get(realQuote, question.defaultValueLocation);
-          state[question.name] = _.isString(val) ? String(val) : val;
+          state[question.name] = val;
         } else {
           state[question.name] = '';
         }
@@ -73,8 +75,7 @@ class Customize extends Component {
             const { dependency } = question.conditional;
             const parentValue = _.get(state, dependency.parent);
 
-            const stateValue = Number(state[question.name]) ?
-               Number(state[question.name]) : state[question.name];
+            const stateValue = state[question.name];
             // const calculatedValue = parentValue / 100;
             const newValue = question.answers.find(a =>
               (dependency.type === 'percent' ? (parentValue * a.answer) / 100 : parentValue * a.answer) === stateValue);
@@ -145,15 +146,25 @@ class Customize extends Component {
     }
   });
 
+  convertQuoteStringsToNumber(quote){
+    for(let obj in quote){
+      if(_.isString(quote[obj])) {
+        quote[obj] = (Number(quote[obj]) ? Number(quote[obj]) : quote[obj])
+      }
+    }
+    return quote;
+  }
+
   recalculateQuote = async () => {
+
     const { completeStep } = this.props;
-    console.log('STATE BEFORE SENDING RECALC', this.state);
+    const updatedQuote = this.convertQuoteStringsToNumber(this.state);
+
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
       console.log('THIS IS shouldCustomizeQuote', data);
 
-      data = await completeStep(this.buildSubmission('customizeDefaultQuote', this.state));
-
+      data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuote));
       console.log('THIS IS customizeDefaultQuote', data);
 
       const { state } = this;
