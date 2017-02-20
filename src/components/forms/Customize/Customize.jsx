@@ -41,7 +41,7 @@ class Customize extends Component {
       this.props.data.steps.name !== newProps.data.steps.name
     )) {
       const { steps } = newProps.data;
-
+      console.log('NEWSTEPS', steps);
       const { state } = this;
       // Set up default values
       const questions = steps.questions;
