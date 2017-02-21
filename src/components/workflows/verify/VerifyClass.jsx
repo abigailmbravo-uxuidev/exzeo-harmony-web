@@ -15,8 +15,6 @@ import PolicyHolderUpdateForm from '../../forms/policyHolder/PolicyHolderUpdateF
 import AdditionalInterestUpdateForm from '../../forms/AdditionalInterests/AdditionalInterestUpdateForm';
 import MailingAddressForm from '../../forms/MailingAddress/MailingAddressForm';
 
-import quoteTest from './quoteTest';
-
 class Verify extends Component {
   static contextTypes = {
     router: PropTypes.object,
@@ -94,15 +92,6 @@ class Verify extends Component {
       mailingAddress = quoteData.policyHolderMailingAddress || {};
       initialValues.effectiveDate = moment(quoteData.effectiveDate).format('YYYY-MM-DD');
       details = this.props.data.steps.details;
-    }
-
-    if (quoteTest) {
-      quoteData = quoteTest;
-      property = quoteData.property;
-      coverageLimits = quoteData.coverageLimits;
-      mailingAddress = quoteData.policyHolderMailingAddress || {};
-      initialValues.effectiveDate = moment(quoteData.effectiveDate).format('YYYY-MM-DD');
-      details = [{ name: 'Annual Premium', value: 575 }];
     }
 
 
