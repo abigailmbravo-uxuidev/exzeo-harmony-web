@@ -19,6 +19,19 @@
     &:first-child {
         @include border-radius($card-border-radius-inner $card-border-radius-inner 0 0);
     }
+
+    &.image {
+        height: 8rem;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        h6, h5, h4, h3, h2, h1 {
+            color: $white;
+            flex-basis: auto;
+        }
+    }
 }
 
 .card-block {
