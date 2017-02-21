@@ -1120,11 +1120,20 @@ ul.results {
   .fade-in {
     .product-wrapper {
       .product {
-          .card-header-image-flood {
-              background-image: url('../img/csr.jpg');
-          }
-          .card-header-image-home {
-              background-image: url('../img/csr.jpg');
+          .card-header {
+              &.card-header-image-flood {
+                  background-image: url('../img/flood.jpg');
+                  background-position: center center;
+              }
+              &.card-header-image-home {
+                  background-image: url('../img/home-owners.jpg');
+                  background-position: center center;
+              }
+              h1, h2, h3, h4, h5, h6 {
+                  background-color: rgba($cool-gray-10, .75);
+                  margin: (-$padding*1.75) (-$padding*2.5);
+                  padding: $padding;
+              }
           }
           .card-footer {
               background-color: $cool-gray-00;
@@ -1317,6 +1326,10 @@ ul.results {
                 margin: (-$padding*1.75) (-$padding*2.5);
                 padding: $padding;
             }
+        }
+
+        .card-footer {
+            background-color: $cool-gray-00;
         }
     }
 }

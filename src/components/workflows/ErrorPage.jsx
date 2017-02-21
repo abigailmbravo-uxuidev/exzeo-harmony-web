@@ -14,10 +14,11 @@ const ErrorPage = () => (
           <h4 className="error-message">An error occured while trying to complete your quote.</h4>
           <p>We apologize, but we are unable to provide an automated quote for your property at this time.</p>
           <p>Please contact one of our representatives so they may further assist you in obtaining a quote.</p>
-          <div className="contact-methods">
-            <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
-            <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
-          </div>
+
+        </div>
+        <div className="contact-methods card-footer">
+          <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
+          <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
         </div>
       </div>
       </div>
