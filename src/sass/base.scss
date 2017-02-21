@@ -1750,12 +1750,37 @@ ul.results {
 }
 
 
-.installment-term {
+.installment-term  {
     dl {
         dt {
-            font-size: $font-size-sm;
+            color: $bright-blue-darken-02;
             font-weight: $font-weight-bold;
+            margin-top: $padding/2;
+
+            &:first-child {
+                margin-top: 0;
+            }
         }
-        dd {}
+        dd {
+            margin-bottom: 0;
+
+            &:nth-of-type(odd) {
+              background: $cool-gray-00;
+            }
+        }
+    }
+}
+.display-element  {
+    dt {
+        color: $bright-blue-darken-02;
+        font-weight: $font-weight-bold;
+        margin-top: $padding/2;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    dd {
+        margin-bottom: 0;
     }
 }
