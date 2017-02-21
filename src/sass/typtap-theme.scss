@@ -1137,6 +1137,7 @@ ul.results {
 .route-verify {
   .detail-wrapper {
     .detail-group {
+
       .edit-btn {
         color: $white;
 
@@ -1152,6 +1153,9 @@ ul.results {
       &.quote-details {
         .display-element {
           dl {
+              dt {
+                  color: $body-color;
+              }
             &:nth-of-type(odd) {
               background: $cool-gray-00;
             }

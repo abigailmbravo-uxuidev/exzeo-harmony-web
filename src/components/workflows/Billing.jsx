@@ -14,7 +14,6 @@ import BoolInput from '../inputs/BoolInput';
 // TODO: Put these questions into db, find where they are in the data passed in
 const questionsMock = [
   {
-    order: 1,
     answerType: 'text',
     question: 'Address 1',
     styleName: 'address1',
@@ -23,28 +22,25 @@ const questionsMock = [
     validations: ['required'],
   },
   {
-    order: 2,
     answerType: 'text',
     question: 'Address 2',
     styleName: 'address2',
     name: 'address2',
     defaultValueLocation: 'property.physicalAddress.address2',
   },
-  // {
-  //   order: 3,
-  //   answerType: 'select',
-  //   question: 'Country',
-  //   validations: ['required'],
-  //   name: 'country',
-  //   value: 'USA',
-  //   answers: [{
-  //     answer: 'USA',
-  //   }, {
-  //     answer: 'CANADA',
-  //   }]
-  // },
   {
-    order: 4,
+    answerType: 'select',
+    question: 'Country',
+    validations: ['required'],
+    name: 'country',
+    value: 'USA',
+    answers: [{
+      answer: 'USA',
+    }, {
+      answer: 'CANADA',
+    }]
+  },
+  {
     answerType: 'text',
     question: 'City',
     validations: ['required'],
@@ -53,7 +49,6 @@ const questionsMock = [
     defaultValueLocation: 'property.physicalAddress.city',
   },
   {
-    order: 5,
     answerType: 'text',
     question: 'State',
     validations: ['required'],
@@ -61,7 +56,7 @@ const questionsMock = [
     name: 'State',
     defaultValueLocation: 'property.physicalAddress.state',
   },
-  { order: 6,
+  {
     answerType: 'text',
     question: 'Zip',
     validations: ['required'],
@@ -245,23 +240,23 @@ class Billing extends Component {
               <dl className="column-3">
                 <div>
                   <dt><span>Annual</span> Installment Plan</dt>
-                  <dd>Installment 1: ${annualPremium}</dd>
+                  <dd>1st Installment: ${annualPremium}</dd>
                 </div>
               </dl>
               <dl className="column-3">
                 <div>
                   <dt><span>Semi-Annual</span> Installment Plan</dt>
-                  <dd>Installment 1: ${semiAnnualPremium}</dd>
-                  <dd>Installment 2: ${semiAnnualPremium}</dd>
+                  <dd>1st Installment: ${semiAnnualPremium}</dd>
+                  <dd>2nd Installment: ${semiAnnualPremium}</dd>
                 </div>
               </dl>
               <dl className="column-3">
                 <div>
                   <dt><span>Quarterly</span> Installment Plan</dt>
-                  <dd>Installment 1: ${quarterlyPremium}</dd>
-                  <dd>Installment 2: ${quarterlyPremium}</dd>
-                  <dd>Installment 3: ${quarterlyPremium}</dd>
-                  <dd>Installment 4: ${quarterlyPremium}</dd>
+                  <dd>1st Installment: ${quarterlyPremium}</dd>
+                  <dd>2nd Installment: ${quarterlyPremium}</dd>
+                  <dd>3rd Installment: ${quarterlyPremium}</dd>
+                  <dd>4th Installment: ${quarterlyPremium}</dd>
                 </div>
               </dl>
             </div>
