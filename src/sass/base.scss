@@ -1474,21 +1474,25 @@ ul.results {
     display: flex;
     flex-direction: column;
     height: 100%;
-    .contact-message {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        .card {
-            width: auto;
 
-            .contact-methods {
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
+
+        .survey-wrapper {
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+                .card {
+                    width: auto;
+
+                    .contact-methods {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                    }
+                }
             }
-        }
 
-    }
 
 }
 //verify & write policy

@@ -15,16 +15,10 @@ WORKDIR /app
 
 COPY package.json /app/
 
-RUN npm install
-
 COPY .  /app
 
-# RUN apk update && apk --no-cache add bash libc6-compat && \
-#   addgroup -S appuser && adduser -S -g appuser appuser && \
-#   chown -R appuser:appuser /app/ && \
-#   npm install && \
-#   npm cache clean
+WORKDIR /app
 
-ENTRYPOINT ["node", "server"]
-
-# USER appuser
+RUN apk update && apk --no-cache add bash libc6-compat && \
+  npm install && \
+  npm cache clean

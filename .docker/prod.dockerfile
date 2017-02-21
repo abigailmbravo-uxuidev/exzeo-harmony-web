@@ -15,12 +15,9 @@ RUN     npm install && npm run build && \
         rm -rf .docker && \
         rm -rf public && \
         rm -rf scripts && \
-        npm install --production && \
-        rm package.json
-
+        npm install --production
 
 ENV NODE_ENV=production
-
 
 EXPOSE $PORT
 
