@@ -184,7 +184,7 @@ class SharePage extends Component {
     }
   });
 
-  sumbitWithShareOption = (shareIt) => {
+  submitWithShareOption = (shareIt) => {
     if (event && event.preventDefault) event.preventDefault();
 
     this.props.completeStep({
@@ -268,26 +268,26 @@ class SharePage extends Component {
               <div className="form-group detail-wrapper">
                 <h3 className="section-group-header">Your quote is saved</h3>
                 <section className="section-instructions">
-                        <h4><i className="fa fa-share-alt"></i> To SHARE this quote as a PDF via email</h4>
-                        <h5>Click the <a  className="btn-link" href="">SHARE</a> button</h5>
+                  <h4><i className="fa fa-share-alt" /> To SHARE this quote as a PDF via email</h4>
+                  <h5>Click the <a className="btn-link" href="">SHARE</a> button</h5>
                 </section>
                 <section className="section-instructions">
-                        <h4><i className="fa fa-arrow-circle-right"></i>  To CONTINUE the quote process</h4>
-                        <h5>You will need the following</h5>
-                        <ul>
-                        	<li>Mortgage information</li>
-                        	<li>Name and email address of additional owners</li>
-                        	<li>Name and address of any other additional insured to add to this policy</li>
-                        </ul>
-                        <h5>Click the <a  className="btn-link" href="">NEXT</a> button</h5>
+                  <h4><i className="fa fa-arrow-circle-right" />  To CONTINUE the quote process</h4>
+                  <h5>You will need the following</h5>
+                  <ul>
+                    <li>Mortgage information</li>
+                    <li>Name and email address of additional owners</li>
+                    <li>Name and address of any other additional insured to add to this policy</li>
+                  </ul>
+                  <h5>Click the <a className="btn-link" href="">NEXT</a> button</h5>
                 </section>
                 <section className="section-instructions">
-                        <h4><i className="fa fa-quote-left"></i>  To begin a NEW QUOTE</h4>
-                        <h5>Click the <a  className="btn-link" href="/"><i className="fa fa-th-large"></i> Dasboard</a> tab</h5>
+                  <h4><i className="fa fa-quote-left" />  To begin a NEW QUOTE</h4>
+                  <h5>Click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> Dasboard</a> tab</h5>
                 </section>
               </div>
               <div className="workflow-steps">
-                <button className="btn btn-secondary" type="button">share</button>
+                <button className="btn btn-secondary" type="button" onClick={this.shareQuote}>share</button>
                 <button className="btn btn-primary" type="submit">next</button>
               </div>
             </Form>

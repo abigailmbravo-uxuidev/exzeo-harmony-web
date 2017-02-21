@@ -171,40 +171,40 @@ class Workflow extends Component {
     // <Redirect to="/workflow/underwriting" />
   }
   render() {
-    // const details = [{
-    //   name: 'Quote Number',
-    //   value: '509011-102220-01',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Annual Premium',
-    //   value: '11140',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Address',
-    //   value: '19101 SW 56 ST',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Year Built',
-    //   value: '1993',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Coverage A',
-    //   value: '549000',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Coverage B',
-    //   value: '54900',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Coverage C',
-    //   value: '274500',
-    //   __typename: 'WorkflowDetail'
-    // }];
+    const details = [{
+      name: 'Quote Number',
+      value: '509011-102220-01',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Annual Premium',
+      value: '11140',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Address',
+      value: '19101 SW 56 ST',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Year Built',
+      value: '1993',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Coverage A',
+      value: '549000',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Coverage B',
+      value: '54900',
+      __typename: 'WorkflowDetail'
+    }, {
+      name: 'Coverage C',
+      value: '274500',
+      __typename: 'WorkflowDetail'
+    }];
 
     const { workflow, activeStep } = this.state;
     return (
       <div className="fade-in">
-        <WorkflowDetails details={this.state.details || []} />
+        <WorkflowDetails details={details} />
         <Router>
           <div className="route">
             <Route path="/quote/search" component={Search} />
