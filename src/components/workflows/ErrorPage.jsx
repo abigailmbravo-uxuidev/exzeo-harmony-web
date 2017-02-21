@@ -5,16 +5,14 @@ const ErrorPage = () => (
   <div className="error-content" role="article">
     {/* HARD STOP WORKFLOW ERROR*/}
     <div className="survey-wrapper">
-      <h3>
-        <i className="fa fa-frown-o"></i> We're Sorry</h3>
-      <h2>An error occured while trying to complete your quote.</h2>
       <div className="contact-message">
-        <div className="card">
-        <div className="card-header">
+        <div className="card card-csr">
+        <div className="card-header image card-header-image-csr">
           <h4>
             <i className="fa fa-phone-square"></i> Cutomer Service</h4>
         </div>
         <div className="card-block">
+          <h4 className="error-message">An error occured while trying to complete your quote.</h4>
           <p>We apologize, but we are unable to provide an automated quote for your property at this time. Please contact one of our representatives so they may further assist you in obtaining a quote.</p>
           <div className="contact-methods">
             <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
