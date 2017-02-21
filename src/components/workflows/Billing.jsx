@@ -1,14 +1,16 @@
 /* eslint import/no-mutable-exports:0 jsx-a11y/label-has-for:0 */
 /* eslint no-class-assign :0 */
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form } from 'redux-form';
+import { reduxForm, Form, change, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import _ from 'lodash';
 import localStorage from 'localStorage';
 // import _ from 'lodash';
-import MailingAddress from '../forms/MailingAddress/MailingAddress';
+import DependentQuestion from '../question/DependentQuestion';
+import quoteTest from './verify/quoteTest';
+import BoolInput from '../inputs/BoolInput';
 
 // TODO: Put these questions into db, find where they are in the data passed in
 const questionsMock = [
@@ -17,19 +19,22 @@ const questionsMock = [
     question: 'Address 1',
     styleName: 'address1',
     name: 'address1',
-    defaultValueLocation: '',
-  }, {
+    defaultValueLocation: 'property.physicalAddress.address1',
+    validations: ['required'],
+  },
+  {
     answerType: 'text',
     question: 'Address 2',
     styleName: 'address2',
     name: 'address2',
-    defaultValueLocation: '',
+    defaultValueLocation: 'property.physicalAddress.address2',
   },
   {
     answerType: 'select',
     question: 'Country',
     validations: ['required'],
     name: 'country',
+    value: 'USA',
     answers: [{
       answer: 'USA',
     }, {
@@ -42,30 +47,32 @@ const questionsMock = [
     validations: ['required'],
     styleName: 'city',
     name: 'city',
-    defaultValueLocation: '',
+    defaultValueLocation: 'property.physicalAddress.city',
   },
   {
     answerType: 'text',
     question: 'State',
     validations: ['required'],
-    styleName: 'state',
-    name: 'state',
-    defaultValueLocation: '',
+    styleName: 'State',
+    name: 'State',
+    defaultValueLocation: 'property.physicalAddress.state',
   },
   {
-    answerType: 'tel',
+    answerType: 'text',
     question: 'Zip',
     validations: ['required'],
     styleName: 'zip',
     name: 'zip',
-    defaultValueLocation: '',
+    defaultValueLocation: 'property.physicalAddress.zip',
   }
 ];
 
 class Billing extends Component {
   static propTypes = {
+    completeStep: PropTypes.func,
     handleSubmit: PropTypes.func,
-    styleName: PropTypes.string
+    styleName: PropTypes.string,
+    dispatch: PropTypes.any, //eslint-disable-line
   }
 
   static contextTypes = {
@@ -73,7 +80,8 @@ class Billing extends Component {
   }
   // TODO: push up data props into state
   state = {
-
+    sameAsProperty: false,
+    questions: questionsMock,
   }
 
   componentWillMount() {
@@ -90,33 +98,57 @@ class Billing extends Component {
       // this.setState({ questions: steps.questions });
     }
   }
+
+
   // TODO: Hook up to checkbox in mailform
   fillMailForm = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     const { state } = this;
-    const { steps } = this.props.data; // eslint-disable-line
-    const policyholderData = steps.data[0];
-    const questions = steps.questions;
+    // const { steps } = this.props.data; // eslint-disable-line
+    // const policyholderData = steps.data[0];
+    // const questions = steps.questions;
+    const policyholderData = quoteTest;
+    const questions = this.state.questions;
+
+  //  console.log(state);
 
     questions.forEach((question) => {
       if (question.defaultValueLocation) {
-        state[question.name] = _.get(policyholderData, question.defaultValueLocation);
+        if (!this.state.sameAsProperty) {
+          state[question.name] = _.get(policyholderData, question.defaultValueLocation);
+          this.props.dispatch(change('Billing', question.name, _.get(policyholderData, question.defaultValueLocation)));
+        } else {
+          state[question.name] = '';
+          this.props.dispatch(change('Billing', question.name, ''));
+        }
+
+      //  console.log(question.name, state[question.name],
+      // _.get(policyholderData, question.defaultValueLocation));
       }
     });
+    this.state.sameAsProperty = !this.state.sameAsProperty;
     this.setState(state);
   }
 
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
-    const { state } = this;
-    if (state.updated) {
-      // Do two mutations
-      state.updated = false;
-      this.setState(state);
-    } else {
-      // Do one mutation
-      this.context.router.push('/workflow/verify');
-    }
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: localStorage.getItem('newWorkflowId'),
+          stepName: 'askAdditionalQuestions',
+          data: this.state,
+        },
+      },
+    }).then((updatedShouldGeneratePdfAndEmail) => {
+      console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
+      const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
+      this.context.router.push(`${activeLink}`);
+    }).catch((error) => {
+        // this.context.router.transitionTo('/error');
+        console.log('errors from graphql', error); // eslint-disable-line
+      this.context.router.push('error');
+    });
   }
 
   buildSubmission = (stepName, data) => ({
@@ -135,6 +167,16 @@ class Billing extends Component {
       handleSubmit
     } = this.props;
 
+    const details = [{ name: 'Annual Premium', value: 575 }];
+
+
+    const annualPremium = _.find(details, { name: 'Annual Premium' }).value;
+
+    const semiAnnualPremium = Math.ceil(annualPremium / 2);
+
+    const quarterlyPremium = Math.ceil(annualPremium / 4);
+
+
     return (
       <Form
         className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(this.handleOnSubmit)}
@@ -142,8 +184,23 @@ class Billing extends Component {
       >
         <div>
           <h3>Mailing Address</h3>
-          <MailingAddress {...this.props} name={'policyHolderMailingddress'} />
+          <BoolInput
+            name={'sameAsProperty'}
+            question={'Is the mailing address the same as the property address?'}
+            handleChange={this.fillMailForm} value={this.state.sameAsProperty} isSwitch
+          />
+          <div className="form-group survey-wrapper" role="group">
+            {this.state.questions && this.state.questions.map((question, index) => (
+              <DependentQuestion
+                data={quoteTest}
+                question={question}
+                answers={this.state}
+                handleChange={this.handleChange}
+                key={index}
+              />
+            ))}
 
+          </div>
           <div className="form-group  BillTo">
             <label>Bill To</label>
             <select name="BillTo" value="">
@@ -156,25 +213,25 @@ class Billing extends Component {
             <label className="group-label label-segmented">Bill Plan</label>
             <div className="segmented-answer-wrapper">
               <div className="radio-column-3">
-                <label className="label-segmented"><input type="radio" value="A" name="Annual" />
+                <label className="label-segmented"><input type="radio" value="A" name="billPlan" />
                   <span>Annual <br />
-                  $2,500</span>
+                  ${annualPremium}</span>
                 </label>
               </div>
               <div className="radio-column-3">
-                <label className="label-segmented"><input type="radio" value="S" name="semiannual" />
+                <label className="label-segmented"><input type="radio" value="S" name="billPlan" />
                   <span>Semi-Annual <br />
-                  1st Installment: $1,250 <br />
-                  2nd Installment: $1,250</span>
+                  1st Installment: ${semiAnnualPremium} <br />
+                  2nd Installment: ${semiAnnualPremium}</span>
                 </label>
               </div>
               <div className="radio-column-3">
-                <label className="label-segmented"><input type="radio" value="Q" name="quaterly" />
-                  <span>Quaterly <br />
-                  1st Installment: $625 <br />
-                  2nd Installment: $625 <br />
-                  3rd Installment: $625 <br />
-                  4th Installment: $625</span>
+                <label className="label-segmented"><input type="radio" value="Q" name="billPlan" />
+                  <span>Quarterly <br />
+                  1st Installment: ${quarterlyPremium} <br />
+                  2nd Installment: ${quarterlyPremium} <br />
+                  3rd Installment: ${quarterlyPremium} <br />
+                  4th Installment: ${quarterlyPremium}</span>
                 </label>
               </div>
             </div>
@@ -277,12 +334,18 @@ Billing = connect()(graphql(gql `
                 property {
                   physicalAddress {
                     address1
+                    city
+                    state
+                    zip
                   }
                 }
               }
               ... on Property {
                 physicalAddress {
                   address1
+                  city
+                  state
+                  zip
                 }
               }
               ... on Address {

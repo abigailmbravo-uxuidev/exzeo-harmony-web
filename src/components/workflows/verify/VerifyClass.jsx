@@ -44,15 +44,23 @@ class Verify extends Component {
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
 
-    this.context.router.push('/workflow/verify');
-    // const { state } = this;
-    // if (state.updated) {
-    //   // Do two mutations
-    //   state.updated = false;
-    //   this.setState(state);
-    // } else {
-    //   this.context.router.push('/workflow/shareQuote');
-    // }
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: localStorage.getItem('newWorkflowId'),
+          stepName: 'askScheduleInspectionDates',
+          data: {},
+        },
+      },
+    }).then((updatedShouldGeneratePdfAndEmail) => {
+      console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
+      const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
+      this.context.router.push('thankyou');
+    }).catch((error) => {
+        // this.context.router.transitionTo('/error');
+        console.log('errors from graphql', error); // eslint-disable-line
+      this.context.router.push('error');
+    });
   }
 
   render() {
@@ -383,6 +391,7 @@ class Verify extends Component {
 }
 
 Verify.propTypes = {
+  completeStep: PropTypes.func,
   state: PropTypes.any, //eslint-disable-line
   dispatch: PropTypes.any, //eslint-disable-line
   initialValues: PropTypes.any, //eslint-disable-line
