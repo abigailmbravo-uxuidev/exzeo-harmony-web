@@ -123,6 +123,12 @@ module.exports = {
       format: 'Currency',
       _id: '5866c036a46eb72908f3f557',
     },
+    ordinanceOrLaw: {
+      displayText: 'Ordinance Or Law',
+      amount: 1000000,
+      format: 'Currency',
+      _id: '5866c036a46eb72908f3f557',
+    },
     personalProperty: {
       displayText: 'Personal Property',
       amount: 500000,

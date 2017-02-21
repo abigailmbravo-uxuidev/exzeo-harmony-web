@@ -15,6 +15,8 @@ import PolicyHolderUpdateForm from '../../forms/policyHolder/PolicyHolderUpdateF
 import AdditionalInterestUpdateForm from '../../forms/AdditionalInterests/AdditionalInterestUpdateForm';
 import MailingAddressForm from '../../forms/MailingAddress/MailingAddressForm';
 
+import quoteTest from './quoteTest';
+
 class Verify extends Component {
   static contextTypes = {
     router: PropTypes.object,
@@ -76,19 +78,28 @@ class Verify extends Component {
 
     let details = {};
 
-    let quoteTest = null;
+    let quoteData = null;
     if (this.props.data && this.props.data.steps) {
-      quoteTest = this.props.data.steps.data[0];
-      property = quoteTest.property;
-      coverageLimits = quoteTest.coverageLimits;
-      mailingAddress = quoteTest.policyHolderMailingAddress || {};
-      initialValues.effectiveDate = moment(quoteTest.effectiveDate).format('YYYY-MM-DD');
+      quoteData = this.props.data.steps.data[0];
+      property = quoteData.property;
+      coverageLimits = quoteData.coverageLimits;
+      mailingAddress = quoteData.policyHolderMailingAddress || {};
+      initialValues.effectiveDate = moment(quoteData.effectiveDate).format('YYYY-MM-DD');
       details = this.props.data.steps.details;
+    }
+
+    if (quoteTest) {
+      quoteData = quoteTest;
+      property = quoteData.property;
+      coverageLimits = quoteData.coverageLimits;
+      mailingAddress = quoteData.policyHolderMailingAddress || {};
+      initialValues.effectiveDate = moment(quoteData.effectiveDate).format('YYYY-MM-DD');
+      details = [{ name: 'Annual Premium', value: 575 }];
     }
 
 
     return (
-      quoteTest && <div className="detail-content-wrapper route-verify">
+      quoteData && <div className="detail-content-wrapper route-verify">
         <div className="detail-wrapper">
           {!editProperty && <div className="detail-group property-details">
             <h4 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h4>
@@ -108,7 +119,7 @@ class Verify extends Component {
               <dl className="quote-number">
                 <div>
                   <dt>Quote Number</dt>
-                  <dd>{quoteTest.quoteNumber}</dd>
+                  <dd>{quoteData.quoteNumber}</dd>
                 </div>
               </dl>
               <dl className="property-information">
@@ -127,7 +138,7 @@ class Verify extends Component {
               <dl className="effective-date">
                 <div>
                   <dt>Effective Date</dt>
-                  <dd>{moment(quoteTest.effectiveDate).format('MM/DD/YYYY')}</dd>
+                  <dd>{moment(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
                 </div>
               </dl>
             </section>
@@ -140,7 +151,7 @@ class Verify extends Component {
               <dl className="quote-number">
                 <div>
                   <dt>Quote Number</dt>
-                  <dd>{quoteTest.quoteNumber}</dd>
+                  <dd>{quoteData.quoteNumber}</dd>
                 </div>
               </dl>
               <dl className="property-information">
@@ -249,8 +260,8 @@ class Verify extends Component {
               />
             </div>} */}
             <section className="display-element">
-              {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ?
-                 quoteTest.policyHolders.map((policyHolder, index) => (
+              {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
+                 quoteData.policyHolders.map((policyHolder, index) => (
                    <dl key={`ph${index}`}>
                      <h5>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h5>
                      <div>
@@ -327,8 +338,8 @@ class Verify extends Component {
             </div>} */}
             <section className="display-element">
 
-              {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ?
-                 quoteTest.additionalInterests.map((additionalInterests, index) => (
+              {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?
+                 quoteData.additionalInterests.map((additionalInterests, index) => (
                    <dl key={`ai${index}`}>
                      <div>
                        <dt>Name</dt>
@@ -353,7 +364,7 @@ class Verify extends Component {
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <AdditionalInterestUpdateForm
-                additionalInterests={quoteTest.additionalInterests}
+                additionalInterests={quoteData.additionalInterests}
                 handleOnSubmit={this.updateQuote}
               />
             </section>
