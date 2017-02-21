@@ -15,6 +15,7 @@ import BoolInput from '../inputs/BoolInput';
 // TODO: Put these questions into db, find where they are in the data passed in
 const questionsMock = [
   {
+    order: 1,
     answerType: 'text',
     question: 'Address 1',
     styleName: 'address1',
@@ -23,6 +24,7 @@ const questionsMock = [
     validations: ['required'],
   },
   {
+    order: 2,
     answerType: 'text',
     question: 'Address 2',
     styleName: 'address2',
@@ -30,6 +32,7 @@ const questionsMock = [
     defaultValueLocation: 'property.physicalAddress.address2',
   },
   {
+    order: 3,
     answerType: 'select',
     question: 'Country',
     validations: ['required'],
@@ -42,6 +45,7 @@ const questionsMock = [
     }]
   },
   {
+    order: 4,
     answerType: 'text',
     question: 'City',
     validations: ['required'],
@@ -50,6 +54,7 @@ const questionsMock = [
     defaultValueLocation: 'property.physicalAddress.city',
   },
   {
+    order: 5,
     answerType: 'text',
     question: 'State',
     validations: ['required'],
@@ -57,7 +62,7 @@ const questionsMock = [
     name: 'State',
     defaultValueLocation: 'property.physicalAddress.state',
   },
-  {
+  { order: 6,
     answerType: 'text',
     question: 'Zip',
     validations: ['required'],
@@ -167,14 +172,25 @@ class Billing extends Component {
       handleSubmit
     } = this.props;
 
-    const details = [{ name: 'Annual Premium', value: 575 }];
+    let questions = [];
+    let details = [];
+    let annualPremium = 0;
+    let semiAnnualPremium = 0;
+    let quarterlyPremium = 0;
 
 
-    const annualPremium = _.find(details, { name: 'Annual Premium' }).value;
+    if (this.props.data && this.props.data.steps) {
+      console.log(this.props.data.steps.data);
+      questions = _.sortBy(this.props.data.steps.questions, ['order']);
+      details = this.props.data.steps.details;
+    }
 
-    const semiAnnualPremium = Math.ceil(annualPremium / 2);
+    annualPremium = _.find(details, { name: 'Annual Premium' }) ?
+     _.find(details, { name: 'Annual Premium' }).value : 0;
 
-    const quarterlyPremium = Math.ceil(annualPremium / 4);
+    semiAnnualPremium = Math.ceil(annualPremium / 2);
+
+    quarterlyPremium = Math.ceil(annualPremium / 4);
 
 
     return (

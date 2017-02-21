@@ -7,7 +7,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 // import _ from 'lodash';
-import quoteTest from './verify/quoteTest';
 
 const CoverageDetails = ({ data }) => (
   <div className="CoverageDetails detail-group">
@@ -252,13 +251,13 @@ class SharePage extends Component {
       console.log('the quote -----------------', this.props.data.steps.data[0]);
       quote = this.props.data.steps.data[0];
     }
-
-    if (quoteTest) {
-      quote = quoteTest;
-    }
+    //
+    // if (quoteTest) {
+    //   quote = quoteTest;
+    // }
 
     return (
-      quote && <div className="workflow-content">
+      <div className="workflow-content">
         <section className="">
           <div className="fade-in">
             <Form
