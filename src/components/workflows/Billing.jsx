@@ -29,18 +29,6 @@ const questionsMock = [
     defaultValueLocation: 'property.physicalAddress.address2',
   },
   {
-    answerType: 'select',
-    question: 'Country',
-    validations: ['required'],
-    name: 'country',
-    value: 'USA',
-    answers: [{
-      answer: 'USA',
-    }, {
-      answer: 'CANADA',
-    }]
-  },
-  {
     answerType: 'text',
     question: 'City',
     validations: ['required'],
@@ -166,7 +154,7 @@ class Billing extends Component {
       handleSubmit
     } = this.props;
 
-    let questions = [];
+    const questions = [];
     let details = [];
     let annualPremium = 0;
     let semiAnnualPremium = 0;
@@ -175,7 +163,7 @@ class Billing extends Component {
     let quote = null;
     if (this.props.data && this.props.data.steps) {
       console.log(this.props.data.steps.data);
-      questions = _.sortBy(this.props.data.steps.questions, ['order']);
+    //  questions = _.sortBy(this.props.data.steps.questions, ['order']);
       details = this.props.data.steps.details;
       quote = this.props.data.steps.data[0];
     }
@@ -280,6 +268,7 @@ Billing = connect()(graphql(gql `
     query GetActiveStep($workflowId:ID!) {
         steps(id: $workflowId) {
             name
+            link
             details {
                 name
                 value
