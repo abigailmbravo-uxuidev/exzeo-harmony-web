@@ -31,19 +31,19 @@ const questionsMock = [
     name: 'address2',
     defaultValueLocation: 'property.physicalAddress.address2',
   },
-  {
-    order: 3,
-    answerType: 'select',
-    question: 'Country',
-    validations: ['required'],
-    name: 'country',
-    value: 'USA',
-    answers: [{
-      answer: 'USA',
-    }, {
-      answer: 'CANADA',
-    }]
-  },
+  // {
+  //   order: 3,
+  //   answerType: 'select',
+  //   question: 'Country',
+  //   validations: ['required'],
+  //   name: 'country',
+  //   value: 'USA',
+  //   answers: [{
+  //     answer: 'USA',
+  //   }, {
+  //     answer: 'CANADA',
+  //   }]
+  // },
   {
     order: 4,
     answerType: 'text',
@@ -196,22 +196,22 @@ class Billing extends Component {
     return (
       <Form className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
         <div className="form-group survey-wrapper" role="group">
-          <h3 className="section-group-header"><i className="fa fa-envelope-open"></i> Mailing Address</h3>
-            <BoolInput
-              name={'sameAsProperty'}
-              question={'Is the mailing address the same as the property address?'}
-              handleChange={this.fillMailForm} value={this.state.sameAsProperty} isSwitch
+          <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
+          <BoolInput
+            name={'sameAsProperty'}
+            question={'Is the mailing address the same as the property address?'}
+            handleChange={this.fillMailForm} value={this.state.sameAsProperty} isSwitch
+          />
+          {this.state.questions && this.state.questions.map((question, index) => (
+            <DependentQuestion
+              data={quoteTest}
+              question={question}
+              answers={this.state}
+              handleChange={this.handleChange}
+              key={index}
             />
-            {this.state.questions && this.state.questions.map((question, index) => (
-              <DependentQuestion
-                data={quoteTest}
-                question={question}
-                answers={this.state}
-                handleChange={this.handleChange}
-                key={index}
-              />
             ))}
-            <h3 className="section-group-header"><i className="fa fa-dollar"></i> Billing Information</h3>
+          <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
           <div className="form-group  BillTo">
 
             <label>Bill To</label>
@@ -242,28 +242,28 @@ class Billing extends Component {
               </div>
             </div>
             <div className="installment-term">
-                    <dl className="column-3">
-                            <div>
-                                    <dt><span>Annual</span> Installment Plan</dt>
-                                    <dd>Installment 1: ${annualPremium}</dd>
-                            </div>
-                    </dl>
-                    <dl className="column-3">
-                            <div>
-                                    <dt><span>Semi-Annual</span> Installment Plan</dt>
-                                    <dd>Installment 1: ${semiAnnualPremium}</dd>
-                                    <dd>Installment 2: ${semiAnnualPremium}</dd>
-                            </div>
-                    </dl>
-                    <dl className="column-3">
-                            <div>
-                                    <dt><span>Quarterly</span> Installment Plan</dt>
-                                    <dd>Installment 1: ${quarterlyPremium}</dd>
-                                    <dd>Installment 2: ${quarterlyPremium}</dd>
-                                    <dd>Installment 3: ${quarterlyPremium}</dd>
-                                    <dd>Installment 4: ${quarterlyPremium}</dd>
-                            </div>
-                    </dl>
+              <dl className="column-3">
+                <div>
+                  <dt><span>Annual</span> Installment Plan</dt>
+                  <dd>Installment 1: ${annualPremium}</dd>
+                </div>
+              </dl>
+              <dl className="column-3">
+                <div>
+                  <dt><span>Semi-Annual</span> Installment Plan</dt>
+                  <dd>Installment 1: ${semiAnnualPremium}</dd>
+                  <dd>Installment 2: ${semiAnnualPremium}</dd>
+                </div>
+              </dl>
+              <dl className="column-3">
+                <div>
+                  <dt><span>Quarterly</span> Installment Plan</dt>
+                  <dd>Installment 1: ${quarterlyPremium}</dd>
+                  <dd>Installment 2: ${quarterlyPremium}</dd>
+                  <dd>Installment 3: ${quarterlyPremium}</dd>
+                  <dd>Installment 4: ${quarterlyPremium}</dd>
+                </div>
+              </dl>
             </div>
           </div>
 
