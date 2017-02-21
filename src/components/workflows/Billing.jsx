@@ -69,6 +69,7 @@ const questionsMock = [
 
 class Billing extends Component {
   static propTypes = {
+    completeStep: PropTypes.func,
     handleSubmit: PropTypes.func,
     styleName: PropTypes.string,
     dispatch: PropTypes.any, //eslint-disable-line
@@ -121,7 +122,8 @@ class Billing extends Component {
           this.props.dispatch(change('Billing', question.name, ''));
         }
 
-        console.log(question.name, state[question.name], _.get(policyholderData, question.defaultValueLocation));
+      //  console.log(question.name, state[question.name],
+      // _.get(policyholderData, question.defaultValueLocation));
       }
     });
     this.state.sameAsProperty = !this.state.sameAsProperty;
@@ -130,15 +132,23 @@ class Billing extends Component {
 
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
-    const { state } = this;
-    if (state.updated) {
-      // Do two mutations
-      state.updated = false;
-      this.setState(state);
-    } else {
-      // Do one mutation
-      this.context.router.push('/workflow/verify');
-    }
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: localStorage.getItem('newWorkflowId'),
+          stepName: 'askAdditionalQuestions',
+          data: this.state,
+        },
+      },
+    }).then((updatedShouldGeneratePdfAndEmail) => {
+      console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
+      const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
+      this.context.router.push(`${activeLink}`);
+    }).catch((error) => {
+        // this.context.router.transitionTo('/error');
+        console.log('errors from graphql', error); // eslint-disable-line
+      this.context.router.push('error');
+    });
   }
 
   buildSubmission = (stepName, data) => ({
@@ -324,12 +334,18 @@ Billing = connect()(graphql(gql `
                 property {
                   physicalAddress {
                     address1
+                    city
+                    state
+                    zip
                   }
                 }
               }
               ... on Property {
                 physicalAddress {
                   address1
+                  city
+                  state
+                  zip
                 }
               }
               ... on Address {
