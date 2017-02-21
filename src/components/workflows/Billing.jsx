@@ -9,7 +9,6 @@ import _ from 'lodash';
 import localStorage from 'localStorage';
 // import _ from 'lodash';
 import DependentQuestion from '../question/DependentQuestion';
-import quoteTest from './verify/quoteTest';
 import BoolInput from '../inputs/BoolInput';
 
 // TODO: Put these questions into db, find where they are in the data passed in
@@ -28,18 +27,6 @@ const questionsMock = [
     styleName: 'address2',
     name: 'address2',
     defaultValueLocation: 'property.physicalAddress.address2',
-  },
-  {
-    answerType: 'select',
-    question: 'Country',
-    validations: ['required'],
-    name: 'country',
-    value: 'USA',
-    answers: [{
-      answer: 'USA',
-    }, {
-      answer: 'CANADA',
-    }]
   },
   {
     answerType: 'text',
@@ -104,10 +91,10 @@ class Billing extends Component {
   fillMailForm = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     const { state } = this;
-    // const { steps } = this.props.data; // eslint-disable-line
-    // const policyholderData = steps.data[0];
+    const { steps } = this.props.data; // eslint-disable-line
+    const policyholderData = steps.data[0];
     // const questions = steps.questions;
-    const policyholderData = quoteTest;
+    // const policyholderData = quoteTest;
     const questions = this.state.questions;
 
   //  console.log(state);
@@ -167,35 +154,47 @@ class Billing extends Component {
       handleSubmit
     } = this.props;
 
-    const details = [{ name: 'Annual Premium', value: 575 }];
+    const questions = [];
+    let details = [];
+    let annualPremium = 0;
+    let semiAnnualPremium = 0;
+    let quarterlyPremium = 0;
 
+    let quote = null;
+    if (this.props.data && this.props.data.steps) {
+      console.log(this.props.data.steps.data);
+    //  questions = _.sortBy(this.props.data.steps.questions, ['order']);
+      details = this.props.data.steps.details;
+      quote = this.props.data.steps.data[0];
+    }
 
-    const annualPremium = _.find(details, { name: 'Annual Premium' }).value;
+    annualPremium = _.find(details, { name: 'Annual Premium' }) ?
+     _.find(details, { name: 'Annual Premium' }).value : 0;
 
-    const semiAnnualPremium = Math.ceil(annualPremium / 2);
+    semiAnnualPremium = Math.ceil(annualPremium / 2);
 
-    const quarterlyPremium = Math.ceil(annualPremium / 4);
+    quarterlyPremium = Math.ceil(annualPremium / 4);
 
 
     return (
       <Form className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
         <div className="form-group survey-wrapper" role="group">
-          <h3 className="section-group-header"><i className="fa fa-envelope-open"></i> Mailing Address</h3>
-            <BoolInput
-              name={'sameAsProperty'}
-              question={'Is the mailing address the same as the property address?'}
-              handleChange={this.fillMailForm} value={this.state.sameAsProperty} isSwitch
+          <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
+          <BoolInput
+            name={'sameAsProperty'}
+            question={'Is the mailing address the same as the property address?'}
+            handleChange={this.fillMailForm} value={this.state.sameAsProperty} isSwitch
+          />
+          {this.state.questions && this.state.questions.map((question, index) => (
+            <DependentQuestion
+              data={quote}
+              question={question}
+              answers={this.state}
+              handleChange={this.handleChange}
+              key={index}
             />
-            {this.state.questions && this.state.questions.map((question, index) => (
-              <DependentQuestion
-                data={quoteTest}
-                question={question}
-                answers={this.state}
-                handleChange={this.handleChange}
-                key={index}
-              />
             ))}
-            <h3 className="section-group-header"><i className="fa fa-dollar"></i> Billing Information</h3>
+          <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
           <div className="form-group  BillTo">
 
             <label>Bill To</label>
@@ -226,28 +225,28 @@ class Billing extends Component {
               </div>
             </div>
             <div className="installment-term">
-                    <dl className="column-3">
-                            <div>
-                                    <dt><span>Annual</span> Installment Plan</dt>
-                                    <dd>1st Installment: ${annualPremium}</dd>
-                            </div>
-                    </dl>
-                    <dl className="column-3">
-                            <div>
-                                    <dt><span>Semi-Annual</span> Installment Plan</dt>
-                                    <dd>1st Installment: ${semiAnnualPremium}</dd>
-                                    <dd>2nd Installment: ${semiAnnualPremium}</dd>
-                            </div>
-                    </dl>
-                    <dl className="column-3">
-                            <div>
-                                    <dt><span>Quarterly</span> Installment Plan</dt>
-                                    <dd>1st Installment: ${quarterlyPremium}</dd>
-                                    <dd>2nd Installment: ${quarterlyPremium}</dd>
-                                    <dd>3rd Installment: ${quarterlyPremium}</dd>
-                                    <dd>4th Installment: ${quarterlyPremium}</dd>
-                            </div>
-                    </dl>
+              <dl className="column-3">
+                <div>
+                  <dt><span>Annual</span> Installment Plan</dt>
+                  <dd>1st Installment: ${annualPremium}</dd>
+                </div>
+              </dl>
+              <dl className="column-3">
+                <div>
+                  <dt><span>Semi-Annual</span> Installment Plan</dt>
+                  <dd>1st Installment: ${semiAnnualPremium}</dd>
+                  <dd>2nd Installment: ${semiAnnualPremium}</dd>
+                </div>
+              </dl>
+              <dl className="column-3">
+                <div>
+                  <dt><span>Quarterly</span> Installment Plan</dt>
+                  <dd>1st Installment: ${quarterlyPremium}</dd>
+                  <dd>2nd Installment: ${quarterlyPremium}</dd>
+                  <dd>3rd Installment: ${quarterlyPremium}</dd>
+                  <dd>4th Installment: ${quarterlyPremium}</dd>
+                </div>
+              </dl>
             </div>
           </div>
 
@@ -269,6 +268,7 @@ Billing = connect()(graphql(gql `
     query GetActiveStep($workflowId:ID!) {
         steps(id: $workflowId) {
             name
+            link
             details {
                 name
                 value
