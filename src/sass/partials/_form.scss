@@ -193,6 +193,18 @@
 
     &.segmented {
 
+        label {
+            &.label-segmented {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+
+                  >input[type="text"] {
+                          flex-basis: 6.5rem;
+                  }
+            }
+        }
+
       .segmented-answer-wrapper {
         display: flex;
         flex-direction: row;
@@ -203,6 +215,8 @@
           width: auto;
           flex-grow: 1;
           flex-shrink: 0;
+
+
 
           &.radio-column-1 {}
 
@@ -330,17 +344,30 @@
         }
       }
 
-      label {
-          &.label-segmented {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+      .installment-term {
+          display: flex;
+          flex-wrap: wrap;
 
-                >input[type="text"] {
-                        flex-basis: 6.5rem;
-                }
+          .column-3 {
+              width: 33.33%;
+
+              dt {
+
+                  span {
+                      display: none;
+
+                      @include for-phone-only {
+                          display: block;
+                      }
+                  }
+              }
+
+              @include for-phone-only {
+                  width: 100%;
+              }
           }
       }
+
 
       &.disabled,
       &.disabled.invalid {

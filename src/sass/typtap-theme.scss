@@ -1261,6 +1261,31 @@ ul.results {
     }
   }
 }
+//Mailing & Billing
+#Billing {
+    .form-group {
+        .city {
+            width: auto;
+            flex-grow: 1;
+
+            @include for-phone-only {
+                width: 100%;
+            }
+        }
+        .State {
+            width: 6rem;
+            @include for-phone-only {
+                width: 40%;
+            }
+        }
+        .zip {
+            width: 12rem;
+            @include for-phone-only {
+                width: 60%;
+            }
+        }
+    }
+}
 //Quote Error
 .error-message {
 

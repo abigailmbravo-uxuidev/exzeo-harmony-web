@@ -26,6 +26,7 @@ const Dropdown = ({
           <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
         </span>
       }
+      </label>
       {answers && answers.length > 0 ?
         <Field
           component="select"
@@ -38,7 +39,7 @@ const Dropdown = ({
             <option value={answer.answer || null} key={index}>{answer.answer || null}</option>
           ))}
         </Field> : null}
-    </label>
+
   </div>
   );
 };

@@ -293,7 +293,7 @@ class Verify extends Component {
           </div>}
 
           {!editMailingAddress && <div className="detail-group mailing-address-details">
-            <h3 className="section-group-header"><i className="fa fa-envelope-open-o" /> Mailing Address</h3>
+            <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
             <section className="display-element">
               <dl>
                 <div>

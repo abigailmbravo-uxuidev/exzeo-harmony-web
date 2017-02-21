@@ -178,18 +178,14 @@ class Billing extends Component {
 
 
     return (
-      <Form
-        className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(this.handleOnSubmit)}
-        noValidate
-      >
-        <div>
-          <h3>Mailing Address</h3>
-          <BoolInput
-            name={'sameAsProperty'}
-            question={'Is the mailing address the same as the property address?'}
-            handleChange={this.fillMailForm} value={this.state.sameAsProperty} isSwitch
-          />
-          <div className="form-group survey-wrapper" role="group">
+      <Form className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
+        <div className="form-group survey-wrapper" role="group">
+          <h3 className="section-group-header"><i className="fa fa-envelope-open"></i> Mailing Address</h3>
+            <BoolInput
+              name={'sameAsProperty'}
+              question={'Is the mailing address the same as the property address?'}
+              handleChange={this.fillMailForm} value={this.state.sameAsProperty} isSwitch
+            />
             {this.state.questions && this.state.questions.map((question, index) => (
               <DependentQuestion
                 data={quoteTest}
@@ -199,10 +195,11 @@ class Billing extends Component {
                 key={index}
               />
             ))}
-
-          </div>
+            <h3 className="section-group-header"><i className="fa fa-dollar"></i> Billing Information</h3>
           <div className="form-group  BillTo">
+
             <label>Bill To</label>
+
             <select name="BillTo" value="">
               <option value="ph1">Policy Holder1</option>
               <option value="mh1">Bank of America</option>
@@ -214,28 +211,46 @@ class Billing extends Component {
             <div className="segmented-answer-wrapper">
               <div className="radio-column-3">
                 <label className="label-segmented"><input type="radio" value="A" name="billPlan" />
-                  <span>Annual <br />
-                  ${annualPremium}</span>
+                  <span>Annual</span>
                 </label>
               </div>
               <div className="radio-column-3">
                 <label className="label-segmented"><input type="radio" value="S" name="billPlan" />
-                  <span>Semi-Annual <br />
-                  1st Installment: ${semiAnnualPremium} <br />
-                  2nd Installment: ${semiAnnualPremium}</span>
+                  <span>Semi-Annual</span>
                 </label>
               </div>
               <div className="radio-column-3">
                 <label className="label-segmented"><input type="radio" value="Q" name="billPlan" />
-                  <span>Quarterly <br />
-                  1st Installment: ${quarterlyPremium} <br />
-                  2nd Installment: ${quarterlyPremium} <br />
-                  3rd Installment: ${quarterlyPremium} <br />
-                  4th Installment: ${quarterlyPremium}</span>
+                  <span>Quarterly </span>
                 </label>
               </div>
             </div>
+            <div className="installment-term">
+                    <dl className="column-3">
+                            <div>
+                                    <dt><span>Annual</span> Installment Plan</dt>
+                                    <dd>Installment 1: ${annualPremium}</dd>
+                            </div>
+                    </dl>
+                    <dl className="column-3">
+                            <div>
+                                    <dt><span>Semi-Annual</span> Installment Plan</dt>
+                                    <dd>Installment 1: ${semiAnnualPremium}</dd>
+                                    <dd>Installment 2: ${semiAnnualPremium}</dd>
+                            </div>
+                    </dl>
+                    <dl className="column-3">
+                            <div>
+                                    <dt><span>Quarterly</span> Installment Plan</dt>
+                                    <dd>Installment 1: ${quarterlyPremium}</dd>
+                                    <dd>Installment 2: ${quarterlyPremium}</dd>
+                                    <dd>Installment 3: ${quarterlyPremium}</dd>
+                                    <dd>Installment 4: ${quarterlyPremium}</dd>
+                            </div>
+                    </dl>
+            </div>
           </div>
+
         </div>
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="Billing">next</button>
