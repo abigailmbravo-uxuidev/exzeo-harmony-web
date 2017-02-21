@@ -586,17 +586,18 @@
               margin-right: 2rem;
 
               &:before {
-                  font: normal normal normal 1rem $font-family-icon;
-                  content: '\f14a';
+                  font: normal normal normal 1rem $font-family-sans-serif;
+                  content: 'VERIFY HERE';
+                  line-height: 1;
                   position: absolute;
-                  left: -.5rem;
-                  background: $yellow;
-                  color: $yellow-lighten-05;
+                  left: -.25rem;
+                  background: $orange-lighten-01;
+                  color: $red-darken-02;
                   display: block;
                   padding: .25rem;
                   top: .25rem;
                   text-align: center;
-                  width: 1.5rem;
+                  width: 9rem;
                   border-top-left-radius: .125rem;
                   border-bottom-left-radius: .125rem;
               }
@@ -606,10 +607,10 @@
                   width: 0;
                   height: 0;
                   border-top: .75rem solid transparent;
-                  border-left: 1rem solid $yellow;
+                  border-left: 1rem solid $orange-lighten-01;
                   border-bottom: .75rem solid transparent;
                   top: .25rem;
-                  left: 1rem;
+                  left: 8.75rem;
               }
 
               div {

@@ -8,15 +8,15 @@ const ErrorPage = () => (
       <div className="contact-message">
         <div className="card card-csr">
         <div className="card-header image card-header-image-csr">
-          <h4>
-            <i className="fa fa-phone-square"></i> Cutomer Service</h4>
+          <h4><i className="fa fa-exclamation-triangle"></i> Error - Please contact us</h4>
         </div>
         <div className="card-block">
           <h4 className="error-message">An error occured while trying to complete your quote.</h4>
-          <p>We apologize, but we are unable to provide an automated quote for your property at this time. Please contact one of our representatives so they may further assist you in obtaining a quote.</p>
+          <p>We apologize, but we are unable to provide an automated quote for your property at this time.</p>
+          <p>Please contact one of our representatives so they may further assist you in obtaining a quote.</p>
           <div className="contact-methods">
-            <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
             <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
+            <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
           </div>
         </div>
       </div>

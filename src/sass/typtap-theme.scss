@@ -8,7 +8,7 @@ a:visited {
   color: $bright-blue;
 
   &:hover {
-    text-decoration: none;
+    text-decoration: none !important;
     color: $bright-blue-darken-02;
   }
 }
@@ -654,7 +654,7 @@ html {
 
               a {
                 @include for-phone-only {
-                  border-top: 1px dashed $warm-gray-02;
+                  border-top: 1px dashed $cool-gray-02;
 
                   &:first-child,
                   &:last-child {
@@ -663,7 +663,7 @@ html {
                 }
                 @include for-tablet-portrait-up {
                   color: $bright-blue;
-                  border-top: 1px dashed $warm-gray-02;
+                  border-top: 1px dashed $cool-gray-02;
 
                   &:first-child {
                     border-top-width: 0;
@@ -1014,7 +1014,6 @@ html {
   }
 }
 //result cards
-
 ul.results {
   &.result-cards {
     li {
@@ -1067,7 +1066,6 @@ ul.results {
   }
 }
 //modal
-
 .modal {
   z-index: 10;
   background: rgba($black, .75);
@@ -1076,14 +1074,12 @@ ul.results {
   background-size: cover;
 }
 //card
-
 .card {
   .card-header {
     background-color: $cool-gray-00;
   }
 }
 //workflow detail header
-
 .detailHeader {
   //background: $black;
   background-color: mix($cool-gray-12, $bright-blue, 80);
@@ -1120,10 +1116,20 @@ ul.results {
 }
 //Routes
 //Home Page
-.fade-in {
-  .home {
+.dashboard {
+  .fade-in {
     .product-wrapper {
-      .product {}
+      .product {
+          .card-header-image-flood {
+              background-image: url('../img/csr.jpg');
+          }
+          .card-header-image-home {
+              background-image: url('../img/csr.jpg');
+          }
+          .card-footer {
+              background-color: $cool-gray-00;
+          }
+      }
     }
   }
 }
@@ -1167,8 +1173,7 @@ ul.results {
   .section-group-header {
     width: 100%;
     padding: ($padding);
-    color: $body-color;
-    background-color: $cool-gray-01;
+    color: $bright-blue-darken-03;
     flex-grow: 1;
   }
 }
@@ -1258,7 +1263,7 @@ ul.results {
 }
 //Quote Error
 .error-message {
-    color: $red;
+
 }
 .error-content {
     .card-csr {
@@ -1271,15 +1276,15 @@ ul.results {
         }
 
         .card-header-image-csr {
-            height: 24rem;
-            background-image: url('../img/csr-2.jpg');
+            height: 16rem;
+            background-image: url('../img/csr.jpg');
 
             @include for-phone-only {
                 height: 12rem;
             }
 
             h1, h2, h3, h4, h5, h6 {
-                background: rgba($bright-blue-darken-04,.8);
+                background: rgba($red,.8);
                 margin: (-$padding*1.75) (-$padding*2.5);
                 padding: $padding;
             }

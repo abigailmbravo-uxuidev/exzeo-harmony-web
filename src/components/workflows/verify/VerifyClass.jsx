@@ -102,7 +102,7 @@ class Verify extends Component {
       quoteData && <div className="detail-content-wrapper route-verify">
         <div className="detail-wrapper">
           {!editProperty && <div className="detail-group property-details">
-            <h4 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h4>
+            <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>
             {/* {!confirmProperyDetails && <div>
               <label className="btn btn-link edit-btn" htmlFor="editProperty">
                 <i className="fa fa-pencil" />
@@ -145,7 +145,7 @@ class Verify extends Component {
             <BoolInput styleName="verification" disabled={editProperty} name={'confirmProperyDetails'} question={'Verified'} handleChange={function () {}} value={false} isSwitch />
           </div>}
           {editProperty && <div className="detail-group property-details edit">
-            <h4 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h4>
+            <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <dl className="quote-number">
@@ -174,7 +174,7 @@ class Verify extends Component {
           </div>}
 
           <div className="detail-group quote-details">
-            <h4 className="section-group-header"><i className="fa fa-list" /> Quote Details</h4>
+            <h3 className="section-group-header"><i className="fa fa-list" /> Quote Details</h3>
             <section className="display-element">
               <dl>
                 <div>
@@ -247,7 +247,7 @@ class Verify extends Component {
           </div>
 
           {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
-            <h4 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h4>
+            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h3>
             {/* {!confirmPolicyHolderDetails && <div>
               <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
                 <i className="fa fa-pencil" />
@@ -277,7 +277,7 @@ class Verify extends Component {
             </section>
           </div>}
           {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
-            <h4 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h4>
+            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h3>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <PolicyHolderUpdateForm handleOnSubmit={this.updateQuote} state={state} />
@@ -285,7 +285,7 @@ class Verify extends Component {
           </div>}
 
           {!editMailingAddress && <div className="detail-group mailing-address-details">
-            <h4 className="section-group-header"><i className="fa fa-envelope-open-o" /> Mailing Address</h4>
+            <h3 className="section-group-header"><i className="fa fa-envelope-open-o" /> Mailing Address</h3>
             <section className="display-element">
               <dl>
                 <div>
@@ -316,7 +316,7 @@ class Verify extends Component {
             <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
           </div>}
           {editMailingAddress && <div className="detail-group mailing-address-details edit">
-            <h4 className="section-group-header"><i className="fa fa-envelope-open-o" /> Mailing Address</h4>
+            <h3 className="section-group-header"><i className="fa fa-envelope-open-o" /> Mailing Address</h3>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <MailingAddressForm name={'policyHolderMailingAddress'} handleOnSubmit={this.updateQuote} />
@@ -324,7 +324,7 @@ class Verify extends Component {
           </div>}
 
           {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
-            <h4 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h4>
+            <h3 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h3>
             {/* {!confirmAdditionalInterestsDetails && <div>
               <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
                 <i className="fa fa-pencil" />
@@ -355,9 +355,8 @@ class Verify extends Component {
                      </div>
                    </dl>
                     )) : null}
-
-              <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
             </section>
+            <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
           </div>}
           {editConfirmAdditionalInterests && <div className="detail-group additional-interests-details edit">
             <h4 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h4>
