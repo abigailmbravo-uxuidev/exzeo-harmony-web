@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Demographics from '../workflows/Demographics';
 import Customize from '../workflows/CustomizeQuote';
-import Share from '../workflows/Share';
+// import Share from '../workflows/Share';
 import UWQuestions from '../workflows/UWQuestions';
 import Billing from '../workflows/Billing';
 import AdditionalInterestsForm from '../workflows/AdditionalInterestsForm';
 import MailingAddressForm from '../forms/MailingAddress/MailingAddressForm';
-import Verify from './verify/Verify';
+import Verify from './verify/VerifyClass';
 
 // function getStatus(step, completedSteps) {
 //   let status;
@@ -55,7 +55,7 @@ const WorkflowHeader = (d) => {
             <Route path="/workflow/demographics" component={Demographics} />
             <Route path="/workflow/underwriting" component={UWQuestions} />
             <Route path="/workflow/customize" component={Customize} />
-            <Route path="/workflow/share" component={Share} />
+            <Route path="/workflow/share" component={Verify} />
             <Route path="/workflow/AdditionalInterests" component={AdditionalInterestsForm} />
             <Route path="/workflow/MailingAddress" component={MailingAddressForm} />
             <Route path="/workflow/billing" component={Billing} />

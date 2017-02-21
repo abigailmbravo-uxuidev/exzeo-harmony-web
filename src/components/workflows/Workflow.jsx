@@ -11,7 +11,9 @@ import UWQuestions from '../workflows/UWQuestions_Form';
 import Customize from '../forms/Customize/Customize';
 import ThankYou from './ThankYou';
 import ErrorPage from './ErrorPage';
+import Verify from './verify/VerifyClass';
 import WorkflowDetails from './WorkflowDetails';
+import Share from './SharePage';
 
 const WorkflowHeader = (d) => {
   console.log(d);
@@ -168,7 +170,6 @@ class Workflow extends Component {
     // <Redirect to="/workflow/underwriting" />
   }
   render() {
-
     // const details = [{
     //   name: 'Quote Number',
     //   value: '509011-102220-01',
@@ -201,26 +202,28 @@ class Workflow extends Component {
 
     const { workflow, activeStep } = this.state;
     return (
-        <div className="fade-in">
-          <WorkflowDetails details={this.state.details || []} />
-          <Router>
-            <div className="route">
-              <Route path="/quote/search" component={Search} />
-              <Route exact path="/quote/search/:address" component={SearchResults} />
-              <Route path="/quote/demographics" component={Demographics} />
-              <Route path="/quote/underwriting" component={UWQuestions} />
-              <Route path="/quote/customize" component={Customize} />
-              <Route path="/quote/thankyou" component={ThankYou} />
-              <Route path="/quote/error" component={ErrorPage} />
-              {/* <Route path="/quote/share" component={Share} />*/}
-              {/* <Route path="/workflow/AdditionalInterests"
+      <div className="fade-in">
+        <WorkflowDetails details={this.state.details || []} />
+        <Router>
+          <div className="route">
+            <Route path="/quote/search" component={Search} />
+            <Route exact path="/quote/search/:address" component={SearchResults} />
+            <Route path="/quote/demographics" component={Demographics} />
+            <Route path="/quote/underwriting" component={UWQuestions} />
+            <Route path="/quote/customize" component={Customize} />
+            <Route path="/quote/share" component={Share} />
+            <Route path="/quote/verify" component={Verify} />
+            <Route path="/quote/thankyou" component={ThankYou} />
+            <Route path="/quote/error" component={ErrorPage} />
+            {/* <Route path="/quote/share" component={Share} />*/}
+            {/* <Route path="/workflow/AdditionalInterests"
                   component={AdditionalInterestsForm} />*/}
-              {/* <Route path="/workflow/MailingAddress" component={MailingAddressForm} />*/}
-              {/* <Route path="/workflow/billing" component={Billing} />*/}
-              {/* <Route path="/workflow/verify" component={Verify} />*/}
-            </div>
-          </Router>
-        </div>
+            {/* <Route path="/workflow/MailingAddress" component={MailingAddressForm} />*/}
+            {/* <Route path="/workflow/billing" component={Billing} />*/}
+            {/* <Route path="/workflow/verify" component={Verify} />*/}
+          </div>
+        </Router>
+      </div>
     );
   }
 }

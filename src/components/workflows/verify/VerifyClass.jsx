@@ -1,13 +1,15 @@
 /*
 eslint no-class-assign:0
 */
-import React, { PropTypes, Component } from 'react';
-// import _ from 'lodash';
+import React, { Component, PropTypes } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import localStorage from 'localStorage';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
 import moment from 'moment';
-import BoolInput from '../form/BoolInput';
-import quoteTest from './quoteTest';
+import BoolInput from '../../inputs/BoolInput';
 import EffectiveDateForm from '../../forms/EffectiveDate/EffectiveDateForm';
 import PolicyHolderUpdateForm from '../../forms/policyHolder/PolicyHolderUpdateForm';
 import AdditionalInterestUpdateForm from '../../forms/AdditionalInterests/AdditionalInterestUpdateForm';
@@ -68,22 +70,29 @@ class Verify extends Component {
       confirmAdditionalInterestsDetails,
     } = this.props;
 
-    const property = quoteTest.property;
-    const coverageLimits = quoteTest.coverageLimits;
-    const mailingAddress = quoteTest.policyHolderMailingAddress;
+    let property = {};
+    let coverageLimits = {};
+    let mailingAddress = {};
 
-    initialValues.effectiveDate = moment(quoteTest.effectiveDate).format('YYYY-MM-DD');
+    let details = {};
 
-    initialValues.additionalInterests = quoteTest.additionalInterests;
-    initialValues.policyHolders = quoteTest.policyHolders;
-    initialValues.policyHolderMailingAddress = quoteTest.policyHolderMailingAddress;
+    let quoteTest = null;
+    if (this.props.data && this.props.data.steps) {
+      quoteTest = this.props.data.steps.data[0];
+      property = quoteTest.property;
+      coverageLimits = quoteTest.coverageLimits;
+      mailingAddress = quoteTest.policyHolderMailingAddress || {};
+      initialValues.effectiveDate = moment(quoteTest.effectiveDate).format('YYYY-MM-DD');
+      details = this.props.data.steps.details;
+    }
+
 
     return (
-      <div className="detail-content-wrapper route-verify">
+      quoteTest && <div className="detail-content-wrapper route-verify">
         <div className="detail-wrapper">
           {!editProperty && <div className="detail-group property-details">
             <h4 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h4>
-            {!confirmProperyDetails && <div>
+            {/* {!confirmProperyDetails && <div>
               <label className="btn btn-link edit-btn" htmlFor="editProperty">
                 <i className="fa fa-pencil" />
                     Edit
@@ -93,7 +102,8 @@ class Verify extends Component {
                   display: 'none',
                 }}
               />
-            </div>}
+
+            </div>*/}
             <section className="display-element">
               <dl className="quote-number">
                 <div>
@@ -111,7 +121,7 @@ class Verify extends Component {
                   <dt>Year Built</dt>
                   <dd>{property.yearBuilt}</dd>
                   <dt>Flood Zone</dt>
-                  <dd>{property.protectionClass}</dd>
+                  <dd>{property.floodZone}</dd>
                 </div>
               </dl>
               <dl className="effective-date">
@@ -158,37 +168,67 @@ class Verify extends Component {
               <dl>
                 <div>
                   <dt>Yearly Premium</dt>
-                  <dd>${12345}</dd>
+                  <dd>${_.find(details, { name: 'Annual Premium' }).value}</dd>
                 </div>
               </dl>
               <dl>
                 <div>
-                  <dt>Building Limit</dt>
+                  <dt>A. Dwelling</dt>
                   <dd>${coverageLimits.dwelling.amount}</dd>
                 </div>
               </dl>
               <dl>
                 <div>
-                  <dt>Building Deductible</dt>
-                  <dd>${coverageLimits.dwelling.maxAmount}</dd>
+                  <dt>B. Other Structures</dt>
+                  <dd>${coverageLimits.otherStructures.amount}</dd>
                 </div>
               </dl>
               <dl>
                 <div>
-                  <dt>Personal Property</dt>
-                  <dd>${coverageLimits.personalProperty.amount}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div>
-                  <dt>Personal Property Deductible</dt>
+                  <dt>C. Personal Property</dt>
                   <dd>${coverageLimits.personalProperty.amount}</dd>
                 </div>
               </dl>
               <dl>
                 <div>
                   <dt>Personal Property Replacement Cost</dt>
-                  <dd>${coverageLimits.personalProperty.amount}</dd>
+                  <dd>{coverageLimits.personalProperty.amount > 0 ? 'Yes' : 'No'}</dd>
+                </div>
+              </dl>
+              <dl>
+                <div>
+                  <dt>Loss Of Use</dt>
+                  <dd>${coverageLimits.lossOfUse.amount}</dd>
+                </div>
+              </dl>
+              <dl>
+                <div>
+                  <dt>Personal Liability</dt>
+                  <dd>${coverageLimits.personalLiability.amount}</dd>
+                </div>
+              </dl>
+              <dl>
+                <div>
+                  <dt>Medical Payments</dt>
+                  <dd>${coverageLimits.medicalPayments.amount}</dd>
+                </div>
+              </dl>
+              <dl>
+                <div>
+                  <dt>Mold Property</dt>
+                  <dd>${coverageLimits.moldProperty.amount}</dd>
+                </div>
+              </dl>
+              <dl>
+                <div>
+                  <dt>Mold Liability</dt>
+                  <dd>${coverageLimits.moldLiability.amount}</dd>
+                </div>
+              </dl>
+              <dl>
+                <div>
+                  <dt>Ordinance or Law</dt>
+                  <dd>${coverageLimits.ordinanceOrLaw.amount}</dd>
                 </div>
               </dl>
             </section>
@@ -197,7 +237,7 @@ class Verify extends Component {
 
           {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
             <h4 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h4>
-            {!confirmPolicyHolderDetails && <div>
+            {/* {!confirmPolicyHolderDetails && <div>
               <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
                 <i className="fa fa-pencil" />
                     Edit
@@ -207,7 +247,7 @@ class Verify extends Component {
                   display: 'none',
                 }}
               />
-            </div>}
+            </div>} */}
             <section className="display-element">
               {(quoteTest.policyHolders && quoteTest.policyHolders.length > 0) ?
                  quoteTest.policyHolders.map((policyHolder, index) => (
@@ -245,11 +285,11 @@ class Verify extends Component {
                   <dd>{mailingAddress.city}, {mailingAddress.state}
                     {mailingAddress.zip}</dd>
                   <dt>Country</dt>
-                  <dd>{mailingAddress.country.displayText}</dd>
+                  <dd>{ mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : null}</dd>
                 </div>
               </dl>
               <dl>
-                {!confirmPolicyHolderDetails && <div>
+                {/* {!confirmPolicyHolderDetails && <div>
                   <label className="btn btn-link edit-btn" htmlFor="editMailingAddress">
                     <i className="fa fa-pencil" />
                         Edit
@@ -259,7 +299,7 @@ class Verify extends Component {
                       display: 'none',
                     }}
                   />
-                </div>}
+                </div>} */}
               </dl>
             </section>
             <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
@@ -274,7 +314,7 @@ class Verify extends Component {
 
           {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
             <h4 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h4>
-            {!confirmAdditionalInterestsDetails && <div>
+            {/* {!confirmAdditionalInterestsDetails && <div>
               <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
                 <i className="fa fa-pencil" />
                     Edit
@@ -284,7 +324,7 @@ class Verify extends Component {
                   display: 'none',
                 }}
               />
-            </div>}
+            </div>} */}
             <section className="display-element">
 
               {(quoteTest.additionalInterests && quoteTest.additionalInterests.length > 0) ?
@@ -387,5 +427,265 @@ Verify = connect((state) => {
     confirmAdditionalInterestsDetails,
   };
 })(Verify);
+
+Verify = connect()(graphql(gql `
+    query GetActiveStep($workflowId:ID!) {
+        steps(id: $workflowId) {
+            name
+            details {
+                name
+                value
+            }
+            data {
+              ... on Quote {
+                companyCode
+                state
+                product
+                quoteNumber
+                effectiveDate
+                endDate
+                agencyId
+                agentId
+                billToType
+                billTold
+                billPlan
+                eligibilty
+                policyHolders{
+                  order
+                  entityType
+                  companyName
+                  firstName
+                  lastName
+                  primaryPhoneNumber
+                  secondaryPhoneNumber
+                  emailAddress
+                }
+                policyHolderMailingAddress{
+                  address1
+                  city
+                  state
+                  zip
+                }
+                coverageLimits {
+                  dwelling {
+                    maxAmount
+                    minAmount
+                    amount
+                    format
+                  }
+                  otherStructures {
+                    amount
+                    format
+                  }
+                  personalProperty {
+                    amount
+                    format
+                  }
+                  lossOfUse {
+                    amount
+                    format
+                  }
+                  personalLiability {
+                    amount
+                    format
+                  }
+                  medicalPayments {
+                    amount
+                    format
+                  }
+                  ordinanceOrLaw {
+                    amount
+                    format
+                  }
+                  moldProperty {
+                    amount
+                    format
+                  }
+                  moldLiability {
+                    amount
+                    format
+                  }
+                }
+                coverageOptions {
+                  personalPropertyReplacementCost {
+                    answer
+                  }
+                  sinkholePerilCoverage {
+                    answer
+                  }
+                  propertyIncidentalOccupanciesMainDwelling {
+                    answer
+                  }
+                  propertyIncidentalOccupanciesOtherStructures {
+                    answer
+                  }
+                  liabilityIncidentalOccupancies {
+                    answer
+                  }
+                }
+                deductibles {
+                  hurricane {
+                    amount
+                    format
+                  }
+                  sinkhole {
+                    amount
+                    format
+                  }
+                  allOtherPerils {
+                    amount
+                    format
+                  }
+                }
+                property {
+                  yearBuilt
+                  floodZone
+                  residenceType
+                  constructionType
+                  territory
+                  physicalAddress {
+                    address1
+                    address2
+                    city
+                    state
+                    zip
+                    id
+                  }
+                }
+              }
+              ... on Property {
+                physicalAddress {
+                  address1
+                }
+              }
+              ... on Address {
+                address1
+                city
+                state
+                zip
+                id
+              }
+            }
+            completedSteps
+            type
+        }
+    }`, {
+      options: {
+        variables: {
+          workflowId: localStorage.getItem('newWorkflowId'),
+        },
+      },
+    })(graphql(gql `
+      mutation CompleteStep($input:CompleteStepInput) {
+        completeStep(input:$input) {
+          name
+          link
+          details {
+            name
+            value
+          }
+          data {
+            ... on Quote {
+              coverageLimits {
+                dwelling {
+                  maxAmount
+                  minAmount
+                  amount
+                  format
+                }
+                otherStructures {
+                  amount
+                  format
+                }
+                personalProperty {
+                  amount
+                  format
+                }
+                lossOfUse {
+                  amount
+                  format
+                }
+                personalLiability {
+                  amount
+                  format
+                }
+                medicalPayments {
+                  amount
+                  format
+                }
+                ordinanceOrLaw {
+                  amount
+                  format
+                }
+                moldProperty {
+                  amount
+                  format
+                }
+                moldLiability {
+                  amount
+                  format
+                }
+              }
+              coverageOptions {
+                personalPropertyReplacementCost {
+                  answer
+                }
+                sinkholePerilCoverage {
+                  answer
+                }
+                propertyIncidentalOccupanciesMainDwelling {
+                  answer
+                }
+                propertyIncidentalOccupanciesOtherStructures {
+                  answer
+                }
+                liabilityIncidentalOccupancies {
+                  answer
+                }
+              }
+              deductibles {
+                hurricane {
+                  amount
+                  format
+                }
+                sinkhole {
+                  amount
+                  format
+                }
+                allOtherPerils {
+                  amount
+                  format
+                }
+              }
+              property {
+                physicalAddress {
+                  address1
+                }
+              }
+            }
+            ... on Property {
+              physicalAddress {
+                address1
+                address2
+                city
+                state
+                zip
+              }
+            }
+            ... on Address {
+              address1
+              address2
+              city
+              state
+              zip
+              id
+            }
+          }
+          type
+          completedSteps
+        }
+      }
+    `, { name: 'completeStep' })(Verify)));
+
 
 export default Verify;

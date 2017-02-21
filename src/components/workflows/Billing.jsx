@@ -5,10 +5,62 @@ import { reduxForm, Form } from 'redux-form';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import _ from 'lodash';
 import localStorage from 'localStorage';
 // import _ from 'lodash';
 import MailingAddress from '../forms/MailingAddress/MailingAddress';
 
+// TODO: Put these questions into db, find where they are in the data passed in
+const questionsMock = [
+  {
+    answerType: 'text',
+    question: 'Address 1',
+    styleName: 'address1',
+    name: 'address1',
+    defaultValueLocation: '',
+  }, {
+    answerType: 'text',
+    question: 'Address 2',
+    styleName: 'address2',
+    name: 'address2',
+    defaultValueLocation: '',
+  },
+  {
+    answerType: 'select',
+    question: 'Country',
+    validations: ['required'],
+    name: 'country',
+    answers: [{
+      answer: 'USA',
+    }, {
+      answer: 'CANADA',
+    }]
+  },
+  {
+    answerType: 'text',
+    question: 'City',
+    validations: ['required'],
+    styleName: 'city',
+    name: 'city',
+    defaultValueLocation: '',
+  },
+  {
+    answerType: 'text',
+    question: 'State',
+    validations: ['required'],
+    styleName: 'state',
+    name: 'state',
+    defaultValueLocation: '',
+  },
+  {
+    answerType: 'tel',
+    question: 'Zip',
+    validations: ['required'],
+    styleName: 'zip',
+    name: 'zip',
+    defaultValueLocation: '',
+  }
+];
 
 class Billing extends Component {
   static propTypes = {
@@ -37,6 +89,21 @@ class Billing extends Component {
       // const { steps } = newProps.data;
       // this.setState({ questions: steps.questions });
     }
+  }
+  // TODO: Hook up to checkbox in mailform
+  fillMailForm = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const { state } = this;
+    const { steps } = this.props.data; // eslint-disable-line
+    const policyholderData = steps.data[0];
+    const questions = steps.questions;
+
+    questions.forEach((question) => {
+      if (question.defaultValueLocation) {
+        state[question.name] = _.get(policyholderData, question.defaultValueLocation);
+      }
+    });
+    this.setState(state);
   }
 
   handleOnSubmit = (event) => {

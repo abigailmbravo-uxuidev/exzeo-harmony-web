@@ -4,7 +4,7 @@ eslint import/no-mutable-exports:0
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
-import TextInput from '../form/TextInput';
+import TextInput from '../../inputs/TextInput';
 
 let EffectiveDateForm = (props) => {
   const { styleName, handleSubmit, handleOnSubmit } = props;

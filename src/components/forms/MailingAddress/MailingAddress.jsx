@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 // import _ from 'lodash';
-import TextInput from '../form/TextInput';
-import Dropdown from '../form/Dropdown';
+import TextInput from '../../inputs/TextInput';
+import Dropdown from '../../inputs/Dropdown';
 
 const MailingAddress = ({ handleChange, name }) => (
   <div className="form-group survey-wrapper MailingAddress-component" role="group">

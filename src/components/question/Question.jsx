@@ -19,7 +19,7 @@ const Question = ({ question, answer, disabled, handleChange }) => {
   if (question.hidden) inputProps.answerType = 'hidden';
 
   switch (question.answerType) {
-    case 'radio':
+    case 'radio': // eslint-disable-line
       if (question.answers && question.answers.length > 0) {
         if (question.answers.length > 6) {
           return <Dropdown {...inputProps} />;
@@ -37,6 +37,8 @@ const Question = ({ question, answer, disabled, handleChange }) => {
     case 'range':
     case 'slider':
       return <SliderInput {...inputProps} />;
+    case 'select':
+      return <Dropdown {...inputProps} />;
     case 'list':
       return <ListSelection {...inputProps} />;
     case 'text':
@@ -63,6 +65,7 @@ Question.propTypes = {
       'string',
       'email',
       'password',
+      'select',
       'text',
       'number',
       'date',

@@ -33,6 +33,8 @@ class Customize extends Component {
   componentWillMount() {
   }
 
+
+
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
     (!newProps.data.loading &&
@@ -41,7 +43,7 @@ class Customize extends Component {
       this.props.data.steps.name !== newProps.data.steps.name
     )) {
       const { steps } = newProps.data;
-
+      console.log('NEWSTEPS', steps);
       const { state } = this;
       // Set up default values
       const questions = steps.questions;
@@ -54,7 +56,7 @@ class Customize extends Component {
           state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
           const val = _.get(realQuote, question.defaultValueLocation);
-          state[question.name] = _.isString(val) ? String(val) : val;
+          state[question.name] = val;
         } else {
           state[question.name] = '';
         }
@@ -73,8 +75,7 @@ class Customize extends Component {
             const { dependency } = question.conditional;
             const parentValue = _.get(state, dependency.parent);
 
-            const stateValue = Number(state[question.name]) ?
-               Number(state[question.name]) : state[question.name];
+            const stateValue = state[question.name];
             // const calculatedValue = parentValue / 100;
             const newValue = question.answers.find(a =>
               (dependency.type === 'percent' ? (parentValue * a.answer) / 100 : parentValue * a.answer) === stateValue);
@@ -101,15 +102,25 @@ class Customize extends Component {
 
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
+
     const { state } = this;
     if (state.updated) {
       // Do two mutations
       state.updated = false;
       this.setState(state);
-    } else {
-      // Do one mutation
-      this.context.router.push('/workflow/share');
     }
+
+    this.props.completeStep(this.buildSubmission(
+      'askToCustomizeDefaultQuote',
+     { shouldCustomizeQuote: 'No' }
+   )).then((updatedModel) => {
+     console.log('UPDATED MODEL : ', updatedModel);
+     const activeLink = updatedModel.data.completeStep.link;
+     this.context.router.push(`${activeLink}`);
+   }).catch((error) => {
+      // this.context.router.transitionTo('/error');
+      console.log('errors from graphql', error); // eslint-disable-line
+   });
   }
 
   resetState = () => {
@@ -135,15 +146,25 @@ class Customize extends Component {
     }
   });
 
+  convertQuoteStringsToNumber(quote){
+    for(let obj in quote){
+      if(_.isString(quote[obj])) {
+        quote[obj] = (Number(quote[obj]) ? Number(quote[obj]) : quote[obj])
+      }
+    }
+    return quote;
+  }
+
   recalculateQuote = async () => {
+
     const { completeStep } = this.props;
-    console.log('STATE BEFORE SENDING RECALC', this.state);
+    const updatedQuote = this.convertQuoteStringsToNumber(this.state);
+
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
       console.log('THIS IS shouldCustomizeQuote', data);
 
-      data = await completeStep(this.buildSubmission('customizeDefaultQuote', this.state));
-
+      data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuote));
       console.log('THIS IS customizeDefaultQuote', data);
 
       const { state } = this;
@@ -186,7 +207,7 @@ class Customize extends Component {
 
   submit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
-    this.state.updated ? this.update() : this.save();
+    this.state.updated ? this.update() : this.handleOnSubmit();
   }
 
   render() {
@@ -210,7 +231,7 @@ class Customize extends Component {
             <Form
               className={`fade-in ${styleName || ''}`}
               id="Customize"
-              onSubmit={handleSubmit(this.submit)}
+              onSubmit={handleSubmit(this.handleOnSubmit)}
               noValidate
             >
               <div className="form-group survey-wrapper" role="group">
