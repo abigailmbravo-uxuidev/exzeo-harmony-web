@@ -1130,7 +1130,7 @@ ul.results {
                   background-position: center center;
               }
               h1, h2, h3, h4, h5, h6 {
-                  background-color: rgba($cool-gray-10, .5);
+                  background-color: rgba($cool-gray-10, .75);
                   margin: (-$padding*1.75) (-$padding*2.5);
                   padding: $padding;
               }
@@ -1326,6 +1326,10 @@ ul.results {
                 margin: (-$padding*1.75) (-$padding*2.5);
                 padding: $padding;
             }
+        }
+
+        .card-footer {
+            background-color: $cool-gray-00;
         }
     }
 }
