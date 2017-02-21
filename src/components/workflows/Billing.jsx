@@ -137,17 +137,18 @@ class Billing extends Component {
 
   handleOnSubmit = (event) => {
     if (event && event.preventDefault) event.preventDefault();
+    //console.log(this.state);
     this.props.completeStep({
       variables: {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askAdditionalQuestions',
-          data: this.state,
+          data: {},
         },
       },
-    }).then((updatedShouldGeneratePdfAndEmail) => {
-      console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
-      const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
+    }).then((updatedModel) => {
+      //console.log('UPDATED MODEL: ', updatedModel);
+      const activeLink = updatedModel.data.completeStep.link;
       this.context.router.push(`${activeLink}`);
     }).catch((error) => {
         // this.context.router.transitionTo('/error');
@@ -442,14 +443,13 @@ Billing = connect()(graphql(gql `
         },
       },
     })(graphql(gql `
-      mutation CompleteStep($input:CompleteStepInput) {
-        completeStep(input:$input) {
-            name
-            icon
-            type
-            link
-        }
-    `, { name: 'completeStep' })(Billing)));
+  mutation CompleteStep($input:CompleteStepInput) {
+    completeStep(input:$input) {
+      link
+      type
+    }
+  }
+`, { name: 'completeStep' })(Billing)));
 
 
 export default Billing;

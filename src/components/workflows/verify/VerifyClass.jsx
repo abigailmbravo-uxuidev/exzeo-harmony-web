@@ -100,18 +100,7 @@ class Verify extends Component {
         <div className="detail-wrapper">
           {!editProperty && <div className="detail-group property-details">
             <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>
-            {/* {!confirmProperyDetails && <div>
-              <label className="btn btn-link edit-btn" htmlFor="editProperty">
-                <i className="fa fa-pencil" />
-                    Edit
-                  </label>
-              <Field
-                name="editProperty" id="editProperty" component="input" type="checkbox" style={{
-                  display: 'none',
-                }}
-              />
 
-            </div>*/}
             <section className="display-element">
               <dl className="quote-number">
                 <div>
@@ -245,17 +234,6 @@ class Verify extends Component {
 
           {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
             <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h3>
-            {/* {!confirmPolicyHolderDetails && <div>
-              <label className="btn btn-link edit-btn" htmlFor="editConfirmPolicyHolder">
-                <i className="fa fa-pencil" />
-                    Edit
-                  </label>
-              <Field
-                name="editConfirmPolicyHolder" id="editConfirmPolicyHolder" component="input" type="checkbox" style={{
-                  display: 'none',
-                }}
-              />
-            </div>} */}
             <section className="display-element">
               {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
                  quoteData.policyHolders.map((policyHolder, index) => (
@@ -297,17 +275,6 @@ class Verify extends Component {
                 </div>
               </dl>
               <dl>
-                {/* {!confirmPolicyHolderDetails && <div>
-                  <label className="btn btn-link edit-btn" htmlFor="editMailingAddress">
-                    <i className="fa fa-pencil" />
-                        Edit
-                      </label>
-                  <Field
-                    name="editMailingAddress" id="editMailingAddress" component="input" type="checkbox" style={{
-                      display: 'none',
-                    }}
-                  />
-                </div>} */}
               </dl>
             </section>
             <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
@@ -322,17 +289,6 @@ class Verify extends Component {
 
           {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
             <h3 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h3>
-            {/* {!confirmAdditionalInterestsDetails && <div>
-              <label className="btn btn-link edit-btn" htmlFor="editConfirmAdditionalInterests">
-                <i className="fa fa-pencil" />
-                    Edit
-                  </label>
-              <Field
-                name="editConfirmAdditionalInterests" id="editConfirmAdditionalInterests" component="input" type="checkbox" style={{
-                  display: 'none',
-                }}
-              />
-            </div>} */}
             <section className="display-element">
 
               {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?

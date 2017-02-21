@@ -24,7 +24,7 @@ const ErrorPage = () => (
     </div>
     <Footer/>
             {/* SOFT STOP WORKFLOW ERROR*/}
-            {/*}<div className="fade-in">
+            {/*<div className="fade-in">
               <div className="workflow-content">
                 <section>
                   <div className="fade-in">
@@ -54,7 +54,7 @@ const ErrorPage = () => (
               </div>
             </div>*/}
             {/* APP ERROR*/}
-            {/*}<div className="fade-in app-error">
+            {/*<div className="fade-in app-error">
               <div className="workflow-content">
                 <section>
                   <div className="fade-in">
