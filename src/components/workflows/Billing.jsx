@@ -9,7 +9,6 @@ import _ from 'lodash';
 import localStorage from 'localStorage';
 // import _ from 'lodash';
 import DependentQuestion from '../question/DependentQuestion';
-import quoteTest from './verify/quoteTest';
 import BoolInput from '../inputs/BoolInput';
 
 // TODO: Put these questions into db, find where they are in the data passed in
@@ -109,10 +108,10 @@ class Billing extends Component {
   fillMailForm = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     const { state } = this;
-    // const { steps } = this.props.data; // eslint-disable-line
-    // const policyholderData = steps.data[0];
+    const { steps } = this.props.data; // eslint-disable-line
+    const policyholderData = steps.data[0];
     // const questions = steps.questions;
-    const policyholderData = quoteTest;
+    // const policyholderData = quoteTest;
     const questions = this.state.questions;
 
   //  console.log(state);
@@ -178,11 +177,12 @@ class Billing extends Component {
     let semiAnnualPremium = 0;
     let quarterlyPremium = 0;
 
-
+    let quote = null;
     if (this.props.data && this.props.data.steps) {
       console.log(this.props.data.steps.data);
       questions = _.sortBy(this.props.data.steps.questions, ['order']);
       details = this.props.data.steps.details;
+      quote = this.props.data.steps.data[0];
     }
 
     annualPremium = _.find(details, { name: 'Annual Premium' }) ?
@@ -204,7 +204,7 @@ class Billing extends Component {
           />
           {this.state.questions && this.state.questions.map((question, index) => (
             <DependentQuestion
-              data={quoteTest}
+              data={quote}
               question={question}
               answers={this.state}
               handleChange={this.handleChange}
@@ -444,11 +444,131 @@ Billing = connect()(graphql(gql `
     })(graphql(gql `
       mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
+          name
+          link
+          details {
             name
-            icon
-            type
-            link
+            value
+          }
+          data {
+            ... on Quote {
+              coverageLimits {
+                dwelling {
+                  maxAmount
+                  minAmount
+                  amount
+                  format
+                }
+                otherStructures {
+                  amount
+                  format
+                }
+                personalProperty {
+                  amount
+                  format
+                }
+                lossOfUse {
+                  amount
+                  format
+                }
+                personalLiability {
+                  amount
+                  format
+                }
+                medicalPayments {
+                  amount
+                  format
+                }
+                ordinanceOrLaw {
+                  amount
+                  format
+                }
+                moldProperty {
+                  amount
+                  format
+                }
+                moldLiability {
+                  amount
+                  format
+                }
+              }
+              coverageOptions {
+                personalPropertyReplacementCost {
+                  answer
+                }
+                sinkholePerilCoverage {
+                  answer
+                }
+                propertyIncidentalOccupanciesMainDwelling {
+                  answer
+                }
+                propertyIncidentalOccupanciesOtherStructures {
+                  answer
+                }
+                liabilityIncidentalOccupancies {
+                  answer
+                }
+              }
+              deductibles {
+                hurricane {
+                  amount
+                  format
+                }
+                sinkhole {
+                  amount
+                  format
+                }
+                allOtherPerils {
+                  amount
+                  format
+                }
+              }
+              property {
+                physicalAddress {
+                  address1
+                }
+              }
+            }
+            ... on Property {
+              physicalAddress {
+                address1
+              }
+            }
+            ... on Address {
+              address1
+              city
+              state
+              zip
+              id
+            }
+          }
+          type
+          questions {
+            name
+            question
+            answerType
+            description
+            answers {
+              answer
+              image
+            }
+            conditional {
+              display {
+                type
+                operator
+                trigger
+                dependency
+                detail
+              }
+              value {
+                type
+                parent
+              }
+            }
+          }
+          completedSteps
         }
+      }
     `, { name: 'completeStep' })(Billing)));
 
 
