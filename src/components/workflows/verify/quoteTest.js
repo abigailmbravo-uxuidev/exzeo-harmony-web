@@ -16,6 +16,7 @@ module.exports = {
     source: 'CasaClue',
     physicalAddress: {
       address1: '95155 STINGRAY LN',
+      address2: '',
       city: 'FERNANDINA BEACH',
       state: 'FL',
       county: 'NASSAU',

@@ -14,6 +14,7 @@ import ErrorPage from './ErrorPage';
 import Verify from './verify/VerifyClass';
 import WorkflowDetails from './WorkflowDetails';
 import Share from './SharePage';
+import Billing from './Billing';
 
 const WorkflowHeader = (d) => {
   console.log(d);
@@ -212,6 +213,7 @@ class Workflow extends Component {
             <Route path="/quote/underwriting" component={UWQuestions} />
             <Route path="/quote/customize" component={Customize} />
             <Route path="/quote/share" component={Share} />
+            <Route path="/quote/billing" component={Billing} />
             <Route path="/quote/verify" component={Verify} />
             <Route path="/quote/thankyou" component={ThankYou} />
             <Route path="/quote/error" component={ErrorPage} />
