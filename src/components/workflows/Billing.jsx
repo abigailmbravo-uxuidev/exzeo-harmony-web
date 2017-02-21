@@ -124,7 +124,7 @@ class Billing extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askAdditionalQuestions',
-          data: this.state,
+          data: {},
         },
       },
     }).then((updatedShouldGeneratePdfAndEmail) => {

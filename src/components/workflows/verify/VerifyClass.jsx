@@ -51,8 +51,8 @@ class Verify extends Component {
         },
       },
     }).then((updatedShouldGeneratePdfAndEmail) => {
-      console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
-      const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
+      // console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
+      // const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
       this.context.router.push('thankyou');
     }).catch((error) => {
         // this.context.router.transitionTo('/error');
@@ -452,8 +452,8 @@ Verify = connect()(graphql(gql `
                 quoteNumber
                 effectiveDate
                 endDate
-                agencyId
-                agentId
+
+
                 billToType
                 billTold
                 billPlan
@@ -470,6 +470,7 @@ Verify = connect()(graphql(gql `
                 }
                 policyHolderMailingAddress{
                   address1
+                  address2
                   city
                   state
                   zip
@@ -587,7 +588,7 @@ Verify = connect()(graphql(gql `
       mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
           name
-          link
+
           details {
             name
             value
