@@ -1748,3 +1748,14 @@ ul.results {
         color: $cool-gray-10;
     }
 }
+
+
+.installment-term {
+    dl {
+        dt {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-bold;
+        }
+        dd {}
+    }
+}
