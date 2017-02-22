@@ -178,6 +178,7 @@ class Billing extends Component {
 
 
     return (
+            <div className="workflow-content">
       <Form className={`fade-in ${styleName || ''}`} id="Billing" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
         <div className="form-group survey-wrapper" role="group">
           <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
@@ -257,6 +258,7 @@ class Billing extends Component {
         </div>
         <Footer />
       </Form>
+      </div>
     );
   }
 }

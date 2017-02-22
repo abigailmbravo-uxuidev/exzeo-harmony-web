@@ -24,7 +24,7 @@ class Survey extends Component {
   render() {
     const { questions, styleName, answers,
        handleSubmit, handleOnSubmit, handleChange, submitting } = this.props;
-    return (
+    return (<div className="workflow-content">
       <Form
         className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit(handleOnSubmit)}
         noValidate
@@ -52,11 +52,12 @@ class Survey extends Component {
          )) : null
        }
         </div>
+
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="survey" disabled={submitting}>next</button>
         </div>
         <Footer />
-      </Form>
+      </Form></div>
     );
   }
 }
