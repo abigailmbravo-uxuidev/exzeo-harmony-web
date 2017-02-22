@@ -20,6 +20,16 @@ a:visited {
       color: $white;
     }
   }
+  &.btn-primary {
+      &:disabled {
+          @include button-variant($cool-gray-05, $cool-gray-03, $cool-gray-03);
+      }
+  }
+  &.btn-secondary {
+      &:disabled {
+          @include button-variant($cool-gray-04, $cool-gray-00, $cool-gray-04);
+      }
+  }
 }
 
 //inputs
