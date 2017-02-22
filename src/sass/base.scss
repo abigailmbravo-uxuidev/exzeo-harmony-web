@@ -1471,6 +1471,36 @@ ul.results {
     }
   }
 }
+
+//thanks
+.thanks-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  .survey-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+      width: auto;
+
+      .contact-methods {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+         a {
+             margin-left: $padding*2;
+         }
+      }
+    }
+  }
+}
 //verify & write policy
 
 .askScheduleInspectionDates {
