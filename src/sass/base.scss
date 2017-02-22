@@ -1391,6 +1391,14 @@ ul.results {
   overflow-y: auto;
   flex-direction: column;
   height: 100%;
+
+  &.askAdditionalCustomerData, &.askUWAnswers {
+      .detailHeader {
+          section.coverageDetails {
+              display: none;
+      }
+    }
+  }
 }
 //Home Page
 
@@ -1428,7 +1436,7 @@ ul.results {
 }
 //Quote Error
 
-.error-content {
+.error-content, .thanks-content {
   display: flex;
   flex-direction: column;
   height: 100%;

@@ -9,7 +9,7 @@ const Splash = () => {
       <div className="fade-in">
         <div className="route">
           <div className="dashboard-message">
-            <h1>Agency Portal</h1>
+            <h2 className="app-header">Agency Portal</h2>
             <h4>Welcome to the TypTap agency portal</h4>
             <p>Brief description of agency portal.</p>
           </div>
@@ -19,7 +19,7 @@ const Splash = () => {
                 <h4 className="product-name"><i className="fa fa-tint" /> Flood Insurance</h4>
               </div>
               <div className="card-block">
-                <h4>Quote and retrieve saved flood quotes.</h4>
+                <h4>Quote and retrieve flood quotes.</h4>
                 <p>We currently offer a stand-alone flood policy for single family residential dwellings in Florida.</p>
               </div>
               <div className="card-footer">
@@ -31,7 +31,7 @@ const Splash = () => {
                 <h4 className="product-name"><i className="fa fa-home" /> Homeowners Insurance</h4>
               </div>
               <div className="card-block">
-                <h4>Quote and retrieve saved HO3 quotes.</h4>
+                <h4>Quote and retrieve HO3 quotes.</h4>
                 <p>Brief description of HO3 product offering.</p>
               </div>
               <div className="card-footer">

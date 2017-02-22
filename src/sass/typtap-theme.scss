@@ -552,7 +552,7 @@ select {
   text-transform: uppercase;
 
   &.btn-primary {
-    @include button-variant($white, $bright-blue, $bright-blue);
+    @include button-variant($white, $green, $green);
   }
 
   &.btn-secondary {
@@ -1333,6 +1333,39 @@ ul.results {
         }
     }
 }
+
+.thanks-content {
+    .card-thanks {
+        max-width: 36rem;
+        margin-bottom: $padding;
+
+        @include for-phone-only {
+            margin: 0 0 ($padding*2);
+            max-width: 300px;
+        }
+
+        .card-header-image-thanks {
+            height: 16rem;
+            background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
+            background-size: cover;
+
+            @include for-phone-only {
+                height: 12rem;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                background: rgba($green,.9);
+                color: $white;
+                margin: (-$padding*1.75) (-$padding*2.5);
+                padding: $padding;
+            }
+        }
+
+        .card-footer {
+            background-color: $cool-gray-00;
+        }
+    }
+}
 //ERROR PAGE animation
 @keyframes waves {
   0% {
@@ -1395,4 +1428,12 @@ div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article
   background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.app-header {
+    color: $bright-blue-darken-03;
+    margin-top: 0;
+}
+.thank-you {
+    padding: $padding
 }
