@@ -29,16 +29,15 @@ export const TextInput = ({
     <span style={{ color: 'red' }}>{error || warning}</span>
   );
 
+  const Label = label && (<label htmlFor={name}>
+    {label} &nbsp; {Hint}
+  </label>);
+
   return (
     <div className={formGroupStyles}>
-      <label htmlFor={classNames(name)}>
-        {label}
-        &nbsp;
-        {Hint}
-      </label>
+      {Label}
       <input
         {...input}
-        onChange={input.onChange}
         type={type}
       />
       {Error}
@@ -80,13 +79,29 @@ TextInput.propTypes = {
   /**
    * Answer Type from original question
    */
-  type: PropTypes.string,
+  type: PropTypes.oneOf([
+    'email',
+    'password',
+    'text',
+    'number',
+    'date',
+    'tel',
+    'search',
+  ]),
 
   /**
    * Stylename for form-group
    */
   styleName: PropTypes.string,
 
+};
+
+TextInput.defaultProps = {
+  hint: '',
+  input: {},
+  meta: {},
+  type: 'text',
+  styleName: '',
 };
 
 export default reduxFormField(TextInput);

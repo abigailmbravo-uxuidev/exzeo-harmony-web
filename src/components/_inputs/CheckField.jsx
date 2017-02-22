@@ -79,4 +79,11 @@ CheckInput.propTypes = {
   styleName: PropTypes.string,
 };
 
+CheckInput.defaultProps = {
+  input: {
+    onChange: () => {},
+  },
+  styleName: '',
+};
+
 export default reduxFormField(CheckInput);

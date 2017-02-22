@@ -8,6 +8,7 @@ import Splash from './Splash';
 import Login from './Login';
 import Quote from './Quote';
 import Header from '../components/common/Header';
+import TestInputPage from '../components/_inputs/TestInputPage';
 import '../components/forms/Rules';
 
 export class App extends Component {
@@ -24,7 +25,7 @@ export class App extends Component {
     lastScrollPos: 0,
   }
   componentWillMount = () => {
-    //this.props.actions.initializeLD();
+    // this.props.actions.initializeLD();
   }
   componentWillReceiveProps = (newProps) => {
     // if (newProps.features.get('ld-started') && !this.props.features.get('ld-started')) {
@@ -33,7 +34,7 @@ export class App extends Component {
     //   this.props.actions.setupFeature('search');
     // }
   }
-  //shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
+  // shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
 
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
@@ -81,6 +82,7 @@ export class App extends Component {
           <Router>
             <div className="content-wrapper">
               <Route exact path="/" component={homeScreen} />
+              <Route path="/test" component={TestInputPage} />
               <Route path="/login" component={Login} />
               <Route exact path="/quote" component={Quote} />
               <Route path="/quote/:activeStep" component={Quote} />

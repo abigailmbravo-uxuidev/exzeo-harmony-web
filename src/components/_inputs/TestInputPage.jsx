@@ -2,13 +2,8 @@
 // TODO: REMOVE THIS PAGE
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, Form } from 'redux-form';
-import {
-  SelectField,
-  SliderField,
-  CheckField,
-  TextField,
-  RadioField,
-} from '../_inputs';
+import * as inputs from '../_inputs';
+import { TextInput } from './TextField';
 
 class TestInputPage extends Component {
 
@@ -24,7 +19,12 @@ class TestInputPage extends Component {
     return (
       <Form className="fade-in" id="survey" onSubmit={formSubmit} noValidate>
         <div className="form-group survey-wrapper" role="group">
-          <SliderField
+          <inputs.TextField
+            label="Textfield Test"
+            name="textCheck"
+            hint="Text Check"
+          />
+          <inputs.SliderField
             label="Slider Test?"
             name="sliderCheck"
             hint="Slider Check"
@@ -32,13 +32,13 @@ class TestInputPage extends Component {
             min={10}
             step={10}
           />
-          <CheckField
+          <inputs.CheckField
             label="Bool Test?"
             name="boolCheck"
             hint="Bool hint"
             isSwitch
           />
-          <RadioField
+          <inputs.RadioField
             label="Radio Test?"
             name="radioCheck"
             hint="Radio Test"
@@ -49,7 +49,7 @@ class TestInputPage extends Component {
             }]}
             segmented
           />
-          <SelectField
+          <inputs.SelectField
             label="Radio Test?"
             name="radioCheck"
             hint="Radio Test"
@@ -72,6 +72,7 @@ class TestInputPage extends Component {
 export default reduxForm({
   form: 'survey', // a unique identifier for this form
   initialValues: {
+    textField: 're',
     sliderCheck: 50,
     boolCheck: true,
     radioCheck: 'one',

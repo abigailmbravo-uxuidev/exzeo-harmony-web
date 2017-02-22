@@ -13,7 +13,7 @@ Heading.propTypes = {
   /**
    * Heading
    */
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
 };
 
 export default Heading;
