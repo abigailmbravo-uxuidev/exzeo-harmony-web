@@ -36,6 +36,7 @@ class Customize extends Component {
 
 
   componentWillReceiveProps(newProps) {
+
     if ((!this.props.data.steps && newProps.data.steps) ||
     (!newProps.data.loading &&
       this.props.data.steps &&
@@ -157,15 +158,19 @@ class Customize extends Component {
 
   recalculateQuote = async () => {
 
-    const { completeStep } = this.props;
+    const { completeStep, activeStep } = this.props;
     const updatedQuote = this.convertQuoteStringsToNumber(this.state);
 
     try {
       let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
-      console.log('THIS IS shouldCustomizeQuote', data);
+      console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
 
-      data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuote));
+      data = await completeStep(this.buildSubmission('customizeDefaultQuote', {dwellingAmount: 500000, otherStructuresAmount: 50000, personalPropertyAmount:250000, personalPropertyReplacementCostCoverage: true}));
+
       console.log('THIS IS customizeDefaultQuote', data);
+
+      // data = await this.props.data.refetch();
+      // console.log('THIS IS askToCustomizeDefaultQuote Again', data);
 
       const { state } = this;
       state.updated = false;
