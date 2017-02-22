@@ -226,7 +226,8 @@ class Verify extends Component {
               <dl>
                 <div>
                   <dt>Ordinance or Law</dt>
-                  <dd>${coverageLimits.ordinanceOrLaw.amount}</dd>
+                  <dd>${coverageLimits.dwelling.amount *
+                     (coverageLimits.ordinanceOrLaw.amount / 100)}</dd>
                 </div>
               </dl>
             </section>
@@ -275,8 +276,7 @@ class Verify extends Component {
                   <dd>{ mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : null}</dd>
                 </div>
               </dl>
-              <dl>
-              </dl>
+              <dl />
             </section>
             <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
           </div>}
