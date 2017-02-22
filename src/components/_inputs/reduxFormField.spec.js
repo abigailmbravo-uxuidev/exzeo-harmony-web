@@ -1,6 +1,6 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import reduxFormField from './reduxFormField';
+// import React from 'react';
+// import { shallow } from 'enzyme';
+// import reduxFormField from './reduxFormField';
 
 describe('reduxFormField', () => {
   it('should render a component passed into redux form field');
