@@ -119,11 +119,15 @@ class Workflow extends Component {
     // <Redirect to="/workflow/underwriting" />
   }
   render() {
-    //const activeStep = (!this.props.data.loading ? this.props.data.steps.name : '');
+    let activeStep = '';
+    if (!this.props.data.loading && this.props.data.steps && this.props.data.steps.name)
+    {
+      activeStep = this.props.data.steps.name;
+    }
     return (
       <div className="fade-in">
         <Router>
-          <div className="route">
+          <div className={`route ${activeStep}`}>
             <WorkflowDetails details={this.state.details || []} />
             <Route path="/quote/search" component={Search} />
             <Route exact path="/quote/search/:address" component={SearchResults} />
