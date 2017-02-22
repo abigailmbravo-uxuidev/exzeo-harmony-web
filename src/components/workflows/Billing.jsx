@@ -42,7 +42,7 @@ const questionsMock = [
     question: 'State',
     validations: ['required'],
     styleName: 'State',
-    name: 'State',
+    name: 'state',
     defaultValueLocation: 'property.physicalAddress.state',
   },
   {
