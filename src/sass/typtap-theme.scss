@@ -1194,7 +1194,14 @@ ul.results {
 .askAdditionalCustomerData {
     .detailHeader {
         .coverageDetails {
-            display: none;
+            dd {
+                display: none;
+            }
+        }
+        .quoteDetails {
+            dd {
+                display: none;
+            }
         }
     }
 }
@@ -1250,7 +1257,14 @@ ul.results {
 .askUWAnswers {
     .detailHeader {
         .coverageDetails {
-            display: none;
+            dd {
+                display: none;
+            }
+        }
+        .quoteDetails {
+            dd {
+                display: none;
+            }
         }
     }
 }
@@ -1350,9 +1364,12 @@ ul.results {
 }
 
 .thanks-content {
+
+
     .card-thanks {
         max-width: 36rem;
         margin-bottom: $padding;
+        box-shadow: 0 0 50px rgba($black, .4);
 
         @include for-phone-only {
             margin: 0 0 ($padding*2);

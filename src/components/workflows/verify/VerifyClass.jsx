@@ -235,7 +235,7 @@ class Verify extends Component {
           </div>
 
           {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
-            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h3>
+            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
             <section className="display-element">
               {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
                  quoteData.policyHolders.map((policyHolder, index) => (
@@ -254,7 +254,7 @@ class Verify extends Component {
             </section>
           </div>}
           {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
-            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h3>
+            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <PolicyHolderUpdateForm handleOnSubmit={this.updateQuote} state={state} />

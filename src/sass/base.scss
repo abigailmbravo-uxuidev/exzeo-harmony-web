@@ -1278,6 +1278,7 @@ ul.results {
         dd {
           margin: 0;
           color: $white;
+
           @include for-phone-only {
             font-size: $font-size-sm;
           }
