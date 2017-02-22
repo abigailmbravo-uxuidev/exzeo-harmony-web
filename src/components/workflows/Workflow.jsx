@@ -84,60 +84,10 @@ class Workflow extends Component {
       steps: [],
     },
     completedSteps: [],
-    activeStep: 'billing',
   }
+
   componentWillMount = () => {
-    const steps = [
-      {
-        name: 'askAdditionalCustomerData',
-        label: 'Demographics',
-        link: 'demographics',
-        order: 1,
-      }, {
-        name: 'askUWAnswers',
-        label: 'UnderWriting Q&A',
-        order: 2,
-        link: 'underwriting',
-      }, {
-        name: 'customizeDefaultQuote',
-        label: 'Customize Quote',
-        order: 3,
-        link: 'customize',
-      }, {
-        name: 'shareIt',
-        label: 'Share Quote',
-        order: 4,
-        link: 'share',
-      }, {
-        name: 'billingInfo',
-        label: 'Billing Info',
-        order: 5,
-        link: 'billing',
-      }, {
-        name: 'verifyWrite',
-        label: 'Verify & Write policy',
-        order: 6,
-        link: 'verify',
-      },
-    ];
     const { workflow } = this.state;
-    // if (!workflow.id) {
-    //   this.props.startWorkflow({ variables:
-    // { input: { name: 'quote', product: '', state: '' } } })
-    //     .then(({ data }) => {
-    //       this.setState({
-    //         workflow: {
-    //           id: data.startWorkflow.id,
-    //           steps,
-    //         }
-    //       });
-    //       this.context.router.push('/workflow/demographics');
-    //     })
-    //     .catch(error => console.log(error));
-    // } else {
-    workflow.steps = steps;
-    this.setState(workflow);
-    // }
   }
 
   componentWillReceiveProps(newProps) {
@@ -148,8 +98,6 @@ class Workflow extends Component {
         (this.props.data.steps.name !== newProps.data.steps.name)
       )) {
       const { steps } = newProps.data;
-
-      console.log('steps.details', steps.details);
       this.setState({ details: steps.details });
     }
   }
@@ -171,42 +119,12 @@ class Workflow extends Component {
     // <Redirect to="/workflow/underwriting" />
   }
   render() {
-    // const details = [{
-    //   name: 'Quote Number',
-    //   value: '509011-102220-01',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Annual Premium',
-    //   value: '11140',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Address',
-    //   value: '19101 SW 56 ST',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Year Built',
-    //   value: '1993',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Coverage A',
-    //   value: '549000',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Coverage B',
-    //   value: '54900',
-    //   __typename: 'WorkflowDetail'
-    // }, {
-    //   name: 'Coverage C',
-    //   value: '274500',
-    //   __typename: 'WorkflowDetail'
-    // }];
-
-    const { workflow, activeStep } = this.state;
+    const activeStep = (!this.props.data.loading ? this.props.data.steps.name : '');
     return (
       <div className="fade-in">
-        <WorkflowDetails details={this.state.details || []} />
         <Router>
-          <div className="route">
+          <div className={`route ${activeStep}`}>
+            <WorkflowDetails details={this.state.details || []} />
             <Route path="/quote/search" component={Search} />
             <Route exact path="/quote/search/:address" component={SearchResults} />
             <Route path="/quote/demographics" component={Demographics} />
@@ -217,12 +135,6 @@ class Workflow extends Component {
             <Route path="/quote/verify" component={Verify} />
             <Route path="/quote/thankyou" component={ThankYou} />
             <Route path="/quote/error" component={ErrorPage} />
-            {/* <Route path="/quote/share" component={Share} />*/}
-            {/* <Route path="/workflow/AdditionalInterests"
-                  component={AdditionalInterestsForm} />*/}
-            {/* <Route path="/workflow/MailingAddress" component={MailingAddressForm} />*/}
-            {/* <Route path="/workflow/billing" component={Billing} />*/}
-            {/* <Route path="/workflow/verify" component={Verify} />*/}
           </div>
         </Router>
       </div>

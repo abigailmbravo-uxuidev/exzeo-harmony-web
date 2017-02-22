@@ -350,16 +350,23 @@
 
           .column-3 {
               width: 33.33%;
+              padding: 0 ($padding*2);
 
               dt {
 
                   span {
+                      font-size: $font-size-h4;
                       display: none;
 
                       @include for-phone-only {
                           display: block;
                       }
                   }
+              }
+
+              dd {
+                  padding: (.25*$padding) $padding;
+                  margin: 0 (-$padding)
               }
 
               @include for-phone-only {
