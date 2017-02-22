@@ -81,6 +81,7 @@ class Verify extends Component {
 
     let property = {};
     let coverageLimits = {};
+    let coverageOptions = {};
     let mailingAddress = {};
 
     let details = {};
@@ -90,6 +91,7 @@ class Verify extends Component {
       quoteData = this.props.data.steps.data[0];
       property = quoteData.property;
       coverageLimits = quoteData.coverageLimits;
+      coverageOptions = quoteData.coverageOptions;
       mailingAddress = quoteData.policyHolderMailingAddress || {};
       initialValues.effectiveDate = moment(quoteData.effectiveDate).format('YYYY-MM-DD');
       details = this.props.data.steps.details;
@@ -190,7 +192,7 @@ class Verify extends Component {
               <dl>
                 <div>
                   <dt>Personal Property Replacement Cost</dt>
-                  <dd>{coverageLimits.personalProperty.amount > 0 ? 'Yes' : 'No'}</dd>
+                  <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
                 </div>
               </dl>
               <dl>
@@ -273,7 +275,7 @@ class Verify extends Component {
                   <dd>{mailingAddress.city}, {mailingAddress.state}
                     {mailingAddress.zip}</dd>
                   <dt>Country</dt>
-                  <dd>{ mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : null}</dd>
+                  <dd>{ mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : 'USA'}</dd>
                 </div>
               </dl>
               <dl />
@@ -288,7 +290,7 @@ class Verify extends Component {
             </section>
           </div>}
 
-          {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
+          {/* {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
             <h3 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h3>
             <section className="display-element">
 
@@ -310,10 +312,14 @@ class Verify extends Component {
                    </dl>
                     )) : null}
             </section>
-            <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
+            <BoolInput styleName="verification"
+            name={'confirmAdditionalInterestsDetails'} question={'Verified'}
+            handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
           </div>}
-          {editConfirmAdditionalInterests && <div className="detail-group additional-interests-details edit">
-            <h4 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h4>
+          {editConfirmAdditionalInterests &&
+          <div className="detail-group additional-interests-details edit">
+            <h4 className="section-group-header"><i className="fa fa-bank" />
+            Additional Interests</h4>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <AdditionalInterestUpdateForm
@@ -321,12 +327,12 @@ class Verify extends Component {
                 handleOnSubmit={this.updateQuote}
               />
             </section>
-          </div>}
+          </div>} */}
 
           <section>
             <Form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
               <div className="workflow-steps">
-                <button disabled={!confirmProperyDetails || !confirmQuoteDetails || !confirmPolicyHolderDetails || !confirmAdditionalInterestsDetails} className="btn btn-primary" type="submit" form="survey">next</button>
+                <button disabled={!confirmProperyDetails || !confirmQuoteDetails || !confirmPolicyHolderDetails} className="btn btn-primary" type="submit" form="survey">next</button>
               </div>
             </Form>
           </section>
