@@ -97,7 +97,7 @@ class Verify extends Component {
 
 
     return (
-      quoteData && <div className="detail-content-wrapper route-verify">
+      quoteData && <div className="workflow-content">
         <div className="detail-wrapper">
           {!editProperty && <div className="detail-group property-details">
             <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>

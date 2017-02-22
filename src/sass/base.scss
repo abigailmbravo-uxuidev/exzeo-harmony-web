@@ -271,6 +271,7 @@ a:visited {
 
     .workflow-content {
       flex-direction: row;
+      overflow-y: auto;
       @include for-phone-only {
         flex-direction: column;
       }
@@ -342,9 +343,11 @@ a:visited {
         }
       }
 
-      section {
+      > section {
         display: flex;
         flex-grow: 1;
+        flex-shrink: 0;
+        height: 100%;
       }
     }
   }
@@ -1388,17 +1391,9 @@ ul.results {
 
 .route {
   display: flex;
-  overflow-y: auto;
+  //overflow-y: auto;
   flex-direction: column;
   height: 100%;
-
-  &.askAdditionalCustomerData, &.askUWAnswers {
-      .detailHeader {
-          section.coverageDetails {
-              display: none;
-      }
-    }
-  }
 }
 //Home Page
 
@@ -1434,9 +1429,23 @@ ul.results {
     }
   }
 }
+//search
+
+.chooseAddress {
+    > .fade-in {
+        overflow-y: auto;
+    }
+}
+//Share
+
+.section-share {
+    height: 100%;
+    flex-shrink: 0;
+}
+
 //Quote Error
 
-.error-content, .thanks-content {
+.error-content {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1464,7 +1473,7 @@ ul.results {
 }
 //verify & write policy
 
-.route-verify {
+.askScheduleInspectionDates {
   width: 100%;
 
   .detail-wrapper {
