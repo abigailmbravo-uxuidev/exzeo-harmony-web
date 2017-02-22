@@ -10,6 +10,7 @@ import localStorage from 'localStorage';
 // import _ from 'lodash';
 import DependentQuestion from '../question/DependentQuestion';
 import BoolInput from '../inputs/BoolInput';
+import Footer from '../common/Footer';
 
 // TODO: Put these questions into db, find where they are in the data passed in
 const questionsMock = [
@@ -254,6 +255,7 @@ class Billing extends Component {
         <div className="workflow-steps">
           <button className="btn btn-primary" type="submit" form="Billing">next</button>
         </div>
+        <Footer />
       </Form>
     );
   }

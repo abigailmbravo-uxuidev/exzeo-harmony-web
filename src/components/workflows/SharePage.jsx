@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
+import Footer from '../common/Footer';
 // import _ from 'lodash';
 
 const CoverageDetails = ({ data }) => (
@@ -265,24 +266,24 @@ class SharePage extends Component {
               noValidate
             >
               <div className="form-group detail-wrapper">
-                <h3 className="section-group-header">Your quote is saved</h3>
+
                 <section className="section-instructions">
-                  <h4><i className="fa fa-share-alt" /> To SHARE this quote as a PDF via email</h4>
-                  <h5>Click the <a className="btn-link" href="">SHARE</a> button</h5>
+                  <h3 className="section-group-header"><i className="fa fa-share-alt" /> Share</h3>
+                  <p>To SHARE this quote as a PDF via email, click the <a className="btn-link" href="">SHARE</a> button</p>
                 </section>
                 <section className="section-instructions">
-                  <h4><i className="fa fa-arrow-circle-right" />  To CONTINUE the quote process</h4>
-                  <h5>You will need the following</h5>
+                  <h3 className="section-group-header"><i className="fa fa-arrow-circle-right" /> Continue</h3>
+                  <p> To CONTINUE the quote process, you will need the following</p>
                   <ul>
                     <li>Mortgage information</li>
                     <li>Name and email address of additional owners</li>
                     <li>Name and address of any other additional insured to add to this policy</li>
                   </ul>
-                  <h5>Click the <a className="btn-link" href="">NEXT</a> button</h5>
+                  <p>When you are prepared to move forward, click the <a className="btn-link" href="">NEXT</a> button</p>
                 </section>
                 <section className="section-instructions">
-                  <h4><i className="fa fa-quote-left" />  To begin a NEW QUOTE</h4>
-                  <h5>Click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> Dasboard</a> tab</h5>
+                  <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
+                  <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> Dasboard</a> tab</p>
                 </section>
               </div>
               <div className="workflow-steps">
@@ -292,6 +293,7 @@ class SharePage extends Component {
             </Form>
           </div>
         </section>
+        <Footer />
       </div>
     );
   }

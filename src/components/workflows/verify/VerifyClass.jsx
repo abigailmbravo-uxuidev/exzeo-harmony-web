@@ -14,6 +14,7 @@ import EffectiveDateForm from '../../forms/EffectiveDate/EffectiveDateForm';
 import PolicyHolderUpdateForm from '../../forms/policyHolder/PolicyHolderUpdateForm';
 import AdditionalInterestUpdateForm from '../../forms/AdditionalInterests/AdditionalInterestUpdateForm';
 import MailingAddressForm from '../../forms/MailingAddress/MailingAddressForm';
+import Footer from '../../common/Footer';
 
 class Verify extends Component {
   static contextTypes = {
@@ -373,7 +374,9 @@ class Verify extends Component {
               </div>
             </Form>
           </section>
+
         </div>
+        <Footer />
       </div>
     );
   }
