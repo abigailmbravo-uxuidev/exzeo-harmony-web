@@ -8,6 +8,7 @@ const Splash = () => {
       <div className="dashboard" role="article">
       <div className="fade-in">
         <div className="route">
+                <div className="fade-in">
           <div className="dashboard-message">
             <h2 className="app-header">Agency Portal</h2>
             <h4>Welcome to the agency portal</h4>
@@ -38,6 +39,7 @@ const Splash = () => {
                 <Link to="/quote" className="btn btn-primary">Start</Link>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

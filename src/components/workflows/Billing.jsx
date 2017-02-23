@@ -202,7 +202,7 @@ class Billing extends Component {
               <label>Bill To</label>
 
               <select name="BillTo" value="">
-                <option value="ph1">Policy Holder1</option>
+                <option value="ph1">Policyholder 1</option>
                 <option value="mh1">Bank of America</option>
                 <option value="mh2">Capital One</option>
               </select>
