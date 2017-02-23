@@ -272,8 +272,7 @@ class Verify extends Component {
                   <dd>{mailingAddress.address1}</dd>
                   <dd>{mailingAddress.address2}</dd>
                   <dt>City/State/Zip</dt>
-                  <dd>{mailingAddress.city}, {mailingAddress.state}
-                    {mailingAddress.zip}</dd>
+                  <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
                   <dt>Country</dt>
                   <dd>{ mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : 'USA'}</dd>
                 </div>
