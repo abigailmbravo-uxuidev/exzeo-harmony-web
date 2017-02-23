@@ -79,9 +79,9 @@ textarea {
             &:checked {
               + span {
                 color: $body-color;
-                border-color: $green;
+                border-color: $bright-blue-lighten-02;
                 background: $white;
-                box-shadow: 0 0 0 2px $green inset;
+                box-shadow: 0 0 0 1px $bright-blue-lighten-02 inset;
               }
             }
           }
@@ -205,7 +205,7 @@ textarea {
       input[type="checkbox"] {
         &:checked {
           +div.switch-div {
-            background: $green;
+            background: $bright-blue-lighten-02;
 
             &:before {
               transform: translateX(2rem);
@@ -1127,28 +1127,39 @@ ul.results {
 //Routes
 //Home Page
 .dashboard {
+    height: 100%;
+    overflow: hidden;
   .fade-in {
-    .product-wrapper {
-      .product {
-          .card-header {
-              &.card-header-image-flood {
-                  background-image: url('../img/flood.jpg');
-                  background-position: center center;
+      height: 100%;
+      overflow: hidden;
+      .route {
+          height: 100%;
+          overflow: hidden;
+          .fade-in {
+              overflow-y: auto;
+            .product-wrapper {
+              .product {
+                  .card-header {
+                      &.card-header-image-flood {
+                          background-image: url('../img/flood.jpg');
+                          background-position: center center;
+                      }
+                      &.card-header-image-home {
+                          background-image: url('../img/home-owners.jpg');
+                          background-position: center center;
+                      }
+                      h1, h2, h3, h4, h5, h6 {
+                          background-color: rgba($cool-gray-10, .75);
+                          margin: (-$padding*1.75) (-$padding*2.5);
+                          padding: $padding;
+                      }
+                  }
+                  .card-footer {
+                      background-color: $cool-gray-00;
+                  }
               }
-              &.card-header-image-home {
-                  background-image: url('../img/home-owners.jpg');
-                  background-position: center center;
-              }
-              h1, h2, h3, h4, h5, h6 {
-                  background-color: rgba($cool-gray-10, .75);
-                  margin: (-$padding*1.75) (-$padding*2.5);
-                  padding: $padding;
-              }
-          }
-          .card-footer {
-              background-color: $cool-gray-00;
-          }
-      }
+            }
+        }
     }
   }
 }
@@ -1282,9 +1293,9 @@ ul.results {
 #Customize {
   .form-group.survey-wrapper {
     input[readonly] {
-      color: $cool-gray-03;
-      border-bottom: 2px solid $cool-gray-02;
-      background-color: $cool-gray-00;
+      color: $body-color;
+      border-bottom: 2px solid $cool-gray-01;
+      background-color: rgba($white, 0);
     }
 
     .form-group {
