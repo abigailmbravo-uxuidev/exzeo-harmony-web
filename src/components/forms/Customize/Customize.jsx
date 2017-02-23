@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form, reset } from 'redux-form';
+import { reduxForm, Form, reset, formValueSelector } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import _ from 'lodash';
-// import { quoteInfo, customizeQuestions } from './customizeMocks';
-import Details from './Details';
+import {connect} from 'react-redux';
 import Footer from '../../common/Footer';
 import DependentQuestion from '../../question/DependentQuestion';
 
@@ -44,7 +43,6 @@ class Customize extends Component {
       this.props.data.steps.name !== newProps.data.steps.name
     )) {
       const { steps } = newProps.data;
-      console.log('NEWSTEPS', steps);
       const { state } = this;
       // Set up default values
       const questions = steps.questions;
@@ -156,21 +154,28 @@ class Customize extends Component {
     return quote;
   }
 
+  convertPercentageToNumber(quote){
+
+  }
+
   recalculateQuote = async () => {
 
-    const { completeStep, activeStep } = this.props;
+    const { completeStep } = this.props;
+
     const updatedQuote = this.convertQuoteStringsToNumber(this.state);
+    const updatedQuoteResult = {
+      dwellingAmount: updatedQuote.dwellingAmount,
+      otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) *  updatedQuote.dwellingAmount),
+      personalPropertyAmount: ((updatedQuote.personalPropertyAmount / 100) *  updatedQuote.dwellingAmount),
+      personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false)
+    }
 
     try {
       let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
-      console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
+      console.log('THIS IS shouldCustomizeQuote', data);
 
-      data = await completeStep(this.buildSubmission('customizeDefaultQuote', {dwellingAmount: 500000, otherStructuresAmount: 50000, personalPropertyAmount:250000, personalPropertyReplacementCostCoverage: true}));
-
+      data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuoteResult));
       console.log('THIS IS customizeDefaultQuote', data);
-
-      // data = await this.props.data.refetch();
-      // console.log('THIS IS askToCustomizeDefaultQuote Again', data);
 
       const { state } = this;
       state.updated = false;
@@ -221,12 +226,9 @@ class Customize extends Component {
       handleSubmit
     } = this.props;
     let questions = [];
-    let details = [];
 
     if (this.props.data && this.props.data.steps) {
-      console.log(this.props.data.steps.data);
       questions = _.sortBy(this.props.data.steps.questions, ['order']);
-      details = this.props.data.steps.details;
     }
     return (
       <div className="workflow-content">
@@ -281,11 +283,25 @@ class Customize extends Component {
   }
 }
 
-const CustomizeQuote = reduxForm({
+let CustomizeQuote = reduxForm({
   form: 'Customize',
 })(Customize);
 
-// const selector = formValueSelector('Customize'); // <-- same as form name
+const selector = formValueSelector('Customize'); // <-- same as form name
+
+CustomizeQuote = connect(
+  state => {
+    const hasEmailValue = selector(state, 'hasEmail')
+    const favoriteColorValue = selector(state, 'favoriteColor')
+    // or together as a group
+    const { firstName, lastName } = selector(state, 'firstName', 'lastName')
+    return {
+      hasEmailValue,
+      favoriteColorValue,
+      fullName: `${firstName || ''} ${lastName || ''}`
+    }
+  }
+)(CustomizeQuote)
 
 export default (graphql(gql `
     query GetActiveStep($workflowId:ID!) {
