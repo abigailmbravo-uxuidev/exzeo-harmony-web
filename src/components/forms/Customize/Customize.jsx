@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form, reset, formValueSelector } from 'redux-form';
+import { reduxForm, Form, reset } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import _ from 'lodash';
-import {connect} from 'react-redux';
 import Footer from '../../common/Footer';
 import DependentQuestion from '../../question/DependentQuestion';
 
@@ -33,9 +32,7 @@ class Customize extends Component {
   }
 
 
-
   componentWillReceiveProps(newProps) {
-
     if ((!this.props.data.steps && newProps.data.steps) ||
     (!newProps.data.loading &&
       this.props.data.steps &&
@@ -145,17 +142,13 @@ class Customize extends Component {
     }
   });
 
-  convertQuoteStringsToNumber(quote){
-    for(let obj in quote){
-      if(_.isString(quote[obj])) {
-        quote[obj] = (Number(quote[obj]) ? Number(quote[obj]) : quote[obj])
+  convertQuoteStringsToNumber(quote) {
+    for (const obj in quote) {
+      if (_.isString(quote[obj])) {
+        quote[obj] = (Number(quote[obj]) ? Number(quote[obj]) : quote[obj]);
       }
     }
     return quote;
-  }
-
-  convertPercentageToNumber(quote){
-
   }
 
   recalculateQuote = async () => {
@@ -171,17 +164,13 @@ class Customize extends Component {
     }
 
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
-      console.log('THIS IS shouldCustomizeQuote', data);
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
+      console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
 
       data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuoteResult));
       console.log('THIS IS customizeDefaultQuote', data);
 
-      const { state } = this;
-      state.updated = false;
-      this.setState(state);
-
-      this.context.router.push(`${data.data.completeStep.link}`);
+      location.reload();
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
@@ -226,9 +215,12 @@ class Customize extends Component {
       handleSubmit
     } = this.props;
     let questions = [];
+    let details = [];
 
     if (this.props.data && this.props.data.steps) {
+      console.log(this.props.data.steps.data);
       questions = _.sortBy(this.props.data.steps.questions, ['order']);
+      details = this.props.data.steps.details;
     }
     return (
       <div className="workflow-content">
@@ -283,25 +275,11 @@ class Customize extends Component {
   }
 }
 
-let CustomizeQuote = reduxForm({
+const CustomizeQuote = reduxForm({
   form: 'Customize',
 })(Customize);
 
-const selector = formValueSelector('Customize'); // <-- same as form name
-
-CustomizeQuote = connect(
-  state => {
-    const hasEmailValue = selector(state, 'hasEmail')
-    const favoriteColorValue = selector(state, 'favoriteColor')
-    // or together as a group
-    const { firstName, lastName } = selector(state, 'firstName', 'lastName')
-    return {
-      hasEmailValue,
-      favoriteColorValue,
-      fullName: `${firstName || ''} ${lastName || ''}`
-    }
-  }
-)(CustomizeQuote)
+// const selector = formValueSelector('Customize'); // <-- same as form name
 
 export default (graphql(gql `
     query GetActiveStep($workflowId:ID!) {
