@@ -33,7 +33,7 @@ const Splash = () => {
               </div>
               <div className="card-block">
                 <h4>New quote / retrieve quote</h4>
-                <p>TypTap currently offers HO3 home owner's policies for single family residential dwellings in Florida.</p>
+                <p>TypTap currently offers HO3 homeowner's policies for single family residential dwellings in Florida.</p>
               </div>
               <div className="card-footer">
                 <Link to="/quote" className="btn btn-primary">Start</Link>
