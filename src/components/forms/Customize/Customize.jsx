@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form, reset } from 'redux-form';
+import { reduxForm, Form, reset, change } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
@@ -47,18 +47,20 @@ class Customize extends Component {
 
       defaultQuestions = _.cloneDeep(questions);
 
+      console.log('STATE AFTER CONVERIONS: ', realQuote);
+
       questions.forEach((question) => {
         if (question.readOnlyValue) {
           state[question.name] = question.readOnlyValue;
         } else if (question.defaultValueLocation) {
           const val = _.get(realQuote, question.defaultValueLocation);
           state[question.name] = val;
+          this.props.dispatch(change('Customize', question.name, _.get(realQuote, question.defaultValueLocation)));
         } else {
           state[question.name] = '';
         }
       });
 
-      // console.log('STATE AFTER CONVERIONS: ', this.state);
 
       state.quoteInfo = realQuote;
 
@@ -82,8 +84,6 @@ class Customize extends Component {
         }
       });
 
-
-      console.log('state', state); // eslint-disable-line
       defaultState = _.cloneDeep(state);
       this.setState(state);
     }
@@ -110,7 +110,6 @@ class Customize extends Component {
       'askToCustomizeDefaultQuote',
      { shouldCustomizeQuote: 'No' }
    )).then((updatedModel) => {
-     console.log('UPDATED MODEL : ', updatedModel);
      const activeLink = updatedModel.data.completeStep.link;
      this.context.router.push(`${activeLink}`);
    }).catch((error) => {
@@ -165,10 +164,10 @@ class Customize extends Component {
 
     try {
       let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
-      console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
+      //console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
 
       data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuoteResult));
-      console.log('THIS IS customizeDefaultQuote', data);
+      //console.log('THIS IS customizeDefaultQuote', data);
 
       location.reload();
     } catch (error) {
@@ -218,13 +217,10 @@ class Customize extends Component {
     let details = [];
 
     if (this.props.data && this.props.data.steps) {
-      console.log(this.props.data.steps.data);
       questions = _.sortBy(this.props.data.steps.questions, ['order']);
-      details = this.props.data.steps.details;
     }
     return (
       <div className="workflow-content">
-        {/* <aside><Details details={details} /></aside>*/}
         <section className="">
           <div className="fade-in">
             <Form
@@ -332,7 +328,7 @@ export default (graphql(gql `
                   }
                 }
                 coverageOptions {
-                  personalPropertyReplacementCost {
+                  personalPropertyReplacementCostCoverage: personalPropertyReplacementCost {
                     answer
                   }
                   sinkholePerilCoverage {
