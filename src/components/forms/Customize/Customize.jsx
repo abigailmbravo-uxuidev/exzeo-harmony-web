@@ -34,9 +34,7 @@ class Customize extends Component {
   }
 
 
-
   componentWillReceiveProps(newProps) {
-
     if ((!this.props.data.steps && newProps.data.steps) ||
     (!newProps.data.loading &&
       this.props.data.steps &&
@@ -147,36 +145,36 @@ class Customize extends Component {
     }
   });
 
-  convertQuoteStringsToNumber(quote){
-    for(let obj in quote){
-      if(_.isString(quote[obj])) {
-        quote[obj] = (Number(quote[obj]) ? Number(quote[obj]) : quote[obj])
+  convertQuoteStringsToNumber(quote) {
+    for (const obj in quote) {
+      if (_.isString(quote[obj])) {
+        quote[obj] = (Number(quote[obj]) ? Number(quote[obj]) : quote[obj]);
       }
     }
     return quote;
   }
 
   recalculateQuote = async () => {
-
     const { completeStep, activeStep } = this.props;
     const updatedQuote = this.convertQuoteStringsToNumber(this.state);
 
     try {
-      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', {shouldCustomizeQuote: 'Yes'}));
+      let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
       console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
 
-      data = await completeStep(this.buildSubmission('customizeDefaultQuote', {dwellingAmount: 500000, otherStructuresAmount: 50000, personalPropertyAmount:250000, personalPropertyReplacementCostCoverage: true}));
+      data = await completeStep(this.buildSubmission('customizeDefaultQuote', { dwellingAmount: 500000, otherStructuresAmount: 50000, personalPropertyAmount: 250000, personalPropertyReplacementCostCoverage: true }));
 
       console.log('THIS IS customizeDefaultQuote', data);
 
-      // data = await this.props.data.refetch();
-      // console.log('THIS IS askToCustomizeDefaultQuote Again', data);
-
-      const { state } = this;
-      state.updated = false;
-      this.setState(state);
-
-      this.context.router.push(`${data.data.completeStep.link}`);
+      // // data = await this.props.data.refetch();
+      // // console.log('THIS IS askToCustomizeDefaultQuote Again', data);
+      //
+      // const { state } = this;
+      // state.updated = false;
+      // this.setState(state);
+      //
+      // this.context.router.push(`${data.data.completeStep.link}`);
+      location.reload();
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
