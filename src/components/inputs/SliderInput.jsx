@@ -46,7 +46,7 @@ const SliderInput = ({
            <span className="range-limit">{rightLabel || max || null}</span>
          </div>
          <span className="range-value">
-                 <span className="value-label">$</span>
+           <span className="value-label">$</span>
            <input
              type="text"
              value={value}

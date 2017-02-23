@@ -636,12 +636,12 @@ html {
       background: $cool-gray-00;
       //app
       .app-wrapper {
-        background: $cool-gray-14;
+        background: $cool-gray-12;
         //header
         header {
           border-bottom: 2px solid $bright-blue;
           background: $black;
-          box-shadow: 0 0 15px 0 $black;
+          box-shadow: 0 0 15px 0 rgba($black, .5);
 
           div[role="banner"] {
             > h1 {
@@ -801,7 +801,7 @@ html {
         }
         //main
         main[role="document"] {
-          box-shadow: 0 15px 15px 0 $black;
+          box-shadow: 0 0 15px 0 rgba($black, .5);
           .content-panel-left {
             background-color: $cool-gray-12;
             background-image: url("../img/TypTap-graphic.svg");
@@ -1142,7 +1142,7 @@ ul.results {
                   .card-header {
                       &.card-header-image-flood {
                           background-image: url('../img/flood.jpg');
-                          background-position: center center;
+                          background-position: right top;
                       }
                       &.card-header-image-home {
                           background-image: url('../img/home-owners.jpg');
