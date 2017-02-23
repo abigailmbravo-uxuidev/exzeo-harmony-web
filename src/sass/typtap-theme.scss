@@ -1366,6 +1366,7 @@ ul.results {
         .card-header-image-csr {
             height: 16rem;
             background-image: url('../img/csr.jpg');
+            background-position: right center;
 
             @include for-phone-only {
                 height: 12rem;
