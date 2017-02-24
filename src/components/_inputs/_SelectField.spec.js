@@ -1,9 +1,18 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-// import { SelectInput } from './SelectField';
+import React from 'react';
+import { shallow } from 'enzyme';
+import { SelectField } from './SelectField';
 
-describe('SelectInput', () => {
-  it('should render "select input"');
+describe('SelectField', () => {
+  it('should render "selectField input" when nothing is provided', () => {
+    const props = {
+      input: {
+        onChange: () => {}
+      }
+    };
+    const wrapper = shallow(<SelectField {...props} />);
+
+    expect(wrapper).to.exist;
+  });
 
   // TODO: Check renders
   // TODO: Check classnames
