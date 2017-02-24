@@ -6,6 +6,7 @@ import localStorage from 'localStorage';
 import _ from 'lodash';
 import Footer from '../../common/Footer';
 import DependentQuestion from '../../question/DependentQuestion';
+import { setDetails } from '../../../actions/detailsActions';
 
 let defaultState;
 let defaultQuestions;
@@ -91,6 +92,17 @@ class Customize extends Component {
   }
 
   handleChange = (event) => {
+    const details = this.props.data.steps.details;
+
+    const premiumIndex = _.indexOf(details, _.find(details, { name: 'Annual Premium' }));
+    details.splice(premiumIndex, 1, { name: 'Annual Premium', value: '-' });
+
+    const coverageAIndex = _.indexOf(details, _.find(details, { name: 'Coverage A' }));
+    details.splice(coverageAIndex, 1, { name: 'Coverage A', value: '-' });
+
+    this.props.dispatch(setDetails(details));
+
+
     const { state } = this;
     state[event.target.name] = event.target.value;
     state.updated = true;
@@ -169,6 +181,11 @@ class Customize extends Component {
       data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuoteResult));
       // console.log('THIS IS customizeDefaultQuote', data);
       data = await this.props.data.refetch();
+
+      this.props.dispatch(setDetails(data.data.steps.details));
+
+      this.state.updated = false;
+      this.setState(this.state);
       // console.log('REFETCHED DATA', data);
       // location.reload();
     } catch (error) {
