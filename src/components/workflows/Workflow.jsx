@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import _ from 'lodash';
 import Demographics from '../workflows/Demographics';
 import Search from '../search/Search';
 import SearchResults from '../search/SearchResults';
@@ -92,6 +93,9 @@ class Workflow extends Component {
 
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
+      (this.props.data.steps && newProps.data.steps &&
+        this.props.data.steps.details && newProps.data.steps.details &&
+      !_.isEqual(this.props.data.steps.details, newProps.data.steps.details)) ||
       (!newProps.data.loading &&
         this.props.data.steps &&
          newProps.data.steps &&
@@ -120,8 +124,7 @@ class Workflow extends Component {
   }
   render() {
     let activeStep = '';
-    if (!this.props.data.loading && this.props.data.steps && this.props.data.steps.name)
-    {
+    if (!this.props.data.loading && this.props.data.steps && this.props.data.steps.name) {
       activeStep = this.props.data.steps.name;
     }
     return (
@@ -154,7 +157,13 @@ export default (connect())(graphql(gql `
                 value
             }
         }
-    }`, { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } } })(graphql(gql`
+    }`, {
+      options: {
+        variables: {
+          workflowId: localStorage.getItem('newWorkflowId')
+        }
+      }
+    })(graphql(gql`
   mutation StartWorkflow($input:WorkflowInput) {
     startWorkflow(input:$input) {
       id

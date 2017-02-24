@@ -35,10 +35,11 @@ class Customize extends Component {
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
     (!newProps.data.loading &&
-      this.props.data.steps &&
+      this.props.data.steps
       // newProps.data.steps &&
-      this.props.data.steps.name !== newProps.data.steps.name
+      // this.props.data.steps.name !== newProps.data.steps.name
     )) {
+      // console.log('REFETCHED DATA FROM RECEIVE PROPS', newProps.data);
       const { steps } = newProps.data;
       const { state } = this;
       // Set up default values
@@ -151,25 +152,25 @@ class Customize extends Component {
   }
 
   recalculateQuote = async () => {
-
     const { completeStep } = this.props;
 
     const updatedQuote = this.convertQuoteStringsToNumber(this.state);
     const updatedQuoteResult = {
       dwellingAmount: updatedQuote.dwellingAmount,
-      otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) *  updatedQuote.dwellingAmount),
-      personalPropertyAmount: ((updatedQuote.personalPropertyAmount / 100) *  updatedQuote.dwellingAmount),
+      otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount),
+      personalPropertyAmount: ((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount),
       personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false)
-    }
+    };
 
     try {
       let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
-      //console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
+      // console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
 
       data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuoteResult));
-      //console.log('THIS IS customizeDefaultQuote', data);
-
-      location.reload();
+      // console.log('THIS IS customizeDefaultQuote', data);
+      data = await this.props.data.refetch();
+      // console.log('REFETCHED DATA', data);
+      // location.reload();
     } catch (error) {
       console.log('Error: ', error); // eslint-disable-line
       this.context.router.push('error');
@@ -214,7 +215,7 @@ class Customize extends Component {
       handleSubmit
     } = this.props;
     let questions = [];
-    let details = [];
+    const details = [];
 
     if (this.props.data && this.props.data.steps) {
       questions = _.sortBy(this.props.data.steps.questions, ['order']);
