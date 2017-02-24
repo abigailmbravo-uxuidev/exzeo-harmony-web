@@ -30,12 +30,14 @@
     "apollo-client": "0.5.0",
     "auth0-js": "^7.4.0",
     "axios": "^0.15.2",
+    "babel-istanbul": "^0.12.1",
     "classnames": "^2.2.5",
     "compression": "^1.6.2",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
+    "istanbul": "^0.4.5",
     "ldclient-js": "^1.1.4",
     "localStorage": "^1.0.3",
     "lodash": "^4.17.4",
@@ -63,7 +65,7 @@
     "both": "node scripts/start-both",
     "start": "node scripts/start-api",
     "dev": "react-scripts start",
-    "test": "mocha --reporter progress utils/testSetup \"src/**/*.spec.js\""
+    "test": "./node_modules/.bin/babel-istanbul cover --include-all-sources true --dir ./documentation/coverage ./node_modules/mocha/bin/_mocha -- -R spec  --reporter progress utils/testSetup \"src/**/*.spec.js\""
   },
   "babel": {
     "presets": [
