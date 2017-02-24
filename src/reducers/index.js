@@ -6,6 +6,8 @@ import localStorage from 'localStorage';
 import auth from './authReducer';
 import features from './featureReducer';
 import search from './searchReducer';
+import details from './detailsReducer';
+
 
 let uri = `${(process.env.REACT_APP_API_URL || 'http://localhost:4001')}/api`;
 console.log(process.env.NODE_ENV);
@@ -31,6 +33,7 @@ export const client = new ApolloClient({ networkInterface });
 
 const rootReducer = combineReducers({
   form: formReducer,
+  details,
   auth,
   features,
   search,

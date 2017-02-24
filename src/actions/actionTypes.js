@@ -10,3 +10,8 @@ export const AUTH_ME = 'AUTH_ME';
 /* SEARCH CONFIG */
 export const CLEAR_SEARCH_CONFIG = 'CLEAR_SEARCH_CONFIG';
 export const SET_SEARCH_CONFIG = 'SET_SEARCH_CONFIG';
+
+
+/* Details */
+export const SET_DETAILS = 'SET_DETAILS';
+export const GET_DETAILS = 'GET_DETAILS';

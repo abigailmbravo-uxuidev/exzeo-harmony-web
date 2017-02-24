@@ -15,6 +15,7 @@ import Verify from './verify/VerifyClass';
 import WorkflowDetails from './WorkflowDetails';
 import Share from './SharePage';
 import Billing from './Billing';
+import { getDetails, setDetails } from '../../actions/detailsActions';
 
 const WorkflowHeader = (d) => {
   console.log(d);
@@ -72,6 +73,8 @@ class Workflow extends Component {
 
   static propTypes = {
     startWorkflow: PropTypes.func,
+    dispatch: PropTypes.func,
+    details: PropTypes.any, // eslint-disable-line
   }
 
   static contextTypes = {
@@ -98,7 +101,7 @@ class Workflow extends Component {
         (this.props.data.steps.name !== newProps.data.steps.name)
       )) {
       const { steps } = newProps.data;
-      this.setState({ details: steps.details });
+      this.props.dispatch(setDetails(steps.details));
     }
   }
 
@@ -118,30 +121,37 @@ class Workflow extends Component {
 
     // <Redirect to="/workflow/underwriting" />
   }
+
   render() {
     const activeStep = (!this.props.data.loading ? this.props.data.steps.name : '');
-    return (
-      <div className="fade-in">
-        <Router>
-          <div className={`route ${activeStep}`}>
-            <WorkflowDetails details={this.state.details || []} />
-            <Route path="/quote/search" component={Search} />
-            <Route exact path="/quote/search/:address" component={SearchResults} />
-            <Route path="/quote/demographics" component={Demographics} />
-            <Route path="/quote/underwriting" component={UWQuestions} />
-            <Route path="/quote/customize" component={Customize} />
-            <Route path="/quote/share" component={Share} />
-            <Route path="/quote/billing" component={Billing} />
-            <Route path="/quote/verify" component={Verify} />
-            <Route path="/quote/thankyou" component={ThankYou} />
-            <Route path="/quote/error" component={ErrorPage} />
-          </div>
-        </Router>
-      </div>
+    const details = this.props.details;
+    console.log(details);
+    return (<div className="fade-in">
+      <Router>
+        <div className={`route ${activeStep}`}>
+          <WorkflowDetails details={details || []} />
+          <Route path="/quote/search" component={Search} />
+          <Route exact path="/quote/search/:address" component={SearchResults} />
+          <Route path="/quote/demographics" component={Demographics} />
+          <Route path="/quote/underwriting" component={UWQuestions} />
+          <Route path="/quote/customize" component={Customize} />
+          <Route path="/quote/share" component={Share} />
+          <Route path="/quote/billing" component={Billing} />
+          <Route path="/quote/verify" component={Verify} />
+          <Route path="/quote/thankyou" component={ThankYou} />
+          <Route path="/quote/error" component={ErrorPage} />
+        </div>
+      </Router>
+    </div>
     );
   }
 }
-export default (connect())(graphql(gql `
+
+const mapStateToProps = state => ({
+  details: state.details.get('details')
+});
+
+export default (connect(mapStateToProps))(graphql(gql `
     query GetActiveStep($workflowId:ID!) {
         steps(id: $workflowId) {
             name
