@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { reduxForm, Form, reset, change } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { connect } from 'react-redux';
 import localStorage from 'localStorage';
 import _ from 'lodash';
 import Footer from '../../common/Footer';
@@ -10,11 +11,13 @@ import { setDetails } from '../../../actions/detailsActions';
 
 let defaultState;
 let defaultQuestions;
+let defaultDetails;
 
 class Customize extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
     data: PropTypes.any, // eslint-disable-line
+    details: PropTypes.any, // eslint-disable-line
     completeStep: PropTypes.func,
     handleSubmit: PropTypes.func,
     styleName: PropTypes.string
@@ -36,9 +39,9 @@ class Customize extends Component {
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
     (!newProps.data.loading &&
-      this.props.data.steps
+      this.props.data.steps &&
       // newProps.data.steps &&
-      // this.props.data.steps.name !== newProps.data.steps.name
+      this.props.data.steps.name !== newProps.data.steps.name
     )) {
       // console.log('REFETCHED DATA FROM RECEIVE PROPS', newProps.data);
       const { steps } = newProps.data;
@@ -48,6 +51,8 @@ class Customize extends Component {
       const realQuote = steps.data[0];
 
       defaultQuestions = _.cloneDeep(questions);
+
+      defaultDetails = _.cloneDeep(steps.details);
 
       console.log('STATE AFTER CONVERIONS: ', realQuote);
 
@@ -133,6 +138,8 @@ class Customize extends Component {
 
   resetState = () => {
     this.props.dispatch(reset('Customize'));
+    this.props.dispatch(setDetails(defaultDetails));
+
     this.props.data.steps.questions = [];
     const self = this;
     setTimeout(() => {
@@ -232,7 +239,6 @@ class Customize extends Component {
       handleSubmit
     } = this.props;
     let questions = [];
-    const details = [];
 
     if (this.props.data && this.props.data.steps) {
       questions = _.sortBy(this.props.data.steps.questions, ['order']);
@@ -289,13 +295,18 @@ class Customize extends Component {
   }
 }
 
+
+const mapStateToProps = state => ({
+  details: state.details.get('details')
+});
+
 const CustomizeQuote = reduxForm({
   form: 'Customize',
 })(Customize);
 
 // const selector = formValueSelector('Customize'); // <-- same as form name
 
-export default (graphql(gql `
+export default (connect(mapStateToProps))(graphql(gql `
     query GetActiveStep($workflowId:ID!) {
         steps(id: $workflowId) {
             name
