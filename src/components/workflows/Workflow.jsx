@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import _ from 'lodash';
 import Demographics from '../workflows/Demographics';
 import Search from '../search/Search';
 import SearchResults from '../search/SearchResults';
@@ -123,26 +124,31 @@ class Workflow extends Component {
   }
 
   render() {
-    const activeStep = (!this.props.data.loading ? this.props.data.steps.name : '');
+    let activeStep = '';
+    if (!this.props.data.loading && this.props.data.steps && this.props.data.steps.name) {
+      activeStep = this.props.data.steps.name;
+    }
     const details = this.props.details;
     console.log(details);
-    return (<div className="fade-in">
-      <Router>
-        <div className={`route ${activeStep}`}>
-          <WorkflowDetails details={details || []} />
-          <Route path="/quote/search" component={Search} />
-          <Route exact path="/quote/search/:address" component={SearchResults} />
-          <Route path="/quote/demographics" component={Demographics} />
-          <Route path="/quote/underwriting" component={UWQuestions} />
-          <Route path="/quote/customize" component={Customize} />
-          <Route path="/quote/share" component={Share} />
-          <Route path="/quote/billing" component={Billing} />
-          <Route path="/quote/verify" component={Verify} />
-          <Route path="/quote/thankyou" component={ThankYou} />
-          <Route path="/quote/error" component={ErrorPage} />
-        </div>
-      </Router>
-    </div>
+
+    return (
+      <div className="fade-in">
+        <Router>
+          <div className={`route ${activeStep}`}>
+            <WorkflowDetails details={details || []} />
+            <Route path="/quote/search" component={Search} />
+            <Route exact path="/quote/search/:address" component={SearchResults} />
+            <Route path="/quote/demographics" component={Demographics} />
+            <Route path="/quote/underwriting" component={UWQuestions} />
+            <Route path="/quote/customize" component={Customize} />
+            <Route path="/quote/share" component={Share} />
+            <Route path="/quote/billing" component={Billing} />
+            <Route path="/quote/verify" component={Verify} />
+            <Route path="/quote/thankyou" component={ThankYou} />
+            <Route path="/quote/error" component={ErrorPage} />
+          </div>
+        </Router>
+      </div>
     );
   }
 }
@@ -160,7 +166,13 @@ export default (connect(mapStateToProps))(graphql(gql `
                 value
             }
         }
-    }`, { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } } })(graphql(gql`
+    }`, {
+      options: {
+        variables: {
+          workflowId: localStorage.getItem('newWorkflowId')
+        }
+      }
+    })(graphql(gql`
   mutation StartWorkflow($input:WorkflowInput) {
     startWorkflow(input:$input) {
       id

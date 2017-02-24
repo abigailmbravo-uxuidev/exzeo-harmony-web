@@ -81,6 +81,7 @@ class Verify extends Component {
 
     let property = {};
     let coverageLimits = {};
+    let coverageOptions = {};
     let mailingAddress = {};
 
     let details = {};
@@ -90,6 +91,7 @@ class Verify extends Component {
       quoteData = this.props.data.steps.data[0];
       property = quoteData.property;
       coverageLimits = quoteData.coverageLimits;
+      coverageOptions = quoteData.coverageOptions;
       mailingAddress = quoteData.policyHolderMailingAddress || {};
       initialValues.effectiveDate = moment(quoteData.effectiveDate).format('YYYY-MM-DD');
       details = this.props.data.steps.details;
@@ -97,7 +99,7 @@ class Verify extends Component {
 
 
     return (
-      quoteData && <div className="detail-content-wrapper route-verify">
+      quoteData && <div className="workflow-content">
         <div className="detail-wrapper">
           {!editProperty && <div className="detail-group property-details">
             <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>
@@ -190,7 +192,7 @@ class Verify extends Component {
               <dl>
                 <div>
                   <dt>Personal Property Replacement Cost</dt>
-                  <dd>{coverageLimits.personalProperty.amount > 0 ? 'Yes' : 'No'}</dd>
+                  <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
                 </div>
               </dl>
               <dl>
@@ -226,7 +228,8 @@ class Verify extends Component {
               <dl>
                 <div>
                   <dt>Ordinance or Law</dt>
-                  <dd>${coverageLimits.ordinanceOrLaw.amount}</dd>
+                  <dd>${coverageLimits.dwelling.amount *
+                     (coverageLimits.ordinanceOrLaw.amount / 100)}</dd>
                 </div>
               </dl>
             </section>
@@ -234,7 +237,7 @@ class Verify extends Component {
           </div>
 
           {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
-            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h3>
+            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
             <section className="display-element">
               {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
                  quoteData.policyHolders.map((policyHolder, index) => (
@@ -253,7 +256,7 @@ class Verify extends Component {
             </section>
           </div>}
           {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
-            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policy Holder Details</h3>
+            <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <PolicyHolderUpdateForm handleOnSubmit={this.updateQuote} state={state} />
@@ -269,14 +272,12 @@ class Verify extends Component {
                   <dd>{mailingAddress.address1}</dd>
                   <dd>{mailingAddress.address2}</dd>
                   <dt>City/State/Zip</dt>
-                  <dd>{mailingAddress.city}, {mailingAddress.state}
-                    {mailingAddress.zip}</dd>
+                  <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
                   <dt>Country</dt>
-                  <dd>{ mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : null}</dd>
+                  <dd>{ mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : 'USA'}</dd>
                 </div>
               </dl>
-              <dl>
-              </dl>
+              <dl />
             </section>
             <BoolInput styleName="verification" name={'confirmPolicyHolderDetails'} question={'Verified'} handleChange={function () {}} value={confirmPolicyHolderDetails} isSwitch />
           </div>}
@@ -288,7 +289,7 @@ class Verify extends Component {
             </section>
           </div>}
 
-          {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
+          {/* {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
             <h3 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h3>
             <section className="display-element">
 
@@ -310,10 +311,14 @@ class Verify extends Component {
                    </dl>
                     )) : null}
             </section>
-            <BoolInput styleName="verification" name={'confirmAdditionalInterestsDetails'} question={'Verified'} handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
+            <BoolInput styleName="verification"
+            name={'confirmAdditionalInterestsDetails'} question={'Verified'}
+            handleChange={function () {}} value={confirmAdditionalInterestsDetails} isSwitch />
           </div>}
-          {editConfirmAdditionalInterests && <div className="detail-group additional-interests-details edit">
-            <h4 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h4>
+          {editConfirmAdditionalInterests &&
+          <div className="detail-group additional-interests-details edit">
+            <h4 className="section-group-header"><i className="fa fa-bank" />
+            Additional Interests</h4>
             <div className="editing"><i className="fa fa-pencil" /> Editing</div>
             <section className="display-element">
               <AdditionalInterestUpdateForm
@@ -321,12 +326,12 @@ class Verify extends Component {
                 handleOnSubmit={this.updateQuote}
               />
             </section>
-          </div>}
+          </div>} */}
 
           <section>
             <Form className={`fade-in ${styleName || ''}`} id="survey" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
               <div className="workflow-steps">
-                <button disabled={!confirmProperyDetails || !confirmQuoteDetails || !confirmPolicyHolderDetails || !confirmAdditionalInterestsDetails} className="btn btn-primary" type="submit" form="survey">next</button>
+                <button disabled={!confirmProperyDetails || !confirmQuoteDetails || !confirmPolicyHolderDetails} className="btn btn-primary" type="submit" form="survey">next</button>
               </div>
             </Form>
           </section>
