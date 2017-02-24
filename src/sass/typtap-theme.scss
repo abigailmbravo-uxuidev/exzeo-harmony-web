@@ -20,6 +20,16 @@ a:visited {
       color: $white;
     }
   }
+  &.btn-primary {
+      &:disabled {
+          @include button-variant($cool-gray-05, $cool-gray-03, $cool-gray-03);
+      }
+  }
+  &.btn-secondary {
+      &:disabled {
+          @include button-variant($cool-gray-04, $cool-gray-00, $cool-gray-04);
+      }
+  }
 }
 
 //inputs
@@ -69,9 +79,9 @@ textarea {
             &:checked {
               + span {
                 color: $body-color;
-                border-color: $green;
+                border-color: $bright-blue-lighten-02;
                 background: $white;
-                box-shadow: 0 0 0 2px $green inset;
+                box-shadow: 0 0 0 1px $bright-blue-lighten-02 inset;
               }
             }
           }
@@ -195,7 +205,7 @@ textarea {
       input[type="checkbox"] {
         &:checked {
           +div.switch-div {
-            background: $green;
+            background: $bright-blue-lighten-02;
 
             &:before {
               transform: translateX(2rem);
@@ -552,7 +562,7 @@ select {
   text-transform: uppercase;
 
   &.btn-primary {
-    @include button-variant($white, $bright-blue, $bright-blue);
+    @include button-variant($white, $green, $green);
   }
 
   &.btn-secondary {
@@ -626,12 +636,12 @@ html {
       background: $cool-gray-00;
       //app
       .app-wrapper {
-        background: $cool-gray-14;
+        background: $cool-gray-12;
         //header
         header {
           border-bottom: 2px solid $bright-blue;
           background: $black;
-          box-shadow: 0 0 15px 0 $black;
+          box-shadow: 0 0 15px 0 rgba($black, .5);
 
           div[role="banner"] {
             > h1 {
@@ -791,7 +801,7 @@ html {
         }
         //main
         main[role="document"] {
-          box-shadow: 0 15px 15px 0 $black;
+          box-shadow: 0 0 15px 0 rgba($black, .5);
           .content-panel-left {
             background-color: $cool-gray-12;
             background-image: url("../img/TypTap-graphic.svg");
@@ -1117,33 +1127,44 @@ ul.results {
 //Routes
 //Home Page
 .dashboard {
+    height: 100%;
+    overflow: hidden;
   .fade-in {
-    .product-wrapper {
-      .product {
-          .card-header {
-              &.card-header-image-flood {
-                  background-image: url('../img/flood.jpg');
-                  background-position: center center;
+      height: 100%;
+      overflow: hidden;
+      .route {
+          height: 100%;
+          overflow: hidden;
+          .fade-in {
+              overflow-y: auto;
+            .product-wrapper {
+              .product {
+                  .card-header {
+                      &.card-header-image-flood {
+                          background-image: url('../img/flood.jpg');
+                          background-position: right top;
+                      }
+                      &.card-header-image-home {
+                          background-image: url('../img/home-owners.jpg');
+                          background-position: center center;
+                      }
+                      h1, h2, h3, h4, h5, h6 {
+                          background-color: rgba($cool-gray-10, .75);
+                          margin: (-$padding*1.75) (-$padding*2.5);
+                          padding: $padding;
+                      }
+                  }
+                  .card-footer {
+                      background-color: $cool-gray-00;
+                  }
               }
-              &.card-header-image-home {
-                  background-image: url('../img/home-owners.jpg');
-                  background-position: center center;
-              }
-              h1, h2, h3, h4, h5, h6 {
-                  background-color: rgba($cool-gray-10, .75);
-                  margin: (-$padding*1.75) (-$padding*2.5);
-                  padding: $padding;
-              }
-          }
-          .card-footer {
-              background-color: $cool-gray-00;
-          }
-      }
+            }
+        }
     }
   }
 }
 //verify & write policy
-.route-verify {
+.askScheduleInspectionDates {
   .detail-wrapper {
     .detail-group {
 
@@ -1191,6 +1212,20 @@ ul.results {
   }
 }
 //Demographics page
+.askAdditionalCustomerData {
+    .detailHeader {
+        .coverageDetails {
+            dd {
+                display: none;
+            }
+        }
+        .quoteDetails {
+            dd {
+                display: none;
+            }
+        }
+    }
+}
 #Demographics {
   .form-group {
     .FirstName {
@@ -1239,13 +1274,28 @@ ul.results {
     }
   }
 }
+//Underwriting page
+.askUWAnswers {
+    .detailHeader {
+        .coverageDetails {
+            dd {
+                display: none;
+            }
+        }
+        .quoteDetails {
+            dd {
+                display: none;
+            }
+        }
+    }
+}
 //Customize Quote page
 #Customize {
   .form-group.survey-wrapper {
     input[readonly] {
-      color: $cool-gray-03;
-      border-bottom: 2px solid $cool-gray-02;
-      background-color: $cool-gray-00;
+      color: $body-color;
+      border-bottom: 2px solid $cool-gray-01;
+      background-color: rgba($white, 0);
     }
 
     .form-group {
@@ -1316,6 +1366,7 @@ ul.results {
         .card-header-image-csr {
             height: 16rem;
             background-image: url('../img/csr.jpg');
+            background-position: right center;
 
             @include for-phone-only {
                 height: 12rem;
@@ -1323,6 +1374,42 @@ ul.results {
 
             h1, h2, h3, h4, h5, h6 {
                 background: rgba($red,.8);
+                margin: (-$padding*1.75) (-$padding*2.5);
+                padding: $padding;
+            }
+        }
+
+        .card-footer {
+            background-color: $cool-gray-00;
+        }
+    }
+}
+
+.thanks-content {
+
+
+    .card-thanks {
+        max-width: 36rem;
+        margin-bottom: $padding;
+        box-shadow: 0 0 50px rgba($black, .4);
+
+        @include for-phone-only {
+            margin: 0 0 ($padding*2);
+            max-width: 300px;
+        }
+
+        .card-header-image-thanks {
+            height: 16rem;
+            background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
+            background-size: cover;
+
+            @include for-phone-only {
+                height: 12rem;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                background: rgba($green-darken-03,.9);
+                color: $white;
                 margin: (-$padding*1.75) (-$padding*2.5);
                 padding: $padding;
             }
@@ -1395,4 +1482,12 @@ div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article
   background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.app-header {
+    color: $bright-blue-darken-03;
+    margin-top: 0;
+}
+.thank-you {
+    padding: $padding
 }

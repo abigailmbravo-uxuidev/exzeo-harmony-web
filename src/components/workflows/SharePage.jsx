@@ -259,7 +259,7 @@ class SharePage extends Component {
 
     return (
       <div className="workflow-content">
-        <section className="">
+        <section className="section-share">
           <div className="fade-in">
             <Form
               className={`fade-in ${styleName || ''}`} id="SharePage" onSubmit={handleSubmit(this.handleOnSubmit)}
