@@ -6,8 +6,35 @@ import { reduxForm, Form, formValueSelector } from 'redux-form';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
+import FormGenerator from '../form/FormGenerator';
 import DependentQuestion from '../question/DependentQuestion';
 import Footer from '../common/Footer';
+
+const agentQuestion = {
+  question: 'Agent',
+  name: 'agentID',
+  answerType: 'select',
+  answers: [{
+    answer: 60000,
+    label: 'Adam Doe',
+  }, {
+    answer: 60001,
+    label: 'John Doe',
+  }, {
+    answer: 60002,
+    label: 'Cathy Doe',
+  }, {
+    answer: 60003,
+    label: 'Emily Doe',
+  }, {
+    answer: 60004,
+    label: 'Hero Doe',
+  }, {
+    answer: 60005,
+    label: 'Jose Doe',
+  }],
+  validations: ['required']
+};
 
 class Demographics extends Component {
   static contextTypes = {
@@ -18,10 +45,6 @@ class Demographics extends Component {
     questions: []
   };
 
-  componentWillMount() {
-    // this.props.dispatch(change('Demographics', 'entityType', 'Person'));
-  }
-
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
       (!newProps.data.loading &&
@@ -30,12 +53,9 @@ class Demographics extends Component {
         this.props.data.steps.name !== newProps.data.steps.name
       )) {
       const { steps } = newProps.data;
+      steps.questions.push(agentQuestion);
       this.setState({ questions: steps.questions });
     }
-  }
-
-  handleChange = () => {
-
   }
 
   handleOnSubmit = (event) => {
@@ -58,55 +78,24 @@ class Demographics extends Component {
     });
   }
 
-  formatData = (demographicAnswers) => {
-    const answers = [];
-    Object.keys(demographicAnswers).forEach((key) => {
-      answers.push({ key, value: demographicAnswers[key] });
-    });
-    return answers;
-  }
-
   render() {
-    const { styleName, handleSubmit } = this.props;
+    const { styleName, handleSubmit, initialValues } = this.props;
     const { questions } = this.state;
 
     return (
       <div className="workflow-content">
         <section className="">
           <div className="fade-in">
-            <Form
-              className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
-              noValidate
+            <FormGenerator
+              name="Demographics"
+              initialValues={initialValues}
+              questions={questions}
+              data={this.state.quoteInfo}
+              handleOnSubmit={this.handleOnSubmit}
+              styleName={styleName}
             >
-              <div className="form-group survey-wrapper" role="group">
-                {questions && questions.map((question, index) => (
-                  <DependentQuestion
-                    data={this.state.quoteInfo}
-                    question={question}
-                    answers={this.state}
-                    handleChange={this.handleChange}
-                    key={index}
-                  />
-                ))}
-                <div className="form-group agentID" role="group">
-                  <label htmlFor="agencyID">Agent</label>
-                  <select name="agencyID">
-                    <option value="60000">Adam Doe</option>
-                    <option value="60001">Betsy Doe</option>
-                    <option value="60002">Cathy Doe</option>
-                    <option value="60003">Daniel Doe</option>
-                    <option value="60004">Ethan Doe</option>
-                    <option value="60005">Frank Doe</option>
-                    <option value="60006">Gail Doe</option>
-                    <option value="60007">Helen Doe</option>
-                  </select>
-                </div>
-              </div>
-              <div className="workflow-steps">
-                <button className="btn btn-primary" type="submit" form="Demographics">next</button>
-              </div>
-              <Footer />
-            </Form>
+              <button className="btn btn-primary" type="submit" form="Demographics">next</button>
+            </FormGenerator>
           </div>
         </section>
       </div>
@@ -123,25 +112,19 @@ Demographics.propTypes = {
   styleName:PropTypes.any,// eslint-disable-line
 };
 
-Demographics = reduxForm({
-  form: 'Demographics',
-})(Demographics);
+// Demographics = reduxForm({
+//   form: 'Demographics',
+// })(Demographics);
 
-const selector = formValueSelector('Demographics'); // <-- same as form name
 
 Demographics = connect(
-    (state) => {
-      const effectiveDate = selector(state, 'effectiveDate');
-
-      return {
-        initialValues: {
-          effectiveDate: moment().add(5, 'days').format('YYYY-MM-DD'),
-        },
-        formName: 'Demographics',
-        effectiveDate,
-        state,
-      };
-    },
+    state => ({
+      initialValues: {
+        effectiveDate: moment().add(5, 'days').format('YYYY-MM-DD'),
+      },
+      formName: 'Demographics',
+      state,
+    }),
   )(graphql(gql `
   query GetActiveStep($workflowId:ID!) {
     steps(id: $workflowId) {

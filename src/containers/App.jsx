@@ -8,7 +8,7 @@ import Splash from './Splash';
 import Login from './Login';
 import Quote from './Quote';
 import Header from '../components/common/Header';
-import TestInputPage from '../components/_inputs/TestInputPage';
+import TestInputPage from '../components/form/inputs/TestInputPage';
 import '../components/forms/Rules';
 
 export class App extends Component {

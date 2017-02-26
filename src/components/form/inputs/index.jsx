@@ -1,4 +1,5 @@
 export { default as CheckField } from './CheckField';
+export { default as DisplayField } from './DisplayField';
 export { default as FormHeading } from './FormHeading';
 export { default as RadioField } from './RadioField';
 export { default as SelectField } from './SelectField';

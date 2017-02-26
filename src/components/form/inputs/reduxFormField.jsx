@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { combineRules } from '../forms/Rules';
+import { combineRules } from '../Rules';
 
 export default function reduxFormField(fieldComponent) {
   return class FormField extends Component {
@@ -11,11 +11,6 @@ export default function reduxFormField(fieldComponent) {
        * Disabled prop for input
        */
       disabled: PropTypes.bool,
-
-      /**
-       * Handle change for controlled component
-       */
-      handleChange: PropTypes.func,
 
       /**
        * Tooltip hint for component
@@ -75,7 +70,6 @@ export default function reduxFormField(fieldComponent) {
     render() {
       const {
         disabled,
-        handleChange,
         hint,
         label,
         name,
@@ -98,7 +92,6 @@ export default function reduxFormField(fieldComponent) {
           component={fieldComponent}
           type={type}
           name={name}
-          handleChange={handleChange}
           validate={ruleArray}
           value={value}
         />
