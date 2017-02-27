@@ -49,7 +49,7 @@ RadioOption.propTypes = {
   /**
    * Change handler from parent
    */
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 
   /**
    * Number of answers, for styling
