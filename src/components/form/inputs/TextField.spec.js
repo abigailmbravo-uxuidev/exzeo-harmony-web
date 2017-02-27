@@ -85,7 +85,7 @@ describe('TextInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
       <span>{inputProps.meta.error}</span>,
-    ]));
+    ])).to.equal(true);
   });
 
   it('should render "text input" with error, when touched and warning are provided', () => {
@@ -100,7 +100,7 @@ describe('TextInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
       <span>{inputProps.meta.warning}</span>,
-    ]));
+    ])).to.equal(true);
   });
 
   it('should render "text input" without FieldHint, when name and hint are provided', () => {
@@ -115,15 +115,14 @@ describe('TextInput', () => {
     expect(wrapper.find(FieldHint)).to.have.length(0);
   });
 
-  it('should render "text input" without error, when meta with !touched is provided');
-  it('should render "text input" without error, when meta with !touched and error are provided');
-  it('should render "text input" without error, when meta with !touched and warning are provided');
-  it('should render with "form-group" classname when nothing is provided');
-  it('should render with "form-group {name}" classname when name is provided');
-  it('should render with "form-group disabled" classname when disabled is provided');
-  it('should render with "form-group valid" classname when touched and !error are provided');
-  it('should render with "form-group error" classname when touched and error are provided');
-
+  // it('should render "text input" without error, when meta with !touched is provided');
+  // it('should render "text input" without error, when meta with !touched, error are provided');
+  // it('should render "text input" without error, when meta with !touched, warning are provided');
+  // it('should render with "form-group" classname when nothing is provided');
+  // it('should render with "form-group {name}" classname when name is provided');
+  // it('should render with "form-group disabled" classname when disabled is provided');
+  // it('should render with "form-group valid" classname when touched and !error are provided');
+  // it('should render with "form-group error" classname when touched and error are provided');
   // TODO: Check renders
   // TODO: Check classnames
   // TODO: Check props

@@ -1,0 +1,26 @@
+{
+  "include": [
+    "src/**"
+  ],
+  "exclude": [
+    "src/**/*.spec.js",
+    "build"
+  ],
+  "reporter": [
+    "html",
+    "lcov",
+    "text-summary"
+  ],
+  "extension": [
+    ".js",
+    ".jsx",
+    ".es6"
+  ],
+  "require": [
+    "babel-register"
+  ],
+  "sourceMap": false,
+  "instrument": false,
+  "all": true,
+  "report-dir": "./documentation/coverage/"
+}

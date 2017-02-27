@@ -82,6 +82,7 @@ CheckInput.propTypes = {
 CheckInput.defaultProps = {
   input: {
     onChange: () => {},
+    value: false,
   },
   styleName: '',
 };
