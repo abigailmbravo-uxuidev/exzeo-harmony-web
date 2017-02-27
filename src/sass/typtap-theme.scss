@@ -1,7 +1,12 @@
-/*typtap specific styles & layout*/
-@import "base.scss";
-/*universal typtap styles*/
+/*BASE LAYOUT & STYLES*/
+/*|||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
+@import "base.scss"; //base styles partial
+/*TYPTAP LAYOUT & STYLES*/
+/*|||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
 //links
+/*------------------------------------------------------------------------------------*/
 a,
 a:visited {
   text-decoration: none;
@@ -12,7 +17,11 @@ a:visited {
     color: $bright-blue-darken-02;
   }
 }
+//buttons
+/*------------------------------------------------------------------------------------*/
 .btn {
+  text-transform: uppercase;
+
   &.btn-success {
     color: $white;
 
@@ -20,19 +29,25 @@ a:visited {
       color: $white;
     }
   }
+
   &.btn-primary {
-      &:disabled {
-          @include button-variant($cool-gray-05, $cool-gray-03, $cool-gray-03);
-      }
+    @include button-variant($white, $green, $green);
+
+    &:disabled {
+      @include button-variant($cool-gray-05, $cool-gray-03, $cool-gray-03);
+    }
   }
+
   &.btn-secondary {
-      &:disabled {
-          @include button-variant($cool-gray-04, $cool-gray-00, $cool-gray-04);
-      }
+    @include button-variant($bright-blue, $white, $bright-blue);
+
+    &:disabled {
+      @include button-variant($cool-gray-04, $cool-gray-00, $cool-gray-04);
+    }
   }
 }
-
-//inputs
+//inputs & forms
+/*------------------------------------------------------------------------------------*/
 input,
 textarea {
   width: 100%;
@@ -49,6 +64,7 @@ textarea {
     color: $cool-gray-02;
     font-style: italic;
   }
+
   &:focus {
     background: lighten( $cool-gray-00, 2.5% );
   }
@@ -61,7 +77,6 @@ textarea {
     background: lighten($cool-gray-00, 10%);
   }
 }
-
 .form-group {
   width: 100%;
 
@@ -546,7 +561,6 @@ textarea {
     line-height: 1.25rem;
   }
 }
-
 select {
   border-width: 2px;
   border-color: $cool-gray-02;
@@ -555,27 +569,14 @@ select {
     height: 2.375rem;
   }
 }
-//buttons
-
-.btn {
-  //height: auto;
-  text-transform: uppercase;
-
-  &.btn-primary {
-    @include button-variant($white, $green, $green);
-  }
-
-  &.btn-secondary {
-    @include button-variant($bright-blue, $white, $bright-blue);
-  }
-}
 //vertical tabs
-
+/*------------------------------------------------------------------------------------*/
 .side-panel {
   nav {
     display: flex;
     flex-direction: column;
-    border-right: 1px solid $warm-gray-01;
+    border-color: $cool-gray-01;
+    border-right: 1px solid $cool-gray-01;
 
     a {
       color: $bright-blue;
@@ -605,390 +606,346 @@ select {
     }
   }
 }
+//details & surveys
+/*------------------------------------------------------------------------------------*/
+.survey-wrapper {
+  .section-group-header {
+    color: $bright-blue-darken-03;
+  }
+}
+.detail-wrapper {
+  .section-group-header {
+    width: 100%;
+    padding: ($padding);
+    color: $bright-blue-darken-03;
+  }
+}
 //cards
-
+/*------------------------------------------------------------------------------------*/
 .card {
   background: $white;
+
+  .card-header {
+    background-color: $cool-gray-00;
+  }
 
   .card-block {
     display: flex;
     flex-direction: column;
   }
 }
-//side panel navigation
-
-.side-panel {
-  nav {
-    border-color: $cool-gray-01;
-
-    a {}
-  }
+//modal
+/*------------------------------------------------------------------------------------*/
+.modal {
+  z-index: 10;
+  background: rgba($black, .75);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
+  background-position: center center;
+  background-size: cover;
 }
-/*specific typtap styles*/
+//TYPTAP APP SPECIFIC STYLES
+/*|||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
+//main site structure
+/*------------------------------------------------------------------------------------*/
 html {
   background: $cool-gray-14;
-
+  //site body
   body {
-    //site background
     background: $cool-gray-14;
+  }
+  //site background
+  div#root {
+    background: $cool-gray-00;
+  }
+}
+//app - first div inside app "root"
+/*------------------------------------------------------------------------------------*/
+.app-wrapper {
+  background: $cool-gray-12;
+}
+//header - includes logo and main navigation
+/*------------------------------------------------------------------------------------*/
+header {
+  border-bottom: 2px solid $bright-blue;
+  background: $black;
+  box-shadow: 0 0 15px 0 rgba($black, .5);
 
-    div#root {
-      background: $cool-gray-00;
-      //app
-      .app-wrapper {
-        background: $cool-gray-12;
-        //header
-        header {
-          border-bottom: 2px solid $bright-blue;
-          background: $black;
-          box-shadow: 0 0 15px 0 rgba($black, .5);
+  div[role="banner"] {
+    > h1 {
+      color: $cool-gray-10;
+    }
 
-          div[role="banner"] {
-            > h1 {
-              color: $cool-gray-10;
+    > nav {
+      @include for-phone-only {
+        //border: 1px solid $cool-gray-00;
+        background: $white;
+      }
+      @include for-tablet-portrait-up {
+        //border: 1px solid $cool-gray-00;
+        background: $white;
+      }
+      @include for-tablet-landscape-up {
+        border-width: 0;
+        background: transparent;
+      }
+
+      a {
+        @include for-phone-only {
+          border-top: 1px dashed $cool-gray-02;
+
+          &:first-child,
+          &:last-child {
+            border-top-width: 0;
+          }
+        }
+        @include for-tablet-portrait-up {
+          color: $bright-blue;
+          border-top: 1px dashed $cool-gray-02;
+
+          &:first-child {
+            border-top-width: 0;
+          }
+        }
+        @include for-tablet-landscape-up {
+          color: $cool-gray-04;
+          border-top-width: 0;
+        }
+
+        &:hover {
+          color: $bright-blue-lighten-02;
+          @include for-tablet-landscape-up {
+            color: $white;
+          }
+        }
+
+        &.active {
+          color: $cool-gray-00;
+          border-bottom-color: $bright-blue;
+          @include for-phone-only {
+            color: $body-color;
+          }
+          @include for-tablet-portrait-up {
+            color: $body-color;
+          }
+          @include for-tablet-landscape-up {
+            color: $white;
+          }
+
+          &:hover {
+            color: $cool-gray-00;
+            @include for-phone-only {
+              color: $body-color;
             }
+            @include for-tablet-portrait-up {
+              color: $body-color;
+            }
+            @include for-tablet-landscape-up {
+              color: $white;
+            }
+          }
+        }
 
-            > nav {
-              @include for-phone-only {
-                //border: 1px solid $cool-gray-00;
-                background: $white;
-              }
-              @include for-tablet-portrait-up {
-                //border: 1px solid $cool-gray-00;
-                background: $white;
-              }
+        &.link-phone {
+          @include for-phone-only {
+            border: 2px solid $bright-blue;
+          }
+          @include for-tablet-portrait-up {
+            color: $bright-blue;
+          }
+          @include for-tablet-landscape-up {
+            color: $cool-gray-04;
+          }
+
+          &:hover {
+            span {
               @include for-tablet-landscape-up {
-                border-width: 0;
-                background: transparent;
-              }
-
-              a {
-                @include for-phone-only {
-                  border-top: 1px dashed $cool-gray-02;
-
-                  &:first-child,
-                  &:last-child {
-                    border-top-width: 0;
-                  }
-                }
-                @include for-tablet-portrait-up {
-                  color: $bright-blue;
-                  border-top: 1px dashed $cool-gray-02;
-
-                  &:first-child {
-                    border-top-width: 0;
-                  }
-                }
-                @include for-tablet-landscape-up {
-                  color: $cool-gray-04;
-                  border-top-width: 0;
-                }
-
-                &:hover {
-                  color: $bright-blue-lighten-02;
-                  @include for-tablet-landscape-up {
-                    color: $white;
-                  }
-                }
-
-                &.active {
-                  color: $cool-gray-00;
-                  border-bottom-color: $bright-blue;
-                  @include for-phone-only {
-                    color: $body-color;
-                  }
-                  @include for-tablet-portrait-up {
-                    color: $body-color;
-                  }
-                  @include for-tablet-landscape-up {
-                    color: $white;
-                  }
-
-                  &:hover {
-                    color: $cool-gray-00;
-                    @include for-phone-only {
-                      color: $body-color;
-                    }
-                    @include for-tablet-portrait-up {
-                      color: $body-color;
-                    }
-                    @include for-tablet-landscape-up {
-                      color: $white;
-                    }
-                  }
-                }
-
-                &.link-phone {
-                  @include for-phone-only {
-                    border: 2px solid $bright-blue;
-                  }
-                  @include for-tablet-portrait-up {
-                    color: $bright-blue;
-                  }
-                  @include for-tablet-landscape-up {
-                    color: $cool-gray-04;
-                  }
-
-                  &:hover {
-                    span {
-                      @include for-tablet-landscape-up {
-                        color: $white;
-                      }
-                    }
-
-                    i {
-                      @include for-tablet-landscape-up {
-                        color: $white;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            .btn-ellipsis-v {
-              i {
                 color: $white;
               }
             }
 
-            .btn-bars {
-              i {
+            i {
+              @include for-tablet-landscape-up {
                 color: $white;
               }
             }
           }
         }
-        //search
-        .search {
-          background: $cool-gray-01;
+      }
+    }
 
-          > div {
-            > div {
-              background: $cool-gray-00;
+    .btn-ellipsis-v {
+      i {
+        color: $white;
+      }
+    }
 
-              .heading {
-                color: $cool-gray-08;
+    .btn-bars {
+      i {
+        color: $white;
+      }
+    }
+  }
+}
+//main/content - role "document"
+/*------------------------------------------------------------------------------------*/
+main[role="document"] {
+  box-shadow: 0 0 15px 0 rgba($black, .5);
 
-                span {
-                  color: $cool-gray-06;
-                  background: $cool-gray-01;
+  .content-wrapper {
+    > div {
+      > div[role="article"] {
+        background: $white;
+
+        &.login {
+          border-top: $card-border-width solid $cool-gray-01;
+        }
+
+        &.splash {
+          border-top: $card-border-width solid $cool-gray-01;
+        }
+
+        &.survey {
+          border-top: $card-border-width solid $cool-gray-01;
+        }
+
+        &.admin {
+          border-top: $card-border-width solid $card-border-color;
+
+          .fade-in {
+            .content {
+              section {
+                .content {
+                  ul.list {
+                    &.list-cards {
+                      li {
+                        ul.list {
+                          border-right-color: $cool-gray-00;
+                        }
+                      }
+                    }
+                  }
+
+                  .modal {
+                    background: rgba($white, .5);
+                    background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
+
+                    .card {
+                      box-shadow: $card-box-shadow-alt;
+                    }
+                  }
                 }
               }
             }
+          }
+        }
 
-            ul {
+        &.workflow {
+          background: $cool-gray-00;
+
+          .fade-in {
+            background: $white;
+
+            .workflow-header {
+              background-color: $cool-gray-01;
+
+              .rule {
+                background: $cool-gray-03;
+              }
+
               li {
-                background: $white;
-
                 a {
+                  color: $cool-gray-03;
+
                   i {
-                    color: $bright-blue;
+                    background: $cool-gray-01;
                   }
 
-                  &:hover {
-                    color: $white;
-                    background: $bright-blue;
+                  &.active {
+                    color: $bright-blue;
+
+                    &:focus,
+                    &:hover {
+                      color: $bright-blue-lighten-01;
+                    }
+                  }
+
+                  &.disabled {
+                    color: $cool-gray-03;
+                  }
+
+                  &.selected {
+                    color: $cool-gray-14;
 
                     i {
-                      color: $white;
+                      color: $green;
+                    }
+                  }
+
+                  &.completed {
+                    color: $bright-blue-lighten-03;
+
+                    i {
+                      color: $bright-blue-lighten-03;
                     }
                   }
                 }
               }
             }
-          }
-        }
-        //main
-        main[role="document"] {
-          box-shadow: 0 0 15px 0 rgba($black, .5);
-          .content-panel-left {
-            background-color: $cool-gray-12;
-            background-image: url("../img/TypTap-graphic.svg");
-            background-repeat: no-repeat;
-            background-position-x: center;
-            background-position-y: -6.5rem;
-            background-size: cover;
-            align-self: stretch;
-            //background-blend-mode: soft-light;
-            .site-nav {
-              ul {
-                li {
-                  &.active {
-                    a {
-                      color: $body-color;
-                      font-weight: $font-weight-bold;
 
-                      i {
+            .workflow-content {
+              aside {
+                @include for-phone-only {
+                  border-bottom: 1px dotted $cool-gray-00;
+                  background: lighten($cool-gray-00, 3%);
+                }
+
+                .side-panel {
+                  section {
+                    &.QuoteNumber {
+                      order: 1;
+                    }
+
+                    &.Address {
+                      order: 2;
+                    }
+
+                    &.CoverageA,
+                    &.CoverageB,
+                    &.CoverageC,
+                    &.YearBuilt {
+                      order: 3;
+                      @include for-phone-only {
+                        display: none;
+                      }
+                    }
+                  }
+                }
+              }
+
+              section {
+                div.fade-in,
+                form {
+                  .survey-wrapper {
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5,
+                    h6 {
+                      margin-top: 0;
+
+                      &.step-title {
+                        color: $cool-gray-08;
+                      }
+
+                      &.step-sub-title {
                         color: $green;
                       }
-
-                      &:hover {
-                        text-decoration: none;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-          .content-wrapper {
-            > div[role="article"] {
-              background: $white;
-
-              &.login {
-                border-top: $card-border-width solid $cool-gray-01;
-              }
-
-              &.splash {
-                border-top: $card-border-width solid $cool-gray-01;
-              }
-
-              &.survey {
-                border-top: $card-border-width solid $cool-gray-01;
-              }
-
-              &.admin {
-                border-top: $card-border-width solid $card-border-color;
-
-                .fade-in {
-                  .content {
-                    section {
-                      .content {
-                        ul.list {
-                          &.list-cards {
-                            li {
-                              ul.list {
-                                border-right-color: $cool-gray-00;
-                              }
-                            }
-                          }
-                        }
-
-                        .modal {
-                          background: rgba($white, .5);
-                          background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
-
-                          .card {
-                            box-shadow: $card-box-shadow-alt;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-
-              &.workflow {
-                background: $cool-gray-00;
-
-                .fade-in {
-                  background: $white;
-
-                  .workflow-header {
-                    background-color: $cool-gray-01;
-
-                    .rule {
-                      background: $cool-gray-03;
                     }
 
-                    li {
-                      a {
-                        color: $cool-gray-03;
-
-                        i {
-                          background: $cool-gray-01;
-                        }
-
-                        &.active {
-                          color: $bright-blue;
-
-                          &:focus,
-                          &:hover {
-                            color: $bright-blue-lighten-01;
-                          }
-                        }
-
-                        &.disabled {
-                          color: $cool-gray-03;
-                        }
-
-                        &.selected {
-                          color: $cool-gray-14;
-
-                          i {
-                            color: $green;
-                          }
-                        }
-
-                        &.completed {
-                          color: $bright-blue-lighten-03;
-
-                          i {
-                            color: $bright-blue-lighten-03;
-                          }
-                        }
-                      }
-                    }
-                  }
-
-                  .workflow-content {
-                    aside {
-                      @include for-phone-only {
-                        border-bottom: 1px dotted $cool-gray-00;
-                        background: lighten($cool-gray-00, 3%);
-                      }
-
-                      .side-panel {
-                        section {
-                          &.QuoteNumber {
-                            order: 1;
-                          }
-
-                          &.Address {
-                            order: 2;
-                          }
-
-                          &.CoverageA,
-                          &.CoverageB,
-                          &.CoverageC,
-                          &.YearBuilt {
-                            order: 3;
-                            @include for-phone-only {
-                              display: none;
-                            }
-                          }
-                        }
-                      }
-                    }
-
-                    section {
-                      div.fade-in,
-                      form {
-                        .survey-wrapper {
-                          h1,
-                          h2,
-                          h3,
-                          h4,
-                          h5,
-                          h6 {
-                            margin-top: 0;
-
-                            &.step-title {
-                              color: $cool-gray-08;
-                            }
-
-                            &.step-sub-title {
-                              color: $green;
-                            }
-                          }
-
-                          .form-group {
-                            border-bottom-color: $cool-gray-01;
-                          }
-                        }
-                      }
+                    .form-group {
+                      border-bottom-color: $cool-gray-01;
                     }
                   }
                 }
@@ -996,33 +953,140 @@ html {
             }
           }
         }
-        //footer
-        footer {
-          div[role="banner"] {
-            border-top: $border-width dotted $cool-gray-01;
-            background: $white;
+      }
+    }
+  }
+}
+//main left panel navigation
+/*------------------------------------------------------------------------------------*/
+.content-panel-left {
+  background-color: $cool-gray-12;
+  background-image: url("../img/TypTap-graphic.svg");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: -6.5rem;
+  background-size: cover;
+
+  .user {
+    .user-icon {
+      background-color: $bright-blue;
+    }
+
+    .user-name {
+      color: $white;
+      align-items: center;
+    }
+  }
+
+  .site-nav {
+    //main left navigation
+    ul {
+      li {
+        &.active {
+          a {
+            color: $body-color;
+            font-weight: $font-weight-bold;
+
+            i {
+              color: $green;
+            }
+
+            &:hover {
+              text-decoration: none;
+            }
           }
         }
       }
     }
   }
 }
+//search
+/*------------------------------------------------------------------------------------*/
+.search {
+  background: $cool-gray-01;
 
-.detail-content-wrapper {
-  .detail-wrapper {
-    .detail-group {
-      border-bottom-color: $cool-gray-01;
+  > div {
+    > div {
+      background: $cool-gray-00;
 
-      .summary-section {
-        dl {
-          &:nth-of-type(odd) {
-            background: $cool-gray-00;
+      .heading {
+        color: $cool-gray-08;
+
+        span {
+          color: $cool-gray-06;
+          background: $cool-gray-01;
+        }
+      }
+    }
+
+    ul {
+      li {
+        background: $white;
+
+        a {
+          i {
+            color: $bright-blue;
+          }
+
+          &:hover {
+            color: $white;
+            background: $bright-blue;
+
+            i {
+              color: $white;
+            }
           }
         }
       }
     }
   }
 }
+//workflow including stepper and left aside
+/*------------------------------------------------------------------------------------*/
+.workflow {
+  .fade-in {
+    .route {
+      //workflow detail header
+      .detailHeader {
+        //background: $black;
+        background-color: mix($cool-gray-12, $bright-blue, 80);
+
+        section {
+          dl {
+            div {
+              dt {
+                color: $green-lighten-02;
+              }
+
+              dd {
+                color: $white;
+              }
+            }
+          }
+
+          &.premium {
+            background: $green-lighten-04;
+
+            dl {
+              div {
+                dt {
+                  color: $cool-gray-15;
+                }
+
+                dd {
+                  color: $body-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//TYPTAP ROUTE SPECIFIC STYLES
+/*|||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
 //result cards
 ul.results {
   &.result-cards {
@@ -1075,99 +1139,64 @@ ul.results {
     }
   }
 }
-//modal
-.modal {
-  z-index: 10;
-  background: rgba($black, .75);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
-  background-position: center center;
-  background-size: cover;
-}
-//card
-.card {
-  .card-header {
-    background-color: $cool-gray-00;
-  }
-}
 //workflow detail header
-.detailHeader {
-  //background: $black;
-  background-color: mix($cool-gray-12, $bright-blue, 80);
-
-  section {
-    dl {
-      div {
-        dt {
-          color: $green-lighten-02;
-        }
-
-        dd {
-          color: $white;
-        }
-      }
-    }
-
-    &.premium {
-      background: $green-lighten-04;
-
-      dl {
-        div {
-          dt {
-            color: $cool-gray-15;
-          }
-
-          dd {
-            color: $body-color;
-          }
-        }
-      }
-    }
-  }
-}
 //Routes
 //Home Page
+
 .dashboard {
-    height: 100%;
-    overflow: hidden;
+  overflow: hidden;
+  height: 100%;
+
   .fade-in {
-      height: 100%;
+    overflow: hidden;
+    height: 100%;
+
+    .route {
       overflow: hidden;
-      .route {
-          height: 100%;
-          overflow: hidden;
-          .fade-in {
-              overflow-y: auto;
-            .product-wrapper {
-              .product {
-                  .card-header {
-                      &.card-header-image-flood {
-                          background-image: url('../img/flood.jpg');
-                          background-position: right top;
-                      }
-                      &.card-header-image-home {
-                          background-image: url('../img/home-owners.jpg');
-                          background-position: center center;
-                      }
-                      h1, h2, h3, h4, h5, h6 {
-                          background-color: rgba($cool-gray-10, .75);
-                          margin: (-$padding*1.75) (-$padding*2.5);
-                          padding: $padding;
-                      }
-                  }
-                  .card-footer {
-                      background-color: $cool-gray-00;
-                  }
+      height: 100%;
+
+      .fade-in {
+        overflow-y: auto;
+
+        .product-wrapper {
+          .product {
+            .card-header {
+              &.card-header-image-flood {
+                background-image: url('../img/flood.jpg');
+                background-position: right top;
+              }
+
+              &.card-header-image-home {
+                background-image: url('../img/home-owners.jpg');
+                background-position: center center;
+              }
+
+              h1,
+              h2,
+              h3,
+              h4,
+              h5,
+              h6 {
+                margin: (-$padding*1.75) (-$padding*2.5);
+                padding: $padding;
+                background-color: rgba($cool-gray-10, .75);
               }
             }
+
+            .card-footer {
+              background-color: $cool-gray-00;
+            }
+          }
         }
+      }
     }
   }
 }
 //verify & write policy
+
 .askScheduleInspectionDates {
   .detail-wrapper {
     .detail-group {
-
       .edit-btn {
         color: $white;
 
@@ -1183,9 +1212,10 @@ ul.results {
       &.quote-details {
         .display-element {
           dl {
-              dt {
-                  color: $body-color;
-              }
+            dt {
+              color: $body-color;
+            }
+
             &:nth-of-type(odd) {
               background: $cool-gray-00;
             }
@@ -1196,36 +1226,23 @@ ul.results {
   }
 }
 //form color & form layout
-.survey-wrapper {
-  .section-group-header {
-    color: $bright-blue-darken-03;
-
-    &:first-child {}
-  }
-}
-.detail-wrapper {
-  .section-group-header {
-    width: 100%;
-    padding: ($padding);
-    color: $bright-blue-darken-03;
-    flex-grow: 1;
-  }
-}
 //Demographics page
 .askAdditionalCustomerData {
-    .detailHeader {
-        .coverageDetails {
-            dd {
-                display: none;
-            }
-        }
-        .quoteDetails {
-            dd {
-                display: none;
-            }
-        }
+  .detailHeader {
+    .coverageDetails {
+      dd {
+        display: none;
+      }
     }
+
+    .quoteDetails {
+      dd {
+        display: none;
+      }
+    }
+  }
 }
+
 #Demographics {
   .form-group {
     .FirstName {
@@ -1275,21 +1292,24 @@ ul.results {
   }
 }
 //Underwriting page
+
 .askUWAnswers {
-    .detailHeader {
-        .coverageDetails {
-            dd {
-                display: none;
-            }
-        }
-        .quoteDetails {
-            dd {
-                display: none;
-            }
-        }
+  .detailHeader {
+    .coverageDetails {
+      dd {
+        display: none;
+      }
     }
+
+    .quoteDetails {
+      dd {
+        display: none;
+      }
+    }
+  }
 }
 //Customize Quote page
+
 #Customize {
   .form-group.survey-wrapper {
     input[readonly] {
@@ -1325,100 +1345,106 @@ ul.results {
   }
 }
 //Mailing & Billing
-#Billing {
-    .form-group {
-        .city {
-            width: auto;
-            flex-grow: 1;
 
-            @include for-phone-only {
-                width: 100%;
-            }
-        }
-        .State {
-            width: 6rem;
-            @include for-phone-only {
-                width: 40%;
-            }
-        }
-        .zip {
-            width: 12rem;
-            @include for-phone-only {
-                width: 60%;
-            }
-        }
+#Billing {
+  .form-group {
+    .city {
+      width: auto;
+      flex-grow: 1;
+      @include for-phone-only {
+        width: 100%;
+      }
     }
+
+    .State {
+      width: 6rem;
+      @include for-phone-only {
+        width: 40%;
+      }
+    }
+
+    .zip {
+      width: 12rem;
+      @include for-phone-only {
+        width: 60%;
+      }
+    }
+  }
 }
 //Quote Error
-.error-message {
 
-}
+.error-message {}
+
 .error-content {
-    .card-csr {
-        max-width: 36rem;
-        margin-bottom: $padding;
-
-        @include for-phone-only {
-            margin: 0 0 ($padding*2);
-            max-width: 300px;
-        }
-
-        .card-header-image-csr {
-            height: 16rem;
-            background-image: url('../img/csr.jpg');
-            background-position: right center;
-
-            @include for-phone-only {
-                height: 12rem;
-            }
-
-            h1, h2, h3, h4, h5, h6 {
-                background: rgba($red,.8);
-                margin: (-$padding*1.75) (-$padding*2.5);
-                padding: $padding;
-            }
-        }
-
-        .card-footer {
-            background-color: $cool-gray-00;
-        }
+  .card-csr {
+    max-width: 36rem;
+    margin-bottom: $padding;
+    @include for-phone-only {
+      max-width: 300px;
+      margin: 0 0 ($padding*2);
     }
+
+    .card-header-image-csr {
+      height: 16rem;
+      background-image: url('../img/csr.jpg');
+      background-position: right center;
+      @include for-phone-only {
+        height: 12rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: (-$padding*1.75) (-$padding*2.5);
+        padding: $padding;
+        background: rgba($red,.8);
+      }
+    }
+
+    .card-footer {
+      background-color: $cool-gray-00;
+    }
+  }
 }
 
 .thanks-content {
-
-
-    .card-thanks {
-        max-width: 36rem;
-        margin-bottom: $padding;
-        box-shadow: 0 0 50px rgba($black, .4);
-
-        @include for-phone-only {
-            margin: 0 0 ($padding*2);
-            max-width: 300px;
-        }
-
-        .card-header-image-thanks {
-            height: 16rem;
-            background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
-            background-size: cover;
-
-            @include for-phone-only {
-                height: 12rem;
-            }
-
-            h1, h2, h3, h4, h5, h6 {
-                background: rgba($green-darken-03,.9);
-                color: $white;
-                margin: (-$padding*1.75) (-$padding*2.5);
-                padding: $padding;
-            }
-        }
-
-        .card-footer {
-            background-color: $cool-gray-00;
-        }
+  .card-thanks {
+    max-width: 36rem;
+    margin-bottom: $padding;
+    box-shadow: 0 0 50px rgba($black, .4);
+    @include for-phone-only {
+      max-width: 300px;
+      margin: 0 0 ($padding*2);
     }
+
+    .card-header-image-thanks {
+      height: 16rem;
+      background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
+      background-size: cover;
+      @include for-phone-only {
+        height: 12rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: (-$padding*1.75) (-$padding*2.5);
+        padding: $padding;
+        color: $white;
+        background: rgba($green-darken-03,.9);
+      }
+    }
+
+    .card-footer {
+      background-color: $cool-gray-00;
+    }
+  }
 }
 //ERROR PAGE animation
 @keyframes waves {
@@ -1485,9 +1511,18 @@ div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article
 }
 
 .app-header {
-    color: $bright-blue-darken-03;
-    margin-top: 0;
+  margin-top: 0;
+  color: $bright-blue-darken-03;
 }
+
 .thank-you {
-    padding: $padding
+  padding: $padding;
+}
+//footer
+/*------------------------------------------------------------------------------------*/
+footer {
+  div[role="banner"] {
+    border-top: $border-width dotted $cool-gray-01;
+    background: $white;
+  }
 }
