@@ -103,4 +103,8 @@ SliderInput.propTypes = {
 
 };
 
+SliderInput.defaultProps = {
+  input: {},
+};
+
 export default reduxFormField(SliderInput);

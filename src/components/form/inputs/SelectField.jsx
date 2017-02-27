@@ -76,4 +76,10 @@ SelectField.propTypes = {
   styleName: PropTypes.string,
 };
 
+SelectField.defaultProps = {
+  input: {
+    onChange: () => {},
+  }
+};
+
 export default reduxFormField(SelectField);

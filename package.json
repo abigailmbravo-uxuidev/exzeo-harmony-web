@@ -12,6 +12,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
+    "cross-env": "^3.1.4",
     "enzyme": "^2.6.0",
     "eslint": "^3.10.2",
     "eslint-config-airbnb": "^13.0.0",
@@ -67,7 +68,7 @@
     "start": "node scripts/start-api",
     "dev": "react-scripts start",
     "coverage": "cross-env NODE_ENV=test nyc npm test",
-    "test": "mocha --reporter progress utils/testSetup \"src/**/*.spec.js\""
+    "test": "mocha --reporter spec utils/testSetup \"src/**/*.spec.js\""
   },
   "babel": {
     "presets": [

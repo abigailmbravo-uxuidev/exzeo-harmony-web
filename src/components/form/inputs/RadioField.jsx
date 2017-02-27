@@ -42,7 +42,7 @@ export const RadioInput = ({
         {DisplayField}
       </label>
       <div className={answerWrapperStyles}>
-        {answers && answers.length > 0 ? answers.map((answer, index) =>
+        {answers && answers.length > 0 && answers.map((answer, index) =>
           <RadioOption
             answer={answer}
             key={index}
@@ -52,7 +52,7 @@ export const RadioInput = ({
             segmented={segmented}
             value={value}
           />
-        ) : null}
+        )}
       </div>
     </div>
   );
@@ -82,7 +82,6 @@ RadioInput.propTypes = {
 
   /**
    * Provided by redux-form Field
-   * @type {[type]}
    */
   input: PropTypes.shape({
     disabled: PropTypes.bool,
@@ -114,6 +113,11 @@ RadioInput.propTypes = {
    */
   segmented: PropTypes.bool,
   styleName: PropTypes.string,
+};
+
+RadioInput.defaultProps = {
+  input: {},
+  meta: {},
 };
 
 export default reduxFormField(RadioInput);

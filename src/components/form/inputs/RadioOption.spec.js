@@ -27,6 +27,45 @@ describe('RadioOption', () => {
     ])).to.equal(true);
   });
 
-  // TODO: Split the above, write tests to simulate on click
-  // TODO: Check classnames
+  it('should trigger onChange when input is changed', () => {
+    let optionValue = '';
+    const onChange = (value) => {
+      optionValue = value;
+    };
+    const inputProps = {
+      onChange,
+      name: 'test',
+      size: 1,
+      value: optionValue,
+      answer: {
+        answer: 'testing',
+        image: 'test',
+      },
+    };
+    const wrapper = shallow(<RadioOption {...inputProps} />);
+    wrapper.find('input').simulate('change');
+    expect(optionValue).to.equal(`${inputProps.answer.answer}`);
+    expect(wrapper.find('input').props().value).to.equal(`${inputProps.answer.answer}`);
+  });
+
+  it('should trigger onClick when wrapper div is clicked', () => {
+    let optionValue = '';
+    const onChange = (value) => {
+      optionValue = value;
+    };
+    const inputProps = {
+      onChange,
+      name: 'test',
+      size: 1,
+      value: optionValue,
+      answer: {
+        answer: 'testing',
+        image: 'test',
+      },
+    };
+    const wrapper = shallow(<RadioOption {...inputProps} />);
+    wrapper.find(`.radio-column-${inputProps.size}`).simulate('click');
+    expect(optionValue).to.equal(`${inputProps.answer.answer}`);
+    expect(wrapper.find('input').props().value).to.equal(`${inputProps.answer.answer}`);
+  });
 });
