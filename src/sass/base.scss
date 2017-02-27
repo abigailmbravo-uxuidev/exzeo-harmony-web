@@ -1281,10 +1281,96 @@ main[role="document"] {
     }
   }
 }
+//footer
+/*------------------------------------------------------------------------------------*/
+footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  flex-shrink: 0;
+
+  div[role="banner"] {
+    width: 100%;
+    margin-bottom: 0;
+    padding: $padding ($padding*2);
+    border-top: $border-width dotted $border-color;
+    background: $white;
+    @include for-phone-only {
+      small {
+        font-size: $xsmall-font-size;
+      }
+    }
+  }
+}
 //ROUTE SPECIFIC STYLES
 /*|||||||||||||||||||||||||||||||||||||||||||||||||
 |||||||||||||||||||||||||||||||||||||||||||||||||*/
+//Home Page
+/*------------------------------------------------------------------------------------*/
+.dashboard {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  .fade-in {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    overflow: hidden;
+    height: 100%;
+
+    .fade-in,
+    .route {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+
+    .dashboard-message {
+      padding: $padding;
+    }
+
+    .product-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      flex-grow: 1;
+      flex-shrink: 0;
+      @include for-phone-only {
+        flex-direction: column;
+      }
+
+      .product {
+        max-height: 24rem;
+        margin-bottom: $padding;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 0;
+        @include for-phone-only {
+          flex-basis: 24rem;
+        }
+      }
+    }
+  }
+}
+//search
+/*------------------------------------------------------------------------------------*/
+.chooseAddress {
+  > .fade-in {
+    overflow-y: auto;
+  }
+}
 //search results
+/*------------------------------------------------------------------------------------*/
 ul.results {
   &.result-cards {
     li {
@@ -1347,72 +1433,14 @@ ul.results {
     }
   }
 }
-//Home Page
-.dashboard {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  flex-grow: 1;
-  flex-shrink: 0;
-
-  .fade-in {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    flex-grow: 1;
-    flex-shrink: 0;
-
-    .fade-in,
-    .route {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      flex-grow: 1;
-      flex-shrink: 0;
-    }
-
-    .dashboard-message {
-      padding: $padding;
-    }
-
-    .product-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      flex-grow: 1;
-      flex-shrink: 0;
-      @include for-phone-only {
-        flex-direction: column;
-      }
-
-      .product {
-        max-height: 24rem;
-        margin-bottom: $padding;
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 0;
-        @include for-phone-only {
-          flex-basis: 24rem;
-        }
-      }
-    }
-  }
-}
-//search
-
-.chooseAddress {
-  > .fade-in {
-    overflow-y: auto;
-  }
-}
 //Share
-
+/*------------------------------------------------------------------------------------*/
 .section-share {
   height: 100%;
   flex-shrink: 0;
 }
 //Quote Error
-
+/*------------------------------------------------------------------------------------*/
 .error-content {
   display: flex;
   flex-direction: column;
@@ -1440,7 +1468,7 @@ ul.results {
   }
 }
 //thanks
-
+/*------------------------------------------------------------------------------------*/
 .thanks-content {
   display: flex;
   flex-direction: column;
@@ -1470,7 +1498,7 @@ ul.results {
   }
 }
 //verify & write policy
-
+/*------------------------------------------------------------------------------------*/
 .askScheduleInspectionDates {
   width: 100%;
 
@@ -1486,8 +1514,6 @@ ul.results {
 
       &.edit {
         border: 2px solid $warm-gray-07;
-        //margin: (-$padding)(-$padding/2)($padding);
-        //padding: ($padding);
         .editing {
           position: absolute;
           top: $padding;
@@ -1597,8 +1623,8 @@ ul.results {
     }
   }
 }
-//form color & form layout
 
+//form color & form layout
 .detail-wrapper,
 .survey-wrapper {
   .section-group-header {
@@ -1607,7 +1633,6 @@ ul.results {
     padding: ($padding);
     color: $body-color;
     font-size: $font-size-h2;
-    flex-grow: 1;
     @include for-phone-only {
       font-size: $font-size-h3;
     }
@@ -1784,27 +1809,5 @@ ul.results {
 
   dd {
     margin-bottom: 0;
-  }
-}
-//footer
-/*------------------------------------------------------------------------------------*/
-footer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  flex-shrink: 0;
-
-  div[role="banner"] {
-    width: 100%;
-    margin-bottom: 0;
-    padding: $padding ($padding*2);
-    border-top: $border-width dotted $border-color;
-    background: $white;
-    @include for-phone-only {
-      small {
-        font-size: $xsmall-font-size;
-      }
-    }
   }
 }

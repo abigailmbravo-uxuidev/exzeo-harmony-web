@@ -1084,10 +1084,64 @@ main[role="document"] {
     }
   }
 }
+//footer
+/*------------------------------------------------------------------------------------*/
+footer {
+  div[role="banner"] {
+    border-top: $border-width dotted $cool-gray-01;
+    background: $white;
+  }
+}
 //TYPTAP ROUTE SPECIFIC STYLES
 /*|||||||||||||||||||||||||||||||||||||||||||||||||
 |||||||||||||||||||||||||||||||||||||||||||||||||*/
-//result cards
+//Home Page
+/*------------------------------------------------------------------------------------*/
+.dashboard {
+  .fade-in {
+    .route {
+      .fade-in {
+        overflow-y: auto;
+        .app-header {
+          margin-top: 0;
+          color: $bright-blue-darken-03;
+        }
+        .product-wrapper {
+          .product {
+            .card-header {
+              &.card-header-image-flood {
+                background-image: url('../img/flood.jpg');
+                background-position: right top;
+              }
+
+              &.card-header-image-home {
+                background-image: url('../img/home-owners.jpg');
+                background-position: center center;
+              }
+
+              h1,
+              h2,
+              h3,
+              h4,
+              h5,
+              h6 {
+                margin: (-$padding*1.75) (-$padding*2.5);
+                padding: $padding;
+                background-color: rgba($cool-gray-10, .75);
+              }
+            }
+
+            .card-footer {
+              background-color: $cool-gray-00;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//search results
+/*------------------------------------------------------------------------------------*/
 ul.results {
   &.result-cards {
     li {
@@ -1139,94 +1193,8 @@ ul.results {
     }
   }
 }
-//workflow detail header
-//Routes
-//Home Page
-
-.dashboard {
-  overflow: hidden;
-  height: 100%;
-
-  .fade-in {
-    overflow: hidden;
-    height: 100%;
-
-    .route {
-      overflow: hidden;
-      height: 100%;
-
-      .fade-in {
-        overflow-y: auto;
-
-        .product-wrapper {
-          .product {
-            .card-header {
-              &.card-header-image-flood {
-                background-image: url('../img/flood.jpg');
-                background-position: right top;
-              }
-
-              &.card-header-image-home {
-                background-image: url('../img/home-owners.jpg');
-                background-position: center center;
-              }
-
-              h1,
-              h2,
-              h3,
-              h4,
-              h5,
-              h6 {
-                margin: (-$padding*1.75) (-$padding*2.5);
-                padding: $padding;
-                background-color: rgba($cool-gray-10, .75);
-              }
-            }
-
-            .card-footer {
-              background-color: $cool-gray-00;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-//verify & write policy
-
-.askScheduleInspectionDates {
-  .detail-wrapper {
-    .detail-group {
-      .edit-btn {
-        color: $white;
-
-        &:hover {
-          color: $white;
-        }
-      }
-
-      &.edit {
-        border: 2px solid $bright-blue;
-      }
-
-      &.quote-details {
-        .display-element {
-          dl {
-            dt {
-              color: $body-color;
-            }
-
-            &:nth-of-type(odd) {
-              background: $cool-gray-00;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-//form color & form layout
 //Demographics page
+/*------------------------------------------------------------------------------------*/
 .askAdditionalCustomerData {
   .detailHeader {
     .coverageDetails {
@@ -1242,7 +1210,6 @@ ul.results {
     }
   }
 }
-
 #Demographics {
   .form-group {
     .FirstName {
@@ -1291,8 +1258,41 @@ ul.results {
     }
   }
 }
-//Underwriting page
+//verify & write policy
+/*------------------------------------------------------------------------------------*/
+.askScheduleInspectionDates {
+  .detail-wrapper {
+    .detail-group {
+      .edit-btn {
+        color: $white;
 
+        &:hover {
+          color: $white;
+        }
+      }
+
+      &.edit {
+        border: 2px solid $bright-blue;
+      }
+
+      &.quote-details {
+        .display-element {
+          dl {
+            dt {
+              color: $body-color;
+            }
+
+            &:nth-of-type(odd) {
+              background: $cool-gray-00;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+//Underwriting page
+/*------------------------------------------------------------------------------------*/
 .askUWAnswers {
   .detailHeader {
     .coverageDetails {
@@ -1309,7 +1309,7 @@ ul.results {
   }
 }
 //Customize Quote page
-
+/*------------------------------------------------------------------------------------*/
 #Customize {
   .form-group.survey-wrapper {
     input[readonly] {
@@ -1345,7 +1345,7 @@ ul.results {
   }
 }
 //Mailing & Billing
-
+/*------------------------------------------------------------------------------------*/
 #Billing {
   .form-group {
     .city {
@@ -1372,9 +1372,7 @@ ul.results {
   }
 }
 //Quote Error
-
-.error-message {}
-
+/*------------------------------------------------------------------------------------*/
 .error-content {
   .card-csr {
     max-width: 36rem;
@@ -1409,7 +1407,8 @@ ul.results {
     }
   }
 }
-
+//Thanks Page
+/*------------------------------------------------------------------------------------*/
 .thanks-content {
   .card-thanks {
     max-width: 36rem;
@@ -1460,7 +1459,6 @@ ul.results {
     background-position: 100% 0;
   }
 }
-
 div#root {
   .app-wrapper {
     main[role="document"] {
@@ -1510,19 +1508,8 @@ div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article
   background-size: cover;
 }
 
-.app-header {
-  margin-top: 0;
-  color: $bright-blue-darken-03;
-}
+
 
 .thank-you {
   padding: $padding;
-}
-//footer
-/*------------------------------------------------------------------------------------*/
-footer {
-  div[role="banner"] {
-    border-top: $border-width dotted $cool-gray-01;
-    background: $white;
-  }
 }
