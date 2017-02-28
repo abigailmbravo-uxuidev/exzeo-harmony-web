@@ -1209,55 +1209,57 @@ ul.results {
       }
     }
   }
-}
-#Demographics {
-  .form-group {
-    .FirstName {
-      @include for-tablet-portrait-up {
-        width: 40%;
-        padding-right: $padding*2;
-      }
-    }
 
-    .LastName {
-      @include for-tablet-portrait-up {
-        width: 60%;
+  #Demographics {
+    .form-group {
+      .FirstName {
+        @include for-tablet-portrait-up {
+          width: 40%;
+          padding-right: $padding*2;
+        }
       }
-    }
 
-    .Email {
-      @include for-tablet-portrait-up {
-        width: 60%;
-        padding-right: $padding*2;
-        flex-grow: 1;
+      .LastName {
+        @include for-tablet-portrait-up {
+          width: 60%;
+        }
       }
-    }
 
-    .phoneNumber {
-      @include for-tablet-portrait-up {
-        width: 40%;
-        padding-right: 0;
-        flex-grow: 1;
+      .EmailAddress {
+        @include for-tablet-portrait-up {
+          width: 60%;
+          padding-right: $padding*2;
+          flex-grow: 1;
+        }
       }
-    }
 
-    .effectiveDate {
-      @include for-tablet-portrait-up {
-        width: 40%;
-        padding-right: $padding*2;
-        flex-grow: 1;
+      .phoneNumber {
+        @include for-tablet-portrait-up {
+          width: 40%;
+          padding-right: 0;
+          flex-grow: 1;
+        }
       }
-    }
 
-    .agentID {
-      @include for-tablet-portrait-up {
-        width: 60%;
-        padding-right: 0;
-        flex-grow: 1;
+      .effectiveDate {
+        @include for-tablet-portrait-up {
+          width: 40%;
+          padding-right: $padding*2;
+          flex-grow: 1;
+        }
+      }
+
+      .name {
+        @include for-tablet-portrait-up {
+          width: 60%;
+          padding-right: 0;
+          flex-grow: 1;
+        }
       }
     }
   }
 }
+
 //verify & write policy
 /*------------------------------------------------------------------------------------*/
 .askScheduleInspectionDates {
@@ -1377,6 +1379,7 @@ ul.results {
   .card-csr {
     max-width: 36rem;
     margin-bottom: $padding;
+    box-shadow: 0 0 50px rgba($black, .4);
     @include for-phone-only {
       max-width: 300px;
       margin: 0 0 ($padding*2);
@@ -1398,7 +1401,7 @@ ul.results {
       h6 {
         margin: (-$padding*1.75) (-$padding*2.5);
         padding: $padding;
-        background: rgba($red,.8);
+        background: rgba($orange-darken-01,.9);
       }
     }
 
@@ -1507,8 +1510,6 @@ div#root .app-wrapper main[role="document"] .content-wrapper > div[role="article
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-
 
 .thank-you {
   padding: $padding;
