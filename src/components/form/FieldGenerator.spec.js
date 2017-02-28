@@ -1,16 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import FieldGenerator from './FieldGenerator';
-import {
-  CheckField,
-  DisplayField,
-  FormHeading,
-  HiddenField,
-  RadioField,
-  SelectField,
-  SliderField,
-  TextField
-} from './inputs';
 
 // TODO: Write out the unit and integration tests for this
 // Reference: https://github.com/tylercollier/redux-form-test
