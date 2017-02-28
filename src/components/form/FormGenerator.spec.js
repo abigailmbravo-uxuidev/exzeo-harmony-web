@@ -31,6 +31,7 @@ describe('FormGenerator', () => {
         ],
         order: 9,
         answerType: 'radio',
+        validations: ['required'],
         answers: [
           {
             answer: '$50,000'

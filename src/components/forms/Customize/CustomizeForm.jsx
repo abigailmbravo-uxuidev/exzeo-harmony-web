@@ -168,6 +168,9 @@ class CustomizeForm extends Component {
       state.submitting = true;
       this.setState(state);
 
+      // reset form pristine to true so that the logic still works
+      this.props.reset();
+
       await this.props.completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
       await this.props.completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuoteResult));
       const result = await this.props.data.refetch();
@@ -179,6 +182,8 @@ class CustomizeForm extends Component {
       state.details = result.data.steps.details;
       state.quoteInfo = result.data.steps.data[0];
       this.setState(state);
+
+      console.log('this.props.pristine', this.props.pristine);
     } catch (error) {
       // eslint-disable-next-line
       console.log('Error:', error);
