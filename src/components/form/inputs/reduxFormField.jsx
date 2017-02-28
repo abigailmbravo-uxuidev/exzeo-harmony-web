@@ -34,11 +34,14 @@ export default function reduxFormField(fieldComponent) {
         'bool',
         'date',
         'email',
+        'hidden',
         'number',
         'password',
         'radio',
         'range',
         'search',
+        'select',
+        'slider',
         'string',
         'tel',
         'text',
@@ -53,11 +56,6 @@ export default function reduxFormField(fieldComponent) {
        * Validations array for redux field
        */
       validations: PropTypes.arrayOf(PropTypes.string),
-
-      /**
-       * Value for the input
-       */
-      value: PropTypes.any, // eslint-disable-line react/forbid-prop-types
 
     }
     static defaultProps = {
@@ -76,7 +74,6 @@ export default function reduxFormField(fieldComponent) {
         styleName,
         type,
         validations,
-        value,
       } = this.props;
 
       const ruleArray = combineRules(validations);
@@ -84,16 +81,14 @@ export default function reduxFormField(fieldComponent) {
       return (
         <Field
           {...this.props}
-          defaultValue={value}
           disabled={disabled}
           label={label}
           hint={hint}
           styleName={styleName}
           component={fieldComponent}
-          type={type}
+          type={type === 'radio' ? null : 'text'}
           name={name}
           validate={ruleArray}
-          value={value}
         />
       );
     }

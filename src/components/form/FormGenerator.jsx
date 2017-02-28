@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import _ from 'lodash';
-import DependentFieldGenerator from './DependentFieldGenerator';
+import FieldGenerator from './FieldGenerator';
 
 class FormGenerator extends Component {
   componentWillMount = () => {
@@ -33,7 +33,7 @@ class FormGenerator extends Component {
       >
         <div className="form-group survey-wrapper" role="group">
           {questions && questions.map((question, index) => (
-            <DependentFieldGenerator
+            <FieldGenerator
               key={index}
               question={question}
               values={fieldValues}

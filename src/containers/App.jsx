@@ -8,7 +8,6 @@ import Splash from './Splash';
 import Login from './Login';
 import Quote from './Quote';
 import Header from '../components/common/Header';
-//import TestInputPage from '../components/form/inputs/TestInputPage';
 import '../components/forms/Rules';
 
 export class App extends Component {
@@ -82,7 +81,6 @@ export class App extends Component {
           <Router>
             <div className="content-wrapper">
               <Route exact path="/" component={homeScreen} />
-              {/*<Route path="/test" component={TestInputPage} />*/}
               <Route path="/login" component={Login} />
               <Route exact path="/quote" component={Quote} />
               <Route path="/quote/:activeStep" component={Quote} />

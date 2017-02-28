@@ -1,15 +1,23 @@
 import React, { PropTypes } from 'react';
+import dependencyHelper from './dependencyHelper';
 import {
   CheckField,
   DisplayField,
   FormHeading,
+  HiddenField,
   RadioField,
   SelectField,
   SliderField,
   TextField,
 } from './inputs';
 
-const FieldGenerator = ({ question }) => {
+const FieldGenerator = ({
+  question,
+  data,
+  values,
+}) => {
+  if (question.conditional) dependencyHelper(question, data, values);
+
   const inputProps = {
     ...question,
     hint: question.description,
@@ -19,7 +27,7 @@ const FieldGenerator = ({ question }) => {
 
   if (question.hidden) inputProps.type = 'hidden';
 
-  switch (question.answerType) {
+  switch (inputProps.type) {
     case 'select':
       return <SelectField {...inputProps} />;
     case 'radio': {
@@ -48,6 +56,8 @@ const FieldGenerator = ({ question }) => {
       return <DisplayField {...inputProps} />;
     case 'heading':
       return <FormHeading {...inputProps} />;
+    case 'hidden':
+      return <HiddenField {...inputProps} />;
     default:
       return <TextField {...inputProps} />;
   }
@@ -58,7 +68,9 @@ FieldGenerator.propTypes = {
     question: PropTypes.string,
     description: PropTypes.string,
     answerType: PropTypes.string,
-  })
+  }),
+  data: PropTypes.any, // eslint-disable-line
+  values: PropTypes.any, // eslint-disable-line
 };
 
 export default FieldGenerator;

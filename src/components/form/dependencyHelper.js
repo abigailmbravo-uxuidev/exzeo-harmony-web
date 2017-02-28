@@ -1,16 +1,8 @@
-/* eslint-disable react/prop-types, no-param-reassign */
-import React from 'react';
+/* eslint-disable no-param-reassign */
 import _ from 'lodash';
-import FieldGenerator from './FieldGenerator';
 
-const DependentFieldGenerator = ({
-  question,
-  data,
-  values,
-}) => {
-  if (!question.conditional) {
-    return <FieldGenerator question={question} />;
-  }
+export default function dependencyHelper(question, data, values) {
+  if (!question.conditional) return;
   // Has some slider properties depending on other values
   if (question.conditional.slider) {
     const { slider } = question.conditional;
@@ -77,7 +69,4 @@ const DependentFieldGenerator = ({
       }
     });
   }
-  return question.hidden ? null : <FieldGenerator question={question} />;
-};
-
-export default DependentFieldGenerator;
+}

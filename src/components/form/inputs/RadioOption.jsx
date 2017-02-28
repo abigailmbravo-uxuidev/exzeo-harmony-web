@@ -17,12 +17,17 @@ const RadioOption = ({
     onClick={() => onChange(answer.answer)}
   >
     {answer.image && <img src={answer.image} role="presentation" />}
-    <label className={classNames('label-segmented': segmented)} htmlFor={name}>
+    <label
+      className={classNames(
+      'label-segmented': segmented,
+      { selected: value === answer.answer },
+    )} htmlFor={name}
+    >
       <input
         onChange={() => onChange(answer.answer)}
         name={name}
         type="radio"
-        checked={value === answer.answer}
+        checked={String(value) === String(answer.answer)}
         value={answer.answer}
       />
       <span>{answer.label || answer.answer}</span>
