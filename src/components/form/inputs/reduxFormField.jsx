@@ -86,7 +86,7 @@ export default function reduxFormField(fieldComponent) {
           hint={hint}
           styleName={styleName}
           component={fieldComponent}
-          type={type === 'radio' ? null : 'text'}
+          type={type === 'radio' ? null : type}
           name={name}
           validate={ruleArray}
         />

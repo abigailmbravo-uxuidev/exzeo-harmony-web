@@ -25,7 +25,7 @@ const Results = ({ addresses, handleClick }) => (
 );
 
 Results.propTypes = {
-  addresses: PropTypes.Object,
+  addresses: PropTypes.any, // eslint-disable-line
   handleClick: PropTypes.func,
 };
 
@@ -66,7 +66,7 @@ class SearchResults extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: this.props.data.steps.name,
-          data: {stateCode: address.state, igdId: address.id}
+          data: { stateCode: address.state, igdId: address.id }
         },
       },
     }).then((updatedStep) => {

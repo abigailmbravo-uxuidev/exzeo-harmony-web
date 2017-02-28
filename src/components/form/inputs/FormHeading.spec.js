@@ -11,9 +11,4 @@ describe('FormHeading', () => {
 
     expect(wrapper).to.exist;
   });
-
-  // TODO: Check renders
-  // TODO: Check classnames
-  // TODO: Check props
-  // TODO: Check event handlers
 });

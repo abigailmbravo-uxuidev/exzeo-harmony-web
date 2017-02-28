@@ -1,49 +1,32 @@
-/* eslint no-class-assign :0 */
 import React, { PropTypes, Component } from 'react';
-import { connect } from 'react-redux';
-import moment from 'moment';
-import { reduxForm, Form, formValueSelector } from 'redux-form';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { reduxForm, Form } from 'redux-form';
 import localStorage from 'localStorage';
-import FormGenerator from '../form/FormGenerator';
-import DependentQuestion from '../question/DependentQuestion';
+import moment from 'moment';
+import _ from 'lodash';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
+import { connect } from 'react-redux';
+import FieldGenerator from '../form/FieldGenerator';
 import Footer from '../common/Footer';
 
-const agentQuestion = {
-  question: 'Agent',
-  name: 'agentID',
-  answerType: 'select',
-  answers: [{
-    answer: 60000,
-    label: 'Adam Doe',
-  }, {
-    answer: 60001,
-    label: 'John Doe',
-  }, {
-    answer: 60002,
-    label: 'Cathy Doe',
-  }, {
-    answer: 60003,
-    label: 'Emily Doe',
-  }, {
-    answer: 60004,
-    label: 'Hero Doe',
-  }, {
-    answer: 60005,
-    label: 'Jose Doe',
-  }],
-  validations: ['required']
-};
-
-class Demographics extends Component {
-  static contextTypes = {
-    router: PropTypes.object,
+export class DemographicsForm extends Component {
+  static propTypes = {
+    data: PropTypes.any, // eslint-disable-line
+    fieldValues: PropTypes.any, // eslint-disable-line
+    initialValues: PropTypes.any, // eslint-disable-line
+    completeStep: PropTypes.func,
+    initialize: PropTypes.func,
+    push: PropTypes.func,
+    handleSubmit: PropTypes.func
   }
 
   state = {
     questions: []
-  };
+  }
+
+  componentWillMount() {
+    this.props.initialize(this.props.initialValues);
+  }
 
   componentWillReceiveProps(newProps) {
     if ((!this.props.data.steps && newProps.data.steps) ||
@@ -53,49 +36,80 @@ class Demographics extends Component {
         this.props.data.steps.name !== newProps.data.steps.name
       )) {
       const { steps } = newProps.data;
-      steps.questions.push(agentQuestion);
       this.setState({ questions: steps.questions });
     }
   }
 
-  handleOnSubmit = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
-    this.props.completeStep({
-      variables: {
-        input: {
-          workflowId: localStorage.getItem('newWorkflowId'),
-          stepName: 'askAdditionalCustomerData',
-          data: event,
-        },
-      },
-    }).then((updatedModel) => {
-      console.log('UPDATED MODEL : ', updatedModel);
-      const activeLink = updatedModel.data.completeStep.link;
-      this.context.router.push(`${activeLink}`);
-    }).catch((error) => {
-      // this.context.router.transitionTo('/error');
-      console.log('errors from graphql', error); // eslint-disable-line
-    });
+  handleOnSubmit = async (data) => {
+    const workflowId = localStorage.getItem('newWorkflowId');
+
+    try {
+      const result = await this.props.completeStep({
+        variables: {
+          input: {
+            workflowId,
+            stepName: 'askAdditionalCustomerData',
+            data
+          }
+        }
+      });
+      const activeLink = result.data.completeStep.link;
+      this.props.push(`${activeLink}`);
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log('errors from graphql', error);
+    }
   }
 
   render() {
-    const { styleName, handleSubmit, initialValues } = this.props;
-    const { questions } = this.state;
+    const { data, handleSubmit, fieldValues } = this.props;
+    const { steps } = data;
 
     return (
       <div className="workflow-content">
-        <section className="">
+        <section>
           <div className="fade-in">
-            <FormGenerator
-              name="Demographics"
-              initialValues={initialValues}
-              questions={questions}
-              data={this.state.quoteInfo}
-              handleOnSubmit={this.handleOnSubmit}
-              styleName={styleName}
+            <Form
+              className="fade-in"
+              id="Demographics"
+              onSubmit={handleSubmit(this.handleOnSubmit)}
+              noValidate
             >
-              <button className="btn btn-primary" type="submit" form="Demographics">next</button>
-            </FormGenerator>
+              <div className="form-group survey-wrapper" role="group">
+                {steps && steps.questions && steps.questions.map((question, index) =>
+                  <FieldGenerator
+                    data={this.state.quoteInfo}
+                    question={question}
+                    values={fieldValues}
+                    key={index}
+                  />
+                )}
+                <div className="form-group agentID" role="group">
+                  <label htmlFor="agencyID">Agent</label>
+                  <select name="agencyID">
+                    <option value="60000">Adam Doe</option>
+                    <option value="60001">Betsy Doe</option>
+                    <option value="60002">Cathy Doe</option>
+                    <option value="60003">Daniel Doe</option>
+                    <option value="60004">Ethan Doe</option>
+                    <option value="60005">Frank Doe</option>
+                    <option value="60006">Gail Doe</option>
+                    <option value="60007">Helen Doe</option>
+                  </select>
+                </div>
+              </div>
+              <div className="workflow-steps">
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                  form="Demographics"
+                  disabled={this.props.submitting}
+                >
+                  next
+                </button>
+              </div>
+              <Footer />
+            </Form>
           </div>
         </section>
       </div>
@@ -103,70 +117,61 @@ class Demographics extends Component {
   }
 }
 
-Demographics.propTypes = {
-  effectiveDate: PropTypes.string,
-  completeStep: PropTypes.func,
-  dispatch:PropTypes.any,// eslint-disable-line
-  handleSubmit: PropTypes.func,
-  state:PropTypes.any,// eslint-disable-line
-  styleName:PropTypes.any,// eslint-disable-line
-};
+const graphqlQuery = graphql(gql `
+query GetActiveStep($workflowId:ID!) {
+  steps(id: $workflowId) {
+    name
+    questions {
+      readOnlyValue
+      defaultValueLocation
+      order
+      hidden
+      name
+      validations
+      question
+      answerType
+      description
+      defaultAnswer
+      step
+      answers {
+        label
+        default
+        answer
+        image
+      }
+    }
+    completedSteps
+    type
+  }
+}`, {
+  options: {
+    variables: {
+      workflowId: localStorage.getItem('newWorkflowId')
+    }
+  }
+});
 
-// Demographics = reduxForm({
-//   form: 'Demographics',
-// })(Demographics);
+const graphqlMutation = graphql(gql `
+  mutation CompleteStep($input:CompleteStepInput) {
+      completeStep(input:$input) {
+          name
+          icon
+          type
+          link
+      }
+  }
+`, { name: 'completeStep' });
 
-
-Demographics = connect(
+export default compose(
+  graphqlQuery,
+  graphqlMutation,
+  reduxForm({ form: 'Demographics' }),
+  connect(
     state => ({
       initialValues: {
-        effectiveDate: moment().add(5, 'days').format('YYYY-MM-DD'),
+        effectiveDate: moment().add(5, 'days').format('YYYY-MM-DD')
       },
-      formName: 'Demographics',
-      state,
-    }),
-  )(graphql(gql `
-  query GetActiveStep($workflowId:ID!) {
-    steps(id: $workflowId) {
-      name
-      questions {
-        readOnlyValue
-        defaultValueLocation
-        order
-        hidden
-        name
-        validations
-        question
-        answerType
-        description
-        defaultAnswer
-        step
-        answers {
-          label
-          default
-          answer
-          image
-        }
-      }
-      completedSteps
-      type
-    }
-  }`, {
-    options: {
-      variables: {
-        workflowId: localStorage.getItem('newWorkflowId'),
-      },
-    },
-  })(graphql(gql `
-    mutation CompleteStep($input:CompleteStepInput) {
-        completeStep(input:$input) {
-            name
-            icon
-            type
-            link
-        }
-    }
-`, { name: 'completeStep' })(Demographics)));
-
-
-export default Demographics;
+      fieldValues: _.get(state.form, 'Demographics.values', {})
+    })
+  )
+)(DemographicsForm);
