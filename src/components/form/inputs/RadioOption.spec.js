@@ -11,8 +11,8 @@ describe('RadioOption', () => {
       value: 'testing',
       answer: {
         answer: 'testing',
-        image: 'test',
-      },
+        image: 'test'
+      }
     };
     const wrapper = shallow(<RadioOption {...inputProps} />);
 
@@ -23,7 +23,7 @@ describe('RadioOption', () => {
         value={inputProps.answer.answer}
         checked
       />,
-      <label htmlFor={inputProps.name}><span>{inputProps.answer.answer}</span></label>,
+      <label htmlFor={inputProps.name}><span>{inputProps.answer.answer}</span></label>
     ])).to.equal(true);
   });
 
@@ -39,8 +39,8 @@ describe('RadioOption', () => {
       value: optionValue,
       answer: {
         answer: 'testing',
-        image: 'test',
-      },
+        image: 'test'
+      }
     };
     const wrapper = shallow(<RadioOption {...inputProps} />);
     wrapper.find('input').simulate('change');
@@ -60,8 +60,8 @@ describe('RadioOption', () => {
       value: optionValue,
       answer: {
         answer: 'testing',
-        image: 'test',
-      },
+        image: 'test'
+      }
     };
     const wrapper = shallow(<RadioOption {...inputProps} />);
     wrapper.find(`.radio-column-${inputProps.size}`).simulate('click');

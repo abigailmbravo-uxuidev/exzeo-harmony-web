@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 // const networkInterface = createNetworkInterface({ uri });
 const batchingNetworkInterface = createBatchingNetworkInterface({
   uri,
-  batchInterval: 10,
+  batchInterval: 10
 });
 
 batchingNetworkInterface.use([{
@@ -30,12 +30,12 @@ batchingNetworkInterface.use([{
     const token = localStorage.getItem('token');
     req.options.headers.authorization = token;
     next();
-  },
+  }
 }]);
 
 export const client = new ApolloClient({
   networkInterface: batchingNetworkInterface,
-  queryDeduplication: true,
+  queryDeduplication: true
 });
 
 const rootReducer = combineReducers({
@@ -44,7 +44,7 @@ const rootReducer = combineReducers({
   auth,
   features,
   search,
-  apollo: client.reducer(),
+  apollo: client.reducer()
 });
 
 export default rootReducer;

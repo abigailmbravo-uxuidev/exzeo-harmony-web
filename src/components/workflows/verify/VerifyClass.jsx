@@ -7,18 +7,19 @@ import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { reduxForm, Form, formValueSelector, Field, change } from 'redux-form';
+import { reduxForm, Form, formValueSelector, change } from 'redux-form';
 import moment from 'moment';
 import BoolInput from '../../inputs/BoolInput';
 import EffectiveDateForm from '../../forms/EffectiveDate/EffectiveDateForm';
 import PolicyHolderUpdateForm from '../../forms/policyHolder/PolicyHolderUpdateForm';
-import AdditionalInterestUpdateForm from '../../forms/AdditionalInterests/AdditionalInterestUpdateForm';
+// import AdditionalInterestUpdateForm
+// from '../../forms/AdditionalInterests/AdditionalInterestUpdateForm';
 import MailingAddressForm from '../../forms/MailingAddress/MailingAddressForm';
 import Footer from '../../common/Footer';
 
 class Verify extends Component {
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   }
   componentWillMount() {
 
@@ -48,10 +49,10 @@ class Verify extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askScheduleInspectionDates',
-          data: {},
-        },
-      },
-    }).then((updatedShouldGeneratePdfAndEmail) => {
+          data: {}
+        }
+      }
+    }).then(() => {
       // console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
       // const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
       this.context.router.push('thankyou');
@@ -69,14 +70,14 @@ class Verify extends Component {
       state,
       styleName,
       effectiveDate,
-      editConfirmAdditionalInterests,
+//      editConfirmAdditionalInterests,
       editConfirmPolicyHolder,
       editProperty,
       editMailingAddress,
       confirmProperyDetails,
       confirmQuoteDetails,
-      confirmPolicyHolderDetails,
-      confirmAdditionalInterestsDetails,
+      confirmPolicyHolderDetails
+  //    confirmAdditionalInterestsDetails
     } = this.props;
 
     let property = {};
@@ -289,8 +290,10 @@ class Verify extends Component {
             </section>
           </div>}
 
-          {/* {!editConfirmAdditionalInterests && <div className="detail-group additional-interests-details">
-            <h3 className="section-group-header"><i className="fa fa-bank" /> Additional Interests</h3>
+          {/* {!editConfirmAdditionalInterests &&
+            <div className="detail-group additional-interests-details">
+            <h3 className="section-group-header">
+            <i className="fa fa-bank" /> Additional Interests</h3>
             <section className="display-element">
 
               {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?
@@ -344,26 +347,27 @@ class Verify extends Component {
 }
 
 Verify.propTypes = {
+  data: {},
   completeStep: PropTypes.func,
   state: PropTypes.any, //eslint-disable-line
   dispatch: PropTypes.any, //eslint-disable-line
   initialValues: PropTypes.any, //eslint-disable-line
   editMailingAddress: PropTypes.bool,
   effectiveDate: PropTypes.string,
-  editConfirmAdditionalInterests: PropTypes.bool,
+//  editConfirmAdditionalInterests: PropTypes.bool,
   editConfirmPolicyHolder: PropTypes.bool,
   editProperty: PropTypes.bool,
   confirmProperyDetails: PropTypes.bool,
   confirmQuoteDetails: PropTypes.bool,
   confirmPolicyHolderDetails: PropTypes.bool,
-  confirmAdditionalInterestsDetails: PropTypes.bool,
+//  confirmAdditionalInterestsDetails: PropTypes.bool,
   handleSubmit: PropTypes.func,
   quote: PropTypes.object, //eslint-disable-line
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 Verify = reduxForm({
-  form: 'Verify', // a unique identifier for this form
+  form: 'Verify' // a unique identifier for this form
 })(Verify);
 
 const selector = formValueSelector('Verify'); // <-- same as form name
@@ -385,7 +389,7 @@ Verify = connect((state) => {
     initialValues: {
       policyHolderMailingAddress: {},
       additionalInterests: [],
-      policyHolders: [],
+      policyHolders: []
     },
     state,
     effectiveDate,
@@ -396,7 +400,7 @@ Verify = connect((state) => {
     confirmProperyDetails,
     confirmQuoteDetails,
     confirmPolicyHolderDetails,
-    confirmAdditionalInterestsDetails,
+    confirmAdditionalInterestsDetails
   };
 })(Verify);
 
@@ -545,9 +549,9 @@ Verify = connect()(graphql(gql `
     }`, {
       options: {
         variables: {
-          workflowId: localStorage.getItem('newWorkflowId'),
-        },
-      },
+          workflowId: localStorage.getItem('newWorkflowId')
+        }
+      }
     })(graphql(gql `
       mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {

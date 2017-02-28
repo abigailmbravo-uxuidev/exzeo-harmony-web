@@ -23,8 +23,8 @@ describe('featureReducer', () => {
       type: 'TOGGLE_FEATURE',
       feature: {
         featureName: 'Waffles',
-        value: 'Are Tasty',
-      },
+        value: 'Are Tasty'
+      }
     });
     expect(result.get('Waffles')).to.equal('Are Tasty');
   });

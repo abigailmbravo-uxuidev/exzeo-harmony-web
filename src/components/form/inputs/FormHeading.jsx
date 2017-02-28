@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const Heading = ({
-  label,
+  label
 }) => (
   <span className="section-group-header">
     <i className={`fa ${label}`} />
@@ -13,7 +13,7 @@ Heading.propTypes = {
   /**
    * Heading
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 export default Heading;

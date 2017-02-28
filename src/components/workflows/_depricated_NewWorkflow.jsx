@@ -17,7 +17,8 @@
 //     completedSteps: [],
 //   }
 //   componentWillMount = () => {
-//     if (!(this.props.location && this.props.location.query && this.props.location.query.address)) {
+//     if (!(this.props.location && this.props.location.query
+// && this.props.location.query.address)) {
 //       this.context.router.transitionTo('/workflow');
 //     }
 //     this.props.startWorkflow({ variables: { input: { name: 'quote', product: '', state: '' } } })

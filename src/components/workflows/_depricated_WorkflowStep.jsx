@@ -37,14 +37,17 @@
 //     details: [],
 //   }
 //   componentWillReceiveProps(newProps) {
-//     if (newProps && newProps.data && newProps.data.steps && newProps.data.steps.type === 'Search' &&
-//       newProps.location.query && newProps.location.query[newProps.data.steps.questions[0].name]) {
+//     if (newProps && newProps.data && newProps.data.steps &&
+//   newProps.data.steps.type === 'Search' &&
+//       newProps.location.query &&
+//  newProps.location.query[newProps.data.steps.questions[0].name]) {
 //       const questions = this.state.questions;
 //       if (newProps.data.steps.questions) {
 //         try {
 //           newProps.data.steps.questions.forEach((q) => {
 //             questions[q.name] = {
-//               value: newProps.location.query[q.name].replace(/\r?\n|\r/g, ''), // Replace random new lines
+//               value: newProps.location.query[q.name].replace(/\r?\n|\r/g, ''),
+//   // Replace random new lines
 //             };
 //           });
 //           this.setState({ questions });
@@ -340,7 +343,8 @@
 //                 <div className="survey-wrapper">
 //                   <h4 className="step-title">Homeowner's insurance quote</h4>
 //                   <h3 className="step-sub-title">
-//                     {/* <i className="fa fa-search"/> Search for a {steps ? steps.name : null} */}
+//                     {/* <i className="fa fa-search"/>
+//  Search for a {steps ? steps.name : null} */}
 //                     <i className="fa fa-search" /> Search for a property address.
 //                   </h3>
 //                   <p>To start a homeowner's insurance quote, enter the street

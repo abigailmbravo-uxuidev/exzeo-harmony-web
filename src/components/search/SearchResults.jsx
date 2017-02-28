@@ -26,7 +26,7 @@ const Results = ({ addresses, handleClick }) => (
 
 Results.propTypes = {
   addresses: PropTypes.any, // eslint-disable-line
-  handleClick: PropTypes.func,
+  handleClick: PropTypes.func
 };
 
 class SearchResults extends Component {
@@ -35,19 +35,19 @@ class SearchResults extends Component {
     data: PropTypes.shape({
       loading: PropTypes.bool.isRequired,
       steps: PropTypes.object,
-      refetch: PropTypes.func,
+      refetch: PropTypes.func
     }).isRequired,
-    completeStep: PropTypes.func,
+    completeStep: PropTypes.func
   };
 
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   }
 
   state = {
     workflowId: '',
     loading: '',
-    results: [],
+    results: []
   }
 
   componentWillMount() {
@@ -67,8 +67,8 @@ class SearchResults extends Component {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: this.props.data.steps.name,
           data: { stateCode: address.state, igdId: address.id }
-        },
-      },
+        }
+      }
     }).then((updatedStep) => {
       const workflow = updatedStep.data.completeStep;
       if (workflow && workflow.link) {

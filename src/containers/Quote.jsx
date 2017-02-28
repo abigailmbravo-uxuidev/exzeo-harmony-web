@@ -12,7 +12,7 @@ class Quote extends Component {
   }
 
   static contextTypes = {
-    router: PropTypes.any,
+    router: PropTypes.any
   }
 
   state = {
@@ -20,8 +20,8 @@ class Quote extends Component {
       id: '',
       steps: [],
       activeStep: '',
-      completedSteps: [],
-    },
+      completedSteps: []
+    }
   }
 
   componentWillMount() {

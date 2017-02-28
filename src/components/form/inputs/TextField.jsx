@@ -9,7 +9,7 @@ export const TextInput = ({
   label,
   styleName,
   meta,
-  type,
+  type
 }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;
@@ -59,7 +59,7 @@ TextInput.propTypes = {
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any,
+    value: PropTypes.any
   }),
 
   /**
@@ -73,7 +73,7 @@ TextInput.propTypes = {
   meta: PropTypes.shape({
     error: PropTypes.string,
     touched: PropTypes.bool,
-    warning: PropTypes.string,
+    warning: PropTypes.string
   }),
 
   /**
@@ -86,13 +86,13 @@ TextInput.propTypes = {
     'number',
     'date',
     'tel',
-    'search',
+    'search'
   ]),
 
   /**
    * Stylename for form-group
    */
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 
 };
 
@@ -101,7 +101,7 @@ TextInput.defaultProps = {
   input: {},
   meta: {},
   type: 'text',
-  styleName: '',
+  styleName: ''
 };
 
 export default reduxFormField(TextInput);

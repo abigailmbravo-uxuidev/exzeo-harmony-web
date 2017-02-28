@@ -23,7 +23,7 @@ module.exports = {
       zip: '32034',
       latitude: 30.57729,
       longitude: -81.50374,
-      _id: '5866c036a46eb72908f3f55b',
+      _id: '5866c036a46eb72908f3f55b'
     },
     residenceType: 'Single Family',
     yearBuilt: 2005,
@@ -41,7 +41,7 @@ module.exports = {
       secondaryWaterResistance: false,
       windBorneDebrisRegion: false,
       terrain: 'B',
-      _id: '5866c036a46eb72908f3f55a',
+      _id: '5866c036a46eb72908f3f55a'
     },
     _id: '5866c036a46eb72908f3f559',
     gatedCommunity: false,
@@ -50,12 +50,12 @@ module.exports = {
     trampoline: false,
     divingBoard: false,
     poolSecured: false,
-    pool: false,
+    pool: false
   },
   rating: {
     engineCode: 'HO3ByPeril',
     rateCode: '0417',
-    _id: '5866c036a46eb72908f3f548',
+    _id: '5866c036a46eb72908f3f548'
   },
   underwritingExceptions: [],
   underwritingAnswers: {
@@ -63,14 +63,14 @@ module.exports = {
       question: 'No Prior Insurance Surcharge',
       answer: 'false',
       source: 'Default',
-      _id: '5866c036a46eb72908f3f54a',
+      _id: '5866c036a46eb72908f3f54a'
     },
     floodCoverage: {
       question: 'Flood Coverage',
       answer: 'yes',
       source: 'Default',
-      _id: '5866c036a46eb72908f3f549',
-    },
+      _id: '5866c036a46eb72908f3f549'
+    }
   },
   deductibles: {
     hurricane: {
@@ -78,36 +78,36 @@ module.exports = {
       amount: 0.2,
       format: 'Percentage',
       ofCoverageLimit: '2%',
-      _id: '5866c036a46eb72908f3f54c',
+      _id: '5866c036a46eb72908f3f54c'
     },
     allOtherPerils: {
       displayText: 'All Other Perils',
       amount: 1000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f54b',
-    },
+      _id: '5866c036a46eb72908f3f54b'
+    }
   },
   coverageOptions: {
     sinkholePerilCoverage: {
       displayText: 'Sinkhole Peril Coverage',
       answer: false,
-      _id: '5866c036a46eb72908f3f550',
+      _id: '5866c036a46eb72908f3f550'
     },
     propertyIncidentalOccupanciesMainDwelling: {
       displayText: 'Property Incidental Occupancies Main Dwelling',
       answer: false,
-      _id: '5866c036a46eb72908f3f54f',
+      _id: '5866c036a46eb72908f3f54f'
     },
     propertyIncidentalOccupanciesOtherStructures: {
       displayText: 'Property Incidental Occupancies Other Structures',
       answer: false,
-      _id: '5866c036a46eb72908f3f54e',
+      _id: '5866c036a46eb72908f3f54e'
     },
     liabilityIncidentalOccupancies: {
       displayText: 'liability Incidental Occupancies',
       answer: false,
-      _id: '5866c036a46eb72908f3f54d',
-    },
+      _id: '5866c036a46eb72908f3f54d'
+    }
   },
   coverageLimits: {
     dwelling: {
@@ -116,56 +116,56 @@ module.exports = {
       format: 'Currency',
       minAmount: 2000000,
       maxAmount: 2000000,
-      _id: '5866c036a46eb72908f3f558',
+      _id: '5866c036a46eb72908f3f558'
     },
     otherStructures: {
       displayText: 'Other Structures',
       amount: 1000000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f557',
+      _id: '5866c036a46eb72908f3f557'
     },
     ordinanceOrLaw: {
       displayText: 'Ordinance Or Law',
       amount: 1000000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f557',
+      _id: '5866c036a46eb72908f3f557'
     },
     personalProperty: {
       displayText: 'Personal Property',
       amount: 500000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f556',
+      _id: '5866c036a46eb72908f3f556'
     },
     lossOfUse: {
       displayText: 'Loss of Use',
       amount: 1000000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f555',
+      _id: '5866c036a46eb72908f3f555'
     },
     personalLiability: {
       displayText: 'Personal Liability',
       amount: 100000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f554',
+      _id: '5866c036a46eb72908f3f554'
     },
     medicalPayments: {
       displayText: 'Medical Payments',
       amount: 2000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f553',
+      _id: '5866c036a46eb72908f3f553'
     },
     moldProperty: {
       displayText: 'Mold Property',
       amount: 10000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f552',
+      _id: '5866c036a46eb72908f3f552'
     },
     moldLiability: {
       displayText: 'Mold Liability',
       amount: 50000,
       format: 'Currency',
-      _id: '5866c036a46eb72908f3f551',
-    },
+      _id: '5866c036a46eb72908f3f551'
+    }
   },
   additionalInterests: [
     {
@@ -182,9 +182,9 @@ module.exports = {
         zip: '33611',
         country: {
           code: 'US',
-          displayText: 'United States',
-        },
-      },
+          displayText: 'United States'
+        }
+      }
     },
     {
       type: 'Mortgagee',
@@ -200,9 +200,9 @@ module.exports = {
         zip: '33611',
         country: {
           code: 'US',
-          displayText: 'United States',
-        },
-      },
+          displayText: 'United States'
+        }
+      }
     },
     {
       type: 'Mortgagee',
@@ -218,10 +218,10 @@ module.exports = {
         zip: '33611',
         country: {
           code: 'US',
-          displayText: 'United States',
-        },
-      },
-    },
+          displayText: 'United States'
+        }
+      }
+    }
   ],
   policyHolderMailingAddress: {
     careOf: null,
@@ -232,8 +232,8 @@ module.exports = {
     zip: '33607',
     country: {
       code: 'USA',
-      displayText: 'United States of America',
-    },
+      displayText: 'United States of America'
+    }
   },
   policyHolders: [
     {
@@ -243,7 +243,7 @@ module.exports = {
       firstName: 'Bryan1',
       lastName: 'BBBB',
       emailAddress: 'bb1@bb.com',
-      primaryPhoneNumber: '813-555-3456',
+      primaryPhoneNumber: '813-555-3456'
     },
     {
       id: 'DFBDFBDF2',
@@ -252,8 +252,8 @@ module.exports = {
       firstName: 'Bryan2',
       lastName: 'BBBB',
       emailAddress: 'bb2@bb.com',
-      primaryPhoneNumber: '813-555-3456',
-    },
+      primaryPhoneNumber: '813-555-3456'
+    }
   ],
-  __v: 0,
+  __v: 0
 };

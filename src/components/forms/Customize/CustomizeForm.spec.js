@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import CustomizeForm from './CustomizeForm';
 import FormGenerator from '../../form/FormGenerator';

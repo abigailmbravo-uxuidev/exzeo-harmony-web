@@ -64,16 +64,16 @@ PolicyHolderUpdateForm.propTypes = {
 };
 
 PolicyHolderUpdateForm = reduxForm({
-  form: 'PolicyHolderUpdateForm', // a unique identifier for this form
+  form: 'PolicyHolderUpdateForm' // a unique identifier for this form
 })(PolicyHolderUpdateForm);
 
 PolicyHolderUpdateForm = connect(
     state => ({
       initialValues: {
-        policyHolders: state.form.Verify.values.policyHolders,
+        policyHolders: state.form.Verify.values.policyHolders
       },
       formName: 'PolicyHolderUpdateForm',
-      state,
+      state
     }),
   )(PolicyHolderUpdateForm);
 

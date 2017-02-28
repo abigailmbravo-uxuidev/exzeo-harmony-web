@@ -9,13 +9,13 @@ export const CheckInput = ({
   input,
   isSwitch,
   label,
-  styleName,
+  styleName
 }) => {
   const {
     disabled,
     name,
     value,
-    onChange,
+    onChange
   } = input;
 
   const formGroupStyles = classNames(
@@ -76,15 +76,15 @@ CheckInput.propTypes = {
   /**
    * Classname for form-group
    */
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 CheckInput.defaultProps = {
   input: {
     onChange: () => {},
-    value: false,
+    value: false
   },
-  styleName: '',
+  styleName: ''
 };
 
 export default reduxFormField(CheckInput);

@@ -56,7 +56,8 @@
 //     activeStep: 0,
 //   }
 //   componentWillMount = () => {
-//     this.props.mutate({ variables: { input: { name: 'quote', product: 'ho3', state: 'florida' } } })
+//     this.props.mutate({ variables: { input:
+// { name: 'quote', product: 'ho3', state: 'florida' } } })
 //       .then(({ data }) => {
 //         console.log(data.startWorkflow);
 //         const steps = this.props.steps;

@@ -75,15 +75,15 @@ Survey.propTypes = {
     answerType: PropTypes.oneOf(['string', 'email', 'password', 'text', 'number', 'date', 'range', 'tel', 'search', 'radio', 'bool']),
     answers: PropTypes.arrayOf(PropTypes.shape({
       answer: PropTypes.string,
-      image: PropTypes.string,
+      image: PropTypes.string
     })),
     optional: PropTypes.bool,
-    styleName: PropTypes.string,
+    styleName: PropTypes.string
   })),
   answers: PropTypes.object, //eslint-disable-line
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 export default reduxForm({
-  form: 'survey', // a unique identifier for this form
+  form: 'survey' // a unique identifier for this form
 })(Survey);

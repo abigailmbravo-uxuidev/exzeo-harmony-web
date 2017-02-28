@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 
 const Heading = ({
-  question,
-  icon,
+  question
+//  icon
 }) => (
   <span className="section-group-header">
-    <i className={'fa ' + question} />
+    <i className={`fa ${question}`} />
     &nbsp;{question}
   </span>
 );

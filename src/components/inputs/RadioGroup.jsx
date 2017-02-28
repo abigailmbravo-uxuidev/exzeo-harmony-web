@@ -18,8 +18,8 @@ const RenderField = ({
   disabled,
   meta: {
     touched,
-    error,
-  },
+    error
+  }
 }) => {
   const classnames = `form-group ${segmented ? 'segmented' : ''} ${label} ${styleName} ${disabled ? 'disabled' : ''}`;
   if (answerType === 'hidden') {
@@ -71,13 +71,13 @@ RenderField.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.number,
+      PropTypes.number
     ]),
     label: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.number,
+      PropTypes.number
     ]),
-    image: PropTypes.string,
+    image: PropTypes.string
   })),
   label: PropTypes.string,
   description: PropTypes.string,
@@ -101,7 +101,7 @@ const RadioGroup = ({
   question,
   value,
   validations,
-  name,
+  name
 }) => {
   const ruleArray = combineRules(validations);
 
@@ -110,8 +110,8 @@ const RadioGroup = ({
     const newEvent = {
       target: {
         name,
-        value: answer,
-      },
+        value: answer
+      }
     };
     handleChange(newEvent);
   };
@@ -144,13 +144,13 @@ RadioGroup.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.number,
+      PropTypes.number
     ]),
     display: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.number,
+      PropTypes.number
     ]),
-    image: PropTypes.string,
+    image: PropTypes.string
   })),
   description: PropTypes.string,
   disabled: PropTypes.bool,
@@ -161,8 +161,8 @@ RadioGroup.propTypes = {
   styleName: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number,
-  ]),
+    PropTypes.number
+  ])
 };
 
 export default RadioGroup;

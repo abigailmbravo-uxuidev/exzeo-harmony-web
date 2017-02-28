@@ -7,7 +7,7 @@ const RadioOption = ({
   name,
   segmented,
   size,
-  value,
+  value
 }) => (
   <div
     className={classNames(
@@ -43,7 +43,7 @@ RadioOption.propTypes = {
   answer: PropTypes.shape({
     answer: PropTypes.any, // eslint-disable-line
     label: PropTypes.string,
-    image: PropTypes.string,
+    image: PropTypes.string
   }),
 
   /**

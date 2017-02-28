@@ -4,15 +4,15 @@ import { App } from './App';
 
 const props = {
   auth: {
-    get: () => {},
+    get: () => {}
   },
   features: {
-    get: () => {},
-  },
+    get: () => {}
+  }
 };
 
 const actions = {
-  initializeLD: () => {},
+  initializeLD: () => {}
 };
 
 describe('<App />', () => {

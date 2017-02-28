@@ -7,18 +7,18 @@ const suggestions = {
     heading: 'Group 1',
     mapping: {},
     results: [],
-    count: 3,
+    count: 3
   }, {
     heading: 'Group 2',
     mapping: {},
     results: [],
-    count: 3,
+    count: 3
   }, {
     heading: 'Group 3',
     mapping: {},
     results: [],
-    count: 3,
-  }],
+    count: 3
+  }]
 };
 
 describe('<TypeAhead />', () => {

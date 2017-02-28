@@ -8,7 +8,7 @@ export const SelectField = ({
   hint,
   input,
   label,
-  styleName,
+  styleName
 }) => {
   const { onChange, name, value, disabled } = input;
 
@@ -47,7 +47,7 @@ SelectField.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.any, // eslint-disable-line
     label: PropTypes.string,
-    image: PropTypes.string,
+    image: PropTypes.string
   })),
 
   /**
@@ -73,12 +73,12 @@ SelectField.propTypes = {
   /**
    * Styles for form group
    */
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 SelectField.defaultProps = {
   input: {
-    onChange: () => {},
+    onChange: () => {}
   }
 };
 

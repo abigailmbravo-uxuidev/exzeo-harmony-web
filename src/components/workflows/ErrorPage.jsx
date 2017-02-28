@@ -7,31 +7,33 @@ const ErrorPage = () => (
     <div className="survey-wrapper">
       <div className="contact-message">
         <div className="card card-csr">
-        <div className="card-header image card-header-image-csr">
-          <h4><i className="fa fa-exclamation-triangle"></i> Please contact us</h4>
+          <div className="card-header image card-header-image-csr">
+            <h4><i className="fa fa-exclamation-triangle" /> Please contact us</h4>
+          </div>
+          <div className="card-block">
+            <h4 className="error-message">Something went wrong</h4>
+            <p>We apologize, but we are unable to provide an automated HO3
+             quote for your property at this time.</p>
+            <p>Please contact one of our representatives so they
+              may further assist you in obtaining a quote.</p>
+          </div>
+          <div className="contact-methods card-footer">
+            <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope" /> email us</a>
+            <a href="tel:8442897968"><i className="fa fa-phone" /> (844) 289-7968</a>
+          </div>
         </div>
-        <div className="card-block">
-          <h4 className="error-message">Something went wrong</h4>
-          <p>We apologize, but we are unable to provide an automated HO3 quote for your property at this time.</p>
-          <p>Please contact one of our representatives so they may further assist you in obtaining a quote.</p>
-
-        </div>
-        <div className="contact-methods card-footer">
-          <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
-          <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
-        </div>
-      </div>
       </div>
     </div>
-    <Footer/>
-            {/* SOFT STOP WORKFLOW ERROR*/}
-            {/*<div className="fade-in">
+    <Footer />
+    {/* SOFT STOP WORKFLOW ERROR*/}
+    {/* <div className="fade-in">
               <div className="workflow-content">
                 <section>
                   <div className="fade-in">
                     <div className="survey-wrapper">
                       <h4>You have finished the requirements to obtain your HO3 quote.</h4>
-                      <p>To complete the process, please contact a customer support representative.</p>
+                      <p>To complete the process, please contact
+                      a customer support representative.</p>
                     </div>
                   </div>
                 </section>
@@ -54,8 +56,8 @@ const ErrorPage = () => (
                 </dl>
               </div>
             </div>*/}
-            {/* APP ERROR*/}
-            {/*<div className="fade-in app-error">
+    {/* APP ERROR*/}
+    {/* <div className="fade-in app-error">
               <div className="workflow-content">
                 <section>
                   <div className="fade-in">

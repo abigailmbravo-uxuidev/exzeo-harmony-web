@@ -9,56 +9,56 @@ import localStorage from 'localStorage';
 import Footer from '../common/Footer';
 // import _ from 'lodash';
 
-const CoverageDetails = ({ data }) => (
-  <div className="CoverageDetails detail-group">
-    <h4>Coverages</h4>
-    <section className="summary-section">
-      <dl>
-        <dt>
-          <span>A</span> Dwelling</dt>
-        <dd>${data.dwelling.amount}</dd>
-      </dl>
-      <dl>
-        <dt>
-          <span>B</span> Other Structures</dt>
-        <dd>${data.otherStructures.amount}</dd>
-      </dl>
-      <dl>
-        <dt>
-          <span>C</span> Personal Property</dt>
-        <dd>${data.personalProperty.amount}</dd>
-      </dl>
-      <dl>
-        <dt>Personal Property Replacement Cost</dt>
-        <dd>{data.personalProperty.amount > 0 ? 'Yes' : 'No'}</dd>
-      </dl>
-      <dl>
-        <dt>Loss Of Use</dt>
-        <dd>${data.lossOfUse.amount}</dd>
-      </dl>
-      <dl>
-        <dt>Personal Liability</dt>
-        <dd>${data.personalLiability.amount}</dd>
-      </dl>
-      <dl>
-        <dt>Medical Payments</dt>
-        <dd>${data.medicalPayments.amount}</dd>
-      </dl>
-      <dl>
-        <dt>Mold Property</dt>
-        <dd>${data.moldProperty.amount}</dd>
-      </dl>
-      <dl>
-        <dt>Mold Liability</dt>
-        <dd>${data.moldLiability.amount}</dd>
-      </dl>
-      <dl>
-        <dt>Ordinance or Law</dt>
-        <dd>${data.ordinanceOrLaw.amount}</dd>
-      </dl>
-    </section>
-  </div>
-);
+// const CoverageDetails = ({ data }) => (
+//   <div className="CoverageDetails detail-group">
+//     <h4>Coverages</h4>
+//     <section className="summary-section">
+//       <dl>
+//         <dt>
+//           <span>A</span> Dwelling</dt>
+//         <dd>${data.dwelling.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>
+//           <span>B</span> Other Structures</dt>
+//         <dd>${data.otherStructures.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>
+//           <span>C</span> Personal Property</dt>
+//         <dd>${data.personalProperty.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>Personal Property Replacement Cost</dt>
+//         <dd>{data.personalProperty.amount > 0 ? 'Yes' : 'No'}</dd>
+//       </dl>
+//       <dl>
+//         <dt>Loss Of Use</dt>
+//         <dd>${data.lossOfUse.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>Personal Liability</dt>
+//         <dd>${data.personalLiability.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>Medical Payments</dt>
+//         <dd>${data.medicalPayments.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>Mold Property</dt>
+//         <dd>${data.moldProperty.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>Mold Liability</dt>
+//         <dd>${data.moldLiability.amount}</dd>
+//       </dl>
+//       <dl>
+//         <dt>Ordinance or Law</dt>
+//         <dd>${data.ordinanceOrLaw.amount}</dd>
+//       </dl>
+//     </section>
+//   </div>
+// );
 //
 // const CoverageOptionsDetails = ({ data }) => (
 //   <div className="RatingDetails detail-group">
@@ -141,7 +141,7 @@ class SharePage extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func,
     styleName: PropTypes.string,
-    completeStep: PropTypes.func,
+    completeStep: PropTypes.func
   }
 
   static contextTypes = {
@@ -192,18 +192,18 @@ class SharePage extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'showCustomizedQuoteAndContinue',
-          data: {},
-        },
-      },
-    }).then((updatedShowCustomizedQuoteAndContinue) => {
+          data: {}
+        }
+      }
+    }).then(() => {
       this.props.completeStep({
         variables: {
           input: {
             workflowId: localStorage.getItem('newWorkflowId'),
             stepName: 'saveAndSendEmail',
-            data: { shouldGeneratePdfAndEmail: shareIt ? 'Yes' : 'No' },
-          },
-        },
+            data: { shouldGeneratePdfAndEmail: shareIt ? 'Yes' : 'No' }
+          }
+        }
       }).then((updatedShouldGeneratePdfAndEmail) => {
         console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
         const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
@@ -247,11 +247,11 @@ class SharePage extends Component {
     } = this.props;
 
 
-    let quote = null;
-    if (this.props.data && this.props.data.steps) {
-      console.log('the quote -----------------', this.props.data.steps.data[0]);
-      quote = this.props.data.steps.data[0];
-    }
+    // let quote = null;
+    // if (this.props.data && this.props.data.steps) {
+    //   console.log('the quote -----------------', this.props.data.steps.data[0]);
+    //   quote = this.props.data.steps.data[0];
+    // }
     //
     // if (quoteTest) {
     //   quote = quoteTest;
@@ -300,7 +300,7 @@ class SharePage extends Component {
 }
 
 SharePage = reduxForm({
-  form: 'SharePage', // a unique identifier for this form
+  form: 'SharePage' // a unique identifier for this form
 })(SharePage);
 
 
@@ -422,9 +422,9 @@ SharePage = connect()(graphql(gql `
     }`, {
       options: {
         variables: {
-          workflowId: localStorage.getItem('newWorkflowId'),
-        },
-      },
+          workflowId: localStorage.getItem('newWorkflowId')
+        }
+      }
     })(graphql(gql `
       mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {

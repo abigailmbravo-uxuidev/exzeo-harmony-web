@@ -7,7 +7,7 @@ const DependentQuestion = ({
   data,
   question,
   answers,
-  handleChange,
+  handleChange
 }) => {
   // No conditional
   if (!question.conditional) {

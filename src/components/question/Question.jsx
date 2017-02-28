@@ -13,7 +13,7 @@ const Question = ({ question, answer, disabled, handleChange }) => {
     ...question,
     value: answer,
     handleChange,
-    disabled,
+    disabled
   };
 
   if (question.hidden) inputProps.answerType = 'hidden';
@@ -75,30 +75,30 @@ Question.propTypes = {
       'search',
       'radio',
       'bool',
-      'display',
+      'display'
     ]),
     answers: PropTypes.arrayOf(PropTypes.shape({
       answer: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
       ]),
       display: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.number,
+        PropTypes.number
       ]),
-      image: PropTypes.string,
+      image: PropTypes.string
     })),
-    optional: PropTypes.bool,
+    optional: PropTypes.bool
   }),
   answer: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
-    PropTypes.number,
+    PropTypes.number
   ]),
   handleChange: PropTypes.func,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 export default Question;

@@ -53,7 +53,7 @@ const TextInput = ({
   question,
   value,
   styleName = '',
-  validations,
+  validations
 }) => {
   const ruleArray = combineRules(validations);
 
@@ -86,8 +86,8 @@ TextInput.propTypes = {
   styleName: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number,
-  ]),
+    PropTypes.number
+  ])
 };
 
 export default TextInput;

@@ -10,15 +10,15 @@ const renderField = ({
   isSwitch,
   description,
   question,
-  styleName,
+  styleName
 }) => {
   const onChange = () => {
     if (input.disabled) return;
     const newEvent = {
       target: {
         name: input.name,
-        value: !input.value,
-      },
+        value: !input.value
+      }
     };
     handleChange(newEvent);
   };
@@ -74,7 +74,7 @@ const BoolInput = ({
   question,
   styleName = '',
   value,
-  validations,
+  validations
 }) => {
   const ruleArray = combineRules(validations);
 
@@ -106,8 +106,8 @@ BoolInput.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
-    PropTypes.string,
-  ]),
+    PropTypes.string
+  ])
 };
 
 export default BoolInput;

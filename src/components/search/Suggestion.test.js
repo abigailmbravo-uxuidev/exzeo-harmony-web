@@ -9,10 +9,10 @@ const data = {
     mapping: {
       title: '',
       description: '',
-      details: '',
+      details: ''
     },
-    results: [],
-  },
+    results: []
+  }
 };
 
 describe('<Suggestion />', () => {

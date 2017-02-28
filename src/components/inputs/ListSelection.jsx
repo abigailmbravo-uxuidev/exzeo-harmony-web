@@ -7,7 +7,7 @@ const ListSelection = ({
   handleChange,
   name,
   question,
-  styleName = '',
+  styleName = ''
 }) => (
   <div className={`form-group ${styleName} ${name} ${disabled ? 'disabled' : ''}`}>
     <label htmlFor={name || null}>
@@ -41,7 +41,7 @@ ListSelection.propTypes = {
   handleChange: PropTypes.func,
   name: PropTypes.string,
   question: PropTypes.string,
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 export default ListSelection;

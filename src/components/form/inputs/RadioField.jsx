@@ -13,7 +13,7 @@ export const RadioInput = ({
   label,
   meta,
   segmented,
-  styleName,
+  styleName
 }) => {
   const { error, touched } = meta;
   const { onChange, name, value, disabled } = input;
@@ -66,7 +66,7 @@ RadioInput.propTypes = {
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.any, // eslint-disable-line
     label: PropTypes.any, // eslint-disable-line
-    image: PropTypes.string,
+    image: PropTypes.string
   })),
 
   /**
@@ -101,7 +101,7 @@ RadioInput.propTypes = {
   meta: PropTypes.shape({
     warning: PropTypes.string,
     error: PropTypes.string,
-    touched: PropTypes.bool,
+    touched: PropTypes.bool
   }),
 
   /**
@@ -112,12 +112,12 @@ RadioInput.propTypes = {
    * Classname for form-group
    */
   segmented: PropTypes.bool,
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 RadioInput.defaultProps = {
   input: {},
-  meta: {},
+  meta: {}
 };
 
 export default reduxFormField(RadioInput);

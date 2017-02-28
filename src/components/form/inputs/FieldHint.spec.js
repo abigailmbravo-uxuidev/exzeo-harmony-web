@@ -6,7 +6,7 @@ describe('FieldHint', () => {
   it('should render component when hint and name are provided', () => {
     const hintProps = {
       hint: 'hint',
-      name: 'test',
+      name: 'test'
     };
     const wrapper = shallow(<FieldHint {...hintProps} />);
 

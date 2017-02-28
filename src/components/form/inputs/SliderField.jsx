@@ -12,7 +12,7 @@ export const SliderInput = ({
   min,
   rightLabel,
   step,
-  styleName,
+  styleName
 }) => {
   const { name, value } = input;
 
@@ -99,12 +99,12 @@ SliderInput.propTypes = {
   /**
    * Style for form group
    */
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 
 };
 
 SliderInput.defaultProps = {
-  input: {},
+  input: {}
 };
 
 export default reduxFormField(SliderInput);

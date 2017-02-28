@@ -4,7 +4,7 @@ const DisplayField = ({
   name,
   label,
   value,
-  displayValue,
+  displayValue
 }) => (
   <div className="form-group">
     <label htmlFor={name}>

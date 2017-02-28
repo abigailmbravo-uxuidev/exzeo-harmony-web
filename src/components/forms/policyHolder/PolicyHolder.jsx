@@ -70,7 +70,7 @@ PolicyHolder.propTypes = {
   name: PropTypes.string,
   state: PropTypes.any,// eslint-disable-line
   formName: PropTypes.string,
-  handleChange: PropTypes.func,
+  handleChange: PropTypes.func
 };
 
 export default PolicyHolder;
