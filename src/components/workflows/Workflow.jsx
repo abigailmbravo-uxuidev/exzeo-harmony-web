@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import _ from 'lodash';
-import Demographics from '../workflows/Demographics';
+import Demographics from '../forms/Demographics/Demographics';
 import Search from '../search/Search';
 import SearchResults from '../search/SearchResults';
-import UWQuestions from '../workflows/UWQuestions_Form';
+import Underwriting from '../forms/Underwriting/Underwriting';
 import Customize from '../forms/Customize/Customize';
 import ThankYou from './ThankYou';
 import ErrorPage from './ErrorPage';
@@ -79,15 +79,15 @@ class Workflow extends Component {
   }
 
   static contextTypes = {
-    router: PropTypes.any,
+    router: PropTypes.any
   }
 
   state = {
     details: [],
     workflow: {
-      steps: [],
+      steps: []
     },
-    completedSteps: [],
+    completedSteps: []
   }
 
   componentWillMount = () => {
@@ -139,7 +139,7 @@ class Workflow extends Component {
             <Route path="/quote/search" component={Search} />
             <Route exact path="/quote/search/:address" component={SearchResults} />
             <Route path="/quote/demographics" component={Demographics} />
-            <Route path="/quote/underwriting" component={UWQuestions} />
+            <Route path="/quote/underwriting" component={Underwriting} />
             <Route path="/quote/customize" component={Customize} />
             <Route path="/quote/share" component={Share} />
             <Route path="/quote/billing" component={Billing} />

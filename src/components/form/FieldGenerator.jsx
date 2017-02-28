@@ -8,13 +8,13 @@ import {
   RadioField,
   SelectField,
   SliderField,
-  TextField,
+  TextField
 } from './inputs';
 
 const FieldGenerator = ({
   question,
   data,
-  values,
+  values
 }) => {
   if (question.conditional) dependencyHelper(question, data, values);
 
@@ -22,7 +22,7 @@ const FieldGenerator = ({
     ...question,
     hint: question.description,
     label: question.question,
-    type: question.answerType,
+    type: question.answerType
   };
 
   if (question.hidden) inputProps.type = 'hidden';
@@ -59,7 +59,7 @@ const FieldGenerator = ({
     case 'hidden':
       return <HiddenField {...inputProps} />;
     default:
-      return <TextField {...inputProps} />;
+      return <RadioField {...inputProps} segmented />;
   }
 };
 
@@ -67,7 +67,7 @@ FieldGenerator.propTypes = {
   question: PropTypes.shape({
     question: PropTypes.string,
     description: PropTypes.string,
-    answerType: PropTypes.string,
+    answerType: PropTypes.string
   }),
   data: PropTypes.any, // eslint-disable-line
   values: PropTypes.any, // eslint-disable-line

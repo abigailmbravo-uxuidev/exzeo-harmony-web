@@ -22,7 +22,7 @@ class FormGenerator extends Component {
       questions,
       handleSubmit,
       handleOnSubmit,
-      styleName,
+      styleName
     } = this.props;
     return (
       <Form
@@ -60,12 +60,12 @@ FormGenerator.propTypes = {
   questions: PropTypes.any, // eslint-disable-line
   handleSubmit: PropTypes.func,
   handleOnSubmit: PropTypes.func,
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 const mapStateToProps = (state, ownProps) => ({
   form: ownProps.name,
-  fieldValues: _.get(state.form, `${ownProps.name}.values`, {}),
+  fieldValues: _.get(state.form, `${ownProps.name}.values`, {})
 });
 
 export default compose(

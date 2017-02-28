@@ -1,6 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 require('babel-register')();
+require('babel-polyfill');
 require('./Mock.jsx');
 
 require.extensions['.css'] = () => null;
@@ -23,7 +24,7 @@ Object.keys(document.defaultView).forEach((property) => {
 });
 
 global.navigator = {
-  userAgent: 'node.js',
+  userAgent: 'node.js'
 };
 
 global.expect = require('chai').expect;
