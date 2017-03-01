@@ -4,29 +4,32 @@ import Footer from '../common/Footer';
 const ErrorPage = () => (
   <div className="error-content" role="article">
     {/* HARD STOP WORKFLOW ERROR*/}
-    <div className="survey-wrapper">
-      <div className="contact-message">
-        <div className="card card-csr">
-          <div className="card-header image card-header-image-csr">
-            <h4><i className="fa fa-exclamation-triangle" /> Please contact us</h4>
-          </div>
-          <div className="card-block">
-            <h4 className="error-message">Something went wrong</h4>
-            <p>We apologize, but we are unable to provide an automated HO3
-             quote for your property at this time.</p>
-            <p>Please contact one of our representatives so they
-              may further assist you in obtaining a quote.</p>
-          </div>
-          <div className="contact-methods card-footer">
-            <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope" /> email us</a>
-            <a href="tel:8442897968"><i className="fa fa-phone" /> (844) 289-7968</a>
+    <div className="fade-in">
+    <section>
+      <div className="fade-in" id="Error">
+        <div className="detail-wrapper">
+          <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"></i> Please contact us</h3>
+          <div className="header-wrapper">
+            <div>
+              <h4 className="error-message">Something went wrong</h4>
+              <p>We apologize, but we are unable to provide an automated HO3 quote for your property at this time.</p>
+              <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
+            </div>
           </div>
         </div>
       </div>
+    </section>
+    <aside>
+      <div className="image"></div>
+      <div className="contact-info">
+        <a className="link-email" href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> <span>email us</span></a>
+        <a className="link-phone" href="tel:8442897968"><i className="fa fa-phone"/> <span>(844) 289-7968</span></a>
+      </div>
+    </aside>
     </div>
-    <Footer />
+    <Footer/>
     {/* SOFT STOP WORKFLOW ERROR*/}
-    {/* <div className="fade-in">
+    {/*<div className="fade-in">
               <div className="workflow-content">
                 <section>
                   <div className="fade-in">
@@ -57,7 +60,8 @@ const ErrorPage = () => (
               </div>
             </div>*/}
     {/* APP ERROR*/}
-    {/* <div className="fade-in app-error">
+
+    {/*<div className="fade-in app-error">
               <div className="workflow-content">
                 <section>
                   <div className="fade-in">
@@ -93,7 +97,6 @@ const ErrorPage = () => (
             </div>*/}
 
   </div>
-
 );
 
 export default ErrorPage;

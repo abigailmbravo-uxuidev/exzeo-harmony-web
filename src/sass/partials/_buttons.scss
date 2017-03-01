@@ -135,7 +135,10 @@ input[type="submit"] {
   justify-content: center;
   align-items: center;
 
-  i {}
+  i {
+      margin: 0;
+      padding: 0;
+  }
 }
 
 .btn-send {
