@@ -28,10 +28,10 @@ auth0({
   }
 })
   .then((response) => {
-    console.log(response.data);
+    console.log(response.data); // eslint-disable-line
   })
   .catch((error) => {
-    console.log(error);
+    console.log(error); // eslint-disable-line
   });
 
 const store = configureStore();

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { reduxForm } from 'redux-form';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import CustomizeForm from './CustomizeForm';
-import FormGenerator from '../../form/FormGenerator';
 
 describe('CustomizeForm', () => {
   const mockStore = configureStore([]);
@@ -15,7 +15,6 @@ describe('CustomizeForm', () => {
       children: [],
       data: {},
       fieldValues: {},
-      form: {},
       questions: [{
         _id: '58827547711411e6b4d3ac5f',
         name: 'moldProperty',
@@ -73,11 +72,10 @@ describe('CustomizeForm', () => {
     };
   });
 
-  it('should render CustomizeForm', () => {
+  it('should render CustomizeForm with redux form wrapper', () => {
+    const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
     const wrapper = mount(<Provider store={store}>
-      <FormGenerator {...props} >
-        <CustomizeForm {...props} />
-      </FormGenerator>
+      <Customize {...props} />
     </Provider>);
 
     expect(wrapper).to.exist;

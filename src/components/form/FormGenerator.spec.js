@@ -12,10 +12,10 @@ describe('FormGenerator', () => {
 
   beforeEach(() => {
     props = {
+      name: 'Testing',
       children: [],
       data: {},
       fieldValues: {},
-      form: {},
       questions: [{
         _id: '58827547711411e6b4d3ac5f',
         name: 'moldProperty',
