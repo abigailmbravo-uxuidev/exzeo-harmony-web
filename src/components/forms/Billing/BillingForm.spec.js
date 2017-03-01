@@ -322,12 +322,20 @@ describe('BillingForm', () => {
     wrapper.instance().handleOnSubmit();
   });
 
-  it('should fillMailForm', () => {
+  it('should fillMailForm then reset values', () => {
   //  const Billing = reduxForm({ form: 'Billing' })(BillingForm);
     const wrapper = shallow(<BillingForm {...props} />);
 
     expect(wrapper).to.exist;
     expect(wrapper.find('Form')).to.have.length(1);
+    // fill
     wrapper.instance().fillMailForm();
+    expect(wrapper.instance().state.values.address1).to.equal('95155 STINGRAY LN');
+    expect(wrapper.instance().state.values.state).to.equal('FL');
+
+    // reset
+    wrapper.instance().fillMailForm();
+    expect(wrapper.instance().state.values.address1).to.equal('');
+    expect(wrapper.instance().state.values.state).to.equal('');
   });
 });
