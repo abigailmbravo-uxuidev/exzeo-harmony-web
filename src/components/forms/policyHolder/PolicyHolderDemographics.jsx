@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
-// import _ from 'lodash';
 import { formValueSelector } from 'redux-form';
-import TextInput from '../../inputs/TextInput';
+import TextField from '../../form/TextField';
 
-const PolicyHolderDemographics = ({ handleChange, state, formName
+const PolicyHolderDemographics = ({ state, formName
   }) => {
   const selector = formValueSelector(formName);
   const entityType = selector(state, 'entityType');
@@ -12,33 +11,29 @@ const PolicyHolderDemographics = ({ handleChange, state, formName
     <div className="form-group survey-wrapper policyHolder-component" role="group">
       {/* <Dropdown*/}
       {/* answers={[{ answer: 'Company' }, { answer: 'Person' }]}*/}
-      {/* handleChange={handleChange}*/}
       {/* defaultValue={'Person'}*/}
       {/* name={'entityType'}*/}
       {/* question={'Entity Type'}*/}
       {/* validations={['required']}*/}
       {/* />*/}
 
-      {entityType === 'Person' && <TextInput
+      {entityType === 'Person' && <TextField
         answerType="text"
-        handleChange={handleChange}
         name={'FirstName'}
         styleName={'FirstName FirstName'}
         question={'First Name'}
         validations={['required']}
       />}
-      {entityType === 'Person' && <TextInput
+      {entityType === 'Person' && <TextField
         answerType="text"
-        handleChange={handleChange}
         name={'LastName'}
         styleName={'LastName LastName'}
         question={'Last Name'}
         validations={['required']}
       />
       }
-      {entityType === 'Company' && <TextInput
+      {entityType === 'Company' && <TextField
         answerType="text"
-        handleChange={handleChange}
         name={'CompanyName'}
         styleName={'CompanyName CompanyName'}
         question={'Company'}
@@ -46,17 +41,15 @@ const PolicyHolderDemographics = ({ handleChange, state, formName
       />
       }
 
-      <TextInput
+      <TextField
         answerType="text"
-        handleChange={handleChange}
         name={'EmailAddress'}
         styleName={'Email Email'}
         question={'Email Address'}
         validations={['required', 'email']}
       />
-      <TextInput
+      <TextField
         answerType="text"
-        handleChange={handleChange}
         name={'phoneNumber'}
         styleName={'PhoneNumber PhoneNumber'}
         question={'Phone Number'}
@@ -68,8 +61,7 @@ const PolicyHolderDemographics = ({ handleChange, state, formName
 
 PolicyHolderDemographics.propTypes = {
   state: PropTypes.any,// eslint-disable-line
-  formName: PropTypes.string,
-  handleChange: PropTypes.func
+  formName: PropTypes.string
 };
 
 export default PolicyHolderDemographics;
