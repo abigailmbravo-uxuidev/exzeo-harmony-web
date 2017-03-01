@@ -10,16 +10,16 @@ import Search from '../search/Search';
 import SearchResults from '../search/SearchResults';
 import Underwriting from '../forms/Underwriting/Underwriting';
 import Customize from '../forms/Customize/Customize';
+import Billing from '../forms/Billing/Billing';
+import Verify from '../forms/Verify/Verify';
 import ThankYou from './ThankYou';
 import ErrorPage from './ErrorPage';
-import Verify from './verify/VerifyClass';
 import WorkflowDetails from './WorkflowDetails';
 import Share from './SharePage';
-import Billing from './Billing';
 import { getDetails, setDetails } from '../../actions/detailsActions';
 
 const WorkflowHeader = (d) => {
-  console.log(d);
+  console.log(d); // eslint-disable-line
   return (
     <ul className="workflow-header">
       <div className="rule" />
@@ -76,7 +76,7 @@ class Workflow extends Component {
     startWorkflow: PropTypes.func, // eslint-disable-line
     dispatch: PropTypes.func,
     details: PropTypes.any, // eslint-disable-line
-    data: {}
+    data: PropTypes.any //eslint-disable-line
   }
 
   static contextTypes = {
@@ -130,7 +130,6 @@ class Workflow extends Component {
       activeStep = this.props.data.steps.name;
     }
     const details = this.props.details;
-    console.log(details);
 
     return (
       <div className="fade-in">

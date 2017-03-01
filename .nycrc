@@ -7,6 +7,7 @@
     "src/index.js",
     "src/reducers/index.js",
     "src/store/**",
+    "src/components/_depricated_components/**",
     "build"
   ],
   "reporter": [
