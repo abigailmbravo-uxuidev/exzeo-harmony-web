@@ -3,7 +3,6 @@ import { Form } from 'redux-form';
 import localStorage from 'localStorage';
 import _ from 'lodash';
 import FieldGenerator from '../../form/FieldGenerator';
-import Footer from '../../common/Footer';
 import { setDetails } from '../../../actions/detailsActions';
 
 /* eslint-disable */
@@ -244,7 +243,6 @@ class CustomizeForm extends Component {
                 </button>
               </div>
             </Form>
-            <Footer />
           </div>
         </section>
       </div>
