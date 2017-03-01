@@ -8,9 +8,9 @@
   border-radius: $card-border-radius;
   background: $card-bg;
   box-shadow: $card-box-shadow;
-}
 
-.card-header {
+
+  .card-header {
   margin-bottom: 0; // Removes the default margin-bottom of <hN>
   padding: $card-spacer-y $card-spacer-x;
   border-bottom: $card-border-width solid $card-border-color;
@@ -50,12 +50,14 @@
     h5,
     h6 {
       color: $white;
+      margin: 0 (-$padding*2.5) (-$padding*1.75);
+      padding: $padding;
       flex-basis: auto;
     }
   }
 }
 
-.card-block {
+  .card-block {
   padding: $card-spacer-x;
   flex-grow: 1;
   overflow-y: auto;
@@ -69,7 +71,7 @@
   }
 }
 
-.card-footer {
+  .card-footer {
   padding: $card-spacer-y $card-spacer-x;
   border-top: $card-border-width solid $card-border-color;
   background-color: $card-cap-bg;
@@ -77,8 +79,19 @@
   justify-content: flex-end;
   flex-shrink: 0;
   flex-grow: 0;
+  flex-wrap: wrap;
+
+  a, button {
+      align-self: center;
+      margin-left: $padding*2;
+  }
+  a {
+      line-height: 2rem;
+      height: 2rem;
+  }
 
   &:last-child {
     @include border-radius(0 0 $card-border-radius-inner $card-border-radius-inner);
   }
+}
 }

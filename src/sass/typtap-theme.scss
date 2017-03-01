@@ -41,6 +41,13 @@ a:visited {
   &.btn-secondary {
     @include button-variant($bright-blue, $white, $bright-blue);
 
+    &.btn-round {
+        background: $bright-blue;
+        i {
+            color: $white;
+        }
+    }
+
     &:disabled {
       @include button-variant($cool-gray-04, $cool-gray-00, $cool-gray-04);
     }
@@ -618,6 +625,10 @@ select {
     width: 100%;
     padding: ($padding);
     color: $bright-blue-darken-03;
+
+    &.error {
+        color: $red-darken-01;
+    }
   }
 }
 //cards
@@ -1259,7 +1270,42 @@ ul.results {
     }
   }
 }
+//Share
+/*------------------------------------------------------------------------------------*/
+.section-share {
 
+  .error-content {
+      background: rgba($white,.8);
+
+      .card-csr {
+        box-shadow: 0 0 50px rgba($black, .4);
+
+        .card-header-image-csr {
+          height: 16rem;
+          background-image: url('../img/csr.jpg');
+          background-position: right center;
+          background-size: cover;
+
+          @include for-phone-only {
+            height: 12rem;
+          }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            background: rgba($red-darken-01,.9);
+          }
+        }
+
+        .card-footer {
+          background-color: $cool-gray-00;
+        }
+      }
+  }
+}
 //verify & write policy
 /*------------------------------------------------------------------------------------*/
 .askScheduleInspectionDates {
@@ -1376,39 +1422,49 @@ ul.results {
 //Quote Error
 /*------------------------------------------------------------------------------------*/
 .error-content {
-  .card-csr {
-    max-width: 36rem;
-    margin-bottom: $padding;
-    box-shadow: 0 0 50px rgba($black, .4);
-    @include for-phone-only {
-      max-width: 300px;
-      margin: 0 0 ($padding*2);
-    }
+    .fade-in {
+        display: flex;
+        flex-direction: row;
+        section {
+            flex-grow: 1;
+            flex-shrink: 0;
+            #Error {
+                .detail-wrapper {
+                    .header-wrapper {
+                        display: flex;
+                        //flex-direction: column;
+                        align-items: center;
 
-    .card-header-image-csr {
-      height: 16rem;
-      background-image: url('../img/csr.jpg');
-      background-position: right center;
-      @include for-phone-only {
-        height: 12rem;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        margin: (-$padding*1.75) (-$padding*2.5);
-        padding: $padding;
-        background: rgba($orange-darken-01,.9);
-      }
+                        .image {
+                            background-image: url('../img/csr.jpg');
+                            flex-basis: 6rem;
+                            flex-grow: 0;
+                            flex-shrink: 0;
+                            width: 6rem;
+                            height: 6rem;
+                            margin-right: $padding;
+                            border-radius: 50%;
+                            background-size: cover;
+                            background-position: right center;
+                        }
+                        .section-group-header {
+                            flex-grow: 1;
+                            flex-shrink: 0;
+                            width: auto;
+                        }
+                        h3 {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+        aside {
+            width: 24rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
     }
-
-    .card-footer {
-      background-color: $cool-gray-00;
-    }
-  }
 }
 //Thanks Page
 /*------------------------------------------------------------------------------------*/

@@ -1,36 +1,41 @@
 /* eslint import/no-mutable-exports:0 jsx-a11y/label-has-for:0 */
 /* eslint no-class-assign :0 */
-import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form } from 'redux-form';
-import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
+import React, {Component, PropTypes} from 'react';
+import {reduxForm, Form} from 'redux-form';
+import {connect} from 'react-redux';
+import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import Footer from '../common/Footer';
 // import _ from 'lodash';
 
-const CoverageDetails = ({ data }) => (
+const CoverageDetails = ({data}) => (
   <div className="CoverageDetails detail-group">
     <h4>Coverages</h4>
     <section className="summary-section">
       <dl>
         <dt>
-          <span>A</span> Dwelling</dt>
+          <span>A</span>
+          Dwelling</dt>
         <dd>${data.dwelling.amount}</dd>
       </dl>
       <dl>
         <dt>
-          <span>B</span> Other Structures</dt>
+          <span>B</span>
+          Other Structures</dt>
         <dd>${data.otherStructures.amount}</dd>
       </dl>
       <dl>
         <dt>
-          <span>C</span> Personal Property</dt>
+          <span>C</span>
+          Personal Property</dt>
         <dd>${data.personalProperty.amount}</dd>
       </dl>
       <dl>
         <dt>Personal Property Replacement Cost</dt>
-        <dd>{data.personalProperty.amount > 0 ? 'Yes' : 'No'}</dd>
+        <dd>{data.personalProperty.amount > 0
+            ? 'Yes'
+            : 'No'}</dd>
       </dl>
       <dl>
         <dt>Loss Of Use</dt>
@@ -141,7 +146,7 @@ class SharePage extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func,
     styleName: PropTypes.string,
-    completeStep: PropTypes.func,
+    completeStep: PropTypes.func
   }
 
   static contextTypes = {
@@ -152,8 +157,7 @@ class SharePage extends Component {
     quote: {}
   }
 
-  componentWillMount() {
-  }
+  componentWillMount() {}
 
   // componentWillReceiveProps(newProps) {
   //   if ((!this.props.data.steps && newProps.data.steps) ||
@@ -185,48 +189,55 @@ class SharePage extends Component {
   });
 
   submitWithShareOption = (shareIt) => {
-    if (event && event.preventDefault) event.preventDefault();
+    if (event && event.preventDefault)
+      event.preventDefault();
 
     this.props.completeStep({
       variables: {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'showCustomizedQuoteAndContinue',
-          data: {},
-        },
-      },
+          data: {}
+        }
+      }
     }).then((updatedShowCustomizedQuoteAndContinue) => {
       this.props.completeStep({
         variables: {
           input: {
             workflowId: localStorage.getItem('newWorkflowId'),
             stepName: 'saveAndSendEmail',
-            data: { shouldGeneratePdfAndEmail: shareIt ? 'Yes' : 'No' },
-          },
-        },
+            data: {
+              shouldGeneratePdfAndEmail: shareIt
+                ? 'Yes'
+                : 'No'
+            }
+          }
+        }
       }).then((updatedShouldGeneratePdfAndEmail) => {
         console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
         const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
         this.context.router.push(`${activeLink}`);
       }).catch((error) => {
-          // this.context.router.transitionTo('/error');
-          console.log('errors from graphql', error); // eslint-disable-line
+        // this.context.router.transitionTo('/error');
+        console.log('errors from graphql', error); // eslint-disable-line
         this.context.router.push('error');
       });
     }).catch((error) => {
-        // this.context.router.transitionTo('/error');
-        console.log('errors from graphql', error); // eslint-disable-line
+      // this.context.router.transitionTo('/error');
+      console.log('errors from graphql', error); // eslint-disable-line
       this.context.router.push('error');
     });
   }
 
   shareQuote = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
+    if (event && event.preventDefault)
+      event.preventDefault();
     this.submitWithShareOption(true);
   }
 
   handleOnSubmit = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
+    if (event && event.preventDefault)
+      event.preventDefault();
     this.submitWithShareOption(false);
   }
 
@@ -241,11 +252,7 @@ class SharePage extends Component {
   });
 
   render() {
-    const {
-      styleName,
-      handleSubmit
-    } = this.props;
-
+    const {styleName, handleSubmit} = this.props;
 
     let quote = null;
     if (this.props.data && this.props.data.steps) {
@@ -261,29 +268,36 @@ class SharePage extends Component {
       <div className="workflow-content">
         <section className="section-share">
           <div className="fade-in">
-            <Form
-              className={`fade-in ${styleName || ''}`} id="SharePage" onSubmit={handleSubmit(this.handleOnSubmit)}
-              noValidate
-            >
+            <Form className={`fade-in ${styleName || ''}`} id="SharePage" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
               <div className="form-group detail-wrapper">
-
                 <section className="section-instructions">
-                  <h3 className="section-group-header"><i className="fa fa-share-alt" /> Share</h3>
-                  <p>To SHARE this quote as a PDF via email, click the <a className="btn-link" href="">SHARE</a> button</p>
+                  <h3 className="section-group-header"><i className="fa fa-share-alt"/>
+                    Share</h3>
+                  <p>To SHARE this quote as a PDF via email, click the
+                    <a className="btn-link" href="">SHARE</a>
+                    button</p>
                 </section>
                 <section className="section-instructions">
-                  <h3 className="section-group-header"><i className="fa fa-arrow-circle-right" /> Continue</h3>
-                  <p> To CONTINUE the quote process, you will need the following</p>
+                  <h3 className="section-group-header"><i className="fa fa-arrow-circle-right"/>
+                    Continue</h3>
+                  <p>
+                    To CONTINUE the quote process, you will need the following</p>
                   <ul>
                     <li>Mortgage information</li>
                     <li>Name and email address of additional owners</li>
                     <li>Name and address of any other additional insured to add to this policy</li>
                   </ul>
-                  <p>When you are prepared to move forward, click the <a className="btn-link" href="">NEXT</a> button</p>
+                  <p>When you are prepared to move forward, click the
+                    <a className="btn-link" href="">NEXT</a>
+                    button</p>
                 </section>
                 <section className="section-instructions">
-                  <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
-                  <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> Dasboard</a> tab</p>
+                  <h3 className="section-group-header"><i className="fa fa-quote-left"/>
+                    New Quote</h3>
+                  <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the
+                    <a className="btn-link" href="/"><i className="fa fa-th-large"/>
+                      Dasboard</a>
+                    tab</p>
                 </section>
               </div>
               <div className="workflow-steps">
@@ -292,8 +306,38 @@ class SharePage extends Component {
               </div>
             </Form>
           </div>
+          <div className="error-content" role="article">
+            <div className="survey-wrapper">
+              <div className="contact-message">
+                <div className="card card-csr">
+                  <div className="card-header image card-header-image-csr">
+                    <h4>
+                      <i className="fa fa-exclamation-triangle"></i> Underwriting error(s)</h4>
+                  </div>
+                  <div className="card-block">
+                    <h4 className="error-message">Please contact us</h4>
+                    <div className="contact-methods">
+                      <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
+                      <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
+                    </div>
+                    <p>We apologize. Underwriting error(s) have occured with this quote.</p>
+                    <p>Contact a TypTap customer service representatives so we may further assist you in obtaining a quote.</p>
+                  </div>
+                  <div className="card-footer">
+                    {/*<a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
+                    <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>*/}
+                    <small>A TypTap CSR may be able to correct your underwring error(s) allowing you to refresh and continue.</small>
+                    <a href="tel:8442897968" className="btn btn-secondary btn-round"><i className="fa fa-phone"></i></a>
+                    <button className="btn btn-secondary">Refresh</button>
+                    <button className="btn btn-primary">New Quote</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
-        <Footer />
+        <Footer/>
+
       </div>
     );
   }
@@ -302,7 +346,6 @@ class SharePage extends Component {
 SharePage = reduxForm({
   form: 'SharePage', // a unique identifier for this form
 })(SharePage);
-
 
 SharePage = connect()(graphql(gql `
     query GetActiveStep($workflowId:ID!) {
@@ -420,12 +463,12 @@ SharePage = connect()(graphql(gql `
             type
         }
     }`, {
-      options: {
-        variables: {
-          workflowId: localStorage.getItem('newWorkflowId'),
-        },
-      },
-    })(graphql(gql `
+  options: {
+    variables: {
+      workflowId: localStorage.getItem('newWorkflowId')
+    }
+  }
+})(graphql(gql `
       mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
           name
@@ -530,7 +573,6 @@ SharePage = connect()(graphql(gql `
           completedSteps
         }
       }
-    `, { name: 'completeStep' })(SharePage)));
-
+    `, {name: 'completeStep'})(SharePage)));
 
 export default SharePage;

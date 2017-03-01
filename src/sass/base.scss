@@ -1433,12 +1433,6 @@ ul.results {
     }
   }
 }
-//Share
-/*------------------------------------------------------------------------------------*/
-.section-share {
-  height: 100%;
-  flex-shrink: 0;
-}
 //Quote Error
 /*------------------------------------------------------------------------------------*/
 .error-content {
@@ -1449,7 +1443,7 @@ ul.results {
   .survey-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
     .card {
@@ -1458,11 +1452,15 @@ ul.results {
       .contact-methods {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
 
         a {
-          margin-left: $padding*2;
+          margin: $padding ($padding*2) ($padding*2) 0;
         }
+      }
+      .card-footer {
+          a {
+
+          }
       }
     }
   }
@@ -1495,6 +1493,53 @@ ul.results {
         }
       }
     }
+  }
+}
+//Share
+/*------------------------------------------------------------------------------------*/
+.section-share {
+  position: relative;
+  height: 100%;
+  flex-shrink: 0;
+
+  .error-content {
+      background: rgba($blue,.8);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: none;
+
+      &.active {
+          display: flex;
+      }
+
+      .card {
+        max-width: 36rem;
+        margin: $padding 0;
+        @include for-phone-only {
+          max-width: 300px;
+          margin: 0 0 ($padding*2);
+        }
+
+        .card-header {
+          background: rgba($red-darken-01,1);
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            background: rgba($red-darken-01,.9);
+          }
+        }
+
+        .card-footer {
+          background-color: $warm-gray-02;
+        }
+      }
   }
 }
 //verify & write policy
