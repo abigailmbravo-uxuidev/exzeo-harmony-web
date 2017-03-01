@@ -191,6 +191,7 @@ class CustomizeForm extends Component {
   }
 
   submit = (data) => {
+    console.log(this.state.updated);
     this.state.updated ? this.recalculateQuote(data) : this.handleOnSubmit();
   }
 
