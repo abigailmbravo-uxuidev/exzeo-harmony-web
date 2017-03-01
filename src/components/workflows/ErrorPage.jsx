@@ -22,8 +22,8 @@ const ErrorPage = () => (
     <aside>
       <div className="image"></div>
       <div className="contact-info">
-        <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
-        <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
+        <a className="link-email" href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> <span>email us</span></a>
+        <a className="link-phone" href="tel:8442897968"><i className="fa fa-phone"/> <span>(844) 289-7968</span></a>
       </div>
     </aside>
     </div>
