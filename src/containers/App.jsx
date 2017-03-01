@@ -8,7 +8,7 @@ import Splash from './Splash';
 import Login from './Login';
 import Quote from './Quote';
 import Header from '../components/common/Header';
-import '../components/forms/Rules';
+import '../components/form/Rules';
 
 export class App extends Component {
 

@@ -1,36 +1,47 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { combineRules } from './Rules';
 import rules from './Rules';
 
 describe('Rules', () => {
-  it('should render rules', () => {
-    const result = combineRules(['required', 'email', 'optionalEmail', 'phone', 'date']);
-    expect(result.length).to.equal(5);
+  describe('required', () => {
+    it('should return undefined when value is not undefined', () => {
+      expect(rules.required('test')).to.be.undefined;
+    });
+    it('should return "Field Required" if value is undefined', () => {
+      expect(rules.required('')).to.equal('Field Required');
+    });
   });
-
-  it('should check rules', () => {
-    expect(rules.required).to.exist;
-    expect(rules.email).to.exist;
-    expect(rules.phone).to.exist;
-    expect(rules.optionalEmail).to.exist;
-    expect(rules.date).to.exist;
+  describe('email', () => {
+    it('should return undefined for a valid email', () => {
+      expect(rules.email('something@mail.com')).to.be.undefined;
+    });
+    it('should return "Not a valid email address"', () => {
+      expect(rules.email('something')).to.equal('Not a valid email address');
+    });
   });
-
-  it('should check rules for valid rules', () => {
-    expect(rules.required('value')).to.equal(undefined);
-    expect(rules.email('gmail@gmail.com')).to.equal(undefined);
-    expect(rules.phone('1234567890')).to.equal(undefined);
-    expect(rules.optionalEmail(null)).to.equal(undefined);
-    expect(rules.optionalEmail('gmail@gmail.com')).to.equal(undefined);
-    expect(rules.date('08-12-2000')).to.equal(undefined);
+  describe('optionalEmail', () => {
+    it('should return undefined for an empty field', () => {
+      expect(rules.optionalEmail('')).to.be.undefined;
+    });
+    it('should return undefined for a valid email', () => {
+      expect(rules.optionalEmail('something@mail.com')).to.be.undefined;
+    });
+    it('should return "Not a valid email address" for invalid email', () => {
+      expect(rules.optionalEmail('something')).to.equal('Not a valid email address');
+    });
   });
-
-  it('should validate bad results', () => {
-    expect(rules.required(null)).to.equal('Field Required');
-    expect(rules.email('gmailgmail.com')).to.equal('Not a valid email address');
-    expect(rules.phone('3456')).to.equal('is not a valid Phone Number.');
-    expect(rules.optionalEmail('gmailgmail')).to.equal('Not a valid email address');
-    expect(rules.date('abc')).to.equal('is not a valid Date.');
+  describe('phone', () => {
+    it('should return undefined for a valid phone', () => {
+      expect(rules.phone('888-888-8888')).to.be.undefined;
+    });
+    it('should return "is not a valid Phone Number." on invalid phone', () => {
+      expect(rules.phone('')).to.equal('is not a valid Phone Number.');
+    });
+  });
+  describe('date', () => {
+    it('should return undefined for a valid date', () => {
+      expect(rules.date('10/10/10')).to.be.undefined;
+    });
+    it('should return "is not a valid Date."', () => {
+      expect(rules.date('')).to.equal('is not a valid Date.');
+    });
   });
 });
