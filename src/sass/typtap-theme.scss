@@ -42,10 +42,11 @@ a:visited {
     @include button-variant($bright-blue, $white, $bright-blue);
 
     &.btn-round {
-        background: $bright-blue;
-        i {
-            color: $white;
-        }
+      background: $bright-blue;
+
+      i {
+        color: $white;
+      }
     }
 
     &:disabled {
@@ -627,7 +628,7 @@ select {
     color: $bright-blue-darken-03;
 
     &.error {
-        color: $red-darken-01;
+      color: $red-darken-01;
     }
   }
 }
@@ -1113,10 +1114,12 @@ footer {
     .route {
       .fade-in {
         overflow-y: auto;
+
         .app-header {
           margin-top: 0;
           color: $bright-blue-darken-03;
         }
+
         .product-wrapper {
           .product {
             .card-header {
@@ -1151,6 +1154,8 @@ footer {
     }
   }
 }
+//search
+/*------------------------------------------------------------------------------------*/
 //search results
 /*------------------------------------------------------------------------------------*/
 ul.results {
@@ -1270,75 +1275,6 @@ ul.results {
     }
   }
 }
-//Share
-/*------------------------------------------------------------------------------------*/
-.section-share {
-
-  .error-content {
-      background: rgba($white,.8);
-
-      .card-csr {
-        box-shadow: 0 0 50px rgba($black, .4);
-
-        .card-header-image-csr {
-          height: 16rem;
-          background-image: url('../img/csr.jpg');
-          background-position: right center;
-          background-size: cover;
-
-          @include for-phone-only {
-            height: 12rem;
-          }
-
-          h1,
-          h2,
-          h3,
-          h4,
-          h5,
-          h6 {
-            background: rgba($red-darken-01,.9);
-          }
-        }
-
-        .card-footer {
-          background-color: $cool-gray-00;
-        }
-      }
-  }
-}
-//verify & write policy
-/*------------------------------------------------------------------------------------*/
-.askScheduleInspectionDates {
-  .detail-wrapper {
-    .detail-group {
-      .edit-btn {
-        color: $white;
-
-        &:hover {
-          color: $white;
-        }
-      }
-
-      &.edit {
-        border: 2px solid $bright-blue;
-      }
-
-      &.quote-details {
-        .display-element {
-          dl {
-            dt {
-              color: $body-color;
-            }
-
-            &:nth-of-type(odd) {
-              background: $cool-gray-00;
-            }
-          }
-        }
-      }
-    }
-  }
-}
 //Underwriting page
 /*------------------------------------------------------------------------------------*/
 .askUWAnswers {
@@ -1392,6 +1328,42 @@ ul.results {
     }
   }
 }
+//Share
+/*------------------------------------------------------------------------------------*/
+.section-share {
+  .error-content {
+    background: rgba($white,.8);
+
+    .survey-wrapper {
+      .card-csr {
+        box-shadow: 0 0 50px rgba($black, .4);
+
+        .card-header-image-csr {
+          height: 16rem;
+          background-image: url('../img/csr.jpg');
+          background-position: right center;
+          background-size: cover;
+          @include for-phone-only {
+            height: 12rem;
+          }
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            background: rgba($red-darken-01,.9);
+          }
+        }
+
+        .card-footer {
+          background-color: $cool-gray-00;
+        }
+      }
+    }
+  }
+}
 //Mailing & Billing
 /*------------------------------------------------------------------------------------*/
 #Billing {
@@ -1417,85 +1389,68 @@ ul.results {
         width: 60%;
       }
     }
+
+    .installment-term {
+      dl {
+        dt {
+          color: $bright-blue-darken-02;
+        }
+
+        dd {
+          &:nth-of-type(odd) {
+            background: $cool-gray-00;
+          }
+        }
+      }
+    }
+  }
+}
+//verify & write policy
+/*------------------------------------------------------------------------------------*/
+.askScheduleInspectionDates {
+  .detail-wrapper {
+    .detail-group {
+      .edit-btn {
+        color: $white;
+
+        &:hover {
+          color: $white;
+        }
+      }
+
+      &.edit {
+        border: 2px solid $bright-blue;
+      }
+
+      &.quote-details {
+        .display-element {
+          dl {
+            dt {
+              color: $body-color;
+            }
+
+            &:nth-of-type(odd) {
+              background: $cool-gray-00;
+            }
+          }
+        }
+      }
+    }
   }
 }
 //Quote Error
 /*------------------------------------------------------------------------------------*/
 .error-content {
-    .fade-in {
-        display: flex;
-        flex-direction: row;
-        overflow-y: auto;
-        @include for-phone-only {
-            flex-direction: column-reverse;
-        }
-        section {
-            #Error {
-                width: auto;
-                .detail-wrapper {
-                    .header-wrapper {
-                        display: flex;
-                        //flex-direction: column;
-                        align-items: center;
+  .fade-in {
+    section {}
 
-                        .section-group-header {
-                            flex-grow: 1;
-                            flex-shrink: 0;
-                            width: auto;
-                        }
-                        h3 {
-                            margin: 0;
-                        }
-                    }
-                }
-            }
-        }
-        aside {
-            width: 16rem;
-            flex-grow: 0;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: $padding;
-            @include for-phone-only {
-                width: 100%;
-                flex-direction: row;
-            }
-
-            .image {
-                background-image: url('../img/csr.jpg');
-                flex-basis: 12rem;
-                flex-grow: 0;
-                flex-shrink: 0;
-                width: 12rem;
-                height: 12rem;
-                margin-right: $padding;
-                border-radius: 50%;
-                background-size: cover;
-                background-position: right center;
-                border: 5px solid $bright-blue-darken-01;
-                @include for-phone-only {
-                    flex-basis: 8rem;
-                    width: 8rem;
-                    height: 8rem;
-                }
-            }
-            .contact-info {
-                display: flex;
-                flex-direction: column;
-                margin-top: $padding;
-                a {
-                    font-size: $font-size-h4;
-                    margin: $padding;
-
-                    @include for-phone-only {
-                        font-size: $font-size-h5;
-                    }
-                }
-            }
-        }
+    aside {
+      .image {
+        border: 8px solid rgba($red-darken-01,.8);
+        background-image: url('../img/csr.jpg');
+      }
     }
+  }
 }
 //Thanks Page
 /*------------------------------------------------------------------------------------*/
@@ -1549,6 +1504,7 @@ ul.results {
     background-position: 100% 0;
   }
 }
+
 div#root {
   .app-wrapper {
     main[role="document"] {
