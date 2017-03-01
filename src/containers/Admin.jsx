@@ -10,8 +10,10 @@
 //         <aside>
 //           <div className="side-panel">
 //             <nav>
-//               <Link to="/admin/roleManagement" className="role-tab tab" activeClassName="selected">Roles</Link>
-//               <Link to="/admin/permissionManagement" className="permission-tab tab" activeClassName="selected">Permissions</Link>
+//               <Link to="/admin/roleManagement" className="role-tab tab"
+// activeClassName="selected">Roles</Link>
+//               <Link to="/admin/permissionManagement"
+//  className="permission-tab tab" activeClassName="selected">Permissions</Link>
 //             </nav>
 //           </div>
 //         </aside>

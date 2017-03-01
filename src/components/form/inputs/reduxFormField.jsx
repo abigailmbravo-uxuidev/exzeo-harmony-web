@@ -44,7 +44,7 @@ export default function reduxFormField(fieldComponent) {
         'slider',
         'string',
         'tel',
-        'text',
+        'text'
       ]),
 
       /**
@@ -55,14 +55,14 @@ export default function reduxFormField(fieldComponent) {
       /**
        * Validations array for redux field
        */
-      validations: PropTypes.arrayOf(PropTypes.string),
+      validations: PropTypes.arrayOf(PropTypes.string)
 
     }
     static defaultProps = {
       disabled: false,
       hint: '',
       styleName: '',
-      type: 'text',
+      type: 'text'
     }
 
     render() {
@@ -73,7 +73,7 @@ export default function reduxFormField(fieldComponent) {
         name,
         styleName,
         type,
-        validations,
+        validations
       } = this.props;
 
       const ruleArray = combineRules(validations);

@@ -14,8 +14,8 @@ import './css/typtap-theme.min.css';
 const auth0 = axios.create({
   baseURL: 'https://harmony.auth0.com/api/v2',
   headers: {
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3bEVlckVCazU2YWh2UnhiTERHczFoUnBTcUNTSHNLTyIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiXX19LCJpYXQiOjE0ODI5NzE3NzYsImp0aSI6IjQ2NGQ5YWY3NmNjODMxMWJkNWVmNDYzNGZkODc1YmJhIn0.E2Il-xBY0gkQ4WvhcKmldyxUGLPdCXAj-2nN_gwcrmk',
-  },
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3bEVlckVCazU2YWh2UnhiTERHczFoUnBTcUNTSHNLTyIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiXX19LCJpYXQiOjE0ODI5NzE3NzYsImp0aSI6IjQ2NGQ5YWY3NmNjODMxMWJkNWVmNDYzNGZkODc1YmJhIn0.E2Il-xBY0gkQ4WvhcKmldyxUGLPdCXAj-2nN_gwcrmk'
+  }
 });
 
 auth0({
@@ -24,14 +24,14 @@ auth0({
     per_page: 10,
     page: 0,
     include_totals: true,
-    q: 'identities.connection="Username-Password-Authentication"',
-  },
+    q: 'identities.connection="Username-Password-Authentication"'
+  }
 })
   .then((response) => {
-    console.log(response.data);
+    console.log(response.data); // eslint-disable-line
   })
   .catch((error) => {
-    console.log(error);
+    console.log(error); // eslint-disable-line
   });
 
 const store = configureStore();

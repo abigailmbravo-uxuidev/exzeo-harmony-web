@@ -14,29 +14,29 @@ const ErrorPage = () => (
               <h4 className="error-message">Something went wrong</h4>
               <p>We apologize, but we are unable to provide an automated HO3 quote for your property at this time.</p>
               <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
-              <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/>
-                email us</a>
-              <a href="tel:8442897968"><i className="fa fa-phone"/>
-                (844) 289-7968</a>
             </div>
-            <div className="image"></div>
           </div>
-
         </div>
       </div>
     </section>
     <aside>
       <div className="image"></div>
+      <div className="contact-info">
+        <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
+        <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
+      </div>
     </aside>
     </div>
-    <Footer/> {/* SOFT STOP WORKFLOW ERROR*/}
+    <Footer/>
+    {/* SOFT STOP WORKFLOW ERROR*/}
     {/*<div className="fade-in">
               <div className="workflow-content">
                 <section>
                   <div className="fade-in">
                     <div className="survey-wrapper">
                       <h4>You have finished the requirements to obtain your HO3 quote.</h4>
-                      <p>To complete the process, please contact a customer support representative.</p>
+                      <p>To complete the process, please contact
+                      a customer support representative.</p>
                     </div>
                   </div>
                 </section>
@@ -60,6 +60,7 @@ const ErrorPage = () => (
               </div>
             </div>*/}
     {/* APP ERROR*/}
+
     {/*<div className="fade-in app-error">
               <div className="workflow-content">
                 <section>

@@ -57,7 +57,7 @@ const MailingAddress = ({ handleChange, name }) => (
 
 MailingAddress.propTypes = {
   handleChange: PropTypes.func,
-  name: PropTypes.string,
+  name: PropTypes.string
 };
 
 export default MailingAddress;

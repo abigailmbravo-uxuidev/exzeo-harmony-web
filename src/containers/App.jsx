@@ -14,14 +14,14 @@ export class App extends Component {
 
   static propTypes = {
     actions: PropTypes.shape({ initializeLD: PropTypes.func, setupFeature: PropTypes.func }),
-    features: PropTypes.shape({ get: PropTypes.func }),
+    features: PropTypes.shape({ get: PropTypes.func })
   }
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   }
   state = {
     direction: '',
-    lastScrollPos: 0,
+    lastScrollPos: 0
   }
   componentWillMount = () => {
     // this.props.actions.initializeLD();
@@ -33,7 +33,8 @@ export class App extends Component {
     //   this.props.actions.setupFeature('search');
     // }
   }
-  // shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
+  // shouldComponentUpdate = (nextProps, nextState) =>
+  //  (!(this.state.direction === nextState.direction))
 
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
@@ -95,11 +96,11 @@ export class App extends Component {
 
 const mapStateToProps = state => ({
   features: state.features,
-  loggedIn: typeof state.auth.get('token') !== 'undefined',
+  loggedIn: typeof state.auth.get('token') !== 'undefined'
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(featureActions, dispatch),
+  actions: bindActionCreators(featureActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

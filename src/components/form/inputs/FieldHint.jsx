@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 
 const FieldHint = ({
   name,
-  hint,
+  hint
 }) => (
   <span>
     <i className="fa fa-info-circle" data-tip data-for={name} />
@@ -13,7 +13,7 @@ const FieldHint = ({
 
 FieldHint.propTypes = {
   name: PropTypes.string.isRequired,
-  hint: PropTypes.string.isRequired,
+  hint: PropTypes.string.isRequired
 };
 
 export default FieldHint;

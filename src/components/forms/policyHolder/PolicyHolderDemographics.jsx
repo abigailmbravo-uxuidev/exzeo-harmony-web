@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import { formValueSelector } from 'redux-form';
 import TextInput from '../../inputs/TextInput';
 
-const PolicyHolderDemographics = ({ handleChange, state, formName,
+const PolicyHolderDemographics = ({ handleChange, state, formName
   }) => {
   const selector = formValueSelector(formName);
   const entityType = selector(state, 'entityType');
@@ -69,7 +69,7 @@ const PolicyHolderDemographics = ({ handleChange, state, formName,
 PolicyHolderDemographics.propTypes = {
   state: PropTypes.any,// eslint-disable-line
   formName: PropTypes.string,
-  handleChange: PropTypes.func,
+  handleChange: PropTypes.func
 };
 
 export default PolicyHolderDemographics;

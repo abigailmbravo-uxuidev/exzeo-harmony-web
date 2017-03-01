@@ -62,6 +62,8 @@ const WorkflowDetails = ({ details }) => (
           </section>
         );
       }
+
+      return null;
     })}
   </div>
   );

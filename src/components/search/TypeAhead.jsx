@@ -46,11 +46,11 @@ TypeAhead.propTypes = {
     mapping: PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,
-      details: PropTypes.string,
-    }),
+      details: PropTypes.string
+    })
   }),
   handleSelect: PropTypes.func,
-  clearSearch: PropTypes.func,
+  clearSearch: PropTypes.func
 };
 
 export default graphql(query)(TypeAhead);

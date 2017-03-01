@@ -247,7 +247,8 @@
 //             type
 //             completedSteps
 //         }
-//     }`, { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } } })(graphql(gql `
+//     }`, { options: { variables: { workflowId:
+// localStorage.getItem('newWorkflowId') } } })(graphql(gql `
 //       mutation CompleteStep($input:CompleteStepInput) {
 //         completeStep(input:$input) {
 //           name

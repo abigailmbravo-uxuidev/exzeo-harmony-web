@@ -4,7 +4,7 @@ const DisplayInput = ({
   name,
   question,
   value,
-  displayValue,
+  displayValue
 }) => (
   <div className="form-group">
     <label htmlFor={name}>

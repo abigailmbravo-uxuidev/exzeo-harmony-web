@@ -75,7 +75,8 @@
 //         <section className="">
 //           <div className="fade-in">
 //             <Form
-//               className={`fade-in ${styleName || ''}`} id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
+//               className={`fade-in ${styleName || ''}`}
+// id="Demographics" onSubmit={handleSubmit(this.handleOnSubmit)}
 //               noValidate
 //             >
 //               <div className="form-group survey-wrapper" role="group">
@@ -103,7 +104,7 @@
 //                 </div>
 //               </div>
 //               <div className="workflow-steps">
-//                 <button className="btn btn-primary" type="submit" form="Demographics">next</button>
+//  <button className="btn btn-primary" type="submit" form="Demographics">next</button>
 //               </div>
 //               <Footer />
 //             </Form>

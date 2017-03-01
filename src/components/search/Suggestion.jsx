@@ -19,7 +19,7 @@ const Links = ({ details, clearSearch }) => {
 
 Links.propTypes = {
   details: PropTypes.Object,
-  clearSearch: PropTypes.func,
+  clearSearch: PropTypes.func
 };
 
 const Suggestion = ({ data, handleSelect, showLinks, clearSearch }) => {
@@ -47,15 +47,15 @@ const Suggestion = ({ data, handleSelect, showLinks, clearSearch }) => {
 Suggestion.propTypes = {
   data: PropTypes.shape({
     heading: PropTypes.String,
-    handleSelect: PropTypes.func,
+    handleSelect: PropTypes.func
   }),
   handleSelect: PropTypes.func,
   showLinks: PropTypes.func,
-  clearSearch: PropTypes.func,
+  clearSearch: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  showLinks: state.search.get('config') ? state.search.get('config').showLinks : true,
+  showLinks: state.search.get('config') ? state.search.get('config').showLinks : true
 });
 
 export default connect(mapStateToProps)(Suggestion);

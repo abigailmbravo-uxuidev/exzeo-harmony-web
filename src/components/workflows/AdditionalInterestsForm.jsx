@@ -22,11 +22,11 @@ let AdditionalInterestsForm = (props) => {
 
 AdditionalInterestsForm.propTypes = {
   handleSubmit: PropTypes.func,
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 AdditionalInterestsForm = reduxForm({
-  form: 'AdditionalInterestsForm', // a unique identifier for this form
+  form: 'AdditionalInterestsForm' // a unique identifier for this form
 })(AdditionalInterestsForm);
 
 AdditionalInterestsForm = connect(

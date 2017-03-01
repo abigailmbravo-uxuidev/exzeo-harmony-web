@@ -12,7 +12,7 @@ const SliderInput = ({
   question,
   rightLabel,
   step,
-  styleName = '',
+  styleName = ''
 }) =>
   // let formattedValue;
   // if (value) {
@@ -71,8 +71,8 @@ SliderInput.propTypes = {
   styleName: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number,
-  ]),
+    PropTypes.number
+  ])
 };
 
 export default SliderInput;

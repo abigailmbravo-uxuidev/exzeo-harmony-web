@@ -1426,27 +1426,14 @@ ul.results {
         display: flex;
         flex-direction: row;
         section {
-            flex-grow: 1;
-            flex-shrink: 0;
             #Error {
+                width: auto;
                 .detail-wrapper {
                     .header-wrapper {
                         display: flex;
                         //flex-direction: column;
                         align-items: center;
 
-                        .image {
-                            background-image: url('../img/csr.jpg');
-                            flex-basis: 6rem;
-                            flex-grow: 0;
-                            flex-shrink: 0;
-                            width: 6rem;
-                            height: 6rem;
-                            margin-right: $padding;
-                            border-radius: 50%;
-                            background-size: cover;
-                            background-position: right center;
-                        }
                         .section-group-header {
                             flex-grow: 1;
                             flex-shrink: 0;
@@ -1460,9 +1447,30 @@ ul.results {
             }
         }
         aside {
-            width: 24rem;
+            width: 16rem;
             flex-grow: 0;
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: $padding;
+
+            .image {
+                background-image: url('../img/csr.jpg');
+                flex-basis: 12rem;
+                flex-grow: 0;
+                flex-shrink: 0;
+                width: 12rem;
+                height: 12rem;
+                margin-right: $padding;
+                border-radius: 50%;
+                background-size: cover;
+                background-position: right center;
+                border: 5px solid $bright-blue-darken-01;
+            }
+            .contact-info {
+                
+            }
         }
     }
 }

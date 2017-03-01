@@ -30,19 +30,19 @@ MailingAddressForm.propTypes = {
   styleName: PropTypes.string,
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
+  handleChange: PropTypes.func
 };
 
 MailingAddressForm = reduxForm({
-  form: 'MailingAddressForm', // a unique identifier for this form
+  form: 'MailingAddressForm' // a unique identifier for this form
 })(MailingAddressForm);
 
 MailingAddressForm = connect(
     state => ({
       initialValues: {
         policyHolderMailingAddress: state.form.Verify ?
-        state.form.Verify.values.policyHolderMailingAddress : {},
-      },
+        state.form.Verify.values.policyHolderMailingAddress : {}
+      }
     }),
   )(MailingAddressForm);
 

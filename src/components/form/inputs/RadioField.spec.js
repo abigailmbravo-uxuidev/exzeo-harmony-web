@@ -13,9 +13,9 @@ describe('RadioField', () => {
   it('should render FieldHint when provided with name and hint', () => {
     const inputProps = {
       input: {
-        name: 'test',
+        name: 'test'
       },
-      hint: 'Testing',
+      hint: 'Testing'
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
 
@@ -23,7 +23,7 @@ describe('RadioField', () => {
   });
   it('should render DisplayField when provided with displayValue', () => {
     const inputProps = {
-      displayValue: '123',
+      displayValue: '123'
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
 
@@ -34,15 +34,15 @@ describe('RadioField', () => {
   it('should render RadioOption of length 2 when provided with 2 answers', () => {
     const inputProps = {
       input: {
-        onChange: () => {},
+        onChange: () => {}
       },
       answers: [{
-        answer: 'One',
+        answer: 'One'
       }, {
-        answer: 'Two',
+        answer: 'Two'
       }, {
-        answer: 'Three',
-      }],
+        answer: 'Three'
+      }]
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
     expect(wrapper.find(RadioOption)).to.have.length(3);

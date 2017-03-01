@@ -15,14 +15,14 @@ describe('TextInput', () => {
     const inputProps = {
       label: 'Test',
       input: {
-        name: 'testing',
+        name: 'testing'
       }
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
 
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" name={inputProps.input.name} />,
-      <label htmlFor={inputProps.input.name}>{inputProps.label}</label>,
+      <label htmlFor={inputProps.input.name}>{inputProps.label}</label>
     ])).to.equal(true);
   });
 
@@ -30,16 +30,16 @@ describe('TextInput', () => {
     const inputProps = {
       label: 'Test',
       input: {
-        name: 'testing',
+        name: 'testing'
       },
-      hint: 'Test Hint',
+      hint: 'Test Hint'
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
 
     expect(wrapper.find(FieldHint)).to.have.length(1);
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" name={inputProps.input.name} />,
-      <label htmlFor={inputProps.input.name}>{inputProps.label}</label>,
+      <label htmlFor={inputProps.input.name}>{inputProps.label}</label>
     ])).to.equal(true);
   });
 
@@ -49,13 +49,13 @@ describe('TextInput', () => {
     'password',
     'date',
     'email',
-    'date',
+    'date'
   ];
 
   types.forEach((type) => {
     it(`should render '${type} input', when given type of ${type} is provided`, () => {
       const inputProps = {
-        type,
+        type
       };
       const wrapper = shallow(<TextInput {...inputProps} />);
 
@@ -66,8 +66,8 @@ describe('TextInput', () => {
   it('should render "disabled text input", when disabled is provided', () => {
     const inputProps = {
       input: {
-        disabled: true,
-      },
+        disabled: true
+      }
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
     expect(wrapper.contains(<input type="text" disabled />)).to.equal(true);
@@ -77,14 +77,14 @@ describe('TextInput', () => {
     const inputProps = {
       meta: {
         touched: true,
-        error: 'Error',
-      },
+        error: 'Error'
+      }
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
 
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
-      <span>{inputProps.meta.error}</span>,
+      <span>{inputProps.meta.error}</span>
     ])).to.equal(true);
   });
 
@@ -92,23 +92,23 @@ describe('TextInput', () => {
     const inputProps = {
       meta: {
         touched: true,
-        warning: 'Error',
-      },
+        warning: 'Error'
+      }
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
 
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
-      <span>{inputProps.meta.warning}</span>,
+      <span>{inputProps.meta.warning}</span>
     ])).to.equal(true);
   });
 
   it('should render "text input" without FieldHint, when name and hint are provided', () => {
     const inputProps = {
       input: {
-        name: 'testing',
+        name: 'testing'
       },
-      hint: 'Test Hint',
+      hint: 'Test Hint'
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
 

@@ -12,7 +12,7 @@ const Dropdown = ({
   question,
   styleName = '',
   value,
-  validations,
+  validations
 }) => {
   const ruleArray = combineRules(validations);
 
@@ -26,19 +26,19 @@ const Dropdown = ({
           <ReactTooltip place="right" id={name} type="dark" effect="float">{description}</ReactTooltip>
         </span>
       }
-      </label>
-      {answers && answers.length > 0 ?
-        <Field
-          component="select"
-          validate={ruleArray}
-          value={value || ''} name={name || null} disabled={disabled}
-          onChange={handleChange || null}
-        >
-          <option disabled value={''}>Please select...</option>
-          {answers.map((answer, index) => (
-            <option value={answer.answer || null} key={index}>{answer.answer || null}</option>
+    </label>
+    {answers && answers.length > 0 ?
+      <Field
+        component="select"
+        validate={ruleArray}
+        value={value || ''} name={name || null} disabled={disabled}
+        onChange={handleChange || null}
+      >
+        <option disabled value={''}>Please select...</option>
+        {answers.map((answer, index) => (
+          <option value={answer.answer || null} key={index}>{answer.answer || null}</option>
           ))}
-        </Field> : null}
+      </Field> : null}
 
   </div>
   );
@@ -48,7 +48,7 @@ Dropdown.propTypes = {
   validations: PropTypes.any, // eslint-disable-line
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.string,
-    image: PropTypes.string,
+    image: PropTypes.string
   })),
   description: PropTypes.string,
   disabled: PropTypes.bool,
@@ -56,7 +56,7 @@ Dropdown.propTypes = {
   name: PropTypes.string,
   question: PropTypes.string,
   styleName: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string
 };
 
 export default Dropdown;

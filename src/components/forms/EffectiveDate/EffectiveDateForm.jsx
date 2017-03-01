@@ -32,18 +32,18 @@ let EffectiveDateForm = (props) => {
 EffectiveDateForm.propTypes = {
   styleName: PropTypes.string,
   handleOnSubmit: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  handleSubmit: PropTypes.func
 };
 
 EffectiveDateForm = reduxForm({
-  form: 'EffectiveDateForm', // a unique identifier for this form
+  form: 'EffectiveDateForm' // a unique identifier for this form
 })(EffectiveDateForm);
 
 EffectiveDateForm = connect(
     state => ({
       initialValues: {
-        effectiveDate: state.form && state.form.Verify && state.form.Verify.initial ? state.form.Verify.initial.effectiveDate : '',
-      },
+        effectiveDate: state.form && state.form.Verify && state.form.Verify.initial ? state.form.Verify.initial.effectiveDate : ''
+      }
     }),
   )(EffectiveDateForm);
 

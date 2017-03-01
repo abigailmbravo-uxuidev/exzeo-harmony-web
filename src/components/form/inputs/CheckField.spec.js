@@ -16,7 +16,7 @@ describe('CheckInput', () => {
     const inputProps = {
       label: 'Test',
       input: {
-        name: 'testing',
+        name: 'testing'
       }
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
@@ -28,16 +28,16 @@ describe('CheckInput', () => {
     const inputProps = {
       label: 'Test',
       input: {
-        name: 'testing',
+        name: 'testing'
       },
-      hint: 'Test Hint',
+      hint: 'Test Hint'
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
 
     expect(wrapper.find(FieldHint)).to.have.length(1);
     expect(wrapper.containsAnyMatchingElements([
       <input type="checkbox" name={inputProps.input.name} />,
-      <label htmlFor={inputProps.input.name}>{inputProps.label}</label>,
+      <label htmlFor={inputProps.input.name}>{inputProps.label}</label>
     ])).to.equal(true);
   });
 
@@ -57,8 +57,8 @@ describe('CheckInput', () => {
       input: {
         name: 'testing',
         value: checkValue,
-        onChange,
-      },
+        onChange
+      }
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
     wrapper.find('label').simulate('click');
@@ -75,8 +75,8 @@ describe('CheckInput', () => {
       input: {
         name: 'testing',
         value: checkValue,
-        onChange,
-      },
+        onChange
+      }
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
     wrapper.find('[name="testing"]').simulate('change');

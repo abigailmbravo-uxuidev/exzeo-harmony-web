@@ -9,7 +9,7 @@ describe('SliderInput', () => {
 
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
-      <input type="range" />,
+      <input type="range" />
     ])).to.equal(true);
   });
 
@@ -17,8 +17,8 @@ describe('SliderInput', () => {
     const inputProps = {
       hint: 'Testing',
       input: {
-        name: 'test',
-      },
+        name: 'test'
+      }
     };
     const wrapper = shallow(<SliderInput {...inputProps} />);
 

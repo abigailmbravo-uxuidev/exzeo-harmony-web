@@ -33,24 +33,31 @@
 //       <div className="content">
 //         <div className="cms-header">
 //           <h3>Questions</h3>
-//           <button className="btn-success btn-round" onClick={() => { addQuestion(); }}><i className="fa fa-plus" /></button>
+//           <button className="btn-success btn-round" onClick={() =>
+// { addQuestion(); }}><i className="fa fa-plus" /></button>
 //         </div>
 //         <div className="cms-question-wrapper">
 //           {
 //           questions.map((q, index) => (
 //             <div key={index} className={q.editing ? ' editing-question' : null}>
-//               <h4 onClick={() => { toggleEdit(q.name); }}>{q.name} <span>Edit {q.editing ? <i className="fa fa-plus" /> : <i className="fa fa-minus" /> }</span></h4>
+//               <h4 onClick={() => { toggleEdit(q.name); }}>{q.name}
+//  <span>Edit {q.editing ? <i className="fa fa-plus" /> :
+// <i className="fa fa-minus" /> }</span></h4>
 //
 //               <label htmlFor="question">Question:</label>
-//               <input onChange={(event) => { updateQuestions(event, q.name); }} name="question" id="question" placeholder="question" />
+//               <input onChange={(event) => { updateQuestions(event, q.name); }}
+// name="question" id="question" placeholder="question" />
 //               <label htmlFor="description">Description:</label>
-//               <input onChange={(event) => { updateQuestions(event, q.name); }} name="description" id="description" placeholder="description" />
+//               <input onChange={(event) =>
+// { updateQuestions(event, q.name); }} name="description"
+// id="description" placeholder="description" />
 //               <label htmlFor="value">Value:</label>
-//               <input onChange={(event) => { updateQuestions(event, q.name); }} name="value" id="value" placeholder="value" />
+//               <input onChange={(event) => { updateQuestions(event, q.name); }}
+// name="value" id="value" placeholder="value" />
 //               <Question
 //                 question={answerType}
 //                 handleChange={(e) => {
-//                   updateQuestions({ target: { value: e.target.value, name: 'answerType' } }, q.name);
+// updateQuestions({ target: { value: e.target.value, name: 'answerType' } }, q.name);
 //                 }}
 //               />
 //               <ul>

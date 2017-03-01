@@ -2,9 +2,9 @@ import * as types from './actionTypes';
 
 export const setDetails = details => ({
   type: types.SET_DETAILS,
-  details,
+  details
 });
 
 export const getDetails = () => ({
-  type: types.GET_DETAILS,
+  type: types.GET_DETAILS
 });

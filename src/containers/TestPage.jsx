@@ -11,13 +11,13 @@ const surveyQuestions = [
     name: 'dep-test1',
     question: 'Disabled test 1',
     answerType: 'bool',
-    defaultValue: false,
-  },
+    defaultValue: false
+  }
 ];
 
 class TestPage extends Component {
   state = {
-    questions: {},
+    questions: {}
   }
   componentWillMount = () => {
     const { questions } = this.state;
@@ -33,7 +33,7 @@ class TestPage extends Component {
       questions[question.name] = {
         value,
         hidden: false,
-        disabled: false,
+        disabled: false
       };
     });
     surveyQuestions.forEach((question) => {

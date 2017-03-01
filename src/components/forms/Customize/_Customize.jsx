@@ -62,7 +62,8 @@
 //         } else if (question.defaultValueLocation) {
 //           const val = _.get(realQuote, question.defaultValueLocation);
 //           state[question.name] = val;
-//           this.props.dispatch(change('Customize', question.name, _.get(realQuote, question.defaultValueLocation)));
+//           this.props.dispatch(change('Customize',
+// question.name, _.get(realQuote, question.defaultValueLocation)));
 //         } else {
 //           state[question.name] = '';
 //         }
@@ -75,7 +76,8 @@
 //       questions.forEach((question) => {
 //         if (question.conditional && question.conditional.dependency &&
 //           question.answers && question.answers.length > 0) {
-//           const exists = question.answers.find(a => a.answer == state[question.name]); // eslint-disable-line
+//           const exists = question.answers.find(a =>
+//  a.answer == state[question.name]); // eslint-disable-line
 //           if (!exists) {
 //             const { dependency } = question.conditional;
 //             const parentValue = _.get(state, dependency.parent);
@@ -83,7 +85,8 @@
 //             const stateValue = state[question.name];
 //             // const calculatedValue = parentValue / 100;
 //             const newValue = question.answers.find(a =>
-//               (dependency.type === 'percent' ? (parentValue * a.answer) / 100 : parentValue * a.answer) === stateValue);
+//               (dependency.type === 'percent' ? (parentValue * a.answer) /
+// 100 : parentValue * a.answer) === stateValue);
 //             if (newValue) {
 //               state[question.name] = newValue.answer;
 //             }
@@ -176,16 +179,21 @@
 //     const updatedQuote = this.convertQuoteStringsToNumber(this.state);
 //     const updatedQuoteResult = {
 //       dwellingAmount: updatedQuote.dwellingAmount,
-//       otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount),
-//       personalPropertyAmount: ((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount),
-//       personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false)
+//       otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) *
+//  updatedQuote.dwellingAmount),
+//       personalPropertyAmount: ((updatedQuote.personalPropertyAmount / 100) *
+//  updatedQuote.dwellingAmount),
+//       personalPropertyReplacementCostCoverage:
+// (updatedQuote.personalPropertyReplacementCostCoverage || false)
 //     };
 //
 //     try {
-//       let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
+//       let data = await completeStep(this.buildSubmission(
+// 'askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'Yes' }));
 //       // console.log('THIS IS shouldCustomizeQuote', data, updatedQuote);
 //
-//       data = await completeStep(this.buildSubmission('customizeDefaultQuote', updatedQuoteResult));
+//       data = await completeStep(this.buildSubmission('customizeDefaultQuote',
+// updatedQuoteResult));
 //       // console.log('THIS IS customizeDefaultQuote', data);
 //       data = await this.props.data.refetch();
 //
@@ -204,7 +212,8 @@
 //   save = async () => {
 //     const { completeStep } = this.props;
 //     try {
-//       let data = await completeStep(this.buildSubmission('askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'No' }));
+//       let data = await completeStep(this.buildSubmission(
+// 'askToCustomizeDefaultQuote', { shouldCustomizeQuote: 'No' }));
 //       console.log('ask to customize no', data); // eslint-disable-line
 //
 //       data = await completeStep(this.buildSubmission('showCustomizedQuoteAndContinue', {}));

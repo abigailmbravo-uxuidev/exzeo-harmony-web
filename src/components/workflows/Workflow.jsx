@@ -73,9 +73,10 @@ const WorkflowFooter = ({ ...s }) => {
 class Workflow extends Component {
 
   static propTypes = {
-    startWorkflow: PropTypes.func,
+    startWorkflow: PropTypes.func, // eslint-disable-line
     dispatch: PropTypes.func,
     details: PropTypes.any, // eslint-disable-line
+    data: {}
   }
 
   static contextTypes = {

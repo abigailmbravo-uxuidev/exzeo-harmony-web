@@ -26,12 +26,12 @@ let AdditionalInterestUpdateForm = (props) => {
 AdditionalInterestUpdateForm.propTypes = {
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func,
-  styleName: PropTypes.string,
+  styleName: PropTypes.string
 };
 
 AdditionalInterestUpdateForm = reduxForm({
   enableReinitialize: true,
-  form: 'AdditionalInterestUpdateForm', // a unique identifier for this form
+  form: 'AdditionalInterestUpdateForm' // a unique identifier for this form
 })(AdditionalInterestUpdateForm);
 
 // const selector = formValueSelector('AdditionalInterestUpdateForm'); // <-- same as form name
@@ -39,8 +39,8 @@ AdditionalInterestUpdateForm = reduxForm({
 AdditionalInterestUpdateForm = connect(
     state => ({
       initialValues: {
-        additionalInterests: state.form.Verify.values.additionalInterests,
-      },
+        additionalInterests: state.form.Verify.values.additionalInterests
+      }
     }),
   )(AdditionalInterestUpdateForm);
 
