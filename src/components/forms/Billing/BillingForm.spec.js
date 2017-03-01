@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import _ from 'lodash';
+import questionsMock from './questionsMock';
 // import configureStore from 'redux-mock-store';
-import CustomizeForm from './CustomizeForm';
+import BillingForm from './BillingForm';
 
-describe('CustomizeForm', () => {
+describe('BillingForm', () => {
   // const mockStore = configureStore([]);
   // const store = mockStore({});
   let props = {};
@@ -21,6 +22,7 @@ describe('CustomizeForm', () => {
         completeStep: { link: fn => fn },
         refetch: fn => fn,
         steps: {
+          questions: questionsMock,
           details: [{ name: 'Annual Premium', value: 500000 }, { name: 'Coverage A', value: 50000 }],
           name: 'old',
           data: [{
@@ -113,6 +115,11 @@ describe('CustomizeForm', () => {
               }
             },
             coverageOptions: {
+              personalPropertyReplacementCost: {
+                displayText: 'Personal Property Replacement Coverage',
+                answer: false,
+                _id: '5866c036a46eb72908f3f550'
+              },
               sinkholePerilCoverage: {
                 displayText: 'Sinkhole Peril Coverage',
                 answer: false,
@@ -281,105 +288,7 @@ describe('CustomizeForm', () => {
               }
             ],
             __v: 0
-          }],
-          questions: [
-            {
-              _id: '586d7218711411e6b4d3926a',
-              name: 'personalPropertyAmount',
-              defaultValueLocation: 'coverageLimits.personalProperty.amount',
-              models: [
-                'quote',
-                'quoteModel-mark',
-                'quoteModel-marco',
-                'quoteModel-eshu',
-                'quoteModelFinalUI',
-                'quoteModel',
-                'quoteModelUIVishal',
-                'quoteModelFinalUIVishal'
-              ],
-              steps: [
-                'askToCustomizeDefaultQuote'
-              ],
-              question: 'Personal Property Limit',
-              group: [
-                'coverageLimits'
-              ],
-              order: 4,
-              answerType: 'radio',
-              answerFormat: 'currency',
-              answers: [
-                {
-                  answer: 0,
-                  label: '0%'
-                },
-                {
-                  answer: 25,
-                  label: '25%'
-                },
-                {
-                  answer: 35,
-                  label: '35%'
-                },
-                {
-                  answer: 50,
-                  label: '50%'
-                }
-              ],
-              conditional: {
-                dependency: {
-                  type: 'percent',
-                  parent: 'dwellingAmount'
-                }
-              }
-            }, {
-              _id: '58827547711411e6b4d3ac5f',
-              name: 'moldProperty',
-              models: [
-                'quote'
-              ],
-              steps: [
-                'customizeDefaultQuote'
-              ],
-              question: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
-              group: [
-                'coverageLimits'
-              ],
-              order: 9,
-              answerType: 'radio',
-              validations: ['required'],
-              answers: [
-                {
-                  answer: '$50,000'
-                },
-                {
-                  answer: '$100,000'
-                }
-              ]
-            },
-            {
-              _id: '58827550711411e6b4d3ac60',
-              name: 'moldLiability',
-              models: [
-                'quote'
-              ],
-              steps: [
-                'customizeDefaultQuote'
-              ],
-              question: 'Ordinance or Law Coverage Limit',
-              group: [
-                'coverageLimits'
-              ],
-              order: 10,
-              answerType: 'radio',
-              answers: [
-                {
-                  answer: '$50,000'
-                },
-                {
-                  answer: '$100,000'
-                }
-              ]
-            }]
+          }]
         }
       },
       fieldValues: {},
@@ -390,128 +299,35 @@ describe('CustomizeForm', () => {
       styleName: ''
     };
     props.reset = function () { props.pristine = true; };
+    props.completeStep = function () { return new Promise(() => { }); };
     props.data.refetch = function () { return props; };
     props.push = function (s) { return s; };
-    props.completeStep = function () { return new Promise(() => { }); };
   });
 
-  it('should render CustomizeForm with redux form wrapper', () => {
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-    const wrapper = shallow(<CustomizeForm {...props} />);
+  it('should render BillingForm with redux form wrapper', () => {
+  //  const Billing = reduxForm({ form: 'Billing' })(BillingForm);
+    const wrapper = shallow(<BillingForm {...props} />);
     expect(wrapper).to.exist;
-    expect(wrapper.find('FieldGenerator')).to.have.length(3);
+    expect(wrapper.find('Form')).to.have.length(1);
   });
 
-  it('should trigger componentWillReceiveProps', () => {
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-    const wrapper = shallow(<CustomizeForm {...props} />);
+  it('should submit', () => {
+  //  const Billing = reduxForm({ form: 'Billing' })(BillingForm);
+    const wrapper = shallow(<BillingForm {...props} />);
 
-    const newProps = _.cloneDeep(props);
-
-    newProps.data.steps.name = 'customize';
-
-    wrapper.setProps({ data: newProps.data });
 
     expect(wrapper).to.exist;
-    expect(wrapper.find('FieldGenerator')).to.have.length(3);
-    expect(wrapper.instance().props.data.steps.name).to.equal('customize');
+    expect(wrapper.find('Form')).to.have.length(1);
 
-    expect(wrapper.instance().state.values.personalPropertyAmount).to.equal(500000);
+    wrapper.instance().handleOnSubmit();
   });
 
-  it('should trigger componentWillReceiveProps and trigger a change in customize', () => {
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-    const wrapper = shallow(<CustomizeForm {...props} />);
-
-    const newProps = _.cloneDeep(props);
-    newProps.data.steps.name = 'customize';
-    wrapper.setProps({ data: newProps.data });
+  it('should fillMailForm', () => {
+  //  const Billing = reduxForm({ form: 'Billing' })(BillingForm);
+    const wrapper = shallow(<BillingForm {...props} />);
 
     expect(wrapper).to.exist;
-    expect(wrapper.find('FieldGenerator')).to.have.length(3);
-
-    newProps.initialize(wrapper.instance().state.values);
-
-    wrapper.instance().setState({ updated: false });
-
-    wrapper.setProps({ pristine: false });
-
-    wrapper.setProps({ initialized: true });
-    const premium = _.find(wrapper.instance().props.data.steps.details, { name: 'Annual Premium' });
-    const coverageA = _.find(wrapper.instance().props.data.steps.details, { name: 'Coverage A' });
-
-    expect(premium.value).to.equal('-');
-    expect(coverageA.value).to.equal('-');
-
-    async function test() {
-      await wrapper.instance().recalculateQuote(wrapper.instance().state.values);
-
-      expect(wrapper.instance().state.updated).to.equal(false);
-      expect(wrapper.instance().state.submitting).to.equal(false);
-      expect(wrapper.instance().props.pristine).to.equal(true);
-    }
-
-    test();
-  });
-
-  it('should trigger call recalculate', () => {
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-    const wrapper = shallow(<CustomizeForm {...props} />);
-
-    const newProps = _.cloneDeep(props);
-    newProps.data.steps.name = 'customize';
-    wrapper.setProps({ data: newProps.data });
-
-    expect(wrapper).to.exist;
-    expect(wrapper.find('FieldGenerator')).to.have.length(3);
-
-    newProps.initialize(wrapper.instance().state.values);
-
-    wrapper.instance().setState({ updated: false });
-
-    wrapper.setProps({ pristine: false });
-
-    wrapper.setProps({ initialized: true });
-    const premium = _.find(wrapper.instance().props.data.steps.details, { name: 'Annual Premium' });
-    const coverageA = _.find(wrapper.instance().props.data.steps.details, { name: 'Coverage A' });
-
-    expect(premium.value).to.equal('-');
-    expect(coverageA.value).to.equal('-');
-
-    async function test() {
-      await wrapper.instance().submit(wrapper.instance().state.values);
-
-      expect(wrapper.instance().state.updated).to.equal(false);
-      expect(wrapper.instance().state.submitting).to.equal(false);
-      expect(wrapper.instance().props.pristine).to.equal(true);
-    }
-
-    test();
-  });
-
-  it('should trigger call handleOnSubmit', () => {
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-    const wrapper = shallow(<CustomizeForm {...props} />);
-
-    const newProps = _.cloneDeep(props);
-    newProps.data.steps.name = 'customize';
-    wrapper.setProps({ data: newProps.data });
-
-    expect(wrapper).to.exist;
-    expect(wrapper.find('FieldGenerator')).to.have.length(3);
-
-    newProps.initialize(wrapper.instance().state.values);
-
-    wrapper.instance().setState({ updated: false });
-
-
-    async function test() {
-      await wrapper.instance().submit(wrapper.instance().state.values);
-      expect(wrapper.instance().state.updated).to.equal(false);
-    }
-
-    test();
+    expect(wrapper.find('Form')).to.have.length(1);
+    wrapper.instance().fillMailForm();
   });
 });

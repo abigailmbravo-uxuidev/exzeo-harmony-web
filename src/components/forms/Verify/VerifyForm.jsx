@@ -312,7 +312,7 @@ class VerifyForm extends Component {
             <section>
               <Form
                 className="fade-in"
-                id="survey"
+                id="Verify"
                 onSubmit={handleSubmit(this.handleOnSubmit)}
                 noValidate
               >
@@ -323,7 +323,7 @@ class VerifyForm extends Component {
                     }
                     className="btn btn-primary"
                     type="submit"
-                    form="survey"
+                    form="Verify"
                   >
                     next
                   </button>
