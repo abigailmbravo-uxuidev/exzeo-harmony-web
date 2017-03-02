@@ -16,6 +16,8 @@ const ErrorPage = () => (
               <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
             </div>
           </div>
+          <div className="waves"></div>
+          <div className="duckie"></div>
         </div>
       </div>
     </section>
@@ -25,6 +27,7 @@ const ErrorPage = () => (
         <a className="link-email" href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> <span>email us</span></a>
         <a className="link-phone" href="tel:8442897968"><i className="fa fa-phone"/> <span>(844) 289-7968</span></a>
       </div>
+      <div className="waves"></div>
     </aside>
     </div>
     <Footer/>

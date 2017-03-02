@@ -294,8 +294,7 @@ class SharePage extends Component {
               <div className="contact-message">
                 <div className="card card-csr">
                   <div className="card-header image card-header-image-csr">
-                    <h4>
-                      <i className="fa fa-exclamation-triangle"></i> Underwriting error(s)</h4>
+                    <h4><i className="fa fa-exclamation-triangle"></i> Underwriting error(s)</h4>
                   </div>
                   <div className="card-block">
                     <h4 className="error-message">Please contact us</h4>
