@@ -3,7 +3,7 @@ import Footer from '../components/common/Footer';
 
 const NotFound = () => (
 
-  <div className="error-wraper" role="article">
+  <div className="error-wrapper" role="article">
     <div className="fade-in">
       <div className="route">
         <div className="error-content" role="article">
@@ -20,7 +20,7 @@ const NotFound = () => (
                       <p>We apologize, the page you're looking for does not exist in our site.</p>
                     </div>
                   </div>
-                  <a className="btn btn-primary" href="/">Return to Dashboard</a>
+                  <a className="btn btn-secondary" href="/">Return to Dashboard</a>
                 </div>
               </div>
             </section>

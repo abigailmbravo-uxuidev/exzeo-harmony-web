@@ -3,7 +3,7 @@ import Footer from '../components/common/Footer';
 
 const AppError = () => (
 
-  <div className="error-wraper" role="article">
+  <div className="error-wrapper" role="article">
     <div className="fade-in">
       <div className="route">
         <div className="error-content" role="article">
@@ -20,7 +20,7 @@ const AppError = () => (
                       <p>Just kidding, something has gone wrong. Please go the <a href="/">Dashboard</a> and start over.</p>
                     </div>
                   </div>
-                  <a className="btn btn-primary" href="/">Return to Dashboard</a>
+                  <a className="btn btn-secondary" href="/">Return to Dashboard</a>
                 </div>
               </div>
             </section>

@@ -85,6 +85,7 @@ textarea {
     background: lighten($cool-gray-00, 10%);
   }
 }
+
 .form-group {
   width: 100%;
 
@@ -569,6 +570,7 @@ textarea {
     line-height: 1.25rem;
   }
 }
+
 select {
   border-width: 2px;
   border-color: $cool-gray-02;
@@ -621,6 +623,7 @@ select {
     color: $bright-blue-darken-03;
   }
 }
+
 .detail-wrapper {
   .section-group-header {
     width: 100%;
@@ -1335,30 +1338,32 @@ ul.results {
     background: rgba($white,.8);
 
     .survey-wrapper {
-      .card-csr {
-        box-shadow: 0 0 50px rgba($black, .4);
+      .contact-message {
+        .card-csr {
+          box-shadow: 0 0 50px rgba($black, .4);
 
-        .card-header-image-csr {
-          height: 16rem;
-          background-image: url('../img/csr.jpg');
-          background-position: right center;
-          background-size: cover;
-          @include for-phone-only {
-            height: 12rem;
+          .card-header-image-csr {
+            height: 16rem;
+            background-image: url('../img/csr.jpg');
+            background-position: right center;
+            background-size: cover;
+            @include for-phone-only {
+              height: 12rem;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+              background: rgba($red-darken-01,.9);
+            }
           }
 
-          h1,
-          h2,
-          h3,
-          h4,
-          h5,
-          h6 {
-            background: rgba($red-darken-01,.9);
+          .card-footer {
+            background-color: $cool-gray-00;
           }
-        }
-
-        .card-footer {
-          background-color: $cool-gray-00;
         }
       }
     }
@@ -1442,9 +1447,61 @@ ul.results {
 /*------------------------------------------------------------------------------------*/
 .error-content {
   .fade-in {
-    section {}
+    section {
+      #Error {
+        .detail-wrapper {
+          padding-bottom: 12rem;
+
+          .duckie {
+            position: absolute;
+            z-index: 5;
+            right: 8rem;
+            bottom: 6rem;
+            width: 200px;
+            height: 200px;
+            animation-name: wave-motion;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            background-image: url('../img/duckie.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            @include for-phone-only {
+              bottom: 8rem;
+              right: 1rem;
+              width: 100px;
+              height: 100px;
+            }
+          }
+
+          .waves {
+            position: absolute;
+            z-index: 1;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 100px 0;
+            animation-name: waves;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            background-image: url('../img/water.svg');
+            background-repeat: repeat-x;
+            background-size: 150%;
+          }
+        }
+      }
+    }
 
     aside {
+        border-left: 1px dotted $cool-gray-02;
+        background: $cool-gray-00;
+        @include for-phone-only {
+            border-left-width: 0;
+        }
       .image {
         border: 8px solid rgba($red-darken-01,.8);
         background-image: url('../img/csr.jpg');
@@ -1506,107 +1563,116 @@ ul.results {
   }
 }
 @keyframes wave-motion {
-    0% {
-         transform:rotate(0deg);
-    }
-    50% {
-         transform:rotate(3deg);
-    }
-    75% {
-        transform:rotate(-3deg);
-    }
-    100% {
-        transform:rotate(0deg);
-    }
-}
+  0% {
+    transform: rotate(0deg);
+  }
 
+  50% {
+    transform: rotate(3deg);
+  }
+
+  75% {
+    transform: rotate(-3deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
 //General Errors
 /*------------------------------------------------------------------------------------*/
-.error-wraper {
-    .fade-in {
-        .route {
-            .error-content {
-                .fade-in {
-                    section {
-                        #Error.fade-in {
-                            .detail-wrapper {
-                                display: flex;
-                                flex-direction: column;
-                                .duckie {
-                                    width: 200px;
-                                    height: 200px;
-                                    position: absolute;
-                                    top: 20%;
-                                    right: 8rem;
-                                    animation-name: wave-motion;
-                                    animation-duration: 5s;
-                                    animation-timing-function: linear;
-                                    animation-iteration-count: infinite;
-                                    animation-direction: alternate;
-                                    background-image: url('../img/duckie.png');
-                                    background-repeat: no-repeat;
-                                    background-size: contain;
-                                    z-index: 5;
-                                    @include for-phone-only {
-                                        right: 1rem;
-                                        top: 50%;
-                                    }
-                                }
-                                .waves {
-                                  position: absolute;
-                                  top: 30%;
-                                  bottom: 0;
-                                  left: 0;
-                                  width: 100%;
-                                  padding: 100px 0;
-                                  animation-name: waves;
-                                  animation-duration: 5s;
-                                  animation-timing-function: linear;
-                                  animation-iteration-count: infinite;
-                                  animation-direction: alternate;
-                                  background-image: url('../img/water.svg');
-                                  background-repeat: repeat-x;
-                                  background-size: 150%;
-                                  z-index: 1;
-                                  @include for-phone-only {
-                                      top: 60%;
-                                  }
-                                }
-                                .section-group-header {
-                                    z-index: 2;
-                                    flex-grow: 0;
-                                    flex-shrink: 0;
-                                    flex-basis: auto;
-                                }
-                                .header-wrapper {
-                                    z-index: 3;
-                                    flex-grow: 1;
-                                    flex-shrink: 0;
-                                    align-items: flex-start;
-                                }
-                                .btn-primary {
-                                    z-index: 4;
-                                    align-self: flex-end;
-                                    margin-bottom: $padding*2;
-                                }
-                            }
-                        }
-                    }
-                    aside {
-                    }
+.error-wrapper {
+  .fade-in {
+    .route {
+      .error-content {
+        .fade-in {
+          section {
+            #Error.fade-in {
+              .detail-wrapper {
+                display: flex;
+                flex-direction: column;
+
+                .duckie {
+                  position: absolute;
+                  z-index: 5;
+                  top: 20%;
+                  right: 8rem;
+                  width: 200px;
+                  height: 200px;
+                  animation-name: wave-motion;
+                  animation-duration: 5s;
+                  animation-timing-function: linear;
+                  animation-iteration-count: infinite;
+                  animation-direction: alternate;
+                  background-image: url('../img/duckie.png');
+                  background-repeat: no-repeat;
+                  background-size: contain;
+                  @include for-phone-only {
+                    top: 50%;
+                    right: 1rem;
+                  }
                 }
-                footer {
-                    div  {
-                        border-color: $bright-blue-lighten-02;
-                        background: $bright-blue;
-                        small {
-                            color: $bright-blue-lighten-03;
-                        }
-                    }
+
+                .waves {
+                  position: absolute;
+                  z-index: 1;
+                  top: 30%;
+                  bottom: 0;
+                  left: 0;
+                  width: 100%;
+                  padding: 100px 0;
+                  animation-name: waves;
+                  animation-duration: 5s;
+                  animation-timing-function: linear;
+                  animation-iteration-count: infinite;
+                  animation-direction: alternate;
+                  background-image: url('../img/water.svg');
+                  background-repeat: repeat-x;
+                  background-size: 150%;
+                  @include for-phone-only {
+                    top: 60%;
+                  }
                 }
+
+                .section-group-header {
+                  z-index: 2;
+                  flex-grow: 0;
+                  flex-shrink: 0;
+                  flex-basis: auto;
+                }
+
+                .header-wrapper {
+                  z-index: 3;
+                  flex-grow: 1;
+                  flex-shrink: 0;
+                  align-items: flex-start;
+                }
+
+                .btn {
+                  z-index: 4;
+                  margin-bottom: $padding*2;
+                  align-self: flex-end;
+                }
+              }
             }
+          }
+
+          aside {}
         }
+
+        footer {
+          div {
+            border-color: $bright-blue-lighten-02;
+            background: $bright-blue;
+
+            small {
+              color: $bright-blue-lighten-03;
+            }
+          }
+        }
+      }
     }
+  }
 }
 //SPECIAL STUFF TO ADD BACK IN LATER
 
