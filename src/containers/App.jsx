@@ -10,8 +10,7 @@ import Quote from './Quote';
 import Header from '../components/common/Header';
 import AppError from './AppError';
 import NotFound from './NotFound';
-import '../components/forms/Rules';
-import '../components/form/Rules';
+//import '../components/forms/Rules';
 
 export class App extends Component {
 
