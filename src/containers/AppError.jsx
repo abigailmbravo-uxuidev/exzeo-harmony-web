@@ -11,14 +11,16 @@ const AppError = () => (
             <section>
               <div className="fade-in" id="Error">
                 <div className="detail-wrapper">
+                  <div className="waves"></div>
+                  <div className="duckie"></div>
                   <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"></i> App Error</h3>
                   <div className="header-wrapper">
                     <div>
-                      <h4 className="error-message">Something went wrong!</h4>
-                      <p>We apologize, something has gone wrong. Please start over.</p>
+                      <h4 className="error-message">OH NO! You've flooded the website!</h4>
+                      <p>Just kidding, something has gone wrong. Please go the <a href="/">Dashboard</a> and start over.</p>
                     </div>
                   </div>
-                  <div className="waves"></div>
+                  <a className="btn btn-primary" href="/">Return to Dashboard</a>
                 </div>
               </div>
             </section>

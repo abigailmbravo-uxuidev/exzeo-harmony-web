@@ -11,6 +11,8 @@ const NotFound = () => (
             <section>
               <div className="fade-in" id="Error">
                 <div className="detail-wrapper">
+                  <div className="waves"></div>
+                  <div className="duckie"></div>
                   <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"></i> 404 Page not Found</h3>
                   <div className="header-wrapper">
                     <div>
@@ -18,7 +20,7 @@ const NotFound = () => (
                       <p>We apologize, the page you're looking for does not exist in our site.</p>
                     </div>
                   </div>
-                  <div className="waves"></div>
+                  <a className="btn btn-primary" href="/">Return to Dashboard</a>
                 </div>
               </div>
             </section>

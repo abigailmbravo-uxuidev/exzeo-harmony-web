@@ -1956,10 +1956,11 @@ ul.results {
                         flex-shrink: 0;
                         width: 100%;
 
-                        .fade-in {
+                        #Error.fade-in {
                             width: 100%;
                             .detail-wrapper {
                                 width: 100%;
+                                position: relative;
                             }
                         }
                     }
@@ -1969,7 +1970,6 @@ ul.results {
                     }
                 }
                 footer {
-
                 }
             }
         }

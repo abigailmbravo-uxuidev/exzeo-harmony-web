@@ -1490,7 +1490,8 @@ ul.results {
     }
   }
 }
-//ERROR PAGE animation
+//ERROR PAGE animations
+/*------------------------------------------------------------------------------------*/
 @keyframes waves {
   0% {
     background-position: 0 0;
@@ -1504,27 +1505,53 @@ ul.results {
     background-position: 100% 0;
   }
 }
+@keyframes wave-motion {
+    0% {
+         transform:rotate(0deg);
+    }
+    50% {
+         transform:rotate(3deg);
+    }
+    75% {
+        transform:rotate(-3deg);
+    }
+    100% {
+        transform:rotate(0deg);
+    }
+}
 
+//General Errors
+/*------------------------------------------------------------------------------------*/
 .error-wraper {
     .fade-in {
-        height: 100%;
         .route {
-            height: 100%;
             .error-content {
                 .fade-in {
-                    display: flex;
-                    flex-direction: row;
-                    width: 100%;
                     section {
-                        flex-grow: 1;
-                        flex-shrink: 0;
-                        width: 100%;
-
-                        .fade-in {
-                            width: 100%;
+                        #Error.fade-in {
                             .detail-wrapper {
-                                width: 100%;
-                                position: relative;
+                                display: flex;
+                                flex-direction: column;
+                                .duckie {
+                                    width: 200px;
+                                    height: 200px;
+                                    position: absolute;
+                                    top: 20%;
+                                    right: 8rem;
+                                    animation-name: wave-motion;
+                                    animation-duration: 5s;
+                                    animation-timing-function: linear;
+                                    animation-iteration-count: infinite;
+                                    animation-direction: alternate;
+                                    background-image: url('../img/duckie.png');
+                                    background-repeat: no-repeat;
+                                    background-size: contain;
+                                    z-index: 5;
+                                    @include for-phone-only {
+                                        right: 1rem;
+                                        top: 50%;
+                                    }
+                                }
                                 .waves {
                                   position: absolute;
                                   top: 30%;
@@ -1540,20 +1567,40 @@ ul.results {
                                   background-image: url('../img/water.svg');
                                   background-repeat: repeat-x;
                                   background-size: 150%;
+                                  z-index: 1;
+                                  @include for-phone-only {
+                                      top: 60%;
+                                  }
+                                }
+                                .section-group-header {
+                                    z-index: 2;
+                                    flex-grow: 0;
+                                    flex-shrink: 0;
+                                    flex-basis: auto;
+                                }
+                                .header-wrapper {
+                                    z-index: 3;
+                                    flex-grow: 1;
+                                    flex-shrink: 0;
+                                    align-items: flex-start;
+                                }
+                                .btn-primary {
+                                    z-index: 4;
+                                    align-self: flex-end;
+                                    margin-bottom: $padding*2;
                                 }
                             }
                         }
                     }
                     aside {
-                        flex-shrink: 0;
-                        flex-grow: 0;
                     }
                 }
                 footer {
                     div  {
+                        border-color: $bright-blue-lighten-02;
                         background: $bright-blue;
                         small {
-                            color: $white;
+                            color: $bright-blue-lighten-03;
                         }
                     }
                 }
