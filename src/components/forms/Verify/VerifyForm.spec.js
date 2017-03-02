@@ -294,10 +294,10 @@ describe('VerifyForm', () => {
       initialValues: {},
       styleName: ''
     };
-    props.reset = function () { props.pristine = true; };
-    props.completeStep = function () { return new Promise(() => { }); };
-    props.data.refetch = function () { return props; };
-    props.push = function (s) { return s; };
+    props.reset = () => { props.pristine = true; };
+    props.completeStep = () => new Promise(resolve => resolve(true));
+    props.data.refetch = () => props;
+    props.push = s => s;
   });
 
   it('should render VerifyForm with redux form wrapper', () => {

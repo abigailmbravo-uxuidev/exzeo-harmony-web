@@ -11,9 +11,9 @@ class Search extends Component {
     options: PropTypes.shape({
       placeholder: PropTypes.string
     }),
-    completeStep: PropTypes.Object,
-    data: PropTypes.Object,
-    searchConfig: PropTypes.Object
+    completeStep: PropTypes.func,
+    data: PropTypes.any, // eslint-disable-line
+    searchConfig: PropTypes.any // eslint-disable-line
   }
   static contextTypes = {
     router: PropTypes.object
