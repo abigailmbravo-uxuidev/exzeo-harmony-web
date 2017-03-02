@@ -1,6 +1,6 @@
 /* eslint no-unused-vars :0 */
 import React, { Component, PropTypes } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as featureActions from '../actions/featureActions';
@@ -8,6 +8,8 @@ import Splash from './Splash';
 import Login from './Login';
 import Quote from './Quote';
 import Header from '../components/common/Header';
+import AppError from './AppError';
+import NotFound from './NotFound';
 import '../components/forms/Rules';
 
 export class App extends Component {
@@ -81,14 +83,17 @@ export class App extends Component {
           </aside>
           <Router>
             <div className="content-wrapper">
-              <Route exact path="/" component={homeScreen} />
-              <Route path="/login" component={Login} />
-              <Route exact path="/quote" component={Quote} />
-              <Route path="/quote/:activeStep" component={Quote} />
+              <Switch>
+                <Route exact path="/" component={homeScreen} />
+                <Route path="/login" component={Login} />
+                <Route exact path="/quote" component={Quote} />
+                <Route path="/quote/:activeStep" component={Quote} />
+                <Route exact path="/error" component={AppError} />
+                <Route component={NotFound} />
+              </Switch>
             </div>
           </Router>
         </main>
-
       </div>
     );
   }

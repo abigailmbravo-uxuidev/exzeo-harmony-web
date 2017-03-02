@@ -1505,38 +1505,61 @@ ul.results {
   }
 }
 
-div#root {
-  .app-wrapper {
-    main[role="document"] {
-      .content-wrapper {
-        > div[role="article"] {
-          &.error-page {
-            .fade-in {
-              &.app-error {
-                .workflow-content {}
+.error-wraper {
+    .fade-in {
+        height: 100%;
+        .route {
+            height: 100%;
+            .error-content {
+                .fade-in {
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    section {
+                        flex-grow: 1;
+                        flex-shrink: 0;
+                        width: 100%;
 
-                .waves {
-                  position: absolute;
-                  top: 5%;
-                  bottom: 0;
-                  width: 100%;
-                  padding: 100px 0;
-                  animation-name: waves;
-                  animation-duration: 5s;
-                  animation-timing-function: linear;
-                  animation-iteration-count: infinite;
-                  animation-direction: alternate;
-                  background-image: url('../img/water.svg');
-                  background-repeat: repeat-x;
-                  background-size: 150%;
+                        .fade-in {
+                            width: 100%;
+                            .detail-wrapper {
+                                width: 100%;
+                                position: relative;
+                                .waves {
+                                  position: absolute;
+                                  top: 30%;
+                                  bottom: 0;
+                                  left: 0;
+                                  width: 100%;
+                                  padding: 100px 0;
+                                  animation-name: waves;
+                                  animation-duration: 5s;
+                                  animation-timing-function: linear;
+                                  animation-iteration-count: infinite;
+                                  animation-direction: alternate;
+                                  background-image: url('../img/water.svg');
+                                  background-repeat: repeat-x;
+                                  background-size: 150%;
+                                }
+                            }
+                        }
+                    }
+                    aside {
+                        flex-shrink: 0;
+                        flex-grow: 0;
+                    }
                 }
-              }
+                footer {
+                    div  {
+                        background: $bright-blue;
+                        small {
+                            color: $white;
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }
 //SPECIAL STUFF TO ADD BACK IN LATER
 

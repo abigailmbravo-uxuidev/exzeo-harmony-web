@@ -440,6 +440,7 @@ main[role="document"] {
     > div {
       overflow: hidden;
       height: 100%;
+      width: 100%;
 
       > div[role="article"] {
         display: flex;
@@ -1937,3 +1938,40 @@ ul.results {
 //     margin-bottom: 0;
 //   }
 // }
+
+//General Errors
+/*------------------------------------------------------------------------------------*/
+.error-wraper {
+    .fade-in {
+        height: 100%;
+        .route {
+            height: 100%;
+            .error-content {
+                .fade-in {
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    section {
+                        flex-grow: 1;
+                        flex-shrink: 0;
+                        width: 100%;
+
+                        .fade-in {
+                            width: 100%;
+                            .detail-wrapper {
+                                width: 100%;
+                            }
+                        }
+                    }
+                    aside {
+                        flex-shrink: 0;
+                        flex-grow: 0;
+                    }
+                }
+                footer {
+
+                }
+            }
+        }
+    }
+}
