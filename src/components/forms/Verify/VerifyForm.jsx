@@ -1,12 +1,12 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import localStorage from 'localStorage';
-import {Form} from 'redux-form';
+import { Form } from 'redux-form';
 import moment from 'moment';
 import _ from 'lodash';
 import EffectiveDate from '../EffectiveDate/EffectiveDate';
-import PolicyHolderUpdateForm from '../policyHolder/PolicyHolderUpdateForm';
+// import PolicyHolderUpdateForm from '../policyHolder/PolicyHolderUpdateForm';
 import MailingAddress from '../MailingAddress/MailingAddress';
-import {CheckField} from '../../form/inputs';
+import { CheckField } from '../../form/inputs';
 import Footer from '../../common/Footer';
 
 class VerifyForm extends Component {
@@ -94,7 +94,7 @@ class VerifyForm extends Component {
         {quoteData && <div>
           <div className="detail-wrapper">
             {!editProperty && <div className="detail-group property-details">
-              <h3 className="section-group-header"><i className="fa fa-map-marker"/> Property Details</h3>
+              <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>
               <section className="display-element">
                 <dl className="quote-number">
                   <div>
@@ -122,11 +122,11 @@ class VerifyForm extends Component {
                   </div>
                 </dl>
               </section>
-              <CheckField styleName="verification" disabled={editProperty} name="confirmProperyDetails" label="Verified" isSwitch/>
+              <CheckField styleName="verification" disabled={editProperty} name="confirmProperyDetails" label="Verified" isSwitch />
             </div>}
             {editProperty && <div className="detail-group property-details edit">
-              <h3 className="section-group-header"><i className="fa fa-map-marker"/> Property Details</h3>
-              <div className="editing"><i className="fa fa-pencil"/> Editing</div>
+              <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>
+              <div className="editing"><i className="fa fa-pencil" /> Editing</div>
               <section className="display-element">
                 <dl className="quote-number">
                   <div>
@@ -148,17 +148,17 @@ class VerifyForm extends Component {
                   </div>
                 </dl>
                 <div className="effective-date">
-                  <EffectiveDate handleOnSubmit={this.updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')}/>
+                  <EffectiveDate handleOnSubmit={this.updateQuote} effectiveDate={moment(effectiveDate).format('MM/DD/YYYY')} />
                 </div>
               </section>
             </div>}
             <div className="detail-group quote-details">
-              <h3 className="section-group-header"><i className="fa fa-list"/> Quote Details</h3>
+              <h3 className="section-group-header"><i className="fa fa-list" /> Quote Details</h3>
               <section className="display-element">
                 <dl>
                   <div>
                     <dt>Yearly Premium</dt>
-                    <dd>${_.find(details, {name: 'Annual Premium'}).value}</dd>
+                    <dd>${_.find(details, { name: 'Annual Premium' }).value}</dd>
                   </div>
                 </dl>
                 <dl>
@@ -222,34 +222,34 @@ class VerifyForm extends Component {
                   </div>
                 </dl>
               </section>
-              <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch/>
+              <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
             </div>
             {!editConfirmPolicyHolder && <div className="detail-group policyholder-details">
-              <h3 className="section-group-header"><i className="fa fa-vcard-o"/> Policyholder Details</h3>
+              <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
               <section className="display-element">
                 {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ? quoteData.policyHolders.map((policyHolder, index) => (
-                    <dl key={`ph${index}`}>
-                      <h5>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h5>
-                      <div>
-                        <dt>Name</dt>
-                        <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
-                        <dt>Phone Number</dt>
-                        <dd>{policyHolder.primaryPhoneNumber}</dd>
-                        <dt>Email</dt>
-                        <dd>{policyHolder.emailAddress}</dd>
-                      </div>
-                    </dl>)) : null}
+                  <dl key={`ph${index}`}>
+                    <h5>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h5>
+                    <div>
+                      <dt>Name</dt>
+                      <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                      <dt>Phone Number</dt>
+                      <dd>{policyHolder.primaryPhoneNumber}</dd>
+                      <dt>Email</dt>
+                      <dd>{policyHolder.emailAddress}</dd>
+                    </div>
+                  </dl>)) : null}
               </section>
             </div>}
             {editConfirmPolicyHolder && <div className="detail-group policyholder-details edit">
-              <h3 className="section-group-header"><i className="fa fa-vcard-o"/> Policyholder Details</h3>
-              <div className="editing"><i className="fa fa-pencil"/> Editing</div>
+              <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
+              <div className="editing"><i className="fa fa-pencil" /> Editing</div>
               <section className="display-element">
-                <PolicyHolderUpdateForm handleOnSubmit={this.updateQuote} state={state}/>
+                <PolicyHolderUpdateForm handleOnSubmit={this.updateQuote} state={state} />
               </section>
             </div>}
             {!editMailingAddress && <div className="detail-group mailing-address-details">
-              <h3 className="section-group-header"><i className="fa fa-envelope-open"/> Mailing Address</h3>
+              <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
               <section className="display-element">
                 <dl>
                   <div>
@@ -263,15 +263,15 @@ class VerifyForm extends Component {
                     <dd>{mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : 'USA'}</dd>
                   </div>
                 </dl>
-                <dl/>
+                <dl />
               </section>
-              <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch/>
+              <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
             </div>}
             {editMailingAddress && <div className="detail-group mailing-address-details edit">
-              <h3 className="section-group-header"><i className="fa fa-envelope-open-o"/> Mailing Address</h3>
-              <div className="editing"><i className="fa fa-pencil"/> Editing</div>
+              <h3 className="section-group-header"><i className="fa fa-envelope-open-o" /> Mailing Address</h3>
+              <div className="editing"><i className="fa fa-pencil" /> Editing</div>
               <section className="display-element">
-                <MailingAddress name={'policyHolderMailingAddress'} handleOnSubmit={this.updateQuote}/>
+                <MailingAddress name={'policyHolderMailingAddress'} handleOnSubmit={this.updateQuote} />
               </section>
             </div>}
           </div>
@@ -281,7 +281,7 @@ class VerifyForm extends Component {
             </div>
           </Form>
         </div>}
-        <Footer/>
+        <Footer />
       </div>
     );
   }

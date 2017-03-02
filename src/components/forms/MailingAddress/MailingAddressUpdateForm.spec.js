@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MailingAddressForm from './MailingAddressForm';
+import MailingAddressUpdateForm from './MailingAddressUpdateForm';
 
-describe('MailingAddressForm', () => {
+describe('MailingAddressUpdateForm', () => {
   let props = {};
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('MailingAddressForm', () => {
   });
 
   it('should render component', () => {
-    const wrapper = shallow(<MailingAddressForm {...props} />);
+    const wrapper = shallow(<MailingAddressUpdateForm {...props} />);
     expect(wrapper).to.exist;
   });
 });

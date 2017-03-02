@@ -17,6 +17,8 @@ import ErrorPage from './ErrorPage';
 import WorkflowDetails from './WorkflowDetails';
 import Share from './SharePage';
 import { getDetails, setDetails } from '../../actions/detailsActions';
+import AdditionalInterests from '../forms/AdditionalInterests/AdditionalInterests';
+import PolicyHolderAdditional from '../forms/policyHolder/PolicyHolderAdditional';
 
 const WorkflowHeader = (d) => {
   console.log(d); // eslint-disable-line
@@ -142,6 +144,8 @@ class Workflow extends Component {
             <Route path="/quote/underwriting" component={Underwriting} />
             <Route path="/quote/customize" component={Customize} />
             <Route path="/quote/share" component={Share} />
+            <Route path="/quote/additionalinterests" component={AdditionalInterests} />
+            <Route path="/quote/additionalpolicyholder" component={PolicyHolderAdditional} />
             <Route path="/quote/billing" component={Billing} />
             <Route path="/quote/verify" component={Verify} />
             <Route path="/quote/thankyou" component={ThankYou} />
