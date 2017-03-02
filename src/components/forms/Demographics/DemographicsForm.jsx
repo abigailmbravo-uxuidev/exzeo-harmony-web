@@ -19,11 +19,6 @@ class DemographicsForm extends Component {
   static defaultProps = {
     data: {},
     fieldValues: {},
-    initialValues: {},
-    completeStep: fn => fn,
-    initialize: fn => fn,
-    push: fn => fn,
-    handleSubmit: fn => fn,
     submitting: false
   }
 
@@ -35,19 +30,6 @@ class DemographicsForm extends Component {
     const { initialize, initialValues } = this.props;
     if (initialize && initialValues) {
       this.props.initialize(this.props.initialValues);
-    }
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (((!this.props.data || !this.props.data.steps) &&
-      (newProps.data && newProps.data.steps)) ||
-      (!newProps.data.loading &&
-        this.data && this.props.data.steps &&
-        newProps.data && newProps.data.steps &&
-        this.props.data.steps.name !== newProps.data.steps.name
-      )) {
-      const { steps } = newProps.data;
-      this.setState({ questions: steps.questions });
     }
   }
 

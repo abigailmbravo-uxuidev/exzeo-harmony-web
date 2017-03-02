@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DemographicsForm from './DemographicsForm';
+import questionsMock from './questionsMock';
+// import configureStore from 'redux-mock-store';
+import BillingForm from './BillingForm';
 
-describe('DemographicsForm', () => {
+describe('BillingForm', () => {
   // const mockStore = configureStore([]);
   // const store = mockStore({});
   let props = {};
@@ -18,8 +20,8 @@ describe('DemographicsForm', () => {
       data: {
         completeStep: { link: fn => fn },
         refetch: fn => fn,
-        loading: false,
         steps: {
+          questions: questionsMock,
           details: [{ name: 'Annual Premium', value: 500000 }, { name: 'Coverage A', value: 50000 }],
           name: 'old',
           data: [{
@@ -112,6 +114,11 @@ describe('DemographicsForm', () => {
               }
             },
             coverageOptions: {
+              personalPropertyReplacementCost: {
+                displayText: 'Personal Property Replacement Coverage',
+                answer: false,
+                _id: '5866c036a46eb72908f3f550'
+              },
               sinkholePerilCoverage: {
                 displayText: 'Sinkhole Peril Coverage',
                 answer: false,
@@ -280,105 +287,7 @@ describe('DemographicsForm', () => {
               }
             ],
             __v: 0
-          }],
-          questions: [
-            {
-              _id: '586d7218711411e6b4d3926a',
-              name: 'personalPropertyAmount',
-              defaultValueLocation: 'coverageLimits.personalProperty.amount',
-              models: [
-                'quote',
-                'quoteModel-mark',
-                'quoteModel-marco',
-                'quoteModel-eshu',
-                'quoteModelFinalUI',
-                'quoteModel',
-                'quoteModelUIVishal',
-                'quoteModelFinalUIVishal'
-              ],
-              steps: [
-                'askToCustomizeDefaultQuote'
-              ],
-              question: 'Personal Property Limit',
-              group: [
-                'coverageLimits'
-              ],
-              order: 4,
-              answerType: 'radio',
-              answerFormat: 'currency',
-              answers: [
-                {
-                  answer: 0,
-                  label: '0%'
-                },
-                {
-                  answer: 25,
-                  label: '25%'
-                },
-                {
-                  answer: 35,
-                  label: '35%'
-                },
-                {
-                  answer: 50,
-                  label: '50%'
-                }
-              ],
-              conditional: {
-                dependency: {
-                  type: 'percent',
-                  parent: 'dwellingAmount'
-                }
-              }
-            }, {
-              _id: '58827547711411e6b4d3ac5f',
-              name: 'moldProperty',
-              models: [
-                'quote'
-              ],
-              steps: [
-                'customizeDefaultQuote'
-              ],
-              question: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
-              group: [
-                'coverageLimits'
-              ],
-              order: 9,
-              answerType: 'radio',
-              validations: ['required'],
-              answers: [
-                {
-                  answer: '$50,000'
-                },
-                {
-                  answer: '$100,000'
-                }
-              ]
-            },
-            {
-              _id: '58827550711411e6b4d3ac60',
-              name: 'moldLiability',
-              models: [
-                'quote'
-              ],
-              steps: [
-                'customizeDefaultQuote'
-              ],
-              question: 'Ordinance or Law Coverage Limit',
-              group: [
-                'coverageLimits'
-              ],
-              order: 10,
-              answerType: 'radio',
-              answers: [
-                {
-                  answer: '$50,000'
-                },
-                {
-                  answer: '$100,000'
-                }
-              ]
-            }]
+          }]
         }
       },
       fieldValues: {},
@@ -389,21 +298,16 @@ describe('DemographicsForm', () => {
       styleName: ''
     };
     props.reset = () => { props.pristine = true; };
+    props.completeStep = () => new Promise(resolve => resolve(true));
     props.data.refetch = () => props;
     props.push = s => s;
-    props.completeStep = () => new Promise(() => { });
   });
 
-  it('should render DemographicsForm', () => {
-    const wrapper = shallow(<DemographicsForm />);
+  it('should render BillingForm with redux form wrapper', () => {
+  //  const Billing = reduxForm({ form: 'Billing' })(BillingForm);
+    const wrapper = shallow(<BillingForm {...props} />);
     expect(wrapper).to.exist;
-  });
-
-  it('should render DemographicsForm with props', () => {
-  //  const Customize = reduxForm({ form: 'Customize' })(DemographicsForm);
-    const wrapper = shallow(<DemographicsForm {...props} />);
-    expect(wrapper).to.exist;
-    expect(wrapper.find('FieldGenerator')).to.have.length(3);
+    expect(wrapper.find('Form')).to.have.length(1);
   });
 
   it('should submit and push new page', async () => {
@@ -418,11 +322,28 @@ describe('DemographicsForm', () => {
         }
       }
     }));
-    const wrapper = shallow(<DemographicsForm {...props} />);
+    const wrapper = shallow(<BillingForm {...props} />);
 
     expect(wrapper).to.exist;
     expect(wrapper.find('Form')).to.have.length(1);
     await wrapper.instance().handleOnSubmit();
     expect(test).to.equal('ok');
+  });
+
+  it('should fillMailForm then reset values', () => {
+  //  const Billing = reduxForm({ form: 'Billing' })(BillingForm);
+    const wrapper = shallow(<BillingForm {...props} />);
+
+    expect(wrapper).to.exist;
+    expect(wrapper.find('Form')).to.have.length(1);
+    // fill
+    wrapper.instance().fillMailForm();
+    expect(wrapper.instance().state.values.address1).to.equal('95155 STINGRAY LN');
+    expect(wrapper.instance().state.values.state).to.equal('FL');
+
+    // reset
+    wrapper.instance().fillMailForm();
+    expect(wrapper.instance().state.values.address1).to.equal('');
+    expect(wrapper.instance().state.values.state).to.equal('');
   });
 });

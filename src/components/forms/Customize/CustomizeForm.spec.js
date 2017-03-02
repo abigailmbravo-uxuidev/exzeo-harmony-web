@@ -12,9 +12,16 @@ describe('CustomizeForm', () => {
 
   beforeEach(() => {
     props = {
+      push: fn => fn,
+      completeStep: fn => fn,
+      reset: fn => fn,
+      dispatch: fn => fn,
       children: [],
       data: {
+        completeStep: { link: fn => fn },
+        refetch: fn => fn,
         steps: {
+          details: [{ name: 'Annual Premium', value: 500000 }, { name: 'Coverage A', value: 50000 }],
           name: 'old',
           data: [{
             _id: '5866c036a46eb72908f3f547',
@@ -382,6 +389,10 @@ describe('CustomizeForm', () => {
       initialValues: {},
       styleName: ''
     };
+    props.reset = () => { props.pristine = true; };
+    props.data.refetch = () => props;
+    props.push = s => s;
+    props.completeStep = () => new Promise(resolve => resolve(true));
   });
 
   it('should render CustomizeForm with redux form wrapper', () => {
@@ -408,6 +419,21 @@ describe('CustomizeForm', () => {
     expect(wrapper.instance().state.values.personalPropertyAmount).to.equal(500000);
   });
 
+  it('should trigger componentWillReceiveProps and set updated to false', () => {
+  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
+    props.pristine = true;
+    const wrapper = shallow(<CustomizeForm {...props} />);
+    wrapper.setState({ updated: true });
+    const newProps = _.cloneDeep(props);
+
+    newProps.pristine = true;
+    newProps.initialized = true;
+
+    wrapper.setProps(newProps);
+
+    expect(wrapper.instance().state.updated).to.equal(false);
+  });
+
   it('should trigger componentWillReceiveProps and trigger a change in customize', () => {
   //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
     const wrapper = shallow(<CustomizeForm {...props} />);
@@ -423,6 +449,78 @@ describe('CustomizeForm', () => {
 
     wrapper.instance().setState({ updated: false });
 
+    wrapper.setProps({ pristine: false });
+
+    wrapper.setProps({ initialized: true });
+    const premium = _.find(wrapper.instance().props.data.steps.details, { name: 'Annual Premium' });
+    const coverageA = _.find(wrapper.instance().props.data.steps.details, { name: 'Coverage A' });
+
+    expect(premium.value).to.equal('-');
+    expect(coverageA.value).to.equal('-');
+
+    async function test() {
+      await wrapper.instance().recalculateQuote(wrapper.instance().state.values);
+
+      expect(wrapper.instance().state.updated).to.equal(false);
+      expect(wrapper.instance().state.submitting).to.equal(false);
+      expect(wrapper.instance().props.pristine).to.equal(true);
+    }
+
+    test();
+  });
+
+  it('should trigger call recalculate', () => {
+  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
+  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
+    const wrapper = shallow(<CustomizeForm {...props} />);
+
+    const newProps = _.cloneDeep(props);
+    newProps.data.steps.name = 'customize';
+    wrapper.setProps({ data: newProps.data });
+
     expect(wrapper).to.exist;
+    expect(wrapper.find('FieldGenerator')).to.have.length(3);
+
+    newProps.initialize(wrapper.instance().state.values);
+
+    wrapper.instance().setState({ updated: false });
+
+    wrapper.setProps({ pristine: false });
+
+    wrapper.setProps({ initialized: true });
+    const premium = _.find(wrapper.instance().props.data.steps.details, { name: 'Annual Premium' });
+    const coverageA = _.find(wrapper.instance().props.data.steps.details, { name: 'Coverage A' });
+
+    expect(premium.value).to.equal('-');
+    expect(coverageA.value).to.equal('-');
+
+    async function test() {
+      await wrapper.instance().submit(wrapper.instance().state.values);
+
+      expect(wrapper.instance().state.updated).to.equal(false);
+      expect(wrapper.instance().state.submitting).to.equal(false);
+      expect(wrapper.instance().props.pristine).to.equal(true);
+    }
+
+    test();
+  });
+
+  it('should trigger call handleOnSubmit', async () => {
+    let test = '';
+    props.push = (link) => {
+      test = link;
+    };
+    props.completeStep = () => new Promise(resolve => resolve({
+      data: {
+        completeStep: {
+          link: 'ok'
+        }
+      }
+    }));
+    const wrapper = shallow(<CustomizeForm {...props} />);
+
+    expect(wrapper.find('FieldGenerator')).to.have.length(3);
+    await wrapper.find('#Customize').simulate('submit');
+    expect(test).to.equal('ok');
   });
 });

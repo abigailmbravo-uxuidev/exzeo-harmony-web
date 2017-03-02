@@ -26,13 +26,13 @@ auth0({
     include_totals: true,
     q: 'identities.connection="Username-Password-Authentication"'
   }
-})
-  .then((response) => {
-    console.log(response.data); // eslint-disable-line
-  })
-  .catch((error) => {
-    console.log(error); // eslint-disable-line
-  });
+// })
+// .then((response) => {
+//   console.log(response.data); // eslint-disable-line
+// })
+// .catch((error) => {
+//   console.log(error); // eslint-disable-line
+});
 
 const store = configureStore();
 

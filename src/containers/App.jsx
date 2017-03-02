@@ -11,6 +11,7 @@ import Header from '../components/common/Header';
 import AppError from './AppError';
 import NotFound from './NotFound';
 import '../components/forms/Rules';
+import '../components/form/Rules';
 
 export class App extends Component {
 

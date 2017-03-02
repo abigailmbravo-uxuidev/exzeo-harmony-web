@@ -16,16 +16,16 @@ const FieldGenerator = ({
   data,
   values
 }) => {
-  if (question.conditional) dependencyHelper(question, data, values);
+  const fieldOptions = dependencyHelper(question, data, values);
 
   const inputProps = {
-    ...question,
-    hint: question.description,
-    label: question.question,
-    type: question.answerType
+    ...fieldOptions,
+    hint: fieldOptions.description,
+    label: fieldOptions.question,
+    type: fieldOptions.answerType
   };
 
-  if (question.hidden) inputProps.type = 'hidden';
+  if (inputProps.hidden) inputProps.type = 'hidden';
 
   switch (inputProps.type) {
     case 'select':
@@ -34,9 +34,9 @@ const FieldGenerator = ({
       if (question.answers.length > 6) {
         return <SelectField {...inputProps} />;
       }
-      const maxChars = window.innerWidth / (12 * question.answers.length);
+      const maxChars = window.innerWidth / (12 * inputProps.answers.length);
       let isDropdown = false;
-      question.answers.some((a) => {
+      inputProps.answers.some((a) => {
         isDropdown = a.answer && a.answer.length > maxChars;
         return isDropdown;
       });

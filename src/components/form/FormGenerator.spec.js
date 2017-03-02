@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
+import _ from 'lodash';
 import configureStore from 'redux-mock-store';
 import FormGenerator from './FormGenerator';
 
@@ -68,7 +69,6 @@ describe('FormGenerator', () => {
       handleSubmit: fn => fn,
       handleOnSubmit: fn => fn,
       initialize: fn => fn,
-      initialValues: {},
       styleName: ''
     };
   });
@@ -78,6 +78,16 @@ describe('FormGenerator', () => {
       <FormGenerator {...props} />
     </Provider>);
 
+    expect(wrapper).to.exist;
+    expect(wrapper.find('FieldGenerator')).to.have.length(2);
+  });
+
+  it('should render FormGenerator, with initialize', () => {
+    const newProps = _.cloneDeep(props);
+    newProps.initialValues = {};
+    const wrapper = mount(<Provider store={store}>
+      <FormGenerator {...newProps} />
+    </Provider>);
     expect(wrapper).to.exist;
     expect(wrapper.find('FieldGenerator')).to.have.length(2);
   });

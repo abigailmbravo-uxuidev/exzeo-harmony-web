@@ -168,7 +168,7 @@ describe('<FieldGenerator />', () => {
     };
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
-    console.log(wrapper.props());
+
     expect(wrapper).to.exist;
   });
 });

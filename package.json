@@ -71,6 +71,7 @@
     "dev": "react-scripts start",
     "coverage": "cross-env NODE_ENV=test nyc npm test",
     "test": "mocha --reporter spec utils/testSetup \"src/**/*.spec.js\"",
+    "test::all": "npm run lint && npm run coverage",
     "test::watch": "npm test -- --watch"
   },
   "babel": {
