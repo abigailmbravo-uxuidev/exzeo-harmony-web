@@ -14,6 +14,7 @@ class UnderwritingForm extends Component {
   state = {}
 
   handleOnSubmit = async (data) => {
+    console.log('submitting');
     const workflowId = localStorage.getItem('newWorkflowId');
     try {
       const result = await this.props.completeStep({

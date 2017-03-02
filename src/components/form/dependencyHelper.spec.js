@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import dependencyHelper from './dependencyHelper';
 
 let data = {};
@@ -301,13 +300,13 @@ describe('dependencyHelper', () => {
         }
       }
     };
-    dependencyHelper(sliderQuestion, data, values);
+    const result = dependencyHelper(sliderQuestion, data, values);
 
-    expect(sliderQuestion.min).to.equal(2000000);
-    expect(sliderQuestion.max).to.equal(2000000);
+    expect(result.min).to.equal(2000000);
+    expect(result.max).to.equal(2000000);
   });
 
-  it('setup dependency info for value', () => {
+  it('setup dependency info for value(percent)', () => {
     const values = {
       dwellingAmount: 10000,
       lossOfUseAmount: '',
@@ -346,12 +345,56 @@ describe('dependencyHelper', () => {
         }
       }
     };
-    dependencyHelper(valueQuestion, data, values);
+    const result = dependencyHelper(valueQuestion, data, values);
 
-    expect(valueQuestion.displayValue).to.equal('$ 1000');
+    expect(result.displayValue).to.equal('$ 1000');
+  });
+  it('setup dependency info for value(no percent)', () => {
+    const values = {
+      dwellingAmount: 10000,
+      lossOfUseAmount: '',
+      personalPropertyAmount: 500,
+      sinkhole: 25
+    };
+    let valueQuestion = {};
+    valueQuestion = {
+      _id: '586e7f26711411e6b4d392f3',
+      name: 'lossOfUseAmount',
+      models: [
+        'quote',
+        'quoteModel-mark',
+        'quoteModel-marco',
+        'quoteModel-eshu',
+        'quoteModelFinalUI',
+        'quoteModel',
+        'quoteModelUIVishal',
+        'quoteModelFinalUIVishal'
+      ],
+      steps: [
+        'askToCustomizeDefaultQuote'
+      ],
+      question: 'Loss of Use Limit',
+      group: [
+        'coverageLimits'
+      ],
+      defaultValueLocation: 'coverageLimits.lossOfUse.amount',
+      order: 6,
+      answerType: 'display',
+      conditional: {
+        value: {
+          type: 'currency',
+          parent: 'dwellingAmount',
+          value: 10
+        }
+      }
+    };
+    const result = dependencyHelper(valueQuestion, data, values);
+
+    expect(result.displayValue).to.equal('$ 100000');
   });
 
-  it('setup dependency info for dependency', () => {
+
+  it('setup dependency info for dependency(percent)', () => {
     const values = {
       dwellingAmount: 10000,
       lossOfUseAmount: '',
@@ -408,12 +451,74 @@ describe('dependencyHelper', () => {
         }
       }
     };
-    dependencyHelper(dependencyQuestion, data, values);
+    const result = dependencyHelper(dependencyQuestion, data, values);
 
-    expect(dependencyQuestion.displayValue).to.equal('$ 50000');
+    expect(result.displayValue).to.equal('$ 50000');
   });
 
-  it('setup dependency info for dependency', () => {
+  it('setup dependency info for dependency(no percent)', () => {
+    const values = {
+      dwellingAmount: 10000,
+      lossOfUseAmount: '',
+      personalPropertyAmount: 500,
+      sinkhole: 25
+    };
+    let dependencyQuestion = {};
+    dependencyQuestion = {
+      _id: '586d7218711411e6b4d3926a',
+      name: 'personalPropertyAmount',
+      defaultValueLocation: 'coverageLimits.personalProperty.amount',
+      models: [
+        'quote',
+        'quoteModel-mark',
+        'quoteModel-marco',
+        'quoteModel-eshu',
+        'quoteModelFinalUI',
+        'quoteModel',
+        'quoteModelUIVishal',
+        'quoteModelFinalUIVishal'
+      ],
+      steps: [
+        'askToCustomizeDefaultQuote'
+      ],
+      question: 'Personal Property Limit',
+      group: [
+        'coverageLimits'
+      ],
+      order: 4,
+      answerType: 'radio',
+      answerFormat: 'currency',
+      answers: [
+        {
+          answer: 0,
+          label: '0%'
+        },
+        {
+          answer: 25,
+          label: '25%'
+        },
+        {
+          answer: 35,
+          label: '35%'
+        },
+        {
+          answer: 50,
+          label: '50%'
+        }
+      ],
+      conditional: {
+        dependency: {
+          type: 'number',
+          parent: 'dwellingAmount'
+        }
+      }
+    };
+    const result = dependencyHelper(dependencyQuestion, data, values);
+
+    expect(result.displayValue).to.equal('$ 5000000');
+  });
+
+  it('setup dependency info for display', () => {
     const values = {
       dwellingAmount: 10000,
       lossOfUseAmount: '',
@@ -470,9 +575,9 @@ describe('dependencyHelper', () => {
         ]
       }
     };
-    dependencyHelper(displayQuestion, data, values);
+    let result = dependencyHelper(displayQuestion, data, values);
 
-    expect(displayQuestion.displayValue).to.equal('$ 2500');
+    expect(result.displayValue).to.equal('$ 2500');
 
     displayQuestion.conditional.display = [
       {
@@ -483,9 +588,10 @@ describe('dependencyHelper', () => {
       }
     ];
 
-    dependencyHelper(displayQuestion, data, values);
+    result = dependencyHelper(displayQuestion, data, values);
 
-    expect(displayQuestion.displayValue).to.equal('$ 2500');
+    expect(result.hidden).to.equal(false);
+    expect(result.displayValue).to.equal('$ 2500');
 
     displayQuestion.conditional.display = [
       {
@@ -496,9 +602,10 @@ describe('dependencyHelper', () => {
       }
     ];
 
-    dependencyHelper(displayQuestion, data, values);
+    result = dependencyHelper(displayQuestion, data, values);
 
-    expect(displayQuestion.displayValue).to.equal('$ 2500');
+    expect(result.hidden).to.equal(true);
+    expect(result.displayValue).to.equal('$ 2500');
 
     displayQuestion.conditional.display = [
       {
@@ -509,8 +616,38 @@ describe('dependencyHelper', () => {
       }
     ];
 
-    dependencyHelper(displayQuestion, data, values);
+    result = dependencyHelper(displayQuestion, data, values);
 
-    expect(displayQuestion.displayValue).to.equal('$ 2500');
+    expect(result.hidden).to.equal(true);
+    expect(result.displayValue).to.equal('$ 2500');
+
+    displayQuestion.conditional.display = [
+      {
+        type: 'hidden',
+        operator: 'noop',
+        trigger: true,
+        parent: 'sinkholeCoverage'
+      }
+    ];
+
+    result = dependencyHelper(displayQuestion, data, values);
+
+    expect(result.hidden).to.be.undefined;
+    expect(result.displayValue).to.equal('$ 2500');
+
+    displayQuestion.conditional.display = [{
+      type: 'hidden',
+      operator: 'greaterThan',
+      trigger: true,
+      parent: 'sinkholeCoverage'
+    }, {
+      type: 'hidden',
+      operator: 'notEqual',
+      trigger: true,
+      parent: 'sinkholeCoverage'
+    }];
+
+    result = dependencyHelper(displayQuestion, data, values);
+    expect(result.hidden).to.equal(true);
   });
 });

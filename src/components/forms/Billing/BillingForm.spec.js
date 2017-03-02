@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import _ from 'lodash';
 import questionsMock from './questionsMock';
 // import configureStore from 'redux-mock-store';
 import BillingForm from './BillingForm';
@@ -311,15 +310,24 @@ describe('BillingForm', () => {
     expect(wrapper.find('Form')).to.have.length(1);
   });
 
-  it('should submit', () => {
-  //  const Billing = reduxForm({ form: 'Billing' })(BillingForm);
+  it('should submit and push new page', async () => {
+    let test = '';
+    props.push = (link) => {
+      test = link;
+    };
+    props.completeStep = () => new Promise(resolve => resolve({
+      data: {
+        completeStep: {
+          link: 'ok'
+        }
+      }
+    }));
     const wrapper = shallow(<BillingForm {...props} />);
-
 
     expect(wrapper).to.exist;
     expect(wrapper.find('Form')).to.have.length(1);
-
-    wrapper.instance().handleOnSubmit();
+    await wrapper.instance().handleOnSubmit();
+    expect(test).to.equal('ok');
   });
 
   it('should fillMailForm then reset values', () => {

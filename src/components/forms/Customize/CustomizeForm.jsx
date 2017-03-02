@@ -2,19 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { Form } from 'redux-form';
 import localStorage from 'localStorage';
 import _ from 'lodash';
+import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../../form/FieldGenerator';
 import { setDetails } from '../../../actions/detailsActions';
 
-/* eslint-disable */
-function convertQuoteStringsToNumber(quote) {
-  for (const obj in quote) {
-    if (_.isString(quote[obj])) {
-      quote[obj] = (Number(quote[obj]) ? Number(quote[obj]) : quote[obj]);
-    }
-  }
-  return quote;
-};
-/* eslint-enable */
 
 class CustomizeForm extends Component {
   static propTypes = {
@@ -52,39 +43,10 @@ class CustomizeForm extends Component {
       const questions = steps.questions;
       const realQuote = steps.data[0];
 
-      questions.forEach((question) => {
-        if (question.readOnlyValue) {
-          state.values[question.name] = question.readOnlyValue;
-        } else if (question.defaultValueLocation) {
-          const val = _.get(realQuote, question.defaultValueLocation);
-          state.values[question.name] = val;
-        } else {
-          state.values[question.name] = '';
-        }
-      });
-
       state.questions = questions;
       state.quoteInfo = realQuote;
       state.defaultDetails = _.cloneDeep(steps.details);
-      // Go through and check if percent or currency is provided as initial
-      questions.forEach((question) => {
-        if (question.conditional && question.conditional.dependency &&
-          question.answers && question.answers.length > 0) {
-          const exists = question.answers.find(a => a.answer == state.values[question.name]); // eslint-disable-line
-          if (!exists) {
-            const { dependency } = question.conditional;
-            const parentValue = _.get(state.values, dependency.parent);
-
-            const stateValue = state.values[question.name];
-            // const calculatedValue = parentValue / 100;
-            const newValue = question.answers.find(a =>
-              (dependency.type === 'percent' ? (parentValue * a.answer) / 100 : parentValue * a.answer) === stateValue);
-            if (newValue) {
-              state.values[question.name] = newValue.answer;
-            }
-          }
-        }
-      });
+      state.values = getInitialValues(state.questions, state.quoteInfo);
 
       if (!this.props.initialized) {
         this.props.initialize(state.values);
@@ -152,17 +114,17 @@ class CustomizeForm extends Component {
   }
 
   recalculateQuote = async (data) => {
-    const updatedQuote = convertQuoteStringsToNumber(data);
-    const updatedQuoteResult = {
-      dwellingAmount: updatedQuote.dwellingAmount,
-      otherStructuresAmount:
-        ((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount),
-      personalPropertyAmount:
-        ((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount),
-      personalPropertyReplacementCostCoverage:
-        (updatedQuote.personalPropertyReplacementCostCoverage || false)
-    };
     try {
+      const updatedQuote = convertQuoteStringsToNumber(data);
+      const updatedQuoteResult = {
+        dwellingAmount: updatedQuote.dwellingAmount,
+        otherStructuresAmount:
+          ((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount),
+        personalPropertyAmount:
+          ((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount),
+        personalPropertyReplacementCostCoverage:
+          (updatedQuote.personalPropertyReplacementCostCoverage || false)
+      };
       let state = this.state;
       state.submitting = true;
       this.setState(state);
@@ -181,7 +143,7 @@ class CustomizeForm extends Component {
       state.details = result.data.steps.details;
       state.quoteInfo = result.data.steps.data[0];
       this.setState(state);
-
+      console.log('state');
       console.log('this.props.pristine', this.props.pristine);
     } catch (error) {
       // eslint-disable-next-line
@@ -191,7 +153,6 @@ class CustomizeForm extends Component {
   }
 
   submit = (data) => {
-    console.log(this.state.updated);
     this.state.updated ? this.recalculateQuote(data) : this.handleOnSubmit();
   }
 

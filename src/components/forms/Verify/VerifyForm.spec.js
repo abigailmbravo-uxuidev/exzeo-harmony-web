@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import _ from 'lodash';
-// import configureStore from 'redux-mock-store';
 import VerifyForm from './VerifyForm';
 
 describe('VerifyForm', () => {
@@ -327,5 +325,22 @@ describe('VerifyForm', () => {
     expect(wrapper).to.exist;
     expect(wrapper.find('Form')).to.have.length(1);
     wrapper.instance().updateQuote();
+  });
+  it('should submit and push new page', async () => {
+    let test = '';
+    props.push = (link) => {
+      test = link;
+    };
+    props.completeStep = () => new Promise(resolve => resolve({
+      data: {
+        completeStep: {
+          link: 'ok'
+        }
+      }
+    }));
+    const wrapper = shallow(<VerifyForm {...props} />);
+    expect(wrapper).to.exist;
+    await wrapper.instance().handleOnSubmit();
+    expect(test).to.equal('thankyou');
   });
 });

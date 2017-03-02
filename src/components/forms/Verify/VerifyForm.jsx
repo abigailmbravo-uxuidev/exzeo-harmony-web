@@ -38,9 +38,7 @@ class VerifyForm extends Component {
     alert('quote updated'); // eslint-disable-line
   }
 
-  handleOnSubmit = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
-
+  handleOnSubmit = () => {
     this.props.completeStep({
       variables: {
         input: {
@@ -54,8 +52,8 @@ class VerifyForm extends Component {
       // const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
       this.props.push('thankyou');
     }).catch((error) => {
-        // this.context.router.transitionTo('/error');
-        console.log('errors from graphql', error); // eslint-disable-line
+      // this.context.router.transitionTo('/error');
+      console.log('errors from graphql', error); // eslint-disable-line
       this.props.push('error');
     });
   }

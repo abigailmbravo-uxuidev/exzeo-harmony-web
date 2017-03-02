@@ -389,10 +389,10 @@ describe('CustomizeForm', () => {
       initialValues: {},
       styleName: ''
     };
-    props.reset = function () { props.pristine = true; };
-    props.data.refetch = function () { return props; };
-    props.push = function (s) { return s; };
-    props.completeStep = function () { return new Promise(() => { }); };
+    props.reset = () => { props.pristine = true; };
+    props.data.refetch = () => props;
+    props.push = s => s;
+    props.completeStep = () => new Promise(resolve => resolve(true));
   });
 
   it('should render CustomizeForm with redux form wrapper', () => {
@@ -417,6 +417,21 @@ describe('CustomizeForm', () => {
     expect(wrapper.instance().props.data.steps.name).to.equal('customize');
 
     expect(wrapper.instance().state.values.personalPropertyAmount).to.equal(500000);
+  });
+
+  it('should trigger componentWillReceiveProps and set updated to false', () => {
+  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
+    props.pristine = true;
+    const wrapper = shallow(<CustomizeForm {...props} />);
+    wrapper.setState({ updated: true });
+    const newProps = _.cloneDeep(props);
+
+    newProps.pristine = true;
+    newProps.initialized = true;
+
+    wrapper.setProps(newProps);
+
+    expect(wrapper.instance().state.updated).to.equal(false);
   });
 
   it('should trigger componentWillReceiveProps and trigger a change in customize', () => {
@@ -490,28 +505,22 @@ describe('CustomizeForm', () => {
     test();
   });
 
-  it('should trigger call handleOnSubmit', () => {
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
-  //  const Customize = reduxForm({ form: 'Customize' })(CustomizeForm);
+  it('should trigger call handleOnSubmit', async () => {
+    let test = '';
+    props.push = (link) => {
+      test = link;
+    };
+    props.completeStep = () => new Promise(resolve => resolve({
+      data: {
+        completeStep: {
+          link: 'ok'
+        }
+      }
+    }));
     const wrapper = shallow(<CustomizeForm {...props} />);
 
-    const newProps = _.cloneDeep(props);
-    newProps.data.steps.name = 'customize';
-    wrapper.setProps({ data: newProps.data });
-
-    expect(wrapper).to.exist;
     expect(wrapper.find('FieldGenerator')).to.have.length(3);
-
-    newProps.initialize(wrapper.instance().state.values);
-
-    wrapper.instance().setState({ updated: false });
-
-
-    async function test() {
-      await wrapper.instance().submit(wrapper.instance().state.values);
-      expect(wrapper.instance().state.updated).to.equal(false);
-    }
-
-    test();
+    await wrapper.find('#Customize').simulate('submit');
+    expect(test).to.equal('ok');
   });
 });
