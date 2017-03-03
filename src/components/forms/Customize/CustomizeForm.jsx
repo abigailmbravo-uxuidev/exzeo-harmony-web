@@ -4,8 +4,8 @@ import localStorage from 'localStorage';
 import _ from 'lodash';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../../form/FieldGenerator';
+import ErrorPopup from '../../common/ErrorPopup';
 import { setDetails } from '../../../actions/detailsActions';
-
 
 class CustomizeForm extends Component {
   static propTypes = {
@@ -212,6 +212,7 @@ class CustomizeForm extends Component {
             </Form>
           </div>
         </section>
+        <ErrorPopup />
       </div>
     );
   }

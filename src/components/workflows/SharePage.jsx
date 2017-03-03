@@ -7,7 +7,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import Footer from '../common/Footer';
-import ErrorPopup from '../common/ErrorPopup';
 import EmailPopup from '../common/EmailPopup';
 
 class SharePage extends Component {
@@ -193,16 +192,15 @@ class SharePage extends Component {
                 <button className="btn btn-primary" type="submit">next</button>
               </div>
             </Form>
-          </div>
-          <ErrorPopup />
-          <EmailPopup
-            state={this.state}
-            showEmailPopup={this.state.showEmailPopup}
-            primaryButtonHandler={this.shareQuoteSubmit}
-            secondaryButtonHandler={this.closeShareSubmit}
-          />
+          </div>  
         </section>
         <Footer />
+        <EmailPopup
+          state={this.state}
+          showEmailPopup={this.state.showEmailPopup}
+          primaryButtonHandler={this.shareQuoteSubmit}
+          secondaryButtonHandler={this.closeShareSubmit}
+        />
       </div>
     );
   }

@@ -648,6 +648,9 @@ select {
     display: flex;
     flex-direction: column;
   }
+  .card-footer {
+      background-color: $cool-gray-00;
+  }
 }
 //modal
 /*------------------------------------------------------------------------------------*/
@@ -1148,10 +1151,6 @@ footer {
                 background-color: rgba($cool-gray-10, .75);
               }
             }
-
-            .card-footer {
-              background-color: $cool-gray-00;
-            }
           }
         }
       }
@@ -1335,40 +1334,6 @@ ul.results {
 //Share
 /*------------------------------------------------------------------------------------*/
 .section-share {
-  .error-content {
-    background: rgba($white,.8);
-
-    .survey-wrapper {
-      .contact-message {
-        .card-csr {
-          box-shadow: 0 0 50px rgba($black, .4);
-
-          .card-header-image-csr {
-            height: 16rem;
-            background-image: url('../img/csr.jpg');
-            background-position: right center;
-            background-size: cover;
-            @include for-phone-only {
-              height: 12rem;
-            }
-
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-              background: rgba($red-darken-01,.9);
-            }
-          }
-
-          .card-footer {
-            background-color: $cool-gray-00;
-          }
-        }
-      }
-    }
-  }
 }
 //Mailing & Billing
 /*------------------------------------------------------------------------------------*/
@@ -1509,6 +1474,35 @@ ul.results {
       }
     }
   }
+  &.pop-up {
+    background: rgba($white,.8);
+    .survey-wrapper {
+        .contact-message {
+          .card-csr {
+            box-shadow: 0 0 50px rgba($black, .4);
+
+            .card-header-image-csr {
+              height: 16rem;
+              background-image: url('../img/csr.jpg');
+              background-position: right center;
+              background-size: cover;
+              @include for-phone-only {
+                height: 12rem;
+              }
+
+              h1,
+              h2,
+              h3,
+              h4,
+              h5,
+              h6 {
+                background: rgba($red-darken-01,.9);
+              }
+            }
+          }
+        }
+      }
+  }
 }
 //Thanks Page
 /*------------------------------------------------------------------------------------*/
@@ -1541,10 +1535,6 @@ ul.results {
         color: $white;
         background: rgba($green-darken-03,.9);
       }
-    }
-
-    .card-footer {
-      background-color: $cool-gray-00;
     }
   }
 }

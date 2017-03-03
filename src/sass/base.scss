@@ -134,6 +134,9 @@ a:visited {
       margin: 0;
     }
   }
+  .card-footer {
+    background-color: $warm-gray-02;
+  }
 }
 //modal
 /*------------------------------------------------------------------------------------*/
@@ -1558,65 +1561,28 @@ ul.results {
       }
     }
   }
-
-  .error-content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+}
+.email-modal {
     display: none;
-    background: rgba($blue,.8);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    background: rgba($white, .8);
+
+    @include animation('fade-in 1s 1');
 
     &.active {
-      display: flex;
+        display: flex;
     }
 
     .survey-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-
-      .contact-message {
-        .card {
-          width: auto;
-          max-width: 36rem;
-          margin: $padding 0;
-          @include for-phone-only {
-            max-width: 19.375rem;
-            margin: 0 0 ($padding*2);
-          }
-
-          .card-header {
-            background: rgba($red-darken-01,1);
-
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-              background: rgba($red-darken-01,.9);
-            }
-          }
-
-          .card-footer {
-            background-color: $warm-gray-02;
-          }
-
-          .contact-methods {
-            display: flex;
-            align-items: center;
-
-            a {
-              margin: $padding ($padding*2) ($padding*2) 0;
-            }
-          }
-        }
-      }
+        align-items: center;
+        display: flex;
     }
-  }
 }
 //Mailing & Billing
 /*------------------------------------------------------------------------------------*/
@@ -1643,7 +1609,6 @@ ul.results {
     }
   }
 }
-
 .MailingAddress-component {
   .address1 {
     width: 100%;
@@ -1912,6 +1877,61 @@ ul.results {
         }
       }
     }
+  }
+
+  &.pop-up {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+      display: none;
+      background: rgba($blue,.8);
+
+      &.active {
+        display: flex;
+      }
+
+      .survey-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .contact-message {
+          .card {
+            width: auto;
+            max-width: 36rem;
+            margin: $padding 0;
+            @include for-phone-only {
+              max-width: 19.375rem;
+              margin: 0 0 ($padding*2);
+            }
+
+            .card-header {
+              background: rgba($red-darken-01,1);
+
+              h1,
+              h2,
+              h3,
+              h4,
+              h5,
+              h6 {
+                background: rgba($red-darken-01,.9);
+              }
+            }
+            .contact-methods {
+              display: flex;
+              align-items: center;
+
+              a {
+                margin: $padding ($padding*2) ($padding*2) 0;
+              }
+            }
+          }
+        }
+      }
   }
 }
 //Thanks Page

@@ -1,12 +1,12 @@
 import React from 'react';
 
 const ErrorPopup = () => (
-  <div className="error-content" role="article">
+  <div className="error-content pop-up" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
         <div className="card card-csr">
           <div className="card-header image card-header-image-csr">
-            <h4><i className="fa fa-exclamation-triangle" /> Underwriting error(s)</h4>
+            <h4><i className="fa fa-exclamation-triangle" /> Underwriting Error(s)</h4>
           </div>
           <div className="card-block">
             <h4 className="error-message">Please contact us</h4>
