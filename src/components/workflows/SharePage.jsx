@@ -1,140 +1,14 @@
 /* eslint import/no-mutable-exports:0 jsx-a11y/label-has-for:0 */
 /* eslint no-class-assign :0 */
-import React, {Component, PropTypes} from 'react';
-import {reduxForm, Form} from 'redux-form';
-import {connect} from 'react-redux';
-import {graphql} from 'react-apollo';
+import React, { Component, PropTypes } from 'react';
+import { reduxForm, Form } from 'redux-form';
+import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import Footer from '../common/Footer';
-// import _ from 'lodash';
-// const CoverageDetails = ({ data }) => (
-//   <div className="CoverageDetails detail-group">
-//     <h4>Coverages</h4>
-//     <section className="summary-section">
-//       <dl>
-//         <dt>
-//           <span>A</span> Dwelling</dt>
-//         <dd>${data.dwelling.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>
-//           <span>B</span> Other Structures</dt>
-//         <dd>${data.otherStructures.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>
-//           <span>C</span> Personal Property</dt>
-//         <dd>${data.personalProperty.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Personal Property Replacement Cost</dt>
-//         <dd>{data.personalProperty.amount > 0 ? 'Yes' : 'No'}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Loss Of Use</dt>
-//         <dd>${data.lossOfUse.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Personal Liability</dt>
-//         <dd>${data.personalLiability.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Medical Payments</dt>
-//         <dd>${data.medicalPayments.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Mold Property</dt>
-//         <dd>${data.moldProperty.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Mold Liability</dt>
-//         <dd>${data.moldLiability.amount}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Ordinance or Law</dt>
-//         <dd>${data.ordinanceOrLaw.amount}</dd>
-//       </dl>
-//     </section>
-//   </div>
-// );
-//
-// const CoverageOptionsDetails = ({ data }) => (
-//   <div className="RatingDetails detail-group">
-//     <h4>Coverage Options</h4>
-//     <section className="summary-section">
-//
-//       <dl>
-//         <dt>Personal Property Replacement Coverage</dt>
-//         <dd>{`${data.personalPropertyReplacementCost.answer}`}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Sinkhole Peril Coverage</dt>
-//         <dd>{data.sinkholePerilCoverage.answer}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Property Permitted Incidental Occupancies Main Dwelling</dt>
-//         <dd>{data.propertyIncidentalOccupanciesMainDwelling.answer}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Property Permitted Incidental Occupancies Other Structures</dt>
-//         <dd>{data.propertyIncidentalOccupanciesOtherStructures.answer}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Liability Permitted Incidental Occupancies</dt>
-//         <dd>{data.liabilityIncidentalOccupancies.answer}</dd>
-//       </dl>
-//     </section>
-//   </div>
-//   );
-//
-// const DeductiblesDetails = ({ data }) => (
-//   <div className="RatingDetails detail-group">
-//     <h4>Deductibles</h4>
-//     <section className="summary-section">
-//
-//       <dl>
-//         <dt>Hurricane</dt>
-//         <dd>{data.hurricane.amount} %</dd>
-//       </dl>
-//       <dl>
-//         <dt>Sinkhole</dt>
-//         <dd>{data.sinkhole.amount} %</dd>
-//       </dl>
-//       <dl>
-//         <dt>All Other Perils</dt>
-//         <dd>${data.allOtherPerils.amount}</dd>
-//       </dl>
-//     </section>
-//   </div>
-// );
-//
-// const RatingDetails = ({ data }) => (
-//   <div className="RatingDetails detail-group">
-//     <h4>Rating</h4>
-//     <section className="summary-section">
-//
-//       <dl>
-//         <dt>Net Premium</dt>
-//         <dd>${data.netPremium}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Total Fees</dt>
-//         <dd>${data.totalFees}</dd>
-//       </dl>
-//       <dl>
-//         <dt>Total Premium</dt>
-//         <dd>${data.totalPremium}</dd>
-//       </dl>
-//       {
-//         data.windMitigationDiscount && <dl>
-//           <dt>Wind Mitigation discount</dt>
-//           <dd>{data.windMitigationDiscount}</dd>
-//         </dl>
-//      }
-//     </section>
-//   </div>
-// );
+import ErrorPopup from '../common/ErrorPopup';
+import EmailPopup from '../common/EmailPopup';
 
 class SharePage extends Component {
   static propTypes = {
@@ -148,10 +22,12 @@ class SharePage extends Component {
   }
   // TODO: push up data props into state
   state = {
-    quote: {}
+    quote: {},
+    showEmailPopup: false
   }
 
-  componentWillMount() {}
+  componentWillMount() {
+  }
 
   // componentWillReceiveProps(newProps) {
   //   if ((!this.props.data.steps && newProps.data.steps) ||
@@ -182,35 +58,50 @@ class SharePage extends Component {
     }
   });
 
-  submitWithShareOption = (shareIt) => {
-    if (event && event.preventDefault)
-      event.preventDefault();
+  noShareSubmit = (shareIt) => {
+    if (event && event.preventDefault) { event.preventDefault(); }
 
     this.props.completeStep({
       variables: {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
-          stepName: 'showCustomizedQuoteAndContinue',
-          data: {}
+          stepName: 'sendEmailOrContinue',
+          data: { shouldSendEmail: 'No' }
         }
       }
-    }).then((updatedShowCustomizedQuoteAndContinue) => {
+    }).then((updatedShouldGeneratePdfAndEmail) => {
+      console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
+      const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
+      this.context.router.push(`${activeLink}`);
+    }).catch((error) => {
+        // this.context.router.transitionTo('/error');
+        console.log('errors from graphql', error); // eslint-disable-line
+      this.context.router.push('error');
+    });
+  }
+
+  shareQuoteSubmit = (event) => {
+    if (event && event.preventDefault) { event.preventDefault(); }
+
+    this.props.completeStep({
+      variables: {
+        input: {
+          workflowId: localStorage.getItem('newWorkflowId'),
+          stepName: 'sendEmailOrContinue',
+          data: { shouldSendEmail: 'Yes' }
+        }
+      }
+    }).then(() => {
       this.props.completeStep({
         variables: {
           input: {
             workflowId: localStorage.getItem('newWorkflowId'),
-            stepName: 'saveAndSendEmail',
-            data: {
-              shouldGeneratePdfAndEmail: shareIt
-                ? 'Yes'
-                : 'No'
-            }
+            stepName: 'askEmail',
+            data: event
           }
         }
-      }).then((updatedShouldGeneratePdfAndEmail) => {
-        console.log('UPDATED MODEL : ', updatedShouldGeneratePdfAndEmail);
-        const activeLink = updatedShouldGeneratePdfAndEmail.data.completeStep.link;
-        this.context.router.push(`${activeLink}`);
+      }).then(() => {
+        this.closeShareSubmit();
       }).catch((error) => {
         // this.context.router.transitionTo('/error');
         console.log('errors from graphql', error); // eslint-disable-line
@@ -220,19 +111,32 @@ class SharePage extends Component {
       // this.context.router.transitionTo('/error');
       console.log('errors from graphql', error); // eslint-disable-line
       this.context.router.push('error');
+    }).catch((error) => {
+      // this.context.router.transitionTo('/error');
+      console.log('errors from graphql', error); // eslint-disable-line
+      this.context.router.push('error');
     });
   }
 
+  closeShareSubmit = () => {
+    this.state.showEmailPopup = false;
+    this.setState(this.state);
+  }
+
   shareQuote = (event) => {
-    if (event && event.preventDefault)
+    if (event && event.preventDefault) {
       event.preventDefault();
-    this.submitWithShareOption(true);
+    }
+    this.state.showEmailPopup = true;
+
+    this.setState(this.state);
   }
 
   handleOnSubmit = (event) => {
-    if (event && event.preventDefault)
+    if (event && event.preventDefault) {
       event.preventDefault();
-    this.submitWithShareOption(false);
+    }
+    this.noShareSubmit();
   }
 
   buildSubmission = (stepName, data) => ({
@@ -246,7 +150,7 @@ class SharePage extends Component {
   });
 
   render() {
-    const {styleName, handleSubmit} = this.props;
+    const { styleName, handleSubmit } = this.props;
 
     // let quote = null;
     // if (this.props.data && this.props.data.steps) {
@@ -265,11 +169,11 @@ class SharePage extends Component {
             <Form className={`fade-in ${styleName || ''}`} id="SharePage" onSubmit={handleSubmit(this.handleOnSubmit)} noValidate>
               <div className="form-group detail-wrapper">
                 <section className="section-instructions">
-                  <h3 className="section-group-header"><i className="fa fa-share-alt"/> Share</h3>
+                  <h3 className="section-group-header"><i className="fa fa-share-alt" /> Share</h3>
                   <p>To SHARE this quote as a PDF via email, click the <a className="btn-link" href="">SHARE</a> button</p>
                 </section>
                 <section className="section-instructions">
-                  <h3 className="section-group-header"><i className="fa fa-arrow-circle-right"/> Continue</h3>
+                  <h3 className="section-group-header"><i className="fa fa-arrow-circle-right" /> Continue</h3>
                   <p>To CONTINUE the quote process, you will need the following</p>
                   <ul>
                     <li>Mortgage information</li>
@@ -279,8 +183,8 @@ class SharePage extends Component {
                   <p>When you are prepared to move forward, click the <a className="btn-link" href="">NEXT</a> button</p>
                 </section>
                 <section className="section-instructions">
-                  <h3 className="section-group-header"><i className="fa fa-quote-left"/> New Quote</h3>
-                  <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large"/> Dasboard</a> tab</p>
+                  <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
+                  <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> Dasboard</a> tab</p>
                 </section>
               </div>
               <div className="workflow-steps">
@@ -289,38 +193,15 @@ class SharePage extends Component {
               </div>
             </Form>
           </div>
-          <div className="error-content" role="article">
-            <div className="survey-wrapper">
-              <div className="contact-message">
-                <div className="card card-csr">
-                  <div className="card-header image card-header-image-csr">
-                    <h4><i className="fa fa-exclamation-triangle"></i> Underwriting error(s)</h4>
-                  </div>
-                  <div className="card-block">
-                    <h4 className="error-message">Please contact us</h4>
-                    <div className="contact-methods">
-                      <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
-                      <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
-                    </div>
-                    <p>We apologize. Underwriting error(s) have occured with this quote.</p>
-                    <p>Contact a TypTap customer service representatives so we may further assist you in obtaining a quote.</p>
-                  </div>
-                  <div className="card-footer">
-                    {/*<a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
-                    <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>*/}
-                    <small>A TypTap CSR may be able to correct your underwring error(s) allowing you to refresh and continue.</small>
-                    <div className="btn-group">
-                      <a href="tel:8442897968" className="btn btn-secondary btn-round"><i className="fa fa-phone"></i></a>
-                      <button className="btn btn-secondary">Refresh</button>
-                      <button className="btn btn-primary">New Quote</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ErrorPopup />
+          <EmailPopup
+            state={this.state}
+            showEmailPopup={this.state.showEmailPopup}
+            primaryButtonHandler={this.shareQuoteSubmit}
+            secondaryButtonHandler={this.closeShareSubmit}
+          />
         </section>
-        <Footer/>
+        <Footer />
       </div>
     );
   }
@@ -346,12 +227,6 @@ SharePage = connect()(graphql(gql `
                 quoteNumber
                 effectiveDate
                 endDate
-                agencyId
-                agentId
-                billToType
-                billTold
-                billPlan
-                eligibilty
                 coverageLimits {
                   dwelling {
                     maxAmount
@@ -446,12 +321,12 @@ SharePage = connect()(graphql(gql `
             type
         }
     }`, {
-  options: {
-    variables: {
-      workflowId: localStorage.getItem('newWorkflowId')
-    }
-  }
-})(graphql(gql `
+      options: {
+        variables: {
+          workflowId: localStorage.getItem('newWorkflowId')
+        }
+      }
+    })(graphql(gql `
       mutation CompleteStep($input:CompleteStepInput) {
         completeStep(input:$input) {
           name
@@ -556,6 +431,6 @@ SharePage = connect()(graphql(gql `
           completedSteps
         }
       }
-    `, {name: 'completeStep'})(SharePage)));
+    `, { name: 'completeStep' })(SharePage)));
 
 export default SharePage;

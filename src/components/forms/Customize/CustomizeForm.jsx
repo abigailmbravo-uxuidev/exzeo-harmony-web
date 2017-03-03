@@ -102,11 +102,16 @@ class CustomizeForm extends Component {
         { shouldCustomizeQuote: 'No' }
       ));
 
+      const resultFinal = await this.props.completeStep(this.buildSubmission(
+        'showCustomizedQuoteAndContinue',
+        { }
+      ));
+
       state = this.state;
       state.submitting = false;
       this.setState(state);
 
-      const activeLink = result.data.completeStep.link;
+      const activeLink = resultFinal.data.completeStep.link;
       this.props.push(`${activeLink}`);
     } catch (error) {
       console.log('errors from graphql', error); // eslint-disable-line
