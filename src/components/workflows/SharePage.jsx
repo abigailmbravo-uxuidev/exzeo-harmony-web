@@ -14,7 +14,9 @@ class SharePage extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func,
     styleName: PropTypes.string,
-    completeStep: PropTypes.func
+    completeStep: PropTypes.func,
+    submitting: PropTypes.bool,
+    reset: PropTypes.func
   }
 
   static contextTypes = {
@@ -80,19 +82,25 @@ class SharePage extends Component {
     });
   }
 
-  shareQuoteSubmit = (event) => {
+  shareQuoteSubmit = async (event) => {
     if (event && event.preventDefault) { event.preventDefault(); }
 
-    this.props.completeStep({
-      variables: {
-        input: {
-          workflowId: localStorage.getItem('newWorkflowId'),
-          stepName: 'sendEmailOrContinue',
-          data: { shouldSendEmail: 'Yes' }
+    try {
+      const state = this.state;
+      state.submitting = true;
+      this.setState(state);
+
+      await this.props.completeStep({
+        variables: {
+          input: {
+            workflowId: localStorage.getItem('newWorkflowId'),
+            stepName: 'sendEmailOrContinue',
+            data: { shouldSendEmail: 'Yes' }
+          }
         }
-      }
-    }).then(() => {
-      this.props.completeStep({
+      });
+
+      await this.props.completeStep({
         variables: {
           input: {
             workflowId: localStorage.getItem('newWorkflowId'),
@@ -100,27 +108,20 @@ class SharePage extends Component {
             data: event
           }
         }
-      }).then(() => {
-        this.closeShareSubmit();
-      }).catch((error) => {
-        // this.context.router.transitionTo('/error');
-        console.log('errors from graphql', error); // eslint-disable-line
-        this.context.router.push('error');
       });
-    }).catch((error) => {
+
+      this.closeShareSubmit();
+    } catch (error) {
       // this.context.router.transitionTo('/error');
       console.log('errors from graphql', error); // eslint-disable-line
       this.context.router.push('error');
-    }).catch((error) => {
-      // this.context.router.transitionTo('/error');
-      console.log('errors from graphql', error); // eslint-disable-line
-      this.context.router.push('error');
-    });
+    }
   }
 
   closeShareSubmit = () => {
     this.state.showEmailPopup = false;
     this.setState(this.state);
+    this.props.reset();
   }
 
   shareQuote = (event) => {
