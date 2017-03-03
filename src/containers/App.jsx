@@ -10,9 +10,9 @@ import Quote from './Quote';
 import Header from '../components/common/Header';
 import AppError from './AppError';
 import NotFound from './NotFound';
-//import '../components/forms/Rules';
+// import '../components/forms/Rules';
 
-export class App extends Component {
+class App extends Component {
 
   static propTypes = {
     actions: PropTypes.shape({ initializeLD: PropTypes.func, setupFeature: PropTypes.func }),
