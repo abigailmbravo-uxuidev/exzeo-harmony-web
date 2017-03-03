@@ -443,6 +443,26 @@ main[role="document"] {
       width: 100%;
       height: 100%;
 
+      &.login {
+        z-index: 20;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+
+        .card {
+          z-index: 30;
+          position: absolute;
+        }
+      }
+
       > div[role="article"] {
         display: flex;
         width: 100%;
@@ -454,17 +474,6 @@ main[role="document"] {
         &.workflow {
           overflow: hidden;
           height: 100%;
-        }
-
-        &.login {
-          z-index: 20;
-          border-top: $card-border-width solid $card-border-color;
-          align-items: center;
-          justify-content: center;
-
-          .card {
-            z-index: 30;
-          }
         }
 
         &.splash {
