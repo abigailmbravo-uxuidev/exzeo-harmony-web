@@ -1104,7 +1104,7 @@ main[role="document"] {
 footer {
   div[role="banner"] {
     border-top: $border-width dotted $cool-gray-01;
-    background: $white;
+    background: $cool-gray-00;
   }
 }
 //TYPTAP ROUTE SPECIFIC STYLES
@@ -1497,7 +1497,7 @@ ul.results {
     }
 
     aside {
-        border-left: 1px dotted $cool-gray-02;
+        border-left: 1px dotted $cool-gray-01;
         background: $cool-gray-00;
         @include for-phone-only {
             border-left-width: 0;
@@ -1658,17 +1658,6 @@ ul.results {
           }
 
           aside {}
-        }
-
-        footer {
-          div {
-            border-color: $bright-blue-lighten-02;
-            background: $bright-blue;
-
-            small {
-              color: $bright-blue-lighten-03;
-            }
-          }
         }
       }
     }

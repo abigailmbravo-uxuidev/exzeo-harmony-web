@@ -1575,7 +1575,7 @@ ul.results {
           max-width: 36rem;
           margin: $padding 0;
           @include for-phone-only {
-            max-width: 300px;
+            max-width: 19.375rem;
             margin: 0 0 ($padding*2);
           }
 
