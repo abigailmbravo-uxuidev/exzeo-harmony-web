@@ -1,7 +1,7 @@
 /* eslint import/no-mutable-exports:0 jsx-a11y/label-has-for:0 */
 /* eslint no-class-assign :0 */
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form, reset } from 'redux-form';
+import { reduxForm, Form, reset, change } from 'redux-form';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -83,6 +83,11 @@ class SharePage extends Component {
 
   shareQuoteSubmit = async (event) => {
     if (event && event.preventDefault) { event.preventDefault(); }
+
+    if (event && (!event.name || !event.emailAddr)) {
+      this.props.dispatch(reset('ShareEmail'));
+      return;
+    }
 
     try {
       const state = this.state;
@@ -192,7 +197,7 @@ class SharePage extends Component {
                 <button className="btn btn-primary" type="submit">next</button>
               </div>
             </Form>
-          </div>  
+          </div>
         </section>
         <Footer />
         <EmailPopup
