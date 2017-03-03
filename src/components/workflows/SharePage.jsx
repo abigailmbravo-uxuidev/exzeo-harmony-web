@@ -16,7 +16,7 @@ class SharePage extends Component {
     styleName: PropTypes.string,
     completeStep: PropTypes.func,
     dispatch: PropTypes.func,
-    submitting: PropTypes.bool
+    submitting: PropTypes.bool // eslint-disable-line
   }
 
   static contextTypes = {
@@ -60,7 +60,7 @@ class SharePage extends Component {
     }
   });
 
-  noShareSubmit = (shareIt) => {
+  noShareSubmit = () => {
     if (event && event.preventDefault) { event.preventDefault(); }
 
     this.props.completeStep({
