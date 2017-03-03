@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
-import AdditionalInterestsForm from './AdditionalInterestsForm';
+import PolicyHolderAdditionalForm from './PolicyHolderAdditionalForm';
 
 const graphqlQuery = graphql(gql `
   query GetActiveStep($workflowId:ID!) {
@@ -36,13 +36,6 @@ const graphqlMutation = graphql(gql `
 export default compose(
   graphqlQuery,
   graphqlMutation,
-  reduxForm({ form: 'AdditionalInterests' }),
-  connect(
-    state => ({
-      initialValues: {
-        effectiveDate: moment().add(5, 'days').format('YYYY-MM-DD')
-      },
-      fieldValues: _.get(state.form, 'AdditionalInterests.values', {})
-    })
-  )
-)(AdditionalInterestsForm);
+  reduxForm({ form: 'PolicyHolderAdditional' }),
+  connect()
+)(PolicyHolderAdditionalForm);

@@ -2,30 +2,30 @@ import React, { PropTypes } from 'react';
 import { formValueSelector } from 'redux-form';
 import { TextField, SelectField } from '../../form/inputs';
 
-const PolicyHolder = ({ name, state, formName }) => {
-  const selector = formValueSelector(formName);
-  const entityType = selector(state, `${name}.entityType`);
+const PolicyHolderFormFields = ({ name, state, formName }) => {
+  // const selector = formValueSelector(formName);
+  const entityType = 'Person'; // selector(state, `${name}.entityType`);
 
   return (
     <div className="form-group survey-wrapper policyHolder-component" role="group">
-      <SelectField
+      {/* <SelectField
         answers={[{ answer: 'Company' }, { answer: 'Person' }]}
         defaultValue={'Person'}
         name={`${name}.entityType`}
         label={'Entity Type'}
         validations={['required']}
-      />
+      /> */}
 
       {entityType === 'Person' && <TextField
         answerType="text"
-        name={`${name}.firstName`}
+        name={`${name}FirstName`}
         styleName={`${name}FirstName FirstName`}
         label={'First Name'}
         validations={['required']}
       />}
       {entityType === 'Person' && <TextField
         answerType="text"
-        name={`${name}.lastName`}
+        name={`${name}LastName`}
         styleName={`${name}LastName LastName`}
         label={'Last Name'}
         validations={['required']}
@@ -33,7 +33,7 @@ const PolicyHolder = ({ name, state, formName }) => {
       }
       {entityType === 'Company' && <TextField
         answerType="text"
-        name={`${name}.companyName`}
+        name={`${name}CompanyName`}
         styleName={`${name}CompanyName CompanyName`}
         label={'Company'}
         validations={['required']}
@@ -42,14 +42,14 @@ const PolicyHolder = ({ name, state, formName }) => {
 
       <TextField
         answerType="text"
-        name={`${name}.emailAddress`}
+        name={`${name}EmailAddress`}
         styleName={`${name}Email Email`}
         label={'Email Address'}
         validations={['required', 'email']}
       />
       <TextField
         answerType="text"
-        name={`${name}.primaryPhoneNumber`}
+        name={`${name}PrimaryPhoneNumber`}
         styleName={`${name}PhoneNumber PhoneNumber`}
         label={'Phone Number'}
         validations={['required', 'phone']}
@@ -58,10 +58,10 @@ const PolicyHolder = ({ name, state, formName }) => {
   );
 };
 
-PolicyHolder.propTypes = {
+PolicyHolderFormFields.propTypes = {
   name: PropTypes.string,
   state: PropTypes.any,// eslint-disable-line
   formName: PropTypes.string
 };
 
-export default PolicyHolder;
+export default PolicyHolderFormFields;

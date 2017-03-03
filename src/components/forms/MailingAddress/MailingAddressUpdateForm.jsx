@@ -5,7 +5,7 @@ import {
   SelectField
 } from '../../form/inputs';
 
-const MailingAddressForm = (props) => {
+const MailingAddressUpdateForm = (props) => {
   const {
     styleName,
     handleSubmit,
@@ -21,41 +21,41 @@ const MailingAddressForm = (props) => {
       <div className="form-group survey-wrapper MailingAddress-component" role="group">
         <TextField
           type="text"
-          name={`${name}.address1`}
+          name={`${name}Address1`}
           styleName={'address1'}
-          question={'Address 1'}
+          label={'Address 1'}
           validations={['required']}
         />
         <TextField
           type="text"
-          name={`${name}.address2`}
+          name={`${name}Address2`}
           styleName={'address2'}
-          question={'Address 2'}
+          label={'Address 2'}
           validations={[]}
         />
         <SelectField
           answers={[{ answer: 'USA' }, { answer: 'CANADA' }]}
-          name={`${name}.country`}
-          question={'Country'}
+          name={`${name}Country`}
+          label={'Country'}
           validations={['required']}
         />
         <TextField
           type="text"
-          name={`${name}.city`}
+          name={`${name}City`}
           styleName={'city'}
-          question={'City'}
+          label={'City'}
           validations={['required']}
         />
         <TextField
           type="text"
-          name={`${name}.state`}
+          name={`${name}State`}
           styleName={'state'}
-          question={'State'}
+          label={'State'}
           validations={['required']}
         />
         <TextField
           type="tel"
-          name={`${name}.zip`}
+          name={`${name}Zip`}
           styleName={'zip'}
           question={'Zip'}
           validations={['required']}
@@ -69,11 +69,11 @@ const MailingAddressForm = (props) => {
 };
 
 
-MailingAddressForm.propTypes = {
+MailingAddressUpdateForm.propTypes = {
   name: PropTypes.string,
   styleName: PropTypes.string,
   handleOnSubmit: PropTypes.func,
   handleSubmit: PropTypes.func
 };
 
-export default MailingAddressForm;
+export default MailingAddressUpdateForm;

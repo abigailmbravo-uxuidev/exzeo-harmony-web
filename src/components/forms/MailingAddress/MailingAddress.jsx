@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
-import MailingAddressForm from './MailingAddressForm';
+import MailingAddressUpdateForm from './MailingAddressUpdateForm';
 
 const mapStateToProps = state => ({
   initialValues: {
@@ -13,4 +13,4 @@ const mapStateToProps = state => ({
 export default compose(
   reduxForm({ form: 'MailingAddress' }),
   connect(mapStateToProps)
-)(MailingAddressForm);
+)(MailingAddressUpdateForm);
