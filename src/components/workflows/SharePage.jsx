@@ -1,7 +1,7 @@
 /* eslint import/no-mutable-exports:0 jsx-a11y/label-has-for:0 */
 /* eslint no-class-assign :0 */
 import React, { Component, PropTypes } from 'react';
-import { reduxForm, Form } from 'redux-form';
+import { reduxForm, Form, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -14,8 +14,8 @@ class SharePage extends Component {
     handleSubmit: PropTypes.func,
     styleName: PropTypes.string,
     completeStep: PropTypes.func,
-    submitting: PropTypes.bool,
-    reset: PropTypes.func
+    dispatch: PropTypes.func,
+    submitting: PropTypes.bool // eslint-disable-line
   }
 
   static contextTypes = {
@@ -59,7 +59,7 @@ class SharePage extends Component {
     }
   });
 
-  noShareSubmit = (shareIt) => {
+  noShareSubmit = () => {
     if (event && event.preventDefault) { event.preventDefault(); }
 
     this.props.completeStep({
@@ -120,7 +120,7 @@ class SharePage extends Component {
   closeShareSubmit = () => {
     this.state.showEmailPopup = false;
     this.setState(this.state);
-    this.props.reset();
+    this.props.dispatch(reset('ShareEmail'));
   }
 
   shareQuote = (event) => {

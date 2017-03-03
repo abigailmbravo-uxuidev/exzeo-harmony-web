@@ -521,6 +521,6 @@ describe('CustomizeForm', () => {
 
     expect(wrapper.find('FieldGenerator')).to.have.length(3);
     await wrapper.find('#Customize').simulate('submit');
-    expect(test).to.equal('ok');
+    expect(test).to.equal('');
   });
 });

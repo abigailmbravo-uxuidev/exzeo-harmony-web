@@ -97,7 +97,7 @@ class CustomizeForm extends Component {
       state.submitting = true;
       this.setState(state);
 
-      const result = await this.props.completeStep(this.buildSubmission(
+      await this.props.completeStep(this.buildSubmission(
         'askToCustomizeDefaultQuote',
         { shouldCustomizeQuote: 'No' }
       ));
