@@ -1335,6 +1335,24 @@ ul.results {
 /*------------------------------------------------------------------------------------*/
 .section-share {
 }
+.email-modal {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    background: rgba($white, .8);
+
+    .survey-wrapper {
+
+        .card-email {
+            box-shadow: 0 0 50px rgba($black, .4);
+        }
+    }
+}
 //Mailing & Billing
 /*------------------------------------------------------------------------------------*/
 #Billing {

@@ -134,6 +134,14 @@ a:visited {
       margin: 0;
     }
   }
+  .card-block {
+    .form-group {
+      &:last-child {
+        padding-bottom: 0;
+        border-bottom-width: 0;
+      }
+    }
+  }
   .card-footer {
     background-color: $warm-gray-02;
   }
@@ -1053,7 +1061,9 @@ main[role="document"] {
             margin-right: 6.875rem;
             @include for-phone-only {
               flex-direction: column;
-              margin-right: 8rem;
+              position: absolute;
+              left: 6.875rem;
+              margin-right: 0;
             }
 
             div {
@@ -1571,8 +1581,7 @@ ul.results {
     bottom: 0;
     flex-direction: column;
     align-items: center;
-    background: rgba($white, .8);
-
+    background: rgba($black, .8);
     @include animation('fade-in 1s 1');
 
     &.active {
@@ -1582,6 +1591,15 @@ ul.results {
     .survey-wrapper {
         align-items: center;
         display: flex;
+
+        .card-email {
+            width: 36rem;
+            margin: $padding 0;
+            @include for-phone-only {
+              max-width: 19.375rem;
+              margin: 0 0 ($padding*2);
+            }
+        }
     }
 }
 //Mailing & Billing
