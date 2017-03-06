@@ -42,7 +42,7 @@ class Quote extends Component {
 
     return (
       <div className="workflow" role="article">
-        <Workflow />
+        <Workflow {...this.props} />
       </div>
     );
   }
