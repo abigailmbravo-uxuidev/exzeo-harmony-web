@@ -11,7 +11,7 @@ describe('Workflow', () => {
     data: {}
   };
 
-  it('should render FormGenerator, with initialize', () => {
+  it('should render Workflow, with initialize', () => {
     // const newProps = _.cloneDeep(props);
     props.initialValues = {};
     const wrapper = mount(<Provider store={store}>

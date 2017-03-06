@@ -128,3 +128,5 @@ export default connect(null)(graphql(gql`
         }
     }
 `, { name: 'completeStep' })(SearchResults)));
+
+export { Results };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import _ from 'lodash';
 import configureStore from '../../store/configureStore.dev';
 import Search from './Search';
 

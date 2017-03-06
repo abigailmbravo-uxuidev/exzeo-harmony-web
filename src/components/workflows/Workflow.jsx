@@ -21,58 +21,6 @@ import { getDetails, setDetails } from '../../actions/detailsActions';
 import AdditionalInterests from '../forms/AdditionalInterests/AdditionalInterests';
 import PolicyHolderAdditional from '../forms/policyHolder/PolicyHolderAdditional';
 
-const WorkflowHeader = (d) => {
-  console.log(d); // eslint-disable-line
-  return (
-    <ul className="workflow-header">
-      <div className="rule" />
-      {d.steps
-            ? d.steps.map((step, index) => {
-              if (step.type !== 'Search' && step.type !== 'Error') {
-                return (
-                  <li key={index}>
-                    <Link to={`/workflow/${step.link}`}>
-                      <i className={`fa ${step.name}`} />
-                      <span>{step.label}</span>
-                    </Link>
-                  </li>
-                );
-              }
-              return null;
-            })
-            : null
-          }
-    </ul>
-  );
-};
-
-
-const WorkflowFooter = ({ ...s }) => {
-  let prev = null;
-  let next = null;
-  if (s.steps) {
-    const index = s.steps.findIndex(step => step.link === s.activeStep);
-    if (index > 0) {
-      prev = s.steps[(index - 1)];
-    }
-    if (index < s.steps.length) {
-      next = s.steps[(index + 1)];
-    }
-  }
-  return (
-    <div className="footer">
-      <ul>
-        {
-              prev ? (<Link to={{ pathname: `/workflow/${prev.link}` }} className="prev">{prev.label}</Link>) : null
-            }
-        {
-              next ? (<Link className="next" to={`/workflow/${next.link}`}>{next.label}</Link>) : null
-            }
-      </ul>
-    </div>
-  );
-};
-
 class Workflow extends Component {
 
   static propTypes = {

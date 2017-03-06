@@ -1,21 +1,26 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import configureStore from 'redux-mock-store';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import configureStore from '../store/configureStore.dev';
 import Login from './Login';
 
-let wrapper;
-const mockStore = configureStore([]);
-const store = mockStore({
-  features: { get() { } }
-});
-
 describe('Login', () => {
-  beforeEach(() => {
-    wrapper = shallow(<Login store={store} />);
-  });
+  const store = configureStore([]);
+  let props = { };
+  props = {
+    data: { loading: false },
+    match: {
+      params: {}
+    }
+  };
 
-  it('should render', () => {
+  it('should render Login, with initialize', () => {
+    // const newProps = _.cloneDeep(props);
+    props.initialValues = {};
+    const wrapper = mount(<Provider store={store}>
+      <Login {...props} />
+    </Provider>);
     expect(wrapper).to.exist;
+    expect(wrapper.find('Login')).to.have.length(1);
   });
 });
