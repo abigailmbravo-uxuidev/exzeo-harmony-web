@@ -1,4 +1,3 @@
-
 import React, { PropTypes, Component } from 'react';
 import { Form, FieldArray } from 'redux-form';
 import localStorage from 'localStorage';
@@ -28,6 +27,7 @@ renderPolicyHolder.propTypes = {
   InterestType: PropTypes.any,// eslint-disable-line
   InterestTypeName: PropTypes.any,// eslint-disable-line
   handleChange: PropTypes.func,
+  type: PropTypes.string,
   meta: PropTypes.any,// eslint-disable-line
 };
 

@@ -60,8 +60,7 @@ describe('SearchResults', () => {
   });
 
   it('should render SearchResults, with initialize', () => {
-    // const newProps = _.cloneDeep(props);
-    props.initialValues = {};
+    // const newProps = _.cloneDeep(props);..+
     const wrapper = mount(<Provider store={store}>
       <SearchResults {...props} />
     </Provider>);

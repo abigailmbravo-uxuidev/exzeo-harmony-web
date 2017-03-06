@@ -12,12 +12,15 @@
 //
 //   return (
 //     <Form
-//       className={`fade-in ${styleName || ''}`} id="AdditionalInterestUpdateForm" onSubmit={handleSubmit(handleOnSubmit)}
+//       className={`fade-in ${styleName || ''}`}
+// id="AdditionalInterestUpdateForm" onSubmit={handleSubmit(handleOnSubmit)}
 //       noValidate
 //     >
-//       <FieldArray name="additionalInterests" component={Interest} InterestType={'PolicyHolder'} />
+//       <FieldArray name="additionalInterests"
+// component={Interest} InterestType={'PolicyHolder'} />
 //       <div className="workflow-steps">
-//         <button className="btn btn-primary" type="submit" form="AdditionalInterestUpdateForm">Save</button>
+//         <button className="btn btn-primary"
+// type="submit" form="AdditionalInterestUpdateForm">Save</button>
 //       </div>
 //     </Form>
 //   );

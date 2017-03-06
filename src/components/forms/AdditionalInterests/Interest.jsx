@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import TextField from '../../form/inputs/TextField';
-import { SelectField } from '../../form/inputs/SelectField';
 import MailingAddressFormFields from '../MailingAddress/MailingAddressFormFields';
 
 const Interest = ({ fields, InterestTypeName, meta: { touched, error } }) => (
@@ -15,15 +14,6 @@ const Interest = ({ fields, InterestTypeName, meta: { touched, error } }) => (
         >Remove {InterestTypeName}</button>
         <br /> <br />
         <h4>{InterestTypeName} #{index + 1}</h4>
-
-        {/* <SelectField
-          answers={[{ answer: 'Mortgagee' }, { answer: 'Lienholder' }, { answer: 'Additional Interest' },
-           { answer: 'Additional Insured' }, { answer: 'Premium Finance' }, { answer: 'Bill Payer' }]}
-          name={`${InterestTypeName}${index + 1}Type`}
-          label={'Type'}
-          validations={['required']}
-        /> */}
-
         <TextField
           answerType="text"
 
