@@ -12,7 +12,12 @@ describe('Quote', () => {
     match: {
       params: {}
     },
-    startWorkflow: () => new Promise(resolve => resolve(true))
+    startWorkflow: () => new Promise(resolve => resolve({ data:
+    { startWorkflow: {
+      activeStep: 'search',
+      steps: [{ name: 'search', link: 'search' }]
+    }
+    } }))
   };
 
   it('should render Quote, with initialize', () => {
