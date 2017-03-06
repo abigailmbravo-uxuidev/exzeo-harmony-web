@@ -17,6 +17,7 @@ module.exports = wallaby => ({
     '**/*.js*': wallaby.compilers.babel({ babel: require('babel-core') })
   },
   env: {
-    type: 'node'
+    type: 'node',
+    runner: 'node'
   }
 });

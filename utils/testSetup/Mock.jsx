@@ -1,28 +1,28 @@
 const React = require('react');
 const mockery = require('mockery');
 
-const Match = ({ component }) => React.createElement(
+const Route = ({ component }) => React.createElement(
   'div',
   null,
-  component,
+  component
 );
 
-Match.propTypes = {
-  component: React.PropTypes.node,
+Route.propTypes = {
+  component: React.PropTypes.node
 };
 
 mockery.enable({
   warnOnReplace: false,
-  warnOnUnregistered: false,
+  warnOnUnregistered: false
 });
 
 const reactRouter = {
-  Match,
+  Route
 };
 
 const reactApollo = {
-  graphql: () => component => component,
+  graphql: () => component => component
 };
 
 mockery.registerMock('react-apollo', reactApollo);
-mockery.registerMock('react-router', reactRouter);
+//mockery.registerMock('react-router', reactRouter);
