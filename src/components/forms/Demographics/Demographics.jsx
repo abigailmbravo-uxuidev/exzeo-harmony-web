@@ -1,8 +1,9 @@
 import { reduxForm } from 'redux-form';
+import { compose } from 'redux';
 import localStorage from 'localStorage';
 import moment from 'moment';
 import _ from 'lodash';
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import DemographicsForm from './DemographicsForm';

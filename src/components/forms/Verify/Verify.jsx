@@ -1,7 +1,8 @@
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import localStorage from 'localStorage';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { reduxForm, formValueSelector } from 'redux-form';
 import VerifyForm from './VerifyForm';
 

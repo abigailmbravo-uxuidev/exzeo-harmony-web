@@ -11,10 +11,6 @@ class Quote extends Component {
     match: PropTypes.any,// eslint-disable-line
   }
 
-  static contextTypes = {
-    router: PropTypes.any
-  }
-
   state = {
     workflow: {
       id: '',

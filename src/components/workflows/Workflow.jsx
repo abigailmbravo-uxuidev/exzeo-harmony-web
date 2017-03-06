@@ -1,4 +1,5 @@
 /* eslint no-unused-vars :0 */
+import localStorage from 'localStorage';
 import React, { Component, PropTypes } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';

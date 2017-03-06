@@ -46,7 +46,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "react": "^15.3.2",
-    "react-apollo": "^0.5.16",
+    "react-apollo": "^0.13.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.5",

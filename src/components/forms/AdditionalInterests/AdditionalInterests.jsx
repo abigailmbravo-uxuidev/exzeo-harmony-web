@@ -2,8 +2,9 @@ import { reduxForm } from 'redux-form';
 import localStorage from 'localStorage';
 import moment from 'moment';
 import _ from 'lodash';
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import AdditionalInterestsForm from './AdditionalInterestsForm';
 

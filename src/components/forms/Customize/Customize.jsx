@@ -1,5 +1,6 @@
 import { reduxForm } from 'redux-form';
-import { compose, graphql } from 'react-apollo';
+import { compose } from 'redux';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { connect } from 'react-redux';
 import localStorage from 'localStorage';

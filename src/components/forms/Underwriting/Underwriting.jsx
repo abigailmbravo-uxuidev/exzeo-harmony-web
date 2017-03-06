@@ -1,6 +1,7 @@
 import { reduxForm } from 'redux-form';
 import localStorage from 'localStorage';
-import { graphql, compose } from 'react-apollo';
+import { compose } from 'redux';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import UnderwritingForm from './UnderwritingForm';
 
