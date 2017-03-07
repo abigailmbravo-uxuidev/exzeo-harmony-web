@@ -70,7 +70,7 @@
     "start": "node scripts/start-api",
     "dev": "react-scripts start",
     "coverage": "cross-env NODE_ENV=test nyc npm test",
-    "test": "mocha --reporter spec utils/testSetup \"src/**/*.spec.js\"",
+    "test": "cross-env NODE_ENV=test nyc mocha --reporter spec utils/testSetup \"src/**/*.spec.js\"",
     "test::all": "npm run lint && npm run coverage",
     "test::watch": "npm test -- --watch"
   },
