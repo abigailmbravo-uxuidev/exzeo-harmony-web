@@ -5,11 +5,11 @@ networks:
 services:
   harmony-web:
     build:
-      context: .
-      dockerfile: ../.docker/prod.dockerfile
+      context: ../
+      dockerfile: .docker/prod.dockerfile
     ports:
      - "8787:8787"
-     enviroment:
+    environment:
      - PORT=8787
   heimdall:
     image: exzeo/heimdall:develop
