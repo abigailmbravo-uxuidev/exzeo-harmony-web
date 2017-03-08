@@ -2,8 +2,7 @@ FROM mhart/alpine-node:6.9
 
 MAINTAINER Exzeo
 
-ENV NODE_ENV=development
-ENV PORT=3000
+ENV NODE_ENV=production
 
 RUN mkdir -p /var/www
 WORKDIR   /var/www
@@ -16,9 +15,5 @@ RUN     npm install && npm run build && \
         rm -rf public && \
         rm -rf scripts && \
         npm install --production
-
-ENV NODE_ENV=production
-
-EXPOSE $PORT
 
 ENTRYPOINT ["node", "server"]
