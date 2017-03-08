@@ -1,49 +1,49 @@
-import React, { PropTypes } from 'react';
-import { FieldArray } from 'redux-form';
-import PolicyHolder from '../policyHolder/PolicyHolder';
-import Interest from './Interest';
+import { reduxForm } from 'redux-form';
+import localStorage from 'localStorage';
+import moment from 'moment';
+import _ from 'lodash';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import AdditionalInterestsForm from './AdditionalInterestsForm';
 
-const renderPolicyHolder = ({ fields, InterestType, InterestTypeName,
-   handleChange, meta: { touched, error } }) => (
-     <div>
-       {fields.length < 1 && <button type="button" onClick={() => fields.push({})}>+ Add {InterestTypeName}</button>}
-       {touched && error && <span>{error}</span>}
-       {fields.map((ai, index) =>
-         <div key={index}>
-           <button
-             type="button"
-             onClick={() => fields.remove(index)}
-           >Remove {InterestTypeName}</button>
-           <br /> <br />
-           <h4>{InterestTypeName}</h4>
-           <PolicyHolder handleChange={handleChange} name={`${`${InterestType}2`}.`} />
-         </div>,
-    )}
-     </div>
-);
+const graphqlQuery = graphql(gql `
+  query GetActiveStep($workflowId:ID!) {
+    steps(id: $workflowId) {
+      name
+      completedSteps
+      type
+    }
+  }`, {
+    options: {
+      variables: {
+        workflowId: localStorage.getItem('newWorkflowId')
+      }
+    }
+  });
 
-renderPolicyHolder.propTypes = {
-  fields: PropTypes.any,// eslint-disable-line
-  InterestType: PropTypes.any,// eslint-disable-line
-  InterestTypeName: PropTypes.any,// eslint-disable-line
-  handleChange: PropTypes.func,
-  meta: PropTypes.any,// eslint-disable-line
-};
+const graphqlMutation = graphql(gql `
+  mutation CompleteStep($input:CompleteStepInput) {
+      completeStep(input:$input) {
+          name
+          icon
+          type
+          link
+      }
+  }
+`, { name: 'completeStep' });
 
-const AdditionalInterests = () => (
-  <div>
-    <FieldArray name="mortgagees.Mortgagee" component={Interest} InterestType={'Mortgagee'} InterestTypeName={'Mortgagee'} />
-
-    <FieldArray name="mortgagees.Lienholder" component={Interest} InterestType={'Lienholder'} InterestTypeName={'Lienholder'} />
-
-    <FieldArray name="mortgagees.AdditionalInterest" component={Interest} InterestType={'AdditionalInterest'} InterestTypeName={'Additional Interest'} />
-
-    <FieldArray name="mortgagees.AdditionalInsured" component={Interest} InterestType={'AdditionalInsured'} InterestTypeName={'Additional Insured'} />
-
-    <FieldArray name="mortgagees.BillPayer" component={Interest} InterestType={'BillPayer'} InterestTypeName={'Bill Payer'} />
-
-    <FieldArray name="additionalPolicyHolder" component={renderPolicyHolder} InterestType={'AdditionalPolicyHolder'} InterestTypeName={'Additional Policy Holder'} />
-  </div>
-  );
-
-export default AdditionalInterests;
+export default compose(
+  graphqlQuery,
+  graphqlMutation,
+  reduxForm({ form: 'AdditionalInterests' }),
+  connect(
+    state => ({
+      initialValues: {
+        effectiveDate: moment().add(5, 'days').format('YYYY-MM-DD')
+      },
+      fieldValues: _.get(state.form, 'AdditionalInterests.values', {})
+    })
+  )
+)(AdditionalInterestsForm);

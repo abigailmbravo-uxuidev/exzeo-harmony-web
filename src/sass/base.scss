@@ -1,4 +1,6 @@
-/*typtap specific styles & layout*/
+/*BASE LAYOUT & STYLES*/
+/*|||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
 @import "partials/_mixins";
 @import "partials/_variables";
 @import "partials/mixins/_hover";
@@ -11,34 +13,10 @@
 @import "partials/_reset";
 /*Set base typography*/
 @import "partials/_type";
-@import "partials/_range";
-@import "partials/_card";
-@import "partials/_form";
-@import "partials/_buttons";
-@import "partials/_nav";
 @import "partials/_workflow";
-@import "partials/_search";
-@import "https://fonts.googleapis.com/css?family=Roboto:300,400";
-//base
-html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  //site background
-  div#root {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background: $white;
-  }
-}
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400"; //base
 //links
+/*------------------------------------------------------------------------------------*/
 a,
 a:visited {
   text-decoration: none;
@@ -50,17 +28,36 @@ a:visited {
     color: $blue-darken-02;
   }
 }
-
-//SURVEYS
+//buttons
+/*------------------------------------------------------------------------------------*/
+@import "partials/_buttons"; //inputs & forms
+//inputs & forms
+/*------------------------------------------------------------------------------------*/
+@import "partials/_form"; //form partial
+@import "partials/_range"; //range / slider partial
+//vertical tabs
+/*------------------------------------------------------------------------------------*/
+@import "partials/_nav"; //vertical tab partial
+//details & surveys
+/*------------------------------------------------------------------------------------*/
+.detail-wrapper,
 .survey-wrapper {
   flex-direction: row;
-  padding: $padding $padding 0;
+  padding: ($padding*2) ($padding*2) 0;
   flex-wrap: wrap;
   flex-shrink: 0;
   flex-grow: 1;
   align-content: flex-start;
-  @include for-phone-only {
-    padding: ($padding*2) ($padding*2) 0;
+
+  .section-group-header {
+    width: 100%;
+    margin: (-$padding) (-$padding/2) ($padding*2);
+    padding: ($padding);
+    color: $body-color;
+    font-size: $font-size-h2;
+    @include for-phone-only {
+      font-size: $font-size-h3;
+    }
   }
 
   &.form-group {
@@ -100,8 +97,11 @@ a:visited {
   }
 
   .form-group {
-    padding-bottom: 1.45rem;
+    padding-bottom: 3.052rem;
     border-bottom: 1px dashed $warm-gray-02;
+    @include for-phone-only {
+      padding-bottom: 1.563rem;
+    }
 
     label {
       font-size: $font-size-h4;
@@ -110,450 +110,305 @@ a:visited {
       }
     }
   }
-}
 
-.detail-content-wrapper {
-  display: flex;
-  margin-bottom: 1rem;
-  padding-bottom: 1.45rem;
-  border-bottom: 1px dashed $warm-gray-02;
-  //padding: $padding ($padding/2) 0;
-  @include for-phone-only {
-    padding: ($padding*2) ($padding*2) 0;
+  .section-group-header {
+    flex-grow: 1;
   }
+}
+//cards
+/*------------------------------------------------------------------------------------*/
+@import "partials/_card"; //card partial
 
-  aside {
-    width: 12rem;
-    margin-right: 1rem;
-    flex-basis: 12rem;
-    flex-grow: 0;
-    flex-shirk: 0;
+.card {
+  z-index: 10;
 
-    dl {
-      dt {
-        font-size: $font-size-h4;
-      }
+  .card-header {
+    background-color: $warm-gray-01;
 
-      dd {}
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
     }
   }
-
-  .detail-wrapper {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    flex-shirk: 0;
-    flex-shrink: 0;
-    flex-grow: 1;
-    align-content: flex-start;
-
-    .detail-group {
-      position: relative;
-      margin-bottom: 1rem;
-      padding-bottom: 0;
-      border-bottom: 1px dashed $warm-gray-02;
-
+  .card-block {
+    .form-group {
       &:last-child {
-        margin-bottom: 0;
+        padding-bottom: 0;
         border-bottom-width: 0;
       }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        margin-top: 0;
-      }
-
-      .edit-btn {
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-
-      .summary-section {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: $padding;
-        flex-wrap: wrap;
-
-        dl {
-          display: flex;
-          margin-bottom: 0;
-          padding: ($padding/2) ($padding);
-          align-items: center;
-          justify-content: space-between;
-
-          &:nth-of-type(odd) {
-            background: $warm-gray-01;
-          }
-
-          dt {
-            span {
-              margin-right: $padding;
-            }
-          }
-
-          dd {
-            margin-bottom: 0;
-          }
-        }
-      }
     }
   }
+  .card-footer {
+    background-color: $warm-gray-02;
+  }
 }
-
-.workflow-steps {
-  display: flex;
-  width: auto;
-  justify-content: flex-end;
-  flex-shrink: 0;
-  flex-grow: 0;
+//modal
+/*------------------------------------------------------------------------------------*/
+.modal {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba($black, .75);
 }
-
-.workflow {
+//APP SPECIFIC STYLES
+/*|||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
+//main site structure
+/*------------------------------------------------------------------------------------*/
+html {
+  height: 100%;
+  margin: 0;
   padding: 0;
-  display: flex;
-
-  .fade-in {
-    display: flex;
-    flex-direction: column;
+  //site body
+  body {
     width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  //site background
+  div#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     background: $white;
-    flex: 1;
-
-    .workflow-header {
-      padding: $padding;
-      background-color: $warm-gray-01;
-      flex-shrink: 0;
-
-      .rule {
-        background: $warm-gray-03;
-      }
-
-      li {
-        a {
-          color: $warm-gray-03;
-
-          i {
-            background: $warm-gray-01;
-
-            &:before {
-              content: "\f1db";
-            }
-
-            &.chooseAddress {
-              &:before {
-                content: "\f041";
-              }
-            }
-
-            &.askAdditionalCustomerData {
-              &:before {
-                content: "\f007";
-              }
-            }
-
-            &.askUWAnswers {
-              &:before {
-                content: "\f0f6";
-              }
-            }
-
-            &.askToCustomizeDefaultQuote {}
-
-            &.customizeDefaultQuote {
-              &:before {
-                content: "\f1de";
-              }
-            }
-
-            &.shareIt {
-              &:before {
-                content: "\f1e0";
-              }
-            }
-
-            &.billingInfo {
-              &:before {
-                content: "\f155";
-              }
-            }
-
-            &.verifyWrite {
-              &:before {
-                content: "\f14a";
-              }
-            }
-          }
-
-          &.active {
-            color: $bright-blue;
-
-            &:focus,
-            &:hover {
-              color: $bright-blue-lighten-01;
-            }
-          }
-
-          &.disabled {
-            color: $warm-gray-03;
-            outline: none;
-          }
-
-          &.selected {
-            color: $warm-gray-14;
-            outline: none;
-
-            i {
-              color: $bright-blue;
-            }
-          }
-
-          &.complete {
-            color: $bright-blue-lighten-03;
-
-            &:focus,
-            &:hover {
-              color: $bright-blue;
-            }
-          }
-        }
-      }
-    }
-
-    .workflow-content {
-      flex-direction: row;
-      @include for-phone-only {
-        flex-direction: column;
-      }
-
-      aside {
+  }
+}
+//app - first div inside app "root"
+/*------------------------------------------------------------------------------------*/
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: $warm-gray-10;
+  align-items: center;
+  flex-shrink: 0;
+}
+//header - includes logo and main navigation
+/*------------------------------------------------------------------------------------*/
+header {
+  display: flex;
+  width: 100%;
+  padding: $padding $padding*2;
+  border-bottom: 2px solid $blue;
+  background: $blue;
+  justify-content: center;
+  flex-shrink: 0;
+  flex-basis: 3.375rem;
+  @include for-tablet-landscape-up {
+    max-width: 64rem;
+  }
+  @include for-desktop-up {
+    max-width: 84rem;
+  }
+  //@include for-big-desktop-up {
+  //max-width: 120rem;
+  //}
+  div[role="banner"] {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    @include for-phone-only {
+      .btn-ellipsis-v {
+        position: absolute;
+        right: 1rem;
         display: flex;
-        overflow-y: auto;
-        flex-shrink: 0;
-        @include for-phone-only {
-          background-color: $white;
-        }
 
-        .side-panel {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          width: 8rem;
-          margin: ($padding);
-          flex-basis: 8rem;
-          flex-shrink: 0;
-          flex-grow: 0;
-          @include for-phone-only {
-            display: none;
-          }
-          @include for-big-desktop-up {
-            width: 17.975rem;
-            flex-basis: 17.975rem;
-          }
-
-          section {
-            margin-bottom: $margin-bottom/2;
-            flex-grow: 0;
-            flex-shrink: 0;
-
-            dl {
-              display: flex;
-              flex-direction: column;
-              margin: 0;
-
-              div {
-                display: flex;
-                flex-direction: column;
-                margin: 0;
-                flex-wrap: wrap;
-
-                dt {
-                  font-size: $font-size-sm;
-                  font-weight: $font-weight-bold;
-                  flex-basis: auto;
-                  @include for-phone-only {
-                    font-size: 0.64rem;
-                  }
-                }
-
-                dd {
-                  display: flex;
-                  flex-direction: column;
-                  flex-basis: auto;
-                }
-
-                &:last-child {
-                  dd {
-                    margin-bottom: 0;
-                  }
-                }
-              }
-            }
-          }
+        i {
+          color: $body-color;
+          font-size: 1.5rem;
         }
       }
 
-      section {
+      .btn-bars {
+        position: absolute;
+        left: 1rem;
         display: flex;
+
+        i {
+          color: $body-color;
+          font-size: 1.5rem;
+        }
+      }
+
+      .userName {
+        text-align: right;
         flex-grow: 1;
       }
     }
-  }
-}
-//left aside
-.content-panel-left {
-  display: flex;
-  flex-direction: column;
-  width: auto;
-  color: $white;
-  background: $warm-gray-12;
-  flex-shrink: 0;
-  flex-grow: 0;
-  @include transition(all .2s ease-in-out);
-  @include for-phone-only {
-    position: absolute;
-    z-index: 100;
-    top: 0;
-    bottom: 0;
-    left: -14rem;
-    //left: 0;
-    &.active {
-      left: 0;
-    }
-  }
-
-  .user {
-    width: auto;
-    padding: ($padding*2) ($padding*2) 0;
-    @include transition(all .2s ease-in-out);
-    @include for-tablet-landscape-up {
-      width: 12rem;
-    }
-
-    .user-icon {
-      overflow: hidden;
-      border-radius: 50%;
-      background-color: $bright-blue;
-      @include for-phone-only {
+    @include for-tablet-portrait-up {
+      .btn-ellipsis-v {
+        position: absolute;
+        right: 1rem;
         display: flex;
-        width: 2rem;
-        flex-basis: 2rem;
 
-        .fa {
-          font-size: 2rem;
+        i {
+          color: $white;
+          font-size: 1.5rem;
         }
       }
-      @include for-tablet-portrait-up {
-        display: flex;
-        width: 3rem;
-        flex-basis: 3rem;
 
-        .fa {
-          font-size: 3rem;
-        }
-      }
-      @include for-tablet-landscape-up {
-        display: flex;
-        width: 4rem;
-        flex-basis: 4rem;
-
-        .fa {
-          font-size: 4rem;
-        }
-      }
-    }
-
-    .user-name {
-      display: flex;
-      margin: $padding 0 0;
-      color: $white;
-      align-items: center;
-      @include for-phone-only {
-        max-width: 11rem;
-      }
-      @include for-tablet-portrait-up {
+      .btn-bars {
         display: none;
       }
-      @include for-tablet-landscape-up {
-        display: flex;
-      }
-
-      span {
-        padding-right: $padding;
-        flex-grow: 0;
-        flex-shrink: 0;
-        @include for-tablet-landscape-up {
-          width: 9rem;
-          flex-basis: 9rem;
-        }
-      }
-
-      i {
-        text-align: center;
-        font-size: 1rem;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 1rem;
-      }
-    }
-  }
-
-  .site-nav {
-    width: auto;
-    padding: $padding*2;
-    @include transition(all .2s ease-in-out);
-    @include for-phone-only {
-      width: 14rem;
     }
     @include for-tablet-landscape-up {
-      width: 12rem;
+      .btn-bars {
+        display: none;
+      }
+
+      .btn-ellipsis-v {
+        display: none;
+      }
     }
 
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
+    > .logo {
+      display: block;
+      width: 7rem;
+      flex-basis: 7rem;
+      flex-shrink: 0;
+      @include for-phone-only {
+        margin-left: 3rem;
+      }
+    }
 
-      li {
+    > nav {
+      @include for-phone-only {
+        position: absolute;
+        z-index: 200;
+        top: 3.375rem;
+        right: $padding;
         display: flex;
-        margin: 0 (-$padding*2) 0 (-$padding);
-        //background-color: rgba($white, .25
-        &.active {
-          border-left: ($padding/2) solid $bright-blue;
-          background-color: $white;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+        padding: 0;
+        background: $warm-gray-01;
+        box-shadow: $card-box-shadow-alt;
 
-          a {
-            i {
-              width: 4rem - ($padding/2);
-            }
+        &.active {
+          padding: $padding;
+
+          > a {
+            display: flex;
+          }
+        }
+      }
+      @include for-tablet-portrait-up {
+        position: absolute;
+        z-index: 200;
+        top: 3.375rem;
+        right: $padding;
+        display: none;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+        padding: $padding;
+        border-top-width: 0;
+        background: $warm-gray-01;
+        box-shadow: $card-box-shadow-alt;
+
+        &.active {
+          display: flex;
+        }
+      }
+      @include for-tablet-landscape-up {
+        position: relative;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        padding: 0;
+        border-width: 0;
+        border-top-width: 0;
+        background-color: transparent;
+        box-shadow: none;
+        flex: 1;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      > a {
+        display: flex;
+        height: 3.375rem;
+        padding: 0 $padding;
+        white-space: nowrap;
+        text-decoration: none;
+        font-size: $font-size-h6;
+        font-weight: $font-weight-bold;
+        justify-content: center;
+        align-items: center;
+        @include transition(all .2s ease-in-out);
+        @include for-phone-only {
+          display: none;
+        }
+        @include for-tablet-landscape-up {
+          margin-left: 1rem;
+          color: $warm-gray-06;
+        }
+
+        &:hover {
+          text-decoration: none;
+          color: $bright-blue;
+        }
+
+        &.active {
+          cursor: default;
+          color: $white;
+          @include for-tablet-landscape-up {
+            padding-top: 5px;
+            color: $white;
+            border-bottom: 5px solid $white;
+          }
+
+          &:hover {
+            color: $white;
           }
         }
 
-        a {
-          display: flex;
-          height: 3rem;
-          color: $white;
-          align-items: center;
-          flex-grow: 1;
+        &.btn {
+          height: 2rem;
 
-          i {
-            width: 4rem;
-            text-align: center;
-            @include for-phone-only {
-              width: 3.5rem;
-            }
+          &:hover {
+            color: $white;
           }
 
-          span {
-            @include for-tablet-portrait-up {
-              display: none;
+          &.link-phone {
+            @include for-phone-only {
+              position: absolute;
+              top: -3rem;
+              right: 4rem;
+              display: inline-block;
+              width: 2.375rem;
+              height: 2.375rem;
+              border-radius: 50%;
+              font-size: 1.5rem;
+
+              i {
+                margin: 0;
+              }
+
+              span {
+                display: none;
+              }
             }
-            @include for-tablet-landscape-up {
-              display: flex;
+            @include for-tablet-portrait-up {
+              height: 3.375rem;
+
+              &:hover {
+                color: $bright-blue-lighten-02;
+              }
             }
           }
         }
@@ -561,21 +416,63 @@ a:visited {
     }
   }
 }
-//content wrap
-.content-wrapper {
+//main/content - role "document"
+/*------------------------------------------------------------------------------------*/
+main[role="document"] {
+  position: relative;
   display: flex;
   overflow-y: hidden;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
+  height: calc(100vh - 3.75rem);
+  min-height: calc(100vh - 3.75rem);
+  background: $white;
   flex-grow: 1;
-  flex-wrap: wrap;
-  align-self: stretch;
-  @include for-phone-only {
-    padding: 0;
+  flex-shrink: 0;
+  align-items: flex-start;
+  @include for-tablet-landscape-up {
+    max-width: 64rem;
   }
-  > div {
+  @include for-desktop-up {
+    max-width: 84rem;
+  }
+
+  .content-wrapper {
+    display: flex;
+    overflow-y: hidden;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-self: stretch;
+    @include for-phone-only {
+      padding: 0;
+    }
+
+    > div {
       overflow: hidden;
+      width: 100%;
       height: 100%;
+
+      &.login {
+        z-index: 20;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+
+        .card {
+          z-index: 30;
+          position: absolute;
+        }
+      }
 
       > div[role="article"] {
         display: flex;
@@ -586,19 +483,8 @@ a:visited {
         flex: 1;
 
         &.workflow {
-            overflow: hidden;
-            height: 100%;
-        }
-
-        &.login {
-          z-index: 20;
-          border-top: $card-border-width solid $card-border-color;
-          align-items: center;
-          justify-content: center;
-
-          .card {
-            z-index: 30;
-          }
+          overflow: hidden;
+          height: 100%;
         }
 
         &.splash {
@@ -866,307 +752,573 @@ a:visited {
           }
         }
       }
-      }
+    }
+  }
 }
-.app-wrapper {
+//main left panel navigation
+/*------------------------------------------------------------------------------------*/
+.content-panel-left {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  background: $warm-gray-10;
-  align-items: center;
+  width: auto;
+  color: $white;
+  background: $warm-gray-12;
   flex-shrink: 0;
-  //header
-  header {
-    display: flex;
-    width: 100%;
-    padding: $padding $padding*2;
-    border-bottom: 2px solid $blue;
-    background: $blue;
-    justify-content: center;
-    flex-shrink: 0;
-    flex-basis: 3.375rem;
+  flex-grow: 0;
+  align-self: stretch;
+  @include transition(all .2s ease-in-out);
+  @include for-phone-only {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: -14rem;
+
+    &.active {
+      left: 0;
+    }
+  }
+
+  .user {
+    width: auto;
+    padding: ($padding*2) ($padding*2) 0;
+    @include transition(all .2s ease-in-out);
     @include for-tablet-landscape-up {
-      max-width: 64rem;
+      width: 12rem;
     }
-    @include for-desktop-up {
-      max-width: 84rem;
-    }
-    //@include for-big-desktop-up {
-      //max-width: 120rem;
-    //}
 
-    div[role="banner"] {
-      display: flex;
-      width: 100%;
-      align-items: center;
+    .user-icon {
+      overflow: hidden;
+      border-radius: 50%;
+      background-color: $warm-gray-04;
       @include for-phone-only {
-        .btn-ellipsis-v {
-          position: absolute;
-          right: 1rem;
-          display: flex;
+        display: flex;
+        width: 2rem;
+        flex-basis: 2rem;
 
-          i {
-            color: $body-color;
-            font-size: 1.5rem;
-          }
-        }
-
-        .btn-bars {
-          position: absolute;
-          left: 1rem;
-          display: flex;
-
-          i {
-            color: $body-color;
-            font-size: 1.5rem;
-          }
-        }
-
-        .userName {
-          text-align: right;
-          flex-grow: 1;
+        .fa {
+          font-size: 2rem;
         }
       }
       @include for-tablet-portrait-up {
-        .btn-ellipsis-v {
-          position: absolute;
-          right: 1rem;
-          display: flex;
+        display: flex;
+        width: 3rem;
+        flex-basis: 3rem;
 
-          i {
-            color: $white;
-            font-size: 1.5rem;
-          }
-        }
-
-        .btn-bars {
-          display: none;
+        .fa {
+          font-size: 3rem;
         }
       }
       @include for-tablet-landscape-up {
-        .btn-bars {
-          display: none;
-        }
+        display: flex;
+        width: 4rem;
+        flex-basis: 4rem;
 
-        .btn-ellipsis-v {
-          display: none;
+        .fa {
+          font-size: 4rem;
         }
       }
+    }
 
-      > .logo {
-        display: block;
-        width: 7rem;
-        flex-basis: 7rem;
+    .user-name {
+      display: flex;
+      margin: $padding 0 0;
+      color: $white;
+      align-items: center;
+      @include for-phone-only {
+        max-width: 11rem;
+      }
+      @include for-tablet-portrait-up {
+        display: none;
+      }
+      @include for-tablet-landscape-up {
+        display: flex;
+      }
+
+      span {
+        padding-right: $padding;
+        flex-grow: 0;
         flex-shrink: 0;
-        @include for-phone-only {
-          margin-left: 3rem;
+        @include for-tablet-landscape-up {
+          width: 9rem;
+          flex-basis: 9rem;
         }
       }
 
-      > nav {
-        @include for-phone-only {
-          position: absolute;
-          z-index: 200;
-          top: 3.375rem;
-          right: $padding;
+      i {
+        text-align: center;
+        font-size: 1rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 1rem;
+      }
+    }
+  }
+
+  .site-nav {
+    width: auto;
+    padding: $padding*2;
+    @include transition(all .2s ease-in-out);
+    @include for-phone-only {
+      width: 14rem;
+    }
+    @include for-tablet-landscape-up {
+      width: 12rem;
+    }
+    //main left navigation
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        display: flex;
+        margin: 0 (-$padding*2) 0 (-$padding);
+        //background-color: rgba($white, .25
+        &.active {
+          border-left: ($padding/2) solid $bright-blue;
+          background-color: $white;
+
+          a {
+            i {
+              width: 4rem - ($padding/2);
+            }
+          }
+        }
+
+        a {
           display: flex;
-          flex-direction: column;
-          width: auto;
-          height: auto;
-          padding: 0;
-          background: $warm-gray-01;
-          box-shadow: $card-box-shadow-alt;
+          height: 3rem;
+          color: $white;
+          align-items: center;
+          flex-grow: 1;
 
-          &.active {
-            padding: $padding;
+          i {
+            width: 4rem;
+            text-align: center;
+            @include for-phone-only {
+              width: 3.5rem;
+            }
+          }
 
-            > a {
+          span {
+            @include for-tablet-portrait-up {
+              display: none;
+            }
+            @include for-tablet-landscape-up {
               display: flex;
             }
           }
         }
-        @include for-tablet-portrait-up {
-          position: absolute;
-          z-index: 200;
-          top: 3.375rem;
-          right: $padding;
-          display: none;
-          flex-direction: column;
-          width: auto;
-          height: auto;
-          padding: $padding;
-          border-top-width: 0;
-          background: $warm-gray-01;
-          box-shadow: $card-box-shadow-alt;
-
-          &.active {
-            display: flex;
-          }
-        }
-        @include for-tablet-landscape-up {
-          position: relative;
-          top: 0;
-          right: 0;
-          display: flex;
-          flex-direction: row;
-          width: auto;
-          padding: 0;
-          border-width: 0;
-          border-top-width: 0;
-          background-color: transparent;
-          box-shadow: none;
-          flex: 1;
-          justify-content: flex-end;
-          align-items: center;
-        }
-
-        > a {
-          display: flex;
-          height: 3.375rem;
-          padding: 0 $padding;
-          white-space: nowrap;
-          text-decoration: none;
-          font-size: $font-size-h6;
-          font-weight: $font-weight-bold;
-          justify-content: center;
-          align-items: center;
-          @include transition(all .2s ease-in-out);
-          @include for-phone-only {
-            display: none;
-          }
-          @include for-tablet-landscape-up {
-            margin-left: 1rem;
-            color: $warm-gray-06;
-          }
-
-          &:hover {
-            text-decoration: none;
-            color: $bright-blue;
-          }
-
-          &.active {
-            cursor: default;
-            color: $white;
-            @include for-tablet-landscape-up {
-              padding-top: 5px;
-              color: $white;
-              border-bottom: 5px solid $white;
-            }
-
-            &:hover {
-              color: $white;
-            }
-          }
-
-          &.btn {
-            height: 2rem;
-
-            &:hover {
-              color: $white;
-            }
-
-            &.link-phone {
-              @include for-phone-only {
-                position: absolute;
-                top: -3rem;
-                right: 4rem;
-                display: inline-block;
-                width: 2.375rem;
-                height: 2.375rem;
-                border-radius: 50%;
-                font-size: 1.5rem;
-
-                i {
-                  margin: 0;
-                }
-
-                span {
-                  display: none;
-                }
-              }
-              @include for-tablet-portrait-up {
-                height: 3.375rem;
-
-                &:hover {
-                  color: $bright-blue-lighten-02;
-                }
-              }
-            }
-          }
-        }
       }
     }
   }
-  //search
-  .search {
-    z-index: 10;
-    display: flex;
-    width: 100%;
-    height: auto;
-    max-height: 4rem;
-    margin-top: 0;
-    margin-bottom: 0;
-    transition: margin 0.5s;
-    opacity: 1;
-    background: $white;
-    align-items: flex-start;
+}
+//search
+/*------------------------------------------------------------------------------------*/
+@import "partials/_search"; //search partial
 
+.search {
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  height: auto;
+  max-height: 4rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  transition: margin 0.5s;
+  opacity: 1;
+  background: $white;
+  align-items: flex-start;
+
+  > div {
     > div {
-      > div {
-        background: $warm-gray-01;
+      background: $warm-gray-01;
 
-        .heading {
-          color: $body-color;
+      .heading {
+        color: $body-color;
 
-          span {
-            color: $warm-gray-06;
-            background: $warm-gray-02;
-          }
+        span {
+          color: $warm-gray-06;
+          background: $warm-gray-02;
         }
       }
+    }
 
-      ul {
-        li {
-          background: $white;
+    ul {
+      li {
+        background: $white;
 
-          a {
-            &:hover {
-              color: $white;
-              background: $bright-blue;
-            }
+        a {
+          &:hover {
+            color: $white;
+            background: $bright-blue;
           }
         }
       }
     }
   }
-  //main
-  main[role="document"] {
-    position: relative;
+}
+//workflow including stepper and left aside
+/*------------------------------------------------------------------------------------*/
+.workflow {
+  display: flex;
+  padding: 0;
+
+  .fade-in {
     display: flex;
-    overflow-y: hidden;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
-    height: calc(100vh - 3.75rem);
-    min-height: calc(100vh - 3.75rem);
     background: $white;
-    flex-grow: 1;
-    flex-shrink: 0;
-    align-items: flex-start;
-    @include for-tablet-landscape-up {
-      max-width: 64rem;
+    flex: 1;
+    //Routes
+    .route {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      //workflow detail header
+      .detailHeader {
+        position: relative;
+        display: flex;
+        background: $warm-gray-08;
+        flex-grow: 0;
+        flex-shrink: 0;
+        justify-content: flex-start;
+        //min-height: 4.5rem;
+        @include for-phone-only {
+          flex-direction: column;
+        }
+
+        section {
+          dl {
+            display: flex;
+            flex-direction: column;
+            margin: ($padding/2);
+            padding: ($padding/2) $padding;
+            justify-content: flex-start;
+            @include for-phone-only {
+              margin: 0 ($padding/2);
+              padding: 0 ($padding/2) ($padding/2);
+
+              &:first-child {
+                padding-top: $padding/2;
+              }
+            }
+
+            div {
+              display: flex;
+              flex-direction: column;
+
+              dt {
+                color: $white;
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                @include for-phone-only {
+                  font-size: $font-size-xs;
+                }
+              }
+
+              dd {
+                margin: 0;
+                color: $white;
+                @include for-phone-only {
+                  font-size: $font-size-sm;
+                }
+
+                + dd {
+                  margin-bottom: $padding/4;
+                  font-size: $font-size-sm;
+                  line-height: 1;
+                  @include for-phone-only {
+                    font-size: $font-size-xs;
+                  }
+                }
+              }
+            }
+          }
+
+          &.quoteDetails {
+            flex-shrink: 0;
+            @include for-phone-only {
+              margin-right: 8rem;
+            }
+          }
+
+          &.propertyDetails {
+            @include for-phone-only {
+              margin-right: 8rem;
+            }
+          }
+
+          &.yearBuilt {
+            @include for-phone-only {
+              display: none;
+            }
+          }
+
+          &.coverageDetails {
+            display: flex;
+            margin-right: 6.875rem;
+            @include for-phone-only {
+              flex-direction: column;
+              position: absolute;
+              left: 6.875rem;
+              margin-right: 0;
+            }
+
+            div {
+              display: flex;
+              flex-wrap: wrap;
+
+              dt {
+                width: 100%;
+              }
+
+              dd {
+                margin-right: $padding*2;
+
+                + dd {
+                  font-size: $font-size-h5;
+                  @include for-phone-only {
+                    font-size: $font-size-sm;
+                  }
+                }
+              }
+            }
+          }
+
+          &.premium {
+            position: absolute;
+            top: $padding/2;
+            right: $padding/2;
+            width: auto;
+            margin: 0;
+            padding: ($padding/2) $padding;
+            background: $yellow-lighten-05;
+            box-shadow: $card-box-shadow-alt;
+            justify-content: center;
+            align-items: center;
+            @include for-phone-only {
+              right: $padding/2;
+            }
+            @include for-tablet-portrait-up {
+              right: ($padding/2);
+            }
+
+            dl {
+              padding: 0;
+              @include for-phone-only {
+                margin-right: 0;
+              }
+
+              div {
+                dt {
+                  color: $body-color;
+                  @include for-phone-only {
+                    font-size: $font-size-h6;
+                    font-weight: $font-weight-bold;
+                  }
+                }
+
+                dd {
+                  color: $body-color;
+                  font-size: $font-size-h4;
+                  @include for-phone-only {
+                    font-size: $font-size-h4;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      //stepper header
+      .workflow-header {
+        padding: $padding;
+        background-color: $warm-gray-01;
+        flex-shrink: 0;
+
+        .rule {
+          background: $warm-gray-03;
+        }
+
+        li {
+          a {
+            color: $warm-gray-03;
+
+            i {
+              background: $warm-gray-01;
+
+              &:before {
+                content: "\f1db";
+              }
+
+              &.chooseAddress {
+                &:before {
+                  content: "\f041";
+                }
+              }
+
+              &.askAdditionalCustomerData {
+                &:before {
+                  content: "\f007";
+                }
+              }
+
+              &.askUWAnswers {
+                &:before {
+                  content: "\f0f6";
+                }
+              }
+
+              &.askToCustomizeDefaultQuote {}
+
+              &.customizeDefaultQuote {
+                &:before {
+                  content: "\f1de";
+                }
+              }
+
+              &.shareIt {
+                &:before {
+                  content: "\f1e0";
+                }
+              }
+
+              &.billingInfo {
+                &:before {
+                  content: "\f155";
+                }
+              }
+
+              &.verifyWrite {
+                &:before {
+                  content: "\f14a";
+                }
+              }
+            }
+
+            &.active {
+              color: $bright-blue;
+
+              &:focus,
+              &:hover {
+                color: $bright-blue-lighten-01;
+              }
+            }
+
+            &.disabled {
+              color: $warm-gray-03;
+              outline: none;
+            }
+
+            &.selected {
+              color: $warm-gray-14;
+              outline: none;
+
+              i {
+                color: $bright-blue;
+              }
+            }
+
+            &.complete {
+              color: $bright-blue-lighten-03;
+
+              &:focus,
+              &:hover {
+                color: $bright-blue;
+              }
+            }
+          }
+        }
+      }
+      //workflow main content
+      .workflow-content {
+        overflow-y: auto;
+        flex-direction: row;
+        @include for-phone-only {
+          flex-direction: column;
+        }
+
+        aside {
+          display: flex;
+          overflow-y: auto;
+          flex-shrink: 0;
+          @include for-phone-only {
+            background-color: $white;
+          }
+
+          .side-panel {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 8rem;
+            margin: ($padding);
+            flex-basis: 8rem;
+            flex-shrink: 0;
+            flex-grow: 0;
+            @include for-phone-only {
+              display: none;
+            }
+            @include for-big-desktop-up {
+              width: 17.975rem;
+              flex-basis: 17.975rem;
+            }
+
+            section {
+              margin-bottom: $margin-bottom/2;
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              dl {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+
+                div {
+                  display: flex;
+                  flex-direction: column;
+                  margin: 0;
+                  flex-wrap: wrap;
+
+                  dt {
+                    font-size: $font-size-sm;
+                    font-weight: $font-weight-bold;
+                    flex-basis: auto;
+                    @include for-phone-only {
+                      font-size: 0.64rem;
+                    }
+                  }
+
+                  dd {
+                    display: flex;
+                    flex-direction: column;
+                    flex-basis: auto;
+                  }
+
+                  &:last-child {
+                    dd {
+                      margin-bottom: 0;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        > section {
+          display: flex;
+          height: 100%;
+          flex-grow: 1;
+          flex-shrink: 0;
+        }
+      }
     }
-    @include for-desktop-up {
-      max-width: 84rem;
-    }
-    //@include for-big-desktop-up {
-      //max-width: 120rem;
-    //}
   }
 }
 //footer
+/*------------------------------------------------------------------------------------*/
 footer {
   display: flex;
   flex-direction: column;
@@ -1187,7 +1339,74 @@ footer {
     }
   }
 }
+//ROUTE SPECIFIC STYLES
+/*|||||||||||||||||||||||||||||||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||*/
+//Home Page
+/*------------------------------------------------------------------------------------*/
+.dashboard {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  .fade-in {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    height: 100%;
+    height: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+
+    .fade-in,
+    .route {
+      display: flex;
+      overflow: hidden;
+      flex-direction: column;
+      height: 100%;
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+
+    .dashboard-message {
+      padding: $padding;
+    }
+
+    .product-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      flex-grow: 1;
+      flex-shrink: 0;
+      @include for-phone-only {
+        flex-direction: column;
+      }
+
+      .product {
+        max-height: 24rem;
+        margin-bottom: $padding;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 0;
+        @include for-phone-only {
+          flex-basis: 24rem;
+        }
+      }
+    }
+  }
+}
+//search
+/*------------------------------------------------------------------------------------*/
+.chooseAddress {
+  > .fade-in {
+    overflow-y: auto;
+  }
+}
 //search results
+/*------------------------------------------------------------------------------------*/
 ul.results {
   &.result-cards {
     li {
@@ -1250,253 +1469,215 @@ ul.results {
     }
   }
 }
-//modal
-.modal {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba($black, .75);
-}
-//card
-.card {
-  z-index: 10;
+//Demographics page
+/*------------------------------------------------------------------------------------*/
+#Demographics {
+  .form-group {
+    .FirstName {
+      @include for-tablet-portrait-up {
+        width: 50%;
+        padding-right: $padding*2;
+      }
+    }
 
-  .card-header {
-    background-color: $warm-gray-01;
+    .LastName {
+      @include for-tablet-portrait-up {
+        width: 50%;
+      }
+    }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin: 0;
+    .EmailAddress {
+      @include for-tablet-portrait-up {
+        width: 50%;
+        padding-right: $padding*2;
+      }
+    }
+
+    .phoneNumber {
+      @include for-tablet-portrait-up {
+        width: 50%;
+        padding-right: $padding*2;
+      }
+    }
+
+    .effectiveDate {
+      @include for-tablet-portrait-up {
+        width: 13rem;
+        padding-right: $padding*2;
+        flex-grow: 0;
+        flex-shrink: 0;
+      }
+    }
+
+    .agentID {
+      @include for-tablet-portrait-up {
+        width: 50%;
+        padding-right: $padding*2;
+      }
     }
   }
 }
-//workflow detail header
-.detailHeader {
-  position: relative;
-  display: flex;
-  background: $warm-gray-08;
-  flex-grow: 0;
-  flex-shrink: 0;
-  justify-content: flex-start;
-  //min-height: 4.5rem;
-  @include for-phone-only {
-    flex-direction: column;
-  }
+//Underwriting page
+/*------------------------------------------------------------------------------------*/
+//Customize Quote page
+/*------------------------------------------------------------------------------------*/
+#Customize {
+  .section-group-header {
+    i {
+      margin-right: $padding;
 
-  section {
-    dl {
-      display: flex;
+      &:before {
+        font-family: $font-family-icon;
+      }
+
+      &.Coverage {
+        &.Limits {
+          &:before {
+            content: "\f201";
+          }
+        }
+
+        &.Options {
+          &:before {
+            content: "\f0ae";
+          }
+        }
+      }
+
+      &.Deductibles {
+        &:before {
+          content: "\f0d6";
+        }
+      }
+    }
+  }
+}
+//Share
+/*------------------------------------------------------------------------------------*/
+.section-share {
+  position: relative;
+  height: 100%;
+  flex-shrink: 0;
+
+  .fade-in {
+    .section-instructions {
       flex-direction: column;
-      margin: ($padding/2);
-      padding: ($padding/2) $padding;
-      justify-content: flex-start;
-      @include for-phone-only {
-        margin: 0 ($padding/2);
-        padding: 0 ($padding/2) ($padding/2);
+      width: 100%;
+      margin-bottom: $padding*2;
+      border-bottom: 1px dashed $cool-gray-02;
+
+      h4 {
+        color: $cool-gray-10;
+      }
+    }
+  }
+}
+.email-modal {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    background: rgba($black, .8);
+    @include animation('fade-in 1s 1');
+
+    &.active {
+        display: flex;
+    }
+
+    .survey-wrapper {
+        align-items: center;
+        display: flex;
+
+        .card-email {
+            width: 36rem;
+            margin: $padding 0;
+            @include for-phone-only {
+              max-width: 19.375rem;
+              margin: 0 0 ($padding*2);
+            }
+        }
+    }
+}
+//Mailing & Billing
+/*------------------------------------------------------------------------------------*/
+#Billing {
+  .installment-term {
+    dl {
+      dt {
+        margin-top: $padding/2;
+        color: $blue-darken-02;
+        font-weight: $font-weight-bold;
 
         &:first-child {
-          padding-top: $padding/2;
+          margin-top: 0;
         }
       }
 
-      div {
-        display: flex;
-        flex-direction: column;
+      dd {
+        margin-bottom: 0;
 
-        dt {
-          color: $white;
-          font-size: $font-size-sm;
-          font-weight: $font-weight-bold;
-          @include for-phone-only {
-            font-size: $font-size-xs;
-          }
-        }
-
-        dd {
-          margin: 0;
-          color: $white;
-          @include for-phone-only {
-            font-size: $font-size-sm;
-          }
-
-          + dd {
-            font-size: $font-size-sm;
-            line-height: 1;
-            margin-bottom: $padding/4;
-            @include for-phone-only {
-              font-size: $font-size-xs;
-            }
-          }
-        }
-      }
-    }
-
-    &.quoteDetails {
-      flex-shrink: 0;
-      @include for-phone-only {
-        margin-right: 8rem;
-      }
-    }
-
-    &.propertyDetails {
-      @include for-phone-only {
-        margin-right: 8rem;
-      }
-    }
-
-    &.yearBuilt {
-      @include for-phone-only {
-        display: none;
-      }
-    }
-
-    &.coverageDetails {
-      display: flex;
-      margin-right: 6.875rem;
-      @include for-phone-only {
-        flex-direction: column;
-        margin-right: 8rem;
-      }
-
-      div {
-        display: flex;
-        flex-wrap: wrap;
-
-        dt {
-          width: 100%;
-        }
-
-        dd {
-          margin-right: $padding*2;
-
-          + dd {
-            font-size: $font-size-h5;
-            @include for-phone-only {
-              font-size: $font-size-sm;
-            }
-          }
-        }
-      }
-    }
-
-    &.premium {
-      position: absolute;
-      top: $padding/2;
-      right: $padding/2;
-      width: auto;
-      margin: 0;
-      padding: ($padding/2) $padding;
-      background: $yellow-lighten-05;
-      box-shadow: $card-box-shadow-alt;
-      justify-content: center;
-      align-items: center;
-      @include for-phone-only {
-        right: $padding/2;
-      }
-      @include for-tablet-portrait-up {
-        right: ($padding/2);
-      }
-
-      dl {
-        padding: 0;
-        @include for-phone-only {
-          margin-right: 0;
-        }
-
-        div {
-          dt {
-            color: $body-color;
-            @include for-phone-only {
-              font-size: $font-size-h6;
-              font-weight: $font-weight-bold;
-            }
-          }
-
-          dd {
-            color: $body-color;
-            font-size: $font-size-h4;
-            @include for-phone-only {
-              font-size: $font-size-h4;
-            }
-          }
+        &:nth-of-type(odd) {
+          background: $warm-gray-01;
         }
       }
     }
   }
 }
-//Routes
-.route {
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-//Home Page
-.dashboard {
-    .fade-in {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      flex-grow: 1;
-      flex-shrink: 0;
+.MailingAddress-component {
+  .address1 {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
 
-      .dashboard-message {
-          padding: $padding;
-      }
+  .address2 {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
 
-        .product-wrapper {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-around;
-          @include for-phone-only {
-              flex-direction: column;
-          }
+  .country {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
 
-          .product {
-            flex-grow: 1;
-            flex-shrink: 0;
-            margin-bottom: $padding;
-          }
-        }
-
+  .city {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    @include for-tablet-portrait-up {
+      width: auto;
     }
-}
-//Quote Error
-.error-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  }
 
+  .state {
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    @include for-tablet-portrait-up {
+      width: 6rem;
+      flex-grow: 0;
+    }
+  }
 
-        .survey-wrapper {
-            flex-direction: column;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-                .card {
-                    width: auto;
-
-                    .contact-methods {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-around;
-                    }
-                }
-            }
-
-
+  .zip {
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    @include for-tablet-portrait-up {
+      width: 8rem;
+      flex-grow: 0;
+    }
+  }
 }
 //verify & write policy
-.route-verify {
+/*------------------------------------------------------------------------------------*/
+.askScheduleInspectionDates {
   width: 100%;
 
   .detail-wrapper {
@@ -1511,8 +1692,7 @@ ul.results {
 
       &.edit {
         border: 2px solid $warm-gray-07;
-        //margin: (-$padding)(-$padding/2)($padding);
-        //padding: ($padding);
+
         .editing {
           position: absolute;
           top: $padding;
@@ -1622,139 +1802,240 @@ ul.results {
     }
   }
 }
-//form color & form layout
-.detail-wrapper,
-.survey-wrapper {
-  .section-group-header {
-      color: $body-color;
-      width: 100%;
-      margin: (-$padding) (-$padding/2) ($padding*2);
-      padding: ($padding);
-      flex-grow: 1;
-      font-size: $font-size-h2;
-      @include for-phone-only {
-          font-size: $font-size-h3;
-      }
+//Quote Error
+/*------------------------------------------------------------------------------------*/
+.error-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-    i {
-      margin-right: $padding;
-      &:before {
-        font-family: $font-family-icon;
-      }
+  .fade-in {
+    display: flex;
+    overflow-y: auto;
+    flex-direction: row;
+    flex-basis: 100%;
+    @include for-phone-only {
+      flex-direction: column-reverse;
+      justify-content: center;
+    }
+    section {
+        display: flex;
+        flex-grow: 1;
+        overflow-y: auto;
+      #Error {
+        width: auto;
+        height: 100%;
 
-      &.Coverage {
-        &.Limits {
-          &:before {
-            content: "\f201";
+        .detail-wrapper {
+          position: relative;
+          width: 100%;
+
+          .header-wrapper {
+            display: flex;
+            //flex-direction: column;
+            align-items: center;
+
+            .section-group-header {
+              width: auto;
+              flex-grow: 1;
+              flex-shrink: 0;
+            }
+
+            h3 {
+              margin: 0;
+            }
           }
         }
-
-        &.Options {
-          &:before {
-            content: "\f0ae";
-          }
-        }
-      }
-
-      &.Deductibles {
-        &:before {
-          content: "\f0d6";
-        }
       }
     }
-  }
-}
-//MailingAddress Component
-.MailingAddress-component {
-  .address1 {
-    width: 100%;
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
 
-  .address2 {
-    width: 100%;
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
-
-  .country {
-    width: 100%;
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
-
-  .city {
-    width: 100%;
-    flex-grow: 1;
-    flex-shrink: 0;
-    @include for-tablet-portrait-up {
-      width: auto;
-    }
-  }
-
-  .state {
-    width: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    @include for-tablet-portrait-up {
-      width: 6rem;
-      flex-grow: 0;
-    }
-  }
-
-  .zip {
-    width: 100%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    @include for-tablet-portrait-up {
-      width: 8rem;
-      flex-grow: 0;
-    }
-  }
-}
-
-.form-group {
-  .FirstName {
-    @include for-tablet-portrait-up {
-      width: 50%;
-      padding-right: $padding*2;
-    }
-  }
-
-  .LastName {
-    @include for-tablet-portrait-up {
-      width: 50%;
-    }
-  }
-
-  .EmailAddress {
-    @include for-tablet-portrait-up {
-      width: 50%;
-      padding-right: $padding*2;
-    }
-  }
-
-  .phoneNumber {
-    @include for-tablet-portrait-up {
-      width: 50%;
-      padding-right: $padding*2;
-    }
-  }
-
-  .effectiveDate {
-    @include for-tablet-portrait-up {
-      width: 13rem;
-      padding-right: $padding*2;
+    aside {
+      display: flex;
+      flex-direction: column;
+      width: 12rem;
+      padding: $padding;
       flex-grow: 0;
       flex-shrink: 0;
+      align-items: center;
+      @include for-phone-only {
+        flex-direction: row;
+        width: 100%;
+      }
+
+      .image {
+        width: 10rem;
+        height: 10rem;
+        margin-right: $padding;
+        border: 5px solid $bright-blue-darken-01;
+        border-radius: 50%;
+        background-image: url('../img/csr.jpg');
+        background-position: right center;
+        background-size: cover;
+        flex-basis: 10rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        @include for-phone-only {
+          width: 8rem;
+          height: 8rem;
+          flex-basis: 8rem;
+        }
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        margin-top: $padding;
+
+        a {
+          margin: $padding;
+          font-size: $font-size-h4;
+          @include for-phone-only {
+            font-size: $font-size-h5;
+          }
+        }
+      }
     }
   }
 
-  .agentID {
-    @include for-tablet-portrait-up {
-      width: 50%;
-      padding-right: $padding*2;
+  &.pop-up {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+      display: none;
+      background: rgba($blue,.8);
+
+      &.active {
+        display: flex;
+      }
+
+      .survey-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .contact-message {
+          .card {
+            width: auto;
+            max-width: 36rem;
+            margin: $padding 0;
+            @include for-phone-only {
+              max-width: 19.375rem;
+              margin: 0 0 ($padding*2);
+            }
+
+            .card-header {
+              background: rgba($red-darken-01,1);
+
+              h1,
+              h2,
+              h3,
+              h4,
+              h5,
+              h6 {
+                background: rgba($red-darken-01,.9);
+              }
+            }
+            .contact-methods {
+              display: flex;
+              align-items: center;
+
+              a {
+                margin: $padding ($padding*2) ($padding*2) 0;
+              }
+            }
+          }
+        }
+      }
+  }
+}
+//Thanks Page
+/*------------------------------------------------------------------------------------*/
+.thanks-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  .survey-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+      width: auto;
+
+      .contact-methods {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        a {
+          margin-left: $padding*2;
+        }
+      }
+    }
+  }
+}
+// .display-element {
+//   dt {
+//     margin-top: $padding/2;
+//     color: $bright-blue-darken-02;
+//     font-weight: $font-weight-bold;
+//
+//     &:first-child {
+//       margin-top: 0;
+//     }
+//   }
+//
+//   dd {
+//     margin-bottom: 0;
+//   }
+// }
+//General Errors
+/*------------------------------------------------------------------------------------*/
+.error-wrapper {
+  .fade-in {
+    height: 100%;
+
+    .route {
+      height: 100%;
+
+      .error-content {
+        .fade-in {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+
+          section {
+            width: 100%;
+            flex-grow: 1;
+            flex-shrink: 0;
+
+            #Error.fade-in {
+              width: 100%;
+
+              .detail-wrapper {
+                position: relative;
+                width: 100%;
+                padding-bottom: 0;
+              }
+            }
+          }
+
+          aside {
+            flex-shrink: 0;
+            flex-grow: 0;
+          }
+        }
+
+        footer {}
+      }
     }
   }
 }

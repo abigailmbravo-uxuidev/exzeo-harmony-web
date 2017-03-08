@@ -1,6 +1,6 @@
 /* eslint no-unused-vars :0 */
 import React, { Component, PropTypes } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as featureActions from '../actions/featureActions';
@@ -8,23 +8,25 @@ import Splash from './Splash';
 import Login from './Login';
 import Quote from './Quote';
 import Header from '../components/common/Header';
-import '../components/forms/Rules';
+import AppError from './AppError';
+import NotFound from './NotFound';
+// import '../components/forms/Rules';
 
-export class App extends Component {
+class App extends Component {
 
   static propTypes = {
     actions: PropTypes.shape({ initializeLD: PropTypes.func, setupFeature: PropTypes.func }),
-    features: PropTypes.shape({ get: PropTypes.func }),
+    features: PropTypes.shape({ get: PropTypes.func })
   }
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   }
   state = {
     direction: '',
-    lastScrollPos: 0,
+    lastScrollPos: 0
   }
   componentWillMount = () => {
-    //this.props.actions.initializeLD();
+    // this.props.actions.initializeLD();
   }
   componentWillReceiveProps = (newProps) => {
     // if (newProps.features.get('ld-started') && !this.props.features.get('ld-started')) {
@@ -33,7 +35,8 @@ export class App extends Component {
     //   this.props.actions.setupFeature('search');
     // }
   }
-  //shouldComponentUpdate = (nextProps, nextState) => (!(this.state.direction === nextState.direction))
+  // shouldComponentUpdate = (nextProps, nextState) =>
+  //  (!(this.state.direction === nextState.direction))
 
   handleScroll = (event) => {
     if (this.state.lastScrollPos > event.target.scrollTop) {
@@ -80,14 +83,17 @@ export class App extends Component {
           </aside>
           <Router>
             <div className="content-wrapper">
-              <Route exact path="/" component={homeScreen} />
-              <Route path="/login" component={Login} />
-              <Route exact path="/quote" component={Quote} />
-              <Route path="/quote/:activeStep" component={Quote} />
+              <Switch>
+                <Route exact path="/" component={homeScreen} />
+                <Route path="/login" component={Login} />
+                <Route exact path="/quote" component={Quote} />
+                <Route path="/quote/:activeStep" component={Quote} />
+                <Route exact path="/error" component={AppError} />
+                <Route component={NotFound} />
+              </Switch>
             </div>
           </Router>
         </main>
-
       </div>
     );
   }
@@ -95,11 +101,11 @@ export class App extends Component {
 
 const mapStateToProps = state => ({
   features: state.features,
-  loggedIn: typeof state.auth.get('token') !== 'undefined',
+  loggedIn: typeof state.auth.get('token') !== 'undefined'
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(featureActions, dispatch),
+  actions: bindActionCreators(featureActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

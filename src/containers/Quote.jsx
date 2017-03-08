@@ -11,17 +11,13 @@ class Quote extends Component {
     match: PropTypes.any,// eslint-disable-line
   }
 
-  static contextTypes = {
-    router: PropTypes.any,
-  }
-
   state = {
     workflow: {
       id: '',
       steps: [],
       activeStep: '',
-      completedSteps: [],
-    },
+      completedSteps: []
+    }
   }
 
   componentWillMount() {
@@ -46,7 +42,7 @@ class Quote extends Component {
 
     return (
       <div className="workflow" role="article">
-        <Workflow />
+        <Workflow {...this.props} />
       </div>
     );
   }

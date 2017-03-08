@@ -5,11 +5,15 @@
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
+    "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-airbnb": "^2.1.1",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
+    "cross-env": "^3.1.4",
     "enzyme": "^2.6.0",
     "eslint": "^3.10.2",
     "eslint-config-airbnb": "^13.0.0",
@@ -20,6 +24,7 @@
     "mocha": "^3.1.2",
     "mockery": "^2.0.0",
     "node-sass": "^4.0.0",
+    "nyc": "^10.1.2",
     "opn": "^4.0.2",
     "react-addons-test-utils": "^15.4.1",
     "react-scripts": "0.7.0",
@@ -30,6 +35,7 @@
     "apollo-client": "0.5.0",
     "auth0-js": "^7.4.0",
     "axios": "^0.15.2",
+    "classnames": "^2.2.5",
     "compression": "^1.6.2",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
@@ -40,7 +46,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "react": "^15.3.2",
-    "react-apollo": "^0.5.16",
+    "react-apollo": "^0.13.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
     "react-router": "^4.0.0-alpha.5",
@@ -49,6 +55,7 @@
     "react-tooltip": "^3.2.2",
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
+    "redux-mock-store": "^1.2.2",
     "redux-thunk": "^2.1.0",
     "typeahead": "^0.2.2",
     "validator": "^6.2.1"
@@ -58,20 +65,30 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "local": "react-scripts start",
-    "pretest": "npm run lint",
     "push": "npm run build && docker build -f dev.dockerfile -t exzeo/harmony-web:develop . && docker push exzeo/harmony-web:develop",
     "both": "node scripts/start-both",
     "start": "node scripts/start-api",
     "dev": "react-scripts start",
-    "test": "mocha --reporter progress utils/testSetup \"src/**/*.Spec.js\""
+    "coverage": "cross-env NODE_ENV=test nyc npm test",
+    "test": "cross-env NODE_ENV=test nyc mocha --reporter spec utils/testSetup \"src/**/*.spec.js\"",
+    "test::all": "npm run lint && npm run coverage",
+    "test::watch": "npm test -- --watch"
   },
   "babel": {
     "presets": [
+      "es2015",
       "airbnb",
       "stage-0"
     ],
     "plugins": [
       "babel-plugin-transform-decorators-legacy"
-    ]
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
   }
 }

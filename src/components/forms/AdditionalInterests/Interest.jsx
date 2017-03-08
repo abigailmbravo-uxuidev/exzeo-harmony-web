@@ -1,48 +1,48 @@
 import React, { PropTypes } from 'react';
-import TextInput from '../../inputs/TextInput';
-import MailingAddress from '../MailingAddress/MailingAddress';
+import TextField from '../../form/inputs/TextField';
+import MailingAddressFormFields from '../MailingAddress/MailingAddressFormFields';
 
 const Interest = ({ fields, InterestTypeName, meta: { touched, error } }) => (
   <div>
-    <button type="button" className="btn btn-secondary" onClick={() => fields.push({})}>+ Add {InterestTypeName}</button>
+    {fields.length < 2 && <button type="button" className="btn btn-secondary" onClick={() => fields.push({})}>+ Add {InterestTypeName}</button>}
     {touched && error && <span>{error}</span>}
     {fields.map((additionalInterest, index) =>
       <div key={index}>
         <button
-          type="button"
+          type="button" className="btn btn-secondary"
           onClick={() => fields.remove(index)}
         >Remove {InterestTypeName}</button>
         <br /> <br />
         <h4>{InterestTypeName} #{index + 1}</h4>
-        <TextInput
+        <TextField
           answerType="text"
 
-          name={`${additionalInterest}.name1`}
-          question={'Name 1'}
+          name={`${InterestTypeName}${index + 1}Name1`}
+          label={'Name 1'}
           validations={['required']}
         />
-        <TextInput
+        <TextField
           answerType="text"
 
-          name={`${additionalInterest}.name2`}
-          question={'Name 2'}
+          name={`${InterestTypeName}${index + 1}Name2`}
+          label={'Name 2'}
           validations={['required']}
         />
-        <TextInput
+        <TextField
           answerType="text"
 
-          name={`${additionalInterest}.phoneNumber`}
-          question={'Phone Number'}
+          name={`${InterestTypeName}${index + 1}PhoneNumber`}
+          label={'Phone Number'}
           validations={['required', 'phone']}
         />
-        <TextInput
+        <TextField
           answerType="text"
 
-          name={`${additionalInterest}.referenceNumber`}
-          question={'Reference Number'}
-          validations={['required']}
+          name={`${InterestTypeName}${index + 1}ReferenceNumber`}
+          label={'Reference Number'}
+          validations={[]}
         />
-        <MailingAddress name={`${additionalInterest}.mailingAddress`} />
+        <MailingAddressFormFields name={`${InterestTypeName}${index + 1}MailingAddress`} />
       </div>,
     )}
   </div>

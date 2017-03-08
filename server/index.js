@@ -12,33 +12,33 @@ const data = {
   test: {
     appTitle: 'Waffles',
     configuration: {
-      appTitle: 'TypTap-Test',
-    },
+      appTitle: 'TypTap-Test'
+    }
   },
   dockerapp: {
     appTitle: 'Hosted From Docker',
     configuration: {
-      appTitle: 'Docker',
-    },
+      appTitle: 'Docker'
+    }
   },
   quic: {
     appTitle: 'TypTap-DEV',
     configuration: {
-      appTitle: 'TypTap-DEV',
-    },
+      appTitle: 'TypTap-DEV'
+    }
   },
   tryitout: {
     appTitle: 'TypTap-QA',
     configuration: {
-      appTitle: 'TypTap-QA',
-    },
+      appTitle: 'TypTap-QA'
+    }
   },
   default: {
     appTitle: 'TypTap',
     configuration: {
-      appTitle: 'TypTap',
-    },
-  },
+      appTitle: 'TypTap'
+    }
+  }
 };
 
 const renderApp = (req, res) => {

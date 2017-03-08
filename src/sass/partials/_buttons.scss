@@ -93,6 +93,10 @@ input[type="submit"] {
 
 .btn-link {
   @include button-variant($btn-link-color, $btn-link-bg, $btn-link-border);
+
+  &:hover {
+      text-decoration: none;
+  }
 }
 // Remove all backgrounds
 
@@ -131,7 +135,10 @@ input[type="submit"] {
   justify-content: center;
   align-items: center;
 
-  i {}
+  i {
+      margin: 0;
+      padding: 0;
+  }
 }
 
 .btn-send {

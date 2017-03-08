@@ -9,17 +9,17 @@ import SearchBar from './SearchBar';
 class Search extends Component {
   static propTypes = {
     options: PropTypes.shape({
-      placeholder: PropTypes.string,
+      placeholder: PropTypes.string
     }),
-    completeStep: PropTypes.Object,
-    data: PropTypes.Object,
-    searchConfig: PropTypes.Object,
+    completeStep: PropTypes.func,
+    data: PropTypes.any, // eslint-disable-line
+    searchConfig: PropTypes.any // eslint-disable-line
   }
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   }
   state = {
-    searchText: '',
+    searchText: ''
   }
 
   handleChange = (event) => {
@@ -35,9 +35,9 @@ class Search extends Component {
         input: {
           workflowId: localStorage.getItem('newWorkflowId'),
           stepName: 'askAddress',
-          data: {address:this.state.searchText},
-        },
-      },
+          data: { address: this.state.searchText }
+        }
+      }
     }).then((updatedStep) => {
       const workflow = updatedStep.data.completeStep;
       if (workflow && workflow.link) {
@@ -72,7 +72,7 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => ({
-  searchConfig: state.search.get('config'),
+  searchConfig: state.search.get('config')
 });
 
 export default connect(mapStateToProps)(
@@ -103,7 +103,7 @@ export default connect(mapStateToProps)(
       }
     }`,
     {
-      options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } },
+      options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } }
     },
     { name: 'activeStep' },
 )(graphql(gql `mutation CompleteStep($input:CompleteStepInput) {

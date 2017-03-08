@@ -193,6 +193,18 @@
 
     &.segmented {
 
+        label {
+            &.label-segmented {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+
+                  >input[type="text"] {
+                          flex-basis: 6.5rem;
+                  }
+            }
+        }
+
       .segmented-answer-wrapper {
         display: flex;
         flex-direction: row;
@@ -203,6 +215,8 @@
           width: auto;
           flex-grow: 1;
           flex-shrink: 0;
+
+
 
           &.radio-column-1 {}
 
@@ -330,17 +344,37 @@
         }
       }
 
-      label {
-          &.label-segmented {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+      .installment-term {
+          display: flex;
+          flex-wrap: wrap;
 
-                >input[type="text"] {
-                        flex-basis: 6.5rem;
-                }
+          .column-3 {
+              width: 33.33%;
+              padding: 0 ($padding*2);
+
+              dt {
+
+                  span {
+                      font-size: $font-size-h4;
+                      display: none;
+
+                      @include for-phone-only {
+                          display: block;
+                      }
+                  }
+              }
+
+              dd {
+                  padding: (.25*$padding) $padding;
+                  margin: 0 (-$padding)
+              }
+
+              @include for-phone-only {
+                  width: 100%;
+              }
           }
       }
+
 
       &.disabled,
       &.disabled.invalid {
@@ -586,17 +620,18 @@
               margin-right: 2rem;
 
               &:before {
-                  font: normal normal normal 1rem $font-family-icon;
-                  content: '\f14a';
+                  font: normal normal normal 1rem $font-family-sans-serif;
+                  content: 'VERIFY HERE';
+                  line-height: 1;
                   position: absolute;
-                  left: -.5rem;
-                  background: $yellow;
-                  color: $yellow-lighten-05;
+                  left: -.25rem;
+                  background: $orange-lighten-01;
+                  color: $red-darken-02;
                   display: block;
                   padding: .25rem;
                   top: .25rem;
                   text-align: center;
-                  width: 1.5rem;
+                  width: 9rem;
                   border-top-left-radius: .125rem;
                   border-bottom-left-radius: .125rem;
               }
@@ -606,10 +641,10 @@
                   width: 0;
                   height: 0;
                   border-top: .75rem solid transparent;
-                  border-left: 1rem solid $yellow;
+                  border-left: 1rem solid $orange-lighten-01;
                   border-bottom: .75rem solid transparent;
                   top: .25rem;
-                  left: 1rem;
+                  left: 8.75rem;
               }
 
               div {

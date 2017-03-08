@@ -7,7 +7,7 @@ const SearchBar = ({
   handleOnFocus,
   handleOnBlur,
   searchText,
-  focus,
+  focus
 }) => (
   <form onSubmit={handleSubmit || null}>
     <input
@@ -31,7 +31,7 @@ SearchBar.propTypes = {
   handleOnFocus: PropTypes.func,
   handleOnBlur: PropTypes.func,
   searchText: PropTypes.string,
-  focus: PropTypes.func,
+  focus: PropTypes.bool
 };
 
 export default SearchBar;

@@ -7,15 +7,15 @@ import * as authActions from '../actions/authActions';
 class Login extends Component {
   static propTypes = {
     actions: PropTypes.shape({
-      login: PropTypes.func,
+      login: PropTypes.func
     }),
     auth: PropTypes.shape({
-      get: PropTypes.func,
-    }),
+      get: PropTypes.func
+    })
   }
   state = {
     username: '',
-    password: '',
+    password: ''
   }
   handleChange = (event) => {
     const state = this.state;
@@ -54,11 +54,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(authActions, dispatch),
+  actions: bindActionCreators(authActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

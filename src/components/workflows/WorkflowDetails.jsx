@@ -10,8 +10,8 @@ const WorkflowDetails = ({ details }) => (
         return (<section key={index} id="quoteDetails" className="quoteDetails">
           <dl>
             <div>
-              <dt>{d.name}</dt>
-              <dd>{d.value}</dd>
+              <dt className="fade">{d.name}</dt>
+              <dd className="fade">{d.value}</dd>
 
             </div>
           </dl>
@@ -22,8 +22,8 @@ const WorkflowDetails = ({ details }) => (
           <dl>
             <div>
               <dt>{d.name}</dt>
-              <dd>{d.value}</dd>
-              <dd>-</dd>
+              <dd className="fade">{d.value}</dd>
+              <dd className="fade">-</dd>
             </div>
           </dl>
         </section>);
@@ -32,8 +32,8 @@ const WorkflowDetails = ({ details }) => (
         return (<section key={index} id="yearBuilt" className="yearBuilt">
           <dl>
             <div>
-              <dt>{d.name}</dt>
-              <dd>{d.value}</dd>
+              <dt className="fade">{d.name}</dt>
+              <dd className="fade">{d.value}</dd>
             </div>
           </dl>
         </section>);
@@ -43,8 +43,8 @@ const WorkflowDetails = ({ details }) => (
           <section key={index} id="premium" className="premium">
             <dl>
               <div>
-                <dt>{d.name}</dt>
-                <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
+                <dt className="fade">{d.name}</dt>
+                <dd className="fade">{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
               </div>
             </dl>
           </section>
@@ -55,13 +55,15 @@ const WorkflowDetails = ({ details }) => (
           <section key={index} id="coverageDetails" className="coverageDetails">
             <dl>
               <div>
-                <dt>{d.name}</dt>
-                <dd>{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
+                <dt className="fade">{d.name}</dt>
+                <dd className="fade">{`$ ${d.value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`}</dd>
               </div>
             </dl>
           </section>
         );
       }
+
+      return null;
     })}
   </div>
   );
