@@ -9,11 +9,11 @@ import search from './searchReducer';
 import details from './detailsReducer';
 
 
-let uri = `${(process.env.REACT_APP_API_URL || 'http://localhost:4001')}/api`;
+const uri = `${(process.env.REACT_APP_API_URL || 'http://localhost:4001')}/api`;
 
-if (process.env.NODE_ENV === 'development') {
-  uri = 'http://localhost:4001/api';
-}
+// if (process.env.NODE_ENV === 'development') {
+//   uri = 'http://localhost:4001/api';
+// }
 
 // const networkInterface = createNetworkInterface({ uri });
 const batchingNetworkInterface = createBatchingNetworkInterface({
