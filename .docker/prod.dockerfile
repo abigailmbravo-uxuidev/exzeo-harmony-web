@@ -4,8 +4,6 @@ MAINTAINER Exzeo
 
 ENV NODE_ENV=production
 
-ENV REACT_APP_API_URL=http://harmony-ins.com
-
 RUN mkdir -p /var/www
 WORKDIR   /var/www
 COPY     . /var/www

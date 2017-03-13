@@ -10,9 +10,6 @@ import AppConnected from './containers/App';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './css/typtap-theme.min.css';
 
-
-console.log('process.env.REACT_APP_API_URL', process.env.REACT_APP_API_URL);
-
 const auth0 = axios.create({
   baseURL: 'https://harmony.auth0.com/api/v2',
   headers: {
