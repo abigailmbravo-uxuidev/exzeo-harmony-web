@@ -4,12 +4,12 @@ import * as types from './actionTypes';
 let client;
 
 export const initializeLDSuccess = () => ({
-  type: types.INITIALIZELD,
+  type: types.INITIALIZELD
 });
 
 export const toggleFeature = feature => ({
   type: types.TOGGLE_FEATURE,
-  feature,
+  feature
 });
 
 // THUNKS

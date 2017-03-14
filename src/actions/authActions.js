@@ -1,45 +1,47 @@
 /* eslint no-undef:1 */
 import Auth0 from 'auth0-js';
+import localStorage from 'localStorage';
 import * as types from './actionTypes';
 
 const auth0 = new Auth0({
   domain: 'harmony.auth0.com',
-  clientID: 'Xhs1oIytMrij0k3ixyLalsPEz7d2K1ME',
+  clientID: 'PplwmQlbI12PB0yYTgfOXMkMKnpPU3Zg',
   callbackURL: '/',
   callbackOnLocationHash: true,
-  response: 'token',
+  response: 'token'
 });
 
 export const authenticating = state => ({
   type: types.AUTHENTICATING,
-  state,
+  state
 });
 
 export const authenticated = token => ({
   type: types.AUTHENTICATED,
-  token,
+  token
 });
 
 export const authenticateError = error => ({
   type: types.TOGGLE_FEATURE,
-  error,
+  error
 });
 
 export const authenticatedMe = me => ({
   type: types.AUTH_ME,
-  me,
+  me
 });
 
 export const login = creds => (dispatch) => {
   auth0.login({
-    connection: 'Harmony',
+    connection: 'Username-Password-Authentication',
     username: creds.username,
-    password: creds.password,
+    password: creds.password
   }, (err, results) => {
+    console.log(`Error on Login:${err}`); // eslint-disable-line
     if (err) {
       dispatch(authenticateError(err));
     } else {
-      localStorage.setItem('access_token', results.idToken);
+      localStorage.setItem('token', results.idToken);
       dispatch(authenticated(results.idToken));
     }
   });

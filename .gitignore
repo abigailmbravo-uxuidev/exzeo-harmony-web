@@ -1,12 +1,14 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
+documentation
 node_modules
 .vscode
 .idea
 
 # testing
 coverage
+.nyc_output/
 
 # production
 build

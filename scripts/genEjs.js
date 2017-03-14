@@ -12,6 +12,6 @@ file.on('data', (data) => {
     .replace('AppTitle', '<%= configuration.appTitle %>');
   fs.writeFileSync(
     indexDist,
-    html,
+    html // eslint-disable-line
   );
 });

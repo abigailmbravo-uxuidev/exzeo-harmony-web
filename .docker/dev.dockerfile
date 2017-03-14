@@ -1,24 +1,20 @@
-FROM node:6.2
-
+FROM mhart/alpine-node:6
 MAINTAINER Exzeo
 
 ENV NODE_ENV=development
-ENV PORT=3000
 
-RUN mkdir -p /var/www
-WORKDIR   /var/www
-COPY     package.json /var/www
+RUN mkdir -p /app
 
-RUN       npm install
-COPY /public /var/www/public
-COPY src /var/www/src
-COPY scripts /var/www/scripts
+COPY . /app
 
-RUN       npm run build
-COPY server /var/www/server
-ENV NODE_ENV=production
+WORKDIR /app
 
+RUN apk update && apk --no-cache add bash libc6-compat && \
+  addgroup -S appuser && adduser -S -g appuser appuser && \
+  chown -R appuser:appuser /app/ && \
+  npm install && \
+  npm cache clean
 
-EXPOSE $PORT
+# RUN npm install
 
-ENTRYPOINT ["node", "server"]
+USER appuser

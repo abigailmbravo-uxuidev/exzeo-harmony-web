@@ -1,37 +1,45 @@
 /* eslint no-param-reassign:0 */
 import { combineReducers } from 'redux';
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import features from './featureReducer';
+import { reducer as formReducer } from 'redux-form';
+import ApolloClient, { createBatchingNetworkInterface } from 'apollo-client';
+import localStorage from 'localStorage';
 import auth from './authReducer';
+import features from './featureReducer';
+import search from './searchReducer';
+import details from './detailsReducer';
 
-let uri;
 
-if (process.env.NODE_ENV === 'production') {
-  uri = '/api';
-} else {
-  uri = 'http://localhost:4001/api';
-}
+const uri = `${(process.env.REACT_APP_API_URL || 'http://localhost:4001')}/api`;
 
-const networkInterface = createNetworkInterface({ uri });
+const batchingNetworkInterface = createBatchingNetworkInterface({
+  uri,
+  batchInterval: 10
+});
 
-networkInterface.use([{
+batchingNetworkInterface.use([{
   applyMiddleware(req, next) {
     if (!req.options.headers) {
       req.options.headers = {};
     }
 
     const token = localStorage.getItem('token');
-    req.options.headers.id_token = token;
+    req.options.headers.authorization = token;
     next();
-  },
+  }
 }]);
 
-export const client = new ApolloClient({ networkInterface });
+export const client = new ApolloClient({
+  networkInterface: batchingNetworkInterface,
+  queryDeduplication: true
+});
 
 const rootReducer = combineReducers({
+  form: formReducer,
+  details,
   auth,
   features,
-  apollo: client.reducer(),
+  search,
+  apollo: client.reducer()
 });
 
 export default rootReducer;

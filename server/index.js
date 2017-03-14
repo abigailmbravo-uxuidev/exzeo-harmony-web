@@ -12,39 +12,39 @@ const data = {
   test: {
     appTitle: 'Waffles',
     configuration: {
-      appTitle: 'TypTap-Test',
-    },
+      appTitle: 'TypTap-Test'
+    }
   },
   dockerapp: {
     appTitle: 'Hosted From Docker',
     configuration: {
-      appTitle: 'Docker',
-    },
+      appTitle: 'Docker'
+    }
   },
   quic: {
     appTitle: 'TypTap-DEV',
     configuration: {
-      appTitle: 'TypTap-DEV',
-    },
+      appTitle: 'TypTap-DEV'
+    }
   },
   tryitout: {
     appTitle: 'TypTap-QA',
     configuration: {
-      appTitle: 'TypTap-QA',
-    },
+      appTitle: 'TypTap-QA'
+    }
   },
   default: {
     appTitle: 'TypTap',
     configuration: {
-      appTitle: 'TypTap',
-    },
-  },
+      appTitle: 'TypTap'
+    }
+  }
 };
 
 const renderApp = (req, res) => {
   console.log(req.headers); // eslint-disable-line no-console
   const fileName = path.resolve(process.cwd(), 'build/index');
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     // DO STUFFS
     const names = req.headers.http_host.split('.');
     console.log('Names: ', names); // eslint-disable-line no-console
