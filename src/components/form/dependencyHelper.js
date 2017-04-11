@@ -1,6 +1,10 @@
 /* eslint-disable no-param-reassign */
 import _ from 'lodash';
 
+export const toCurrency = function (value) {
+  return `$ ${String(value).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
+};
+
 export default function dependencyHelper(question, data, values) {
   const updatedQuestion = _.cloneDeep(question);
   if (!question.conditional) return updatedQuestion;
@@ -8,11 +12,11 @@ export default function dependencyHelper(question, data, values) {
   if (question.conditional.slider) {
     const { slider } = question.conditional;
     if (slider.minLocation) {
-      updatedQuestion.leftLabel = `$ ${Math.ceil(_.get(data, slider.minLocation))}`;
+      updatedQuestion.leftLabel = toCurrency(Math.ceil(_.get(data, slider.minLocation)));
       updatedQuestion.min = Math.ceil(_.get(data, slider.minLocation));
     }
     if (slider.maxLocation) {
-      updatedQuestion.rightLabel = `$ ${Math.floor(_.get(data, slider.maxLocation))}`;
+      updatedQuestion.rightLabel = toCurrency(Math.floor(_.get(data, slider.maxLocation)));
       updatedQuestion.max = Math.floor(_.get(data, slider.maxLocation));
     }
   }
@@ -22,13 +26,13 @@ export default function dependencyHelper(question, data, values) {
     const parentValue = _.get(values, value.parent);
     const calculatedValue = parentValue * value.value;
     // console.log('PERCENTAGE CONDITION: ', question, value);
-    updatedQuestion.displayValue = `$ ${value.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue}`;
+    updatedQuestion.displayValue = toCurrency((value.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue));
   }
   if (question.conditional.dependency) {
     const { dependency } = question.conditional;
     const parentValue = _.get(values, dependency.parent);
     const calculatedValue = parentValue * values[question.name];
-    updatedQuestion.displayValue = `$ ${dependency.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue}`;
+    updatedQuestion.displayValue = toCurrency((dependency.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue));
   }
   /**
    * type: 'hidden',

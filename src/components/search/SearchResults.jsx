@@ -1,132 +1,103 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import localStorage from 'localStorage';
-import Footer from '../common/Footer';
+import moment from 'moment';
 
-const Results = ({ addresses, handleClick }) => (
-  <ul className="results result-cards">
-    {
-      addresses ? addresses.map((address, index) => (
-        <li id={address.id} key={index}>
-          <a onClick={() => handleClick(address)} tabIndex="-1">
-            <i className="card-icon fa fa-map-marker" />
-            <section>
-              <h4>{address.address1}</h4>
-              <p>{address.city}, {address.state} {address.zip}</p>
-            </section>
-            <i className="fa fa-chevron-circle-right" />
-          </a>
-        </li>
-      )) : null
-    }
-  </ul>
-);
+import * as cgActions from '../../actions/cgActions';
+import * as appStateActions from '../../actions/appStateActions';
 
-Results.propTypes = {
-  addresses: PropTypes.any, // eslint-disable-line
-  handleClick: PropTypes.func
-};
-
-class SearchResults extends Component {
-
-  static propTypes = {
-    data: PropTypes.shape({
-      loading: PropTypes.bool.isRequired,
-      steps: PropTypes.object,
-      refetch: PropTypes.func
-    }).isRequired,
-    completeStep: PropTypes.func
-  };
-
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
-  state = {
-    workflowId: '',
-    loading: '',
-    results: []
-  }
-
-  componentWillMount() {
-    this.setState({ workflowId: localStorage.getItem('newWorkflowId') });
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps !== this.props) {
-      this.setState({ loading: newProps.data.loading, results: newProps.data.steps.data });
-    }
-  }
-
-  makeAddressSelection = (address) => {
-    this.props.completeStep({
-      variables: {
-        input: {
-          workflowId: localStorage.getItem('newWorkflowId'),
-          stepName: this.props.data.steps.name,
-          data: { stateCode: address.state, igdId: address.id }
-        }
-      }
-    }).then((updatedStep) => {
-      const workflow = updatedStep.data.completeStep;
-      if (workflow && workflow.link) {
-        this.props.data.refetch().then(() => {
-          this.context.router.push(`/quote/${workflow.link}`);
-        });
-      }
-    }).catch(error => console.log(error));
-  }
-
-
-  render() {
-    const { results } = this.state;
-
+const SearchResults = (props) => {
+  if (
+    props.tasks[props.appState.modelName] &&
+    props.tasks[props.appState.modelName].data.previousTask &&
+    props.tasks[props.appState.modelName].data.previousTask.name === 'searchAddress' &&
+    props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
+  ) {
+    const addresses = props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
     return (
-      <div className="fade-in">
-        <div className="survey-wrapper">
-          <Results addresses={results} handleClick={this.makeAddressSelection} />
-        </div>
-        <Footer />
-      </div>
+      <ul className="results result-cards">
+        {addresses
+          ? addresses.map((address, index) => (
+            <li id={address.id} key={index}>
+              <a onClick={() => props.handleSelectAddress(address, props)} tabIndex="-1">
+                <i className="card-icon fa fa-map-marker" />
+                <section>
+                  <h4>{address.physicalAddress.address1}</h4>
+                  <p>{address.physicalAddress.city}, {address.physicalAddress.state} {address.physicalAddress.zip}</p>
+                </section>
+                <i className="fa fa-chevron-circle-right" />
+              </a>
+            </li>
+            ))
+          : null}
+      </ul>
     );
   }
-}
+  if (
+    props.tasks[props.appState.modelName] &&
+    props.tasks[props.appState.modelName].data.activeTask &&
+    props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
+  ) {
+    const quoteResults = props.tasks[props.appState.modelName].data.previousTask.value.result;
+    const quote = quoteResults[0];
+    return (quote ? (
+      <div className="quote-list">
+              {/*add iteration of cards within this div*/}
+              <div id={quote._id} className="card">
+                <div className="icon-name">
+                  <i className="card-icon fa fa-user-circle" />
+                  <h4>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
+                </div>
+                <section>
+                  <ul>
+                    <li className="header">
+                      <span className="quote-no">Quote No.</span>
+                      <span className="property-address">Property Address</span>
+                      <span className="quote-state">Quote State</span>
+                      <span className="effctive-date">Effective Date</span>
+                      <span className="started-on">Started On</span>
+                      <span className="premium">Premium</span>
+                    </li>
+                    <li>
+                      <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1" className="quote-no">{quote.quoteNumber}</a>
+                      <span className="property-address">{`${quote.property.physicalAddress.address1}
+                        ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
+                        ${quote.property.physicalAddress.zip}
+                        `}</span>
+                      <span className="quote-state">{quote.quoteState}</span>
+                      <span className="effctive-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
+                      <span className="started-on">{moment.utc(quote.createdAt).format('YYYY-MM-DD')}</span>
+                      <span className="premium">$ [{quote.rating ? quote.rating.totalPremium : '-'}]</span>
+                    </li>
+                  </ul>
+                </section>
+              </div>
+      </div>
+    ) : null);
+  }
 
+  return <span />;
+};
 
-export default connect(null)(graphql(gql`
-    query GetActiveStep($workflowId:ID!){
-        steps(id: $workflowId) {
-            name
-            details {
-                name
-                value
-            }
-            showDetail
-            data {
-                ... on Address {
-                    address1
-                    city
-                    state
-                    zip
-                    id
-                }
-            }
-            type
-            completedSteps
-        }
-    }`,
-    { options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } } },
-    { name: 'activeStep' },
-)(graphql(gql `
-    mutation CompleteStep($input:CompleteStepInput) {
-        completeStep(input:$input) {
-            name
-            type
-            link
-        }
-    }
-`, { name: 'completeStep' })(SearchResults)));
+SearchResults.propTypes = {
+  appState: PropTypes.shape({
+    modelName: PropTypes.string
+  }),
+  tasks: PropTypes.shape(),
+  handleSelect: PropTypes.func,
+  handleSelectQuote: PropTypes.func
+};
 
-export { Results };
+const mapStateToProps = state => ({
+  tasks: state.cg,
+  appState: state.appState
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    cgActions: bindActionCreators(cgActions, dispatch),
+    appStateActions: bindActionCreators(appStateActions, dispatch)
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

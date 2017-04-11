@@ -9,6 +9,6 @@ describe('HiddenField', () => {
     };
     const wrapper = shallow(<HiddenField {...inputProps} />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
   });
 });

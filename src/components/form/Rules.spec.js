@@ -1,4 +1,4 @@
-import rules from './Rules';
+import rules, { combineRules } from './Rules';
 
 describe('Rules', () => {
   describe('required', () => {
@@ -42,6 +42,13 @@ describe('Rules', () => {
     });
     it('should return "is not a valid Date."', () => {
       expect(rules.date('')).to.equal('is not a valid Date.');
+    });
+  });
+
+  describe('range', () => {
+    it('should return undefined when value is not undefined', () => {
+      const ruleArray = combineRules(['range'], { min: 100, max: 20000 });
+      expect(ruleArray[0].length).to.equal(1);
     });
   });
 });

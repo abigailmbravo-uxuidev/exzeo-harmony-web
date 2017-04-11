@@ -1,29 +1,31 @@
 import React, { PropTypes } from 'react';
+import reduxFormField from './reduxFormField';
 
-const DisplayField = ({
-  name,
+export const DisplayInput = ({
   label,
-  value,
+  input,
   displayValue
 }) => (
   <div className="form-group">
-    <label htmlFor={name}>
+    <label htmlFor={input.name}>
       {label}
     </label>
     <input
       type="text"
-      name={name}
-      value={displayValue || value}
+      name={input.name}
+      value={displayValue || (!Number.isNaN(Number(input.value)) ? `$ ${input.value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : input.value)}
       readOnly
     />
   </div>
 );
 
-DisplayField.propTypes = {
+DisplayInput.propTypes = {
   displayValue: PropTypes.string,
-  name: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.any,// eslint-disable-line
+  input: PropTypes.shape({
+    name: PropTypes.string,
+    value: PropTypes.any // eslint-disable-line
+  })
 };
 
-export default DisplayField;
+export default reduxFormField(DisplayInput);

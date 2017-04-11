@@ -1,0 +1,83 @@
+exports[`test renders without crashing 1`] = `
+<div
+  className="email-modal active"
+  role="article">
+  <div
+    className="survey-wrapper">
+    <div
+      className="contact-message">
+      <div
+        className="card card-email">
+        <form
+          className="fade-in"
+          id="SendEmail"
+          noValidate={true}
+          onSubmit={false}>
+          <div
+            className="card-header">
+            <h4>
+              <i
+                className="fa fa-share-alt" />
+               Share Quote
+            </h4>
+          </div>
+          <div
+            className="card-block">
+            <div
+              className="form-group name name">
+              <label
+                htmlFor="name">
+                Name
+                   
+                
+              </label>
+              <input
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onDragStart={[Function]}
+                onDrop={[Function]}
+                onFocus={[Function]}
+                type="text"
+                value="" />
+            </div>
+            <div
+              className="form-group emailAddress emailAddr">
+              <label
+                htmlFor="emailAddr">
+                Email Address
+                   
+                
+              </label>
+              <input
+                name="emailAddr"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onDragStart={[Function]}
+                onDrop={[Function]}
+                onFocus={[Function]}
+                type="text"
+                value="" />
+            </div>
+          </div>
+          <div
+            className="card-footer">
+            <button
+              className="btn btn-secondary"
+              onClick={[Function]}
+              type="button">
+              Cancel
+            </button>
+            <button
+              className="btn btn-primary"
+              disabled={false}
+              type="submit">
+              Send Email
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

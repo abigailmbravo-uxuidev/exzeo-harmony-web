@@ -1,115 +1,71 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import localStorage from 'localStorage';
+
+import Footer from '../Common/Footer';
+import * as cgActions from '../../actions/cgActions';
+import * as appStateActions from '../../actions/appStateActions';
 import SearchBar from './SearchBar';
+import SearchResults from './SearchResults';
+import NoResults from './NoResults';
 
+const userTasks = {
+  handleSelectAddress: 'chooseAddress',
+  handleSelectQuote: 'chooseQuote'
+};
 
-class Search extends Component {
-  static propTypes = {
-    options: PropTypes.shape({
-      placeholder: PropTypes.string
-    }),
-    completeStep: PropTypes.func,
-    data: PropTypes.any, // eslint-disable-line
-    searchConfig: PropTypes.any // eslint-disable-line
-  }
-  static contextTypes = {
-    router: PropTypes.object
-  }
-  state = {
-    searchText: ''
-  }
+const handleSelectAddress = (address, props) => {
+  const workflowId = props.appState.instanceId;
+  const taskName = userTasks.handleSelectAddress;
+  const data = {
+    igdId: address.id,
+    stateCode: address.physicalAddress.state
+  };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
+};
 
-  handleChange = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
-    this.setState({ searchText: event.target.value });
-  }
+const handleSelectQuote = (quote, props) => {
+  const workflowId = props.appState.instanceId;
+  const taskName = userTasks.handleSelectQuote;
+  const data = {
+    quoteId: quote._id
+  };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
+};
 
-  handleSubmit = (event) => {
-    if (event && event.preventDefault) event.preventDefault();
-
-    this.props.completeStep({
-      variables: {
-        input: {
-          workflowId: localStorage.getItem('newWorkflowId'),
-          stepName: 'askAddress',
-          data: { address: this.state.searchText }
-        }
-      }
-    }).then((updatedStep) => {
-      const workflow = updatedStep.data.completeStep;
-      if (workflow && workflow.link) {
-        this.props.data.refetch().then(() => {
-          this.context.router.push(`${workflow.link}/${this.state.searchText}`);
-          this.setState({ searchText: '' });
-        });
-      }
-    }).catch(error => console.log(error));
-  }
-
-  clearSearch = () => {
-    this.setState({ searchText: '' });
-  }
-
-  render() {
-    const { options } = this.props;
-    const placeholder = options ? options.placeholder : 'Search...';
-
-    return (
-      <div className="search">
-        <SearchBar
-          placeholder={placeholder}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          searchText={this.state.searchText}
-          focus={this.props.searchConfig ? this.props.searchConfig.focus : false}
-        />
+const Search = () => (
+  <div className="search route-content">
+    <SearchBar />
+    <div className="survey-wrapper scroll">
+      <div className="results-wrapper">
+        <NoResults />
+        <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
       </div>
-    );
-  }
-}
+      <Footer />
+    </div>
+  </div>
+);
+
+Search.propTypes = {
+  appState: PropTypes.shape({
+    modelName: PropTypes.string,
+    instanceId: PropTypes.string,
+    workflowData: PropTypes.func
+  })
+};
 
 const mapStateToProps = state => ({
-  searchConfig: state.search.get('config')
+  tasks: state.cg,
+  appState: state.appState
 });
 
-export default connect(mapStateToProps)(
-  graphql(gql`query GetActiveStep($workflowId:ID!) {
-      steps(id: $workflowId) {
-          name
-          details {
-              name
-              value
-          }
-          showDetail
-          data {
-              ... on Property {
-                  physicalAddress {
-                      address1
-                  }
-              }
-              ... on Address {
-                  address1
-                  city
-                  state
-                  zip
-                  id
-              }
-          }
-          type
-          completedSteps
-      }
-    }`,
-    {
-      options: { variables: { workflowId: localStorage.getItem('newWorkflowId') } }
-    },
-    { name: 'activeStep' },
-)(graphql(gql `mutation CompleteStep($input:CompleteStepInput) {
-        completeStep(input:$input) {
-            name
-            type
-            link
-        }
-    }`, { name: 'completeStep' })(Search)));
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    cgActions: bindActionCreators(cgActions, dispatch),
+    appStateActions: bindActionCreators(appStateActions, dispatch)
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

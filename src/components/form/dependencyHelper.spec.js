@@ -302,8 +302,8 @@ describe('dependencyHelper', () => {
     };
     const result = dependencyHelper(sliderQuestion, data, values);
 
-    expect(result.min).to.equal(2000000);
-    expect(result.max).to.equal(2000000);
+    expect(result.min).toEqual(2000000);
+    expect(result.max).toEqual(2000000);
   });
 
   it('setup dependency info for value(percent)', () => {
@@ -347,7 +347,7 @@ describe('dependencyHelper', () => {
     };
     const result = dependencyHelper(valueQuestion, data, values);
 
-    expect(result.displayValue).to.equal('$ 1000');
+    expect(result.displayValue).toEqual('$ 1,000');
   });
   it('setup dependency info for value(no percent)', () => {
     const values = {
@@ -390,7 +390,7 @@ describe('dependencyHelper', () => {
     };
     const result = dependencyHelper(valueQuestion, data, values);
 
-    expect(result.displayValue).to.equal('$ 100000');
+    expect(result.displayValue).toEqual('$ 100,000');
   });
 
 
@@ -453,7 +453,7 @@ describe('dependencyHelper', () => {
     };
     const result = dependencyHelper(dependencyQuestion, data, values);
 
-    expect(result.displayValue).to.equal('$ 50000');
+    expect(result.displayValue).toEqual('$ 50,000');
   });
 
   it('setup dependency info for dependency(no percent)', () => {
@@ -515,7 +515,7 @@ describe('dependencyHelper', () => {
     };
     const result = dependencyHelper(dependencyQuestion, data, values);
 
-    expect(result.displayValue).to.equal('$ 5000000');
+    expect(result.displayValue).toEqual('$ 5,000,000');
   });
 
   it('setup dependency info for display', () => {
@@ -577,7 +577,7 @@ describe('dependencyHelper', () => {
     };
     let result = dependencyHelper(displayQuestion, data, values);
 
-    expect(result.displayValue).to.equal('$ 2500');
+    expect(result.displayValue).toEqual('$ 2,500');
 
     displayQuestion.conditional.display = [
       {
@@ -590,8 +590,8 @@ describe('dependencyHelper', () => {
 
     result = dependencyHelper(displayQuestion, data, values);
 
-    expect(result.hidden).to.equal(false);
-    expect(result.displayValue).to.equal('$ 2500');
+    expect(result.hidden).toEqual(false);
+    expect(result.displayValue).toEqual('$ 2,500');
 
     displayQuestion.conditional.display = [
       {
@@ -604,8 +604,8 @@ describe('dependencyHelper', () => {
 
     result = dependencyHelper(displayQuestion, data, values);
 
-    expect(result.hidden).to.equal(true);
-    expect(result.displayValue).to.equal('$ 2500');
+    expect(result.hidden).toEqual(true);
+    expect(result.displayValue).toEqual('$ 2,500');
 
     displayQuestion.conditional.display = [
       {
@@ -618,8 +618,8 @@ describe('dependencyHelper', () => {
 
     result = dependencyHelper(displayQuestion, data, values);
 
-    expect(result.hidden).to.equal(true);
-    expect(result.displayValue).to.equal('$ 2500');
+    expect(result.hidden).toEqual(true);
+    expect(result.displayValue).toEqual('$ 2,500');
 
     displayQuestion.conditional.display = [
       {
@@ -633,7 +633,7 @@ describe('dependencyHelper', () => {
     result = dependencyHelper(displayQuestion, data, values);
 
     expect(result.hidden).to.be.undefined;
-    expect(result.displayValue).to.equal('$ 2500');
+    expect(result.displayValue).toEqual('$ 2,500');
 
     displayQuestion.conditional.display = [{
       type: 'hidden',
@@ -648,6 +648,6 @@ describe('dependencyHelper', () => {
     }];
 
     result = dependencyHelper(displayQuestion, data, values);
-    expect(result.hidden).to.equal(true);
+    expect(result.hidden).toEqual(true);
   });
 });

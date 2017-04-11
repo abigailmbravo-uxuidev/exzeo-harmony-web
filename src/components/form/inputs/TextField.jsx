@@ -26,7 +26,7 @@ export const TextInput = ({
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
   const Error = touched && (error || warning) && (
-    <span style={{ color: 'red' }}>{error || warning}</span>
+    <span>{error || warning}</span>
   );
 
   const Label = label && (<label htmlFor={name}>

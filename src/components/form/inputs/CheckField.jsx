@@ -19,11 +19,12 @@ export const CheckInput = ({
   } = input;
 
   const formGroupStyles = classNames(
+    input.value ? 'active' : 'inactive' ,
     'form-group',
     { name },
     { disabled },
     { switch: isSwitch },
-    { styleName },
+    styleName,
   );
 
   const Hint = hint && (<FieldHint name={name} hint={hint} />);

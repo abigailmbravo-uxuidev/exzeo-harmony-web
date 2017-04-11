@@ -1,11 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import ErrorPopup from './ErrorPopup';
 
-describe('ErrorPopup', () => {
-  it('Should render when no props are passed in', () => {
-    const wrapper = shallow(<ErrorPopup />);
 
-    expect(wrapper).to.exist;
-  });
+const props = {
+  underwritingExceptions: [],
+  refereshUWReviewError: () => (false),
+  redirectToNewQuote: () => (false)
+};
+
+it('renders without crashing', () => {
+  const tree = renderer.create(
+    <ErrorPopup {...props} />
+  ).toJSON();
+  expect(tree).toMatchSnapshot();
 });

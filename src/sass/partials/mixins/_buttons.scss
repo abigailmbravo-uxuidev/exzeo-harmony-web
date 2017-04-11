@@ -11,7 +11,7 @@
   color: $color;
   background-color: $background;
   border-color: $border;
-  @include box-shadow($btn-box-shadow);
+  //@include box-shadow($btn-box-shadow);
 
   @include hover {
     color: $color;

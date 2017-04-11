@@ -20,6 +20,11 @@ export const SliderInput = ({
 
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
+  const handleChange = function (event) {
+    const val = Number(event.target.value.replace(/\D+/g, ''));
+    if (!Number.isNaN(val)) { input.onChange(val); }
+  };
+
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
@@ -44,8 +49,8 @@ export const SliderInput = ({
         <span className="range-value">
           <input
             type="text"
-            value={value}
-            onChange={input.onChange}
+            value={`$ ${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+            onChange={handleChange}
             name={name}
           />
         </span>

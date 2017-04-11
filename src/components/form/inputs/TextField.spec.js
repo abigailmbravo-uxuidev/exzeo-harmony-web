@@ -8,7 +8,7 @@ describe('TextInput', () => {
     const wrapper = shallow(<TextInput />);
     // console.log(wrapper.debug()); // Use for debugging test and seeing output
 
-    expect(wrapper.contains(<input type="text" />)).to.equal(true);
+    expect(wrapper.contains(<input type="text" />)).toEqual(true);
   });
 
   it('should render "text input" with label, when label and name are provided', () => {
@@ -23,7 +23,7 @@ describe('TextInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" name={inputProps.input.name} />,
       <label htmlFor={inputProps.input.name}>{inputProps.label}</label>
-    ])).to.equal(true);
+    ])).toEqual(true);
   });
 
   it('should render "text input" with FieldHint, when name, label, and hint are provided', () => {
@@ -40,7 +40,7 @@ describe('TextInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" name={inputProps.input.name} />,
       <label htmlFor={inputProps.input.name}>{inputProps.label}</label>
-    ])).to.equal(true);
+    ])).toEqual(true);
   });
 
   const types = [
@@ -59,7 +59,7 @@ describe('TextInput', () => {
       };
       const wrapper = shallow(<TextInput {...inputProps} />);
 
-      expect(wrapper.contains(<input type={type} />)).to.equal(true);
+      expect(wrapper.contains(<input type={type} />)).toEqual(true);
     });
   });
 
@@ -70,7 +70,7 @@ describe('TextInput', () => {
       }
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
-    expect(wrapper.contains(<input type="text" disabled />)).to.equal(true);
+    expect(wrapper.contains(<input type="text" disabled />)).toEqual(true);
   });
 
   it('should render "text input" with error, when touched and error are provided', () => {
@@ -85,7 +85,7 @@ describe('TextInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
       <span>{inputProps.meta.error}</span>
-    ])).to.equal(true);
+    ])).toEqual(true);
   });
 
   it('should render "text input" with error, when touched and warning are provided', () => {
@@ -100,7 +100,7 @@ describe('TextInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
       <span>{inputProps.meta.warning}</span>
-    ])).to.equal(true);
+    ])).toEqual(true);
   });
 
   it('should render "text input" without FieldHint, when name and hint are provided', () => {
@@ -112,7 +112,7 @@ describe('TextInput', () => {
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
 
-    expect(wrapper.find(FieldHint)).to.have.length(0);
+    expect(wrapper.find(FieldHint).length).toEqual(0);
   });
 
   // it('should render "text input" without error, when meta with !touched is provided');

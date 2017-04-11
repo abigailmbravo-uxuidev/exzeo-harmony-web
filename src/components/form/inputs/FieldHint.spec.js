@@ -10,7 +10,7 @@ describe('FieldHint', () => {
     };
     const wrapper = shallow(<FieldHint {...hintProps} />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
   });
 
   // TODO: Check renders

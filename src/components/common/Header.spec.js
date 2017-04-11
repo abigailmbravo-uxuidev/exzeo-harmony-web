@@ -1,11 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import Header from './Header';
 
-describe('Header', () => {
-  it('Should render when no props are passed in', () => {
-    const wrapper = shallow(<Header />);
-
-    expect(wrapper).to.exist;
-  });
+it('renders without crashing', () => {
+  const tree = renderer.create(
+    <Header />
+  ).toJSON();
+  expect(tree).toMatchSnapshot();
 });

@@ -1,11 +1,13 @@
-/* eslint import/no-mutable-exports:0 jsx-a11y/label-has-for:0 */
-/* eslint no-class-assign :0 */
 import React, { PropTypes } from 'react';
-import { reduxForm, Form } from 'redux-form';
-import TextField from '../form/inputs/TextField';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { reduxForm, Form, propTypes } from 'redux-form';
+import TextField from '../Form/inputs/TextField';
+import * as cgActions from '../../actions/cgActions';
+import * as appStateActions from '../../actions/appStateActions';
 
-let EmailPopup = ({ submitting, showEmailPopup, primaryButtonHandler, secondaryButtonHandler, handleSubmit }) => (
-  <div className={showEmailPopup === true ? 'email-modal active' : 'email-modal'} role="article">
+const EmailPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
+  <div className="email-modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
         <div className="card card-email">
@@ -28,16 +30,31 @@ let EmailPopup = ({ submitting, showEmailPopup, primaryButtonHandler, secondaryB
   </div>
 );
 
-EmailPopup = reduxForm({
-  form: 'ShareEmail' // a unique identifier for this form
-})(EmailPopup);
-
 EmailPopup.propTypes = {
-  submitting: PropTypes.bool,
-  secondaryButtonHandler: PropTypes.func,
+  ...propTypes,
   primaryButtonHandler: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  showEmailPopup: PropTypes.bool
+  secondaryButtonHandler: PropTypes.func
 };
 
-export default EmailPopup;
+// ------------------------------------------------
+// redux mapping
+// ------------------------------------------------
+const mapStateToProps = state => ({
+  tasks: state.cg,
+  appState: state.appState
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    cgActions: bindActionCreators(cgActions, dispatch),
+    appStateActions: bindActionCreators(appStateActions, dispatch)
+  }
+});
+
+// ------------------------------------------------
+// wire up redux form with the redux connect
+// ------------------------------------------------
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'SendEmail'
+})(EmailPopup));
+

@@ -7,7 +7,7 @@ describe('SelectField', () => {
   it('should render "select input" when nothing is provided', () => {
     const wrapper = shallow(<SelectField />);
     expect(wrapper).to.exist;
-    expect(wrapper.find('option')).to.have.length(0);
+    expect(wrapper.find('option').length).toEqual(0);
   });
 
   it('should render FieldHint when provided with name and hint', () => {
@@ -18,7 +18,7 @@ describe('SelectField', () => {
       hint: 'testing'
     };
     const wrapper = shallow(<SelectField {...inputProps} />);
-    expect(wrapper.find(FieldHint)).to.have.length(1);
+    expect(wrapper.find(FieldHint).length).toEqual(1);
   });
 
   it('should render "select input" with answers when answers are provided', () => {
@@ -35,7 +35,7 @@ describe('SelectField', () => {
 
     expect(wrapper).to.exist;
     // Need to take into account blank option
-    expect(wrapper.find('option')).to.have.length((4));
+    expect(wrapper.find('option').length).toEqual((4));
   });
 
   // TODO: Check renders

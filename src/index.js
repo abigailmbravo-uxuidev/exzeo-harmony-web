@@ -1,43 +1,21 @@
-/* globals document */
-/* eslint react/jsx-filename-extension:0 */
+// app.js runs on localhost:8000
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
-import axios from 'axios';
-import configureStore from './store/configureStore';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { persistStore } from 'redux-persist';
+import { asyncSessionStorage } from 'redux-persist/storages';
+import Routes from './routes';
 import { client } from './reducers';
-import AppConnected from './containers/App';
+import configureStore from './store/configureStore';
+
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-import './css/typtap-theme.min.css';
-
-const auth0 = axios.create({
-  baseURL: 'https://harmony.auth0.com/api/v2',
-  headers: {
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ3bEVlckVCazU2YWh2UnhiTERHczFoUnBTcUNTSHNLTyIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiXX19LCJpYXQiOjE0ODI5NzE3NzYsImp0aSI6IjQ2NGQ5YWY3NmNjODMxMWJkNWVmNDYzNGZkODc1YmJhIn0.E2Il-xBY0gkQ4WvhcKmldyxUGLPdCXAj-2nN_gwcrmk'
-  }
-});
-
-auth0({
-  url: 'users',
-  params: {
-    per_page: 10,
-    page: 0,
-    include_totals: true,
-    q: 'identities.connection="Username-Password-Authentication"'
-  }
-// })
-// .then((response) => {
-//   console.log(response.data); // eslint-disable-line
-// })
-// .catch((error) => {
-//   console.log(error); // eslint-disable-line
-});
+import './css/typtap-theme.css';
 
 const store = configureStore();
+persistStore(store, { storage: asyncSessionStorage });
 
-ReactDOM.render(
-  <ApolloProvider client={client} store={store}>
-    <AppConnected />
-  </ApolloProvider>,
-  document.getElementById('root'),
+const holder = document.getElementById('root');
+render(
+  <Provider client={client} store={store}><Routes store={store} /></ Provider>,
+  holder
 );

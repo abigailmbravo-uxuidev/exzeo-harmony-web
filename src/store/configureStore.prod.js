@@ -1,13 +1,20 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './../reducers';
+import { autoRehydrate } from 'redux-persist';
+import { enableBatching } from 'redux-batched-actions';
+import rootReducer, { client } from './../reducers';
+
+const middleware = [thunk, client.middleware()];
 
 export default function configureStore(initialState) {
   return createStore(
-    rootReducer,
+    enableBatching(rootReducer),
     initialState,
     compose(
-      applyMiddleware(thunk),
-    ),
+      applyMiddleware(...middleware),
+      autoRehydrate({
+        log: true
+      })
+    )
   );
 }

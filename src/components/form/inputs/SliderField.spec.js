@@ -22,7 +22,7 @@ describe('SliderInput', () => {
     };
     const wrapper = shallow(<SliderInput {...inputProps} />);
 
-    expect(wrapper.find(FieldHint)).to.have.length(1);
+    expect(wrapper.find(FieldHint).length).toEqual(1);
   });
 
   // TODO: Test min, max, and all other props with on change

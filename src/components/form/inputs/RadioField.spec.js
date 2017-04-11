@@ -8,7 +8,7 @@ describe('RadioField', () => {
   it('should render "radio group"', () => {
     const wrapper = shallow(<RadioInput />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
   });
   it('should render FieldHint when provided with name and hint', () => {
     const inputProps = {
@@ -19,7 +19,7 @@ describe('RadioField', () => {
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
 
-    expect(wrapper.find(FieldHint)).to.have.length(1);
+    expect(wrapper.find(FieldHint).length).toEqual(1);
   });
   it('should render DisplayField when provided with displayValue', () => {
     const inputProps = {
@@ -29,7 +29,7 @@ describe('RadioField', () => {
 
     expect(wrapper.containsMatchingElement(
       <input type="text" value={inputProps.displayValue} readOnly />
-    )).to.equal(true);
+    )).toEqual(true);
   });
   it('should render RadioOption of length 2 when provided with 2 answers', () => {
     const inputProps = {
@@ -45,6 +45,6 @@ describe('RadioField', () => {
       }]
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
-    expect(wrapper.find(RadioOption)).to.have.length(3);
+    expect(wrapper.find(RadioOption).length).toEqual(3);
   });
 });

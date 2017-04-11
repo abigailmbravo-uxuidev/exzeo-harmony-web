@@ -24,7 +24,7 @@ describe('RadioOption', () => {
         checked
       />,
       <label htmlFor={inputProps.name}><span>{inputProps.answer.answer}</span></label>
-    ])).to.equal(true);
+    ])).toEqual(true);
   });
 
   it('should trigger onChange when input is changed', () => {
@@ -44,8 +44,8 @@ describe('RadioOption', () => {
     };
     const wrapper = shallow(<RadioOption {...inputProps} />);
     wrapper.find('input').simulate('change');
-    expect(optionValue).to.equal(`${inputProps.answer.answer}`);
-    expect(wrapper.find('input').props().value).to.equal(`${inputProps.answer.answer}`);
+    expect(optionValue).toEqual(`${inputProps.answer.answer}`);
+    expect(wrapper.find('input').props().value).toEqual(`${inputProps.answer.answer}`);
   });
 
   it('should trigger onClick when wrapper div is clicked', () => {
@@ -65,7 +65,7 @@ describe('RadioOption', () => {
     };
     const wrapper = shallow(<RadioOption {...inputProps} />);
     wrapper.find(`.radio-column-${inputProps.size}`).simulate('click');
-    expect(optionValue).to.equal(`${inputProps.answer.answer}`);
-    expect(wrapper.find('input').props().value).to.equal(`${inputProps.answer.answer}`);
+    expect(optionValue).toEqual(`${inputProps.answer.answer}`);
+    expect(wrapper.find('input').props().value).toEqual(`${inputProps.answer.answer}`);
   });
 });

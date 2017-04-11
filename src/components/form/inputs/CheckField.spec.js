@@ -7,9 +7,9 @@ describe('CheckInput', () => {
   it('should render "checkbox input" when nothing is provided, with default props', () => {
     const wrapper = shallow(<CheckInput />);
 
-    expect(wrapper.instance().props.input.value).to.equal(false);
+    expect(wrapper.instance().props.input.value).toEqual(false);
     expect(wrapper.instance().props.input.onChange).to.exist;
-    expect(wrapper.containsMatchingElement(<input type="checkbox" />)).to.equal(true);
+    expect(wrapper.containsMatchingElement(<input type="checkbox" />)).toEqual(true);
   });
 
   it('should render "checkbox input" with label, when label and name are provided', () => {
@@ -21,7 +21,7 @@ describe('CheckInput', () => {
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
 
-    expect(wrapper.containsMatchingElement(<input type="checkbox" />)).to.equal(true);
+    expect(wrapper.containsMatchingElement(<input type="checkbox" />)).toEqual(true);
   });
 
   it('should render "checkbox input" with FieldHint, when name, label, and hint are provided', () => {
@@ -38,13 +38,13 @@ describe('CheckInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="checkbox" name={inputProps.input.name} />,
       <label htmlFor={inputProps.input.name}>{inputProps.label}</label>
-    ])).to.equal(true);
+    ])).toEqual(true);
   });
 
   it('should render switch div if isSwitch is provided', () => {
     const wrapper = shallow(<CheckInput isSwitch />);
 
-    expect(wrapper.containsMatchingElement(<div className="switch-div" />)).to.equal(true);
+    expect(wrapper.containsMatchingElement(<div className="switch-div" />)).toEqual(true);
   });
 
   it('should fire off onChange and change value when label is clicked, if onChange and value are provided', () => {
@@ -62,7 +62,7 @@ describe('CheckInput', () => {
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
     wrapper.find('label').simulate('click');
-    expect(checkValue).to.equal(true);
+    expect(checkValue).toEqual(true);
   });
 
   it('should fire off onChange and change value when input is clicked, if onChange and value are provided', () => {
@@ -80,7 +80,7 @@ describe('CheckInput', () => {
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
     wrapper.find('[name="testing"]').simulate('change');
-    expect(checkValue).to.equal(true);
+    expect(checkValue).toEqual(true);
   });
 
   // TODO: Check renders

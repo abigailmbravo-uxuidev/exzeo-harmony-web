@@ -1,6 +1,0 @@
-mutation StartWorkflow($input:WorkflowInput) {
-  startWorkflow(input:$input) {
-    id
-    activeStep
-  }
-}

@@ -33,6 +33,7 @@ export default function reduxFormField(fieldComponent) {
       type: PropTypes.oneOf([
         'bool',
         'date',
+        'display',
         'email',
         'hidden',
         'number',
@@ -44,7 +45,8 @@ export default function reduxFormField(fieldComponent) {
         'slider',
         'string',
         'tel',
-        'text'
+        'text',
+        'currency'
       ]),
 
       /**
@@ -73,10 +75,12 @@ export default function reduxFormField(fieldComponent) {
         name,
         styleName,
         type,
-        validations
+        validations,
+        min,
+        max
       } = this.props;
 
-      const ruleArray = combineRules(validations);
+      const ruleArray = combineRules(validations, { min, max });
 
       return (
         <Field

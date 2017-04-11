@@ -1,8 +1,22 @@
-import { Map } from 'immutable';
+import {
+  Map
+} from 'immutable';
 
 export default {
-  auth: new Map({}),
-  features: new Map({}),
+  user: {
+    isAuthenticated: false,
+    token: ''
+  },
   search: new Map({}),
-  details: new Map({})
+  workflowData: {},
+  appState: {
+    data: {
+      submitting: false,
+      updateWorkflowDetails: false
+    }
+  },
+  navigation: {
+    location: null
+  },
+  error: {}
 };

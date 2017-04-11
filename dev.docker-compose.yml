@@ -1,0 +1,38 @@
+version: "2"
+services:
+  harmony-web:
+    build:
+      context: .
+      dockerfile: dev.dockerfile
+    environment:
+      - PORT=80
+      - REACT_APP_API_URL=http://www.harmony-ins.com/api
+    ports:
+     - "3000:80"
+  heimdall:
+    image: exzeo/heimdall:develop
+    environment:
+      - PORT=80
+      - MONGO_URL=mongodb://mongo/heimdall
+    depends_on:
+      - mongo
+  harmony-api:
+    image: myapi_my-api
+    command: npm run dev
+    container_name: harmony-api
+      - PORT=80
+      - CG_URL=http://cg.harmony-ins.com
+      - CASACLUE_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3Rjb25zdW1lckBleHplby5jb20iLCJrZXkiOiJBT3hxWXoyNmRycVp6aW5SQW1UbDNvSTNSOXliMTc5R3NJN1A5RHl2cjcrVjhKRUxIdWdkYWxaK1NjYm9NUEtmRUE9PSIsImlzcyI6IkNvbnN1bWVyYXBpIiwiYXVkIjoiaHR0cHM6Ly9jb25zdW1lcnFhLmNhc2FjbHVlLmNvbSIsImV4cCI6MTQ5ODQwNTcyMSwibmJmIjoxNDgyODUzNzIxfQ.kc-FudLXIA6FE8OCJcyqRM_sG6Nbz9juksOaHNCgmsw
+  mongo:
+    image: "mongo:3.2"
+    container_name: mongo
+    ports:
+      - "27017:27017"
+  bifrost:
+    image: exzeo/bifrost:develop
+    command: /usr/local/openresty/nginx/sbin/nginx
+    ports:
+      - "4000:3000"
+    depends_on:
+      - harmony-web
+      - harmony-api

@@ -14,7 +14,8 @@ import {
 const FieldGenerator = ({
   question,
   data,
-  values
+  values,
+  onChange
 }) => {
   const fieldOptions = dependencyHelper(question, data, values);
 
@@ -22,10 +23,13 @@ const FieldGenerator = ({
     ...fieldOptions,
     hint: fieldOptions.description,
     label: fieldOptions.question,
-    type: fieldOptions.answerType
+    type: fieldOptions.answerType,
+    onChange
   };
 
   if (inputProps.hidden) inputProps.type = 'hidden';
+  if (inputProps.display) inputProps.type = 'display';
+  if (inputProps.remove) inputProps.type = 'remove';
 
   switch (inputProps.type) {
     case 'select':
@@ -51,6 +55,8 @@ const FieldGenerator = ({
       return <SliderField {...inputProps} />;
     case 'text':
     case 'date':
+    case 'number':
+    case 'password':
       return <TextField {...inputProps} />;
     case 'display':
       return <DisplayField {...inputProps} />;
@@ -58,6 +64,8 @@ const FieldGenerator = ({
       return <FormHeading {...inputProps} />;
     case 'hidden':
       return <HiddenField {...inputProps} />;
+    case 'remove':
+      return null;
     default:
       return <RadioField {...inputProps} segmented />;
   }
@@ -69,6 +77,7 @@ FieldGenerator.propTypes = {
     description: PropTypes.string,
     answerType: PropTypes.string
   }),
+  onChange: PropTypes.func,
   data: PropTypes.any, // eslint-disable-line
   values: PropTypes.any, // eslint-disable-line
 };

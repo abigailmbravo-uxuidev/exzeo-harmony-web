@@ -14,6 +14,7 @@ input[type="submit"] {
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
+  text-transform: uppercase;
   border: $input-btn-border-width solid transparent;
   font-weight: $btn-font-weight;
   line-height: $btn-line-height;
@@ -30,6 +31,10 @@ input[type="submit"] {
     &:focus {
       @include tab-focus();
     }
+  }
+
+  &.btn-sm {
+      font-size: $font-size-sm;
   }
 
   &.focus {
@@ -75,6 +80,10 @@ input[type="submit"] {
   @include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
 }
 
+.btn-action {
+    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+
 .btn-info {
   @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
 }
@@ -92,7 +101,7 @@ input[type="submit"] {
 }
 
 .btn-link {
-  @include button-variant($btn-link-color, $btn-link-bg, $btn-link-border);
+  @include button-variant($btn-primary-bg, $btn-link-bg, $btn-link-border);
 
   &:hover {
       text-decoration: none;

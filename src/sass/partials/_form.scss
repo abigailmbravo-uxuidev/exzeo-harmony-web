@@ -1,3 +1,4 @@
+
 @import "_variables";
 @import "utilities/_borders"; // scss-lint:disable QualifyingElement
 //
@@ -66,6 +67,7 @@
       // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
       opacity: 1;
       color: $input-color-placeholder;
+      font-style: italic;
     }
     // Disabled and read-only inputs
     //
@@ -84,6 +86,17 @@
     &[disabled="disabled"] {
       cursor: $cursor-disabled;
     }
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: $padding;
+    border-width: 0;
+    border-bottom: 2px solid $cool-gray-03;
+    border-radius: 0;
+    background: $white;
+    box-shadow: none;
   }
 
   select {
@@ -137,6 +150,7 @@
   }
 
   .form-group {
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: $form-group-margin-bottom;
@@ -209,6 +223,11 @@
         display: flex;
         flex-direction: row;
 
+        @include for-phone-only {
+            flex-direction: column;
+
+        }
+
         div {
           display: flex;
           flex-direction: column;
@@ -216,24 +235,22 @@
           flex-grow: 1;
           flex-shrink: 0;
 
-
-
           &.radio-column-1 {}
 
           &.radio-column-2 {
-            width: 50%;
+            //width: 50%;
           }
 
           &.radio-column-3 {
-            width: 33.33%;
+            //width: 33.33%;
           }
 
           &.radio-column-4 {
-            width: 25%;
+            //width: 25%;
           }
 
           &.radio-column-5 {
-            width: 20%;
+            //width: 20%;
           }
 
           &:hover {
@@ -259,19 +276,12 @@
               -webkit-filter: drop-shadow(0 0 4px rgba($green, 0.8));
               filter: drop-shadow(0 0 4px rgba($green, 0.8));
             }
-
-            // .label-segmented {
-            //     span {
-            //         color: $white;
-            //         background: $bright-blue;
-            //     }
-            // }
           }
 
           .label-segmented {
             display: flex;
             flex-direction: column;
-            border-right: 1px solid $warm-gray-01;
+            border-right: 2px solid $white;
             flex-grow: 1;
             flex-shrink: 0;
 
@@ -291,7 +301,11 @@
               align-items: center;
               @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, 0);
               @include transition(all .2s ease-in-out);
-              @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+              @include button-variant($warm-gray-08, $warm-gray-02, $warm-gray-02);
+
+              @include for-phone-only {
+                  border-radius: $border-radius;
+              }
 
               &,
               &.active,
@@ -309,7 +323,7 @@
               &:checked {
                 + span {
                   color: $white;
-                  background: $bright-blue;
+                  background: $bright-blue-darken-04;
                 }
               }
             }
@@ -319,6 +333,10 @@
         div:first-child {
           span {
             border-radius: $border-radius 0 0 $border-radius;
+
+            @include for-phone-only {
+                border-radius: $border-radius;
+            }
           }
         }
 
@@ -329,6 +347,10 @@
 
           span {
             border-radius: 0 $border-radius $border-radius 0;
+
+            @include for-phone-only {
+                border-radius: $border-radius;
+            }
           }
         }
 
@@ -350,13 +372,16 @@
 
           .column-3 {
               width: 33.33%;
-              padding: 0 ($padding*2);
+              padding: 0;
+              border-right: 2px solid $white;
 
               dt {
+                padding: (.25*$padding) $padding;
 
                   span {
                       font-size: $font-size-h4;
                       display: none;
+
 
                       @include for-phone-only {
                           display: block;
@@ -366,7 +391,6 @@
 
               dd {
                   padding: (.25*$padding) $padding;
-                  margin: 0 (-$padding)
               }
 
               @include for-phone-only {
@@ -467,17 +491,19 @@
 
           &:checked {
             + div.switch-div {
-              background-color: $bright-blue;
+              background-color: $bright-blue-darken-04;
 
               &:before {
-                -webkit-transform: translateX(1.5rem);
-                -ms-transform: translateX(1.5rem);
-                transform: translateX(1.5rem);
+                -webkit-transform: translateX(2rem);
+                -ms-transform: translateX(2rem);
+                transform: translateX(2rem);
+                border-color: $cool-gray-01;
+                background-color: lighten($cool-gray-00, 10%);
               }
 
               &:after {
-                top: 0.125rem;
-                left: 0.25rem;
+                top: 0.25rem;
+                left: 0.5rem;
                 content: "Yes";
                 color: $white;
               }
@@ -495,41 +521,42 @@
 
         div.switch-div {
           position: relative;
-          width: 2.5rem;
-          height: 1rem;
+          width: 3.5rem;
+          height: 1.5rem;
           margin: 0.225rem 0;
           cursor: pointer;
           -webkit-transition: 0.4s;
           transition: 0.4s;
-          border-radius: 0.5rem;
+          border-radius: 0.75rem;
           background: $warm-gray-03;
-          flex-basis: 2.5rem;
+          flex-basis: 3.5rem;
           flex-grow: 0;
           flex-shrink: 0;
+          color: $warm-gray-08;
 
           &:before {
             position: absolute;
             z-index: 2;
-            width: 1rem;
-            height: 1rem;
+            width: 1.5rem;
+            height: 1.5rem;
             content: "";
             -webkit-transition: 0.4s;
             transition: 0.4s;
-            border: 1px solid $warm-gray-05;
+            border: 1px solid $cool-gray-01;
             border-radius: 50%;
-            background-color: white;
+            background-color: lighten($cool-gray-00, 10%);
             box-shadow: $input-box-shadow;
+            line-height: 1;
           }
 
           &:after {
             position: absolute;
             z-index: 1;
-            top: 0.125rem;
-            left: 1.25rem;
+            top: 0.25rem;
+            left: 2rem;
             content: "No";
             font-size: 0.7rem;
             font-weight: $font-weight-bold;
-            line-height: 1;
           }
         }
       }
@@ -588,7 +615,6 @@
           }
 
           &:before {
-            border-color: $warm-gray-02;
             border-color: $red;
             background-color: $red-lighten-03;
           }
@@ -634,6 +660,12 @@
                   width: 9rem;
                   border-top-left-radius: .125rem;
                   border-bottom-left-radius: .125rem;
+
+                  @include for-phone-only {
+                      left: -.75rem;
+                      font-size: .875rem;
+                      width: 8rem;
+                  }
               }
               &:after {
                   content:'';
@@ -645,6 +677,116 @@
                   border-bottom: .75rem solid transparent;
                   top: .25rem;
                   left: 8.75rem;
+
+                  @include for-phone-only {
+                      left: 7.25rem;
+                      border-top: .6875rem solid transparent;
+                      border-bottom: .6875rem solid transparent;
+                  }
+              }
+
+              div {
+                      margin-right: .5rem;
+              }
+              span {
+                      margin-right: .5rem;
+                      height: 1px;
+                      background: $warm-gray-02;
+                      flex-grow: 1;
+                      position: relative;
+                      cursor: pointer;
+
+                      &:before {
+                          font: normal normal normal 1rem $font-family-icon;
+                          content: '\f14a';
+                          position: absolute;
+                          left: -.75rem;
+                          background: $yellow;
+                          color: $yellow-lighten-05;
+                          display: block;
+                          padding: .25rem;
+                          top: -.75rem;
+                          text-align: center;
+                          width: 1.5rem;
+                          border-top-left-radius: .125rem;
+                          border-bottom-left-radius: .125rem;
+                      }
+                      &:after {
+                          content:'';
+                          position: absolute;
+                          width: 0;
+                          height: 0;
+                          border-top: .75rem solid transparent;
+                          border-left: 1rem solid $yellow;
+                          border-bottom: .75rem solid transparent;
+                          top: -.75rem;
+                          left: .75rem;
+                      }
+              }
+              input[type="checkbox"] {
+
+                  &:checked {
+                      ~ span {
+                          &:before {
+                              //content: '\f14a';
+                              color: $green;
+                              background: $warm-gray-02;
+                          }
+                          &:after {
+                              border-left-color: $warm-gray-02;
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      &.confirm {
+          flex-direction: column;
+          position: relative;
+
+          label {
+              justify-content: flex-start;
+              flex-direction: row-reverse;
+              margin-right: 2rem;
+
+              &:before {
+                  font: normal normal normal 1rem $font-family-sans-serif;
+                  content: 'CONFIRM HERE';
+                  line-height: 1;
+                  position: absolute;
+                  left: -.25rem;
+                  background: $orange-lighten-01;
+                  color: $red-darken-02;
+                  display: block;
+                  padding: .25rem;
+                  top: .25rem;
+                  text-align: center;
+                  width: 9rem;
+                  border-top-left-radius: .125rem;
+                  border-bottom-left-radius: .125rem;
+
+                  @include for-phone-only {
+                      left: -.75rem;
+                      font-size: .875rem;
+                      width: 8rem;
+                  }
+              }
+              &:after {
+                  content:'';
+                  position: absolute;
+                  width: 0;
+                  height: 0;
+                  border-top: .75rem solid transparent;
+                  border-left: 1rem solid $orange-lighten-01;
+                  border-bottom: .75rem solid transparent;
+                  top: .25rem;
+                  left: 8.75rem;
+
+                  @include for-phone-only {
+                      left: 7.25rem;
+                      border-top: .6875rem solid transparent;
+                      border-bottom: .6875rem solid transparent;
+                  }
               }
 
               div {
@@ -703,7 +845,33 @@
           }
       }
     }
+
+    &.error {
+        span {
+            color: $red;
+        }
+    }
+
+    &.info {
+        span {
+            color: $green;
+        }
+    }
+
   }
+
+  .form-group.segmented.BillType {
+
+    .segmented-answer-wrapper {
+
+        div {
+          width: 33.33%
+        }
+
+    }
+
+  }
+
 
   .submit-button-group {
     display: flex;
@@ -716,6 +884,7 @@
     }
   }
 
+/*
   &.disabled,
   &.disabled.invalid,
   &[disabled="disabled"] {
@@ -729,7 +898,7 @@
       color: $text-muted;
     }
   }
-
+*/
 
 ul.list,
 ul.results {
@@ -823,6 +992,7 @@ ul.results {
       display: flex;
       flex-direction: row;
       margin-bottom: $padding/2;
+      border-bottom: none;
 
       a {
         z-index: 1;
@@ -855,11 +1025,11 @@ ul.results {
         i {
           display: flex;
           flex-direction: row;
-          width: 1rem;
-          height: 1rem;
-          font-size: $font-size-h4;
+          width: 2rem;
+          height: 2rem;
+          font-size: $font-size-h2;
           align-items: center;
-          justify-content: flex-end;
+          justify-content: center;
           @include transition(all .2s ease-in-out);
         }
 

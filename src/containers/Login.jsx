@@ -1,64 +1,133 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { reduxForm, Form, propTypes } from 'redux-form';
 import { Redirect } from 'react-router';
-import * as authActions from '../actions/authActions';
 
-class Login extends Component {
-  static propTypes = {
-    actions: PropTypes.shape({
-      login: PropTypes.func
-    }),
-    auth: PropTypes.shape({
-      get: PropTypes.func
-    })
+import Loader from '../components/Common/Loader';
+import FieldGenerator from '../components/Form/FieldGenerator';
+import * as userActions from '../actions/userActions';
+import * as appStateActions from '../actions/appStateActions';
+import Base from './Base';
+
+const handleLoginSubmit = (data, dispatch, props) => {
+  const workflowId = props.appState.instanceId;
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, loginSubmitting: true });
+  props.actions.user.login(data)
+  .then(() => {
+    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: false, loginSubmitting: false });
+  });
+};
+
+const validate = (values) => {
+  const errors = {};
+  if (!values.username) {
+    errors.username = 'Required';
   }
-  state = {
-    username: '',
-    password: ''
+  if (!values.password) {
+    errors.password = 'Required';
   }
-  handleChange = (event) => {
-    const state = this.state;
-    state[event.target.name] = event.target.value;
-    this.setState(state);
+  return errors;
+};
+
+const formQuestions = [
+  {
+    description: 'Please enter your user name or email address',
+    question: 'User Name',
+    answerType: 'text',
+    name: 'username'
+  },
+  {
+    description: 'Please enter your password',
+    question: 'Password',
+    answerType: 'password',
+    type: 'password',
+    name: 'password'
   }
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.actions.login(this.state);
+];
+
+
+const Login = (props) => {
+  const errorResult = (props.user.error) ?
+  (<div className="form-group error"><span>
+    <i className="fa fa-exclamation-triangle" /> User name or password is incorrect
+  </span></div>) : null;
+
+  const loggedOutResult = (props.user.loggedOut) ?
+  (<div className="form-group info"><span>
+    <i className="fa fa-sign-out" /> You have been logged out
+  </span></div>) : null;
+
+  const isAuthenticatedResult = (props.user.isAuthenticated) ?
+  (<Redirect to={props.redirectUrl} />) : null;
+
+  const { fieldValues, handleSubmit } = props;
+  if (props.appState.data && props.appState.data.loginSubmitting) {
+    return <Loader />;
   }
-  render() {
-    return (
-      <div className="login" role="article">
-        <div className="card fade-in">
-          <form className="card-block" onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="exampleInputText">User name</label>
-              <input type="text" value={this.state.username} name="username" onChange={this.handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="exampleInputText">Password</label>
-              <input type="password" value={this.state.password} name="password" onChange={this.handleChange} />
-            </div>
-            <button className="btn btn-success">Login</button>
-          </form>
-          {
-            this.props.auth.get('token') ? (
-              <Redirect to="/" />
-            ) : null
-          }
+  return (<Base>
+    <div className="login" role="article">
+      <div className="card">
+        <div className="card-header">
+          <h5>Enter your user name and password to login</h5>
         </div>
-        <div className="modal fade-in" />
+        <Form
+          className="card-block"
+          id="Login"
+          onSubmit={handleSubmit(handleLoginSubmit)}
+          noValidate
+        >
+          { isAuthenticatedResult }
+          { errorResult }
+          { loggedOutResult }
+
+          {formQuestions.map((question, index) =>
+            <FieldGenerator
+              question={question}
+              values={fieldValues}
+              key={index}
+            />
+          )}
+        </Form>
+        <div className="card-footer">
+          <button
+            className="btn btn-success"
+            type="submit"
+            form="Login"
+            disabled={props.loginSubmitting}
+          >
+            <i className="fa fa-sign-in" /> Login
+          </button>
+        </div>
       </div>
-    );
-  }
-}
+      <div className="modal" />
+    </div>
+  </Base>);
+};
+
+Login.propTypes = {
+  ...propTypes,
+  user: PropTypes.shape({
+    isAuthenticated: PropTypes.boolean,
+    error: PropTypes.object,
+    loggedOut: PropTypes.boolean
+  }),
+  redirectUrl: PropTypes.string
+};
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  user: state.user,
+  appState: state.appState
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(authActions, dispatch)
+  actions: {
+    user: bindActionCreators(userActions, dispatch),
+    appStateActions: bindActionCreators(appStateActions, dispatch)
+  }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'Login',
+  validate
+})(Login));

@@ -1,19 +1,24 @@
-FROM mhart/alpine-node:6.9
-
+FROM mhart/alpine-node
 MAINTAINER Exzeo
 
 ENV NODE_ENV=production
+ENV REACT_APP_API_URL=http://www.harmony-ins.com/api
 
-RUN mkdir -p /var/www
-WORKDIR   /var/www
-COPY     . /var/www
+RUN mkdir -p /app
+RUN mkdir -p /app/src
+RUN mkdir -p /app/src/css
 
-RUN     npm install && npm run build && \
-        rm -rf node_modules && \
-        rm -rf src && \
-        rm -rf .docker && \
-        rm -rf public && \
-        rm -rf scripts && \
-        npm install --production
+WORKDIR /app
+
+COPY package.json /app/
+
+COPY .  /app
+
+WORKDIR /app
+
+RUN apk update && apk --no-cache add bash libc6-compat nano && \
+  npm install && \
+  npm run build && \
+  npm cache clean
 
 ENTRYPOINT ["node", "server"]

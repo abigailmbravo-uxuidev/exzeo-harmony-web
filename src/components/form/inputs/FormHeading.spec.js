@@ -9,6 +9,6 @@ describe('FormHeading', () => {
     };
     const wrapper = shallow(<FormHeading {...headingProps} />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
   });
 });
