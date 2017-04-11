@@ -9,7 +9,6 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=runBoth
       - REACT_APP_API_URL=http://www.harmony-ins.com/api
-      - REACT_APP_GRAPHQL_ENDPOINT=http://www.harmony-ins.com/api/graphql
     ports:
      - "3000:80"
   heimdall:
