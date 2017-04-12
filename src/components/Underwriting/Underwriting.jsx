@@ -7,7 +7,6 @@ import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
-import { getInitialValues } from '../Customize/customizeHelpers';
 
 // ------------------------------------------------
 // List the user tasks that directly tie to
@@ -33,6 +32,7 @@ const handleFormSubmit = (data, dispatch, props) => {
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  console.log(taskData.previousTask.value, uwQuestions)
   return uwQuestions;
 };
 
@@ -61,16 +61,16 @@ const handleInitialize = (state) => {
 //  not be the case in later calls, you may need
 //  to pull it from another place in the model
 // ------------------------------------------------
-const Underwriting = (props) => {
-  const {appState, handleSubmit, fieldValues } = props;
+export const Underwriting = (props) => {
+  const { appState, handleSubmit, fieldValues } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.previousTask.value.result;
   const quoteData = _.find(taskData.model.variables, { name: 'quote' }).value.result.underwritingAnswers;
-  
-  //console.log('UNDERWRITING DATA', quoteData);
-  
+
+  // console.log('UNDERWRITING DATA', quoteData);
+
   return (
-  <div className="route-content">
+    <div className="route-content">
     <Form
       id="Underwriting"
       onSubmit={handleSubmit(handleFormSubmit)}

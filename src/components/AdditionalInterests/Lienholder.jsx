@@ -67,7 +67,7 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const Lienholder = (props) => {
+export const Lienholder = (props) => {
   const {
     fieldQuestions,
     quoteData,

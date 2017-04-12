@@ -58,7 +58,7 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const PolicyHolder = (props) => {
+export const PolicyHolder = (props) => {
   const {
     fieldQuestions,
     quoteData,

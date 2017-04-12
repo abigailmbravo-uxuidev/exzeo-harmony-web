@@ -6,13 +6,13 @@ export default function cgReducer(state = initialState.workflowData, action) {
   let newState = state;
   switch (action.type) {
     case types.CG_START:
-      newState = (action.workflowData) ? { ...state, ...action.workflowData } : state;
+      newState = (action.workflowData) ? { ...state, ...action.workflowData } : newState;
       return newState;
     case types.CG_ACTIVE_TASK:
-      newState = (action.workflowData) ? { ...state, ...action.workflowData } : state;
+      newState = (action.workflowData) ? { ...state, ...action.workflowData } : newState;
       return newState;
     case types.CG_COMPLETE:
-      newState = (action.workflowData) ? { ...state, ...action.workflowData } : state;
+      newState = (action.workflowData) ? { ...state, ...action.workflowData } : newState;
       return newState;
     case types.CG_ERROR:
       newState = (action.error) ? { ...state, ...action.error } : newState;

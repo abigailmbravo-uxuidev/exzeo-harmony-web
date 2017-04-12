@@ -5,7 +5,10 @@ import reduxFormField from './reduxFormField';
 
 describe('reduxFormField', () => {
   it('should render a component passed into redux form field', () => {
-    const wrapper = shallow(<reduxFormField {...TextField} />);
+    const props = {
+      answers: []
+    };
+    const wrapper = shallow(<reduxFormField {...TextField} {...props} />);
 
     expect(wrapper);
   });

@@ -92,7 +92,7 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const Customize = (props) => {
+export const Customize = (props) => {
   const {
     fieldQuestions,
     quoteData,

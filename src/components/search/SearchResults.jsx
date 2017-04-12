@@ -6,7 +6,7 @@ import moment from 'moment';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
-const SearchResults = (props) => {
+export const SearchResults = (props) => {
   if (
     props.tasks[props.appState.modelName] &&
     props.tasks[props.appState.modelName].data.previousTask &&

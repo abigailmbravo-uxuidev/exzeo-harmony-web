@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-import SearchBar from './SearchBar';
-import SearchResults from './SearchResults';
-import NoResults from './NoResults';
+import SearchBarConnect from './SearchBar';
+import SearchResultsConnect from './SearchResults';
+import NoResultsConnect from './NoResults';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
@@ -29,19 +29,19 @@ const handleSelectQuote = (quote, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSelectQuote;
   const data = {
-    quoteId: quote._id
+    quoteId: quote._id // eslint-disable-line
   };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
 };
 
-const Search = () => (
+export const Search = () => (
   <div className="search route-content">
-    <SearchBar />
+    <SearchBarConnect />
     <div className="survey-wrapper scroll">
       <div className="results-wrapper">
-        <NoResults />
-        <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+        <NoResultsConnect />
+        <SearchResultsConnect handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
       </div>
       <Footer />
     </div>

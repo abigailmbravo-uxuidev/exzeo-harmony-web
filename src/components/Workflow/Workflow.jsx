@@ -1,65 +1,58 @@
-import React, {
-  Component,
-  PropTypes
-} from 'react';
-import {
-  bindActionCreators
-} from 'redux';
-import {
-  connect
-} from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
-import CheckError from '../Error/CheckError';
-import CustomerInfo from '../CustomerInfo/CustomerInfo';
-import Underwriting from '../Underwriting/Underwriting';
-import Search from '../Search/Search';
-import WorkFlowDetails from './WorkflowDetails';
-import Customize from '../Customize/Customize';
-import Share from '../Share/Share';
-import Assumptions from '../Assumptions/Assumptions';
+import CheckErrorConnect from '../Error/CheckError';
+import CustomerInfoConnect from '../CustomerInfo/CustomerInfo';
+import UnderwritingConnect from '../Underwriting/Underwriting';
+import SearchConnect from '../Search/Search';
+import WorkFlowDetailsConnect from './WorkflowDetails';
+import CustomizeConnect from '../Customize/Customize';
+import ShareConnect from '../Share/Share';
+import AssumptionsConnect from '../Assumptions/Assumptions';
 import Error from '../Error/Error';
-import PolicyHolder from '../PolicyHolder/PolicyHolder';
-import AdditionalInterest from '../AdditionalInterests/AdditionalInterest';
-import Mortgagee from '../AdditionalInterests/Mortgagee';
-import Lienholder from '../AdditionalInterests/Lienholder';
-import AdditionalInsured from '../AdditionalInterests/AdditionalInsured';
-import BillPayer from '../AdditionalInterests/BillPayer';
-import TaskRunner from './TaskRunner';
-import Billing from '../Billing/Billing';
-import Verify from '../Verify/Verify';
+import PolicyHolderConnect from '../PolicyHolder/PolicyHolder';
+import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest';
+import MortgageeConnect from '../AdditionalInterests/Mortgagee';
+import LienholderConnect from '../AdditionalInterests/Lienholder';
+import AdditionalInsuredConnect from '../AdditionalInterests/AdditionalInsured';
+import BillPayerConnect from '../AdditionalInterests/BillPayer';
+import TaskRunnerConnect from './TaskRunner';
+import BillingConnect from '../Billing/Billing';
+import VerifyConnect from '../Verify/Verify';
 import ThankYou from '../ThankYou/ThankYou';
 
 const workflowModelName = 'quoteModel';
 
 const components = {
-  search: <Search />,
-  chooseAddress: <Search />,
-  chooseQuote: <Search />,
-  askToSearchAgain: <Search />,
-  askAdditionalCustomerData: <CustomerInfo />,
-  askUWAnswers: <Underwriting />,
-  askToCustomizeDefaultQuote: <Customize />,
+  search: <SearchConnect />,
+  chooseAddress: <SearchConnect />,
+  chooseQuote: <SearchConnect />,
+  askToSearchAgain: <SearchConnect />,
+  askAdditionalCustomerData: <CustomerInfoConnect />,
+  askUWAnswers: <UnderwritingConnect />,
+  askToCustomizeDefaultQuote: <CustomizeConnect />,
   UWDecision1EndError: <Error />,
-  refreshOnUnderWritingReviewError: <Share />,
-  sendEmailOrContinue: <Share />,
-  showAssumptions: <Assumptions />,
-  askAdditionalPolicyHolder: <PolicyHolder />,
-  askMortgagee: <Mortgagee />,
-  askLienholder: <Lienholder />,
-  askAdditionalInterest: <AdditionalInterest />,
-  askAdditionalInsured: <AdditionalInsured />,
-  askBillPayer: <BillPayer />,
-  showCustomizedQuoteAndContinue: <TaskRunner taskName={'showCustomizedQuoteAndContinue'} />,
-  askAdditionalQuestions: <Billing />,
-  askScheduleInspectionDates: <Verify />
+  refreshOnUnderWritingReviewError: <ShareConnect />,
+  sendEmailOrContinue: <ShareConnect />,
+  showAssumptions: <AssumptionsConnect />,
+  askAdditionalPolicyHolder: <PolicyHolderConnect />,
+  askMortgagee: <MortgageeConnect />,
+  askLienholder: <LienholderConnect />,
+  askAdditionalInterest: <AdditionalInterestConnect />,
+  askAdditionalInsured: <AdditionalInsuredConnect />,
+  askBillPayer: <BillPayerConnect />,
+  showCustomizedQuoteAndContinue: <TaskRunnerConnect taskName={'showCustomizedQuoteAndContinue'} />,
+  askAdditionalQuestions: <BillingConnect />,
+  askScheduleInspectionDates: <VerifyConnect />
 };
 
-class Workflow extends Component {
+export class Workflow extends Component {
   state = {
-    currentControl: <Search />,
+    currentControl: <SearchConnect />,
     quoteNumber: ''
   }
 
@@ -80,12 +73,11 @@ class Workflow extends Component {
           const quoteData = nextProps.tasks[workflowModelName].data.previousTask.value.result;
           if (quoteData._id) { // eslint-disable-line
             console.log('dispatching workflow details', quoteData._id); // eslint-disable-line
-            nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName,
-              nextProps.appState.instanceId, {
-                quote: quoteData,
-                updateWorkflowDetails: true,
-                hideYoChildren: (activeTaskName === 'askAdditionalCustomerData' || activeTaskName === 'askUWAnswers')
-              });
+            nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName, nextProps.appState.instanceId, {
+              quote: quoteData,
+              updateWorkflowDetails: true,
+              hideYoChildren: (activeTaskName === 'askAdditionalCustomerData' || activeTaskName === 'askUWAnswers')
+            });
           }
         }
         const newComponent = components[activeTaskName];
@@ -108,9 +100,9 @@ class Workflow extends Component {
     const activeStep = (this.props.tasks && this.props.tasks.activeTask) ? this.props.tasks.activeTask.name : '';
     return (
       <div className={`route ${activeStep}`}>
-        <WorkFlowDetails />
+        <WorkFlowDetailsConnect />
         { this.state.currentControl }
-        <CheckError redirectUrl={this.context.router.route.location.pathname} />
+        <CheckErrorConnect redirectUrl={this.context.router.route.location.pathname} />
       </div>);
   }
 }
@@ -133,10 +125,6 @@ Workflow.propTypes = {
   }),
   tasks: PropTypes.shape({
     activeTask: PropTypes.object
-  }),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string
   })
 };
 

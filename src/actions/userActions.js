@@ -17,6 +17,26 @@ export const authenticateError = user => ({
   user
 });
 
+const handleError = (dispatch, error) => {
+  let message = 'An error happened';
+  console.log(error.config);
+  if (error.response) {
+    // The request was made, but the server responded with a status code
+    // that falls out of the range of 2xx
+    console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.headers);
+    message = error.response;
+  }
+  // Something happened in setting up the request that triggered an Error
+  message = (error.message) ? error.message : message;
+
+  const user = { error: message, isAuthenticated: false, loggedOut: false };
+
+  // dispatch the error
+  return dispatch(authenticateError(user));
+};
+
 export const login = creds => (dispatch) => {
   const axiosOptions = {
     method: 'POST',
@@ -30,17 +50,13 @@ export const login = creds => (dispatch) => {
     }
   };
   dispatch(authenticating('athenticating'));
-  
   return axios(axiosOptions)
   .then((response) => {
     const token = response.data.token.id_token;
     const user = { token, isAuthenticated: true, loggedOut: false };
     dispatch(authenticated(user));
   })
-  .catch((error) => {
-    const user = { error, isAuthenticated: false, loggedOut: false };
-    dispatch(authenticateError(user));
-  });
+  .catch(error => handleError(dispatch, error));
 };
 
 export const logout = () => (dispatch) => {

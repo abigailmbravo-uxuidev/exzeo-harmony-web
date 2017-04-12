@@ -1,7 +1,7 @@
 
 module.exports = function (wallaby) {
   var path = require('path');
-
+  process.env.REACT_APP_API_URL = 'http://localhost:4001/api';
   // Babel, jest-cli and some other modules are located under
   // react-scripts/node_modules, so need to let node.js know about it
   process.env.NODE_PATH +=
@@ -18,7 +18,10 @@ module.exports = function (wallaby) {
   return {
     files: [
       'src/**/*.js*',
-      '!src/**/*.spec.js'
+      '!src/**/*.spec.js',
+      '!src/index.js',
+      '!src/routes.js',
+      '!src/setupTests.js'
     ],
     tests: [
       'src/**/*.spec.js'

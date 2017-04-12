@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 
-import Base from './Base';
-import ClearError from '../components/Error/ClearError';
+import BaseConnect from './Base';
+import ClearErrorConnect from '../components/Error/ClearError';
 import Footer from '../components/Common/Footer';
 
 const Splash = () => (
-  <Base>
-    <ClearError />
+  <BaseConnect>
+    <ClearErrorConnect />
     <div className="dashboard" role="article">
       <div className="fade-in">
         <div className="route">
@@ -57,7 +57,7 @@ const Splash = () => (
           </div>
         </div>
       </div>
-    </div></Base>);
+    </div></BaseConnect>);
 
 Splash.propTypes = {
   splashScreen: PropTypes.bool

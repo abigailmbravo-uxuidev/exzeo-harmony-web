@@ -10,7 +10,7 @@ const handleLogout = (props) => {
   props.actions.user.logout();
 };
 
-const Base = props => (
+export const Base = props => (
   <div className="app-wrapper">
     <Header />
     <main role="document">
