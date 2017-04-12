@@ -12,7 +12,11 @@ exports[`test renders without crashing 1`] = `
       id="logo">
       <img
         alt="TypTap Insurance"
-        src="TypTap.svg" />
+        src={
+          Object {
+            "process": [Function],
+          }
+        } />
     </div>
     <button
       className="btn-icon btn-ellipsis-v">
