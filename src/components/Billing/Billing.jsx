@@ -2,15 +2,20 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, change, propTypes } from 'redux-form';
+import { reduxForm, Form, change, propTypes, Field, formValueSelector } from 'redux-form';
 import _ from 'lodash';
 import Footer from '../Common/Footer';
 import { CheckInput } from '../Form/inputs/CheckField';
+import {
+  RadioFieldBilling, SelectFieldBilling
+} from '../Form/inputs';
+
 import { getInitialValues } from '../Customize/customizeHelpers';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-
+// import billingQuestions from '.BillingQuestions';
 import FieldGenerator from '../Form/FieldGenerator';
+import { combineRules } from '../Form/Rules';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -35,6 +40,26 @@ const handleInitialize = (state) => {
     _.find(taskData.model.variables, { name: 'quote' }).value ?
     _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
 
+  // const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  // const paymentPlanOptions = paymentPlanResult.options;
+
+  // const mailingQuestions = _.cloneDeep(_.filter(taskData.uiQuestions, q => _.includes(q.group, 'mailing')));
+  // const billingQuestions = _.cloneDeep(_.filter(taskData.uiQuestions, q => _.includes(q.group, 'billing')));
+  //
+  // for (let i = 0; i <= billingQuestions.length; i += 1) {
+  //   const currentQuestion = billingQuestions[i];
+  //
+  //   if (currentQuestion.name === 'billTo') {
+  //     for (let pi = 0; pi <= paymentPlanOptions.length; pi += 1) {
+  //       const currentOption = paymentPlanOptions[pi];
+  //       currentQuestion.answers.push(currentOption);
+  //     }
+  //   }
+  // }
+
+
+  // taskData.uiQuestions = _.concat(mailingQuestions, billingQuestions);
+
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   _.forEach(taskData.uiQuestions, (q) => {
@@ -42,6 +67,11 @@ const handleInitialize = (state) => {
       values[q.name] = '';
     }
   });
+
+  values.billToId = '';
+  values.billToType = '';
+  values.billPlan = '';
+
 
   return values;
 };
@@ -53,8 +83,18 @@ const handleGetQuestions = (state) => {
 
 const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  const quoteData = taskData && taskData.model &&
+ taskData.model.variables &&
+ _.find(taskData.model.variables, { name: 'quote' }) &&
+ _.find(taskData.model.variables, { name: 'quote' }).value ?
+  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
   return quoteData;
+};
+
+const handleGetPaymentPlans = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  return paymentPlanResult;
 };
 
 let sameAsProperty = false;
@@ -64,25 +104,64 @@ export const Billing = (props) => {
     quoteData,
     dispatch,
     handleSubmit,
-    fieldValues
+    fieldValues,
+    paymentPlanResult,
+    state
   } = props;
 
   const annualPremium = 0;
   const semiAnnualPremium = 0;
   const quarterlyPremium = 0;
 
+  const selectBillTo = (event) => {
+    console.log('selectBillTo', event);
+
+    // fieldValues.billToId = event.target.value;
+    //  fieldValues.billPlan = null;
+
+    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
+    _.find(paymentPlanResult.options, ['billToId', fieldValues.billTo]) : {};
+
+    dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
+    dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
+
+  //  dispatch(change('Billing', 'billToId', event.target.value));
+    dispatch(change('Billing', 'billPlan', ''));
+  };
+
+  const selectBillPlan = (value) => {
+    console.log('selectBillPlan', value);
+    console.log('currentPaymentPlan', _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
+    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {});
+
+    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
+    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
+
+    // fieldValues.billToId = currentPaymentPlan.billToId;
+    // fieldValues.billToType = currentPaymentPlan.billToType;
+    // fieldValues.billPlan = value;
+    dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
+    dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
+    dispatch(change('Billing', 'billPlan', value));
+  };
+
   const fillMailForm = () => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
         if (!sameAsProperty) {
+          // fieldValues[question.name] = _.get(quoteData, question.physicalAddressLocation);
           dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
         } else {
+          // fieldValues[question.name] = '';
           dispatch(change('Billing', question.name, ''));
         }
       }
     });
     sameAsProperty = !sameAsProperty;
   };
+
+  const ruleArray = combineRules(['required']);
+
 
   return (
     <div className="route-content">
@@ -96,70 +175,42 @@ export const Billing = (props) => {
                 name: 'sameAsProperty',
                 onChange: fillMailForm
               }} isSwitch
-            /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />))}
+            /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator
+              data={quoteData}
+              question={question} values={fieldValues} key={index}
+            />))}
             <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
-            <div className="form-group  BillTo">
-              <label>Bill To</label>
-              <select name="BillTo" value="">
-                <option value="ph1">Policyholder 1</option>
-                <option value="mh1">Bank of America</option>
-                <option value="mh2">Capital One</option>
-              </select>
-            </div>
-            <div className="form-group segmented BillType  " role="group">
-              <label className="group-label label-segmented">Bill Plan</label>
-              <div className="segmented-answer-wrapper">
-                <div className="radio-column-3">
-                  <label className="label-segmented"><input type="radio" value="A" name="billPlan" />
-                    <span>Annual</span>
-                  </label>
-                </div>
-                <div className="radio-column-3">
-                  <label className="label-segmented"><input type="radio" value="S" name="billPlan" />
-                    <span>Semi-Annual</span>
-                  </label>
-                </div>
-                <div className="radio-column-3">
-                  <label className="label-segmented"><input type="radio" value="Q" name="billPlan" />
-                    <span>Quarterly
-                                        </span>
-                  </label>
-                </div>
-              </div>
-              <div className="installment-term">
-                <dl className="column-3">
-                  <div>
-                    <dt>
-                      <span>Annual</span>
-                                            Installment Plan</dt>
-                    <dd>1st Installment: ${annualPremium}</dd>
-                  </div>
-                </dl>
-                <dl className="column-3">
-                  <div>
-                    <dt>
-                      <span>Semi-Annual</span>
-                                            Installment Plan</dt>
-                    <dd>1st Installment: ${semiAnnualPremium}</dd>
-                    <dd>2nd Installment: ${semiAnnualPremium}</dd>
-                  </div>
-                </dl>
-                <dl className="column-3">
-                  <div>
-                    <dt>
-                      <span>Quarterly</span>
-                                            Installment Plan</dt>
-                    <dd>1st Installment: ${quarterlyPremium}</dd>
-                    <dd>2nd Installment: ${quarterlyPremium}</dd>
-                    <dd>3rd Installment: ${quarterlyPremium}</dd>
-                    <dd>4th Installment: ${quarterlyPremium}</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
+            {/* {fieldQuestions && _.filter(fieldQuestions, q => _.includes(q.group, 'billing')).map((question, index) => (<FieldGenerator
+              data={quoteData}
+              question={question} values={fieldValues} key={index}
+            />))} */}
+
+            <SelectFieldBilling
+              name="billTo"
+              component="select"
+              label="Bill To"
+              onChange={selectBillTo}
+              validations={['required']}
+              answers={paymentPlanResult.options}
+              validate={[value => (value ? undefined : 'Field Required')]}
+            />
+
+            <RadioFieldBilling
+              validations={['required']}
+              name={'billPlan'}
+              label={'Bill Plan'}
+              onChange={selectBillPlan}
+              validate={[value => (value ? undefined : 'Field Required')]}
+              segmented
+              answers={_.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
+               _.find(paymentPlanResult.options, ['billToId', props.billToValue]).payPlans : []}
+              paymentPlans={paymentPlanResult.paymentPlans}
+            />
           </div>
+          <Field name="billToId" component="input" type="hidden" />
+          <Field name="billToType" component="input" type="hidden" />
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Billing" disabled={props.appState.data.submitting}>next</button>
+            <button className="btn btn-primary" type="submit" form="Billing" disabled={props.appState.data.submitting || !props.billToValue}>next</button>
           </div>
           <Footer />
         </div>
@@ -188,14 +239,22 @@ Billing.propTypes = {
 // ------------------------------------------------
 // redux mapping
 // ------------------------------------------------
-const mapStateToProps = state => ({
-  tasks: state.cg,
-  appState: state.appState,
-  fieldValues: _.get(state.form, 'Billing.values', {}),
-  initialValues: handleInitialize(state),
-  fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
-});
+const mapStateToProps = (state) => {
+  const selector = formValueSelector('Billing');
+  const billToValue = selector(state, 'billTo');
+
+  return {
+    tasks: state.cg,
+    appState: state.appState,
+    fieldValues: _.get(state.form, 'Billing.values', {}),
+    initialValues: handleInitialize(state),
+    fieldQuestions: handleGetQuestions(state),
+    quoteData: handleGetQuoteData(state),
+    paymentPlanResult: handleGetPaymentPlans(state),
+    billToValue,
+    state
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   actions: {

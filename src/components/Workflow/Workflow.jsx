@@ -25,7 +25,7 @@ import BillingConnect from '../Billing/Billing';
 import VerifyConnect from '../Verify/Verify';
 import ThankYou from '../ThankYou/ThankYou';
 
-const workflowModelName = 'quoteModel';
+const workflowModelName = 'quoteModel-mark';
 
 const components = {
   search: <SearchConnect />,
