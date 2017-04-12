@@ -121,7 +121,7 @@ Share.propTypes = {
   ...propTypes,
   tasks: PropTypes.shape({}),
   appState: PropTypes.shape({ modelName: PropTypes.string, data: PropTypes.object }),
-  underwritingExceptions: PropTypes.shape()
+  underwritingExceptions: PropTypes.arrayOf(PropTypes.shape())
 };
 
 // ------------------------------------------------

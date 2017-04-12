@@ -38,7 +38,11 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
             <p>The following underwriting error(s) have occured with this quote:</p>
             <ul className="error">
               {
-                underwritingExceptions.map((exception, i) => (<li key={i}>{exception.agentMessage}</li>))
+                underwritingExceptions.map((exception, i) => {
+                  if(exception.action !== 'Fatal Error') {
+                    return (<li key={i}>{exception.agentMessage}</li>)
+                  }
+                })
               }
             </ul>
             <p>Contact a TypTap customer service representatives so we may further assist you in obtaining a quote.</p>
@@ -61,7 +65,7 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
 
 ErrorPopup.propTypes = {
   quote: PropTypes.shape(),
-  underwritingExceptions: React.PropTypes.arrayOf(React.PropTypes.shape({})),
+  underwritingExceptions: PropTypes.arrayOf(PropTypes.shape()),
   refereshUWReviewError: PropTypes.func,
   redirectToNewQuote: PropTypes.func
 };
