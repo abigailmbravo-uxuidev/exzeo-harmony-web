@@ -2,6 +2,7 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { reduxForm, Form, change, propTypes, Field, formValueSelector } from 'redux-form';
 import _ from 'lodash';
 import Footer from '../Common/Footer';
@@ -16,6 +17,7 @@ import * as appStateActions from '../../actions/appStateActions';
 // import billingQuestions from '.BillingQuestions';
 import FieldGenerator from '../Form/FieldGenerator';
 import { combineRules } from '../Form/Rules';
+
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -40,26 +42,6 @@ const handleInitialize = (state) => {
     _.find(taskData.model.variables, { name: 'quote' }).value ?
     _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
 
-  // const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  // const paymentPlanOptions = paymentPlanResult.options;
-
-  // const mailingQuestions = _.cloneDeep(_.filter(taskData.uiQuestions, q => _.includes(q.group, 'mailing')));
-  // const billingQuestions = _.cloneDeep(_.filter(taskData.uiQuestions, q => _.includes(q.group, 'billing')));
-  //
-  // for (let i = 0; i <= billingQuestions.length; i += 1) {
-  //   const currentQuestion = billingQuestions[i];
-  //
-  //   if (currentQuestion.name === 'billTo') {
-  //     for (let pi = 0; pi <= paymentPlanOptions.length; pi += 1) {
-  //       const currentOption = paymentPlanOptions[pi];
-  //       currentQuestion.answers.push(currentOption);
-  //     }
-  //   }
-  // }
-
-
-  // taskData.uiQuestions = _.concat(mailingQuestions, billingQuestions);
-
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   _.forEach(taskData.uiQuestions, (q) => {
@@ -68,9 +50,17 @@ const handleInitialize = (state) => {
     }
   });
 
-  values.billToId = '';
-  values.billToType = '';
-  values.billPlan = '';
+  // values.billTo = '58ee932c1ec75300140a8c55'; // _.get(quoteData, 'billToId');
+  // values.billToId = '58ee932c1ec75300140a8c55'; // _.get(quoteData, 'billToId');
+  // values.billToType = 'Policy Holder'; //  _.get(quoteData, 'billToType');
+  // values.billPlan = 'Annual'; // _.get(quoteData, 'billPlan');
+
+  values.billTo = _.get(quoteData, 'billToId');
+  values.billToId = _.get(quoteData, 'billToId');
+  values.billToType = _.get(quoteData, 'billToType');
+  values.billPlan = _.get(quoteData, 'billPlan');
+
+  console.log(values);
 
 
   return values;
@@ -97,6 +87,65 @@ const handleGetPaymentPlans = (state) => {
   return paymentPlanResult;
 };
 
+const getSelectedPlan = (answer) => {
+  let selection;
+
+  if (answer === 'Annual') {
+    selection = 'annual';
+  } else if (answer === 'Semi-Annual') {
+    selection = 'semiAnnual';
+  } else if (answer === 'Quarterly') {
+    selection = 'quarterly';
+  }
+  return selection;
+};
+
+const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="installment-term">
+  {payPlans && payPlans.map((payPlan, index) => {
+    const paymentPlan = paymentPlans[getSelectedPlan(payPlan)];
+    return (
+      <dl className="column-3" key={index}>
+        <div>
+          {paymentPlan && paymentPlan.amount && <div>
+            <dt><span>Annual</span> Installment Plan</dt>
+            <dd>
+            $ {paymentPlan.amount} : {moment.utc(paymentPlan.dueDate).format('MM/DD/YYYY')}
+            </dd></div>}
+          {paymentPlan && paymentPlan.s1 && paymentPlan.s2 && <div>
+            <dt><span>Semi-Annual</span> Installment Plan</dt>
+            <dd>
+              $ {paymentPlan.s1.amount} : {moment.utc(paymentPlan.s1.dueDate).format('MM/DD/YYYY')}
+            </dd>
+            <dd>
+              $ {paymentPlan.s2.amount} : {moment.utc(paymentPlan.s2.dueDate).format('MM/DD/YYYY')}
+            </dd>
+          </div>}
+          {paymentPlan && paymentPlan.q1 && paymentPlan.q2 && paymentPlan.q3 && paymentPlan.q4 && <div>
+            <dt><span>Quarterly</span> Installment Plan</dt>
+            <dd>
+              $ {paymentPlan.q1.amount} : {moment.utc(paymentPlan.q1.dueDate).format('MM/DD/YYYY')}
+            </dd>
+            <dd>
+              $ {paymentPlan.q2.amount} : {moment.utc(paymentPlan.q2.dueDate).format('MM/DD/YYYY')}
+            </dd>
+            <dd>
+              $ {paymentPlan.q3.amount} : {moment.utc(paymentPlan.q3.dueDate).format('MM/DD/YYYY')}
+            </dd>
+            <dd>
+              $ {paymentPlan.q4.amount} : {moment.utc(paymentPlan.q4.dueDate).format('MM/DD/YYYY')}
+            </dd>
+          </div> }
+        </div>
+      </dl>
+    );
+  })}
+</div>);
+
+InstallmentTerm.propTypes = {
+  payPlans: PropTypes.any, // eslint-disable-line
+  paymentPlans: PropTypes.any // eslint-disable-line
+};
+
 let sameAsProperty = false;
 export const Billing = (props) => {
   const {
@@ -105,27 +154,15 @@ export const Billing = (props) => {
     dispatch,
     handleSubmit,
     fieldValues,
-    paymentPlanResult,
-    state
+    paymentPlanResult
   } = props;
 
-  const annualPremium = 0;
-  const semiAnnualPremium = 0;
-  const quarterlyPremium = 0;
-
   const selectBillTo = (event) => {
-    console.log('selectBillTo', event);
-
-    // fieldValues.billToId = event.target.value;
-    //  fieldValues.billPlan = null;
-
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-    _.find(paymentPlanResult.options, ['billToId', fieldValues.billTo]) : {};
+    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
 
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
-
-  //  dispatch(change('Billing', 'billToId', event.target.value));
     dispatch(change('Billing', 'billPlan', ''));
   };
 
@@ -137,9 +174,6 @@ export const Billing = (props) => {
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
     _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
 
-    // fieldValues.billToId = currentPaymentPlan.billToId;
-    // fieldValues.billToType = currentPaymentPlan.billToType;
-    // fieldValues.billPlan = value;
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
     dispatch(change('Billing', 'billPlan', value));
@@ -149,19 +183,14 @@ export const Billing = (props) => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
         if (!sameAsProperty) {
-          // fieldValues[question.name] = _.get(quoteData, question.physicalAddressLocation);
           dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
         } else {
-          // fieldValues[question.name] = '';
           dispatch(change('Billing', question.name, ''));
         }
       }
     });
     sameAsProperty = !sameAsProperty;
   };
-
-  const ruleArray = combineRules(['required']);
-
 
   return (
     <div className="route-content">
@@ -180,11 +209,6 @@ export const Billing = (props) => {
               question={question} values={fieldValues} key={index}
             />))}
             <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
-            {/* {fieldQuestions && _.filter(fieldQuestions, q => _.includes(q.group, 'billing')).map((question, index) => (<FieldGenerator
-              data={quoteData}
-              question={question} values={fieldValues} key={index}
-            />))} */}
-
             <SelectFieldBilling
               name="billTo"
               component="select"
@@ -194,7 +218,6 @@ export const Billing = (props) => {
               answers={paymentPlanResult.options}
               validate={[value => (value ? undefined : 'Field Required')]}
             />
-
             <RadioFieldBilling
               validations={['required']}
               name={'billPlan'}
@@ -203,6 +226,12 @@ export const Billing = (props) => {
               validate={[value => (value ? undefined : 'Field Required')]}
               segmented
               answers={_.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
+               _.find(paymentPlanResult.options, ['billToId', props.billToValue]).payPlans : []}
+              paymentPlans={paymentPlanResult.paymentPlans}
+            />
+
+            <InstallmentTerm
+              payPlans={_.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
                _.find(paymentPlanResult.options, ['billToId', props.billToValue]).payPlans : []}
               paymentPlans={paymentPlanResult.paymentPlans}
             />
@@ -251,8 +280,7 @@ const mapStateToProps = (state) => {
     fieldQuestions: handleGetQuestions(state),
     quoteData: handleGetQuoteData(state),
     paymentPlanResult: handleGetPaymentPlans(state),
-    billToValue,
-    state
+    billToValue
   };
 };
 

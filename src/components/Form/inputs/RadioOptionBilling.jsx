@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 
 const RadioOptionBilling = ({
-  paymentPlan,
   onChange,
   answer,
   name,
   segmented,
   size,
-  value,
-  input
+  value
 }) => (
   <div
     className={classNames(
@@ -32,20 +31,6 @@ const RadioOptionBilling = ({
         value={answer}
       />
       <span>{answer}</span>
-
-      {/* {paymentPlan && paymentPlan.amount && <span>
-        {paymentPlan.amount}
-      </span>}
-      {paymentPlan && paymentPlan.s1 && paymentPlan.s2 && <span>
-        {paymentPlan.s1.amount} : {paymentPlan.s1.dueDate}
-        {paymentPlan.s2.amount} : {paymentPlan.s2.dueDate}
-      </span>}
-      {paymentPlan && paymentPlan.q1 && paymentPlan.q2 && paymentPlan.q3 && paymentPlan.q4 && <span>
-        {paymentPlan.q1.amount} : {paymentPlan.q1.dueDate}
-        {paymentPlan.q2.amount} : {paymentPlan.q2.dueDate}
-        {paymentPlan.q3.amount} : {paymentPlan.q3.dueDate}
-        {paymentPlan.q4.amount} : {paymentPlan.q4.dueDate}
-      </span>} */}
     </label>
   </div>
 );

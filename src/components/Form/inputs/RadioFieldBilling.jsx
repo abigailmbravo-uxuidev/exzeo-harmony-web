@@ -36,6 +36,22 @@ export const RadioInputBilling = ({
 
   const DisplayField = displayValue && (<input type="text" value={displayValue} readOnly />);
 
+  const getSelectedPlan = (answer) => {
+    let selection;
+
+    if (answer === 'Annual') {
+      selection = 'annual';
+    } else if (answer === 'Semi-Annual') {
+      selection = 'semiAnnual';
+    } else if (answer === 'Quarterly') {
+      selection = 'quarterly';
+    }
+    console.log('getSelectedPlan', selection);
+    console.log('paymentPlans', paymentPlans[selection]);
+
+    return selection;
+  };
+
   return (
     <div className={formGroupStyles} role="group">
       <label className={labelStyles} htmlFor={name}>
@@ -47,7 +63,7 @@ export const RadioInputBilling = ({
         {answers && answers.length > 0 && answers.map((answer, index) =>
           <RadioOptionBilling
             input={input}
-            paymentPlan={_.find(paymentPlans[answer === 'Annual' ? 'annual' : answer === 'Semi-Annual' ? 'semiAnnual' : answer === 'Quarterly' ? 'quarterly' : ''])}
+            paymentPlan={paymentPlans[getSelectedPlan(answer)]}
             answer={answer}
             key={index}
             size={answers.length}
