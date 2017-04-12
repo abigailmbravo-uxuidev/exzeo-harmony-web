@@ -48,8 +48,8 @@
     "watch-css": "node-sass src/sass --output-style 'compressed' -o src/css --watch --recursive",
     "start": "npm run build-css && react-scripts start",
     "build": "npm run build-css && react-scripts build",
-    "coverage": "NODE_ENV=test nyc npm test",
-    "test": "react-scripts test --env=jsdom --coverage",
+    "copyCoverage": "node setupCodeCoverage",
+    "test": "npm run copyCoverage && react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject"
   }
 }
