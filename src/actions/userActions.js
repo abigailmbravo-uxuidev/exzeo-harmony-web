@@ -30,6 +30,7 @@ export const login = creds => (dispatch) => {
     }
   };
   dispatch(authenticating('athenticating'));
+  
   return axios(axiosOptions)
   .then((response) => {
     const token = response.data.token.id_token;

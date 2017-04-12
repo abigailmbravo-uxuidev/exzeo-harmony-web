@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  batchActions
-} from 'redux-batched-actions';
+import { batchActions } from 'redux-batched-actions';
 import _ from 'lodash';
 import Promise from 'bluebird';
 import * as types from './actionTypes';
@@ -19,16 +17,16 @@ export const start = (modelName, workflowData) => {
   return stateObj;
 };
 
-export const activeTask = (modelName, workflowData) => {
-  const newWorkflowData = {};
-  newWorkflowData[modelName] = {};
-  newWorkflowData[modelName].data = workflowData;
-  const stateObj = {
-    type: types.CG_ACTIVE_TASK,
-    workflowData: newWorkflowData
-  };
-  return stateObj;
-};
+// export const activeTask = (modelName, workflowData) => {
+//   const newWorkflowData = {};
+//   newWorkflowData[modelName] = {};
+//   newWorkflowData[modelName].data = workflowData;
+//   const stateObj = {
+//     type: types.CG_ACTIVE_TASK,
+//     workflowData: newWorkflowData
+//   };
+//   return stateObj;
+// };
 
 export const complete = (modelName, workflowData) => {
   const newWorkflowData = {};
@@ -42,11 +40,11 @@ export const complete = (modelName, workflowData) => {
 };
 
 // helper function to check cg errors
-const checkCGError = (responseData) => {
-  if (responseData.activeTask && responseData.activeTask.link && responseData.activeTask.link === 'error') {
-    throw new Error(`CG responded with an error: ${responseData}`);
-  }
-};
+// const checkCGError = (responseData) => {
+//   if (responseData.activeTask && responseData.activeTask.link && responseData.activeTask.link === 'error') {
+//     throw new Error(`CG responded with an error: ${responseData}`);
+//   }
+// };
 
 const handleError = (dispatch, error) => {
   let message = 'An error happened';
@@ -78,6 +76,7 @@ export const startWorkflow = (modelName, data, dispatchAppState = true) => (disp
     },
     url: `${process.env.REACT_APP_API_URL}/cg/start`
   };
+  console.log('sdfsdfsdfsdfsdfsdf', axiosConfig);
   return axios(axiosConfig)
     .then((response) => {
       const responseData = response.data.data;
@@ -97,26 +96,26 @@ export const startWorkflow = (modelName, data, dispatchAppState = true) => (disp
     .catch(error => handleError(dispatch, error));
 };
 
-export const activeTasks = (modelName, workflowId) => (dispatch) => {
-  const axiosConfig = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    url: `${process.env.REACT_APP_API_URL}/cg/activeTasks`,
-    data: {
-      workflowId
-    }
-  };
-  return axios(axiosConfig)
-    .then((response) => {
-      const responseData = response.data.data;
-      // check to see if the cg has returned an error as an ok
-      checkCGError(responseData);
-      return dispatch(activeTask(modelName, response.data.data));
-    })
-    .catch(error => handleError(dispatch, error));
-};
+// export const activeTasks = (modelName, workflowId) => (dispatch) => {
+//   const axiosConfig = {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     url: `${process.env.REACT_APP_API_URL}/cg/activeTasks`,
+//     data: {
+//       workflowId
+//     }
+//   };
+//   return axios(axiosConfig)
+//     .then((response) => {
+//       const responseData = response.data.data;
+//       // check to see if the cg has returned an error as an ok
+//       checkCGError(responseData);
+//       return dispatch(activeTask(modelName, response.data.data));
+//     })
+//     .catch(error => handleError(dispatch, error));
+// };
 
 export const completeTask = (modelName, workflowId, stepName, data, dispatchAppState = true) => (dispatch) => {
   const axiosConfig = {
@@ -166,9 +165,9 @@ export const batchCompleteTask = (modelName, workflowId, stepsWithData, dispatch
     axiosConfigs.push(axiosConfig);
   });
   return Promise.reduce(axiosConfigs, (response, axiosConfig) => {
-    console.log('running', response, axiosConfig);
-    return axios(axiosConfig);
-  }, 0)
+      console.log('running', response, axiosConfig);
+      return axios(axiosConfig);
+    }, 0)
     .then((response) => {
       const responseData = response.data.data;
       // check to see if the cg has returned an error as an ok

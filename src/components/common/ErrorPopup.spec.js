@@ -2,7 +2,6 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import ErrorPopup from './ErrorPopup';
 
-
 const props = {
   underwritingExceptions: [],
   refereshUWReviewError: () => (false),

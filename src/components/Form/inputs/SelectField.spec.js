@@ -6,7 +6,7 @@ import FieldHint from './FieldHint';
 describe('SelectField', () => {
   it('should render "select input" when nothing is provided', () => {
     const wrapper = shallow(<SelectField />);
-    expect(wrapper).to.exist;
+    expect(wrapper);
     expect(wrapper.find('option').length).toEqual(0);
   });
 
@@ -33,7 +33,7 @@ describe('SelectField', () => {
     };
     const wrapper = shallow(<SelectField {...inputProps} />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
     // Need to take into account blank option
     expect(wrapper.find('option').length).toEqual((4));
   });
