@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const ErrorPopup = ({ underwritingExceptions, refereshUWReviewError, redirectToNewQuote }) => (
+const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redirectToNewQuote }) => (
   <div className="error-content pop-up" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
@@ -14,6 +14,27 @@ const ErrorPopup = ({ underwritingExceptions, refereshUWReviewError, redirectToN
               <a href="tel:8442897968"><i className="fa fa-phone" /> (844) 289-7968</a>
               <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope" /> email us</a>
             </div>
+            {quote && <section className="display-element">
+              <dl className="quote-number">
+                <div>
+                  <dt>Quote Number</dt>
+                  <dd>{quote.quoteNumber}</dd>
+                </div>
+              </dl>
+            </section>
+            }
+            {quote.property && <section className="display-element">
+              <dl className="property-information">
+                <div>
+                  <dt>Property Address</dt>
+                  <dd>{quote.property.physicalAddress.address1}</dd>
+                  <dd>{quote.property.physicalAddress.address2}</dd>
+                  <dd>{`${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state} ${
+                    quote.property.physicalAddress.zip}`}</dd>
+                </div>
+              </dl>
+            </section>
+            }
             <p>The following underwriting error(s) have occured with this quote:</p>
             <ul className="error">
               {
@@ -39,6 +60,7 @@ const ErrorPopup = ({ underwritingExceptions, refereshUWReviewError, redirectToN
 );
 
 ErrorPopup.propTypes = {
+  quote: PropTypes.shape(),
   underwritingExceptions: React.PropTypes.arrayOf(React.PropTypes.shape({})),
   refereshUWReviewError: PropTypes.func,
   redirectToNewQuote: PropTypes.func
