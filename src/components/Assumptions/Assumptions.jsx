@@ -36,7 +36,6 @@ const Assumptions = (props) => {
               <li>Properties with pools (or similar structures), are to be completely fenced, walled, or screened. There are no slides or diving boards.</li>
               <li>Properties located in Special Flood Hazard Areas, as defined by the National Flood Insurance Program maintain a separate flood policy.</li>
               <li>Property is not in state of disrepair or having existing unrepaired damage.</li>
-              <li>Property does not have excessive or unusual liability exposure (including, but not limited to: skateboard ramps, trampolines, vicious or exotic animals)</li>
               <li>Roof covering does not exceed the age as defined below
                 <ul>
                   <li>Roof cannot be over 20 years old if Asphalt, Fiberglass, Composition/Wood Shake Shingles; Built-up Tar and Gravel; or other roof covering types not included below</li>
