@@ -15,10 +15,7 @@ import ShareConnect from '../Share/Share';
 import AssumptionsConnect from '../Assumptions/Assumptions';
 import Error from '../Error/Error';
 import PolicyHolderConnect from '../PolicyHolder/PolicyHolder';
-import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest';
-import MortgageeConnect from '../AdditionalInterests/Mortgagee';
-import LienholderConnect from '../AdditionalInterests/Lienholder';
-import AdditionalInsuredConnect from '../AdditionalInterests/AdditionalInsured';
+import AddAdditionalInterestConnect from '../AdditionalInterests/AddAdditionalInterest';
 import BillPayerConnect from '../AdditionalInterests/BillPayer';
 import TaskRunnerConnect from './TaskRunner';
 import BillingConnect from '../Billing/Billing';
@@ -40,10 +37,7 @@ const components = {
   sendEmailOrContinue: <ShareConnect />,
   showAssumptions: <AssumptionsConnect />,
   askAdditionalPolicyHolder: <PolicyHolderConnect />,
-  askMortgagee: <MortgageeConnect />,
-  askLienholder: <LienholderConnect />,
-  askAdditionalInterest: <AdditionalInterestConnect />,
-  askAdditionalInsured: <AdditionalInsuredConnect />,
+  addAdditionalAIs: <AddAdditionalInterestConnect />,
   askBillPayer: <BillPayerConnect />,
   showCustomizedQuoteAndContinue: <TaskRunnerConnect taskName={'showCustomizedQuoteAndContinue'} />,
   askAdditionalQuestions: <BillingConnect />,
@@ -80,9 +74,9 @@ export class Workflow extends Component {
             });
           }
         }
-      
+
         console.log('active task name: ', activeTaskName);
-      
+
         const newComponent = components[activeTaskName];
         this.setState((previousState, props) => ({
           ...props,
@@ -99,8 +93,7 @@ export class Workflow extends Component {
           ...props,
           currentControl: <ThankYou />
         }));
-      }
-      else if (previousTaskName === 'UWDecision1EndError'){
+      } else if (previousTaskName === 'UWDecision1EndError') {
         this.setState((previousState, props) => ({
           ...props,
           currentControl: <Error />

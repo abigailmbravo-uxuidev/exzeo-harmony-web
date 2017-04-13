@@ -35,7 +35,30 @@ const AdditionalInterestPopup = ({ submitting, handleSubmit, primaryButtonHandle
   </div>
 );
 
+AdditionalInterestPopup.propTypes = {
+  ...propTypes,
+  primaryButtonHandler: PropTypes.func,
+  secondaryButtonHandler: PropTypes.func
+};
+
+// ------------------------------------------------
+// redux mapping
+// ------------------------------------------------
+const mapStateToProps = state => ({
+  tasks: state.cg,
+  appState: state.appState
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    cgActions: bindActionCreators(cgActions, dispatch),
+    appStateActions: bindActionCreators(appStateActions, dispatch)
+  }
+});
+
 // ------------------------------------------------
 // wire up redux form with the redux connect
 // ------------------------------------------------
-export default AdditionalInterestPopup;
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'AdditionalInterestPopup'
+})(AdditionalInterestPopup));
