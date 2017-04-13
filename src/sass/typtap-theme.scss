@@ -1629,38 +1629,6 @@ ul.result-cards {
         }
     }
 }
-//ERROR PAGE animations
-/*------------------------------------------------------------------------------------*/
-@keyframes waves {
-    0% {
-        background-position: 0 0;
-    }
-
-    50% {
-        background-position: 50% 100x;
-    }
-
-    100% {
-        background-position: 100% 0;
-    }
-}
-@keyframes wave-motion {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    50% {
-        transform: rotate(3deg);
-    }
-
-    75% {
-        transform: rotate(-3deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
-}
 //General Errors
 /*------------------------------------------------------------------------------------*/
 .error-wrapper {

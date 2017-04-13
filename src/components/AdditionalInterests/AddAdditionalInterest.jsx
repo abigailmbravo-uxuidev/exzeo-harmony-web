@@ -55,8 +55,26 @@ export const AddAdditionalInterest = props => (
     <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={props.handleSubmit(noAddAdditionalInterestSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper" />
+          <p>To add additional interests blah blah blah</p>
+          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus"></i><span>Mortgagee</span></div></button>
+          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus"></i><span>Lienholder</span></div></button>
+          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus"></i><span>Additional Insured</span></div></button>
+          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus"></i><span>Additional Interest</span></div></button>
+          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus"></i><span>Billpayer</span></div></button>
+          {/*list of additional interests*/}
+          <ul className="results result-cards">
+                  <li>
+                          {/*add className based on type - i.e. mortgagee could have class of mortgagee*/}
+                          <div className="card-icon"><i className="fa      dynamic-className-HERE       "></i><label>Mortgagee 1</label></div>
+                          <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p>Address 1, address 2, City, State Zip</p></section>
+                          <i className="fa fa-pencil"></i>
+                  </li>
+          </ul>
+       </div>
         <div className="workflow-steps">
-          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}>Add AI</button>
+          {/*show this button if there are no AIs added*/}
+          <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>Not Applicable</button>
+          {/*show this button if there is 1 or more AI added*/}
           <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>next</button>
         </div>
         <Footer />
