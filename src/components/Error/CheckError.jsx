@@ -2,10 +2,9 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
-const CheckError = (props) => {
+export const CheckError = (props) => {
   // check the errors
   if (props.error && props.error.message) {
-    console.log('redirecting', props.error.message);
     const errorPath = '/error';
     return <Redirect to={{ pathname: errorPath, state: { redirectUrl: props.redirectUrl } }} />;
   }

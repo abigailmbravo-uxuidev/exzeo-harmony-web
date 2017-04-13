@@ -24,7 +24,7 @@ const setSearchAgain = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const NoResults = (props) => {
+export const NoResults = (props) => {
   if (props.tasks[props.appState.modelName] &&
     props.tasks[props.appState.modelName].data.activeTask &&
     (props.tasks[props.appState.modelName].data.activeTask.name === 'askToSearchAgain')) {

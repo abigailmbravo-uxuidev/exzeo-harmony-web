@@ -39,9 +39,10 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
             <ul className="error">
               {
                 underwritingExceptions.map((exception, i) => {
-                  if(exception.action !== 'Fatal Error') {
-                    return (<li key={i}>{exception.agentMessage}</li>)
+                  if (exception.action !== 'Fatal Error') {
+                    return (<li key={i}>{exception.agentMessage}</li>);
                   }
+                  return '\u00A0';
                 })
               }
             </ul>

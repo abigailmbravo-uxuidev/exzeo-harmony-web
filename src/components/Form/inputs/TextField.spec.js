@@ -36,7 +36,7 @@ describe('TextInput', () => {
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
 
-    expect(wrapper.find(FieldHint)).to.have.length(1);
+    expect(wrapper.find(FieldHint).length).toEqual(1);
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" name={inputProps.input.name} />,
       <label htmlFor={inputProps.input.name}>{inputProps.label}</label>

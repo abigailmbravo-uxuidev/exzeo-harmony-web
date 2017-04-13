@@ -10,7 +10,7 @@ describe('SliderInput', () => {
     expect(wrapper.containsAnyMatchingElements([
       <input type="text" />,
       <input type="range" />
-    ])).to.equal(true);
+    ])).toEqual(true);
   });
 
   it('should render FieldHint when provided with a hint', () => {

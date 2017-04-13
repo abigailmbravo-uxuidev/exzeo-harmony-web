@@ -20,7 +20,7 @@ const handleOnSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
 };
 
-const Assumptions = (props) => {
+export const Assumptions = (props) => {
   const { appState, handleSubmit, fieldValues } = props;
 
   console.log('fieldValues', fieldValues);

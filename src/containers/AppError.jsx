@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Footer from '../components/Common/Footer';
 
-const AppError = (props, context) => {
+export const AppError = (props, context) => {
   if (!props.error.message) {
     return <Redirect to={{ pathname: context.router.route.location.state.redirectUrl }} />;
   }

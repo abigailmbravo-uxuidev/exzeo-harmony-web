@@ -15,7 +15,8 @@ describe('RadioField', () => {
       input: {
         name: 'test'
       },
-      hint: 'Testing'
+      hint: 'Testing',
+      answers: []
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
 

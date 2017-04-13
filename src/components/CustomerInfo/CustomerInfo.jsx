@@ -46,7 +46,7 @@ const handleInitialize = (state) => {
 //  not be the case in later calls, you may need
 //  to pull it from another place in the model
 // ------------------------------------------------
-const CustomerInfo = (props) => {
+export const CustomerInfo = (props) => {
   const {
     appState,
     handleSubmit,

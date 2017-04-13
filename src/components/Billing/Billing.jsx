@@ -27,12 +27,13 @@ const handleFormSubmit = (data, dispatch, props) => {
 };
 
 const handleInitialize = (state) => {
+  console.log(state);
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
- taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+    taskData.model.variables &&
+    _.find(taskData.model.variables, { name: 'quote' }) &&
+    _.find(taskData.model.variables, { name: 'quote' }).value ?
+    _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
 
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
@@ -57,7 +58,7 @@ const handleGetQuoteData = (state) => {
 };
 
 let sameAsProperty = false;
-const Billing = (props) => {
+export const Billing = (props) => {
   const {
     fieldQuestions,
     quoteData,

@@ -88,7 +88,7 @@ Error.propTypes = {
     modelName: PropTypes.string,
     instanceId: PropTypes.string
   })
-}
+};
 
 const mapStateToProps = state => ({
   tasks: state.cg,

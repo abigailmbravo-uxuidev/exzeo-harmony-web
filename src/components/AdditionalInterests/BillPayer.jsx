@@ -23,7 +23,7 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const BillPayer = (props) => {
+export const BillPayer = (props) => {
   const {
         tasks,
         appState,

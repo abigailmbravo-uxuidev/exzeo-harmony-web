@@ -28,7 +28,7 @@ const getQuoteFromModel = (state, props) => {
     });
 };
 
-class WorkflowDetails extends Component {
+export class WorkflowDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {

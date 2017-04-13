@@ -33,8 +33,10 @@
     "validator": "^7.0.0"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.8.1",
     "babel-jest": "^19.0.0",
     "enzyme": "^2.8.0",
+    "istanbul": "^0.4.5",
     "jest-enzyme": "2.1.2",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
@@ -46,8 +48,8 @@
     "watch-css": "node-sass src/sass --output-style 'compressed' -o src/css --watch --recursive",
     "start": "npm run build-css && react-scripts start",
     "build": "npm run build-css && react-scripts build",
-    "coverage": "NODE_ENV=test nyc npm test",
-    "test": "react-scripts test --env=jsdom --coverage",
+    "copyCoverage": "node setupCodeCoverage",
+    "test": "npm run copyCoverage && react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject"
   }
 }
