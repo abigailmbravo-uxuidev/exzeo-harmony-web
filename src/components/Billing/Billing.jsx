@@ -55,10 +55,11 @@ const handleInitialize = (state) => {
   // values.billToType = 'Policy Holder'; //  _.get(quoteData, 'billToType');
   // values.billPlan = 'Annual'; // _.get(quoteData, 'billPlan');
 
-  values.billTo = _.get(quoteData, 'billToId');
-  values.billToId = _.get(quoteData, 'billToId');
-  values.billToType = _.get(quoteData, 'billToType');
-  values.billPlan = _.get(quoteData, 'billPlan');
+  values.billTo = ''; // _.get(quoteData, 'billToId');
+  values.billToId = ''; // _.get(quoteData, 'billToId');
+  values.billToType = ''; // _.get(quoteData, 'billToType');
+  values.billPlan = ''; // _.get(quoteData, 'billPlan');
+
 
   console.log(values);
 
