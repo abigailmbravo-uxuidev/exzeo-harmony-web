@@ -63,7 +63,7 @@ export class Workflow extends Component {
   componentWillReceiveProps(nextProps) {
     if ((this.props.tasks[workflowModelName]) &&
       (nextProps.tasks[workflowModelName].data.activeTask &&
-        this.props.tasks[workflowModelName].data.activeTask)) {
+      this.props.tasks[workflowModelName].data.activeTask)) {
       const activeTaskName = nextProps.tasks[workflowModelName].data.activeTask.name;
       const oldActiveTaskName = this.props.tasks[workflowModelName].data.activeTask.name;
       if (activeTaskName !== oldActiveTaskName) {
@@ -80,19 +80,32 @@ export class Workflow extends Component {
             });
           }
         }
+      
+        console.log('active task name: ', activeTaskName);
+      
         const newComponent = components[activeTaskName];
-        this.setState((previousState, props) => ({ ...props,
+        this.setState((previousState, props) => ({
+          ...props,
           currentControl: newComponent
         }));
       }
     }
     if (nextProps.tasks && nextProps.tasks[workflowModelName] &&
       nextProps.tasks[workflowModelName].data &&
-      nextProps.tasks[workflowModelName].data.previousTask &&
-      nextProps.tasks[workflowModelName].data.previousTask.name === 'notifyDocusignApp') {
-      this.setState((previousState, props) => ({ ...props,
-        currentControl: <ThankYou />
-      }));
+      nextProps.tasks[workflowModelName].data.previousTask) {
+      const previousTaskName = nextProps.tasks[workflowModelName].data.previousTask.name;
+      if (previousTaskName === 'notifyDocusignApp') {
+        this.setState((previousState, props) => ({
+          ...props,
+          currentControl: <ThankYou />
+        }));
+      }
+      else if (previousTaskName === 'UWDecision1EndError'){
+        this.setState((previousState, props) => ({
+          ...props,
+          currentControl: <Error />
+        }));
+      }
     }
   }
 

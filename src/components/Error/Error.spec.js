@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Error } from './Error';
+import ConnectedApp from './Error';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -41,8 +41,18 @@ describe('Testing Error component', () => {
         bb: {
           data: {
             modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
+            model: {
+              variables: [{
+                name: 'quote',
+                value: {
+                  result: {}
+                }
+              }]
+            },
+            uiQuestions: [],
+            previousTask: {
+              name: 'quote'
+            }
           }
         }
       },

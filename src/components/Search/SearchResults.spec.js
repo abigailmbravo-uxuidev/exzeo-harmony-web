@@ -3,41 +3,12 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { SearchResults } from './SearchResults';
+import ConnectedApp from './SearchResults';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe('Testing SearchBar component', () => {
-  it('should test props and render', () => {
-    const initialState = {};
-    const store = mockStore(initialState);
-    const props = {
-      fieldQuestions: [],
-      quoteData: {},
-      dispatch: store.dispatch,
-      appState: {
-        data: {
-          submitting: false
-        },
-        modelName: 'bb'
-      },
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: [],
-            activeTask: {}
-          }
-        }
-      },
-      ...propTypes
-    };
-    const wrapper = shallow(<SearchResults {...props} />);
-    expect(wrapper);
-  });
-
   it('should test connected app', () => {
     const initialState = {
       cg: {
