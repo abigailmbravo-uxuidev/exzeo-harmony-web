@@ -25,7 +25,7 @@ import BillingConnect from '../Billing/Billing';
 import VerifyConnect from '../Verify/Verify';
 import ThankYou from '../ThankYou/ThankYou';
 
-const workflowModelName = 'quoteModel-mark';
+const workflowModelName = 'quoteModel';
 
 const components = {
   search: <SearchConnect />,
@@ -80,9 +80,9 @@ export class Workflow extends Component {
             });
           }
         }
-      
+
         console.log('active task name: ', activeTaskName);
-      
+
         const newComponent = components[activeTaskName];
         this.setState((previousState, props) => ({
           ...props,
@@ -99,8 +99,7 @@ export class Workflow extends Component {
           ...props,
           currentControl: <ThankYou />
         }));
-      }
-      else if (previousTaskName === 'UWDecision1EndError'){
+      } else if (previousTaskName === 'UWDecision1EndError') {
         this.setState((previousState, props) => ({
           ...props,
           currentControl: <Error />
