@@ -6,8 +6,8 @@
 /*|||||||||||||||||||||||||||||||||||||||||||||||||
 |||||||||||||||||||||||||||||||||||||||||||||||||*/
 //colors
-$body-color: $warm-gray-14;
-// default elements
+$body-color: $warm-gray-14; // default elements
+
 body {
     color: $body-color;
 }
@@ -1089,42 +1089,42 @@ main[role="document"] {
 //workflow including stepper and left aside
 /*------------------------------------------------------------------------------------*/
 .workflow {
-        .route {
-            //workflow detail header
-            .detailHeader {
-                background-color: mix($cool-gray-12, $bright-blue, 70);
+    .route {
+        //workflow detail header
+        .detailHeader {
+            background-color: mix($cool-gray-12, $bright-blue, 70);
 
-                section {
+            section {
+                dl {
+                    div {
+                        dt {
+                            color: $green-lighten-02;
+                        }
+
+                        dd {
+                            color: $white;
+                        }
+                    }
+                }
+
+                &.premium {
+                    background: $green-lighten-04;
+
                     dl {
                         div {
                             dt {
-                                color: $green-lighten-02;
+                                color: $cool-gray-15;
                             }
 
                             dd {
-                                color: $white;
-                            }
-                        }
-                    }
-
-                    &.premium {
-                        background: $green-lighten-04;
-
-                        dl {
-                            div {
-                                dt {
-                                    color: $cool-gray-15;
-                                }
-
-                                dd {
-                                    color: $body-color;
-                                }
+                                color: $body-color;
                             }
                         }
                     }
                 }
             }
         }
+    }
 }
 //footer
 /*------------------------------------------------------------------------------------*/
@@ -1140,46 +1140,40 @@ footer {
 //Home Page
 /*------------------------------------------------------------------------------------*/
 .dashboard {
-    .fade-in {
-        .route {
-            .fade-in {
-                overflow-y: auto;
+    .route {
+        .app-header {
+            margin-top: 0;
+            color: $bright-blue-darken-03;
+        }
 
-                .app-header {
-                    margin-top: 0;
-                    color: $bright-blue-darken-03;
+        .product-wrapper {
+            .product {
+                .card-header {
+                    &.card-header-image-flood {
+                        background-image: url('../img/flood.jpg');
+                        background-position: right top;
+                    }
+
+                    &.card-header-image-home {
+                        background-image: url('../img/home-owners.jpg');
+                        background-position: center center;
+                    }
+
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5,
+                    h6 {
+                        margin: (-$padding*1.75) (-$padding*2.5);
+                        padding: $padding;
+                        background-color: rgba($cool-gray-10, .75);
+                    }
                 }
 
-                .product-wrapper {
-                    .product {
-                        .card-header {
-                            &.card-header-image-flood {
-                                background-image: url('../img/flood.jpg');
-                                background-position: right top;
-                            }
-
-                            &.card-header-image-home {
-                                background-image: url('../img/home-owners.jpg');
-                                background-position: center center;
-                            }
-
-                            h1,
-                            h2,
-                            h3,
-                            h4,
-                            h5,
-                            h6 {
-                                margin: (-$padding*1.75) (-$padding*2.5);
-                                padding: $padding;
-                                background-color: rgba($cool-gray-10, .75);
-                            }
-                        }
-
-                        .card-footer {
-                            .btn-secondary {
-                                @include button-variant($white, $bright-blue, $bright-blue);
-                            }
-                        }
+                .card-footer {
+                    .btn-secondary {
+                        @include button-variant($white, $bright-blue, $bright-blue);
                     }
                 }
             }
@@ -1709,36 +1703,34 @@ ul.result-cards {
         }
     }
 }
-
-
 //loader
 /*------------------------------------------------------------------------------------*/
 .loader {
-  .card {
-    .card-block {
-      .ring-5 {
-        border: 1px solid $green;
-      }
+    .card {
+        .card-block {
+            .ring-5 {
+                border: 1px solid $green;
+            }
 
-      .ring-4 {
-        border: 1px solid $gray;
-      }
+            .ring-4 {
+                border: 1px solid $gray;
+            }
 
-      .ring-3 {
-        border: 1px solid $bright-blue;
-      }
+            .ring-3 {
+                border: 1px solid $bright-blue;
+            }
 
-      .ring-2 {
-        border: 1px solid $green;
-      }
+            .ring-2 {
+                border: 1px solid $green;
+            }
 
-      .ring-1 {
-        border: 1px solid $gray;
-      }
+            .ring-1 {
+                border: 1px solid $gray;
+            }
 
-      div[class^="ring-"]  {
-        border-bottom: 1px solid transparent;
-      }
+            div[class^="ring-"] {
+                border-bottom: 1px solid transparent;
+            }
+        }
     }
-  }
 }

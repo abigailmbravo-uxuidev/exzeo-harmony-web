@@ -555,7 +555,6 @@ main[role="document"] {
                 justify-content: center;
 
                 .card {
-                    position: absolute;
                     z-index: 30;
                 }
             }
@@ -1429,77 +1428,75 @@ footer {
     display: flex;
     overflow: hidden;
     flex-direction: column;
-    height: 100%;
+    height: auto;
     flex-grow: 1;
-    flex-shrink: 0;
 
-    .fade-in {
+    .route {
         display: flex;
-        overflow: hidden;
         flex-direction: column;
-        height: 100%;
-        height: 100%;
         flex-grow: 1;
-        flex-shrink: 0;
 
-        .fade-in,
-        .route {
+        .route-content {
             display: flex;
-            overflow: hidden;
-            flex-direction: column;
-            height: 100%;
+            height: auto;
             flex-grow: 1;
-            flex-shrink: 0;
-        }
 
-        .dashboard-message {
-            padding: ($padding*2) ($padding*2) 0;
-        }
-
-        .product-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            justify-content: space-around;
-            flex-grow: 0;
-            flex-shrink: 0;
-            @include for-phone-only {
+            .scroll {
+                display: flex;
+                overflow-y: auto;
                 flex-direction: column;
-            }
-
-            .product {
-                margin-bottom: $padding;
                 flex-grow: 1;
-                flex-shrink: 0;
-                flex-basis: 0;
-                align-self: stretch;
-                @include for-phone-only {
-                    flex-grow: 0;
-                    flex-basis: auto;
+
+                .dashboard-message {
+                    padding: ($padding*2) ($padding*2) 0;
                 }
 
-                .card-header {
-                    @include for-phone-only {
-                        height: 2.5rem;
-                    }
-                }
-
-                .card-block {
-                    @include for-phone-only {
-                        flex-grow: 0;
-                    }
-                }
-
-                .card-footer {
+                .product-wrapper {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: flex-start;
                     justify-content: space-around;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    @include for-phone-only {
+                        flex-direction: column;
+                    }
 
-                    .btn {
-                        margin-left: 0;
-                        flex-grow: 0;
+                    .product {
+                        margin-bottom: $padding;
+                        flex-grow: 1;
                         flex-shrink: 0;
-                        flex-basis: 45%;
+                        flex-basis: 0;
+                        align-self: stretch;
                         @include for-phone-only {
-                            font-size: $font-size-sm;
+                            flex-grow: 0;
+                            flex-basis: auto;
+                        }
+
+                        .card-header {
+                            @include for-phone-only {
+                                height: 2.5rem;
+                            }
+                        }
+
+                        .card-block {
+                            @include for-phone-only {
+                                flex-grow: 0;
+                            }
+                        }
+
+                        .card-footer {
+                            justify-content: space-around;
+
+                            .btn {
+                                margin-left: 0;
+                                flex-grow: 0;
+                                flex-shrink: 0;
+                                flex-basis: 45%;
+                                @include for-phone-only {
+                                    font-size: $font-size-sm;
+                                }
+                            }
                         }
                     }
                 }
