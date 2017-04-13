@@ -1,5 +1,5 @@
-import React, {PropTypes} from 'react';
-import {Link} from 'react-router-dom';
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import Base from './Base';
 import ClearError from '../components/Error/ClearError';
 import Footer from '../components/Common/Footer';
