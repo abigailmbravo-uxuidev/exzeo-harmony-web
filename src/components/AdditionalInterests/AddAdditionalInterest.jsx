@@ -7,48 +7,82 @@ import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import AIPopup from '../Common/AIPopup';
+import { getInitialValues } from '../Customize/customizeHelpers';
 
 const userTasks = {
-  addAdditionalAIs: 'addAdditionalAIs',
-  askAI: 'askAI'
+  askMortgagee: 'askMortgagee',
+  addAdditionalAIs: 'addAdditionalAIs'
 };
 
-const getQuoteData = (state) => {
+const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskName = userTasks.addAdditionalAIs;
+  const taskData = { shouldUpdateAIs: 'No' };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+};
+
+const addMortgageeSubmit = (data, dispatch, props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const steps = [{
+    name: userTasks.addAdditionalAIs,
+    data: { shouldUpdateAIs: 'Yes' }
+  }, {
+    name: userTasks.askMortgagee,
+    data
+  }];
+  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps);
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+};
+
+
+const AddMortgagee = (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: true });
+};
+
+const closeAddAdditionalInterestSubmit = (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+};
+
+const handleGetQuestions = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  return taskData.uiQuestions;
+};
+
+const handleGetQuoteData = (state) => {
   const { cg, appState } = state;
   const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
   return (quoteData ? quoteData.value.result : undefined);
 };
 
-const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAis;
-  const taskData = { shouldAddAI: 'No' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+const handleInitialize = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+//   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+
+  const quoteData = taskData && taskData.model &&
+   taskData.model.variables &&
+   _.find(taskData.model.variables, { name: 'quote' }) &&
+   _.find(taskData.model.variables, { name: 'quote' }).value ?
+    _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+
+  const values = getInitialValues(taskData.uiQuestions, quoteData);
+
+  userTasks.formSubmit = taskData.activeTask.name;
+
+  _.forEach(taskData.uiQuestions, (q) => {
+    if (!values[q.name]) {
+      values[q.name] = '';
+    }
+  });
+  return values;
 };
 
-const AddAdditionalInterestQuoteSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // we need to call a batch complete here
-  const steps = [{
-    name: userTasks.addAdditionalAis,
-    data: { shouldAddAI: 'Yes' }
-  }, {
-    name: userTasks.askEmail,
-    data
-  }];
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps);
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showAIPopup: false });
-};
-
-const AddAdditionalInterestQuote = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showAIPopup: true });
-};
-
-const closeAddAdditionalInterestSubmit = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showAIPopup: false });
-};
 
 export const AddAdditionalInterest = props => (
   <div className="route-content">
@@ -56,11 +90,11 @@ export const AddAdditionalInterest = props => (
       <div className="scroll">
         <div className="form-group detail-wrapper">
           <p>To add additional interests blah blah blah</p>
-          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
+          <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
+          {/* <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
           <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
           <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button>
+          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button> */}
           {/* list of additional interests*/}
           <ul className="results result-cards">
             <li>
@@ -80,11 +114,12 @@ export const AddAdditionalInterest = props => (
         <Footer />
       </div>
     </Form>
-    {props.appState.data.showAIPopup &&
-      <AIPopup
-        primaryButtonHandler={AddAdditionalInterestQuoteSubmit}
-        secondaryButtonHandler={() => closeAddAdditionalInterestSubmit(props)}
-      />}
+    {props.appState.data.showMortgageePopup &&
+    <AIPopup
+      questions={_.filter(props.fieldQuestions, q => _.includes(q.group, 'askMortgagee'))}
+      primaryButtonHandler={addMortgageeSubmit}
+      secondaryButtonHandler={() => closeAddAdditionalInterestSubmit(props)}
+    />}
   </div>
 );
 
@@ -102,7 +137,10 @@ AddAdditionalInterest.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  quote: getQuoteData(state)
+  fieldValues: _.get(state.form, 'AddAdditionalInterestPage.values', {}),
+  initialValues: handleInitialize(state),
+  fieldQuestions: handleGetQuestions(state),
+  quoteData: handleGetQuoteData(state)
 });
 
 const mapDispatchToProps = dispatch => ({
