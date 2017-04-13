@@ -983,7 +983,6 @@ main[role="document"] {
         margin: 0.875rem;
         padding: ($padding) 0;
         border-radius: 50%;
-
         @include for-tablet-landscape-up {
             width: auto;
             height: auto;
@@ -998,11 +997,13 @@ main[role="document"] {
             padding: ($padding) 0;
             border-radius: $btn-border-radius;
         }
+
         > div {
             display: flex;
             width: 100%;
             align-items: center;
             justify-content: center;
+
             i {
                 margin-right: 0;
                 @include for-tablet-landscape-up {
@@ -1473,6 +1474,8 @@ footer {
                         flex-basis: 0;
                         align-self: stretch;
                         @include for-phone-only {
+                            margin-right: 0;
+                            margin-left: 0;
                             flex-grow: 0;
                             flex-basis: auto;
                         }
@@ -1490,6 +1493,7 @@ footer {
                         }
 
                         .card-footer {
+                            padding: $padding ($padding*1.25);
                             justify-content: space-around;
 
                             .btn {
@@ -1499,6 +1503,12 @@ footer {
                                 flex-basis: 45%;
                                 @include for-phone-only {
                                     font-size: $font-size-sm;
+                                }
+
+                                i {
+                                    @include for-phone-only {
+                                        display: none;
+                                    }
                                 }
                             }
                         }
@@ -2152,6 +2162,44 @@ ul.list-cards {
 #Assumptions {}
 //Additional Interests
 /*------------------------------------------------------------------------------------*/
+.ai-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background: rgba($black, .8);
+    align-items: center;
+    justify-content: center;
+    @include animation( 'fade-in .25s 1');
+
+    .card-additional-interest {
+        z-index: 100;
+        width: 100%;
+        max-width: 50rem;
+
+        .card-block {
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .city {
+                width: auto;
+                flex-grow: 1;
+            }
+
+            .state {
+                width: 4rem;
+            }
+
+            .zip {
+                width: 8rem;
+            }
+        }
+    }
+}
+
 #AdditionalPolicyHolder {
     .switch.inactive~.form-group {
         display: none;
