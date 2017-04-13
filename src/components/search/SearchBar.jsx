@@ -150,7 +150,7 @@ const SearchForm = (props) => {
   );
 };
 
-export const SearchBar = props => SearchForm(props);
+const SearchBar = props => SearchForm(props);
 
 SearchBar.propTypes = {
   ...propTypes,
