@@ -6,6 +6,11 @@ import moment from 'moment';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
+const didNotFindAddressHint = (props) => {
+  const dontSeeAddress = !props.appState.data.dontSeeAddress;
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { dontSeeAddress });
+}
+
 const SearchResults = (props) => {
   if (
     props.tasks[props.appState.modelName] &&
@@ -15,22 +20,36 @@ const SearchResults = (props) => {
   ) {
     const addresses = props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
     return (
-      <ul className="results result-cards">
-        {addresses
-          ? addresses.map((address, index) => (
-            <li id={address.id} key={index}>
-              <a onClick={() => props.handleSelectAddress(address, props)} tabIndex="-1">
-                <i className="card-icon fa fa-map-marker" />
-                <section>
-                  <h4>{address.physicalAddress.address1}</h4>
-                  <p>{address.physicalAddress.city}, {address.physicalAddress.state} {address.physicalAddress.zip}</p>
-                </section>
-                <i className="fa fa-chevron-circle-right" />
-              </a>
-            </li>
+      <div>
+        <ul className="results result-cards">
+          {addresses
+            ? addresses.map((address, index) => (
+              <li id={address.id} key={index}>
+                <a onClick={() => props.handleSelectAddress(address, props)} tabIndex="-1">
+                  <i className="card-icon fa fa-map-marker" />
+                  <section>
+                    <h4>{address.physicalAddress.address1}</h4>
+                    <p>{address.physicalAddress.city}, {address.physicalAddress.state} {address.physicalAddress.zip}</p>
+                  </section>
+                  <i className="fa fa-chevron-circle-right" />
+                </a>
+              </li>
             ))
-          : null}
-      </ul>
+            : null}
+        </ul>
+    
+        <div className="card address-not-found">
+          <a onClick={() => didNotFindAddressHint(props)} className="btn btn-secondary"><i className="fa fa-map-marker"></i> Don't see your address?</a>
+          { props.appState.data.dontSeeAddress && <div>
+            <p>If you don't see your address in the list provided, try entering less
+              address information to see if that improves your search results. Please note, at this
+              time we are only writing single family dwellings in the state of Florida.</p>
+            <p>If you still have problems finding an address, please <a href="tel:888-210-5235"><strong>call us</strong></a>
+              and one of our representatives will be glad to help you.</p>
+          </div>
+          }
+        </div>
+      </div>
     );
   }
   if (
@@ -81,7 +100,11 @@ const SearchResults = (props) => {
 
 SearchResults.propTypes = {
   appState: PropTypes.shape({
-    modelName: PropTypes.string
+    modelName: PropTypes.string,
+    instanceId: PropTypes.string,
+    data: PropTypes.shape({
+      dontSeeAddress: PropTypes.bool
+    })
   }),
   tasks: PropTypes.shape(),
   handleSelect: PropTypes.func,
