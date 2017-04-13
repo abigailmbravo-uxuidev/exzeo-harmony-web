@@ -50,19 +50,10 @@ const handleInitialize = (state) => {
     }
   });
 
-  // values.billTo = '58ee932c1ec75300140a8c55'; // _.get(quoteData, 'billToId');
-  // values.billToId = '58ee932c1ec75300140a8c55'; // _.get(quoteData, 'billToId');
-  // values.billToType = 'Policy Holder'; //  _.get(quoteData, 'billToType');
-  // values.billPlan = 'Annual'; // _.get(quoteData, 'billPlan');
-
-  values.billTo = ''; // _.get(quoteData, 'billToId');
-  values.billToId = ''; // _.get(quoteData, 'billToId');
-  values.billToType = ''; // _.get(quoteData, 'billToType');
-  values.billPlan = ''; // _.get(quoteData, 'billPlan');
-
-
-  console.log(values);
-
+  values.billTo = _.get(quoteData, 'billToId');
+  values.billToId = _.get(quoteData, 'billToId');
+  values.billToType = _.get(quoteData, 'billToType');
+  values.billPlan = _.get(quoteData, 'billPlan');
 
   return values;
 };
