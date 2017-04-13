@@ -2,14 +2,20 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
-const Error = (props) => {
+const handleGetExceptions = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const exceptions = _.find(taskData.model.variables, { name: taskData.previousTask.name }).value;
+  return exceptions;
+};
 
-    console.log('ERROR PROPS', props);
+const handleGetQuoteData = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const quoteData = _.find(taskData.model.variables, { name: 'quote' }).value.result;
+  return quoteData;
+};
 
-    const {previousTask, model} = props.tasks[props.workflow.modelName].data;
-    const quote = _.find(model.variables, {name: 'quote'}).value.result;
-    const exceptions = (previousTask && previousTask.value);
-
+const Error = ({ quote, exceptions }) => {
+  
     return (
         <div className="app-wrapper">
             <div className="error-content" role="article">
@@ -75,11 +81,21 @@ const Error = (props) => {
 };
 
 Error.propTypes = {
-    tasks: PropTypes.shape({}),
-    workflow: PropTypes.shape({modelName: PropTypes.string})
+  tasks: PropTypes.shape({
+    activeTask: PropTypes.object
+  }),
+  appState: PropTypes.shape({
+    modelName: PropTypes.string,
+    instanceId: PropTypes.string
+  })
 }
 
-const mapStateToProps = state => ({tasks: state.cg, workflow: state.workflow});
+const mapStateToProps = state => ({
+  tasks: state.cg,
+  appState: state.appState,
+  quote: handleGetQuoteData(state),
+  exceptions: handleGetExceptions(state)
+});
 
 // ------------------------------------------------
 // wire up redux form with the redux connect

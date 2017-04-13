@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
@@ -18,6 +19,11 @@ const getUnderwritingExceptions = (state) => {
   const { cg, appState } = state;
   return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?
     cg[appState.modelName].data.previousTask.value : undefined);
+};
+const getQuoteData = (state) => {
+  const { cg, appState } = state;
+  const quoteData = _.find(cg[appState.modelName].data.model.variables, {name: 'quote'});
+  return (quoteData ? quoteData.value.result : undefined);
 };
 
 const noShareSubmit = (data, dispatch, props) => {
@@ -102,6 +108,7 @@ const Share = props => (
       />}
     {props.underwritingExceptions &&
       <ErrorPopup
+        quote={props.quote}
         underwritingExceptions={props.underwritingExceptions}
         refereshUWReviewError={() => refereshUWReviewError(props)}
         redirectToNewQuote={redirectToNewQuote}
@@ -114,7 +121,7 @@ Share.propTypes = {
   ...propTypes,
   tasks: PropTypes.shape({}),
   appState: PropTypes.shape({ modelName: PropTypes.string, data: PropTypes.object }),
-  underwritingExceptions: PropTypes.shape()
+  underwritingExceptions: PropTypes.arrayOf(PropTypes.shape())
 };
 
 // ------------------------------------------------
@@ -123,7 +130,8 @@ Share.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  underwritingExceptions: getUnderwritingExceptions(state)
+  underwritingExceptions: getUnderwritingExceptions(state),
+  quote: getQuoteData(state)
 });
 
 const mapDispatchToProps = dispatch => ({
