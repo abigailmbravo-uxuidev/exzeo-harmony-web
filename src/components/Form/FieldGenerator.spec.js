@@ -16,7 +16,7 @@ describe('<FieldGenerator />', () => {
       />
     );
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
   });
 
   it('should render select input', () => {
@@ -27,9 +27,9 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
     // Need to take into account blank option
-    expect(wrapper.find('option')).to.have.length((0));
+    expect(wrapper.find('option').length).toEqual(0);
   });
 
   it('should render radio input', () => {
@@ -40,8 +40,8 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper).to.exist;
-    expect(wrapper.find('input')).to.exist;
+    expect(wrapper);
+    expect(wrapper.find('input'));
   });
 
   it('should render dropdown from radio input', () => {
@@ -52,8 +52,8 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper).to.exist;
-    expect(wrapper.find('select')).to.exist;
+    expect(wrapper);
+    expect(wrapper.find('select'));
   });
 
   it('should render dropdown from radio input for long radio answers', () => {
@@ -64,8 +64,8 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper).to.exist;
-    expect(wrapper.find('select')).to.exist;
+    expect(wrapper);
+    expect(wrapper.find('select'));
   });
 
   it('should check for hidden', () => {
@@ -77,8 +77,8 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(inputProps.type).to.equal('hidden');
-    expect(wrapper.find('input')).to.exist;
+    expect(inputProps.type).toEqual('hidden');
+    expect(wrapper.find('input'));
   });
 
   it('should check for header', () => {
@@ -90,7 +90,7 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper.find('span')).to.exist;
+    expect(wrapper.find('span'));
   });
 
   it('should check for text', () => {
@@ -101,7 +101,7 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper.find('input')).to.exist;
+    expect(wrapper.find('input'));
   });
 
   it('should check for date', () => {
@@ -112,7 +112,7 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper.find('input')).to.exist;
+    expect(wrapper.find('input'));
   });
 
   it('should check for range', () => {
@@ -123,7 +123,7 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper.find('input')).to.exist;
+    expect(wrapper.find('input'));
   });
 
   it('should check for slider', () => {
@@ -134,7 +134,7 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper.find('input')).to.exist;
+    expect(wrapper.find('input'));
   });
 
   it('should check for display', () => {
@@ -145,7 +145,7 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper.find('input')).to.exist;
+    expect(wrapper.find('input'));
   });
 
   it('should check for bool', () => {
@@ -156,7 +156,7 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper.find('input')).to.exist;
+    expect(wrapper.find('input'));
   });
 
   it('should check for conditional', () => {
@@ -169,6 +169,6 @@ describe('<FieldGenerator />', () => {
 
     const wrapper = shallow(<FieldGenerator {...inputProps} />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
   });
 });

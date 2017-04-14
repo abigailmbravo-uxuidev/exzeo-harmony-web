@@ -16,13 +16,14 @@ const handleSearchBarSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSearchBarSubmit;
   const taskData = {
-    firstName: encodeURIComponent(data.firstName),
-    lastName: encodeURIComponent(data.lastName),
-    address: encodeURIComponent(data.address),
-    quoteNumber: encodeURIComponent(data.quoteNumber),
-    zip: encodeURIComponent(data.zip),
+    firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
+    lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(data.address) : ''),
+    quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
+    zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType
   };
+  console.log('SEARCH DATA: ', taskData);
   // we need to make sure the active task is search otherwise we need to reset the workflow
   if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
     const completeStep = {
@@ -119,7 +120,7 @@ const SearchForm = (props) => {
           {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search')}
           {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search')}
           {generateField('zip', 'Zip Search', 'Zip', formErrors, 'zip-search')}
-          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search')}          
+          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search')}        
           <button
             className="btn btn-success multi-input"
             type="submit"

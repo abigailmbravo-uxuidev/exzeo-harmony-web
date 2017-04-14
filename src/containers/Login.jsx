@@ -8,7 +8,7 @@ import Loader from '../components/Common/Loader';
 import FieldGenerator from '../components/Form/FieldGenerator';
 import * as userActions from '../actions/userActions';
 import * as appStateActions from '../actions/appStateActions';
-import Base from './Base';
+import BaseConnect from './Base';
 
 const handleLoginSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
@@ -47,7 +47,7 @@ const formQuestions = [
 ];
 
 
-const Login = (props) => {
+export const Login = (props) => {
   const errorResult = (props.user.error) ?
   (<div className="form-group error"><span>
     <i className="fa fa-exclamation-triangle" /> User name or password is incorrect
@@ -65,7 +65,7 @@ const Login = (props) => {
   if (props.appState.data && props.appState.data.loginSubmitting) {
     return <Loader />;
   }
-  return (<Base>
+  return (<BaseConnect>
     <div className="login" role="article">
       <div className="card">
         <div className="card-header">
@@ -102,7 +102,7 @@ const Login = (props) => {
       </div>
       <div className="modal" />
     </div>
-  </Base>);
+  </BaseConnect>);
 };
 
 Login.propTypes = {

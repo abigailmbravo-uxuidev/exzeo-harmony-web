@@ -71,7 +71,7 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const Mortgagee = (props) => {
+export const Mortgagee = (props) => {
   const {
     fieldQuestions,
     quoteData,

@@ -1,11 +1,15 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-// import reduxFormField from './reduxFormField';
+import React from 'react';
+import { shallow } from 'enzyme';
+import TextField from './TextField';
+import reduxFormField from './reduxFormField';
 
-// describe('reduxFormField', () => {
-//   it('should render a component passed into redux form field');
+describe('reduxFormField', () => {
+  it('should render a component passed into redux form field', () => {
+    const props = {
+      answers: []
+    };
+    const wrapper = shallow(<reduxFormField {...TextField} {...props} />);
 
-  // TODO: Check and see if it renders component
-  // TODO: Check and see if props are passed to component
-  // TODO: Check and see if what happens with onChange
-// });
+    expect(wrapper);
+  });
+});

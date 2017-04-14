@@ -66,7 +66,7 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const AdditionalInterest = (props) => {
+export const AdditionalInterest = (props) => {
   const {
     fieldQuestions,
     quoteData,

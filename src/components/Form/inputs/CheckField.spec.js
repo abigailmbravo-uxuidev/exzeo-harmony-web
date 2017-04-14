@@ -8,7 +8,7 @@ describe('CheckInput', () => {
     const wrapper = shallow(<CheckInput />);
 
     expect(wrapper.instance().props.input.value).toEqual(false);
-    expect(wrapper.instance().props.input.onChange).to.exist;
+    expect(wrapper.instance().props.input.onChange);
     expect(wrapper.containsMatchingElement(<input type="checkbox" />)).toEqual(true);
   });
 
@@ -34,7 +34,7 @@ describe('CheckInput', () => {
     };
     const wrapper = shallow(<CheckInput {...inputProps} />);
 
-    expect(wrapper.find(FieldHint)).to.have.length(1);
+    expect(wrapper.find(FieldHint).length).toEqual(1);
     expect(wrapper.containsAnyMatchingElements([
       <input type="checkbox" name={inputProps.input.name} />,
       <label htmlFor={inputProps.input.name}>{inputProps.label}</label>

@@ -7,7 +7,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
-import NoResults from './NoResults';
+import NoResultsConnect from './NoResults';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
@@ -40,7 +40,7 @@ const Search = () => (
     <SearchBar />
     <div className="survey-wrapper scroll">
       <div className="results-wrapper">
-        <NoResults />
+        <NoResultsConnect />
         <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
       </div>
       <Footer />

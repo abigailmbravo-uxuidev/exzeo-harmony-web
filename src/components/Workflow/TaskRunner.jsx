@@ -12,7 +12,7 @@ const runTask = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const TaskRunner = (props) => {
+export const TaskRunner = (props) => {
   console.log('task runner is running:', props);
   runTask(props);
   // return something to make the react dom happy

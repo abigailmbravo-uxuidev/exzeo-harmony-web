@@ -70,7 +70,7 @@ const redirectToNewQuote = () => {
   window.location.href = '/';
 };
 
-const Share = props => (
+export const Share = props => (
   <div className="route-content">
     <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={props.handleSubmit(noShareSubmit)} noValidate>
       <div className="scroll">

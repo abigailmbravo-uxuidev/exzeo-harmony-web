@@ -44,7 +44,7 @@ const handleFormSubmit = (data, dispatch, props) => {
 //  not be the case in later calls, you may need
 //  to pull it from another place in the model
 // ------------------------------------------------
-const Verify = (props) => {
+export const Verify = (props) => {
   let property = {};
   let coverageLimits = {};
   let coverageOptions = {};
@@ -54,8 +54,7 @@ const Verify = (props) => {
     fieldValues,
      appState,
      handleSubmit,
-     submitting,
-    showScheduleDateModal
+     submitting
    } = props;
 
   const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};

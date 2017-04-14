@@ -66,7 +66,7 @@ const handleGetQuoteData = (state) => {
 };
 
 
-const AdditionalInsured = (props) => {
+export const AdditionalInsured = (props) => {
   const {
     fieldQuestions,
     quoteData,
