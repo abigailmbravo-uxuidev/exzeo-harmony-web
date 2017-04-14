@@ -2177,6 +2177,7 @@ ul.list-cards {
     background: rgba($black, .8);
     align-items: center;
     justify-content: center;
+    z-index: 10;
     @include animation( 'fade-in .25s 1');
 
     .card-additional-interest {
@@ -2217,31 +2218,40 @@ ul.list-cards {
             list-style: none;
             border-bottom: 1px dashed $warm-gray-02;
             margin: 0 0 1rem 0;
-            padding: 3.052rem 0;
+            padding: 1rem 0 3.052rem 0;
             @include for-phone-only {
                 padding-bottom: 1.563rem;
             }
 
-            .card-icon {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+            a {
 
-                label {
-                    font-size: $font-size-xs;
+                .card-icon {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    label {
+                        font-size: $font-size-xs;
+                    }
                 }
-            }
 
-            section {
-                margin-left: $padding*2;
+                section {
+                    margin-left: $padding*2;
 
-                .address {
-                    font-size: $font-size-sm;
+                    .address {
+                        font-size: $font-size-sm;
+                    }
                 }
-            }
 
-            .fa-pencil {
-                font-size: $font-size-h5;
+                .fa-pencil {
+                    font-size: $font-size-h5;
+                }
+
+                &:hover {
+                    .fa-pencil {
+                        
+                    }
+                }
             }
         }
     }
