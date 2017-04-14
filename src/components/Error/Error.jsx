@@ -20,36 +20,40 @@ const Error = ({ quote, exceptions }) => {
         <div className="app-wrapper">
             <div className="error-content" role="article">
                 {/* HARD STOP WORKFLOW ERROR*/}
-                <div className="quote-details-error">
-                    {quote && <section className="display-element">
-                        <dl className="quote-number">
-                            <div>
-                                <dt>Quote Number</dt>
-                                <dd>{quote.quoteNumber}</dd>
-                            </div>
-                        </dl>
-                    </section>
-}
-                    {quote.property && <section className="display-element">
-                        <dl className="property-information">
-                            <div>
-                                <dt>Property Address</dt>
-                                <dd>{quote.property.physicalAddress.address1}</dd>
-                                <dd>{quote.property.physicalAddress.address2}</dd>
-                                <dd>{`${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state} ${
-                                    quote.property.physicalAddress.zip}`}</dd>
-                            </div>
-                        </dl>
-                    </section>
-}
-                </div>
                 <div className="error-wrapper">
                     <section>
                         <div id="Error">
                             <div className="detail-wrapper">
                                 <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"/>
-                                    Please contact us</h3>
-                                <h4 className="error-message">Property does not qualify for automated quote</h4>
+                                    Property does not qualify</h3>
+                                <p>We apologize, but we are unable to provide an automated HO3 quote for your property at this time.</p>
+                                <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
+  
+  
+                              <div className="quote-details-error">
+                                {quote && <section className="display-element">
+                                  <dl className="quote-number">
+                                    <div>
+                                      <dt>Quote Number</dt>
+                                      <dd>{quote.quoteNumber}</dd>
+                                    </div>
+                                  </dl>
+                                </section>
+                                }
+                                {quote.property && <section className="display-element">
+                                  <dl className="property-information">
+                                    <div>
+                                      <dt>The below errors have occurred for this property:</dt>
+                                      <dd>{quote.property.physicalAddress.address1}</dd>
+                                      <dd>{quote.property.physicalAddress.address2}</dd>
+                                      <dd>{`${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state} ${
+                                        quote.property.physicalAddress.zip}`}</dd>
+                                    </div>
+                                  </dl>
+                                </section>
+                                }
+                              </div>
+                              
                                 <ul>
                                     {exceptions && exceptions.map((exception, key) => {
                                         if (exception.action === 'Fatal Error') {
