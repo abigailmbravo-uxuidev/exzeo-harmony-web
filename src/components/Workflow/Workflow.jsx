@@ -16,11 +16,16 @@ import AssumptionsConnect from '../Assumptions/Assumptions';
 import Error from '../Error/Error';
 import PolicyHolderConnect from '../PolicyHolder/PolicyHolder';
 import AddAdditionalInterestConnect from '../AdditionalInterests/AddAdditionalInterest';
-import BillPayerConnect from '../AdditionalInterests/BillPayer';
 import TaskRunnerConnect from './TaskRunner';
 import BillingConnect from '../Billing/Billing';
 import VerifyConnect from '../Verify/Verify';
 import ThankYou from '../ThankYou/ThankYou';
+import MortgageeConnect from '../AdditionalInterests/Mortgagee';
+import LienholderConnect from '../AdditionalInterests/Lienholder';
+import AdditionalInsuredConnect from '../AdditionalInterests/AdditionalInsured';
+import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest';
+import BillPayerConnect from '../AdditionalInterests/BillPayer';
+
 
 const workflowModelName = 'quoteModel-693';
 
@@ -38,6 +43,10 @@ const components = {
   showAssumptions: <AssumptionsConnect />,
   askAdditionalPolicyHolder: <PolicyHolderConnect />,
   addAdditionalAIs: <AddAdditionalInterestConnect />,
+  askMortgagee: <MortgageeConnect />,
+  askLienholder: <LienholderConnect />,
+  askAdditionalInsured: <AdditionalInsuredConnect />,
+  askAdditionalInterest: <AdditionalInterestConnect />,
   askBillPayer: <BillPayerConnect />,
   showCustomizedQuoteAndContinue: <TaskRunnerConnect taskName={'showCustomizedQuoteAndContinue'} />,
   askAdditionalQuestions: <BillingConnect />,

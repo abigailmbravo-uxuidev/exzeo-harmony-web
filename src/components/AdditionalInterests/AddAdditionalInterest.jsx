@@ -10,7 +10,6 @@ import AIPopup from '../Common/AIPopup';
 import { getInitialValues } from '../Customize/customizeHelpers';
 
 const userTasks = {
-  askMortgagee: 'askMortgagee',
   addAdditionalAIs: 'addAdditionalAIs'
 };
 
@@ -22,32 +21,44 @@ const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const addMortgageeSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const steps = [{
-    name: userTasks.addAdditionalAIs,
-    data: { shouldUpdateAIs: 'Yes' }
-  }, {
-    name: userTasks.askMortgagee,
-    data
-  }];
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps);
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
-};
-
-
 const AddMortgagee = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: true });
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskName = userTasks.addAdditionalAIs;
+  const taskData = { shouldUpdateAIs: 'mortgagee' };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const closeAddAdditionalInterestSubmit = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
-  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
-  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
-  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
-  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
-  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showMortgageePopup: false });
+const AddLienholder = (props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskName = userTasks.addAdditionalAIs;
+  const taskData = { shouldUpdateAIs: 'lienholder' };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+};
+
+const AddAdditionalInsured = (props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskName = userTasks.addAdditionalAIs;
+  const taskData = { shouldUpdateAIs: 'additionalInsured' };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+};
+
+const AddInterest = (props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskName = userTasks.addAdditionalAIs;
+  const taskData = { shouldUpdateAIs: 'additionalInterest' };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+};
+
+const AddBillpayer = (props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskName = userTasks.addAdditionalAIs;
+  const taskData = { shouldUpdateAIs: 'billPayer' };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const handleGetQuestions = (state) => {
@@ -89,14 +100,14 @@ export const AddAdditionalInterest = props => (
     <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={props.handleSubmit(noAddAdditionalInterestSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">
-          <p>To add additional interests blah blah blah</p>
-            <div className="button-group">
-              <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-              {/* <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button> */}
-            </div>
+          <p>To add additional interests ...</p>
+          <div className="button-group">
+            <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
+            <button className="btn btn-secondary" type="button" onClick={() => AddLienholder(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
+            <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInsured(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
+            <button className="btn btn-secondary" type="button" onClick={() => AddInterest(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
+            <button className="btn btn-secondary" type="button" onClick={() => AddBillpayer(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button>
+          </div>
           {/* list of additional interests*/}
           <div className="results-wrapper">
             <ul className="results result-cards">
@@ -105,7 +116,7 @@ export const AddAdditionalInterest = props => (
                   {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
                   <div className="card-icon"><i className="fa fa-circle     dynamic-className-HERE       " /><label>Mortgagee 1</label></div>
                   <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p className="address">Address 1, address 2, City, State Zip</p></section>
-                <i className="fa fa-pencil" />
+                  <i className="fa fa-pencil" />
                 </a>
               </li>
               <li>
@@ -113,7 +124,7 @@ export const AddAdditionalInterest = props => (
                   {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
                   <div className="card-icon"><i className="fa fa-circle     dynamic-className-HERE       " /><label>Mortgagee 1</label></div>
                   <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p className="address">Address 1, address 2, City, State Zip</p></section>
-                <i className="fa fa-pencil" />
+                  <i className="fa fa-pencil" />
                 </a>
               </li>
             </ul>
@@ -128,12 +139,6 @@ export const AddAdditionalInterest = props => (
         <Footer />
       </div>
     </Form>
-    {props.appState.data.showMortgageePopup &&
-    <AIPopup
-      questions={_.filter(props.fieldQuestions, q => _.includes(q.group, 'askMortgagee'))}
-      primaryButtonHandler={addMortgageeSubmit}
-      secondaryButtonHandler={() => closeAddAdditionalInterestSubmit(props)}
-    />}
   </div>
 );
 

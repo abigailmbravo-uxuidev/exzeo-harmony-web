@@ -20,6 +20,21 @@ const userTasks = {
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
+
+  if (!data.isAdditional) {
+    _.forEach(props.uiQuestions, (q) => {
+      if (!data[q.name]) {
+        data[q.name] = '';
+      }
+    });
+  } else if (!data.isAdditional2) {
+    _.forEach(_.filter(props.uiQuestions, question => question.order === 1), (q) => {
+      if (!data[q.name]) {
+        data[q.name] = '';
+      }
+    });
+  }
+
   const taskData = { ...data };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
@@ -80,7 +95,7 @@ export const AdditionalInterest = (props) => {
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Additional Interest</h3>
-            {fieldQuestions && fieldQuestions.map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
+            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
             <button className="btn btn-primary" type="submit" form="AdditionalInterest" disabled={props.appState.data.submitting}>next</button>

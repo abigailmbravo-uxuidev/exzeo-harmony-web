@@ -18,6 +18,16 @@ const userTasks = {
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
+
+
+  if (!data.isAdditional) {
+    _.forEach(props.uiQuestions, (q) => {
+      if (!data[q.name]) {
+        data[q.name] = '';
+      }
+    });
+  }
+
   const taskData = { ...data };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
@@ -65,7 +75,8 @@ export const BillPayer = (props) => {
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-envelope-open" /> BillPayer</h3>
-            {taskData && taskData.uiQuestions && taskData.uiQuestions.map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
+            {taskData && taskData.uiQuestions && _.sortBy(taskData.uiQuestions, 'sort').map((question, index) =>
+              <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
             <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>next</button>
