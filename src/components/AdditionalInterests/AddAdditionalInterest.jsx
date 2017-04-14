@@ -68,19 +68,24 @@ const handleGetQuestions = (state) => {
 
 const handleGetQuoteData = (state) => {
   const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
+  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
   return (quoteData ? quoteData.value.result : undefined);
+};
+
+const goToStep = (props, type) => {
+  if (type === 'Mortgagee') AddMortgagee(props);
+  else if (type === 'Bill Payer') AddBillpayer(props);
+  else if (type === 'Lienholder') AddLienholder(props);
+  else if (type === 'Additional Interest') AddInterest(props);
+  else if (type === ' Additional Insured') AddAdditionalInsured(props);
 };
 
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
 //   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
 
-  const quoteData = taskData && taskData.model &&
-   taskData.model.variables &&
-   _.find(taskData.model.variables, { name: 'quote' }) &&
-   _.find(taskData.model.variables, { name: 'quote' }).value ?
-    _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+  const { cg, appState } = state;
+  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
 
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
@@ -111,22 +116,18 @@ export const AddAdditionalInterest = props => (
           {/* list of additional interests*/}
           <div className="results-wrapper">
             <ul className="results result-cards">
-              <li>
-                <a href="">
-                  {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
-                  <div className="card-icon"><i className="fa fa-circle     dynamic-className-HERE       " /><label>Mortgagee 1</label></div>
-                  <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p className="address">Address 1, address 2, City, State Zip</p></section>
-                  <i className="fa fa-pencil" />
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
-                  <div className="card-icon"><i className="fa fa-circle     dynamic-className-HERE       " /><label>Mortgagee 1</label></div>
-                  <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p className="address">Address 1, address 2, City, State Zip</p></section>
-                  <i className="fa fa-pencil" />
-                </a>
-              </li>
+              {props.quoteData && props.quoteData.additionalInterests && props.quoteData.additionalInterests.map((question, index) =>
+                <li>
+                  <a onClick={() => goToStep(props, question.type)}>
+                    {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
+                    <div className="card-icon"><i className={`fa fa-circle ${question.type}`} /><label>{question.type} {question.order + 1}</label></div>
+                    <section><h4>{question.name1}</h4><p>{question.name2}</p><p className="address">{question.mailingAddress.address1},
+                      {question.mailingAddress.address2},
+                       {question.mailingAddress.city}, {question.mailingAddress.state} {question.mailingAddress.zip}</p></section>
+                    <i className="fa fa-pencil" />
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
