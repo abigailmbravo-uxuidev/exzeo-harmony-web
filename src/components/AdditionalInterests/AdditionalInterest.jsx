@@ -94,7 +94,7 @@ export const AdditionalInterest = (props) => {
       <Form id="AdditionalInterest" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Additional Interest</h3>
+            <h3 className="section-group-header"><i className="fa fa-handshake-o" /> Additional Interest</h3>
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">

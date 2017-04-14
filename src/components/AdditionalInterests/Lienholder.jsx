@@ -94,7 +94,7 @@ export const Lienholder = (props) => {
       <Form id="Lienholder" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Lienholder</h3>
+            <h3 className="section-group-header"><i className="fa fa-black-tie" /> Lienholder</h3>
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">

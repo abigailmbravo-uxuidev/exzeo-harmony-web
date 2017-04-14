@@ -74,7 +74,7 @@ export const BillPayer = (props) => {
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-envelope-open" /> BillPayer</h3>
+            <h3 className="section-group-header"><i className="fa fa-money" /> BillPayer</h3>
             {taskData && taskData.uiQuestions && _.sortBy(taskData.uiQuestions, 'sort').map((question, index) =>
               <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
