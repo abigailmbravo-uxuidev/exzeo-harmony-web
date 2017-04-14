@@ -19,9 +19,9 @@ const AdditionalInterestPopup = ({ submitting, handleSubmit, primaryButtonHandle
               <TextField type="text" name={'name2'} value styleName={'name'} label={'Name 2'} />
               <TextField type="text" name={'address1'} styleName={'address'} label={'Address 1'} validations={['required']} />
               <TextField type="text" name={'address2'} styleName={'address'} label={'Address 2'} />
-              <TextField className="city" type="text" name={'city'} styleName={'city'} label={'City'} validations={['required']} />
-              <TextField className="state" type="text" name={'state'} styleName={'state'} label={'State'} validations={['required']} />
-              <TextField className="zip" type="text" name={'zip'} styleName={'zip'} label={'Zip'} validations={['required']} />
+              <TextField type="text" name={'city'} styleName={'city'} label={'City'} validations={['required']} />
+              <TextField type="text" name={'state'} styleName={'state'} label={'State'} validations={['required']} />
+              <TextField type="text" name={'zip'} styleName={'zip'} label={'Zip'} validations={['required']} />
             </div>
             <div className="card-footer">
               <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button">Cancel</button>

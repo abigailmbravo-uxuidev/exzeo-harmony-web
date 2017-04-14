@@ -90,20 +90,34 @@ export const AddAdditionalInterest = props => (
       <div className="scroll">
         <div className="form-group detail-wrapper">
           <p>To add additional interests blah blah blah</p>
-          <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-          {/* <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
-          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
-          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-          <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button> */}
+            <div className="button-group">
+              <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
+              {/* <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInterestQuote(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button> */}
+            </div>
           {/* list of additional interests*/}
-          <ul className="results result-cards">
-            <li>
-              {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
-              <div className="card-icon"><i className="fa      dynamic-className-HERE       " /><label>Mortgagee 1</label></div>
-              <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p>Address 1, address 2, City, State Zip</p></section>
-              <i className="fa fa-pencil" />
-            </li>
-          </ul>
+          <div className="results-wrapper">
+            <ul className="results result-cards">
+              <li>
+                <a href="">
+                  {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
+                  <div className="card-icon"><i className="fa fa-circle     dynamic-className-HERE       " /><label>Mortgagee 1</label></div>
+                  <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p className="address">Address 1, address 2, City, State Zip</p></section>
+                <i className="fa fa-pencil" />
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
+                  <div className="card-icon"><i className="fa fa-circle     dynamic-className-HERE       " /><label>Mortgagee 1</label></div>
+                  <section><h4>Mortgagee Name 1</h4><p>Mortgagee Name 2</p><p className="address">Address 1, address 2, City, State Zip</p></section>
+                <i className="fa fa-pencil" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div className="workflow-steps">
           {/* show this button if there are no AIs added*/}
