@@ -2456,7 +2456,7 @@ ul.list-cards {
 .error-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    flex-grow: 1;
 
     .quote-details-error {
         display: flex;
@@ -2496,6 +2496,7 @@ ul.list-cards {
         flex-direction: row;
         flex-direction: row;
         flex-basis: 100%;
+        flex-grow: 1;
         @include for-phone-only {
             flex-direction: column-reverse;
             justify-content: center;
@@ -2589,11 +2590,25 @@ ul.list-cards {
             .contact-message {
                 .card {
                     width: auto;
-                    max-width: 36rem;
+                    max-width: 40rem;
                     margin: $padding 0;
                     @include for-phone-only {
                         max-width: 19.375rem;
                         margin: 0 0 ($padding*2);
+                    }
+
+                    .error-property-details {
+                        display: flex;
+                         > .display-element {
+
+                             .quote-number {
+                                 width: 10rem;
+                             }
+
+                             dd {
+                                 margin-bottom: 0;
+                             }
+                         }
                     }
 
                     .error {
@@ -2618,7 +2633,7 @@ ul.list-cards {
                         align-items: center;
 
                         a {
-                            margin: $padding ($padding*2) ($padding*2) 0;
+                            margin: $padding ($padding*4) ($padding*2) 0;
                         }
                     }
                 }
