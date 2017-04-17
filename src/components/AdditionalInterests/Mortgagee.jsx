@@ -47,7 +47,7 @@ const handleFormSubmit = (data, dispatch, props) => {
 
     additionalInterests.push(mortgagee1);
   }
-  if (data.isAdditional2) {
+  if (data.isAdditional && data.isAdditional2) {
     mortgagee2.name1 = data.m2Name1;
     mortgagee2.name2 = data.m2Name2;
     mortgagee2.referenceNumber = data.m2ReferenceNumber;
@@ -83,8 +83,6 @@ const handleInitialize = (state) => {
    _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
     _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
 
-  console.log(quoteData);
-
   const values = getInitialValues(taskData.uiQuestions, { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Mortgagee') });
 
   userTasks.formSubmit = taskData.activeTask.name;
@@ -95,13 +93,9 @@ const handleInitialize = (state) => {
     }
   });
 
-  if (_.trim(values.m1Name1)) {
-    values.isAdditional = true;
-  }
   if (_.trim(values.m2Name1)) {
     values.isAdditional2 = true;
   }
-
   values.isAdditional = true;
 
   return values;

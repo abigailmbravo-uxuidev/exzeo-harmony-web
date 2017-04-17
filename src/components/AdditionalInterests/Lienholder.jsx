@@ -48,7 +48,7 @@ const handleFormSubmit = (data, dispatch, props) => {
 
     additionalInterests.push(lienholder1);
   }
-  if (data.isAdditional2) {
+  if (data.isAdditional && data.isAdditional2) {
     lienholder2.name1 = data.l2Name1;
     lienholder2.name2 = data.l2Name2;
     lienholder2.referenceNumber = data.l2ReferenceNumber;
@@ -92,9 +92,6 @@ const handleInitialize = (state) => {
     }
   });
 
-  if (_.trim(values.l1Name1)) {
-    values.isAdditional = true;
-  }
   if (_.trim(values.l2Name1)) {
     values.isAdditional2 = true;
   }

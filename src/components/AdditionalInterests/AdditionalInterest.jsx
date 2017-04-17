@@ -20,34 +20,70 @@ const userTasks = {
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
+  const additionalInterests = props.quoteData.additionalInterests;
 
-  if (!data.isAdditional) {
-    _.forEach(props.uiQuestions, (q) => {
-      if (!data[q.name]) {
-        data[q.name] = '';
+  const additionalInterest1 = _.find(additionalInterests, { order: 0, type: 'Additional Interest' }) || {};
+  const additionalInterest2 = _.find(additionalInterests, { order: 1, type: 'Additional Interest' }) || {};
+
+  _.remove(additionalInterests, ai => ai.type === 'Additional Interest');
+
+  if (data.isAdditional) {
+    additionalInterest1.name1 = data.ai1Name1;
+    additionalInterest1.name2 = data.ai1Name2;
+    additionalInterest1.referenceNumber = data.ai1ReferenceNumber;
+    additionalInterest1.order = 0;
+    additionalInterest1.active = true;
+    additionalInterest1.type = 'Additional Interest';
+    additionalInterest1.mailingAddress = {
+      address1: data.ai1MailingAddress1,
+      address2: data.ai1MailingAddress2,
+      city: data.ai1City,
+      state: data.ai1State,
+      zip: data.ai1Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
       }
-    });
-  } else if (!data.isAdditional2) {
-    _.forEach(_.filter(props.uiQuestions, question => question.order === 1), (q) => {
-      if (!data[q.name]) {
-        data[q.name] = '';
+    };
+
+    additionalInterests.push(additionalInterest1);
+  }
+  if (data.isAdditional && data.isAdditional2) {
+    additionalInterest2.name1 = data.ai2Name1;
+    additionalInterest2.name2 = data.ai2Name2;
+    additionalInterest2.referenceNumber = data.ai2ReferenceNumber;
+    additionalInterest2.order = 1;
+    additionalInterest2.active = true;
+    additionalInterest2.type = 'Additional Interest';
+    additionalInterest2.mailingAddress = {
+      address1: data.ai2MailingAddress1,
+      address2: data.ai2MailingAddress2,
+      city: data.ai2City,
+      state: data.ai2State,
+      zip: data.ai2Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
       }
-    });
+    };
+
+    additionalInterests.push(additionalInterest2);
   }
 
-  const taskData = { ...data };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
+
 
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
+  const values = getInitialValues(taskData.uiQuestions,
+    { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Additional Interest') });
 
   userTasks.formSubmit = taskData.activeTask.name;
 
@@ -57,12 +93,11 @@ const handleInitialize = (state) => {
     }
   });
 
-  if (_.trim(values.ai1Name1)) {
-    values.isAdditional = true;
-  }
   if (_.trim(values.ai2Name1)) {
     values.isAdditional2 = true;
   }
+
+  values.isAdditional = true;
   return values;
 };
 
@@ -75,9 +110,9 @@ const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
   return quoteData;
 };
 
