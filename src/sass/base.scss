@@ -2209,8 +2209,17 @@ ul.list-cards {
         flex-direction: column;
 
         .button-group {
-            margin-bottom: $padding;
             display: flex;
+            flex-wrap: wrap;
+
+            .btn {
+                margin-right: $padding;
+                margin-bottom: $padding;
+                @include for-phone-only {
+                    margin-right: 0;
+                    width: 100%;
+                }
+            }
         }
 
         .result-cards,

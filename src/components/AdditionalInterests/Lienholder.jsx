@@ -98,7 +98,8 @@ export const Lienholder = (props) => {
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Lienholder" disabled={props.appState.data.submitting}>next</button>
+            <button className="btn btn-secondary">cancel</button>
+            <button className="btn btn-primary" type="submit" form="Lienholder" disabled={props.appState.data.submitting}>save</button>
           </div>
           <Footer />
         </div>

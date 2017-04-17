@@ -79,7 +79,8 @@ export const BillPayer = (props) => {
               <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>next</button>
+            <button className="btn btn-secondary">cancel</button>
+            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>save</button>
           </div>
           <Footer />
         </div>
