@@ -19,26 +19,72 @@ const userTasks = {
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
+  const additionalInterests = props.quoteData.additionalInterests;
 
-  if (!data.isAdditional) {
-    _.forEach(props.uiQuestions, (q) => {
-      if (!data[q.name]) {
-        data[q.name] = '';
+  console.log('props.quoteData.additionalInterests', additionalInterests);
+
+
+  const mortgagee1 = _.find(additionalInterests, { order: 0, type: 'Mortgagee' }) || {};
+  const mortgagee2 = _.find(additionalInterests, { order: 1, type: 'Mortgagee' }) || {};
+
+  console.log('mortgagee1', mortgagee1);
+  console.log('mortgagee2', mortgagee2);
+
+
+  _.remove(additionalInterests, ai => ai.type === 'Mortgagee');
+
+  console.log('additionalInterests remove', additionalInterests);
+
+
+  if (data.isAdditional) {
+    mortgagee1.name1 = data.m1Name1;
+    mortgagee1.name2 = data.m1Name2;
+    mortgagee1.referenceNumber = data.m1ReferenceNumber;
+    mortgagee1.order = 0;
+    mortgagee1.active = true;
+    mortgagee1.type = 'Mortgagee';
+    mortgagee1.mailingAddress = {
+      address1: data.m1MailingAddress1,
+      address2: data.m1MailingAddress2,
+      city: data.m1City,
+      state: data.m1State,
+      zip: data.m1Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
       }
-    });
-  } else if (!data.isAdditional2) {
-    _.forEach(_.filter(props.uiQuestions, question => question.order === 1), (q) => {
-      if (!data[q.name]) {
-        data[q.name] = '';
+    };
+
+    additionalInterests.push(mortgagee1);
+  }
+  if (data.isAdditional2) {
+    mortgagee2.name1 = data.m2Name1;
+    mortgagee2.name2 = data.m2Name2;
+    mortgagee2.referenceNumber = data.m2ReferenceNumber;
+    mortgagee2.order = 1;
+    mortgagee2.active = true;
+    mortgagee2.type = 'Mortgagee';
+    mortgagee2.mailingAddress = {
+      address1: data.m2MailingAddress1,
+      address2: data.m2MailingAddress2,
+      city: data.m2City,
+      state: data.m2State,
+      zip: data.m2Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
       }
-    });
+    };
+
+    additionalInterests.push(mortgagee2);
   }
 
-  console.log('data', data);
+
+  console.log('additionalInterests', additionalInterests);
 
   const taskData = { ...data };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
 
 const handleInitialize = (state) => {
@@ -47,9 +93,9 @@ const handleInitialize = (state) => {
 
   const quoteData = taskData && taskData.model &&
    taskData.model.variables &&
-   _.find(taskData.model.variables, { name: 'quote' }) &&
-   _.find(taskData.model.variables, { name: 'quote' }).value ?
-    _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+   _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+   _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+    _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
 
   console.log(quoteData);
 
@@ -70,6 +116,8 @@ const handleInitialize = (state) => {
     values.isAdditional2 = true;
   }
 
+  values.isAdditional = true;
+
   return values;
 };
 
@@ -82,9 +130,9 @@ const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
   return quoteData;
 };
 
