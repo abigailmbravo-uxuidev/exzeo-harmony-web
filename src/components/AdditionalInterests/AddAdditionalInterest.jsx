@@ -132,10 +132,12 @@ export const AddAdditionalInterest = props => (
           </div>
         </div>
         <div className="workflow-steps">
-          {/* show this button if there are no AIs added*/}
-          <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>Not Applicable</button>
-          {/* show this button if there is 1 or more AI added*/}
+          {props.quoteData.additionalInterests && props.quoteData.additionalInterests.length === 0 &&
+            <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>Not Applicable</button>
+          }
+          {props.quoteData.additionalInterests && props.quoteData.additionalInterests.length > 0 &&
           <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>next</button>
+          }
         </div>
         <Footer />
       </div>

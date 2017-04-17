@@ -21,20 +21,10 @@ const handleFormSubmit = (data, dispatch, props) => {
   const taskName = userTasks.formSubmit;
   const additionalInterests = props.quoteData.additionalInterests;
 
-  console.log('props.quoteData.additionalInterests', additionalInterests);
-
-
   const mortgagee1 = _.find(additionalInterests, { order: 0, type: 'Mortgagee' }) || {};
   const mortgagee2 = _.find(additionalInterests, { order: 1, type: 'Mortgagee' }) || {};
 
-  console.log('mortgagee1', mortgagee1);
-  console.log('mortgagee2', mortgagee2);
-
-
   _.remove(additionalInterests, ai => ai.type === 'Mortgagee');
-
-  console.log('additionalInterests remove', additionalInterests);
-
 
   if (data.isAdditional) {
     mortgagee1.name1 = data.m1Name1;
@@ -79,10 +69,6 @@ const handleFormSubmit = (data, dispatch, props) => {
     additionalInterests.push(mortgagee2);
   }
 
-
-  console.log('additionalInterests', additionalInterests);
-
-  const taskData = { ...data };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
@@ -99,7 +85,7 @@ const handleInitialize = (state) => {
 
   console.log(quoteData);
 
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+  const values = getInitialValues(taskData.uiQuestions, { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Mortgagee') });
 
   userTasks.formSubmit = taskData.activeTask.name;
 
