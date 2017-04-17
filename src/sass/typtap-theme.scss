@@ -1356,6 +1356,20 @@ ul.result-cards {
 }
 //Additional Interests
 /*------------------------------------------------------------------------------------*/
+#AddAdditionalInterestPage {
+    .result-cards {
+        li {
+            a {
+                .card-icon {
+                    color: $green;
+                }
+            }
+            .fa-pencil {
+                color: $bright-blue;
+            }
+        }
+    }
+}
 #AdditionalInterest {
     .form-group {
         .ai1City,

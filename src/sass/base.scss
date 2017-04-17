@@ -1510,9 +1510,10 @@ footer {
 /*------------------------------------------------------------------------------------*/
 .result-cards,
 ul.list-cards {
+    position: relative;
     display: flex;
     flex-direction: column;
-    position: relative;
+
     li {
         margin-bottom: $padding/2;
 
@@ -1576,15 +1577,16 @@ ul.list-cards {
         position: absolute;
         z-index: 200;
         bottom: 5rem;
-        width: 20rem;
         left: calc(50%);
+        width: 20rem;
         margin-left: -10rem;
     }
+
     .hint {
         display: flex;
         flex-direction: column;
-        align-items: center;
         margin-top: $padding;
+        align-items: center;
     }
 }
 
@@ -2166,6 +2168,66 @@ ul.list-cards {
 #Assumptions {}
 //Additional Interests
 /*------------------------------------------------------------------------------------*/
+#AddAdditionalInterestPage {
+    .result-cards {
+        li {
+            a {
+                .card-icon {
+                    display: flex;
+                    flex-direction: column;
+                    width: 4rem;
+                    align-items: center;
+
+                    label {
+                        text-align: center;
+                        font-size: $font-size-xs;
+                    }
+
+                    .fa {
+                        &.Mortgagee {
+                            &:before {
+                                content: "\f19c";
+                            }
+                        }
+                    }
+
+                    .fa {
+                        &.Lienholder {
+                            &:before {
+                                content: "\F27E";
+                            }
+                        }
+                    }
+
+                    .fa {
+                        &.Interest {
+                            &:before {
+                                content: "\F2B5";
+                            }
+                        }
+                    }
+
+                    .fa {
+                        &.Insured {
+                            &:before {
+                                content: "\F234";
+                            }
+                        }
+                    }
+
+                    .fa {
+                        &.Bill {
+                            &:before {
+                                content: "\F0D6";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 #AdditionalPolicyHolder {
     .switch.inactive~.form-group {
         display: none;
@@ -2617,16 +2679,16 @@ ul.list-cards {
 
                     .error-property-details {
                         display: flex;
-                         > .display-element {
 
-                             .quote-number {
-                                 width: 10rem;
-                             }
+                        > .display-element {
+                            .quote-number {
+                                width: 10rem;
+                            }
 
-                             dd {
-                                 margin-bottom: 0;
-                             }
-                         }
+                            dd {
+                                margin-bottom: 0;
+                            }
+                        }
                     }
 
                     .error {
@@ -2739,21 +2801,27 @@ ul.list-cards {
         }
     }
 }
+
 .card {
-&.pop-up-bubble {
-    background-color: $cool-gray-02;
-    &:after {
-      content:"";
-      position:absolute;
-      bottom:-15px; /* value = - border-top-width - border-bottom-width */
-      left:50%; /* centers*/
-      margin-left: -15px;/* centers*/
-      border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
-      border-style:solid;
-      border-color:$cool-gray-02 transparent;
-      /* reduce the damage in FF3.0 */
-      display:block;
-      width:0;
-      }
-  }
+    &.pop-up-bubble {
+        background-color: $cool-gray-02;
+
+        &:after {
+            position: absolute;
+            bottom: -15px;
+            /* value = - border-top-width - border-bottom-width */
+            left: 50%;
+            /* centers*/
+            /* reduce the damage in FF3.0 */
+            display: block;
+            width: 0;
+            margin-left: -15px;
+            /* centers*/
+            content: "";
+            border-width: 15px 15px 0;
+            /* vary these values to change the angle of the vertex */
+            border-style: solid;
+            border-color: $cool-gray-02 transparent;
+        }
+    }
 }
