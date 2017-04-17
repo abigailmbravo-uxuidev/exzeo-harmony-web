@@ -2150,31 +2150,31 @@ ul.list-cards {
 /*------------------------------------------------------------------------------------*/
 #AdditionalPolicyHolder {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #Mortgagee {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #Lienholder {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #AdditionalInterest {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #AdditionalInsured {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
@@ -2183,7 +2183,7 @@ ul.list-cards {
     flex-grow: 1;
 
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 //Mailing & Billing
@@ -2382,9 +2382,17 @@ ul.list-cards {
                             flex-grow: 1;
                             flex-shrink: 0;
 
-                            &.contact-name {}
+                            &.contact-name {
+                                width: 14rem;
+                                flex-basis: 14rem;
+                                flex-grow: 0;
+                            }
 
-                            &.contact-email {}
+                            &.contact-phone {
+                                width: 14rem;
+                                flex-basis: 14rem;
+                                flex-grow: 0;
+                            }
 
                             dl {
                                 margin-right: $padding*2;

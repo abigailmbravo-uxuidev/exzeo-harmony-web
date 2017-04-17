@@ -102,12 +102,12 @@ export const Verify = (props) => {
                       <dd>{property.yearBuilt}</dd>
                     </div>
                   </dl>
-                  <dl className="property-information">
+                  {/*<dl className="property-information">
                     <div>
                       <dt>Flood Zone</dt>
                       <dd>{property.floodZone}</dd>
                     </div>
-                  </dl>
+                  </dl>*/}
                   <dl className="effective-date">
                     <div>
                       <dt>Effective Date</dt>
@@ -142,6 +142,24 @@ export const Verify = (props) => {
                     <div>
                       <dt>C. Personal Property</dt>
                       <dd>${coverageLimits.personalProperty.amount}</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>D. Loss of Use</dt>
+                      <dd>$LOSS OF USE VALUE HERE</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>E. Personal Liability</dt>
+                      <dd>$PERSONAL LIABILITY VALUE HERE</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>F. Medical Payments</dt>
+                      <dd>$MEDICAL PAYMENTS VALUE HERE</dd>
                     </div>
                   </dl>
                   <dl>
@@ -185,6 +203,18 @@ export const Verify = (props) => {
                       <dt>Ordinance or Law</dt>
                       <dd>${coverageLimits.dwelling.amount *
                     (coverageLimits.ordinanceOrLaw.amount / 100)}</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>All Other Perils Deductible</dt>
+                      <dd>VALUE HERE</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>Hurricane Deductible</dt>
+                      <dd>VALUE HERE</dd>
                     </div>
                   </dl>
                 </section>
@@ -244,7 +274,7 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
               </div>
               <div className="detail-group mailing-address-details">
-                <h3 className="section-group-header"><i className="fa fa-users" />additional Interests</h3>
+                <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests</h3>
                 <section className="display-element">
                   {(quoteData.additionalInterests &&
                 quoteData.additionalInterests.length > 0) ?
