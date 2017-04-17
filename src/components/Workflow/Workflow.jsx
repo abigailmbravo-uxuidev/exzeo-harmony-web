@@ -27,7 +27,7 @@ import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest
 import BillPayerConnect from '../AdditionalInterests/BillPayer';
 
 
-const workflowModelName = 'quoteModel-693';
+const workflowModelName = 'quoteModel';
 
 const components = {
   search: <SearchConnect />,
