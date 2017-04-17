@@ -114,6 +114,12 @@ export const Verify = (props) => {
                       <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
                     </div>
                   </dl>
+                  <dl className="agent">
+                    <div>
+                      <dt>Agent</dt>
+                      <dd>AGENT NAME HERE</dd>
+                    </div>
+                  </dl>
                 </section>
                 <CheckField styleName="verification" name="confirmProperyDetails" label="Verified" isSwitch />
               </div>
