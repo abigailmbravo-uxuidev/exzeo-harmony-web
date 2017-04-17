@@ -1510,6 +1510,9 @@ footer {
 /*------------------------------------------------------------------------------------*/
 .result-cards,
 ul.list-cards {
+    display: flex;
+    flex-direction: column;
+    position: relative;
     li {
         margin-bottom: $padding/2;
 
@@ -1567,6 +1570,21 @@ ul.list-cards {
                 }
             }
         }
+    }
+
+    .address-not-found {
+        position: absolute;
+        z-index: 200;
+        bottom: 5rem;
+        width: 20rem;
+        left: calc(50%);
+        margin-left: -10rem;
+    }
+    .hint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: $padding;
     }
 }
 
@@ -2720,4 +2738,22 @@ ul.list-cards {
             }
         }
     }
+}
+.card {
+&.pop-up-bubble {
+    background-color: $cool-gray-02;
+    &:after {
+      content:"";
+      position:absolute;
+      bottom:-15px; /* value = - border-top-width - border-bottom-width */
+      left:50%; /* centers*/
+      margin-left: -15px;/* centers*/
+      border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+      border-style:solid;
+      border-color:$cool-gray-02 transparent;
+      /* reduce the damage in FF3.0 */
+      display:block;
+      width:0;
+      }
+  }
 }
