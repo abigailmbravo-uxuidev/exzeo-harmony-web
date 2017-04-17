@@ -28,6 +28,23 @@ const scheduleDateModal = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !showScheduleDateModal });
 };
 
+
+// ------------------------------------------------
+// This function add a primary or secondary title
+// to the AI types. It uses the global component
+// variable to keep track of the AI types.
+// ------------------------------------------------
+let previousAIType = '';
+const handlePrimarySecondaryTitles = (type) => {
+  if(type !== previousAIType){
+    previousAIType = type;
+    return `Primary ${type}`;
+  }
+  else {
+    return `Secondary ${type}`;
+  }
+};
+
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
@@ -49,6 +66,7 @@ export const Verify = (props) => {
   let coverageLimits = {};
   let coverageOptions = {};
   let mailingAddress = {};
+  let deductibles = {};
 
   const { tasks,
     fieldValues,
@@ -64,12 +82,13 @@ export const Verify = (props) => {
    _.find(taskData.model.variables, { name: 'getFinalQuote' }) &&
    _.find(taskData.model.variables, { name: 'getFinalQuote' }).value ?
     _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result : {};
-
+  
   if (quoteData) {
     property = quoteData.property;
     coverageLimits = quoteData.coverageLimits;
     coverageOptions = quoteData.coverageOptions;
     mailingAddress = quoteData.policyHolderMailingAddress || {};
+    deductibles = quoteData.deductibles;
   }
 
   return (
@@ -146,44 +165,26 @@ export const Verify = (props) => {
                   </dl>
                   <dl>
                     <div>
-                      <dt>D. Loss of Use</dt>
-                      <dd>$LOSS OF USE VALUE HERE</dd>
+                      <dt>D. Loss Of Use</dt>
+                      <dd>${coverageLimits.lossOfUse.amount}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>E. Personal Liability</dt>
-                      <dd>$PERSONAL LIABILITY VALUE HERE</dd>
+                      <dd>${coverageLimits.personalLiability.amount}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>F. Medical Payments</dt>
-                      <dd>$MEDICAL PAYMENTS VALUE HERE</dd>
+                      <dd>${coverageLimits.medicalPayments.amount}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>Personal Property Replacement Cost</dt>
                       <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Loss Of Use</dt>
-                      <dd>${coverageLimits.lossOfUse.amount}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Personal Liability</dt>
-                      <dd>${coverageLimits.personalLiability.amount}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Medical Payments</dt>
-                      <dd>${coverageLimits.medicalPayments.amount}</dd>
                     </div>
                   </dl>
                   <dl>
@@ -208,15 +209,23 @@ export const Verify = (props) => {
                   <dl>
                     <div>
                       <dt>All Other Perils Deductible</dt>
-                      <dd>VALUE HERE</dd>
+                      <dd>${deductibles.allOtherPerils.amount}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>Hurricane Deductible</dt>
-                      <dd>VALUE HERE</dd>
+                      <dd>{deductibles.hurricane.calculatedAmount}</dd>
                     </div>
                   </dl>
+                  {deductibles.sinkhole &&
+                    <dl>
+                      <div>
+                        <dt>Sinkhole Deductible</dt>
+                        <dd>${deductibles.sinkhole.amount}</dd>
+                      </div>
+                    </dl>
+                  }
                 </section>
                 <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
               </div>
@@ -280,7 +289,7 @@ export const Verify = (props) => {
                 quoteData.additionalInterests.length > 0) ?
                 quoteData.additionalInterests.map((additionalInterest, index) => (
                   _.trim(additionalInterest.name1).length > 0 && <dl key={`ph${index}`}>
-                    <h4>{`${additionalInterest.type}`}</h4>
+                    <h4>{handlePrimarySecondaryTitles(additionalInterest.type)}</h4>
                     <div>
                       <dt>Name 1</dt>
                       <dd>{`${additionalInterest.name1}`}</dd>
