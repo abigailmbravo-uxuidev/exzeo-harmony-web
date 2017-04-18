@@ -38,10 +38,10 @@ let previousAIType = '';
 const handlePrimarySecondaryTitles = (type) => {
   if(type !== previousAIType){
     previousAIType = type;
-    return `Primary ${type}`;
+    return `${type} 1`;
   }
   else {
-    return `Secondary ${type}`;
+    return `${type} 2`;
   }
 };
 
@@ -82,7 +82,7 @@ export const Verify = (props) => {
    _.find(taskData.model.variables, { name: 'getFinalQuote' }) &&
    _.find(taskData.model.variables, { name: 'getFinalQuote' }).value ?
     _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result : {};
-  
+
   if (quoteData) {
     property = quoteData.property;
     coverageLimits = quoteData.coverageLimits;
@@ -238,12 +238,8 @@ export const Verify = (props) => {
               <div className="detail-group policyholder-details">
                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
                 <section className="display-element">
-                  <p>Please check that the below information is up to date and accurate.
-                  The policyholder contact information listed below will be used to schedule the required property inspection.
-                   Failure to schedule property inspection will result in a failure to bind the policy.</p>
-                  {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
-                 quoteData.policyHolders.map((policyHolder, index) => (
-                   _.trim(policyHolder.firstName).length > 0 && <dl key={`ph${index}`}>
+                  <p>Please check that the below information is up to date and accurate. The policyholder contact information listed below will be used to schedule the required property inspection. Failure to schedule property inspection will result in a failure to bind the policy.</p>
+                  {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ? quoteData.policyHolders.map((policyHolder, index) => ( _.trim(policyHolder.firstName).length > 0 && <dl key={`ph${index}`}>
                      <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
                      <div className="contact-card">
                        <div className="contact-name">
@@ -288,33 +284,24 @@ export const Verify = (props) => {
                 </section>
                 <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
               </div>
-              <div className="detail-group mailing-address-details">
+              <div className="detail-group additional-interests-details">
                 <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests</h3>
-                <section className="display-element">
-                  {(quoteData.additionalInterests &&
-                quoteData.additionalInterests.length > 0) ?
-                quoteData.additionalInterests.map((additionalInterest, index) => (
-                  _.trim(additionalInterest.name1).length > 0 && <dl key={`ph${index}`}>
-                    <h4>{handlePrimarySecondaryTitles(additionalInterest.type)}</h4>
-                    <div>
-                      <dt>Name 1</dt>
-                      <dd>{`${additionalInterest.name1}`}</dd>
-                      <dt>Name 2</dt>
-                      <dd>{`${additionalInterest.name2}`}</dd>
-                      <dt>Address 1</dt>
-                      <dd>{`${additionalInterest.mailingAddress.address1}`}</dd>
-                      <dt>Address 2</dt>
-                      <dd>{`${additionalInterest.mailingAddress.address2}`}</dd>
-                      <dt>City</dt>
-                      <dd>{`${additionalInterest.mailingAddress.city}`}</dd>
-                      <dt>State</dt>
-                      <dd>{`${additionalInterest.mailingAddress.state}`}</dd>
-                      <dt>Zip</dt>
-                      <dd>{`${additionalInterest.mailingAddress.zip}`}</dd>
-                      <dt>Reference Number</dt>
-                      <dd>{`${additionalInterest.referenceNumber}`}</dd>
+                <section className="display-element additional-interests">
+                  {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ? quoteData.additionalInterests.map((additionalInterest, index) => ( _.trim(additionalInterest.name1).length > 0 && <div className="card" key={`ph${index}`}>
+                  <div className="icon-wrapper">
+                    <i className={`fa ${additionalInterest.type}`}></i>
+                    <p>{handlePrimarySecondaryTitles(additionalInterest.type)}</p>
                     </div>
-                  </dl>)) : null}
+                    <section>
+                      <h4>{`${additionalInterest.name1}`} {`${additionalInterest.name2}`}</h4>
+                      <p>{`${additionalInterest.mailingAddress.address1}`} {`${additionalInterest.mailingAddress.address2}`}</p>
+                      <p>{`${additionalInterest.mailingAddress.city}`}, {`${additionalInterest.mailingAddress.state}`} {`${additionalInterest.mailingAddress.zip}`}</p>
+                    </section>
+                    <div className="ref-number">
+                      <label>Reference Number</label>
+                      <span>{`${additionalInterest.referenceNumber}`}</span>
+                    </div>
+                  </div>)) : null}
                 </section>
                 <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verify" isSwitch />
               </div>

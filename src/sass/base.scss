@@ -2262,6 +2262,102 @@ ul.list-cards {
 }
 //verify & write policy
 /*------------------------------------------------------------------------------------*/
+#Verify {
+    .additional-interests {
+        flex-wrap: wrap;
+
+        .card {
+            flex-direction: row;
+            width: 100%;
+            margin: 0 0 $padding;
+            padding: $padding;
+
+            .icon-wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 6rem;
+                margin-right: $padding;
+                flex-grow: 0;
+                flex-shrink: 0;
+                align-items: center;
+                justify-content: center;
+
+                i {
+                    font-size: $font-size-h4;
+                    margin-bottom: $padding;
+                }
+
+                p {
+                    margin-bottom: 0;
+                    font-size: $font-size-xs;
+                }
+
+                .fa {
+                    &.Mortgagee {
+                        &:before {
+                            content: "\f19c";
+                        }
+                    }
+
+                    &.Lienholder {
+                        &:before {
+                            content: "\F27E";
+                        }
+                    }
+
+                    &.Interest {
+                        &:before {
+                            content: "\F2B5";
+                        }
+                    }
+
+                    &.Insured {
+                        &:before {
+                            content: "\F234";
+                        }
+                    }
+
+                    &.Bill {
+                        &:before {
+                            content: "\F0D6";
+                        }
+                    }
+                }
+            }
+
+            section {
+                flex-grow: 1;
+                flex-shrink: 0;
+
+                h4 {
+                    margin-bottom: 0;
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+            .ref-number {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 0;
+                flex-shrink: 0;
+                align-items: flex-end;
+                justify-content: center;
+
+                label {
+                    font-size: $font-size-xs;
+                }
+
+                span {
+                    font-size: $font-size-h5;
+                }
+            }
+        }
+    }
+}
+
 .verify {
     overflow-y: auto;
     width: 100%;
