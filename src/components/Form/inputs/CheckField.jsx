@@ -19,12 +19,13 @@ export const CheckInput = ({
   } = input;
 
   const formGroupStyles = classNames(
-    input.value ? 'active' : 'inactive' ,
     'form-group',
-    { name },
-    { disabled },
-    { switch: isSwitch },
+    name,
     styleName,
+    { active: input.value },
+    { inactive: !input.value },
+    { disabled },
+    { switch: isSwitch }
   );
 
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
@@ -32,7 +33,7 @@ export const CheckInput = ({
   const Switch = isSwitch && (<div className="switch-div" />);
 
   return (
-    <div className={formGroupStyles} >
+    <div className={formGroupStyles} id={name} >
       <label htmlFor={name} onClick={() => onChange(!value)}>
         {label} &nbsp; {Hint}
         <input
@@ -61,7 +62,10 @@ CheckInput.propTypes = {
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any // eslint-disable-line
+    value: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.string
+    ]) // eslint-disable-line
   }),
 
   /**
@@ -84,8 +88,7 @@ CheckInput.defaultProps = {
   input: {
     onChange: () => {},
     value: false
-  },
-  styleName: ''
+  }
 };
 
 export default reduxFormField(CheckInput);

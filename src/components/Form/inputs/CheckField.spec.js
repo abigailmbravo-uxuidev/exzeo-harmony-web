@@ -82,9 +82,27 @@ describe('CheckInput', () => {
     wrapper.find('[name="testing"]').simulate('change');
     expect(checkValue).toEqual(true);
   });
-
-  // TODO: Check renders
-  // TODO: Check classnames
-  // TODO: Check props
-  // TODO: Check event handlers
+  
+  it('should have name in class if provided', () => {
+   const inputProps = {
+       label: 'Test',
+       input: {
+         name: 'testing'
+       }
+   };
+   const wrapper = shallow(<CheckInput {...inputProps} />);
+   expect(wrapper.find('.form-group').hasClass(inputProps.input.name)).to.equal(true);
+ });
+  
+ it('should have stylename in class if provided', () => {
+     const inputProps = {
+         label: 'Test',
+         input: {
+           name: 'testing'
+         },
+       styleName: 'oranges'
+     };
+     const wrapper = shallow(<CheckInput {...inputProps} />);
+     expect(wrapper.find('.form-group').hasClass(inputProps.styleName)).to.equal(true);
+   });
 });

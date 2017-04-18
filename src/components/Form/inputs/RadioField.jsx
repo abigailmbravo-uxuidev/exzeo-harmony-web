@@ -15,14 +15,14 @@ export const RadioInput = ({
   segmented,
   styleName
 }) => {
-  const { error, touched } = meta;
+  const { error, warning, touched } = meta;
   const { onChange, name, value, disabled } = input;
 
   const formGroupStyles = classNames(
     'form-group',
+    name,
+    styleName,
     { segmented },
-    { name },
-    { styleName },
     { disabled },
   );
 
@@ -33,9 +33,10 @@ export const RadioInput = ({
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
   const DisplayField = displayValue && (<input type="text" value={displayValue} readOnly />);
-
+  const Error = touched && (error || warning) && (<span style={{ color: 'red' }}>{error || warning}</span>);
+  
   return (
-    <div className={formGroupStyles} role="group">
+    <div className={formGroupStyles} id={name} role="group">
       <label className={labelStyles} htmlFor={name}>
         {label}
         {Hint}
@@ -54,63 +55,59 @@ export const RadioInput = ({
           />
         )}
       </div>
+      {Error}
     </div>
   );
 };
 
 RadioInput.propTypes = {
-
-  /**
-   * Answers used to generate options
-   */
+  
+  // Answers used to generate tooltip
   answers: PropTypes.arrayOf(PropTypes.shape({
-    answer: PropTypes.any, // eslint-disable-line
-    label: PropTypes.any, // eslint-disable-line
+    answer: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    label: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
     image: PropTypes.string
   })),
-
-  /**
-   * Used for dependent radio field, activates
-   * read only input
-   */
-  displayValue: PropTypes.any, // eslint-disable-line
-
-  /**
-   * Tooltip for user
-   */
+  
+  // Used for dependent radio field, shows read only field
+  displayValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  
+  // Used to generate tooltip
   hint: PropTypes.string,
-
-  /**
-   * Provided by redux-form Field
-   */
+  
+  // Input props from redux-form
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any, // eslint-disable-line
+    value: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ])
   }),
-
-  /**
-   * Label for form field
-   */
+  
+  // Label for input
   label: PropTypes.string,
-
-  /**
-   * Validation results
-   */
+  
+  // Validations
   meta: PropTypes.shape({
     warning: PropTypes.string,
     error: PropTypes.string,
     touched: PropTypes.bool
   }),
-
-  /**
-   * Whether field is segmented radio
-   */
-
-  /**
-   * Classname for form-group
-   */
+  
+  // Added to class on render
   segmented: PropTypes.bool,
   styleName: PropTypes.string
 };
