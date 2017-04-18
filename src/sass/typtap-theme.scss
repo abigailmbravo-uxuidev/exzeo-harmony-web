@@ -1232,6 +1232,12 @@ ul.result-cards {
             }
         }
     }
+    .address-not-found {
+        background-color: $cool-gray-01;
+        &:after {
+            border-color: $cool-gray-01 transparent;
+        }
+    }
 }
 
 .quote-list {
@@ -1356,6 +1362,20 @@ ul.result-cards {
 }
 //Additional Interests
 /*------------------------------------------------------------------------------------*/
+#AddAdditionalInterestPage {
+    .result-cards {
+        li {
+            a {
+                .card-icon {
+                    color: $green;
+                }
+            }
+            .fa-pencil {
+                color: $bright-blue;
+            }
+        }
+    }
+}
 #AdditionalInterest {
     .form-group {
         .ai1City,

@@ -15,21 +15,20 @@ const handleGetQuoteData = (state) => {
 };
 
 const Error = ({ quote, exceptions }) => {
-  
+
     return (
-        <div className="app-wrapper">
+        <div className="route-content">
             <div className="error-content" role="article">
                 {/* HARD STOP WORKFLOW ERROR*/}
                 <div className="error-wrapper">
                     <section>
                         <div id="Error">
                             <div className="detail-wrapper">
-                                <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"/>
-                                    Property does not qualify</h3>
+                                <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"/> Property does not qualify for automated quote</h3>
                                 <p>We apologize, but we are unable to provide an automated HO3 quote for your property at this time.</p>
                                 <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
-  
-  
+
+
                               <div className="quote-details-error">
                                 {quote && <section className="display-element">
                                   <dl className="quote-number">
@@ -53,7 +52,6 @@ const Error = ({ quote, exceptions }) => {
                                 </section>
                                 }
                               </div>
-                              
                                 <ul>
                                     {exceptions && exceptions.map((exception, key) => {
                                         if (exception.action === 'Fatal Error') {
@@ -69,14 +67,9 @@ const Error = ({ quote, exceptions }) => {
                     <aside>
                         <div className="image"/>
                         <div className="contact-info">
-                            <a className="link-email" href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/>
-                                <span>email us</span>
-                            </a>
-                            <a className="link-phone" href="tel:8442897968"><i className="fa fa-phone"/>
-                                <span>(844) 289-7968</span>
-                            </a>
+                            <a className="link-email" href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> <span>email us</span></a>
+                            <a className="link-phone" href="tel:8442897968"><i className="fa fa-phone"/> <span>(844) 289-7968</span></a>
                         </div>
-                        <div className="waves"/>
                     </aside>
                 </div>
             </div>
