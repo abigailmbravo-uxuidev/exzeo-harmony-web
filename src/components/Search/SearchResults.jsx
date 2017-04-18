@@ -58,43 +58,51 @@ const SearchResults = (props) => {
     props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
   ) {
     const quoteResults = props.tasks[props.appState.modelName].data.previousTask.value.result;
-    const quote = quoteResults[0];
-    return (quote ? (
+
+    return (
       <div className="quote-list">
-              {/*add iteration of cards within this div*/}
-              <div id={quote._id} className="card">
-                <div className="icon-name">
-                  <i className="card-icon fa fa-user-circle" />
-                  <h4>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
-                </div>
-                <section>
-                  <ul>
-                    <li className="header">
-                      <span className="quote-no">Quote No.</span>
-                      <span className="property-address">Property Address</span>
-                      <span className="quote-state">Quote State</span>
-                      <span className="effctive-date">Effective Date</span>
-                      <span className="started-on">Started On</span>
-                      <span className="premium">Premium</span>
-                    </li>
-                    <li>
-                      <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1" className="quote-no">{quote.quoteNumber}</a>
-                      <span className="property-address">{`${quote.property.physicalAddress.address1}
+        {
+          quoteResults && quoteResults.map((quote, index) => {
+            return <div id={quote._id} className="card" key={index}>
+              <div className="icon-name">
+                <i className="card-icon fa fa-user-circle"/>
+                <h4>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
+              </div>
+              <section>
+                <ul>
+                  <li className="header">
+                    <span className="quote-no">Quote No.</span>
+                    <span className="property-address">Property Address</span>
+                    <span className="quote-state">Quote State</span>
+                    <span className="effctive-date">Effective Date</span>
+                    <span className="started-on">Started On</span>
+                    <span className="premium">Premium</span>
+                  </li>
+                  <li>
+                    <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1"
+                       className="quote-no">{quote.quoteNumber}</a>
+                    <span className="property-address">{`${quote.property.physicalAddress.address1}
                         ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
                         ${quote.property.physicalAddress.zip}
                         `}</span>
-                      <span className="quote-state">{quote.quoteState}</span>
-                      <span className="effctive-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
-                      <span className="started-on">{moment.utc(quote.createdAt).format('YYYY-MM-DD')}</span>
-                      <span className="premium">$ [{quote.rating ? quote.rating.totalPremium : '-'}]</span>
-                    </li>
-                  </ul>
-                </section>
-              </div>
+                    <span className="quote-state">{quote.quoteState}</span>
+                    <span
+                      className="effctive-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
+                    <span
+                      className="started-on">{moment.utc(quote.createdAt).format('YYYY-MM-DD')}</span>
+                    <span
+                      className="premium">$ {quote.rating ? quote.rating.totalPremium : '-'}</span>
+                  </li>
+                </ul>
+              </section>
+            </div>
+          
+          })
+        }
       </div>
-    ) : null);
+    );
   }
-
+  
   return <span />;
 };
 

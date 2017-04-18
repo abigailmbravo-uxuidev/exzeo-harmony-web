@@ -28,6 +28,23 @@ const scheduleDateModal = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !showScheduleDateModal });
 };
 
+
+// ------------------------------------------------
+// This function add a primary or secondary title
+// to the AI types. It uses the global component
+// variable to keep track of the AI types.
+// ------------------------------------------------
+let previousAIType = '';
+const handlePrimarySecondaryTitles = (type) => {
+  if(type !== previousAIType){
+    previousAIType = type;
+    return `${type} 1`;
+  }
+  else {
+    return `${type} 2`;
+  }
+};
+
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
@@ -49,6 +66,7 @@ export const Verify = (props) => {
   let coverageLimits = {};
   let coverageOptions = {};
   let mailingAddress = {};
+  let deductibles = {};
 
   const { tasks,
     fieldValues,
@@ -70,6 +88,7 @@ export const Verify = (props) => {
     coverageLimits = quoteData.coverageLimits;
     coverageOptions = quoteData.coverageOptions;
     mailingAddress = quoteData.policyHolderMailingAddress || {};
+    deductibles = quoteData.deductibles;
   }
 
   return (
@@ -102,16 +121,22 @@ export const Verify = (props) => {
                       <dd>{property.yearBuilt}</dd>
                     </div>
                   </dl>
-                  <dl className="property-information">
+                  {/*<dl className="property-information">
                     <div>
                       <dt>Flood Zone</dt>
                       <dd>{property.floodZone}</dd>
                     </div>
-                  </dl>
+                  </dl>*/}
                   <dl className="effective-date">
                     <div>
                       <dt>Effective Date</dt>
                       <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
+                    </div>
+                  </dl>
+                  <dl className="agent">
+                    <div>
+                      <dt>Agent</dt>
+                      <dd>AGENT NAME HERE</dd>
                     </div>
                   </dl>
                 </section>
@@ -146,26 +171,26 @@ export const Verify = (props) => {
                   </dl>
                   <dl>
                     <div>
-                      <dt>Personal Property Replacement Cost</dt>
-                      <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Loss Of Use</dt>
+                      <dt>D. Loss Of Use</dt>
                       <dd>${coverageLimits.lossOfUse.amount}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
-                      <dt>Personal Liability</dt>
+                      <dt>E. Personal Liability</dt>
                       <dd>${coverageLimits.personalLiability.amount}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
-                      <dt>Medical Payments</dt>
+                      <dt>F. Medical Payments</dt>
                       <dd>${coverageLimits.medicalPayments.amount}</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>Personal Property Replacement Cost</dt>
+                      <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
                     </div>
                   </dl>
                   <dl>
@@ -187,18 +212,34 @@ export const Verify = (props) => {
                     (coverageLimits.ordinanceOrLaw.amount / 100)}</dd>
                     </div>
                   </dl>
+                  <dl>
+                    <div>
+                      <dt>All Other Perils Deductible</dt>
+                      <dd>${deductibles.allOtherPerils.amount}</dd>
+                    </div>
+                  </dl>
+                  <dl>
+                    <div>
+                      <dt>Hurricane Deductible</dt>
+                      <dd>{deductibles.hurricane.calculatedAmount}</dd>
+                    </div>
+                  </dl>
+                  {deductibles.sinkhole &&
+                    <dl>
+                      <div>
+                        <dt>Sinkhole Deductible</dt>
+                        <dd>${deductibles.sinkhole.amount}</dd>
+                      </div>
+                    </dl>
+                  }
                 </section>
                 <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group policyholder-details">
                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
                 <section className="display-element">
-                  <p>Please check that the below information is up to date and accurate.
-                  The policyholder contact information listed below will be used to schedule the required property inspection.
-                   Failure to schedule property inspection will result in a failure to bind the policy.</p>
-                  {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
-                 quoteData.policyHolders.map((policyHolder, index) => (
-                   _.trim(policyHolder.firstName).length > 0 && <dl key={`ph${index}`}>
+                  <p>Please check that the below information is up to date and accurate. The policyholder contact information listed below will be used to schedule the required property inspection. Failure to schedule property inspection will result in a failure to bind the policy.</p>
+                  {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ? quoteData.policyHolders.map((policyHolder, index) => ( _.trim(policyHolder.firstName).length > 0 && <dl key={`ph${index}`}>
                      <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
                      <div className="contact-card">
                        <div className="contact-name">
@@ -243,33 +284,24 @@ export const Verify = (props) => {
                 </section>
                 <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
               </div>
-              <div className="detail-group mailing-address-details">
-                <h3 className="section-group-header"><i className="fa fa-users" />additional Interests</h3>
-                <section className="display-element">
-                  {(quoteData.additionalInterests &&
-                quoteData.additionalInterests.length > 0) ?
-                quoteData.additionalInterests.map((additionalInterest, index) => (
-                  _.trim(additionalInterest.name1).length > 0 && <dl key={`ph${index}`}>
-                    <h4>{`${additionalInterest.type}`}</h4>
-                    <div>
-                      <dt>Name 1</dt>
-                      <dd>{`${additionalInterest.name1}`}</dd>
-                      <dt>Name 2</dt>
-                      <dd>{`${additionalInterest.name2}`}</dd>
-                      <dt>Address 1</dt>
-                      <dd>{`${additionalInterest.mailingAddress.address1}`}</dd>
-                      <dt>Address 2</dt>
-                      <dd>{`${additionalInterest.mailingAddress.address2}`}</dd>
-                      <dt>City</dt>
-                      <dd>{`${additionalInterest.mailingAddress.city}`}</dd>
-                      <dt>State</dt>
-                      <dd>{`${additionalInterest.mailingAddress.state}`}</dd>
-                      <dt>Zip</dt>
-                      <dd>{`${additionalInterest.mailingAddress.zip}`}</dd>
-                      <dt>Reference Number</dt>
-                      <dd>{`${additionalInterest.referenceNumber}`}</dd>
+              <div className="detail-group additional-interests-details">
+                <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests</h3>
+                <section className="display-element additional-interests">
+                  {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ? quoteData.additionalInterests.map((additionalInterest, index) => ( _.trim(additionalInterest.name1).length > 0 && <div className="card" key={`ph${index}`}>
+                  <div className="icon-wrapper">
+                    <i className={`fa ${additionalInterest.type}`}></i>
+                    <p>{handlePrimarySecondaryTitles(additionalInterest.type)}</p>
                     </div>
-                  </dl>)) : null}
+                    <section>
+                      <h4>{`${additionalInterest.name1}`} {`${additionalInterest.name2}`}</h4>
+                      <p>{`${additionalInterest.mailingAddress.address1}`} {`${additionalInterest.mailingAddress.address2}`}</p>
+                      <p>{`${additionalInterest.mailingAddress.city}`}, {`${additionalInterest.mailingAddress.state}`} {`${additionalInterest.mailingAddress.zip}`}</p>
+                    </section>
+                    <div className="ref-number">
+                      <label>Reference Number</label>
+                      <span>{`${additionalInterest.referenceNumber}`}</span>
+                    </div>
+                  </div>)) : null}
                 </section>
                 <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verify" isSwitch />
               </div>
