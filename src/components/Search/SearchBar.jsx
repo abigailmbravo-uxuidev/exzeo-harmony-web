@@ -22,8 +22,6 @@ const handleSearchBarSubmit = (data, dispatch, props) => {
     quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType,
-    page: 1,
-    pageSize: 25
   };
   
   // we need to make sure the active task is search otherwise we need to reset the workflow
