@@ -20,19 +20,69 @@ const userTasks = {
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
-  const taskData = { ...data };
+  const additionalInterests = props.quoteData.additionalInterests;
+
+  const lienholder1 = _.find(additionalInterests, { order: 0, type: 'Lienholder' }) || {};
+  const lienholder2 = _.find(additionalInterests, { order: 1, type: 'Lienholder' }) || {};
+
+  _.remove(additionalInterests, ai => ai.type === 'Lienholder');
+
+  if (data.isAdditional) {
+    lienholder1.name1 = data.l1Name1;
+    lienholder1.name2 = data.l1Name2;
+    lienholder1.referenceNumber = data.l1ReferenceNumber;
+    lienholder1.order = 0;
+    lienholder1.active = true;
+    lienholder1.type = 'Lienholder';
+    lienholder1.mailingAddress = {
+      address1: data.l1MailingAddress1,
+      address2: data.l1MailingAddress2,
+      city: data.l1City,
+      state: data.l1State,
+      zip: data.l1Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
+      }
+    };
+
+    additionalInterests.push(lienholder1);
+  }
+  if (data.isAdditional && data.isAdditional2) {
+    lienholder2.name1 = data.l2Name1;
+    lienholder2.name2 = data.l2Name2;
+    lienholder2.referenceNumber = data.l2ReferenceNumber;
+    lienholder2.order = 1;
+    lienholder2.active = true;
+    lienholder2.type = 'Lienholder';
+    lienholder2.mailingAddress = {
+      address1: data.l2MailingAddress1,
+      address2: data.l2MailingAddress2,
+      city: data.l2City,
+      state: data.l2State,
+      zip: data.l2Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
+      }
+    };
+
+    additionalInterests.push(lienholder2);
+  }
+
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
 
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
+
+  const values = getInitialValues(taskData.uiQuestions, { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Lienholder') });
 
   userTasks.formSubmit = taskData.activeTask.name;
 
@@ -42,12 +92,12 @@ const handleInitialize = (state) => {
     }
   });
 
-  if (_.trim(values.l1Name1)) {
-    values.isAdditional = true;
-  }
   if (_.trim(values.l2Name1)) {
     values.isAdditional2 = true;
   }
+
+  values.isAdditional = true;
+
 
   return values;
 };
@@ -61,9 +111,9 @@ const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
   return quoteData;
 };
 
@@ -79,11 +129,12 @@ export const Lienholder = (props) => {
       <Form id="Lienholder" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Lienholder</h3>
-            {fieldQuestions && fieldQuestions.map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
+            <h3 className="section-group-header"><i className="fa fa-black-tie" /> Lienholder</h3>
+            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Lienholder" disabled={props.appState.data.submitting}>next</button>
+            <button className="btn btn-secondary">cancel</button>
+            <button className="btn btn-primary" type="submit" form="Lienholder" disabled={props.appState.data.submitting}>save</button>
           </div>
           <Footer />
         </div>

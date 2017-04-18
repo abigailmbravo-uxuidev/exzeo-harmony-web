@@ -6,8 +6,7 @@ import ErrorPopup from './ErrorPopup';
 const props = {
   underwritingExceptions: [],
   refereshUWReviewError: () => (false),
-  redirectToNewQuote: () => (false),
-  quote: {}
+  redirectToNewQuote: () => (false)
 };
 
 it('renders without crashing', () => {

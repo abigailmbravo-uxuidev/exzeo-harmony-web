@@ -1513,6 +1513,8 @@ ul.list-cards {
     position: relative;
     display: flex;
     flex-direction: column;
+    padding-left: 0;
+    list-style: none;
 
     li {
         margin-bottom: $padding/2;
@@ -2189,33 +2191,25 @@ ul.list-cards {
                                 content: "\f19c";
                             }
                         }
-                    }
 
-                    .fa {
                         &.Lienholder {
                             &:before {
                                 content: "\F27E";
                             }
                         }
-                    }
 
-                    .fa {
                         &.Interest {
                             &:before {
                                 content: "\F2B5";
                             }
                         }
-                    }
 
-                    .fa {
                         &.Insured {
                             &:before {
                                 content: "\F234";
                             }
                         }
-                    }
 
-                    .fa {
                         &.Bill {
                             &:before {
                                 content: "\F0D6";
@@ -2230,31 +2224,31 @@ ul.list-cards {
 
 #AdditionalPolicyHolder {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #Mortgagee {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #Lienholder {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #AdditionalInterest {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #AdditionalInsured {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
@@ -2263,7 +2257,7 @@ ul.list-cards {
     flex-grow: 1;
 
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 //Mailing & Billing
@@ -2536,7 +2530,7 @@ ul.list-cards {
 .error-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    height: 100%;
 
     .quote-details-error {
         display: flex;
@@ -2576,7 +2570,6 @@ ul.list-cards {
         flex-direction: row;
         flex-direction: row;
         flex-basis: 100%;
-        flex-grow: 1;
         @include for-phone-only {
             flex-direction: column-reverse;
             justify-content: center;
@@ -2670,25 +2663,11 @@ ul.list-cards {
             .contact-message {
                 .card {
                     width: auto;
-                    max-width: 40rem;
+                    max-width: 36rem;
                     margin: $padding 0;
                     @include for-phone-only {
                         max-width: 19.375rem;
                         margin: 0 0 ($padding*2);
-                    }
-
-                    .error-property-details {
-                        display: flex;
-
-                        > .display-element {
-                            .quote-number {
-                                width: 10rem;
-                            }
-
-                            dd {
-                                margin-bottom: 0;
-                            }
-                        }
                     }
 
                     .error {
@@ -2713,7 +2692,7 @@ ul.list-cards {
                         align-items: center;
 
                         a {
-                            margin: $padding ($padding*4) ($padding*2) 0;
+                            margin: $padding ($padding*2) ($padding*2) 0;
                         }
                     }
                 }
@@ -2798,30 +2777,6 @@ ul.list-cards {
             div[class^="ring-"] {
                 border-bottom: 1px solid transparent;
             }
-        }
-    }
-}
-
-.card {
-    &.pop-up-bubble {
-        background-color: $cool-gray-02;
-
-        &:after {
-            position: absolute;
-            bottom: -15px;
-            /* value = - border-top-width - border-bottom-width */
-            left: 50%;
-            /* centers*/
-            /* reduce the damage in FF3.0 */
-            display: block;
-            width: 0;
-            margin-left: -15px;
-            /* centers*/
-            content: "";
-            border-width: 15px 15px 0;
-            /* vary these values to change the angle of the vertex */
-            border-style: solid;
-            border-color: $cool-gray-02 transparent;
         }
     }
 }

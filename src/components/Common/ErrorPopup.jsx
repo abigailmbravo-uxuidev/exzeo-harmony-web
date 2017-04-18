@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 const ErrorPopup = ({quote, underwritingExceptions, refereshUWReviewError, redirectToNewQuote}) => (
     <div className="error-content pop-up" role="article">
