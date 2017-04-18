@@ -983,8 +983,6 @@ main[role="document"] {
         margin: 0.875rem;
         padding: ($padding) 0;
         border-radius: 50%;
-        align-items: center;
-        justify-content: center;
         @include for-tablet-landscape-up {
             width: auto;
             height: auto;
@@ -1000,23 +998,30 @@ main[role="document"] {
             border-radius: $btn-border-radius;
         }
 
-        i {
-            margin-right: 0;
-            @include for-tablet-landscape-up {
-                margin-right: $padding;
-            }
-            @include for-phone-only {
-                margin-right: $padding;
-            }
-        }
+        > div {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
 
-        span {
-            display: none;
-            @include for-tablet-landscape-up {
-                display: block;
+            i {
+                margin-right: 0;
+                @include for-tablet-landscape-up {
+                    margin-right: $padding;
+                }
+                @include for-phone-only {
+                    margin-right: $padding;
+                }
             }
-            @include for-phone-only {
-                display: block;
+
+            span {
+                display: none;
+                @include for-tablet-landscape-up {
+                    display: block;
+                }
+                @include for-phone-only {
+                    display: block;
+                }
             }
         }
     }
@@ -1469,6 +1474,8 @@ footer {
                         flex-basis: 0;
                         align-self: stretch;
                         @include for-phone-only {
+                            margin-right: 0;
+                            margin-left: 0;
                             flex-grow: 0;
                             flex-basis: auto;
                         }
@@ -1486,6 +1493,7 @@ footer {
                         }
 
                         .card-footer {
+                            padding: $padding ($padding*1.25);
                             justify-content: space-around;
 
                             .btn {
@@ -1495,6 +1503,12 @@ footer {
                                 flex-basis: 45%;
                                 @include for-phone-only {
                                     font-size: $font-size-sm;
+                                }
+
+                                i {
+                                    @include for-phone-only {
+                                        display: none;
+                                    }
                                 }
                             }
                         }
@@ -1510,6 +1524,9 @@ footer {
 /*------------------------------------------------------------------------------------*/
 .result-cards,
 ul.list-cards {
+    padding-left: 0;
+    list-style: none;
+
     li {
         margin-bottom: $padding/2;
 
@@ -2139,6 +2156,7 @@ ul.list-cards {
             @include for-phone-only {
                 max-width: 19.375rem;
                 margin: 0 0 ($padding*2);
+
             }
         }
     }
@@ -2148,33 +2166,133 @@ ul.list-cards {
 #Assumptions {}
 //Additional Interests
 /*------------------------------------------------------------------------------------*/
+.ai-modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background: rgba($black, .8);
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    @include animation( 'fade-in .25s 1');
+
+    .card-additional-interest {
+        z-index: 100;
+        width: 100%;
+        max-width: 50rem;
+
+        .card-block {
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .city {
+                width: auto;
+                flex-grow: 1;
+            }
+
+            .state {
+                width: 4rem;
+            }
+
+            .zip {
+                width: 8rem;
+            }
+        }
+    }
+}
+#AddAdditionalInterestPage {
+    .detail-wrapper {
+        flex-direction: column;
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+
+            .btn {
+                margin-right: $padding;
+                margin-bottom: $padding;
+                @include for-phone-only {
+                    margin-right: 0;
+                    width: 100%;
+                }
+            }
+        }
+
+        .result-cards,
+        ul.list-cards {
+            list-style: none;
+            border-bottom: 1px dashed $warm-gray-02;
+            margin: 0 0 1rem 0;
+            padding: 1rem 0 3.052rem 0;
+            @include for-phone-only {
+                padding-bottom: 1.563rem;
+            }
+
+            a {
+
+                .card-icon {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    label {
+                        font-size: $font-size-xs;
+                    }
+                }
+
+                section {
+                    margin-left: $padding*2;
+
+                    .address {
+                        font-size: $font-size-sm;
+                    }
+                }
+
+                .fa-pencil {
+                    font-size: $font-size-h5;
+                }
+
+                &:hover {
+                    .fa-pencil {
+
+                    }
+                }
+            }
+        }
+    }
+}
+
 #AdditionalPolicyHolder {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #Mortgagee {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #Lienholder {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #AdditionalInterest {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
 #AdditionalInsured {
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 
@@ -2183,7 +2301,7 @@ ul.list-cards {
     flex-grow: 1;
 
     .switch.inactive~.form-group {
-        display: none;
+        //display: none;
     }
 }
 //Mailing & Billing
@@ -2262,6 +2380,102 @@ ul.list-cards {
 }
 //verify & write policy
 /*------------------------------------------------------------------------------------*/
+#Verify {
+    .additional-interests {
+        flex-wrap: wrap;
+
+        .card {
+            flex-direction: row;
+            width: 100%;
+            margin: 0 0 $padding;
+            padding: $padding;
+
+            .icon-wrapper {
+                display: flex;
+                flex-direction: column;
+                width: 6rem;
+                margin-right: $padding;
+                flex-grow: 0;
+                flex-shrink: 0;
+                align-items: center;
+                justify-content: center;
+
+                i {
+                    font-size: $font-size-h4;
+                    margin-bottom: $padding;
+                }
+
+                p {
+                    margin-bottom: 0;
+                    font-size: $font-size-xs;
+                }
+
+                .fa {
+                    &.Mortgagee {
+                        &:before {
+                            content: "\f19c";
+                        }
+                    }
+
+                    &.Lienholder {
+                        &:before {
+                            content: "\F27E";
+                        }
+                    }
+
+                    &.Interest {
+                        &:before {
+                            content: "\F2B5";
+                        }
+                    }
+
+                    &.Insured {
+                        &:before {
+                            content: "\F234";
+                        }
+                    }
+
+                    &.Bill {
+                        &:before {
+                            content: "\F0D6";
+                        }
+                    }
+                }
+            }
+
+            section {
+                flex-grow: 1;
+                flex-shrink: 0;
+
+                h4 {
+                    margin-bottom: 0;
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+            .ref-number {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 0;
+                flex-shrink: 0;
+                align-items: flex-end;
+                justify-content: center;
+
+                label {
+                    font-size: $font-size-xs;
+                }
+
+                span {
+                    font-size: $font-size-h5;
+                }
+            }
+        }
+    }
+}
+
 .verify {
     overflow-y: auto;
     width: 100%;
@@ -2382,9 +2596,17 @@ ul.list-cards {
                             flex-grow: 1;
                             flex-shrink: 0;
 
-                            &.contact-name {}
+                            &.contact-name {
+                                width: 14rem;
+                                flex-basis: 14rem;
+                                flex-grow: 0;
+                            }
 
-                            &.contact-email {}
+                            &.contact-phone {
+                                width: 14rem;
+                                flex-basis: 14rem;
+                                flex-grow: 0;
+                            }
 
                             dl {
                                 margin-right: $padding*2;
@@ -2644,7 +2866,7 @@ ul.list-cards {
             height: 100%;
 
             .error-content {
-                .fade-in {
+
                     display: flex;
                     flex-direction: row;
                     width: 100%;
@@ -2668,7 +2890,7 @@ ul.list-cards {
                         flex-shrink: 0;
                         flex-grow: 0;
                     }
-                }
+
 
                 footer {}
             }

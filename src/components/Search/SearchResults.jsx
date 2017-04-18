@@ -97,7 +97,7 @@ const SearchResults = (props) => {
       </div>
     )
   }
-
+  
   return <span />;
 };
 

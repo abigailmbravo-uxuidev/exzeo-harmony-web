@@ -40,8 +40,15 @@ const handleFormSubmit = (data, dispatch, props) => {
       liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
       sinkholePerilCoverage: updatedQuote.sinkholeCoverage,
       calculatedHurricane: ((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount),
-      sinkhole: updatedQuote.sinkholeCoverage ? updatedQuote.sinkhole : 0
+      sinkhole:  ((updatedQuote.sinkhole / 100) * updatedQuote.dwellingAmount)
     };
+    
+    // Remove the sinkhole attribute from updatedQuoteResult
+    // if sinkholePerilCoverage is false
+    if(!updatedQuote.sinkholeCoverage){
+      delete updatedQuoteResult.sinkhole;
+    }
+    
     // we need to run two tasks in sequence so call batchComplete in the cg actions
     const steps = [{
       name: userTasks.formSubmit,
