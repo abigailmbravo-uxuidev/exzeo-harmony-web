@@ -39,10 +39,9 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
             <ul className="error">
               {
                 underwritingExceptions.map((exception, i) => {
-                  if (exception.action !== 'Fatal Error') {
-                    return (<li key={i}>{exception.agentMessage}</li>);
+                  if(exception.action === 'Underwriting Review') {
+                    return (<li key={i}>{exception.agentMessage}</li>)
                   }
-                  return '\u00A0';
                 })
               }
             </ul>
@@ -51,7 +50,7 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
           <div className="card-footer">
             {/* <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>
             <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>*/}
-            <small>A TypTap CSR may be able to correct your underwring error(s) allowing you to refresh and continue.</small>
+            <small>A TypTap CSR may be able to correct your underwriting error(s) allowing you to refresh and continue.</small>
             <div className="btn-group">
               <a href="tel:8442897968" className="btn btn-secondary btn-round"><i className="fa fa-phone" /></a>
               <button className="btn btn-secondary" onClick={refereshUWReviewError}>Refresh</button>
