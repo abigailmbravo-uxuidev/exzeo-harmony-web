@@ -18,10 +18,10 @@ const handleSearchBarSubmit = (data, dispatch, props) => {
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-    propertyAddress: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(data.address) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(data.address) : ''),
     quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
-    searchType: props.searchType,
+    searchType: props.searchType
   };
   
   // we need to make sure the active task is search otherwise we need to reset the workflow
