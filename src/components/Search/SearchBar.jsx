@@ -18,12 +18,14 @@ const handleSearchBarSubmit = (data, dispatch, props) => {
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(data.address) : ''),
+    propertyAddress: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(data.address) : ''),
     quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
-    searchType: props.searchType
+    searchType: props.searchType,
+    page: 1,
+    pageSize: 25
   };
-  console.log('SEARCH DATA: ', taskData);
+  
   // we need to make sure the active task is search otherwise we need to reset the workflow
   if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
     const completeStep = {
