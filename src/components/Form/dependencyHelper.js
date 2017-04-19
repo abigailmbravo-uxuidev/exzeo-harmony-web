@@ -1,14 +1,14 @@
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, no-extend-native  */
 import _ from 'lodash';
 
-export const toCurrency = function (value) {
+export const toCurrency = function toCurrency(value) {
   return `$ ${String(value).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
 };
 
 export default function dependencyHelper(question, data, values) {
   const updatedQuestion = _.cloneDeep(question);
   if (!question.conditional) return updatedQuestion;
-  // Has some slider properties depending on other values
+  // For some slider properties depending on other fields
   if (question.conditional.slider) {
     const { slider } = question.conditional;
     if (slider.minLocation) {
@@ -20,7 +20,7 @@ export default function dependencyHelper(question, data, values) {
       updatedQuestion.max = Math.floor(_.get(data, slider.maxLocation));
     }
   }
-  // For read only/display boxes
+  // For display fields
   if (question.conditional.value) {
     const { value } = question.conditional;
     const parentValue = _.get(values, value.parent);
@@ -28,6 +28,8 @@ export default function dependencyHelper(question, data, values) {
     // console.log('PERCENTAGE CONDITION: ', question, value);
     updatedQuestion.displayValue = toCurrency((value.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue));
   }
+  
+  // For read only fields on radio fields
   if (question.conditional.dependency) {
     const { dependency } = question.conditional;
     const parentValue = _.get(values, dependency.parent);
@@ -36,12 +38,12 @@ export default function dependencyHelper(question, data, values) {
   }
   /**
    * type: 'hidden',
-   trigger: true,
-   dependency: 'personalPropertyConverage',
-   operator: 'equal',
-
-    if the parent's value is {operator} to/than {trigger},
-    then the child will be !{type}, else child will be {type}
+   * trigger: true,
+   * dependency: 'personalPropertyConverage',
+   * operator: 'equal',
+   *
+   * if the parent's value is {operator} to/than {trigger},
+   * then the child will be !{type}, else child will be {type}
    */
   if (question.conditional.display && question.conditional.display.length > 0) {
     const { display } = question.conditional;

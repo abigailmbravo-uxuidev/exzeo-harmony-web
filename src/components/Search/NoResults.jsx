@@ -11,28 +11,10 @@ import {
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
-const userTasks = {
-  askToSearchAgain: 'askToSearchAgain'
-};
-
-const setSearchAgain = (props) => {
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.askToSearchAgain;
-  const taskData = {
-    searchAgain: 'Yes'
-  };
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-};
-
 export const NoResults = (props) => {
   if (props.tasks[props.appState.modelName] &&
     props.tasks[props.appState.modelName].data.activeTask &&
     (props.tasks[props.appState.modelName].data.activeTask.name === 'askToSearchAgain')) {
-    setSearchAgain(props);
-  }
-  if (props.tasks[props.appState.modelName] &&
-    props.tasks[props.appState.modelName].data.previousTask &&
-    (props.tasks[props.appState.modelName].data.previousTask.name === 'askToSearchAgain')) {
     return (
       <div className="survey-wrapper">
         <div className="card">

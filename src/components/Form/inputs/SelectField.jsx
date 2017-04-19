@@ -8,15 +8,25 @@ export const SelectField = ({
   hint,
   input,
   label,
+  meta,
   styleName
 }) => {
   const { onChange, name, value, disabled } = input;
-
-  const formGroupStyles = classNames('form-group', { styleName }, { name });
+  const { touched, error, warning } = meta;
+  
+  const formGroupStyles = classNames(
+    'form-group',
+    styleName,
+    name,
+    { valid: touched && !error },
+    { error: touched && error }
+  );
+  
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
-
+  const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
+  
   return (
-    <div className={formGroupStyles}>
+    <div className={formGroupStyles} id={ name }>
       <label htmlFor={name}>
         {label} &nbsp; {Hint}
         {answers && answers.length > 0 ? (
@@ -35,51 +45,61 @@ export const SelectField = ({
           </select>
         ) : null}
       </label>
+      { Error }
     </div>
   );
 };
 
 SelectField.propTypes = {
-
-  /**
-   * Answers array used to generate options
-   */
+  
+  // Answers used to generate options
   answers: PropTypes.arrayOf(PropTypes.shape({
-    answer: PropTypes.any, // eslint-disable-line
-    label: PropTypes.string,
+    answer: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    label: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
     image: PropTypes.string
   })),
-
-  /**
-   * Tooltip for user
-   */
+  
+  // Used to generate tooltip
   hint: PropTypes.string,
-
-  /**
-   * Input provided by redux-form field
-   */
+  
+  // Input props provided by redux-form
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any, // eslint-disable-line
+    value: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ])
   }),
-
-  /**
-   * Label for field
-   */
+  
+  // Label for field
   label: PropTypes.string,
-
-  /**
-   * Styles for form group
-   */
+  
+  // Validations
+  meta: {
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+    warning: PropTypes.string
+  },
+  
+  // Name added to class on render
   styleName: PropTypes.string
 };
 
 SelectField.defaultProps = {
   input: {
     onChange: () => {}
-  }
+  },
+  meta: {}
 };
 
 export default reduxFormField(SelectField);

@@ -19,9 +19,10 @@ const RadioOption = ({
     {answer.image && <img src={answer.image} role="presentation" />}
     <label
       className={classNames(
-      'label-segmented': segmented,
-      { selected: value === answer.answer },
-    )} htmlFor={name}
+        { 'label-segmented': segmented },
+        { selected: value === answer.answer },
+      )}
+      htmlFor={name}
     >
       <input
         onChange={() => onChange(answer.answer)}
@@ -36,40 +37,39 @@ const RadioOption = ({
 );
 
 RadioOption.propTypes = {
-
-  /**
-   * Answer used to generate option
-   */
+  
+  // Answer Used to generate option
   answer: PropTypes.shape({
-    answer: PropTypes.any, // eslint-disable-line
-    label: PropTypes.string,
+    answer: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ]),
+    label: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]),
     image: PropTypes.string
   }),
-
-  /**
-   * Name for option
-   */
+  
+  // Name of parent field for option
   name: PropTypes.string,
-
-  /**
-   * Change handler from parent
-   */
+  
+  // Change handler
   onChange: PropTypes.func.isRequired,
-
-  /**
-   * Number of answers, for styling
-   */
+  
+  // Number of overall answers, added to class
   size: PropTypes.number,
-
-  /**
-   * Whether to use segmented slides
-   */
+  
+  // Converts from radio to segmented bar
   segmented: PropTypes.bool,
-
-  /**
-   * Used to find if options is selected
-   */
-  value: PropTypes.any, // eslint-disable-line
+  
+  // Value from parent field
+  value: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+    PropTypes.string
+  ])
 };
 
 export default RadioOption;

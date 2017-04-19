@@ -36,19 +36,12 @@ const SearchResults = (props) => {
               </li>
             ))
             : null}
+              <div>
+               <small><p>If you don't see your address in the list provided, try entering less address information to see if that improves your search results. Please note, at this time we are only writing single family dwellings in the state of Florida.</p></small>
+               <small><p>If you still have problems finding an address, please <a href="tel:888-210-5235"><strong>call us</strong></a> and one of our representatives will be glad to help you.</p></small>
+             </div>
+
         </ul>
-    
-        <div className="card address-not-found">
-          <a onClick={() => didNotFindAddressHint(props)} className="btn btn-secondary"><i className="fa fa-map-marker"></i> Don't see your address?</a>
-          { props.appState.data.dontSeeAddress && <div>
-            <p>If you don't see your address in the list provided, try entering less
-              address information to see if that improves your search results. Please note, at this
-              time we are only writing single family dwellings in the state of Florida.</p>
-            <p>If you still have problems finding an address, please <a href="tel:888-210-5235"><strong>call us</strong></a>
-              and one of our representatives will be glad to help you.</p>
-          </div>
-          }
-        </div>
       </div>
     );
   }
@@ -63,6 +56,7 @@ const SearchResults = (props) => {
       <div className="quote-list">
       {
         quoteResults && quotes && quotes.map((quote, index) => {
+          console.log(quote);
           return <div id={quote._id} className="card" key={index}>
             <div className="icon-name">
               <i className="card-icon fa fa-user-circle" />

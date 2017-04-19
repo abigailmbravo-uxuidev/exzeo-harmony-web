@@ -10,16 +10,28 @@ export const SliderInput = ({
   leftLabel,
   max,
   min,
+  meta,
   rightLabel,
   step,
   styleName
 }) => {
   const { name, value } = input;
-
-  const formGroupStyles = classNames('form-group', 'range-component', styleName, name);
-
+  const { error } = meta;
+  
+  const formGroupStyles = classNames(
+    'form-group',
+    'range-component',
+    styleName,
+    name,
+    { valid: !error },
+    { error }
+  );
+  
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
-
+  const Error = error && (
+    <span style={{ color: 'red' }}>{error}</span>
+  );
+  
   const handleChange = function (event) {
     const val = Number(event.target.value.replace(/\D+/g, ''));
     if (!Number.isNaN(val)) { input.onChange(val); }
@@ -55,57 +67,46 @@ export const SliderInput = ({
           />
         </span>
       </div>
+      { Error }
     </div>
   );
 };
 
 SliderInput.propTypes = {
-
-  /**
-   * Tooltip for user
-   */
+  // Used to generate tooltip
   hint: PropTypes.string,
-
-  /**
-   * Input provided by redux-form field
-   */
+  
+  // Input props provided by redux-form
   input: PropTypes.shape({
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any, // eslint-disable-line
+    value: PropTypes.any
   }),
-
-  /**
-   * Label for form field
-   */
+  
+  // Label for input
   label: PropTypes.string,
-
-  /**
-   * Left label for range slider
-   */
+  
+  // Label for left of slider
   leftLabel: PropTypes.string,
-
-  /**
-   * Max and min limit for range slider
-   */
+  
+  // Max and min limit for range slider
   max: PropTypes.number,
   min: PropTypes.number,
-
-  /**
-   * Right label for range slider
-   */
+  
+  // Validations
+  meta: PropTypes.shape({
+    error: PropTypes.string
+  }),
+  
+  // Label for right of slider
   rightLabel: PropTypes.string,
-
-  /**
-   * Step for slider
-   */
+  
+  // Step for slider input
   step: PropTypes.number,
-
-  /**
-   * Style for form group
-   */
+  
+  // Name added to class on render
   styleName: PropTypes.string
-
+  
 };
 
 SliderInput.defaultProps = {
