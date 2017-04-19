@@ -62,6 +62,6 @@ export const login = creds => (dispatch) => {
 export const logout = () => (dispatch) => {
   const user = { token: undefined, isAuthenticated: false, loggedOut: true };
   // remove the auth header to every request
-  axios.defaults.headers.common['Authentication'] = undefined; // eslint-disable-line
+  axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
   dispatch(authenticated(user));
 };

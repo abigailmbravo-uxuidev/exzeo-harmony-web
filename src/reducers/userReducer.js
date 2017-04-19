@@ -19,7 +19,7 @@ export default function userReducer(state = initialState.user, action) {
     case persistTypes.REHYDRATE:
       newState = (action.payload && action.payload.user) ? action.payload.user : newState;
       // add the auth header to every request
-      axios.defaults.headers.common['Authentication'] = `bearer ${action.payload.user.token}`; // eslint-disable-line
+      axios.defaults.headers.common['authorization'] = `bearer ${action.payload.user.token}`; // eslint-disable-line
       return newState;
     default:
       return state;
