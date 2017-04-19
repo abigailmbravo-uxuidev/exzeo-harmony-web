@@ -38,14 +38,12 @@ const handleFormSubmit = (data, dispatch, props) => {
       propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
       lossOfUse: ((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount),
       liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-      sinkholePerilCoverage: updatedQuote.sinkholeCoverage,
-      calculatedHurricane: ((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount),
-      sinkhole:  ((updatedQuote.sinkhole / 100) * updatedQuote.dwellingAmount)
+      calculatedHurricane: ((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount)
     };
     
     // Remove the sinkhole attribute from updatedQuoteResult
     // if sinkholePerilCoverage is false
-    if(!updatedQuote.sinkholeCoverage){
+    if(!updatedQuote.sinkholePerilCoverage){
       delete updatedQuoteResult.sinkhole;
     }
     
