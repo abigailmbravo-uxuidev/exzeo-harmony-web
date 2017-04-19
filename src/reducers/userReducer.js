@@ -12,7 +12,7 @@ export default function userReducer(state = initialState.user, action) {
       newState = { ...state, ...action.user };
       newState.error = undefined;
       // add the auth header to every request
-      axios.defaults.headers.common['Authentication'] = `bearer ${action.user.token}`; // eslint-disable-line
+      axios.defaults.headers.common['authorization'] = `bearer ${action.user.token}`; // eslint-disable-line
       return newState;
     case types.AUTHENTICATE_ERROR:
       return { ...state, ...action.user };
