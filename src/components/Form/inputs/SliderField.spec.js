@@ -24,6 +24,24 @@ describe('SliderInput', () => {
 
     expect(wrapper.find(FieldHint).length).toEqual(1);
   });
-
-  // TODO: Test min, max, and all other props with on change
+  
+  it('should add name to class when provided', () => {
+    const inputProps = {
+      input: {
+        name: 'test'
+      }
+    };
+    const wrapper = shallow(<SliderInput {...inputProps} />);
+    
+    expect(wrapper.find('.form-group').hasClass(inputProps.input.name)).to.equal(true);
+  });
+  
+  it('should add name to class when provided', () => {
+    const inputProps = {
+      styleName: 'test'
+    };
+    const wrapper = shallow(<SliderInput {...inputProps} />);
+    
+    expect(wrapper.find('.form-group').hasClass(inputProps.styleName)).to.equal(true);
+  });
 });
