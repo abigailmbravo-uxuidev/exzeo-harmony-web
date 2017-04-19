@@ -73,6 +73,11 @@ h6 {
 .font-small,
 small {
     font-size: $small-font-size;
+
+    p {
+        margin-bottom: $paragraph-margin-bottom/2;
+        color: $body-color;
+    }
 }
 
 dt {
