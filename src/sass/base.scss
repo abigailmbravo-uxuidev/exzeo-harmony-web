@@ -2726,9 +2726,9 @@ ul.list-cards {
                     width: 100%;
 
                     ul {
-                        margin: 0;
-                        padding: 0;
-                        list-style: none;
+                        li {
+                            color: $red-darken-02;
+                        }
                     }
                 }
             }
@@ -2800,7 +2800,7 @@ ul.list-cards {
             .contact-message {
                 .card {
                     width: auto;
-                    max-width: 36rem;
+                    max-width: 40rem;
                     margin: $padding 0;
                     @include for-phone-only {
                         max-width: 19.375rem;
@@ -2824,6 +2824,21 @@ ul.list-cards {
                         }
                     }
 
+                    .error-property-details {
+                        display: flex;
+
+                        .display-element {
+                            flex-grow: 0;
+                            flex-shrink: 0;
+                            flex-basis: 10rem;
+
+                            +.display-element {
+                                flex-grow: 1;
+                                flex-basis: auto;
+                            }
+                        }
+                    }
+
                     .contact-methods {
                         display: flex;
                         align-items: center;
@@ -2832,6 +2847,33 @@ ul.list-cards {
                             margin: $padding ($padding*2) ($padding*2) 0;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+//App error
+/*------------------------------------------------------------------------------------*/
+.app-wrapper.error {
+    main {
+        display: flex;
+        flex-direction: column;
+
+        .route {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            flex-grow: 1;
+
+            .route-content {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+
+                .error-content {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
                 }
             }
         }
