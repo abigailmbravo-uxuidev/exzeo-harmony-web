@@ -179,11 +179,15 @@ label {
     background: rgba($black, .75);
 
     &.schedule-date-modal {
+        display: flex;
+        flex-direction: column;
+
         .survey-wrapper {
             display: flex;
             height: 100%;
             justify-content: center;
             align-items: center;
+            align-content: center;
         }
     }
 }
@@ -219,6 +223,7 @@ html {
                         .route {
                             .route-content {
                                 display: flex;
+                                overflow: hidden;
                                 flex-direction: column;
                                 height: auto;
                                 flex-grow: 1;
@@ -226,6 +231,7 @@ html {
                                 .main,
                                 form {
                                     display: flex;
+                                    overflow: hidden;
                                     flex-direction: column;
                                     flex-grow: 1;
                                 }
@@ -302,6 +308,7 @@ header {
     div[role="banner"] {
         display: flex;
         width: 100%;
+        height: 2.25rem;
         align-items: center;
         @include for-phone-only {
             .btn-ellipsis-v {
@@ -843,7 +850,7 @@ main[role="document"] {
         z-index: 100;
         top: 0;
         bottom: 0;
-        left: -14rem;
+        left: -15rem;
 
         &.active {
             left: 0;
@@ -1142,6 +1149,7 @@ main[role="document"] {
                     margin-right: 6.875rem;
                     @include for-phone-only {
                         position: absolute;
+                        top: 0;
                         left: 6.875rem;
                         flex-direction: column;
                         margin-right: 0;
@@ -1427,17 +1435,20 @@ footer {
 .dashboard {
     display: flex;
     overflow: hidden;
+    overflow: hidden;
     flex-direction: column;
     height: auto;
     flex-grow: 1;
 
     .route {
         display: flex;
+        overflow: hidden;
         flex-direction: column;
         flex-grow: 1;
 
         .route-content {
             display: flex;
+            overflow: hidden;
             height: auto;
             flex-grow: 1;
 
@@ -1449,6 +1460,9 @@ footer {
 
                 .dashboard-message {
                     padding: ($padding*2) ($padding*2) 0;
+                    @include for-phone-only {
+                        display: none;
+                    }
                 }
 
                 .product-wrapper {
@@ -1469,6 +1483,7 @@ footer {
                         flex-basis: 0;
                         align-self: stretch;
                         @include for-phone-only {
+                            margin: 0 0 2rem;
                             flex-grow: 0;
                             flex-basis: auto;
                         }
@@ -2191,9 +2206,14 @@ ul.list-cards {
 
     .button-group {
         display: flex;
+        flex-wrap: wrap;
 
         .btn {
             margin: 0 $padding $padding 0;
+            @include for-phone-only {
+                width: 100%;
+                margin: 0 0 0.5rem;
+            }
         }
     }
 
@@ -2628,8 +2648,8 @@ ul.list-cards {
                             justify-content: center;
 
                             label {
-                                font-size:$font-size-xs;
                                 margin-bottom: 0;
+                                font-size: $font-size-xs;
                             }
                         }
                     }

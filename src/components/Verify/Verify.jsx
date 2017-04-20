@@ -93,7 +93,7 @@ export const Verify = (props) => {
 
   return (
     <div className="route-content verify">
-      { quoteData && quoteData.quoteNumber && <div>
+      { quoteData && quoteData.quoteNumber &&
         <Form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props))} noValidate>
           <div className="scroll">
             <div className="detail-wrapper">
@@ -318,7 +318,7 @@ export const Verify = (props) => {
             <Footer />
           </div>
         </Form>
-      </div>}
+      }
       {appState.data.showScheduleDateModal && <ScheduleDate verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} />}
     </div>
   );

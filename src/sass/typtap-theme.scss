@@ -559,6 +559,20 @@ textarea {
             border-color: $green;
             background-color: lighten($green-lighten-04, 20%);
         }
+
+        &.range-component {
+            .range-wrapper {
+                .range-value {
+                    &:before {
+                        border-right-color: lighten($green-lighten-04, 20%);
+                    }
+                    input {
+                        border-color: $green;
+                        background-color: lighten($green-lighten-04, 20%);
+                    }
+                }
+            }
+        }
     }
 
     i.fa-info-circle {
