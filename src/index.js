@@ -1,4 +1,5 @@
 // app.js runs on localhost:8000
+import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';

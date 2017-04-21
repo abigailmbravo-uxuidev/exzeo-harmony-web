@@ -68,15 +68,15 @@ export const Login = (props) => {
   return (<BaseConnect>
     <div className="login" role="article">
       <div className="card">
-        <div className="card-header">
-          <h5>Enter your user name and password to login</h5>
-        </div>
         <Form
-          className="card-block"
           id="Login"
           onSubmit={handleSubmit(handleLoginSubmit)}
           noValidate
         >
+        <div className="card-header">
+          <h5>Enter your user name and password to login</h5>
+        </div>
+        <div className="card-block">
           { isAuthenticatedResult }
           { errorResult }
           { loggedOutResult }
@@ -88,7 +88,7 @@ export const Login = (props) => {
               key={index}
             />
           )}
-        </Form>
+        </div>
         <div className="card-footer">
           <button
             className="btn btn-success"
@@ -99,6 +99,7 @@ export const Login = (props) => {
             <i className="fa fa-sign-in" /> Login
           </button>
         </div>
+      </Form>
       </div>
       <div className="modal" />
     </div>
