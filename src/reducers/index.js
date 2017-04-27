@@ -5,14 +5,15 @@ import cg from './cgReducer';
 import user from './userReducer';
 import appState from './appStateReducer';
 import error from './errorReducer';
-
+import completedTasks from './completedTasksReducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
   cg,
   user,
   appState,
-  error
+  error,
+  completedTasks
 });
 
 export default rootReducer;

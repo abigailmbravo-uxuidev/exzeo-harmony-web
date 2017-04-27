@@ -32,13 +32,14 @@ const handleFormSubmit = (data, dispatch, props) => {
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  console.log(taskData.previousTask.value, uwQuestions)
+  console.log(taskData.previousTask.value, uwQuestions);
   return uwQuestions;
 };
 
 const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = _.find(taskData.model.variables, { name: 'quote' }).value.result;
+  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWAnswers' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWAnswers' }).value.result :
+  _.find(taskData.model.variables, { name: 'quote' }).value.result;
   return quoteData;
 };
 
@@ -50,6 +51,7 @@ const handleInitialize = (state) => {
     const val = _.get(data, `underwritingAnswers.${question.name}.answer`);
     values[question.name] = val;
   });
+  console.log(values);
   return values;
 };
 
@@ -71,33 +73,33 @@ export const Underwriting = (props) => {
 
   return (
     <div className="route-content">
-    <Form
-      id="Underwriting"
-      onSubmit={handleSubmit(handleFormSubmit)}
-      noValidate
-    >
-      <div className="scroll">
-      <div className="form-group survey-wrapper" role="group">
-        {questions.map((question, index) =>
-          <FieldGenerator
-            data={quoteData}
-            question={question}
-            values={fieldValues}
-            key={index}
-          />
+      <Form
+        id="Underwriting"
+        onSubmit={handleSubmit(handleFormSubmit)}
+        noValidate
+      >
+        <div className="scroll">
+          <div className="form-group survey-wrapper" role="group">
+            {questions.map((question, index) =>
+              <FieldGenerator
+                data={quoteData}
+                question={question}
+                values={fieldValues}
+                key={index}
+              />
         )}
-      </div>
-      <div className="workflow-steps">
-        <button
-          className="btn btn-primary"
-          type="submit"
-          form="Underwriting"
-          disabled={props.appState.data.submitting}
-        >next</button>
-      </div>
-      <Footer />
-      </div>
-    </Form>
+          </div>
+          <div className="workflow-steps">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              form="Underwriting"
+              disabled={props.appState.data.submitting}
+            >next</button>
+          </div>
+          <Footer />
+        </div>
+      </Form>
     </div>
   );
 };

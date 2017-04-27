@@ -16,7 +16,9 @@
       position: absolute;
       z-index: 1;
       top: 1.75rem;
-      width: 82%;
+      left: 50%;
+      width: 84%;
+      margin-left: -42%;
       height: 1px;
       background: $body-color;
       @include for-phone-only {
@@ -55,13 +57,14 @@
         }
 
         i {
-          width: 2rem;
+          padding: 0 $padding*2;
 
           &:before {
               font-family: $font-family-icon;
           }
           @include for-phone-only {
             font-size: $font-size-h4;
+            padding: 0 $padding/2;
           }
           @include for-tablet-portrait-up {
             font-size: $font-size-h3;

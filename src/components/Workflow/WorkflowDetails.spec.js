@@ -23,9 +23,7 @@ describe('Testing WorkflowDetails component', () => {
       },
       actions: {
         cgActions: {
-          completeTask: (modelName, workflowId, taskName, taskData) => {
-            return true;
-          }
+          completeTask: (modelName, workflowId, taskName, taskData) => true
         }
       },
       ...propTypes

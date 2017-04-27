@@ -9,6 +9,7 @@ export default {
   },
   search: new Map({}),
   workflowData: {},
+  completedTasks: [],
   appState: {
     data: {
       submitting: false,

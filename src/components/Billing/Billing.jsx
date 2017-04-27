@@ -33,14 +33,17 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
+const handleGetQuoteData = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }).value.result :
+  _.find(taskData.model.variables, { name: 'quote' }).value.result;
+  return quoteData;
+};
+
 const handleInitialize = (state) => {
   console.log(state);
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.model &&
-    taskData.model.variables &&
-    _.find(taskData.model.variables, { name: 'quote' }) &&
-    _.find(taskData.model.variables, { name: 'quote' }).value ?
-    _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+  const quoteData = handleGetQuoteData(state);
 
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
@@ -61,16 +64,6 @@ const handleInitialize = (state) => {
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   return taskData.uiQuestions;
-};
-
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.model &&
- taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
-  return quoteData;
 };
 
 const handleGetPaymentPlans = (state) => {

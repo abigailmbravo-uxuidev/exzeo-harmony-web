@@ -40,13 +40,13 @@ const handleFormSubmit = (data, dispatch, props) => {
       liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
       calculatedHurricane: ((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount)
     };
-    
+
     // Remove the sinkhole attribute from updatedQuoteResult
     // if sinkholePerilCoverage is false
-    if(!updatedQuote.sinkholePerilCoverage){
+    if (!updatedQuote.sinkholePerilCoverage) {
       delete updatedQuoteResult.sinkhole;
     }
-    
+
     // we need to run two tasks in sequence so call batchComplete in the cg actions
     const steps = [{
       name: userTasks.formSubmit,
@@ -81,7 +81,8 @@ const handleReset = (props) => {
 
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
+  _.find(taskData.model.variables, { name: 'getQuote' }).value.result;
   const values = getInitialValues(taskData.uiQuestions, quoteData);
   return values;
 };

@@ -76,11 +76,8 @@ export const Verify = (props) => {
 
   const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};
 
-  const quoteData = taskData && taskData.model &&
-   taskData.model.variables &&
-   _.find(taskData.model.variables, { name: 'getFinalQuote' }) &&
-   _.find(taskData.model.variables, { name: 'getFinalQuote' }).value ?
-    _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result : {};
+  const quoteData = _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
+  _.find(taskData.model.variables, { name: 'quote' }).value.result;
 
   if (quoteData) {
     property = quoteData.property;
@@ -316,8 +313,8 @@ export const Verify = (props) => {
             </div>
             <Footer />
           </div>
-        </Form>
-      }
+		  
+        </Form>}
       {appState.data.showScheduleDateModal && <ScheduleDate verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} />}
     </div>
   );

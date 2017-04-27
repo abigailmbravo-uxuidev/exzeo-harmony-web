@@ -121,7 +121,7 @@ export class Workflow extends Component {
     const activeStep = (this.props.tasks && this.props.tasks.activeTask) ? this.props.tasks.activeTask.name : '';
     return (
       <div className={`route ${activeStep}`}>
-        <WorkFlowDetailsConnect />
+        <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
         { this.state.currentControl }
         <CheckErrorConnect redirectUrl={this.context.router.route.location.pathname} />
       </div>);

@@ -13,8 +13,11 @@
 @import "partials/_reset";
 /*Set base typography*/
 @import "partials/_type";
+/*Grid styles*/
+//@import "partials/_grid";
+//@import "partials/_tabs";
 @import "partials/_workflow";
-@import "https://fonts.googleapis.com/css?family=Roboto:300,400"; //base
+@import "https://fonts.googleapis.com/css?family=Roboto:100,300,500"; //base
 //links
 /*------------------------------------------------------------------------------------*/
 a {
@@ -366,8 +369,8 @@ header {
 
         > .logo {
             display: block;
-            width: 7rem;
-            flex-basis: 7rem;
+            width: 10rem;
+            flex-basis: 10rem;
             flex-shrink: 0;
             @include for-phone-only {
                 margin-left: 3rem;
@@ -502,6 +505,28 @@ header {
                                 color: $bright-blue-lighten-02;
                             }
                         }
+                    }
+                }
+            }
+            .user-name {
+                margin: 0 ($padding/2) 0 ($padding*4);
+                font-size: $font-size-sm;
+                color: $bright-blue-darken-01;
+            }
+            >button {
+                i {
+                    @include transition(all .2s ease-in-out);
+                    margin: 0;
+                    color: $bright-blue-darken-02;
+                }
+                span {
+                    +i {
+                        margin: 0 0 0 $padding;
+                    }
+                }
+                &:hover {
+                    i {
+                        color: $bright-blue;
                     }
                 }
             }
@@ -861,6 +886,28 @@ main[role="document"] {
         ul {
             li {
                 a {
+                    i,
+                    span {
+                        color: $warm-gray-07;
+                    }
+
+                    &.active {
+                        border-left-color: $bright-blue-darken-04;
+                        font-weight: $font-weight-bold;
+
+                        i {
+                            color: $bright-blue-darken-04;
+                        }
+
+                        span {
+                            color: $bright-blue-darken-04;
+                        }
+
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
+
                     &.agent-dashboard {
                         i {
                             &:before {
@@ -916,14 +963,46 @@ main[role="document"] {
                             }
                         }
                     }
+
+                    &.csr-dashboard {
+                        i {
+                            &:before {
+                                content: "\f009";
+                            }
+                        }
+                    }
                 }
             }
+        }
+    }
+    .csr {
+        width: auto;
+        min-height: 4.75rem;
+        padding: ($padding) ($padding*2);
+        border-bottom: 2px solid $white;
+        background-color: $warm-gray-03;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        @include transition(all .2s ease-in-out);
+        @include for-tablet-portrait-up {
+            display: none;
+        }
+        @include for-tablet-landscape-up {
+            display: flex;
+            flex-direction: column;
+            width: 12rem;
+        }
+        h3 {
+            color: $warm-gray-01;
+            margin: 0;
         }
     }
 
     .user {
         width: auto;
-        min-height: 4.7rem;
+        min-height: 4.75rem;
         padding: ($padding) ($padding*2);
         border-bottom: 2px solid $white;
         background-color: $warm-gray-08;
@@ -1037,7 +1116,6 @@ main[role="document"] {
     display: flex;
     width: 100%;
     height: auto;
-    //max-height: 4rem;
     margin-top: 0;
     margin-bottom: 0;
     transition: margin 0.5s;
@@ -1237,9 +1315,10 @@ main[role="document"] {
 
                     i {
                         background: $warm-gray-01;
+                        @include transition(all .2s ease-in-out);
 
                         &:before {
-                            content: "\f1db";
+
                         }
 
                         &.chooseAddress {
@@ -1525,12 +1604,6 @@ footer {
 /*------------------------------------------------------------------------------------*/
 .result-cards,
 ul.list-cards {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    list-style: none;
-
     li {
         margin-bottom: $padding/2;
 
@@ -1588,36 +1661,6 @@ ul.list-cards {
                 }
             }
         }
-    }
-
-    .address-not-found {
-        position: absolute;
-        z-index: 200;
-        bottom: 5rem;
-        left: calc(50%);
-        width: 20rem;
-        margin-left: -10rem;
-
-        &:after {
-            position: absolute;
-            z-index: 1;
-            bottom: -15px;
-            left: 50%;
-            display: block;
-            width: 0;
-            margin-left: -15px;
-            content: '';
-            border-width: 15px 15px 0;
-            border-style: solid;
-            border-color: #FFFFFF transparent;
-        }
-    }
-
-    .hint {
-        display: flex;
-        flex-direction: column;
-        margin-top: $padding;
-        align-items: center;
     }
 }
 
@@ -2326,31 +2369,22 @@ ul.list-cards {
 /*------------------------------------------------------------------------------------*/
 #Billing {
     .installment-term {
-        display: flex;
-        width: 100%;
+        dl {
+            dt {
+                margin-top: $padding/2;
+                color: $blue-darken-02;
+                font-weight: $font-weight-bold;
 
-        div {
-            margin: 0 $padding;
-            flex-grow: 1;
-            flex-shrink: 0;
-
-            dl {
-                dt {
-                    margin-top: $padding/2;
-                    color: $blue-darken-02;
-                    font-weight: $font-weight-bold;
-
-                    &:first-child {
-                        margin-top: 0;
-                    }
+                &:first-child {
+                    margin-top: 0;
                 }
+            }
 
-                dd {
-                    margin-bottom: 0;
+            dd {
+                margin-bottom: 0;
 
-                    &:nth-of-type(odd) {
-                        background: $warm-gray-01;
-                    }
+                &:nth-of-type(odd) {
+                    background: $warm-gray-01;
                 }
             }
         }
@@ -2746,9 +2780,9 @@ ul.list-cards {
                     width: 100%;
 
                     ul {
-                        li {
-                            color: $red-darken-02;
-                        }
+                        margin: 0;
+                        padding: 0;
+                        list-style: none;
                     }
                 }
             }
@@ -2820,7 +2854,7 @@ ul.list-cards {
             .contact-message {
                 .card {
                     width: auto;
-                    max-width: 40rem;
+                    max-width: 36rem;
                     margin: $padding 0;
                     @include for-phone-only {
                         max-width: 19.375rem;
@@ -2844,21 +2878,6 @@ ul.list-cards {
                         }
                     }
 
-                    .error-property-details {
-                        display: flex;
-
-                        .display-element {
-                            flex-grow: 0;
-                            flex-shrink: 0;
-                            flex-basis: 10rem;
-
-                            +.display-element {
-                                flex-grow: 1;
-                                flex-basis: auto;
-                            }
-                        }
-                    }
-
                     .contact-methods {
                         display: flex;
                         align-items: center;
@@ -2867,33 +2886,6 @@ ul.list-cards {
                             margin: $padding ($padding*2) ($padding*2) 0;
                         }
                     }
-                }
-            }
-        }
-    }
-}
-//App error
-/*------------------------------------------------------------------------------------*/
-.app-wrapper.error {
-    main {
-        display: flex;
-        flex-direction: column;
-
-        .route {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            flex-grow: 1;
-
-            .route-content {
-                display: flex;
-                flex-direction: column;
-                flex-grow: 1;
-
-                .error-content {
-                    display: flex;
-                    flex-direction: column;
-                    flex-grow: 1;
                 }
             }
         }

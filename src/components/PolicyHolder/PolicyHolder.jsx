@@ -20,14 +20,17 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
+const handleGetQuoteData = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalPolicyHolder' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalPolicyHolder' }).value.result :
+_.find(taskData.model.variables, { name: 'quote' }).value.result;
+  return quoteData;
+};
+
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
 //  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  const quoteData = taskData && taskData.model &&
- taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+  const quoteData = handleGetQuoteData(state);
 
   console.log(quoteData);
   const values = getInitialValues(taskData.uiQuestions, quoteData);
@@ -48,15 +51,6 @@ const handleGetQuestions = (state) => {
   return taskData.uiQuestions;
 };
 
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.model &&
- taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
-  return quoteData;
-};
 
 export const PolicyHolder = (props) => {
   const {

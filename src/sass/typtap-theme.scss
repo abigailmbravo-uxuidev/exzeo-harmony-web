@@ -704,6 +704,14 @@ header {
             color: $cool-gray-10;
         }
 
+        > .logo {
+            width: 7rem;
+            flex-basis: 7rem;
+            @include for-phone-only {
+                margin-left: 3rem;
+            }
+        }
+
         > nav {
             @include for-phone-only {
                 //border: 1px solid $cool-gray-00;
@@ -815,6 +823,7 @@ header {
         }
     }
 }
+
 //main/content - role "document"
 /*------------------------------------------------------------------------------------*/
 main[role="document"] {
@@ -874,56 +883,6 @@ main[role="document"] {
 
                 &.workflow {
                     background: $cool-gray-00;
-
-                    .fade-in {
-                        background: $white;
-
-                        .workflow-header {
-                            background-color: $cool-gray-01;
-
-                            .rule {
-                                background: $cool-gray-03;
-                            }
-
-                            li {
-                                a {
-                                    color: $cool-gray-03;
-
-                                    i {
-                                        background: $cool-gray-01;
-                                    }
-
-                                    &.active {
-                                        color: $bright-blue;
-
-                                        &:focus,
-                                        &:hover {
-                                            color: $bright-blue-lighten-01;
-                                        }
-                                    }
-
-                                    &.disabled {
-                                        color: $cool-gray-03;
-                                    }
-
-                                    &.selected {
-                                        color: $cool-gray-14;
-
-                                        i {
-                                            color: $green;
-                                        }
-                                    }
-
-                                    &.completed {
-                                        color: $bright-blue-lighten-03;
-
-                                        i {
-                                            color: $bright-blue-lighten-03;
-                                        }
-                                    }
-                                }
-                            }
-                        }
 
                         .workflow-content {
                             aside {
@@ -987,7 +946,7 @@ main[role="document"] {
                 }
             }
         }
-    }
+
 }
 //main left panel navigation
 /*------------------------------------------------------------------------------------*/
@@ -1132,6 +1091,68 @@ main[role="document"] {
 
                             dd {
                                 color: $body-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //workflow header
+        .workflow-header {
+            background-color: $cool-gray-01;
+
+            .rule {
+                background: $cool-gray-02;
+            }
+
+            li {
+                a {
+                    color: $cool-gray-03;
+
+                    i {
+                        background: $cool-gray-01;
+                    }
+
+                    &.active {
+                        color: $cool-gray-14;
+
+                        i {
+                            color: $green;
+                        }
+                        &:focus,
+                        &:hover {
+                            color: $cool-gray-14;
+                            cursor: default;
+
+                            i {
+                                color: $green;
+                            }
+                        }
+                    }
+
+                    &.disabled {
+                        color: $cool-gray-02;
+
+                        i {
+                            color: $cool-gray-02;
+                        }
+                    }
+
+                    &.selected {
+                        color: $cool-gray-14;
+
+                        i {
+                            color: $cool-gray-06;
+                        }
+
+                        &:focus,
+                        &:hover {
+                            color: $bright-blue-darken-02;
+                            cursor: pointer;
+
+                            i {
+                                color: $bright-blue;
                             }
                         }
                     }

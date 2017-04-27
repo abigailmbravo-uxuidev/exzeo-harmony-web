@@ -32,7 +32,8 @@ const handleFormSubmit = (data, dispatch, props) => {
 
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result :
+  _.find(taskData.model.variables, { name: 'quote' }).value.result;
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   return values;
