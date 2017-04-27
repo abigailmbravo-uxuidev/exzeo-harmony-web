@@ -34,15 +34,8 @@ const scheduleDateModal = (props) => {
 // to the AI types. It uses the global component
 // variable to keep track of the AI types.
 // ------------------------------------------------
-let previousAIType = '';
-const handlePrimarySecondaryTitles = (type) => {
-  if (type !== previousAIType) {
-    previousAIType = type;
-    return `${type} 1`;
-  }
 
-  return `${type} 2`;
-};
+const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
@@ -235,23 +228,25 @@ export const Verify = (props) => {
                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
                 <section className="display-element">
                   <p>Please check that the below information is up to date and accurate. The policyholder contact information listed below will be used to schedule the required property inspection. Failure to schedule property inspection will result in a failure to bind the policy.</p>
-                  {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ? quoteData.policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 && <dl key={`ph${index}`}>
-                    <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                    <div className="contact-card">
-                      <div className="contact-name">
-                        <dt>Name</dt>
-                        <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
-                      </div>
-                      <div className="contact-phone">
-                        <dt>Phone Number</dt>
-                        <dd>{policyHolder.primaryPhoneNumber}</dd>
-                      </div>
-                      <div className="contact-email">
-                        <dt>Email</dt>
-                        <dd>{policyHolder.emailAddress}</dd>
-                      </div>
-                    </div>
-                  </dl>)) : null}
+                  {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
+                     quoteData.policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
+                     <dl key={`ph${index}`}>
+                       <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                       <div className="contact-card">
+                         <div className="contact-name">
+                           <dt>Name</dt>
+                           <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                         </div>
+                         <div className="contact-phone">
+                           <dt>Phone Number</dt>
+                           <dd>{policyHolder.primaryPhoneNumber}</dd>
+                         </div>
+                         <div className="contact-email">
+                           <dt>Email</dt>
+                           <dd>{policyHolder.emailAddress}</dd>
+                         </div>
+                       </div>
+                     </dl>)) : null}
                 </section>
               </div>
               <div className="detail-group mailing-address-details">
@@ -283,21 +278,23 @@ export const Verify = (props) => {
               <div className="detail-group additional-interests-details">
                 <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests</h3>
                 <section className="display-element additional-interests">
-                  {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ? quoteData.additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 && <div className="card" key={`ph${index}`}>
-                    <div className="icon-wrapper">
-                      <i className={`fa ${additionalInterest.type}`} />
-                      <p>{handlePrimarySecondaryTitles(additionalInterest.type)}</p>
-                    </div>
-                    <section>
-                      <h4>{`${additionalInterest.name1}`} {`${additionalInterest.name2}`}</h4>
-                      <p>{`${additionalInterest.mailingAddress.address1}`} {`${additionalInterest.mailingAddress.address2}`}</p>
-                      <p>{`${additionalInterest.mailingAddress.city}`}, {`${additionalInterest.mailingAddress.state}`} {`${additionalInterest.mailingAddress.zip}`}</p>
-                    </section>
-                    <div className="ref-number">
-                      <label>Reference Number</label>
-                      <span>{`${additionalInterest.referenceNumber}`}</span>
-                    </div>
-                  </div>)) : null}
+                  {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?
+                    quoteData.additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
+                    <div className="card" key={`ph${index}`}>
+                      <div className="icon-wrapper">
+                        <i className={`fa ${additionalInterest.type}`} />
+                        <p>{handlePrimarySecondaryTitles(additionalInterest.type, additionalInterest.order)}</p>
+                      </div>
+                      <section>
+                        <h4>{`${additionalInterest.name1}`} {`${additionalInterest.name2}`}</h4>
+                        <p>{`${additionalInterest.mailingAddress.address1}`} {`${additionalInterest.mailingAddress.address2}`}</p>
+                        <p>{`${additionalInterest.mailingAddress.city}`}, {`${additionalInterest.mailingAddress.state}`} {`${additionalInterest.mailingAddress.zip}`}</p>
+                      </section>
+                      <div className="ref-number">
+                        <label htmlFor="ref-number">Reference Number</label>
+                        <span>{`${additionalInterest.referenceNumber}`}</span>
+                      </div>
+                    </div>)) : null}
                 </section>
                 <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verify" isSwitch />
               </div>
