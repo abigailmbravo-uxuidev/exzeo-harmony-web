@@ -8,7 +8,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
 import { getInitialValues } from '../Customize/customizeHelpers';
-
+import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -36,9 +36,16 @@ const handleInitialize = (state) => {
   _.find(taskData.model.variables, { name: 'quote' }).value.result;
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
+  values.agentCode = _.get(quoteData, 'agentCode');
+
   return values;
 };
 
+const handleGetAgentsFromAgency = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  return paymentPlanResult;
+};
 // ------------------------------------------------
 // The render is where all the data is being pulled
 //  from the props.
@@ -51,7 +58,8 @@ export const CustomerInfo = (props) => {
   const {
     appState,
     handleSubmit,
-    fieldValues
+    fieldValues,
+    agencyResults
   } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.uiQuestions;
@@ -74,17 +82,13 @@ export const CustomerInfo = (props) => {
               />
         )}
             <div className="form-group agentID" role="group">
-              <label htmlFor="agencyID">Agent</label>
-              <select name="agencyID">
-                <option value="60000">Adam Doe</option>
-                <option value="60001">Betsy Doe</option>
-                <option value="60002">Cathy Doe</option>
-                <option value="60003">Daniel Doe</option>
-                <option value="60004">Ethan Doe</option>
-                <option value="60005">Frank Doe</option>
-                <option value="60006">Gail Doe</option>
-                <option value="60007">Helen Doe</option>
-              </select>
+              <SelectFieldAgents
+                name="agentCode"
+                label="Agent"
+                onChange={function () { }}
+                validations={['required']}
+                agents={agencyResults}
+              />
             </div>
           </div>
           <div className="workflow-steps">
@@ -127,7 +131,8 @@ const mapStateToProps = state => (
     tasks: state.cg,
     appState: state.appState,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
-    initialValues: handleInitialize(state)
+    initialValues: handleInitialize(state),
+    agencyResults: handleGetAgentsFromAgency(state)
   });
 
 const mapDispatchToProps = dispatch => ({

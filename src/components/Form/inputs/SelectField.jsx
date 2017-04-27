@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
 
-export const SelectField = ({
+export const SelectInput = ({
   answers,
   hint,
   input,
@@ -13,7 +13,7 @@ export const SelectField = ({
 }) => {
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;
-  
+
   const formGroupStyles = classNames(
     'form-group',
     styleName,
@@ -21,12 +21,12 @@ export const SelectField = ({
     { valid: touched && !error },
     { error: touched && error }
   );
-  
+
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
   const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
-  
+
   return (
-    <div className={formGroupStyles} id={ name }>
+    <div className={formGroupStyles} id={name}>
       <label htmlFor={name}>
         {label} &nbsp; {Hint}
         {answers && answers.length > 0 ? (
@@ -50,8 +50,8 @@ export const SelectField = ({
   );
 };
 
-SelectField.propTypes = {
-  
+SelectInput.propTypes = {
+
   // Answers used to generate options
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.oneOfType([
@@ -65,10 +65,10 @@ SelectField.propTypes = {
     ]),
     image: PropTypes.string
   })),
-  
+
   // Used to generate tooltip
   hint: PropTypes.string,
-  
+
   // Input props provided by redux-form
   input: PropTypes.shape({
     disabled: PropTypes.bool,
@@ -80,26 +80,26 @@ SelectField.propTypes = {
       PropTypes.string
     ])
   }),
-  
+
   // Label for field
   label: PropTypes.string,
-  
+
   // Validations
   meta: {
     touched: PropTypes.bool,
     error: PropTypes.string,
     warning: PropTypes.string
   },
-  
+
   // Name added to class on render
   styleName: PropTypes.string
 };
 
-SelectField.defaultProps = {
+SelectInput.defaultProps = {
   input: {
     onChange: () => {}
   },
   meta: {}
 };
 
-export default reduxFormField(SelectField);
+export default reduxFormField(SelectInput);
