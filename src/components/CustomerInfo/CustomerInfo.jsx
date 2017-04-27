@@ -26,6 +26,8 @@ const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.formSubmit;
   const taskData = data;
+  taskData.agentCode = String(taskData.agentCode);
+  
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
