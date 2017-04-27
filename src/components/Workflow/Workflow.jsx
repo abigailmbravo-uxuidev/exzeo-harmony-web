@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
@@ -28,6 +28,12 @@ import BillPayerConnect from '../AdditionalInterests/BillPayer';
 
 
 const workflowModelName = 'quoteModel';
+
+const underwritingDecisionErrors = [
+  'UWDecision1EndError', 'UWDecision2EndError',
+  'UWDecision3EndError', 'UWDecision4EndError',
+  'UWDecision5EndError'
+];
 
 const components = {
   search: <SearchConnect />,
@@ -102,7 +108,7 @@ export class Workflow extends Component {
           ...props,
           currentControl: <ThankYou />
         }));
-      } else if (previousTaskName === 'UWDecision1EndError') {
+      } else if (_.includes(underwritingDecisionErrors, previousTaskName)) {
         this.setState((previousState, props) => ({
           ...props,
           currentControl: <Error />
