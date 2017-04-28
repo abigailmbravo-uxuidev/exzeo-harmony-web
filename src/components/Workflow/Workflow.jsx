@@ -103,7 +103,7 @@ export class Workflow extends Component {
       nextProps.tasks[workflowModelName].data &&
       nextProps.tasks[workflowModelName].data.previousTask) {
       const previousTaskName = nextProps.tasks[workflowModelName].data.previousTask.name;
-      if (previousTaskName === 'notifyDocusignApp') {
+      if (previousTaskName === 'notifyDocusignApp' || previousTaskName === 'updateQuoteStateDocusign') {
         this.setState((previousState, props) => ({
           ...props,
           currentControl: <ThankYou />
