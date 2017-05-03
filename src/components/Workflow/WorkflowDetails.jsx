@@ -150,11 +150,11 @@ export class WorkflowDetails extends Component {
         { this.props.tasks && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask &&
           <ul className="workflow-header">
             <div className="rule" />
-            <li><a onClick={() => goToStep(this.props, 'askAdditionalCustomerData')} className={this.getClassForStep('askAdditionalCustomerData')}><i className={'fa fa-vcard'} /><span>Demographics</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'askAdditionalCustomerData')} className={this.getClassForStep('askAdditionalCustomerData')}><i className={'fa fa-vcard'} /><span>Policyholder</span></a></li>
             <li><a onClick={() => goToStep(this.props, 'askUWAnswers')} className={this.getClassForStep('askUWAnswers')}><i className={'fa fa-list-ol'} /><span>Underwriting</span></a></li>
             <li><a onClick={() => goToStep(this.props, 'askToCustomizeDefaultQuote')} className={this.getClassForStep('askToCustomizeDefaultQuote')}><i className={'fa fa-sliders'} /><span>Customize</span></a></li>
             <li><a onClick={() => goToStep(this.props, 'sendEmailOrContinue')} className={this.getClassForStep('sendEmailOrContinue')}><i className={'fa fa-share-alt'} /><span>Share</span></a></li>
-            <li><a onClick={() => goToStep(this.props, 'addAdditionalAIs')} className={this.getClassForStep('addAdditionalAIs')}><i className={'fa fa-user-plus'} /><span>Additionl Parties</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'addAdditionalAIs')} className={this.getClassForStep('addAdditionalAIs')}><i className={'fa fa-user-plus'} /><span>Additional Parties</span></a></li>
             <li><a onClick={() => goToStep(this.props, 'askAdditionalQuestions')} className={this.getClassForStep('askAdditionalQuestions')}><i className={'fa fa-envelope'} /><span>Mailing / Billing</span></a></li>
             <li><a onClick={() => goToStep(this.props, 'askScheduleInspectionDates')} className={this.getClassForStep('askScheduleInspectionDates')}><i className={'fa fa-check-square'} /><span>Verify</span></a></li>
           </ul>

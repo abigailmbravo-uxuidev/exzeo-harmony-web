@@ -7,7 +7,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
 const EmailPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
-  <div className="email-modal active" role="article">
+  <div className="email-modal modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
         <div className="card card-email">
@@ -57,4 +57,3 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'SendEmail'
 })(EmailPopup));
-

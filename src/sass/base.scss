@@ -180,6 +180,7 @@ label {
     bottom: 0;
     left: 0;
     background: rgba($black, .75);
+    z-index: 999999;
 
     &.schedule-date-modal {
         display: flex;
@@ -299,15 +300,7 @@ header {
     justify-content: center;
     flex-shrink: 0;
     flex-basis: 3.375rem;
-    @include for-tablet-landscape-up {
-        max-width: 64rem;
-    }
-    @include for-desktop-up {
-        max-width: 84rem;
-    }
-    //@include for-big-desktop-up {
-    //max-width: 120rem;
-    //}
+
     div[role="banner"] {
         display: flex;
         width: 100%;
@@ -547,12 +540,6 @@ main[role="document"] {
     flex-grow: 1;
     flex-shrink: 0;
     align-items: flex-start;
-    @include for-tablet-landscape-up {
-        max-width: 64rem;
-    }
-    @include for-desktop-up {
-        max-width: 84rem;
-    }
 
     .content-wrapper {
         display: flex;

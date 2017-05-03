@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const ErrorPopup = ({quote, underwritingExceptions, refereshUWReviewError, redirectToNewQuote}) => (
-    <div className="error-content pop-up" role="article">
+    <div className="error-content modal pop-up" role="article">
         <div className="survey-wrapper">
             <div className="contact-message">
                 <div className="card card-csr">

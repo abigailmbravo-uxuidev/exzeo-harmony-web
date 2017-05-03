@@ -14,27 +14,27 @@ export const SelectInput = ({
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;
 
-  const formGroupStyles = classNames(
-    'form-group',
-    styleName,
-    name,
-    { valid: touched && !error },
-    { error: touched && error }
-  );
+  const formGroupStyles = classNames('form-group',
+  styleName,
+  name,
+  { valid: touched && !error },
+  { error: touched && error }
+);
 
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
-  const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
+  const Error = touched && (error || warning) && <span style={{ color: 'red'  }}>{error || warning}</span>;
 
   return (
     <div className={formGroupStyles} id={name}>
       <label htmlFor={name}>
-        {label} &nbsp; {Hint}
-        {answers && answers.length > 0 ? (
-          <select
-            value={value}
-            name={name}
-            disabled={disabled}
-            onChange={onChange}
+        {label}
+        &nbsp; {Hint}
+      </label>
+      {answers && answers.length > 0 ? (
+          <select value={value}
+                  name={name}
+                  disabled={disabled}
+                  onChange={onChange}
           >
             <option disabled value={''}>Please select...</option>
             {answers.map((answer, index) => (
@@ -44,7 +44,6 @@ export const SelectInput = ({
             ))}
           </select>
         ) : null}
-      </label>
       { Error }
     </div>
   );
@@ -54,15 +53,8 @@ SelectInput.propTypes = {
 
   // Answers used to generate options
   answers: PropTypes.arrayOf(PropTypes.shape({
-    answer: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.number,
-      PropTypes.string
-    ]),
-    label: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]),
+    answer: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
+    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     image: PropTypes.string
   })),
 
@@ -74,11 +66,7 @@ SelectInput.propTypes = {
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.number,
-      PropTypes.string
-    ])
+    value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string])
   }),
 
   // Label for field

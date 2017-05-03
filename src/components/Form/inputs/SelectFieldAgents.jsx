@@ -20,7 +20,7 @@ export const SelectInputAgents = ({
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
-        {label} &nbsp; {Hint}
+        {label} &nbsp; {Hint}</label>
         {agents && agents.length > 0 ? (
           <select
             value={value}
@@ -36,7 +36,7 @@ export const SelectInputAgents = ({
             ))}
           </select>
         ) : null}
-      </label>
+
       { Error }
     </div>
   );

@@ -698,6 +698,12 @@ header {
     border-bottom: 2px solid $bright-blue;
     background: $black;
     box-shadow: 0 0 15px 0 rgba($black, .5);
+    @include for-tablet-landscape-up {
+        max-width: 64rem;
+    }
+    @include for-desktop-up {
+        max-width: 84rem;
+    }
 
     div[role="banner"] {
         > h1 {
@@ -828,6 +834,12 @@ header {
 /*------------------------------------------------------------------------------------*/
 main[role="document"] {
     box-shadow: 0 0 15px 0 rgba($black, .5);
+    @include for-tablet-landscape-up {
+        max-width: 64rem;
+    }
+    @include for-desktop-up {
+        max-width: 84rem;
+    }
 
     .content-wrapper {
         > div {
