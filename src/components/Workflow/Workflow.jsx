@@ -28,6 +28,9 @@ import BillPayerConnect from '../AdditionalInterests/BillPayer';
 
 
 const workflowModelName = 'quoteModel';
+const workflowData = {
+  dsUrl: `${process.env.REACT_APP_API_URL}/ds`
+};
 
 const underwritingDecisionErrors = [
   'UWDecision1EndError', 'UWDecision2EndError',
@@ -66,7 +69,7 @@ export class Workflow extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.cgActions.startWorkflow(workflowModelName, {});
+    this.props.actions.cgActions.startWorkflow(workflowModelName, workflowData);
   }
 
   componentWillReceiveProps(nextProps) {
