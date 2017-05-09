@@ -2057,27 +2057,53 @@ ul.list-cards {
 /*------------------------------------------------------------------------------------*/
 #CustomerInfo {
     .survey-wrapper {
-        .FirstName {
+        .section-group-header {
+            .fa {
+                font-family: $font-family-icon;
+
+                &.Policy.Holder {
+                    &.Primary {
+                        &:before {
+                            content: "\f2bd";
+                        }
+                    }
+
+                    &.Secondary {
+                        &:before {
+                            content: "\f2bd";
+                        }
+                    }
+                }
+
+                &.Policy.Details {
+                    &:before {
+                        content: "\f15c";
+                    }
+                }
+            }
+        }
+
+        .FirstName, .FirstName2 {
             @include for-tablet-portrait-up {
                 width: 40%;
                 padding-right: $padding*2;
             }
         }
 
-        .LastName {
+        .LastName, .LastName2 {
             @include for-tablet-portrait-up {
                 width: 60%;
             }
         }
 
-        .EmailAddress {
+        .EmailAddress, .EmailAddress2 {
             @include for-tablet-portrait-up {
                 width: 60%;
                 padding-right: $padding*2;
             }
         }
 
-        .phoneNumber {
+        .phoneNumber, .phoneNumber2 {
             @include for-tablet-portrait-up {
                 width: 40%;
                 padding-right: $padding*2;
