@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import Footer from '../Common/Footer';
 import _ from 'lodash';
 
 const handleGetExceptions = (state) => {
@@ -25,8 +26,8 @@ const Error = ({ quote, exceptions }) => {
                         <div id="Error">
                             <div className="detail-wrapper">
                                 <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"/> Property does not qualify for automated quote</h3>
-                                <h4>The below errors have occurred for this property:</h4>
-                                <ul>
+                                <h4>The following errors have occurred for this property:</h4>
+                                <ul className="error-list">
                                     {exceptions && exceptions.map((exception, key) => {
                                         if (exception.action === 'Fatal Error') {
                                             return <li key={key}>{exception.agentMessage}</li>;
@@ -48,6 +49,7 @@ const Error = ({ quote, exceptions }) => {
                     </aside>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
