@@ -82,7 +82,7 @@ export class Workflow extends Component {
         if (activeTaskName === 'askAdditionalCustomerData' ||
           activeTaskName === 'askUWAnswers' ||
           activeTaskName === 'askToCustomizeDefaultQuote') {
-          const quoteData = nextProps.tasks[workflowModelName].data.previousTask.value.result;
+          const quoteData = _.find(nextProps.tasks[workflowModelName].data.model.variables, { name: 'quote' }).value.result;
           if (quoteData._id) { // eslint-disable-line
             console.log('dispatching workflow details', quoteData._id); // eslint-disable-line
             nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName, nextProps.appState.instanceId, {
