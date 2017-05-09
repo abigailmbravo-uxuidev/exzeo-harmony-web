@@ -22,7 +22,7 @@ const getUnderwritingExceptions = (state) => {
 };
 const getQuoteData = (state) => {
   const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, {name: 'quote'});
+  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
   return (quoteData ? quoteData.value.result : undefined);
 };
 
@@ -35,6 +35,7 @@ const noShareSubmit = (data, dispatch, props) => {
 };
 
 const shareQuoteSubmit = (data, dispatch, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // we need to call a batch complete here
   const steps = [{
@@ -44,8 +45,9 @@ const shareQuoteSubmit = (data, dispatch, props) => {
     name: userTasks.askEmail,
     data
   }];
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps);
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showEmailPopup: false });
+  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps).then(() => {
+    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showEmailPopup: false });
+  });
 };
 
 const shareQuote = (props) => {
