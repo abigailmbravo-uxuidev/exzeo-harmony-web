@@ -72,6 +72,10 @@ export const Verify = (props) => {
   const quoteData = _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
   _.find(taskData.model.variables, { name: 'quote' }).value.result;
 
+  const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result;
+
+  const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode });
+
   if (quoteData) {
     property = quoteData.property;
     coverageLimits = quoteData.coverageLimits;
@@ -125,7 +129,7 @@ export const Verify = (props) => {
                   <dl className="agent">
                     <div>
                       <dt>Agent</dt>
-                      <dd>AGENT NAME HERE</dd>
+                      <dd>{`${selectedAgent.firstName} ${selectedAgent.lastName}` }</dd>
                     </div>
                   </dl>
                 </section>
@@ -310,7 +314,7 @@ export const Verify = (props) => {
             </div>
             <Footer />
           </div>
-		  
+
         </Form>}
       {appState.data.showScheduleDateModal && <ScheduleDate verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} />}
     </div>
