@@ -2819,7 +2819,13 @@ ul.list-cards {
                             list-style: disc;
                             padding-left: $padding;
                             margin: $padding;
-                            color: $red-darken-01;
+                            color: $red;
+
+                            li {
+                                &.warning-li {
+                                    color: $orange-darken-01;
+                                }
+                            }
                         }
                     }
                 }
