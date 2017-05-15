@@ -38,7 +38,7 @@ const ErrorPopup = ({quote, underwritingExceptions, refereshUWReviewError, redir
                                 </dl>
                             </div>}
                         </section>
-                        <p>Contact a TypTap customer service representatives so we may further assist you in obtaining a quote.</p>
+                        <p>Contact a TypTap customer service representative so we may further assist you in obtaining a quote.</p>
                         <div className="contact-methods">
                             <a href="tel:8442897968"><i className="fa fa-phone"/> (844) 289-7968</a>
                             <a href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> email us</a>

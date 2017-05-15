@@ -55,7 +55,7 @@ exports[`test renders without crashing 1`] = `
           <ul
             className="error" />
           <p>
-            Contact a TypTap customer service representatives so we may further assist you in obtaining a quote.
+            Contact a TypTap customer service representative so we may further assist you in obtaining a quote.
           </p>
         </div>
         <div
