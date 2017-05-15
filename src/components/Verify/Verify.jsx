@@ -45,14 +45,20 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-// ------------------------------------------------
-// The render is where all the data is being pulled
-//  from the props.
-// The quote data data comes from the previous task
-//  which is createQuote / singleQuote. This might
-//  not be the case in later calls, you may need
-//  to pull it from another place in the model
-// ------------------------------------------------
+const goToStep = (props, taskName) => {
+  // don't allow submission until the other step is completed
+  if (props && props.appState && props.appState.data.submitting === true) return;
+
+  const currentData = props.tasks && props.tasks[props.appState.modelName] && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
+
+  if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
+      (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
+    props.actions.appStateActions.setAppState(props.appState.modelName, currentData.modelInstanceId, { ...props.appState.data, submitting: true });
+   // props.actions.completedTasksActions.dispatchCompletedTasks(_.union(currentData.model.completedTasks, props.completedTasks));
+    props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentData.model.completedTasks, props.completedTasks));
+  }
+};
+
 export const Verify = (props) => {
   let property = {};
   let coverageLimits = {};
@@ -124,6 +130,7 @@ export const Verify = (props) => {
                     <div>
                       <dt>Effective Date</dt>
                       <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
+                      <dt ><h5 onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</h5></dt>
                     </div>
                   </dl>
                   <dl className="agent">
@@ -136,7 +143,8 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmProperyDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group quote-details">
-                <h3 className="section-group-header"><i className="fa fa-list" /> Quote Details</h3>
+                <h3 className="section-group-header"><i className="fa fa-list" /> Quote Details </h3>
+                <h5 onClick={() => goToStep(props, 'askToCustomizeDefaultQuote')}><i className="fa fa-pencil" />  Edit</h5>
                 <section className="display-element">
                   <dl>
                     <div>
@@ -230,6 +238,7 @@ export const Verify = (props) => {
               </div>
               <div className="detail-group policyholder-details">
                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
+                <h5 onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</h5>
                 <section className="display-element">
                   <p>Please check that the below information is up to date and accurate. The policyholder contact information listed below will be used to schedule the required property inspection. Failure to schedule property inspection will result in a failure to bind the policy.</p>
                   {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
@@ -255,6 +264,7 @@ export const Verify = (props) => {
               </div>
               <div className="detail-group mailing-address-details">
                 <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
+                <h5 onClick={() => goToStep(props, 'askAdditionalQuestions')}><i className="fa fa-pencil" />  Edit</h5>
                 <section className="display-element">
                   <dl>
                     <div>
@@ -281,6 +291,7 @@ export const Verify = (props) => {
               </div>
               <div className="detail-group additional-interests-details">
                 <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests</h3>
+                <h5 onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</h5>
                 <section className="display-element additional-interests">
                   {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?
                     quoteData.additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
