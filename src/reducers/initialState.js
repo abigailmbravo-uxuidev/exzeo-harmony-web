@@ -4,6 +4,7 @@ import {
 
 export default {
   user: {
+    profile: {},
     isAuthenticated: false,
     token: ''
   },
