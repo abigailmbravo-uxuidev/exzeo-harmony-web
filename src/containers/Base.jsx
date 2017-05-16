@@ -30,12 +30,14 @@ const getAgencyName = (props) => {
 
 const populateAgencyName = (props) => {
   if (props.tasks && props.tasks.getAgency && props.tasks.getAgency.data &&
-    props.tasks.getAgency.data.previousTask && props.tasks.getAgency.data.previousTask.value &&
-    props.tasks.getAgency.data.previousTask.value.result) {
-    const data = props.tasks.getAgency.data.previousTask.value.result;
-    return data.displayName;
+    props.tasks.getAgency.data.model && props.tasks.getAgency.data.model.variables) {
+    const agencyValue = _.filter(props.tasks.getAgency.data.model.variables, item => item.name === 'getAgencyByCode');
+    if (agencyValue.length > 0) {
+      const data = agencyValue[0].value.result;
+      return data.displayName;
+    }
   }
-  return (props.user.profile) ? props.user.profile.username : '';
+  return (props.user.profile && props.user.profile.username) ? props.user.profile.username : '';
 };
 
 export class Base extends Component {
@@ -64,7 +66,6 @@ export class Base extends Component {
               </div>
             </button>
           </aside>
-          <div className={this.state.headerActive ? 'aside-modal active' : 'aside-modal'} onClick={this.toggleClassHeader}></div>
           <div className="content-wrapper">
             {this.props.children}
           </div>
