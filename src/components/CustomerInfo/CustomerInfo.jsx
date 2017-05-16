@@ -27,7 +27,14 @@ const handleFormSubmit = (data, dispatch, props) => {
   const taskName = userTasks.formSubmit;
   const taskData = data;
   taskData.agentCode = String(taskData.agentCode);
-  
+
+  if (!taskData.isAdditional) {
+    taskData.FirstName2 = '';
+    taskData.LastName2 = '';
+    taskData.EmailAddress2 = '';
+    taskData.phoneNumber2 = '';
+  }
+
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
@@ -39,6 +46,10 @@ const handleInitialize = (state) => {
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   values.agentCode = _.get(quoteData, 'agentCode');
+
+  if (_.trim(values.FirstName2)) {
+    values.isAdditional = true;
+  }
 
   return values;
 };

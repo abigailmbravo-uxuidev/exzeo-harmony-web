@@ -64,6 +64,7 @@ export class Base extends Component {
               </div>
             </button>
           </aside>
+          <div className={this.state.headerActive ? 'aside-modal active' : 'aside-modal'} onClick={this.toggleClassHeader}></div>
           <div className="content-wrapper">
             {this.props.children}
           </div>

@@ -29,10 +29,12 @@ const Error = ({ quote, exceptions }) => {
                                 <h4>The following errors have occurred for this property:</h4>
                                 <ul className="error-list">
                                     {exceptions && exceptions.map((exception, key) => {
-                                        if (exception.action === 'Fatal Error') {
-                                            return <li key={key}>{exception.agentMessage}</li>;
-                                        }
-                                        return '';
+                                      if (exception.action === 'Fatal Error') {
+                                        return <li key={key}>{exception.agentMessage}</li>;
+                                      } else if (exception.action === 'Underwriting Review') {
+                                        return <li className="warning-li" key={key}>{exception.agentMessage}</li>;
+                                      }
+                                      return '';
                                     })
                                     }
                                 </ul>

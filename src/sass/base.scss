@@ -3,6 +3,7 @@
 |||||||||||||||||||||||||||||||||||||||||||||||||*/
 @import "partials/_mixins";
 @import "partials/_variables";
+@import "partials/utilities/_flex";
 @import "partials/mixins/_hover";
 @import "partials/mixins/_flexbox";
 @import "partials/mixins/_tab-focus";
@@ -482,20 +483,36 @@ header {
                             height: 2.375rem;
                             border-radius: 50%;
                             font-size: 1.5rem;
+                            text-indent: 2.375rem;
+                            white-space: nowrap;
+                            overflow: hidden;
 
-                            i {
-                                margin: 0;
-                            }
-
-                            span {
-                                display: none;
+                            &:before {
+                                font-family: $font-family-icon;
+                                content: "\f095";
+                                position: absolute;
+                                left: 0;
+                                right: 0;
+                                color: $bright-blue;
+                                width: 2.25rem;
+                                height: 2.25rem;
+                                text-indent: 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
                             }
                         }
                         @include for-tablet-portrait-up {
                             height: 3.375rem;
 
                             &:hover {
-                                color: $bright-blue-lighten-02;
+                                color: $bright-blue-lighten-01;
+                            }
+
+                            &:before {
+                                font-family: $font-family-icon;
+                                content: "\f095";
+                                margin:($padding/2) ($padding) 0 0;
                             }
                         }
                     }
@@ -2803,7 +2820,13 @@ ul.list-cards {
                             list-style: disc;
                             padding-left: $padding;
                             margin: $padding;
-                            color: $red-darken-01;
+                            color: $red;
+
+                            li {
+                                &.warning-li {
+                                    color: $orange-darken-01;
+                                }
+                            }
                         }
                     }
                 }
@@ -2991,5 +3014,49 @@ ul.list-cards {
                 border-bottom: 1px solid transparent;
             }
         }
+    }
+}
+
+
+.nav-modal {
+    position: absolute;
+    top: 3.375rem;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba($black, 0);
+    z-index: 20;
+    visibility: hidden;
+    @include transition(all .1s ease-in-out);
+
+    &.active {
+        visibility: visible;
+        background: rgba($black, .7);
+    }
+}
+.aside-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba($black, 0);
+    z-index: 20;
+    visibility: hidden;
+    @include transition(all .1s ease-in-out);
+
+    &.active {
+        visibility: visible;
+        background: rgba($black, .7);
+    }
+}
+.blur {
+    + main[role="document"] {
+        .content-wrapper {
+            filter: blur(5px);
+        }
+    }
+    .content-wrapper {
+        filter: blur(5px);
     }
 }
