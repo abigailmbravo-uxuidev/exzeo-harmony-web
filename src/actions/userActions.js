@@ -40,7 +40,6 @@ const handleError = (dispatch, error) => {
 
 export const decodeToken = (token) => {
   const decoded = jwtDecode(token);
-  console.log(decoded.groups);
   return decoded;
 };
 
