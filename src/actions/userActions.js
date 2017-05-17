@@ -46,6 +46,12 @@ export const decodeToken = (token) => {
   return decoded;
 };
 
+const getDomain = () => {
+  const url = window.location.hostname.replace(/^.*?([^\.]+\.[^\.]+)$/, '$1');
+  const primaryDomain = (url.indexOf('localhost') > -1) ? 'localhost' : `.${url}`;
+  return primaryDomain;
+};
+
 export const login = creds => (dispatch) => {
   const axiosOptions = {
     method: 'POST',
@@ -78,23 +84,11 @@ export const validateLogin = () => (dispatch) => {
   return handleError(dispatch, 'User is not authenticated');
 };
 
-// export const validateLogin = () => (dispatch) => {
-//   return new Promise((resolve, reject) => {
-//     const cookies = new Cookies();
-//     const token = cookies.get('harmony-id-token');
-//     if (token) {
-//       const user = { token, isAuthenticated: true, loggedOut: false };
-//       console.log('user', user);
-//       return resolve(dispatch(authenticated(user)));
-//     }
-//     return reject(handleError(dispatch, 'User is not authenticated'));
-//   });
-// };
-
 export const logout = () => (dispatch) => {
-  const user = { token: undefined, isAuthenticated: false, loggedOut: true, profile: undefined };
+  const user = { token: undefined, isAuthenticated: false, loggedOut: true };
   // remove the auth header to every request
   axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
-  cookies.set('harmony-id-token', undefined, { maxAge: -1, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  cookies.set('harmony-id-token', undefined, { expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), domain: getDomain() });
   dispatch(authenticated(user));
 };
+
