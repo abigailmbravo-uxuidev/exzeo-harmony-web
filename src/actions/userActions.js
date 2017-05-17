@@ -55,7 +55,8 @@ const getDomain = () => {
 export const validateLogin = () => (dispatch) => {
   const token = cookies.get('harmony-id-token');
   if (token) {
-    const user = { token, isAuthenticated: true, loggedOut: false };
+    const profile = decodeToken(token);
+    const user = { token, isAuthenticated: true, loggedOut: false, profile };
     return dispatch(authenticated(user));
   }
   return handleError(dispatch, 'User is not authenticated');
