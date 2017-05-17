@@ -2,20 +2,19 @@ import React, { PropTypes } from 'react';
 import logo from '../../img/TypTap.svg';
 
 const sideBarLinks = [{
-          link: 'https://www.typtap.com',
-          label: 'HOME'
-        }, {
-          link: '',
-          label: 'AGENTS'
-        }, {
-          link: 'https://policyholder.typtap.com/login',
-          label: 'POLICYHOLDERS'
-        }, {
-          className: 'link-phone btn',
-          link: 'tel:+844-289-7968',
-          label: '844-289-7968'
-        }
-];
+  link: 'https://www.typtap.com',
+  label: 'HOME'
+}, {
+  link: '',
+  label: 'AGENTS'
+}, {
+  link: 'https://policyholder.typtap.com/login',
+  label: 'POLICYHOLDERS'
+}, {
+  className: 'link-phone btn',
+  link: 'tel:+844-289-7968',
+  label: '844-289-7968'
+}];
 
 const Header = ({ toggleHeader, toggle, active }) => (
   <header className={active ? 'blur' : ''}>
@@ -30,13 +29,13 @@ const Header = ({ toggleHeader, toggle, active }) => (
       /></button>
       <nav className={active ? 'active' : ''}>
         {sideBarLinks && sideBarLinks.length > 0 && sideBarLinks.map(sideBarLink => (
-          <a className={sideBarLink.className} href={sideBarLink.link}>{sideBarLink.label}</a>
+          <a key={sideBarLink.label} className={sideBarLink.className} href={sideBarLink.link}>{sideBarLink.label}</a>
               ))}
       </nav>
-      <div className={active ? 'nav-modal active' : 'nav-modal'} onClick={toggle}></div>
+      <div className={active ? 'nav-modal active' : 'nav-modal'} onClick={toggle} />
     </div>
   </header>
-    );
+);
 
 Header.propTypes = {
   toggle: PropTypes.func,

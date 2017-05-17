@@ -1,5 +1,6 @@
 /* eslint no-undef:1 */
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import * as types from './actionTypes';
 
 export const authenticating = state => ({
@@ -37,6 +38,11 @@ const handleError = (dispatch, error) => {
   return dispatch(authenticateError(user));
 };
 
+export const decodeToken = (token) => {
+  const decoded = jwtDecode(token);
+  return decoded;
+};
+
 export const login = creds => (dispatch) => {
   const axiosOptions = {
     method: 'POST',
@@ -53,14 +59,15 @@ export const login = creds => (dispatch) => {
   return axios(axiosOptions)
   .then((response) => {
     const token = response.data.token.id_token;
-    const user = { token, isAuthenticated: true, loggedOut: false };
+    const profile = decodeToken(token);
+    const user = { token, profile, isAuthenticated: true, loggedOut: false };
     dispatch(authenticated(user));
   })
   .catch(error => handleError(dispatch, error));
 };
 
 export const logout = () => (dispatch) => {
-  const user = { token: undefined, isAuthenticated: false, loggedOut: true };
+  const user = { token: undefined, isAuthenticated: false, loggedOut: true, profile: undefined };
   // remove the auth header to every request
   axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
   dispatch(authenticated(user));
