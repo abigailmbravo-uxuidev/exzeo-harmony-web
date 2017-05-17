@@ -47,33 +47,37 @@ const closeQuoteError = (props) => {
 };
 
 const Search = props => (
-<div className="flex grow">
-  <div className="search route-content">
-    <SearchBar />
-    <div className="survey-wrapper scroll">
-      <div className="results-wrapper">
-        <NoResultsConnect />
-        <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+  <div className="flex grow">
+    { props.appState.data &&
+      <div className="search route-content">
+        <SearchBar />
+        <div className="survey-wrapper scroll">
+          <div className="results-wrapper">
+            <NoResultsConnect />
+            <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+          </div>
+          <Footer />
+        </div>
       </div>
-      <Footer />
-    </div>
+  }
+    {props.appState.data && props.appState.data.showQuoteErrors &&
+      <QuoteError
+        quote={props.appState.data.selectedQuote || {}}
+        closeButtonHandler={() => closeQuoteError(props)}
+      />}
   </div>
-  {props.appState.data.showQuoteErrors &&
-    <QuoteError
-      quote={props.appState.data.selectedQuote || {}}
-      closeButtonHandler={() => closeQuoteError(props)}
-    />}
-</div>
 );
 
 Search.propTypes = {
   ...propTypes,
   appState: PropTypes.shape({
-    modelName: PropTypes.string,
     instanceId: PropTypes.string,
-    workflowData: PropTypes.func
-  }),
-  showQuoteErrors: PropTypes.bool
+    modelName: PropTypes.string,
+    data: PropTypes.shape({
+      selectedQuote: PropTypes.object,
+      showQuoteErrors: PropTypes.bool
+    })
+  })
 };
 
 const mapStateToProps = state => ({
