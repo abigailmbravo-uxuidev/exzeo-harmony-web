@@ -17,6 +17,6 @@ persistStore(store, { storage: asyncSessionStorage });
 
 const holder = document.getElementById('root');
 render(
-  <Provider client={client} store={store}><Routes store={store} /></ Provider>,
+  <Provider client={client} store={store}><Routes store={store} /></Provider>,
   holder
 );
