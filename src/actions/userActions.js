@@ -1,7 +1,10 @@
 /* eslint no-undef:1 */
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { Cookies } from 'react-cookie';
 import * as types from './actionTypes';
+
+const cookies = new Cookies();
 
 export const authenticating = state => ({
   type: types.AUTHENTICATING,
@@ -66,9 +69,32 @@ export const login = creds => (dispatch) => {
   .catch(error => handleError(dispatch, error));
 };
 
+export const validateLogin = () => (dispatch) => {
+  const token = cookies.get('harmony-id-token');
+  if (token) {
+    const user = { token, isAuthenticated: true, loggedOut: false };
+    return dispatch(authenticated(user));
+  }
+  return handleError(dispatch, 'User is not authenticated');
+};
+
+// export const validateLogin = () => (dispatch) => {
+//   return new Promise((resolve, reject) => {
+//     const cookies = new Cookies();
+//     const token = cookies.get('harmony-id-token');
+//     if (token) {
+//       const user = { token, isAuthenticated: true, loggedOut: false };
+//       console.log('user', user);
+//       return resolve(dispatch(authenticated(user)));
+//     }
+//     return reject(handleError(dispatch, 'User is not authenticated'));
+//   });
+// };
+
 export const logout = () => (dispatch) => {
   const user = { token: undefined, isAuthenticated: false, loggedOut: true, profile: undefined };
   // remove the auth header to every request
   axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
+  cookies.set('harmony-id-token', undefined, { maxAge: -1, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
   dispatch(authenticated(user));
 };

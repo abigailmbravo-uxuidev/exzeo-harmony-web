@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import BaseConnect from './Base';
 import ClearErrorConnect from '../components/Error/ClearError';
 import Footer from '../components/Common/Footer';
 
-const Splash = () => (
+const Splash = (props) => (
   <BaseConnect>
     <ClearErrorConnect />
     <div className="dashboard" role="article">
@@ -27,8 +28,8 @@ const Splash = () => (
                     <p>TypTap currently offers stand-alone flood policies for single family residential dwellings in Florida.</p>
                   </div>
                   <div className="card-footer">
-                    <Link to="https://www.typtap.com/agency" className="btn btn-secondary"><i className="fa fa-plus" />New Quote</Link>
-                    <Link to="https://www.typtap.com/agency" className="btn btn-primary"><i className="fa fa-history" />Retrieve Quote</Link>
+                    <button type="submit" form="newFloodQuoteForm" className="btn btn-secondary"><i className="fa fa-plus" />New Quote</button>
+                    <button type="submit" form="retrieveFloodQuoteForm" className="btn btn-primary"><i className="fa fa-history" />Retrieve Quote</button>
                   </div>
                 </div>
                 <div className="product card">
@@ -50,13 +51,27 @@ const Splash = () => (
         </div>
       </div>
     </div>
+    <form id="newFloodQuoteForm" name="newFloodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL}>
+      <input type="hidden" name="token" value={props.user.token} />
+      <input type="hidden" name="ssoType" value="new" />
+    </form>
+    <form id="retrieveFloodQuoteForm" name="retrieveFloodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL}>
+      <input type="hidden" name="token" value={props.user.token} />
+      <input type="hidden" name="ssoType" value="retrieve" />
+    </form>
   </BaseConnect>
 );
 
 Splash.propTypes = {
-  splashScreen: PropTypes.bool
+  user: PropTypes.shape({
+    token: PropTypes.string
+  })
 };
 
 Splash.displayName = 'Splash';
 
-export default Splash;
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(Splash);
