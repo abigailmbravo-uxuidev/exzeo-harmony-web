@@ -85,7 +85,7 @@ export const validateLogin = () => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  const user = { token: undefined, isAuthenticated: false, loggedOut: true };
+  const user = { token: undefined, isAuthenticated: false, loggedOut: true, profile: undefined };
   // remove the auth header to every request
   axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
   cookies.set('harmony-id-token', undefined, { expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), domain: getDomain() });
