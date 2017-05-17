@@ -52,29 +52,6 @@ const getDomain = () => {
   return primaryDomain;
 };
 
-export const login = creds => (dispatch) => {
-  const axiosOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    url: `${process.env.REACT_APP_API_URL}/auth`,
-    data: {
-      username: creds.username,
-      password: creds.password
-    }
-  };
-  dispatch(authenticating('athenticating'));
-  return axios(axiosOptions)
-  .then((response) => {
-    const token = response.data.token.id_token;
-    const profile = decodeToken(token);
-    const user = { token, profile, isAuthenticated: true, loggedOut: false };
-    dispatch(authenticated(user));
-  })
-  .catch(error => handleError(dispatch, error));
-};
-
 export const validateLogin = () => (dispatch) => {
   const token = cookies.get('harmony-id-token');
   if (token) {
