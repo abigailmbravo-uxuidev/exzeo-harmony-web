@@ -46,55 +46,27 @@ export const decodeToken = (token) => {
   return decoded;
 };
 
-export const login = creds => (dispatch) => {
-  const axiosOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    url: `${process.env.REACT_APP_API_URL}/auth`,
-    data: {
-      username: creds.username,
-      password: creds.password
-    }
-  };
-  dispatch(authenticating('athenticating'));
-  return axios(axiosOptions)
-    .then((response) => {
-      const token = response.data.token.id_token;
-      const profile = decodeToken(token);
-      const user = { token, profile, isAuthenticated: true, loggedOut: false };
-      dispatch(authenticated(user));
-    })
-    .catch(error => handleError(dispatch, error));
+const getDomain = () => {
+  const url = window.location.hostname.replace(/^.*?([^\.]+\.[^\.]+)$/, '$1');
+  const primaryDomain = (url.indexOf('localhost') > -1) ? 'localhost' : `.${url}`;
+  return primaryDomain;
 };
 
 export const validateLogin = () => (dispatch) => {
   const token = cookies.get('harmony-id-token');
   if (token) {
-    const user = { token, isAuthenticated: true, loggedOut: false };
+    const profile = decodeToken(token);
+    const user = { token, isAuthenticated: true, loggedOut: false, profile };
     return dispatch(authenticated(user));
   }
   return handleError(dispatch, 'User is not authenticated');
 };
 
-// export const validateLogin = () => (dispatch) => {
-//   return new Promise((resolve, reject) => {
-//     const cookies = new Cookies();
-//     const token = cookies.get('harmony-id-token');
-//     if (token) {
-//       const user = { token, isAuthenticated: true, loggedOut: false };
-//       console.log('user', user);
-//       return resolve(dispatch(authenticated(user)));
-//     }
-//     return reject(handleError(dispatch, 'User is not authenticated'));
-//   });
-// };
-
 export const logout = () => (dispatch) => {
   const user = { token: undefined, isAuthenticated: false, loggedOut: true, profile: undefined };
   // remove the auth header to every request
   axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
-  cookies.set('harmony-id-token', undefined, { maxAge: -1, expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT') });
+  cookies.set('harmony-id-token', undefined, { expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'), domain: getDomain() });
   dispatch(authenticated(user));
 };
+
