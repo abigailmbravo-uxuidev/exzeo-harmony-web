@@ -42,16 +42,35 @@ const populateAgencyName = (props) => {
 };
 
 export class Base extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      active: false,
+      headerActive: false
+    };
+    this.toggleClass = this.toggleClass.bind(this);
+    this.toggleClassHeader = this.toggleClassHeader.bind(this);
+  }
   componentWillMount() {
     getAgencyName(this.props);
+  }
+  toggleClass() {
+    const currentState = this.state.active;
+    this.setState({ headerActive: false, active: !currentState });
+  }
+
+  toggleClassHeader() {
+    const currentStateHeader = this.state.headerActive;
+    this.setState({ headerActive: !currentStateHeader, active: false });
   }
 
   render() {
     return (
-      <div className="app-wrapper">
-        <Header />
+      <div className={this.state.headerActive ? 'app-wrapper blur' : 'app-wrapper'} >
+        <Header toggleHeader={this.toggleClassHeader} toggle={this.toggleClass} active={this.state.active} />
         <main role="document">
-          <aside className="content-panel-left">
+          <aside activeClassName="active" className={this.state.headerActive ? 'content-panel-left active' : 'content-panel-left'}>
             <div className="user">
               <label htmlFor="user">Agency</label>
               <h5 className="user-name">
@@ -67,6 +86,7 @@ export class Base extends Component {
               </div>
             </button>
           </aside>
+          {this.state.headerActive ? <div className="aside-modal active" onClick={this.toggleClassHeader} /> : null}
           <div className="content-wrapper">
             {this.props.children}
           </div>
