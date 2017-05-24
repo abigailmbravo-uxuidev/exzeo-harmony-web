@@ -11,6 +11,7 @@ import * as userActions from '../actions/userActions';
 const getAgencyModelName = 'getAgency';
 
 const handleLogout = (props) => {
+  window.persistor.purge(); // i hate this with my entire being...
   props.actions.user.logout();
 };
 
@@ -70,18 +71,23 @@ export class Base extends Component {
             {this.props.children}
           </div>
         </main>
+        <form id="floodQuoteForm" name="floodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL} target="_blank">
+          <input type="hidden" name="token" value={this.props.user.token} />
+        </form>
       </div>);
   }
 }
 
 Base.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  user: PropTypes.shape({
+    token: PropTypes.string
+  })
 };
 
 const mapStateToProps = state => ({
   tasks: state.cg,
-  user: state.user,
-  agencyName: getAgencyName(state.user)
+  user: state.user
 });
 const mapDispatchToProps = dispatch => ({
   actions: {

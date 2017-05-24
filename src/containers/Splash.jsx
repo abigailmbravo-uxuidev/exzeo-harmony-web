@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -6,7 +6,7 @@ import BaseConnect from './Base';
 import ClearErrorConnect from '../components/Error/ClearError';
 import Footer from '../components/Common/Footer';
 
-const Splash = (props) => (
+const Splash = () => (
   <BaseConnect>
     <ClearErrorConnect />
     <div className="dashboard" role="article">
@@ -28,8 +28,8 @@ const Splash = (props) => (
                     <p>TypTap currently offers stand-alone flood policies for single family residential dwellings in Florida.</p>
                   </div>
                   <div className="card-footer">
-                    <button type="submit" form="newFloodQuoteForm" className="btn btn-secondary"><i className="fa fa-plus" />New Quote</button>
-                    <button type="submit" form="retrieveFloodQuoteForm" className="btn btn-primary"><i className="fa fa-history" />Retrieve Quote</button>
+                    <button type="submit" form="floodQuoteForm" className="btn btn-secondary"><i className="fa fa-plus" />New Quote</button>
+                    <button type="submit" form="floodQuoteForm" className="btn btn-primary"><i className="fa fa-history" />Retrieve Quote</button>
                   </div>
                 </div>
                 <div className="product card">
@@ -51,22 +51,8 @@ const Splash = (props) => (
         </div>
       </div>
     </div>
-    <form id="newFloodQuoteForm" name="newFloodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL}>
-      <input type="hidden" name="token" value={props.user.token} />
-      <input type="hidden" name="ssoType" value="new" />
-    </form>
-    <form id="retrieveFloodQuoteForm" name="retrieveFloodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL}>
-      <input type="hidden" name="token" value={props.user.token} />
-      <input type="hidden" name="ssoType" value="retrieve" />
-    </form>
   </BaseConnect>
 );
-
-Splash.propTypes = {
-  user: PropTypes.shape({
-    token: PropTypes.string
-  })
-};
 
 Splash.displayName = 'Splash';
 

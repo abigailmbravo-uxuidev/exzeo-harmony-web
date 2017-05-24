@@ -17,10 +17,10 @@ const agentLinks = [{
   styleName: 'agent-dashboard',
   exact: true
 }, {
-  link: 'https://www.typtap.com/agency',
   label: 'FLOOD QUOTE',
   styleName: 'agent-flood label',
-  outside: true
+  outside: true,
+  formName: 'floodQuoteForm'
 },
 {
   link: '/quote',
@@ -28,16 +28,26 @@ const agentLinks = [{
   styleName: 'agent-homeowners label'
 }];
 
+const formSubmitFloodQuote = () => {
+  document.getElementsByName('formSubmitFloodQuote')[0].click();
+};
+
 const SideNav = () => (
   <nav className="site-nav">
     <ul>
       {agentLinks && agentLinks.length > 0 && agentLinks.map((agentLink, index) => (
         agentLink.outside ?
           <li key={index}>
-            <a className={agentLink.styleName} href={agentLink.link}>
-              <i className="fa" />
-              <span>{agentLink.label}</span>
-            </a>
+            {agentLink.formName ?
+              <a className={agentLink.styleName} href="#floodQuote" onClick={() => formSubmitFloodQuote()}>
+                <i className="fa" />
+                <span>{agentLink.label}</span>
+              </a> :
+              <a className={agentLink.styleName} href={agentLink.link}>
+                <i className="fa" />
+                <span>{agentLink.label}</span>
+              </a>
+            }
           </li> :
           <li key={index}>
             <NavLink exact={agentLink.exact} className={agentLink.styleName} to={agentLink.link} activeClassName="active">
@@ -47,6 +57,7 @@ const SideNav = () => (
           </li>
       ))}
     </ul>
+    <button name="formSubmitFloodQuote" type="submit" form="floodQuoteForm" style={{ display: 'none' }} />
   </nav>
 );
 
