@@ -50,6 +50,14 @@ const handleInitialize = (state) => {
   questions.forEach((question) => {
     const val = _.get(data, `underwritingAnswers.${question.name}.answer`);
     values[question.name] = val;
+
+    const defaultAnswer = question && question.answers &&
+    _.find(question.answers, { default: true }) ?
+    _.find(question.answers, { default: true }).answer : null;
+
+    if (defaultAnswer && question.hidden) {
+      values[question.name] = defaultAnswer;
+    }
   });
   console.log(values);
   return values;
