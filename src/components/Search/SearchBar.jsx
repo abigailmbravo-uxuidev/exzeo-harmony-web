@@ -108,7 +108,7 @@ const generateField = (name, placeholder, labelText, formErrors, formGroupCss) =
 };
 
 const SearchForm = props => {
-  const { pristine, handleSubmit, formErrors, isRetrieve } = props;
+  const { handleSubmit, formErrors, isRetrieve } = props;
 
   if (isRetrieve) {
     return (
@@ -122,7 +122,7 @@ const SearchForm = props => {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={props.appState.data.submitting || formErrors || pristine}
+            disabled={props.appState.data.submitting || formErrors }
           >
             <i className="fa fa-search" />Search
           </button>
