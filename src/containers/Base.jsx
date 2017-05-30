@@ -74,7 +74,7 @@ export class Base extends Component {
             <div className="user">
               <label htmlFor="user">Agency</label>
               <h5 className="user-name">
-                <span>{ populateAgencyName(this.props) }</span>
+                <span><div>{ populateAgencyName(this.props) }</div></span>
                 <i className="fa fa-gear" />
               </h5>
             </div>
