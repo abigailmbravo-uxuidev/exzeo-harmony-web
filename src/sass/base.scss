@@ -1049,7 +1049,14 @@ main[role="document"] {
                 padding-right: $padding;
                 text-overflow: ellipsis;
                 flex-grow: 0;
-                flex-shrink: 0;
+                flex-shrink: 1;
+
+                div {
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+
                 @include for-tablet-landscape-up {
                     width: 9rem;
                     flex-basis: 9rem;
