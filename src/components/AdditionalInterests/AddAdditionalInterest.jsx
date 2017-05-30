@@ -107,7 +107,7 @@ export const AddAdditionalInterest = props => (
     <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={props.handleSubmit(noAddAdditionalInterestSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">
-          <p>To add additional interests ...</p>
+          <p>Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)</p>
           <div className="button-group">
             <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
             <button className="btn btn-secondary" type="button" onClick={() => AddLienholder(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
