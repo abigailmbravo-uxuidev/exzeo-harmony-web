@@ -9,6 +9,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
+import TaskRunnerConnect from '../Workflow/TaskRunner';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -35,8 +36,7 @@ const handleFormSubmit = (data, dispatch, props) => {
     taskData.phoneNumber2 = '';
   }
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
 };
 
 const handleInitialize = (state) => {
@@ -79,6 +79,7 @@ export const CustomerInfo = (props) => {
   const quoteData = taskData.previousTask.value.result;
   return (
     <div className="route-content">
+      {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
       <Form
         id="CustomerInfo"
         onSubmit={handleSubmit(handleFormSubmit)}
@@ -131,7 +132,9 @@ CustomerInfo.propTypes = {
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
     data: PropTypes.shape({
-      submitting: PropTypes.boolean
+      submitting: PropTypes.boolean,
+      taskName: PropTypes.string,
+      taskData: PropTypes.shape({})
     })
   })
 };

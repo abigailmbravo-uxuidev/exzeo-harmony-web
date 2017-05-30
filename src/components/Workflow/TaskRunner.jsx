@@ -1,15 +1,23 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import _ from 'lodash';
 import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 
 const runTask = (props) => {
+  // if (props.appState.data.submitting) return;
   const workflowId = props.appState.instanceId;
   const taskName = props.taskName;
   const taskData = props.taskData;
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  if (props.appState.data.isMoveTo) {
+    const currentData = props.tasks && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
+    props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentData.model.completedTasks, props.completedTasks));
+    props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, showLoader: true, isMoveTo: false, taskName });
+    console.log(props.appState);
+  } else {
+    props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  }
 };
 
 export const TaskRunner = (props) => {

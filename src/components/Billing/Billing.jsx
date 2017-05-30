@@ -17,6 +17,7 @@ import * as appStateActions from '../../actions/appStateActions';
 // import billingQuestions from '.BillingQuestions';
 import FieldGenerator from '../Form/FieldGenerator';
 import { combineRules } from '../Form/Rules';
+import TaskRunnerConnect from '../Workflow/TaskRunner';
 
 // ------------------------------------------------
 // List the user tasks that directly tie to
@@ -29,8 +30,8 @@ const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const handleGetQuoteData = (state) => {
@@ -179,6 +180,7 @@ export const Billing = (props) => {
 
   return (
     <div className="route-content">
+      {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
       <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">

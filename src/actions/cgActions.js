@@ -136,7 +136,9 @@ export const completeTask = (modelName, workflowId, stepName, data, dispatchAppS
       if (dispatchAppState) {
         return dispatch(batchActions([complete(modelName, responseData),
           appStateActions.setAppState(modelName, workflowId, {
-            submitting: false
+            submitting: false,
+            showLoader: false,
+            isMoveTo: false
           })
         ]));
       }
@@ -170,7 +172,9 @@ export const batchCompleteTask = (modelName, workflowId, stepsWithData, dispatch
       if (dispatchAppState) {
         dispatch(batchActions([complete(modelName, responseData),
           appStateActions.setAppState(modelName, workflowId, {
-            submitting: false
+            submitting: false,
+            showLoader: false,
+            isMoveTo: false
           })
         ]));
       }
@@ -200,7 +204,9 @@ export const moveToTask = (modelName, workflowId, stepName, dispatchAppState = t
       if (dispatchAppState) {
         return dispatch(batchActions([complete(modelName, responseData),
           appStateActions.setAppState(modelName, instanceId, {
-            submitting: false
+            submitting: false,
+            showLoader: false,
+            isMoveTo: false
           })
         ]));
       }
@@ -249,7 +255,9 @@ export const moveToTaskAndExecuteComplete = (modelName, workflowId, stepName, co
       if (dispatchAppState) {
         return dispatch(batchActions([complete(modelName, responseData),
           appStateActions.setAppState(modelName, newInstanceId, {
-            submitting: false
+            submitting: false,
+            showLoader: false,
+            isMoveTo: false
           })
         ]));
       }

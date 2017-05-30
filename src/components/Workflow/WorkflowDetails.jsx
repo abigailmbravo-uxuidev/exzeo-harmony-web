@@ -12,6 +12,7 @@ import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
+import TaskRunnerConnect from '../Workflow/TaskRunner';
 
 const workflowDetailsModelName = 'quoteModelGetQuote';
 
@@ -37,9 +38,7 @@ const goToStep = (props, taskName) => {
 
   if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
       (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
-    props.actions.appStateActions.setAppState(props.appState.modelName, currentData.modelInstanceId, { ...props.appState.data, submitting: true });
-   // props.actions.completedTasksActions.dispatchCompletedTasks(_.union(currentData.model.completedTasks, props.completedTasks));
-    props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentData.model.completedTasks, props.completedTasks));
+    props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, showLoader: true, isMoveTo: true, taskName });
   }
 };
 
@@ -93,6 +92,11 @@ export class WorkflowDetails extends Component {
     }
     return (
       <div>
+        {this.props.appState.data.showLoader && this.props.appState.data.isMoveTo && <TaskRunnerConnect
+          taskName={this.props.appState.data.taskName}
+          isMoveTo={this.props.appState.data.isMoveTo}
+          taskData={this.props.appState.data.taskData}
+        />}
         <div className="detailHeader">
           <section id="quoteDetails" className="quoteDetails">
             <dl>
@@ -176,7 +180,12 @@ WorkflowDetails.propTypes = {
       quote: PropTypes.object,
       updateWorkflowDetails: PropTypes.boolean,
       hideYoChildren: PropTypes.boolean,
-      recalc: PropTypes.boolean
+      recalc: PropTypes.boolean,
+      showLoader: PropTypes.boolean,
+      isMoveTo: PropTypes.boolean,
+      submitting: PropTypes.boolean,
+      taskName: PropTypes.string,
+      taskData: PropTypes.shape({})
     })
   })
 };

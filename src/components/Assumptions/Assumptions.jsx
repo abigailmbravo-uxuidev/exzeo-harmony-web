@@ -7,6 +7,7 @@ import Footer from '../Common/Footer';
 // import { getInitialValues } from '../Customize/customizeHelpers';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import TaskRunnerConnect from '../Workflow/TaskRunner';
 
 import { CheckField } from '../Form/inputs';
 
@@ -16,8 +17,8 @@ const handleOnSubmit = (data, dispatch, props) => {
   console.log(data, dispatch, props);
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
 };
 
 export const Assumptions = (props) => {
@@ -27,6 +28,7 @@ export const Assumptions = (props) => {
 
   return (
     <div className="route-content">
+      {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper">
