@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
 
 const RadioOptionBilling = ({
   onChange,

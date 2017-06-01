@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -21,6 +22,7 @@ const getUnderwritingExceptions = (state) => {
   return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?
     cg[appState.modelName].data.previousTask.value : undefined);
 };
+
 const getQuoteData = (state) => {
   const { cg, appState } = state;
   const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
@@ -66,6 +68,7 @@ const refereshUWReviewError = (props) => {
   const taskData = {
     refresh: 'Yes'
   };
+
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 

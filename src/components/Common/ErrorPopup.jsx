@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const ErrorPopup = ({quote, underwritingExceptions, refereshUWReviewError, redirectToNewQuote}) => (
     <div className="error-content modal pop-up" role="article">
@@ -14,7 +15,7 @@ const ErrorPopup = ({quote, underwritingExceptions, refereshUWReviewError, redir
                             {underwritingExceptions.map((exception, i) => {
                               if(exception.action === 'Underwriting Review') {
                                 return (<li key={i}>{exception.agentMessage}</li>)
-                              }
+                              } else { return '' }
                             })}
                         </ul>
                         <section className="error-property-details">

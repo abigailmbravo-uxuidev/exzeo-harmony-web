@@ -18,7 +18,7 @@ export const validateLogin = () => {
   const cookies = new Cookies();
   const token = cookies.get('harmony-id-token');
   if (token) {
-    const user = { token, isAuthenticated: true, loggedOut: false };
+    // const user = { token, isAuthenticated: true, loggedOut: false };
     return true;
   }
   return false;

@@ -47,7 +47,7 @@ export const decodeToken = (token) => {
 };
 
 const getDomain = () => {
-  const url = window.location.hostname.replace(/^.*?([^\.]+\.[^\.]+)$/, '$1');
+  const url = window.location.hostname.replace(/^.*?([^\.]+\.[^\.]+)$/, '$1'); // eslint-disable-line
   const primaryDomain = (url.indexOf('localhost') > -1) ? 'localhost' : `.${url}`;
   return primaryDomain;
 };

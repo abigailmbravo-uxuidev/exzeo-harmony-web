@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -14,15 +15,8 @@ import TaskRunnerConnect from '../Workflow/TaskRunner';
 // List the user tasks that directly tie to
 //  the cg tasks.
 // ------------------------------------------------
-const userTasks = {
-  formSubmit: 'askAdditionalCustomerData'
-};
+const userTasks = { formSubmit: 'askAdditionalCustomerData' };
 
-// ------------------------------------------------
-// This allows the step to be completed in the CG,
-//  make sure the data matches what the step needs.
-// The workflow id comes from props.appState.
-// ------------------------------------------------
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.formSubmit;
@@ -39,35 +33,34 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
 };
 
-const handleInitialize = (state) => {
+const handleInitialize = state => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const quoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
+  /**
   const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result :
   _.find(taskData.model.variables, { name: 'quote' }).value.result;
+  */
   const values = getInitialValues(taskData.uiQuestions, quoteData);
-
   values.agentCode = _.get(quoteData, 'agentCode');
 
-  if (_.trim(values.FirstName2)) {
-    values.isAdditional = true;
-  }
+  if (_.trim(values.FirstName2)) values.isAdditional = true;
 
   return values;
 };
 
-const handleGetAgentsFromAgency = (state) => {
+const handleGetAgentsFromAgency = state => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
   return paymentPlanResult;
 };
-// ------------------------------------------------
-// The render is where all the data is being pulled
-//  from the props.
-// The quote data data comes from the previous task
-//  which is createQuote / singleQuote. This might
-//  not be the case in later calls, you may need
-//  to pull it from another place in the model
-// ------------------------------------------------
-export const CustomerInfo = (props) => {
+
+const getQuoteData = state => {
+  const { cg, appState } = state;
+  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
+  return (quoteData ? quoteData.value.result : undefined);
+};
+
+export const CustomerInfo = props => {
   const {
     appState,
     handleSubmit,
@@ -122,9 +115,6 @@ export const CustomerInfo = (props) => {
   );
 };
 
-// ------------------------------------------------
-// Property type definitions
-// ------------------------------------------------
 CustomerInfo.propTypes = {
   ...propTypes,
   tasks: PropTypes.shape(),
@@ -139,16 +129,19 @@ CustomerInfo.propTypes = {
   })
 };
 
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
+/**
+------------------------------------------------
+redux mapping
+------------------------------------------------
+*/
 const mapStateToProps = state => (
   {
     tasks: state.cg,
     appState: state.appState,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
-    agencyResults: handleGetAgentsFromAgency(state)
+    agencyResults: handleGetAgentsFromAgency(state),
+    quote: getQuoteData(state)
   });
 
 const mapDispatchToProps = dispatch => ({
@@ -158,9 +151,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'CustomerInfo'
 })(CustomerInfo));

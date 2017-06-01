@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
@@ -9,19 +10,8 @@ import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
 import TaskRunnerConnect from '../Workflow/TaskRunner';
 
-// ------------------------------------------------
-// List the user tasks that directly tie to
-//  the cg tasks.
-// ------------------------------------------------
-const userTasks = {
-  formSubmit: 'askUWAnswers'
-};
+const userTasks = { formSubmit: 'askUWAnswers' };
 
-// ------------------------------------------------
-// This allows the step to be completed in the CG,
-//  make sure the data matches what the step needs.
-// The workflow id comes from props.appState.
-// ------------------------------------------------
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
@@ -33,7 +23,6 @@ const handleFormSubmit = (data, dispatch, props) => {
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  console.log(taskData.previousTask.value, uwQuestions);
   return uwQuestions;
 };
 
@@ -46,7 +35,7 @@ const handleGetQuoteData = (state) => {
 
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
-  const data = handleGetQuoteData(state);
+  const data = state.appState && state.appState.data ? state.appState.data.quote : {};
   const values = {};
   questions.forEach((question) => {
     const val = _.get(data, `underwritingAnswers.${question.name}.answer`);
@@ -60,25 +49,15 @@ const handleInitialize = (state) => {
       values[question.name] = defaultAnswer;
     }
   });
-  console.log(values);
+
   return values;
 };
 
-// ------------------------------------------------
-// The render is where all the data is being pulled
-//  from the props.
-// The quote data data comes from the previous task
-//  which is createQuote / singleQuote. This might
-//  not be the case in later calls, you may need
-//  to pull it from another place in the model
-// ------------------------------------------------
-export const Underwriting = (props) => {
+export const Underwriting = props => {
   const { appState, handleSubmit, fieldValues } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.previousTask.value.result;
   const quoteData = _.find(taskData.model.variables, { name: 'quote' }).value.result.underwritingAnswers;
-
-  // console.log('UNDERWRITING DATA', quoteData);
 
   return (
     <div className="route-content">
@@ -114,9 +93,6 @@ export const Underwriting = (props) => {
   );
 };
 
-// ------------------------------------------------
-// Property type definitions
-// ------------------------------------------------
 Underwriting.propTypes = {
   ...propTypes,
   tasks: PropTypes.shape(),
@@ -131,9 +107,12 @@ Underwriting.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.shape())
 };
 
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
+/**
+------------------------------------------------
+redux mapping
+------------------------------------------------
+*/
+
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
@@ -150,7 +129,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Underwriting' })(Underwriting));

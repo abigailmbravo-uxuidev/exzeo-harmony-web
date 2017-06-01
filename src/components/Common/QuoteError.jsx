@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const ErrorPopup = ({ quote, closeButtonHandler }) => (
   <div className="error-content modal pop-up fade-in" role="article">

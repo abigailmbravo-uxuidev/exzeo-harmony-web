@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Header from '../components/Common/Header';
-import Footer from '../components/Common/Footer';
 
 const NotFound = function NotFound() {
     return (

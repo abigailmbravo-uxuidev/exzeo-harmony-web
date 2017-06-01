@@ -1,15 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-
-const didNotFindAddressHint = (props) => {
-  const dontSeeAddress = !props.appState.data.dontSeeAddress;
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { dontSeeAddress });
-}
 
 const SearchResults = (props) => {
   if (
