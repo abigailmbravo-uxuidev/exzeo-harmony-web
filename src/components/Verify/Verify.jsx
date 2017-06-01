@@ -129,8 +129,7 @@ export const Verify = (props) => {
                   <dl className="effective-date">
                     <div>
                       <dt>Effective Date</dt>
-                      <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
-                      <dt ><h5 onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</h5></dt>
+                      <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></dd>
                     </div>
                   </dl>
                   <dl className="agent">
@@ -143,8 +142,7 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmProperyDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group quote-details">
-                <h3 className="section-group-header"><i className="fa fa-list" /> Quote Details </h3>
-                <h5 onClick={() => goToStep(props, 'askToCustomizeDefaultQuote')}><i className="fa fa-pencil" />  Edit</h5>
+                <h3 className="section-group-header"><i className="fa fa-list" /> Quote Details<span className="edit-btn" onClick={() => goToStep(props, 'askToCustomizeDefaultQuote')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <dl>
                     <div>
@@ -237,8 +235,7 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group policyholder-details">
-                <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details</h3>
-                <h5 onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</h5>
+                <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <p>Please check that the below information is up to date and accurate. The policyholder contact information listed below will be used to schedule the required property inspection. Failure to schedule property inspection will result in a failure to bind the policy.</p>
                   {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
@@ -263,8 +260,7 @@ export const Verify = (props) => {
                 </section>
               </div>
               <div className="detail-group mailing-address-details">
-                <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
-                <h5 onClick={() => goToStep(props, 'askAdditionalQuestions')}><i className="fa fa-pencil" />  Edit</h5>
+                <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalQuestions')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <dl>
                     <div>
@@ -290,8 +286,7 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
               </div>
               <div className="detail-group additional-interests-details">
-                <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests</h3>
-                <h5 onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</h5>
+                <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests<span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element additional-interests">
                   {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?
                     quoteData.additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
@@ -301,9 +296,17 @@ export const Verify = (props) => {
                         <p>{handlePrimarySecondaryTitles(additionalInterest.type, additionalInterest.order)}</p>
                       </div>
                       <section>
-                        <h4>{`${additionalInterest.name1}`} {`${additionalInterest.name2}`}</h4>
-                        <p>{`${additionalInterest.mailingAddress.address1}`} {`${additionalInterest.mailingAddress.address2}`}</p>
-                        <p>{`${additionalInterest.mailingAddress.city}`}, {`${additionalInterest.mailingAddress.state}`} {`${additionalInterest.mailingAddress.zip}`}</p>
+                        <h4>{`${additionalInterest.name1}`}</h4>
+                        <h4>{`${additionalInterest.name2}`}</h4>
+                        <p>
+                          {`${additionalInterest.mailingAddress.address1}`}
+                          {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ``}
+                        </p>
+                        <p>
+                          {`${additionalInterest.mailingAddress.city}, `}
+                          {`${additionalInterest.mailingAddress.state} `}
+                          {`${additionalInterest.mailingAddress.zip}`}
+                        </p>
                       </section>
                       <div className="ref-number">
                         <label htmlFor="ref-number">Reference Number</label>

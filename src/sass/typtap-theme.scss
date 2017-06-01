@@ -1424,61 +1424,63 @@ ul.result-cards {
     }
 }
 #AdditionalInterest {
-    .form-group {
-        .ai1City,
-        .ai2City,
-        .ains1City,
-        .ains2City,
-        .city,
-        .l1City,
-        .l2City,
-        .m1City,
-        .m2City {
-            width: auto;
-            flex-grow: 1;
-            @include for-phone-only {
-                width: 100%;
-            }
-        }
 
-        .ai1State,
-        .ai2State,
-        .ains1State,
-        .ains2State,
-        .l1State,
-        .l2State,
-        .m1State,
-        .m2State,
-        .state {
-            width: 6rem;
-            @include for-phone-only {
+}
+
+.form-group {
+    .ai1City,
+    .ai2City,
+    .ains1City,
+    .ains2City,
+    .city,
+    .l1City,
+    .l2City,
+    .m1City,
+    .m2City {
+        width: auto;
+        flex-grow: 1;
+        @include for-phone-only {
+            width: 100%;
+        }
+    }
+
+    .ai1State,
+    .ai2State,
+    .ains1State,
+    .ains2State,
+    .l1State,
+    .l2State,
+    .m1State,
+    .m2State,
+    .state {
+        width: 6rem;
+        @include for-phone-only {
+            width: 40%;
+        }
+    }
+
+    .ai1Zip,
+    .ai2Zip,
+    .ains1Zip,
+    .ains2Zip,
+    .l1Zip,
+    .l2Zip,
+    .m1Zip,
+    .m2Zip,
+    .zip {
+        width: 12rem;
+        @include for-phone-only {
+            width: 60%;
+        }
+    }
+
+    .m1PhoneNumber,
+    .m2PhoneNumber {
+        @include for-tablet-portrait-up {
+            input {
                 width: 40%;
-            }
-        }
-
-        .ai1Zip,
-        .ai2Zip,
-        .ains1Zip,
-        .ains2Zip,
-        .l1Zip,
-        .l2Zip,
-        .m1Zip,
-        .m2Zip,
-        .zip {
-            width: 12rem;
-            @include for-phone-only {
-                width: 60%;
-            }
-        }
-
-        .m1PhoneNumber,
-        .m2PhoneNumber {
-            @include for-tablet-portrait-up {
-                input {
-                    width: 40%;
-                    padding-right: 0;
-                    flex-grow: 1;
-                }
+                padding-right: 0;
+                flex-grow: 1;
             }
         }
     }
@@ -1563,22 +1565,42 @@ ul.result-cards {
 .verify {
     overflow-y: auto;
 
+    .section-group-header {
+        position: relative;
+    }
+
     dt {
         color: $bright-blue-darken-02;
     }
 
+
+
     .detail-wrapper {
         .detail-group {
             .edit-btn {
-                color: $white;
+                position: absolute;
+                top: $padding*3;
+                right: 0;
+                font-size: $font-size-h5;
+                color: $bright-blue;
+                cursor: pointer;
 
                 &:hover {
-                    color: $white;
+                    color: $bright-blue-lighten-01;
                 }
             }
 
-            &.edit {
-                border: 2px solid $bright-blue;
+            .effective-date {
+                position: relative;
+
+                .edit-btn {
+                    font-size: $font-size-h6;
+                    font-weight: $font-weight-bold;
+                    right: auto;
+                    bottom: 0;
+                    top: auto;
+                    left: 0;
+                }
             }
 
             &.quote-details {

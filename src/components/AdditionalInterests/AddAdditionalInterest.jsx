@@ -123,9 +123,19 @@ export const AddAdditionalInterest = props => (
                   <a onClick={() => goToStep(props, question.type)}>
                     {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
                     <div className="card-icon"><i className={`fa fa-circle ${question.type}`} /><label>{question.type} {question.order + 1}</label></div>
-                    <section><h4>{question.name1}</h4><p>{question.name2}</p><p className="address">{question.mailingAddress.address1},
-                      {question.mailingAddress.address2}
-                      {question.mailingAddress.city}, {question.mailingAddress.state} {question.mailingAddress.zip}</p></section>
+                    <section>
+                      <h4>{`${question.name1}`}</h4>
+                      <h4>{`${question.name2}`}</h4>
+                      <p className="address">
+                        {`${question.mailingAddress.address1}`}
+                        {question.mailingAddress.address2 ? `, ${question.mailingAddress.address2}` : ``}
+                      </p>
+                      <p>
+                        {`${question.mailingAddress.city}, `}
+                        {`${question.mailingAddress.state} `}
+                        {` ${question.mailingAddress.zip}`}
+                      </p>
+                    </section>
                     <i className="fa fa-pencil" />
                   </a>
                 </li>
