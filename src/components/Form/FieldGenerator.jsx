@@ -9,6 +9,7 @@ import {
   SelectField,
   SliderField,
   TextField,
+  PhoneField,
   SelectFieldBilling
 } from './inputs';
 
@@ -33,6 +34,8 @@ const FieldGenerator = ({
   if (inputProps.remove) inputProps.type = 'remove';
 
   switch (inputProps.type) {
+    case 'phone':
+      return <PhoneField {...inputProps} />;
     case 'selectBilling':
       return <SelectFieldBilling {...inputProps} />;
     case 'select':

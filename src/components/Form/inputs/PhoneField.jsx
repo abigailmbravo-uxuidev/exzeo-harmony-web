@@ -1,18 +1,27 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { Field } from 'redux-form';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
+import normalizePhone from '../normalizePhone';
+import { combineRules } from '../Rules';
 
-export const TextInput = ({
+export const PhoneInput = ({
   input,
   hint,
   label,
   styleName,
   meta,
-  type
+  type,
+  disabled,
+  validations,
+  name
 }) => {
   const { touched, error, warning } = meta;
-  const { disabled, name } = input;
+
+  const ruleArray = combineRules(validations, { });
+
 
   const formGroupStyles = classNames(
     'form-group',
@@ -34,44 +43,56 @@ export const TextInput = ({
   </label>);
 
   return (
-    <div className={formGroupStyles} id={name}>
+    <div className={formGroupStyles}>
       {Label}
-      <input
+      <Field
+        name={name}
+        component="input"
+        type="text"
+        placeholder="555-555-5555"
+        normalize={normalizePhone}
+        validate={ruleArray}
         {...input}
-        type={type}
       />
       {Error}
     </div>
   );
 };
 
-TextInput.propTypes = {
-  // Used for tooltip
+PhoneInput.propTypes = {
+
+  /**
+   * Hint for the user
+   */
   hint: PropTypes.string,
 
-  // Input Props provided by redux-form
+  /**
+   * Input from redux-field Field component
+   */
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.number,
-      PropTypes.string
-    ])
+    value: PropTypes.any
   }),
 
-  // Label for input
+  /**
+   * Label to display above question
+   */
   label: PropTypes.string,
 
-  // Validations
+  /**
+   * Validations props
+   */
   meta: PropTypes.shape({
     error: PropTypes.string,
     touched: PropTypes.bool,
     warning: PropTypes.string
   }),
 
-  // Type for input
+  /**
+   * Answer Type from original question
+   */
   type: PropTypes.oneOf([
     'email',
     'password',
@@ -82,15 +103,19 @@ TextInput.propTypes = {
     'search'
   ]),
 
-  // Name to add to class on render
+  /**
+   * Stylename for form-group
+   */
   styleName: PropTypes.string
 
 };
 
-TextInput.defaultProps = {
+PhoneInput.defaultProps = {
+  hint: '',
   input: {},
   meta: {},
-  type: 'text'
+  type: 'text',
+  styleName: ''
 };
 
-export default reduxFormField(TextInput);
+export default reduxFormField(PhoneInput);

@@ -8,3 +8,4 @@ export { default as SliderField } from './SliderField';
 export { default as TextField } from './TextField';
 export { default as RadioFieldBilling } from './RadioFieldBilling';
 export { default as SelectFieldBilling } from './SelectFieldBilling';
+export { default as PhoneField } from './PhoneField';
