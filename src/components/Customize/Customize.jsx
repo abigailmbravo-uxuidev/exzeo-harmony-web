@@ -84,6 +84,11 @@ const handleInitialize = (state) => {
   const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
   _.find(taskData.model.variables, { name: 'getQuote' }).value.result;
   const values = getInitialValues(taskData.uiQuestions, quoteData);
+
+  values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
+  values.fireAlarm = values.fireAlarm || false;
+  values.burglarAlarm = values.burglarAlarm || false;
+
   return values;
 };
 
