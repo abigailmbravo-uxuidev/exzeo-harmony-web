@@ -9,6 +9,7 @@ import ScheduleDate from '../Common/ScheduleDate';
 import { CheckField } from '../Form/inputs';
 import Footer from '../Common/Footer';
 import * as appStateActions from '../../actions/appStateActions';
+import Loader from '../Common/Loader';
 
 // ------------------------------------------------
 // List the user tasks that directly tie to
@@ -92,6 +93,7 @@ export const Verify = (props) => {
 
   return (
     <div className="route-content verify">
+      { props.appState.data.submitting && <Loader /> }
       { quoteData && quoteData.quoteNumber &&
         <Form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props))} noValidate>
           <div className="scroll">

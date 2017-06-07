@@ -6,6 +6,7 @@ import moment from 'moment';
 
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import Loader from '../Common/Loader';
 
 const SearchResults = (props) => {
   if (
@@ -87,7 +88,7 @@ const SearchResults = (props) => {
       </div>
     )
   }
-  
+
   return <span />;
 };
 

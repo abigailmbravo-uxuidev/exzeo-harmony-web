@@ -8,7 +8,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import AIPopup from '../Common/AIPopup';
 import { getInitialValues } from '../Customize/customizeHelpers';
-import TaskRunnerConnect from '../Workflow/TaskRunner';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'
@@ -18,48 +18,48 @@ const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'No' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const AddMortgagee = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'mortgagee' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const AddLienholder = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'lienholder' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const AddAdditionalInsured = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'additionalInsured' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const AddInterest = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'additionalInterest' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const AddBillpayer = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'billPayer' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const handleGetQuestions = (state) => {
@@ -103,7 +103,7 @@ const handleInitialize = (state) => {
 
 export const AddAdditionalInterest = props => (
   <div className="route-content">
-    {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
+    {props.appState.data.submitting && <Loader />}
     <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={props.handleSubmit(noAddAdditionalInterestSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">

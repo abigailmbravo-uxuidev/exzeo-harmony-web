@@ -9,6 +9,7 @@ import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelper
 import FieldGenerator from '../Form/FieldGenerator';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   formSubmit: 'askToCustomizeDefaultQuote',
@@ -114,6 +115,7 @@ export const Customize = (props) => {
 
   return (
     <div className="route-content">
+      {props.appState.data.submitting && <Loader />}
       <Form
         className="fade-in"
         id="Customize"

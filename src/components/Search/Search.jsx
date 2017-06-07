@@ -10,6 +10,7 @@ import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
@@ -53,6 +54,7 @@ const Search = props => (
         <SearchBar />
         <div className="survey-wrapper scroll">
           <div className="results-wrapper">
+            { props.appState.data.submitting && <Loader /> }
             <NoResultsConnect />
             <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
           </div>

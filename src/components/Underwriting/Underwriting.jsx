@@ -8,7 +8,7 @@ import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
-import TaskRunnerConnect from '../Workflow/TaskRunner';
+import Loader from '../Common/Loader';
 
 const userTasks = { formSubmit: 'askUWAnswers' };
 
@@ -16,8 +16,8 @@ const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const handleGetQuestions = (state) => {
@@ -61,7 +61,7 @@ export const Underwriting = props => {
 
   return (
     <div className="route-content">
-      {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
+      {props.appState.data.submitting && <Loader />}
       <Form
         id="Underwriting"
         onSubmit={handleSubmit(handleFormSubmit)}

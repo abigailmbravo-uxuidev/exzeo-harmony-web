@@ -9,7 +9,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
-import TaskRunnerConnect from '../Workflow/TaskRunner';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   sendEmailOrContinue: 'sendEmailOrContinue',
@@ -33,8 +33,8 @@ const noShareSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.sendEmailOrContinue;
   const taskData = { shouldSendEmail: 'No' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName, taskData });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 const shareQuoteSubmit = (data, dispatch, props) => {
@@ -78,7 +78,7 @@ const redirectToNewQuote = () => {
 
 export const Share = props => (
   <div className="route-content">
-    {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
+    {props.appState.data.submitting && <Loader />}
     <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={props.handleSubmit(noShareSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">

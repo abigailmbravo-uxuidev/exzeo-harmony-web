@@ -11,6 +11,7 @@ import FieldGenerator from '../Form/FieldGenerator';
 // import { setDetails } from '../../../actions/detailsActions';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   formSubmit: ''
@@ -125,6 +126,7 @@ export const Mortgagee = (props) => {
   } = props;
   return (
     <div className="route-content">
+      { props.appState.data.submitting && <Loader /> }
       <Form id="Mortgagee" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
