@@ -224,6 +224,14 @@ html {
                 .content-panel-left {}
 
                 .content-wrapper {
+
+                    @include for-tablet-portrait-up {
+                        margin-left: 4.75rem;
+                    }
+                    @include for-tablet-landscape-up {
+                        margin-left: 0;
+                    }
+
                     .workflow {
                         .route {
                             .route-content {
@@ -348,7 +356,14 @@ header {
             }
 
             .btn-bars {
-                display: none;
+                position: absolute;
+                left: 1rem;
+                display: flex;
+
+                i {
+                    color: $body-color;
+                    font-size: 1.5rem;
+                }
             }
         }
         @include for-tablet-landscape-up {
@@ -368,6 +383,12 @@ header {
             flex-shrink: 0;
             @include for-phone-only {
                 margin-left: 3rem;
+            }
+            @include for-tablet-portrait-up {
+                margin-left: 5rem;
+            }
+            @include for-tablet-landscape-up {
+                margin-left: 0;
             }
         }
 
@@ -862,262 +883,7 @@ main[role="document"] {
         }
     }
 }
-//main left panel navigation
-/*------------------------------------------------------------------------------------*/
-.content-panel-left {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    color: $warm-gray-12;
-    background: $warm-gray-02;
-    flex-shrink: 0;
-    flex-grow: 0;
-    align-self: stretch;
-    @include transition(all .2s ease-in-out);
-    @include for-phone-only {
-        position: absolute;
-        z-index: 100;
-        top: 0;
-        bottom: 0;
-        left: -15rem;
 
-        &.active {
-            left: 0;
-        }
-    }
-
-    .site-nav {
-        ul {
-            li {
-                a {
-                    i,
-                    span {
-                        color: $warm-gray-07;
-                    }
-
-                    &.active {
-                        border-left-color: $bright-blue-darken-04;
-                        font-weight: $font-weight-bold;
-
-                        i {
-                            color: $bright-blue-darken-04;
-                        }
-
-                        span {
-                            color: $bright-blue-darken-04;
-                        }
-
-                        &:hover {
-                            text-decoration: none;
-                        }
-                    }
-
-                    &.agent-dashboard {
-                        i {
-                            &:before {
-                                content: "\f009";
-                            }
-                        }
-                    }
-
-                    &.agent-flood {
-                        i {
-                            &:before {
-                                content: "\f043";
-                            }
-                        }
-
-                        &.retrieve {
-                            i {
-                                &:before {
-                                    content: "\f1da";
-                                }
-                            }
-                        }
-
-                        &.new {
-                            i {
-                                &:before {
-                                    content: "\f055";
-                                }
-                            }
-                        }
-                    }
-
-                    &.agent-homeowners {
-                        i {
-                            &:before {
-                                content: "\f015";
-                            }
-                        }
-
-                        &.retrieve {
-                            i {
-                                &:before {
-                                    content: "\f1da";
-                                }
-                            }
-                        }
-
-                        &.new {
-                            i {
-                                &:before {
-                                    content: "\f055";
-                                }
-                            }
-                        }
-                    }
-
-                    &.csr-dashboard {
-                        i {
-                            &:before {
-                                content: "\f009";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .csr {
-        width: auto;
-        min-height: 4.75rem;
-        padding: ($padding) ($padding*2);
-        border-bottom: 2px solid $white;
-        background-color: $warm-gray-03;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        @include transition(all .2s ease-in-out);
-        @include for-tablet-portrait-up {
-            display: none;
-        }
-        @include for-tablet-landscape-up {
-            display: flex;
-            flex-direction: column;
-            width: 12rem;
-        }
-        h3 {
-            color: $warm-gray-01;
-            margin: 0;
-        }
-    }
-
-    .user {
-        width: auto;
-        min-height: 4.75rem;
-        padding: ($padding) ($padding*2);
-        border-bottom: 2px solid $white;
-        background-color: $warm-gray-08;
-        @include transition(all .2s ease-in-out);
-        @include for-tablet-portrait-up {
-            display: none;
-        }
-        @include for-tablet-landscape-up {
-            display: flex;
-            flex-direction: column;
-            width: 12rem;
-        }
-
-        label {
-            margin: 0;
-            color: $white;
-            font-size: $font-size-sm;
-        }
-
-        .user-name {
-            display: flex;
-            margin: 0;
-            color: $white;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: auto;
-            align-items: center;
-            @include for-phone-only {
-                max-width: 11rem;
-            }
-            @include for-tablet-portrait-up {
-                display: none;
-            }
-            @include for-tablet-landscape-up {
-                display: flex;
-            }
-
-            span {
-                overflow: hidden;
-                padding-right: $padding;
-                text-overflow: ellipsis;
-                flex-grow: 0;
-                flex-shrink: 1;
-
-                div {
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                }
-
-                @include for-tablet-landscape-up {
-                    width: 9rem;
-                    flex-basis: 9rem;
-                }
-            }
-
-            i {
-                text-align: center;
-                font-size: 1rem;
-                flex-grow: 0;
-                flex-shrink: 0;
-                flex-basis: 1rem;
-            }
-        }
-    }
-
-    .logout {
-        display: flex;
-        width: 3rem;
-        height: 3rem;
-        margin: 0.875rem;
-        padding: ($padding) 0;
-        border-radius: 50%;
-        align-items: center;
-        justify-content: center;
-        @include for-tablet-landscape-up {
-            width: auto;
-            height: auto;
-            margin: 0 ($padding);
-            padding: ($padding) 0;
-            border-radius: $btn-border-radius;
-        }
-        @include for-phone-only {
-            width: auto;
-            height: auto;
-            margin: 0 ($padding);
-            padding: ($padding) 0;
-            border-radius: $btn-border-radius;
-        }
-
-        i {
-            margin-right: 0;
-            @include for-tablet-landscape-up {
-                margin-right: $padding;
-            }
-            @include for-phone-only {
-                margin-right: $padding;
-            }
-        }
-
-        span {
-            display: none;
-            @include for-tablet-landscape-up {
-                display: block;
-            }
-            @include for-phone-only {
-                display: block;
-            }
-        }
-    }
-}
 //search
 /*------------------------------------------------------------------------------------*/
 @import "partials/_search"; //search partial
@@ -1598,8 +1364,12 @@ footer {
                                 flex-grow: 0;
                                 flex-shrink: 0;
                                 flex-basis: 45%;
-                                @include for-phone-only {
-                                    font-size: $font-size-sm;
+                                font-size: $font-size-sm;
+                                padding: ($padding/2) $padding;
+
+                                @include for-tablet-landscape-up {
+                                    font-size: $font-size-h5;
+                                    padding: ($padding*.75) ($padding*1.5);
                                 }
                             }
                         }
@@ -3043,7 +2813,6 @@ ul.list-cards {
     }
 }
 
-
 .nav-modal {
     position: absolute;
     top: 3.375rem;
@@ -3069,20 +2838,31 @@ ul.list-cards {
     background: rgba($black, 0);
     z-index: 20;
     visibility: hidden;
-    @include transition(all .1s ease-in-out);
 
     &.active {
         visibility: visible;
         background: rgba($black, .7);
+
+        @include for-tablet-landscape-up {
+            visibility: hidden;
+        }
     }
 }
 .blur {
     + main[role="document"] {
         .content-wrapper {
             filter: blur(5px);
+
+            @include for-tablet-landscape-up {
+                filter: blur(0);
+            }
         }
     }
     .content-wrapper {
         filter: blur(5px);
+
+        @include for-tablet-landscape-up {
+            filter: blur(0);
+        }
     }
 }
