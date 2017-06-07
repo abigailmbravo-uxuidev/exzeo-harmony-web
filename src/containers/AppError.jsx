@@ -21,8 +21,10 @@ export const AppError = (props, context) => {
                           <div id="Error">
                               <div className="detail-wrapper">
                                   <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"/> Application Error</h3>
-                                  <h4>We're sorry, something seems to have went wrong.</h4>
-                                  <p>Please start your quote over or contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
+                                  <h4>We're sorry, something has gone wrong.</h4>
+                                  <p>Please go back to the <a href="/">Dashboard</a> to start over or contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.
+</p>
+                                  <a href="/" className="btn btn-secondary"><i className="fa fa-th-large"></i> Return to Dashboard</a>
                               </div>
                           </div>
                       </section>
