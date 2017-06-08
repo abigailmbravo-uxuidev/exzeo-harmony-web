@@ -1,19 +1,10 @@
-import React, {
-  Component,
-  PropTypes
-} from 'react';
-import {
-  bindActionCreators
-} from 'redux';
-import {
-  connect
-} from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
-import TaskRunnerConnect from '../Workflow/TaskRunner';
-// import Loader from '../Common/Loader';
 
 const workflowDetailsModelName = 'quoteModelGetQuote';
 
@@ -35,7 +26,6 @@ const goToStep = (props, taskName) => {
   // don't allow submission until the other step is completed
   if (props.appState.data.submitting) return;
 
-  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
   const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
 
   if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
