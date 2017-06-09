@@ -33,7 +33,7 @@ const handleFormSubmit = (data, dispatch, props) => {
       ...updatedQuote,
       dwellingAmount: updatedQuote.dwellingAmount,
       otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount),
-      personalPropertyAmount: ((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount),
+      personalPropertyAmount: Math.round(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
       personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
       propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
       propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
