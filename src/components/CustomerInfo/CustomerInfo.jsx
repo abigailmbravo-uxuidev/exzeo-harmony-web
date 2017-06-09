@@ -30,7 +30,6 @@ const handleFormSubmit = (data, dispatch, props) => {
     taskData.EmailAddress2 = '';
     taskData.phoneNumber2 = '';
   }
-  console.log(props.fieldValues.phoneNumber, 'this is props');
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
