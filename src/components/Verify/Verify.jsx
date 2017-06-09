@@ -10,7 +10,7 @@ import { CheckField } from '../Form/inputs';
 import Footer from '../Common/Footer';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
-
+import normalizePhone from '../Form/normalizePhone';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -251,7 +251,7 @@ export const Verify = (props) => {
                          </div>
                          <div className="contact-phone">
                            <dt>Phone Number</dt>
-                           <dd>{policyHolder.primaryPhoneNumber}</dd>
+                           <dd>{normalizePhone(policyHolder.primaryPhoneNumber)}</dd>
                          </div>
                          <div className="contact-email">
                            <dt>Email</dt>
