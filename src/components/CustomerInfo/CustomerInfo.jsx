@@ -30,7 +30,8 @@ const handleFormSubmit = (data, dispatch, props) => {
     taskData.EmailAddress2 = '';
     taskData.phoneNumber2 = '';
   }
-
+  taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
+  taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
