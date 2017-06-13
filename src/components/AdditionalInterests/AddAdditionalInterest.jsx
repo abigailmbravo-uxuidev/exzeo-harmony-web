@@ -110,7 +110,7 @@ export const AddAdditionalInterest = props => (
           <p>Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)</p>
           <div className="button-group">
             <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-            <button className="btn btn-secondary" type="button" onClick={() => AddLienholder(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button>
+            {/* <button className="btn btn-secondary" type="button" onClick={() => AddLienholder(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button> */ }
             <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInsured(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
             <button className="btn btn-secondary" type="button" onClick={() => AddInterest(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
             <button className="btn btn-secondary" type="button" onClick={() => AddBillpayer(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button>
@@ -128,7 +128,7 @@ export const AddAdditionalInterest = props => (
                       <h4>{`${question.name2}`}</h4>
                       <p className="address">
                         {`${question.mailingAddress.address1}`}
-                        {question.mailingAddress.address2 ? `, ${question.mailingAddress.address2}` : ``}
+                        {question.mailingAddress.address2 ? `, ${question.mailingAddress.address2}` : ''}
                       </p>
                       <p>
                         {`${question.mailingAddress.city}, `}
