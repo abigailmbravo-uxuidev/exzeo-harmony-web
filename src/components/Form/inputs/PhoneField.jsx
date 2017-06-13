@@ -43,7 +43,7 @@ export const PhoneInput = ({
   </label>);
 
   return (
-    <div className={formGroupStyles}>
+    <div className={formGroupStyles} id={name}>
       {Label}
       <Field
         name={name}
