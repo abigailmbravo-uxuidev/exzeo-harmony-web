@@ -29,17 +29,18 @@ const handleFormSubmit = (data, dispatch, props) => {
   } else {
     // the form was modified and now we need to recalc
     const updatedQuote = convertQuoteStringsToNumber(data);
+
     const updatedQuoteResult = {
       ...updatedQuote,
       dwellingAmount: updatedQuote.dwellingAmount,
-      otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount),
-      personalPropertyAmount: Math.round(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
+      otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
+      personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
       personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
       propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
       propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
-      lossOfUse: ((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount),
+      lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
       liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-      calculatedHurricane: ((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount)
+      calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount))
     };
 
     // Remove the sinkhole attribute from updatedQuoteResult
