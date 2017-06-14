@@ -308,7 +308,7 @@ $btn-danger-color:               $white !default;
 $btn-danger-bg:                  $red-darken-01 !default;
 $btn-danger-border:              $btn-danger-bg !default;
 
-$btn-link-color:               $bright-blue-darken-04 !default;
+$btn-link-color:               $link-color !default;
 $btn-link-bg:                  rgba(0,0,0,0) !default;
 $btn-link-border:              $btn-link-bg !default;
 
@@ -490,7 +490,7 @@ $card-border-width:        1px !default;
 $card-border-radius:       $border-radius !default;
 $card-border-color:        rgba(0,0,0,.125) !default;
 $card-border-radius-inner: calc(#{$card-border-radius} - #{$card-border-width}) !default;
-$card-cap-bg:              $bright-blue-darken-04 !default;
+$card-cap-bg:              $warm-gray-02 !default;
 $card-bg:                  $white !default;
 
 $card-link-hover-color:    $white !default;
@@ -674,5 +674,8 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
-  -webkit-box-shadow: 0 0 0px 1000px $yellow-lighten-06 inset;
+  -webkit-box-shadow: 0 0 0px 1000px rgba($green-lighten-04, .125) inset;
 }
+
+//modal
+$modal-bg: rgba($black, .75);

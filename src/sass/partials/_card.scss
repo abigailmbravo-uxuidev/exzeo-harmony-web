@@ -1,4 +1,5 @@
 .card {
+  z-index: 10;
   display: flex;
   flex-direction: column;
   margin-right: $card-deck-margin;
@@ -48,8 +49,7 @@
       h4,
       h5,
       h6 {
-        margin: 0 (-$padding*2.5) (-$padding*1.75);
-        padding: $padding;
+        margin: 0;
         color: $white;
         flex-basis: auto;
       }
@@ -71,6 +71,13 @@
     h5,
     h6 {
       margin-top: 0;
+    }
+
+    .form-group {
+      &:last-child {
+        padding-bottom: 0;
+        border-bottom-width: 0;
+      }
     }
   }
 
@@ -100,8 +107,8 @@
     }
 
     .btn-group {
-        margin-top: $padding;
       display: flex;
+      margin-top: $padding;
       justify-content: flex-end;
     }
 

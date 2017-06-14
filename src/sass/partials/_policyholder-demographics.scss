@@ -1,0 +1,74 @@
+#CustomerInfo {
+  .survey-wrapper {
+    .section-group-header {
+      .fa {
+        font-family: $font-family-icon;
+
+        &.Policy.Holder {
+          &.Primary {
+            &:before {
+              content: "\f2bd";
+            }
+          }
+
+          &.Secondary {
+            &:before {
+              content: "\f2bd";
+            }
+          }
+        }
+
+        &.Policy.Details {
+          &:before {
+            content: "\f15c";
+          }
+        }
+      }
+    }
+
+    .FirstName,
+    .FirstName2 {
+      @include for-tablet-portrait-up {
+        width: 40%;
+        padding-right: $padding*2;
+      }
+    }
+
+    .LastName,
+    .LastName2 {
+      @include for-tablet-portrait-up {
+        width: 60%;
+      }
+    }
+
+    .EmailAddress,
+    .EmailAddress2 {
+      @include for-tablet-portrait-up {
+        width: 60%;
+        padding-right: $padding*2;
+      }
+    }
+
+    .phoneNumber,
+    .phoneNumber2 {
+      @include for-tablet-portrait-up {
+        width: 40%;
+        padding-right: $padding*2;
+      }
+    }
+
+    .effectiveDate {
+      @include for-tablet-portrait-up {
+        width: 40%;
+        padding-right: $padding*2;
+      }
+    }
+
+    .agentID {
+      @include for-tablet-portrait-up {
+        width: 60%;
+        padding-right: $padding*2;
+      }
+    }
+  }
+}

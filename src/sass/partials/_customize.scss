@@ -1,0 +1,79 @@
+#Customize {
+  overflow-y: auto;
+  flex-grow: 1;
+
+  .section-group-header {
+    i {
+      margin-right: $padding;
+
+      &:before {
+        font-family: $font-family-icon;
+      }
+
+      &.Coverage {
+        &.Limits {
+          &:before {
+            content: "\f201";
+          }
+        }
+
+        &.Options {
+          &:before {
+            content: "\f0ae";
+          }
+        }
+      }
+
+      &.Deductibles {
+        &:before {
+          content: "\f0d6";
+        }
+      }
+
+      &.Mitigation {
+        &:before {
+          content: "\f024";
+        }
+      }
+
+      &.Discounts {
+        &:before {
+          content: "\f0c4";
+        }
+      }
+    }
+  }
+
+  .form-group.survey-wrapper {
+    input[readonly] {
+      color: $body-color;
+      border-bottom: 2px solid $warm-gray-01;
+      background-color: rgba($white, 0);
+    }
+
+    .form-group {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &.range-component,
+      &.range-component,
+      &.segmented {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        .range-wrapper,
+        .segmented-answer-wrapper,
+        label {
+          width: 100%;
+        }
+      }
+      &.lossOfUseAmount, &.medicalPayments {
+          input {
+            flex-basis: 6.5rem;
+          }
+      }
+    }
+  }
+}

@@ -1,6 +1,4 @@
 /*BASE LAYOUT & STYLES*/
-/*|||||||||||||||||||||||||||||||||||||||||||||||||
-|||||||||||||||||||||||||||||||||||||||||||||||||*/
 @import "partials/_mixins";
 @import "partials/_variables";
 @import "partials/utilities/_flex";
@@ -18,20 +16,10 @@
 //@import "partials/_grid";
 //@import "partials/_tabs";
 @import "partials/_workflow";
-@import "https://fonts.googleapis.com/css?family=Roboto:100,300,500"; //base
-//links
+//base fonts
 /*------------------------------------------------------------------------------------*/
-a {
-    text-decoration: none;
-    color: $bright-blue-lighten-01;
-    @include transition(all .2s ease-in-out);
-
-    &:hover {
-        text-decoration: none;
-        color: $blue-darken-02;
-    }
-}
-//buttons
+@import "https://fonts.googleapis.com/css?family=Roboto:100,300,500"; //base
+//buttons & links
 /*------------------------------------------------------------------------------------*/
 @import "partials/_buttons"; //inputs & forms
 //inputs & forms
@@ -41,164 +29,24 @@ a {
 //vertical tabs
 /*------------------------------------------------------------------------------------*/
 @import "partials/_nav"; //vertical tab partial
-//form elements
-/*------------------------------------------------------------------------------------*/
-label {
-    color: $bright-blue-darken-04;
-}
 //details & surveys
 /*------------------------------------------------------------------------------------*/
-.detail-wrapper,
-.survey-wrapper {
-    flex-direction: row;
-    padding: ($padding*2) ($padding*2) 0;
-    flex-wrap: wrap;
-    flex-shrink: 0;
-    flex-grow: 1;
-    align-content: flex-start;
-
-    .section-group-header {
-        width: 100%;
-        margin: (-$padding) (-$padding/2) ($padding*2);
-        padding: ($padding);
-        color: $bright-blue-darken-04;
-        font-size: $font-size-h2;
-        @include for-phone-only {
-            font-size: $font-size-h3;
-        }
-    }
-
-    &.form-group {
-        margin-bottom: 0;
-        flex-grow: 0;
-
-        .display-element {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                flex-basis: auto;
-            }
-        }
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin-top: 0;
-
-        &.step-title {
-            color: $body-color;
-        }
-
-        &.step-sub-title {
-            color: $warm-gray-11;
-        }
-    }
-
-    ul {
-        padding-left: $padding*2;
-        list-style: disc;
-
-        ul {
-            padding-left: $padding*2;
-            list-style: circle;
-        }
-    }
-
-    .form-group {
-        padding-bottom: 3.052rem;
-        border-bottom: 1px dashed $warm-gray-02;
-        @include for-phone-only {
-            padding-bottom: 1.563rem;
-        }
-
-        label {
-            font-size: $font-size-h4;
-            @include for-phone-only {
-                font-size: $font-size-h5;
-            }
-        }
-    }
-
-    .section-group-header {
-        flex-grow: 1;
-    }
-}
+@import "partials/_wrapper"; //detail, survey
 //cards
 /*------------------------------------------------------------------------------------*/
 @import "partials/_card"; //card partial
-
 .card {
-    z-index: 10;
-
-    .card-header {
-        background-color: $warm-gray-01;
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            margin: 0;
-        }
-    }
-
-    .card-block {
-        .form-group {
-            &:last-child {
-                padding-bottom: 0;
-                border-bottom-width: 0;
-            }
-        }
-    }
-
-    .card-footer {
-        background-color: $warm-gray-02;
-    }
-
     &.card-schedule-date {
         max-width: 32rem;
     }
 }
 //modal
 /*------------------------------------------------------------------------------------*/
-.modal {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba($black, .75);
-    z-index: 999999;
+@import "partials/_modal"; //modal partial
 
-    &.schedule-date-modal {
-        display: flex;
-        flex-direction: column;
 
-        .survey-wrapper {
-            display: flex;
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-        }
-    }
-}
 //APP SPECIFIC STYLES
-/*|||||||||||||||||||||||||||||||||||||||||||||||||
-|||||||||||||||||||||||||||||||||||||||||||||||||*/
+
 //main site structure
 /*------------------------------------------------------------------------------------*/
 html {
@@ -240,6 +88,7 @@ html {
                                 flex-direction: column;
                                 height: auto;
                                 flex-grow: 1;
+                                position: relative;
 
                                 .main,
                                 form {
@@ -888,27 +737,7 @@ main[role="document"] {
 /*------------------------------------------------------------------------------------*/
 @import "partials/_search"; //search partial
 
-.search {
-    z-index: 10;
-    display: flex;
-    width: 100%;
-    height: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    transition: margin 0.5s;
-    opacity: 1;
-    background: $white;
-    align-items: flex-start;
 
-    .results,
-    .results-wrapper {
-        flex-grow: 1;
-
-        .survey-wrapper {
-            padding: $padding*2;
-        }
-    }
-}
 //workflow including stepper and left aside
 /*------------------------------------------------------------------------------------*/
 .workflow {
@@ -1263,26 +1092,7 @@ main[role="document"] {
 }
 //footer
 /*------------------------------------------------------------------------------------*/
-footer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    flex-shrink: 0;
-
-    div[role="banner"] {
-        width: 100%;
-        margin-bottom: 0;
-        padding: $padding ($padding*2);
-        border-top: $border-width dotted $border-color;
-        background: $white;
-        @include for-phone-only {
-            small {
-                font-size: $xsmall-font-size;
-            }
-        }
-    }
-}
+@import "partials/_footer"; //footer partial
 //ROUTE SPECIFIC STYLES
 /*|||||||||||||||||||||||||||||||||||||||||||||||||
 |||||||||||||||||||||||||||||||||||||||||||||||||*/
@@ -1847,157 +1657,14 @@ ul.list-cards {
         }
     }
 }
-//Demographics/Customer Info page
+//Policyholder Demographics/Customer Info page
 /*------------------------------------------------------------------------------------*/
-#CustomerInfo {
-    .survey-wrapper {
-        .section-group-header {
-            .fa {
-                font-family: $font-family-icon;
-
-                &.Policy.Holder {
-                    &.Primary {
-                        &:before {
-                            content: "\f2bd";
-                        }
-                    }
-
-                    &.Secondary {
-                        &:before {
-                            content: "\f2bd";
-                        }
-                    }
-                }
-
-                &.Policy.Details {
-                    &:before {
-                        content: "\f15c";
-                    }
-                }
-            }
-        }
-
-        .FirstName, .FirstName2 {
-            @include for-tablet-portrait-up {
-                width: 40%;
-                padding-right: $padding*2;
-            }
-        }
-
-        .LastName, .LastName2 {
-            @include for-tablet-portrait-up {
-                width: 60%;
-            }
-        }
-
-        .EmailAddress, .EmailAddress2 {
-            @include for-tablet-portrait-up {
-                width: 60%;
-                padding-right: $padding*2;
-            }
-        }
-
-        .phoneNumber, .phoneNumber2 {
-            @include for-tablet-portrait-up {
-                width: 40%;
-                padding-right: $padding*2;
-            }
-        }
-
-        .effectiveDate {
-            @include for-tablet-portrait-up {
-                width: 40%;
-                padding-right: $padding*2;
-            }
-        }
-
-        .agentID {
-            @include for-tablet-portrait-up {
-                width: 60%;
-                padding-right: $padding*2;
-            }
-        }
-    }
-}
+@import "partials/_policyholder-demographics";
 //Underwriting page
 /*------------------------------------------------------------------------------------*/
-#Underwriting {}
 //Customize Quote page
 /*------------------------------------------------------------------------------------*/
-#Customize {
-    overflow-y: auto;
-    flex-grow: 1;
-
-    .section-group-header {
-        i {
-            margin-right: $padding;
-
-            &:before {
-                font-family: $font-family-icon;
-            }
-
-            &.Coverage {
-                &.Limits {
-                    &:before {
-                        content: "\f201";
-                    }
-                }
-
-                &.Options {
-                    &:before {
-                        content: "\f0ae";
-                    }
-                }
-            }
-
-            &.Deductibles {
-                &:before {
-                    content: "\f0d6";
-                }
-            }
-
-            &.Mitigation {
-                &:before {
-                    content: "\f024";
-                }
-            }
-
-            &.Discounts {
-                &:before {
-                    content: "\f0c4";
-                }
-            }
-        }
-    }
-
-    .form-group.survey-wrapper {
-        input[readonly] {
-            color: $body-color;
-            border-bottom: 2px solid $warm-gray-01;
-            background-color: rgba($white, 0);
-        }
-
-        .form-group {
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-
-            &.range-component,
-            &.range-component,
-            &.segmented {
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: flex-start;
-
-                .range-wrapper,
-                .segmented-answer-wrapper,
-                label {
-                    width: 100%;
-                }
-            }
-        }
-    }
-}
+@import "partials/_customize";
 //Share
 /*------------------------------------------------------------------------------------*/
 #SharePage {
@@ -2022,7 +1689,7 @@ ul.list-cards {
     left: 0;
     display: none;
     flex-direction: column;
-    background: rgba($black, .8);
+    background: $modal-bg;
     align-items: center;
     @include animation( 'fade-in .25s 1');
 
@@ -2044,9 +1711,6 @@ ul.list-cards {
         }
     }
 }
-//Assumptions
-/*------------------------------------------------------------------------------------*/
-#Assumptions {}
 //Additional Interests
 /*------------------------------------------------------------------------------------*/
 #AddAdditionalInterestPage {
@@ -2174,78 +1838,7 @@ ul.list-cards {
 }
 //Mailing & Billing
 /*------------------------------------------------------------------------------------*/
-#Billing {
-    .installment-term {
-        dl {
-            dt {
-                margin-top: $padding/2;
-                color: $blue-darken-02;
-                font-weight: $font-weight-bold;
-
-                &:first-child {
-                    margin-top: 0;
-                }
-            }
-
-            dd {
-                margin-bottom: 0;
-
-                &:nth-of-type(odd) {
-                    background: $warm-gray-01;
-                }
-            }
-        }
-    }
-}
-
-.MailingAddress-component {
-    .address1 {
-        width: 100%;
-        flex-grow: 1;
-        flex-shrink: 0;
-    }
-
-    .address2 {
-        width: 100%;
-        flex-grow: 1;
-        flex-shrink: 0;
-    }
-
-    .country {
-        width: 100%;
-        flex-grow: 1;
-        flex-shrink: 0;
-    }
-
-    .city {
-        width: 100%;
-        flex-grow: 1;
-        flex-shrink: 0;
-        @include for-tablet-portrait-up {
-            width: auto;
-        }
-    }
-
-    .state {
-        width: 100%;
-        flex-grow: 0;
-        flex-shrink: 0;
-        @include for-tablet-portrait-up {
-            width: 6rem;
-            flex-grow: 0;
-        }
-    }
-
-    .zip {
-        width: 100%;
-        flex-grow: 0;
-        flex-shrink: 0;
-        @include for-tablet-portrait-up {
-            width: 8rem;
-            flex-grow: 0;
-        }
-    }
-}
+@import "partials/_mailing-billing"; //inputs & forms
 //verify & write policy
 /*------------------------------------------------------------------------------------*/
 .verify {
@@ -2523,215 +2116,9 @@ ul.list-cards {
         }
     }
 }
-//Quote Error
+//General & Quote Error
 /*------------------------------------------------------------------------------------*/
-.app-wrapper {
-    &.error {
-
-        .route {
-            width: 100%;
-            align-self: stretch;
-            display: flex;
-            flex-direction: column;
-
-            .route-content {
-                align-self: stretch;
-                flex-grow: 1;
-                flex-shrink: 0;
-                display: flex;
-                flex-direction: column;
-            }
-        }
-    }
-}
-.error-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-
-    .quote-details-error {
-        display: flex;
-        min-height: 4.75rem;
-        padding: $padding;
-        background-color: $orange-lighten-03;
-
-        .display-element {
-            flex-grow: 0;
-            flex-shrink: 0;
-
-            .quote-number {
-                margin-right: $padding*2;
-            }
-
-            dl {
-                margin-bottom: 0;
-
-                dt {
-                    font-size: $font-size-h6;
-                }
-
-                dd {
-                    margin-bottom: 0;
-
-                    + dd {
-                        font-size: $font-size-h6;
-                    }
-                }
-            }
-        }
-    }
-
-    .error-wrapper {
-        flex-grow: 1;
-        display: flex;
-        overflow-y: auto;
-        flex-direction: row;
-        flex-direction: row;
-        flex-basis: 100%;
-        @include for-phone-only {
-            flex-direction: column-reverse;
-            justify-content: center;
-        }
-
-        section {
-            display: flex;
-            overflow-y: auto;
-            flex-grow: 1;
-
-            #Error {
-                width: auto;
-                height: 100%;
-
-                .detail-wrapper {
-                    position: relative;
-                    width: 100%;
-
-                    ul {
-                        margin: 0;
-                        padding: 0;
-                        list-style: none;
-
-                        &.error-list {
-                            list-style: disc;
-                            padding-left: $padding;
-                            margin: $padding;
-                            color: $red;
-
-                            li {
-                                &.warning-li {
-                                    color: $orange-darken-01;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        aside {
-            display: flex;
-            flex-direction: column;
-            width: 12rem;
-            padding: $padding;
-            flex-grow: 0;
-            flex-shrink: 0;
-            align-items: center;
-            @include for-phone-only {
-                flex-direction: row;
-                width: 100%;
-            }
-
-            .image {
-                width: 10rem;
-                height: 10rem;
-                margin-right: $padding;
-                border: 5px solid $bright-blue-darken-01;
-                border-radius: 50%;
-                background-image: url('../img/csr.jpg');
-                background-position: right center;
-                background-size: cover;
-                flex-basis: 10rem;
-                flex-grow: 0;
-                flex-shrink: 0;
-                @include for-phone-only {
-                    width: 8rem;
-                    height: 8rem;
-                    flex-basis: 8rem;
-                }
-            }
-
-            .contact-info {
-                display: flex;
-                flex-direction: column;
-                margin-top: $padding;
-
-                a {
-                    margin: $padding;
-                    font-size: $font-size-h4;
-                    @include for-phone-only {
-                        font-size: $font-size-h5;
-                    }
-                }
-            }
-        }
-    }
-
-    &.pop-up {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        overflow-y: auto;
-        background: rgba($black, .8);
-
-        .survey-wrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            .contact-message {
-                .card {
-                    width: auto;
-                    max-width: 36rem;
-                    margin: $padding 0;
-                    @include for-phone-only {
-                        max-width: 19.375rem;
-                        margin: 0 0 ($padding*2);
-                    }
-
-                    .error {
-                        color: $red-darken-01;
-                    }
-
-                    .card-header {
-                        background: rgba($red-darken-01,1);
-
-                        h1,
-                        h2,
-                        h3,
-                        h4,
-                        h5,
-                        h6 {
-                            background: rgba($red-darken-01,.9);
-                        }
-                    }
-
-                    .contact-methods {
-                        display: flex;
-                        align-items: center;
-
-                        a {
-                            margin: $padding ($padding*2) ($padding*2) 0;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+@import "partials/_error"; //errors
 //Thanks Page
 /*------------------------------------------------------------------------------------*/
 #thanks {
@@ -2739,47 +2126,6 @@ ul.list-cards {
     flex-direction: column;
     height: auto;
     flex-grow: 1;
-}
-//General Errors
-/*------------------------------------------------------------------------------------*/
-.error-wrapper {
-    .fade-in {
-        height: 100%;
-
-        .route {
-            height: 100%;
-
-            .error-content {
-                .fade-in {
-                    display: flex;
-                    flex-direction: row;
-                    width: 100%;
-
-                    section {
-                        flex-grow: 1;
-                        flex-shrink: 0;
-
-                        #Error.fade-in {
-                            width: 100%;
-
-                            .detail-wrapper {
-                                position: relative;
-                                width: 100%;
-                                padding-bottom: 0;
-                            }
-                        }
-                    }
-
-                    aside {
-                        flex-shrink: 0;
-                        flex-grow: 0;
-                    }
-                }
-
-                footer {}
-            }
-        }
-    }
 }
 @import "partials/_loader"; //loader
 /*------------------------------------------------------------------------------------*/
@@ -2826,7 +2172,7 @@ ul.list-cards {
 
     &.active {
         visibility: visible;
-        background: rgba($black, .7);
+        background: $modal-bg;
     }
 }
 .aside-modal {
@@ -2841,7 +2187,7 @@ ul.list-cards {
 
     &.active {
         visibility: visible;
-        background: rgba($black, .7);
+        background: $modal-bg;
 
         @include for-tablet-landscape-up {
             visibility: hidden;
