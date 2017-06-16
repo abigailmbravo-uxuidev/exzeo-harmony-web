@@ -86,6 +86,7 @@
     padding: $card-spacer-y $card-spacer-x;
     border-top: $card-border-width solid $card-border-color;
     background-color: $card-cap-bg;
+    align-items: center;
     justify-content: flex-end;
     flex-shrink: 0;
     flex-grow: 0;
@@ -108,7 +109,6 @@
 
     .btn-group {
       display: flex;
-      margin-top: $padding;
       justify-content: flex-end;
     }
 
@@ -116,4 +116,10 @@
       @include border-radius(0 0 $card-border-radius-inner $card-border-radius-inner);
     }
   }
+}
+
+.modal {
+    .card {
+         box-shadow: $card-box-shadow-modal;
+    }
 }

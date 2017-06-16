@@ -6,7 +6,6 @@ import { reduxForm, Form, propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-import AIPopup from '../Common/AIPopup';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import Loader from '../Common/Loader';
 

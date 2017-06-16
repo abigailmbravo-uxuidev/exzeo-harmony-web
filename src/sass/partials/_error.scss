@@ -149,10 +149,10 @@
       .contact-message {
         .card {
           width: auto;
-          max-width: 36rem;
+          //max-width: 36rem;
           margin: $padding 0;
           @include for-phone-only {
-            max-width: 19.375rem;
+            //max-width: 19.375rem;
             margin: 0 0 ($padding*2);
           }
 
@@ -161,15 +161,28 @@
           }
 
           .card-header {
-            background: rgba($red-darken-01,1);
-
             h1,
             h2,
             h3,
             h4,
             h5,
             h6 {
-              background: rgba($red-darken-01,.9);
+              margin-bottom: 0;
+              color: $red-darken-01;
+            }
+          }
+
+          .error-property-details {
+            display: flex;
+
+            .quote-number {
+              margin-right: $padding*4;
+            }
+
+            .property-information {
+              dd {
+                margin-bottom: 0;
+              }
             }
           }
 

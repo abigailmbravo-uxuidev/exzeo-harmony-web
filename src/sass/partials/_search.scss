@@ -31,7 +31,7 @@
         align-items: flex-start;
 
         &.first-name-search {
-          @include for-tablet-portrait-up {
+          @include for-tablet-landscape-up {
             flex-basis: 10rem;
             flex-shrink: 0;
             flex-grow: 0;
@@ -39,7 +39,7 @@
         }
 
         &.last-name-search {
-          @include for-tablet-portrait-up {
+          @include for-tablet-landscape-up {
             flex-basis: 10rem;
             flex-shrink: 0;
             flex-grow: 0;
@@ -47,7 +47,7 @@
         }
 
         &.property-search {
-          @include for-tablet-portrait-up {
+          @include for-tablet-landscape-up {
             width: auto;
             flex-basis: auto;
             flex-shrink: 0;
@@ -56,7 +56,7 @@
         }
 
         &.quote-no-search {
-          @include for-tablet-portrait-up {
+          @include for-tablet-landscape-up {
             flex-basis: 10rem;
             flex-shrink: 0;
             flex-grow: 0;
@@ -64,7 +64,7 @@
         }
 
         &.zip-search {
-          @include for-tablet-portrait-up {
+          @include for-tablet-landscape-up {
             flex-basis: 7rem;
             flex-shrink: 0;
             flex-grow: 0;
@@ -92,6 +92,18 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         line-height: 1;
+
+        span {
+          @include for-phone-only {
+            display: none;
+          }
+        }
+
+        i.fa-search {
+          @include for-phone-only {
+            margin-right: 0;
+          }
+        }
 
         &.multi-input {
           margin-left: $padding;

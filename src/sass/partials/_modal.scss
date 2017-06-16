@@ -21,3 +21,59 @@
     }
   }
 }
+
+//Modals for navigation menus on phones only
+/*------------------------------------------------------------------------------------*/
+.nav-modal {
+  position: absolute;
+  z-index: 20;
+  top: 3.375rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  visibility: hidden;
+  background: $modal-bg;
+  @include transition(all .1s ease-in-out);
+
+  &.active {
+    visibility: visible;
+    background: $modal-bg;
+  }
+}
+
+.aside-modal {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  visibility: hidden;
+  background: $modal-bg;
+
+  &.active {
+    visibility: visible;
+    background: $modal-bg;
+    @include for-tablet-landscape-up {
+      visibility: hidden;
+    }
+  }
+}
+
+.blur {
+  + main[role="document"] {
+    .content-wrapper {
+      filter: blur(5px);
+      @include for-tablet-landscape-up {
+        filter: blur(0);
+      }
+    }
+  }
+
+  .content-wrapper {
+    filter: blur(5px);
+    @include for-tablet-landscape-up {
+      filter: blur(0);
+    }
+  }
+}

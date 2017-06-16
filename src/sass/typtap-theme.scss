@@ -665,12 +665,6 @@ select {
         background-color: $cool-gray-00;
     }
 }
-//modal
-/*------------------------------------------------------------------------------------*/
-.modal {
-    z-index: 10;
-    background: rgba($black, .75);
-}
 //TYPTAP APP SPECIFIC STYLES
 /*|||||||||||||||||||||||||||||||||||||||||||||||||
 |||||||||||||||||||||||||||||||||||||||||||||||||*/
@@ -843,13 +837,6 @@ main[role="document"] {
 
     .content-wrapper {
         > div {
-            &.login {
-                .modal {
-                    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, .85)), url('../img/typtap-login.jpg');
-                    background-position: center center;
-                    background-size: cover;
-                }
-            }
 
             > div[role="article"] {
                 background: $white;
@@ -876,15 +863,6 @@ main[role="document"] {
                                                     border-right-color: $cool-gray-00;
                                                 }
                                             }
-                                        }
-                                    }
-
-                                    .modal {
-                                        background: rgba($white, .5);
-                                        background-image: linear-gradient(rgba(256, 256, 256, 0.65), rgba(256, 256, 256, .7));
-
-                                        .card {
-                                            box-shadow: $card-box-shadow-alt;
                                         }
                                     }
                                 }
@@ -1130,7 +1108,7 @@ main[role="document"] {
                         color: $cool-gray-14;
 
                         i {
-                            color: $green;
+                            color: $green-darken-01;
                         }
                         &:focus,
                         &:hover {
@@ -1138,7 +1116,7 @@ main[role="document"] {
                             cursor: default;
 
                             i {
-                                color: $green;
+                                color: $green-darken-01;
                             }
                         }
                     }
@@ -1152,15 +1130,15 @@ main[role="document"] {
                     }
 
                     &.selected {
-                        color: $cool-gray-14;
+                        color: $cool-gray-07;
 
                         i {
-                            color: $cool-gray-06;
+                            color: $cool-gray-04;
                         }
 
                         &:focus,
                         &:hover {
-                            color: $bright-blue-darken-02;
+                            color: $cool-gray-08;
                             cursor: pointer;
 
                             i {
@@ -1585,6 +1563,10 @@ ul.result-cards {
                 color: $bright-blue;
                 cursor: pointer;
 
+                @include for-phone-only {
+                    top: $padding*2;
+                }
+
                 &:hover {
                     color: $bright-blue-lighten-01;
                 }
@@ -1600,6 +1582,10 @@ ul.result-cards {
                     bottom: 0;
                     top: auto;
                     left: 0;
+
+                    @include for-phone-only {
+                        left: 6rem;
+                    }
                 }
             }
 
@@ -1662,13 +1648,6 @@ ul.result-cards {
                     box-shadow: 0 0 50px rgba($black, .4);
 
                     .card-header-image-csr {
-                        height: 16rem;
-                        background-image: url('../img/csr.jpg');
-                        background-position: right center;
-                        background-size: cover;
-                        @include for-phone-only {
-                            height: 12rem;
-                        }
 
                         h1,
                         h2,
@@ -1677,6 +1656,7 @@ ul.result-cards {
                         h5,
                         h6 {
                             background: rgba($cool-gray-07,.9);
+                            padding: $padding ($padding*2);
                         }
                     }
                 }

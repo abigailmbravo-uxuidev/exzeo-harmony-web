@@ -17,7 +17,6 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 // import billingQuestions from '.BillingQuestions';
 import FieldGenerator from '../Form/FieldGenerator';
-import { combineRules } from '../Form/Rules';
 import Loader from '../Common/Loader';
 
 // ------------------------------------------------

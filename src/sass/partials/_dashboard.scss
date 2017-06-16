@@ -1,0 +1,294 @@
+.dashboard {
+  display: flex;
+  overflow: hidden;
+  overflow: hidden;
+  flex-direction: column;
+  height: auto;
+  flex-grow: 1;
+
+  .route {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .route-content {
+      display: flex;
+      overflow: hidden;
+      height: auto;
+      flex-grow: 1;
+
+      .scroll {
+        display: flex;
+        overflow-y: auto;
+        flex-direction: column;
+        flex-grow: 1;
+
+        .dashboard-message {
+          padding: ($padding*2) ($padding*2) 0;
+          @include for-phone-only {
+            display: none;
+          }
+        }
+
+        .product-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-start;
+          justify-content: space-around;
+          flex-grow: 0;
+          flex-shrink: 0;
+          @include for-phone-only {
+            flex-direction: column;
+          }
+
+          .product {
+            margin-bottom: $padding;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 0;
+            align-self: stretch;
+            @include for-phone-only {
+              margin: 0 0 2rem;
+              flex-grow: 0;
+              flex-basis: auto;
+            }
+
+            .card-header {
+              @include for-phone-only {
+                height: 2.5rem;
+              }
+            }
+
+            .card-block {
+              @include for-phone-only {
+                flex-grow: 0;
+              }
+            }
+
+            .card-footer {
+              justify-content: space-around;
+
+              .btn {
+                margin-left: 0;
+                padding: ($padding/2) $padding;
+                font-size: $font-size-sm;
+                flex-grow: 0;
+                flex-shrink: 0;
+                flex-basis: 45%;
+                @include for-tablet-landscape-up {
+                  padding: ($padding*.75) ($padding*1.5);
+                  font-size: $font-size-h5;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dashboard-message {
+  margin-bottom: $padding/2;
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 ($padding/2);
+    padding: $padding $padding*1.5;
+    @include for-phone-only {
+      flex-direction: column;
+    }
+
+    .icon-name {
+      display: flex;
+      overflow: hidden;
+      width: 12rem;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 12rem;
+      @include for-phone-only {
+        width: 100%;
+        flex-basis: auto;
+      }
+
+      i {
+        display: flex;
+        width: 2rem;
+        height: 2rem;
+        font-size: $font-size-h2;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 2rem;
+        justify-content: center;
+      }
+
+      h4 {
+        display: block;
+        overflow: hidden;
+        width: 10rem;
+        height: 2rem;
+        padding-right: $padding;
+        padding-left: $padding;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 2rem;
+      }
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      flex-shrink: 0;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+          display: flex;
+          padding: ($padding/4)($padding);
+          font-size: $font-size-sm;
+          justify-content: space-between;
+          flex-grow: 1;
+          flex-shrink: 0;
+
+          &.header {
+            background: $cool-gray-01;
+            font-size: $font-size-xs;
+
+            .premium {
+              font-weight: $font-weight-normal;
+            }
+          }
+
+          .quote-no {
+            width: 5.5rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 5.5rem;
+          }
+
+          .property-address {
+            flex-grow: 1;
+            flex-shrink: 0;
+          }
+
+          .quote-state {
+            width: 6rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 6rem;
+          }
+
+          .effctive-date {
+            width: 5rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 5rem;
+          }
+
+          .started-on {
+            width: 8rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 8rem;
+          }
+
+          .premium {
+            width: 4rem;
+            font-weight: $font-weight-bold;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 4rem;
+          }
+
+          a.quote-no {
+            padding: 0;
+            border-width: 0;
+          }
+        }
+      }
+    }
+  }
+
+  a {
+    padding: $padding $padding*1.5;
+    border: $card-border-width solid $card-border-color;
+    border-radius: $card-border-radius;
+    background: $white;
+    align-items: center;
+    align-items: flex-start;
+
+    section {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+
+      h2,
+      h3,
+      h4,
+      h5 {
+        display: flex;
+        width: 20%;
+        margin: 0;
+        flex-basis: 20%;
+        flex-grow: 0;
+        flex-shrink: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 0;
+        padding: 0;
+        flex-basis: 80%;
+      }
+    }
+
+    i {
+      display: flex;
+      width: 2rem;
+      height: 2rem;
+      font-size: $font-size-h2;
+      justify-content: center;
+
+      &.card-icon {
+        margin-right: $padding;
+      }
+
+      &.fa-map-marker {
+        justify-content: flex-start;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      section {
+        h2,
+        h3,
+        h4,
+        h5 {
+          color: $bright-blue-darken-02;
+        }
+
+        p {
+          color: $bright-blue-darken-02;
+        }
+      }
+
+      i {
+        color: $bright-blue-darken-02;
+      }
+    }
+  }
+}

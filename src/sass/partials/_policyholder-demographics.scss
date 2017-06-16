@@ -53,7 +53,7 @@
     .phoneNumber2 {
       @include for-tablet-portrait-up {
         width: 40%;
-        padding-right: $padding*2;
+        //padding-right: $padding*2;
       }
     }
 
@@ -65,9 +65,10 @@
     }
 
     .agentID {
+        width: 100%;
       @include for-tablet-portrait-up {
         width: 60%;
-        padding-right: $padding*2;
+        //padding-right: $padding*2;
       }
     }
   }
