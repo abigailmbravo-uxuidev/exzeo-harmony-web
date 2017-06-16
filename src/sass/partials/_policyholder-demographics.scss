@@ -1,6 +1,8 @@
 #CustomerInfo {
   .survey-wrapper {
     .section-group-header {
+      font-weight: $font-weight-bold;
+
       .fa {
         font-family: $font-family-icon;
 
@@ -65,7 +67,7 @@
     }
 
     .agentID {
-        width: 100%;
+      width: 100%;
       @include for-tablet-portrait-up {
         width: 60%;
         //padding-right: $padding*2;

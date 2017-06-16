@@ -57,7 +57,9 @@
   }
 
   .card-block {
+    display: flex;
     overflow-y: auto;
+    flex-direction: column;
     padding: $card-spacer-x;
     flex-grow: 1;
     @include for-phone-only {
@@ -119,7 +121,7 @@
 }
 
 .modal {
-    .card {
-         box-shadow: $card-box-shadow-modal;
-    }
+  .card {
+    box-shadow: $card-box-shadow-modal;
+  }
 }

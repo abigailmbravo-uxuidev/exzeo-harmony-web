@@ -5,6 +5,7 @@ const sideBarLinks = [{
   link: 'https://www.typtap.com',
   label: 'HOME'
 }, {
+  className: 'active',
   link: '',
   label: 'AGENTS'
 }, {

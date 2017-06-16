@@ -7,33 +7,39 @@
 
     .detail-group {
       .edit-btn {
+        position: absolute;
+        top: $padding*3;
+        right: 0;
+        cursor: pointer;
+        font-size: $font-size-h5;
+        @include for-phone-only {
+          top: $padding*2;
+        }
+
         &:hover {
           text-decoration: none;
         }
       }
 
-      &.edit {
-        border: 2px solid $warm-gray-07;
+      .section-group-header {
+          position: relative;
+      }
 
-        .editing {
-          position: absolute;
-          top: $padding;
-          right: $padding;
-          text-transform: uppercase;
-          color: $white;
-        }
+      .effective-date {
+          position: relative;
 
-        .section-group-header {
-          background: $bright-blue;
-        }
+          .edit-btn {
+              font-size: $font-size-h6;
+              font-weight: $font-weight-bold;
+              right: auto;
+              bottom: 0;
+              top: auto;
+              left: 0;
 
-        .display-element {
-          padding: ($padding);
-
-          .workflow-steps {
-            padding: 0;
+              @include for-phone-only {
+                  left: 6rem;
+              }
           }
-        }
       }
 
       &.property-details {

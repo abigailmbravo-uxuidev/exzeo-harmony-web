@@ -3,6 +3,8 @@
   flex-grow: 1;
 
   .section-group-header {
+    font-weight: $font-weight-bold;
+
     i {
       margin-right: $padding;
 
@@ -69,10 +71,12 @@
           width: 100%;
         }
       }
-      &.lossOfUseAmount, &.medicalPayments {
-          input {
-            flex-basis: 6.5rem;
-          }
+
+      &.lossOfUseAmount,
+      &.medicalPayments {
+        input {
+          flex-basis: 6.5rem;
+        }
       }
     }
   }
