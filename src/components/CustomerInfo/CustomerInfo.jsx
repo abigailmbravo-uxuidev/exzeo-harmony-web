@@ -63,6 +63,15 @@ const handleGetAgentsFromAgency = (state) => {
   return paymentPlanResult;
 };
 
+const handleGetZipCodeSettings = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  if (!taskData) return [];
+
+  const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
+  _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
+  return zipCodeSettings;
+};
+
 const getQuoteData = (state) => {
   const { cg, appState } = state;
   const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
@@ -74,6 +83,7 @@ export const CustomerInfo = (props) => {
     appState,
     handleSubmit,
     fieldValues,
+    zipCodeSettings,
     agencyResults
   } = props;
   const taskData = props.tasks[appState.modelName].data;
@@ -91,6 +101,7 @@ export const CustomerInfo = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {questions.map((question, index) =>
               <FieldGenerator
+                zipCodeSettings={zipCodeSettings}
                 data={quoteData}
                 question={question}
                 values={fieldValues}
@@ -150,6 +161,7 @@ const mapStateToProps = state => (
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
     agencyResults: handleGetAgentsFromAgency(state),
+    zipCodeSettings: handleGetZipCodeSettings(state),
     quote: getQuoteData(state)
   });
 
