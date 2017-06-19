@@ -6,10 +6,10 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
     clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
-    redirectUri: process.env.REACT_APP_AUTH0_REDIRECT_URL,
+    redirectUri: `${process.env.REACT_APP_AUTH0_PRIMARY_URL}/callback`,
     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
     responseType: 'token id_token',
-    scope: 'openid email name username groups roles'
+    scope: 'openid email profile username groups roles'
   });
 
   userProfile;
@@ -72,8 +72,10 @@ export default class Auth {
         this.userProfile = profile;
         this.userProfile.groups = profile['https://heimdall.security/groups'];
         this.userProfile.roles = profile['https://heimdall.security/roles'];
+        this.userProfile.username = profile['https://heimdall.security/username'];
         delete this.userProfile['https://heimdall.security/groups'];
         delete this.userProfile['https://heimdall.security/roles'];
+        delete this.userProfile['https://heimdall.security/username'];
       }
       cb(err, profile);
     });
