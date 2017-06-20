@@ -11,6 +11,8 @@ import FieldGenerator from '../Form/FieldGenerator';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 import Loader from '../Common/Loader';
+import normalizePhone from '../Form/normalizePhone';
+
 
 // ------------------------------------------------
 // List the user tasks that directly tie to
@@ -36,7 +38,7 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const handleInitialize = state => {
+const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
   /**
@@ -44,6 +46,10 @@ const handleInitialize = state => {
   _.find(taskData.model.variables, { name: 'quote' }).value.result;
   */
   const values = getInitialValues(taskData.uiQuestions, quoteData);
+
+  values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
+  values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
+
   values.agentCode = _.get(quoteData, 'agentCode');
 
   if (_.trim(values.FirstName2)) values.isAdditional = true;
@@ -51,23 +57,33 @@ const handleInitialize = state => {
   return values;
 };
 
-const handleGetAgentsFromAgency = state => {
+const handleGetAgentsFromAgency = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
   return paymentPlanResult;
 };
 
-const getQuoteData = state => {
+const handleGetZipCodeSettings = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  if (!taskData) return [];
+
+  const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
+  _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
+  return zipCodeSettings;
+};
+
+const getQuoteData = (state) => {
   const { cg, appState } = state;
   const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
   return (quoteData ? quoteData.value.result : undefined);
 };
 
-export const CustomerInfo = props => {
+export const CustomerInfo = (props) => {
   const {
     appState,
     handleSubmit,
     fieldValues,
+    zipCodeSettings,
     agencyResults
   } = props;
   const taskData = props.tasks[appState.modelName].data;
@@ -85,6 +101,7 @@ export const CustomerInfo = props => {
           <div className="form-group survey-wrapper" role="group">
             {questions.map((question, index) =>
               <FieldGenerator
+                zipCodeSettings={zipCodeSettings}
                 data={quoteData}
                 question={question}
                 values={fieldValues}
@@ -144,6 +161,7 @@ const mapStateToProps = state => (
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
     agencyResults: handleGetAgentsFromAgency(state),
+    zipCodeSettings: handleGetZipCodeSettings(state),
     quote: getQuoteData(state)
   });
 

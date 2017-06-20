@@ -1,27 +1,21 @@
-import React from 'react';
-import { Field } from 'redux-form';
-import PropTypes from 'prop-types';
+import React, { PropTypes } from 'react';
+import moment from 'moment';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
-import normalizePhone from '../normalizePhone';
-import { combineRules } from '../Rules';
 
-export const PhoneInput = ({
+export const DateInput = ({
   input,
   hint,
   label,
   styleName,
   meta,
-  type,
-  disabled,
-  validations,
-  name
+  min,
+  max,
+  type
 }) => {
   const { touched, error, warning } = meta;
-
-  const ruleArray = combineRules(validations, { });
-
+  const { disabled, name } = input;
 
   const formGroupStyles = classNames(
     'form-group',
@@ -45,54 +39,44 @@ export const PhoneInput = ({
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
-      <Field
-        name={name}
-        component="input"
-        type="text"
-        placeholder="555-555-5555"
-        normalize={normalizePhone}
-        validate={ruleArray}
+      <input
         {...input}
+        type={'date'}
+        min={min ? moment.utc(min).format('YYYY-MM-DD') : null}
+        max={min ? moment.utc(max).format('YYYY-MM-DD') : null}
       />
       {Error}
     </div>
   );
 };
 
-PhoneInput.propTypes = {
-
-  /**
-   * Hint for the user
-   */
+DateInput.propTypes = {
+  // Used for tooltip
   hint: PropTypes.string,
 
-  /**
-   * Input from redux-field Field component
-   */
+  // Input Props provided by redux-form
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any
+    value: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ])
   }),
 
-  /**
-   * Label to display above question
-   */
+  // Label for input
   label: PropTypes.string,
 
-  /**
-   * Validations props
-   */
+  // Validations
   meta: PropTypes.shape({
     error: PropTypes.string,
     touched: PropTypes.bool,
     warning: PropTypes.string
   }),
 
-  /**
-   * Answer Type from original question
-   */
+  // Type for input
   type: PropTypes.oneOf([
     'email',
     'password',
@@ -103,19 +87,15 @@ PhoneInput.propTypes = {
     'search'
   ]),
 
-  /**
-   * Stylename for form-group
-   */
+  // Name to add to class on render
   styleName: PropTypes.string
 
 };
 
-PhoneInput.defaultProps = {
-  hint: '',
+DateInput.defaultProps = {
   input: {},
   meta: {},
-  type: 'text',
-  styleName: ''
+  type: 'text'
 };
 
-export default reduxFormField(PhoneInput);
+export default reduxFormField(DateInput);
