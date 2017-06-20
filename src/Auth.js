@@ -1,4 +1,5 @@
 import auth0 from 'auth0-js';
+import axios from 'axios';
 
 import history from './history';
 
@@ -45,6 +46,7 @@ export default class Auth {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    axios.defaults.headers.common['authorization'] = `bearer ${authResult.idToken}`; // eslint-disable-line
     // navigate to the home route
     history.replace('/');
   }
@@ -87,6 +89,7 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     this.userProfile = null;
+    axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
     // navigate to the home route
     history.replace('/');
   }
