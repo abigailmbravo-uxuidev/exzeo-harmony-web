@@ -63,7 +63,7 @@
     padding: $card-spacer-x;
     flex-grow: 1;
     @include for-phone-only {
-      padding: $padding*1.5;
+      padding: ($card-spacer-x/2);
     }
 
     h1,
@@ -73,6 +73,12 @@
     h5,
     h6 {
       margin-top: 0;
+    }
+
+    p {
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 
     .form-group {
@@ -93,6 +99,9 @@
     flex-shrink: 0;
     flex-grow: 0;
     flex-wrap: wrap;
+    @include for-phone-only {
+        padding: ($card-spacer-y/2) ($card-spacer-x/2);
+    }
 
     a,
     button {

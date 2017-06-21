@@ -131,31 +131,11 @@
     }
   }
 
-  &.pop-up {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow-y: auto;
-    background: $modal-bg;
+  &.modal {
 
     .survey-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
       .contact-message {
         .card {
-          width: auto;
-          //max-width: 36rem;
-          margin: $padding 0;
-          @include for-phone-only {
-            //max-width: 19.375rem;
-            margin: 0 0 ($padding*2);
-          }
-
           .error {
             color: $red-darken-01;
           }
