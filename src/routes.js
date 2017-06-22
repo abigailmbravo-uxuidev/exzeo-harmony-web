@@ -1,45 +1,45 @@
 // src/routes.js
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Helmet } from 'react-helmet';
-import { Cookies } from 'react-cookie';
+import axios from 'axios';
+
+import history from './history';
+import Auth from './Auth';
 
 import Login from './containers/Login';
 import Splash from './containers/Splash';
 import Quote from './containers/Quote';
 import AppError from './containers/AppError';
+import AccessDenied from './containers/AccessDenied';
+import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 
-import * as userActions from './actions/userActions';
+const auth = new Auth();
 
-export const validateLogin = () => {
-  const cookies = new Cookies();
-  const token = cookies.get('harmony-id-token');
-  if (token) {
-    // const user = { token, isAuthenticated: true, loggedOut: false };
-    return true;
+const handleAuthentication = (nextState, replace) => {
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    auth.handleAuthentication();
   }
-  return false;
 };
 
-// A higher order component that allows for checking the routes authentication prefs.
-function authHOC(NavComponent, redirectUrl, props) {
-  return class AuthHOC extends React.Component { // eslint-disable-line
-    render() {
-      if (props.isAuthenticated) {
-        return <NavComponent {...props} />;
-      }
-      return <Login redirectUrl={redirectUrl} />;
-    }
-  };
-}
+const checkPublicPath = (path) => {
+  const publicPaths = ['/login', '/logout', '/error', '/accessDenied', '/callback'];
+  return (publicPaths.indexOf(path) === -1);
+};
 
-class Routes extends Component { // eslint-disable-line
-  constructor(props) {
-    super(props);
-    this.props.actions.user.validateLogin();
+export default class Routes extends Component { // eslint-disable-line
+  componentWillMount() {
+    const { isAuthenticated, userProfile, getProfile } = auth;
+    if (isAuthenticated() && !userProfile && checkPublicPath(window.location.pathname)) {
+      getProfile((err, profile) => {
+        const idToken = localStorage.getItem('id_token');
+        axios.defaults.headers.common['authorization'] = `bearer ${idToken}`; // eslint-disable-line
+      });
+    } else if (!isAuthenticated() && checkPublicPath(window.location.pathname)) {
+      history.push('/login');
+      axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
+    }
   }
   render() {
     return (
@@ -47,28 +47,45 @@ class Routes extends Component { // eslint-disable-line
         <div>
           <Helmet><title>Harmony Web - Agent HO3 Quote</title></Helmet>
           <Switch>
-            <Route exact path="/" component={authHOC(Splash, `http://${window.location.host}/`, this.props)} />
-            <Route exact path="/quote" component={authHOC(Quote, `http://${window.location.host}/quote`, this.props)} />
-            <Route exact path="/quote/retrieve" component={authHOC(Quote, `http://${window.location.host}/quote/retrieve`, this.props)} />
-            <Route exact path="/login" component={Login} />
+            <Route
+              exact
+              path="/"
+              render={props => <Splash auth={auth} {...props} />}
+            />
+            <Route
+              exact
+              path="/quote"
+              render={props => <Quote auth={auth} {...props} />}
+            />
+            <Route
+              exact
+              path="/quote/retrieve"
+              render={props => <Quote auth={auth} {...props} />}
+            />
+            <Route exact path="/login" render={props => <Login auth={auth} {...props} />} />
             <Route exact path="/error" component={AppError} />
-            <Route component={NotFound} />
+            <Route exact path="/accessDenied" render={props => <AccessDenied auth={auth} {...props} />} />
+            <Route
+              exact
+              path="/logout"
+              render={() => {
+                auth.logout();
+                return <span />;
+              }}
+            />
+            <Route
+              exact
+              path="/callback"
+              render={(props) => {
+                handleAuthentication(props);
+                return <Callback {...props} />;
+              }
+            }
+            />
+            <Route path="*" render={props => <NotFound auth={auth} {...props} />} />
           </Switch>
         </div>
       </Router>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  user: state.user,
-  isAuthenticated: validateLogin()
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    user: bindActionCreators(userActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
