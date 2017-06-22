@@ -35,9 +35,6 @@ export default class Routes extends Component { // eslint-disable-line
       getProfile((err, profile) => {
         const idToken = localStorage.getItem('id_token');
         axios.defaults.headers.common['authorization'] = `bearer ${idToken}`; // eslint-disable-line
-        if (!auth.checkIfCSRGroup()) {
-          history.push('/accessDenied?error=Please login with the proper credentials.');
-        }
       });
     } else if (!isAuthenticated() && checkPublicPath(window.location.pathname)) {
       history.push('/login');
