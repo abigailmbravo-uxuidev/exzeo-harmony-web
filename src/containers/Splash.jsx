@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import BaseConnect from './Base';
 import ClearErrorConnect from '../components/Error/ClearError';
 import Footer from '../components/Common/Footer';
 
-const Splash = () => (
-  <BaseConnect>
+const Splash = props => (
+  <BaseConnect {...props} >
     <ClearErrorConnect />
     <div className="dashboard" role="article">
       <div className="route">
@@ -56,8 +55,4 @@ const Splash = () => (
 
 Splash.displayName = 'Splash';
 
-const mapStateToProps = state => ({
-  user: state.user
-});
-
-export default connect(mapStateToProps)(Splash);
+export default Splash;
