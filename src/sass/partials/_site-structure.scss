@@ -66,12 +66,21 @@ html {
           }
 
           .workflow {
+            display: flex;
+            padding: 0;
+
             .route {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              height: auto;
+
               .route-content {
                 position: relative;
                 display: flex;
                 overflow: hidden;
                 flex-direction: column;
+                width: 100%;
                 height: auto;
                 flex-grow: 1;
 
@@ -80,7 +89,12 @@ html {
                   display: flex;
                   overflow: hidden;
                   flex-direction: column;
+                  width: 100%;
                   flex-grow: 1;
+
+                  .scroll {
+                    width: 100%;
+                  }
                 }
               }
 
