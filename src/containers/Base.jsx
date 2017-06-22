@@ -6,30 +6,30 @@ import _ from 'lodash';
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
 import * as cgActions from '../actions/cgActions';
-import * as userActions from '../actions/userActions';
 
 const getAgencyModelName = 'getAgency';
 
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
-  props.actions.user.logout();
+  props.auth.logout();
 };
 
-const getAgencyName = (props) => {
-  if (props.user && props.user.isAuthenticated) {
-    const group = (props.user.profile.groups) ? _.filter(props.user.profile.groups, item => item.extendedProperties.isAgency) : null;
-    if (group && group.length > 0) {
-      const startModelData = {
-        agencyCode: group[0].extendedProperties.agencyId,
-        companyCode: group[0].extendedProperties.companyCode,
-        state: group[0].extendedProperties.state
-      };
-      props.actions.cgActions.startWorkflow(getAgencyModelName, startModelData, false);
-    }
+const getAgencyName = (props, userProfile) => {
+  const group = (userProfile.groups) ? _.filter(userProfile.groups, item => (item.agencyCode != null)) : null;
+  console.log('userProfile', userProfile);
+  if (group && group.length > 0) {
+    const startModelData = {
+      agencyCode: group[0].agencyCode,
+      companyCode: group[0].companyCode,
+      state: group[0].state
+    };
+    console.log('startModelData', startModelData);
+    props.actions.cgActions.startWorkflow(getAgencyModelName, startModelData, false);
   }
 };
 
 const populateAgencyName = (props) => {
+  const { userProfile } = props.auth;
   if (props.tasks && props.tasks.getAgency && props.tasks.getAgency.data &&
     props.tasks.getAgency.data.model && props.tasks.getAgency.data.model.variables) {
     const agencyValue = _.filter(props.tasks.getAgency.data.model.variables, item => item.name === 'getAgencyByCode');
@@ -38,13 +38,12 @@ const populateAgencyName = (props) => {
       return data.displayName;
     }
   }
-  return (props.user.profile && props.user.profile.username) ? props.user.profile.username : '';
+  return (userProfile && userProfile.name) ? userProfile.name : '';
 };
 
 export class Base extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       active: false,
       headerActive: false
@@ -53,7 +52,12 @@ export class Base extends Component {
     this.toggleClassHeader = this.toggleClassHeader.bind(this);
   }
   componentWillMount() {
-    getAgencyName(this.props);
+    const { isAuthenticated, getProfile } = this.props.auth;
+    if (isAuthenticated()) {
+      getProfile((profileErr, profile) => {
+        getAgencyName(this.props, profile);
+      });
+    }
   }
   toggleClass() {
     const currentState = this.state.active;
@@ -92,7 +96,7 @@ export class Base extends Component {
           </div>
         </main>
         <form id="floodQuoteForm" name="floodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL} target="_blank">
-          <input type="hidden" name="token" value={this.props.user.token} />
+          <input type="hidden" name="token" value={this.props.auth.getIdToken()} />
         </form>
       </div>);
   }
@@ -100,19 +104,15 @@ export class Base extends Component {
 
 Base.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  user: PropTypes.shape({
-    token: PropTypes.string
-  })
+  auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object })
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
-  user: state.user
+  tasks: state.cg
 });
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
-    user: bindActionCreators(userActions, dispatch)
+    cgActions: bindActionCreators(cgActions, dispatch)
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Base);
