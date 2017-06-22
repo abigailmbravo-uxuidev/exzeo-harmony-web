@@ -32,10 +32,15 @@ export default class Routes extends Component { // eslint-disable-line
     const { isAuthenticated, userProfile, getProfile } = auth;
     if (isAuthenticated() && !userProfile && checkPublicPath(window.location.pathname)) {
       getProfile((err, profile) => {
-        console.log('profile loaded:', profile);
+        const idToken = localStorage.getItem('id_token');
+        axios.defaults.headers.common['authorization'] = `bearer ${idToken}`; // eslint-disable-line
+        if (!auth.checkIfCSRGroup()) {
+          history.push('/accessDenied?error=Please login with the proper credentials.');
+        }
       });
     } else if (!isAuthenticated() && checkPublicPath(window.location.pathname)) {
       history.push('/login');
+      axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
     }
   }
   render() {
