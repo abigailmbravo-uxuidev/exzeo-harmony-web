@@ -88,9 +88,8 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     this.userProfile = null;
-    axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
-    // navigate to the home route
-    history.replace('/');
+    const logoutUrl = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}`;
+    window.location = logoutUrl;
   }
 
   isAuthenticated = () => {
