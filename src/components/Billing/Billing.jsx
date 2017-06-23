@@ -67,6 +67,11 @@ const handleInitialize = (state) => {
     values.billToId = _.get(paymentPlans.options[0], 'billToId');
     values.billToType = _.get(paymentPlans.options[0], 'billToType');
     values.billPlan = 'Annual';
+  } else {
+    values.billTo = _.get(quoteData, 'billToId');
+    values.billToId = _.get(quoteData, 'billToId');
+    values.billToType = _.get(quoteData, 'billToType');
+    values.billPlan = _.get(quoteData, 'billPlan');
   }
 
   return values;
