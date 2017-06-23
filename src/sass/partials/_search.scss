@@ -79,7 +79,8 @@
         input {
           flex-shrink: 0;
           flex-grow: 0;
-          flex-basis: 2.375rem;
+          -ms-flex-preferred-size: 1.25rem;
+          //flex-basis: 2.375rem;
         }
       }
 
