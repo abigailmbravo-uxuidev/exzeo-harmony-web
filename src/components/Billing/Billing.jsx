@@ -54,7 +54,14 @@ const handleInitialize = (state) => {
     }
   });
 
-  values.billTo = _.get(quoteData, 'billToId');
+  if (values.address1 === quoteData.property.physicalAddress.address1 &&
+  values.city === quoteData.property.physicalAddress.city &&
+  values.state === quoteData.property.physicalAddress.state &&
+  values.zip === quoteData.property.physicalAddress.zip){
+    values.sameAsProperty = true;
+  }
+
+  values.billTo = _.get(quoteData, 'billToId');}
   values.billToId = _.get(quoteData, 'billToId');
   values.billToType = _.get(quoteData, 'billToType');
   values.billPlan = _.get(quoteData, 'billPlan');
