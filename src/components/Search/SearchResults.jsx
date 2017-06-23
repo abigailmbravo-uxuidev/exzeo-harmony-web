@@ -65,20 +65,20 @@ const SearchResults = (props) => {
                   <span className="quote-no">Quote No.</span>
                   <span className="property-address">Property Address</span>
                   <span className="quote-state">Quote State</span>
-                  <span className="effctive-date">Effective Date</span>
+                  <span className="effective-date">Effective Date</span>
                   <span className="started-on">Started On</span>
                   <span className="premium">Premium</span>
                 </li>
                 <li>
                   <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1" >
-                    <span className="quote-state">{quote.quoteNumber}</span>
+                    <span className="quote-no">{quote.quoteNumber}</span>
                     <span className="property-address">{`${quote.property.physicalAddress.address1}
                           ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
                           ${quote.property.physicalAddress.zip}
                           `}</span>
                         <div className="quote-detail-wrapper">
                       <span className="quote-state">{quote.quoteState}</span>
-                      <span className="effctive-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
+                      <span className="effective-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
                       <span className="started-on">{moment.utc(quote.createdAt).format('YYYY-MM-DD')}</span>
                       <span className="premium">$ {quote.rating ? quote.rating.totalPremium : '-'}</span>
                     </div>
