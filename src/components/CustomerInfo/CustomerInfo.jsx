@@ -39,12 +39,11 @@ const handleFormSubmit = (data, dispatch, props) => {
 };
 
 const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
-  /**
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result :
-  _.find(taskData.model.variables, { name: 'quote' }).value.result;
-  */
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : { model: null };
+  const retrieveQuoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
+  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ?
+  _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result : retrieveQuoteData;
+
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
