@@ -124,7 +124,7 @@ const SearchForm = props => {
             form="SearchBar"
             disabled={props.appState.data.submitting || formErrors }
           >
-            <i className="fa fa-search" />Search
+            <i className="fa fa-search" /><span>Search</span>
           </button>
         </div>
       </Form>
@@ -141,7 +141,7 @@ const SearchForm = props => {
           form="SearchBar"
           disabled={ props.appState.data.submitting || formErrors }
         >
-          <i className="fa fa-search" />Search
+          <i className="fa fa-search" /><span>Search</span>
         </button>
       </div>
     </Form>

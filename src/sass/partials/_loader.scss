@@ -8,7 +8,6 @@
 
     .card {
 
-      -webkit-box-shadow: 0 0 40px 10px rgba(0,0,0,.25);
       box-shadow: 0 0 40px 10px rgba(0,0,0,.25);
 
         .card-block {
@@ -107,4 +106,36 @@
     to {
       opacity: 1;
     }
+}
+
+
+
+.loader {
+  .card {
+    .card-block {
+      .ring-5 {
+        border: 1px solid #0281B7;
+      }
+
+      .ring-4 {
+        border: 1px solid #029CDE;
+      }
+
+      .ring-3 {
+        border: 1px solid #013951;
+      }
+
+      .ring-2 {
+        border: 1px solid #016691;
+      }
+
+      .ring-1 {
+        border: 1px solid #0293D1;
+      }
+
+      div[class^="ring-"] {
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
 }

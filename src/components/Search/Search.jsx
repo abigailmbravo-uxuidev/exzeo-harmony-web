@@ -52,7 +52,7 @@ const Search = props => (
     { props.appState.data &&
       <div className="search route-content">
         <SearchBar />
-        <div className="survey-wrapper scroll">
+        <div className="survey-wrapper">
           <div className="results-wrapper">
             { props.appState.data.submitting && <Loader /> }
             <NoResultsConnect />

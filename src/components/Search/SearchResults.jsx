@@ -6,7 +6,6 @@ import moment from 'moment';
 
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-import Loader from '../Common/Loader';
 
 const SearchResults = (props) => {
   if (
@@ -34,10 +33,11 @@ const SearchResults = (props) => {
             ))
             : null}
               <div>
-               <small><p>If you don't see your address in the list provided, try entering less address information to see if that improves your search results. Please note, at this time we are only writing single family dwellings in the state of Florida.</p></small>
-               <small><p>If you still have problems finding an address, please <a href="tel:888-210-5235"><strong>call us</strong></a> and one of our representatives will be glad to help you.</p></small>
+               <small>
+                 <p>If you don't see your address in the list provided, try entering less address information to see if that improves your search results. Please note, at this time we are only writing single family dwellings in the state of Florida.</p>
+                 <p>If you still have problems finding an address, please <a href="tel:888-210-5235"><strong>call us</strong></a> and one of our representatives will be glad to help you.</p>
+              </small>
              </div>
-
         </ul>
       </div>
     );
@@ -70,15 +70,19 @@ const SearchResults = (props) => {
                   <span className="premium">Premium</span>
                 </li>
                 <li>
-                  <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1" className="quote-no">{quote.quoteNumber}</a>
-                  <span className="property-address">{`${quote.property.physicalAddress.address1}
-                        ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
-                        ${quote.property.physicalAddress.zip}
-                        `}</span>
-                  <span className="quote-state">{quote.quoteState}</span>
-                  <span className="effctive-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
-                  <span className="started-on">{moment.utc(quote.createdAt).format('YYYY-MM-DD')}</span>
-                  <span className="premium">$ {quote.rating ? quote.rating.totalPremium : '-'}</span>
+                  <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1" >
+                    <span className="quote-state">{quote.quoteNumber}</span>
+                    <span className="property-address">{`${quote.property.physicalAddress.address1}
+                          ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
+                          ${quote.property.physicalAddress.zip}
+                          `}</span>
+                        <div className="quote-detail-wrapper">
+                      <span className="quote-state">{quote.quoteState}</span>
+                      <span className="effctive-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
+                      <span className="started-on">{moment.utc(quote.createdAt).format('YYYY-MM-DD')}</span>
+                      <span className="premium">$ {quote.rating ? quote.rating.totalPremium : '-'}</span>
+                    </div>
+                  </a>
                 </li>
               </ul>
             </section>

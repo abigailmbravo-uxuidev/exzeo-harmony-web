@@ -17,7 +17,6 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 // import billingQuestions from '.BillingQuestions';
 import FieldGenerator from '../Form/FieldGenerator';
-import { combineRules } from '../Form/Rules';
 import Loader from '../Common/Loader';
 
 // ------------------------------------------------
@@ -185,7 +184,7 @@ export const Billing = (props) => {
       <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address</h3>
+            <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address</h3>
             <CheckInput
               label="Is the mailing address the same as the property address?" input={{
                 value: sameAsProperty,

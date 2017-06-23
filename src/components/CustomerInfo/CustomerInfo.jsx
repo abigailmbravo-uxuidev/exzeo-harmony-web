@@ -107,7 +107,7 @@ export const CustomerInfo = (props) => {
                 key={index}
               />
         )}
-            <div className="form-group agentID" role="group">
+            <div className="agentID">
               <SelectFieldAgents
                 name="agentCode"
                 label="Agent"

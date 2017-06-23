@@ -1,0 +1,268 @@
+header {
+  display: flex;
+  width: 100%;
+  padding: $padding $padding*2;
+  border-bottom: 2px solid $white;
+  background: $bright-blue-darken-04;
+  justify-content: center;
+  flex-shrink: 0;
+  flex-basis: 3.375rem;
+
+  div[role="banner"] {
+    display: flex;
+    width: 100%;
+    height: 2.25rem;
+    align-items: center;
+    @include for-phone-only {
+      .btn-ellipsis-v {
+        position: absolute;
+        right: 1rem;
+        display: flex;
+
+        i {
+          color: $body-color;
+          font-size: 1.5rem;
+        }
+      }
+
+      .btn-bars {
+        position: absolute;
+        left: 1rem;
+        display: flex;
+
+        i {
+          color: $body-color;
+          font-size: 1.5rem;
+        }
+      }
+
+      .userName {
+        text-align: right;
+        flex-grow: 1;
+      }
+    }
+    @include for-tablet-portrait-up {
+      .btn-ellipsis-v {
+        position: absolute;
+        right: 1rem;
+        display: flex;
+
+        i {
+          color: $white;
+          font-size: 1.5rem;
+        }
+      }
+
+      .btn-bars {
+        position: absolute;
+        left: 1rem;
+        display: flex;
+
+        i {
+          color: $body-color;
+          font-size: 1.5rem;
+        }
+      }
+    }
+    @include for-tablet-landscape-up {
+      .btn-bars {
+        display: none;
+      }
+
+      .btn-ellipsis-v {
+        display: none;
+      }
+    }
+
+    > .logo {
+      display: block;
+      width: 10rem;
+      flex-basis: 10rem;
+      flex-shrink: 0;
+      @include for-phone-only {
+        margin-left: 3rem;
+      }
+      @include for-tablet-portrait-up {
+        margin-left: 5rem;
+      }
+      @include for-tablet-landscape-up {
+        margin-left: 0;
+      }
+    }
+
+    > nav {
+      @include for-phone-only {
+        position: absolute;
+        z-index: 200;
+        top: 3.375rem;
+        right: $padding;
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+        padding: 0;
+        background: $warm-gray-01;
+        box-shadow: $card-box-shadow-alt;
+
+        &.active {
+          padding: $padding;
+
+          > a {
+            display: flex;
+          }
+        }
+      }
+      @include for-tablet-portrait-up {
+        position: absolute;
+        z-index: 200;
+        top: 3.375rem;
+        right: $padding;
+        display: none;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+        padding: $padding;
+        border-top-width: 0;
+        background: $warm-gray-01;
+        box-shadow: $card-box-shadow-alt;
+
+        &.active {
+          display: flex;
+        }
+      }
+      @include for-tablet-landscape-up {
+        position: relative;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        padding: 0;
+        border-width: 0;
+        border-top-width: 0;
+        background-color: transparent;
+        box-shadow: none;
+        flex: 1;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      > a {
+        display: flex;
+        height: 3.375rem;
+        padding: 0 $padding;
+        white-space: nowrap;
+        text-decoration: none;
+        font-size: $font-size-h6;
+        font-weight: $font-weight-bold;
+        justify-content: center;
+        align-items: center;
+        @include transition(all .2s ease-in-out);
+        @include for-phone-only {
+          display: none;
+        }
+        @include for-tablet-landscape-up {
+          margin-left: 1rem;
+          color: $bright-blue-lighten-04;
+        }
+
+        &:hover {
+          text-decoration: none;
+          color: $bright-blue-lighten-01;
+        }
+
+        &.active {
+          cursor: default;
+          color: $white;
+          @include for-tablet-landscape-up {
+            padding-top: 5px;
+            color: $white;
+            border-bottom: 5px solid $white;
+          }
+
+          &:hover {
+            color: $white;
+          }
+        }
+
+        &.btn {
+          height: 2rem;
+
+          &:hover {
+            color: $white;
+          }
+
+          &.link-phone {
+            @include for-phone-only {
+              position: absolute;
+              top: -3rem;
+              right: 4rem;
+              display: inline-block;
+              overflow: hidden;
+              width: 2.375rem;
+              height: 2.375rem;
+              white-space: nowrap;
+              text-indent: 2.375rem;
+              border-radius: 50%;
+              font-size: 1.5rem;
+
+              &:before {
+                position: absolute;
+                right: 0;
+                left: 0;
+                display: flex;
+                width: 2.25rem;
+                height: 2.25rem;
+                content: "\f095";
+                text-indent: 0;
+                color: $bright-blue;
+                font-family: $font-family-icon;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+            @include for-tablet-portrait-up {
+              height: 3.375rem;
+
+              &:hover {
+                color: $bright-blue-lighten-01;
+              }
+
+              &:before {
+                margin: ($padding/2) ($padding) 0 0;
+                content: "\f095";
+                font-family: $font-family-icon;
+              }
+            }
+          }
+        }
+      }
+
+      .user-name {
+        margin: 0 ($padding/2) 0 ($padding*4);
+        color: $bright-blue-darken-01;
+        font-size: $font-size-sm;
+      }
+
+      > button {
+        i {
+          margin: 0;
+          color: $bright-blue-darken-02;
+          @include transition(all .2s ease-in-out);
+        }
+
+        span {
+          +i {
+            margin: 0 0 0 $padding;
+          }
+        }
+
+        &:hover {
+          i {
+            color: $bright-blue;
+          }
+        }
+      }
+    }
+  }
+}

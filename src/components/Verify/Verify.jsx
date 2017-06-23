@@ -262,7 +262,7 @@ export const Verify = (props) => {
                 </section>
               </div>
               <div className="detail-group mailing-address-details">
-                <h3 className="section-group-header"><i className="fa fa-envelope-open" /> Mailing Address<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalQuestions')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalQuestions')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <dl>
                     <div>
@@ -288,7 +288,7 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
               </div>
               <div className="detail-group additional-interests-details">
-                <h3 className="section-group-header"><i className="fa fa-users" /> Additional Interests<span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header"><i className="fa fa-user-plus" /> Additional Parties<span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element additional-interests">
                   {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?
                     quoteData.additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&

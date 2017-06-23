@@ -98,7 +98,7 @@ export const Share = props => (
           </section>
           <section className="section-instructions">
             <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
-            <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> Dashboard</a> tab</p>
+            <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> DASHBOARD</a> tab</p>
           </section>
         </div>
         <div className="workflow-steps">

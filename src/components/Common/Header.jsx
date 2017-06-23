@@ -5,6 +5,7 @@ const sideBarLinks = [{
   link: 'https://www.typtap.com',
   label: 'HOME'
 }, {
+  className: 'active',
   link: '',
   label: 'AGENTS'
 }, {
@@ -20,9 +21,9 @@ const Header = ({ toggleHeader, toggle, active }) => (
   <header className={active ? 'blur' : ''}>
     <div role="banner">
       <button className="btn-icon btn-bars" onClick={toggleHeader}><i className="fa fa-bars" /></button>
-      <div id="logo" className="logo">
+      <a id="logo" className="logo" href="/">
         <img src={logo} alt="TypTap Insurance" />
-      </div>
+      </a>
       <button className="btn-icon btn-ellipsis-v"><i
         className="fa fa-ellipsis-v"
         onClick={toggle}

@@ -1,4 +1,5 @@
 .card {
+  z-index: 10;
   display: flex;
   flex-direction: column;
   margin-right: $card-deck-margin;
@@ -48,8 +49,7 @@
       h4,
       h5,
       h6 {
-        margin: 0 (-$padding*2.5) (-$padding*1.75);
-        padding: $padding;
+        margin: 0;
         color: $white;
         flex-basis: auto;
       }
@@ -57,11 +57,13 @@
   }
 
   .card-block {
+    display: flex;
     overflow-y: auto;
+    flex-direction: column;
     padding: $card-spacer-x;
     flex-grow: 1;
     @include for-phone-only {
-      padding: $padding*1.5;
+      padding: ($card-spacer-x/2);
     }
 
     h1,
@@ -72,6 +74,19 @@
     h6 {
       margin-top: 0;
     }
+
+    p {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .form-group {
+      &:last-child {
+        padding-bottom: 0;
+        border-bottom-width: 0;
+      }
+    }
   }
 
   .card-footer {
@@ -79,10 +94,14 @@
     padding: $card-spacer-y $card-spacer-x;
     border-top: $card-border-width solid $card-border-color;
     background-color: $card-cap-bg;
+    align-items: center;
     justify-content: flex-end;
     flex-shrink: 0;
     flex-grow: 0;
     flex-wrap: wrap;
+    @include for-phone-only {
+        padding: ($card-spacer-y/2) ($card-spacer-x/2);
+    }
 
     a,
     button {
@@ -100,7 +119,6 @@
     }
 
     .btn-group {
-        margin-top: $padding;
       display: flex;
       justify-content: flex-end;
     }
@@ -108,5 +126,11 @@
     &:last-child {
       @include border-radius(0 0 $card-border-radius-inner $card-border-radius-inner);
     }
+  }
+}
+
+.modal {
+  .card {
+    box-shadow: $card-box-shadow-modal;
   }
 }

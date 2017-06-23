@@ -1,0 +1,81 @@
+#Billing {
+  .installment-term {
+    display: flex;
+    width: 100%;
+    @include for-phone-only {
+      flex-direction: column;
+    }
+
+    dl {
+      flex-grow: 1;
+
+      dt {
+        margin-top: $padding/2;
+        color: $blue-darken-02;
+        font-weight: $font-weight-bold;
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      dd {
+        margin-bottom: 0;
+        padding: ($padding/4) ($padding/2);
+
+        &:nth-of-type(odd) {
+          background: $warm-gray-01;
+        }
+      }
+    }
+  }
+}
+
+.MailingAddress-component {
+  .address1 {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+
+  .address2 {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+
+  .country {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+
+  .city {
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    @include for-tablet-portrait-up {
+      width: auto;
+    }
+  }
+
+  .state {
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    @include for-tablet-portrait-up {
+      width: 6rem;
+      flex-grow: 0;
+    }
+  }
+
+  .zip {
+    width: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    @include for-tablet-portrait-up {
+      width: 8rem;
+      flex-grow: 0;
+    }
+  }
+}
