@@ -3,12 +3,9 @@ import {
 } from 'immutable';
 
 export default {
-  user: {
-    isAuthenticated: false,
-    token: ''
-  },
   search: new Map({}),
   workflowData: {},
+  completedTasks: [],
   appState: {
     data: {
       submitting: false,

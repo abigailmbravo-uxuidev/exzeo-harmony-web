@@ -1,4 +1,5 @@
 // app.js runs on localhost:8000
+import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -12,10 +13,11 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './css/typtap-theme.css';
 
 const store = configureStore();
-persistStore(store, { storage: asyncSessionStorage });
+const persistor = persistStore(store, { storage: asyncSessionStorage });
+window.persistor = persistor; // i hate this with my entire being...
 
 const holder = document.getElementById('root');
 render(
-  <Provider client={client} store={store}><Routes store={store} /></ Provider>,
+  <Provider client={client} store={store} persistor={persistor}><Routes store={store} /></Provider>,
   holder
 );

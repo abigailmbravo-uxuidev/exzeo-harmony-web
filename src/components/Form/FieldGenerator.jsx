@@ -8,13 +8,17 @@ import {
   RadioField,
   SelectField,
   SliderField,
-  TextField
+  TextField,
+  DateField,
+  PhoneField,
+  SelectFieldBilling
 } from './inputs';
 
 const FieldGenerator = ({
   question,
   data,
   values,
+  zipCodeSettings,
   onChange
 }) => {
   const fieldOptions = dependencyHelper(question, data, values);
@@ -32,6 +36,10 @@ const FieldGenerator = ({
   if (inputProps.remove) inputProps.type = 'remove';
 
   switch (inputProps.type) {
+    case 'phone':
+      return <PhoneField {...inputProps} />;
+    case 'selectBilling':
+      return <SelectFieldBilling {...inputProps} />;
     case 'select':
       return <SelectField {...inputProps} />;
     case 'radio': {
@@ -53,8 +61,9 @@ const FieldGenerator = ({
     case 'range':
     case 'slider':
       return <SliderField {...inputProps} />;
-    case 'text':
     case 'date':
+      return <DateField {...inputProps} min={zipCodeSettings ? zipCodeSettings.minEffectiveDate : null} max={zipCodeSettings ? zipCodeSettings.maxEffectiveDate : null} />;
+    case 'text':
     case 'number':
     case 'password':
       return <TextField {...inputProps} />;
@@ -72,6 +81,7 @@ const FieldGenerator = ({
 };
 
 FieldGenerator.propTypes = {
+  zipCodeSettings: PropTypes.shape(),
   question: PropTypes.shape({
     question: PropTypes.string,
     description: PropTypes.string,

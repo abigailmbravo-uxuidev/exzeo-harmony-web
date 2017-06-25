@@ -1,10 +1,11 @@
 import validator from 'validator';
+import moment from 'moment';
 
 const rules = {
   required: value => (value ? undefined : 'Field Required'),
   email: value => (validator.isEmail(value) ? undefined : 'Not a valid email address'),
   optionalEmail: value => ((!value || validator.isEmail(value)) ? undefined : 'Not a valid email address'),
-  phone: value => (value.match(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g) ? undefined : 'is not a valid Phone Number.'),
+  phone: value => (!value || (value.match && value.match(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g)) ? undefined : 'is not a valid Phone Number.'),
   date: value => (validator.isISO8601(value) ? undefined : 'is not a valid Date.'),
   minLength3: value => (!value || validator.isLength(value, { min: 3 }) ? undefined : 'Please enter at least 3 characters'),
   onlyAlphaNumeric: value => (!value || validator.isAlphanumeric(value) ? undefined : 'Invalid characters'),
@@ -22,6 +23,12 @@ export function combineRules(validations, variables) {
       } else if (validations[i] === 'range' && variables && variables.min && variables.max) {
         const range = (values) => {
           const valid = values <= variables.max && values >= variables.min ? undefined : 'Not a valid range';
+          return valid;
+        };
+        ruleArray.push(range);
+      } else if (validations[i] === 'date' && variables && variables.min && variables.max) {
+        const range = (values) => {
+          const valid = new Date(values) <= new Date(variables.max) && new Date(values) >= new Date(variables.min) ? undefined : 'Not a valid date range';
           return valid;
         };
         ruleArray.push(range);

@@ -20,10 +20,10 @@ export function getInitialValues(questions, data) {
     if (question.readOnlyValue) {
       values[question.name] = question.readOnlyValue;
     } else if (question.defaultValueLocation) {
-      const val = _.get(data, question.defaultValueLocation);
+      const val = _.get(data, question.defaultValueLocation) || '';
       if (val && question.answerType === 'date') {
         values[question.name] = moment.utc(val).format('YYYY-MM-DD');
-      } else values[question.name] = val;
+      } else values[question.name] = val || '';
     } else if (question.defaultAnswer) {
       values[question.name] = question.defaultAnswer;
     } else {
@@ -49,11 +49,10 @@ export function getInitialValues(questions, data) {
           values[question.name] = newValue.answer;
         }
       }
-    }
-    else if (question.conditional && question.conditional.value) {
+    } else if (question.conditional && question.conditional.value) {
       values[question.name] = question.conditional.value.value;
     }
   });
-  
+
   return values;
 }

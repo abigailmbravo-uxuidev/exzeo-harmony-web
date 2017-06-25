@@ -6,7 +6,7 @@ import FieldHint from './FieldHint';
 describe('SelectField', () => {
   it('should render "select input" when nothing is provided', () => {
     const wrapper = shallow(<SelectField />);
-    expect(wrapper).to.exist;
+    expect(wrapper);
     expect(wrapper.find('option').length).toEqual(0);
   });
 
@@ -33,13 +33,26 @@ describe('SelectField', () => {
     };
     const wrapper = shallow(<SelectField {...inputProps} />);
 
-    expect(wrapper).to.exist;
+    expect(wrapper);
     // Need to take into account blank option
     expect(wrapper.find('option').length).toEqual((4));
   });
-
-  // TODO: Check renders
-  // TODO: Check classnames
-  // TODO: Check props
-  // TODO: Check event handlers
+  
+  it('should add name to class when provided', () => {
+    const inputProps = {
+      input: {
+        name: 'test'
+      }
+    };
+    const wrapper = shallow(<SelectField {...inputProps} />);
+    expect(wrapper.find('.form-group').hasClass(inputProps.input.name)).to.equal(true);
+  });
+  
+  it('should add styleName to class when provided', () => {
+    const inputProps = {
+      styleName: 'test'
+    };
+    const wrapper = shallow(<SelectField {...inputProps} />);
+    expect(wrapper.find('.form-group').hasClass(inputProps.styleName)).to.equal(true);
+  });
 });

@@ -10,6 +10,7 @@ import FieldGenerator from '../Form/FieldGenerator';
 // import { setDetails } from '../../../actions/detailsActions';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   formSubmit: ''
@@ -18,57 +19,97 @@ const userTasks = {
 const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
-  const taskData = { ...data };
+  const additionalInterests = props.quoteData.additionalInterests;
+
+  const billPayer1 = _.find(additionalInterests, { order: 0, type: 'Bill Payer' }) || {};
+
+  _.remove(additionalInterests, ai => ai.type === 'Bill Payer');
+
+  if (data.isAdditional) {
+    billPayer1.name1 = data.name1;
+    billPayer1.name2 = data.name2;
+    billPayer1.referenceNumber = data.referenceNumber;
+    billPayer1.order = 0;
+    billPayer1.active = true;
+    billPayer1.type = 'Bill Payer';
+    billPayer1.mailingAddress = {
+      address1: data.mailingAddress1,
+      address2: data.mailingAddress2,
+      city: data.city,
+      state: data.state,
+      zip: data.zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
+      }
+    };
+
+    additionalInterests.push(billPayer1);
+  }
+
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
 
-const BillPayer = (props) => {
-  const {
-        tasks,
-        appState,
-        handleSubmit,
-        initialized,
-        fieldValues,
-        initialize
-    } = props;
+const handleGetQuestions = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  return taskData.uiQuestions;
+};
 
-  const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};
-
+const handleGetQuoteData = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
- _.find(taskData.model.variables, { name: 'quote' }) &&
- _.find(taskData.model.variables, { name: 'quote' }).value ?
-  _.find(taskData.model.variables, { name: 'quote' }).value.result : {};
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
+  return quoteData;
+};
 
-  if (taskData && !initialized) {
-        // set form submit for AI
-    userTasks.formSubmit = taskData.activeTask.name;
+const handleInitialize = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const quoteData = taskData && taskData.model &&
+ taskData.model.variables &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
+ _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
+  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
 
-    const values = getInitialValues(taskData.uiQuestions, quoteData);
+  const values = getInitialValues(taskData.uiQuestions, { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Bill Payer') });
 
-    _.forEach(taskData.uiQuestions, (q) => {
-      if (!values[q.name]) {
-        values[q.name] = '';
-      }
-    });
+  userTasks.formSubmit = taskData.activeTask.name;
 
-    if (_.trim(values.name1)) {
-      values.isAdditional = true;
+  _.forEach(taskData.uiQuestions, (q) => {
+    if (!values[q.name]) {
+      values[q.name] = '';
     }
+  });
+  values.isAdditional = true;
 
-    initialize(values);
-  }
+  return values;
+};
+
+
+export const BillPayer = (props) => {
+  const {
+    fieldQuestions,
+    quoteData,
+    handleSubmit,
+    fieldValues
+  } = props;
+
   return (
     <div className="route-content">
+      { props.appState.data.submitting && <Loader /> }
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-envelope-open" /> BillPayer</h3>
-            {taskData && taskData.uiQuestions && taskData.uiQuestions.map((question, index) => <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
+            <h3 className="section-group-header"><i className="fa fa-money" /> BillPayer</h3>
+            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) =>
+              <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>next</button>
+            <button className="btn btn-secondary">cancel</button>
+            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>save</button>
           </div>
           <Footer />
         </div>
@@ -80,7 +121,6 @@ const BillPayer = (props) => {
 BillPayer.propTypes = {
   ...propTypes,
   handleSubmit: PropTypes.func,
-  fieldValues: PropTypes.any, // eslint-disable-line
   tasks: PropTypes.shape(),
   appState: PropTypes.shape({
     modelName: PropTypes.string,
@@ -89,6 +129,7 @@ BillPayer.propTypes = {
       submitting: PropTypes.boolean
     })
   }),
+  fieldValues: PropTypes.any, // eslint-disable-line
   initialized: PropTypes.bool,
   initialize: PropTypes.func
 };
@@ -96,7 +137,10 @@ BillPayer.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  fieldValues: _.get(state.form, 'BillPayer.values', {})
+  fieldValues: _.get(state.form, 'BillPayer.values', {}),
+  initialValues: handleInitialize(state),
+  fieldQuestions: handleGetQuestions(state),
+  quoteData: handleGetQuoteData(state)
 });
 
 const mapDispatchToProps = dispatch => ({

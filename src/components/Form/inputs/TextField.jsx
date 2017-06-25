@@ -20,7 +20,7 @@ export const TextInput = ({
     name,
     { disabled },
     { valid: touched && !error },
-    { error: touched && error },
+    { error: touched && error }
   );
 
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
@@ -34,7 +34,7 @@ export const TextInput = ({
   </label>);
 
   return (
-    <div className={formGroupStyles}>
+    <div className={formGroupStyles} id={name}>
       {Label}
       <input
         {...input}
@@ -46,39 +46,32 @@ export const TextInput = ({
 };
 
 TextInput.propTypes = {
-
-  /**
-   * Hint for the user
-   */
+  // Used for tooltip
   hint: PropTypes.string,
 
-  /**
-   * Input from redux-field Field component
-   */
+  // Input Props provided by redux-form
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any
+    value: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ])
   }),
 
-  /**
-   * Label to display above question
-   */
+  // Label for input
   label: PropTypes.string,
 
-  /**
-   * Validations props
-   */
+  // Validations
   meta: PropTypes.shape({
     error: PropTypes.string,
     touched: PropTypes.bool,
     warning: PropTypes.string
   }),
 
-  /**
-   * Answer Type from original question
-   */
+  // Type for input
   type: PropTypes.oneOf([
     'email',
     'password',
@@ -89,19 +82,15 @@ TextInput.propTypes = {
     'search'
   ]),
 
-  /**
-   * Stylename for form-group
-   */
+  // Name to add to class on render
   styleName: PropTypes.string
 
 };
 
 TextInput.defaultProps = {
-  hint: '',
   input: {},
   meta: {},
-  type: 'text',
-  styleName: ''
+  type: 'text'
 };
 
 export default reduxFormField(TextInput);

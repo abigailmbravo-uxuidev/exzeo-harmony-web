@@ -7,6 +7,7 @@ import Footer from '../Common/Footer';
 // import { getInitialValues } from '../Customize/customizeHelpers';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import TaskRunnerConnect from '../Workflow/TaskRunner';
 
 import { CheckField } from '../Form/inputs';
 
@@ -16,17 +17,18 @@ const handleOnSubmit = (data, dispatch, props) => {
   console.log(data, dispatch, props);
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
 };
 
-const Assumptions = (props) => {
+export const Assumptions = (props) => {
   const { appState, handleSubmit, fieldValues } = props;
 
   console.log('fieldValues', fieldValues);
 
   return (
     <div className="route-content">
+      {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper">
@@ -36,7 +38,6 @@ const Assumptions = (props) => {
               <li>Properties with pools (or similar structures), are to be completely fenced, walled, or screened. There are no slides or diving boards.</li>
               <li>Properties located in Special Flood Hazard Areas, as defined by the National Flood Insurance Program maintain a separate flood policy.</li>
               <li>Property is not in state of disrepair or having existing unrepaired damage.</li>
-              <li>Property does not have excessive or unusual liability exposure (including, but not limited to: skateboard ramps, trampolines, vicious or exotic animals)</li>
               <li>Roof covering does not exceed the age as defined below
                 <ul>
                   <li>Roof cannot be over 20 years old if Asphalt, Fiberglass, Composition/Wood Shake Shingles; Built-up Tar and Gravel; or other roof covering types not included below</li>

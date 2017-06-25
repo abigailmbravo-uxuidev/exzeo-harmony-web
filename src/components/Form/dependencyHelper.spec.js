@@ -632,7 +632,7 @@ describe('dependencyHelper', () => {
 
     result = dependencyHelper(displayQuestion, data, values);
 
-    expect(result.hidden).to.be.undefined;
+    expect(result.hidden).toBeUndefined();
     expect(result.displayValue).toEqual('$ 2,500');
 
     displayQuestion.conditional.display = [{

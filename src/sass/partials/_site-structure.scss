@@ -1,0 +1,135 @@
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  //site body
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  //site background
+  div#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: $white;
+
+    .app-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background: $warm-gray-10;
+      align-items: center;
+      flex-shrink: 0;
+
+      main[role="document"] {
+        position: relative;
+        display: flex;
+        overflow-y: hidden;
+        flex-direction: row;
+        width: 100%;
+        height: calc(100vh - 3.75rem);
+        min-height: calc(100vh - 3.75rem);
+        background: $white;
+        flex-grow: 1;
+        flex-shrink: 0;
+        align-items: flex-start;
+
+        .content-wrapper {
+          display: flex;
+          overflow-y: hidden;
+          flex-direction: column;
+          width: 100%;
+          flex-grow: 1;
+          flex-wrap: wrap;
+          align-self: stretch;
+          @include for-phone-only {
+            padding: 0;
+          }
+          @include for-tablet-portrait-up {
+            margin-left: 4.75rem;
+          }
+          @include for-tablet-landscape-up {
+            margin-left: 0;
+          }
+
+          > div {
+            overflow: hidden;
+            width: 100%;
+            height: auto;
+            flex-grow: 1;
+          }
+
+          .workflow {
+            display: flex;
+            padding: 0;
+
+            .route {
+              display: flex;
+              flex-direction: column;
+              width: 100%;
+              height: auto;
+
+              .route-content {
+                position: relative;
+                display: flex;
+                overflow: hidden;
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+                flex-grow: 1;
+
+                .main,
+                form {
+                  display: flex;
+                  overflow: hidden;
+                  flex-direction: column;
+                  width: 100%;
+                  flex-grow: 1;
+
+                  .scroll {
+                    width: 100%;
+                  }
+                }
+              }
+
+              .search {
+                form {
+                  flex-shrink: 0;
+                  flex-grow: 0;
+                }
+              }
+
+              .scroll {
+                display: flex;
+                overflow-y: auto;
+                flex-direction: column;
+                width: 100%;
+                flex-wrap: nowrap;
+                flex-grow: 1;
+
+                ul {
+                  flex-grow: 1;
+                }
+
+                .workflow-steps {
+                  flex-grow: 1;
+                  flex-shrink: 0;
+
+                  .btn {
+                    align-self: flex-start;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

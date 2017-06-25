@@ -9,6 +9,7 @@ import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelper
 import FieldGenerator from '../Form/FieldGenerator';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   formSubmit: 'askToCustomizeDefaultQuote',
@@ -28,20 +29,26 @@ const handleFormSubmit = (data, dispatch, props) => {
   } else {
     // the form was modified and now we need to recalc
     const updatedQuote = convertQuoteStringsToNumber(data);
+
     const updatedQuoteResult = {
       ...updatedQuote,
       dwellingAmount: updatedQuote.dwellingAmount,
-      otherStructuresAmount: ((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount),
-      personalPropertyAmount: ((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount),
+      otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
+      personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
       personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
       propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
       propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
-      lossOfUse: ((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount),
+      lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
       liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-      sinkholePerilCoverage: updatedQuote.sinkholeCoverage,
-      calculatedHurricane: ((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount),
-      sinkhole: updatedQuote.sinkholeCoverage ? updatedQuote.sinkhole : 0
+      calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount))
     };
+
+    // Remove the sinkhole attribute from updatedQuoteResult
+    // if sinkholePerilCoverage is false
+    if (!updatedQuote.sinkholePerilCoverage) {
+      delete updatedQuoteResult.sinkhole;
+    }
+
     // we need to run two tasks in sequence so call batchComplete in the cg actions
     const steps = [{
       name: userTasks.formSubmit,
@@ -76,8 +83,14 @@ const handleReset = (props) => {
 
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
+  _.find(taskData.model.variables, { name: 'getQuote' }).value.result;
   const values = getInitialValues(taskData.uiQuestions, quoteData);
+
+  values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
+  values.fireAlarm = values.fireAlarm || false;
+  values.burglarAlarm = values.burglarAlarm || false;
+
   return values;
 };
 
@@ -92,7 +105,7 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const Customize = (props) => {
+export const Customize = (props) => {
   const {
     fieldQuestions,
     quoteData,
@@ -103,6 +116,7 @@ const Customize = (props) => {
 
   return (
     <div className="route-content">
+      {props.appState.data.submitting && <Loader />}
       <Form
         className="fade-in"
         id="Customize"

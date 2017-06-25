@@ -1,4 +1,4 @@
-FROM mhart/alpine-node
+FROM mhart/alpine-node:7.10.0
 MAINTAINER Exzeo
 
 ENV NODE_ENV=production
@@ -10,15 +10,13 @@ RUN mkdir -p /app/src/css
 
 WORKDIR /app
 
-COPY package.json /app/
-
 COPY .  /app
 
 WORKDIR /app
 
-RUN apk update && apk --no-cache add bash libc6-compat nano && \
-  npm install && \
-  npm run build && \
-  npm cache clean
+RUN apk update && apk --no-cache add bash libc6-compat nano
+RUN npm install
+RUN npm run build
+RUN npm cache clean
 
 ENTRYPOINT ["node", "server"]

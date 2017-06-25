@@ -1,0 +1,107 @@
+.modal {
+  position: absolute;
+  z-index: 1;
+  z-index: 900;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $modal-bg;
+
+  &.schedule-date-modal {
+    display: flex;
+    flex-direction: column;
+  }
+  .survey-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex-shrink: 1;
+    padding: $padding*2;
+
+    @include for-phone-only {
+        padding: $padding 0;
+    }
+
+    .contact-message {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 1;
+        flex-grow: 1;
+        flex-basis: auto;
+    }
+
+    .card {
+        flex-shrink: 1;
+        flex-basis: auto;
+
+        .card-block {
+            flex-shrink: 1;
+            overflow-y: auto;
+
+            > * {
+                flex-shrink: 0;
+            }
+        }
+    }
+  }
+}
+
+//Modals for navigation menus on phones only
+/*------------------------------------------------------------------------------------*/
+.nav-modal {
+  position: absolute;
+  z-index: 20;
+  top: 3.375rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  visibility: hidden;
+  background: $modal-bg;
+  @include transition(all .1s ease-in-out);
+
+  &.active {
+    visibility: visible;
+    background: $modal-bg;
+  }
+}
+
+.aside-modal {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  visibility: hidden;
+  background: $modal-bg;
+
+  &.active {
+    visibility: visible;
+    background: $modal-bg;
+    @include for-tablet-landscape-up {
+      visibility: hidden;
+    }
+  }
+}
+
+.blur {
+  + main[role="document"] {
+    .content-wrapper {
+      filter: blur(5px);
+      @include for-tablet-landscape-up {
+        filter: blur(0);
+      }
+    }
+  }
+
+  .content-wrapper {
+    filter: blur(5px);
+    @include for-tablet-landscape-up {
+      filter: blur(0);
+    }
+  }
+}

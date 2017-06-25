@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as errorActions from '../../actions/errorActions';
 
-class ClearError extends React.Component {
+export class ClearError extends React.Component {
   constructor(props) {
     super(props);
     props.actions.errorActions.dispatchClearAppError();

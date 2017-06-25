@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, Field, propTypes, getFormSyncErrors } from 'redux-form';
@@ -16,13 +17,14 @@ const handleSearchBarSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSearchBarSubmit;
   const taskData = {
-    firstName: encodeURIComponent(data.firstName),
-    lastName: encodeURIComponent(data.lastName),
-    address: encodeURIComponent(data.address),
-    quoteNumber: encodeURIComponent(data.quoteNumber),
-    zip: encodeURIComponent(data.zip),
+    firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
+    lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(data.address) : ''),
+    quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
+    zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType
   };
+
   // we need to make sure the active task is search otherwise we need to reset the workflow
   if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
     const completeStep = {
@@ -36,7 +38,7 @@ const handleSearchBarSubmit = (data, dispatch, props) => {
   }
 };
 
-const validate = (values) => {
+const validate = values => {
   const errors = {};
   if (values.firstName) {
     const onlyAlphaNumeric = Rules.onlyAlphaNumeric(values.firstName);
@@ -105,12 +107,9 @@ const generateField = (name, placeholder, labelText, formErrors, formGroupCss) =
   return field;
 };
 
-const SearchForm = (props) => {
-  const {
-    handleSubmit,
-    formErrors,
-    isRetrieve
-  } = props;
+const SearchForm = props => {
+  const { handleSubmit, formErrors, isRetrieve } = props;
+
   if (isRetrieve) {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
@@ -118,15 +117,14 @@ const SearchForm = (props) => {
           {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search')}
           {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search')}
           {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search')}
-          {generateField('zip', 'Zip Search', 'Zip', formErrors, 'zip-search')}
-          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search')}          
+          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search')}
           <button
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={props.appState.data.submitting || formErrors}
+            disabled={props.appState.data.submitting || formErrors }
           >
-            <i className="fa fa-search" />Search
+            <i className="fa fa-search" /><span>Search</span>
           </button>
         </div>
       </Form>
@@ -141,9 +139,9 @@ const SearchForm = (props) => {
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"
-          disabled={props.appState.data.submitting || formErrors}
+          disabled={ props.appState.data.submitting || formErrors }
         >
-          <i className="fa fa-search" />Search
+          <i className="fa fa-search" /><span>Search</span>
         </button>
       </div>
     </Form>

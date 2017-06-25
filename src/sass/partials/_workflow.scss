@@ -1,24 +1,186 @@
+.error-page,
+.workflow {
+  //workflow detail header
+  .detailHeader {
+    position: relative;
+    display: flex;
+    background: $warm-gray-08;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: flex-start;
+    @include for-phone-only {
+      flex-direction: column;
+    }
 
-//workflow
+    section {
+      dl {
+        display: flex;
+        flex-direction: column;
+        margin: ($padding/2);
+        padding: ($padding/2) $padding;
+        justify-content: flex-start;
+        @include for-phone-only {
+          margin: 0 ($padding/2);
+          padding: 0 ($padding/2) ($padding/2);
 
-.workflow, .error-page {
-  /*ul element*/
+          &:first-child {
+            padding-top: $padding/2;
+          }
+        }
+
+        div {
+          display: flex;
+          flex-direction: column;
+
+          dt {
+            color: $white;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-bold;
+            @include for-phone-only {
+              font-size: $font-size-xs;
+            }
+          }
+
+          dd {
+            margin: 0;
+            color: $white;
+            @include for-phone-only {
+              font-size: $font-size-sm;
+            }
+
+            + dd {
+              margin-bottom: $padding/4;
+              font-size: $font-size-sm;
+              line-height: 1;
+              @include for-phone-only {
+                font-size: $font-size-xs;
+              }
+            }
+          }
+        }
+      }
+
+      &.quoteDetails {
+        flex-shrink: 0;
+        @include for-phone-only {
+          margin-right: 8rem;
+        }
+      }
+
+      &.propertyDetails {
+        @include for-phone-only {
+          margin-right: 8rem;
+        }
+      }
+
+      &.yearBuilt {
+        @include for-phone-only {
+          display: none;
+        }
+      }
+
+      &.coverageDetails {
+        display: flex;
+        margin-right: 6.875rem;
+        @include for-phone-only {
+          position: absolute;
+          top: 0;
+          left: 6.875rem;
+          flex-direction: column;
+          margin-right: 0;
+        }
+
+        div {
+          display: flex;
+          flex-wrap: wrap;
+
+          dt {
+            width: 100%;
+          }
+
+          dd {
+            margin-right: $padding*2;
+
+            + dd {
+              font-size: $font-size-h5;
+              @include for-phone-only {
+                font-size: $font-size-sm;
+              }
+            }
+          }
+        }
+      }
+
+      &.premium {
+        position: absolute;
+        top: $padding/2;
+        right: $padding/2;
+        min-width: 7rem;
+        margin: 0;
+        padding: ($padding/2) $padding;
+        background: $yellow-lighten-05;
+        box-shadow: $card-box-shadow-alt;
+        justify-content: center;
+        align-items: center;
+        @include for-phone-only {
+          right: $padding/2;
+        }
+        @include for-tablet-portrait-up {
+          right: ($padding/2);
+        }
+
+        dl {
+          padding: 0;
+          @include for-phone-only {
+            margin-right: 0;
+          }
+
+          div {
+            dt {
+              color: $bright-blue-darken-04;
+              @include for-phone-only {
+                font-size: $font-size-h6;
+                font-weight: $font-weight-bold;
+              }
+            }
+
+            dd {
+              color: $bright-blue-darken-04;
+              font-size: $font-size-h4;
+              @include for-phone-only {
+                font-size: $font-size-h4;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  //stepper header
   .workflow-header {
     position: relative;
     display: flex;
     width: 100%;
+    height: 4.6875rem;
     margin: 0;
-    padding: 0;
+    padding: $padding;
     list-style: none;
+    background-color: $warm-gray-01;
     justify-content: space-around;
+    flex-shrink: 0;
+    @include for-phone-only {
+      height: 2.25rem;
+    }
 
     .rule {
       position: absolute;
       z-index: 1;
       top: 1.75rem;
-      width: 82%;
+      left: 50%;
+      width: 84%;
       height: 1px;
-      background: $body-color;
+      margin-left: -42%;
+      background: $warm-gray-03;
       @include for-phone-only {
         top: 1rem;
       }
@@ -41,6 +203,7 @@
         flex-direction: column;
         padding: $padding;
         cursor: pointer;
+        color: $warm-gray-03;
         font-weight: $font-weight-bold;
         flex: 1;
         align-items: center;
@@ -55,12 +218,11 @@
         }
 
         i {
-          width: 2rem;
-
-          &:before {
-              font-family: $font-family-icon;
-          }
+          padding: 0 $padding*2;
+          background: $warm-gray-01;
+          @include transition(all .2s ease-in-out);
           @include for-phone-only {
+            padding: 0 $padding/2;
             font-size: $font-size-h4;
           }
           @include for-tablet-portrait-up {
@@ -72,6 +234,52 @@
           @include for-big-desktop-up {
             width: 4rem;
             font-size: $font-size-h3;
+          }
+
+          &:before {
+            font-family: $font-family-icon;
+          }
+
+          &.chooseAddress {
+            &:before {
+              content: "\f041";
+            }
+          }
+
+          &.askAdditionalCustomerData {
+            &:before {
+              content: "\f007";
+            }
+          }
+
+          &.askUWAnswers {
+            &:before {
+              content: "\f0f6";
+            }
+          }
+
+          &.customizeDefaultQuote {
+            &:before {
+              content: "\f1de";
+            }
+          }
+
+          &.shareIt {
+            &:before {
+              content: "\f1e0";
+            }
+          }
+
+          &.billingInfo {
+            &:before {
+              content: "\f155";
+            }
+          }
+
+          &.verifyWrite {
+            &:before {
+              content: "\f14a";
+            }
           }
         }
 
@@ -95,51 +303,51 @@
 
         &.active {
           cursor: pointer;
+          color: $bright-blue;
 
           &:focus,
           &:hover {
             text-decoration: none;
+            color: $bright-blue-lighten-01;
           }
         }
 
         &.disabled {
           cursor: default;
+          color: $warm-gray-03;
+          outline: none;
         }
 
         &.selected {
           cursor: default;
+          color: $warm-gray-07;
+          outline: none;
+
+          i {
+            color: $cool-gray-04;
+          }
         }
 
         &.complete {
           cursor: pointer;
+          color: $bright-blue-lighten-03;
 
           &:focus,
           &:hover {
             cursor: pointer;
+            color: $bright-blue;
           }
         }
       }
     }
   }
 
-  .workflow-content {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-
-    aside {}
-
-    section {
-      flex-grow: 1;
-    }
-  }
-
   .workflow-steps {
     display: flex;
+    padding: 0 ($padding*2) ($padding*2);
     justify-content: flex-end;
     flex-grow: 0;
     flex-shrink: 0;
-    padding: 0 ($padding*2) ($padding*2);
 
     .btn {
       margin-left: $padding;

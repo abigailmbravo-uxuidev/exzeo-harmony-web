@@ -1,0 +1,44 @@
+#SharePage {
+  overflow-y: auto;
+  flex-grow: 1;
+
+  .detail-wrapper {
+    .section-instructions {
+      width: 100%;
+      margin-bottom: $padding*2;
+      padding-bottom: $paragraph-margin-bottom;
+      border-bottom: 1px dashed $warm-gray-02;
+    }
+  }
+}
+
+.email-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  background: $modal-bg;
+  align-items: center;
+  @include animation( 'fade-in .25s 1');
+
+  &.active {
+    display: flex;
+  }
+
+  .survey-wrapper {
+    display: flex;
+    align-items: center;
+
+    .card-email {
+      width: 36rem;
+      margin: $padding 0;
+      @include for-phone-only {
+        max-width: 19.375rem;
+        margin: 0 0 ($padding*2);
+      }
+    }
+  }
+}

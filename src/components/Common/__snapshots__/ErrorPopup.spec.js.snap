@@ -37,13 +37,25 @@ exports[`test renders without crashing 1`] = `
                email us
             </a>
           </div>
+          <section
+            className="display-element">
+            <dl
+              className="quote-number">
+              <div>
+                <dt>
+                  Quote Number
+                </dt>
+                <dd />
+              </div>
+            </dl>
+          </section>
           <p>
             The following underwriting error(s) have occured with this quote:
           </p>
           <ul
             className="error" />
           <p>
-            Contact a TypTap customer service representatives so we may further assist you in obtaining a quote.
+            Contact a TypTap customer service representative so we may further assist you in obtaining a quote.
           </p>
         </div>
         <div

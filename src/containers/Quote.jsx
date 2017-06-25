@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Workflow from '../components/Workflow/Workflow';
-import Base from './Base';
+import WorkflowConnect from '../components/Workflow/Workflow';
+import BaseConnect from './Base';
 
-const Quote = () => <Base><div className="workflow" role="article"><Workflow /></div></Base>;
+const Quote = props => <BaseConnect {...props} ><div className="workflow" role="article"><WorkflowConnect /></div></BaseConnect>;
 
 export default Quote;

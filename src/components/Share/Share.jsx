@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
@@ -7,6 +9,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
+import Loader from '../Common/Loader';
 
 const userTasks = {
   sendEmailOrContinue: 'sendEmailOrContinue',
@@ -20,6 +23,12 @@ const getUnderwritingExceptions = (state) => {
     cg[appState.modelName].data.previousTask.value : undefined);
 };
 
+const getQuoteData = (state) => {
+  const { cg, appState } = state;
+  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
+  return (quoteData ? quoteData.value.result : undefined);
+};
+
 const noShareSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.sendEmailOrContinue;
@@ -29,6 +38,7 @@ const noShareSubmit = (data, dispatch, props) => {
 };
 
 const shareQuoteSubmit = (data, dispatch, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // we need to call a batch complete here
   const steps = [{
@@ -38,8 +48,9 @@ const shareQuoteSubmit = (data, dispatch, props) => {
     name: userTasks.askEmail,
     data
   }];
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps);
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showEmailPopup: false });
+  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps).then(() => {
+    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showEmailPopup: false });
+  });
 };
 
 const shareQuote = (props) => {
@@ -57,6 +68,7 @@ const refereshUWReviewError = (props) => {
   const taskData = {
     refresh: 'Yes'
   };
+
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
@@ -64,8 +76,9 @@ const redirectToNewQuote = () => {
   window.location.href = '/';
 };
 
-const Share = props => (
+export const Share = props => (
   <div className="route-content">
+    {props.appState.data.submitting && <Loader />}
     <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={props.handleSubmit(noShareSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">
@@ -85,7 +98,7 @@ const Share = props => (
           </section>
           <section className="section-instructions">
             <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
-            <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> Dashboard</a> tab</p>
+            <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> DASHBOARD</a> tab</p>
           </section>
         </div>
         <div className="workflow-steps">
@@ -102,6 +115,7 @@ const Share = props => (
       />}
     {props.underwritingExceptions &&
       <ErrorPopup
+        quote={props.quote}
         underwritingExceptions={props.underwritingExceptions}
         refereshUWReviewError={() => refereshUWReviewError(props)}
         redirectToNewQuote={redirectToNewQuote}
@@ -114,7 +128,7 @@ Share.propTypes = {
   ...propTypes,
   tasks: PropTypes.shape({}),
   appState: PropTypes.shape({ modelName: PropTypes.string, data: PropTypes.object }),
-  underwritingExceptions: PropTypes.shape()
+  underwritingExceptions: PropTypes.arrayOf(PropTypes.shape())
 };
 
 // ------------------------------------------------
@@ -123,7 +137,8 @@ Share.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  underwritingExceptions: getUnderwritingExceptions(state)
+  underwritingExceptions: getUnderwritingExceptions(state),
+  quote: getQuoteData(state)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,95 +1,137 @@
-
 //vertical tabs
-.side-panel {
-  nav {
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid $warm-gray-01;
 
-    a {
-      margin-left: -$padding;
-      padding: $padding 0 $padding $padding;
-      color: $link-color;
+.content-panel-left {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  color: $warm-gray-12;
+  background: $warm-gray-02;
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-self: stretch;
+  @include transition(all .2s ease-in-out);
+  @include for-phone-only {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: -15rem;
 
-      &:focus,
-      &:hover {
-        text-decoration: none;
-      }
+    &.active {
+      left: 0;
+    }
+  }
+  @include for-tablet-portrait-up {
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    bottom: 0;
+    width: 4.75rem;
+    @include transition(all .1s ease-in-out);
 
-      &.active {
-        color: $link-color;
+    &.active {
+      width: 12rem;
 
-        &:focus,
-        &:hover {
-          color: lighten($link-color, 10%);
+      .site-nav {
+        ul {
+          li {
+            a {
+              span {
+                display: block;
+              }
+            }
+          }
         }
       }
 
-      &.disabled {
-        color: $warm-gray-06;
+      .logout {
+        width: auto;
+        height: auto;
+        margin: 0.875rem;
+        padding: ($padding) 0;
+        border-radius: $btn-border-radius;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          margin-right: $padding;
+        }
+
+        span {
+          display: block;
+        }
       }
 
-      &.selected {
-        cursor: default;
-        color: $cool-gray-14;
-        border-right: 5px solid $bright-blue;
+      .user {
+        label {
+          display: block;
+        }
+
+        .user-name {
+          display: flex;
+        }
       }
     }
   }
-}
-
-.site-nav {
-  width: auto;
-  padding: $padding*2;
-  @include transition(all .05s ease-in-out);
-  @include for-phone-only {
-    width: 14rem;
-  }
-  @include for-tablet-portrait-up {}
   @include for-tablet-landscape-up {
-    width: 12rem;
+    position: relative;
+    width: auto;
   }
-  //main left navigation
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
 
-    li {
-      display: flex;
+  .site-nav {
+    width: auto;
+    padding: $padding*2;
+    @include transition(all .05s ease-in-out);
+    @include for-phone-only {
+      width: 14rem;
+    }
+    @include for-tablet-landscape-up {
+      width: 12rem;
+    }
+    //main left navigation
+    ul {
       margin: 0;
-      //background-color: rgba($white, .25
-      a {
+      padding: 0;
+      list-style: none;
+
+      li {
         display: flex;
-        height: 3rem;
-        cursor: pointer;
-        border-left: ($padding/2) solid rgba($white, 0);
-        color: $white;
-        align-items: center;
-        flex-grow: 1;
-        text-decoration: none;
-        margin: 0 (-$padding*2) 0 (-$padding);
+        margin: 0;
 
-        &.active {
-          cursor: default;
-          border-left: ($padding/2) solid $bright-blue;
-          background-color: $white;
+        a {
+          display: flex;
+          height: 3rem;
+          margin: 0 (-$padding*2) 0 (-$padding);
+          cursor: pointer;
           text-decoration: none;
+          color: $white;
+          border-left: ($padding/2) solid rgba($white, 0);
+          align-items: center;
+          flex-grow: 1;
 
-          i {
-            width: 4rem - ($padding/2);
+          &.active {
+            cursor: default;
             text-decoration: none;
-          }
+            border-left: ($padding/2) solid $bright-blue-darken-04;
+            background-color: $white;
+            font-weight: $font-weight-bold;
 
-          span {
-            color: $body-color;
-            text-decoration: none;
-          }
-          &:hover {
+            i {
+              width: 4rem - ($padding/2);
+              text-decoration: none;
+              color: $bright-blue-darken-04;
+            }
+
+            span {
+              text-decoration: none;
+              color: $bright-blue-darken-04;
+            }
+
+            &:hover {
               cursor: default;
+              text-decoration: none;
               border-left: ($padding/2) solid $bright-blue;
               background-color: $white;
-              text-decoration: none;
 
               i {
                 width: 4rem - ($padding/2);
@@ -97,42 +139,223 @@
               }
 
               span {
-                color: $body-color;
                 text-decoration: none;
+                color: $body-color;
               }
+            }
           }
-        }
-        &:hover {
+
+          &:hover {
             cursor: pointer;
+            text-decoration: none;
             border-left: ($padding/2) solid rgba($bright-blue, .2);
             background-color: rgba($white, .1);
-            text-decoration: none;
+
             span {
+              text-decoration: none;
               color: $white;
+            }
+          }
+
+          i {
+            width: 4rem;
+            text-align: center;
+            text-decoration: none;
+            @include transition(all .1s .2s ease-in-out);
+            @include for-phone-only {
+              width: 3.5rem;
               text-decoration: none;
             }
-        }
+          }
 
-        i {
-          width: 4rem;
-          text-align: center;
-          text-decoration: none;
-          @include for-phone-only {
-            width: 3.5rem;
+          &.agent-dashboard {
+            i {
+              &:before {
+                content: "\f009";
+              }
+            }
+          }
+
+          &.agent-flood {
+            i {
+              &:before {
+                content: "\f043";
+              }
+            }
+
+            &.retrieve {
+              i {
+                &:before {
+                  content: "\f1da";
+                }
+              }
+            }
+
+            &.new {
+              i {
+                &:before {
+                  content: "\f055";
+                }
+              }
+            }
+          }
+
+          &.agent-homeowners {
+            i {
+              &:before {
+                content: "\f015";
+              }
+            }
+
+            &.retrieve {
+              i {
+                &:before {
+                  content: "\f1da";
+                }
+              }
+            }
+
+            &.new {
+              i {
+                &:before {
+                  content: "\f055";
+                }
+              }
+            }
+          }
+
+          span {
             text-decoration: none;
+            color: rgba($white, 1);
+            font-weight: $font-weight-bold;
+            @include transition(all .1s .2s ease-in-out);
+            @include for-tablet-portrait-up {
+              display: none;
+            }
+            @include for-tablet-landscape-up {
+              display: flex;
+            }
           }
+        }
+      }
+    }
+  }
+
+  .user {
+    width: auto;
+    min-height: 4.75rem;
+    padding: ($padding) ($padding*2);
+    border-bottom: 2px solid $white;
+    background-color: $warm-gray-08;
+    @include transition(all .2s ease-in-out);
+    @include for-tablet-portrait-up {
+      //display: none;
+    }
+    @include for-tablet-landscape-up {
+      display: flex;
+      flex-direction: column;
+      width: 12rem;
+    }
+
+    label {
+      margin: 0;
+      color: $white;
+      font-size: $font-size-sm;
+      @include for-tablet-portrait-up {
+        display: none;
+      }
+      @include for-tablet-landscape-up {
+        display: flex;
+      }
+    }
+
+    .user-name {
+      display: flex;
+      margin: 0;
+      color: $white;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: auto;
+      align-items: center;
+      @include for-phone-only {
+        max-width: 11rem;
+      }
+      @include for-tablet-portrait-up {
+        display: none;
+      }
+      @include for-tablet-landscape-up {
+        display: flex;
+      }
+
+      span {
+        overflow: hidden;
+        padding-right: $padding;
+        text-overflow: ellipsis;
+        flex-grow: 0;
+        flex-shrink: 1;
+        @include for-tablet-landscape-up {
+          width: 9rem;
+          flex-basis: 9rem;
         }
 
-        span {
-          color: $white;
-          text-decoration: none;
-          @include for-tablet-portrait-up {
-            display: none;
-          }
-          @include for-tablet-landscape-up {
-            display: flex;
-          }
+        div {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
+      }
+
+      i {
+        text-align: center;
+        font-size: 1rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 1rem;
+      }
+    }
+  }
+
+  .logout {
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    margin: 0.875rem;
+    padding: ($padding) 0;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    @include for-tablet-landscape-up {
+      width: auto;
+      height: auto;
+      margin: 0 ($padding);
+      padding: ($padding) 0;
+      border-radius: $btn-border-radius;
+    }
+    @include for-phone-only {
+      width: auto;
+      height: auto;
+      margin: 0 ($padding);
+      padding: ($padding) 0;
+      border-radius: $btn-border-radius;
+    }
+
+    i {
+      margin-right: 0;
+      @include for-tablet-landscape-up {
+        margin-right: $padding;
+      }
+      @include for-phone-only {
+        margin-right: $padding;
+      }
+    }
+
+    span {
+      display: none;
+      @include for-tablet-landscape-up {
+        display: block;
+      }
+      @include for-phone-only {
+        display: block;
       }
     }
   }

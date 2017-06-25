@@ -15,7 +15,8 @@ describe('RadioField', () => {
       input: {
         name: 'test'
       },
-      hint: 'Testing'
+      hint: 'Testing',
+      answers: []
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
 
@@ -46,5 +47,25 @@ describe('RadioField', () => {
     };
     const wrapper = shallow(<RadioInput {...inputProps} />);
     expect(wrapper.find(RadioOption).length).toEqual(3);
+  });
+  
+  it('should add name to class when name is provided', () => {
+    const inputProps = {
+      input: {
+        name: 'test'
+      }
+    };
+    const wrapper = shallow(<RadioInput {...inputProps} />);
+    
+    expect(wrapper.find('.form-group').hasClass(inputProps.input.name)).to.equal(true);
+  });
+  
+  it('should add styleName to class when styleName is provided', () => {
+    const inputProps = {
+      styleName: 'woop'
+    };
+    const wrapper = shallow(<RadioInput {...inputProps} />);
+    
+    expect(wrapper.find('.form-group').hasClass(inputProps.styleName)).to.equal(true);
   });
 });

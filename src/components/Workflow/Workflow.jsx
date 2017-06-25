@@ -1,106 +1,123 @@
-import React, {
-  Component,
-  PropTypes
-} from 'react';
-import {
-  bindActionCreators
-} from 'redux';
-import {
-  connect
-} from 'react-redux';
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
-import CheckError from '../Error/CheckError';
-import CustomerInfo from '../CustomerInfo/CustomerInfo';
-import Underwriting from '../Underwriting/Underwriting';
-import Search from '../Search/Search';
-import WorkFlowDetails from './WorkflowDetails';
-import Customize from '../Customize/Customize';
-import Share from '../Share/Share';
-import Assumptions from '../Assumptions/Assumptions';
+import CheckErrorConnect from '../Error/CheckError';
+import CustomerInfoConnect from '../CustomerInfo/CustomerInfo';
+import UnderwritingConnect from '../Underwriting/Underwriting';
+import SearchConnect from '../Search/Search';
+import WorkFlowDetailsConnect from './WorkflowDetails';
+import CustomizeConnect from '../Customize/Customize';
+import ShareConnect from '../Share/Share';
+import AssumptionsConnect from '../Assumptions/Assumptions';
 import Error from '../Error/Error';
-import PolicyHolder from '../PolicyHolder/PolicyHolder';
-import AdditionalInterest from '../AdditionalInterests/AdditionalInterest';
-import Mortgagee from '../AdditionalInterests/Mortgagee';
-import Lienholder from '../AdditionalInterests/Lienholder';
-import AdditionalInsured from '../AdditionalInterests/AdditionalInsured';
-import BillPayer from '../AdditionalInterests/BillPayer';
-import TaskRunner from './TaskRunner';
-import Billing from '../Billing/Billing';
-import Verify from '../Verify/Verify';
+import PolicyHolderConnect from '../PolicyHolder/PolicyHolder';
+import AddAdditionalInterestConnect from '../AdditionalInterests/AddAdditionalInterest';
+import TaskRunnerConnect from './TaskRunner';
+import BillingConnect from '../Billing/Billing';
+import VerifyConnect from '../Verify/Verify';
 import ThankYou from '../ThankYou/ThankYou';
+import MortgageeConnect from '../AdditionalInterests/Mortgagee';
+import LienholderConnect from '../AdditionalInterests/Lienholder';
+import AdditionalInsuredConnect from '../AdditionalInterests/AdditionalInsured';
+import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest';
+import BillPayerConnect from '../AdditionalInterests/BillPayer';
+
 
 const workflowModelName = 'quoteModel';
-
-const components = {
-  search: <Search />,
-  chooseAddress: <Search />,
-  chooseQuote: <Search />,
-  askToSearchAgain: <Search />,
-  askAdditionalCustomerData: <CustomerInfo />,
-  askUWAnswers: <Underwriting />,
-  askToCustomizeDefaultQuote: <Customize />,
-  UWDecision1EndError: <Error />,
-  refreshOnUnderWritingReviewError: <Share />,
-  sendEmailOrContinue: <Share />,
-  showAssumptions: <Assumptions />,
-  askAdditionalPolicyHolder: <PolicyHolder />,
-  askMortgagee: <Mortgagee />,
-  askLienholder: <Lienholder />,
-  askAdditionalInterest: <AdditionalInterest />,
-  askAdditionalInsured: <AdditionalInsured />,
-  askBillPayer: <BillPayer />,
-  showCustomizedQuoteAndContinue: <TaskRunner taskName={'showCustomizedQuoteAndContinue'} />,
-  askAdditionalQuestions: <Billing />,
-  askScheduleInspectionDates: <Verify />
+const workflowData = {
+  dsUrl: `${process.env.REACT_APP_API_URL}/ds`
 };
 
-class Workflow extends Component {
+const underwritingDecisionErrors = [
+  'UWDecision1EndError', 'UWDecision2EndError',
+  'UWDecision3EndError', 'UWDecision4EndError',
+  'UWDecision5EndError'
+];
+
+const components = {
+  search: <SearchConnect />,
+  chooseAddress: <SearchConnect />,
+  chooseQuote: <SearchConnect />,
+  askToSearchAgain: <SearchConnect />,
+  askAdditionalCustomerData: <CustomerInfoConnect />,
+  askUWAnswers: <UnderwritingConnect />,
+  askToCustomizeDefaultQuote: <CustomizeConnect />,
+  UWDecision1EndError: <Error />,
+  refreshOnUnderWritingReviewError: <ShareConnect />,
+  sendEmailOrContinue: <ShareConnect />,
+  showAssumptions: <AssumptionsConnect />,
+  askAdditionalPolicyHolder: <PolicyHolderConnect />,
+  addAdditionalAIs: <AddAdditionalInterestConnect />,
+  askMortgagee: <MortgageeConnect />,
+  askLienholder: <LienholderConnect />,
+  askAdditionalInsured: <AdditionalInsuredConnect />,
+  askAdditionalInterest: <AdditionalInterestConnect />,
+  askBillPayer: <BillPayerConnect />,
+  showCustomizedQuoteAndContinue: <TaskRunnerConnect taskName={'showCustomizedQuoteAndContinue'} />,
+  askAdditionalQuestions: <BillingConnect />,
+  askScheduleInspectionDates: <VerifyConnect />
+};
+
+export class Workflow extends Component {
   state = {
-    currentControl: <Search />,
+    currentControl: <SearchConnect />,
     quoteNumber: ''
   }
 
   componentDidMount() {
-    this.props.actions.cgActions.startWorkflow(workflowModelName, {});
+    this.props.actions.cgActions.startWorkflow(workflowModelName, workflowData);
   }
 
   componentWillReceiveProps(nextProps) {
     if ((this.props.tasks[workflowModelName]) &&
       (nextProps.tasks[workflowModelName].data.activeTask &&
-        this.props.tasks[workflowModelName].data.activeTask)) {
+      this.props.tasks[workflowModelName].data.activeTask)) {
       const activeTaskName = nextProps.tasks[workflowModelName].data.activeTask.name;
       const oldActiveTaskName = this.props.tasks[workflowModelName].data.activeTask.name;
       if (activeTaskName !== oldActiveTaskName) {
         if (activeTaskName === 'askAdditionalCustomerData' ||
           activeTaskName === 'askUWAnswers' ||
           activeTaskName === 'askToCustomizeDefaultQuote') {
-          const quoteData = nextProps.tasks[workflowModelName].data.previousTask.value.result;
+          const quoteData = _.find(nextProps.tasks[workflowModelName].data.model.variables, { name: 'quote' }).value.result;
           if (quoteData._id) { // eslint-disable-line
             console.log('dispatching workflow details', quoteData._id); // eslint-disable-line
-            nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName,
-              nextProps.appState.instanceId, {
-                quote: quoteData,
-                updateWorkflowDetails: true,
-                hideYoChildren: (activeTaskName === 'askAdditionalCustomerData' || activeTaskName === 'askUWAnswers')
-              });
+            nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName, nextProps.appState.instanceId, {
+              quote: quoteData,
+              updateWorkflowDetails: true,
+              hideYoChildren: (activeTaskName === 'askAdditionalCustomerData' || activeTaskName === 'askUWAnswers')
+            });
           }
         }
+
+        console.log('active task name: ', activeTaskName);
+
         const newComponent = components[activeTaskName];
-        this.setState((previousState, props) => ({ ...props,
+        this.setState((previousState, props) => ({
+          ...props,
           currentControl: newComponent
         }));
       }
     }
     if (nextProps.tasks && nextProps.tasks[workflowModelName] &&
       nextProps.tasks[workflowModelName].data &&
-      nextProps.tasks[workflowModelName].data.previousTask &&
-      nextProps.tasks[workflowModelName].data.previousTask.name === 'notifyDocusignApp') {
-      this.setState((previousState, props) => ({ ...props,
-        currentControl: <ThankYou />
-      }));
+      nextProps.tasks[workflowModelName].data.previousTask) {
+      const previousTaskName = nextProps.tasks[workflowModelName].data.previousTask.name;
+      if (previousTaskName === 'notifyDocusignApp' || previousTaskName === 'updateQuoteStateDocusign') {
+        this.setState((previousState, props) => ({
+          ...props,
+          currentControl: <ThankYou />
+        }));
+      } else if (_.includes(underwritingDecisionErrors, previousTaskName)) {
+        this.setState((previousState, props) => ({
+          ...props,
+          currentControl: <Error />
+        }));
+      }
     }
   }
 
@@ -108,9 +125,9 @@ class Workflow extends Component {
     const activeStep = (this.props.tasks && this.props.tasks.activeTask) ? this.props.tasks.activeTask.name : '';
     return (
       <div className={`route ${activeStep}`}>
-        <WorkFlowDetails />
+        <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
         { this.state.currentControl }
-        <CheckError redirectUrl={this.context.router.route.location.pathname} />
+        <CheckErrorConnect redirectUrl={this.context.router.route.location.pathname} />
       </div>);
   }
 }
@@ -133,10 +150,6 @@ Workflow.propTypes = {
   }),
   tasks: PropTypes.shape({
     activeTask: PropTypes.object
-  }),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string
   })
 };
 
