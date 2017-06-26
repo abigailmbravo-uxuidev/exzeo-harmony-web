@@ -21,6 +21,7 @@
       .scroll {
         display: flex;
         overflow-y: auto;
+        overflow-x: hidden;
         flex-direction: column;
         flex-grow: 1;
 
@@ -184,7 +185,7 @@
             flex-basis: 6rem;
           }
 
-          .effctive-date {
+          .effective-date {
             width: 5rem;
             flex-grow: 0;
             flex-shrink: 0;
