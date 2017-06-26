@@ -1,6 +1,6 @@
 import React from 'react';
 import * as queryString from 'query-string';
-import logo from '../img/TypTap.svg';
+import logo from '../img/TypTap-alt.svg';
 
 const parsed = queryString.parse(window.location.search);
 
