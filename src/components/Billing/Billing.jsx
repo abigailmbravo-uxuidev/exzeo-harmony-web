@@ -41,6 +41,12 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
+const handleGetPaymentPlans = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  return paymentPlanResult;
+};
+
 const handleInitialize = (state) => {
   console.log(state);
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
@@ -54,10 +60,19 @@ const handleInitialize = (state) => {
     }
   });
 
-  values.billTo = _.get(quoteData, 'billToId');
-  values.billToId = _.get(quoteData, 'billToId');
-  values.billToType = _.get(quoteData, 'billToType');
-  values.billPlan = _.get(quoteData, 'billPlan');
+  const paymentPlans = handleGetPaymentPlans(state);
+
+  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !values.billTo && !values.billPlan) {
+    values.billTo = _.get(paymentPlans.options[0], 'billToId');
+    values.billToId = _.get(paymentPlans.options[0], 'billToId');
+    values.billToType = _.get(paymentPlans.options[0], 'billToType');
+    values.billPlan = 'Annual';
+  } else {
+    values.billTo = _.get(quoteData, 'billToId');
+    values.billToId = _.get(quoteData, 'billToId');
+    values.billToType = _.get(quoteData, 'billToType');
+    values.billPlan = _.get(quoteData, 'billPlan');
+  }
 
   return values;
 };
@@ -65,12 +80,6 @@ const handleInitialize = (state) => {
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   return taskData.uiQuestions;
-};
-
-const handleGetPaymentPlans = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  return paymentPlanResult;
 };
 
 const getSelectedPlan = (answer) => {
