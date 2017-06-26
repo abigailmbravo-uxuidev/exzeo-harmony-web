@@ -7,7 +7,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     const { isAuthenticated } = props.auth;
-    console.log(isAuthenticated());
+
     if (!isAuthenticated()) {
       props.auth.login();
     } else {
