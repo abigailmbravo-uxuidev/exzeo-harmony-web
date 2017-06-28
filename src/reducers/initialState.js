@@ -15,5 +15,8 @@ export default {
   navigation: {
     location: null
   },
-  error: {}
+  error: {},
+  authState: {
+    userProfile: null
+  }
 };
