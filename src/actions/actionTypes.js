@@ -24,3 +24,5 @@ export const APP_ERROR = 'APP_ERROR';
 export const APP_ERROR_CLEAR = 'APP_ERROR_CLEAR';
 
 export const COMPLETED_TASKS_SET = 'COMPLETED_TASKS_SET';
+
+export const AUTH = 'AUTH';

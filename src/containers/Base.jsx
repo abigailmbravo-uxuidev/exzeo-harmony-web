@@ -29,7 +29,7 @@ const getAgencyName = (props, userProfile) => {
 };
 
 const populateAgencyName = (props) => {
-  const { userProfile } = props.auth;
+  const { userProfile } = props.authState;
   if (props.tasks && props.tasks.getAgency && props.tasks.getAgency.data &&
     props.tasks.getAgency.data.model && props.tasks.getAgency.data.model.variables) {
     const agencyValue = _.filter(props.tasks.getAgency.data.model.variables, item => item.name === 'getAgencyByCode');
@@ -52,12 +52,7 @@ export class Base extends Component {
     this.toggleClassHeader = this.toggleClassHeader.bind(this);
   }
   componentWillMount() {
-    const { isAuthenticated, getProfile } = this.props.auth;
-    if (isAuthenticated()) {
-      getProfile((profileErr, profile) => {
-        getAgencyName(this.props, profile);
-      });
-    }
+
   }
   toggleClass() {
     const currentState = this.state.active;
@@ -70,6 +65,10 @@ export class Base extends Component {
   }
 
   render() {
+    console.log(this.props.authState);
+    if (this.props.authState.userProfile) {
+      getAgencyName(this.props, this.props.authState.userProfile);
+    }
     return (
       <div className={this.state.headerActive ? 'app-wrapper blur' : 'app-wrapper'} >
         <Header toggleHeader={this.toggleClassHeader} toggle={this.toggleClass} active={this.state.active} />
@@ -108,7 +107,8 @@ Base.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg
+  tasks: state.cg,
+  authState: state.authState
 });
 const mapDispatchToProps = dispatch => ({
   actions: {

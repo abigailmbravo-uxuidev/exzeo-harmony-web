@@ -1,5 +1,7 @@
 // src/routes.js
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
@@ -15,6 +17,8 @@ import AccessDenied from './containers/AccessDenied';
 import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 
+import * as authActions from './actions/authActions';
+
 const auth = new Auth();
 
 const handleAuthentication = (nextState, replace) => {
@@ -28,13 +32,14 @@ const checkPublicPath = (path) => {
   return (publicPaths.indexOf(path) === -1);
 };
 
-export default class Routes extends Component { // eslint-disable-line
+class Routes extends Component { // eslint-disable-line
   componentWillMount() {
     const { isAuthenticated, userProfile, getProfile } = auth;
     if (isAuthenticated() && !userProfile && checkPublicPath(window.location.pathname)) {
+      const idToken = localStorage.getItem('id_token');
+      axios.defaults.headers.common['authorization'] = `bearer ${idToken}`; // eslint-disable-line
       getProfile((err, profile) => {
-        const idToken = localStorage.getItem('id_token');
-        axios.defaults.headers.common['authorization'] = `bearer ${idToken}`; // eslint-disable-line
+        this.props.actions.authActions.dispatchUserProfile(profile);
       });
     } else if (!isAuthenticated() && checkPublicPath(window.location.pathname)) {
       history.push('/login');
@@ -89,3 +94,11 @@ export default class Routes extends Component { // eslint-disable-line
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  actions: {
+    authActions: bindActionCreators(authActions, dispatch)
+  }
+});
+
+export default connect(null, mapDispatchToProps)(Routes);
