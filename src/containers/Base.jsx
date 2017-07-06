@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -7,25 +8,9 @@ import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
 import * as cgActions from '../actions/cgActions';
 
-const getAgencyModelName = 'getAgency';
-
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
   props.auth.logout();
-};
-
-const getAgencyName = (props, userProfile) => {
-  const group = (userProfile.groups) ? _.filter(userProfile.groups, item => (item.agencyCode != null)) : null;
-  console.log('userProfile', userProfile);
-  if (group && group.length > 0) {
-    const startModelData = {
-      agencyCode: group[0].agencyCode,
-      companyCode: group[0].companyCode,
-      state: group[0].state
-    };
-    console.log('startModelData', startModelData);
-    props.actions.cgActions.startWorkflow(getAgencyModelName, startModelData, false);
-  }
 };
 
 const populateAgencyName = (props) => {
@@ -51,9 +36,7 @@ export class Base extends Component {
     this.toggleClass = this.toggleClass.bind(this);
     this.toggleClassHeader = this.toggleClassHeader.bind(this);
   }
-  componentWillMount() {
 
-  }
   toggleClass() {
     const currentState = this.state.active;
     this.setState({ headerActive: false, active: !currentState });
@@ -65,10 +48,6 @@ export class Base extends Component {
   }
 
   render() {
-    console.log(this.props.authState);
-    if (this.props.authState.userProfile) {
-      getAgencyName(this.props, this.props.authState.userProfile);
-    }
     return (
       <div className={this.state.headerActive ? 'app-wrapper blur' : 'app-wrapper'} >
         <Header toggleHeader={this.toggleClassHeader} toggle={this.toggleClass} active={this.state.active} />
