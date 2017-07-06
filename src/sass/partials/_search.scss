@@ -132,6 +132,7 @@
     flex-grow: 1;
     flex-shrink: 1;
     flex-wrap: nowrap;
+    height: calc(100vh-128);
 
     .results,
     .results-wrapper {

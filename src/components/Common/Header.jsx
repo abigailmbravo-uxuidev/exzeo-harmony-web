@@ -13,7 +13,7 @@ const sideBarLinks = [{
   label: 'POLICYHOLDERS'
 }, {
   className: 'link-phone btn',
-  link: 'tel:+844-289-7968',
+  link: 'tel:844-289-7968',
   label: '844-289-7968'
 }];
 

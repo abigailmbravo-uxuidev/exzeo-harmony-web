@@ -211,6 +211,9 @@ ul.list-cards {
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: 5.75rem;
+            @include for-phone-only {
+              flex-basis: 0;
+            }
           }
 
           .property-address {
