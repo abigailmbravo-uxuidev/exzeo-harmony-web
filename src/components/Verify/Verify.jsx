@@ -285,7 +285,7 @@ export const Verify = (props) => {
                     </div>
                   </dl>
                 </section>
-                <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
+                <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group additional-interests-details">
                 <h3 className="section-group-header"><i className="fa fa-user-plus" /> Additional Parties<span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</span></h3>
@@ -316,7 +316,7 @@ export const Verify = (props) => {
                       </div>
                     </div>)) : null}
                 </section>
-                <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verify" isSwitch />
+                <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verified" isSwitch />
               </div>
             </div>
             <div className="workflow-steps">
