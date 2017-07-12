@@ -12,6 +12,9 @@ export const CG_ACTIVE_TASK = 'CG_ACTIVE_TASK';
 export const CG_COMPLETE = 'CG_COMPLETE';
 export const CG_ERROR = 'CG_ERROR';
 
+/* SERVICE */
+export const SERVICE_REQUEST = 'SERVICE_REQUEST';
+
 /* WORKFLOW DETAILS */
 export const DETAILS_SET = 'DETAILS_SET';
 export const DETAILS_GET = 'DETAILS_GET';

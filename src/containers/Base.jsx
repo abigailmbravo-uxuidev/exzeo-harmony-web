@@ -7,6 +7,7 @@ import _ from 'lodash';
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
 import * as cgActions from '../actions/cgActions';
+import * as serviceActions from '../../actions/serviceActions';
 
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
@@ -87,10 +88,12 @@ Base.propTypes = {
 
 const mapStateToProps = state => ({
   tasks: state.cg,
-  authState: state.authState
+  authState: state.authState,
+  currentAgent: state.service.currentAgent
 });
 const mapDispatchToProps = dispatch => ({
   actions: {
+    serviceActions: bindActionCreators(serviceActions, dispatch),
     cgActions: bindActionCreators(cgActions, dispatch)
   }
 });
