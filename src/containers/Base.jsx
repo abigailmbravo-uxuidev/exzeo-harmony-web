@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
 import * as cgActions from '../actions/cgActions';
-import * as serviceActions from '../../actions/serviceActions';
+import * as serviceActions from '../actions/serviceActions';
 
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
@@ -36,6 +36,18 @@ export class Base extends Component {
     };
     this.toggleClass = this.toggleClass.bind(this);
     this.toggleClassHeader = this.toggleClassHeader.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.auth.getProfile((err, result) => {
+      const userGroup = result.groups[0];
+      if (userGroup.isAgency) {
+        console.log(userGroup);
+       // make agency call if agency only
+        const agent = this.props.actions.serviceActions.currentAgent(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
+        console.log(agent);
+      }
+    });
   }
 
   toggleClass() {
