@@ -21,7 +21,7 @@ describe('Testing Mortgagee component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<Mortgagee {...props} />);
     expect(wrapper);
@@ -55,7 +55,7 @@ describe('Testing Mortgagee component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);

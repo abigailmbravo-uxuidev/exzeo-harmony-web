@@ -1,27 +1,32 @@
 exports[`test renders without crashing 1`] = `
-<header>
+<header
+  className="">
   <div
     role="banner">
     <button
-      className="btn-icon btn-bars">
+      className="btn-icon btn-bars"
+      onClick={undefined}>
       <i
         className="fa fa-bars" />
     </button>
-    <div
+    <a
       className="logo"
+      href="/"
       id="logo">
       <img
         alt="TypTap Insurance"
         src="TypTap.svg" />
-    </div>
+    </a>
     <button
       className="btn-icon btn-ellipsis-v">
       <i
-        className="fa fa-ellipsis-v" />
+        className="fa fa-ellipsis-v"
+        onClick={undefined} />
     </button>
     <nav
-      className="fade-in">
+      className="">
       <a
+        className={undefined}
         href="https://www.typtap.com">
         HOME
       </a>
@@ -31,19 +36,19 @@ exports[`test renders without crashing 1`] = `
         AGENTS
       </a>
       <a
+        className={undefined}
         href="https://policyholder.typtap.com/login">
         POLICYHOLDERS
       </a>
       <a
         className="link-phone btn"
-        href="tel:+844-289-7968">
-        <i
-          className="fa fa-phone" />
-        <span>
-          844-289-7968
-        </span>
+        href="tel:844-289-7968">
+        844-289-7968
       </a>
     </nav>
+    <div
+      className="nav-modal"
+      onClick={undefined} />
   </div>
 </header>
 `;

@@ -79,9 +79,10 @@ export const Verify = (props) => {
   const quoteData = _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
   _.find(taskData.model.variables, { name: 'quote' }).value.result;
 
-  const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result;
+  const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
+  _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
 
-  const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode });
+  const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode }) || {};
 
   if (quoteData) {
     property = quoteData.property;
@@ -302,7 +303,7 @@ export const Verify = (props) => {
                         <h4>{`${additionalInterest.name2}`}</h4>
                         <p>
                           {`${additionalInterest.mailingAddress.address1}`}
-                          {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ``}
+                          {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ''}
                         </p>
                         <p>
                           {`${additionalInterest.mailingAddress.city}, `}

@@ -21,7 +21,7 @@ describe('Testing Customize component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<Customize {...props} />);
     expect(wrapper);
@@ -33,7 +33,11 @@ describe('Testing Customize component', () => {
         bb: {
           data: {
             modelInstanceId: '123',
-            model: {},
+            model: {
+              variables: [{
+                name: 'getQuote', value: { result: {} }
+              }]
+            },
             uiQuestions: []
           }
         }
@@ -52,7 +56,8 @@ describe('Testing Customize component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
+
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);

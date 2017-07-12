@@ -21,7 +21,7 @@ describe('Testing Lienholder component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<Lienholder {...props} />);
     expect(wrapper);
@@ -55,7 +55,7 @@ describe('Testing Lienholder component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);

@@ -13,6 +13,7 @@ describe('Testing AdditionalInsured component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -20,8 +21,7 @@ describe('Testing AdditionalInsured component', () => {
         data: {
           submitting: false
         }
-      },
-      ...propTypes
+      }
     };
     const wrapper = shallow(<AdditionalInsured {...props} />);
     expect(wrapper);

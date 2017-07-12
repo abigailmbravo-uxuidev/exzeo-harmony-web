@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
 import * as cgActions from '../actions/cgActions';
-import * as serviceActions from '../../actions/serviceActions';
+import * as serviceActions from '../actions/serviceActions';
 
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
