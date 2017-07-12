@@ -10,9 +10,25 @@ const mockStore = configureStore(middlewares);
 
 describe('Testing Base component', () => {
   it('should test props and render', () => {
-    const initialState = {};
+    const initialState = {
+      service: {
+        currentAgent: {}
+      },
+      auth: {
+        userProfile: {}
+      }
+    };
     const store = mockStore(initialState);
     const props = {
+      service: {
+        currentAgent: {}
+      },
+      auth: {
+        getIdToken() {}
+      },
+      authState: {
+        userProfile: {}
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -21,14 +37,17 @@ describe('Testing Base component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
-    const wrapper = shallow(<Base {...props} />);
+    const wrapper = shallow(<Base store={store} {...props} />);
     expect(wrapper);
   });
 
   it('should test connected app', () => {
     const initialState = {
+      service: {
+        currentAgent: {}
+      },
       cg: {
         bb: {
           data: {

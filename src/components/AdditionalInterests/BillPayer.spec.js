@@ -21,7 +21,7 @@ describe('Testing BillPayer component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<BillPayer {...props} />);
     expect(wrapper);
@@ -55,7 +55,7 @@ describe('Testing BillPayer component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);

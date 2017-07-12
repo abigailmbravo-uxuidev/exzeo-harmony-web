@@ -32,7 +32,7 @@ describe('Testing Share component', () => {
           }
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<Share {...props} />);
     expect(wrapper);

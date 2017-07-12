@@ -38,7 +38,7 @@ describe('Testing CustomerInfo component', () => {
           }
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<CustomerInfo {...props} />);
     expect(wrapper);

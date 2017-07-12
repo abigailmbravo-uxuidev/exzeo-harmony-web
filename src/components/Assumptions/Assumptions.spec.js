@@ -24,7 +24,7 @@ describe('Testing Assumptions component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<Assumptions {...props} />);
     expect(wrapper);

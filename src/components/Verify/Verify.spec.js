@@ -1,8 +1,6 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
-
 import ConnectedApp, { Verify } from './Verify';
 
 const middlewares = [];
@@ -37,6 +35,13 @@ describe('Testing Verify component', () => {
                 name: 'getFinalQuote',
                 value: {
                   result: {
+                    mailingAddress: {
+
+                    },
+                    deductibles: {
+                      hurricane: {},
+                      allOtherPerils: {}
+                    },
                     quoteNumber: '12',
                     property: {
                       physicalAddress: {}
@@ -67,7 +72,7 @@ describe('Testing Verify component', () => {
           }
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<Verify {...props} />);
     expect(wrapper);
@@ -103,7 +108,7 @@ describe('Testing Verify component', () => {
           showScheduleDateModal: true
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
