@@ -16,13 +16,9 @@ const handleLogout = (props) => {
 
 const populateAgencyName = (props) => {
   const { userProfile } = props.authState;
-  if (props.tasks && props.tasks.getAgency && props.tasks.getAgency.data &&
-    props.tasks.getAgency.data.model && props.tasks.getAgency.data.model.variables) {
-    const agencyValue = _.filter(props.tasks.getAgency.data.model.variables, item => item.name === 'getAgencyByCode');
-    if (agencyValue.length > 0) {
-      const data = agencyValue[0].value.result;
-      return data.displayName;
-    }
+  const { currentAgent } = props;
+  if (currentAgent) {
+    return `${currentAgent.contactFirstName} ${currentAgent.contactLastName}`;
   }
   return (userProfile && userProfile.name) ? userProfile.name : '';
 };
@@ -36,6 +32,16 @@ export class Base extends Component {
     };
     this.toggleClass = this.toggleClass.bind(this);
     this.toggleClassHeader = this.toggleClassHeader.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.auth.getProfile((err, result) => {
+      const userGroup = result.groups[0];
+      if (userGroup.isAgency) {
+        this.props.actions.serviceActions.getAgency(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
+        // make agency call if agency only
+      }
+    });
   }
 
   toggleClass() {
@@ -89,7 +95,7 @@ Base.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   authState: state.authState,
-  currentAgent: state.service.currentAgent
+  currentAgent: state.service.agency
 });
 const mapDispatchToProps = dispatch => ({
   actions: {
