@@ -13,7 +13,7 @@ const userTasks = {
   handleSearchBarSubmit: 'search'
 };
 
-const handleSearchBarSubmit = (data, dispatch, props) => {
+export const handleSearchBarSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSearchBarSubmit;
   const taskData = {
@@ -38,7 +38,7 @@ const handleSearchBarSubmit = (data, dispatch, props) => {
   }
 };
 
-const validate = values => {
+export const validate = (values) => {
   const errors = {};
   if (values.firstName) {
     const onlyAlphaNumeric = Rules.onlyAlphaNumeric(values.firstName);
@@ -107,7 +107,7 @@ const generateField = (name, placeholder, labelText, formErrors, formGroupCss) =
   return field;
 };
 
-const SearchForm = props => {
+const SearchForm = (props) => {
   const { handleSubmit, formErrors, isRetrieve } = props;
 
   if (isRetrieve) {
@@ -122,7 +122,7 @@ const SearchForm = props => {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={props.appState.data.submitting || formErrors }
+            disabled={props.appState.data.submitting || formErrors}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>
@@ -139,7 +139,7 @@ const SearchForm = props => {
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"
-          disabled={ props.appState.data.submitting || formErrors }
+          disabled={props.appState.data.submitting || formErrors}
         >
           <i className="fa fa-search" /><span>Search</span>
         </button>
