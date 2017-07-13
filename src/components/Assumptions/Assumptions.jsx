@@ -13,8 +13,7 @@ import { CheckField } from '../Form/inputs';
 
 const userTasks = { formSubmit: 'showAssumptions' };
 
-const handleOnSubmit = (data, dispatch, props) => {
-  console.log(data, dispatch, props);
+export const handleOnSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName });
@@ -23,9 +22,6 @@ const handleOnSubmit = (data, dispatch, props) => {
 
 export const Assumptions = (props) => {
   const { appState, handleSubmit, fieldValues } = props;
-
-  console.log('fieldValues', fieldValues);
-
   return (
     <div className="route-content">
       {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
