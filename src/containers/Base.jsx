@@ -16,9 +16,9 @@ const handleLogout = (props) => {
 
 const populateAgencyName = (props) => {
   const { userProfile } = props.authState;
-  const { currentAgent } = props;
-  if (currentAgent) {
-    return `${currentAgent.contactFirstName} ${currentAgent.contactLastName}`;
+  const { currentAgency } = props;
+  if (currentAgency) {
+    return `${currentAgency.displayName}`;
   }
   return (userProfile && userProfile.name) ? userProfile.name : '';
 };
@@ -95,7 +95,7 @@ Base.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   authState: state.authState,
-  currentAgent: state.service.agency
+  currentAgency: state.service.agency
 });
 const mapDispatchToProps = dispatch => ({
   actions: {
