@@ -75,6 +75,27 @@ html {
               width: 100%;
               height: auto;
 
+              &.search, &.chooseAddress, &.chooseQuote {
+                  align-items: stretch;
+
+                  .detailHeader {
+                      display: none;
+                  }
+                  .workflow-header {
+                      display: none;
+                  }
+              }
+
+              &.askAdditionalCustomerData {
+                  .detailHeader {
+                      height: 4.625rem;
+                  }
+                  .workflow-header {
+                      height: 4.6875rem;
+                      display: flex;
+                  }
+              }
+
               .route-content {
                 position: relative;
                 display: flex;

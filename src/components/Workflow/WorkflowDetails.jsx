@@ -82,7 +82,7 @@ export class WorkflowDetails extends Component {
 
   render() {
     if (!this.state.quote._id) { // eslint-disable-line
-      return <div className="detailHeader" />;
+      return <div><div className="detailHeader fade-in" /><ul className="workflow-header fade-in"></ul></div>;
     }
     return (
       <div>

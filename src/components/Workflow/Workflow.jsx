@@ -122,7 +122,8 @@ export class Workflow extends Component {
   }
 
   render() {
-    const activeStep = (this.props.tasks && this.props.tasks.activeTask) ? this.props.tasks.activeTask.name : '';
+    const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
+      this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
     return (
       <div className={`route ${activeStep}`}>
         <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
