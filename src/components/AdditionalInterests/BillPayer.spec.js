@@ -1,18 +1,18 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { BillPayer } from './BillPayer';
+import ConnectedApp, { BillPayer, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './BillPayer';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe('Testing BillPayer component', () => {
+describe('Testing AddBillPayer component', () => {
   it('should test props and render', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -20,8 +20,7 @@ describe('Testing BillPayer component', () => {
         data: {
           submitting: false
         }
-      },
-      handleSubmit() {}
+      }
     };
     const wrapper = shallow(<BillPayer {...props} />);
     expect(wrapper);
@@ -47,17 +46,49 @@ describe('Testing BillPayer component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      quoteData: {
+        additionalInterests: []
+      },
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        },
+        cgActions: {
+          completeTask() {}
+        }
+      },
       fieldQuestions: [],
-      quoteData: {},
       dispatch: store.dispatch,
+      tasks: {
+        bb: {
+          data: {
+            modelInstanceId: '123',
+            model: {},
+            previousTask: {
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            uiQuestions: []
+          }
+        }
+      },
+      handleSubmit() {},
       appState: {
+        modelName: 'bb',
         data: {
           submitting: false
         }
-      },
-      handleSubmit() {}
+      }
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
+
+    handleFormSubmit({ isAdditional: true }, props.dispatch, props);
+    BillPayer(props);
+    closeAndSavePreviousAIs(props);
+    handleInitialize(initialState);
   });
 });

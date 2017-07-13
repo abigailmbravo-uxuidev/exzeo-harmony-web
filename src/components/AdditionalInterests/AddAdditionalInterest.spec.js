@@ -1,8 +1,9 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
+import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { AdditionalInsured, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './AdditionalInsured';
+import ConnectedApp, { AddAdditionalInterest, noAddAdditionalInterestSubmit, goToStep } from './AddAdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -22,7 +23,7 @@ describe('Testing AddAdditionalInterest component', () => {
         }
       }
     };
-    const wrapper = shallow(<AdditionalInsured {...props} />);
+    const wrapper = shallow(<AddAdditionalInterest {...props} />);
     expect(wrapper);
   });
 
@@ -46,9 +47,6 @@ describe('Testing AddAdditionalInterest component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      quoteData: {
-        additionalInterests: []
-      },
       actions: {
         appStateActions: {
           setAppState() {}
@@ -58,6 +56,7 @@ describe('Testing AddAdditionalInterest component', () => {
         }
       },
       fieldQuestions: [],
+      quoteData: {},
       dispatch: store.dispatch,
       tasks: {
         bb: {
@@ -86,9 +85,13 @@ describe('Testing AddAdditionalInterest component', () => {
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
 
-    handleFormSubmit({ isAdditional: true, isAdditional2: true }, props.dispatch, props);
-    AdditionalInsured(props);
-    closeAndSavePreviousAIs(props);
-    handleInitialize(initialState);
+    noAddAdditionalInterestSubmit({}, props.dispatch, props);
+    goToStep(props, 'Mortgagee');
+    goToStep(props, 'Lienholder');
+    goToStep(props, 'Bill Payer');
+    goToStep(props, 'Additional Interest');
+    goToStep(props, 'Additional Insured');
+
+    AddAdditionalInterest(props);
   });
 });
