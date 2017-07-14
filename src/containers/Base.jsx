@@ -39,7 +39,6 @@ export class Base extends Component {
       const userGroup = result.groups[0];
       if (userGroup.isAgency) {
         this.props.actions.serviceActions.getAgency(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
-        // make agency call if agency only
       }
     });
   }
@@ -89,7 +88,10 @@ export class Base extends Component {
 
 Base.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object })
+  auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object }),
+  actions: PropTypes.shape({
+    serviceActions: PropTypes.func
+  })
 };
 
 const mapStateToProps = state => ({
