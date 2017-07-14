@@ -28,7 +28,7 @@ import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest
 import BillPayerConnect from '../AdditionalInterests/BillPayer';
 
 
-const workflowModelName = 'quoteModelMQ';
+const workflowModelName = 'quoteModel';
 const workflowData = {
   dsUrl: `${process.env.REACT_APP_API_URL}/ds`
 };
