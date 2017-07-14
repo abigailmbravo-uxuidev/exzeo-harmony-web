@@ -5,10 +5,12 @@ import cg from './cgReducer';
 import authState from './authReducer';
 import appState from './appStateReducer';
 import error from './errorReducer';
+import service from './serviceReducer';
 import completedTasks from './completedTasksReducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
+  service,
   cg,
   appState,
   authState,

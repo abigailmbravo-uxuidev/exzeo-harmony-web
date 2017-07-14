@@ -7,6 +7,7 @@ import _ from 'lodash';
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
 import * as cgActions from '../actions/cgActions';
+import * as serviceActions from '../actions/serviceActions';
 
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
@@ -15,13 +16,9 @@ const handleLogout = (props) => {
 
 const populateAgencyName = (props) => {
   const { userProfile } = props.authState;
-  if (props.tasks && props.tasks.getAgency && props.tasks.getAgency.data &&
-    props.tasks.getAgency.data.model && props.tasks.getAgency.data.model.variables) {
-    const agencyValue = _.filter(props.tasks.getAgency.data.model.variables, item => item.name === 'getAgencyByCode');
-    if (agencyValue.length > 0) {
-      const data = agencyValue[0].value.result;
-      return data.displayName;
-    }
+  const { currentAgency } = props;
+  if (currentAgency) {
+    return `${currentAgency.displayName}`;
   }
   return (userProfile && userProfile.name) ? userProfile.name : '';
 };
@@ -35,6 +32,16 @@ export class Base extends Component {
     };
     this.toggleClass = this.toggleClass.bind(this);
     this.toggleClassHeader = this.toggleClassHeader.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.auth.getProfile((err, result) => {
+      const userGroup = result.groups[0];
+      if (userGroup.isAgency) {
+        this.props.actions.serviceActions.getAgency(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
+        // make agency call if agency only
+      }
+    });
   }
 
   toggleClass() {
@@ -87,10 +94,12 @@ Base.propTypes = {
 
 const mapStateToProps = state => ({
   tasks: state.cg,
-  authState: state.authState
+  authState: state.authState,
+  currentAgency: state.service.agency
 });
 const mapDispatchToProps = dispatch => ({
   actions: {
+    serviceActions: bindActionCreators(serviceActions, dispatch),
     cgActions: bindActionCreators(cgActions, dispatch)
   }
 });

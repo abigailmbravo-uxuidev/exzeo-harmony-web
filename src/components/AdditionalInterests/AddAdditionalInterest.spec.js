@@ -3,30 +3,27 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Assumptions, handleOnSubmit } from './Assumptions';
+import ConnectedApp, { AddAdditionalInterest, noAddAdditionalInterestSubmit, goToStep } from './AddAdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe('Testing Assumptions component', () => {
+describe('Testing AddAdditionalInterest component', () => {
   it('should test props and render', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      handleSubmit() {},
       fieldQuestions: [],
-      fieldValues: {
-        confirmAssumptions: false
-      },
       quoteData: {},
       dispatch: store.dispatch,
       appState: {
         data: {
           submitting: false
         }
-      },
-      handleSubmit() {}
+      }
     };
-    const wrapper = shallow(<Assumptions {...props} />);
+    const wrapper = shallow(<AddAdditionalInterest {...props} />);
     expect(wrapper);
   });
 
@@ -37,7 +34,10 @@ describe('Testing Assumptions component', () => {
           data: {
             modelInstanceId: '123',
             model: {},
-            uiQuestions: []
+            uiQuestions: [],
+            activeTask: {
+              name: 'bb'
+            }
           }
         }
       },
@@ -47,9 +47,6 @@ describe('Testing Assumptions component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      quoteData: {
-        additionalInterests: []
-      },
       actions: {
         appStateActions: {
           setAppState() {}
@@ -59,6 +56,7 @@ describe('Testing Assumptions component', () => {
         }
       },
       fieldQuestions: [],
+      quoteData: {},
       dispatch: store.dispatch,
       tasks: {
         bb: {
@@ -86,6 +84,14 @@ describe('Testing Assumptions component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
-    handleOnSubmit({}, props.dispatch, props);
+
+    noAddAdditionalInterestSubmit({}, props.dispatch, props);
+    goToStep(props, 'Mortgagee');
+    goToStep(props, 'Lienholder');
+    goToStep(props, 'Bill Payer');
+    goToStep(props, 'Additional Interest');
+    goToStep(props, 'Additional Insured');
+
+    AddAdditionalInterest(props);
   });
 });

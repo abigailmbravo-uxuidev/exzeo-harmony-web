@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SelectField, SelectInput } from './SelectField';
+import { SelectFieldBilling } from './SelectFieldBilling';
 import FieldHint from './FieldHint';
 
 function wrapWithContext(context, contextTypes, children) {
@@ -12,11 +12,11 @@ function wrapWithContext(context, contextTypes, children) {
 
   return React.createElement(wrapperWithContext);
 }
-describe('SelectField', () => {
+describe('SelectFieldBilling', () => {
   it('should render "select input" when nothing is provided', () => {
     const context = { router: {} };
     const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <SelectField />, React);
+    const wrapper = wrapWithContext(context, contextTypes, <SelectFieldBilling />, React);
     expect(shallow(wrapper).find('option').length).toEqual(0);
   });
 
@@ -34,8 +34,8 @@ describe('SelectField', () => {
     };
     const context = { router: {} };
     const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <SelectField {...inputProps} />, React);
+    const wrapper = wrapWithContext(context, contextTypes, <SelectFieldBilling {...inputProps} />, React);
     expect(shallow(wrapper).children().props().answers.length).toEqual(3);
-    SelectInput(inputProps);
+    SelectFieldBilling(inputProps);
   });
 });

@@ -18,7 +18,7 @@ const userTasks = {
   formSubmit: ''
 };
 
-const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const additionalInterests = props.quoteData.additionalInterests;
@@ -75,7 +75,7 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
 
-const closeAndSavePreviousAIs = (props) => {
+export const closeAndSavePreviousAIs = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const additionalInterests = props.quoteData.additionalInterests;
@@ -83,7 +83,7 @@ const closeAndSavePreviousAIs = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
 
-const handleInitialize = (state) => {
+export const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
@@ -114,7 +114,7 @@ const handleGetQuestions = (state) => {
   return taskData.uiQuestions;
 };
 
-const handleGetQuoteData = (state) => {
+export const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
