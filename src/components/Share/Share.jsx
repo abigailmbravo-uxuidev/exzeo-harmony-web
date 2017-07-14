@@ -29,7 +29,7 @@ const getQuoteData = (state) => {
   return (quoteData ? quoteData.value.result : undefined);
 };
 
-const noShareSubmit = (data, dispatch, props) => {
+export const noShareSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.sendEmailOrContinue;
   const taskData = { shouldSendEmail: 'No' };
@@ -37,7 +37,7 @@ const noShareSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const shareQuoteSubmit = (data, dispatch, props) => {
+export const shareQuoteSubmit = (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // we need to call a batch complete here
@@ -53,16 +53,16 @@ const shareQuoteSubmit = (data, dispatch, props) => {
   });
 };
 
-const shareQuote = (props) => {
+export const shareQuote = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: true });
 };
 
-const closeShareSubmit = (props) => {
+export const closeShareSubmit = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
-const refereshUWReviewError = (props) => {
+export const refereshUWReviewError = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.refreshOnUnderWritingReviewError;
   const taskData = {

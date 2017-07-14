@@ -1,9 +1,8 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Share } from './Share';
+import ConnectedApp, { Share, shareQuoteSubmit, noShareSubmit, shareQuote, closeShareSubmit, refereshUWReviewError } from './Share';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -19,17 +18,6 @@ describe('Testing Share component', () => {
       appState: {
         data: {
           submitting: false
-        },
-        modelName: 'bb'
-      },
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: [],
-            activeTask: {}
-          }
         }
       },
       handleSubmit() {}
@@ -44,11 +32,19 @@ describe('Testing Share component', () => {
         bb: {
           data: {
             modelInstanceId: '123',
-            model: {},
-            uiQuestions: [],
             previousTask: {
-              name: 'bb'
-            }
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            model: {
+              variables: [{
+                name: 'getQuote', value: { result: {} }
+              }]
+            },
+            uiQuestions: []
           }
         }
       },
@@ -58,17 +54,49 @@ describe('Testing Share component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        },
+        cgActions: {
+          completeTask() {},
+          batchCompleteTask() { return Promise.resolve(); }
+        }
+      },
+      tasks: {
+        bb: {
+          data: {
+            modelInstanceId: '123',
+            model: {},
+            previousTask: {
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            uiQuestions: []
+          }
+        }
+      },
+      handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
       appState: {
+        modelName: 'bb',
         data: {
           submitting: false
         }
-      },
-      ...propTypes
+      }
+
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
+    shareQuoteSubmit({}, props.dispatch, props);
+    noShareSubmit({}, props.dispatch, props);
+    shareQuote(props);
+    closeShareSubmit(props);
+    refereshUWReviewError(props);
   });
 });

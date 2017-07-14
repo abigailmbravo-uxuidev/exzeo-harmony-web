@@ -38,7 +38,7 @@ const scheduleDateModal = (props) => {
 
 const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
-const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
@@ -46,7 +46,7 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const goToStep = (props, taskName) => {
+export const goToStep = (props, taskName) => {
   // don't allow submission until the other step is completed
   if (props && props.appState && props.appState.data.submitting === true) return;
 

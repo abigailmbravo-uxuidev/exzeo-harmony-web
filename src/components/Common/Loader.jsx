@@ -6,53 +6,50 @@ import { connect } from 'react-redux';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
-const Loader = (props) => {
-  const pageName = () => {
-    switch (props.appState.data.nextPage) {
-      case 'askAdditionalCustomerData':
-        return 'Loading Policyholder';
+export const pageName = (props) => {
+  switch (props.appState.data.nextPage) {
+    case 'askAdditionalCustomerData':
+      return 'Loading Policyholder';
 
-      case 'askUWAnswers':
-        return 'Loading Underwriting';
+    case 'askUWAnswers':
+      return 'Loading Underwriting';
 
-      case 'askToCustomizeDefaultQuote':
-        return 'Loading Customize';
+    case 'askToCustomizeDefaultQuote':
+      return 'Loading Customize';
 
-      case 'sendEmailOrContinue':
-        return 'Loading Share';
+    case 'sendEmailOrContinue':
+      return 'Loading Share';
 
-      case 'addAdditionalAIs':
-        return 'Loading Additional Parties';
+    case 'addAdditionalAIs':
+      return 'Loading Additional Parties';
 
-      case 'askAdditionalQuestions':
-        return 'Loading Mailing/Billing';
+    case 'askAdditionalQuestions':
+      return 'Loading Mailing/Billing';
 
-      case 'askScheduleInspectionDates':
-        return 'Loading Verify';
-      default:
-        return 'Loading';
-    }
-  };
-
-  return (
-    <div className="loader modal">
-      <div className="card" role="dialog">
-        <div className="card-block">
-          <div className="ring-5">
-            <div className="ring-4">
-              <div className="ring-3">
-                <div className="ring-2">
-                  <div className="ring-1"></div>
-                </div>
+    case 'askScheduleInspectionDates':
+      return 'Loading Verify';
+    default:
+      return 'Loading';
+  }
+};
+const Loader = props => (
+  <div className="loader modal">
+    <div className="card" role="dialog">
+      <div className="card-block">
+        <div className="ring-5">
+          <div className="ring-4">
+            <div className="ring-3">
+              <div className="ring-2">
+                <div className="ring-1" />
               </div>
             </div>
           </div>
-          <span>{pageName()}</span>
         </div>
+        <span>{pageName(props)}</span>
       </div>
     </div>
+  </div>
   );
-};
 
 Loader.propTypes = {
   appState: propTypes.shape({
