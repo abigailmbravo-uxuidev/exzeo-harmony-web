@@ -16,13 +16,9 @@ const handleLogout = (props) => {
 
 const populateAgencyName = (props) => {
   const { userProfile } = props.authState;
-  if (props.tasks && props.tasks.getAgency && props.tasks.getAgency.data &&
-    props.tasks.getAgency.data.model && props.tasks.getAgency.data.model.variables) {
-    const agencyValue = _.filter(props.tasks.getAgency.data.model.variables, item => item.name === 'getAgencyByCode');
-    if (agencyValue.length > 0) {
-      const data = agencyValue[0].value.result;
-      return data.displayName;
-    }
+  const { currentAgency } = props;
+  if (currentAgency) {
+    return `${currentAgency.displayName}`;
   }
   return (userProfile && userProfile.name) ? userProfile.name : '';
 };
@@ -42,10 +38,7 @@ export class Base extends Component {
     this.props.auth.getProfile((err, result) => {
       const userGroup = result.groups[0];
       if (userGroup.isAgency) {
-        console.log(userGroup);
-       // make agency call if agency only
-        const agent = this.props.actions.serviceActions.currentAgent(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
-        console.log(agent);
+        this.props.actions.serviceActions.getAgency(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
       }
     });
   }
@@ -95,13 +88,16 @@ export class Base extends Component {
 
 Base.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object })
+  auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object }),
+  actions: PropTypes.shape({
+    serviceActions: PropTypes.func
+  })
 };
 
 const mapStateToProps = state => ({
   tasks: state.cg,
   authState: state.authState,
-  currentAgent: state.service.currentAgent
+  currentAgency: state.service.agency
 });
 const mapDispatchToProps = dispatch => ({
   actions: {

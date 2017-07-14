@@ -109,27 +109,6 @@ export const getAgencies = (companyCode, state) => (dispatch) => {
     });
 };
 
-export const currentAgent = (companyCode, state, agentCode) => (dispatch) => {
-  const axiosConfig = runnerSetup({
-    service: 'agency.services',
-    method: 'GET',
-    path: `v1/agent/${companyCode}/${state}/${agentCode}`
-  });
-
-  return axios(axiosConfig).then((response) => {
-    const data = { currentAgent: response.data.result };
-    return dispatch(batchActions([
-      serviceRequest(data)
-    ]));
-  })
-    .catch((error) => {
-      const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError({ message })
-      ]));
-    });
-};
-
 export const getQuote = quoteId => (dispatch) => {
   const axiosConfig = runnerSetup({
     service: 'quote-data.services',
