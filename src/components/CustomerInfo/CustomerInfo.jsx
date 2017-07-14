@@ -48,7 +48,7 @@ const handleInitialize = (state) => {
 
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
-
+  values.electronicDelivery = _.get(quoteData, 'policyHolders[0].electronicDelivery') || false;
   values.agentCode = _.get(quoteData, 'agentCode');
 
   if (_.trim(values.FirstName2)) values.isAdditional = true;
