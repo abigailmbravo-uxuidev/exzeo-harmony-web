@@ -76,7 +76,7 @@ export class Workflow extends Component {
   componentWillReceiveProps(nextProps) {
     if ((this.props.tasks[workflowModelName]) &&
       (nextProps.tasks[workflowModelName].data.activeTask &&
-      this.props.tasks[workflowModelName].data.activeTask)) {
+        this.props.tasks[workflowModelName].data.activeTask)) {
       const activeTaskName = nextProps.tasks[workflowModelName].data.activeTask.name;
       const oldActiveTaskName = this.props.tasks[workflowModelName].data.activeTask.name;
       if (activeTaskName !== oldActiveTaskName) {
@@ -107,7 +107,7 @@ export class Workflow extends Component {
       nextProps.tasks[workflowModelName].data &&
       nextProps.tasks[workflowModelName].data.previousTask) {
       const previousTaskName = nextProps.tasks[workflowModelName].data.previousTask.name;
-      if (previousTaskName === 'notifyDocusignApp' || previousTaskName === 'updateQuoteStateDocusign') {
+      if (previousTaskName === 'notifyDocusignApp' || previousTaskName === 'updateQuoteStateDocusign' || previousTaskName === 'generateQuoteApplicationPDFs') {
         this.setState((previousState, props) => ({
           ...props,
           currentControl: <ThankYou />
@@ -122,11 +122,12 @@ export class Workflow extends Component {
   }
 
   render() {
-    const activeStep = (this.props.tasks && this.props.tasks.activeTask) ? this.props.tasks.activeTask.name : '';
+    const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
+      this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
     return (
       <div className={`route ${activeStep}`}>
         <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
-        { this.state.currentControl }
+        {this.state.currentControl}
         <CheckErrorConnect redirectUrl={this.context.router.route.location.pathname} />
       </div>);
   }

@@ -6,18 +6,13 @@
       .fa {
         font-family: $font-family-icon;
 
-        &.Primary.Policyholder {
-          &.Primary {
+        &.Policyholder {
+          &.Primary, &.Secondary {
             &:before {
               content: "\f2bd";
             }
           }
 
-          &.Secondary {
-            &:before {
-              content: "\f2bd";
-            }
-          }
         }
 
         &.Policy.Details {
