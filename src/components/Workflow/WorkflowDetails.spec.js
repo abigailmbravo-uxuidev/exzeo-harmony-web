@@ -34,6 +34,9 @@ describe('Testing WorkflowDetails component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      service: {
+        quote: {}
+      },
       cg: {
         bb: {
           data: {
@@ -49,6 +52,9 @@ describe('Testing WorkflowDetails component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      service: {
+        quote: {}
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,

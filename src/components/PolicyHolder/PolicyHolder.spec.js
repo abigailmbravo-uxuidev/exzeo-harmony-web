@@ -21,7 +21,7 @@ describe('Testing PolicyHolder component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<PolicyHolder {...props} />);
     expect(wrapper);
@@ -33,7 +33,11 @@ describe('Testing PolicyHolder component', () => {
         bb: {
           data: {
             modelInstanceId: '123',
-            model: {},
+            model: {
+              variables: [{
+                name: 'quote', value: { result: {} }
+              }]
+            },
             uiQuestions: []
           }
         }
@@ -52,7 +56,7 @@ describe('Testing PolicyHolder component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);

@@ -132,7 +132,6 @@
   }
 
   &.modal {
-
     .survey-wrapper {
       .contact-message {
         .card {
@@ -234,6 +233,42 @@
         }
 
         footer {}
+      }
+    }
+  }
+}
+
+.access-denied {
+  .modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .error {
+      max-width: 20rem;
+      border-color: rgba($black,.5);
+
+      .card-header {
+        display: flex;
+        height: 6rem;
+        align-items: center;
+        justify-content: center;
+
+        > img {
+          height: 3rem;
+        }
+      }
+
+      .card-block {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h5,
+        i {
+          color: $red-darken-02;
+        }
       }
     }
   }

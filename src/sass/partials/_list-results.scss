@@ -210,7 +210,10 @@ ul.list-cards {
             width: 5.75rem;
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: 5.75rem;
+            
+            @include for-phone-only {
+              flex-basis: 0;
+            }
           }
 
           .property-address {
@@ -259,7 +262,7 @@ ul.list-cards {
             }
           }
 
-          .effctive-date {
+          .effective-date {
             flex-grow: 0;
             flex-shrink: 0;
             @include for-phone-only {

@@ -38,7 +38,7 @@ const scheduleDateModal = (props) => {
 
 const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
-const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
@@ -46,7 +46,7 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const goToStep = (props, taskName) => {
+export const goToStep = (props, taskName) => {
   // don't allow submission until the other step is completed
   if (props && props.appState && props.appState.data.submitting === true) return;
 
@@ -79,9 +79,10 @@ export const Verify = (props) => {
   const quoteData = _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
   _.find(taskData.model.variables, { name: 'quote' }).value.result;
 
-  const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result;
+  const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
+  _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
 
-  const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode });
+  const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode }) || {};
 
   if (quoteData) {
     property = quoteData.property;
@@ -285,7 +286,7 @@ export const Verify = (props) => {
                     </div>
                   </dl>
                 </section>
-                <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verify" isSwitch />
+                <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group additional-interests-details">
                 <h3 className="section-group-header"><i className="fa fa-user-plus" /> Additional Parties<span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</span></h3>
@@ -302,7 +303,7 @@ export const Verify = (props) => {
                         <h4>{`${additionalInterest.name2}`}</h4>
                         <p>
                           {`${additionalInterest.mailingAddress.address1}`}
-                          {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ``}
+                          {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ''}
                         </p>
                         <p>
                           {`${additionalInterest.mailingAddress.city}, `}
@@ -316,7 +317,7 @@ export const Verify = (props) => {
                       </div>
                     </div>)) : null}
                 </section>
-                <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verify" isSwitch />
+                <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verified" isSwitch />
               </div>
             </div>
             <div className="workflow-steps">

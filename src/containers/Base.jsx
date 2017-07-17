@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -6,37 +7,18 @@ import _ from 'lodash';
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
 import * as cgActions from '../actions/cgActions';
-
-const getAgencyModelName = 'getAgency';
+import * as serviceActions from '../actions/serviceActions';
 
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
   props.auth.logout();
 };
 
-const getAgencyName = (props, userProfile) => {
-  const group = (userProfile.groups) ? _.filter(userProfile.groups, item => (item.agencyCode != null)) : null;
-  console.log('userProfile', userProfile);
-  if (group && group.length > 0) {
-    const startModelData = {
-      agencyCode: group[0].agencyCode,
-      companyCode: group[0].companyCode,
-      state: group[0].state
-    };
-    console.log('startModelData', startModelData);
-    props.actions.cgActions.startWorkflow(getAgencyModelName, startModelData, false);
-  }
-};
-
 const populateAgencyName = (props) => {
-  const { userProfile } = props.auth;
-  if (props.tasks && props.tasks.getAgency && props.tasks.getAgency.data &&
-    props.tasks.getAgency.data.model && props.tasks.getAgency.data.model.variables) {
-    const agencyValue = _.filter(props.tasks.getAgency.data.model.variables, item => item.name === 'getAgencyByCode');
-    if (agencyValue.length > 0) {
-      const data = agencyValue[0].value.result;
-      return data.displayName;
-    }
+  const { userProfile } = props.authState;
+  const { currentAgency } = props;
+  if (currentAgency) {
+    return `${currentAgency.displayName}`;
   }
   return (userProfile && userProfile.name) ? userProfile.name : '';
 };
@@ -51,14 +33,16 @@ export class Base extends Component {
     this.toggleClass = this.toggleClass.bind(this);
     this.toggleClassHeader = this.toggleClassHeader.bind(this);
   }
-  componentWillMount() {
-    const { isAuthenticated, getProfile } = this.props.auth;
-    if (isAuthenticated()) {
-      getProfile((profileErr, profile) => {
-        getAgencyName(this.props, profile);
-      });
-    }
+
+  componentDidMount() {
+    this.props.auth.getProfile((err, result) => {
+      const userGroup = result.groups[0];
+      if (userGroup.isAgency) {
+        this.props.actions.serviceActions.getAgency(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
+      }
+    });
   }
+
   toggleClass() {
     const currentState = this.state.active;
     this.setState({ headerActive: false, active: !currentState });
@@ -104,14 +88,20 @@ export class Base extends Component {
 
 Base.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object })
+  auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object }),
+  actions: PropTypes.shape({
+    serviceActions: PropTypes.func
+  })
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg
+  tasks: state.cg,
+  authState: state.authState,
+  currentAgency: state.service.agency
 });
 const mapDispatchToProps = dispatch => ({
   actions: {
+    serviceActions: bindActionCreators(serviceActions, dispatch),
     cgActions: bindActionCreators(cgActions, dispatch)
   }
 });

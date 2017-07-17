@@ -5,6 +5,7 @@ import {
 export default {
   search: new Map({}),
   workflowData: {},
+  service: {},
   completedTasks: [],
   appState: {
     data: {
@@ -15,5 +16,8 @@ export default {
   navigation: {
     location: null
   },
-  error: {}
+  error: {},
+  authState: {
+    userProfile: null
+  }
 };

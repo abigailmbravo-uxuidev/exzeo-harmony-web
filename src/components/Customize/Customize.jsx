@@ -16,7 +16,7 @@ const userTasks = {
   customizeDefaultQuote: 'customizeDefaultQuote'
 };
 
-const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = (data, dispatch, props) => {
   const modelName = props.appState.modelName;
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
@@ -69,14 +69,14 @@ const handleFormSubmit = (data, dispatch, props) => {
   }
 };
 
-const handleFormChange = props => (event, newValue, previousValue) => {
+export const handleFormChange = props => (event, newValue, previousValue) => {
   if (previousValue !== newValue) {
     const workflowId = props.appState.instanceId;
     props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { recalc: true, hideYoPremium: true });
   }
 };
 
-const handleReset = (props) => {
+export const handleReset = (props) => {
   const workflowId = props.appState.instanceId;
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { recalc: false, hideYoPremium: false });
 };

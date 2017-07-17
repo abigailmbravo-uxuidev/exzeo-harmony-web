@@ -6,7 +6,7 @@ const ErrorPopup = ({ quote, closeButtonHandler }) => (
     <div className="survey-wrapper">
       <div className="contact-message">
         <div className="card card-csr">
-          <div className="card-header image card-header-image-csr">
+          <div className="card-header">
             <h4><i className="fa fa-exclamation-triangle" /> Quote cannot be retrieved</h4>
           </div>
           <div className="card-block">

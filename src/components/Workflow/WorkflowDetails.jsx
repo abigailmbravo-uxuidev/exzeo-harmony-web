@@ -5,21 +5,23 @@ import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
+import * as serviceActions from '../../actions/serviceActions';
 
-const workflowDetailsModelName = 'quoteModelGetQuote';
 
 const getQuoteFromModel = (state, props) => {
   const startModelData = {
-    _id: (state.quote._id) ? state.quote._id : props.appState.data.quote._id // eslint-disable-line
+    quoteId: (state.quote._id) ? state.quote._id : props.appState.data.quote._id // eslint-disable-line
   };
-  props.actions.cgActions.startWorkflow(workflowDetailsModelName, startModelData, false)
-    .then(() => {
+
+  props.actions.serviceActions.getQuote(startModelData.quoteId).then((response) => {
+    if (response.payload && response.payload[0].data.quote) {
       props.actions.appStateActions.setAppState(props.appState.modelName,
         props.appState.instanceId, {
           ...props.appState.data,
           updateWorkflowDetails: false
         });
-    });
+    }
+  });
 };
 
 const goToStep = (props, taskName) => {
@@ -50,20 +52,14 @@ export class WorkflowDetails extends Component {
         getQuoteFromModel(this.state, nextProps);
       }
     }
-    if (nextProps.tasks[workflowDetailsModelName] !== this.props.tasks[workflowDetailsModelName]) {
-      if (nextProps.tasks[workflowDetailsModelName] &&
-        nextProps.tasks[workflowDetailsModelName].data.previousTask &&
-        nextProps.tasks[workflowDetailsModelName].data.previousTask.name === 'quote') {
-        const quote = nextProps.tasks[workflowDetailsModelName].data.previousTask.value.result;
-        if (nextProps.appState.data.hideYoChildren) {
-          delete quote.coverageLimits;
-          delete quote.quoteNumber;
-        }
-        this.setState((prevProps, newProps) => ({ ...newProps,
-          quote
-        }));
-      }
+    const quote = nextProps.quote || {};
+    if (nextProps.appState.data.hideYoChildren) {
+      delete quote.coverageLimits;
+      delete quote.quoteNumber;
     }
+    this.setState((prevProps, newProps) => ({ ...newProps,
+      quote
+    }));
   }
 
   getClassForStep = (stepName) => {
@@ -81,7 +77,8 @@ export class WorkflowDetails extends Component {
 
 
   render() {
-    if (!this.state.quote._id) { // eslint-disable-line
+    const { quote } = this.props;
+    if (!quote || !quote._id) { // eslint-disable-line
       return <div className="detailHeader" />;
     }
     return (
@@ -91,7 +88,7 @@ export class WorkflowDetails extends Component {
             <dl>
               <div>
                 <dt className="fade">Quote Number</dt>
-                <dd className="fade">{(this.state.quote.quoteNumber ? this.state.quote.quoteNumber : '-')}</dd>
+                <dd className="fade">{(quote.quoteNumber ? quote.quoteNumber : '-')}</dd>
               </div>
             </dl>
           </section>
@@ -99,12 +96,12 @@ export class WorkflowDetails extends Component {
             <dl>
               <div>
                 <dt>Address</dt>
-                <dd className="fade">{this.state.quote.property.physicalAddress.address1}</dd>
-                <dd className="fade">{this.state.quote.property.physicalAddress.address2}</dd>
+                <dd className="fade">{quote.property.physicalAddress.address1}</dd>
+                <dd className="fade">{quote.property.physicalAddress.address2}</dd>
                 <dd className="fade">
-                  {this.state.quote.property.physicalAddress.city},&nbsp;
-                {this.state.quote.property.physicalAddress.state}&nbsp;
-                  {this.state.quote.property.physicalAddress.zip}
+                  {quote.property.physicalAddress.city},&nbsp;
+                {quote.property.physicalAddress.state}&nbsp;
+                  {quote.property.physicalAddress.zip}
                 </dd>
               </div>
             </dl>
@@ -113,7 +110,7 @@ export class WorkflowDetails extends Component {
             <dl>
               <div>
                 <dt className="fade">Year Built</dt>
-                <dd className="fade">{this.state.quote.property.yearBuilt}</dd>
+                <dd className="fade">{quote.property.yearBuilt}</dd>
               </div>
             </dl>
           </section>
@@ -122,8 +119,8 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Coverage A</dt>
                 <dd className="fade">
-                $ {this.state.quote.coverageLimits && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                this.state.quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}
+                $ {quote.coverageLimits && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
+                quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}
                 </dd>
               </div>
             </dl>
@@ -133,8 +130,8 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                $ {this.state.quote.rating && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                this.state.quote.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
+                $ {quote.rating && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
+                quote.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
                 </dd>
               </div>
             </dl>
@@ -158,6 +155,7 @@ export class WorkflowDetails extends Component {
 }
 
 WorkflowDetails.propTypes = {
+  quote: PropTypes.object,
   completedTasks: PropTypes.any, // eslint-disable-line
   actions: PropTypes.shape(),
   workflowModelName: PropTypes.string,
@@ -180,6 +178,7 @@ WorkflowDetails.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  quote: state.service.quote,
   tasks: state.cg,
   appState: state.appState,
   completedTasks: state.completedTasks
@@ -187,6 +186,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
+    serviceActions: bindActionCreators(serviceActions, dispatch),
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch),
     completedTasksActions: bindActionCreators(completedTasksActions, dispatch)

@@ -50,7 +50,7 @@ describe('DisplayInput', () => {
       <label htmlFor={inputProps.input.name}>{inputProps.label}</label>
     ])).toEqual(true);
   });
-  
+
   it('should add name to class if provided', () => {
     const inputProps = {
       input: {
@@ -58,17 +58,17 @@ describe('DisplayInput', () => {
       }
     };
     const wrapper = shallow(<DisplayInput {...inputProps} />);
-    
-    expect(wrapper.find('.form-group').hasClass(inputProps.input.name)).to.equal(true);
+
+    expect(wrapper.find('.form-group').hasClass(inputProps.input.name)).toEqual(true);
   });
-  
+
   it('should add styleName to class if provided', () => {
     const inputProps = {
       input: {},
       styleName: 'woop'
     };
     const wrapper = shallow(<DisplayInput {...inputProps} />);
-    
-    expect(wrapper.find('.form-group').hasClass(inputProps.styleName)).to.equal(true);
+
+    expect(wrapper.find('.form-group').hasClass(inputProps.styleName)).toEqual(true);
   });
 });

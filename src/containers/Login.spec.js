@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Login } from './Login';
+import ConnectedApp from './Login';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -13,6 +13,10 @@ describe('Testing Login component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      auth: {
+        login() {},
+        isAuthenticated() {}
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -24,7 +28,7 @@ describe('Testing Login component', () => {
       user: {},
       ...propTypes
     };
-    const wrapper = shallow(<Login {...props} />);
+    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
   });
 
@@ -45,6 +49,10 @@ describe('Testing Login component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      auth: {
+        login() {},
+        isAuthenticated() {}
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
