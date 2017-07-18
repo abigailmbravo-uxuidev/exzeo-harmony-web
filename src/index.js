@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { asyncSessionStorage } from 'redux-persist/storages';
 import Routes from './routes';
-import { client } from './reducers';
 import configureStore from './store/configureStore';
 
 import '../node_modules/font-awesome/css/font-awesome.min.css';
@@ -18,6 +17,6 @@ window.persistor = persistor; // i hate this with my entire being...
 
 const holder = document.getElementById('root');
 render(
-  <Provider client={client} store={store} persistor={persistor}><Routes store={store} /></Provider>,
+  <Provider store={store} persistor={persistor}><Routes store={store} /></Provider>,
   holder
 );
