@@ -107,9 +107,7 @@ ul.list-cards {
         display: inline-block;
         overflow: hidden;
         width: 12rem;
-        height: 2rem;
         padding-left: $padding;
-        white-space: nowrap;
         text-overflow: ellipsis;
         line-height: 2rem;
         flex-grow: 0;
@@ -210,7 +208,7 @@ ul.list-cards {
             width: 5.75rem;
             flex-grow: 0;
             flex-shrink: 0;
-            
+
             @include for-phone-only {
               flex-basis: 0;
             }
