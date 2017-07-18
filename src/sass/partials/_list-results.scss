@@ -81,15 +81,16 @@ ul.list-cards {
 
     .icon-name {
       display: flex;
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: auto;
+      width: auto;
 
-      @include for-phone-only {
-        width: 100%;
-      }
-      @include for-tablet-portrait-up {
-          width: 100%;
-      }
       @include for-desktop-up {
+          width: 14rem;
           flex-basis: 14rem;
+          flex-grow: 0;
+          flex-shrink: 0;
       }
 
       i {
@@ -106,13 +107,20 @@ ul.list-cards {
       h4 {
         display: inline-block;
         overflow: hidden;
-        width: 12rem;
         padding-left: $padding;
         text-overflow: ellipsis;
         line-height: 2rem;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 12rem;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+        width: auto;
+
+        @include for-desktop-up {
+            width: 12rem;
+            flex-basis: 12rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
       }
     }
 
