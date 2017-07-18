@@ -240,7 +240,7 @@ export const Verify = (props) => {
               <div className="detail-group policyholder-details">
                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
-                  <p>Please check that the below information is up to date and accurate. The policyholder contact information listed below will be used to schedule the required property inspection. Failure to schedule property inspection will result in a failure to bind the policy.</p>
+                  <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their electronic signature required to bind the policy. Policyholder contact information will be also be used to schedule the required property inspection. Failure to schedule property inspection will results in failure to bind the policy.</p>
                   {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
                      quoteData.policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
                      <dl key={`ph${index}`}>
