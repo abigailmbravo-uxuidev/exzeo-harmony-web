@@ -265,7 +265,7 @@ ul.list-cards {
               flex-basis: auto;
             }
             @include for-tablet-landscape-up {
-              flex-basis: 6rem;
+              flex-basis: 9rem;
             }
           }
 
@@ -309,7 +309,7 @@ ul.list-cards {
           .started-on {
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: 8rem;
+            flex-basis: 5rem;
             @include for-phone-only {
               display: none;
             }
