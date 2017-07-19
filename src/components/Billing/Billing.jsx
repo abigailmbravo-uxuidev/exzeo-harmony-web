@@ -15,7 +15,6 @@ import {
 import { getInitialValues } from '../Customize/customizeHelpers';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-// import billingQuestions from '.BillingQuestions';
 import FieldGenerator from '../Form/FieldGenerator';
 import Loader from '../Common/Loader';
 
@@ -26,7 +25,7 @@ import Loader from '../Common/Loader';
 const userTasks = {
   formSubmit: 'askAdditionalQuestions'
 };
-const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
@@ -41,8 +40,13 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
+const handleGetPaymentPlans = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  return paymentPlanResult;
+};
+
 const handleInitialize = (state) => {
-  console.log(state);
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = handleGetQuoteData(state);
 
@@ -54,10 +58,19 @@ const handleInitialize = (state) => {
     }
   });
 
-  values.billTo = _.get(quoteData, 'billToId');
-  values.billToId = _.get(quoteData, 'billToId');
-  values.billToType = _.get(quoteData, 'billToType');
-  values.billPlan = _.get(quoteData, 'billPlan');
+  const paymentPlans = handleGetPaymentPlans(state);
+
+  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !values.billTo && !values.billPlan) {
+    values.billTo = _.get(paymentPlans.options[0], 'billToId');
+    values.billToId = _.get(paymentPlans.options[0], 'billToId');
+    values.billToType = _.get(paymentPlans.options[0], 'billToType');
+    values.billPlan = 'Annual';
+  } else {
+    values.billTo = _.get(quoteData, 'billToId');
+    values.billToId = _.get(quoteData, 'billToId');
+    values.billToType = _.get(quoteData, 'billToType');
+    values.billPlan = _.get(quoteData, 'billPlan');
+  }
 
   return values;
 };
@@ -67,13 +80,7 @@ const handleGetQuestions = (state) => {
   return taskData.uiQuestions;
 };
 
-const handleGetPaymentPlans = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  return paymentPlanResult;
-};
-
-const getSelectedPlan = (answer) => {
+export const getSelectedPlan = (answer) => {
   let selection;
 
   if (answer === 'Annual') {
@@ -86,7 +93,7 @@ const getSelectedPlan = (answer) => {
   return selection;
 };
 
-const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="installment-term">
+export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="installment-term">
   {payPlans && payPlans.map((payPlan, index) => {
     const paymentPlan = paymentPlans[getSelectedPlan(payPlan)];
     return (
@@ -153,10 +160,6 @@ export const Billing = (props) => {
   };
 
   const selectBillPlan = (value) => {
-    console.log('selectBillPlan', value);
-    console.log('currentPaymentPlan', _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {});
-
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
     _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
 

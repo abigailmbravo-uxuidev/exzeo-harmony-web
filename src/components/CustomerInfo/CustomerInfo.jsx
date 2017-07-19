@@ -48,7 +48,7 @@ const handleInitialize = (state) => {
 
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
-
+  values.electronicDelivery = _.get(quoteData, 'policyHolders[0].electronicDelivery') || false;
   values.agentCode = _.get(quoteData, 'agentCode');
 
   if (_.trim(values.FirstName2)) values.isAdditional = true;
@@ -64,11 +64,15 @@ const handleGetAgentsFromAgency = (state) => {
 
 const handleGetZipCodeSettings = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  if (!taskData) return [];
+  if (!taskData) return null;
 
   const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
   _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
-  return zipCodeSettings;
+
+  const zipCodeSettingsQuote = _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }) ?
+  _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }).value.result[0] : null;
+
+  return zipCodeSettingsQuote || zipCodeSettings;
 };
 
 const getQuoteData = (state) => {

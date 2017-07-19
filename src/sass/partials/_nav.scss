@@ -44,23 +44,28 @@
         }
       }
 
-      .logout {
+      .btn.logout.btn-action {
         width: auto;
         height: auto;
         margin: 0.875rem;
         padding: ($padding) 0;
         border-radius: $btn-border-radius;
-        align-items: center;
-        justify-content: center;
+        display: block;
+
+        div {
+          display: block;
 
         i {
           margin-right: $padding;
         }
 
         span {
-          display: block;
+          display: inline-block;
         }
+
       }
+
+    }
 
       .user {
         label {
@@ -315,15 +320,13 @@
     }
   }
 
-  .logout {
-    display: flex;
+  .btn.logout.btn-action {
     width: 3rem;
     height: 3rem;
     margin: 0.875rem;
     padding: ($padding) 0;
     border-radius: 50%;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     @include for-tablet-landscape-up {
       width: auto;
       height: auto;
@@ -339,7 +342,11 @@
       border-radius: $btn-border-radius;
     }
 
+    div {
+      display: block;
+
     i {
+      display: inline-block;
       margin-right: 0;
       @include for-tablet-landscape-up {
         margin-right: $padding;
@@ -352,11 +359,13 @@
     span {
       display: none;
       @include for-tablet-landscape-up {
-        display: block;
+        display: inline-block;
       }
       @include for-phone-only {
-        display: block;
+        display: inline-block;
       }
     }
+
+  }
   }
 }

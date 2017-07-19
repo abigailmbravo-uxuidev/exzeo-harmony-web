@@ -16,7 +16,7 @@ const userTasks = {
   formSubmit: ''
 };
 
-const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const additionalInterests = props.quoteData.additionalInterests;
@@ -51,12 +51,20 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
 
-const handleGetQuestions = (state) => {
+export const closeAndSavePreviousAIs = (props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskName = userTasks.formSubmit;
+  const additionalInterests = props.quoteData.additionalInterests;
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
+};
+
+export const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   return taskData.uiQuestions;
 };
 
-const handleGetQuoteData = (state) => {
+export const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
@@ -66,7 +74,7 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const handleInitialize = (state) => {
+export const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = taskData && taskData.model &&
  taskData.model.variables &&
@@ -108,7 +116,7 @@ export const BillPayer = (props) => {
               <FieldGenerator data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-secondary">cancel</button>
+            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>cancel</button>
             <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>save</button>
           </div>
           <Footer />

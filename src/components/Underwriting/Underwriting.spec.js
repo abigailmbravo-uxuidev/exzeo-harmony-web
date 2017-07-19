@@ -46,7 +46,7 @@ describe('Testing Underwriting component', () => {
           }
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<Underwriting {...props} />);
     expect(wrapper);
@@ -116,7 +116,7 @@ describe('Testing Underwriting component', () => {
           }
         }
       },
-      ...propTypes
+      handleSubmit() {}
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);

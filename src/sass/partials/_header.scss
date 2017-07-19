@@ -6,7 +6,7 @@ header {
   background: $bright-blue-darken-04;
   justify-content: center;
   flex-shrink: 0;
-  flex-basis: 3.375rem;
+  height: 3.375rem;
 
   div[role="banner"] {
     display: flex;
@@ -80,7 +80,7 @@ header {
       flex-basis: 10rem;
       flex-shrink: 0;
       @include for-phone-only {
-        margin-left: 3rem;
+        margin-left: 3.5rem;
       }
       @include for-tablet-portrait-up {
         margin-left: 5rem;

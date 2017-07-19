@@ -13,7 +13,7 @@ const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'
 };
 
-const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
+export const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'No' };
@@ -21,7 +21,7 @@ const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const AddMortgagee = (props) => {
+export const AddMortgagee = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'mortgagee' };
@@ -29,7 +29,7 @@ const AddMortgagee = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const AddLienholder = (props) => {
+export const AddLienholder = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'lienholder' };
@@ -37,7 +37,7 @@ const AddLienholder = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const AddAdditionalInsured = (props) => {
+export const AddAdditionalInsured = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'additionalInsured' };
@@ -45,7 +45,7 @@ const AddAdditionalInsured = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const AddInterest = (props) => {
+export const AddInterest = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'additionalInterest' };
@@ -53,7 +53,7 @@ const AddInterest = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const AddBillpayer = (props) => {
+export const AddBillpayer = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
   const taskData = { shouldUpdateAIs: 'billPayer' };
@@ -72,12 +72,12 @@ const handleGetQuoteData = (state) => {
   return (quoteData ? quoteData.value.result : undefined);
 };
 
-const goToStep = (props, type) => {
+export const goToStep = (props, type) => {
   if (type === 'Mortgagee') AddMortgagee(props);
   else if (type === 'Bill Payer') AddBillpayer(props);
   else if (type === 'Lienholder') AddLienholder(props);
   else if (type === 'Additional Interest') AddInterest(props);
-  else if (type === ' Additional Insured') AddAdditionalInsured(props);
+  else if (type === 'Additional Insured') AddAdditionalInsured(props);
 };
 
 const handleInitialize = (state) => {

@@ -17,7 +17,7 @@ const userTasks = {
   handleSelectQuote: 'chooseQuote'
 };
 
-const handleSelectAddress = (address, props) => {
+export const handleSelectAddress = (address, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSelectAddress;
   const data = {
@@ -28,7 +28,7 @@ const handleSelectAddress = (address, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
 };
 
-const handleSelectQuote = (quote, props) => {
+export const handleSelectQuote = (quote, props) => {
   const workflowId = props.appState.instanceId;
 
   if (quote.quoteState === 'Quote Started' || quote.quoteState === 'Application Started' || quote.quoteState === 'Quote Stopped') {
@@ -47,7 +47,7 @@ const closeQuoteError = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
-const Search = props => (
+export const Search = props => (
   <div className="flex grow">
     { props.appState.data &&
       <div className="search route-content">
