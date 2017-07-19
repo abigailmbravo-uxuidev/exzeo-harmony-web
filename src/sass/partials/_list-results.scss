@@ -243,6 +243,7 @@ ul.list-cards {
             @include for-phone-only {
               width: 100%;
               justify-content: space-between;
+              align-items: flex-end;
             }
             @include for-tablet-portrait-up {
               width: 100%;
@@ -274,7 +275,8 @@ ul.list-cards {
             @include for-phone-only {
               display: flex;
               flex-basis: auto;
-              align-items: center;
+              align-items: flex-start;
+              flex-direction: column;
 
               &:before {
                 margin-right: $padding/2;

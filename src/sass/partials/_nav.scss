@@ -19,6 +19,7 @@
 
     &.active {
       left: 0;
+      box-shadow: $card-box-shadow-alt;
     }
   }
   @include for-tablet-portrait-up {
