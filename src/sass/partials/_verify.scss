@@ -26,23 +26,6 @@
           padding-right: 3rem;
       }
 
-      .effective-date {
-          position: relative;
-
-          .edit-btn {
-              font-size: $font-size-h6;
-              font-weight: $font-weight-bold;
-              right: auto;
-              bottom: 0;
-              top: auto;
-              left: 0;
-
-              @include for-phone-only {
-                  left: 6rem;
-              }
-          }
-      }
-
       &.property-details {
         .display-element {
           display: flex;
