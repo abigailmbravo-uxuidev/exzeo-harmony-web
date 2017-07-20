@@ -72,6 +72,8 @@ const handleInitialize = (state) => {
     values.billPlan = _.get(quoteData, 'billPlan');
   }
 
+  values.sameAsProperty = false;
+
   return values;
 };
 
