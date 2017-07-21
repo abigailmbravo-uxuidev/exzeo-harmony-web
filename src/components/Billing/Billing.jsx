@@ -153,7 +153,6 @@ export const Billing = (props) => {
   } = props;
 
   const selectBillTo = (event) => {
-    console.log(event, 'sadlkfals;kdfl;a');
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
     _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
 
