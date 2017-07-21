@@ -104,7 +104,7 @@ export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="
           {paymentPlan && paymentPlan.amount && <div>
             <dt><span>Annual</span> Installment Plan</dt>
             <dd>
-            $ {paymentPlan.amount} : {moment.utc(paymentPlan.dueDate).format('MM/DD/YYYY')}
+            $ {paymentPlan.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.dueDate).format('MM/DD/YYYY')}
             </dd></div>}
           {paymentPlan && paymentPlan.s1 && paymentPlan.s2 && <div>
             <dt><span>Semi-Annual</span> Installment Plan</dt>
