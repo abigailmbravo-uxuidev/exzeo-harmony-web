@@ -153,12 +153,13 @@ export const Billing = (props) => {
   } = props;
 
   const selectBillTo = (event) => {
+    console.log(event, 'sadlkfals;kdfl;a');
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
     _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
 
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
-    dispatch(change('Billing', 'billPlan', ''));
+    dispatch(change('Billing', 'billPlan', 'Annual'));
   };
 
   const selectBillPlan = (value) => {
@@ -212,6 +213,7 @@ export const Billing = (props) => {
             />
             <RadioFieldBilling
               validations={['required']}
+              value={'annual'}
               name={'billPlan'}
               label={'Bill Plan'}
               onChange={selectBillPlan}
