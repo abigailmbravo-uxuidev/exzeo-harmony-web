@@ -27,8 +27,18 @@
 
         .dashboard-message {
           padding: ($padding*2) ($padding*2) 0;
-          @include for-phone-only {
-            display: none;
+
+          h1 {
+              @include for-phone-only {
+                font-size: $font-size-h3;
+                margin-bottom: 0;
+              }
+          }
+
+          h4, p {
+              @include for-phone-only {
+                display: none;
+              }
           }
         }
 

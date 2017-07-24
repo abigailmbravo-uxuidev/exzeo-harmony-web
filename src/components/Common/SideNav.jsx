@@ -16,12 +16,14 @@ const agentLinks = [{
   label: 'DASHBOARD',
   styleName: 'agent-dashboard',
   exact: true
-}, {
-  label: 'FLOOD QUOTE',
-  styleName: 'agent-flood label',
-  outside: true,
-  formName: 'floodQuoteForm'
 },
+/*FLOOD QUOTE WILL BE ADDED PHASE 2*/
+// {
+//   label: 'FLOOD QUOTE',
+//   styleName: 'agent-flood label',
+//   outside: true,
+//   formName: 'floodQuoteForm'
+// },
 {
   link: '/quote',
   label: 'HO3 QUOTE',
