@@ -80,7 +80,7 @@ header {
       flex-basis: 10rem;
       flex-shrink: 0;
       @include for-phone-only {
-        margin-left: 3.5rem;
+        margin-left: 4rem;
       }
       @include for-tablet-portrait-up {
         margin-left: 5rem;
@@ -236,12 +236,6 @@ header {
             }
           }
         }
-      }
-
-      .user-name {
-        margin: 0 ($padding/2) 0 ($padding*4);
-        color: $bright-blue-darken-01;
-        font-size: $font-size-sm;
       }
 
       > button {
