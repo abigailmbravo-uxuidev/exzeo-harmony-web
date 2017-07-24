@@ -72,6 +72,8 @@ const handleInitialize = (state) => {
     values.billPlan = _.get(quoteData, 'billPlan');
   }
 
+  values.sameAsProperty = false;
+
   return values;
 };
 
@@ -102,7 +104,7 @@ export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="
           {paymentPlan && paymentPlan.amount && <div>
             <dt><span>Annual</span> Installment Plan</dt>
             <dd>
-            $ {paymentPlan.amount} : {moment.utc(paymentPlan.dueDate).format('MM/DD/YYYY')}
+            $ {paymentPlan.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.dueDate).format('MM/DD/YYYY')}
             </dd></div>}
           {paymentPlan && paymentPlan.s1 && paymentPlan.s2 && <div>
             <dt><span>Semi-Annual</span> Installment Plan</dt>
@@ -156,7 +158,7 @@ export const Billing = (props) => {
 
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
-    dispatch(change('Billing', 'billPlan', ''));
+    dispatch(change('Billing', 'billPlan', 'Annual'));
   };
 
   const selectBillPlan = (value) => {
@@ -210,6 +212,7 @@ export const Billing = (props) => {
             />
             <RadioFieldBilling
               validations={['required']}
+              value={'annual'}
               name={'billPlan'}
               label={'Bill Plan'}
               onChange={selectBillPlan}

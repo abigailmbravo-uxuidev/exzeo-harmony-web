@@ -84,6 +84,7 @@ textarea {
     border-bottom-color: $bright-blue;
     background: lighten( $cool-gray-00, 2.5% );
   }
+
   //disabled & read-only text input-box-shadow
   &.disabled,
   &:disabled,
@@ -92,6 +93,14 @@ textarea {
     border-bottom-color: $cool-gray-00;
     background: lighten($cool-gray-00, 10%);
   }
+}
+
+input[readonly] {
+  color: $cool-gray-03 !important;
+  border-bottom: 2px solid $green-lighten-02 !important;
+  background-color: rgba($white, 0) !important;
+  font-weight: $font-weight-normal !important;
+  text-align: right;
 }
 
 .form-group {
@@ -111,7 +120,7 @@ textarea {
                 color: $body-color;
                 border-color: $bright-blue-lighten-02;
                 background: $white;
-                box-shadow: 0 0 0 1px $bright-blue-lighten-02 inset;
+                box-shadow: 0 0 0 3px $bright-blue-lighten-02 inset;
               }
             }
           }
@@ -547,24 +556,24 @@ textarea {
   &.valid {
     input {
       border-color: $green;
-      background-color: lighten($green-lighten-04, 20%);
+      background-color: lighten($green-lighten-02, 30%);
     }
 
     select {
       border-color: $green;
-      background-color: lighten($green-lighten-04, 20%);
+      background-color: lighten($green-lighten-02, 30%);
     }
 
     &.range-component {
       .range-wrapper {
         .range-value {
           &:before {
-            border-right-color: lighten($green-lighten-04, 20%);
+            border-right-color: lighten($green-lighten-02, 30%);
           }
 
           input {
             border-color: $green;
-            background-color: lighten($green-lighten-04, 20%);
+            background-color: lighten($green-lighten-02, 30%);
           }
         }
       }
@@ -585,6 +594,10 @@ select {
 
   &:not([size]):not([multiple]) {
     height: 2.375rem;
+  }
+
+  &:focus {
+      border-color: $bright-blue;
   }
 }
 //details & surveys
@@ -654,7 +667,7 @@ header {
       width: 7rem;
       flex-basis: 7rem;
       @include for-phone-only {
-        margin-left: 3rem;
+        margin-left: 4rem;
       }
     }
 
@@ -883,7 +896,7 @@ main[role="document"] {
 /*------------------------------------------------------------------------------------*/
 .content-panel-left {
   background-color: $cool-gray-12;
-  background-image: url("../img/TypTap-graphic.svg");
+  background-image: url("../img/typtap-bg.png");
   background-repeat: no-repeat;
   background-position-x: center;
   background-position-y: -3rem;
@@ -1287,11 +1300,7 @@ ul.result-cards {
 /*------------------------------------------------------------------------------------*/
 #Customize {
   .form-group.survey-wrapper {
-    input[readonly] {
-      color: $body-color;
-      border-bottom: 2px solid $cool-gray-01;
-      background-color: rgba($white, 0);
-    }
+
   }
 }
 //Share

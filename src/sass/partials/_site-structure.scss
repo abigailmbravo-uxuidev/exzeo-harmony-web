@@ -91,13 +91,18 @@ html {
                   }
               }
 
-              &.askAdditionalCustomerData {
-                  .detailHeader {
+              .detailHeader {
+                  min-height: 4.625rem;
+
+                  @include for-desktop-up {
                       height: 4.625rem;
                   }
-                  .workflow-header {
-                      height: 4.6875rem;
-                      display: flex;
+              }
+              .workflow-header {
+                  display: flex;
+
+                  @include for-desktop-up {
+                      min-height: 4.6875rem;
                   }
               }
 

@@ -100,7 +100,7 @@ export const Verify = (props) => {
           <div className="scroll">
             <div className="detail-wrapper">
               <div className="detail-group property-details">
-                <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details</h3>
+                <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <dl className="quote-number">
                     <div>
@@ -132,7 +132,7 @@ export const Verify = (props) => {
                   <dl className="effective-date">
                     <div>
                       <dt>Effective Date</dt>
-                      <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></dd>
+                      <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
                     </div>
                   </dl>
                   <dl className="agent">
@@ -150,43 +150,43 @@ export const Verify = (props) => {
                   <dl>
                     <div>
                       <dt>Yearly Premium</dt>
-                      <dd>${quoteData.rating.totalPremium}</dd>
+                      <dd>$ {quoteData.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>A. Dwelling</dt>
-                      <dd>${coverageLimits.dwelling.amount}</dd>
+                      <dd>$ {coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>B. Other Structures</dt>
-                      <dd>${coverageLimits.otherStructures.amount}</dd>
+                      <dd>$ {coverageLimits.otherStructures.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>C. Personal Property</dt>
-                      <dd>${coverageLimits.personalProperty.amount}</dd>
+                      <dd>$ {coverageLimits.personalProperty.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>D. Loss Of Use</dt>
-                      <dd>${coverageLimits.lossOfUse.amount}</dd>
+                      <dd>$ {coverageLimits.lossOfUse.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>E. Personal Liability</dt>
-                      <dd>${coverageLimits.personalLiability.amount}</dd>
+                      <dd>$ {coverageLimits.personalLiability.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>F. Medical Payments</dt>
-                      <dd>${coverageLimits.medicalPayments.amount}</dd>
+                      <dd>$ {coverageLimits.medicalPayments.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
@@ -198,39 +198,39 @@ export const Verify = (props) => {
                   <dl>
                     <div>
                       <dt>Mold Property</dt>
-                      <dd>${coverageLimits.moldProperty.amount}</dd>
+                      <dd>$ {coverageLimits.moldProperty.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>Mold Liability</dt>
-                      <dd>${coverageLimits.moldLiability.amount}</dd>
+                      <dd>$ {coverageLimits.moldLiability.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>Ordinance or Law</dt>
-                      <dd>${coverageLimits.dwelling.amount *
-                    (coverageLimits.ordinanceOrLaw.amount / 100)}</dd>
+                      <dd>$ {(coverageLimits.dwelling.amount *
+                    (coverageLimits.ordinanceOrLaw.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>All Other Perils Deductible</dt>
-                      <dd>${deductibles.allOtherPerils.amount}</dd>
+                      <dd>$ {deductibles.allOtherPerils.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
                     <div>
                       <dt>Hurricane Deductible</dt>
-                      <dd>${deductibles.hurricane.calculatedAmount}</dd>
+                      <dd>$ {deductibles.hurricane.calculatedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   {deductibles.sinkhole &&
                     <dl>
                       <div>
                         <dt>Sinkhole Deductible</dt>
-                        <dd>${coverageLimits.dwelling.amount * (deductibles.sinkhole.amount / 100)}</dd>
+                        <dd>$ {(coverageLimits.dwelling.amount * (deductibles.sinkhole.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                       </div>
                     </dl>
                   }
@@ -240,7 +240,7 @@ export const Verify = (props) => {
               <div className="detail-group policyholder-details">
                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
-                  <p>Please check that the below information is up to date and accurate. The policyholder contact information listed below will be used to schedule the required property inspection. Failure to schedule property inspection will result in a failure to bind the policy.</p>
+                  <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property inspection will results in failure to bind the policy.</p>
                   {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
                      quoteData.policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
                      <dl key={`ph${index}`}>
