@@ -77,6 +77,11 @@ html {
 
               &.search, &.chooseAddress, &.chooseQuote {
                   align-items: stretch;
+                  overflow: hidden;
+
+                  >.flex.grow {
+                      overflow: hidden;
+                  }
 
                   .detailHeader {
                       display: none;

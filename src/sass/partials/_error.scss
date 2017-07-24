@@ -173,6 +173,18 @@
               margin: $padding ($padding*2) ($padding*2) 0;
             }
           }
+
+          .card-footer {
+              small {
+                  margin-bottom: $padding;
+              }
+              .btn-group {
+                  .btn-round {
+                      height: 2rem;
+                      padding: 0;
+                  }
+              }
+          }
         }
       }
     }
