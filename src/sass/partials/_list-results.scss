@@ -81,15 +81,16 @@ ul.list-cards {
 
     .icon-name {
       display: flex;
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: auto;
+      width: auto;
 
-      @include for-phone-only {
-        width: 100%;
-      }
-      @include for-tablet-portrait-up {
-          width: 100%;
-      }
       @include for-desktop-up {
+          width: 14rem;
           flex-basis: 14rem;
+          flex-grow: 0;
+          flex-shrink: 0;
       }
 
       i {
@@ -106,15 +107,20 @@ ul.list-cards {
       h4 {
         display: inline-block;
         overflow: hidden;
-        width: 12rem;
-        height: 2rem;
         padding-left: $padding;
-        white-space: nowrap;
         text-overflow: ellipsis;
         line-height: 2rem;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 12rem;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+        width: auto;
+
+        @include for-desktop-up {
+            width: 12rem;
+            flex-basis: 12rem;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
       }
     }
 
@@ -210,7 +216,7 @@ ul.list-cards {
             width: 5.75rem;
             flex-grow: 0;
             flex-shrink: 0;
-            
+
             @include for-phone-only {
               flex-basis: 0;
             }
@@ -237,6 +243,7 @@ ul.list-cards {
             @include for-phone-only {
               width: 100%;
               justify-content: space-between;
+              align-items: flex-end;
             }
             @include for-tablet-portrait-up {
               width: 100%;
@@ -258,7 +265,7 @@ ul.list-cards {
               flex-basis: auto;
             }
             @include for-tablet-landscape-up {
-              flex-basis: 6rem;
+              flex-basis: 9rem;
             }
           }
 
@@ -268,7 +275,8 @@ ul.list-cards {
             @include for-phone-only {
               display: flex;
               flex-basis: auto;
-              align-items: center;
+              align-items: flex-start;
+              flex-direction: column;
 
               &:before {
                 margin-right: $padding/2;
@@ -301,7 +309,7 @@ ul.list-cards {
           .started-on {
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: 8rem;
+            flex-basis: 5rem;
             @include for-phone-only {
               display: none;
             }
