@@ -47,11 +47,6 @@
   }
 
   .form-group.survey-wrapper {
-    input[readonly] {
-      color: $body-color;
-      border-bottom: 2px solid $warm-gray-01;
-      background-color: rgba($white, 0);
-    }
 
     .form-group {
       flex-direction: row;

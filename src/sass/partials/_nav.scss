@@ -19,6 +19,7 @@
 
     &.active {
       left: 0;
+      box-shadow: $card-box-shadow-alt;
     }
   }
   @include for-tablet-portrait-up {
@@ -44,6 +45,13 @@
         }
       }
 
+      .user {
+          display:block;
+
+          label {display:block;}
+          .user-name {display:block;}
+      }
+
       .btn.logout.btn-action {
         width: auto;
         height: auto;
@@ -55,25 +63,13 @@
         div {
           display: block;
 
-        i {
-          margin-right: $padding;
-        }
+          i {
+            margin-right: $padding;
+          }
 
-        span {
-          display: inline-block;
-        }
-
-      }
-
-    }
-
-      .user {
-        label {
-          display: block;
-        }
-
-        .user-name {
-          display: flex;
+          span {
+            display: inline-block;
+          }
         }
       }
     }
@@ -249,7 +245,7 @@
   .user {
     width: auto;
     min-height: 4.75rem;
-    padding: ($padding) ($padding*2);
+    padding: ($padding/2) ($padding) ($padding/2) ($padding*2);
     border-bottom: 2px solid $white;
     background-color: $warm-gray-08;
     @include transition(all .2s ease-in-out);
@@ -282,6 +278,7 @@
       flex-shrink: 0;
       flex-basis: auto;
       align-items: center;
+      font-weight: $font-weight-normal;
       @include for-phone-only {
         max-width: 11rem;
       }
@@ -292,30 +289,14 @@
         display: flex;
       }
 
-      span {
-        overflow: hidden;
-        padding-right: $padding;
-        text-overflow: ellipsis;
-        flex-grow: 0;
-        flex-shrink: 1;
-        @include for-tablet-landscape-up {
-          width: 9rem;
-          flex-basis: 9rem;
-        }
-
-        div {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-      }
-
       i {
         text-align: center;
         font-size: 1rem;
         flex-grow: 0;
         flex-shrink: 0;
         flex-basis: 1rem;
+        //hide until needed
+        display: none;
       }
     }
   }
@@ -345,27 +326,26 @@
     div {
       display: block;
 
-    i {
-      display: inline-block;
-      margin-right: 0;
-      @include for-tablet-landscape-up {
-        margin-right: $padding;
+      i {
+        display: inline-block;
+        margin-right: 0;
+        @include for-tablet-landscape-up {
+          margin-right: $padding;
+        }
+        @include for-phone-only {
+          margin-right: $padding;
+        }
       }
-      @include for-phone-only {
-        margin-right: $padding;
+
+      span {
+        display: none;
+        @include for-tablet-landscape-up {
+          display: inline-block;
+        }
+        @include for-phone-only {
+          display: inline-block;
+        }
       }
     }
-
-    span {
-      display: none;
-      @include for-tablet-landscape-up {
-        display: inline-block;
-      }
-      @include for-phone-only {
-        display: inline-block;
-      }
-    }
-
-  }
   }
 }
