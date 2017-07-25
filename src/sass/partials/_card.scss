@@ -127,6 +127,10 @@
       @include border-radius(0 0 $card-border-radius-inner $card-border-radius-inner);
     }
   }
+
+  &.no-results {
+      margin-top: $padding;
+  }
 }
 
 .modal {
