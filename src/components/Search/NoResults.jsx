@@ -16,11 +16,11 @@ export const NoResults = (props) => {
     props.tasks[props.appState.modelName].data.activeTask &&
     (props.tasks[props.appState.modelName].data.activeTask.name === 'askToSearchAgain')) {
     const previousTask = props.tasks[props.appState.modelName].data.previousTask;
-    
+
     return (
       <div className="survey-wrapper">
-        <div className="card">
-          <div className="card-header"><h4><i className="fa fa-frown-o " /> No Results Found</h4></div>
+        <div className="card no-results">
+          <div className="card-header"><h4>No Results Found</h4></div>
           <div className="card-block">
             {
               (previousTask && previousTask.name === 'searchQuote' ?
@@ -28,7 +28,7 @@ export const NoResults = (props) => {
               :
                 <p>We&#39;re sorry we couldn&#39;t find any results matching your search parameters. Please
                   check your spelling and try a new search. You can also try a
-                  less specific search (such street number and name).</p>
+                  less specific search (such as street number and name).</p>
               )
             }
           </div>
