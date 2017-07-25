@@ -13,13 +13,14 @@ const Splash = props => (
         <div className="route-content">
           <div className="scroll">
             <div className="dashboard-message">
-              <h1 className="app-header">Agency Portal</h1>
-              <h4>Easily quote Flood and HO3 insurance for Florida properties</h4>
-              <p>Getting a quote is always quick and simple with <strong>TypTap Insurance</strong>. You can start a quote or find an existing quote using the start and retrieve buttons below.</p>
+              <h1 className="app-header">Agency Quoting App</h1>
+              <h4>Easily quote Flood and Homeowners (HO3) insurance for Florida properties.</h4>
+              <p>Getting a quote is always quick and simple with <strong>TypTap Insurance</strong>. You can start a quote or find an existing quote using the <strong>NEW QUOTE</strong> and <strong>RETRIEVE QUOTE</strong> buttons below.</p>
             </div>
             <div className="survey-wrapper">
               <div className="product-wrapper">
-                <div className="product card">
+                {/*flood will be added back in for phase 2*/}
+                {/* <div className="product card">
                   <div className="card-header image card-header-image-flood">
                     <h4 className="product-name"><i className="fa fa-tint" /> Flood Insurance</h4>
                   </div>
@@ -30,13 +31,13 @@ const Splash = props => (
                     <button type="submit" form="floodQuoteForm" className="btn btn-secondary"><i className="fa fa-plus" />New Quote</button>
                     <button type="submit" form="floodQuoteForm" className="btn btn-primary"><i className="fa fa-history" />Retrieve Quote</button>
                   </div>
-                </div>
+                </div> */}
                 <div className="product card">
                   <div className="card-header image card-header-image-home">
                     <h4 className="product-name"><i className="fa fa-home" /> Homeowners Insurance</h4>
                   </div>
                   <div className="card-block">
-                    <p>TypTap currently offers HO3 homeowner&apos;s policies for single family residential dwellings in Florida.</p>
+                    <p>TypTap currently offers homeowners polices for single family residential dwellings in Florida.</p>
                   </div>
                   <div className="card-footer">
                     <Link to={{ pathname: '/quote', state: { searchType: 'address' } }} className="btn btn-secondary btn-block"><i className="fa fa-plus" />New Quote</Link>
