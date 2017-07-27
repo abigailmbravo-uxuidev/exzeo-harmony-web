@@ -74,6 +74,13 @@ const handleInitialize = (state) => {
 
   values.sameAsProperty = false;
 
+  if (_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.address1'), _.get(quoteData, 'property.physicalAddress.address1')) &&
+  _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.city'), _.get(quoteData, 'property.physicalAddress.city')) &&
+ _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.state'), _.get(quoteData, 'property.physicalAddress.state')) &&
+_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, 'property.physicalAddress.zip'))) {
+    values.sameAsProperty = true;
+  }
+
   return values;
 };
 
@@ -141,7 +148,6 @@ InstallmentTerm.propTypes = {
   paymentPlans: PropTypes.any // eslint-disable-line
 };
 
-let sameAsProperty = false;
 export const Billing = (props) => {
   const {
     fieldQuestions,
@@ -151,6 +157,10 @@ export const Billing = (props) => {
     fieldValues,
     paymentPlanResult
   } = props;
+
+  const setPropertyToggle = () => {
+    dispatch(change('Billing', 'sameAsProperty', false));
+  };
 
   const selectBillTo = (event) => {
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
@@ -173,14 +183,14 @@ export const Billing = (props) => {
   const fillMailForm = () => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
-        if (!sameAsProperty) {
+        if (!props.fieldValues.sameAsProperty) {
           dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
         } else {
           dispatch(change('Billing', question.name, ''));
         }
       }
     });
-    sameAsProperty = !sameAsProperty;
+    dispatch(change('Billing', 'sameAsProperty', !props.fieldValues.sameAsProperty));
   };
 
   return (
@@ -192,11 +202,12 @@ export const Billing = (props) => {
             <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address</h3>
             <CheckInput
               label="Is the mailing address the same as the property address?" input={{
-                value: sameAsProperty,
+                value: fieldValues.sameAsProperty,
                 name: 'sameAsProperty',
                 onChange: fillMailForm
               }} isSwitch
             /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator
+              onChange={setPropertyToggle}
               data={quoteData}
               question={question} values={fieldValues} key={index}
             />))}
