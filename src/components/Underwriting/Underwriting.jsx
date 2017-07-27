@@ -35,7 +35,7 @@ const handleGetQuoteData = (state) => {
 
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
-  const data = state.appState && state.appState.data ? state.appState.data.quote : {};
+  const data = handleGetQuoteData(state);
   const values = {};
   questions.forEach((question) => {
     const val = _.get(data, `underwritingAnswers.${question.name}.answer`);
@@ -53,7 +53,7 @@ const handleInitialize = (state) => {
   return values;
 };
 
-export const Underwriting = props => {
+export const Underwriting = (props) => {
   const { appState, handleSubmit, fieldValues } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.previousTask.value.result;
