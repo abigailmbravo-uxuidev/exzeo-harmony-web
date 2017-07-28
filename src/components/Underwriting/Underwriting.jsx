@@ -53,7 +53,7 @@ const handleInitialize = (state) => {
   return values;
 };
 
-export const Underwriting = props => {
+export const Underwriting = (props) => {
   const { appState, handleSubmit, fieldValues } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.previousTask.value.result;
@@ -69,7 +69,7 @@ export const Underwriting = props => {
       >
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            {questions.map((question, index) =>
+            {questions && _.sortBy(questions, ['order']).map((question, index) =>
               <FieldGenerator
                 data={quoteData}
                 question={question}
