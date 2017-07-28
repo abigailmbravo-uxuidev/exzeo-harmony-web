@@ -627,7 +627,7 @@ select {
   .card-header {
     background-color: $cool-gray-00;
   }
-  
+
   .card-footer {
     background-color: $cool-gray-00;
   }
@@ -1544,6 +1544,7 @@ ul.result-cards {
   }
 
   &.pop-up {
+      z-index:500;
     .survey-wrapper {
       .contact-message {
         .card-csr {
