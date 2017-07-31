@@ -58,8 +58,11 @@ const handleInitialize = (state) => {
 
 const handleGetAgentsFromAgency = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  return paymentPlanResult;
+  if (!taskData) return [];
+
+  const agentData = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
+  _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
+  return agentData;
 };
 
 const handleGetZipCodeSettings = (state) => {
