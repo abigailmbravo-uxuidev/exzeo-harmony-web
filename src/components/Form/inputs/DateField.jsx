@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
+import platform from 'platform';
 import moment from 'moment';
 import classNames from 'classnames';
+import { Field } from 'redux-form';
+import normalizeDate from '../normalizeDate';
 import FieldHint from './FieldHint';
+import { combineRules } from '../Rules';
 import reduxFormField from './reduxFormField';
 
 export const DateInput = ({
@@ -9,6 +13,7 @@ export const DateInput = ({
   hint,
   label,
   styleName,
+  validations,
   meta,
   min,
   max,
@@ -26,6 +31,8 @@ export const DateInput = ({
     { error: touched && error }
   );
 
+  const ruleArray = combineRules(validations, { min, max });
+
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
   const Error = touched && (error || warning) && (
@@ -36,15 +43,31 @@ export const DateInput = ({
     {label} &nbsp; {Hint}
   </label>);
 
+  const onDateChange = (event) => {
+    if (!touched) event.target.value = '';
+  };
+
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
-      <input
+      { (platform.os.toString().includes('ios') || platform.os.toString().includes('android')) && <input
         {...input}
         type={'date'}
         min={min ? moment.utc(min).format('YYYY-MM-DD') : null}
         max={min ? moment.utc(max).format('YYYY-MM-DD') : null}
-      />
+      />}
+      { !platform.os.toString().includes('ios') && !platform.os.toString().includes('android') &&
+        <Field
+          // onFocus={onDateChange}
+          name={name}
+          component="input"
+          type="text"
+          placeholder="MM/DD/YYYY"
+          normalize={normalizeDate}
+          validate={ruleArray}
+          {...input}
+        />
+      }
       {Error}
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -12,8 +13,7 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
-
-
+import normalizeDate from '../Form/normalizeDate';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -32,6 +32,8 @@ const handleFormSubmit = (data, dispatch, props) => {
     taskData.EmailAddress2 = '';
     taskData.phoneNumber2 = '';
   }
+  taskData.effectiveDate = moment.utc(taskData.effectiveDate).toISOString();
+
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
@@ -45,6 +47,8 @@ const handleInitialize = (state) => {
   _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result : retrieveQuoteData;
 
   const values = getInitialValues(taskData.uiQuestions, quoteData);
+
+  values.effectiveDate = normalizeDate(moment(_.get(quoteData, 'effectiveDate') || '').format('MM/DD/YYYY'));
 
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
