@@ -95,7 +95,7 @@ export const CustomerInfo = (props) => {
   } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.uiQuestions;
-  const quoteData = taskData.previousTask.value.result;
+  const quoteData = props.quote;
   return (
     <div className="route-content">
       {props.appState.data.submitting && <Loader />}
