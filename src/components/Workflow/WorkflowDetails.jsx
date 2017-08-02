@@ -10,7 +10,7 @@ import * as serviceActions from '../../actions/serviceActions';
 
 const getQuoteFromModel = (state, props) => {
   const startModelData = {
-    quoteId: (state.quote._id) ? state.quote._id : props.appState.data.quote._id // eslint-disable-line
+    quoteId: (props.appState.data.quote) ? props.appState.data.quote._id : state.quote._id // eslint-disable-line
   };
 
   props.actions.serviceActions.getQuote(startModelData.quoteId).then((response) => {

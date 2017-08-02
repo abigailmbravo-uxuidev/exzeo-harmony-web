@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, Field, propTypes, getFormSyncErrors } from 'redux-form';
 import ReactTooltip from 'react-tooltip';
-
+import _ from 'lodash';
 import Rules from '../Form/Rules';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
@@ -108,7 +108,7 @@ const generateField = (name, placeholder, labelText, formErrors, formGroupCss) =
 };
 
 const SearchForm = (props) => {
-  const { handleSubmit, formErrors, isRetrieve } = props;
+  const { handleSubmit, formErrors, isRetrieve, fieldValues } = props;
 
   if (isRetrieve) {
     return (
@@ -139,7 +139,7 @@ const SearchForm = (props) => {
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"
-          disabled={props.appState.data.submitting || formErrors}
+          disabled={props.appState.data.submitting || formErrors || !fieldValues.address}
         >
           <i className="fa fa-search" /><span>Search</span>
         </button>
@@ -170,6 +170,7 @@ SearchForm.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
+  fieldValues: _.get(state.form, 'SearchBar.values', {}),
   formErrors: getFormSyncErrors('SearchBar')(state),
   isRetrieve: setIsRetrieve(),
   searchType: setIsRetrieve() ? 'quote' : 'address'
