@@ -1,0 +1,45 @@
+.rw-popup-container.rw-popup-container.rw-calendar-popup {
+    top: -12rem;
+    right: -10rem;
+    left: auto;
+    color: $cool-gray-10;
+
+    .rw-header {
+        input[type="button"], button {
+            &.rw-calendar, &.rw-header, &.rw-btn-view, &.navigate {
+                background: $white;
+
+                &:hover {
+                    background: $white;
+                }
+            }
+        }
+
+        .btn-default:hover, button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover {
+            background: red;
+        }
+    }
+
+    table {
+        background: $white;
+    }
+}
+
+.error {
+    .rw-popup-container.rw-popup-container.rw-calendar-popup {
+        color: $cool-gray-10;
+
+        span {
+            color: $cool-gray-10;
+        }
+    }
+}
+
+
+.rw-calendar-popup.rw-popup-container {
+    display: block !important;
+
+    .rw-popup.rw-widget.rw-calendar.rw-widget {
+        transform: translateY(0) !important;
+    }
+}
