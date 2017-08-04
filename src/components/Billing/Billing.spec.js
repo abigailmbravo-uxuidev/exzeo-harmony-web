@@ -7,6 +7,34 @@ import ConnectedApp, { Billing, handleFormSubmit, getSelectedPlan, InstallmentTe
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
+const _paymentPlansPH = {
+  options: [
+    {
+      billToType: 'Policy Holder',
+      billToId: '<_id>',
+      displayText: 'Policy Holder: (<firstName> <lastName> or <companyName>)',
+      payPlans: ['Annual', 'Semi-Annual', 'Quarterly']
+    }
+  ]
+};
+
+const _paymentPlans = {
+  options: [
+    {
+      billToType: 'Policy Holder',
+      billToId: '<_id>',
+      displayText: 'Policy Holder: (<firstName> <lastName> or <companyName>)',
+      payPlans: ['Annual', 'Semi-Annual', 'Quarterly']
+    },
+    {
+      billToType: 'Additional Interest',
+      billToId: '<_id>',
+      displayText: '<type>: <name1> <name2>',
+      payPlans: ['Annual']
+    }
+  ]
+};
+
 describe('Testing Billing component', () => {
   it('should test props and render', () => {
     const initialState = {
@@ -15,6 +43,11 @@ describe('Testing Billing component', () => {
           data: {
             modelInstanceId: '123',
             model: {
+              previousTask: {
+                value: {
+                  result: _paymentPlansPH
+                }
+              },
               variables: [{
                 name: 'quote',
                 value: {
@@ -47,7 +80,7 @@ describe('Testing Billing component', () => {
       },
       handleSubmit() {}
     };
-    const wrapper = shallow(<Billing {...props} />);
+    const wrapper = shallow(<Billing store={store} {...props} />);
     expect(wrapper);
   });
 
@@ -58,6 +91,11 @@ describe('Testing Billing component', () => {
           data: {
             modelInstanceId: '123',
             model: {
+              previousTask: {
+                value: {
+                  result: _paymentPlans
+                }
+              },
               variables: [{
                 name: 'quote',
                 value: {
@@ -126,7 +164,7 @@ describe('Testing Billing component', () => {
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
     handleFormSubmit({}, props.dispatch, props);
-    InstallmentTerm(paymentPlans, ['Annual', 'Semi-Annual', 'Quarterly']);
+    InstallmentTerm({ paymentPlans, payPlans: ['Annual', 'Semi-Annual', 'Quarterly'] });
 
     expect(getSelectedPlan('Annual')).toEqual('annual');
     expect(getSelectedPlan('Semi-Annual')).toEqual('semiAnnual');
