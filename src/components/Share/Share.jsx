@@ -63,6 +63,8 @@ export const closeShareSubmit = (props) => {
 };
 
 export const refereshUWReviewError = (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
+
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.refreshOnUnderWritingReviewError;
   const taskData = {
@@ -72,7 +74,9 @@ export const refereshUWReviewError = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const redirectToNewQuote = () => {
+const redirectToNewQuote = (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
+
   window.location.href = '/';
 };
 
@@ -113,12 +117,12 @@ export const Share = props => (
         primaryButtonHandler={shareQuoteSubmit}
         secondaryButtonHandler={() => closeShareSubmit(props)}
       />}
-    {props.underwritingExceptions &&
+    {!props.appState.data.submitting && props.underwritingExceptions &&
       <ErrorPopup
         quote={props.quote}
         underwritingExceptions={props.underwritingExceptions}
         refereshUWReviewError={() => refereshUWReviewError(props)}
-        redirectToNewQuote={redirectToNewQuote}
+        redirectToNewQuote={() => redirectToNewQuote(props)}
       />}
   </div>
 );

@@ -52,6 +52,7 @@ export const PhoneInput = ({
         placeholder="555-555-5555"
         normalize={normalizePhone}
         validate={ruleArray}
+        pattern="[0-9]*"
         {...input}
       />
       {Error}
