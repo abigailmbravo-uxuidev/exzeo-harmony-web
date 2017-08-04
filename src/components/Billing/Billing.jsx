@@ -74,6 +74,13 @@ const handleInitialize = (state) => {
 
   values.sameAsProperty = false;
 
+  if (_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.address1'), _.get(quoteData, 'property.physicalAddress.address1')) &&
+  _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.city'), _.get(quoteData, 'property.physicalAddress.city')) &&
+ _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.state'), _.get(quoteData, 'property.physicalAddress.state')) &&
+_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, 'property.physicalAddress.zip'))) {
+    values.sameAsProperty = true;
+  }
+
   return values;
 };
 
@@ -109,25 +116,25 @@ export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="
           {paymentPlan && paymentPlan.s1 && paymentPlan.s2 && <div>
             <dt><span>Semi-Annual</span> Installment Plan</dt>
             <dd>
-              $ {paymentPlan.s1.amount} : {moment.utc(paymentPlan.s1.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.s1.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.s1.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.s2.amount} : {moment.utc(paymentPlan.s2.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.s2.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.s2.dueDate).format('MM/DD/YYYY')}
             </dd>
           </div>}
           {paymentPlan && paymentPlan.q1 && paymentPlan.q2 && paymentPlan.q3 && paymentPlan.q4 && <div>
             <dt><span>Quarterly</span> Installment Plan</dt>
             <dd>
-              $ {paymentPlan.q1.amount} : {moment.utc(paymentPlan.q1.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q1.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q1.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q2.amount} : {moment.utc(paymentPlan.q2.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q2.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q2.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q3.amount} : {moment.utc(paymentPlan.q3.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q3.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q3.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q4.amount} : {moment.utc(paymentPlan.q4.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q4.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q4.dueDate).format('MM/DD/YYYY')}
             </dd>
           </div> }
         </div>
@@ -141,7 +148,6 @@ InstallmentTerm.propTypes = {
   paymentPlans: PropTypes.any // eslint-disable-line
 };
 
-let sameAsProperty = false;
 export const Billing = (props) => {
   const {
     fieldQuestions,
@@ -151,6 +157,10 @@ export const Billing = (props) => {
     fieldValues,
     paymentPlanResult
   } = props;
+
+  const setPropertyToggle = () => {
+    dispatch(change('Billing', 'sameAsProperty', false));
+  };
 
   const selectBillTo = (event) => {
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
@@ -173,14 +183,14 @@ export const Billing = (props) => {
   const fillMailForm = () => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
-        if (!sameAsProperty) {
+        if (!props.fieldValues.sameAsProperty) {
           dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
         } else {
           dispatch(change('Billing', question.name, ''));
         }
       }
     });
-    sameAsProperty = !sameAsProperty;
+    dispatch(change('Billing', 'sameAsProperty', !props.fieldValues.sameAsProperty));
   };
 
   return (
@@ -192,11 +202,12 @@ export const Billing = (props) => {
             <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address</h3>
             <CheckInput
               label="Is the mailing address the same as the property address?" input={{
-                value: sameAsProperty,
+                value: fieldValues.sameAsProperty,
                 name: 'sameAsProperty',
                 onChange: fillMailForm
               }} isSwitch
             /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator
+              onChange={setPropertyToggle}
               data={quoteData}
               question={question} values={fieldValues} key={index}
             />))}
