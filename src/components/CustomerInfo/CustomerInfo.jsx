@@ -20,7 +20,7 @@ import normalizePhone from '../Form/normalizePhone';
 // ------------------------------------------------
 const userTasks = { formSubmit: 'askAdditionalCustomerData' };
 
-const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.formSubmit;
   const taskData = data;
