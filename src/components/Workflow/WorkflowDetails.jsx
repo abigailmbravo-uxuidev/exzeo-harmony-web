@@ -8,7 +8,7 @@ import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
 
 
-const getQuoteFromModel = (state, props) => {
+export const getQuoteFromModel = (state, props) => {
   const startModelData = {
     quoteId: (props.appState.data.quote) ? props.appState.data.quote._id : state.quote._id // eslint-disable-line
   };
@@ -24,7 +24,7 @@ const getQuoteFromModel = (state, props) => {
   });
 };
 
-const goToStep = (props, taskName) => {
+export const goToStep = (props, taskName) => {
   // don't allow submission until the other step is completed
   if (props.appState.data.submitting) return;
 
@@ -36,6 +36,19 @@ const goToStep = (props, taskName) => {
     props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentModelData.model.completedTasks, props.completedTasks));
     props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, nextPage: taskName });
   }
+};
+
+export const getClassForStep = (stepName, props) => {
+  let className = '';
+  const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
+  if (currentData && currentData.activeTask && currentData.activeTask.name === stepName) {
+    className = 'active';
+  } else if (currentData && currentData.model && (_.includes(currentData.model.completedTasks, stepName) || _.includes(props.completedTasks, stepName))) {
+    className = 'selected';
+  } else if (currentData && currentData.model && !_.includes(currentData.model.completedTasks, stepName) && !_.includes(props.completedTasks, stepName)) {
+    className = 'disabled';
+  }
+  return className;
 };
 
 export class WorkflowDetails extends Component {
@@ -61,20 +74,6 @@ export class WorkflowDetails extends Component {
       quote
     }));
   }
-
-  getClassForStep = (stepName) => {
-    let className = '';
-    const currentData = this.props.tasks && this.props.tasks[this.props.workflowModelName].data ? this.props.tasks[this.props.workflowModelName].data : {};
-    if (currentData && currentData.activeTask && currentData.activeTask.name === stepName) {
-      className = 'active';
-    } else if (currentData && currentData.model && (_.includes(currentData.model.completedTasks, stepName) || _.includes(this.props.completedTasks, stepName))) {
-      className = 'selected';
-    } else if (currentData && currentData.model && !_.includes(currentData.model.completedTasks, stepName) && !_.includes(this.props.completedTasks, stepName)) {
-      className = 'disabled';
-    }
-    return className;
-  };
-
 
   render() {
     const { quote } = this.props;
@@ -140,13 +139,13 @@ export class WorkflowDetails extends Component {
         { this.props.tasks && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask &&
           <ul className="workflow-header">
             <div className="rule" />
-            <li><a onClick={() => goToStep(this.props, 'askAdditionalCustomerData')} className={this.getClassForStep('askAdditionalCustomerData')}><i className={'fa fa-vcard'} /><span>Policyholder</span></a></li>
-            <li><a onClick={() => goToStep(this.props, 'askUWAnswers')} className={this.getClassForStep('askUWAnswers')}><i className={'fa fa-list-ol'} /><span>Underwriting</span></a></li>
-            <li><a onClick={() => goToStep(this.props, 'askToCustomizeDefaultQuote')} className={this.getClassForStep('askToCustomizeDefaultQuote')}><i className={'fa fa-sliders'} /><span>Customize</span></a></li>
-            <li><a onClick={() => goToStep(this.props, 'sendEmailOrContinue')} className={this.getClassForStep('sendEmailOrContinue')}><i className={'fa fa-share-alt'} /><span>Share</span></a></li>
-            <li><a onClick={() => goToStep(this.props, 'addAdditionalAIs')} className={this.getClassForStep('addAdditionalAIs')}><i className={'fa fa-user-plus'} /><span>Additional Parties</span></a></li>
-            <li><a onClick={() => goToStep(this.props, 'askAdditionalQuestions')} className={this.getClassForStep('askAdditionalQuestions')}><i className={'fa fa-envelope'} /><span>Mailing / Billing</span></a></li>
-            <li><a onClick={() => goToStep(this.props, 'askScheduleInspectionDates')} className={this.getClassForStep('askScheduleInspectionDates')}><i className={'fa fa-check-square'} /><span>Verify</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'askAdditionalCustomerData')} className={getClassForStep('askAdditionalCustomerData', this.props)}><i className={'fa fa-vcard'} /><span>Policyholder</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'askUWAnswers')} className={getClassForStep('askUWAnswers', this.props)}><i className={'fa fa-list-ol'} /><span>Underwriting</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'askToCustomizeDefaultQuote')} className={getClassForStep('askToCustomizeDefaultQuote', this.props)}><i className={'fa fa-sliders'} /><span>Customize</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'sendEmailOrContinue')} className={getClassForStep('sendEmailOrContinue', this.props)}><i className={'fa fa-share-alt'} /><span>Share</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'addAdditionalAIs')} className={getClassForStep('addAdditionalAIs', this.props)}><i className={'fa fa-user-plus'} /><span>Additional Parties</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'askAdditionalQuestions')} className={getClassForStep('askAdditionalQuestions', this.props)}><i className={'fa fa-envelope'} /><span>Mailing / Billing</span></a></li>
+            <li><a onClick={() => goToStep(this.props, 'askScheduleInspectionDates')} className={getClassForStep('askScheduleInspectionDates', this.props)}><i className={'fa fa-check-square'} /><span>Verify</span></a></li>
           </ul>
       }
       </div>
