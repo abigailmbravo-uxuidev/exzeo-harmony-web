@@ -10,7 +10,7 @@ const ErrorPopup = ({quote, underwritingExceptions, refereshUWReviewError, redir
                         <h4><i className="fa fa-exclamation-triangle"/> Underwriting Error(s) - Please contact us</h4>
                     </div>
                     <div className="card-block">
-                        <h4>The following underwriting error(s) have occured with this quote:</h4>
+                        <h4>The following underwriting error(s) have occurred with this quote:</h4>
                         <ul className="error">
                             {underwritingExceptions.map((exception, i) => {
                               if(exception.action === 'Underwriting Review') {
