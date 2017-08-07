@@ -151,8 +151,8 @@ export const Billing = (props) => {
   } = props;
 
   const selectBillTo = (event) => {
-    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
+    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', event.target.value]) ?
+    _.find(paymentPlanResult.options, ['billToId', event.target.value]) : {};
 
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
@@ -160,8 +160,8 @@ export const Billing = (props) => {
   };
 
   const selectBillPlan = (value) => {
-    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
+    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]) ?
+    _.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]) : {};
 
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
