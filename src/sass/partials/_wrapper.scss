@@ -3,9 +3,8 @@
   flex-direction: row;
   padding: ($padding*2) ($padding*2) 0;
   flex-wrap: wrap;
-  flex-shrink: 1;
+  flex-shrink: 0;
   flex-grow: 1;
-  width: 100%;
   align-content: flex-start;
 
   .section-group-header {
