@@ -179,14 +179,14 @@ export const Billing = (props) => {
   const fillMailForm = () => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
-        if (!fieldValues.sameAsProperty) {
+        if (!props.fieldValues.sameAsProperty) {
           dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
         } else {
           dispatch(change('Billing', question.name, ''));
         }
       }
     });
-    dispatch(change('Billing', 'sameAsProperty', !fieldValues.sameAsProperty));
+    dispatch(change('Billing', 'sameAsProperty', !props.fieldValues.sameAsProperty));
   };
 
   return (
@@ -197,7 +197,7 @@ export const Billing = (props) => {
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address</h3>
             <CheckInput
-              label="Is the mailing address the same as the property address?" name={'sameAsProperty'} input={{
+              label="Is the mailing address the same as the property address?" input={{
                 value: fieldValues.sameAsProperty,
                 name: 'sameAsProperty',
                 onChange: fillMailForm
