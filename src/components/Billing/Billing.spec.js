@@ -310,8 +310,7 @@ const paymentPlans = {
       billToId: '5866c036a46eb72908f3f547',
       displayText: '',
       payPlans: ['Annual', 'Semi-Annual', 'Quarterly']
-    }
-  ]
+    }]
 };
 
 describe('Testing Billing component', () => {
@@ -320,11 +319,6 @@ describe('Testing Billing component', () => {
       cg: {
         bb: {
           data: {
-            previousTask: {
-              value: {
-                result: paymentPlans
-              }
-            },
             modelInstanceId: '123',
             model: {
               variables: [{
@@ -359,7 +353,7 @@ describe('Testing Billing component', () => {
       },
       handleSubmit() {}
     };
-    const wrapper = shallow(<Billing {...props} />);
+    const wrapper = shallow(<Billing store={store} {...props} />);
     expect(wrapper);
   });
 
@@ -433,7 +427,7 @@ describe('Testing Billing component', () => {
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
     handleFormSubmit({}, props.dispatch, props);
-    InstallmentTerm(paymentPlans, ['Annual', 'Semi-Annual', 'Quarterly']);
+    InstallmentTerm({ paymentPlans, payPlans: ['Annual', 'Semi-Annual', 'Quarterly'] });
 
     expect(getSelectedPlan('Annual')).toEqual('annual');
     expect(getSelectedPlan('Semi-Annual')).toEqual('semiAnnual');

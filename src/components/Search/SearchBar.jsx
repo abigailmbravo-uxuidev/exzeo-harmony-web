@@ -25,6 +25,8 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
     searchType: props.searchType
   };
 
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+
   // we need to make sure the active task is search otherwise we need to reset the workflow
   if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
     const completeStep = {
@@ -33,7 +35,6 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
     };
     props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
   } else {
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
     props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   }
 };

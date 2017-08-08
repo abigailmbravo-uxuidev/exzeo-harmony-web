@@ -116,25 +116,25 @@ export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="
           {paymentPlan && paymentPlan.s1 && paymentPlan.s2 && <div>
             <dt><span>Semi-Annual</span> Installment Plan</dt>
             <dd>
-              $ {paymentPlan.s1.amount} : {moment.utc(paymentPlan.s1.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.s1.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.s1.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.s2.amount} : {moment.utc(paymentPlan.s2.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.s2.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.s2.dueDate).format('MM/DD/YYYY')}
             </dd>
           </div>}
           {paymentPlan && paymentPlan.q1 && paymentPlan.q2 && paymentPlan.q3 && paymentPlan.q4 && <div>
             <dt><span>Quarterly</span> Installment Plan</dt>
             <dd>
-              $ {paymentPlan.q1.amount} : {moment.utc(paymentPlan.q1.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q1.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q1.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q2.amount} : {moment.utc(paymentPlan.q2.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q2.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q2.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q3.amount} : {moment.utc(paymentPlan.q3.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q3.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q3.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q4.amount} : {moment.utc(paymentPlan.q4.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q4.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q4.dueDate).format('MM/DD/YYYY')}
             </dd>
           </div> }
         </div>
@@ -157,6 +157,10 @@ export const Billing = (props) => {
     fieldValues,
     paymentPlanResult
   } = props;
+
+  const setPropertyToggle = () => {
+    dispatch(change('Billing', 'sameAsProperty', false));
+  };
 
   const selectBillTo = (event) => {
     const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', event.target.value]) ?
@@ -203,6 +207,7 @@ export const Billing = (props) => {
                 onChange: fillMailForm
               }} isSwitch
             /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator
+              onChange={setPropertyToggle}
               data={quoteData}
               question={question} values={fieldValues} key={index}
             />))}
