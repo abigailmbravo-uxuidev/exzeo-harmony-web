@@ -60,17 +60,26 @@ const handleInitialize = (state) => {
 
   const paymentPlans = handleGetPaymentPlans(state);
 
+  const selectedBilling = _.find(paymentPlans.options, ['billToId', _.get(quoteData, 'billToId')]);
+
   if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !values.billTo && !values.billPlan) {
     values.billToId = _.get(paymentPlans.options[0], 'billToId');
     values.billToType = _.get(paymentPlans.options[0], 'billToType');
     values.billPlan = 'Annual';
-  } else {
-    values.billToId = _.get(quoteData, 'billToId');
-    values.billToType = _.get(quoteData, 'billToType');
-    values.billPlan = _.get(quoteData, 'billPlan');
+  } else if (selectedBilling) {
+    values.billToId = selectedBilling.billToId;
+    values.billToType = selectedBilling.billToType;
+    values.billPlan = _.get(quoteData, 'billPlan') || '';
   }
 
   values.sameAsProperty = false;
+
+  if (_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.address1'), _.get(quoteData, 'property.physicalAddress.address1')) &&
+  _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.city'), _.get(quoteData, 'property.physicalAddress.city')) &&
+ _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.state'), _.get(quoteData, 'property.physicalAddress.state')) &&
+_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, 'property.physicalAddress.zip'))) {
+    values.sameAsProperty = true;
+  }
 
   return values;
 };
@@ -139,7 +148,6 @@ InstallmentTerm.propTypes = {
   paymentPlans: PropTypes.any // eslint-disable-line
 };
 
-let sameAsProperty = false;
 export const Billing = (props) => {
   const {
     fieldQuestions,
@@ -171,14 +179,14 @@ export const Billing = (props) => {
   const fillMailForm = () => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
-        if (!sameAsProperty) {
+        if (!fieldValues.sameAsProperty) {
           dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
         } else {
           dispatch(change('Billing', question.name, ''));
         }
       }
     });
-    sameAsProperty = !sameAsProperty;
+    dispatch(change('Billing', 'sameAsProperty', !fieldValues.sameAsProperty));
   };
 
   return (
@@ -189,8 +197,8 @@ export const Billing = (props) => {
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address</h3>
             <CheckInput
-              label="Is the mailing address the same as the property address?" input={{
-                value: sameAsProperty,
+              label="Is the mailing address the same as the property address?" name={'sameAsProperty'} input={{
+                value: fieldValues.sameAsProperty,
                 name: 'sameAsProperty',
                 onChange: fillMailForm
               }} isSwitch
