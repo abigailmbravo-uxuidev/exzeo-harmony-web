@@ -62,7 +62,7 @@ const handleInitialize = (state) => {
 
   const selectedBilling = _.find(paymentPlans.options, ['billToId', _.get(quoteData, 'billToId')]);
 
-  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !values.billTo && !values.billPlan) {
+  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !_.get(quoteData, 'billToId') && !_.get(quoteData, 'billPlan')) {
     values.billToId = _.get(paymentPlans.options[0], 'billToId');
     values.billToType = _.get(paymentPlans.options[0], 'billToType');
     values.billPlan = 'Annual';
