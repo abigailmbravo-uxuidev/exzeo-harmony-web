@@ -60,19 +60,26 @@ const handleInitialize = (state) => {
 
   const paymentPlans = handleGetPaymentPlans(state);
 
-  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !values.billTo && !values.billPlan) {
-    values.billTo = _.get(paymentPlans.options[0], 'billToId');
+  const selectedBilling = _.find(paymentPlans.options, ['billToId', _.get(quoteData, 'billToId')]);
+
+  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !_.get(quoteData, 'billToId') && !_.get(quoteData, 'billPlan')) {
     values.billToId = _.get(paymentPlans.options[0], 'billToId');
     values.billToType = _.get(paymentPlans.options[0], 'billToType');
     values.billPlan = 'Annual';
-  } else {
-    values.billTo = _.get(quoteData, 'billToId');
-    values.billToId = _.get(quoteData, 'billToId');
-    values.billToType = _.get(quoteData, 'billToType');
-    values.billPlan = _.get(quoteData, 'billPlan');
+  } else if (selectedBilling) {
+    values.billToId = selectedBilling.billToId;
+    values.billToType = selectedBilling.billToType;
+    values.billPlan = _.get(quoteData, 'billPlan') || '';
   }
 
   values.sameAsProperty = false;
+
+  if (_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.address1'), _.get(quoteData, 'property.physicalAddress.address1')) &&
+  _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.city'), _.get(quoteData, 'property.physicalAddress.city')) &&
+ _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.state'), _.get(quoteData, 'property.physicalAddress.state')) &&
+_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, 'property.physicalAddress.zip'))) {
+    values.sameAsProperty = true;
+  }
 
   return values;
 };
@@ -109,25 +116,25 @@ export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="
           {paymentPlan && paymentPlan.s1 && paymentPlan.s2 && <div>
             <dt><span>Semi-Annual</span> Installment Plan</dt>
             <dd>
-              $ {paymentPlan.s1.amount} : {moment.utc(paymentPlan.s1.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.s1.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.s1.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.s2.amount} : {moment.utc(paymentPlan.s2.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.s2.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.s2.dueDate).format('MM/DD/YYYY')}
             </dd>
           </div>}
           {paymentPlan && paymentPlan.q1 && paymentPlan.q2 && paymentPlan.q3 && paymentPlan.q4 && <div>
             <dt><span>Quarterly</span> Installment Plan</dt>
             <dd>
-              $ {paymentPlan.q1.amount} : {moment.utc(paymentPlan.q1.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q1.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q1.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q2.amount} : {moment.utc(paymentPlan.q2.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q2.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q2.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q3.amount} : {moment.utc(paymentPlan.q3.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q3.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q3.dueDate).format('MM/DD/YYYY')}
             </dd>
             <dd>
-              $ {paymentPlan.q4.amount} : {moment.utc(paymentPlan.q4.dueDate).format('MM/DD/YYYY')}
+              $ {paymentPlan.q4.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} : {moment.utc(paymentPlan.q4.dueDate).format('MM/DD/YYYY')}
             </dd>
           </div> }
         </div>
@@ -141,7 +148,6 @@ InstallmentTerm.propTypes = {
   paymentPlans: PropTypes.any // eslint-disable-line
 };
 
-let sameAsProperty = false;
 export const Billing = (props) => {
   const {
     fieldQuestions,
@@ -152,9 +158,13 @@ export const Billing = (props) => {
     paymentPlanResult
   } = props;
 
+  const setPropertyToggle = () => {
+    dispatch(change('Billing', 'sameAsProperty', false));
+  };
+
   const selectBillTo = (event) => {
-    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
+    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', event.target.value]) ?
+    _.find(paymentPlanResult.options, ['billToId', event.target.value]) : {};
 
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
@@ -162,8 +172,8 @@ export const Billing = (props) => {
   };
 
   const selectBillPlan = (value) => {
-    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-    _.find(paymentPlanResult.options, ['billToId', props.billToValue]) : {};
+    const currentPaymentPlan = _.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]) ?
+    _.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]) : {};
 
     dispatch(change('Billing', 'billToId', currentPaymentPlan.billToId));
     dispatch(change('Billing', 'billToType', currentPaymentPlan.billToType));
@@ -173,14 +183,14 @@ export const Billing = (props) => {
   const fillMailForm = () => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
-        if (!sameAsProperty) {
+        if (!props.fieldValues.sameAsProperty) {
           dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
         } else {
           dispatch(change('Billing', question.name, ''));
         }
       }
     });
-    sameAsProperty = !sameAsProperty;
+    dispatch(change('Billing', 'sameAsProperty', !props.fieldValues.sameAsProperty));
   };
 
   return (
@@ -192,17 +202,18 @@ export const Billing = (props) => {
             <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address</h3>
             <CheckInput
               label="Is the mailing address the same as the property address?" input={{
-                value: sameAsProperty,
+                value: fieldValues.sameAsProperty,
                 name: 'sameAsProperty',
                 onChange: fillMailForm
               }} isSwitch
             /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator
+              onChange={setPropertyToggle}
               data={quoteData}
               question={question} values={fieldValues} key={index}
             />))}
             <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
             <SelectFieldBilling
-              name="billTo"
+              name="billToId"
               component="select"
               label="Bill To"
               onChange={selectBillTo}
@@ -218,21 +229,20 @@ export const Billing = (props) => {
               onChange={selectBillPlan}
               validate={[value => (value ? undefined : 'Field Required')]}
               segmented
-              answers={_.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-               _.find(paymentPlanResult.options, ['billToId', props.billToValue]).payPlans : []}
+              answers={_.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]) ?
+               _.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]).payPlans : []}
               paymentPlans={paymentPlanResult.paymentPlans}
             />
 
             <InstallmentTerm
-              payPlans={_.find(paymentPlanResult.options, ['billToId', props.billToValue]) ?
-               _.find(paymentPlanResult.options, ['billToId', props.billToValue]).payPlans : []}
+              payPlans={_.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]) ?
+               _.find(paymentPlanResult.options, ['billToId', props.fieldValues.billToId]).payPlans : []}
               paymentPlans={paymentPlanResult.paymentPlans}
             />
           </div>
-          <Field name="billToId" component="input" type="hidden" />
           <Field name="billToType" component="input" type="hidden" />
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Billing" disabled={props.appState.data.submitting || !props.billToValue}>next</button>
+            <button className="btn btn-primary" type="submit" form="Billing" disabled={props.appState.data.submitting || !props.fieldValues.billToId}>next</button>
           </div>
           <Footer />
         </div>
@@ -261,21 +271,15 @@ Billing.propTypes = {
 // ------------------------------------------------
 // redux mapping
 // ------------------------------------------------
-const mapStateToProps = (state) => {
-  const selector = formValueSelector('Billing');
-  const billToValue = selector(state, 'billTo');
-
-  return {
-    tasks: state.cg,
-    appState: state.appState,
-    fieldValues: _.get(state.form, 'Billing.values', {}),
-    initialValues: handleInitialize(state),
-    fieldQuestions: handleGetQuestions(state),
-    quoteData: handleGetQuoteData(state),
-    paymentPlanResult: handleGetPaymentPlans(state),
-    billToValue
-  };
-};
+const mapStateToProps = state => ({
+  tasks: state.cg,
+  appState: state.appState,
+  fieldValues: _.get(state.form, 'Billing.values', {}),
+  initialValues: handleInitialize(state),
+  fieldQuestions: handleGetQuestions(state),
+  quoteData: handleGetQuoteData(state),
+  paymentPlanResult: handleGetPaymentPlans(state)
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: {
@@ -287,4 +291,4 @@ const mapDispatchToProps = dispatch => ({
 // ------------------------------------------------
 // wire up redux form with the redux connect
 // ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Billing' })(Billing));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Billing', enableReinitialize: true })(Billing));
