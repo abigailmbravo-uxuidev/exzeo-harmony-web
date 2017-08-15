@@ -43,6 +43,10 @@ export const handleFormSubmit = (data, dispatch, props) => {
       calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount))
     };
 
+    if (updatedQuoteResult.personalPropertyAmount === 0) {
+      updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
+    }
+
     // Remove the sinkhole attribute from updatedQuoteResult
     // if sinkholePerilCoverage is false
     if (!updatedQuote.sinkholePerilCoverage) {
