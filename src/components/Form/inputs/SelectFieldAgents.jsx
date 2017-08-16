@@ -28,9 +28,9 @@ export const SelectInputAgents = ({
           disabled={disabled}
           onChange={onChange}
         >
-          <option disabled value={''}>Please select...</option>
+          <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
           {agents.map((agent, index) => (
-            <option value={agent.agentCode} key={index}>
+            <option aria-label={`${agent.firstName} ${agent.lastName}`} value={agent.agentCode} key={index}>
               {`${agent.firstName} ${agent.lastName}`}
             </option>
             ))}
