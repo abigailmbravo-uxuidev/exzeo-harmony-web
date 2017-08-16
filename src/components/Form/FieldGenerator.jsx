@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import platform from 'platform';
 import dependencyHelper from './dependencyHelper';
 import {
   CheckField,
@@ -10,6 +11,7 @@ import {
   SliderField,
   TextField,
   DateField,
+  DateFieldWeb,
   PhoneField,
   SelectFieldBilling
 } from './inputs';
@@ -24,6 +26,7 @@ const FieldGenerator = ({
   const fieldOptions = dependencyHelper(question, data, values);
 
   const inputProps = {
+    data,
     ...fieldOptions,
     hint: fieldOptions.description,
     label: fieldOptions.question,
@@ -62,7 +65,11 @@ const FieldGenerator = ({
     case 'slider':
       return <SliderField {...inputProps} />;
     case 'date':
-      return <DateField {...inputProps} min={zipCodeSettings ? zipCodeSettings.minEffectiveDate : null} max={zipCodeSettings ? zipCodeSettings.maxEffectiveDate : null} />;
+      if (platform.os.toString().includes('ios') || platform.os.toString().includes('android')) {
+        return <DateField {...inputProps} min={zipCodeSettings ? zipCodeSettings.minEffectiveDate : null} max={zipCodeSettings ? zipCodeSettings.maxEffectiveDate : null} />;
+      }
+      return <DateFieldWeb {...inputProps} min={zipCodeSettings ? zipCodeSettings.minEffectiveDate : null} max={zipCodeSettings ? zipCodeSettings.maxEffectiveDate : null} />;
+
     case 'text':
     case 'number':
     case 'password':
