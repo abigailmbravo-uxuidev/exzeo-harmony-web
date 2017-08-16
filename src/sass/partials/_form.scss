@@ -956,6 +956,9 @@ ul.results {
         z-index: 1;
         display: flex;
         flex-direction: row;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto;
         width: 100%;
         padding: $padding $padding*1.5;
         text-decoration: none;
@@ -973,16 +976,24 @@ ul.results {
           h4,
           h5 {
             margin: 0;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: auto;
           }
 
           p {
             margin: 0;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: auto;
           }
         }
 
         i {
           display: flex;
           flex-direction: row;
+          flex-grow: 0;
+          flex-shrink: 0;
           width: 2rem;
           height: 2rem;
           font-size: $font-size-h2;
@@ -999,7 +1010,11 @@ ul.results {
           h2,
           h3,
           h4,
-          h5 {}
+          h5 {
+              flex-grow: 0;
+              flex-shrink: 0;
+              flex-basis: auto;
+          }
         }
       }
     }

@@ -31,6 +31,7 @@ html {
         position: relative;
         display: flex;
         overflow-y: hidden;
+        overflow-x: hidden;
         flex-direction: row;
         width: 100%;
         height: calc(100vh - 3.75rem);
@@ -43,6 +44,7 @@ html {
         .content-wrapper {
           display: flex;
           overflow-y: hidden;
+          overflow-x: hidden;
           flex-direction: column;
           width: 100%;
           flex-grow: 1;
@@ -125,6 +127,10 @@ html {
 
                   .scroll {
                     width: 100%;
+
+                    > div {
+                        overflow: hidden;
+                    }
                   }
                 }
               }
