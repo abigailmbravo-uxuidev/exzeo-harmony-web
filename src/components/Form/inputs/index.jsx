@@ -7,6 +7,7 @@ export { default as SelectField } from './SelectField';
 export { default as SliderField } from './SliderField';
 export { default as TextField } from './TextField';
 export { default as DateField } from './DateField';
+export { default as DateFieldWeb } from './DateFieldWeb';
 export { default as RadioFieldBilling } from './RadioFieldBilling';
 export { default as SelectFieldBilling } from './SelectFieldBilling';
 export { default as PhoneField } from './PhoneField';
