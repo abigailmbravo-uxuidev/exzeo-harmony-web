@@ -19,7 +19,7 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(data.address) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).trim()) : ''),
     quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType
@@ -70,7 +70,7 @@ export const validate = (values) => {
   }
 
   if (values.address) {
-    const required = Rules.required(values.address);
+    const required = Rules.required(String(values.address).trim());
     const invalidCharacters = Rules.invalidCharacters(values.address);
     if (invalidCharacters) {
       errors.address = invalidCharacters;
