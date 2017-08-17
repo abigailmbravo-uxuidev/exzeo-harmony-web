@@ -28,7 +28,7 @@
       list-style: none;
 
       li {
-        a {
+        div {
           @include for-phone-only {
             flex-direction: column;
             align-items: baseline;
@@ -96,12 +96,28 @@
             }
           }
 
-          .fa-pencil {
-            font-size: $font-size-h4;
-            @include for-phone-only {
-              position: absolute;
-              right: $padding;
-            }
+          a {
+              &.edit {
+                  width: 2rem;
+                  .fa-pencil {
+                    font-size: $font-size-h4;
+                  }
+                  @include for-phone-only {
+                    position: absolute;
+                    right: $padding;
+                  }
+              }
+              &.remove {
+                  width: 2rem
+                  ;
+                  .fa-trash {
+                      font-size: $font-size-h4;
+                  }
+                  @include for-phone-only {
+                    position: absolute;
+                    right: 3rem;
+                  }
+              }
           }
 
           section {

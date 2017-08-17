@@ -84,7 +84,6 @@ textarea {
     border-bottom-color: $bright-blue;
     background: lighten( $cool-gray-00, 2.5% );
   }
-
   //disabled & read-only text input-box-shadow
   &.disabled,
   &:disabled,
@@ -597,7 +596,7 @@ select {
   }
 
   &:focus {
-      border-color: $bright-blue;
+    border-color: $bright-blue;
   }
 }
 //details & surveys
@@ -1160,7 +1159,8 @@ footer {
 /*------------------------------------------------------------------------------------*/
 ul.result-cards {
   li {
-    a {
+     > a,
+    > div {
       background: $white;
 
       section {
@@ -1185,7 +1185,9 @@ ul.result-cards {
           color: $bright-blue;
         }
       }
+    }
 
+    > a {
       &:focus,
       &:hover {
         section {
@@ -1296,13 +1298,6 @@ ul.result-cards {
     }
   }
 }
-//Customize Quote page
-/*------------------------------------------------------------------------------------*/
-#Customize {
-  .form-group.survey-wrapper {
-
-  }
-}
 //Share
 /*------------------------------------------------------------------------------------*/
 .section-share {}
@@ -1328,14 +1323,17 @@ ul.result-cards {
 #AddAdditionalInterestPage {
   .result-cards {
     li {
-      a {
+      > div {
         .card-icon {
-          color: $green;
+          i {
+            color: $green;
+          }
         }
-      }
 
-      .fa-pencil {
-        color: $bright-blue;
+        .fa-pencil,
+        .fa-trash {
+          color: $bright-blue;
+        }
       }
     }
   }

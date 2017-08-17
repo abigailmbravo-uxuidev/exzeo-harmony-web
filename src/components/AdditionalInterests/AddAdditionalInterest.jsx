@@ -119,7 +119,7 @@ export const AddAdditionalInterest = props => (
             <ul className="results result-cards">
               {props.quoteData && props.quoteData.additionalInterests && props.quoteData.additionalInterests.map((question, index) =>
                 <li key={index}>
-                  <a onClick={() => goToStep(props, question.type)}>
+                  <div>
                     {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
                     <div className="card-icon"><i className={`fa fa-circle ${question.type}`} /><label>{question.type} {question.order + 1}</label></div>
                     <section>
@@ -135,8 +135,13 @@ export const AddAdditionalInterest = props => (
                         {` ${question.mailingAddress.zip}`}
                       </p>
                     </section>
-                    <i className="fa fa-pencil" />
-                  </a>
+                    <a className="remove" onClick="">
+                      <i className="fa fa-trash" />
+                    </a>
+                    <a className="edit" onClick={() => goToStep(props, question.type)}>
+                      <i className="fa fa-pencil" />
+                    </a>
+                  </div>
                 </li>
               )}
             </ul>

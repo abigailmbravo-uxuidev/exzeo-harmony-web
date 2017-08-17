@@ -103,6 +103,18 @@ html {
               .workflow-header {
                   display: flex;
 
+                  @include for-phone-only {
+                      min-height: 2.25rem;
+                  }
+
+                  @include for-tablet-portrait-up {
+                     min-height: 4.25rem;
+                  }
+
+                  @include for-tablet-landscape-up {
+                     min-height: 4.6875rem;
+                  }
+
                   @include for-desktop-up {
                       min-height: 4.6875rem;
                   }
