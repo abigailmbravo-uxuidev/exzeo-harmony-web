@@ -61,8 +61,7 @@ Loader.propTypes = {
 
 const mapStateToProps = state => ({
   tasks: state.cg,
-  appState: state.appState,
-  showScheduleDateModal: state.appState.data.showScheduleDateModal
+  appState: state.appState
 });
 
 const mapDispatchToProps = dispatch => ({
