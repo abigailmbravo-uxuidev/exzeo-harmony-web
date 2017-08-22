@@ -92,39 +92,50 @@
         .display-element {
           padding: 0 $padding $padding;
 
-          p {
+          > p {
             padding: $padding*2;
             color: $red-darken-02;
             background: $orange-lighten-04;
           }
 
-          .contact-card {
-            display: flex;
-            @include for-phone-only {
+          .contact-card-wrapper {
+              display: flex;
               flex-direction: column;
-            }
 
-            div {
-              flex-grow: 1;
-              flex-shrink: 0;
+              .contact-card {
+                display: flex;
+                flex-direction: column;
 
-              &.contact-name {}
-
-              &.contact-email {}
-
-              dl {
-                margin-right: $padding*2;
-
-                div {
-                  dd {
-                    margin-bottom: 0;
-
-                    +dd {
-                      font-size: $font-size-h6;
+                dl {
+                    display: flex;
+                    @include for-phone-only {
+                        flex-direction: column;
                     }
-                  }
+
+                    .contact-name {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        flex-basis: auto;
+                    }
+                    .contact-phone {
+                        flex-grow: 0;
+                        flex-shrink: 1;
+                        flex-basis: 30%;
+
+                        @include for-phone-only {
+                            flex-basis: auto;
+                        }
+                    }
+                    .contact-email {
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        flex-basis: 35%;
+
+                        @include for-phone-only {
+                            flex-basis: auto;
+                        }
+                    }
                 }
-              }
             }
           }
         }

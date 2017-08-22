@@ -84,7 +84,6 @@ textarea {
     border-bottom-color: $bright-blue;
     background: lighten( $cool-gray-00, 2.5% );
   }
-
   //disabled & read-only text input-box-shadow
   &.disabled,
   &:disabled,
@@ -597,7 +596,7 @@ select {
   }
 
   &:focus {
-      border-color: $bright-blue;
+    border-color: $bright-blue;
   }
 }
 //details & surveys
@@ -1299,9 +1298,7 @@ ul.result-cards {
 //Customize Quote page
 /*------------------------------------------------------------------------------------*/
 #Customize {
-  .form-group.survey-wrapper {
-
-  }
+  .form-group.survey-wrapper {}
 }
 //Share
 /*------------------------------------------------------------------------------------*/
@@ -1544,6 +1541,8 @@ ul.result-cards {
   }
 
   &.pop-up {
+    z-index: 500;
+
     .survey-wrapper {
       .contact-message {
         .card-csr {
