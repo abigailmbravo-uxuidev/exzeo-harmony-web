@@ -79,20 +79,13 @@ export default class Auth {
     return accessToken;
   }
 
-  getProfile(cb) {
-    const accessToken = this.getAccessToken();
-    this.auth0.client.userInfo(accessToken, (err, profile) => {
-      if (profile) {
-        this.userProfile = profile;
-        this.userProfile.groups = profile['https://heimdall.security/groups'];
-        this.userProfile.roles = profile['https://heimdall.security/roles'];
-        this.userProfile.username = profile['https://heimdall.security/username'];
-        delete this.userProfile['https://heimdall.security/groups'];
-        delete this.userProfile['https://heimdall.security/roles'];
-        delete this.userProfile['https://heimdall.security/username'];
-      }
-      cb(err, profile);
-    });
+  getProfile = (cb) => {
+    const idToken = localStorage.getItem('id_token');
+    if (!idToken) {
+      cb('No Id Token');
+    }
+    const payload = jwtDecode(idToken);
+    cb(null, payload);
   }
 
   logout() {
