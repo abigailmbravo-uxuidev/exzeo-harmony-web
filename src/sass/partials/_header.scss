@@ -16,6 +16,7 @@ header {
     @include for-phone-only {
       .btn-ellipsis-v {
         position: absolute;
+        top: .5rem;
         right: 1rem;
         display: flex;
 
@@ -55,6 +56,7 @@ header {
 
       .btn-bars {
         position: absolute;
+        top: .5rem;
         left: 1rem;
         display: flex;
 

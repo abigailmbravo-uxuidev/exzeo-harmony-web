@@ -208,7 +208,6 @@
         cursor: pointer;
         color: $warm-gray-03;
         font-weight: $font-weight-bold;
-        flex: 1;
         align-items: center;
         @include for-phone-only {
           padding: 0;
