@@ -51,4 +51,33 @@ describe('Rules', () => {
       expect(ruleArray[0].length).toEqual(1);
     });
   });
+
+  describe('date', () => {
+    it('should return undefined for a valid date', () => {
+      expect(rules.date('2017-04-27')).toBeUndefined();
+    });
+    it('should return "is not a valid Date."', () => {
+      expect(rules.date('')).toEqual('is not a valid Date.');
+    });
+  });
+
+  describe('maxLength8AlphaNumeric', () => {
+    it('should return undefined', () => {
+      expect(rules.maxLength8AlphaNumeric('12345')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.maxLength8AlphaNumeric('555%%')).toEqual('Only 8 letters or numbers allowed');
+    });
+  });
+
+  describe('maxLength2OnlyAlpha', () => {
+    it('should return undefined', () => {
+      expect(rules.maxLength2OnlyAlpha('FL')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.maxLength2OnlyAlpha('1')).toEqual('Only 2 letters allowed');
+      expect(rules.maxLength2OnlyAlpha('F1')).toEqual('Only 2 letters allowed');
+      expect(rules.maxLength2OnlyAlpha('Florida')).toEqual('Only 2 letters allowed');
+    });
+  });
 });
