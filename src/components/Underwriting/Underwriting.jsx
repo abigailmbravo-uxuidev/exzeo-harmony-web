@@ -26,12 +26,7 @@ const handleGetQuestions = (state) => {
   return uwQuestions;
 };
 
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWAnswers' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWAnswers' }).value.result :
-  _.find(taskData.model.variables, { name: 'quote' }).value.result;
-  return quoteData;
-};
+const handleGetQuoteData = state => state.service.quote;
 
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
@@ -54,10 +49,9 @@ const handleInitialize = (state) => {
 };
 
 export const Underwriting = (props) => {
-  const { appState, handleSubmit, fieldValues } = props;
+  const { appState, handleSubmit, fieldValues, quoteData } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.previousTask.value.result;
-  const quoteData = _.find(taskData.model.variables, { name: 'quote' }).value.result.underwritingAnswers;
 
   return (
     <div className="route-content">

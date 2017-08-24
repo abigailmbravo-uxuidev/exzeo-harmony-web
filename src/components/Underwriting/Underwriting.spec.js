@@ -54,6 +54,9 @@ describe('Testing Underwriting component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      service: {
+
+      },
       cg: {
         bb: {
           data: {
