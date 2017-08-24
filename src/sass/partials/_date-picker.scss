@@ -10,7 +10,6 @@
         }
 
         > .rw-select {
-            height: 2.375rem;
           .rw-btn-calendar {
             border-color: lighten( $green-lighten-02, 30% );
             border-bottom-color: $green;
@@ -100,6 +99,7 @@
       }
 
       > .rw-select {
+        height: 2.375rem;
         border-width: 0;
 
         .rw-btn-calendar {
@@ -123,6 +123,7 @@
   }
 }
 //pop-up styles
+
 .rw-popup-container.rw-popup-container.rw-calendar-popup {
   top: -16rem;
   right: -10rem;
