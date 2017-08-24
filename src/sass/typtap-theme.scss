@@ -1542,6 +1542,8 @@ ul.result-cards {
   }
 
   &.pop-up {
+    z-index: 500;
+
     .survey-wrapper {
       .contact-message {
         .card-csr {

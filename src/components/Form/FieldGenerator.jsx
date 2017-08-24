@@ -65,7 +65,7 @@ const FieldGenerator = ({
     case 'slider':
       return <SliderField {...inputProps} />;
     case 'date':
-      if (platform.os.toString().includes('ios') || platform.os.toString().includes('android')) {
+      if (platform.os.toString().toLowerCase().includes('ios') || platform.os.toString().toLowerCase().includes('android')) {
         return <DateField {...inputProps} min={zipCodeSettings ? zipCodeSettings.minEffectiveDate : null} max={zipCodeSettings ? zipCodeSettings.maxEffectiveDate : null} />;
       }
       return <DateFieldWeb {...inputProps} min={zipCodeSettings ? zipCodeSettings.minEffectiveDate : null} max={zipCodeSettings ? zipCodeSettings.maxEffectiveDate : null} />;
