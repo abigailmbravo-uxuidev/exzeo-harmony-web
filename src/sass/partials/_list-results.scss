@@ -3,7 +3,8 @@ ul.list-cards {
   li {
     margin-bottom: $padding/2;
 
-    a {
+     > div,
+    > a {
       padding: $padding $padding*1.5;
       border: $card-border-width solid $card-border-color;
       border-radius: $card-border-radius;
@@ -35,7 +36,9 @@ ul.list-cards {
           justify-content: flex-start;
         }
       }
+    }
 
+    > a {
       &:hover {
         cursor: pointer;
 
@@ -76,7 +79,7 @@ ul.list-cards {
       flex-direction: column;
     }
     @include for-desktop-up {
-        flex-direction: row;
+      flex-direction: row;
     }
 
     .icon-name {
@@ -85,12 +88,11 @@ ul.list-cards {
       flex-shrink: 1;
       flex-basis: auto;
       width: auto;
-
       @include for-desktop-up {
-          width: 14rem;
-          flex-basis: 14rem;
-          flex-grow: 0;
-          flex-shrink: 0;
+        width: 14rem;
+        flex-basis: 14rem;
+        flex-grow: 0;
+        flex-shrink: 0;
       }
 
       i {
@@ -114,12 +116,11 @@ ul.list-cards {
         flex-shrink: 1;
         flex-basis: auto;
         width: auto;
-
         @include for-desktop-up {
-            width: 12rem;
-            flex-basis: 12rem;
-            flex-grow: 0;
-            flex-shrink: 0;
+          width: 12rem;
+          flex-basis: 12rem;
+          flex-grow: 0;
+          flex-shrink: 0;
         }
       }
     }
@@ -216,7 +217,6 @@ ul.list-cards {
             width: 5.75rem;
             flex-grow: 0;
             flex-shrink: 0;
-
             @include for-phone-only {
               flex-basis: 0;
             }
