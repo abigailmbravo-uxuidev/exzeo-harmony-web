@@ -17,7 +17,7 @@ export const SliderInput = ({
 }) => {
   const { name, value } = input;
   const { error } = meta;
-  
+
   const formGroupStyles = classNames(
     'form-group',
     'range-component',
@@ -26,12 +26,12 @@ export const SliderInput = ({
     { valid: !error },
     { error }
   );
-  
+
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
   const Error = error && (
     <span style={{ color: 'red' }}>{error}</span>
   );
-  
+
   const handleChange = function (event) {
     const val = Number(event.target.value.replace(/\D+/g, ''));
     if (!Number.isNaN(val)) { input.onChange(val); }
@@ -75,38 +75,38 @@ export const SliderInput = ({
 SliderInput.propTypes = {
   // Used to generate tooltip
   hint: PropTypes.string,
-  
+
   // Input props provided by redux-form
   input: PropTypes.shape({
     name: PropTypes.string,
     onChange: PropTypes.func,
     value: PropTypes.any
   }),
-  
+
   // Label for input
   label: PropTypes.string,
-  
+
   // Label for left of slider
   leftLabel: PropTypes.string,
-  
+
   // Max and min limit for range slider
   max: PropTypes.number,
   min: PropTypes.number,
-  
+
   // Validations
   meta: PropTypes.shape({
     error: PropTypes.string
   }),
-  
+
   // Label for right of slider
   rightLabel: PropTypes.string,
-  
+
   // Step for slider input
   step: PropTypes.number,
-  
+
   // Name added to class on render
   styleName: PropTypes.string
-  
+
 };
 
 SliderInput.defaultProps = {

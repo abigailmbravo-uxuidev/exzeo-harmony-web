@@ -22,7 +22,7 @@ export const SelectInput = ({
 );
 
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
-  const Error = touched && (error || warning) && <span style={{ color: 'red'  }}>{error || warning}</span>;
+  const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
 
   return (
     <div className={formGroupStyles} id={name}>
@@ -31,18 +31,22 @@ export const SelectInput = ({
         &nbsp; {Hint}
       </label>
       {answers && answers.length > 0 ? (
-          <select value={value}
-                  name={name}
-                  disabled={disabled}
-                  onChange={onChange}
-          >
-            <option disabled value={''}>Please select...</option>
-            {answers.map((answer, index) => (
-              <option value={answer.answer} key={index}>
-                {answer.label || answer.answer}
-              </option>
+        <select
+          value={value}
+          name={name}
+          disabled={disabled}
+          onChange={onChange}
+        >
+          <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
+          {answers.map((answer, index) => (
+            <option
+              aria-label={answer.label || answer.answer}
+              value={answer.answer} key={index}
+            >
+              {answer.label || answer.answer}
+            </option>
             ))}
-          </select>
+        </select>
         ) : null}
       { Error }
     </div>

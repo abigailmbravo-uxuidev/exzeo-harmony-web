@@ -10,6 +10,7 @@ a {
   &:hover {
     text-decoration: none;
     color: $blue-darken-02;
+    cursor: pointer;
   }
 }
 
@@ -68,12 +69,15 @@ input[type="submit"] {
   i {
     margin-right: $padding;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 //
 // Alternate buttons
 //
 
-,
 .btn-default,
 button,
 input[type="button"],

@@ -8,6 +8,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import Loader from '../Common/Loader';
+import AdditionalInterestModal from '../Common/AIPopup';
 
 const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'
@@ -80,6 +81,22 @@ export const goToStep = (props, type) => {
   else if (type === 'Additional Insured') AddAdditionalInsured(props);
 };
 
+export const returnTaskDataName = (type) => {
+  if (type === 'Mortgagee') return 'mortgagee';
+  else if (type === 'Bill Payer') return 'billPayer';
+  else if (type === 'Lienholder') return 'lienholder';
+  else if (type === 'Additional Interest') return 'additionalInterest';
+  else if (type === 'Additional Insured') return 'additionalInsured';
+};
+
+export const returnTaskName = (type) => {
+  if (type === 'Mortgagee') return 'askMortgagee';
+  else if (type === 'Bill Payer') return 'askBillPayer';
+  else if (type === 'Lienholder') return 'askLienholder';
+  else if (type === 'Additional Interest') return 'askAdditionalInterest';
+  else if (type === 'Additional Insured') return 'askAdditionalInsured';
+};
+
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
 //   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
@@ -97,6 +114,56 @@ const handleInitialize = (state) => {
     }
   });
   return values;
+};
+
+export const openDeleteAdditionalInterest = (ai, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId,
+      { ...props.appState.data, showAdditionalInterestModal: true, selectedAI: ai, addAdditionalInterestType: ai.type });
+};
+
+export const hideAdditionalInterestModal = (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId,
+      { ...props.appState.data, showAdditionalInterestModal: false, showAdditionalInterestEditModal: false });
+};
+
+export const deleteAdditionalInterest = (selectedAdditionalInterest, props) => {
+  const { appState, actions, quoteData } = props;
+  const workflowId = appState.instanceId;
+  actions.appStateActions.setAppState(appState.modelName,
+      workflowId, {
+        ...props.appState.data,
+        submitting: true,
+        showAdditionalInterestModal: false
+      });
+
+  let additionalInterests = quoteData.additionalInterests || [];
+
+        // remove any existing items before submission
+  const modifiedAIs = _.cloneDeep(additionalInterests);
+    // remove any existing items before submission
+    _.remove(modifiedAIs, ai => ai._id === selectedAdditionalInterest._id); // eslint-disable-line
+
+  let order = 0;
+  _.each(_.filter(modifiedAIs, ai => ai.type === selectedAdditionalInterest.type), (ai) => {
+    ai.order = order; // eslint-disable-line
+    order += 1;
+  });
+
+  const steps = [{ name: 'addAdditionalAIs', data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) } },
+    {
+      name: returnTaskName(selectedAdditionalInterest.type),
+      data: { additionalInterests: modifiedAIs }
+    }
+  ];
+
+  actions.cgActions.batchCompleteTask(appState.modelName, workflowId, steps)
+      .then(() => {
+        additionalInterests = modifiedAIs;
+        props.actions.appStateActions.setAppState(props.appState.modelName,
+          workflowId, { ...props.appState.data,
+            submitting: false,
+            showAdditionalInterestModal: false });
+      });
 };
 
 
@@ -119,7 +186,7 @@ export const AddAdditionalInterest = props => (
             <ul className="results result-cards">
               {props.quoteData && props.quoteData.additionalInterests && props.quoteData.additionalInterests.map((question, index) =>
                 <li key={index}>
-                  <a onClick={() => goToStep(props, question.type)}>
+                  <div>
                     {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
                     <div className="card-icon"><i className={`fa fa-circle ${question.type}`} /><label>{question.type} {question.order + 1}</label></div>
                     <section>
@@ -135,8 +202,13 @@ export const AddAdditionalInterest = props => (
                         {` ${question.mailingAddress.zip}`}
                       </p>
                     </section>
-                    <i className="fa fa-pencil" />
-                  </a>
+                    <a className="remove" onClick={() => openDeleteAdditionalInterest(question, props)}>
+                      <i className="fa fa-trash" />
+                    </a>
+                    <a className="edit" onClick={() => goToStep(props, question.type)}>
+                      <i className="fa fa-pencil" />
+                    </a>
+                  </div>
                 </li>
               )}
             </ul>
@@ -153,6 +225,7 @@ export const AddAdditionalInterest = props => (
         <Footer />
       </div>
     </Form>
+    { props.appState.data.showAdditionalInterestModal && <AdditionalInterestModal {...props} selectedAI={props.appState.data.selectedAI} primaryButtonHandler={() => deleteAdditionalInterest(props.appState.data.selectedAI, props)} secondaryButtonHandler={() => hideAdditionalInterestModal(props)} /> }
   </div>
 );
 
