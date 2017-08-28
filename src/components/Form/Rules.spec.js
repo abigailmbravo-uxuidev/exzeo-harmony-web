@@ -61,6 +61,16 @@ describe('Rules', () => {
     });
   });
 
+  describe('maxLength255', () => {
+    it('should return undefined', () => {
+      expect(rules.maxLength255('12345')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.maxLength255('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.')).toEqual('Only 255 characters allowed');
+    });
+  });
+
+
   describe('maxLength2OnlyAlpha', () => {
     it('should return undefined', () => {
       expect(rules.maxLength2OnlyAlpha('FL')).toBeUndefined();
