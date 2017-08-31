@@ -117,10 +117,10 @@ export const Share = props => (
         primaryButtonHandler={shareQuoteSubmit}
         secondaryButtonHandler={() => closeShareSubmit(props)}
       />}
-    {!props.appState.data.submitting && _.filter(props.underwritingExceptions, { overriden: false }).length > 0 &&
+    {!props.appState.data.submitting && _.filter(props.underwritingExceptions, { overridden: false }).length > 0 &&
       <ErrorPopup
         quote={props.quote}
-        underwritingExceptions={_.filter(props.underwritingExceptions, { overriden: false })}
+        underwritingExceptions={_.filter(props.underwritingExceptions, { overridden: false })}
         refereshUWReviewError={() => refereshUWReviewError(props)}
         redirectToNewQuote={() => redirectToNewQuote(props)}
       />}
