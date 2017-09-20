@@ -56,7 +56,7 @@ export const SearchResults = (props) => {
         quoteResults && quotes && quotes.map((quote, index) => (<div id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
-            <h4>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
+            <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? quote.policyHolders[0].firstName+' '+quote.policyHolders[0].lastName : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName.replace(/(^.{13}).*$/,'$1...')} ${quote.policyHolders[0].lastName.replace(/(^.{13}).*$/,'$1...') }`}</h4>
           </div>
           <section>
             <ul>
