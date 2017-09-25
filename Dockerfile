@@ -1,7 +1,7 @@
 FROM mhart/alpine-node:7.10.0
 MAINTAINER Exzeo
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
 RUN mkdir -p /app
 RUN mkdir -p /app/src
