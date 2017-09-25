@@ -1,14 +1,18 @@
 import React, { PropTypes } from 'react';
-import platform from 'platform';
-import moment from 'moment';
-import classNames from 'classnames';
 import { Field } from 'redux-form';
-import normalizeDate from '../normalizeDate';
+import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import moment from 'moment';
+import momentLocaliser from 'react-widgets/lib/localizers/moment';
+import 'react-widgets/dist/css/react-widgets.css';
+import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import { combineRules } from '../Rules';
 import reduxFormField from './reduxFormField';
+import normalizeDate from '../normalizeDate';
 
-export const DateInput = ({
+momentLocaliser(moment);
+
+export const DateWebInput = ({
   input,
   hint,
   label,
@@ -16,11 +20,14 @@ export const DateInput = ({
   validations,
   meta,
   min,
-  max,
-  type
+  max
 }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;
+
+  const ruleArray = combineRules(validations, { min, max });
+
+  console.log(validations, ruleArray, min, max);
 
   const formGroupStyles = classNames(
     'form-group',
@@ -38,24 +45,33 @@ export const DateInput = ({
   );
 
   const Label = label && (<label htmlFor={name}>
-    {label} &nbsp; {Hint}
-  </label>);
+      {label} &nbsp; {Hint}
+    </label>);
+
+  const minDate = new Date(moment.utc(min).format('MM/DD/YYYY'));
+  const maxDate = new Date(moment.utc(max).format('MM/DD/YYYY'));
+
+  console.log(minDate, maxDate);
 
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
-      <input
+      <DateTimePicker
+        normalize={normalizeDate}
+        min={minDate}
+        max={maxDate}
+        name={name}
         {...input}
-        type={'date'}
-        min={min ? moment.utc(min).format('YYYY-MM-DD') : null}
-        max={min ? moment.utc(max).format('YYYY-MM-DD') : null}
+        format="MM/DD/YYYY"
+        time={false}
+        value={!input.value ? null : new Date(moment.utc(input.value).format('MM/DD/YYYY'))}
       />
       {Error}
     </div>
   );
 };
 
-DateInput.propTypes = {
+DateWebInput.propTypes = {
   // Used for tooltip
   hint: PropTypes.string,
 
@@ -97,10 +113,11 @@ DateInput.propTypes = {
 
 };
 
-DateInput.defaultProps = {
+DateWebInput.defaultProps = {
   input: {},
   meta: {},
   type: 'text'
 };
 
-export default reduxFormField(DateInput);
+
+export default reduxFormField(DateWebInput);

@@ -21,20 +21,20 @@ export const SelectInputAgents = ({
     <div className={formGroupStyles}>
       <label htmlFor={name}>
         {label} &nbsp; {Hint}</label>
-        {agents && agents.length > 0 ? (
-          <select
-            value={value}
-            name={name}
-            disabled={disabled}
-            onChange={onChange}
-          >
-            <option disabled value={''}>Please select...</option>
-            {agents.map((agent, index) => (
-              <option value={agent.agentCode} key={index}>
-                {`${agent.firstName} ${agent.lastName}`}
-              </option>
+      {agents && agents.length > 0 ? (
+        <select
+          value={value}
+          name={name}
+          disabled={disabled}
+          onChange={onChange}
+        >
+          <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
+          {agents.map((agent, index) => (
+            <option aria-label={`${agent.firstName} ${agent.lastName}`} value={agent.agentCode} key={index}>
+              {`${agent.firstName} ${agent.lastName}`}
+            </option>
             ))}
-          </select>
+        </select>
         ) : null}
 
       { Error }

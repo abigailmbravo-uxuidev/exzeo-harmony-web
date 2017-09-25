@@ -26,16 +26,11 @@ const handleGetQuestions = (state) => {
   return uwQuestions;
 };
 
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWAnswers' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWAnswers' }).value.result :
-  _.find(taskData.model.variables, { name: 'quote' }).value.result;
-  return quoteData;
-};
+const handleGetQuoteData = state => state.service.quote;
 
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
-  const data = state.appState && state.appState.data ? state.appState.data.quote : {};
+  const data = handleGetQuoteData(state);
   const values = {};
   questions.forEach((question) => {
     const val = _.get(data, `underwritingAnswers.${question.name}.answer`);
@@ -53,11 +48,10 @@ const handleInitialize = (state) => {
   return values;
 };
 
-export const Underwriting = props => {
-  const { appState, handleSubmit, fieldValues } = props;
+export const Underwriting = (props) => {
+  const { appState, handleSubmit, fieldValues, quoteData } = props;
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.previousTask.value.result;
-  const quoteData = _.find(taskData.model.variables, { name: 'quote' }).value.result.underwritingAnswers;
 
   return (
     <div className="route-content">
@@ -69,7 +63,7 @@ export const Underwriting = props => {
       >
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            {questions.map((question, index) =>
+            {questions && _.sortBy(questions, ['order']).map((question, index) =>
               <FieldGenerator
                 data={quoteData}
                 question={question}

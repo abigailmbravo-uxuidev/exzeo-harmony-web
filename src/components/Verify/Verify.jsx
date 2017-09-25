@@ -241,11 +241,12 @@ export const Verify = (props) => {
                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property inspection will results in failure to bind the policy.</p>
+                  <div className="contact-card-wrapper">
                   {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
                      quoteData.policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
-                     <dl key={`ph${index}`}>
+                     <div className="contact-card" key={`ph${index}`}>
                        <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                       <div className="contact-card">
+                       <dl>
                          <div className="contact-name">
                            <dt>Name</dt>
                            <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
@@ -258,8 +259,9 @@ export const Verify = (props) => {
                            <dt>Email</dt>
                            <dd>{policyHolder.emailAddress}</dd>
                          </div>
-                       </div>
-                     </dl>)) : null}
+                       </dl>
+                     </div>)) : null}
+                   </div>
                 </section>
               </div>
               <div className="detail-group mailing-address-details">
@@ -275,8 +277,7 @@ export const Verify = (props) => {
                   <dl>
                     <div>
                       <dt>City/State/Zip</dt>
-                      <dd>{mailingAddress.city}, {mailingAddress.state}
-                        {mailingAddress.zip}</dd>
+                      <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
                     </div>
                   </dl>
                   <dl>

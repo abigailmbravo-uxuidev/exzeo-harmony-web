@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { WorkflowDetails } from './WorkflowDetails';
+import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, getQuoteFromModel } from './WorkflowDetails';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -30,6 +30,7 @@ describe('Testing WorkflowDetails component', () => {
     };
     const wrapper = shallow(<WorkflowDetails {...props} />);
     expect(wrapper);
+    wrapper.instance().componentWillReceiveProps({ ...props });
   });
 
   it('should test connected app', () => {
@@ -40,6 +41,9 @@ describe('Testing WorkflowDetails component', () => {
       cg: {
         bb: {
           data: {
+            activeTask: {
+              name: 'step'
+            },
             modelInstanceId: '123',
             model: {},
             uiQuestions: []
@@ -52,6 +56,18 @@ describe('Testing WorkflowDetails component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      actions: {
+        appStateActions: {
+          setAppState() { return Promise.resolve(); }
+        },
+        serviceActions: {
+          getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); }
+        }
+      },
+      quote: {
+        _id: '2345'
+      },
+      workflowModelName: 'bb',
       service: {
         quote: {}
       },
@@ -60,12 +76,19 @@ describe('Testing WorkflowDetails component', () => {
       dispatch: store.dispatch,
       appState: {
         data: {
+          quote: {
+            _id: 112
+          },
           submitting: false
         }
       },
       ...propTypes
     };
+    getClassForStep('step', props);
+    goToStep(props, 'step');
+    getQuoteFromModel(initialState, props);
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
+    wrapper.render();
   });
 });

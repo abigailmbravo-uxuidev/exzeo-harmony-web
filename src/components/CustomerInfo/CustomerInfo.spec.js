@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { CustomerInfo } from './CustomerInfo';
+import ConnectedApp, { CustomerInfo, handleFormSubmit } from './CustomerInfo';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -61,6 +61,14 @@ describe('Testing CustomerInfo component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      actions: {
+        cgActions: {
+          completeTask() { return Promise.resolve(); }
+        },
+        appStateActions: {
+          setAppState() { return Promise.resolve(); }
+        }
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -71,6 +79,9 @@ describe('Testing CustomerInfo component', () => {
       },
       ...propTypes
     };
+    handleFormSubmit({
+      phoneNumber: ''
+    }, props.dispatch, props);
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
   });

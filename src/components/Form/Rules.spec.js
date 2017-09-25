@@ -51,4 +51,34 @@ describe('Rules', () => {
       expect(ruleArray[0].length).toEqual(1);
     });
   });
+
+  describe('maxLength8AlphaNumeric', () => {
+    it('should return undefined', () => {
+      expect(rules.maxLength8AlphaNumeric('12345')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.maxLength8AlphaNumeric('555%%')).toEqual('Only 8 letters or numbers allowed');
+    });
+  });
+
+  describe('maxLength255', () => {
+    it('should return undefined', () => {
+      expect(rules.maxLength255('12345')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.maxLength255('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.')).toEqual('Only 255 characters allowed');
+    });
+  });
+
+
+  describe('maxLength2OnlyAlpha', () => {
+    it('should return undefined', () => {
+      expect(rules.maxLength2OnlyAlpha('FL')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.maxLength2OnlyAlpha('1')).toEqual('Only 2 letters allowed');
+      expect(rules.maxLength2OnlyAlpha('F1')).toEqual('Only 2 letters allowed');
+      expect(rules.maxLength2OnlyAlpha('Florida')).toEqual('Only 2 letters allowed');
+    });
+  });
 });

@@ -36,7 +36,7 @@ export const SearchResults = (props) => {
           <div>
             <small>
               <p>If you don't see your address in the list provided, try entering less address information to see if that improves your search results. Please note, at this time we are only writing single family dwellings in the state of Florida.</p>
-              <p>If you still have problems finding an address, please <a href="tel:888-210-5235"><strong>call us</strong></a> and one of our representatives will be glad to help you.</p>
+              <p>If you still have problems finding an address, please <a href="tel:844-289-7968"><strong>call us</strong></a> and one of our representatives will be glad to help you.</p>
             </small>
           </div>
         </ul>
@@ -56,7 +56,7 @@ export const SearchResults = (props) => {
         quoteResults && quotes && quotes.map((quote, index) => (<div id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
-            <h4>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
+            <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? quote.policyHolders[0].firstName+' '+quote.policyHolders[0].lastName : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName.replace(/(^.{13}).*$/,'$1...')} ${quote.policyHolders[0].lastName.replace(/(^.{13}).*$/,'$1...') }`}</h4>
           </div>
           <section>
             <ul>

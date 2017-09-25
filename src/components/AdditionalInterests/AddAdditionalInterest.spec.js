@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { AddAdditionalInterest, noAddAdditionalInterestSubmit, goToStep } from './AddAdditionalInterest';
+import ConnectedApp, { AddAdditionalInterest, noAddAdditionalInterestSubmit, goToStep, returnTaskDataName, returnTaskName, openDeleteAdditionalInterest, hideAdditionalInterestModal, deleteAdditionalInterest } from './AddAdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -52,6 +52,7 @@ describe('Testing AddAdditionalInterest component', () => {
           setAppState() {}
         },
         cgActions: {
+          batchCompleteTask() { return Promise.resolve(); },
           completeTask() {}
         }
       },
@@ -91,7 +92,21 @@ describe('Testing AddAdditionalInterest component', () => {
     goToStep(props, 'Bill Payer');
     goToStep(props, 'Additional Interest');
     goToStep(props, 'Additional Insured');
+    returnTaskName('Mortgagee');
+    returnTaskName('Lienholder');
+    returnTaskName('Bill Payer');
+    returnTaskName('Additional Interest');
+    returnTaskName('Additional Insured');
+    returnTaskDataName('Mortgagee');
+    returnTaskDataName('Lienholder');
+    returnTaskDataName('Bill Payer');
+    returnTaskDataName('Additional Interest');
+    returnTaskDataName('Additional Insured');
 
     AddAdditionalInterest(props);
+    openDeleteAdditionalInterest({}, props);
+    hideAdditionalInterestModal(props);
+
+    deleteAdditionalInterest({}, props);
   });
 });
