@@ -24,9 +24,8 @@ const Header = ({ toggleHeader, toggle, active }) => (
       <a id="logo" className="logo" href="/">
         <img src={logo} alt="TypTap Insurance" />
       </a>
-      <button className="btn-icon btn-ellipsis-v"><i
+      <button onClick={toggle} className="btn-icon btn-ellipsis-v"><i
         className="fa fa-ellipsis-v"
-        onClick={toggle}
       /></button>
       <nav className={active ? 'active' : ''}>
         {sideBarLinks && sideBarLinks.length > 0 && sideBarLinks.map(sideBarLink => (
