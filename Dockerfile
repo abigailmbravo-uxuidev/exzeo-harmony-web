@@ -17,7 +17,6 @@ WORKDIR /app
 
 RUN apk update && apk --no-cache add bash libc6-compat nano && \
   npm install && \
-  npm run build && \
   npm cache clean
 
 CMD ["npm", "start"]
