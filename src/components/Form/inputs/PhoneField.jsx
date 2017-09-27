@@ -2,6 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import MaskedTextInput from 'react-text-mask';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
 import normalizePhone from '../normalizePhone';
@@ -45,14 +46,15 @@ export const PhoneInput = ({
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
-      <Field
+      <MaskedTextInput
+        mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+        guide={false}
+        id={name}
         name={name}
         component="input"
         type="text"
         placeholder="555-555-5555"
-        normalize={normalizePhone}
         validate={ruleArray}
-        pattern="[0-9]*"
         {...input}
       />
       {Error}
