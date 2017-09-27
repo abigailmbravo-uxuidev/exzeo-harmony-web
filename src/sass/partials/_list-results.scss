@@ -3,13 +3,13 @@ ul.list-cards {
   li {
     margin-bottom: $padding/2;
 
-     > div,
-    > a {
+     > a,
+    > div {
+      align-items: center;
       padding: $padding $padding*1.5;
       border: $card-border-width solid $card-border-color;
       border-radius: $card-border-radius;
       background: $white;
-      align-items: center;
 
       section {
         flex-direction: column;
@@ -64,9 +64,9 @@ ul.list-cards {
 }
 
 .quote-list {
+  flex-grow: 1;
   margin-bottom: $padding/2;
   padding: $padding*2;
-  flex-grow: 1;
 
   .card {
     display: flex;
@@ -84,43 +84,44 @@ ul.list-cards {
 
     .icon-name {
       display: flex;
+      flex-basis: auto;
       flex-grow: 1;
       flex-shrink: 1;
-      flex-basis: auto;
       width: auto;
+      cursor: default;
       @include for-desktop-up {
-        width: 14rem;
         flex-basis: 14rem;
         flex-grow: 0;
         flex-shrink: 0;
+        width: 14rem;
       }
 
       i {
         display: flex;
+        flex-basis: 2rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        justify-content: center;
         width: 2rem;
         height: 2rem;
         font-size: $font-size-h2;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 2rem;
-        justify-content: center;
       }
 
       h4 {
         display: inline-block;
         overflow: hidden;
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+        width: auto;
         padding-left: $padding;
         text-overflow: ellipsis;
         line-height: 2rem;
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: auto;
-        width: auto;
         @include for-desktop-up {
-          width: 12rem;
           flex-basis: 12rem;
           flex-grow: 0;
           flex-shrink: 0;
+          width: 12rem;
         }
       }
     }
@@ -138,10 +139,10 @@ ul.list-cards {
 
         li {
           display: flex;
-          font-size: $font-size-sm;
-          justify-content: space-between;
           flex-grow: 1;
           flex-shrink: 0;
+          justify-content: space-between;
+          font-size: $font-size-sm;
           @include for-phone-only {
             padding-top: $padding;
             border-top: 1px dashed $cool-gray-01;
@@ -214,9 +215,9 @@ ul.list-cards {
           }
 
           .quote-no {
-            width: 5.75rem;
             flex-grow: 0;
             flex-shrink: 0;
+            width: 5.75rem;
             @include for-phone-only {
               flex-basis: 0;
             }
@@ -241,13 +242,13 @@ ul.list-cards {
             flex-grow: 0;
             flex-shrink: 0;
             @include for-phone-only {
-              width: 100%;
-              justify-content: space-between;
               align-items: flex-end;
+              justify-content: space-between;
+              width: 100%;
             }
             @include for-tablet-portrait-up {
-              width: 100%;
               justify-content: space-between;
+              width: 100%;
             }
             @include for-tablet-landscape-up {
               flex-basis: 23rem;
@@ -274,8 +275,8 @@ ul.list-cards {
             flex-shrink: 0;
             @include for-phone-only {
               display: flex;
-              flex-basis: auto;
               align-items: flex-start;
+              flex-basis: auto;
               flex-direction: column;
 
               &:before {
@@ -286,8 +287,8 @@ ul.list-cards {
             }
             @include for-tablet-portrait-up {
               display: flex;
-              flex-basis: auto;
               align-items: center;
+              flex-basis: auto;
 
               &:before {
                 margin-right: $padding/2;
@@ -307,9 +308,9 @@ ul.list-cards {
           }
 
           .started-on {
+            flex-basis: 5rem;
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: 5rem;
             @include for-phone-only {
               display: none;
             }
@@ -322,9 +323,9 @@ ul.list-cards {
           }
 
           .premium {
-            font-weight: $font-weight-bold;
             flex-grow: 0;
             flex-shrink: 0;
+            font-weight: $font-weight-bold;
             @include for-phone-only {
               flex-basis: auto;
             }
@@ -341,12 +342,12 @@ ul.list-cards {
   }
 
   a {
+    align-items: center;
+    align-items: flex-start;
     padding: $padding $padding*1.5;
     border: $card-border-width solid $card-border-color;
     border-radius: $card-border-radius;
     background: $white;
-    align-items: center;
-    align-items: flex-start;
 
     section {
       display: flex;
@@ -358,11 +359,11 @@ ul.list-cards {
       h4,
       h5 {
         display: flex;
-        width: 20%;
-        margin: 0;
         flex-basis: 20%;
         flex-grow: 0;
         flex-shrink: 0;
+        width: 20%;
+        margin: 0;
       }
 
       p {
@@ -371,20 +372,20 @@ ul.list-cards {
 
       ul {
         display: flex;
+        flex-basis: 80%;
         flex-direction: column;
         width: 80%;
         margin: 0;
         padding: 0;
-        flex-basis: 80%;
       }
     }
 
     i {
       display: flex;
+      justify-content: center;
       width: 2rem;
       height: 2rem;
       font-size: $font-size-h2;
-      justify-content: center;
 
       &.card-icon {
         margin-right: $padding;
