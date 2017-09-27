@@ -20,4 +20,4 @@ RUN apk update && apk --no-cache add bash libc6-compat nano && \
   npm run build && \
   npm cache clean
 
-ENTRYPOINT ["node", "server"]
+CMD ["npm", "start"]
