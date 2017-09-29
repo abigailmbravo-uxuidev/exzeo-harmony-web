@@ -68,18 +68,19 @@ export class WorkflowDetails extends Component {
     const quote = nextProps.quote || {};
     if (nextProps.appState.data.hideYoChildren) {
       delete quote.coverageLimits;
-      delete quote.quoteNumber;
     }
     this.setState((prevProps, newProps) => ({ ...newProps,
       quote
     }));
   }
 
+
   render() {
     const { quote } = this.props;
     if (!quote || !quote._id) { // eslint-disable-line
       return <div className="detailHeader" />;
     }
+
     return (
       <div>
         <div className="detailHeader">
@@ -87,7 +88,7 @@ export class WorkflowDetails extends Component {
             <dl>
               <div>
                 <dt className="fade">Quote Number</dt>
-                <dd className="fade">{(quote.quoteNumber ? quote.quoteNumber : '-')}</dd>
+                <dd className="fade">{(quote.rating ? quote.quoteNumber : '-')}</dd>
               </div>
             </dl>
           </section>
