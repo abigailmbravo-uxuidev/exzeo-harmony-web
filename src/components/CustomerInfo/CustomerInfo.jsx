@@ -111,6 +111,8 @@ export const CustomerInfo = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {questions.map((question, index) =>
               <FieldGenerator
+                tabIndex={index + 1}
+
                 zipCodeSettings={zipCodeSettings}
                 data={quoteData}
                 question={question}
@@ -120,6 +122,7 @@ export const CustomerInfo = (props) => {
         )}
             <div className="agentID">
               <SelectFieldAgents
+                tabIndex={(questions.length + 1) * 100}
                 name="agentCode"
                 label="Agent"
                 onChange={function () { }}
@@ -130,6 +133,7 @@ export const CustomerInfo = (props) => {
           </div>
           <div className="workflow-steps">
             <button
+              tabIndex={(questions.length + 2) * 100}
               className="btn btn-primary"
               type="submit"
               form="CustomerInfo"

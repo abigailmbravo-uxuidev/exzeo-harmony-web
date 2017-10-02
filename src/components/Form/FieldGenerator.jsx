@@ -21,11 +21,13 @@ const FieldGenerator = ({
   data,
   values,
   zipCodeSettings,
-  onChange
+  onChange,
+  tabIndex
 }) => {
   const fieldOptions = dependencyHelper(question, data, values);
 
   const inputProps = {
+    tabIndex,
     data,
     ...fieldOptions,
     hint: fieldOptions.description,
@@ -95,6 +97,7 @@ FieldGenerator.propTypes = {
     answerType: PropTypes.string
   }),
   onChange: PropTypes.func,
+  tabIndex: PropTypes.any, // eslint-disable-line
   data: PropTypes.any, // eslint-disable-line
   values: PropTypes.any, // eslint-disable-line
 };

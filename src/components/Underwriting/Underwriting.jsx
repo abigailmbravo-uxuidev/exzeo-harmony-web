@@ -65,6 +65,7 @@ export const Underwriting = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {questions && _.sortBy(questions, ['order']).map((question, index) =>
               <FieldGenerator
+                tabIndex={index + 1}
                 data={quoteData}
                 question={question}
                 values={fieldValues}
@@ -74,6 +75,7 @@ export const Underwriting = (props) => {
           </div>
           <div className="workflow-steps">
             <button
+              tabIndex={(questions.length + 1) * 100}
               className="btn btn-primary"
               type="submit"
               form="Underwriting"

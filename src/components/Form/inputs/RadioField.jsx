@@ -13,7 +13,8 @@ export const RadioInput = ({
   label,
   meta,
   segmented,
-  styleName
+  styleName,
+  tabIndex
 }) => {
   const { error, warning, touched } = meta;
   const { onChange, name, value, disabled } = input;
@@ -34,7 +35,13 @@ export const RadioInput = ({
 
   const DisplayField = displayValue && (<input type="text" value={displayValue} readOnly />);
   const Error = touched && (error || warning) && (<span style={{ color: 'red' }}>{error || warning}</span>);
-  
+
+  const onKeyPress = (event, answer) => {
+    if (event.charCode === 13) {
+      onChange(answer);
+    }
+  };
+
   return (
     <div className={formGroupStyles} id={name} role="group">
       <label className={labelStyles} htmlFor={name}>
@@ -45,9 +52,11 @@ export const RadioInput = ({
       <div className={answerWrapperStyles}>
         {answers && answers.length > 0 && answers.map((answer, index) =>
           <RadioOption
+            tabIndex={(tabIndex * 100) + index}
             answer={answer}
             key={index}
             size={answers.length}
+            onKeyPress={onKeyPress}
             onChange={onChange}
             name={name}
             segmented={segmented}
@@ -61,7 +70,7 @@ export const RadioInput = ({
 };
 
 RadioInput.propTypes = {
-  
+
   // Answers used to generate tooltip
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.oneOfType([
@@ -75,16 +84,16 @@ RadioInput.propTypes = {
     ]),
     image: PropTypes.string
   })),
-  
+
   // Used for dependent radio field, shows read only field
   displayValue: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
   ]),
-  
+
   // Used to generate tooltip
   hint: PropTypes.string,
-  
+
   // Input props from redux-form
   input: PropTypes.shape({
     disabled: PropTypes.bool,
@@ -96,17 +105,17 @@ RadioInput.propTypes = {
       PropTypes.string
     ])
   }),
-  
+
   // Label for input
   label: PropTypes.string,
-  
+
   // Validations
   meta: PropTypes.shape({
     warning: PropTypes.string,
     error: PropTypes.string,
     touched: PropTypes.bool
   }),
-  
+
   // Added to class on render
   segmented: PropTypes.bool,
   styleName: PropTypes.string

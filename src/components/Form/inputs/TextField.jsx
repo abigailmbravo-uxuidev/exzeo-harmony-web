@@ -9,7 +9,8 @@ export const TextInput = ({
   label,
   styleName,
   meta,
-  type
+  type,
+  tabIndex
 }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;
@@ -37,6 +38,7 @@ export const TextInput = ({
     <div className={formGroupStyles} id={name}>
       {Label}
       <input
+        tabIndex={tabIndex}
         {...input}
         type={type}
       />

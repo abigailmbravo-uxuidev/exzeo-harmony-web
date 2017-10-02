@@ -131,6 +131,7 @@ export const Customize = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {fieldQuestions && fieldQuestions.map((question, index) =>
               <FieldGenerator
+                tabIndex={index + 1}
                 data={quoteData}
                 question={question}
                 values={fieldValues || {}}
@@ -154,6 +155,7 @@ export const Customize = (props) => {
               </button>
              }
             <button
+              tabIndex={(fieldQuestions.length + 1) * 100}
               className="btn btn-primary"
               type="submit"
               form="Customize"
