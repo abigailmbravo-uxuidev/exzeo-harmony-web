@@ -10,7 +10,8 @@ export const SelectInput = ({
   label,
   meta,
   styleName,
-  tabIndex
+  tabIndex,
+  autoFocus
 }) => {
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;

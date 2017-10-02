@@ -65,6 +65,7 @@ export const Underwriting = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {questions && _.sortBy(questions, ['order']).map((question, index) =>
               <FieldGenerator
+                autoFocus={index === 0}
                 tabIndex={index + 1}
                 data={quoteData}
                 question={question}

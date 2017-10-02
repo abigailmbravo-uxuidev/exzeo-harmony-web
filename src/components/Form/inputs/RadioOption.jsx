@@ -9,7 +9,8 @@ const RadioOption = ({
   segmented,
   size,
   value,
-  tabIndex
+  tabIndex,
+  autoFocus
 }) => (
   <div
     className={classNames(
@@ -28,6 +29,7 @@ const RadioOption = ({
       htmlFor={name}
     >
       <input
+        autoFocus={autoFocus}
         onChange={() => onChange(answer.answer)}
         name={name}
         type="radio"

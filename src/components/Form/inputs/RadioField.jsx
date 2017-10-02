@@ -14,7 +14,8 @@ export const RadioInput = ({
   meta,
   segmented,
   styleName,
-  tabIndex
+  tabIndex,
+  autoFocus
 }) => {
   const { error, warning, touched } = meta;
   const { onChange, name, value, disabled } = input;
@@ -52,6 +53,7 @@ export const RadioInput = ({
       <div className={answerWrapperStyles}>
         {answers && answers.length > 0 && answers.map((answer, index) =>
           <RadioOption
+            autoFocus={autoFocus}
             tabIndex={(tabIndex * 100) + index}
             answer={answer}
             key={index}

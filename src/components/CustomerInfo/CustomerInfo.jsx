@@ -112,7 +112,7 @@ export const CustomerInfo = (props) => {
             {questions.map((question, index) =>
               <FieldGenerator
                 tabIndex={index + 1}
-
+                autoFocus={index === 1}
                 zipCodeSettings={zipCodeSettings}
                 data={quoteData}
                 question={question}

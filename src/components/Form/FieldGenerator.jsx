@@ -22,11 +22,13 @@ const FieldGenerator = ({
   values,
   zipCodeSettings,
   onChange,
-  tabIndex
+  tabIndex,
+  autoFocus
 }) => {
   const fieldOptions = dependencyHelper(question, data, values);
 
   const inputProps = {
+    autoFocus,
     tabIndex,
     data,
     ...fieldOptions,
