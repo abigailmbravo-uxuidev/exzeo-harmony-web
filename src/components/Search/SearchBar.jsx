@@ -93,11 +93,13 @@ const getErrorToolTip = (formErrors, fieldName) => {
   </span> : <span />);
 };
 
-const generateField = (name, placeholder, labelText, formErrors, formGroupCss) => {
+const generateField = (name, placeholder, labelText, formErrors, formGroupCss, autoFocus, tabIndex) => {
   const field = (<div className={(formErrors && formErrors[name]) ? `form-group error ${formGroupCss}` : `form-group ${formGroupCss}`}>
     <label htmlFor={name}>{getErrorToolTip(formErrors, name)} {labelText}
     </label>
     <Field
+      tabIndex={tabIndex}
+      autoFocus={autoFocus}
       name={name}
       className={''}
       placeholder={placeholder}
@@ -115,10 +117,10 @@ const SearchForm = (props) => {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
         <div className="search-input-wrapper">
-          {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search')}
-          {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search')}
-          {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search')}
-          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search')}
+          {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true, 1)}
+          {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false, 2)}
+          {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false, 3)}
+          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search', false, 4)}
           <button
             className="btn btn-success multi-input"
             type="submit"
@@ -135,8 +137,9 @@ const SearchForm = (props) => {
   return (
     <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
       <div className="search-input-wrapper">
-        {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '')}
+        {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true, 1)}
         <button
+          tabIndex={5}
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"

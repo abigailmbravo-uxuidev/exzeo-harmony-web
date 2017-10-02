@@ -16,12 +16,19 @@ export const SearchResults = (props) => {
     props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
   ) {
     const addresses = props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
+
+    const onKeyPress = (event, address) => {
+      if (event.charCode === 13) {
+        props.handleSelectAddress(address, props);
+      }
+    };
+
     return (
       <div>
         <ul className="results result-cards">
           {addresses
             ? addresses.map((address, index) => (
-              <li id={address.id} key={index}>
+              <li id={address.id} key={index} tabIndex={100 + index} onKeyPress={event => onKeyPress(event, address)}>
                 <a onClick={() => props.handleSelectAddress(address, props)} tabIndex="-1">
                   <i className="card-icon fa fa-map-marker" />
                   <section>
@@ -56,7 +63,7 @@ export const SearchResults = (props) => {
         quoteResults && quotes && quotes.map((quote, index) => (<div id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
-            <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? quote.policyHolders[0].firstName+' '+quote.policyHolders[0].lastName : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
+            <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}` : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
           </div>
           <section>
             <ul>
