@@ -41,10 +41,10 @@ export const Assumptions = (props) => {
                 </ul>
               </li>
             </ul>
-            <CheckField styleName="confirm" name="confirmAssumptions" label="Confirmed" isSwitch />
+            <CheckField styleName="confirm" name="confirmAssumptions" label="Confirmed" isSwitch autoFocus tabIndex={1} />
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || appState.data.submitting}>Next</button>
+            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || appState.data.submitting} tabIndex={2}>Next</button>
           </div>
           <Footer />
         </div>

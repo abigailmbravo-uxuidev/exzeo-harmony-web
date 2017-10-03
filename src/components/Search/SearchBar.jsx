@@ -122,6 +122,7 @@ const SearchForm = (props) => {
           {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false, 3)}
           {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search', false, 4)}
           <button
+            tabIndex={5}
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"

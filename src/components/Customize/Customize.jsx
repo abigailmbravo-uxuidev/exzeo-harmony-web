@@ -131,7 +131,8 @@ export const Customize = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {fieldQuestions && fieldQuestions.map((question, index) =>
               <FieldGenerator
-                tabIndex={index + 1}
+                autoFocus={index === 1}
+                tabIndex={index}
                 data={quoteData}
                 question={question}
                 values={fieldValues || {}}
@@ -143,6 +144,7 @@ export const Customize = (props) => {
           <div className="workflow-steps">
             {props.appState.data.recalc &&
               <button
+                tabIndex={(fieldQuestions.length + 2) * 1000}
                 className="btn btn-secondary"
                 onClick={() => {
                   handleReset(props);
@@ -155,7 +157,7 @@ export const Customize = (props) => {
               </button>
              }
             <button
-              tabIndex={(fieldQuestions.length + 1) * 100}
+              tabIndex={(fieldQuestions.length + 3) * 1000}
               className="btn btn-primary"
               type="submit"
               form="Customize"

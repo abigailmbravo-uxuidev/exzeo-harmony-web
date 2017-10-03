@@ -10,7 +10,8 @@ export const CheckInput = ({
   isSwitch,
   label,
   styleName,
-  tabIndex
+  tabIndex,
+  autoFocus
 }) => {
   const {
     disabled,
@@ -44,6 +45,7 @@ export const CheckInput = ({
       <label htmlFor={name} onClick={() => onChange(!value)}>
         {label} &nbsp; {Hint}
         <input
+          autoFocus={autoFocus}
           {...input}
           type="checkbox"
           checked={value}

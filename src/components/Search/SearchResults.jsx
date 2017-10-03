@@ -7,6 +7,12 @@ import moment from 'moment';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
+const onKeypressQuote = (event, quote, props) => {
+  if (event.charCode === 13) {
+    props.handleSelectQuote(quote, props);
+  }
+};
+
 export const SearchResults = (props) => {
   if (
     props.tasks[props.appState.modelName] &&
@@ -60,7 +66,7 @@ export const SearchResults = (props) => {
     return (
       <div className="quote-list">
         {
-        quoteResults && quotes && quotes.map((quote, index) => (<div id={quote._id} className="card" key={index}>
+        quoteResults && quotes && quotes.map((quote, index) => (<div tabIndex={100 + index} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
             <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}` : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
