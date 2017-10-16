@@ -9,8 +9,7 @@ export const SelectInputAgents = ({
   input,
   label,
   styleName,
-  meta,
-  tabIndex
+  meta
 }) => {
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;
@@ -32,7 +31,7 @@ export const SelectInputAgents = ({
       {agents && agents.length > 0 ? (
         <select
           onKeyPress={(event => onKeyPress(event, value))}
-          tabIndex={tabIndex}
+          tabIndex={'0'}
           value={value}
           name={name}
           disabled={disabled}

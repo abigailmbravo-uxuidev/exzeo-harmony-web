@@ -10,7 +10,6 @@ export const SelectInput = ({
   label,
   meta,
   styleName,
-  tabIndex,
   autoFocus
 }) => {
   const { onChange, name, value, disabled } = input;
@@ -34,7 +33,7 @@ export const SelectInput = ({
       </label>
       {answers && answers.length > 0 ? (
         <select
-          tabIndex={tabIndex}
+          tabIndex={'0'}
           value={value}
           name={name}
           disabled={disabled}

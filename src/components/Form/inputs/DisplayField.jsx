@@ -6,15 +6,14 @@ export const DisplayInput = ({
   label,
   input,
   displayValue,
-  styleName,
-  tabIndex
+  styleName
 }) => (
   <div className={classNames('form-group', input.name, styleName)} id={input.name}>
     <label htmlFor={input.name}>
       {label}
     </label>
     <input
-      tabIndex={tabIndex}
+      tabIndex={'0'}
       type="text"
       name={input.name}
       value={displayValue || (!Number.isNaN(Number(input.value)) ? `$ ${input.value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : input.value)}

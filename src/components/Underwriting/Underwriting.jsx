@@ -66,7 +66,6 @@ export const Underwriting = (props) => {
             {questions && _.sortBy(questions, ['order']).map((question, index) =>
               <FieldGenerator
                 autoFocus={index === 0}
-                tabIndex={index + 1}
                 data={quoteData}
                 question={question}
                 values={fieldValues}
@@ -76,7 +75,7 @@ export const Underwriting = (props) => {
           </div>
           <div className="workflow-steps">
             <button
-              tabIndex={(questions.length + 1) * 100}
+              tabIndex={0}
               className="btn btn-primary"
               type="submit"
               form="Underwriting"

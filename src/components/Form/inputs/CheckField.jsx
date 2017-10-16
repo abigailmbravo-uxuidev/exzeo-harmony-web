@@ -10,7 +10,6 @@ export const CheckInput = ({
   isSwitch,
   label,
   styleName,
-  tabIndex,
   autoFocus
 }) => {
   const {
@@ -37,7 +36,7 @@ export const CheckInput = ({
     }
   };
 
-  const Switch = isSwitch && (<div className="switch-div" tabIndex={tabIndex} onKeyPress={event => onKeyPress(event, !value)} />);
+  const Switch = isSwitch && (<div className="switch-div" tabIndex={'0'} onKeyPress={event => onKeyPress(event, !value)} />);
 
 
   return (

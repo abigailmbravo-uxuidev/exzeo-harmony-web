@@ -9,7 +9,6 @@ const RadioOption = ({
   segmented,
   size,
   value,
-  tabIndex,
   autoFocus
 }) => (
   <div
@@ -36,7 +35,7 @@ const RadioOption = ({
         checked={String(value) === String(answer.answer)}
         value={answer.answer}
       />
-      <span tabIndex={tabIndex}>{answer.label || answer.answer}</span>
+      <span tabIndex={'0'}>{answer.label || answer.answer}</span>
     </label>
   </div>
 );

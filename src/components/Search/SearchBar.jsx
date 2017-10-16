@@ -93,12 +93,11 @@ const getErrorToolTip = (formErrors, fieldName) => {
   </span> : <span />);
 };
 
-const generateField = (name, placeholder, labelText, formErrors, formGroupCss, autoFocus, tabIndex) => {
+const generateField = (name, placeholder, labelText, formErrors, formGroupCss, autoFocus) => {
   const field = (<div className={(formErrors && formErrors[name]) ? `form-group error ${formGroupCss}` : `form-group ${formGroupCss}`}>
     <label htmlFor={name}>{getErrorToolTip(formErrors, name)} {labelText}
     </label>
     <Field
-      tabIndex={tabIndex}
       autoFocus={autoFocus}
       name={name}
       className={''}
@@ -117,12 +116,12 @@ const SearchForm = (props) => {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
         <div className="search-input-wrapper">
-          {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true, 1)}
-          {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false, 2)}
-          {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false, 3)}
-          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search', false, 4)}
+          {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
+          {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
+          {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
+          {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search', false)}
           <button
-            tabIndex={5}
+            tabIndex="0"
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
@@ -138,9 +137,9 @@ const SearchForm = (props) => {
   return (
     <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
       <div className="search-input-wrapper">
-        {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true, 1)}
+        {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true)}
         <button
-          tabIndex={5}
+          tabIndex="0"
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"

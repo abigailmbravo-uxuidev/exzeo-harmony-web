@@ -10,7 +10,6 @@ export const TextInput = ({
   styleName,
   meta,
   type,
-  tabIndex,
   autoFocus
 }) => {
   const { touched, error, warning } = meta;
@@ -40,7 +39,7 @@ export const TextInput = ({
       {Label}
       <input
         autoFocus={autoFocus}
-        tabIndex={tabIndex}
+        tabIndex={'0'}
         {...input}
         type={type}
       />

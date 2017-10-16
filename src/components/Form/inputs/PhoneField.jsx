@@ -17,8 +17,7 @@ export const PhoneInput = ({
   type,
   disabled,
   validations,
-  name,
-  tabIndex
+  name
 }) => {
   const { touched, error, warning } = meta;
 
@@ -48,7 +47,7 @@ export const PhoneInput = ({
     <div className={formGroupStyles} id={name}>
       {Label}
       <MaskedTextInput
-        tabIndex={tabIndex}
+        tabIndex={'0'}
         mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
         guide={false}
         id={name}

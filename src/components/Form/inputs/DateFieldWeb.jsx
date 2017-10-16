@@ -20,8 +20,7 @@ export const DateWebInput = ({
   validations,
   meta,
   min,
-  max,
-  tabIndex
+  max
 }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;
@@ -58,7 +57,7 @@ export const DateWebInput = ({
     <div className={formGroupStyles} id={name}>
       {Label}
       <DateTimePicker
-        tabIndex={tabIndex}
+        tabIndex={'0'}
 
         normalize={normalizeDate}
         min={minDate}

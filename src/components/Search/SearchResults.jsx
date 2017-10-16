@@ -34,8 +34,8 @@ export const SearchResults = (props) => {
         <ul className="results result-cards">
           {addresses
             ? addresses.map((address, index) => (
-              <li id={address.id} key={index} tabIndex={100 + index} onKeyPress={event => onKeyPress(event, address)}>
-                <a onClick={() => props.handleSelectAddress(address, props)} tabIndex="-1">
+              <li id={address.id} key={index} tabIndex={'0'} onKeyPress={event => onKeyPress(event, address)}>
+                <a onClick={() => props.handleSelectAddress(address, props)}>
                   <i className="card-icon fa fa-map-marker" />
                   <section>
                     <h4>{address.physicalAddress.address1}</h4>
@@ -66,7 +66,7 @@ export const SearchResults = (props) => {
     return (
       <div className="quote-list">
         {
-        quoteResults && quotes && quotes.map((quote, index) => (<div tabIndex={100 + index} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
+        quoteResults && quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
             <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}` : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
@@ -82,7 +82,7 @@ export const SearchResults = (props) => {
                 <span className="premium">Premium</span>
               </li>
               <li>
-                <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1" >
+                <a onClick={() => props.handleSelectQuote(quote, props)} >
                   <span className="quote-no">{quote.quoteNumber}</span>
                   <span className="property-address">{`${quote.property.physicalAddress.address1}
                           ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
