@@ -21,6 +21,7 @@ export const SelectFieldBilling = ({
         {label} &nbsp; {Hint}
         {answers && answers.length > 0 ? (
           <select
+            tabIndex={'0'}
             value={value}
             name={name}
             disabled={disabled}
