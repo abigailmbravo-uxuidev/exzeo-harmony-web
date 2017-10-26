@@ -8,7 +8,7 @@ describe('TextInput', () => {
     const wrapper = shallow(<TextInput />);
     // console.log(wrapper.debug()); // Use for debugging test and seeing output
 
-    expect(wrapper.contains(<input type="text" />)).toEqual(true);
+    expect(wrapper.find('input').length).toEqual(1);
   });
 
   it('should render "text input" with label, when label and name are provided', () => {
@@ -59,7 +59,7 @@ describe('TextInput', () => {
       };
       const wrapper = shallow(<TextInput {...inputProps} />);
 
-      expect(wrapper.contains(<input type={type} />)).toEqual(true);
+      expect(wrapper.instance().props.type).toEqual(type);
     });
   });
 
@@ -70,7 +70,7 @@ describe('TextInput', () => {
       }
     };
     const wrapper = shallow(<TextInput {...inputProps} />);
-    expect(wrapper.contains(<input type="text" disabled />)).toEqual(true);
+    expect(wrapper.instance().props.input.disabled).toEqual(true);
   });
 
   it('should render "text input" with error, when touched and error are provided', () => {
