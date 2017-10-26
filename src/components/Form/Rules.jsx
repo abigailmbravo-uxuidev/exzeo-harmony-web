@@ -33,8 +33,9 @@ export function combineRules(validations, variables) {
         const range = (values) => {
           const min = new Date(moment.utc(variables.min).format('MM/DD/YYYY'));
           const max = new Date(moment.utc(variables.max).format('MM/DD/YYYY'));
+          const value = new Date(moment.utc(values).format('MM/DD/YYYY'));
 
-          const valid = new Date(values) <= max && new Date(values) >= min ? undefined : 'Not a valid date range';
+          const valid = value <= max && value >= min ? undefined : 'Not a valid date range';
           return valid;
         };
         ruleArray.push(range);
