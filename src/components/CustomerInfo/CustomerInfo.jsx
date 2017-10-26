@@ -63,7 +63,7 @@ const handleInitialize = (state) => {
 
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
-  values.effectiveDate = normalizeDate(moment(_.get(quoteData, 'effectiveDate') || '').utc().format('MM/DD/YYYY'));
+  values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('YYYY-MM-DD');
 
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');

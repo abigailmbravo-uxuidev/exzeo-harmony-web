@@ -51,7 +51,6 @@ export const DateWebInput = ({
   const minDate = new Date(moment.utc(min).format('MM/DD/YYYY'));
   const maxDate = new Date(moment.utc(max).format('MM/DD/YYYY'));
 
-  console.log(minDate, maxDate);
 
   return (
     <div className={formGroupStyles} id={name}>
