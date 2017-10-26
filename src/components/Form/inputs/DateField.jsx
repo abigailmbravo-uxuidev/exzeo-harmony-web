@@ -47,8 +47,8 @@ export const DateInput = ({
         tabIndex={'0'}
         {...input}
         type={'date'}
-        min={min ? moment.utc(min).format('YYYY-MM-DD') : null}
-        max={min ? moment.utc(max).format('YYYY-MM-DD') : null}
+        min={min}
+        max={max}
       />
       {Error}
     </div>

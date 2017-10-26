@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import momentTZ from 'moment-timezone';
 import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -32,12 +33,26 @@ export const handleFormSubmit = (data, dispatch, props) => {
     taskData.EmailAddress2 = '';
     taskData.phoneNumber2 = '';
   }
-  taskData.effectiveDate = moment.utc(taskData.effectiveDate).toISOString();
+
+  taskData.effectiveDate = momentTZ(taskData.effectiveDate).tz(props.zipCodeSettings.timezone).format();
 
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+};
+
+const handleGetZipCodeSettings = (state) => {
+  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  if (!taskData) return null;
+
+  const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
+  _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
+
+  const zipCodeSettingsQuote = _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }) ?
+  _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }).value.result[0] : null;
+
+  return zipCodeSettingsQuote || zipCodeSettings;
 };
 
 const handleInitialize = (state) => {
@@ -48,7 +63,7 @@ const handleInitialize = (state) => {
 
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
-  values.effectiveDate = normalizeDate(moment(_.get(quoteData, 'effectiveDate') || '').utc().format('MM/DD/YYYY'));
+  values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('YYYY-MM-DD');
 
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
@@ -67,19 +82,6 @@ const handleGetAgentsFromAgency = (state) => {
   const agentData = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
   _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
   return agentData;
-};
-
-const handleGetZipCodeSettings = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  if (!taskData) return null;
-
-  const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
-  _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
-
-  const zipCodeSettingsQuote = _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }) ?
-  _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }).value.result[0] : null;
-
-  return zipCodeSettingsQuote || zipCodeSettings;
 };
 
 const getQuoteData = (state) => {

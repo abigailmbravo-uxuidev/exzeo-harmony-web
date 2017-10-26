@@ -61,6 +61,9 @@ describe('Testing CustomerInfo component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      zipCodeSettings: {
+        timezone: 'American/NewYork'
+      },
       actions: {
         cgActions: {
           completeTask() { return Promise.resolve(); }
