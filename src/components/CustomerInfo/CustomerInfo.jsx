@@ -34,7 +34,7 @@ export const handleFormSubmit = (data, dispatch, props) => {
     taskData.phoneNumber2 = '';
   }
 
-  taskData.effectiveDate = momentTZ.tz(taskData.effectiveDate, props.zipCodeSettings.timezone).format();
+  taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
