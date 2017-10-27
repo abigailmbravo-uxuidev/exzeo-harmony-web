@@ -27,8 +27,6 @@ export const DateWebInput = ({
 
   const ruleArray = combineRules(validations, { min, max });
 
-  console.log(validations, ruleArray, min, max);
-
   const formGroupStyles = classNames(
     'form-group',
     styleName,
@@ -50,12 +48,12 @@ export const DateWebInput = ({
 
   const minDate = new Date(moment.utc(min).format('MM/DD/YYYY'));
   const maxDate = new Date(moment.utc(max).format('MM/DD/YYYY'));
-
-
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
       <DateTimePicker
+        tabIndex={'0'}
+
         normalize={normalizeDate}
         min={minDate}
         max={maxDate}
@@ -63,7 +61,7 @@ export const DateWebInput = ({
         {...input}
         format="MM/DD/YYYY"
         time={false}
-        value={!input.value ? null : new Date(moment.utc(input.value).format('MM/DD/YYYY'))}
+        value={!input.value ? null : new Date(input.value)}
       />
       {Error}
     </div>
