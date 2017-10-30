@@ -14,14 +14,12 @@ const runTask = (props) => {
     const currentData = props.tasks && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
     props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentData.model.completedTasks, props.completedTasks));
     props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, showLoader: true, isMoveTo: false, taskName });
-    console.log(props.appState);
   } else {
     props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   }
 };
 
 export const TaskRunner = (props) => {
-  console.log('task runner is running:', props);
   runTask(props);
   // return something to make the react dom happy
   // this may be a loader in the future

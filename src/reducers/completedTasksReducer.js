@@ -5,7 +5,6 @@ export default function completedTasksReducer(state = initialState.completedTask
   switch (action.type) {
 
     case types.COMPLETED_TASKS_SET:
-      console.log(action);
       return { ...state, ...action.completedTasks };
     default:
       return state;

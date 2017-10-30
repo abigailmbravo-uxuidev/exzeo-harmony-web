@@ -5,8 +5,6 @@ import { DateInput } from './DateField';
 describe('DateInput', () => {
   it('should render "text input" when nothing is provided', () => {
     const wrapper = shallow(<DateInput />);
-    // console.log(wrapper.debug()); // Use for debugging test and seeing output
-
     expect(wrapper.instance().props.type).toEqual('text');
   });
 

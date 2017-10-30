@@ -85,7 +85,6 @@ export class Workflow extends Component {
           activeTaskName === 'askToCustomizeDefaultQuote') {
           const quoteData = _.find(nextProps.tasks[workflowModelName].data.model.variables, { name: 'quote' }).value.result;
           if (quoteData._id) { // eslint-disable-line
-            console.log('dispatching workflow details', quoteData._id); // eslint-disable-line
             nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName, nextProps.appState.instanceId, {
               quote: quoteData,
               updateWorkflowDetails: true,
@@ -93,8 +92,6 @@ export class Workflow extends Component {
             });
           }
         }
-
-        console.log('active task name: ', activeTaskName);
 
         const newComponent = components[activeTaskName];
         this.setState((previousState, props) => ({
