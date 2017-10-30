@@ -46,8 +46,6 @@ export const RadioInputBilling = ({
     } else if (answer === 'Quarterly') {
       selection = 'quarterly';
     }
-    console.log('getSelectedPlan', selection);
-    console.log('paymentPlans', paymentPlans[selection]);
 
     return selection;
   };
