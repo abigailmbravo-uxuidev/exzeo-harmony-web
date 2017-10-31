@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import moment from 'moment';
-import momentLocaliser from 'react-widgets/lib/localizers/moment';
+import configure from 'react-widgets/lib/configure';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import 'react-widgets/dist/css/react-widgets.css';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
@@ -10,7 +11,7 @@ import { combineRules } from '../Rules';
 import reduxFormField from './reduxFormField';
 import normalizeDate from '../normalizeDate';
 
-momentLocaliser(moment);
+configure.setDateLocalizer(momentLocalizer(moment));
 
 export const DateWebInput = ({
   input,
@@ -26,8 +27,6 @@ export const DateWebInput = ({
   const { disabled, name } = input;
 
   const ruleArray = combineRules(validations, { min, max });
-
-  console.log(validations, ruleArray, min, max);
 
   const formGroupStyles = classNames(
     'form-group',
@@ -48,10 +47,8 @@ export const DateWebInput = ({
       {label} &nbsp; {Hint}
     </label>);
 
-  const minDate = new Date(moment.utc(min).format('MM/DD/YYYY'));
-  const maxDate = new Date(moment.utc(max).format('MM/DD/YYYY'));
-
-
+  const minDate = new Date(moment(min).format('MM/DD/YYYY'));
+  const maxDate = new Date(moment(max).format('MM/DD/YYYY'));
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
@@ -65,7 +62,7 @@ export const DateWebInput = ({
         {...input}
         format="MM/DD/YYYY"
         time={false}
-        value={!input.value ? null : new Date(moment.utc(input.value).format('MM/DD/YYYY'))}
+        value={!input.value ? null : new Date(moment(input.value).format('MM/DD/YYYY'))}
       />
       {Error}
     </div>

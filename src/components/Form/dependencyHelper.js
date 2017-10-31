@@ -25,10 +25,9 @@ export default function dependencyHelper(question, data, values) {
     const { value } = question.conditional;
     const parentValue = _.get(values, value.parent);
     const calculatedValue = parentValue * value.value;
-    // console.log('PERCENTAGE CONDITION: ', question, value);
     updatedQuestion.displayValue = toCurrency((value.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue));
   }
-  
+
   // For read only fields on radio fields
   if (question.conditional.dependency) {
     const { dependency } = question.conditional;

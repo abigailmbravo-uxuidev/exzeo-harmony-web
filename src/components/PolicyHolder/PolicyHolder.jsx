@@ -31,8 +31,6 @@ const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
 //  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
   const quoteData = handleGetQuoteData(state);
-
-  console.log(quoteData);
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   if (values.firstName) {
