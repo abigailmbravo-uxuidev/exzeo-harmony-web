@@ -53,7 +53,7 @@ export const PhoneInput = ({
         name={name}
         component="input"
         type="text"
-        placeholder="555-555-5555"
+        placeholder="(555) 555-5555"
         validate={ruleArray}
         {...input}
       />
