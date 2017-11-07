@@ -77,8 +77,8 @@ export const SearchResults = (props) => {
                           `}</span>
                   <div className="quote-detail-wrapper">
                     <span className="quote-state">{quote.quoteState}</span>
-                    <span className="effective-date">{moment.utc(quote.effectiveDate).format('YYYY-MM-DD')}</span>
-                    <span className="started-on">{moment.utc(quote.createdAt).format('YYYY-MM-DD')}</span>
+                    <span className="effective-date">{moment.utc(quote.effectiveDate).format('MM/DD/YYYY')}</span>
+                    <span className="started-on">{moment.utc(quote.createdAt).format('MM/DD/YYYY')}</span>
                     <span className="premium">$ {quote.rating ? quote.rating.totalPremium : '-'}</span>
                   </div>
                 </a>
