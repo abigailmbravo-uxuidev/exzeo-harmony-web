@@ -94,6 +94,8 @@ const handleInitialize = (state) => {
   values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
   values.fireAlarm = values.fireAlarm || false;
   values.burglarAlarm = values.burglarAlarm || false;
+  values.otherStructuresAmount = String(values.otherStructuresAmount).length === 0 ? 0 : values.otherStructuresAmount;
+  values.personalPropertyAmount = String(values.personalPropertyAmount).length === 0 ? 0 : values.personalPropertyAmount;
 
   return values;
 };
