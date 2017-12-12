@@ -84,11 +84,11 @@ export class WorkflowDetails extends Component {
     return (
       <div>
         <div className="detailHeader">
-          <section id="quoteDetails" className="quoteDetails">
+          <section id="quoteDetails">
             <dl>
               <div>
                 <dt className="fade">Quote Number</dt>
-                <dd className="fade">{(quote.rating ? quote.quoteNumber : '-')}</dd>
+                <dd className="fade">{quote.rating ? quote.quoteNumber : '-'}</dd>
               </div>
             </dl>
           </section>
@@ -114,7 +114,7 @@ export class WorkflowDetails extends Component {
               </div>
             </dl>
           </section>
-          <section id="coverageDetails" className="coverageDetails">
+          <section id="coverageDetails">
             <dl>
               <div>
                 <dt className="fade">Coverage A</dt>
