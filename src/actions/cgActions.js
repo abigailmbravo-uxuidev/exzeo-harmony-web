@@ -43,6 +43,8 @@ export const complete = (modelName, workflowData) => {
 const checkCGError = (responseData) => {
   if (responseData.activeTask && responseData.activeTask.link && responseData.activeTask.link === 'error') {
     throw new Error(`CG responded with an error: ${responseData}`);
+  } else if (responseData.status === 400) {
+    throw new Error(`CG responded with an error: ${responseData}`);
   }
 };
 
@@ -55,7 +57,7 @@ const handleError = (dispatch, error) => {
     console.log(error.response.data);
     console.log(error.response.status);
     console.log(error.response.headers);
-    message = error.response.data.error.message;
+    message = error.response.statusText;
   }
   // Something happened in setting up the request that triggered an Error
   message = (error.message) ? error.message : message;

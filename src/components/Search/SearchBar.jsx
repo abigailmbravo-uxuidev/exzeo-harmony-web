@@ -8,6 +8,7 @@ import _ from 'lodash';
 import Rules from '../Form/Rules';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import * as errorActions from '../../actions/errorActions';
 
 const userTasks = {
   handleSearchBarSubmit: 'search'
@@ -28,7 +29,9 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
 
   // we need to make sure the active task is search otherwise we need to reset the workflow
-  if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
+  if (!props.tasks[props.appState.modelName].data.activeTask) {
+    props.actions.errorActions.setAppError({ message: 'An Error has occured' });
+  } else if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
     const completeStep = {
       stepName: taskName,
       data: taskData
@@ -180,7 +183,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
-    appStateActions: bindActionCreators(appStateActions, dispatch)
+    appStateActions: bindActionCreators(appStateActions, dispatch),
+    errorActions: bindActionCreators(errorActions, dispatch)
   }
 });
 
