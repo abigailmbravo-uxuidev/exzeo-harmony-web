@@ -140,7 +140,7 @@ const SearchForm = (props) => {
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"
-          disabled={props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).trim()}
+          disabled={props.appState.data.submitting || formErrors || !String(fieldValues.address).trim()}
         >
           <i className="fa fa-search" /><span>Search</span>
         </button>
