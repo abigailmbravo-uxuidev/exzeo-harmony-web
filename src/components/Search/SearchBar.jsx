@@ -71,15 +71,13 @@ export const validate = (values) => {
       errors.zip = onlyAlphaNumeric;
     }
   }
-
   if (values.address) {
     const required = Rules.required(String(values.address).trim());
     const invalidCharacters = Rules.invalidCharacters(values.address);
-    if (invalidCharacters) {
-      errors.address = invalidCharacters;
-    }
     if (required) {
       errors.address = required;
+    } else if (invalidCharacters) {
+      errors.address = invalidCharacters;
     }
   }
 
@@ -113,7 +111,6 @@ const generateField = (name, placeholder, labelText, formErrors, formGroupCss) =
 
 const SearchForm = (props) => {
   const { handleSubmit, formErrors, isRetrieve, fieldValues } = props;
-
   if (isRetrieve) {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
@@ -143,7 +140,7 @@ const SearchForm = (props) => {
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"
-          disabled={props.appState.data.submitting || formErrors || !fieldValues.address}
+          disabled={props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).trim()}
         >
           <i className="fa fa-search" /><span>Search</span>
         </button>
