@@ -13,7 +13,8 @@ export const SliderInput = ({
   meta,
   rightLabel,
   step,
-  styleName
+  styleName,
+  autoFocus
 }) => {
   const { name, value } = input;
   const { error } = meta;
@@ -60,6 +61,8 @@ export const SliderInput = ({
         </div>
         <span className="range-value">
           <input
+            autoFocus={autoFocus}
+            tabIndex={'0'}
             type="text"
             value={`$ ${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
             onChange={handleChange}

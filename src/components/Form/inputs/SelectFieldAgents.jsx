@@ -17,12 +17,21 @@ export const SelectInputAgents = ({
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
   const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
 
+  const onKeyPress = (event, answer) => {
+    if (event && event.preventDefault) event.preventDefault();
+    if (event.charCode === 13) {
+      onChange(answer);
+    }
+  };
+
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
         {label} &nbsp; {Hint}</label>
       {agents && agents.length > 0 ? (
         <select
+          onKeyPress={(event => onKeyPress(event, value))}
+          tabIndex={'0'}
           value={value}
           name={name}
           disabled={disabled}
