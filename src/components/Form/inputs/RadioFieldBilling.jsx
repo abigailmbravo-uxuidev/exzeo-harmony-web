@@ -50,6 +50,13 @@ export const RadioInputBilling = ({
     return selection;
   };
 
+  const onKeyPress = (event, answer) => {
+    if (event.charCode === 13) {
+      onChange(answer);
+    }
+  };
+
+
   return (
     <div className={formGroupStyles} role="group">
       <label className={labelStyles} htmlFor={name}>
@@ -64,8 +71,10 @@ export const RadioInputBilling = ({
             paymentPlan={paymentPlans[getSelectedPlan(answer)]}
             answer={answer}
             key={index}
+            tabIndex={'0'}
             size={answers.length}
             onChange={onChange}
+            onKeyPress={onKeyPress}
             name={name}
             segmented={segmented}
             value={value}

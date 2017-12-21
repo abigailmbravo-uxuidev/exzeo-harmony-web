@@ -17,8 +17,7 @@ export const DateInput = ({
   meta,
   min,
   max,
-  type
-}) => {
+  type }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;
 
@@ -45,6 +44,7 @@ export const DateInput = ({
     <div className={formGroupStyles} id={name}>
       {Label}
       <input
+        tabIndex={'0'}
         {...input}
         type={'date'}
         min={min}

@@ -3,17 +3,20 @@ import classNames from 'classnames';
 
 const RadioOption = ({
   onChange,
+  onKeyPress,
   answer,
   name,
   segmented,
   size,
-  value
+  value,
+  autoFocus
 }) => (
   <div
     className={classNames(
         `radio-column-${size}`,
         { selected: value === answer.answer }
     )}
+    onKeyPress={event => onKeyPress(event, answer.answer)}
     onClick={() => onChange(answer.answer)}
   >
     {answer.image && <img src={answer.image} role="presentation" />}
@@ -25,19 +28,20 @@ const RadioOption = ({
       htmlFor={name}
     >
       <input
+        autoFocus={autoFocus}
         onChange={() => onChange(answer.answer)}
         name={name}
         type="radio"
         checked={String(value) === String(answer.answer)}
         value={answer.answer}
       />
-      <span>{answer.label || answer.answer}</span>
+      <span tabIndex={'0'}>{answer.label || answer.answer}</span>
     </label>
   </div>
 );
 
 RadioOption.propTypes = {
-  
+
   // Answer Used to generate option
   answer: PropTypes.shape({
     answer: PropTypes.oneOfType([
@@ -51,19 +55,19 @@ RadioOption.propTypes = {
     ]),
     image: PropTypes.string
   }),
-  
+
   // Name of parent field for option
   name: PropTypes.string,
-  
+
   // Change handler
   onChange: PropTypes.func.isRequired,
-  
+
   // Number of overall answers, added to class
   size: PropTypes.number,
-  
+
   // Converts from radio to segmented bar
   segmented: PropTypes.bool,
-  
+
   // Value from parent field
   value: PropTypes.oneOfType([
     PropTypes.bool,

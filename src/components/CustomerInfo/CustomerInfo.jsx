@@ -112,6 +112,8 @@ export const CustomerInfo = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {questions.map((question, index) =>
               <FieldGenerator
+                tabindex="0"
+                autoFocus={index === 1}
                 zipCodeSettings={zipCodeSettings}
                 data={quoteData}
                 question={question}
@@ -121,6 +123,7 @@ export const CustomerInfo = (props) => {
         )}
             <div className="agentID">
               <SelectFieldAgents
+                tabindex="0"
                 name="agentCode"
                 label="Agent"
                 onChange={function () { }}
@@ -131,6 +134,7 @@ export const CustomerInfo = (props) => {
           </div>
           <div className="workflow-steps">
             <button
+              tabIndex="0"
               className="btn btn-primary"
               type="submit"
               form="CustomerInfo"
