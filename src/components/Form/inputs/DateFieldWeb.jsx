@@ -44,7 +44,8 @@ export const DateWebInput = ({
   );
 
   const Label = label && (<label htmlFor={name}>
-      {label} &nbsp; {Hint}
+      {label}
+      {Hint}
     </label>);
 
   const minDate = new Date(moment(min).format('MM/DD/YYYY'));

@@ -27,7 +27,9 @@ export const SelectInputAgents = ({
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
-        {label} &nbsp; {Hint}</label>
+        {label}
+        {Hint}
+      </label>
       {agents && agents.length > 0 ? (
         <select
           onKeyPress={(event => onKeyPress(event, value))}

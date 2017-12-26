@@ -42,7 +42,8 @@ export const CheckInput = ({
   return (
     <div className={formGroupStyles} id={name}>
       <label htmlFor={name} onClick={() => onChange(!value)}>
-        {label} &nbsp; {Hint}
+        {label}
+        {Hint}
         <input
           autoFocus={autoFocus}
           {...input}

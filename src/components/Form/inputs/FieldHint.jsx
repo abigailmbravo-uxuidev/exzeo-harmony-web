@@ -5,7 +5,7 @@ const FieldHint = ({
   name,
   hint
 }) => (
-  <span>
+  <span className="tooltip-wrapper">
     <i className="fa fa-info-circle" data-tip data-for={name} />
     <ReactTooltip place="right" id={name} type="dark" effect="float">{hint}</ReactTooltip>
   </span>
