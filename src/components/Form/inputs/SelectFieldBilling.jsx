@@ -18,7 +18,8 @@ export const SelectFieldBilling = ({
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
-        {label} &nbsp; {Hint}
+        {label}
+        {Hint}
         {answers && answers.length > 0 ? (
           <select
             tabIndex={'0'}
