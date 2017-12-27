@@ -12,7 +12,7 @@ export const SelectFieldBilling = ({
 }) => {
   const { onChange, name, value, disabled } = input;
 
-  const formGroupStyles = classNames('form-group', { styleName }, { name });
+  const formGroupStyles = classNames('form-group select', { styleName }, { name });
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
   return (

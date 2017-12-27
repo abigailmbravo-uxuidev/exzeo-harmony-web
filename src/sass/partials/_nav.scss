@@ -2,14 +2,14 @@
 
 .content-panel-left {
   display: flex;
+  align-self: stretch;
   flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
   width: auto;
   color: $warm-gray-12;
   background: $warm-gray-02;
-  flex-shrink: 0;
-  flex-grow: 0;
-  align-self: stretch;
-  @include transition(all .2s ease-in-out);
+  @include transition(all 0.2s ease-in-out);
   @include for-phone-only {
     position: absolute;
     z-index: 100;
@@ -28,7 +28,7 @@
     top: 0;
     bottom: 0;
     width: 4.75rem;
-    @include transition(all .1s ease-in-out);
+    @include transition(all 0.1s ease-in-out);
 
     &.active {
       width: 12rem;
@@ -46,19 +46,24 @@
       }
 
       .user {
-          display:block;
+        display: block;
 
-          label {display:block;}
-          .user-name {display:block;}
+        label {
+          display: block;
+        }
+
+        .user-name {
+          display: block;
+        }
       }
 
       .btn.logout.btn-action {
+        display: block;
         width: auto;
         height: auto;
         margin: 0.875rem;
         padding: ($padding) 0;
         border-radius: $btn-border-radius;
-        display: block;
 
         div {
           display: block;
@@ -82,7 +87,7 @@
   .site-nav {
     width: auto;
     padding: $padding*2;
-    @include transition(all .05s ease-in-out);
+    @include transition(all 0.05s ease-in-out);
     @include for-phone-only {
       width: 14rem;
     }
@@ -101,14 +106,14 @@
 
         a {
           display: flex;
-          height: 3rem;
+          align-items: center;
+          flex-grow: 1;
           margin: 0 (-$padding*2) 0 (-$padding);
+          padding: ($padding*1.5) 0;
           cursor: pointer;
           text-decoration: none;
           color: $white;
           border-left: ($padding/2) solid rgba($white, 0);
-          align-items: center;
-          flex-grow: 1;
 
           &.active {
             cursor: default;
@@ -116,16 +121,19 @@
             border-left: ($padding/2) solid $bright-blue-darken-04;
             background-color: $white;
             font-weight: $font-weight-bold;
+            @include transition(all 0.05s ease-in-out);
 
             i {
               width: 4rem - ($padding/2);
               text-decoration: none;
               color: $bright-blue-darken-04;
+              @include transition(all 0.05s ease-in-out);
             }
 
             span {
               text-decoration: none;
               color: $bright-blue-darken-04;
+              @include transition(all 0.05s ease-in-out);
             }
 
             &:hover {
@@ -162,7 +170,7 @@
             width: 4rem;
             text-align: center;
             text-decoration: none;
-            @include transition(all .1s .2s ease-in-out);
+            @include transition(all 0.1s 0.2s ease-in-out);
             @include for-phone-only {
               width: 3.5rem;
               text-decoration: none;
@@ -229,7 +237,7 @@
             text-decoration: none;
             color: rgba($white, 1);
             font-weight: $font-weight-bold;
-            @include transition(all .1s .2s ease-in-out);
+            @include transition(all 0.1s 0.2s ease-in-out);
             @include for-tablet-portrait-up {
               display: none;
             }
@@ -248,7 +256,7 @@
     padding: ($padding/2) ($padding) ($padding/2) ($padding*2);
     border-bottom: 2px solid $white;
     background-color: $warm-gray-08;
-    @include transition(all .2s ease-in-out);
+    @include transition(all 0.2s ease-in-out);
     @include for-tablet-portrait-up {
       //display: none;
     }
@@ -272,12 +280,12 @@
 
     .user-name {
       display: flex;
-      margin: 0;
-      color: $white;
+      align-items: center;
+      flex-basis: auto;
       flex-grow: 0;
       flex-shrink: 0;
-      flex-basis: auto;
-      align-items: center;
+      margin: 0;
+      color: $white;
       font-weight: $font-weight-normal;
       @include for-phone-only {
         max-width: 11rem;
@@ -290,13 +298,13 @@
       }
 
       i {
-        text-align: center;
-        font-size: 1rem;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 1rem;
         //hide until needed
         display: none;
+        flex-basis: 1rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        text-align: center;
+        font-size: 1rem;
       }
     }
   }
@@ -306,8 +314,8 @@
     height: 3rem;
     margin: 0.875rem;
     padding: ($padding) 0;
-    border-radius: 50%;
     text-align: center;
+    border-radius: 50%;
     @include for-tablet-landscape-up {
       width: auto;
       height: auto;
