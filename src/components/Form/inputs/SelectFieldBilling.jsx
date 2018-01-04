@@ -12,13 +12,14 @@ export const SelectFieldBilling = ({
 }) => {
   const { onChange, name, value, disabled } = input;
 
-  const formGroupStyles = classNames('form-group', { styleName }, { name });
+  const formGroupStyles = classNames('form-group select', { styleName }, { name });
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
-        {label} &nbsp; {Hint}
+        {label}
+        {Hint}
         {answers && answers.length > 0 ? (
           <select
             tabIndex={'0'}

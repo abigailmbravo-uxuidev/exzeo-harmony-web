@@ -15,7 +15,7 @@ export const SelectInput = ({
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;
 
-  const formGroupStyles = classNames('form-group',
+  const formGroupStyles = classNames('form-group select',
   styleName,
   name,
   { valid: touched && !error },
@@ -29,7 +29,7 @@ export const SelectInput = ({
     <div className={formGroupStyles} id={name}>
       <label htmlFor={name}>
         {label}
-        &nbsp; {Hint}
+        {Hint}
       </label>
       {answers && answers.length > 0 ? (
         <select

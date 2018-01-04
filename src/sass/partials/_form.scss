@@ -188,6 +188,12 @@ label {
 
   label {
     @include transition(all .2s ease-in-out);
+
+    .tooltip-wrapper {
+        flex-grow: 1;
+        flex-shrink: 0;
+        margin: 0 ($margin/2);
+    }
   }
 
   &.disabled,
