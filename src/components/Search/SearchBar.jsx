@@ -8,6 +8,7 @@ import _ from 'lodash';
 import Rules from '../Form/Rules';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import * as errorActions from '../../actions/errorActions';
 
 const userTasks = {
   handleSearchBarSubmit: 'search'
@@ -28,7 +29,9 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
 
   // we need to make sure the active task is search otherwise we need to reset the workflow
-  if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
+  if (!props.tasks[props.appState.modelName].data.activeTask) {
+    props.actions.errorActions.setAppError({ message: 'An Error has occured' });
+  } else if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
     const completeStep = {
       stepName: taskName,
       data: taskData
@@ -68,15 +71,13 @@ export const validate = (values) => {
       errors.zip = onlyAlphaNumeric;
     }
   }
-
   if (values.address) {
     const required = Rules.required(String(values.address).trim());
     const invalidCharacters = Rules.invalidCharacters(values.address);
-    if (invalidCharacters) {
-      errors.address = invalidCharacters;
-    }
     if (required) {
       errors.address = required;
+    } else if (invalidCharacters) {
+      errors.address = invalidCharacters;
     }
   }
 
@@ -111,7 +112,6 @@ const generateField = (name, placeholder, labelText, formErrors, formGroupCss, a
 
 const SearchForm = (props) => {
   const { handleSubmit, formErrors, isRetrieve, fieldValues } = props;
-
   if (isRetrieve) {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
@@ -143,7 +143,7 @@ const SearchForm = (props) => {
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"
-          disabled={props.appState.data.submitting || formErrors || !fieldValues.address}
+          disabled={props.appState.data.submitting || formErrors || !String(fieldValues.address).trim()}
         >
           <i className="fa fa-search" /><span>Search</span>
         </button>
@@ -183,7 +183,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
-    appStateActions: bindActionCreators(appStateActions, dispatch)
+    appStateActions: bindActionCreators(appStateActions, dispatch),
+    errorActions: bindActionCreators(errorActions, dispatch)
   }
 });
 

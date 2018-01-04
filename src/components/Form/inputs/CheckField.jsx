@@ -36,13 +36,14 @@ export const CheckInput = ({
     }
   };
 
-  const Switch = isSwitch && (<div className="switch-div" tabIndex={'0'} onKeyPress={event => onKeyPress(event, !value)} />);
+  const Switch = isSwitch && (<div className="switch-div" tabIndex={'0'} onClick={() => onChange(!value)} onKeyPress={event => onKeyPress(event, !value)} />);
 
 
   return (
     <div className={formGroupStyles} id={name}>
-      <label htmlFor={name} onClick={() => onChange(!value)}>
-        {label} &nbsp; {Hint}
+      <label htmlFor={name} onClick={() => { !isSwitch ? onChange(!value): function() {}}}>
+        {label}
+        {Hint}
         <input
           autoFocus={autoFocus}
           {...input}

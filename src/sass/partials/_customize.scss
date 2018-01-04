@@ -52,8 +52,9 @@
     .form-group {
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      //justify-content: space-between;
 
+      &.select,
       &.range-component,
       &.range-component,
       &.segmented {
@@ -66,6 +67,10 @@
         label {
           width: 100%;
         }
+      }
+
+      &.read-only {
+          justify-content: space-between;
       }
 
       &.lossOfUseAmount,

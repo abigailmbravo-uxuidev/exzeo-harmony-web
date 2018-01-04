@@ -3,307 +3,296 @@
   width: 100%;
 
   .scroll {
+    .detail-wrapper {
+      width: auto;
 
-      .detail-wrapper {
-        width: auto;
+      .detail-group {
+        .edit-btn {
+          position: absolute;
+          top: $padding*3;
+          right: 0;
+          cursor: pointer;
+          font-size: $font-size-h5;
+          @include for-phone-only {
+            top: $padding*2;
+          }
 
-        .detail-group {
-          .edit-btn {
-            position: absolute;
-            top: $padding*3;
-            right: 0;
-            cursor: pointer;
-            font-size: $font-size-h5;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .section-group-header {
+          position: relative;
+          padding-right: 3rem;
+        }
+
+        &.property-details {
+          .display-element {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 $padding $padding;
             @include for-phone-only {
-              top: $padding*2;
+              flex-direction: column;
             }
 
-            &:hover {
-              text-decoration: none;
-            }
-          }
+            dl {
+              flex-grow: 1;
+              flex-shrink: 0;
 
-          .section-group-header {
-              position: relative;
-              padding-right: 3rem;
-          }
+              div {
+                dd {
+                  margin-bottom: 0;
 
-          &.property-details {
-            .display-element {
-              display: flex;
-              padding: 0 $padding $padding;
-              flex-wrap: wrap;
-              @include for-phone-only {
-                flex-direction: column;
-              }
-
-              dl {
-                flex-shrink: 0;
-                flex-grow: 1;
-
-                div {
-                  dd {
-                    margin-bottom: 0;
-
-                    +dd {
-                      font-size: $font-size-h6;
-                    }
+                  +dd {
+                    font-size: $font-size-h6;
                   }
                 }
               }
             }
           }
+        }
 
-          &.quote-details {
-            .display-element {
+        &.quote-details {
+          .display-element {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin-bottom: $padding;
+
+            dl {
+              display: flex;
+              margin-bottom: 0;
+              padding: ($padding/2) ($padding);
+
+              &:nth-of-type(odd) {
+                background: $warm-gray-01;
+              }
+
+              div {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+
+                dt {
+                  span {
+                    margin-right: $padding;
+                  }
+                }
+
+                dd {
+                  margin-bottom: 0;
+                }
+              }
+            }
+          }
+        }
+
+        &.policyholder-details {
+          .display-element {
+            padding: 0 $padding $padding;
+
+            > p {
+              padding: $padding*2;
+              color: $red-darken-02;
+              background: $orange-lighten-04;
+            }
+
+            .contact-card-wrapper {
               display: flex;
               flex-direction: column;
-              margin-bottom: $padding;
-              flex-wrap: wrap;
 
-              dl {
+              .contact-card {
                 display: flex;
-                margin-bottom: 0;
-                padding: ($padding/2) ($padding);
+                flex-direction: column;
 
-                &:nth-of-type(odd) {
-                  background: $warm-gray-01;
-                }
-
-                div {
+                dl {
                   display: flex;
-                  width: 100%;
-                  align-items: center;
-                  justify-content: space-between;
-
-                  dt {
-                    span {
-                      margin-right: $padding;
-                    }
-                  }
-
-                  dd {
-                    margin-bottom: 0;
-                  }
-                }
-              }
-            }
-          }
-
-          &.policyholder-details {
-            .display-element {
-              padding: 0 $padding $padding;
-
-              > p {
-                padding: $padding*2;
-                color: $red-darken-02;
-                background: $orange-lighten-04;
-              }
-
-              .contact-card-wrapper {
-                  display: flex;
-                  flex-direction: column;
-
-                  .contact-card {
-                    display: flex;
+                  @include for-phone-only {
                     flex-direction: column;
+                  }
 
-                    dl {
-                        display: flex;
-                        @include for-phone-only {
-                            flex-direction: column;
-                        }
+                  .contact-name {
+                    flex-basis: auto;
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                  }
 
-                        .contact-name {
-                            flex-grow: 1;
-                            flex-shrink: 1;
-                            flex-basis: auto;
-                        }
-                        .contact-phone {
-                            flex-grow: 0;
-                            flex-shrink: 1;
-                            flex-basis: 30%;
-
-                            @include for-phone-only {
-                                flex-basis: auto;
-                            }
-                        }
-                        .contact-email {
-                            flex-grow: 0;
-                            flex-shrink: 0;
-                            flex-basis: 35%;
-
-                            @include for-phone-only {
-                                flex-basis: auto;
-                            }
-                        }
+                  .contact-phone {
+                    flex-basis: 30%;
+                    flex-grow: 0;
+                    flex-shrink: 1;
+                    @include for-phone-only {
+                      flex-basis: auto;
                     }
+                  }
+
+                  .contact-email {
+                    flex-basis: 35%;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    @include for-phone-only {
+                      flex-basis: auto;
+                    }
+                  }
                 }
               }
             }
           }
+        }
 
-          &.mailing-address-details {
-            .display-element {
-              display: flex;
-              padding: 0 $padding $padding;
+        &.mailing-address-details {
+          .display-element {
+            display: flex;
+            padding: 0 $padding $padding;
+            @include for-phone-only {
+              flex-direction: column;
+            }
+
+            dl {
+              flex-grow: 1;
+              flex-shrink: 0;
+            }
+          }
+        }
+
+        &.additional-interests-details {
+          .display-element {
+            padding: 0 0 $padding;
+
+            .card {
+              flex-direction: row;
+              margin: 0 0 $padding;
+              padding: $padding ($padding*1.5);
               @include for-phone-only {
+                position: relative;
+                align-items: baseline;
                 flex-direction: column;
               }
 
-              dl {
-                flex-grow: 1;
+              .icon-wrapper {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                flex-grow: 0;
                 flex-shrink: 0;
-              }
-            }
-          }
-
-          &.additional-interests-details {
-            .display-element {
-              padding: 0 0 $padding;
-
-              .card {
-                flex-direction: row;
-                margin: 0 0 $padding;
-                padding: $padding ($padding*1.5);
+                justify-content: center;
+                width: 5rem;
+                margin-right: $padding;
+                text-align: center;
                 @include for-phone-only {
-                    flex-direction: column;
-                    align-items: baseline;
-                    position: relative;
-                }
-
-                .icon-wrapper {
-                  display: flex;
-                  flex-direction: column;
-                  width: 5rem;
-                  margin-right: $padding;
-                  text-align: center;
-                  flex-grow: 0;
-                  flex-shrink: 0;
-                  justify-content: center;
                   align-items: center;
-                  @include for-phone-only {
-                    flex-direction: row;
-                    flex-grow: 1;
-                    flex-basis: auto;
-                    width: auto;
-                    align-items: center;
-                  }
-
-                  .fa {
-                    font-size: $font-size-h4;
-                    color: $bright-blue-darken-04;
-                    @include for-phone-only {
-                        width: 2rem;
-                        height: 2rem;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-
-                    &.Mortgagee {
-                      &:before {
-                        content: "\f19c";
-                      }
-                    }
-
-                    &.Lienholder {
-                      &:before {
-                        content: "\F27E";
-                      }
-                    }
-
-                    &.Interest {
-                      &:before {
-                        content: "\F2B5";
-                      }
-                    }
-
-                    &.Insured {
-                      &:before {
-                        content: "\F234";
-                      }
-                    }
-
-                    &.Bill {
-                      &:before {
-                        content: "\F0D6";
-                      }
-                    }
-                  }
-
-                  p {
-                    margin-bottom: 0;
-                    font-size: $font-size-xs;
-                    @include for-phone-only {
-                      margin: 0;
-                      font-size: $font-size-sm;
-                    }
-                  }
-                }
-
-                section {
-                  display: flex;
-                  flex-direction: column;
+                  flex-basis: auto;
+                  flex-direction: row;
                   flex-grow: 1;
-                  flex-shrink: 1;
-
-                  h4 {
-                    line-height: $line-height-sm;
-                    margin-bottom: 0;
-                  }
-
-                  p {
-                    line-height: $line-height-sm;
-                    margin-bottom: 0;
-                  }
+                  width: auto;
                 }
 
-                .ref-number {
-                  display: flex;
-                  flex-direction: column;
-                  flex-grow: 0;
-                  flex-shrink: 0;
-                  flex-basis: 10rem;
-                  justify-content: center;
+                .fa {
+                  color: $bright-blue-darken-04;
+                  font-size: $font-size-h4;
                   @include for-phone-only {
-                      flex-basis: auto;
-                      margin-top: $padding;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 2rem;
+                    height: 2rem;
                   }
 
-                  label {
-                    margin-bottom: 0;
-                    font-size: $font-size-xs;
-                    @include for-phone-only {
-                        flex-basis: auto;
-                        margin-top: $padding;
+                  &.Mortgagee {
+                    &:before {
+                      content: "\f19c";
+                    }
+                  }
+
+                  &.Lienholder {
+                    &:before {
+                      content: "\F27E";
+                    }
+                  }
+
+                  &.Interest {
+                    &:before {
+                      content: "\F2B5";
+                    }
+                  }
+
+                  &.Insured {
+                    &:before {
+                      content: "\F234";
+                    }
+                  }
+
+                  &.Bill {
+                    &:before {
+                      content: "\F0D6";
                     }
                   }
                 }
-              }
-            }
-          }
-        }
 
-        .detail-group.property-details {
-          .display-element {
-            dl {
-              dt {
-                color: $bright-blue-darken-04;
+                p {
+                  margin-bottom: 0;
+                  font-size: $font-size-xs;
+                  @include for-phone-only {
+                    margin: 0;
+                    font-size: $font-size-sm;
+                  }
+                }
               }
-            }
-          }
-        }
 
-        .detail-group.quote-details {
-          .display-element {
-            dl {
-              div {
-                color: $warm-gray-08;
+              section {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                flex-shrink: 1;
+
+                h4 {
+                  margin-bottom: 0;
+                  line-height: $line-height-sm;
+                }
+
+                p {
+                  margin-bottom: 0;
+                  line-height: $line-height-sm;
+                }
+              }
+
+              .ref-number {
+                display: flex;
+                flex-basis: 10rem;
+                flex-direction: column;
+                flex-grow: 0;
+                flex-shrink: 0;
+                justify-content: center;
+                @include for-phone-only {
+                  flex-basis: auto;
+                  margin-top: $padding;
+                }
+
+                label {
+                  margin-bottom: 0;
+                  font-size: $font-size-xs;
+                  @include for-phone-only {
+                    flex-basis: auto;
+                    margin-top: $padding;
+                  }
+                }
               }
             }
           }
         }
       }
+
+      .detail-group.quote-details {
+        .display-element {
+          dl {
+            div {
+              color: $warm-gray-08;
+            }
+          }
+        }
+      }
     }
+  }
 }

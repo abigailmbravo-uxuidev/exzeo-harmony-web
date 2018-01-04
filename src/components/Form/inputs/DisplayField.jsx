@@ -8,7 +8,7 @@ export const DisplayInput = ({
   displayValue,
   styleName
 }) => (
-  <div className={classNames('form-group', input.name, styleName)} id={input.name}>
+  <div className={classNames('form-group read-only', input.name, styleName)} id={input.name}>
     <label htmlFor={input.name}>
       {label}
     </label>
