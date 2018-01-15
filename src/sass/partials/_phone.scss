@@ -1,0 +1,74 @@
+@media (max-width: 599px) {
+    html {
+        height: initial;
+        div#root {
+            .detail-wrapper, .survey-wrapper {
+                .section-group-header {
+                    margin-bottom: 0;
+                }
+                .form-group {
+                    padding-bottom: $padding;
+                    margin-bottom: $padding;
+                }
+            }
+            .loader.modal {
+                position: fixed;
+                top: 3.375rem;
+                bottom: 0;
+                z-index: 10;
+            }
+            .app-wrapper {
+                header {
+                    height: auto;
+                    overflow: visible;
+                    position: fixed;
+                    z-index: 100;
+                }
+                main[role="document"] {
+                    top: 3.375rem;
+                    height: auto;
+                    overflow: visible;
+                    .content-wrapper {
+                        height: auto;
+                        overflow: visible;
+                        .workflow {
+                            height: auto;
+                            overflow: visible;
+                            .route {
+                                .detailHeader {
+                                    min-height: 3.5rem;
+                                }
+
+                                .search {
+                                    min-height: calc(100vh - 3.375rem);
+
+                                    .retrieve-quote-wrapper {
+                                        flex-wrap: wrap;
+
+                                        .first-name-search, .last-name-search {
+                                            width: 50%;
+                                        }
+                                        .quote-no-search {
+                                            width: calc(100% - 3.25rem);
+                                        }
+                                    }
+
+                                    .survey-wrapper {
+                                        overflow: hidden;
+                                        height: auto;
+                                    }
+                                }
+
+                                .route {
+                                    .scroll {
+                                        overflow: visible;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

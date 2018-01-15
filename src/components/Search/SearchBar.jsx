@@ -115,7 +115,7 @@ const SearchForm = (props) => {
   if (isRetrieve) {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
-        <div className="search-input-wrapper">
+        <div className="search-input-wrapper retrieve-quote-wrapper">
           {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
           {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
           {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
@@ -136,7 +136,7 @@ const SearchForm = (props) => {
 
   return (
     <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
-      <div className="search-input-wrapper">
+      <div className="search-input-wrapper new-quote-wrapper">
         {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true)}
         <button
           tabIndex="0"

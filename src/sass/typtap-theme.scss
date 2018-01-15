@@ -654,10 +654,10 @@ select {
 //main site structure
 /*------------------------------------------------------------------------------------*/
 html {
-  background: $cool-gray-14;
+  background: $cool-gray-12;
   //site body
   body {
-    background: $cool-gray-14;
+    background: $cool-gray-12;
   }
   //site background
   div#root {
@@ -1691,3 +1691,5 @@ ul.result-cards {
     }
   }
 }
+
+@import "partials/_phone";
