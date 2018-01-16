@@ -25,9 +25,10 @@
                     z-index: 100;
                 }
                 main[role="document"] {
-                    top: 3.375rem;
+                    margin-top: 3.375rem;
                     height: auto;
                     overflow: visible;
+                    z-index: 10;
                     .content-wrapper {
                         height: auto;
                         overflow: visible;
@@ -57,6 +58,18 @@
                                         overflow: hidden;
                                         height: auto;
                                     }
+                                }
+
+                                .route-content {
+                                    position: initial;
+                                }
+
+                                .error-content.modal {
+                                    position: fixed;
+                                }
+
+                                .email-modal.modal {
+                                    position: fixed;
                                 }
 
                                 .route {

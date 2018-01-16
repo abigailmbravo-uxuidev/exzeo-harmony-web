@@ -48,6 +48,8 @@ export const SliderInput = ({
         <div className="range-control-wrapper">
           <span className="range-limit">{leftLabel || min || '0'}</span>
           <input
+            autoFocus={autoFocus}
+            tabIndex={'0'}
             type="range"
             name={name}
             min={min}
@@ -59,8 +61,7 @@ export const SliderInput = ({
           <span className="range-limit">{rightLabel || max}</span>
         </div>
         <span className="range-value">
-          <input
-            autoFocus={autoFocus}
+          <input          
             tabIndex={'0'}
             type="text"
             value={`$ ${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}

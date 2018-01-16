@@ -88,7 +88,7 @@ export const Share = props => (
         <div className="form-group detail-wrapper">
           <section className="section-instructions">
             <h3 className="section-group-header"><i className="fa fa-share-alt" /> Share</h3>
-            <p>To SHARE this quote as a PDF via email, click the <span className="btn-link" onClick={() => shareQuote(props)}>SHARE</span> button</p>
+            <p>To SHARE this quote as a PDF via email, click the SHARE button</p>
           </section>
           <section className="section-instructions">
             <h3 className="section-group-header"><i className="fa fa-arrow-circle-right" /> Continue</h3>
@@ -98,11 +98,11 @@ export const Share = props => (
               <li>Name and email address of additional owners</li>
               <li>Name and address of any other additional insured to add to this policy</li>
             </ul>
-            <p>When you are prepared to move forward, click the <span className="btn-link" onClick={props.handleSubmit(noShareSubmit)}>NEXT</span> button</p>
+            <p>When you are prepared to move forward, click the NEXT button</p>
           </section>
           <section className="section-instructions">
             <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
-            <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <a className="btn-link" href="/"><i className="fa fa-th-large" /> DASHBOARD</a> tab</p>
+            <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i className="fa fa-th-large" /> DASHBOARD tab</p>
           </section>
         </div>
         <div className="workflow-steps">

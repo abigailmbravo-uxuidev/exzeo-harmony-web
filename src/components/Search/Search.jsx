@@ -52,9 +52,9 @@ export const Search = props => (
     { props.appState.data &&
       <div className="search route-content">
         <SearchBar />
-        { props.appState.data.submitting && <Loader /> }
         <div className="survey-wrapper">
           <div className="results-wrapper">
+            { props.appState.data.submitting && <Loader /> }
             <NoResultsConnect />
             <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
           </div>
