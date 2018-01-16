@@ -1,21 +1,11 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import ConnectedApp, { Workflow } from './Workflow';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
-
-function wrapWithContext(context, contextTypes, children) {
-  const wrapperWithContext = React.createClass({ //eslint-disable-line
-    childContextTypes: contextTypes,
-    getChildContext() { return context; },
-    render() { return React.createElement('div', null, children); }
-  });
-
-  return React.createElement(wrapperWithContext);
-}
 
 describe('Testing Workflow component', () => {
   it('should test props and render', () => {
@@ -32,9 +22,8 @@ describe('Testing Workflow component', () => {
       },
       handleSubmit() {}
     };
-    const context = { router: { route: { location: { pathName: '' } } } };
-    const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <Workflow />, React);
+
+    const wrapper = shallow(<Workflow {...props} />);
     expect(wrapper);
   });
 
