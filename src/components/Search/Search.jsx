@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { propTypes } from 'redux-form';
@@ -54,7 +55,7 @@ export const Search = props => (
         <SearchBar />
         { props.appState.data.submitting && <Loader /> }
         <div className="survey-wrapper">
-          <div className="results-wrapper">        
+          <div className="results-wrapper">
             <NoResultsConnect />
             <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
           </div>
