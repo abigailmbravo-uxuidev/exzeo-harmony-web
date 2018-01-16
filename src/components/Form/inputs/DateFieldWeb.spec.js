@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { DateWebInput } from './DateFieldWeb';
+import DateWebInput from './DateFieldWeb';
 
 describe('DateWebInput', () => {
   it('should render "text input" when nothing is provided', () => {

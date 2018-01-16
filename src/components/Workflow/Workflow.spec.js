@@ -12,6 +12,16 @@ describe('Testing Workflow component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        },
+        cgActions: {
+          startWorkflow() { return Promise.resolve(); },
+          completeTask() {},
+          batchCompleteTask() { return Promise.resolve(); }
+        }
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -60,6 +70,7 @@ describe('Testing Workflow component', () => {
           setAppState() {}
         },
         cgActions: {
+          startWorkflow() { return Promise.resolve(); },
           completeTask() {},
           batchCompleteTask() { return Promise.resolve(); }
         }
