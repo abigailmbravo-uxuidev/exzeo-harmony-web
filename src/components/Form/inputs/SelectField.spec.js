@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import SelectField from './SelectField';
+import SelectField, { SelectInput } from './SelectField';
 
 describe('SelectField', () => {
   it('should render "select input" when nothing is provided', () => {
@@ -26,8 +26,21 @@ describe('SelectField', () => {
     // Need to take into account blank option
   });
 
-  // TODO: Check renders
-  // TODO: Check classnames
-  // TODO: Check props
-  // TODO: Check event handlers
+
+  it('should render SelectInput', () => {
+    const inputProps = {
+      name: 'test',
+      label: 'test',
+      answers: [{
+        answer: 'One'
+      }, {
+        answer: 'Two'
+      }, {
+        answer: 'Three'
+      }]
+    };
+
+    const wrapper = shallow(<SelectInput {...inputProps} />);
+    expect(wrapper);
+  });
 });

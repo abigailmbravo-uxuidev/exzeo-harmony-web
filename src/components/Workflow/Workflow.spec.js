@@ -12,6 +12,23 @@ describe('Testing Workflow component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      tasks: {
+        quoteModel: {
+          data: {
+            modelInstanceId: '123',
+            model: {},
+            activeTask: {
+              name: 'first',
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            uiQuestions: []
+          }
+        }
+      },
       actions: {
         appStateActions: {
           setAppState() {}
@@ -35,6 +52,45 @@ describe('Testing Workflow component', () => {
 
     const wrapper = shallow(<Workflow {...props} />);
     expect(wrapper);
+    wrapper.instance().componentWillReceiveProps({
+      appState: {
+
+      },
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        }
+      },
+      tasks: {
+        quoteModel: {
+          data: {
+            modelInstanceId: '123',
+            model: {
+              variables: [
+                { name: 'quote', value: { result: { _id: '12345' } } }
+              ]
+            },
+            previousTask: {
+              name: 'notifyDocusignApp',
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            activeTask: {
+              name: 'askAdditionalCustomerData',
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            uiQuestions: []
+          }
+        }
+      }
+    });
   });
 
   it('should test connected app', () => {
@@ -105,5 +161,7 @@ describe('Testing Workflow component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
+
+    wrapper.instance().componentDidMount();
   });
 });

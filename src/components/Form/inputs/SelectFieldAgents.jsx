@@ -56,7 +56,6 @@ export const SelectInputAgents = ({
 };
 
 SelectInputAgents.propTypes = {
-  ...PropTypes,
   /**
    * Answers array used to generate options
    */
@@ -66,7 +65,12 @@ SelectInputAgents.propTypes = {
    * Tooltip for user
    */
   hint: PropTypes.string,
-
+    // Validations
+  meta: {
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+    warning: PropTypes.string
+  },
   /**
    * Input provided by redux-form field
    */

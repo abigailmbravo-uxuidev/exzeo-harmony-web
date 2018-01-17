@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import SelectFieldAgent from './SelectFieldAgents';
+import SelectFieldAgent, { SelectInputAgents } from './SelectFieldAgents';
 
 describe('SelectFieldBilling', () => {
   it('should render "select input" when nothing is provided', () => {
@@ -28,5 +28,25 @@ describe('SelectFieldBilling', () => {
     const wrapper = shallow(<SelectFieldAgent {...inputProps} />);
     expect(wrapper.prop('answers').length).toEqual(3);
     // Need to take into account blank option
+  });
+
+  it('should render SelectInput', () => {
+    const inputProps = {
+      meta: {
+        touched: false
+      },
+      name: 'test',
+      label: 'test',
+      answers: [{
+        answer: 'One'
+      }, {
+        answer: 'Two'
+      }, {
+        answer: 'Three'
+      }]
+    };
+
+    const wrapper = shallow(<SelectInputAgents {...inputProps} />);
+    expect(wrapper);
   });
 });
