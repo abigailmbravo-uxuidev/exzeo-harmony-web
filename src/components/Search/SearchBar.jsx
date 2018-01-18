@@ -20,7 +20,7 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).trim()) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
     quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType
@@ -143,7 +143,7 @@ const SearchForm = (props) => {
           className="btn btn-success multi-input"
           type="submit"
           form="SearchBar"
-          disabled={props.appState.data.submitting || formErrors || !String(fieldValues.address).trim()}
+          disabled={props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
         >
           <i className="fa fa-search" /><span>Search</span>
         </button>
