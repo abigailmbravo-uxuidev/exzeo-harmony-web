@@ -19,7 +19,7 @@ const Splash = props => (
             </div>
             <div className="survey-wrapper">
               <div className="product-wrapper">
-                {/*flood will be added back in for phase 2*/}
+                {/* flood will be added back in for phase 2*/}
                 {/* <div className="product card">
                   <div className="card-header image card-header-image-flood">
                     <h4 className="product-name"><i className="fa fa-tint" /> Flood Insurance</h4>
@@ -42,6 +42,7 @@ const Splash = props => (
                   <div className="card-footer">
                     <Link to={{ pathname: '/quote', state: { searchType: 'address' } }} className="btn btn-secondary btn-block"><i className="fa fa-plus" />New Quote</Link>
                     <Link to={{ pathname: '/quote/retrieve', state: { searchType: 'quote' } }} className="btn btn-primary btn-block"><i className="fa fa-history" />Retrieve Quote</Link>
+                    <Link to={{ pathname: '/policy/retrieve', state: { searchType: 'policy' } }} className="btn btn-default btn-block"><i className="fa fa-history" />Retrieve Policy</Link>
                   </div>
                 </div>
               </div>

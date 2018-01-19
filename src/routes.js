@@ -12,6 +12,8 @@ import Auth from './Auth';
 import Login from './containers/Login';
 import Splash from './containers/Splash';
 import Quote from './containers/Quote';
+import Policy from './containers/Policy';
+import PolicySearch from './containers/PolicySearch';
 import AppError from './containers/AppError';
 import AccessDenied from './containers/AccessDenied';
 import Callback from './containers/Callback';
@@ -75,6 +77,11 @@ class Routes extends Component { // eslint-disable-line
               exact
               path="/quote/retrieve"
               render={props => <Quote auth={auth} {...props} />}
+            />
+            <Route
+              exact
+              path="/policy/retrieve"
+              render={props => <PolicySearch auth={auth} {...props} />}
             />
             <Route exact path="/login" render={props => <Login auth={auth} {...props} />} />
             <Route exact path="/error" component={AppError} />

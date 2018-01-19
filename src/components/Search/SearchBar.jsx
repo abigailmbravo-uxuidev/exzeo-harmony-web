@@ -14,6 +14,10 @@ const userTasks = {
   handleSearchBarSubmit: 'search'
 };
 
+export const handlePolicySearchSubmit = (data, dispatch, props) => {
+  alert('Search Policy');
+};
+
 export const handleSearchBarSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSearchBarSubmit;
@@ -84,7 +88,19 @@ export const validate = (values) => {
   return errors;
 };
 
-const setIsRetrieve = () => window.location.pathname === '/quote/retrieve';
+const setSearchType = () => {
+  const path = window.location.pathname;
+  switch (path) {
+    case '/quote/retrieve':
+      return 'quote';
+    case '/quote':
+      return 'address';
+    case '/policy/retrieve':
+      return 'policy';
+    default:
+      return 'address';
+  }
+};
 
 const getErrorToolTip = (formErrors, fieldName) => {
   const errorFieldName = `error${fieldName}`;
@@ -111,8 +127,8 @@ const generateField = (name, placeholder, labelText, formErrors, formGroupCss, a
 };
 
 const SearchForm = (props) => {
-  const { handleSubmit, formErrors, isRetrieve, fieldValues } = props;
-  if (isRetrieve) {
+  const { handleSubmit, formErrors, searchType, fieldValues } = props;
+  if (searchType === 'quote') {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
         <div className="search-input-wrapper">
@@ -120,6 +136,27 @@ const SearchForm = (props) => {
           {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
           {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
           {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search', false)}
+          <button
+            tabIndex="0"
+            className="btn btn-success multi-input"
+            type="submit"
+            form="SearchBar"
+            disabled={props.appState.data.submitting || formErrors}
+          >
+            <i className="fa fa-search" /><span>Search</span>
+          </button>
+        </div>
+      </Form>
+    );
+  }
+  if (searchType === 'policy') {
+    return (
+      <Form id="SearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)} noValidate>
+        <div className="search-input-wrapper">
+          {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
+          {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
+          {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
+          {generateField('policyNumber', 'Policy No Search', 'Quote Number', formErrors, 'policy-no-search', false)}
           <button
             tabIndex="0"
             className="btn btn-success multi-input"
@@ -176,8 +213,7 @@ const mapStateToProps = state => ({
   appState: state.appState,
   fieldValues: _.get(state.form, 'SearchBar.values', {}),
   formErrors: getFormSyncErrors('SearchBar')(state),
-  isRetrieve: setIsRetrieve(),
-  searchType: setIsRetrieve() ? 'quote' : 'address'
+  searchType: setSearchType()
 });
 
 const mapDispatchToProps = dispatch => ({
