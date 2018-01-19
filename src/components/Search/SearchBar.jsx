@@ -156,13 +156,13 @@ const SearchForm = (props) => {
           {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
           {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
           {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
-          {generateField('policyNumber', 'Policy No Search', 'Quote Number', formErrors, 'policy-no-search', false)}
+          {generateField('policyNumber', 'Policy No Search', 'Policy Number', formErrors, 'quote-no-search', false)}
           <button
             tabIndex="0"
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={props.appState.data.submitting || formErrors}
+            disabled={(props.policyState && props.policyState.submitting) || formErrors}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>

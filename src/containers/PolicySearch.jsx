@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SearchConnect from '../components/Search/Search';
+import SearchConnect from '../components/Search/SearchBar';
 import BaseConnect from './Base';
 
 const PolicySearch = props => <BaseConnect {...props} ><div className="workflow" role="article">
