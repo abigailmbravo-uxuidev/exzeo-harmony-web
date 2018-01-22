@@ -139,7 +139,7 @@ export const searchPolicy = (policyNumber, firstName, lastName, address) => (dis
   });
 
   return axios(axiosConfig).then((response) => {
-    const data = { policyResults: response.policies };
+    const data = { policyResults: response.data.policies };
     return dispatch(batchActions([
       serviceRequest(data)
     ]));

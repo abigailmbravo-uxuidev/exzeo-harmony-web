@@ -47,9 +47,8 @@ const closeQuoteError = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
-export const Search = (props) => {
-  console.log(props);
-  return (<div className="flex grow">
+export const Search = props => (
+  <div className="flex grow">
     { (props.appState.data || (props.search && props.search.searchType === 'policy')) &&
       <div className="search route-content">
         <SearchBar />
@@ -69,8 +68,7 @@ export const Search = (props) => {
         closeButtonHandler={() => closeQuoteError(props)}
       />}
   </div>
-  );
-};
+);
 
 Search.propTypes = {
   ...propTypes,

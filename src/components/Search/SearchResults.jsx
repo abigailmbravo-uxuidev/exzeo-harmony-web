@@ -7,16 +7,62 @@ import moment from 'moment';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
+export const handleSelectPolicy = (policy, props) => {
+  alert('policy selected');
+};
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
     props.handleSelectQuote(quote, props);
   }
 };
 
+const onKeypressPolicy = (event, quote, props) => {
+  if (event.charCode === 13) {
+    handleSelectPolicy(quote, props);
+  }
+};
+
 export const SearchResults = (props) => {
+  const { policyResults } = props;
   console.log(props);
   if (props.search && props.search.searchType === 'policy') {
-    return (<div>Policy Search </div>);
+    return (
+      <div className="quote-list">
+        {
+          policyResults && policyResults.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
+            <div className="icon-name">
+              <i className="card-icon fa fa-user-circle" />
+              <div className="card-name">
+                <h5 title={`${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}>{policy.policyHolders[0] && `${policy.policyHolders[0].firstName.replace(/(^.{13}).*$/, '$1...')}`}
+                  {policy.policyHolders[0] && `${policy.policyHolders[0].lastName.replace(/(^.{13}).*$/, '$1...')}`}</h5>
+              </div>
+            </div>
+            <section>
+              <ul id="policy-search-results" className="policy-search-results">
+                <li className="header">
+                  <span className="policy-no">Policy No.</span>
+                  <span className="property-address">Property Address</span>
+                  <span className="quote-state">Policy Status</span>
+                  <span className="effctive-date">Effective Date</span>
+                </li>
+                <li>
+                  <a id={policy.policyNumber + policy.property.physicalAddress.address1} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`} aria-label={policy.policyNumber + policy.property.physicalAddress.address1} value={policy.policyNumber + policy.property.physicalAddress.address1} onClick={() => handleSelectPolicy(policy, props)} tabIndex="0">
+                    <span className="quote-no">{policy.policyNumber}</span>
+                    <span className="property-address">{
+                  `${policy.property.physicalAddress.address1}
+                      ${policy.property.physicalAddress.city}, ${policy.property.physicalAddress.state}
+                      ${policy.property.physicalAddress.zip}`
+                }</span>
+                    <span className="quote-state">{policy.status}</span>
+                    <span className="effctive-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
+                  </a>
+                </li>
+              </ul>
+            </section>
+          </div>))
+      }
+      </div>
+    );
   }
   if (
     props.tasks[props.appState.modelName] &&
@@ -112,6 +158,7 @@ export const SearchResults = (props) => {
 };
 
 SearchResults.propTypes = {
+  policyResults: PropTypes.shape(),
   search: PropTypes.shape(),
   appState: PropTypes.shape({
     modelName: PropTypes.string,
@@ -128,7 +175,8 @@ SearchResults.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  search: state.search
+  search: state.search,
+  policyResults: state.service.policyResults || []
 });
 
 const mapDispatchToProps = dispatch => ({
