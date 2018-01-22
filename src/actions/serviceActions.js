@@ -138,7 +138,7 @@ export const searchPolicy = (policyNumber, firstName, lastName, address) => (dis
     path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true`
   });
 
-  return axios(axiosConfig).then((response) => {
+  return Promise.resolve(axios(axiosConfig)).then((response) => {
     const data = { policyResults: response.data.policies };
     return dispatch(batchActions([
       serviceRequest(data)

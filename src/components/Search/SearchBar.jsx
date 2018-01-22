@@ -22,12 +22,16 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
     address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).trim()) : ''),
     policyNumber: (encodeURIComponent(data.policyNumber) !== 'undefined' ? encodeURIComponent(data.policyNumber) : ''),
-    searchType: 'policy'
+    searchType: 'policy',
+    isLoading: true
   };
 
-  props.actions.searchActions.dispatchPolicySearch(taskData);
+  props.actions.searchActions.setPolicySearch(taskData);
 
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address);
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address).then(() => {
+    taskData.isLoading = false;
+    props.actions.searchActions.setPolicySearch(taskData);
+  });
 };
 
 export const handleSearchBarSubmit = (data, dispatch, props) => {
@@ -42,7 +46,7 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
     searchType: props.searchType
   };
 
-  props.actions.searchActions.dispatchQuoteSearch(taskData);
+  props.actions.searchActions.setQuoteSearch(taskData);
 
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
 

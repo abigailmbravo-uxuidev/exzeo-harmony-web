@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-
+import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
@@ -24,10 +24,10 @@ const onKeypressPolicy = (event, quote, props) => {
 
 export const SearchResults = (props) => {
   const { policyResults } = props;
-  console.log(props);
   if (props.search && props.search.searchType === 'policy') {
     return (
       <div className="quote-list">
+        {props.search && props.search.isLoading && <Loader />}
         {
           policyResults && policyResults.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
             <div className="icon-name">
@@ -46,7 +46,7 @@ export const SearchResults = (props) => {
                   <span className="effctive-date">Effective Date</span>
                 </li>
                 <li>
-                  <a id={policy.policyNumber + policy.property.physicalAddress.address1} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`} aria-label={policy.policyNumber + policy.property.physicalAddress.address1} value={policy.policyNumber + policy.property.physicalAddress.address1} onClick={() => handleSelectPolicy(policy, props)} tabIndex="0">
+                  <a id={policy.policyNumber + policy.property.physicalAddress.address1} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`} aria-label={policy.policyNumber + policy.property.physicalAddress.address1} value={policy.policyNumber + policy.property.physicalAddress.address1} onClick={() => handleSelectPolicy(policy, props)} tabIndex="-1">
                     <span className="quote-no">{policy.policyNumber}</span>
                     <span className="property-address">{
                   `${policy.property.physicalAddress.address1}
