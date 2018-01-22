@@ -20,10 +20,12 @@ export class PolicyWorkflow extends Component {
   }
 
   render() {
+    const { children } = this.props;
+    console.log(this.props);
     return (
       <div className={'route '}>
         <PolicyWorkFlowDetailsConnect />
-      Policy
+        {children}
       </div>);
   }
 }
