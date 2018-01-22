@@ -130,3 +130,25 @@ export const getQuote = quoteId => (dispatch) => {
     });
 };
 
+export const searchPolicy = (policyNumber, firstName, lastName, address) => (dispatch) => {
+  const formattedAddress = address.replace(' ', '&#32;');
+  const axiosConfig = runnerSetup({
+    service: 'policy-data.services',
+    method: 'GET',
+    path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true`
+  });
+
+  return axios(axiosConfig).then((response) => {
+    const data = { policyResults: response.policies };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError({ message })
+      ]));
+    });
+};
+

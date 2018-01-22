@@ -6,34 +6,24 @@ import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 // import * as policyStateActions from '../../actions/policyStateActions';
 import CheckErrorConnect from '../Error/CheckError';
-import SearchConnect from '../Search/Search';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 import PolicyDocumentsConnect from '../PolicyDocuments/PolicyDocuments';
 
 
 export class PolicyWorkflow extends Component {
-  state = {
-    currentControl: <SearchConnect />
-  }
 
   componentDidMount() {
 
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedPolicy && nextProps.selectedPolicy.policyID) {
-      this.setState((previousState, props) => ({
-        ...props,
-        currentControl: <PolicyDocumentsConnect />
-      }));
-    }
   }
 
   render() {
     return (
       <div className={'route '}>
         <PolicyWorkFlowDetailsConnect />
-        Policy
+      Policy
       </div>);
   }
 }

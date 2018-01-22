@@ -9,13 +9,25 @@ import Rules from '../Form/Rules';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as errorActions from '../../actions/errorActions';
+import * as serviceActions from '../../actions/serviceActions';
+import * as searchActions from '../../actions/searchActions';
 
 const userTasks = {
   handleSearchBarSubmit: 'search'
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
-  alert('Search Policy');
+  const taskData = {
+    firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
+    lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).trim()) : ''),
+    policyNumber: (encodeURIComponent(data.policyNumber) !== 'undefined' ? encodeURIComponent(data.policyNumber) : ''),
+    searchType: 'policy'
+  };
+
+  props.actions.searchActions.dispatchPolicySearch(taskData);
+
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address);
 };
 
 export const handleSearchBarSubmit = (data, dispatch, props) => {
@@ -29,6 +41,8 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType
   };
+
+  props.actions.searchActions.dispatchQuoteSearch(taskData);
 
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
 
@@ -220,7 +234,9 @@ const mapDispatchToProps = dispatch => ({
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch),
-    errorActions: bindActionCreators(errorActions, dispatch)
+    errorActions: bindActionCreators(errorActions, dispatch),
+    serviceActions: bindActionCreators(serviceActions, dispatch),
+    searchActions: bindActionCreators(searchActions, dispatch)
   }
 });
 

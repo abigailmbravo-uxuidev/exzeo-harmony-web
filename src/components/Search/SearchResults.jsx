@@ -14,6 +14,10 @@ const onKeypressQuote = (event, quote, props) => {
 };
 
 export const SearchResults = (props) => {
+  console.log(props);
+  if (props.search && props.search.searchType === 'policy') {
+    return (<div>Policy Search </div>);
+  }
   if (
     props.tasks[props.appState.modelName] &&
     props.tasks[props.appState.modelName].data &&
@@ -108,6 +112,7 @@ export const SearchResults = (props) => {
 };
 
 SearchResults.propTypes = {
+  search: PropTypes.shape(),
   appState: PropTypes.shape({
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
@@ -122,7 +127,8 @@ SearchResults.propTypes = {
 
 const mapStateToProps = state => ({
   tasks: state.cg,
-  appState: state.appState
+  appState: state.appState,
+  search: state.search
 });
 
 const mapDispatchToProps = dispatch => ({
