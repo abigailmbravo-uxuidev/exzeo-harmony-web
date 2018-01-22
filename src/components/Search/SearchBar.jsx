@@ -106,7 +106,7 @@ export const validate = (values) => {
   return errors;
 };
 
-const setSearchType = () => {
+const getSearchType = () => {
   const path = window.location.pathname;
   switch (path) {
     case '/quote/retrieve':
@@ -231,7 +231,7 @@ const mapStateToProps = state => ({
   appState: state.appState,
   fieldValues: _.get(state.form, 'SearchBar.values', {}),
   formErrors: getFormSyncErrors('SearchBar')(state),
-  searchType: setSearchType()
+  searchType: getSearchType()
 });
 
 const mapDispatchToProps = dispatch => ({

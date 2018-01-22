@@ -7,6 +7,8 @@ import localStorage from 'localStorage';
 import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import { NoResults } from './NoResults';
+import NoPolicyResultsConnect from './NoPolicyResults';
 
 export const handleSelectPolicy = (policy, props) => {
   localStorage.setItem('policyNumber', policy.policyNumber);
@@ -32,7 +34,7 @@ export const SearchResults = (props) => {
       <div className="quote-list">
         {props.search && props.search.isLoading && <Loader />}
         {
-          policyResults && policyResults.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
+          policyResults && policyResults.length > 0 && policyResults.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
             <div className="icon-name">
               <i className="card-icon fa fa-user-circle" />
               <div className="card-name">
@@ -63,6 +65,9 @@ export const SearchResults = (props) => {
               </ul>
             </section>
           </div>))
+      }
+        {
+         policyResults && policyResults.length === 0 && <NoPolicyResultsConnect />
       }
       </div>
     );

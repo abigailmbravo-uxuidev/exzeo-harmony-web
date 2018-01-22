@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 import SearchConnect from '../components/Search/Search';
 import { connect } from 'react-redux';
 import BaseConnect from './Base';
 import * as serviceActions from '../actions/serviceActions';
 import * as searchActions from '../actions/searchActions';
 
-const PolicySearch = props => <BaseConnect {...props} ><div className="workflow" role="article">
-  <div className={'route search'}>
-    <SearchConnect />
-  </div>
-</div></BaseConnect>;
+export class PolicySearch extends Component {
+  componentWillReceiveProps() {
+
+  }
+  render() {
+    return (<BaseConnect {...this.props} ><div className="workflow" role="article">
+      <div className={'route search'}>
+        <SearchConnect />
+      </div>
+    </div></BaseConnect>);
+  }
+}
 
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  policyState: state.policyState
+  policyState: state.policyState,
+  search: state.search
 });
 
 const mapDispatchToProps = dispatch => ({
