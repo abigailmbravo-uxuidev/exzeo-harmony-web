@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import localStorage from 'localStorage';
 import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
 export const handleSelectPolicy = (policy, props) => {
-  alert('policy selected');
+  localStorage.setItem('policyNumber', policy.policyNumber);
+  localStorage.setItem('isNewTab', true);
+  window.open('/policy/documents', '_blank');
 };
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
