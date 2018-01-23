@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import SearchConnect from '../components/Search/Search';
+import SearchPolicyConnect from '../components/Search/SearchPolicy';
 import { connect } from 'react-redux';
 import BaseConnect from './Base';
 import * as serviceActions from '../actions/serviceActions';
 import * as searchActions from '../actions/searchActions';
 
 export class PolicySearch extends Component {
-  componentWillReceiveProps() {
-
+  componentDidMount() {
+    this.props.actions.searchActions.setPolicySearch({ searchType: 'policy' });
   }
   render() {
     return (<BaseConnect {...this.props} ><div className="workflow" role="article">
       <div className={'route search'}>
-        <SearchConnect />
+        <SearchPolicyConnect />
       </div>
     </div></BaseConnect>);
   }

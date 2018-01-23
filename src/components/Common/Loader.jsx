@@ -7,7 +7,8 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
 export const pageName = (props) => {
-  switch (props.appState.data.nextPage) {
+  const nextPage = props.appState && props.appState.data ? props.appState.data.nextPage : '';
+  switch (nextPage) {
     case 'askAdditionalCustomerData':
       return 'Loading Policyholder';
 

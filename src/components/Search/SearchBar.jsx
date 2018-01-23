@@ -23,7 +23,8 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).trim()) : ''),
     policyNumber: (encodeURIComponent(data.policyNumber) !== 'undefined' ? encodeURIComponent(data.policyNumber) : ''),
     searchType: 'policy',
-    isLoading: true
+    isLoading: true,
+    hasSearched: true
   };
 
   props.actions.searchActions.setPolicySearch(taskData);

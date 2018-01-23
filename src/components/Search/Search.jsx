@@ -49,7 +49,7 @@ const closeQuoteError = (props) => {
 
 export const Search = props => (
   <div className="flex grow">
-    { (props.appState.data || (props.search && props.search.searchType === 'policy')) &&
+    { props.appState.data &&
       <div className="search route-content">
         <SearchBar />
         { props.appState.data.submitting && <Loader /> }

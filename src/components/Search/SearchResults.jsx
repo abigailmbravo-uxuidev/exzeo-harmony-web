@@ -67,7 +67,7 @@ export const SearchResults = (props) => {
           </div>))
       }
         {
-         policyResults && policyResults.length === 0 && <NoPolicyResultsConnect />
+          props.search && props.search.hasSearched && policyResults && policyResults.length === 0 && <NoPolicyResultsConnect />
       }
       </div>
     );
