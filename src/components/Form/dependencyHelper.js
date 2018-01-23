@@ -12,6 +12,7 @@ export default function dependencyHelper(question, data, values) {
   if (question.conditional.slider) {
     const { slider } = question.conditional;
     if (slider.minLocation) {
+      console.log(data);
       updatedQuestion.leftLabel = toCurrency(Math.ceil(_.get(data, slider.minLocation)));
       updatedQuestion.min = Math.ceil(_.get(data, slider.minLocation));
     }
