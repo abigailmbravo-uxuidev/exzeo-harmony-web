@@ -37,7 +37,7 @@ const Splash = props => (
                     <h4 className="product-name"><i className="fa fa-home" /> Homeowners Insurance</h4>
                   </div>
                   <div className="card-block">
-                    <p>TypTap currently offers homeowners polices for single family residential dwellings in Florida.</p>
+                    <p>TypTap currently offers homeowners policies for single family residential dwellings in Florida.</p>
                   </div>
                   <div className="card-footer">
                     <Link to={{ pathname: '/quote', state: { searchType: 'address' } }} className="btn btn-secondary btn-block"><i className="fa fa-plus" />New Quote</Link>

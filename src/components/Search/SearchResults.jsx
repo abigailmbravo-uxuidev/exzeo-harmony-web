@@ -34,7 +34,7 @@ export const SearchResults = (props) => {
       <div className="quote-list">
         {props.search && props.search.isLoading && <Loader />}
         {
-          policyResults && policyResults.length > 0 && policyResults.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
+          policyResults && policyResults.policies && policyResults.policies.length > 0 && policyResults.policies.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
             <div className="icon-name">
               <i className="card-icon fa fa-user-circle" />
               <div className="card-name">
@@ -67,7 +67,7 @@ export const SearchResults = (props) => {
           </div>))
       }
         {
-          props.search && props.search.hasSearched && policyResults && policyResults.length === 0 && <NoPolicyResultsConnect />
+          props.search && props.search.hasSearched && policyResults && policyResults.policies && policyResults.policies.length === 0 && <NoPolicyResultsConnect />
       }
       </div>
     );
@@ -184,7 +184,7 @@ const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   search: state.search,
-  policyResults: state.service.policyResults || []
+  policyResults: state.service.policyResults
 });
 
 const mapDispatchToProps = dispatch => ({
