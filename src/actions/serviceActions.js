@@ -194,3 +194,24 @@ export const getSummaryLedger = policyNumber => (dispatch) => {
     });
 };
 
+export const getPolicyDocuments = policyNumber => (dispatch) => {
+  const axiosConfig = runnerSetup({
+    service: 'file-index.services',
+    method: 'GET',
+    path: `v1/fileindex/${policyNumber}`
+  });
+
+  return axios(axiosConfig).then((response) => {
+    const data = { policyDocuments: response.data.result };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError({ message })
+      ]));
+    });
+};
+
