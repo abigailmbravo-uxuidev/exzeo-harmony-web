@@ -214,10 +214,10 @@ export class SearchForm extends Component {
     if (searchType === 'policy') {
       return (
         <Form id="SearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)} noValidate>
-          <div className="search-input-wrapper">
+          <div className="search-input-wrapper search-policy-wrapper">
 
             <SelectField
-              name="sortBy" component="select" styleName={'first-name-search'} label="Sort By" validations={['required']}
+              name="sortBy" component="select" styleName={'search-context'} label="Sort By" validations={['required']}
               onChange={() => resetSearch(this.props)}
               answers={[
                 {
@@ -238,7 +238,7 @@ export class SearchForm extends Component {
             {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
             {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
             {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
-            {generateField('policyNumber', 'Policy No Search', 'Policy Number', formErrors, 'quote-no-search', false)}
+            {generateField('policyNumber', 'Policy No Search', 'Policy Number', formErrors, 'policy-no-search', false)}
             <button
               tabIndex="0"
               className="btn btn-success multi-input"
@@ -250,29 +250,29 @@ export class SearchForm extends Component {
             </button>
 
           </div>
-          { this.props.policyResults && <div>
+          { this.props.policyResults && <div className="pagination-wrapper">
             <button
               onClick={() => changePage(this.props, false)}
               disabled={String(fieldValues.pageNumber) === '1'}
               tabIndex="0"
-              className="btn btn-default multi-input"
+              className="btn btn-action multi-input"
               type="button"
               form="SearchBar"
             >
-              <span>{'<'}</span>
+              <span className="fa fa-chevron-circle-left"></span>
             </button>
-            <TextField name={'pageNumber'} label={'Page Number'} readOnly />
-            <h4>of</h4>
-            <TextField name={'totalPages'} label={'Total Pages'} readOnly />
+            <TextField name={'pageNumber'} label={'Page'} readOnly />
+            <span className="pagination-operand">of</span>
+            <TextField name={'totalPages'} label={''} readOnly />
             <button
               onClick={() => changePage(this.props, true)}
               disabled={String(fieldValues.pageNumber) === String(fieldValues.totalPages)}
               tabIndex="0"
-              className="btn btn-default multi-input"
+              className="btn btn-action multi-input"
               type="button"
               form="SearchBar"
             >
-              <span>{'>'}</span>
+              <span className="fa fa-chevron-circle-right"></span>
             </button>
           </div>
           }

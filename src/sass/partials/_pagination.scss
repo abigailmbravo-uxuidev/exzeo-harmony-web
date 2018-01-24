@@ -1,0 +1,51 @@
+.pagination-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+        padding: ($padding/2) $padding;
+        &:first-child {
+            border-radius: 50% 0 0 50%;
+        }
+        &:last-child {
+            border-radius: 0 50% 50% 0;
+        }
+
+        &.action-btn {
+            padding: ($padding/2) $padding;
+        }
+    }
+
+    .pageNumber {
+        flex-direction: row;
+        margin-bottom: 0;
+        width: auto;
+        align-items: center;
+
+        label {
+            margin-bottom: 0;
+        }
+        input, input[readonly] {
+            width: 3rem;
+            border-bottom-width: 0;
+            text-align: center;
+        }
+    }
+    .pagination-operand {}
+    .totalPages {
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0;
+        width: auto;
+
+        label {
+            margin-bottom: 0;
+        }
+        input {
+            width: 3rem;
+            border-bottom-width: 0;
+            text-align: center;
+        }
+    }
+}
