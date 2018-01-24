@@ -231,10 +231,6 @@ export class SearchForm extends Component {
                 {
                   answer: 'lastName',
                   label: 'Last Name'
-                },
-                {
-                  answer: 'address',
-                  label: 'Address'
                 }
               ]}
             />
