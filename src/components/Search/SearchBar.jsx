@@ -25,6 +25,29 @@ export const resetSearch = (props) => {
   // set page number back
 };
 
+export const changePage = (props, isNext) => {
+  const { fieldValues } = props;
+
+  const taskData = {
+    firstName: (encodeURIComponent(fieldValues.firstName) !== 'undefined' ? encodeURIComponent(fieldValues.firstName) : ''),
+    lastName: (encodeURIComponent(fieldValues.lastName) !== 'undefined' ? encodeURIComponent(fieldValues.lastName) : ''),
+    address: (encodeURIComponent(fieldValues.address) !== 'undefined' ? encodeURIComponent(String(fieldValues.address).trim()) : ''),
+    policyNumber: (encodeURIComponent(fieldValues.policyNumber) !== 'undefined' ? encodeURIComponent(fieldValues.policyNumber) : ''),
+    searchType: 'policy',
+    isLoading: true,
+    hasSearched: true
+  };
+
+  props.actions.searchActions.setPolicySearch(taskData);
+
+  const pageNumber = isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1;
+
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, pageNumber, 25, fieldValues.sortBy).then(() => {
+    taskData.isLoading = false;
+    props.actions.searchActions.setPolicySearch(taskData);
+  });
+};
+
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
@@ -160,10 +183,8 @@ export class SearchForm extends Component {
     const { dispatch } = nextProps;
 
     if (!_.isEqual(this.props.policyResults, nextProps.policyResults)) {
-     // do stuff
-      console.log(this.props.policyResults);
       dispatch(change('SearchBar', 'pageNumber', nextProps.policyResults.currentPage));
-      dispatch(change('SearchBar', 'totalPages', Math.floor(nextProps.policyResults.totalNumberOfRecords / nextProps.policyResults.pageSize)));
+      dispatch(change('SearchBar', 'totalPages', Math.ceil(nextProps.policyResults.totalNumberOfRecords / nextProps.policyResults.pageSize)));
     }
   }
 
@@ -191,8 +212,6 @@ export class SearchForm extends Component {
       );
     }
     if (searchType === 'policy') {
-      console.log(this.props);
-
       return (
         <Form id="SearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)} noValidate>
           <div className="search-input-wrapper">
@@ -237,6 +256,7 @@ export class SearchForm extends Component {
           </div>
           { this.props.policyResults && <div>
             <button
+              onClick={() => changePage(this.props, false)}
               disabled={String(fieldValues.pageNumber) === '1'}
               tabIndex="0"
               className="btn btn-default multi-input"
@@ -249,6 +269,7 @@ export class SearchForm extends Component {
             <h4>of</h4>
             <TextField name={'totalPages'} label={'Total Pages'} readOnly />
             <button
+              onClick={() => changePage(this.props, true)}
               disabled={String(fieldValues.pageNumber) === String(fieldValues.totalPages)}
               tabIndex="0"
               className="btn btn-default multi-input"
