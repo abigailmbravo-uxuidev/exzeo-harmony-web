@@ -12,6 +12,7 @@ import * as serviceActions from '../../actions/serviceActions';
 
 const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
 const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
+const openFormatter = cell => 'Open File';
 
 
 export class PolicyDocuments extends Component {
@@ -29,13 +30,17 @@ export class PolicyDocuments extends Component {
     }
   }
 
+  onRowClick(row) {
+    console.log(row);
+  }
+
   render() {
     return (
       <PolicyConnect {...this.props}>
-        <BootstrapTable data={this.props.policyDocuments || []}>
+        <BootstrapTable data={this.props.policyDocuments || []} options={{ onRowClick: this.onRowClick }}>
           <TableHeaderColumn dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField="fileName" isKey dataFormat={nameFormatter}>Document Type</TableHeaderColumn>
-          <TableHeaderColumn dataField="fileUrl">File URL</TableHeaderColumn>
+          <TableHeaderColumn dataField="fileUrl" dataFormat={openFormatter}>File URL</TableHeaderColumn>
         </BootstrapTable>
       </PolicyConnect>);
   }
