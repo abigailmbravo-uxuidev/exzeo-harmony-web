@@ -80,7 +80,7 @@ class Routes extends Component { // eslint-disable-line
             />
             <Route
               exact
-              path="/policy/retrieve"
+              path="/policy"
               render={props => <PolicySearch auth={auth} {...props} />}
             />
             <Route
