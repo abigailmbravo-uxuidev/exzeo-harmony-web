@@ -9,11 +9,23 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import PolicyConnect from '../../containers/Policy';
 import * as policyStateActions from '../../actions/policyStateActions';
 import * as serviceActions from '../../actions/serviceActions';
+import Downloader from '../Common/Downloader';
 
 const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
 const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
-const openFormatter = cell => 'Open File';
-
+const attachmentUrl = attachments => (
+  <span>
+    { attachments.map((attachment, i) =>
+      <Downloader
+        fileName={attachment.fileName}
+        fileUrl={attachment.fileUrl}
+        fileType={attachment.fileType}
+        errorHandler={err => this.props.actions.errorActions.setAppError(err)}
+        key={i}
+      />
+    )}
+  </span>
+);
 
 export class PolicyDocuments extends Component {
 
@@ -30,17 +42,20 @@ export class PolicyDocuments extends Component {
     }
   }
 
-  onRowClick(row) {
-    console.log(row);
-  }
 
   render() {
+    const policyDocuments = _.map(this.props.policyDocuments, (doc) => {
+      doc.attachments = [];
+      doc.attachments.push(doc);
+      return doc;
+    });
+
     return (
       <PolicyConnect {...this.props}>
-        <BootstrapTable data={this.props.policyDocuments || []} options={{ onRowClick: this.onRowClick }}>
+        <BootstrapTable data={policyDocuments}>
           <TableHeaderColumn dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField="fileName" isKey dataFormat={nameFormatter}>Document Type</TableHeaderColumn>
-          <TableHeaderColumn dataField="fileUrl" dataFormat={openFormatter}>File URL</TableHeaderColumn>
+          <TableHeaderColumn className="attachments" columnClassName="attachments" dataField="attachments" dataFormat={attachmentUrl} dataSort >Attachments</TableHeaderColumn>
         </BootstrapTable>
       </PolicyConnect>);
   }
@@ -58,7 +73,7 @@ PolicyDocuments.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  policyDocuments: state.service.policyDocuments
+  policyDocuments: state.service.policyDocuments || []
 });
 
 const mapDispatchToProps = dispatch => ({
