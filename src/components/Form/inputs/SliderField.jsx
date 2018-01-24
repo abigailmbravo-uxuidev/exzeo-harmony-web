@@ -63,7 +63,7 @@ export const SliderInput = ({
             autoFocus={autoFocus}
             tabIndex={'0'}
             type="text"
-            value={`$ ${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+            value={`$ ${Number(Math.round(value / 1000) * 1000).toLocaleString()}`}
             onChange={handleChange}
             name={name}
           />
