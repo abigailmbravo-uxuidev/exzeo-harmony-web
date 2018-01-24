@@ -88,7 +88,7 @@ export const handleReset = (props) => {
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
-  _.find(taskData.model.variables, { name: 'getQuote' }).value.result;
+  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
@@ -107,8 +107,8 @@ const handleGetQuestions = (state) => {
 
 const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  return quoteData;
+  return _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
+  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
 };
 
 export const Customize = (props) => {
