@@ -18,7 +18,7 @@ const userTasks = {
   handleSearchBarSubmit: 'search'
 };
 
-const handleInitialize = () => ({ sortBy: 'policyNumber', pageNumber: 1, totalPages: 0 });
+const handleInitialize = state => ({ sortBy: 'policyNumber', pageNumber: state.search ? state.search.pageNumber : 1, totalPages: state.search ? state.search.totalPages : 0 });
 
 
 export const resetSearch = (props) => {
@@ -38,11 +38,13 @@ export const changePage = (props, isNext) => {
     hasSearched: true
   };
 
+
+  taskData.pageNumber = isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1;
+
   props.actions.searchActions.setPolicySearch(taskData);
 
-  const pageNumber = isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1;
 
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, pageNumber, 25, fieldValues.sortBy).then(() => {
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
   });
@@ -56,12 +58,13 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     policyNumber: (encodeURIComponent(data.policyNumber) !== 'undefined' ? encodeURIComponent(data.policyNumber) : ''),
     searchType: 'policy',
     isLoading: true,
-    hasSearched: true
+    hasSearched: true,
+    page: 1
   };
 
   props.actions.searchActions.setPolicySearch(taskData);
 
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, 1, 25, data.sortBy).then(() => {
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
   });
@@ -183,8 +186,11 @@ export class SearchForm extends Component {
     const { dispatch } = nextProps;
 
     if (!_.isEqual(this.props.policyResults, nextProps.policyResults)) {
-      dispatch(change('SearchBar', 'pageNumber', nextProps.policyResults.currentPage));
-      dispatch(change('SearchBar', 'totalPages', Math.ceil(nextProps.policyResults.totalNumberOfRecords / nextProps.policyResults.pageSize)));
+      const totalPages = Math.ceil(nextProps.policyResults.totalNumberOfRecords / nextProps.policyResults.pageSize);
+      const pageNumber = nextProps.policyResults.currentPage;
+      dispatch(change('SearchBar', 'pageNumber', pageNumber));
+      dispatch(change('SearchBar', 'totalPages', totalPages));
+      nextProps.actions.searchActions.setPolicySearch({ ...nextProps.search, totalPages, pageNumber });
     }
   }
 
@@ -259,7 +265,7 @@ export class SearchForm extends Component {
               type="button"
               form="SearchBar"
             >
-              <span className="fa fa-chevron-circle-left"></span>
+              <span className="fa fa-chevron-circle-left" />
             </button>
             <TextField name={'pageNumber'} label={'Page'} readOnly />
             <span className="pagination-operand">of</span>
@@ -272,7 +278,7 @@ export class SearchForm extends Component {
               type="button"
               form="SearchBar"
             >
-              <span className="fa fa-chevron-circle-right"></span>
+              <span className="fa fa-chevron-circle-right" />
             </button>
           </div>
           }
@@ -325,7 +331,8 @@ const mapStateToProps = state => ({
   formErrors: getFormSyncErrors('SearchBar')(state),
   searchType: getSearchType(),
   initialValues: handleInitialize(state),
-  policyResults: state.service.policyResults
+  policyResults: state.service.policyResults,
+  search: state.search
 });
 
 const mapDispatchToProps = dispatch => ({
