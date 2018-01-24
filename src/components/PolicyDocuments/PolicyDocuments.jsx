@@ -9,41 +9,41 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import PolicyConnect from '../../containers/Policy';
 import * as policyStateActions from '../../actions/policyStateActions';
 import * as serviceActions from '../../actions/serviceActions';
+import * as errorActions from '../../actions/errorActions';
 import Downloader from '../Common/Downloader';
 
 const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
 const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
-const attachmentUrl = attachments => (
-  <span>
-    { attachments.map((attachment, i) =>
-      <Downloader
-        fileName={attachment.fileName}
-        fileUrl={attachment.fileUrl}
-        fileType={attachment.fileType}
-        errorHandler={err => this.props.actions.errorActions.setAppError(err)}
-        key={i}
-      />
-    )}
-  </span>
-);
 
 export class PolicyDocuments extends Component {
 
   componentDidMount() {
-    const isNewTab = localStorage.getItem('isNewTab', true);
-    if (isNewTab) {
-      const policyNumber = localStorage.getItem('policyNumber');
+    const policyNumber = this.props.location.state && this.props.location.state.policyNumber ? this.props.location.state.policyNumber : null;
+    if (policyNumber) {
       this.props.actions.policyStateActions.updatePolicy(true, policyNumber);
-      localStorage.setItem('isNewTab', false);
       this.props.actions.serviceActions.getPolicyDocuments(policyNumber);
-    } else if (this.props.policy && this.props.policy.policyNumber) {
-      this.props.actions.policyStateActions.updatePolicy(true, this.props.policy.policyNumber);
-      this.props.actions.serviceActions.getPolicyDocuments(this.props.policy.policyNumber);
+    } else {
+      window.location = '/';
     }
   }
 
 
   render() {
+    const attachmentUrl = attachments => (
+      <span>
+        { attachments.map((attachment, i) =>
+          <Downloader
+            fileName={attachment.fileName}
+            fileUrl={attachment.fileUrl}
+            fileType={attachment.fileType}
+            errorHandler={err => this.props.actions.errorActions.setAppError(err)}
+            key={i}
+          />
+        )}
+      </span>
+    );
+
+
     const policyDocuments = _.map(this.props.policyDocuments, (doc) => {
       doc.attachments = [];
       doc.attachments.push(doc);
@@ -66,6 +66,7 @@ PolicyDocuments.contextTypes = {
 };
 
 PolicyDocuments.propTypes = {
+  location: PropTypes.shape(),
   policy: PropTypes.shape(),
   actions: PropTypes.shape()
 };
@@ -78,6 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
+    errorActions: bindActionCreators(errorActions, dispatch),
     policyStateActions: bindActionCreators(policyStateActions, dispatch),
     serviceActions: bindActionCreators(serviceActions, dispatch)
   }
