@@ -14,7 +14,3 @@ export const setQuoteSearch = data => ({
   }
 });
 
-export const dispatchPolicySearch = data => dispatch => dispatch(setPolicySearch(data));
-
-export const dispatchQuoteSearch = data => dispatch => dispatch(setQuoteSearch(data));
-
