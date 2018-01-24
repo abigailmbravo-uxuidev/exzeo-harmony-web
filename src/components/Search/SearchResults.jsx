@@ -4,26 +4,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import localStorage from 'localStorage';
+import { Link } from 'react-router-dom';
 import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import { NoResults } from './NoResults';
 import NoPolicyResultsConnect from './NoPolicyResults';
 
-export const handleSelectPolicy = (policy, props) => {
-  localStorage.setItem('policyNumber', policy.policyNumber);
-  localStorage.setItem('isNewTab', true);
-  window.open('/policy/documents', '_blank');
-};
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
     props.handleSelectQuote(quote, props);
   }
 };
 
-const onKeypressPolicy = (event, quote, props) => {
+const onKeypressPolicy = (event, policy, props) => {
   if (event.charCode === 13) {
-    handleSelectPolicy(quote, props);
+    // handleSelectPolicy(quote, props);
   }
 };
 
@@ -51,7 +47,7 @@ export const SearchResults = (props) => {
                   <span className="effctive-date">Effective Date</span>
                 </li>
                 <li>
-                  <a id={policy.policyNumber + policy.property.physicalAddress.address1} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`} aria-label={policy.policyNumber + policy.property.physicalAddress.address1} value={policy.policyNumber + policy.property.physicalAddress.address1} onClick={() => handleSelectPolicy(policy, props)} tabIndex="-1">
+                  <Link to={{ pathname: '/policy/documents', state: { policyNumber: policy.policyNumber } }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
                     <span className="quote-no">{policy.policyNumber}</span>
                     <span className="property-address">{
                   `${policy.property.physicalAddress.address1}
@@ -60,7 +56,7 @@ export const SearchResults = (props) => {
                 }</span>
                     <span className="quote-state">{policy.status}</span>
                     <span className="effctive-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </section>

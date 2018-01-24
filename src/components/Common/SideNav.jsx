@@ -30,7 +30,7 @@ const agentLinks = [{
   styleName: 'agent-homeowners label'
 },
 {
-  link: '/policy/retrieve',
+  link: '/policy',
   label: 'HO3 POLICY',
   styleName: 'agent-homeowners label'
 }];
