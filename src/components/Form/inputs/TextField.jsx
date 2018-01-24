@@ -10,7 +10,8 @@ export const TextInput = ({
   styleName,
   meta,
   type,
-  autoFocus
+  autoFocus,
+  readOnly
 }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;
@@ -39,6 +40,7 @@ export const TextInput = ({
     <div className={formGroupStyles} id={name}>
       {Label}
       <input
+        readOnly={readOnly}
         autoFocus={autoFocus}
         tabIndex={'0'}
         {...input}

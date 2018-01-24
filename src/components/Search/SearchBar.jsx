@@ -12,6 +12,7 @@ import * as errorActions from '../../actions/errorActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as searchActions from '../../actions/searchActions';
 import SelectField from '../Form/inputs/SelectField';
+import TextField from '../Form/inputs/TextField';
 
 const userTasks = {
   handleSearchBarSubmit: 'search'
@@ -236,6 +237,7 @@ export class SearchForm extends Component {
           </div>
           { this.props.policyResults && <div>
             <button
+              disabled={String(fieldValues.pageNumber) === '1'}
               tabIndex="0"
               className="btn btn-default multi-input"
               type="button"
@@ -243,10 +245,11 @@ export class SearchForm extends Component {
             >
               <span>{'<'}</span>
             </button>
-            {generateField('pageNumber', 'Page Number', 'Page Number', formErrors, 'first-name-search', false)}
+            <TextField name={'pageNumber'} label={'Page Number'} readOnly />
             <h4>of</h4>
-            {generateField('totalPages', 'Total Pages', 'Total Pages', formErrors, 'first-name-search', false)}
+            <TextField name={'totalPages'} label={'Total Pages'} readOnly />
             <button
+              disabled={String(fieldValues.pageNumber) === String(fieldValues.totalPages)}
               tabIndex="0"
               className="btn btn-default multi-input"
               type="button"
