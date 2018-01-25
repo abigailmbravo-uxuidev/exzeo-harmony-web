@@ -53,7 +53,7 @@ export const SliderInput = ({
             min={min}
             max={max}
             step={step}
-            value={value}
+            value={Number(Math.round(value / 1000) * 1000)}
             onChange={input.onChange}
           />
           <span className="range-limit">{rightLabel || max}</span>
@@ -63,7 +63,7 @@ export const SliderInput = ({
             autoFocus={autoFocus}
             tabIndex={'0'}
             type="text"
-            value={`$ ${Number(Math.round(value / 1000) * 1000).toLocaleString()}`}
+            value={`$ ${Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
           />
