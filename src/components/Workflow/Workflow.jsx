@@ -121,11 +121,14 @@ export class Workflow extends Component {
   render() {
     const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
       this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
+
+    const redirectUrlPath = this.context && this.context.router && this.context.router.route &&
+    this.context.router.route.location ? this.context.router.route.location.pathname : '';
     return (
       <div className={`route ${activeStep}`}>
         <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
         {this.state.currentControl}
-        <CheckErrorConnect redirectUrl={this.context.router.route.location.pathname} />
+        <CheckErrorConnect redirectUrl={redirectUrlPath} />
       </div>);
   }
 }

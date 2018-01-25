@@ -1,27 +1,44 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import ConnectedApp, { Workflow } from './Workflow';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-function wrapWithContext(context, contextTypes, children) {
-  const wrapperWithContext = React.createClass({ //eslint-disable-line
-    childContextTypes: contextTypes,
-    getChildContext() { return context; },
-    render() { return React.createElement('div', null, children); }
-  });
-
-  return React.createElement(wrapperWithContext);
-}
-
 describe('Testing Workflow component', () => {
   it('should test props and render', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      tasks: {
+        quoteModel: {
+          data: {
+            modelInstanceId: '123',
+            model: {},
+            activeTask: {
+              name: 'first',
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            uiQuestions: []
+          }
+        }
+      },
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        },
+        cgActions: {
+          startWorkflow() { return Promise.resolve(); },
+          completeTask() {},
+          batchCompleteTask() { return Promise.resolve(); }
+        }
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -32,10 +49,48 @@ describe('Testing Workflow component', () => {
       },
       handleSubmit() {}
     };
-    const context = { router: { route: { location: { pathName: '' } } } };
-    const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <Workflow />, React);
+
+    const wrapper = shallow(<Workflow {...props} />);
     expect(wrapper);
+    wrapper.instance().componentWillReceiveProps({
+      appState: {
+
+      },
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        }
+      },
+      tasks: {
+        quoteModel: {
+          data: {
+            modelInstanceId: '123',
+            model: {
+              variables: [
+                { name: 'quote', value: { result: { _id: '12345' } } }
+              ]
+            },
+            previousTask: {
+              name: 'notifyDocusignApp',
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            activeTask: {
+              name: 'askAdditionalCustomerData',
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            uiQuestions: []
+          }
+        }
+      }
+    });
   });
 
   it('should test connected app', () => {
@@ -71,6 +126,7 @@ describe('Testing Workflow component', () => {
           setAppState() {}
         },
         cgActions: {
+          startWorkflow() { return Promise.resolve(); },
           completeTask() {},
           batchCompleteTask() { return Promise.resolve(); }
         }
@@ -105,5 +161,7 @@ describe('Testing Workflow component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
+
+    wrapper.instance().componentDidMount();
   });
 });

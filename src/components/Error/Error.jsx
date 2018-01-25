@@ -1,5 +1,6 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Footer from '../Common/Footer';
 import _ from 'lodash';
 
@@ -15,46 +16,43 @@ const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
-const Error = ({ quote, exceptions }) => {
-
-    return (
-        <div className="route-content">
-            <div className="error-content" role="article">
-                {/* HARD STOP WORKFLOW ERROR*/}
-                <div className="error-wrapper">
-                    <section>
-                        <div id="Error">
-                            <div className="detail-wrapper">
-                                <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle"/> Property does not qualify for automated quote</h3>
-                                <h4>The following errors have occurred for this property:</h4>
-                                <ul className="error-list">
-                                    {exceptions && exceptions.map((exception, key) => {
-                                      if (exception.action === 'Fatal Error') {
-                                        return <li key={key}>{exception.agentMessage}</li>;
-                                      } else if (exception.action === 'Underwriting Review') {
-                                        return <li className="warning-li" key={key}>{exception.agentMessage}</li>;
-                                      }
-                                      return '';
-                                    })
+const Error = ({ quote, exceptions }) => (
+  <div className="route-content">
+    <div className="error-content" role="article">
+      {/* HARD STOP WORKFLOW ERROR*/}
+      <div className="error-wrapper">
+        <section>
+          <div id="Error">
+            <div className="detail-wrapper">
+              <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle" /> Property does not qualify for automated quote</h3>
+              <h4>The following errors have occurred for this property:</h4>
+              <ul className="error-list">
+                {exceptions && exceptions.map((exception, key) => {
+                  if (exception.action === 'Fatal Error') {
+                    return <li key={key}>{exception.agentMessage}</li>;
+                  } else if (exception.action === 'Underwriting Review') {
+                    return <li className="warning-li" key={key}>{exception.agentMessage}</li>;
+                  }
+                  return '';
+                })
                                     }
-                                </ul>
-                                <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
-                            </div>
-                        </div>
-                    </section>
-                    <aside>
-                        <div className="image"/>
-                        <div className="contact-info">
-                            <a className="link-email" href="mailto:customerservice@typtap.com"><i className="fa fa-envelope"/> <span>email us</span></a>
-                            <a className="link-phone" href="tel:8442897968"><i className="fa fa-phone"/> <span>(844) 289-7968</span></a>
-                        </div>
-                    </aside>
-                </div>
+              </ul>
+              <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
             </div>
-            <Footer />
-        </div>
+          </div>
+        </section>
+        <aside>
+          <div className="image" />
+          <div className="contact-info">
+            <a className="link-email" href="mailto:customerservice@typtap.com"><i className="fa fa-envelope" /> <span>email us</span></a>
+            <a className="link-phone" href="tel:8442897968"><i className="fa fa-phone" /> <span>(844) 289-7968</span></a>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <Footer />
+  </div>
     );
-};
 
 Error.propTypes = {
   tasks: PropTypes.shape({
