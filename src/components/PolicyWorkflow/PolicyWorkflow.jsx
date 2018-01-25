@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import * as cgActions from '../../actions/cgActions';
+import * as serviceActions from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 
 
 export class PolicyWorkflow extends Component {
 
   componentDidMount() {
-
+    this.props.actions.serviceActions.clearPolicyResults();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -18,7 +18,6 @@ export class PolicyWorkflow extends Component {
 
   render() {
     const { children } = this.props;
-    console.log(this.props);
     return (
       <div className={'route '}>
         <PolicyWorkFlowDetailsConnect />
@@ -57,8 +56,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch)
-   // policyStateActions: bindActionCreators(policyStateActions, dispatch)
+    serviceActions: bindActionCreators(serviceActions, dispatch)
   }
 });
 

@@ -152,6 +152,17 @@ export const searchPolicy = (policyNumber, firstName, lastName, address, pageNum
     });
 };
 
+export const clearPolicyResults = () => (dispatch) => {
+  const data = { policyResults: {
+    totalNumberOfRecords: 1,
+    pageSize: 1,
+    currentPage: 1
+  } };
+  return dispatch(batchActions([
+    serviceRequest(data)
+  ]));
+};
+
 export const getLatestPolicy = policyNumber => (dispatch) => {
   const axiosConfig = runnerSetup({
     service: 'policy-data.services',

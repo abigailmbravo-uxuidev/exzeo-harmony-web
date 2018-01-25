@@ -18,11 +18,19 @@ const userTasks = {
   handleSearchBarSubmit: 'search'
 };
 
-const handleInitialize = state => ({ sortBy: 'policyNumber', pageNumber: state.search ? state.search.pageNumber : 1, totalPages: state.search ? state.search.totalPages : 0 });
+const handleInitialize = (state) => {
+  const values = {
+    address: '',
+    sortBy: 'policyNumber',
+    pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
+    totalPages: _.get(state.search, 'state.search.totalPages') || 0
+  };
+  return values;
+};
 
 
 export const resetSearch = (props) => {
-  // set page number back
+  props.actions.serviceActions.clearPolicyResults();
 };
 
 export const changePage = (props, isNext) => {
@@ -255,7 +263,7 @@ export class SearchForm extends Component {
               <i className="fa fa-search" /><span>Search</span>
             </button>
           </div>
-          { this.props.policyResults && <div className="pagination-wrapper">
+          { this.props.policyResults && this.props.policyResults.policies && this.props.policyResults.policies.length > 0 && <div className="pagination-wrapper">
             <button
               onClick={() => changePage(this.props, false)}
               disabled={String(fieldValues.pageNumber) === '1'}
@@ -286,7 +294,6 @@ export class SearchForm extends Component {
         </Form>
       );
     }
-
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
         <div className="search-input-wrapper">
@@ -296,7 +303,7 @@ export class SearchForm extends Component {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={this.props.appState.data.submitting || formErrors || !String(fieldValues.address).trim()}
+            disabled={this.props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).trim()}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>
@@ -328,7 +335,7 @@ SearchForm.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  fieldValues: _.get(state.form, 'SearchBar.values', {}),
+  fieldValues: _.get(state.form, 'SearchBar.values', { address: '', sortBy: 'policyNumber' }),
   formErrors: getFormSyncErrors('SearchBar')(state),
   searchType: getSearchType(),
   initialValues: handleInitialize(state),
@@ -348,6 +355,7 @@ const mapDispatchToProps = dispatch => ({
 
 const searchBarForm = reduxForm({
   form: 'SearchBar',
+  enableReinitialize: true,
   validate
 })(SearchBar);
 

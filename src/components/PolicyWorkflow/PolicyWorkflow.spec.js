@@ -16,9 +16,21 @@ describe('Testing PolicyWorkflow component', () => {
   });
 
   it('should test PolicyWorkflow', () => {
-    const initialState = {};
+    const initialState = {
+      actions: {
+        serviceActions: {
+          clearPolicyResults() {}
+        }
+      }
+    };
     const store = mockStore(initialState);
-    const props = {};
+    const props = {
+      actions: {
+        serviceActions: {
+          clearPolicyResults() {}
+        }
+      }
+    };
     const wrapper = shallow(<PolicyWorkflow store={store} {...props} />);
     expect(wrapper);
   });

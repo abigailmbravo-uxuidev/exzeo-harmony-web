@@ -37,6 +37,9 @@ describe('Testing Workflow component', () => {
           startWorkflow() { return Promise.resolve(); },
           completeTask() {},
           batchCompleteTask() { return Promise.resolve(); }
+        },
+        serviceActions: {
+          clearPolicyResults() {}
         }
       },
       fieldQuestions: [],
@@ -194,6 +197,9 @@ describe('Testing Workflow component', () => {
     const store = mockStore(initialState);
     const props = {
       actions: {
+        serviceActions: {
+          clearPolicyResults() {}
+        },
         appStateActions: {
           setAppState() {}
         },
