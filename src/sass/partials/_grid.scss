@@ -199,13 +199,7 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
   cursor: pointer;
 }
 /*inline editor default style*/
-.react-bs-container .form-control.editor {
-  /*width:100%;
-  top:0;
-  left:0;*/
-  /*height: 100%;
-  position: absolute;*/
-}
+.react-bs-container .form-control.editor {}
 
 .react-bs-container .textarea-save-btn {
   position: absolute;
