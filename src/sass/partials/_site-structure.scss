@@ -100,21 +100,7 @@ html {
                       height: 4.625rem;
                   }
 
-                  &.policy-header {
-                      flex-wrap: wrap;
-                      min-height: 7.375rem;
-
-                      .policy-sub-header {
-                          display: flex;
-                          height: 2.75rem;
-                          width: 100%;
-                          background: $bright-blue-darken-04;
-                      }
-
-                      @include for-desktop-up {
-                          height: 7.375rem;
-                      }
-                  }
+                  &.policy-header {}
               }
               .workflow-header {
                   display: flex;
