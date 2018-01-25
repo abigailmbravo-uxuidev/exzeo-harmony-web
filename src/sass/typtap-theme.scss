@@ -1691,13 +1691,3 @@ ul.result-cards {
     }
   }
 }
-
-@import "partials/_phone";
-
-.pagination-wrapper {
-    .pageNumber {
-        input, input[readonly] {
-            border-bottom-width: 0;
-        }
-    }
-}

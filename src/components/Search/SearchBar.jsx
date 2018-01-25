@@ -254,27 +254,28 @@ export class SearchForm extends Component {
             >
               <i className="fa fa-search" /><span>Search</span>
             </button>
-
           </div>
           { this.props.policyResults && <div className="pagination-wrapper">
             <button
               onClick={() => changePage(this.props, false)}
               disabled={String(fieldValues.pageNumber) === '1'}
               tabIndex="0"
-              className="btn btn-action multi-input"
+              className="btn multi-input"
               type="button"
               form="SearchBar"
             >
               <span className="fa fa-chevron-circle-left" />
             </button>
-            <TextField name={'pageNumber'} label={'Page'} readOnly />
-            <span className="pagination-operand">of</span>
-            <TextField name={'totalPages'} label={''} readOnly />
+            <div className="pagination-count">
+              <TextField size="2" name={'pageNumber'} label={'Page'} readOnly />
+              <span className="pagination-operand">of</span>
+              <TextField size="2" name={'totalPages'} label={''} readOnly />
+            </div>
             <button
               onClick={() => changePage(this.props, true)}
               disabled={String(fieldValues.pageNumber) === String(fieldValues.totalPages)}
               tabIndex="0"
-              className="btn btn-action multi-input"
+              className="btn multi-input"
               type="button"
               form="SearchBar"
             >
