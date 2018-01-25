@@ -25,7 +25,13 @@ export class PolicyWorkflow extends Component {
     return (
       <div className={'route '}>
         <PolicyWorkFlowDetailsConnect />
-        {children}
+        <div className="route-content">
+          <div className="scroll">
+            <div className="detail-wrapper">
+              {children}
+            </div>
+          </div>
+        </div>
       </div>);
   }
 }

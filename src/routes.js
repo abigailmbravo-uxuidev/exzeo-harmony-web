@@ -59,20 +59,14 @@ class Routes extends Component { // eslint-disable-line
     }
   }
   clearError = () => this.props.actions.errorActions.clearAppError();
-  modalStyles = {
-    content: {
-      top: '20%',
-      left: '20%'
-    }
-  };
   render() {
     return (
       <div>
         <Modal
           isOpen={this.props.error.modalMessage !== undefined}
           contentLabel="Error Modal"
-          style={this.modalStyles}
           className="card"
+          overlayClassName="modal root-modal"
           appElement={document.getElementById('root')}
         >
           <div className="card-header"><h4><i className="fa fa-exclamation-circle" />&nbsp;Error</h4></div>

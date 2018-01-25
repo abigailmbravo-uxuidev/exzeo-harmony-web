@@ -1,5 +1,5 @@
 .modal {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   z-index: 900;
   top: 0;
@@ -11,6 +11,17 @@
   &.schedule-date-modal {
     display: flex;
     flex-direction: column;
+  }
+
+  &.root-modal {
+      top: 3.375rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .card {
+          min-width: 40%;
+      }
   }
 
   .survey-wrapper {

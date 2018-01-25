@@ -52,11 +52,13 @@ export class PolicyDocuments extends Component {
 
     return (
       <PolicyConnect {...this.props}>
-        <BootstrapTable data={policyDocuments}>
+
+        <BootstrapTable className="table-responsive" data={policyDocuments}>
           <TableHeaderColumn dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
           <TableHeaderColumn dataField="fileName" isKey dataFormat={nameFormatter}>Document Type</TableHeaderColumn>
           <TableHeaderColumn className="attachments" columnClassName="attachments" dataField="attachments" dataFormat={attachmentUrl} dataSort >Attachments</TableHeaderColumn>
         </BootstrapTable>
+
       </PolicyConnect>);
   }
 }
