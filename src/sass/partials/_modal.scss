@@ -18,6 +18,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .card {
+          min-width: 40%;
+      }
   }
 
   .survey-wrapper {
