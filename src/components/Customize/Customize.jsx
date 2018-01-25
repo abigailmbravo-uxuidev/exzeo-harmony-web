@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
@@ -29,6 +30,8 @@ export const handleFormSubmit = (data, dispatch, props) => {
   } else {
     // the form was modified and now we need to recalc
     const updatedQuote = convertQuoteStringsToNumber(data);
+
+    updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
 
     const updatedQuoteResult = {
       ...updatedQuote,
@@ -203,6 +206,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const reduxFormComponent = reduxForm({ form: 'Customize' })(Customize);
+const reduxFormComponent = reduxForm({ form: 'Customize', enableReinitialize: true })(Customize);
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxFormComponent);
