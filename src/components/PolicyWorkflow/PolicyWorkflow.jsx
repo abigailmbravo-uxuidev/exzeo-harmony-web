@@ -6,16 +6,36 @@ import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 
-export const PolicyWorkflow = props => (<div className={'route '}>
-  <PolicyWorkFlowDetailsConnect />
-  <div className="route-content">
-    <div className="scroll">
-      <div className="detail-wrapper">
-        {props.children}
-      </div>
-    </div>
-  </div>
-</div>);
+
+export class PolicyWorkflow extends Component {
+
+  componentDidMount() {
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+  }
+
+  render() {
+    const { children } = this.props;
+    console.log(this.props);
+    return (
+      <div className={'route '}>
+        <PolicyWorkFlowDetailsConnect />
+        <div className="route-content">
+          <div className="scroll">
+            <div className="detail-wrapper">
+              <nav className="nav-tabs">
+                <button className="btn btn-tab active"><i className="fa fa-file-text-o" />Documents</button>
+                <button className="btn btn-tab"><i className="fa fa-circle" />Another Tab</button>
+              </nav>
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>);
+  }
+}
 
 PolicyWorkflow.contextTypes = {
   router: PropTypes.object
