@@ -125,7 +125,7 @@ export class Workflow extends Component {
       <div className={`route ${activeStep}`}>
         <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
         {this.state.currentControl}
-        <CheckErrorConnect redirectUrl={this.context.router.route.location.pathname} />
+        <CheckErrorConnect redirectUrl={this.context.router ? this.context.router.route.location.pathname : ''} />
       </div>);
   }
 }

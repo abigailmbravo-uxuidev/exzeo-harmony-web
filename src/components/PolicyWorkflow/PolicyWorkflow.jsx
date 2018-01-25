@@ -4,44 +4,29 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
-// import * as policyStateActions from '../../actions/policyStateActions';
-import CheckErrorConnect from '../Error/CheckError';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
-import PolicyDocumentsConnect from '../PolicyDocuments/PolicyDocuments';
 
-
-export class PolicyWorkflow extends Component {
-
-  componentDidMount() {
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-  }
-
-  render() {
-    const { children } = this.props;
-    console.log(this.props);
-    return (
-      <div className={'route '}>
-        <PolicyWorkFlowDetailsConnect />
-        <div className="route-content">
-          <div className="scroll">
-            <div className="detail-wrapper">
-              {children}
-            </div>
-          </div>
-        </div>
-      </div>);
-  }
-}
+export const PolicyWorkflow = props => (<div className={'route '}>
+  <PolicyWorkFlowDetailsConnect />
+  <div className="route-content">
+    <div className="scroll">
+      <div className="detail-wrapper">
+        {props.children}
+      </div>
+    </div>
+  </div>
+</div>);
 
 PolicyWorkflow.contextTypes = {
   router: PropTypes.object
 };
 
 PolicyWorkflow.propTypes = {
-  selectedPolicy: PropTypes.shape()
+  selectedPolicy: PropTypes.shape(),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 const mapStateToProps = state => ({
