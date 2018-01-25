@@ -30,6 +30,8 @@ export const handleFormSubmit = (data, dispatch, props) => {
     // the form was modified and now we need to recalc
     const updatedQuote = convertQuoteStringsToNumber(data);
 
+    updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
+
     const updatedQuoteResult = {
       ...updatedQuote,
       dwellingAmount: updatedQuote.dwellingAmount,
@@ -203,6 +205,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const reduxFormComponent = reduxForm({ form: 'Customize' })(Customize);
+const reduxFormComponent = reduxForm({ form: 'Customize', enableReinitialize: true })(Customize);
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxFormComponent);
