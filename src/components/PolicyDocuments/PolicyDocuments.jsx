@@ -36,7 +36,7 @@ export class PolicyDocuments extends Component {
             fileName={attachment.fileName}
             fileUrl={attachment.fileUrl}
             fileType={attachment.fileType}
-            errorHandler={err => this.props.actions.errorActions.setAppError(err)}
+            errorHandler={err => this.props.actions.errorActions.setAppModalError(err.message)}
             key={i}
           />
         )}

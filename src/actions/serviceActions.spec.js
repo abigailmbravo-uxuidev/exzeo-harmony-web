@@ -166,4 +166,9 @@ describe('Service Actions', () => {
         expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
       });
   });
+
+  it('should handle default error', () => {
+    const message = serviceActions.handleError({ response: {} });
+    expect(message).toEqual('An error happened');
+  });
 });
