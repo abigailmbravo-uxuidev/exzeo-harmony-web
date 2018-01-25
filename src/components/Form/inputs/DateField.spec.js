@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { DateInput } from './DateField';
+import DateFieldComponent, { DateInput } from './DateField';
 
 describe('DateInput', () => {
   it('should render "text input" when nothing is provided', () => {
-    const wrapper = shallow(<DateInput />);
+    const wrapper = shallow(<DateFieldComponent />);
     expect(wrapper.instance().props.type).toEqual('text');
   });
 
@@ -15,8 +15,19 @@ describe('DateInput', () => {
         name: 'testing'
       }
     };
-    const wrapper = shallow(<DateInput {...inputProps} />);
+    const wrapper = shallow(<DateFieldComponent {...inputProps} />);
 
     expect(wrapper.instance().props.input.name).toEqual('testing');
+  });
+
+  it('DateInput test', () => {
+    const inputProps = {
+      label: 'Test',
+      input: {
+        name: 'testing'
+      }
+    };
+    const wrapper = shallow(<DateInput {...inputProps} />);
+    expect(wrapper);
   });
 });

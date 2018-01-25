@@ -15,7 +15,8 @@ describe('Testing Base component', () => {
         currentAgent: {}
       },
       auth: {
-        userProfile: {}
+        userProfile: {},
+        getProfile() {}
       }
     };
     const store = mockStore(initialState);
@@ -24,7 +25,9 @@ describe('Testing Base component', () => {
         currentAgent: {}
       },
       auth: {
-        getIdToken() {}
+        userProfile: {},
+        getIdToken() {},
+        getProfile() {}
       },
       authState: {
         userProfile: {}
@@ -63,6 +66,11 @@ describe('Testing Base component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      auth: {
+        userProfile: {},
+        getIdToken() {},
+        getProfile() {}
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
