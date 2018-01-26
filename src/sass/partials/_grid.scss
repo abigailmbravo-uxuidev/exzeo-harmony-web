@@ -9,10 +9,10 @@ $line-height-computed: floor(($font-size-base * $line-height-base)) !default; //
 //** Padding for `<th>`s and `<td>`s.
 $table-cell-padding: $padding !default; //** Padding for cells in `.table-condensed`.
 $table-condensed-cell-padding: ($padding/2) !default; //** Default background color used for all tables.
-$table-bg: transparent !default; //** Background color used for `.table-striped`.
+$table-bg: $white !default; //** Background color used for `.table-striped`.
 $table-bg-accent: $white !default; //** Background color used for `.table-hover`.
-$table-bg-hover: $cool-gray-00 !default;
-$table-bg-hover-alt: $cool-gray-02 !default;
+$table-bg-hover: $cool-gray-01 !default;
+$table-bg-hover-alt: rgba($cool-gray-01, 0.3) !default;
 $table-bg-active: $table-bg-hover !default; //** Border color for table and cell borders.
 $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 
@@ -53,7 +53,6 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 }
 
 .react-bs-container-body {
-  /*height: 154px;*/
   overflow: auto;
   width: 100%;
 }
@@ -94,6 +93,10 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 .react-bs-table .table-bordered > tbody > tr > td {
   color: $cool-gray-10;
   outline: none !important;
+
+  .btn {
+    padding: 0;
+  }
 }
 
 .react-bs-table .table-bordered > tbody > tr:nth-of-type(even) {
@@ -212,150 +215,6 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
   text-align: center;
 }
 
-.ReactModal__Overlay {
-  z-index: 101;
-  overflow-x: hidden;
-  overflow-y: auto;
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-perspective: 600;
-  perspective: 600;
-}
-
-.ReactModal__Overlay--after-open {
-  transition: opacity 150ms ease-out;
-  opacity: 1;
-}
-
-.ReactModal__Content {
-  -webkit-transform: scale(0.5) rotateX(-30deg);
-  transform: scale(0.5) rotateX(-30deg);
-}
-
-.ReactModal__Content--after-open {
-  transition: all 150ms ease-in;
-  -webkit-transform: scale(1) rotateX(0deg);
-  transform: scale(1) rotateX(0deg);
-}
-
-.ReactModal__Overlay--before-close {
-  opacity: 0;
-}
-
-.ReactModal__Content--before-close {
-  transition: all 150ms ease-in;
-  -webkit-transform: scale(0.5) rotateX(30deg);
-  transform: scale(0.5) rotateX(30deg);
-}
-
-.ReactModal__Content.modal-dialog {
-  border: none;
-  background-color: transparent;
-}
-/*error tip style*/
-.animated {
-  animation-fill-mode: both;
-}
-
-.animated.bounceIn,
-.animated.bounceOut {
-  animation-duration: 0.75s;
-}
-
-.animated.shake {
-  animation-duration: 0.3s;
-}
-
-td.react-bs-table-expand-cell {
-  cursor: pointer;
-}
-@keyframes shake {
-  from,
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-
-  10%,
-  50%,
-  90% {
-    transform: translate3d(-10px, 0, 0);
-  }
-
-  30%,
-  70% {
-    transform: translate3d(10px, 0, 0);
-  }
-}
-
-.shake {
-  animation-name: shake;
-}
-@keyframes bounceIn {
-  20%,
-  40%,
-  60%,
-  80%,
-  from,
-  to {
-    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  }
-
-  0% {
-    transform: scale3d(.3, .3, .3);
-    opacity: 0;
-  }
-
-  20% {
-    transform: scale3d(1.1, 1.1, 1.1);
-  }
-
-  40% {
-    transform: scale3d(.9, .9, .9);
-  }
-
-  60% {
-    transform: scale3d(1.03, 1.03, 1.03);
-    opacity: 1;
-  }
-
-  80% {
-    transform: scale3d(.97, .97, .97);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-    opacity: 1;
-  }
-}
-
-.bounceIn {
-  animation-name: bounceIn;
-}
-@keyframes bounceOut {
-  20% {
-    transform: scale3d(.9, .9, .9);
-  }
-
-  50%,
-  55% {
-    transform: scale3d(1.1, 1.1, 1.1);
-    opacity: 1;
-  }
-
-  to {
-    transform: scale3d(.3, .3, .3);
-    opacity: 0;
-  }
-}
-
-.bounceOut {
-  animation-name: bounceOut;
-}
-//bootstrap _tables.scss
-//
-// Tables
-// --------------------------------------------------
-
 table {
   background-color: $table-bg;
 }
@@ -377,12 +236,12 @@ th {
   max-width: 100%;
   margin-bottom: $line-height-computed;
   // Cells
-   > tfoot,
+  > tbody,
    > thead,
-  > tbody {
+  > tfoot {
     > tr {
-       > th,
-      > td {
+      > td,
+      > th {
         padding: $table-cell-padding;
         vertical-align: top;
         border-top: 1px solid $table-border-color;
@@ -396,12 +255,12 @@ th {
     border-bottom: 2px solid $table-border-color;
   }
   // Remove top border from thead by default
-   > caption + thead,
+  > colgroup + thead,
    > thead:first-child,
-  > colgroup + thead {
+  > caption + thead {
     > tr:first-child {
-       > th,
-      > td {
+      > td,
+      > th {
         border-top: 0;
       }
     }
@@ -418,12 +277,12 @@ th {
 // Condensed table w/ half padding
 
 .table-condensed {
-   > tfoot,
+  > tbody,
    > thead,
-  > tbody {
+  > tfoot {
     > tr {
-       > th,
-      > td {
+      > td,
+      > th {
         padding: $table-condensed-cell-padding;
       }
     }
@@ -436,20 +295,20 @@ th {
 .table-bordered {
   border: 1px solid $table-border-color;
 
-   > tfoot,
+  > tbody,
    > thead,
-  > tbody {
+  > tfoot {
     > tr {
-       > th,
-      > td {
+      > td,
+      > th {
         border: 1px solid $table-border-color;
       }
     }
   }
 
   > thead > tr {
-     > th,
-    > td {
+    > td,
+    > th {
       border-bottom-width: 2px;
     }
   }
@@ -476,15 +335,6 @@ th {
     background-color: $table-bg-hover;
   }
 }
-// Table cell sizing
-//
-// Reset default table behavior
-
-table col[class*="col-"] {
-  position: static; // Prevent border hiding in Firefox and IE9-11 (see https://github.com/twbs/bootstrap/issues/11623)
-  display: table-column;
-  float: none;
-}
 
 table {
   td,
@@ -499,73 +349,71 @@ table {
 // Responsive tables
 //
 // Wrap your tables in `.table-responsive` and we'll make them mobile friendly
-// by enabling horizontal scrolling. Only applies <768px. Everything above that
-// will display normally.
-/////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
 //NEED TO REWORK THIS TO BECOME CARDS ON MOBILE DEVICES
 
 .table-responsive {
-  overflow-x: auto;
-  min-height: 0.01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
-  @include for-phone-only {
-    overflow-y: hidden;
-    width: 100%;
-    margin-bottom: ($line-height-computed * 0.75);
-    border: 1px solid $table-border-color;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    // Tighten up spacing
-    > .table {
-      margin-bottom: 0;
-      // Ensure the content doesn't wrap
-       > tfoot,
-       > thead,
-      > tbody {
-        > tr {
-           > th,
-          > td {
-            white-space: nowrap;
-          }
-        }
-      }
-    }
-    // Special overrides for the bordered tables
-    > .table-bordered {
-      border: 0;
-      // Nuke the appropriate borders so that the parent can handle them
-       > tfoot,
-       > thead,
-      > tbody {
-        > tr {
-           > th:first-child,
-          > td:first-child {
-            border-left: 0;
-          }
+  .react-bs-table {
+    @include for-phone-only {
+      .react-bs-container-header {
+        display: none;
 
-           > th:last-child,
-          > td:last-child {
-            border-right: 0;
-          }
+        thead {
+          display: none;
         }
       }
-      // Only nuke the last row's bottom-border in `tbody` and `tfoot` since
-      // chances are there will be only one `tr` in a `thead` and that would
-      // remove the border altogether.
-       > tbody,
-      > tfoot {
-        > tr:last-child {
-           > th,
-          > td {
-            border-bottom: 0;
+
+      .react-bs-container-body {
+        .table-bordered {
+          display: flex;
+          margin-bottom: 2rem;
+
+          tbody {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            flex-shrink: 1;
+            width: 100%;
+
+            tr {
+              display: flex;
+              flex-direction: column;
+
+              td {
+                flex-grow: 1;
+                flex-shrink: 0;
+                width: auto;
+
+                :before {
+                  display: flex;
+                  font-size: $font-size-sm;
+                  font-weight: $font-weight-bold;
+                }
+
+                &.created-date {
+                  :before {
+                    content: "Date";
+                  }
+                }
+
+                &.file-name {
+                  :before {
+                    content: "Document Type";
+                  }
+                }
+
+                &.attachments {
+                  span:before {
+                    content: "Attachment";
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   }
 }
-
-
 //GLOBAL DEFAULTS
 
 .react-bs-table,
@@ -580,12 +428,11 @@ table {
 
 .react-bs-table {
   .table .table {
-    background: transparent;
+    background: $white;
   }
 
   .table-bordered {
     tr {
-      background: transparent;
       font-size: $font-size-base;
 
       th {
@@ -601,22 +448,6 @@ table {
     }
   }
 }
-
-.verify {
-  .workflow-steps {
-    .btn {
-      align-self: flex-start;
-      height: 36px;
-      margin-top: 25px;
-    }
-
-    input {
-      height: 36px;
-    }
-  }
-}
-
-.file-list {}
 //table view
 /*------------------------------------------------------------------------------------*/
 .react-bs-container-header {
@@ -639,16 +470,6 @@ table {
         order: 0;
         width: auto;
       }
-    }
-  }
-}
-
-.react-bs-container-body {
-  .table {
-    table-layout: auto;
-
-    tr:nth-of-type(even) > td {
-      background-color: transparent;
     }
   }
 }
@@ -727,7 +548,6 @@ table {
     }
   }
 }
-
 //grid filter buttons
 /*------------------------------------------------------------------------------------*/
 .grid-controls {
@@ -875,16 +695,6 @@ table {
           }
         }
       }
-    }
-  }
-}
-
-.responsive-tables {
-  .table-view {
-    margin: 0 $padding $padding 0;
-
-    &:last-child {
-      margin-right: 0;
     }
   }
 }

@@ -23,14 +23,13 @@ export class PolicyWorkflow extends Component {
     const { children } = this.props;
     console.log(this.props);
     return (
-      <div className={'route '}>
+      <div className="route policy-detail">
         <PolicyWorkFlowDetailsConnect />
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
               <nav className="nav-tabs">
                 <button className="btn btn-tab active"><i className="fa fa-file-text-o"></i>Documents</button>
-                <button className="btn btn-tab"><i className="fa fa-circle"></i>Another Tab</button>
               </nav>
               {children}
             </div>
