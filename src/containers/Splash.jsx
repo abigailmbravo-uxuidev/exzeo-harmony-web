@@ -13,9 +13,9 @@ const Splash = props => (
         <div className="route-content">
           <div className="scroll">
             <div className="dashboard-message">
-              <h1 className="app-header">Agency Quoting App</h1>
-              <h4>Easily quote Flood and Homeowners (HO3) insurance for Florida properties.</h4>
-              <p>Getting a quote is always quick and simple with <strong>TypTap Insurance</strong>. You can start a quote or find an existing quote using the <strong>NEW QUOTE</strong> and <strong>RETRIEVE QUOTE</strong> buttons below.</p>
+              <h1 className="app-header">Agency App</h1>
+              <h4>Homeowners (HO3) insurance for Florida properties.</h4>
+              <p>Getting a quote is always quick and simple with <strong>TypTap Insurance</strong>. Start a quote or find an existing quote using the <strong>START NEW QUOTE</strong> and <strong>RETRIEVE QUOTE</strong> buttons below. Find a policy using the <strong>RETRIEVE POLICY</strong> button below.</p>
             </div>
             <div className="survey-wrapper">
               <div className="product-wrapper">
