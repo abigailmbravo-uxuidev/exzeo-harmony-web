@@ -13,6 +13,7 @@ import Downloader from '../Common/Downloader';
 
 const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
 const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
+const fileExtension = cell => `${String(cell).split('.').pop()}`;
 
 export class PolicyDocuments extends Component {
 
@@ -32,7 +33,7 @@ export class PolicyDocuments extends Component {
       <span>
         { attachments.map((attachment, i) =>
           <Downloader
-            fileName={attachment.fileName}
+            fileName={nameFormatter(attachment.fileName)}
             fileUrl={attachment.fileUrl}
             fileType={attachment.fileType}
             errorHandler={err => this.props.actions.errorActions.setAppModalError(err.message)}
@@ -54,8 +55,7 @@ export class PolicyDocuments extends Component {
 
         <BootstrapTable className="table-responsive table-striped" data={policyDocuments}>
           <TableHeaderColumn className="created-date" columnClassName="created-date" dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
-          <TableHeaderColumn className="file-name" columnClassName="file-name" dataField="fileName" isKey dataFormat={nameFormatter}>Document Type</TableHeaderColumn>
-          <TableHeaderColumn className="attachments" columnClassName="attachments" dataField="attachments" dataFormat={attachmentUrl} dataSort >Attachments</TableHeaderColumn>
+          <TableHeaderColumn className="attachments" columnClassName="attachments" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
 
       </PolicyConnect>);
