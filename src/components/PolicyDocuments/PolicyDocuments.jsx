@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
-import localStorage from 'localStorage';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import PolicyConnect from '../../containers/Policy';
 import * as policyStateActions from '../../actions/policyStateActions';
@@ -18,7 +17,7 @@ const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')
 export class PolicyDocuments extends Component {
 
   componentDidMount() {
-    const policyNumber = this.props.location.state && this.props.location.state.policyNumber ? this.props.location.state.policyNumber : null;
+    const policyNumber = _.get(this.props, 'location.state.policyNumber');
     if (policyNumber) {
       this.props.actions.policyStateActions.updatePolicy(true, policyNumber);
       this.props.actions.serviceActions.getPolicyDocuments(policyNumber);

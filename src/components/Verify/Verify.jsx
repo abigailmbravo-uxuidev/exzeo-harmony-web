@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
@@ -242,7 +243,7 @@ export const Verify = (props) => {
                 <section className="display-element">
                   <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property inspection will results in failure to bind the policy.</p>
                   <div className="contact-card-wrapper">
-                  {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
+                    {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
                      quoteData.policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
                      <div className="contact-card" key={`ph${index}`}>
                        <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
@@ -261,7 +262,7 @@ export const Verify = (props) => {
                          </div>
                        </dl>
                      </div>)) : null}
-                   </div>
+                  </div>
                 </section>
               </div>
               <div className="detail-group mailing-address-details">

@@ -1,29 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SelectFieldAgents, SelectInputAgents } from './SelectFieldAgents';
-import FieldHint from './FieldHint';
+import SelectFieldAgent, { SelectInputAgents } from './SelectFieldAgents';
 
-function wrapWithContext(context, contextTypes, children) {
-  const wrapperWithContext = React.createClass({ //eslint-disable-line
-    childContextTypes: contextTypes,
-    getChildContext() { return context; },
-    render() { return React.createElement('div', null, children); }
-  });
-
-  return React.createElement(wrapperWithContext);
-}
-describe('SelectFieldAgents', () => {
+describe('SelectFieldBilling', () => {
   it('should render "select input" when nothing is provided', () => {
-    const context = { router: {} };
-    const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <SelectFieldAgents />, React);
-    expect(shallow(wrapper).find('option').length).toEqual(0);
+    const inputProps = {
+      name: 'test',
+      label: 'test'
+    };
+    const wrapper = shallow(<SelectFieldAgent {...inputProps} />);
+    expect(wrapper.find('option').length).toEqual(0);
   });
 
   it('should render "select input" with answers when answers are provided', () => {
     const inputProps = {
-      meta: { },
-      input: { onChange() {} },
+      name: 'test',
+      label: 'test',
       answers: [{
         answer: 'One'
       }, {
@@ -32,10 +24,29 @@ describe('SelectFieldAgents', () => {
         answer: 'Three'
       }]
     };
-    const context = { router: {} };
-    const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <SelectFieldAgents {...inputProps} />, React);
-    expect(shallow(wrapper).children().props().answers.length).toEqual(3);
-    SelectInputAgents(inputProps);
+
+    const wrapper = shallow(<SelectFieldAgent {...inputProps} />);
+    expect(wrapper.prop('answers').length).toEqual(3);
+    // Need to take into account blank option
+  });
+
+  it('should render SelectInput', () => {
+    const inputProps = {
+      meta: {
+        touched: false
+      },
+      name: 'test',
+      label: 'test',
+      answers: [{
+        answer: 'One'
+      }, {
+        answer: 'Two'
+      }, {
+        answer: 'Three'
+      }]
+    };
+
+    const wrapper = shallow(<SelectInputAgents {...inputProps} />);
+    expect(wrapper);
   });
 });

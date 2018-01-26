@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import * as cgActions from '../../actions/cgActions';
-// import * as policyStateActions from '../../actions/policyStateActions';
-import CheckErrorConnect from '../Error/CheckError';
+import * as serviceActions from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
-import PolicyDocumentsConnect from '../PolicyDocuments/PolicyDocuments';
 
 
 export class PolicyWorkflow extends Component {
 
   componentDidMount() {
-
+    this.props.actions.serviceActions.clearPolicyResults();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,7 +18,6 @@ export class PolicyWorkflow extends Component {
 
   render() {
     const { children } = this.props;
-    console.log(this.props);
     return (
       <div className="route policy-detail">
         <PolicyWorkFlowDetailsConnect />
@@ -29,7 +25,12 @@ export class PolicyWorkflow extends Component {
           <div className="scroll">
             <div className="detail-wrapper">
               <nav className="nav-tabs">
+<<<<<<< HEAD
                 <button className="btn btn-tab active"><i className="fa fa-file-text-o"></i>Documents</button>
+=======
+                <button className="btn btn-tab active"><i className="fa fa-file-text-o" />Documents</button>
+                <button className="btn btn-tab"><i className="fa fa-circle" />Another Tab</button>
+>>>>>>> 43b76810d4d67a9c488acfb37d84423169a12662
               </nav>
               {children}
             </div>
@@ -44,7 +45,11 @@ PolicyWorkflow.contextTypes = {
 };
 
 PolicyWorkflow.propTypes = {
-  selectedPolicy: PropTypes.shape()
+  selectedPolicy: PropTypes.shape(),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 const mapStateToProps = state => ({
@@ -55,8 +60,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch)
-   // policyStateActions: bindActionCreators(policyStateActions, dispatch)
+    serviceActions: bindActionCreators(serviceActions, dispatch)
   }
 });
 
