@@ -13,9 +13,6 @@ export class PolicyWorkflow extends Component {
     this.props.actions.serviceActions.clearPolicyResults();
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
   render() {
     const { children } = this.props;
     return (
