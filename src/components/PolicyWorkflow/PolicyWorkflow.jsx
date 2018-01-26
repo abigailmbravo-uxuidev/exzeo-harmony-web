@@ -25,12 +25,7 @@ export class PolicyWorkflow extends Component {
           <div className="scroll">
             <div className="detail-wrapper">
               <nav className="nav-tabs">
-<<<<<<< HEAD
                 <button className="btn btn-tab active"><i className="fa fa-file-text-o"></i>Documents</button>
-=======
-                <button className="btn btn-tab active"><i className="fa fa-file-text-o" />Documents</button>
-                <button className="btn btn-tab"><i className="fa fa-circle" />Another Tab</button>
->>>>>>> 43b76810d4d67a9c488acfb37d84423169a12662
               </nav>
               {children}
             </div>
