@@ -13,7 +13,6 @@ import Downloader from '../Common/Downloader';
 
 const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
 const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
-const fileExtension = cell => `${String(cell).split('.').pop()}`;
 
 export class PolicyDocuments extends Component {
 
