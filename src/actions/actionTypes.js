@@ -25,7 +25,14 @@ export const APPSTATE_ERROR = 'APPSTATE_ERROR';
 
 export const APP_ERROR = 'APP_ERROR';
 export const APP_ERROR_CLEAR = 'APP_ERROR_CLEAR';
+export const APP_MODAL_ERROR = 'APP_MODAL_ERROR';
 
 export const COMPLETED_TASKS_SET = 'COMPLETED_TASKS_SET';
 
 export const AUTH = 'AUTH';
+
+export const POLICY_SEARCH = 'POLICY_SEARCH';
+export const QUOTE_SEARCH = 'QUOTE_SEARCH';
+
+export const GET_POLICY = 'GET_POLICY';
+
