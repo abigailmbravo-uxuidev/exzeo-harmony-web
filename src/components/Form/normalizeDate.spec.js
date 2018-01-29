@@ -2,25 +2,28 @@ import normalizeDate from './normalizeDate';
 
 describe('normalizeDate', () => {
   it('should normalizeDate', () => {
-    const result = normalizeDate('1');
-    expect(result).toEqual('1');
+    const result2 = normalizeDate('1');
+    expect(result2).toEqual('1');
 
-    const result2 = normalizeDate('12');
-    expect(result2).toEqual('12/');
+    const result3 = normalizeDate('10');
+    expect(result3).toEqual('10/');
 
-    const result3 = normalizeDate('123');
-    expect(result3).toEqual('12/3');
+    const result4 = normalizeDate('102');
+    expect(result4).toEqual('10/2');
 
-    const result4 = normalizeDate('1231');
-    expect(result4).toEqual('12/31/');
+    const result5 = normalizeDate('1024');
+    expect(result5).toEqual('10/24/');
 
-    const result5 = normalizeDate('12/31/20');
-    expect(result5).toEqual('12/31/20');
+    const result6 = normalizeDate('10242');
+    expect(result6).toEqual('10/24/2');
 
-    const result6 = normalizeDate('12/31/201');
-    expect(result6).toEqual('12/31/201');
+    const result7 = normalizeDate('102420');
+    expect(result7).toEqual('10/24/20');
 
-    const result7 = normalizeDate('12/31/2017');
-    expect(result7).toEqual('12/31/2017');
+    const result8 = normalizeDate('1024201');
+    expect(result8).toEqual('10/24/201');
+
+    const result9 = normalizeDate('10242017');
+    expect(result9).toEqual('10/24/2017');
   });
 });
