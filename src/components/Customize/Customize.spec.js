@@ -36,6 +36,20 @@ describe('Testing Customize component', () => {
             model: {
               variables: [{
                 name: 'getQuote', value: { result: {} }
+              },
+              { name: 'updateQuoteWithUWDecision3',
+                value: {
+                  result: {
+                    quoteNumber: '12-1999999-01'
+                  }
+                }
+              },
+              { name: 'updateQuoteWithUWDecision4',
+                value: {
+                  result: {
+                    quoteNumber: '12-1999999-01'
+                  }
+                }
               }]
             },
             uiQuestions: []
@@ -61,7 +75,17 @@ describe('Testing Customize component', () => {
         bb: {
           data: {
             modelInstanceId: '123',
-            model: {},
+            model: {
+              variables: [
+                { name: 'updateQuoteWithUWDecision3',
+                  value: {
+                    result: {
+                      quoteNumber: '12-1999999-01'
+                    }
+                  }
+                }
+              ]
+            },
             previousTask: {
               value: {
                 result: {

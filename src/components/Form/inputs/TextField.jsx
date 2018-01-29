@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -10,7 +11,8 @@ export const TextInput = ({
   styleName,
   meta,
   type,
-  autoFocus
+  autoFocus,
+  readOnly
 }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;
@@ -39,6 +41,7 @@ export const TextInput = ({
     <div className={formGroupStyles} id={name}>
       {Label}
       <input
+        readOnly={readOnly}
         autoFocus={autoFocus}
         tabIndex={'0'}
         {...input}

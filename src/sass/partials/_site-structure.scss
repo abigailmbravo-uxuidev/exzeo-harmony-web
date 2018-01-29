@@ -99,6 +99,8 @@ html {
                   @include for-desktop-up {
                       height: 4.625rem;
                   }
+
+                  &.policy-header {}
               }
               .workflow-header {
                   display: flex;

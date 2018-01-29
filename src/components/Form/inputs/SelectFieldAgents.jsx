@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -55,7 +56,6 @@ export const SelectInputAgents = ({
 };
 
 SelectInputAgents.propTypes = {
-  ...PropTypes,
   /**
    * Answers array used to generate options
    */
@@ -65,7 +65,12 @@ SelectInputAgents.propTypes = {
    * Tooltip for user
    */
   hint: PropTypes.string,
-
+    // Validations
+  meta: {
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+    warning: PropTypes.string
+  },
   /**
    * Input provided by redux-form field
    */
