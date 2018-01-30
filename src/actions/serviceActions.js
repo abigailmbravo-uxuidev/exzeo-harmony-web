@@ -130,12 +130,12 @@ export const getQuote = quoteId => (dispatch) => {
     });
 };
 
-export const searchPolicy = (policyNumber, firstName, lastName, address, pageNumber, pageSize, sort) => (dispatch) => {
+export const searchPolicy = (policyNumber, firstName, lastName, address, pageNumber, pageSize, sort, direction) => (dispatch) => {
   const formattedAddress = address.replace(' ', '&#32;');
   const axiosConfig = runnerSetup({
     service: 'policy-data.services',
     method: 'GET',
-    path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=desc`
+    path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
   });
 
   return Promise.resolve(axios(axiosConfig)).then((response) => {

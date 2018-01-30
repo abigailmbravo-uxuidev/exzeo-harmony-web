@@ -51,8 +51,10 @@ export const changePage = (props, isNext) => {
 
   props.actions.searchActions.setPolicySearch(taskData);
 
+  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy).then(() => {
+
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy, direction).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
   });
@@ -72,7 +74,9 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
 
   props.actions.searchActions.setPolicySearch(taskData);
 
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy).then(() => {
+  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
+
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy, direction).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
   });
