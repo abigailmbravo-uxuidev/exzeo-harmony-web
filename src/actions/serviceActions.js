@@ -135,7 +135,7 @@ export const searchPolicy = (policyNumber, firstName, lastName, address, pageNum
   const axiosConfig = runnerSetup({
     service: 'policy-data.services',
     method: 'GET',
-    path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=asc`
+    path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=desc`
   });
 
   return Promise.resolve(axios(axiosConfig)).then((response) => {
