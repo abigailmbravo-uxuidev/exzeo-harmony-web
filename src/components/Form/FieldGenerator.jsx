@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import platform from 'platform';
 import dependencyHelper from './dependencyHelper';
 import {
@@ -21,11 +22,15 @@ const FieldGenerator = ({
   data,
   values,
   zipCodeSettings,
-  onChange
+  onChange,
+  tabIndex,
+  autoFocus
 }) => {
   const fieldOptions = dependencyHelper(question, data, values);
 
   const inputProps = {
+    autoFocus,
+    tabIndex,
     data,
     ...fieldOptions,
     hint: fieldOptions.description,
@@ -95,6 +100,7 @@ FieldGenerator.propTypes = {
     answerType: PropTypes.string
   }),
   onChange: PropTypes.func,
+  tabIndex: PropTypes.any, // eslint-disable-line
   data: PropTypes.any, // eslint-disable-line
   values: PropTypes.any, // eslint-disable-line
 };

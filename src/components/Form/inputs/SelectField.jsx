@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -9,12 +10,13 @@ export const SelectInput = ({
   input,
   label,
   meta,
-  styleName
+  styleName,
+  autoFocus
 }) => {
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;
 
-  const formGroupStyles = classNames('form-group',
+  const formGroupStyles = classNames('form-group select',
   styleName,
   name,
   { valid: touched && !error },
@@ -28,14 +30,16 @@ export const SelectInput = ({
     <div className={formGroupStyles} id={name}>
       <label htmlFor={name}>
         {label}
-        &nbsp; {Hint}
+        {Hint}
       </label>
       {answers && answers.length > 0 ? (
         <select
+          tabIndex={'0'}
           value={value}
           name={name}
           disabled={disabled}
           onChange={onChange}
+          aria-valuetext={value}
         >
           <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
           {answers.map((answer, index) => (

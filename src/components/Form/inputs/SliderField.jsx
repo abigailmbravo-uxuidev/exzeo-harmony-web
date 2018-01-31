@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -13,7 +14,8 @@ export const SliderInput = ({
   meta,
   rightLabel,
   step,
-  styleName
+  styleName,
+  autoFocus
 }) => {
   const { name, value } = input;
   const { error } = meta;
@@ -41,7 +43,6 @@ export const SliderInput = ({
     <div className={formGroupStyles}>
       <label htmlFor={name}>
         {label}
-         &nbsp;
         {Hint}
       </label>
       <div className="range-wrapper">
@@ -53,15 +54,17 @@ export const SliderInput = ({
             min={min}
             max={max}
             step={step}
-            value={value}
+            value={Number(Math.round(value / 1000) * 1000)}
             onChange={input.onChange}
           />
           <span className="range-limit">{rightLabel || max}</span>
         </div>
         <span className="range-value">
           <input
+            autoFocus={autoFocus}
+            tabIndex={'0'}
             type="text"
-            value={`$ ${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+            value={`$ ${Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
           />

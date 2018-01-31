@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
@@ -29,6 +30,8 @@ export const handleFormSubmit = (data, dispatch, props) => {
   } else {
     // the form was modified and now we need to recalc
     const updatedQuote = convertQuoteStringsToNumber(data);
+
+    updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
 
     const updatedQuoteResult = {
       ...updatedQuote,
@@ -88,12 +91,14 @@ export const handleReset = (props) => {
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
-  _.find(taskData.model.variables, { name: 'getQuote' }).value.result;
+  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
   values.fireAlarm = values.fireAlarm || false;
   values.burglarAlarm = values.burglarAlarm || false;
+  values.otherStructuresAmount = values.otherStructuresAmount || 0;
+  values.personalPropertyAmount = values.personalPropertyAmount || 0;
 
   return values;
 };
@@ -105,8 +110,8 @@ const handleGetQuestions = (state) => {
 
 const handleGetQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  return quoteData;
+  return _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
+  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
 };
 
 export const Customize = (props) => {
@@ -131,6 +136,7 @@ export const Customize = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {fieldQuestions && fieldQuestions.map((question, index) =>
               <FieldGenerator
+                autoFocus={index === 1}
                 data={quoteData}
                 question={question}
                 values={fieldValues || {}}
@@ -142,6 +148,7 @@ export const Customize = (props) => {
           <div className="workflow-steps">
             {props.appState.data.recalc &&
               <button
+                tabIndex={'0'}
                 className="btn btn-secondary"
                 onClick={() => {
                   handleReset(props);
@@ -154,6 +161,7 @@ export const Customize = (props) => {
               </button>
              }
             <button
+              tabIndex={'0'}
               className="btn btn-primary"
               type="submit"
               form="Customize"
@@ -198,6 +206,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const reduxFormComponent = reduxForm({ form: 'Customize' })(Customize);
+const reduxFormComponent = reduxForm({ form: 'Customize', enableReinitialize: true })(Customize);
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxFormComponent);

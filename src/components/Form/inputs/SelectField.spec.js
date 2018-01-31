@@ -1,29 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SelectField, SelectInput } from './SelectField';
-import FieldHint from './FieldHint';
+import SelectField, { SelectInput } from './SelectField';
 
-function wrapWithContext(context, contextTypes, children) {
-  const wrapperWithContext = React.createClass({ //eslint-disable-line
-    childContextTypes: contextTypes,
-    getChildContext() { return context; },
-    render() { return React.createElement('div', null, children); }
-  });
-
-  return React.createElement(wrapperWithContext);
-}
 describe('SelectField', () => {
   it('should render "select input" when nothing is provided', () => {
-    const context = { router: {} };
-    const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <SelectField />, React);
-    expect(shallow(wrapper).find('option').length).toEqual(0);
+    const wrapper = shallow(<SelectField name="Test" label="test" />);
+    expect(wrapper.find('option').length).toEqual(0);
   });
 
   it('should render "select input" with answers when answers are provided', () => {
     const inputProps = {
-      meta: { },
-      input: { onChange() {} },
+      name: 'test',
+      label: 'test',
       answers: [{
         answer: 'One'
       }, {
@@ -32,10 +20,27 @@ describe('SelectField', () => {
         answer: 'Three'
       }]
     };
-    const context = { router: {} };
-    const contextTypes = { router: React.PropTypes.object };
-    const wrapper = wrapWithContext(context, contextTypes, <SelectField {...inputProps} />, React);
-    expect(shallow(wrapper).children().props().answers.length).toEqual(3);
-    SelectInput(inputProps);
+
+    const wrapper = shallow(<SelectField {...inputProps} />);
+    expect(wrapper.prop('answers').length).toEqual(3);
+    // Need to take into account blank option
+  });
+
+
+  it('should render SelectInput', () => {
+    const inputProps = {
+      name: 'test',
+      label: 'test',
+      answers: [{
+        answer: 'One'
+      }, {
+        answer: 'Two'
+      }, {
+        answer: 'Three'
+      }]
+    };
+
+    const wrapper = shallow(<SelectInput {...inputProps} />);
+    expect(wrapper);
   });
 });

@@ -40,13 +40,15 @@ export const PhoneInput = ({
   );
 
   const Label = label && (<label htmlFor={name}>
-    {label} &nbsp; {Hint}
+    {label}
+    {Hint}
   </label>);
 
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
       <MaskedTextInput
+        tabIndex={'0'}
         mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
         guide={false}
         id={name}

@@ -17,7 +17,7 @@ const agentLinks = [{
   styleName: 'agent-dashboard',
   exact: true
 },
-/*FLOOD QUOTE WILL BE ADDED PHASE 2*/
+/* FLOOD QUOTE WILL BE ADDED PHASE 2*/
 // {
 //   label: 'FLOOD QUOTE',
 //   styleName: 'agent-flood label',
@@ -27,6 +27,11 @@ const agentLinks = [{
 {
   link: '/quote',
   label: 'HO3 QUOTE',
+  styleName: 'agent-homeowners label'
+},
+{
+  link: '/policy',
+  label: 'HO3 POLICY',
   styleName: 'agent-homeowners label'
 }];
 

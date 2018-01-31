@@ -130,3 +130,99 @@ export const getQuote = quoteId => (dispatch) => {
     });
 };
 
+export const searchPolicy = (policyNumber, firstName, lastName, address, pageNumber, pageSize, sort) => (dispatch) => {
+  const formattedAddress = address.replace(' ', '&#32;');
+  const axiosConfig = runnerSetup({
+    service: 'policy-data.services',
+    method: 'GET',
+    path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=asc`
+  });
+
+  return Promise.resolve(axios(axiosConfig)).then((response) => {
+    const data = { policyResults: response.data };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError({ message })
+      ]));
+    });
+};
+
+export const clearPolicyResults = () => (dispatch) => {
+  const data = { policyResults: {
+    totalNumberOfRecords: 1,
+    pageSize: 1,
+    currentPage: 1
+  } };
+  return dispatch(batchActions([
+    serviceRequest(data)
+  ]));
+};
+
+export const getLatestPolicy = policyNumber => (dispatch) => {
+  const axiosConfig = runnerSetup({
+    service: 'policy-data.services',
+    method: 'GET',
+    path: `transactions/${policyNumber}/latest`
+  });
+
+  return Promise.resolve(axios(axiosConfig)).then((response) => {
+    const data = { latestPolicy: response ? response.data : {} };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError({ message })
+      ]));
+    });
+};
+
+export const getSummaryLedger = policyNumber => (dispatch) => {
+  const axiosConfig = runnerSetup({
+    service: 'billing.services',
+    method: 'GET',
+    path: `summary-ledgers/${policyNumber}/latest`
+  });
+
+  return axios(axiosConfig).then((response) => {
+    const data = { getSummaryLedger: response.data.result };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError({ message })
+      ]));
+    });
+};
+
+export const getPolicyDocuments = policyNumber => (dispatch) => {
+  const axiosConfig = runnerSetup({
+    service: 'file-index.services',
+    method: 'GET',
+    path: `v1/fileindex/${policyNumber}`
+  });
+
+  return axios(axiosConfig).then((response) => {
+    const data = { policyDocuments: response.data.result };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError({ message })
+      ]));
+    });
+};
+

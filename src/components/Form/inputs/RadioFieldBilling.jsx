@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import _ from 'lodash';
 import reduxFormField from './reduxFormField';
@@ -50,6 +51,13 @@ export const RadioInputBilling = ({
     return selection;
   };
 
+  const onKeyPress = (event, answer) => {
+    if (event.charCode === 13) {
+      onChange(answer);
+    }
+  };
+
+
   return (
     <div className={formGroupStyles} role="group">
       <label className={labelStyles} htmlFor={name}>
@@ -64,8 +72,10 @@ export const RadioInputBilling = ({
             paymentPlan={paymentPlans[getSelectedPlan(answer)]}
             answer={answer}
             key={index}
+            tabIndex={'0'}
             size={answers.length}
             onChange={onChange}
+            onKeyPress={onKeyPress}
             name={name}
             segmented={segmented}
             value={value}

@@ -7,15 +7,19 @@ import appState from './appStateReducer';
 import error from './errorReducer';
 import service from './serviceReducer';
 import completedTasks from './completedTasksReducer';
+import search from './searchReducer';
+import policy from './policyStateReducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
+  policy,
   service,
   cg,
   appState,
   authState,
   error,
-  completedTasks
+  completedTasks,
+  search
 });
 
 export default rootReducer;
