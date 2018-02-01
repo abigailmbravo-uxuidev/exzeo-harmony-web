@@ -15,15 +15,16 @@ header {
     align-items: center;
     @include for-phone-only {
       .btn-ellipsis-v {
-        position: absolute;
-        top: .5rem;
-        right: 1rem;
-        display: flex;
+        //position: absolute;
+        //top: .5rem;
+        //right: 1rem;
+        //display: flex;
+        display: none;
 
-        i {
-          color: $body-color;
-          font-size: 1.5rem;
-        }
+        //i {
+          //color: $body-color;
+          //font-size: 1.5rem;
+        //}
       }
 
       .btn-bars {
@@ -200,7 +201,8 @@ header {
             @include for-phone-only {
               position: absolute;
               top: -3rem;
-              right: 4rem;
+              //right: 4rem;
+              right: 1rem;
               display: inline-block;
               overflow: hidden;
               width: 2.375rem;
