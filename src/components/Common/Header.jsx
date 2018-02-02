@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import logo from '../../img/TypTap.svg';
 
 const sideBarLinks = [{
-  link: 'https://www.typtap.com',
+  /*link: 'https://www.typtap.com',
   label: 'HOME'
 }, {
   className: 'active',
@@ -12,7 +12,7 @@ const sideBarLinks = [{
 }, {
   link: 'https://policyholder.typtap.com/login',
   label: 'POLICYHOLDERS'
-}, {
+}, {*/
   className: 'link-phone btn',
   link: 'tel:844-289-7968',
   label: '844-289-7968'
