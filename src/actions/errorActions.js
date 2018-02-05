@@ -5,6 +5,11 @@ export const setAppError = error => ({
   error
 });
 
+export const setAppModalError = modalMessage => ({
+  type: types.APP_MODAL_ERROR,
+  error: { modalMessage }
+});
+
 export const clearAppError = () => ({
   type: types.APP_ERROR_CLEAR,
   error: {}

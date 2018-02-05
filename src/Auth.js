@@ -85,14 +85,33 @@ export default class Auth {
       cb('No Id Token');
     }
     const profile = jwtDecode(idToken);
-    this.userProfile = profile;
-    this.userProfile.groups = profile['https://heimdall.security/groups'];
-    this.userProfile.roles = profile['https://heimdall.security/roles'];
-    this.userProfile.username = profile['https://heimdall.security/username'];
+
+    const groups = profile['https://heimdall.security/groups'];
+    const roles = profile['https://heimdall.security/roles'];
+    const username = profile['https://heimdall.security/username'];
+    const appMetadata = profile['https://heimdall.security/app_metadata'];
+    const legacyAgency = groups ? groups[0] : {};
+    const agency = appMetadata && appMetadata.agencyCode ?
+      { agencyCode: appMetadata.agencyCode, companyCode: appMetadata.companyCode, state: appMetadata.state } :
+      legacyAgency.isAgency ?
+      { agencyCode: legacyAgency.agencyCode, companyCode: legacyAgency.companyCode, state: legacyAgency.state } :
+      null
+
+    this.userProfile = { 
+      ...profile,
+
+      groups,
+      roles,
+      username,
+      appMetadata,
+      agency
+    };
     delete this.userProfile['https://heimdall.security/groups'];
     delete this.userProfile['https://heimdall.security/roles'];
     delete this.userProfile['https://heimdall.security/username'];
-    cb(null, profile);
+    delete this.userProfile['https://heimdall.security/app_metadata'];
+
+    cb(null, this.userProfile);
   }
 
   logout() {

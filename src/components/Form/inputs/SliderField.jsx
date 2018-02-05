@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -55,7 +56,7 @@ export const SliderInput = ({
             min={min}
             max={max}
             step={step}
-            value={value}
+            value={Number(Math.round(value / 1000) * 1000)}
             onChange={input.onChange}
           />
           <span className="range-limit">{rightLabel || max}</span>
@@ -64,7 +65,7 @@ export const SliderInput = ({
           <input          
             tabIndex={'0'}
             type="text"
-            value={`$ ${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+            value={`$ ${Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
           />

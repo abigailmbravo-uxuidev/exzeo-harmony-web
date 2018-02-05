@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-
+import * as serviceActions from '../../actions/serviceActions';
 import CheckErrorConnect from '../Error/CheckError';
 import CustomerInfoConnect from '../CustomerInfo/CustomerInfo';
 import UnderwritingConnect from '../Underwriting/Underwriting';
@@ -70,6 +70,7 @@ export class Workflow extends Component {
   }
 
   componentDidMount() {
+    this.props.actions.serviceActions.clearPolicyResults();
     this.props.actions.cgActions.startWorkflow(workflowModelName, workflowData);
   }
 
@@ -121,11 +122,14 @@ export class Workflow extends Component {
   render() {
     const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
       this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
+
+    const redirectUrlPath = this.context && this.context.router && this.context.router.route &&
+    this.context.router.route.location ? this.context.router.route.location.pathname : '';
     return (
       <div className={`route ${activeStep}`}>
         <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
         {this.state.currentControl}
-        <CheckErrorConnect redirectUrl={this.context.router.route.location.pathname} />
+        <CheckErrorConnect redirectUrl={this.context.router ? this.context.router.route.location.pathname : ''} />
       </div>);
   }
 }
@@ -159,7 +163,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
-    appStateActions: bindActionCreators(appStateActions, dispatch)
+    appStateActions: bindActionCreators(appStateActions, dispatch),
+    serviceActions: bindActionCreators(serviceActions, dispatch)
   }
 });
 

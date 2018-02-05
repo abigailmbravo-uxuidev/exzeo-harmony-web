@@ -1,98 +1,92 @@
 @media (max-width: 599px) {
-  html {
-    height: initial;
-
-    div#root {
-      .detail-wrapper,
-      .survey-wrapper {
-        .section-group-header {
-          margin-bottom: 0;
-        }
-
-        .form-group {
-          margin-bottom: $padding;
-          padding-bottom: $padding;
-        }
-      }
-
-      .loader.modal {
-        position: fixed;
-        z-index: 10;
-        top: 3.375rem;
-        height: auto;
-        min-height: calc(100vh - 3.375rem);
-      }
-
-      .app-wrapper {
-        header {
-          position: fixed;
-          z-index: 100;
-          overflow: visible;
-          height: auto;
-
-          div[role="banner"] {
-            .nav-modal {
-              position: fixed;
-            }
-          }
-        }
-
-        main[role="document"] {
-          z-index: 10;
-          overflow: visible;
-          height: auto;
-          margin-top: 3.375rem;
-
-          .content-wrapper {
-            overflow: visible;
-            height: auto;
-
-            .workflow {
-              overflow: visible;
-              height: auto;
-
-              .route {
-                .detailHeader {
-                  min-height: 3.5rem;
+    html {
+        height: initial;
+        div#root {
+            .detail-wrapper, .survey-wrapper {
+                .section-group-header {
+                    margin-bottom: 0;
                 }
-
-                .search {
-                  min-height: calc(100vh - 3.375rem);
-
-                  .retrieve-quote-wrapper {
-                    flex-wrap: wrap;
-
-                    .first-name-search,
-                    .last-name-search {
-                      width: 50%;
-                    }
-
-                    .quote-no-search {
-                      width: calc(100% - 3.25rem);
-                    }
-                  }
-
-                  .survey-wrapper {
-                    overflow: hidden;
+                .form-group {
+                    padding-bottom: $padding;
+                    margin-bottom: $padding;
+                }
+            }
+            .loader.modal {
+                position: fixed;
+                top: 3.375rem;
+                bottom: 0;
+                z-index: 10;
+            }
+            .app-wrapper {
+                header {
                     height: auto;
-                  }
+                    overflow: visible;
+                    position: fixed;
+                    z-index: 100;
                 }
+                main[role="document"] {
+                    top: 3.375rem;
+                    height: auto;
+                    overflow: visible;
+                    .content-wrapper {
+                        height: auto;
+                        overflow: visible;
+                        .workflow {
+                            height: auto;
+                            overflow: visible;
+                            .route {
+                                .detailHeader {
+                                    min-height: 3.5rem;
+                                }
 
-                .route-content {
-                  position: initial;
-                }
+                                .search {
+                                    min-height: calc(100vh - 3.375rem);
 
-                .modal {
-                  position: fixed;
-                  top: 3.375rem;
-                  height: auto;
-                  min-height: calc(100vh - 3.375rem);
+                                    .retrieve-quote-wrapper {
+                                        flex-wrap: wrap;
+
+                                        .first-name-search, .last-name-search {
+                                            width: 50%;
+                                        }
+                                        .quote-no-search {
+                                            width: calc(100% - 3.25rem);
+                                        }
+                                    }
+
+                                    .search-policy-wrapper {
+                                        flex-wrap: wrap;
+
+                                        .search-context {
+                                            width: 5.75rem;
+                                        }
+
+                                        .first-name-search {
+                                            width: calc(55% - 5.75rem);
+                                        }
+                                        .last-name-search {
+                                            width: 45%;
+                                        }
+                                        .policy-no-search {
+                                            width: calc(100% - 3.25rem);
+                                        }
+                                    }
+
+                                    .survey-wrapper {
+                                        overflow: hidden;
+                                        height: auto;
+                                    }
+                                }
+
+                                .route {
+                                    .scroll {
+                                        overflow: visible;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     }
-  }
 }

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -41,7 +42,7 @@ export const CheckInput = ({
 
   return (
     <div className={formGroupStyles} id={name}>
-      <label htmlFor={name} onClick={() => { !isSwitch ? onChange(!value): function() {}}}>
+      <label htmlFor={name} onClick={() => { !isSwitch ? onChange(!value) : function () {} ;}}>
         {label}
         {Hint}
         <input
