@@ -42,6 +42,9 @@ export const DateInput = ({
     {Hint}
   </label>);
 
+  const minDate = moment(min).format('YYYY-MM-DD');
+  const maxDate = moment(max).format('YYYY-MM-DD');
+
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
@@ -49,8 +52,8 @@ export const DateInput = ({
         tabIndex={'0'}
         {...input}
         type={'date'}
-        min={min}
-        max={max}
+        min={minDate}
+        max={maxDate}
       />
       {Error}
     </div>
