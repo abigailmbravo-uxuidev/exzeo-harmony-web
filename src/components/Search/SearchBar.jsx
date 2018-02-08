@@ -118,7 +118,8 @@ export const validate = (values) => {
   }
 
   if (values.lastName) {
-    const onlyAlphaNumeric = Rules.onlyAlphaNumeric(values.lastName);
+    const lastNameVal = values.lastName.trim() ? values.lastName.replace(/ /g, '') : values.lastName;
+    const onlyAlphaNumeric = Rules.onlyAlphaNumeric(lastNameVal);
     if (onlyAlphaNumeric) {
       errors.lastName = onlyAlphaNumeric;
     }
