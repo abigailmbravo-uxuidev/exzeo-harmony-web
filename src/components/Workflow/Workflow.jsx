@@ -93,7 +93,7 @@ export class Workflow extends Component {
             });
           }
         }
-
+        window.scrollTo(0, 0);
         const newComponent = components[activeTaskName];
         this.setState((previousState, props) => ({
           ...props,
