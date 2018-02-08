@@ -27,7 +27,7 @@ export const SelectInput = ({
   const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
 
   return (
-    <div className={formGroupStyles} id={name}>
+    <div className={`${formGroupStyles} ${value}`} id={name}>
       <label htmlFor={name}>
         {label}
         {Hint}

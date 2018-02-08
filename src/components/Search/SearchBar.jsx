@@ -212,7 +212,7 @@ export class SearchForm extends Component {
     if (searchType === 'quote') {
       return (
         <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
-          <div className="search-input-wrapper">
+          <div className="search-input-wrapper retrieve-quote-wrapper">
             {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
             {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
             {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
