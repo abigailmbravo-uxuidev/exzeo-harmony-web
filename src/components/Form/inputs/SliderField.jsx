@@ -39,6 +39,9 @@ export const SliderInput = ({
     if (!Number.isNaN(val)) { input.onChange(val); }
   };
 
+  const calculatedValue = Number(Math.round(value / 1000) * 1000);
+
+
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
@@ -54,7 +57,7 @@ export const SliderInput = ({
             min={min}
             max={max}
             step={step}
-            value={Number(Math.round(value / 1000) * 1000)}
+            value={calculatedValue}
             onChange={input.onChange}
           />
           <span className="range-limit">{rightLabel || max}</span>
@@ -64,7 +67,7 @@ export const SliderInput = ({
             autoFocus={autoFocus}
             tabIndex={'0'}
             type="text"
-            value={`$ ${Number(value).toLocaleString()}`}
+            value={`$ ${calculatedValue >= 100000 ? calculatedValue.toLocaleString() : Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
           />
