@@ -8,6 +8,10 @@ describe('Auth', () => {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaHR0cHM6Ly9oZWltZGFsbC5zZWN1cml0eS9ncm91cHMiOltdLCJodHRwczovL2hlaW1kYWxsLnNlY3VyaXR5L3JvbGVzIjpbXSwiaHR0cHM6Ly9oZWltZGFsbC5zZWN1cml0eS91c2VybmFtZSI6Impkb2UiLCJodHRwczovL2hlaW1kYWxsLnNlY3VyaXR5L2FwcF9tZXRhZGF0YSI6eyJhZ2VuY3lDb2RlIjoiMTIzNCIsImNvbXBhbnlDb2RlIjoiQUJDRCIsInN0YXRlIjoiRkwifX0.AnKNLuUWSf8LOhSZP9lQ16GFXBl_mtxTJ2_cZ9y6dRQ'
       );
 
+      process.env.REACT_APP_AUTH0_DOMAIN = 'localhost';
+      process.env.REACT_APP_AUTH0_AUDIENCE = 'AUDIENCE';
+      process.env.REACT_APP_AUTH0_CLIENT_ID = 'clientID';
+
       const auth = new Auth();
       auth.getProfile((error, profile) => {
         expect(profile).toEqual({
@@ -26,6 +30,9 @@ describe('Auth', () => {
       localStorage.setItem('id_token',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaHR0cHM6Ly9oZWltZGFsbC5zZWN1cml0eS9yb2xlcyI6W10sImh0dHBzOi8vaGVpbWRhbGwuc2VjdXJpdHkvdXNlcm5hbWUiOiJqZG9lIiwiaHR0cHM6Ly9oZWltZGFsbC5zZWN1cml0eS9ncm91cHMiOlt7Il9pZCI6IjU5NDk2NmY1N2E2ZmMwN2I2Njg5MDYyNCIsIm5hbWUiOiJBQkNEIDEyMzQgQWdlbmN5IiwiYWdlbmN5Q29kZSI6MTIzNCwiY29tcGFueUNvZGUiOiJBQkNEIiwic3RhdGUiOiJGTCIsImlzQ1NSIjpmYWxzZSwiaXNBZ2VuY3kiOnRydWUsImV4dGVuZGVkUHJvcGVydGllcyI6eyJoYXJtb255R3JvdXAiOnRydWUsImNvbXBhbnlDb2RlIjoiQUJDRCIsInN0YXRlIjoiRkwiLCJhZ2VuY3lDb2RlIjoxMjM0LCJhZ2VuY3lJZCI6MTIzNCwiaXNDU1IiOmZhbHNlLCJpc0FnZW5jeSI6dHJ1ZX0sIl9fdiI6MCwicm9sZXMiOltdLCJjaGlsZEdyb3VwcyI6W119XX0.fVmgItE1YHUR8pHtHbUYDcj3-hFiAnk5a4VhyFkqjQs'
       );
+      process.env.REACT_APP_AUTH0_DOMAIN = 'localhost';
+      process.env.REACT_APP_AUTH0_AUDIENCE = 'AUDIENCE';
+      process.env.REACT_APP_AUTH0_CLIENT_ID = 'clientID';
 
       const auth = new Auth();
       auth.getProfile((error, profile) => {
