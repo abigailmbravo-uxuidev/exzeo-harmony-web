@@ -51,8 +51,10 @@ export const changePage = (props, isNext) => {
 
   props.actions.searchActions.setPolicySearch(taskData);
 
+  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy).then(() => {
+
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy, direction).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
   });
@@ -72,7 +74,9 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
 
   props.actions.searchActions.setPolicySearch(taskData);
 
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy).then(() => {
+  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
+
+  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy, direction).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
   });
@@ -84,7 +88,7 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).trim()) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
     quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType
@@ -118,7 +122,8 @@ export const validate = (values) => {
   }
 
   if (values.lastName) {
-    const onlyAlphaNumeric = Rules.onlyAlphaNumeric(values.lastName);
+    const lastNameVal = values.lastName.trim() ? values.lastName.replace(/ /g, '') : values.lastName;
+    const onlyAlphaNumeric = Rules.onlyAlphaNumeric(lastNameVal);
     if (onlyAlphaNumeric) {
       errors.lastName = onlyAlphaNumeric;
     }
@@ -207,7 +212,7 @@ export class SearchForm extends Component {
     if (searchType === 'quote') {
       return (
         <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
-          <div className="search-input-wrapper">
+          <div className="search-input-wrapper retrieve-quote-wrapper">
             {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
             {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
             {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
@@ -303,7 +308,7 @@ export class SearchForm extends Component {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={this.props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).trim()}
+            disabled={this.props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>

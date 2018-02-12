@@ -388,7 +388,7 @@ describe('Service Actions', () => {
       data: {
         service: 'policy-data.services',
         method: 'GET',
-        path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&active=true&page=1&pageSize=25&sort=policyNumber&sortDirection=asc'
+        path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&active=true&page=1&pageSize=25&sort=policyNumber&sortDirection=desc'
       }
     };
 
@@ -399,7 +399,7 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.searchPolicy('12-4001126-01', 'Test', 'Test', '123', '1', '25', 'policyNumber')(store.dispatch)
+    return serviceActions.searchPolicy('12-4001126-01', 'Test', 'Test', '123', '1', '25', 'policyNumber', 'desc')(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
       });
@@ -428,7 +428,7 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.searchPolicy(null, 'Test', 'Test', '123', '1', '25', 'policyNumber')(store.dispatch)
+    return serviceActions.searchPolicy(null, 'Test', 'Test', '123', '1', '25', 'policyNumber', 'desc')(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
       });
