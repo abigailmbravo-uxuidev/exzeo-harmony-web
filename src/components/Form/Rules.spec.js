@@ -41,7 +41,7 @@ describe('Rules', () => {
       expect(rules.date('2017-04-27')).toBeUndefined();
     });
     it('should return "is not a valid Date."', () => {
-      expect(rules.date('')).toEqual('is not a valid Date.');
+      expect(rules.date('')).toEqual('Not a valid date');
     });
   });
 
