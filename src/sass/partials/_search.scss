@@ -83,6 +83,42 @@
         }
       }
 
+      &.search-policy-wrapper {
+          .form-group {
+              &.search-context {
+                  @include for-tablet-landscape-up {
+                    flex-basis: 6rem;
+                    flex-shrink: 0;
+                    flex-grow: 0;
+                  }
+              }
+
+              &.first-name-search {
+                @include for-tablet-landscape-up {
+                  flex-basis: 9rem;
+                  flex-shrink: 0;
+                  flex-grow: 0;
+                }
+              }
+
+              &.last-name-search {
+                @include for-tablet-landscape-up {
+                  flex-basis: 9rem;
+                  flex-shrink: 0;
+                  flex-grow: 0;
+                }
+              }
+
+              &.policy-no-search {
+                  @include for-tablet-landscape-up {
+                    flex-basis: 9rem;
+                    flex-shrink: 0;
+                    flex-grow: 0;
+                  }
+              }
+          }
+      }
+
       > span {
         position: absolute;
       }
@@ -132,7 +168,7 @@
     flex-grow: 1;
     flex-shrink: 1;
     flex-wrap: nowrap;
-    height: calc(100vh-128);
+    height: calc(100vh - 128px);
 
     .results,
     .results-wrapper {

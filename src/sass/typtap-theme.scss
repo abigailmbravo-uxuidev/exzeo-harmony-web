@@ -72,7 +72,7 @@ label {
 input,
 textarea {
   border-bottom-color: $cool-gray-03;
-  background: lighten( $cool-gray-00, 2.5% );
+  background: lighten($cool-gray-00, 2.5%);
   // Placeholder
   &::placeholder {
     // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
@@ -82,7 +82,7 @@ textarea {
 
   &:focus {
     border-bottom-color: $bright-blue;
-    background: lighten( $cool-gray-00, 2.5% );
+    background: lighten($cool-gray-00, 2.5%);
   }
   //disabled & read-only text input-box-shadow
   &.disabled,
@@ -95,16 +95,36 @@ textarea {
 }
 
 input[readonly] {
-  color: $cool-gray-03 !important;
-  border-bottom: 2px solid $green-lighten-02 !important;
-  background-color: rgba($white, 0) !important;
-  font-weight: $font-weight-normal !important;
   text-align: right;
+  color: $cool-gray-03;
+  border-bottom: 2px solid $green-lighten-02;
+  background-color: rgba($white, 0);
+  font-weight: $font-weight-normal;
 }
 
 .form-group {
   .__react_component_tooltip {
-    max-width: 16rem;
+    max-width: 24rem;
+    @include for-phone-only {
+      right: $margin*2;
+      left: $margin*2 !important;
+      width: calc(100% - ($margin*4));
+      max-width: 100%;
+      margin: 0;
+
+      &.place-left,
+      &.place-right {
+        margin: 0;
+      }
+
+      &:before {
+        display: none;
+      }
+
+      &:after {
+        display: none;
+      }
+    }
   }
 
   &.segmented {
@@ -206,14 +226,13 @@ input[readonly] {
 
   &.switch {
     label {
-      cursor: pointer;
-
       div.switch-div {
+        flex-basis: 3.5rem;
         width: 3.5rem;
         height: 1.5rem;
+        cursor: pointer;
         border-radius: 0.75rem;
         background: $cool-gray-04;
-        flex-basis: 3.5rem;
 
         &:before {
           width: 1.5rem;
@@ -444,7 +463,7 @@ input[readonly] {
           height: 0;
           content: "";
           border-top: 1.1875rem solid transparent;
-          border-right: 1.5rem solid lighten( $cool-gray-00, 2.5% );
+          border-right: 1.5rem solid lighten($cool-gray-00, 2.5%);
           border-bottom: 1.1875rem solid transparent;
         }
 
@@ -635,10 +654,10 @@ select {
 //main site structure
 /*------------------------------------------------------------------------------------*/
 html {
-  background: $cool-gray-14;
+  background: $cool-gray-12;
   //site body
   body {
-    background: $cool-gray-14;
+    background: $cool-gray-12;
   }
   //site background
   div#root {
@@ -663,8 +682,8 @@ header {
 
   div[role="banner"] {
     > .logo {
-      width: 7rem;
       flex-basis: 7rem;
+      width: 7rem;
       @include for-phone-only {
         margin-left: 4rem;
       }
@@ -910,8 +929,8 @@ main[role="document"] {
     }
 
     .user-name {
-      color: $white;
       align-items: center;
+      color: $white;
     }
   }
 
@@ -1123,12 +1142,12 @@ footer {
       .product {
         .card-header {
           &.card-header-image-flood {
-            background-image: url('../img/flood.jpg');
+            background-image: url("../img/flood.jpg");
             background-position: right top;
           }
 
           &.card-header-image-home {
-            background-image: url('../img/home-owners.jpg');
+            background-image: url("../img/home-owners.jpg");
             background-position: center center;
           }
 
@@ -1159,8 +1178,8 @@ footer {
 /*------------------------------------------------------------------------------------*/
 ul.result-cards {
   li {
-     > a,
-    > div {
+    > div,
+    > a {
       background: $white;
 
       section {
@@ -1250,33 +1269,33 @@ ul.result-cards {
 
     .EmailAddress {
       @include for-tablet-portrait-up {
+        flex-grow: 1;
         width: 60%;
         padding-right: $padding*2;
-        flex-grow: 1;
       }
     }
 
     .phoneNumber {
       @include for-tablet-portrait-up {
+        flex-grow: 1;
         width: 40%;
         padding-right: 0;
-        flex-grow: 1;
       }
     }
 
     .effectiveDate {
       @include for-tablet-portrait-up {
+        flex-grow: 1;
         width: 40%;
         padding-right: $padding*2;
-        flex-grow: 1;
       }
     }
 
     .agentID {
       @include for-tablet-portrait-up {
+        flex-grow: 1;
         width: 60%;
         padding-right: 0;
-        flex-grow: 1;
       }
     }
   }
@@ -1309,8 +1328,8 @@ ul.result-cards {
   bottom: 0;
   left: 0;
   display: none;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
 
   .survey-wrapper {
     .card-email {
@@ -1349,8 +1368,8 @@ ul.result-cards {
   .l2City,
   .m1City,
   .m2City {
-    width: auto;
     flex-grow: 1;
+    width: auto;
     @include for-phone-only {
       width: 100%;
     }
@@ -1390,9 +1409,9 @@ ul.result-cards {
   .m2PhoneNumber {
     @include for-tablet-portrait-up {
       input {
+        flex-grow: 1;
         width: 40%;
         padding-right: 0;
-        flex-grow: 1;
       }
     }
   }
@@ -1416,17 +1435,17 @@ ul.result-cards {
 
     .emailAddress {
       @include for-tablet-portrait-up {
+        flex-grow: 1;
         width: 60%;
         padding-right: $padding*2;
-        flex-grow: 1;
       }
     }
 
     .primaryPhoneNumber {
       @include for-tablet-portrait-up {
+        flex-grow: 1;
         width: 40%;
         padding-right: 0;
-        flex-grow: 1;
       }
     }
   }
@@ -1436,8 +1455,8 @@ ul.result-cards {
 #Billing {
   .form-group {
     .city {
-      width: auto;
       flex-grow: 1;
+      width: auto;
       @include for-phone-only {
         width: 100%;
       }
@@ -1476,7 +1495,7 @@ ul.result-cards {
 /*------------------------------------------------------------------------------------*/
 .verify {
   dt {
-    color: $bright-blue-darken-02;
+    color: $bright-blue-darken-04;
   }
 
   .detail-wrapper {
@@ -1508,7 +1527,7 @@ ul.result-cards {
       .display-element {
         dl {
           dt {
-            color: $bright-blue-darken-02;
+            color: $bright-blue-darken-04;
           }
         }
       }
@@ -1536,7 +1555,7 @@ ul.result-cards {
 
       .image {
         border: 8px solid rgba($cool-gray-07,.8);
-        background-image: url('../img/csr.jpg');
+        background-image: url("../img/csr.jpg");
       }
     }
   }
@@ -1614,22 +1633,22 @@ ul.result-cards {
 
                 .section-group-header {
                   z-index: 2;
+                  flex-basis: auto;
                   flex-grow: 0;
                   flex-shrink: 0;
-                  flex-basis: auto;
                 }
 
                 .header-wrapper {
                   z-index: 3;
+                  align-items: flex-start;
                   flex-grow: 1;
                   flex-shrink: 0;
-                  align-items: flex-start;
                 }
 
                 .btn {
                   z-index: 4;
-                  margin-bottom: $padding*2;
                   align-self: flex-end;
+                  margin-bottom: $padding*2;
                 }
               }
             }
@@ -1672,3 +1691,5 @@ ul.result-cards {
     }
   }
 }
+
+@import "partials/_phone";

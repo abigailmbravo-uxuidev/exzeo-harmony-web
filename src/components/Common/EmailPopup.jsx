@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
@@ -16,7 +17,7 @@ const EmailPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryB
               <h4><i className="fa fa-share-alt" /> Share Quote</h4>
             </div>
             <div className="card-block">
-              <TextField type="text" name={'name'} value styleName={'name'} label={'Name'} validations={['required']} />
+              <TextField autoFocus type="text" name={'name'} value styleName={'name'} label={'Name'} validations={['required']} />
               <TextField type="text" name={'emailAddr'} styleName={'emailAddress'} label={'Email Address'} validations={['required', 'email']} />
             </div>
             <div className="card-footer">

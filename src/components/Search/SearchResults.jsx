@@ -3,11 +3,70 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-
+import localStorage from 'localStorage';
+import { Link } from 'react-router-dom';
+import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import { NoResults } from './NoResults';
+import NoPolicyResultsConnect from './NoPolicyResults';
+
+const onKeypressQuote = (event, quote, props) => {
+  if (event.charCode === 13) {
+    props.handleSelectQuote(quote, props);
+  }
+};
+
+const onKeypressPolicy = (event, policy, props) => {
+  if (event.charCode === 13) {
+    // handleSelectPolicy(quote, props);
+  }
+};
 
 export const SearchResults = (props) => {
+  const { policyResults } = props;
+  if (props.search && props.search.searchType === 'policy') {
+    return (
+      <div className="quote-list">
+        {props.search && props.search.isLoading && <Loader />}
+        {
+          policyResults && policyResults.policies && policyResults.policies.length > 0 && policyResults.policies.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
+            <div className="icon-name">
+              <i className="card-icon fa fa-user-circle" />
+              <div className="card-name">
+                <h4 title={policy.policyHolders && policy.policyHolders.length > 0 ? `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}` : ''}>{policy.policyHolders[0] && `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}</h4>
+              </div>
+            </div>
+            <section>
+              <ul id="policy-search-results" className="policy-search-results">
+                <li className="header">
+                  <span className="policy-no">Policy No.</span>
+                  <span className="property-address">Property Address</span>
+                  <span className="quote-state">Policy Status</span>
+                  <span className="effctive-date">Effective Date</span>
+                </li>
+                <li>
+                  <Link to={{ pathname: '/policy/documents', state: { policyNumber: policy.policyNumber } }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
+                    <span className="quote-no">{policy.policyNumber}</span>
+                    <span className="property-address">{
+                  `${policy.property.physicalAddress.address1}
+                      ${policy.property.physicalAddress.city}, ${policy.property.physicalAddress.state}
+                      ${policy.property.physicalAddress.zip}`
+                }</span>
+                    <span className="quote-state">{policy.status}</span>
+                    <span className="effctive-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
+                  </Link>
+                </li>
+              </ul>
+            </section>
+          </div>))
+      }
+        {
+          props.search && props.search.hasSearched && policyResults && policyResults.policies && policyResults.policies.length === 0 && <NoPolicyResultsConnect />
+      }
+      </div>
+    );
+  }
   if (
     props.tasks[props.appState.modelName] &&
     props.tasks[props.appState.modelName].data &&
@@ -16,13 +75,20 @@ export const SearchResults = (props) => {
     props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
   ) {
     const addresses = props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
+
+    const onKeyPress = (event, address) => {
+      if (event.charCode === 13) {
+        props.handleSelectAddress(address, props);
+      }
+    };
+
     return (
       <div>
         <ul className="results result-cards">
           {addresses
             ? addresses.map((address, index) => (
-              <li id={address.id} key={index}>
-                <a onClick={() => props.handleSelectAddress(address, props)} tabIndex="-1">
+              <li id={address.id} key={index} tabIndex={'0'} onKeyPress={event => onKeyPress(event, address)}>
+                <a onClick={() => props.handleSelectAddress(address, props)}>
                   <i className="card-icon fa fa-map-marker" />
                   <section>
                     <h4>{address.physicalAddress.address1}</h4>
@@ -53,10 +119,10 @@ export const SearchResults = (props) => {
     return (
       <div className="quote-list">
         {
-        quoteResults && quotes && quotes.map((quote, index) => (<div id={quote._id} className="card" key={index}>
+        quoteResults && quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
-            <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? quote.policyHolders[0].firstName+' '+quote.policyHolders[0].lastName : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
+            <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}` : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
           </div>
           <section>
             <ul>
@@ -69,7 +135,7 @@ export const SearchResults = (props) => {
                 <span className="premium">Premium</span>
               </li>
               <li>
-                <a onClick={() => props.handleSelectQuote(quote, props)} tabIndex="-1" >
+                <a onClick={() => props.handleSelectQuote(quote, props)} >
                   <span className="quote-no">{quote.quoteNumber}</span>
                   <span className="property-address">{`${quote.property.physicalAddress.address1}
                           ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
@@ -95,6 +161,8 @@ export const SearchResults = (props) => {
 };
 
 SearchResults.propTypes = {
+  policyResults: PropTypes.shape(),
+  search: PropTypes.shape(),
   appState: PropTypes.shape({
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
@@ -109,7 +177,9 @@ SearchResults.propTypes = {
 
 const mapStateToProps = state => ({
   tasks: state.cg,
-  appState: state.appState
+  appState: state.appState,
+  search: state.search,
+  policyResults: state.service.policyResults
 });
 
 const mapDispatchToProps = dispatch => ({

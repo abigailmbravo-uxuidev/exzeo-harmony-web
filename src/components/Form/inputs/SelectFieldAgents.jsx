@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -13,16 +14,27 @@ export const SelectInputAgents = ({
 }) => {
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;
-  const formGroupStyles = classNames('form-group', { styleName }, { name });
+  const formGroupStyles = classNames('form-group select', { styleName }, { name });
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
   const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
+
+  const onKeyPress = (event, answer) => {
+    if (event && event.preventDefault) event.preventDefault();
+    if (event.charCode === 13) {
+      onChange(answer);
+    }
+  };
 
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
-        {label} &nbsp; {Hint}</label>
+        {label}
+        {Hint}
+      </label>
       {agents && agents.length > 0 ? (
         <select
+          onKeyPress={(event => onKeyPress(event, value))}
+          tabIndex={'0'}
           value={value}
           name={name}
           disabled={disabled}
@@ -44,7 +56,6 @@ export const SelectInputAgents = ({
 };
 
 SelectInputAgents.propTypes = {
-  ...PropTypes,
   /**
    * Answers array used to generate options
    */
@@ -54,7 +65,12 @@ SelectInputAgents.propTypes = {
    * Tooltip for user
    */
   hint: PropTypes.string,
-
+    // Validations
+  meta: {
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+    warning: PropTypes.string
+  },
   /**
    * Input provided by redux-form field
    */

@@ -9,7 +9,8 @@
     flex-shrink: 0;
     justify-content: flex-start;
     @include for-phone-only {
-      flex-direction: column;
+      padding-right: 8rem;
+      flex-wrap: wrap;
     }
 
     section {
@@ -66,14 +67,12 @@
       &.quoteDetails {
         flex-shrink: 0;
         @include for-phone-only {
-          margin-right: 8rem;
         }
       }
 
       &.propertyDetails {
         @include for-phone-only {
           margin-top: 0;
-          margin-right: 8rem;
         }
       }
 

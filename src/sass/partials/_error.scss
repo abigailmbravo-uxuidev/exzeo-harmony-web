@@ -153,6 +153,7 @@
 
           .error-property-details {
             display: flex;
+            flex-shrink: 0;
 
             .quote-number {
               margin-right: $padding*4;

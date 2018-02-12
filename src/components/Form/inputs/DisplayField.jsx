@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import reduxFormField from './reduxFormField';
 
@@ -8,11 +9,12 @@ export const DisplayInput = ({
   displayValue,
   styleName
 }) => (
-  <div className={classNames('form-group', input.name, styleName)} id={input.name}>
+  <div className={classNames('form-group read-only', input.name, styleName)} id={input.name}>
     <label htmlFor={input.name}>
       {label}
     </label>
     <input
+      tabIndex={'0'}
       type="text"
       name={input.name}
       value={displayValue || (!Number.isNaN(Number(input.value)) ? `$ ${input.value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : input.value)}
@@ -30,12 +32,12 @@ DisplayInput.propTypes = {
   input: PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.oneOfType([
-       PropTypes.string,
-       PropTypes.number
-     ])
-   }),
+      PropTypes.string,
+      PropTypes.number
+    ])
+  }),
     // Name added to class on render
-   styleName: PropTypes.string
+  styleName: PropTypes.string
 };
 
 DisplayInput.defaultProps = {

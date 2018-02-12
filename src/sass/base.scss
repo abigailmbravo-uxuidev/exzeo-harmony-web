@@ -16,7 +16,6 @@
 /*Grid styles*/
 //@import "partials/_grid";
 //@import "partials/_tabs";
-
 /*------------------------------------------------------------------------------------*/
 @import "https://fonts.googleapis.com/css?family=Roboto:100,300,500"; //base
 //buttons & links
@@ -26,7 +25,7 @@
 /*------------------------------------------------------------------------------------*/
 @import "partials/_form"; //form partial
 @import "partials/_range"; //range / slider partial
-@import "partials/_date-picker";//datepicker widget
+@import "partials/_date-picker"; //datepicker widget
 //vertical tabs
 /*------------------------------------------------------------------------------------*/
 @import "partials/_nav"; //vertical tab partial
@@ -42,16 +41,13 @@
 //Loader
 /*------------------------------------------------------------------------------------*/
 @import "partials/_loader"; //loader
-
 //APP SPECIFIC STYLES
 /*###################################################*/
 //main site structure
 /*------------------------------------------------------------------------------------*/
-@import "partials/_site-structure";
-//header - includes logo and main navigation
+@import "partials/_site-structure"; //header - includes logo and main navigation
 /*------------------------------------------------------------------------------------*/
-@import "partials/_header";
-//search
+@import "partials/_header"; //search
 /*------------------------------------------------------------------------------------*/
 @import "partials/_search"; //search partial
 //search results
@@ -59,47 +55,44 @@
 @import "partials/_list-results"; //list results partial
 //workflow, workflow detail header & workflow stepper
 /*------------------------------------------------------------------------------------*/
-@import "partials/_workflow";
-//footer
+@import "partials/_workflow"; //footer
 /*------------------------------------------------------------------------------------*/
-@import "partials/_footer";
-//ROUTE SPECIFIC STYLES
+@import "partials/_footer"; //Pagination
+/*------------------------------------------------------------------------------------*/
+@import "partials/_pagination"; //Grid - react bootstrap table
+/*------------------------------------------------------------------------------------*/
+@import "partials/_grid"; //Responsive styles for phone
+/*------------------------------------------------------------------------------------*/
+@import "partials/_phone"; //ROUTE SPECIFIC STYLES
 /*###################################################*/
 //Home Page
 /*------------------------------------------------------------------------------------*/
-@import "partials/_dashboard";
-//Policyholder Demographics/Customer Info page
+@import "partials/_dashboard"; //Policyholder Demographics/Customer Info page
 /*------------------------------------------------------------------------------------*/
 @import "partials/_policyholder-demographics";
 /*------------------------------------------------------------------------------------*/
 //Customize Quote page
 /*------------------------------------------------------------------------------------*/
-@import "partials/_customize";
-//Share
+@import "partials/_customize"; //Share
 /*------------------------------------------------------------------------------------*/
-@import "partials/_share";
-//Additional Interests
+@import "partials/_share"; //Additional Interests
 /*------------------------------------------------------------------------------------*/
-@import "partials/_additional-interests";
-//Mailing & Billing
+@import "partials/_additional-interests"; //Mailing & Billing
 /*------------------------------------------------------------------------------------*/
-@import "partials/_mailing-billing";
-//verify & write policy
+@import "partials/_mailing-billing"; //Quote verify & write policy
 /*------------------------------------------------------------------------------------*/
-@import "partials/_verify";
-//General & Quote Error
+@import "partials/_verify"; //Policy
 /*------------------------------------------------------------------------------------*/
-@import "partials/_error";
-//Thanks Page
+@import "partials/_policy"; //General & Quote Error
+/*------------------------------------------------------------------------------------*/
+@import "partials/_error"; //Thanks Page
 /*------------------------------------------------------------------------------------*/
 #thanks {
   display: flex;
   flex-direction: column;
-  height: auto;
   flex-grow: 1;
+  height: auto;
 }
-
-
 
 .card {
   &.card-schedule-date {

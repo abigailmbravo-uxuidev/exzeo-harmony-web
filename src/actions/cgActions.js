@@ -43,19 +43,19 @@ export const complete = (modelName, workflowData) => {
 const checkCGError = (responseData) => {
   if (responseData.activeTask && responseData.activeTask.link && responseData.activeTask.link === 'error') {
     throw new Error(`CG responded with an error: ${responseData}`);
+  } else if (responseData.status === 400) {
+    throw new Error(`CG responded with an error: ${responseData}`);
   }
 };
 
 const handleError = (dispatch, error) => {
   let message = 'An error happened';
-  console.log(error.response);
-  if (error.response) {
+  if (error.response && error.response.data && error.response.data.error) {
+    message = error.response.data.error.message;
+  } else if (error.response) {
     // The request was made, but the server responded with a status code
     // that falls out of the range of 2xx
-    console.log(error.response.data);
-    console.log(error.response.status);
-    console.log(error.response.headers);
-    message = error.response.data.error.message;
+    message = error.response.statusText;
   }
   // Something happened in setting up the request that triggered an Error
   message = (error.message) ? error.message : message;

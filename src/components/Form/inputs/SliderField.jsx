@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
@@ -13,7 +14,8 @@ export const SliderInput = ({
   meta,
   rightLabel,
   step,
-  styleName
+  styleName,
+  autoFocus
 }) => {
   const { name, value } = input;
   const { error } = meta;
@@ -37,31 +39,36 @@ export const SliderInput = ({
     if (!Number.isNaN(val)) { input.onChange(val); }
   };
 
+  const calculatedValue = Number(Math.round(value / 1000) * 1000);
+
+
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
         {label}
-         &nbsp;
         {Hint}
       </label>
       <div className="range-wrapper">
         <div className="range-control-wrapper">
           <span className="range-limit">{leftLabel || min || '0'}</span>
           <input
+            autoFocus={autoFocus}
+            tabIndex={'0'}
             type="range"
             name={name}
             min={min}
             max={max}
             step={step}
-            value={value}
+            value={calculatedValue}
             onChange={input.onChange}
           />
           <span className="range-limit">{rightLabel || max}</span>
         </div>
         <span className="range-value">
-          <input
+          <input          
+            tabIndex={'0'}
             type="text"
-            value={`$ ${value}`.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+            value={`$ ${calculatedValue >= 100000 ? calculatedValue.toLocaleString() : Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
           />

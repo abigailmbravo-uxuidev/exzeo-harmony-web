@@ -36,9 +36,10 @@ export class Base extends Component {
 
   componentDidMount() {
     this.props.auth.getProfile((err, result) => {
-      const userGroup = result && result.groups ? result.groups[0] : {};
-      if (userGroup.isAgency) {
-        this.props.actions.serviceActions.getAgency(userGroup.companyCode, userGroup.state, userGroup.agencyCode);
+      const agency = result.agency;
+      
+      if (agency) {
+        this.props.actions.serviceActions.getAgency(agency.companyCode, agency.state, agency.agencyCode);
       }
     });
   }

@@ -1,10 +1,10 @@
-import {
-  Map
-} from 'immutable';
-
 export default {
-  search: new Map({}),
+  search: {},
   workflowData: {},
+  policyState: {
+    policyNumber: null,
+    update: false
+  },
   service: {},
   completedTasks: [],
   appState: {

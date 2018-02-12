@@ -1,13 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
+
 
 const FieldHint = ({
   name,
   hint
 }) => (
-  <span>
+  <span className="tooltip-wrapper">
     <i className="fa fa-info-circle" data-tip data-for={name} />
-    <ReactTooltip place="right" id={name} type="dark" effect="float">{hint}</ReactTooltip>
+    <ReactTooltip place="right" id={name} type="dark" effect="solid">{hint}</ReactTooltip>
   </span>
 );
 
