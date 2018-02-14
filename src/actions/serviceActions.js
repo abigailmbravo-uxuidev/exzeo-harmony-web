@@ -27,7 +27,7 @@ export const runnerSetup = data => ({
 
 export const getAgents = (companyCode, state) => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'agency.services',
+    service: 'agency',
     method: 'GET',
     path: `v1/agents/${companyCode}/${state}`
   });
@@ -48,7 +48,7 @@ export const getAgents = (companyCode, state) => (dispatch) => {
 
 export const getAgency = (companyCode, state, agencyCode) => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'agency.services',
+    service: 'agency',
     method: 'GET',
     path: `v1/agency/${companyCode}/${state}/${agencyCode}`
   });
@@ -69,7 +69,7 @@ export const getAgency = (companyCode, state, agencyCode) => (dispatch) => {
 
 export const getAgentsByAgency = (companyCode, state, agencyCode) => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'agency.services',
+    service: 'agency',
     method: 'GET',
     path: `v1/agents/${companyCode}/${state}?agencyCode=${agencyCode}`
   });
@@ -90,7 +90,7 @@ export const getAgentsByAgency = (companyCode, state, agencyCode) => (dispatch) 
 
 export const getAgencies = (companyCode, state) => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'agency.services',
+    service: 'agency',
     method: 'GET',
     path: `v1/agencies/${companyCode}/${state}`
   });
@@ -111,7 +111,7 @@ export const getAgencies = (companyCode, state) => (dispatch) => {
 
 export const getQuote = quoteId => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'quote-data.services',
+    service: 'quote-data',
     method: 'GET',
     path: `${quoteId}`
   });
@@ -133,7 +133,7 @@ export const getQuote = quoteId => (dispatch) => {
 export const searchPolicy = (policyNumber, firstName, lastName, address, pageNumber, pageSize, sort, direction) => (dispatch) => {
   const formattedAddress = address.replace(' ', '&#32;');
   const axiosConfig = runnerSetup({
-    service: 'policy-data.services',
+    service: 'policy-data',
     method: 'GET',
     path: `/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&active=true&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
   });
@@ -165,7 +165,7 @@ export const clearPolicyResults = () => (dispatch) => {
 
 export const getLatestPolicy = policyNumber => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'policy-data.services',
+    service: 'policy-data',
     method: 'GET',
     path: `transactions/${policyNumber}/latest`
   });
@@ -186,7 +186,7 @@ export const getLatestPolicy = policyNumber => (dispatch) => {
 
 export const getSummaryLedger = policyNumber => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'billing.services',
+    service: 'billing',
     method: 'GET',
     path: `summary-ledgers/${policyNumber}/latest`
   });
@@ -207,7 +207,7 @@ export const getSummaryLedger = policyNumber => (dispatch) => {
 
 export const getPolicyDocuments = policyNumber => (dispatch) => {
   const axiosConfig = runnerSetup({
-    service: 'file-index.services',
+    service: 'file-index',
     method: 'GET',
     path: `v1/fileindex/${policyNumber}`
   });
@@ -225,4 +225,3 @@ export const getPolicyDocuments = policyNumber => (dispatch) => {
       ]));
     });
 };
-
