@@ -112,13 +112,14 @@ export const BillPayer = (props) => {
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-money" /> BillPayer</h3>
+            <h3 className="section-group-header"><i className="fa fa-money" /> Billpayer</h3>
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) =>
               <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>cancel</button>
-            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>save</button>
+            <span className="button-info">Oops! There is no billpayer</span>
+            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
+            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>Save</button>
           </div>
           <Footer />
         </div>

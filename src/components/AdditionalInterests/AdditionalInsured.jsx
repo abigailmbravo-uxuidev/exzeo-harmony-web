@@ -143,8 +143,9 @@ export const AdditionalInsured = (props) => {
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>cancel</button>
-            <button className="btn btn-primary" type="submit" form="AdditionalInsured" disabled={props.appState.data.submitting}>save</button>
+            <span className="button-info">Oops! There is no additional insured</span>
+            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
+            <button className="btn btn-primary" type="submit" form="AdditionalInsured" disabled={props.appState.data.submitting}>Save</button>
           </div>
           <Footer />
         </div>
