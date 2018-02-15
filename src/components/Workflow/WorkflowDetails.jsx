@@ -122,6 +122,14 @@ export class WorkflowDetails extends Component {
               </div>
             </dl>
           </section>
+          <section id="constructionType" className="constructionType">
+            <dl>
+              <div>
+                <dt className="fade">Construction Type</dt>
+                <dd className="fade">{quote.property.constructionType}</dd>
+              </div>
+            </dl>
+          </section>
           <section id="coverageDetails">
             <dl>
               <div>

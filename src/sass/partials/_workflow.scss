@@ -8,12 +8,15 @@
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: flex-start;
+    padding-right: 7.5rem;
     @include for-phone-only {
-      padding-right: 8rem;
       flex-wrap: wrap;
     }
 
     section {
+      dt {
+        white-space: nowrap;
+      }
       dl {
         display: flex;
         flex-direction: column;
@@ -78,6 +81,12 @@
 
       &.yearBuilt {
         @include for-phone-only {
+          display: none;
+        }
+      }
+
+      &.constructionType {
+        @media screen and (max-width: 47rem) {
           display: none;
         }
       }
