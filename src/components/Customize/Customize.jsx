@@ -30,7 +30,6 @@ export const handleFormSubmit = (data, dispatch, props) => {
   } else {
     // the form was modified and now we need to recalc
     const updatedQuote = convertQuoteStringsToNumber(data);
-
     updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
 
     const updatedQuoteResult = {
