@@ -65,7 +65,7 @@ export const SliderInput = ({
           <span className="range-limit">{rightLabel || max}</span>
         </div>
         <span className="range-value">
-          <input          
+          <input
             tabIndex={'0'}
             type="text"
             value={`$ ${calculatedValue >= 100000 ? calculatedValue.toLocaleString() : Number(value).toLocaleString()}`}
