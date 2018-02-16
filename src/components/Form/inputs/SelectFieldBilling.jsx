@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import _ from 'lodash';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
 
