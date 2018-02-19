@@ -1040,16 +1040,16 @@ main[role="document"] {
         }
 
         &.premium {
-          background: $green-lighten-04;
+          background: mix($black, $bright-blue-darken-04, 70%);
 
           dl {
             div {
               dt {
-                color: $cool-gray-15;
+
               }
 
               dd {
-                color: $body-color;
+                color: $white;
               }
             }
           }
