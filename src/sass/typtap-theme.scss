@@ -1044,10 +1044,13 @@ main[role="document"] {
 
           dl {
             div {
-              dt {
-
+              &.recalc-wrapper {
+                  .btn {
+                      i {
+                          font-size: $font-size-base;
+                      }
+                  }
               }
-
               dd {
                 color: $white;
               }
