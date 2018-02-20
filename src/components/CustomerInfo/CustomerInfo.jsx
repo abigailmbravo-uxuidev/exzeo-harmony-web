@@ -14,7 +14,7 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
-import SnackBar from '../Form/inputs/SnackBar';
+import SnackBar from '../Common/SnackBar';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -112,7 +112,7 @@ export const CustomerInfo = (props) => {
     <div className="route-content">
       <SnackBar
         {...props}
-        show={props.appState.data.showSnackBar}                           // Boolean  - Required and Default - `false`
+        show={props.appState.data.showSnackBar}
         timer={3000}
       ><p>Please see errors above</p></SnackBar>
       {props.appState.data.submitting && <Loader />}

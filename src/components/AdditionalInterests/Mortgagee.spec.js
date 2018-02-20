@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Mortgagee, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './Mortgagee';
+import ConnectedApp, { Mortgagee, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, failedSubmission } from './Mortgagee';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -90,5 +90,6 @@ describe('Testing AddMortgagee component', () => {
     Mortgagee(props);
     closeAndSavePreviousAIs(props);
     handleInitialize(initialState);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });

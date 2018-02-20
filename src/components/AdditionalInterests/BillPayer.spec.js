@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { BillPayer, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './BillPayer';
+import ConnectedApp, { BillPayer, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, failedSubmission } from './BillPayer';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -90,5 +90,6 @@ describe('Testing AddBillPayer component', () => {
     BillPayer(props);
     closeAndSavePreviousAIs(props);
     handleInitialize(initialState);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });

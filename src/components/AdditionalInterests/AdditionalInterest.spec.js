@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { AdditionalInterest, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './AdditionalInterest';
+import ConnectedApp, { AdditionalInterest, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, failedSubmission } from './AdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -90,5 +90,6 @@ describe('Testing AddAdditionalInterest component', () => {
     AdditionalInterest(props);
     closeAndSavePreviousAIs(props);
     handleInitialize(initialState);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });

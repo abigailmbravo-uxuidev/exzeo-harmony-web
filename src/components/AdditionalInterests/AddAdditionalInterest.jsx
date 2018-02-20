@@ -10,6 +10,15 @@ import * as appStateActions from '../../actions/appStateActions';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
+import SnackBar from '../Common/SnackBar';
+
+export const failedSubmission = (errors, dispatch, submitError, props) => {
+  const workflowId = props.appState.instanceId;
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: true });
+  setTimeout(() => {
+    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: false });
+  }, 3000);
+};
 
 const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'
@@ -170,6 +179,11 @@ export const deleteAdditionalInterest = (selectedAdditionalInterest, props) => {
 
 export const AddAdditionalInterest = props => (
   <div className="route-content">
+    <SnackBar
+      {...props}
+      show={props.appState.data.showSnackBar}
+      timer={3000}
+    ><p>Please see errors above</p></SnackBar>
     {props.appState.data.submitting && <Loader />}
     <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={props.handleSubmit(noAddAdditionalInterestSubmit)} noValidate>
       <div className="scroll">
@@ -260,4 +274,5 @@ const mapDispatchToProps = dispatch => ({
 // ------------------------------------------------
 // wire up redux form with the redux connect
 // ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'AddAdditionalInterest' })(AddAdditionalInterest));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'AddAdditionalInterest',
+  onSubmitFail: failedSubmission })(AddAdditionalInterest));

@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { CustomerInfo, handleFormSubmit } from './CustomerInfo';
+import ConnectedApp, { CustomerInfo, handleFormSubmit, failedSubmission } from './CustomerInfo';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -87,5 +87,6 @@ describe('Testing CustomerInfo component', () => {
     }, props.dispatch, props);
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });

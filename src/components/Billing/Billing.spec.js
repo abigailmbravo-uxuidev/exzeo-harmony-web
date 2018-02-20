@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Billing, handleFormSubmit, getSelectedPlan, InstallmentTerm } from './Billing';
+import ConnectedApp, { Billing, handleFormSubmit, getSelectedPlan, InstallmentTerm, failedSubmission } from './Billing';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -432,5 +432,6 @@ describe('Testing Billing component', () => {
     expect(getSelectedPlan('Annual')).toEqual('annual');
     expect(getSelectedPlan('Semi-Annual')).toEqual('semiAnnual');
     expect(getSelectedPlan('Quarterly')).toEqual('quarterly');
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });

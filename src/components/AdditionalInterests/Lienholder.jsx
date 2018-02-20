@@ -14,6 +14,15 @@ import FieldGenerator from '../Form/FieldGenerator';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
+import SnackBar from '../Common/SnackBar';
+
+export const failedSubmission = (errors, dispatch, submitError, props) => {
+  const workflowId = props.appState.instanceId;
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: true });
+  setTimeout(() => {
+    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: false });
+  }, 3000);
+};
 
 const userTasks = {
   formSubmit: ''
@@ -136,6 +145,11 @@ export const Lienholder = (props) => {
   } = props;
   return (
     <div className="route-content">
+      <SnackBar
+        {...props}
+        show={props.appState.data.showSnackBar}
+        timer={3000}
+      ><p>Please see errors above</p></SnackBar>
       { props.appState.data.submitting && <Loader /> }
       <Form id="Lienholder" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
@@ -186,4 +200,5 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Lienholder' })(Lienholder));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Lienholder',
+  onSubmitFail: failedSubmission })(Lienholder));
