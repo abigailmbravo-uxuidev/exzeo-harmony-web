@@ -1,5 +1,5 @@
 .snackbar {
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,10 +44,14 @@
   }
 
   &.bottom {
-    bottom: 0;
+    bottom: 2.25rem;
   }
 
   &.right {
-    right: 1rem;
+    right: 7rem;
+  }
+
+  p {
+      margin: 0;
   }
 }

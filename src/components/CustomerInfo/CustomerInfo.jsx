@@ -114,7 +114,7 @@ export const CustomerInfo = (props) => {
     <div className="route-content">
       <SnackBar
         show={props.appState.data.submitFailed}                           // Boolean  - Required and Default - `false`
-        timer={3000}
+        timer={30000}
       ><p>Whoa! There are validation errors!</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form
