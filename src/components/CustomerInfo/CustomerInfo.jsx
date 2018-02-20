@@ -5,6 +5,7 @@ import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import SnackBar from 'react-material-snackbar';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
@@ -14,12 +15,21 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
-import normalizeDate from '../Form/normalizeDate';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
 // ------------------------------------------------
 const userTasks = { formSubmit: 'askAdditionalCustomerData' };
+
+export const failedSubmission = (errors, dispatch, submitError, props) => {
+  const workflowId = props.appState.instanceId;
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitFailed: true });
+};
+
+export const resetFail = (values, dispatch, props, previousValues) => {
+  // const workflowId = props.appState.instanceId;
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitFailed: false });
+};
 
 export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
@@ -102,6 +112,10 @@ export const CustomerInfo = (props) => {
   const quoteData = props.quote;
   return (
     <div className="route-content">
+      <SnackBar
+        show={props.appState.data.submitFailed}                           // Boolean  - Required and Default - `false`
+        timer={3000}
+      ><p>Whoa! There are validation errors!</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form
         id="CustomerInfo"
@@ -188,5 +202,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'CustomerInfo'
+  form: 'CustomerInfo',
+  onSubmitFail: failedSubmission,
+  onChange: resetFail
 })(CustomerInfo));
