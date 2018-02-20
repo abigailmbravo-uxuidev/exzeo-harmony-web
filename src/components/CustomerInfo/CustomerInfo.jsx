@@ -23,12 +23,10 @@ const userTasks = { formSubmit: 'askAdditionalCustomerData' };
 
 export const failedSubmission = (errors, dispatch, submitError, props) => {
   const workflowId = props.appState.instanceId;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitFailed: true });
-};
-
-export const resetFail = (values, dispatch, props, previousValues) => {
-  const workflowId = props.appState.instanceId;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitFailed: false });
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: true });
+  setTimeout(() => {
+    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: false });
+  }, 3000);
 };
 
 export const handleFormSubmit = (data, dispatch, props) => {
@@ -73,7 +71,7 @@ const handleInitialize = (state) => {
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('YYYY-MM-DD');
-
+  values.FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
   values.electronicDelivery = _.get(quoteData, 'policyHolders[0].electronicDelivery') || false;
@@ -113,7 +111,8 @@ export const CustomerInfo = (props) => {
   return (
     <div className="route-content">
       <SnackBar
-        show={props.appState.data.submitFailed}                           // Boolean  - Required and Default - `false`
+        {...props}
+        show={props.appState.data.showSnackBar}                           // Boolean  - Required and Default - `false`
         timer={3000}
       ><p>Whoa! There are validation errors!</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
@@ -203,6 +202,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'CustomerInfo',
-  onSubmitFail: failedSubmission,
-  onChange: resetFail
+  onSubmitFail: failedSubmission
 })(CustomerInfo));
