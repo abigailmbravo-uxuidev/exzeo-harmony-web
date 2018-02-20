@@ -18,6 +18,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 
 // ------------------------------------------------
 // List the user tasks that directly tie to
@@ -25,14 +26,6 @@ import SnackBar from '../Common/SnackBar';
 // ------------------------------------------------
 const userTasks = {
   formSubmit: 'askAdditionalQuestions'
-};
-
-export const failedSubmission = (errors, dispatch, submitError, props) => {
-  const workflowId = props.appState.instanceId;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: true });
-  setTimeout(() => {
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: false });
-  }, 3000);
 };
 
 export const handleFormSubmit = (data, dispatch, props) => {
