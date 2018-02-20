@@ -5,7 +5,6 @@ import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import SnackBar from 'react-material-snackbar';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
@@ -15,6 +14,7 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
+import SnackBar from '../Form/inputs/SnackBar';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -27,8 +27,8 @@ export const failedSubmission = (errors, dispatch, submitError, props) => {
 };
 
 export const resetFail = (values, dispatch, props, previousValues) => {
-  // const workflowId = props.appState.instanceId;
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitFailed: false });
+  const workflowId = props.appState.instanceId;
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitFailed: false });
 };
 
 export const handleFormSubmit = (data, dispatch, props) => {
