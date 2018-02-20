@@ -111,7 +111,6 @@ export const CustomerInfo = (props) => {
   return (
     <div className="route-content">
       <SnackBar
-        {...props}
         show={props.appState.data.showSnackBar}                           // Boolean  - Required and Default - `false`
         timer={3000}
       ><p>Whoa! There are validation errors!</p></SnackBar>
