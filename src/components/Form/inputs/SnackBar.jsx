@@ -42,5 +42,6 @@ SnackBar.defaultProps = {
 
 SnackBar.propTypes = {
   show: PropTypes.bool.isRequired,
-  timer: PropTypes.number
+  timer: PropTypes.number,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
