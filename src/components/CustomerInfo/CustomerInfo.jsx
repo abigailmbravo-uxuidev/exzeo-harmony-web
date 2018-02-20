@@ -114,7 +114,7 @@ export const CustomerInfo = (props) => {
         {...props}
         show={props.appState.data.showSnackBar}                           // Boolean  - Required and Default - `false`
         timer={3000}
-      ><p>Whoa! There are validation errors!</p></SnackBar>
+      ><p>Please see errors above</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form
         id="CustomerInfo"
