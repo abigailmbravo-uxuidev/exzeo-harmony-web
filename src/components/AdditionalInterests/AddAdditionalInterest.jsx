@@ -11,14 +11,7 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
-
-export const failedSubmission = (errors, dispatch, submitError, props) => {
-  const workflowId = props.appState.instanceId;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: true });
-  setTimeout(() => {
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, showSnackBar: false });
-  }, 3000);
-};
+import failedSubmission from '../Common/reduxFormFailSubmit';
 
 const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'

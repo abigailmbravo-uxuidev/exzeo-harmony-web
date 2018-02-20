@@ -1,8 +1,8 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-
-import ConnectedApp, { AdditionalInterest, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, failedSubmission } from './AdditionalInterest';
+import failedSubmission from '../Common/reduxFormFailSubmit';
+import ConnectedApp, { AdditionalInterest, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './AdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);

@@ -1,11 +1,11 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-
+import failedSubmission from '../Common/reduxFormFailSubmit';
 import ConnectedApp, {
   AddAdditionalInterest,
   noAddAdditionalInterestSubmit, goToStep, returnTaskDataName, returnTaskName,
-  openDeleteAdditionalInterest, hideAdditionalInterestModal, deleteAdditionalInterest, failedSubmission } from './AddAdditionalInterest';
+  openDeleteAdditionalInterest, hideAdditionalInterestModal, deleteAdditionalInterest } from './AddAdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
