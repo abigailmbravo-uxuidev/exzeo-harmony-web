@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import platform from 'platform';
 import moment from 'moment';
 import classNames from 'classnames';
 import { Field } from 'redux-form';
 import MaskedTextInput from 'react-text-mask';
 import normalizeDate from '../normalizeDate';
 import FieldHint from './FieldHint';
-import { combineRules } from '../Rules';
 import reduxFormField from './reduxFormField';
 import maskDate from '../maskDate';
 

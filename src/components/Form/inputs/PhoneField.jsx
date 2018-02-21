@@ -97,6 +97,7 @@ PhoneInput.propTypes = {
    * Answer Type from original question
    */
   type: PropTypes.oneOf([
+    'phone',
     'email',
     'password',
     'text',
