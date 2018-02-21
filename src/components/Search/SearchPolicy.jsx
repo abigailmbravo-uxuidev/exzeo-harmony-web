@@ -9,8 +9,6 @@ import * as appStateActions from '../../actions/appStateActions';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
-import QuoteError from '../Common/QuoteError';
-import Loader from '../Common/Loader';
 
 
 export const SearchPolicy = props => (

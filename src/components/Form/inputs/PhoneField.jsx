@@ -1,11 +1,9 @@
 import React from 'react';
-import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MaskedTextInput from 'react-text-mask';
 import FieldHint from './FieldHint';
 import reduxFormField from './reduxFormField';
-import normalizePhone from '../normalizePhone';
 import { combineRules } from '../Rules';
 
 export const PhoneInput = ({
@@ -99,6 +97,7 @@ PhoneInput.propTypes = {
    * Answer Type from original question
    */
   type: PropTypes.oneOf([
+    'phone',
     'email',
     'password',
     'text',

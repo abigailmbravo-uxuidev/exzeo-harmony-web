@@ -42,7 +42,7 @@ export const CheckInput = ({
 
   return (
     <div className={formGroupStyles} id={name}>
-      <label htmlFor={name} onClick={() => { !isSwitch ? onChange(!value) : function () {} ;}}>
+      <label htmlFor={name} onClick={() =>  !isSwitch ? onChange(!value) : () => {} }>
         {label}
         {Hint}
         <input

@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import localStorage from 'localStorage';
 import { Link } from 'react-router-dom';
 import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-import { NoResults } from './NoResults';
 import NoPolicyResultsConnect from './NoPolicyResults';
 
 const onKeypressQuote = (event, quote, props) => {

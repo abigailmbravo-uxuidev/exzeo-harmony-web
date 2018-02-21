@@ -48,7 +48,8 @@ export default function reduxFormField(fieldComponent) {
         'tel',
         'text',
         'currency',
-        'selectBilling'
+        'selectBilling',
+        'phone'
       ]),
 
       /**
