@@ -29,7 +29,10 @@ const scheduleDateModal = (props) => {
   const showScheduleDateModal = props.appState.data.showScheduleDateModal;
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !showScheduleDateModal });
 };
-
+const redirectToHome = (props) => {
+  scheduleDateModal(props);
+  window.location.href = '/';
+};
 
 // ------------------------------------------------
 // This function add a primary or secondary title
@@ -335,7 +338,7 @@ export const Verify = (props) => {
           </div>
 
         </Form>}
-      {appState.data.showScheduleDateModal && <ScheduleDate verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} />}
+      {appState.data.showScheduleDateModal && <ScheduleDate selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} redirectToHome={() => redirectToHome(props)} />}
     </div>
   );
 };
