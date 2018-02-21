@@ -65,7 +65,6 @@ export const AddBillpayer = (props) => {
 
 const getAnswers = (name, questions) => _.get(_.find(questions, { name }), 'answers') || [];
 
-
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   _.forEach(getAnswers('mortgagee', taskData.uiQuestions), (answer) => {
