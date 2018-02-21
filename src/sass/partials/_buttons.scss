@@ -224,7 +224,11 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   &.btn-block {
-    width: 100%;
+
+      @include for-phone-only {
+        width: 100%;
+        margin-bottom: $padding;
+    }
   }
 }
 
