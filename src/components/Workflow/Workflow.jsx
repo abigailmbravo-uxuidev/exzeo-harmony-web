@@ -28,7 +28,7 @@ import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest
 import BillPayerConnect from '../AdditionalInterests/BillPayer';
 
 
-const workflowModelName = 'quoteModel';
+const workflowModelName = 'csrQuoteModelFeb18';
 const workflowData = {
   dsUrl: `${process.env.REACT_APP_API_URL}/ds`
 };
@@ -60,7 +60,8 @@ const components = {
   askBillPayer: <BillPayerConnect />,
   showCustomizedQuoteAndContinue: <TaskRunnerConnect taskName={'showCustomizedQuoteAndContinue'} />,
   askAdditionalQuestions: <BillingConnect />,
-  askScheduleInspectionDates: <VerifyConnect />
+  askScheduleInspectionDates: <VerifyConnect />,
+  editVerify: <VerifyConnect />
 };
 
 export class Workflow extends Component {

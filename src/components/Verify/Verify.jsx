@@ -52,7 +52,44 @@ export const handleFormSubmit = (data, dispatch, props) => {
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  const steps = [{
+    name: 'editVerify',
+    data: {
+      shouldEditVerify: 'false'
+    }
+  }, {
+    name: taskName,
+    data: taskData
+  }];
+
+  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
+    .then(() => {
+      // now update the workflow details so the recalculated rate shows
+      props.actions.appStateActions.setAppState(props.appState.modelName,
+        workflowId, { ...props.appState.data, submitting: false });
+    });
+};
+
+export const handlePolicyHolderUpdate = (data, dispatch, props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskData = { ...data };
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  const steps = [{
+    name: 'editVerify',
+    data: {
+      shouldEditVerify: 'PolicyHolder'
+    }
+  }, {
+    name: 'editPolicyHolder',
+    data: taskData
+  }];
+
+  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
+    .then(() => {
+      // now update the workflow details so the recalculated rate shows
+      props.actions.appStateActions.setAppState(props.appState.modelName,
+        workflowId, { ...props.appState.data, submitting: false, showPolicyHolderModal: false });
+    });
 };
 
 export const goToStep = (props, taskName) => {
@@ -344,7 +381,7 @@ export const Verify = (props) => {
 
         </Form>}
       {appState.data.showScheduleDateModal && <ScheduleDate verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} />}
-      {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={() => null} secondaryButtonHandler={() => hidePolicyHolderModal(props)} />}
+      {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={handlePolicyHolderUpdate} secondaryButtonHandler={() => hidePolicyHolderModal(props)} />}
 
     </div>
   );

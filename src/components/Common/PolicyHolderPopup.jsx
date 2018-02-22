@@ -22,13 +22,11 @@ const handleInitialize = (state) => {
   values.pH1FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
   values.pH1LastName = _.get(quoteData, 'policyHolders[0].lastName') || '';
   values.pH1phone = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
-  values.pH1phone2 = normalizePhone(_.get(quoteData, 'policyHolders[0].secondaryPhoneNumber') || '');
 
   values.pH2email = _.get(quoteData, 'policyHolders[1].emailAddress') || '';
   values.pH2FirstName = _.get(quoteData, 'policyHolders[1].firstName') || '';
   values.pH2LastName = _.get(quoteData, 'policyHolders[1].lastName') || '';
   values.pH2phone = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
-  values.pH2phone2 = normalizePhone(_.get(quoteData, 'policyHolders[1].secondaryPhoneNumber') || '');
   return values;
 };
 const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
