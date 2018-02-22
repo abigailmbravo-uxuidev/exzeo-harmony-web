@@ -17,12 +17,12 @@ export const PhoneInput = ({
   type,
   disabled,
   validations,
-  name
+  name,
+  dependsOn
 }) => {
   const { touched, error, warning } = meta;
 
-  const ruleArray = combineRules(validations, { });
-
+  const ruleArray = combineRules(validations, { dependsOn });
 
   const formGroupStyles = classNames(
     'form-group',

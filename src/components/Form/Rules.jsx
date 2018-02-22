@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const rules = {
   required: value => (value ? undefined : 'Field Required'),
-  email: value => (validator.isEmail(value) ? undefined : 'Not a valid email address'),
+  email: value => (!value || validator.isEmail(value) ? undefined : 'Not a valid email address'),
   optionalEmail: value => ((!value || validator.isEmail(value)) ? undefined : 'Not a valid email address'),
   phone: value => (!value || (value.match && value.match(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g)) ? undefined : 'is not a valid Phone Number.'),
   date: value => (validator.isISO8601(value) ? undefined : 'Not a valid date'),
@@ -34,6 +34,19 @@ export function combineRules(validations, variables) {
       }
     }
   }
+
+  if (variables.dependsOn) {
+    const checkFields = (value, allValues) => {
+      if (value && value.length > 0) return undefined;
+      for (const field of variables.dependsOn) {
+        if (allValues[field]) return 'Field Required';
+      }
+
+      return undefined;
+    };
+    ruleArray.push(checkFields);
+  }
+
   return ruleArray;
 }
 
