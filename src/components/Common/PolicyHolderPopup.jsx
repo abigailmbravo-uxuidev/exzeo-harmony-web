@@ -32,8 +32,8 @@ const handleInitialize = (state) => {
   values.pH2phone = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
   return values;
 };
-  <div className="edit-policyholder-modal modal active" role="article">
 const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler, fieldValues }) => (
+  <div className="edit-policyholder-modal modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
         <div className="card card-policyholder">
