@@ -47,9 +47,9 @@ export const DateInput = ({
   const maxDate = moment(max).format('YYYY-MM-DD');
   const platformLower = platform.name.toLowerCase();
 
-  const Label = label && (<label htmlFor={name}>
+  const Label = label && (<label className="date-label-wrapper" htmlFor={name}>
     {label}
-    {formatMaxDate && formatMinDate ? <div>Min Date: {formatMinDate} - Max Date: {formatMaxDate}</div> : null}
+    {formatMaxDate && formatMinDate ? <div className="date-min-max">{formatMinDate} - {formatMaxDate}</div> : null}
     {Hint}
   </label>);
 
