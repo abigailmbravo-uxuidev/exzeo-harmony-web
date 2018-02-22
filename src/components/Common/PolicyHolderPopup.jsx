@@ -30,13 +30,13 @@ const handleInitialize = (state) => {
   return values;
 };
 const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
-  <div className="email-modal modal active" role="article">
+  <div className="edit-policyholder-modal modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
-        <div className="card card-email">
-          <Form className={'fade-in'} id="SendEmail" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
+        <div className="card card-policyholder">
+          <Form className={'fade-in'} id="UpdatePolicyholder" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
             <div className="card-header">
-              <h4><i className="fa fa-share-alt" /> Edit PolicyHolder(s)</h4>
+              <h4><i className="fa fa-vcard" /> Edit PolicyHolder(s)</h4>
             </div>
             <div className="card-block">
               <h3 id="primaryPolicyholder">Primary Policyholder</h3>
@@ -97,5 +97,5 @@ const mapDispatchToProps = dispatch => ({
 // wire up redux form with the redux connect
 // ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'SendEmail'
+  form: 'UpdatePolicyholder'
 })(PolicyHolderPopup));
