@@ -90,7 +90,7 @@ const mapStateToProps = state => ({
   appState: state.appState,
   quoteData: handleQuoteData(state),
   initialValues: handleInitialize(state),
-  fieldValues: _.get(state.form, 'SendEmail.values', {})
+  fieldValues: _.get(state.form, 'UpdatePolicyholder.values', {})
 
 });
 
