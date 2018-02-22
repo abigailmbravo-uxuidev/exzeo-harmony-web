@@ -51,6 +51,7 @@ export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
+
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   const steps = [{
     name: 'editVerify',
@@ -73,6 +74,14 @@ export const handleFormSubmit = (data, dispatch, props) => {
 export const handlePolicyHolderUpdate = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskData = { ...data };
+
+  if (!taskData.isAdditional) {
+    taskData.pH2email = '';
+    taskData.pH2FirstName = '';
+    taskData.pH2LastName = '';
+    taskData.pH2phone = '';
+  }
+
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   const steps = [{
     name: 'editVerify',

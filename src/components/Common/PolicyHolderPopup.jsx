@@ -9,6 +9,7 @@ import PhoneField from '../Form/inputs/PhoneField';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import normalizePhone from '../Form/normalizePhone';
+import CheckField from '../Form/inputs/CheckField';
 
 const handleQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : {};
@@ -17,7 +18,9 @@ const handleQuoteData = (state) => {
 };
 const handleInitialize = (state) => {
   const quoteData = handleQuoteData(state);
-  const values = {};
+  const values = {
+    isAdditional: _.has(quoteData, 'policyHolders[1].firstName')
+  };
   values.pH1email = _.get(quoteData, 'policyHolders[0].emailAddress') || '';
   values.pH1FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
   values.pH1LastName = _.get(quoteData, 'policyHolders[0].lastName') || '';
@@ -29,7 +32,7 @@ const handleInitialize = (state) => {
   values.pH2phone = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
   return values;
 };
-const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
+const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler, fieldValues }) => (
   <div className="email-modal modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
@@ -45,19 +48,22 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
               <TextField validations={['required']} label={'Last Name'} styleName={''} name={'pH1LastName'} />
               <PhoneField validations={['required', 'phone']} label={'Primary Phone'} styleName={''} name={'pH1phone'} />
               <TextField validations={['required', 'email']} label={'Email Address'} styleName={''} name={'pH1email'} />
-              <h3 id="secondaryPolicyholder">Secondary Policyholder</h3>
-              <TextField
-                label={'First Name'} dependsOn={['pH2LastName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2FirstName'}
-              />
-              <TextField
-                label={'Last Name'} dependsOn={['pH2FirstName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2LastName'}
-              />
-              <PhoneField
-                label={'Primary Phone'} dependsOn={['pH2FirstName', 'pH2LastName', 'pH2email']} styleName={''} name={'pH2phone'} validations={['phone']}
-              />
-              <TextField
-                validations={['email']} dependsOn={['pH2FirstName', 'pH2LastName', 'pH2phone']} label={'Email Address'} styleName={''} name={'pH2email'}
-              />
+              <CheckField name={'isAdditional'} isSwitch label={'Do you want to add an additional Policyholder?'} />
+              { fieldValues.isAdditional && <div>
+                <h3 id="secondaryPolicyholder">Secondary Policyholder</h3>
+                <TextField
+                  label={'First Name'} dependsOn={['pH2LastName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2FirstName'}
+                />
+                <TextField
+                  label={'Last Name'} dependsOn={['pH2FirstName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2LastName'}
+                />
+                <PhoneField
+                  label={'Primary Phone'} dependsOn={['pH2FirstName', 'pH2LastName', 'pH2email']} styleName={''} name={'pH2phone'} validations={['phone']}
+                />
+                <TextField
+                  validations={['email']} dependsOn={['pH2FirstName', 'pH2LastName', 'pH2phone']} label={'Email Address'} styleName={''} name={'pH2email'}
+                />
+              </div>}
             </div>
             <div className="card-footer">
               <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button">Cancel</button>
@@ -83,7 +89,9 @@ const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   quoteData: handleQuoteData(state),
-  initialValues: handleInitialize(state)
+  initialValues: handleInitialize(state),
+  fieldValues: _.get(state.form, 'SendEmail.values', {})
+
 });
 
 const mapDispatchToProps = dispatch => ({
