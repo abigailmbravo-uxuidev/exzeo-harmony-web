@@ -5,11 +5,8 @@ import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
 import Footer from '../Common/Footer';
-// import localStorage from 'localStorage';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
-// import Footer from '../Common/Footer';
-// import { setDetails } from '../../../actions/detailsActions';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
@@ -143,8 +140,9 @@ export const Mortgagee = (props) => {
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>cancel</button>
-            <button className="btn btn-primary" type="submit" form="Mortgagee" disabled={props.appState.data.submitting}>save</button>
+            <span className="button-info">Oops! There is no mortgagee</span>
+            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
+            <button className="btn btn-primary" type="submit" form="Mortgagee" disabled={props.appState.data.submitting}>Save</button>
           </div>
           <Footer />
         </div>

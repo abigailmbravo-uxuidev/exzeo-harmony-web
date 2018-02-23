@@ -14,7 +14,6 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
-import normalizeDate from '../Form/normalizeDate';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.

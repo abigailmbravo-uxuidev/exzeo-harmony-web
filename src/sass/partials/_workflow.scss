@@ -4,23 +4,22 @@
   .detailHeader {
     position: relative;
     display: flex;
-    background: $warm-gray-08;
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: flex-start;
+    background: $warm-gray-08;
     @include for-phone-only {
-      padding-right: 8rem;
       flex-wrap: wrap;
+      padding-right: 8rem;
     }
 
     section {
       dl {
         display: flex;
         flex-direction: column;
-        padding: ($padding/2) ($padding*1.5);
         justify-content: flex-start;
         margin: 0;
-
+        padding: ($padding/2) ($padding*1.5);
         @include for-phone-only {
           padding: 0 ($padding) ($padding/2);
 
@@ -43,11 +42,9 @@
           }
 
           dd {
-            margin: 0;
+            margin: 0 0 0.125rem;
             color: $white;
             line-height: 1;
-            margin-bottom: .125rem;
-
             @include for-phone-only {
               font-size: $font-size-sm;
             }
@@ -66,8 +63,7 @@
 
       &.quoteDetails {
         flex-shrink: 0;
-        @include for-phone-only {
-        }
+        @include for-phone-only {}
       }
 
       &.propertyDetails {
@@ -118,13 +114,13 @@
         position: absolute;
         top: $padding/2;
         right: $padding/2;
+        align-items: center;
+        justify-content: center;
         min-width: 7rem;
         margin: 0;
         padding: ($padding/2) $padding;
         background: $yellow-lighten-05;
         box-shadow: $card-box-shadow-alt;
-        justify-content: center;
-        align-items: center;
         @include for-phone-only {
           right: $padding/2;
         }
@@ -163,13 +159,13 @@
   .workflow-header {
     position: relative;
     display: flex;
+    flex-shrink: 0;
+    justify-content: space-around;
     width: 100%;
     margin: 0;
     padding: $padding;
     list-style: none;
     background-color: $warm-gray-01;
-    justify-content: space-around;
-    flex-shrink: 0;
 
     .rule {
       position: absolute;
@@ -191,23 +187,23 @@
     li {
       z-index: 5;
       display: flex;
-      flex-direction: column;
-      text-align: center;
       align-items: center;
       flex: 1;
+      flex-direction: column;
+      text-align: center;
 
       a {
         z-index: 2;
         display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-        flex-grow: 0;
+        align-items: center;
         flex-basis: auto;
+        flex-direction: column;
+        flex-grow: 0;
+        flex-shrink: 0;
         padding: $padding;
         cursor: pointer;
         color: $warm-gray-03;
         font-weight: $font-weight-bold;
-        align-items: center;
         @include for-phone-only {
           padding: 0;
         }
@@ -221,7 +217,7 @@
         i {
           padding: 0 $padding*2;
           background: $warm-gray-01;
-          @include transition(all .2s ease-in-out);
+          @include transition(all 0.2s ease-in-out);
           @include for-phone-only {
             padding: 0 $padding/2;
             font-size: $font-size-h4;
@@ -345,10 +341,17 @@
 
   .workflow-steps {
     display: flex;
-    padding: 0 ($padding*2) ($padding*2);
-    justify-content: flex-end;
     flex-grow: 0;
     flex-shrink: 0;
+    justify-content: flex-end;
+    padding: 0 ($padding*2) ($padding*2);
+
+    .button-info {
+      align-self: center;
+      text-align: right;
+      color: $bright-blue;
+      font-size: $font-size-sm;
+    }
 
     .btn {
       margin-left: $padding;
