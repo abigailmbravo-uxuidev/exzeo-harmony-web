@@ -1,7 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-
+import failedSubmission from '../Common/reduxFormFailSubmit';
 import ConnectedApp, { Lienholder, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './Lienholder';
 
 const middlewares = [];
@@ -90,5 +90,6 @@ describe('Testing AddLienholder component', () => {
     Lienholder(props);
     closeAndSavePreviousAIs(props);
     handleInitialize(initialState);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });
