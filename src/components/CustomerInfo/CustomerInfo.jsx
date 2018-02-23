@@ -14,6 +14,8 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
+import SnackBar from '../Common/SnackBar';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -62,7 +64,7 @@ const handleInitialize = (state) => {
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
   values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('YYYY-MM-DD');
-
+  values.FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
   values.electronicDelivery = _.get(quoteData, 'policyHolders[0].electronicDelivery') || false;
@@ -101,6 +103,11 @@ export const CustomerInfo = (props) => {
   const quoteData = props.quote;
   return (
     <div className="route-content">
+      <SnackBar
+        {...props}
+        show={props.appState.data.showSnackBar}
+        timer={3000}
+      ><p>Please see errors above</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form
         id="CustomerInfo"
@@ -187,5 +194,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'CustomerInfo'
+  form: 'CustomerInfo',
+  onSubmitFail: failedSubmission
 })(CustomerInfo));

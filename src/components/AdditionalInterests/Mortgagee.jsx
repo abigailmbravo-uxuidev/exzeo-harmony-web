@@ -10,6 +10,8 @@ import FieldGenerator from '../Form/FieldGenerator';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
+import SnackBar from '../Common/SnackBar';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 
 const userTasks = {
   formSubmit: ''
@@ -132,6 +134,11 @@ export const Mortgagee = (props) => {
   } = props;
   return (
     <div className="route-content">
+      <SnackBar
+        {...props}
+        show={props.appState.data.showSnackBar}
+        timer={3000}
+      ><p>Please see errors above</p></SnackBar>
       { props.appState.data.submitting && <Loader /> }
       <Form id="Mortgagee" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
@@ -183,4 +190,5 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Mortgagee' })(Mortgagee));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Mortgagee',
+  onSubmitFail: failedSubmission })(Mortgagee));
