@@ -128,7 +128,7 @@ export class WorkflowDetails extends Component {
                 <dt className="fade">Coverage A</dt>
                 <dd className="fade">
                 $ {quote.coverageLimits && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}
+                quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
                 </dd>
               </div>
             </dl>
@@ -142,6 +142,14 @@ export class WorkflowDetails extends Component {
                 quote.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
                 </dd>
               </div>
+              {this.props.appState.data.recalc && <div className="recalc-wrapper">
+                <button
+                  tabIndex={'0'}
+                  className="btn btn-primary btn-round btn-sm"
+                  type="submit"
+                  form="Customize"
+                  disabled={this.props.appState.data.submitting}><i className="fa fa-refresh"></i></button>
+              </div>}
             </dl>
           </section>
         </div>
