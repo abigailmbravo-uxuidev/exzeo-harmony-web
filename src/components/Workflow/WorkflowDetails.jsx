@@ -122,13 +122,21 @@ export class WorkflowDetails extends Component {
               </div>
             </dl>
           </section>
+          <section id="constructionType" className="constructionType">
+            <dl>
+              <div>
+                <dt className="fade">Construction Type</dt>
+                <dd className="fade">{quote.property.constructionType}</dd>
+              </div>
+            </dl>
+          </section>
           <section id="coverageDetails">
             <dl>
               <div>
                 <dt className="fade">Coverage A</dt>
                 <dd className="fade">
                 $ {quote.coverageLimits && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}
+                quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
                 </dd>
               </div>
             </dl>
@@ -142,6 +150,14 @@ export class WorkflowDetails extends Component {
                 quote.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
                 </dd>
               </div>
+              {this.props.appState.data.recalc && <div className="recalc-wrapper">
+                <button
+                  tabIndex={'0'}
+                  className="btn btn-primary btn-round btn-sm"
+                  type="submit"
+                  form="Customize"
+                  disabled={this.props.appState.data.submitting}><i className="fa fa-refresh"></i></button>
+              </div>}
             </dl>
           </section>
         </div>

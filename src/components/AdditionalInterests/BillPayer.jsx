@@ -12,6 +12,9 @@ import FieldGenerator from '../Form/FieldGenerator';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
+import SnackBar from '../Common/SnackBar';
+import failedSubmission from '../Common/reduxFormFailSubmit';
+
 
 const userTasks = {
   formSubmit: ''
@@ -108,17 +111,23 @@ export const BillPayer = (props) => {
 
   return (
     <div className="route-content">
+      <SnackBar
+        {...props}
+        show={props.appState.data.showSnackBar}
+        timer={3000}
+      ><p>Please see errors above</p></SnackBar>
       { props.appState.data.submitting && <Loader /> }
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-money" /> BillPayer</h3>
+            <h3 className="section-group-header"><i className="fa fa-money" /> Billpayer</h3>
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) =>
               <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>cancel</button>
-            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>save</button>
+            <span className="button-info">Oops! There is no billpayer</span>
+            <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
+            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.appState.data.submitting}>Save</button>
           </div>
           <Footer />
         </div>
@@ -159,4 +168,5 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'BillPayer' })(BillPayer));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'BillPayer',
+  onSubmitFail: failedSubmission })(BillPayer));

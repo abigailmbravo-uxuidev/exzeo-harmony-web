@@ -1,9 +1,11 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
-
-import ConnectedApp, { AddAdditionalInterest, noAddAdditionalInterestSubmit, goToStep, returnTaskDataName, returnTaskName, openDeleteAdditionalInterest, hideAdditionalInterestModal, deleteAdditionalInterest } from './AddAdditionalInterest';
+import failedSubmission from '../Common/reduxFormFailSubmit';
+import ConnectedApp, {
+  AddAdditionalInterest,
+  noAddAdditionalInterestSubmit, goToStep, returnTaskDataName, returnTaskName,
+  openDeleteAdditionalInterest, hideAdditionalInterestModal, deleteAdditionalInterest } from './AddAdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -108,5 +110,6 @@ describe('Testing AddAdditionalInterest component', () => {
     hideAdditionalInterestModal(props);
 
     deleteAdditionalInterest({}, props);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });
