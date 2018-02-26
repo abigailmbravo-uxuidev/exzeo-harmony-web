@@ -9,6 +9,7 @@ import normalizeDate from '../normalizeDate';
 import FieldHint from './FieldHint';
 import { combineRules } from '../Rules';
 import reduxFormField from './reduxFormField';
+import maskDate from '../maskDate';
 
 export const DateInput = ({
   input,
@@ -62,7 +63,8 @@ export const DateInput = ({
        platformLower === 'ie' ?
          <MaskedTextInput
            tabIndex={'0'}
-           mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+           mask={[/(0|1)/, /[0-9]/, '/', /(1|2|3)/, /\d/, '/', /(1|2)/, /\d/, /\d/, /\d/]}
+           keepCharPositions
            guide={false}
            id={name}
            name={name}
@@ -70,15 +72,12 @@ export const DateInput = ({
            type="date"
            placeholder="MM/DD/YYYY"
            validate={ruleArray}
-           {...input}
            value={maskEffectiveDate}
          /> :
          <input
            tabIndex={'0'}
            {...input}
            type={'date'}
-           min={minDate}
-           max={maxDate}
          />}
       {Error}
     </div>
