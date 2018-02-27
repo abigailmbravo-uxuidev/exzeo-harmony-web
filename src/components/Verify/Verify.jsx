@@ -328,7 +328,7 @@ export const Verify = (props) => {
                 disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
                 !fieldValues.confirmPolicyHolderDetails ||
                !fieldValues.confirmAdditionalInterestsDetails || submitting}
-                className="btn btn-primary" type=""
+                className="btn btn-primary" type="submit"
               >next</button>
             </div>
             <Footer />
