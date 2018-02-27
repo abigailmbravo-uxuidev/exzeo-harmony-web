@@ -97,5 +97,16 @@
 .card {
   &.card-schedule-date {
     max-width: 50rem;
+
+    .card-footer {
+      .btn-block {
+        width: 100%;
+        margin-bottom: $padding;
+        @include for-tablet-landscape-up {
+          width: auto;
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 }

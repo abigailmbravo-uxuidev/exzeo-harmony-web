@@ -17,13 +17,16 @@ const ScheduleDate = ({ appState, handleSubmit, verify, showScheduleDateModal, q
           </div>
           <div className="card-block">
             <h3>Congratulations</h3>
-            <p>Click “SEND” below to generate the Homeowners Application</p>
-            <p>An email will be sent to {`${_.get(quoteData, 'policyHolders[0].firstName')} ${_.get(quoteData, 'policyHolders[0].lastName')} (${_.get(quoteData, 'policyHolders[0].emailAddress')})`}
-              {_.has(quoteData, 'policyHolders[1].firstName') ? ` and ${_.get(quoteData, 'policyHolders[1].firstName')} ${_.get(quoteData, 'policyHolders[1].lastName')} (${_.get(quoteData, 'policyHolders[1].emailAddress')})` : null}</p>
-            <p>A copy will also be sent to you at: {selectedAgent.emailAddress}</p>
-            <p>Once all required signatures are obtained, the policy will be automatically bind and the the policy documents will be emailed to you and the policyholder(s).</p>
+            <p>You have successfully completed a TypTap Homeowners Quote.</p>
+            <p>With this information, we will generate the Homeowners Application, and e-mail it to:</p>
+            <ul>
+              <li>{`${_.get(quoteData, 'policyHolders[0].firstName')} ${_.get(quoteData, 'policyHolders[0].lastName')} (${_.get(quoteData, 'policyHolders[0].emailAddress')})`}</li>
+              {_.has(quoteData, 'policyHolders[1].firstName') && <li>{`${_.get(quoteData, 'policyHolders[1].firstName')} ${_.get(quoteData, 'policyHolders[1].lastName')} (${_.get(quoteData, 'policyHolders[1].emailAddress')})`}</li>}
+              <li>A copy will also be sent to you ({selectedAgent.emailAddress})</li>
+            </ul>
+            <p>Once all electronic signatures have been received, the policy will automatically be bound and the policy documents will be emailed to you and to the policyholder.</p>
             <p>NOTE: All signatures must be completed within 10 days, or the application will expire.</p>
-            <p>{'Once you select "SEND", no changes can be made to this quote.'}</p>
+            <p>{'Once you send, no changes can be made to this quote.'}</p>
           </div>
           <div className="card-footer">
             <button className="btn btn-secondary btn-block" type="button" onClick={() => showScheduleDateModal(false)}>Edit Quote</button>
