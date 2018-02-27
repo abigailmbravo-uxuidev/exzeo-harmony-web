@@ -10,7 +10,6 @@ import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 
-
 export const SearchPolicy = props => (
   <div className="flex grow">
     <div className="search route-content">

@@ -68,7 +68,7 @@
     "build-css": "node-sass src/sass --output-style 'compressed' -o src/css",
     "watch-css": "node-sass src/sass --output-style 'compressed' -o src/css --watch --recursive",
     "start": "react-scripts start",
-    "dev": "npm run build-css && react-scripts start",
+    "dev": "npm install && npm run build-css && react-scripts start",
     "build": "npm run build-css && react-scripts build",
     "cover": "npm test -- --coverage",
     "test": "npm run build && react-scripts test --env=jsdom --coverage",

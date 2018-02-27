@@ -8,7 +8,6 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import history from './history';
 import Auth from './Auth';
-
 import Login from './containers/Login';
 import Splash from './containers/Splash';
 import Quote from './containers/Quote';
