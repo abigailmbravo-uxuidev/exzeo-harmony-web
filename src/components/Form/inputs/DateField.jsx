@@ -43,7 +43,7 @@ export const DateInput = ({
 
   const maskEffectiveDate = moment(input.value).format('MM/DD/YYYY');
   const formatMinDate = moment(min).format('MM/DD/YYYY');
-  const formatMaxDate = moment(min).format('MM/DD/YYYY');
+  const formatMaxDate = moment(max).format('MM/DD/YYYY');
   const minDate = moment(min).format('YYYY-MM-DD');
   const maxDate = moment(max).format('YYYY-MM-DD');
   const platformLower = platform.name.toLowerCase();
@@ -63,15 +63,16 @@ export const DateInput = ({
        platformLower === 'ie' ?
          <MaskedTextInput
            tabIndex={'0'}
-           mask={[/(0|1)/, /[0-9]/, '/', /(1|2|3)/, /\d/, '/', /(1|2)/, /\d/, /\d/, /\d/]}
+           mask={[/(0|1)/, /[0-9]/, '/', /[0-3]/, /\d/, '/', /[2]/, /\d/, /\d/, /\d/]}
            keepCharPositions
            guide={false}
            id={name}
            name={name}
            component="input"
-           type="date"
+           type="text"
            placeholder="MM/DD/YYYY"
            validate={ruleArray}
+           {...input}
            value={maskEffectiveDate}
          /> :
          <input
