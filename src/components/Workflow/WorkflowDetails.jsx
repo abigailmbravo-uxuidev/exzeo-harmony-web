@@ -7,7 +7,11 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
+import * as customize from '../Customize/Customize';
 
+export const handleRecalc = (props) => {
+  customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
+};
 
 export const getQuoteFromModel = (state, props) => {
   const startModelData = {
@@ -154,9 +158,10 @@ export class WorkflowDetails extends Component {
                 <button
                   tabIndex={'0'}
                   className="btn btn-primary btn-round btn-sm"
-                  type="submit"
-                  form="Customize"
-                  disabled={this.props.appState.data.submitting}><i className="fa fa-refresh"></i></button>
+                  type="button"
+                  onClick={() => handleRecalc(this.props)}
+                  disabled={this.props.appState.data.submitting}
+                ><i className="fa fa-refresh" /></button>
               </div>}
             </dl>
           </section>
@@ -205,10 +210,13 @@ const mapStateToProps = state => ({
   quote: state.service.quote,
   tasks: state.cg,
   appState: state.appState,
-  completedTasks: state.completedTasks
+  completedTasks: state.completedTasks,
+  customizeFormValues: _.get(state.form, 'Customize.values', {}),
+  reactState: state
 });
 
 const mapDispatchToProps = dispatch => ({
+  dispatch,
   actions: {
     serviceActions: bindActionCreators(serviceActions, dispatch),
     cgActions: bindActionCreators(cgActions, dispatch),
