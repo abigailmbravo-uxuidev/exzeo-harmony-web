@@ -1046,6 +1046,7 @@ main[role="document"] {
             div {
               &.recalc-wrapper {
                   .btn {
+                      padding: 0;
                       i {
                           font-size: $font-size-base;
                       }
