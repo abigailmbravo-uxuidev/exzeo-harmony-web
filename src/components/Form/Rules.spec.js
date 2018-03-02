@@ -36,12 +36,12 @@ describe('Rules', () => {
       expect(rules.phone('-fdsfds')).toEqual('is not a valid Phone Number.');
     });
   });
-  describe('date', () => {
+  describe('isValidDate', () => {
     it('should return undefined for a valid date', () => {
-      expect(rules.date('2017-04-27')).toBeUndefined();
+      expect(rules.isValidDate('04/27/2017')).toBeUndefined();
     });
     it('should return "is not a valid Date."', () => {
-      expect(rules.date('')).toEqual('Not a valid date');
+      expect(rules.isValidDate('')).toEqual('Not a valid date');
     });
   });
 
