@@ -41,12 +41,12 @@ export const DateInput = ({
     <span>{error || warning}</span>
   );
 
-  const maskEffectiveDate = moment(input.value).format('MM/DD/YYYY');
+  const formattedDate = moment(input.value).format('YYYY-MM-DD');
   const formatMinDate = moment(min).format('MM/DD/YYYY');
   const formatMaxDate = moment(max).format('MM/DD/YYYY');
   const minDate = moment(min).format('YYYY-MM-DD');
   const maxDate = moment(max).format('YYYY-MM-DD');
-  const platformLower = platform.name.toLowerCase();
+  const platformLower = platform.name ? platform.name.toLowerCase() : '';
 
   const Label = label && (<label className="date-label-wrapper" htmlFor={name}>
     {label}
@@ -63,8 +63,7 @@ export const DateInput = ({
        platformLower === 'ie' ?
          <MaskedTextInput
            tabIndex={'0'}
-           mask={[/(0|1)/, /[0-9]/, '/', /[0-3]/, /\d/, '/', /[2]/, /\d/, /\d/, /\d/]}
-           keepCharPositions
+           mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
            guide={false}
            id={name}
            name={name}
@@ -73,12 +72,12 @@ export const DateInput = ({
            placeholder="MM/DD/YYYY"
            validate={ruleArray}
            {...input}
-           value={maskEffectiveDate}
          /> :
          <input
            tabIndex={'0'}
-           {...input}
            type={'date'}
+           {...input}
+           value={formattedDate}
          />}
       {Error}
     </div>

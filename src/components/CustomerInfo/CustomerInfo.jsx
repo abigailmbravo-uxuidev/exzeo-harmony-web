@@ -63,8 +63,8 @@ const handleInitialize = (state) => {
 
   const values = getInitialValues(taskData.uiQuestions, quoteData);
 
-  values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('YYYY-MM-DD');
   values.FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
+  values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('MM/DD/YYYY');
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
   values.electronicDelivery = _.get(quoteData, 'policyHolders[0].electronicDelivery') || false;
