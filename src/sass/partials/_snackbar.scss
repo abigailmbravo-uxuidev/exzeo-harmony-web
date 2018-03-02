@@ -1,0 +1,57 @@
+.snackbar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: auto;
+  height: 2.5rem;
+  padding: 0 1rem 0 0.75rem;
+  transition: all 0.5s;
+  transform: translateY(60px);
+  opacity: 0;
+  color: $white;
+  border-radius: 0 0.25rem 0.25rem 0;
+  background: $red-darken-01;
+  font-family: sans-serif;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: -2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    content: '\f06a';
+    border-radius: 0.25rem 0 0 0.25rem;
+    background: $red-darken-02;
+    font-family: FontAwesome;
+    font-size: 1.5rem;
+
+    i {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+  }
+
+  &.active {
+    transform: translateY(-1rem);
+    opacity: 1;
+  }
+
+  &.bottom {
+    bottom: 2.25rem;
+  }
+
+  &.right {
+    right: 2rem;
+  }
+
+  p {
+      margin: 0;
+  }
+}

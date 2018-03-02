@@ -1,23 +1,23 @@
-
 @import "_variables"; //harmonic rule set at 1.250 - major third
 
 body {
-    color: $default-font-color;
-    background-color: $white;
-    font-family: $font-family-base;
-    line-height: $line-height-base;
-    font-weight: $font-weight-normal;
+  color: $default-font-color;
+  background-color: $white;
+  font-family: $font-family-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-base;
 }
 
 p {
-    margin-bottom: $paragraph-margin-bottom;
+  margin-bottom: $paragraph-margin-bottom;
 }
 
 dl {
-    dt {}
-    dd {
-        word-break: break-word;
-    }
+  dt {}
+
+  dd {
+    word-break: break-word;
+  }
 }
 
 .h1,
@@ -32,54 +32,56 @@ h3,
 h4,
 h5,
 h6 {
-    margin: $headings-margin-top 0 $headings-margin-bottom;
-    line-height: $headings-line-height;
-    flex-basis: 100%;
-    font-weight: $font-weight-bold;
-    color: $headline-color;
+  flex-basis: auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: $headings-margin-top 0 $headings-margin-bottom;
+  color: $headline-color;
+  font-weight: $font-weight-bold;
+  line-height: $headings-line-height;
 }
 
 .h1,
 h1 {
-    margin-top: $h1-margin-top;
-    font-size: $font-size-h1;
+  margin-top: $h1-margin-top;
+  font-size: $font-size-h1;
 }
 
 .h2,
 h2 {
-    font-size: $font-size-h2;
+  font-size: $font-size-h2;
 }
 
 .h3,
 h3 {
-    font-size: $font-size-h3;
+  font-size: $font-size-h3;
 }
 
 .h4,
 h4 {
-    font-size: $font-size-h4;
+  font-size: $font-size-h4;
 }
 
 .h5,
 h5 {
-    font-size: $font-size-h5;
+  font-size: $font-size-h5;
 }
 
 .h6,
 h6 {
-    font-size: $font-size-h6;
+  font-size: $font-size-h6;
 }
 
 .font-small,
 small {
-    font-size: $small-font-size;
+  font-size: $small-font-size;
 
-    p {
-        margin-bottom: $paragraph-margin-bottom/2;
-        color: $body-color;
-    }
+  p {
+    margin-bottom: $paragraph-margin-bottom/2;
+    color: $body-color;
+  }
 }
 
 dt {
-    font-weight: $font-weight-bold;
+  font-weight: $font-weight-bold;
 }

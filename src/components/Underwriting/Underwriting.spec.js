@@ -1,9 +1,8 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
-
 import ConnectedApp, { Underwriting } from './Underwriting';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -87,6 +86,11 @@ describe('Testing Underwriting component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        }
+      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -123,5 +127,6 @@ describe('Testing Underwriting component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });
