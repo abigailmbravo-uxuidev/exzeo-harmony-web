@@ -235,6 +235,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Mortgagee', enableReinitialize: true })(Mortgagee));
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Mortgagee',
+  enableReinitialize: true,
   onSubmitFail: failedSubmission })(Mortgagee));
