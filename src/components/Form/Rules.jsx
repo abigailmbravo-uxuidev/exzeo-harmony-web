@@ -6,14 +6,14 @@ const rules = {
   email: value => (validator.isEmail(value) ? undefined : 'Not a valid email address'),
   optionalEmail: value => ((!value || validator.isEmail(value)) ? undefined : 'Not a valid email address'),
   phone: value => (!value || (value.match && value.match(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/g)) ? undefined : 'is not a valid Phone Number.'),
-  date: value => (validator.isISO8601(value) ? undefined : 'Not a valid date'),
   minLength3: value => (!value || validator.isLength(value, { min: 3 }) ? undefined : 'Please enter at least 3 characters'),
   onlyAlphaNumeric: value => (!value || validator.isAlphanumeric(value) ? undefined : 'Invalid characters'),
   invalidCharacters: value => (value.match(/^[a-zA-Z\d\-_.,&\s]+$/) ? undefined : 'Invalid characters'),
   numberDashesOnly: value => (value.match(/^(\d+-?)+\d+$/) ? undefined : 'Only numbers and dashes allowed'),
   maxLength8AlphaNumeric: value => (!value || (validator.isLength(value, { max: 8 }) && validator.isAlphanumeric(value)) ? undefined : 'Only 8 letters or numbers allowed'),
   maxLength255: value => (!value || (validator.isLength(value, { max: 255 })) ? undefined : 'Only 255 characters allowed'),
-  maxLength2OnlyAlpha: value => (!value || (validator.isLength(value, { max: 2 }) && validator.isAlpha(value)) ? undefined : 'Only 2 letters allowed')
+  maxLength2OnlyAlpha: value => (!value || (validator.isLength(value, { max: 2 }) && validator.isAlpha(value)) ? undefined : 'Only 2 letters allowed'),
+  isValidDate: value => moment(value,'MM/DD/YYYY', true).isValid() || moment(value,'YYYY-MM-DD', true).isValid() ? undefined : 'Not a valid date'
 };
 
 export function combineRules(validations, variables) {
@@ -30,7 +30,7 @@ export function combineRules(validations, variables) {
         };
         ruleArray.push(range);
       } else if (validations[i] === 'date' && variables && variables.min && variables.max) {
-        ruleArray.push(rules.date);
+        ruleArray.push(rules.isValidDate);
       }
     }
   }
