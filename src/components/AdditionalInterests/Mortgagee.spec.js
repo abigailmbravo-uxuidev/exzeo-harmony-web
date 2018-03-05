@@ -13,7 +13,9 @@ describe('Testing AddMortgagee component', () => {
     const store = mockStore(initialState);
     const props = {
       handleSubmit() {},
-      fieldQuestions: [],
+      fieldValues: {
+        isAdditional: false
+      },
       quoteData: {},
       dispatch: store.dispatch,
       appState: {
@@ -57,7 +59,9 @@ describe('Testing AddMortgagee component', () => {
           completeTask() {}
         }
       },
-      fieldQuestions: [],
+      fieldValues: {
+        isAdditional: false
+      },
       dispatch: store.dispatch,
       tasks: {
         bb: {

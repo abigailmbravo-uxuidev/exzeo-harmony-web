@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { batchActions } from 'redux-batched-actions';
+import { reduxForm, Form, propTypes, change } from 'redux-form';
 import _ from 'lodash';
 import Footer from '../Common/Footer';
 import { getInitialValues } from '../Customize/customizeHelpers';
@@ -12,6 +13,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
+import ReactSelectField from '../Form/inputs/ReactSelectField';
 
 const userTasks = {
   formSubmit: ''
@@ -125,6 +127,36 @@ export const handleGetQuoteData = (state) => {
   return quoteData;
 };
 
+const getAnswers = (name, questions) => _.get(_.find(questions, { name }), 'answers') || [];
+
+export const setMortgageeValues = (val, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, {
+    ...props.appState.data,
+    selectedMortgageeOption: val
+  });
+  const selectedMortgagee = val;
+
+  if (selectedMortgagee) {
+    props.dispatch(batchActions([
+      change('Mortgagee', 'm1Name1', _.get(selectedMortgagee, 'AIName1')),
+      change('Mortgagee', 'm1Name2', _.get(selectedMortgagee, 'AIName2')),
+      change('Mortgagee', 'm1MailingAddress1', _.get(selectedMortgagee, 'AIAddress1')),
+      change('Mortgagee', 'm1City', _.get(selectedMortgagee, 'AICity')),
+      change('Mortgagee', 'm1State', _.get(selectedMortgagee, 'AIState')),
+      change('Mortgagee', 'm1Zip', String(_.get(selectedMortgagee, 'AIZip')))
+    ]));
+  } else {
+    props.dispatch(batchActions([
+      change('Mortgagee', 'm1Name1', ''),
+      change('Mortgagee', 'm1Name2', ''),
+      change('Mortgagee', 'm1MailingAddress1', ''),
+      change('Mortgagee', 'm1City', ''),
+      change('Mortgagee', 'm1State', ''),
+      change('Mortgagee', 'm1Zip', '')
+    ]));
+  }
+};
+
 export const Mortgagee = (props) => {
   const {
     fieldQuestions,
@@ -132,6 +164,7 @@ export const Mortgagee = (props) => {
     handleSubmit,
     fieldValues
   } = props;
+
   return (
     <div className="route-content">
       <SnackBar
@@ -144,7 +177,17 @@ export const Mortgagee = (props) => {
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-bank" /> Mortgagee</h3>
-            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} data={quoteData} question={question} values={fieldValues} key={index} />)}
+            {fieldValues.isAdditional && <ReactSelectField
+              label="Top Mortgagees"
+              name="mortgage"
+              searchable
+              labelKey="displayText"
+              autoFocus
+              value={props.appState.data.selectedMortgageeOption}
+              answers={getAnswers('mortgagee', fieldQuestions)}
+              onChange={val => setMortgageeValues(val, props)}
+            />}
+            {fieldQuestions && _.sortBy(_.filter(fieldQuestions, q => q.name !== 'mortgagee'), 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
             <span className="button-label-wrap">
@@ -193,4 +236,5 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Mortgagee',
+  enableReinitialize: true,
   onSubmitFail: failedSubmission })(Mortgagee));
