@@ -81,4 +81,13 @@ describe('Rules', () => {
       expect(rules.maxLength2OnlyAlpha('Florida')).toEqual('Only 2 letters allowed');
     });
   });
+
+  describe('minLength3', () => {
+    it('should return undefined', () => {
+      expect(rules.minLength3('12345')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.minLength3('4')).toEqual('Please enter at least 3 characters');
+    });
+  });
 });
