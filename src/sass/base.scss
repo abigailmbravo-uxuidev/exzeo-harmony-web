@@ -13,9 +13,6 @@
 @import "partials/_reset";
 /*Set base typography*/
 @import "partials/_type";
-/*Grid styles*/
-//@import "partials/_grid";
-//@import "partials/_tabs";
 /*------------------------------------------------------------------------------------*/
 @import "https://fonts.googleapis.com/css?family=Roboto:100,300,500"; //base
 //buttons & links
@@ -62,6 +59,8 @@
 @import "partials/_pagination"; //Grid - react bootstrap table
 /*------------------------------------------------------------------------------------*/
 @import "partials/_grid"; //Responsive styles for phone
+/*------------------------------------------------------------------------------------*/
+@import "partials/_snackbar"; //Snackbar
 /*------------------------------------------------------------------------------------*/
 @import "partials/_phone"; //ROUTE SPECIFIC STYLES
 /*###################################################*/
