@@ -16,7 +16,6 @@ export const SelectFieldBilling = ({
   const formGroupStyles = classNames('form-group select', { styleName }, { name });
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
-  const selectedOption = answers.find(b => b.billToId === value);
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>

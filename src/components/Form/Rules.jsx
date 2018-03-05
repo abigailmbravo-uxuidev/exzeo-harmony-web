@@ -1,4 +1,5 @@
 import validator from 'validator';
+import moment from 'moment';
 
 const rules = {
   required: value => (value ? undefined : 'Field Required'),
