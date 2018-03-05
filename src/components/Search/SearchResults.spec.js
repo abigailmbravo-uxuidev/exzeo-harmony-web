@@ -130,3 +130,34 @@ it('should test props for SearchResults quote', () => {
   };
   SearchResults(props);
 });
+
+
+it('should test props for SearchResults policy', () => {
+  const initialState = {
+    search: {
+      searchType: 'policy'
+    },
+    appState: {
+      modelName: 'bb'
+    }
+  };
+  const store = mockStore(initialState);
+  const props = {
+    search: {
+      searchType: 'policy'
+    },
+    handleNewTab(address, prop) { },
+    tasks: { ...initialState.cg },
+    fieldQuestions: [],
+    policyResults: { policies: [{ property: { physicalAddress: {} }, policyHolders: [{ firstName: '', lastName: '' }] }] },
+    dispatch: store.dispatch,
+    appState: {
+      modelName: 'bb',
+      data: {
+        submitting: false
+      }
+    },
+    ...propTypes
+  };
+  SearchResults(props);
+});

@@ -60,7 +60,8 @@ const components = {
   askBillPayer: <BillPayerConnect />,
   showCustomizedQuoteAndContinue: <TaskRunnerConnect taskName={'showCustomizedQuoteAndContinue'} />,
   askAdditionalQuestions: <BillingConnect />,
-  askScheduleInspectionDates: <VerifyConnect />
+  askScheduleInspectionDates: <VerifyConnect />,
+  editVerify: <VerifyConnect />
 };
 
 export class Workflow extends Component {

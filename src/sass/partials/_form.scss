@@ -194,6 +194,17 @@ label {
         flex-shrink: 0;
         margin: 0 ($margin/2);
     }
+
+    &.date-label-wrapper {
+        display: flex;
+        align-items: baseline;
+
+        .date-min-max {
+            margin-left: $padding;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-normal;
+        }
+    }
   }
 
   &.disabled,
@@ -617,7 +628,8 @@ label {
           top: 0.25rem;
           left: -.25rem;
           display: block;
-          width: 9rem;
+          width: calc(100% - 12rem);
+          min-width: 9rem;
           padding: 0.25rem;
           content: 'VERIFY HERE';
           text-align: center;
@@ -637,7 +649,7 @@ label {
         &:after {
           position: absolute;
           top: 0.25rem;
-          left: 8.75rem;
+          left: calc(100% - 12.25rem);
           width: 0;
           height: 0;
           content: '';
@@ -645,7 +657,7 @@ label {
           border-bottom: 0.75rem solid transparent;
           border-left: 1rem solid $orange-lighten-01;
           @include for-phone-only {
-            left: 7.25rem;
+            left: 8.25rem;
             border-top: 0.6875rem solid transparent;
             border-bottom: 0.6875rem solid transparent;
           }
@@ -724,7 +736,8 @@ label {
           top: 0.25rem;
           left: -.25rem;
           display: block;
-          width: 9rem;
+          width: calc(100% - 12rem);
+          min-width: 9rem;
           padding: 0.25rem;
           content: 'CONFIRM HERE';
           text-align: center;
@@ -744,7 +757,7 @@ label {
         &:after {
           position: absolute;
           top: 0.25rem;
-          left: 8.75rem;
+          left: calc(100% - 12.25rem);
           width: 0;
           height: 0;
           content: '';
@@ -752,7 +765,7 @@ label {
           border-bottom: 0.75rem solid transparent;
           border-left: 1rem solid $orange-lighten-01;
           @include for-phone-only {
-            left: 7.25rem;
+            left: 8.25rem;
             border-top: 0.6875rem solid transparent;
             border-bottom: 0.6875rem solid transparent;
           }

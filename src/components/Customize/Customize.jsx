@@ -11,6 +11,8 @@ import FieldGenerator from '../Form/FieldGenerator';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
+import SnackBar from '../Common/SnackBar';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 
 const userTasks = {
   formSubmit: 'askToCustomizeDefaultQuote',
@@ -124,6 +126,11 @@ export const Customize = (props) => {
 
   return (
     <div className="route-content">
+      <SnackBar
+        {...props}
+        show={props.appState.data.showSnackBar}
+        timer={3000}
+      ><p>Please see errors above</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form
         className="fade-in"
@@ -205,6 +212,8 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const reduxFormComponent = reduxForm({ form: 'Customize', enableReinitialize: true })(Customize);
+const reduxFormComponent = reduxForm({ form: 'Customize',
+  enableReinitialize: true,
+  onSubmitFail: failedSubmission })(Customize);
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxFormComponent);

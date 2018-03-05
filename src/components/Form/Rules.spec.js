@@ -36,12 +36,12 @@ describe('Rules', () => {
       expect(rules.phone('-fdsfds')).toEqual('is not a valid Phone Number.');
     });
   });
-  describe('date', () => {
+  describe('isValidDate', () => {
     it('should return undefined for a valid date', () => {
-      expect(rules.date('2017-04-27')).toBeUndefined();
+      expect(rules.isValidDate('04/27/2017')).toBeUndefined();
     });
     it('should return "is not a valid Date."', () => {
-      expect(rules.date('')).toEqual('Not a valid date');
+      expect(rules.isValidDate('')).toEqual('Not a valid date');
     });
   });
 
@@ -79,6 +79,15 @@ describe('Rules', () => {
       expect(rules.maxLength2OnlyAlpha('1')).toEqual('Only 2 letters allowed');
       expect(rules.maxLength2OnlyAlpha('F1')).toEqual('Only 2 letters allowed');
       expect(rules.maxLength2OnlyAlpha('Florida')).toEqual('Only 2 letters allowed');
+    });
+  });
+
+  describe('minLength3', () => {
+    it('should return undefined', () => {
+      expect(rules.minLength3('12345')).toBeUndefined();
+    });
+    it('should return error', () => {
+      expect(rules.minLength3('4')).toEqual('Please enter at least 3 characters');
     });
   });
 });
