@@ -16,6 +16,7 @@ export const SelectFieldBilling = ({
   const formGroupStyles = classNames('form-group select', { styleName }, { name });
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
+  const selectedOption = answers.find(b => b.billToId === value);
   return (
     <div className={formGroupStyles}>
       <label htmlFor={name}>
@@ -28,7 +29,7 @@ export const SelectFieldBilling = ({
             name={name}
             disabled={disabled}
             onChange={onChange}
-            aria-valuetext={value}
+            aria-valuetext={selectedOption ? selectedOption.displayText : ''}
           >
             <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
             {answers.map((answer, index) => (
