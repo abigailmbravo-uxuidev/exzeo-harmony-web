@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import platform from 'platform';
 import moment from 'moment';
 import classNames from 'classnames';
-import { Field } from 'redux-form';
 import MaskedTextInput from 'react-text-mask';
-import normalizeDate from '../normalizeDate';
 import FieldHint from './FieldHint';
 import { combineRules } from '../Rules';
 import reduxFormField from './reduxFormField';
-import maskDate from '../maskDate';
 
 export const DateInput = ({
   input,
@@ -44,8 +41,6 @@ export const DateInput = ({
   const formattedDate = moment(input.value).format('YYYY-MM-DD');
   const formatMinDate = moment(min).format('MM/DD/YYYY');
   const formatMaxDate = moment(max).format('MM/DD/YYYY');
-  const minDate = moment(min).format('YYYY-MM-DD');
-  const maxDate = moment(max).format('YYYY-MM-DD');
   const platformLower = platform.name ? platform.name.toLowerCase() : '';
 
   const Label = label && (<label className="date-label-wrapper" htmlFor={name}>
