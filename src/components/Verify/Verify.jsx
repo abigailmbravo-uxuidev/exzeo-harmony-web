@@ -322,6 +322,7 @@ export const Verify = (props) => {
                   </div>
                 </section>
               </div>
+              <hr className="section-divider" />
               <div className="detail-group mailing-address-details">
                 <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalQuestions')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
