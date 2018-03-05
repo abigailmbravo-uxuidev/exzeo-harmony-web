@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
-
+import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
 
-const ScheduleDate = ({ appState, handleSubmit, verify, showScheduleDateModal }) => (
+const ScheduleDate = ({ appState, handleSubmit, verify, showScheduleDateModal, quoteData, selectedAgent, redirectToHome }) => (
   <div className="modal schedule-date-modal">
     <div className="survey-wrapper">
       <div className="card card-schedule-date">
@@ -18,14 +18,20 @@ const ScheduleDate = ({ appState, handleSubmit, verify, showScheduleDateModal })
           <div className="card-block">
             <h3>Congratulations</h3>
             <p>You have successfully completed a TypTap Homeowners Quote.</p>
-            <p>With this information, we will generate the Homeowners Application, and e-mail it to the policyholder(s) for electronic signature. You will be copied on this email.</p>
+            <p>With this information, we will generate the Homeowners Application, and e-mail it to:</p>
+            <ul>
+              <li>{`${_.get(quoteData, 'policyHolders[0].firstName')} ${_.get(quoteData, 'policyHolders[0].lastName')} (${_.get(quoteData, 'policyHolders[0].emailAddress')})`}</li>
+              {_.has(quoteData, 'policyHolders[1].firstName') && <li>{`${_.get(quoteData, 'policyHolders[1].firstName')} ${_.get(quoteData, 'policyHolders[1].lastName')} (${_.get(quoteData, 'policyHolders[1].emailAddress')})`}</li>}
+              <li>A copy will also be sent to you ({selectedAgent.emailAddress})</li>
+            </ul>
             <p>Once all electronic signatures have been received, the policy will automatically be bound and the policy documents will be emailed to you and to the policyholder.</p>
             <p>NOTE: All signatures must be completed within 10 days, or the application will expire.</p>
-            <p>Once you select "SEND", no changes can be made to this quote.</p>
+            <p>{'Once you send, no changes can be made to this quote.'}</p>
           </div>
           <div className="card-footer">
-            <button className="btn btn-secondary" type="button" onClick={() => showScheduleDateModal(false)}>Cancel</button>
-            <button className="btn btn-primary" type="submit" disabled={appState.data.submitting}>Send</button>
+            <button className="btn btn-secondary btn-block" type="button" onClick={() => showScheduleDateModal(false)}>Edit Quote</button>
+            <button className="btn btn-secondary btn-block" type="button" onClick={redirectToHome}>Save Quote, Continue Later</button>
+            <button className="btn btn-primary btn-block" type="submit" disabled={appState.data.submitting}>Send Application for signature</button>
           </div>
         </Form>
       </div>
