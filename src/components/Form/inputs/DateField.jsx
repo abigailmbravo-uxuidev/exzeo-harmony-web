@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import platform from 'platform';
 import moment from 'moment';
 import classNames from 'classnames';
-import { Field } from 'redux-form';
-import normalizeDate from '../normalizeDate';
+import MaskedTextInput from 'react-text-mask';
 import FieldHint from './FieldHint';
 import { combineRules } from '../Rules';
 import reduxFormField from './reduxFormField';
@@ -31,30 +30,50 @@ export const DateInput = ({
     { error: touched && error }
   );
 
+  const ruleArray = combineRules(validations, { });
+
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
   const Error = touched && (error || warning) && (
     <span>{error || warning}</span>
   );
 
-  const Label = label && (<label htmlFor={name}>
+  const formattedDate = moment(input.value).format('YYYY-MM-DD');
+  const formatMinDate = moment(min).format('MM/DD/YYYY');
+  const formatMaxDate = moment(max).format('MM/DD/YYYY');
+  const platformLower = platform.name ? platform.name.toLowerCase() : '';
+
+  const Label = label && (<label className="date-label-wrapper" htmlFor={name}>
     {label}
+    {formatMaxDate && formatMinDate ? <div className="date-min-max">{formatMinDate} - {formatMaxDate}</div> : null}
     {Hint}
   </label>);
 
-  const minDate = moment(min).format('YYYY-MM-DD');
-  const maxDate = moment(max).format('YYYY-MM-DD');
 
   return (
     <div className={formGroupStyles} id={name}>
       {Label}
-      <input
-        tabIndex={'0'}
-        {...input}
-        type={'date'}
-        min={minDate}
-        max={maxDate}
-      />
+      {platformLower === 'safari' ||
+       platformLower === 'firefox' ||
+       platformLower === 'ie' ?
+         <MaskedTextInput
+           tabIndex={'0'}
+           mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+           guide={false}
+           id={name}
+           name={name}
+           component="input"
+           type="text"
+           placeholder="MM/DD/YYYY"
+           validate={ruleArray}
+           {...input}
+         /> :
+         <input
+           tabIndex={'0'}
+           type={'date'}
+           {...input}
+           value={formattedDate}
+         />}
       {Error}
     </div>
   );

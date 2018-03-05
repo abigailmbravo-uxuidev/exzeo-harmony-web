@@ -60,7 +60,8 @@ const components = {
   askBillPayer: <BillPayerConnect />,
   showCustomizedQuoteAndContinue: <TaskRunnerConnect taskName={'showCustomizedQuoteAndContinue'} />,
   askAdditionalQuestions: <BillingConnect />,
-  askScheduleInspectionDates: <VerifyConnect />
+  askScheduleInspectionDates: <VerifyConnect />,
+  editVerify: <VerifyConnect />
 };
 
 export class Workflow extends Component {
@@ -123,8 +124,6 @@ export class Workflow extends Component {
     const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
       this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
 
-    const redirectUrlPath = this.context && this.context.router && this.context.router.route &&
-    this.context.router.route.location ? this.context.router.route.location.pathname : '';
     return (
       <div className={`route ${activeStep}`}>
         <WorkFlowDetailsConnect workflowModelName={workflowModelName} />

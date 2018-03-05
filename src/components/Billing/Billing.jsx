@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { reduxForm, Form, change, propTypes, Field, formValueSelector } from 'redux-form';
+import { reduxForm, Form, change, propTypes, Field } from 'redux-form';
 import _ from 'lodash';
 import Footer from '../Common/Footer';
 import { CheckInput } from '../Form/inputs/CheckField';

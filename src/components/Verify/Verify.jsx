@@ -12,6 +12,7 @@ import Footer from '../Common/Footer';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
+import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -29,7 +30,10 @@ const scheduleDateModal = (props) => {
   const showScheduleDateModal = props.appState.data.showScheduleDateModal;
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !showScheduleDateModal });
 };
-
+const redirectToHome = (props) => {
+  scheduleDateModal(props);
+  window.location.href = '/';
+};
 
 // ------------------------------------------------
 // This function add a primary or secondary title
@@ -39,12 +43,65 @@ const scheduleDateModal = (props) => {
 
 const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
+const showPolicyHolderModal = (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showPolicyHolderModal: true });
+};
+const hidePolicyHolderModal = (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showPolicyHolderModal: false });
+};
+
 export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const taskData = { ...data };
+
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  const steps = [{
+    name: 'editVerify',
+    data: {
+      shouldEditVerify: 'false'
+    }
+  }, {
+    name: taskName,
+    data: taskData
+  }];
+
+  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
+    .then(() => {
+      // now update the workflow details so the recalculated rate shows
+      props.actions.appStateActions.setAppState(props.appState.modelName,
+        workflowId, { ...props.appState.data, submitting: false });
+    });
+};
+
+export const handlePolicyHolderUpdate = (data, dispatch, props) => {
+  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  const taskData = { ...data };
+
+  if (!taskData.isAdditional) {
+    taskData.pH2email = '';
+    taskData.pH2FirstName = '';
+    taskData.pH2LastName = '';
+    taskData.pH2phone = '';
+  }
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  const steps = [{
+    name: 'editVerify',
+    data: {
+      shouldEditVerify: 'PolicyHolder'
+    }
+  }, {
+    name: 'editPolicyHolder',
+    data: taskData
+  }];
+
+  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
+    .then(() => {
+      // now update the workflow details so the recalculated rate shows
+      props.actions.appStateActions.setAppState(props.appState.modelName,
+        workflowId, { ...props.appState.data, submitting: false, showPolicyHolderModal: false });
+    });
 };
 
 export const goToStep = (props, taskName) => {
@@ -239,7 +296,7 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group policyholder-details">
-                <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details<span className="edit-btn" onClick={() => showPolicyHolderModal(props)}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property inspection will results in failure to bind the policy.</p>
                   <div className="contact-card-wrapper">
@@ -335,7 +392,8 @@ export const Verify = (props) => {
           </div>
 
         </Form>}
-      {appState.data.showScheduleDateModal && <ScheduleDate verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} />}
+      {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={handlePolicyHolderUpdate} secondaryButtonHandler={() => hidePolicyHolderModal(props)} />}
+      {appState.data.showScheduleDateModal && <ScheduleDate selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} redirectToHome={() => redirectToHome(props)} />}
     </div>
   );
 };
@@ -375,4 +433,4 @@ const mapDispatchToProps = dispatch => ({
 // ------------------------------------------------
 // wire up redux form with the redux connect
 // ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Verify' })(Verify));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Verify', enableReinitialize: true })(Verify));
