@@ -39,7 +39,7 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
         <div className="card card-policyholder">
           <Form className={'fade-in'} id="UpdatePolicyholder" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
             <div className="card-header">
-              <h4><i className="fa fa-vcard" /> Edit PolicyHolder(s)</h4>
+              <h4><i className="fa fa-vcard" /> Edit Policyholder(s)</h4>
             </div>
             <div className="card-block">
               <h3 id="primaryPolicyholder">Primary Policyholder</h3>
