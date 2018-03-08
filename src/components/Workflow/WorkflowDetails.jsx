@@ -62,7 +62,7 @@ export const onKeyPress = (event, props, stepName) => {
 
 export const ShowPremium = ({ isCustomize, totalPremium }) => {
   if (isCustomize) {
-    return (<CountUp prefix="$" separator="," start={0} end={totalPremium} />);
+    return (<CountUp prefix="$ " separator="," start={0} end={totalPremium} />);
   }
   return (<span>$ {totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>);
 };
