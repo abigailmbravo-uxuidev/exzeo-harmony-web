@@ -5,7 +5,7 @@ const calculatedValue = (value) => {
   if (Number(Math.round(value / 1000) * 1000) >= 100000) {
     return Number(Math.round(value / 1000) * 1000);
   }
-  Number(value);
+  return Number(value);
 };
 
 const rules = {
