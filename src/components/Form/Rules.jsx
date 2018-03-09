@@ -2,10 +2,11 @@ import validator from 'validator';
 import moment from 'moment';
 
 const calculatedValue = (value) => {
-  if (Number(Math.round(value / 1000) * 1000) >= 100000) {
-    return Number(Math.round(value / 1000) * 1000);
+  const numberValue = value.replace(/\D+/g, '');
+  if (Number(Math.round(numberValue / 1000) * 1000) >= 100000) {
+    return Number(Math.round(numberValue / 1000) * 1000);
   }
-  return Number(value);
+  return Number(numberValue);
 };
 
 const rules = {
