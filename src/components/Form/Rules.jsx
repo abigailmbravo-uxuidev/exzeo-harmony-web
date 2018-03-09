@@ -29,7 +29,7 @@ export function combineRules(validations, variables) {
 
   if (validations) {
     for (let i = 0; i < validations.length; i += 1) {
-      if (rules[validations[i]] && ((validations[i] === 'dwellingRange') || (!variables || (!variables.min && !variables.max)))) {
+      if (rules[validations[i]] && ((!variables || (!variables.min && !variables.max)) || (validations[i] === 'dwellingRange'))) {
         ruleArray.push(rules[`${validations[i]}`]);
       } else if (validations[i] === 'range' && variables && variables.min && variables.max) {
         const range = (values) => {
