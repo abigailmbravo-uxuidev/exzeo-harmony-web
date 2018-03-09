@@ -1,6 +1,13 @@
 import validator from 'validator';
 import moment from 'moment';
 
+const calculatedValue = (value) => {
+  if (Number(Math.round(value / 1000) * 1000) >= 100000) {
+    return Number(Math.round(value / 1000) * 1000);
+  }
+  Number(value);
+};
+
 const rules = {
   required: value => (value ? undefined : 'Field Required'),
   email: value => (validator.isEmail(value) ? undefined : 'Not a valid email address'),
@@ -14,7 +21,7 @@ const rules = {
   maxLength255: value => (!value || (validator.isLength(value, { max: 255 })) ? undefined : 'Only 255 characters allowed'),
   maxLength2OnlyAlpha: value => (!value || (validator.isLength(value, { max: 2 }) && validator.isAlpha(value)) ? undefined : 'Only 2 letters allowed'),
   isValidDate: value => moment(value, 'MM/DD/YYYY', true).isValid() || moment(value, 'YYYY-MM-DD', true).isValid() ? undefined : 'Not a valid date',
-  dwellingRange: value => (Number(value) <= 2000000 && Number(value) >= 125000) ? undefined : 'Not a valid range. Must be ($125,000 - $2,000,000)'
+  dwellingRange: value => (calculatedValue(value) <= 2000000 && calculatedValue(value) >= 125000) ? undefined : 'Not a valid range. Must be ($125,000 - $2,000,000)'
 };
 
 export function combineRules(validations, variables) {
@@ -22,7 +29,7 @@ export function combineRules(validations, variables) {
 
   if (validations) {
     for (let i = 0; i < validations.length; i += 1) {
-      if (rules[validations[i]] && (!variables || (!variables.min && !variables.max))) {
+      if (rules[validations[i]] && ((validations[i] === 'dwellingRange') || (!variables || (!variables.min && !variables.max)))) {
         ruleArray.push(rules[`${validations[i]}`]);
       } else if (validations[i] === 'range' && variables && variables.min && variables.max) {
         const range = (values) => {
