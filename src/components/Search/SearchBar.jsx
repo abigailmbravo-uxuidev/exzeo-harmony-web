@@ -12,7 +12,6 @@ import * as errorActions from '../../actions/errorActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as searchActions from '../../actions/searchActions';
 import SelectField from '../Form/inputs/SelectField';
-import TextField from '../Form/inputs/TextField';
 import Pagination from '../Common/Pagination';
 
 const userTasks = {
