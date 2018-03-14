@@ -53,7 +53,6 @@ export const changePagePolicy = (props, isNext) => {
 
   const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
-
   props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy, direction).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
