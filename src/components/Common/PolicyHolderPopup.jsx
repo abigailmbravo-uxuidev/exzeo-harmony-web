@@ -39,7 +39,7 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
         <div className="card card-policyholder">
           <Form className={'fade-in'} id="UpdatePolicyholder" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
             <div className="card-header">
-              <h4><i className="fa fa-vcard" /> Edit PolicyHolder(s)</h4>
+              <h4><i className="fa fa-vcard" /> Edit Policyholder(s)</h4>
             </div>
             <div className="card-block">
               <h3 id="primaryPolicyholder">Primary Policyholder</h3>
@@ -52,16 +52,16 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
               { fieldValues.isAdditional && <div>
                 <h3 id="secondaryPolicyholder">Secondary Policyholder</h3>
                 <TextField
-                  label={'First Name'} dependsOn={['pH2LastName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2FirstName'}
+                  label={'First Name'} dependsOn={['isAdditional', 'pH2LastName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2FirstName'}
                 />
                 <TextField
-                  label={'Last Name'} dependsOn={['pH2FirstName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2LastName'}
+                  label={'Last Name'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2LastName'}
                 />
                 <PhoneField
-                  label={'Primary Phone'} dependsOn={['pH2FirstName', 'pH2LastName', 'pH2email']} styleName={''} name={'pH2phone'} validations={['phone']}
+                  label={'Primary Phone'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2email']} styleName={''} name={'pH2phone'} validations={['phone']}
                 />
                 <TextField
-                  validations={['optionalEmail']} dependsOn={['pH2FirstName', 'pH2LastName', 'pH2phone']} label={'Email Address'} styleName={''} name={'pH2email'}
+                  validations={['optionalEmail']} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2phone']} label={'Email Address'} styleName={''} name={'pH2email'}
                 />
               </div>}
             </div>

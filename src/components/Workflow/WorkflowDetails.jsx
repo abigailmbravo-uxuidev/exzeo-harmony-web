@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import CountUp from 'react-countup';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
+import * as customize from '../Customize/Customize';
 
+export const handleRecalc = (props) => {
+  customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
+};
 
 export const getQuoteFromModel = (state, props) => {
   const startModelData = {
@@ -59,6 +64,18 @@ export const onKeyPress = (event, props, stepName) => {
   }
 };
 
+export const ShowPremium = ({ isCustomize, totalPremium }) => {
+  if (isCustomize) {
+    return (<CountUp prefix="$ " separator="," start={0} end={totalPremium} />);
+  }
+  return (<span>$ {totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>);
+};
+
+ShowPremium.propTypes = {
+  totalPremium: PropTypes.number,
+  isCustomize: PropTypes.boolean
+};
+
 export class WorkflowDetails extends Component {
   constructor(props) {
     super(props);
@@ -89,6 +106,7 @@ export class WorkflowDetails extends Component {
       return <div className="detailHeader" />;
     }
 
+    const isCustomize = this.props.tasks[this.props.workflowModelName] && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask.name === 'askToCustomizeDefaultQuote';
     return (
       <div>
         <div className="detailHeader">
@@ -146,17 +164,18 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                $ {quote.rating && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                quote.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
+                  {quote.rating && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
+                    <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} /> : '--'}
                 </dd>
               </div>
               {this.props.appState.data.recalc && <div className="recalc-wrapper">
                 <button
                   tabIndex={'0'}
                   className="btn btn-primary btn-round btn-sm"
-                  type="submit"
-                  form="Customize"
-                  disabled={this.props.appState.data.submitting}><i className="fa fa-refresh"></i></button>
+                  type="button"
+                  onClick={() => handleRecalc(this.props)}
+                  disabled={this.props.appState.data.submitting}
+                ><i className="fa fa-refresh" /></button>
               </div>}
             </dl>
           </section>
@@ -170,7 +189,7 @@ export class WorkflowDetails extends Component {
             <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'sendEmailOrContinue')} onClick={() => goToStep(this.props, 'sendEmailOrContinue')} className={getClassForStep('sendEmailOrContinue', this.props)}><i className={'fa fa-share-alt'} /><span>Share</span></a></li>
             <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'addAdditionalAIs')} onClick={() => goToStep(this.props, 'addAdditionalAIs')} className={getClassForStep('addAdditionalAIs', this.props)}><i className={'fa fa-user-plus'} /><span>Additional Parties</span></a></li>
             <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'askAdditionalQuestions')} onClick={() => goToStep(this.props, 'askAdditionalQuestions')} className={getClassForStep('askAdditionalQuestions', this.props)}><i className={'fa fa-envelope'} /><span>Mailing / Billing</span></a></li>
-            <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'askScheduleInspectionDates')} onClick={() => goToStep(this.props, 'askScheduleInspectionDates')} className={getClassForStep('askScheduleInspectionDates', this.props)}><i className={'fa fa-check-square'} /><span>Verify</span></a></li>
+            <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'editVerify')} onClick={() => goToStep(this.props, 'editVerify')} className={getClassForStep('editVerify', this.props)}><i className={'fa fa-check-square'} /><span>Verify</span></a></li>
           </ul>
       }
       </div>
@@ -205,10 +224,13 @@ const mapStateToProps = state => ({
   quote: state.service.quote,
   tasks: state.cg,
   appState: state.appState,
-  completedTasks: state.completedTasks
+  completedTasks: state.completedTasks,
+  customizeFormValues: _.get(state.form, 'Customize.values', {}),
+  reactState: state
 });
 
 const mapDispatchToProps = dispatch => ({
+  dispatch,
   actions: {
     serviceActions: bindActionCreators(serviceActions, dispatch),
     cgActions: bindActionCreators(cgActions, dispatch),
