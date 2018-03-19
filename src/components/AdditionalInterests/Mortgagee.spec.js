@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import ConnectedApp, { Mortgagee, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './Mortgagee';
+import ConnectedApp, { Mortgagee, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, setMortgageeValues, setMortgagee2Values } from './Mortgagee';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -95,5 +95,19 @@ describe('Testing AddMortgagee component', () => {
     closeAndSavePreviousAIs(props);
     handleInitialize(initialState);
     failedSubmission({}, props.dispatch, () => {}, props);
+
+    const selectedMortgagee = {
+      AIName1: 'One',
+      AIName2: 'Two',
+      AIAddress1: 'One Main Street',
+      AICity: 'Tampa',
+      AIState: 'FL',
+      AIZip: '33607'
+    };
+    setMortgagee2Values(selectedMortgagee, props);
+    setMortgageeValues(selectedMortgagee, props);
+
+    setMortgagee2Values(null, props);
+    setMortgageeValues(null, props);
   });
 });

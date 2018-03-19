@@ -157,6 +157,34 @@ export const setMortgageeValues = (val, props) => {
   }
 };
 
+export const setMortgagee2Values = (val, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, {
+    ...props.appState.data,
+    selectedMortgageeOption: val
+  });
+  const selectedMortgagee = val;
+
+  if (selectedMortgagee) {
+    props.dispatch(batchActions([
+      change('Mortgagee', 'm2Name1', _.get(selectedMortgagee, 'AIName1')),
+      change('Mortgagee', 'm2Name2', _.get(selectedMortgagee, 'AIName2')),
+      change('Mortgagee', 'm2MailingAddress1', _.get(selectedMortgagee, 'AIAddress1')),
+      change('Mortgagee', 'm2City', _.get(selectedMortgagee, 'AICity')),
+      change('Mortgagee', 'm2State', _.get(selectedMortgagee, 'AIState')),
+      change('Mortgagee', 'm2Zip', String(_.get(selectedMortgagee, 'AIZip')))
+    ]));
+  } else {
+    props.dispatch(batchActions([
+      change('Mortgagee', 'm2Name1', ''),
+      change('Mortgagee', 'm2Name2', ''),
+      change('Mortgagee', 'm2MailingAddress1', ''),
+      change('Mortgagee', 'm2City', ''),
+      change('Mortgagee', 'm2State', ''),
+      change('Mortgagee', 'm2Zip', '')
+    ]));
+  }
+};
+
 export const Mortgagee = (props) => {
   const {
     fieldQuestions,
@@ -178,7 +206,7 @@ export const Mortgagee = (props) => {
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-bank" /> Mortgagee</h3>
             {fieldValues.isAdditional && <ReactSelectField
-              label="Top Mortgagees"
+              label="Top Mortgagees (Mortgagee 1)"
               name="mortgage"
               searchable
               labelKey="displayText"
@@ -186,6 +214,16 @@ export const Mortgagee = (props) => {
               value={props.appState.data.selectedMortgageeOption}
               answers={getAnswers('mortgagee', fieldQuestions)}
               onChange={val => setMortgageeValues(val, props)}
+            />}
+            {fieldValues.isAdditional2 && <ReactSelectField
+              label="Top Mortgagees (Mortgagee 2)"
+              name="mortgage2"
+              searchable
+              labelKey="displayText"
+              autoFocus
+              value={props.appState.data.selectedMortgageeOption}
+              answers={getAnswers('mortgagee', fieldQuestions)}
+              onChange={val => setMortgagee2Values(val, props)}
             />}
             {fieldQuestions && _.sortBy(_.filter(fieldQuestions, q => q.name !== 'mortgagee'), 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>

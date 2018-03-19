@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, getQuoteFromModel, ShowPremium } from './WorkflowDetails';
+import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, getQuoteFromModel, ShowPremium, handleRecalc } from './WorkflowDetails';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -52,11 +52,42 @@ describe('Testing WorkflowDetails component', () => {
       },
       appState: {
         modelName: 'bb'
+      },
+      form: {
+        Customize: {
+          values: {
+            dwellingAmount: 100000,
+            otherStructuresAmount: 100000,
+            personalPropertyAmount: 100000,
+            personalPropertyReplacementCostCoverage: false,
+            propertyIncidentalOccupanciesMainDwelling: false,
+            propertyIncidentalOccupanciesOtherStructures: false,
+            lossOfUse: 10000,
+            liabilityIncidentalOccupancies: true,
+            calculatedHurricane: 2000
+          }
+        }
       }
     };
     const store = mockStore(initialState);
     const props = {
+      tasks: {
+        bb: {
+          data: {
+            activeTask: {
+              name: 'step'
+            },
+            modelInstanceId: '123',
+            model: {},
+            uiQuestions: []
+          }
+        }
+      },
       actions: {
+        cgActions: {
+          completeTask() {},
+          batchCompleteTask() { return Promise.resolve(); }
+        },
         appStateActions: {
           setAppState() { return Promise.resolve(); }
         },
@@ -75,6 +106,7 @@ describe('Testing WorkflowDetails component', () => {
       quoteData: {},
       dispatch: store.dispatch,
       appState: {
+        modelName: 'bb',
         data: {
           quote: {
             _id: 112
@@ -82,7 +114,17 @@ describe('Testing WorkflowDetails component', () => {
           submitting: false
         }
       },
-      ...propTypes
+      customizeFormValues: {
+        dwellingAmount: 100000,
+        otherStructuresAmount: 100000,
+        personalPropertyAmount: 100000,
+        personalPropertyReplacementCostCoverage: false,
+        propertyIncidentalOccupanciesMainDwelling: false,
+        propertyIncidentalOccupanciesOtherStructures: false,
+        lossOfUse: 10000,
+        liabilityIncidentalOccupancies: true,
+        calculatedHurricane: 2000
+      }
     };
     getClassForStep('step', props);
     goToStep(props, 'step');
@@ -90,6 +132,7 @@ describe('Testing WorkflowDetails component', () => {
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
     wrapper.render();
+    handleRecalc(props);
   });
 
   it('should test ShowPremium true', () => {
