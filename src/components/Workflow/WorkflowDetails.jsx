@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import CountUp from 'react-countup';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
@@ -63,6 +64,18 @@ export const onKeyPress = (event, props, stepName) => {
   }
 };
 
+export const ShowPremium = ({ isCustomize, totalPremium }) => {
+  if (isCustomize) {
+    return (<CountUp prefix="$ " separator="," start={0} end={totalPremium} />);
+  }
+  return (<span>$ {totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>);
+};
+
+ShowPremium.propTypes = {
+  totalPremium: PropTypes.number,
+  isCustomize: PropTypes.boolean
+};
+
 export class WorkflowDetails extends Component {
   constructor(props) {
     super(props);
@@ -93,6 +106,7 @@ export class WorkflowDetails extends Component {
       return <div className="detailHeader" />;
     }
 
+    const isCustomize = this.props.tasks[this.props.workflowModelName] && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask.name === 'askToCustomizeDefaultQuote';
     return (
       <div>
         <div className="detailHeader">
@@ -150,8 +164,8 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                $ {quote.rating && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                quote.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
+                  {quote.rating && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
+                    <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} /> : '--'}
                 </dd>
               </div>
               {this.props.appState.data.recalc && <div className="recalc-wrapper">
