@@ -16,7 +16,7 @@ export const handleRecalc = (props) => {
 
 export const getQuoteFromModel = (state, props) => {
   const startModelData = {
-    quoteId: (props.appState.data.quote) ? props.appState.data.quote._id : state.quote._id // eslint-disable-line
+    quoteId: (props.appState.data && props.appState.data.quote) ? props.appState.data.quote._id : state.quote._id // eslint-disable-line
   };
 
   props.actions.serviceActions.getQuote(startModelData.quoteId).then((response) => {
@@ -86,12 +86,12 @@ export class WorkflowDetails extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.appState !== this.props.appState) {
-      if ((nextProps.appState.data.quote || this.state.quote._id) && nextProps.appState.data.updateWorkflowDetails) { // eslint-disable-line
+      if (((nextProps.appState.data && nextProps.appState.data.quote) || this.state.quote._id) && nextProps.appState.data.updateWorkflowDetails) { // eslint-disable-line
         getQuoteFromModel(this.state, nextProps);
       }
     }
     const quote = nextProps.quote || {};
-    if (nextProps.appState.data.hideYoChildren) {
+    if (nextProps.appState.data && nextProps.appState.data.hideYoChildren) {
       delete quote.coverageLimits;
     }
     this.setState((prevProps, newProps) => ({ ...newProps,
