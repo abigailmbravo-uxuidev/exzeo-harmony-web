@@ -8,9 +8,7 @@
 
       .detail-group {
         .edit-btn {
-          position: absolute;
-          top: $padding*3;
-          right: 0;
+          margin-left: $padding;
           cursor: pointer;
           font-size: $font-size-h5;
           @include for-phone-only {
