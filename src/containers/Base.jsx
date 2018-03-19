@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
@@ -59,7 +58,7 @@ export class Base extends Component {
       <div className={this.state.headerActive ? 'app-wrapper blur' : 'app-wrapper'} >
         <Header toggleHeader={this.toggleClassHeader} toggle={this.toggleClass} active={this.state.active} />
         <main role="document">
-          <aside activeClassName="active" className={this.state.headerActive ? 'content-panel-left active' : 'content-panel-left'}>
+          <aside activeclassname="active" className={this.state.headerActive ? 'content-panel-left active' : 'content-panel-left'}>
             <div className="user">
               <label htmlFor="user">Agency</label>
               <h5 className="user-name">
@@ -91,7 +90,7 @@ Base.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object }),
   actions: PropTypes.shape({
-    serviceActions: PropTypes.func
+    serviceActions: PropTypes.objectOf(PropTypes.func)
   })
 };
 

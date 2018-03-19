@@ -194,6 +194,17 @@ label {
         flex-shrink: 0;
         margin: 0 ($margin/2);
     }
+
+    &.date-label-wrapper {
+        display: flex;
+        align-items: baseline;
+
+        .date-min-max {
+            margin-left: $padding;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-normal;
+        }
+    }
   }
 
   &.disabled,

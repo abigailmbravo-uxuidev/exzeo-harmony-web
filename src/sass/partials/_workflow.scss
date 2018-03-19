@@ -364,12 +364,16 @@
     flex-shrink: 0;
     justify-content: flex-end;
     padding: 0 ($padding*2) ($padding*2);
+    .button-label-wrap {
+        display: flex;
+        align-self: flex-start;
+        align-items: center;
 
-    .button-info {
-      align-self: center;
-      text-align: right;
-      color: $bright-blue;
-      font-size: $font-size-sm;
+        .button-info {
+          text-align: right;
+          color: $bright-blue;
+          font-size: $font-size-sm;
+        }
     }
 
     .btn {

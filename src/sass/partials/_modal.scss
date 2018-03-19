@@ -13,15 +13,29 @@
     flex-direction: column;
   }
 
-  &.root-modal {
-      top: 3.375rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  &.edit-policyholder-modal {
+    z-index: 30;
 
-      .card {
-          min-width: 40%;
+    .contact-message {
+      width: 60%;
+      @include for-phone-only {
+        position: absolute;
+        top: 3.875rem;
+        bottom: 0.5rem;
+        width: 100%;
       }
+    }
+  }
+
+  &.root-modal {
+    top: 3.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .card {
+      min-width: 40%;
+    }
   }
 
   .survey-wrapper {

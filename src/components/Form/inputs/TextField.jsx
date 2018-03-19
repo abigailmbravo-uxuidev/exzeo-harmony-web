@@ -12,7 +12,8 @@ export const TextInput = ({
   meta,
   type,
   autoFocus,
-  readOnly
+  readOnly,
+  dependsOn
 }) => {
   const { touched, error, warning } = meta;
   const { disabled, name } = input;

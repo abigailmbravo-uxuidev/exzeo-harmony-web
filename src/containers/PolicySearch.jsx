@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
 import SearchPolicyConnect from '../components/Search/SearchPolicy';
 import { connect } from 'react-redux';
 import BaseConnect from './Base';

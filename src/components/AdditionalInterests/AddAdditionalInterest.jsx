@@ -65,8 +65,13 @@ export const AddBillpayer = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
+const getAnswers = (name, questions) => _.get(_.find(questions, { name }), 'answers') || [];
+
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  _.forEach(getAnswers('mortgagee', taskData.uiQuestions), (answer) => {
+    answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
+  });
   return taskData.uiQuestions;
 };
 
@@ -268,4 +273,5 @@ const mapDispatchToProps = dispatch => ({
 // wire up redux form with the redux connect
 // ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'AddAdditionalInterest',
+  enableReinitialize: true,
   onSubmitFail: failedSubmission })(AddAdditionalInterest));
