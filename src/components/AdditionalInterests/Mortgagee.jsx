@@ -87,7 +87,7 @@ export const handleFormSubmit = (data, dispatch, props) => {
   );
 };
 
-export const closeAndSavePreviousAIs = props => {
+export const closeAndSavePreviousAIs = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
   const additionalInterests = props.quoteData.additionalInterests;
@@ -104,7 +104,7 @@ export const closeAndSavePreviousAIs = props => {
   );
 };
 
-export const handleInitialize = state => {
+export const handleInitialize = (state) => {
   const taskData =
     state.cg && state.appState && state.cg[state.appState.modelName]
       ? state.cg[state.appState.modelName].data
@@ -130,7 +130,7 @@ export const handleInitialize = state => {
 
   userTasks.formSubmit = taskData.activeTask.name;
 
-  _.forEach(taskData.uiQuestions, q => {
+  _.forEach(taskData.uiQuestions, (q) => {
     if (!values[q.name]) {
       values[q.name] = '';
     }
@@ -144,7 +144,7 @@ export const handleInitialize = state => {
   return values;
 };
 
-export const handleGetQuestions = state => {
+export const handleGetQuestions = (state) => {
   const taskData =
     state.cg && state.appState && state.cg[state.appState.modelName]
       ? state.cg[state.appState.modelName].data
@@ -152,7 +152,7 @@ export const handleGetQuestions = state => {
   return taskData.uiQuestions;
 };
 
-export const handleGetQuoteData = state => {
+export const handleGetQuoteData = (state) => {
   const taskData =
     state.cg && state.appState && state.cg[state.appState.modelName]
       ? state.cg[state.appState.modelName].data
@@ -252,7 +252,7 @@ export const setMortgagee2Values = (val, props) => {
   }
 };
 
-export const Mortgagee = props => {
+export const Mortgagee = (props) => {
   const { fieldQuestions, quoteData, handleSubmit, fieldValues } = props;
 
   return (
@@ -310,9 +310,11 @@ export const Mortgagee = props => {
             <span className="button-label-wrap">
               <span className="button-info">Oops! There is no mortgagee</span>
               <button
+                id="goBack"
                 className="btn btn-secondary"
                 type="button"
-                onClick={() => closeAndSavePreviousAIs(props)}>
+                onClick={() => closeAndSavePreviousAIs(props)}
+              >
                 Go Back
               </button>
             </span>
@@ -320,7 +322,8 @@ export const Mortgagee = props => {
               className="btn btn-primary"
               type="submit"
               form="Mortgagee"
-              disabled={props.appState.data.submitting}>
+              disabled={props.appState.data.submitting}
+            >
               Save
             </button>
           </div>

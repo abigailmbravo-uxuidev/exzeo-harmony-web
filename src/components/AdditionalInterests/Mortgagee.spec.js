@@ -12,13 +12,40 @@ describe('Testing AddMortgagee component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      tasks: {
+        bb: {
+          data: {
+            modelInstanceId: '123',
+            model: {},
+            previousTask: {
+              value: {
+                result: {
+                  quoteNumber: '12-1999999-01'
+                }
+              }
+            },
+            uiQuestions: []
+          }
+        }
+      },
+      fieldQuestions: [{}],
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        },
+        cgActions: {
+          completeTask() {}
+        }
+      },
       handleSubmit() {},
       fieldValues: {
-        isAdditional: false
+        isAdditional: true,
+        isAdditional2: true
       },
       quoteData: {},
       dispatch: store.dispatch,
       appState: {
+        modelName: 'bb',
         data: {
           submitting: false
         }
@@ -26,6 +53,9 @@ describe('Testing AddMortgagee component', () => {
     };
     const wrapper = shallow(<Mortgagee {...props} />);
     expect(wrapper);
+    wrapper.find('[name="mortgage"]').simulate('change', { target: { value: 'ABC' }, props });
+    wrapper.find('[name="mortgage2"]').simulate('change', { target: { value: 'ABC' }, props });
+    wrapper.find('#goBack').simulate('click');
   });
 
   it('should test connected app', () => {
@@ -34,8 +64,12 @@ describe('Testing AddMortgagee component', () => {
         bb: {
           data: {
             modelInstanceId: '123',
-            model: {},
-            uiQuestions: [],
+            model: {
+              variables: [
+                { name: 'getQuoteBeforeAIs', value: { result: { additionalInterests: [{ type: 'Mortgagee' }] } } }
+              ]
+            },
+            uiQuestions: [{}],
             activeTask: {
               name: 'bb'
             }
