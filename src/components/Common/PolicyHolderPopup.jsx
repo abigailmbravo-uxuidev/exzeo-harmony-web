@@ -10,6 +10,8 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import normalizePhone from '../Form/normalizePhone';
 import CheckField from '../Form/inputs/CheckField';
+import SnackBar from './SnackBar';
+import failedSubmission from './reduxFormFailSubmit';
 
 const handleQuoteData = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : {};
@@ -32,11 +34,16 @@ const handleInitialize = (state) => {
   values.pH2phone = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
   return values;
 };
-const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler, fieldValues }) => (
+const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler, fieldValues, parentProps, showSnackBar }) => (
   <div className="edit-policyholder-modal modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
         <div className="card card-policyholder">
+          <SnackBar
+            {...parentProps}
+            show={showSnackBar}
+            timer={3000}
+          ><p>Please see errors above</p></SnackBar>
           <Form className={'fade-in'} id="UpdatePolicyholder" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
             <div className="card-header">
               <h4><i className="fa fa-vcard" /> Edit Policyholder(s)</h4>
@@ -44,31 +51,31 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
             <div className="card-block">
               <h3 id="primaryPolicyholder">Primary Policyholder</h3>
               <div className="ph1name">
-              <TextField validations={['required']} label={'First Name'} styleName={''} name={'pH1FirstName'} />
-              <TextField validations={['required']} label={'Last Name'} styleName={''} name={'pH1LastName'} />
+                <TextField validations={['required']} label={'First Name'} styleName={''} name={'pH1FirstName'} />
+                <TextField validations={['required']} label={'Last Name'} styleName={''} name={'pH1LastName'} />
               </div>
               <div className="ph1contact">
-              <PhoneField validations={['required', 'phone']} label={'Primary Phone'} styleName={''} name={'pH1phone'} />
-              <TextField validations={['required', 'email']} label={'Email Address'} styleName={''} name={'pH1email'} />
+                <PhoneField validations={['required', 'phone']} label={'Primary Phone'} styleName={''} name={'pH1phone'} />
+                <TextField validations={['required', 'email']} label={'Email Address'} styleName={''} name={'pH1email'} />
               </div>
               <CheckField name={'isAdditional'} isSwitch label={'Do you want to add an additional Policyholder?'} />
               { fieldValues.isAdditional && <div>
                 <h3 id="secondaryPolicyholder">Secondary Policyholder</h3>
                 <div className="ph2name">
-                <TextField
-                  label={'First Name'} dependsOn={['isAdditional', 'pH2LastName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2FirstName'}
-                />
-                <TextField
-                  label={'Last Name'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2LastName'}
-                />
+                  <TextField
+                    label={'First Name'} dependsOn={['isAdditional', 'pH2LastName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2FirstName'}
+                  />
+                  <TextField
+                    label={'Last Name'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2LastName'}
+                  />
                 </div>
                 <div className="ph2contact">
-                <PhoneField
-                  label={'Primary Phone'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2email']} styleName={''} name={'pH2phone'} validations={['phone']}
-                />
-                <TextField
-                  validations={['optionalEmail']} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2phone']} label={'Email Address'} styleName={''} name={'pH2email'}
-                />
+                  <PhoneField
+                    label={'Primary Phone'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2email']} styleName={''} name={'pH2phone'} validations={['phone']}
+                  />
+                  <TextField
+                    validations={['optionalEmail']} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2phone']} label={'Email Address'} styleName={''} name={'pH2email'}
+                  />
                 </div>
               </div>}
             </div>
@@ -112,5 +119,6 @@ const mapDispatchToProps = dispatch => ({
 // wire up redux form with the redux connect
 // ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'UpdatePolicyholder'
+  form: 'UpdatePolicyholder',
+  onSubmitFail: failedSubmission
 })(PolicyHolderPopup));
