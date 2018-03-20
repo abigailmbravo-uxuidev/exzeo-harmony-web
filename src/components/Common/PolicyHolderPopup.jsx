@@ -43,26 +43,33 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
             </div>
             <div className="card-block">
               <h3 id="primaryPolicyholder">Primary Policyholder</h3>
-
+              <div className="ph1name">
               <TextField validations={['required']} label={'First Name'} styleName={''} name={'pH1FirstName'} />
               <TextField validations={['required']} label={'Last Name'} styleName={''} name={'pH1LastName'} />
+              </div>
+              <div className="ph1contact">
               <PhoneField validations={['required', 'phone']} label={'Primary Phone'} styleName={''} name={'pH1phone'} />
               <TextField validations={['required', 'email']} label={'Email Address'} styleName={''} name={'pH1email'} />
+              </div>
               <CheckField name={'isAdditional'} isSwitch label={'Do you want to add an additional Policyholder?'} />
               { fieldValues.isAdditional && <div>
                 <h3 id="secondaryPolicyholder">Secondary Policyholder</h3>
+                <div className="ph2name">
                 <TextField
                   label={'First Name'} dependsOn={['isAdditional', 'pH2LastName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2FirstName'}
                 />
                 <TextField
                   label={'Last Name'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2email', 'pH2phone']} styleName={''} name={'pH2LastName'}
                 />
+                </div>
+                <div className="ph2contact">
                 <PhoneField
                   label={'Primary Phone'} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2email']} styleName={''} name={'pH2phone'} validations={['phone']}
                 />
                 <TextField
                   validations={['optionalEmail']} dependsOn={['isAdditional', 'pH2FirstName', 'pH2LastName', 'pH2phone']} label={'Email Address'} styleName={''} name={'pH2email'}
                 />
+                </div>
               </div>}
             </div>
             <div className="card-footer">
