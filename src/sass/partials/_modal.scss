@@ -25,26 +25,32 @@
       }
 
       .card-policyholder {
+        position: relative;
         max-height: 90%;
+        @include for-phone-only {
+          max-height: 100%;
+        }
 
-        .ph1name,
-        .ph2name,
         .ph1contact,
-        .ph2contact  {
+        .ph1name,
+        .ph2contact,
+        .ph2name {
           display: flex;
-          width: 100%;
           flex-grow: 0;
           flex-shrink: 0;
+          width: 100%;
+          @include for-phone-only {
+            flex-direction: column;
+          }
 
-          .form-group{
+          .form-group {
             flex-grow: 1;
             flex-shrink: 1;
             border-bottom: 1px dashed $cool-gray-02;
-
             @include for-phone-only {
-                flex-grow: 0;
-                flex-shrink: 0;
-                width: 100%;
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 100%;
             }
           }
         }
