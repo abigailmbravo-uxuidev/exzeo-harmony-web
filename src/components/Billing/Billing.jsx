@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { reduxForm, Form, change, propTypes, Field, formValueSelector } from 'redux-form';
+import { reduxForm, Form, change, propTypes, Field } from 'redux-form';
 import _ from 'lodash';
 import Footer from '../Common/Footer';
 import { CheckInput } from '../Form/inputs/CheckField';
@@ -17,6 +17,8 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
 import Loader from '../Common/Loader';
+import SnackBar from '../Common/SnackBar';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 
 // ------------------------------------------------
 // List the user tasks that directly tie to
@@ -25,6 +27,7 @@ import Loader from '../Common/Loader';
 const userTasks = {
   formSubmit: 'askAdditionalQuestions'
 };
+
 export const handleFormSubmit = (data, dispatch, props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.formSubmit;
@@ -195,6 +198,11 @@ export const Billing = (props) => {
 
   return (
     <div className="route-content">
+      <SnackBar
+        {...props}
+        show={props.appState.data.showSnackBar}
+        timer={3000}
+      ><p>Please see errors above</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
@@ -291,4 +299,6 @@ const mapDispatchToProps = dispatch => ({
 // ------------------------------------------------
 // wire up redux form with the redux connect
 // ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Billing', enableReinitialize: true })(Billing));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Billing',
+  enableReinitialize: true,
+  onSubmitFail: failedSubmission })(Billing));

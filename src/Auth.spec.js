@@ -69,5 +69,40 @@ describe('Auth', () => {
         });
       });
     });
+
+    it('should login', () => {
+      localStorage.setItem('id_token',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaHR0cHM6Ly9oZWltZGFsbC5zZWN1cml0eS9ncm91cHMiOltdLCJodHRwczovL2hlaW1kYWxsLnNlY3VyaXR5L3JvbGVzIjpbXSwiaHR0cHM6Ly9oZWltZGFsbC5zZWN1cml0eS91c2VybmFtZSI6Impkb2UiLCJodHRwczovL2hlaW1kYWxsLnNlY3VyaXR5L2FwcF9tZXRhZGF0YSI6eyJhZ2VuY3lDb2RlIjoiMTIzNCIsImNvbXBhbnlDb2RlIjoiQUJDRCIsInN0YXRlIjoiRkwifX0.AnKNLuUWSf8LOhSZP9lQ16GFXBl_mtxTJ2_cZ9y6dRQ'
+      );
+
+      process.env.REACT_APP_AUTH0_DOMAIN = 'localhost';
+      process.env.REACT_APP_AUTH0_AUDIENCE = 'AUDIENCE';
+      process.env.REACT_APP_AUTH0_CLIENT_ID = 'clientID';
+
+      const auth = new Auth();
+      auth.getProfile((error, profile) => {
+        expect(profile).toEqual({
+          sub: '1234567890',
+          name: 'John Doe',
+          groups: [],
+          roles: [],
+          username: 'jdoe',
+          appMetadata: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' },
+          agency: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' }
+        });
+      });
+      auth.checkAuth();
+
+      auth.handleAuthentication();
+
+      auth.setSession({ expiresIn: new Date(), accessToken: '3454', idToken: '3324' });
+
+      const idToken = auth.getIdToken();
+      const accessToken = auth.getAccessToken();
+
+
+      expect(idToken).toEqual('3324');
+      expect(accessToken).toEqual('3454');
+    });
   });
 });

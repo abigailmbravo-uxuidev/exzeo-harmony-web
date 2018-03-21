@@ -8,9 +8,7 @@
 
       .detail-group {
         .edit-btn {
-          position: absolute;
-          top: $padding*3;
-          right: 0;
+          margin-left: $padding;
           cursor: pointer;
           font-size: $font-size-h5;
           @include for-phone-only {
@@ -106,6 +104,17 @@
               .contact-card {
                 display: flex;
                 flex-direction: column;
+
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6 {
+                  flex-basis: auto;
+                  flex-grow: 0;
+                  flex-shrink: 0;
+                }
 
                 dl {
                   display: flex;

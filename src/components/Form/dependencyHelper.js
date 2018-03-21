@@ -23,17 +23,30 @@ export default function dependencyHelper(question, data, values) {
   // For display fields
   if (question.conditional.value) {
     const { value } = question.conditional;
-    const parentValue = _.get(values, value.parent);
-    const calculatedValue = parentValue * value.value;
-    updatedQuestion.displayValue = toCurrency((value.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue));
+    if (value.type === 'percent') {
+      const roundedParentValue = Math.round(_.get(values, value.parent) / 1000) * 1000;
+      const calculatedValue = roundedParentValue * value.value;
+      updatedQuestion.displayValue = toCurrency(Math.ceil(calculatedValue / 100));
+    } else {
+      const parentValue = _.get(values, value.parent);
+      const calculatedValue = parentValue * value.value;
+      updatedQuestion.displayValue = toCurrency(calculatedValue);
+    }
   }
 
   // For read only fields on radio fields
   if (question.conditional.dependency) {
     const { dependency } = question.conditional;
-    const parentValue = _.get(values, dependency.parent);
-    const calculatedValue = parentValue * values[question.name];
-    updatedQuestion.displayValue = toCurrency((dependency.type === 'percent' ? Math.ceil(calculatedValue / 100) : calculatedValue));
+
+    if (dependency.type === 'percent') {
+      const roundedParentValue = Math.round(_.get(values, dependency.parent) / 1000) * 1000;
+      const calculatedValue = roundedParentValue * values[question.name];
+      updatedQuestion.displayValue = toCurrency(Math.ceil(calculatedValue / 100));
+    } else {
+      const parentValue = _.get(values, dependency.parent);
+      const calculatedValue = parentValue * values[question.name];
+      updatedQuestion.displayValue = toCurrency(calculatedValue);
+    }
   }
   /**
    * type: 'hidden',

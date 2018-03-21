@@ -20,7 +20,7 @@
     width: 100%;
     margin-bottom: $padding*2;
     padding-bottom: $paragraph-margin-bottom;
-    border-bottom: 1px dashed $warm-gray-02;
+    border-bottom: 1px dashed $cool-gray-02;
 
     .result-cards {
       margin: 0;
@@ -30,26 +30,27 @@
       li {
         div {
           @include for-phone-only {
-            flex-direction: column;
-            align-items: baseline;
             position: relative;
+            align-items: baseline;
+            flex-direction: column;
           }
+
           .card-icon {
             display: flex;
+            align-items: center;
             flex-direction: column;
-            width: 5rem;
-            margin-right: $padding;
-            text-align: center;
             flex-grow: 0;
             flex-shrink: 0;
             justify-content: center;
-            align-items: center;
+            width: 5rem;
+            margin-right: $padding;
+            text-align: center;
             @include for-phone-only {
+              align-items: center;
+              flex-basis: auto;
               flex-direction: row;
               flex-grow: 1;
-              flex-basis: auto;
               width: auto;
-              align-items: center;
             }
 
             label {
@@ -97,43 +98,46 @@
           }
 
           a {
-              &.edit {
-                  width: 2rem;
-                  .fa-pencil {
-                    font-size: $font-size-h4;
-                  }
-                  @include for-phone-only {
-                    position: absolute;
-                    right: $padding;
-                  }
+            &.edit {
+              width: 2rem;
+              @include for-phone-only {
+                position: absolute;
+                right: $padding;
               }
-              &.remove {
-                  width: 2rem
-                  ;
-                  .fa-trash {
-                      font-size: $font-size-h4;
-                  }
-                  @include for-phone-only {
-                    position: absolute;
-                    right: 3rem;
-                  }
+
+              .fa-pencil {
+                font-size: $font-size-h4;
               }
+            }
+
+            &.remove {
+              width: 2rem;
+              @include for-phone-only {
+                position: absolute;
+                right: 3rem;
+              };
+
+              .fa-trash {
+                font-size: $font-size-h4;
+              }
+            }
           }
 
           section {
-              display: flex;
-              flex-direction: column;
-              flex-grow: 1;
-              flex-shrink: 1;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            flex-shrink: 1;
 
-              h4 {
-                  line-height: $line-height-sm;
-                  margin-bottom: 0;
-              }
-              p {
-                  line-height: $line-height-sm;
-                  margin-bottom: 0;
-              }
+            h4 {
+              margin-bottom: 0;
+              line-height: $line-height-sm;
+            }
+
+            p {
+              margin-bottom: 0;
+              line-height: $line-height-sm;
+            }
           }
         }
       }
@@ -177,5 +181,95 @@
 
   .switch.inactive~.form-group {
     display: none;
+  }
+}
+
+#Mortgagee {
+  .scroll {
+    .survey-wrapper {
+      .section-group-header {
+        order: 1;
+      }
+
+      .mortgage {
+        order: 10;
+      }
+
+      .mortgage2 {
+        order: 30;
+      }
+
+      .isAdditional {
+        order: 5;
+      }
+
+      .m1Name1 {
+        order: 11;
+      }
+
+      .m1Name2 {
+        order: 12;
+      }
+
+      .m1MailingAddress1 {
+        order: 13;
+      }
+
+      .m1MailingAddress2 {
+        order: 14;
+      }
+
+      .m1City {
+        order: 15;
+      }
+
+      .m1State {
+        order: 16;
+      }
+
+      .m1Zip {
+        order: 17;
+      }
+
+      .m1ReferenceNumber {
+        order: 18;
+      }
+
+      .isAdditional2 {
+        order: 25;
+      }
+
+      .m2Name1 {
+        order: 31;
+      }
+
+      .m2Name2 {
+        order: 32;
+      }
+
+      .m2MailingAddress1 {
+        order: 33;
+      }
+
+      .m2MailingAddress2 {
+        order: 34;
+      }
+
+      .m2City {
+        order: 35;
+      }
+
+      .m2State {
+        order: 36;
+      }
+
+      .m2Zip {
+        order: 37;
+      }
+
+      .m2ReferenceNumber {
+        order: 38;
+      }
+    }
   }
 }

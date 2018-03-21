@@ -48,6 +48,10 @@ input[type="submit"] {
     font-size: $font-size-sm;
   }
 
+  &.btn-xs {
+    font-size: $font-size-xs;
+  }
+
   &.focus {
     text-decoration: none;
   }
@@ -218,13 +222,19 @@ input[type="submit"] {
     line-height: 1.25;
   }
 }
-// Specificity overrides
 
+.btn-recalc {}
+// Specificity overrides
+button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   &.btn-block {
-    width: 100%;
+
+      @include for-phone-only {
+        width: 100%;
+        margin-bottom: $padding;
+    }
   }
 }
 

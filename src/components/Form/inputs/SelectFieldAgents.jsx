@@ -39,7 +39,7 @@ export const SelectInputAgents = ({
           name={name}
           disabled={disabled}
           onChange={onChange}
-          aria-valuetext={value}
+          aria-activedescendant={value}
         >
           <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
           {agents.map((agent, index) => (
@@ -66,11 +66,11 @@ SelectInputAgents.propTypes = {
    */
   hint: PropTypes.string,
     // Validations
-  meta: {
+  meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
     warning: PropTypes.string
-  },
+  }),
   /**
    * Input provided by redux-form field
    */

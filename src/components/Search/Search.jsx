@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { propTypes } from 'redux-form';
-
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
@@ -72,7 +70,6 @@ export const Search = props => (
 );
 
 Search.propTypes = {
-  ...propTypes,
   appState: PropTypes.shape({
     instanceId: PropTypes.string,
     modelName: PropTypes.string,

@@ -10,6 +10,8 @@ import * as appStateActions from '../../actions/appStateActions';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
+import SnackBar from '../Common/SnackBar';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 
 const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'
@@ -63,8 +65,13 @@ export const AddBillpayer = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
+const getAnswers = (name, questions) => _.get(_.find(questions, { name }), 'answers') || [];
+
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  _.forEach(getAnswers('mortgagee', taskData.uiQuestions), (answer) => {
+    answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
+  });
   return taskData.uiQuestions;
 };
 
@@ -170,6 +177,11 @@ export const deleteAdditionalInterest = (selectedAdditionalInterest, props) => {
 
 export const AddAdditionalInterest = props => (
   <div className="route-content">
+    <SnackBar
+      {...props}
+      show={props.appState.data.showSnackBar}
+      timer={3000}
+    ><p>Please see errors above</p></SnackBar>
     {props.appState.data.submitting && <Loader />}
     <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={props.handleSubmit(noAddAdditionalInterestSubmit)} noValidate>
       <div className="scroll">
@@ -260,4 +272,6 @@ const mapDispatchToProps = dispatch => ({
 // ------------------------------------------------
 // wire up redux form with the redux connect
 // ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'AddAdditionalInterest' })(AddAdditionalInterest));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'AddAdditionalInterest',
+  enableReinitialize: true,
+  onSubmitFail: failedSubmission })(AddAdditionalInterest));

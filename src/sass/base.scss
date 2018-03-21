@@ -13,9 +13,6 @@
 @import "partials/_reset";
 /*Set base typography*/
 @import "partials/_type";
-/*Grid styles*/
-//@import "partials/_grid";
-//@import "partials/_tabs";
 /*------------------------------------------------------------------------------------*/
 @import "https://fonts.googleapis.com/css?family=Roboto:100,300,500"; //base
 //buttons & links
@@ -63,6 +60,8 @@
 /*------------------------------------------------------------------------------------*/
 @import "partials/_grid"; //Responsive styles for phone
 /*------------------------------------------------------------------------------------*/
+@import "partials/_snackbar"; //Snackbar
+/*------------------------------------------------------------------------------------*/
 @import "partials/_phone"; //ROUTE SPECIFIC STYLES
 /*###################################################*/
 //Home Page
@@ -87,6 +86,16 @@
 /*------------------------------------------------------------------------------------*/
 @import "partials/_error"; //Thanks Page
 /*------------------------------------------------------------------------------------*/
+hr {
+  &.section-divider {
+    height: 1px;
+    margin: 0 $padding $form-group-margin-bottom;
+    padding: 0 $padding/2;
+    border: 0;
+    border-bottom: 1px dashed $cool-gray-02;
+  }
+}
+
 #thanks {
   display: flex;
   flex-direction: column;
@@ -96,6 +105,17 @@
 
 .card {
   &.card-schedule-date {
-    max-width: 32rem;
+    max-width: 50rem;
+
+    .card-footer {
+      .btn-block {
+        width: 100%;
+        margin-bottom: $padding;
+        @include for-tablet-landscape-up {
+          width: auto;
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 }

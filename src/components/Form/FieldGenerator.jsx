@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import platform from 'platform';
 import dependencyHelper from './dependencyHelper';
 import {
   CheckField,
@@ -12,7 +11,6 @@ import {
   SliderField,
   TextField,
   DateField,
-  DateFieldWeb,
   PhoneField,
   SelectFieldBilling
 } from './inputs';

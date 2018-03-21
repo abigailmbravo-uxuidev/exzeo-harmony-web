@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
-
+import failedSubmission from '../Common/reduxFormFailSubmit';
 import ConnectedApp, { Customize, handleFormSubmit, handleFormChange, handleReset } from './Customize';
 
 const middlewares = [];
@@ -118,5 +118,6 @@ describe('Testing Customize component', () => {
 
     handleReset(props);
     handleFormChange(props);
+    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });

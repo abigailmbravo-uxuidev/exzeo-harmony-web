@@ -1,7 +1,7 @@
 .modal {
   position: fixed;
   z-index: 1;
-  z-index: 900;
+  z-index: 10000;
   top: 0;
   right: 0;
   bottom: 0;
@@ -13,15 +13,32 @@
     flex-direction: column;
   }
 
-  &.root-modal {
-      top: 3.375rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  &.edit-policyholder-modal {
+    z-index: 30;
+    top: 3.375rem;
 
-      .card {
-          min-width: 40%;
+    .contact-message {
+      width: 60%;
+      height: 100%;
+      @include for-phone-only {
+        width: 100%;
       }
+
+      .card-policyholder {
+        height: 90%;
+      }
+    }
+  }
+
+  &.root-modal {
+    top: 3.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .card {
+      min-width: 40%;
+    }
   }
 
   .survey-wrapper {

@@ -28,7 +28,7 @@ export const SelectFieldBilling = ({
             name={name}
             disabled={disabled}
             onChange={onChange}
-            aria-valuetext={value}
+            aria-activedescendant={value}
           >
             <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
             {answers.map((answer, index) => (

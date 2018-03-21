@@ -898,7 +898,7 @@ main[role="document"] {
                     }
                   }
 
-                  .form-group {
+                  .form-group, hr.section-divider  {
                     border-bottom-color: $cool-gray-01;
                   }
                 }
@@ -1040,16 +1040,20 @@ main[role="document"] {
         }
 
         &.premium {
-          background: $green-lighten-04;
+          background: mix($black, $bright-blue-darken-04, 70%);
 
           dl {
             div {
-              dt {
-                color: $cool-gray-15;
+              &.recalc-wrapper {
+                  .btn {
+                      padding: 0;
+                      i {
+                          font-size: $font-size-base;
+                      }
+                  }
               }
-
               dd {
-                color: $body-color;
+                color: $white;
               }
             }
           }
