@@ -32,7 +32,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'quote-data.services',
+        service: 'quote-data',
         method: 'GET',
         path: '1-234567890-12'
       }
@@ -61,7 +61,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'quote-data.services',
+        service: 'quote-data',
         method: 'GET',
         path: '1-234567890-12'
       }
@@ -90,7 +90,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agents/TTIC/FL'
       }
@@ -119,7 +119,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agents/TTIC/FL'
       }
@@ -148,7 +148,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agency/TTIC/FL/60000'
       }
@@ -177,7 +177,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agency/TTIC/FL/60000'
       }
@@ -206,7 +206,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agents/TTIC/FL?agencyCode=20000'
       }
@@ -235,7 +235,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agents/TTIC/FL?agencyCode=20000'
       }
@@ -264,7 +264,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agencies/TTIC/FL'
       }
@@ -293,7 +293,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'agency.services',
+        service: 'agency',
         method: 'GET',
         path: 'v1/agencies/TTIC/FL'
       }
@@ -328,7 +328,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'quote-data.services',
+        service: 'quote-data',
         method: 'GET',
         path: '599ed8b04efcdc001284f0cb'
       }
@@ -357,7 +357,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'quote-data.services',
+        service: 'quote-data',
         method: 'GET',
         path: '599ed8b04efcdc001284f0cb'
       }
@@ -386,7 +386,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'policy-data.services',
+        service: 'policy-data',
         method: 'GET',
         path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&active=true&page=1&pageSize=25&sort=policyNumber&sortDirection=desc'
       }
@@ -415,7 +415,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'policy-data.services',
+        service: 'policy-data',
         method: 'GET',
         path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&active=true&page=1&pageSize=25&sort=policyNumber&sortDirection=asc'
       }
@@ -444,7 +444,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'policy-data.services',
+        service: 'policy-data',
         method: 'GET',
         path: 'transactions/12-4001126-01/latest'
       }
@@ -473,7 +473,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'policy-data.services',
+        service: 'policy-data',
         method: 'GET',
         path: 'transactions/12-4001126-01/latest'
       }
@@ -502,7 +502,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'billing.services',
+        service: 'billing',
         method: 'GET',
         path: 'summary-ledgers/12-4001126-01/latest'
       }
@@ -531,7 +531,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'billing.services',
+        service: 'billing',
         method: 'GET',
         path: 'summary-ledgers/12-4001126-01/latest'
       }
@@ -560,7 +560,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'file-index.services',
+        service: 'file-index',
         method: 'GET',
         path: 'v1/fileindex/12-4001126-01'
       }
@@ -589,7 +589,7 @@ describe('Service Actions', () => {
       },
       url: `${process.env.REACT_APP_API_URL}/svc`,
       data: {
-        service: 'file-index.services',
+        service: 'file-index',
         method: 'GET',
         path: 'v1/fileindex/12-4001126-01'
       }
