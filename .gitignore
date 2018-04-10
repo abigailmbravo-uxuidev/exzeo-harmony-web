@@ -19,3 +19,4 @@ src/css/
 documentation
 
 package-lock.json
+.env.local
