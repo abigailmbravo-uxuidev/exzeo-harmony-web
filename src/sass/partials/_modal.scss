@@ -25,7 +25,35 @@
       }
 
       .card-policyholder {
-        height: 90%;
+        position: relative;
+        max-height: 90%;
+        @include for-phone-only {
+          max-height: 100%;
+        }
+
+        .ph1contact,
+        .ph1name,
+        .ph2contact,
+        .ph2name {
+          display: flex;
+          flex-grow: 0;
+          flex-shrink: 0;
+          width: 100%;
+          @include for-phone-only {
+            flex-direction: column;
+          }
+
+          .form-group {
+            flex-grow: 1;
+            flex-shrink: 1;
+            border-bottom: 1px dashed $cool-gray-02;
+            @include for-phone-only {
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 100%;
+            }
+          }
+        }
       }
     }
   }
