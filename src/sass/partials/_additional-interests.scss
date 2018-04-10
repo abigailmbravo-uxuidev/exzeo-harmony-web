@@ -71,7 +71,7 @@
                 }
               }
 
-              &.Lienholder {
+              &.PremiumFinance {
                 &:before {
                   content: "\F27E";
                 }
@@ -157,7 +157,7 @@
   }
 }
 
-#Lienholder {
+#PremiumFinance {
   .switch.inactive~.form-group {
     display: none;
   }
@@ -269,6 +269,41 @@
 
       .m2ReferenceNumber {
         order: 38;
+      }
+      .isAdditional3 {
+        order: 39;
+      }
+
+      .m3Name1 {
+        order: 40;
+      }
+
+      .m3Name2 {
+        order: 41;
+      }
+
+      .m3MailingAddress1 {
+        order: 42;
+      }
+
+      .m3MailingAddress2 {
+        order: 43;
+      }
+
+      .m3City {
+        order: 44;
+      }
+
+      .m3State {
+        order: 45;
+      }
+
+      .m3Zip {
+        order: 46;
+      }
+
+      .m3ReferenceNumber {
+        order: 47;
       }
     }
   }

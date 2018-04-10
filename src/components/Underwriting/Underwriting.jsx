@@ -55,6 +55,10 @@ export const Underwriting = (props) => {
   const taskData = props.tasks[appState.modelName].data;
   const questions = taskData.previousTask.value.result;
 
+  questions.forEach((question) => {
+    question.hidden = false;
+  });
+
   return (
     <div className="route-content">
       <SnackBar

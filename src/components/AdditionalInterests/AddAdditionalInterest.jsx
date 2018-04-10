@@ -33,10 +33,10 @@ export const AddMortgagee = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-export const AddLienholder = (props) => {
+export const AddPremiumFinance = (props) => {
   const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'lienholder' };
+  const taskData = { shouldUpdateAIs: 'premiumFinance' };
   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
@@ -84,7 +84,7 @@ const handleGetQuoteData = (state) => {
 export const goToStep = (props, type) => {
   if (type === 'Mortgagee') AddMortgagee(props);
   else if (type === 'Bill Payer') AddBillpayer(props);
-  else if (type === 'Lienholder') AddLienholder(props);
+  else if (type === 'Premium Finance') AddPremiumFinance(props);
   else if (type === 'Additional Interest') AddInterest(props);
   else if (type === 'Additional Insured') AddAdditionalInsured(props);
 };
@@ -92,7 +92,7 @@ export const goToStep = (props, type) => {
 export const returnTaskDataName = (type) => {
   if (type === 'Mortgagee') return 'mortgagee';
   else if (type === 'Bill Payer') return 'billPayer';
-  else if (type === 'Lienholder') return 'lienholder';
+  else if (type === 'Premium Finance') return 'premiumFinance';
   else if (type === 'Additional Interest') return 'additionalInterest';
   else if (type === 'Additional Insured') return 'additionalInsured';
 };
@@ -100,7 +100,7 @@ export const returnTaskDataName = (type) => {
 export const returnTaskName = (type) => {
   if (type === 'Mortgagee') return 'askMortgagee';
   else if (type === 'Bill Payer') return 'askBillPayer';
-  else if (type === 'Lienholder') return 'askLienholder';
+  else if (type === 'Premium Finance') return 'askPremiumFinance';
   else if (type === 'Additional Interest') return 'askAdditionalInterest';
   else if (type === 'Additional Insured') return 'askAdditionalInsured';
 };
@@ -189,10 +189,10 @@ export const AddAdditionalInterest = props => (
           <p>Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)</p>
           <div className="button-group">
             <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-            {/* <button className="btn btn-secondary" type="button" onClick={() => AddLienholder(props)}><div><i className="fa fa-plus" /><span>Lienholder</span></div></button> */ }
             <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInsured(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
             <button className="btn btn-secondary" type="button" onClick={() => AddInterest(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-            <button className="btn btn-secondary" type="button" onClick={() => AddBillpayer(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button>
+            <button disabled={_.filter(props.quoteData.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => AddPremiumFinance(props)}><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
+            <button disabled={_.filter(props.quoteData.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => AddBillpayer(props)}><div><i className="fa fa-plus" /><span>Billpayer</span></div></button>
           </div>
           {/* list of additional interests*/}
           <div className="results-wrapper">
