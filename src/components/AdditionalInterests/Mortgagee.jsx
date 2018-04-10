@@ -28,6 +28,8 @@ export const handleFormSubmit = (data, dispatch, props) => {
     _.find(additionalInterests, { order: 0, type: 'Mortgagee' }) || {};
   const mortgagee2 =
     _.find(additionalInterests, { order: 1, type: 'Mortgagee' }) || {};
+  const mortgagee3 =
+    _.find(additionalInterests, { order: 2, type: 'Mortgagee' }) || {};
 
   _.remove(additionalInterests, ai => ai.type === 'Mortgagee');
 
@@ -72,6 +74,28 @@ export const handleFormSubmit = (data, dispatch, props) => {
     };
 
     additionalInterests.push(mortgagee2);
+  }
+
+  if (data.isAdditional && data.isAdditional2 && data.isAdditional2) {
+    mortgagee3.name1 = data.m3Name1;
+    mortgagee3.name2 = data.m3Name2;
+    mortgagee3.referenceNumber = data.m3ReferenceNumber;
+    mortgagee3.order = 2;
+    mortgagee3.active = true;
+    mortgagee3.type = 'Mortgagee';
+    mortgagee3.mailingAddress = {
+      address1: data.m3MailingAddress1,
+      address2: data.m3MailingAddress2,
+      city: data.m3City,
+      state: data.m3State,
+      zip: data.m3Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
+      }
+    };
+
+    additionalInterests.push(mortgagee3);
   }
 
   props.actions.appStateActions.setAppState(
@@ -252,6 +276,46 @@ export const setMortgagee2Values = (val, props) => {
   }
 };
 
+export const setMortgagee3Values = (val, props) => {
+  props.actions.appStateActions.setAppState(
+    props.appState.modelName,
+    props.appState.instanceId,
+    {
+      ...props.appState.data,
+      selectedMortgageeOption: val
+    }
+  );
+  const selectedMortgagee = val;
+
+  if (selectedMortgagee) {
+    props.dispatch(
+      batchActions([
+        change('Mortgagee', 'm3Name1', _.get(selectedMortgagee, 'AIName1')),
+        change('Mortgagee', 'm3Name2', _.get(selectedMortgagee, 'AIName2')),
+        change(
+          'Mortgagee',
+          'm3MailingAddress1',
+          _.get(selectedMortgagee, 'AIAddress1')
+        ),
+        change('Mortgagee', 'm3City', _.get(selectedMortgagee, 'AICity')),
+        change('Mortgagee', 'm3State', _.get(selectedMortgagee, 'AIState')),
+        change('Mortgagee', 'm3Zip', String(_.get(selectedMortgagee, 'AIZip')))
+      ])
+    );
+  } else {
+    props.dispatch(
+      batchActions([
+        change('Mortgagee', 'm3Name1', ''),
+        change('Mortgagee', 'm3Name2', ''),
+        change('Mortgagee', 'm3MailingAddress1', ''),
+        change('Mortgagee', 'm3City', ''),
+        change('Mortgagee', 'm3State', ''),
+        change('Mortgagee', 'm3Zip', '')
+      ])
+    );
+  }
+};
+
 export const Mortgagee = (props) => {
   const { fieldQuestions, quoteData, handleSubmit, fieldValues } = props;
 
@@ -292,6 +356,19 @@ export const Mortgagee = (props) => {
                   onChange={val => setMortgagee2Values(val, props)}
                 />
               )}
+            {fieldValues.isAdditional3 && fieldValues.isAdditional2 &&
+                fieldValues.isAdditional && (
+                  <ReactSelectField
+                    label="Top Mortgagees (Mortgagee 3)"
+                    name="mortgage3"
+                    searchable
+                    labelKey="displayText"
+                    autoFocus
+                    value={props.appState.data.selectedMortgageeOption}
+                    answers={getAnswers('mortgagee', fieldQuestions)}
+                    onChange={val => setMortgagee3Values(val, props)}
+                  />
+                )}
             {fieldQuestions &&
               _.sortBy(
                 _.filter(fieldQuestions, q => q.name !== 'mortgagee'),
