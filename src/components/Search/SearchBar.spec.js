@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { handleSearchBarSubmit, validate } from './SearchBar';
+import ConnectedApp, { handleSearchBarSubmit, validate, changePageQuote, changePagePolicy, handlePolicySearchSubmit } from './SearchBar';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -104,7 +104,8 @@ describe('Testing SearchBar component', () => {
       dispatch: store.dispatch,
       actions: {
         searchActions: {
-          setQuoteSearch() {}
+          setQuoteSearch() {},
+          setPolicySearch() {}
         },
         appStateActions: {
           setAppState() { }
@@ -171,5 +172,111 @@ describe('Testing SearchBar component', () => {
     expect(errors.quoteNumber).toEqual('Only numbers and dashes allowed');
     expect(errors.zip).toEqual('Invalid characters');
     expect(errors.address).toEqual('Invalid characters');
+  });
+
+  it('should paging functions', () => {
+    const initialState = {
+      cg: {
+        bb: {
+          data: {
+            activeTask: {
+              name: 'activeTask'
+            },
+            modelInstanceId: '123',
+            model: {
+              variables: [
+                { name: 'retrieveQuote',
+                  value: {
+                    result: {}
+                  } }, { name: 'getQuoteBeforePageLoop',
+                    value: {
+                      result: {}
+                    } }]
+            },
+            uiQuestions: []
+          }
+        }
+      },
+      appState: {
+        data: {
+          showAdditionalInterestModal: false
+        },
+        modelName: 'bb'
+      }
+    };
+    const store = mockStore(initialState);
+
+    const props = {
+      tasks: {
+        ...initialState.cg
+      },
+      fieldValues: {
+        searchType: 'address'
+      },
+      fieldQuestions: [],
+      dispatch: store.dispatch,
+      actions: {
+        serviceActions: {
+          searchPolicy() { return Promise.resolve(() => {}); }
+        },
+        searchActions: {
+          setQuoteSearch() {},
+          setPolicySearch() {}
+        },
+        appStateActions: {
+          setAppState() { }
+        },
+        errorActions: {
+          clearAppError() { }
+        },
+        cgActions: {
+          moveToTaskAndExecuteComplete() { return Promise.resolve(() => {}); }
+        }
+      },
+      appState: {
+        modelName: 'bb',
+        data: {
+          submitting: false
+        }
+      },
+      quoteData: {
+        AdditionalInterests: [{
+          id: '049a50b23c21c2ae3',
+          type: 'Mortgagee',
+          order: 1,
+          name1: 'BB&T Home Mortgage',
+          referenceNumber: '1234567',
+          mailingAddress: {
+            address1: '5115 Garden Vale Ave',
+            city: 'Tampa',
+            state: 'FL',
+            county: 'Hillsborough',
+            zip: '33624',
+            country: {
+              code: 'USA',
+              displayText: 'United States of America'
+            }
+          },
+          active: true
+        }]
+      },
+      ...propTypes
+    };
+
+    changePagePolicy(props, false);
+    changePagePolicy(props, true);
+
+    changePageQuote(props, false);
+    changePageQuote(props, true);
+
+    handlePolicySearchSubmit({
+      firstName: '',
+      lastName: '',
+      address: '',
+      policyNumber: '',
+      searchType: 'policy',
+      isLoading: true,
+      hasSearched: true,
+      page: 1 }, props.dispatch, props);
   });
 });

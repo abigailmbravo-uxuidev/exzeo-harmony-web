@@ -392,7 +392,7 @@ export const Verify = (props) => {
           </div>
 
         </Form>}
-      {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={handlePolicyHolderUpdate} secondaryButtonHandler={() => hidePolicyHolderModal(props)} />}
+      {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={handlePolicyHolderUpdate} secondaryButtonHandler={() => hidePolicyHolderModal(props)} parentProps={props} showSnackBar={props.appState.data.showSnackBar} />}
       {appState.data.showScheduleDateModal && <ScheduleDate selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} secondaryButtonHandler={() => scheduleDateModal(props, false)} redirectToHome={() => redirectToHome(props)} />}
     </div>
   );
