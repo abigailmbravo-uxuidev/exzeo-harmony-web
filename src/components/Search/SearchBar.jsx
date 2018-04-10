@@ -12,7 +12,7 @@ import * as errorActions from '../../actions/errorActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as searchActions from '../../actions/searchActions';
 import SelectField from '../Form/inputs/SelectField';
-import TextField from '../Form/inputs/TextField';
+import Pagination from '../Common/Pagination';
 
 const userTasks = {
   handleSearchBarSubmit: 'search'
@@ -33,7 +33,7 @@ export const resetSearch = (props) => {
   props.actions.serviceActions.clearPolicyResults();
 };
 
-export const changePage = (props, isNext) => {
+export const changePagePolicy = (props, isNext) => {
   const { fieldValues } = props;
 
   const taskData = {
@@ -53,11 +53,51 @@ export const changePage = (props, isNext) => {
 
   const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
-
   props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy, direction).then(() => {
     taskData.isLoading = false;
     props.actions.searchActions.setPolicySearch(taskData);
   });
+};
+
+export const changePageQuote = (props, isNext) => {
+  const { fieldValues } = props;
+  const workflowId = props.appState.instanceId;
+  const taskName = userTasks.handleSearchBarSubmit;
+  const modelName = props.appState.modelName;
+  const searchType = 'quote';
+
+  const taskData = {
+    firstName: (encodeURIComponent(fieldValues.firstName) !== 'undefined' ? encodeURIComponent(fieldValues.firstName) : ''),
+    lastName: (encodeURIComponent(fieldValues.lastName) !== 'undefined' ? encodeURIComponent(fieldValues.lastName) : ''),
+    address: (encodeURIComponent(fieldValues.address) !== 'undefined' ? encodeURIComponent(String(fieldValues.address).trim()) : ''),
+    quoteNumber: (encodeURIComponent(fieldValues.policyNumber) !== 'undefined' ? encodeURIComponent(fieldValues.policyNumber) : ''),
+    quoteState: (encodeURIComponent(fieldValues.quoteState) !== 'undefined' ? encodeURIComponent(fieldValues.quoteState) : ''),
+    searchType,
+    hasSearched: true,
+    resultStart: '60',
+    pageSize: '25'
+  };
+
+
+  taskData.pageNumber = isNext ? String(Number(fieldValues.pageNumber) + 1) : String(Number(fieldValues.pageNumber) - 1);
+
+  props.actions.searchActions.setQuoteSearch(taskData);
+  localStorage.setItem('lastSearchData', JSON.stringify(taskData));
+
+  props.actions.errorActions.clearAppError();
+  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+
+  // we need to make sure the active task is search otherwise we need to reset the workflow
+  if (props.tasks[modelName].data.activeTask && (props.tasks[modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit)) {
+    const completeStep = {
+      stepName: taskName,
+      data: taskData
+    };
+    props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
+  } else {
+    props.actions.appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true });
+    props.actions.cgActions.completeTask(modelName, workflowId, taskName, taskData);
+  }
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
@@ -91,7 +131,9 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
     address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
     quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
-    searchType: props.searchType
+    searchType: props.searchType,
+    hasSearched: true,
+    pageNumber: '1'
   };
 
   props.actions.searchActions.setQuoteSearch(taskData);
@@ -198,6 +240,13 @@ export class SearchForm extends Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
 
+    const model = nextProps.tasks[nextProps.appState.modelName] || {};
+    const previousTask = model.data && model.data.previousTask
+      ? model.data.previousTask
+      : {};
+
+    const quoteSearchResponse = previousTask.value && previousTask.value.result ? previousTask.value.result : {};
+
     if (!_.isEqual(this.props.policyResults, nextProps.policyResults)) {
       const totalPages = Math.ceil(nextProps.policyResults.totalNumberOfRecords / nextProps.policyResults.pageSize);
       const pageNumber = nextProps.policyResults.currentPage;
@@ -205,10 +254,23 @@ export class SearchForm extends Component {
       dispatch(change('SearchBar', 'totalPages', totalPages));
       nextProps.actions.searchActions.setPolicySearch({ ...nextProps.search, totalPages, pageNumber });
     }
+    if (nextProps.searchType === 'quote' && nextProps.search.hasSearched && !_.isEqual(this.props.quoteSearchResponse, quoteSearchResponse)) {
+      const totalPages = Math.ceil(quoteSearchResponse.totalNumberOfRecords / quoteSearchResponse.pageSize);
+      const pageNumber = quoteSearchResponse.currentPage;
+      dispatch(change('SearchBar', 'pageNumber', pageNumber));
+      dispatch(change('SearchBar', 'totalPages', totalPages));
+      nextProps.actions.searchActions.setQuoteSearch({ ...nextProps.search, totalPages, pageNumber });
+    }
   }
 
   render() {
     const { handleSubmit, formErrors, searchType, fieldValues } = this.props;
+    const model = this.props.tasks[this.props.appState.modelName] || {};
+    const previousTask = model.data && model.data.previousTask
+      ? model.data.previousTask
+      : {};
+    const quoteResults = previousTask.value && previousTask.value.result ? previousTask.value.result : [];
+
     if (searchType === 'quote') {
       return (
         <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
@@ -227,6 +289,9 @@ export class SearchForm extends Component {
               <i className="fa fa-search" /><span>Search</span>
             </button>
           </div>
+          { quoteResults && quoteResults.quotes && quoteResults.quotes.length > 0 && fieldValues.totalPages > 1 &&
+            <Pagination changePageForward={() => changePageQuote(this.props, true)} changePageBack={() => changePageQuote(this.props, false)} fieldValues={fieldValues} />
+        }
         </Form>
       );
     }
@@ -268,33 +333,8 @@ export class SearchForm extends Component {
               <i className="fa fa-search" /><span>Search</span>
             </button>
           </div>
-          { this.props.policyResults && this.props.policyResults.policies && this.props.policyResults.policies.length > 0 && <div className="pagination-wrapper">
-            <button
-              onClick={() => changePage(this.props, false)}
-              disabled={String(fieldValues.pageNumber) === '1'}
-              tabIndex="0"
-              className="btn multi-input"
-              type="button"
-              form="SearchBar"
-            >
-              <span className="fa fa-chevron-circle-left" />
-            </button>
-            <div className="pagination-count">
-              <TextField size="2" name={'pageNumber'} label={'Page'} readOnly />
-              <span className="pagination-operand">of</span>
-              <TextField size="2" name={'totalPages'} label={''} readOnly />
-            </div>
-            <button
-              onClick={() => changePage(this.props, true)}
-              disabled={String(fieldValues.pageNumber) === String(fieldValues.totalPages)}
-              tabIndex="0"
-              className="btn multi-input"
-              type="button"
-              form="SearchBar"
-            >
-              <span className="fa fa-chevron-circle-right" />
-            </button>
-          </div>
+          { this.props.policyResults && this.props.policyResults.policies && this.props.policyResults.policies.length > 0 &&
+            <Pagination changePageForward={() => changePagePolicy(this.props, true)} changePageBack={() => changePagePolicy(this.props, false)} fieldValues={fieldValues} />
           }
         </Form>
       );
