@@ -11,8 +11,8 @@ import * as serviceActions from '../../actions/serviceActions';
 import * as errorActions from '../../actions/errorActions';
 import Downloader from '../Common/Downloader';
 
-const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
-const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
+export const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
+export const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
 
 export class PolicyDocuments extends Component {
 
