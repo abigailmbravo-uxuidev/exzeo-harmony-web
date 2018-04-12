@@ -26,12 +26,11 @@ const userTasks = {
 //  make sure the data matches what the step needs.
 // The appState id comes from props.appState.
 // ------------------------------------------------
-export const scheduleDateModal = (props) => {
-  const showScheduleDateModal = props.appState.data.showScheduleDateModal;
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !showScheduleDateModal });
+const scheduleDateModal = (props, showModal) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !!showModal });
 };
 const redirectToHome = (props) => {
-  scheduleDateModal(props);
+  scheduleDateModal(props, false);
   window.location.href = '/';
 };
 
@@ -154,7 +153,7 @@ export const Verify = (props) => {
     <div className="route-content verify">
       { props.appState.data.submitting && <Loader /> }
       { quoteData && quoteData.quoteNumber &&
-        <Form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props))} noValidate>
+        <Form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props, true))} noValidate>
           <div className="scroll">
             <div className="detail-wrapper">
               <div className="detail-group property-details">
@@ -394,7 +393,7 @@ export const Verify = (props) => {
 
         </Form>}
       {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={handlePolicyHolderUpdate} secondaryButtonHandler={() => hidePolicyHolderModal(props)} parentProps={props} showSnackBar={props.appState.data.showSnackBar} />}
-      {appState.data.showScheduleDateModal && <ScheduleDate selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} showScheduleDateModal={() => scheduleDateModal(props)} redirectToHome={() => redirectToHome(props)} />}
+      {appState.data.showScheduleDateModal && <ScheduleDate selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} secondaryButtonHandler={() => scheduleDateModal(props, false)} redirectToHome={() => redirectToHome(props)} />}
     </div>
   );
 };
@@ -420,8 +419,7 @@ Verify.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  fieldValues: _.get(state.form, 'Verify.values', {}),
-  showScheduleDateModal: state.appState.data.showScheduleDateModal
+  fieldValues: _.get(state.form, 'Verify.values', {})
 });
 
 const mapDispatchToProps = dispatch => ({

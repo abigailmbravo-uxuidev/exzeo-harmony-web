@@ -8,7 +8,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
 
-const ScheduleDate = ({ appState, handleSubmit, verify, showScheduleDateModal, quoteData, selectedAgent, redirectToHome }) => (
+const ScheduleDate = ({ appState, handleSubmit, verify, secondaryButtonHandler, quoteData, selectedAgent, redirectToHome }) => (
   <div className="modal schedule-date-modal">
     <div className="survey-wrapper">
       <div className="card card-schedule-date">
@@ -29,7 +29,7 @@ const ScheduleDate = ({ appState, handleSubmit, verify, showScheduleDateModal, q
             <p>{'Once you send, no changes can be made to this quote.'}</p>
           </div>
           <div className="card-footer">
-            <button className="btn btn-secondary btn-block" type="button" onClick={() => showScheduleDateModal(false)}>Edit Quote</button>
+            <button className="btn btn-secondary btn-block" type="button" onClick={secondaryButtonHandler}>Edit Quote</button>
             <button className="btn btn-secondary btn-block" type="button" onClick={redirectToHome}>Save Quote, Continue Later</button>
             <button className="btn btn-primary btn-block" type="submit" disabled={appState.data.submitting}>Send Application for signature</button>
           </div>
