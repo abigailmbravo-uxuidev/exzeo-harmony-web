@@ -202,7 +202,7 @@ export const Billing = (props) => {
         {...props}
         show={props.appState.data.showSnackBar}
         timer={3000}
-      ><p>Please see errors above</p></SnackBar>
+      ><p>Please correct errors.</p></SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
