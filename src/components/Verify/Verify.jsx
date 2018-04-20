@@ -26,7 +26,7 @@ const userTasks = {
 //  make sure the data matches what the step needs.
 // The appState id comes from props.appState.
 // ------------------------------------------------
-const scheduleDateModal = (props, showModal) => {
+export const scheduleDateModal = (props, showModal) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !!showModal });
 };
 const redirectToHome = (props) => {
