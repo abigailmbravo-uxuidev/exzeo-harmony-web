@@ -115,7 +115,7 @@ export const BillPayer = (props) => {
         {...props}
         show={props.appState.data.showSnackBar}
         timer={3000}
-      ><p>Please see errors above</p></SnackBar>
+      ><p>Please correct errors.</p></SnackBar>
       { props.appState.data.submitting && <Loader /> }
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">

@@ -43,7 +43,7 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
             {...parentProps}
             show={showSnackBar}
             timer={3000}
-          ><p>Please see errors</p></SnackBar>
+          ><p>Please correct errors.</p></SnackBar>
           <Form className={'fade-in'} id="UpdatePolicyholder" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
             <div className="card-header">
               <h4><i className="fa fa-vcard" /> Edit Policyholder(s)</h4>
@@ -80,8 +80,8 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
               </div>}
             </div>
             <div className="card-footer">
-              <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button">Cancel</button>
-              <button className="btn btn-primary" type="submit" disabled={submitting}>Save</button>
+              <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button" disabled={showSnackBar}>Cancel</button>
+              <button className="btn btn-primary" type="submit" disabled={submitting || showSnackBar}>Save</button>
             </div>
           </Form>
         </div>

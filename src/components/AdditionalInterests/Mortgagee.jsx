@@ -258,7 +258,7 @@ export const Mortgagee = (props) => {
   return (
     <div className="route-content">
       <SnackBar {...props} show={props.appState.data.showSnackBar} timer={3000}>
-        <p>Please see errors above</p>
+        <p>Please correct errors.</p>
       </SnackBar>
       {props.appState.data.submitting && <Loader />}
       <Form id="Mortgagee" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
