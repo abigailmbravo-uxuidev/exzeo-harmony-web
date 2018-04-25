@@ -80,8 +80,8 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
               </div>}
             </div>
             <div className="card-footer">
-              <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button">Cancel</button>
-              <button className="btn btn-primary" type="submit" disabled={submitting}>Save</button>
+              <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button" disabled={showSnackBar}>Cancel</button>
+              <button className="btn btn-primary" type="submit" disabled={submitting || showSnackBar}>Save</button>
             </div>
           </Form>
         </div>
