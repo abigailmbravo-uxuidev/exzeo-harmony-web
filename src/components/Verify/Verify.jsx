@@ -26,7 +26,7 @@ const userTasks = {
 //  make sure the data matches what the step needs.
 // The appState id comes from props.appState.
 // ------------------------------------------------
-const scheduleDateModal = (props, showModal) => {
+export const scheduleDateModal = (props, showModal) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !!showModal });
 };
 const redirectToHome = (props) => {
@@ -157,7 +157,7 @@ export const Verify = (props) => {
           <div className="scroll">
             <div className="detail-wrapper">
               <div className="detail-group property-details">
-                <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details<span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
                 <section className="display-element">
                   <dl className="quote-number">
                     <div>

@@ -22,7 +22,7 @@ import BillingConnect from '../Billing/Billing';
 import VerifyConnect from '../Verify/Verify';
 import ThankYou from '../ThankYou/ThankYou';
 import MortgageeConnect from '../AdditionalInterests/Mortgagee';
-import LienholderConnect from '../AdditionalInterests/Lienholder';
+import PremiumFinanceConnect from '../AdditionalInterests/PremiumFinance';
 import AdditionalInsuredConnect from '../AdditionalInterests/AdditionalInsured';
 import AdditionalInterestConnect from '../AdditionalInterests/AdditionalInterest';
 import BillPayerConnect from '../AdditionalInterests/BillPayer';
@@ -54,7 +54,7 @@ const components = {
   askAdditionalPolicyHolder: <PolicyHolderConnect />,
   addAdditionalAIs: <AddAdditionalInterestConnect />,
   askMortgagee: <MortgageeConnect />,
-  askLienholder: <LienholderConnect />,
+  askPremiumFinance: <PremiumFinanceConnect />,
   askAdditionalInsured: <AdditionalInsuredConnect />,
   askAdditionalInterest: <AdditionalInterestConnect />,
   askBillPayer: <BillPayerConnect />,

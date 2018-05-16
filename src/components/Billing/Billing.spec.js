@@ -97,6 +97,11 @@ const quoteData = {
     }
   },
   coverageOptions: {
+    personalPropertyReplacementCost: {
+      displayText: 'Replacement Cost',
+      answer: false,
+      _id: '5866c036a46eb72908f3f550'
+    },
     sinkholePerilCoverage: {
       displayText: 'Sinkhole Peril Coverage',
       answer: false,
@@ -232,7 +237,7 @@ const quoteData = {
       }
     },
     {
-      type: 'Lienholder',
+      type: 'PremiumFinance',
       name1: 'BB3',
       referenceNumber: '1001',
       phoneNumber: '1234567890',
@@ -341,7 +346,27 @@ describe('Testing Billing component', () => {
       paymentPlanResult: {
         options: []
       },
-      fieldQuestions: [],
+      fieldQuestions: [{
+        companyId: ['TTIC'],
+        state: ['FL'],
+        product: ['HO3'],
+        answerType: 'text',
+        question: 'Address 1',
+        styleName: 'address1',
+        name: 'address1',
+        models: [
+          'quote'
+        ],
+        steps: [
+          'askAdditionalQuestions'
+        ],
+        physicalAddressLocation: 'property.physicalAddress.address1',
+        defaultValueLocation: 'policyHolderMailingAddress.address1',
+        validations: [
+          'required'
+        ],
+        order: 1
+      }],
       fieldValues: {
       },
       quoteData: {},
@@ -355,6 +380,9 @@ describe('Testing Billing component', () => {
     };
     const wrapper = shallow(<Billing store={store} {...props} />);
     expect(wrapper);
+
+    wrapper.find('[name="billToId"]').simulate('change', { target: { value: 'ABC' } });
+    wrapper.find('[name="billPlan"]').simulate('change', { target: { value: 'ABC' } });
   });
 
   it('should test connected app', () => {
