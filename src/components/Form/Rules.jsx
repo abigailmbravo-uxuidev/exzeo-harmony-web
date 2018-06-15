@@ -22,7 +22,8 @@ const rules = {
   maxLength255: value => (!value || (validator.isLength(value, { max: 255 })) ? undefined : 'Only 255 characters allowed'),
   maxLength2OnlyAlpha: value => (!value || (validator.isLength(value, { max: 2 }) && validator.isAlpha(value)) ? undefined : 'Only 2 letters allowed'),
   isValidDate: value => moment(value, 'MM/DD/YYYY', true).isValid() || moment(value, 'YYYY-MM-DD', true).isValid() ? undefined : 'Not a valid date',
-  dwellingRange: value => (calculatedValue(value) <= 2000000 && calculatedValue(value) >= 125000) ? undefined : 'Not a valid range.'
+  dwellingRange: value => (calculatedValue(value) <= 2000000 && calculatedValue(value) >= 125000) ? undefined : 'Not a valid range.',
+  dateCheck: value => (moment(value).isAfter(moment('2017-07-31').format('YYYY-MM-DD')) ? undefined : 'Date must at least 08/01/2017')
 };
 
 export function combineRules(validations, variables) {
