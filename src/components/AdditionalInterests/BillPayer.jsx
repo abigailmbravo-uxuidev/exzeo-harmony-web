@@ -120,7 +120,7 @@ export const BillPayer = (props) => {
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            <h3 className="section-group-header"><i className="fa fa-money" /> Billpayer</h3>
+            <h3 className="section-group-header"><i className="fa fa-money" /> Bill Payer</h3>
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) =>
               <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quoteData} question={question} values={fieldValues} key={index} />)}
           </div>
