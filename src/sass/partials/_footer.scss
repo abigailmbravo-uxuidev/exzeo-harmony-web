@@ -6,14 +6,30 @@ footer {
   flex-shrink: 0;
 
   div[role="banner"] {
+    display: flex; 
     width: 100%;
     margin-bottom: 0;
     padding: $padding ($padding*2);
     border-top: $border-width dotted $border-color;
     background: $white;
+
+    small { 
+      line-height: 1; 
+
+      &.copyright { 
+        flex-grow: 1; 
+        flex-shrink: 1; 
+      } 
+    } 
+    
     @include for-phone-only {
       small {
         font-size: $xsmall-font-size;
+
+        &.copyright { 
+          flex-grow: 1; 
+          flex-shrink: 1; 
+        }
       }
     }
   }
