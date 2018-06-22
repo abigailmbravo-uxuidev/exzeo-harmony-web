@@ -38,10 +38,10 @@ describe('Rules', () => {
   });
   describe('isValidDate', () => {
     it('should return undefined for a valid date', () => {
-      expect(rules.isValidDate('04/27/2017')).toBeUndefined();
+      expect(rules.date('04/27/2017')).toBeUndefined();
     });
     it('should return "is not a valid Date."', () => {
-      expect(rules.isValidDate('')).toEqual('Not a valid date');
+      expect(rules.date('')).toEqual('Not a valid date');
     });
   });
 
@@ -88,6 +88,15 @@ describe('Rules', () => {
     });
     it('should return error', () => {
       expect(rules.minLength3('4')).toEqual('Please enter at least 3 characters');
+    });
+  });
+
+  describe('dateCheck', () => {
+    it('should return undefined when date is at least 08/01/2017', () => {
+      expect(rules.dateCheck('2017-08-01')).toBeUndefined();
+    });
+    it('should return error when date is less than 08/01/2017', () => {
+      expect(rules.dateCheck('2017-07-31')).toEqual('Date must be at least 08/01/2017');
     });
   });
 });

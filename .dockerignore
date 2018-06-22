@@ -3,3 +3,5 @@ README.md
 .gitignore
 .git
 documentation
+package-lock.json
+.env

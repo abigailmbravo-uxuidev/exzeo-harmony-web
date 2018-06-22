@@ -38,7 +38,7 @@ export const DateInput = ({
     <span>{error || warning}</span>
   );
 
-  const formattedDate = moment(input.value).format('YYYY-MM-DD');
+  const formattedDate = input.value ? moment(input.value).format('YYYY-MM-DD') : undefined;
   const formatMinDate = moment(min).format('MM/DD/YYYY');
   const formatMaxDate = moment(max).format('MM/DD/YYYY');
   const platformLower = platform.name ? platform.name.toLowerCase() : '';
@@ -68,12 +68,12 @@ export const DateInput = ({
            validate={ruleArray}
            {...input}
          /> :
-         <input
-           tabIndex={'0'}
-           type={'date'}
-           {...input}
-           value={formattedDate}
-         />}
+           <input
+             tabIndex={'0'}
+             type={'date'}
+             {...input}
+             value={formattedDate}
+           />}
       {Error}
     </div>
   );

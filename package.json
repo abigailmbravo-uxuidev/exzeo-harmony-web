@@ -16,6 +16,7 @@
     "eslint-plugin-import": "~2.2.0",
     "eslint-plugin-jsx-a11y": "~2.2.3",
     "eslint-plugin-react": "~6.7.1",
+    "exframe-web": "^1.0.0",
     "font-awesome": "~4.7.0",
     "history": "~4.6.1",
     "immutable": "~3.8.2",

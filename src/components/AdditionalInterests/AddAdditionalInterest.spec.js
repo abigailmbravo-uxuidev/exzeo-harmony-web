@@ -90,17 +90,17 @@ describe('Testing AddAdditionalInterest component', () => {
 
     noAddAdditionalInterestSubmit({}, props.dispatch, props);
     goToStep(props, 'Mortgagee');
-    goToStep(props, 'Lienholder');
+    goToStep(props, 'PremiumFinance');
     goToStep(props, 'Bill Payer');
     goToStep(props, 'Additional Interest');
     goToStep(props, 'Additional Insured');
     returnTaskName('Mortgagee');
-    returnTaskName('Lienholder');
+    returnTaskName('PremiumFinance');
     returnTaskName('Bill Payer');
     returnTaskName('Additional Interest');
     returnTaskName('Additional Insured');
     returnTaskDataName('Mortgagee');
-    returnTaskDataName('Lienholder');
+    returnTaskDataName('PremiumFinance');
     returnTaskDataName('Bill Payer');
     returnTaskDataName('Additional Interest');
     returnTaskDataName('Additional Insured');

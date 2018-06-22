@@ -2,12 +2,12 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import ConnectedApp, { Lienholder, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './Lienholder';
+import ConnectedApp, { PremiumFinance, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize } from './PremiumFinance';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe('Testing AddLienholder component', () => {
+describe('Testing AddPremiumFinance component', () => {
   it('should test props and render', () => {
     const initialState = {};
     const store = mockStore(initialState);
@@ -22,7 +22,7 @@ describe('Testing AddLienholder component', () => {
         }
       }
     };
-    const wrapper = shallow(<Lienholder {...props} />);
+    const wrapper = shallow(<PremiumFinance {...props} />);
     expect(wrapper);
   });
 
@@ -86,8 +86,8 @@ describe('Testing AddLienholder component', () => {
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
 
-    handleFormSubmit({ isAdditional: true, isAdditional2: true }, props.dispatch, props);
-    Lienholder(props);
+    handleFormSubmit({ isAdditional: true }, props.dispatch, props);
+    PremiumFinance(props);
     closeAndSavePreviousAIs(props);
     handleInitialize(initialState);
     failedSubmission({}, props.dispatch, () => {}, props);
