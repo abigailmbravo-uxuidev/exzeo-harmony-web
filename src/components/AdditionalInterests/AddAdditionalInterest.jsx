@@ -69,8 +69,17 @@ const getAnswers = (name, questions) => _.get(_.find(questions, { name }), 'answ
 
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  _.forEach(getAnswers('mortgagee', taskData.uiQuestions), (answer) => {
-    answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
+
+  taskData.uiQuestions
+  .filter(question => question.name === 'mortgagee' || question.name === 'premiumFinance')
+  .forEach((q) => {
+    if (q && Array.isArray(q.answers)) {
+      q.answers.map((answer) => {
+        answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
+        return answer;
+      });
+    }
+    return q;
   });
   return taskData.uiQuestions;
 };

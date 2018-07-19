@@ -169,12 +169,12 @@ export const PremiumFinance = (props) => {
             {fieldValues.isAdditional && (
               <ReactSelectField
                 label="Top Premium Finance"
-                name="mortgage"
+                name="premiumFinance"
                 searchable
                 labelKey="displayText"
                 autoFocus
                 value={props.appState.data.selectedPremiumFinanceOption}
-                answers={getAnswers('PremiumFinance', fieldQuestions)}
+                answers={getAnswers('premiumFinance', fieldQuestions)}
                 onChange={val => setPremiumFinanceValues(val, props)}
               />
             )}
