@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { batchActions } from 'redux-batched-actions';
+import { reduxForm, Form, propTypes, change } from 'redux-form';
 import _ from 'lodash';
 import Footer from '../Common/Footer';
 import { getInitialValues } from '../Customize/customizeHelpers';
@@ -14,6 +15,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
+import ReactSelectField from '../Form/inputs/ReactSelectField';
 
 
 const userTasks = {
@@ -101,6 +103,49 @@ export const handleInitialize = (state) => {
 };
 
 
+const getAnswers = (name, questions) =>
+  _.get(_.find(questions, { name }), 'answers') || [];
+
+export const setPremiumFinanceValues = (val, props) => {
+  props.actions.appStateActions.setAppState(
+    props.appState.modelName,
+    props.appState.instanceId,
+    {
+      ...props.appState.data,
+      selectedPremiumFinanceOption: val
+    }
+  );
+  const selectedPremiumFinance = val;
+
+  if (selectedPremiumFinance) {
+    props.dispatch(
+      batchActions([
+        change('PremiumFinance', 'name1', _.get(selectedPremiumFinance, 'AIName1')),
+        change('PremiumFinance', 'name2', _.get(selectedPremiumFinance, 'AIName2')),
+        change(
+          'PremiumFinance',
+          'mailingAddress1',
+          _.get(selectedPremiumFinance, 'AIAddress1')
+        ),
+        change('PremiumFinance', 'city', _.get(selectedPremiumFinance, 'AICity')),
+        change('PremiumFinance', 'state', _.get(selectedPremiumFinance, 'AIState')),
+        change('PremiumFinance', 'zip', String(_.get(selectedPremiumFinance, 'AIZip')))
+      ])
+    );
+  } else {
+    props.dispatch(
+      batchActions([
+        change('PremiumFinance', 'name1', ''),
+        change('PremiumFinance', 'name2', ''),
+        change('PremiumFinance', 'mailingAddress1', ''),
+        change('PremiumFinance', 'city', ''),
+        change('PremiumFinance', 'state', ''),
+        change('PremiumFinance', 'zip', '')
+      ])
+    );
+  }
+};
+
 export const PremiumFinance = (props) => {
   const {
     fieldQuestions,
@@ -121,8 +166,31 @@ export const PremiumFinance = (props) => {
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-money" /> Premium Finance</h3>
-            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) =>
-              <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quoteData} question={question} values={fieldValues} key={index} />)}
+            {fieldValues.isAdditional && (
+              <ReactSelectField
+                label="Top Premium Finance"
+                name="mortgage"
+                searchable
+                labelKey="displayText"
+                autoFocus
+                value={props.appState.data.selectedPremiumFinanceOption}
+                answers={getAnswers('PremiumFinance', fieldQuestions)}
+                onChange={val => setPremiumFinanceValues(val, props)}
+              />
+            )}
+            {fieldQuestions &&
+              _.sortBy(
+                _.filter(fieldQuestions, q => q.name !== 'premiumFinance'),
+                'sort'
+              ).map((question, index) => (
+                <FieldGenerator
+                  autoFocus={index === 1}
+                  data={quoteData}
+                  question={question}
+                  values={fieldValues}
+                  key={index}
+                />
+              ))}
           </div>
           <div className="workflow-steps">
             <span className="button-label-wrap">
