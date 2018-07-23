@@ -72,7 +72,7 @@ const handleGetQuestions = (state) => {
   .filter(question => question.name === 'mortgagee' || question.name === 'premiumFinance')
   .forEach((q) => {
     if (q && Array.isArray(q.answers)) {
-      q.answers.map((answer) => {
+      q.answers.forEach((answer) => {
         answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
         return answer;
       });
