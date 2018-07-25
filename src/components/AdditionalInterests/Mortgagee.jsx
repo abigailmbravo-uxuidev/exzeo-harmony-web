@@ -76,7 +76,7 @@ export const handleFormSubmit = (data, dispatch, props) => {
     additionalInterests.push(mortgagee2);
   }
 
-  if (data.isAdditional && data.isAdditional2 && data.isAdditional2) {
+  if (data.isAdditional && data.isAdditional2 && data.isAdditional3) {
     mortgagee3.name1 = data.m3Name1;
     mortgagee3.name2 = data.m3Name2;
     mortgagee3.referenceNumber = data.m3ReferenceNumber;

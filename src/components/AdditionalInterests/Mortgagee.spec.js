@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import ConnectedApp, { Mortgagee, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, setMortgageeValues, setMortgagee2Values } from './Mortgagee';
+import ConnectedApp, { Mortgagee, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, setMortgageeValues, setMortgagee2Values, setMortgagee3Values } from './Mortgagee';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -124,7 +124,7 @@ describe('Testing AddMortgagee component', () => {
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
 
-    handleFormSubmit({ isAdditional: true, isAdditional2: true }, props.dispatch, props);
+    handleFormSubmit({ isAdditional: true, isAdditional2: true, isAdditional3: true }, props.dispatch, props);
     Mortgagee(props);
     closeAndSavePreviousAIs(props);
     handleInitialize(initialState);
@@ -140,7 +140,10 @@ describe('Testing AddMortgagee component', () => {
     };
     setMortgagee2Values(selectedMortgagee, props);
     setMortgageeValues(selectedMortgagee, props);
+    setMortgagee3Values(selectedMortgagee, props);
 
+
+    setMortgagee3Values(null, props);
     setMortgagee2Values(null, props);
     setMortgageeValues(null, props);
   });
