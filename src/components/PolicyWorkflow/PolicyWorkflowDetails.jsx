@@ -11,12 +11,6 @@ import normalizeNumbers from '../Form/normalizeNumbers';
 
 export class PolicyWorkflowDetails extends Component {
 
-  componentDidMount() {
-    const { policyNumber } = this.props;
-    this.props.actions.serviceActions.getLatestPolicy(policyNumber);
-    this.props.actions.serviceActions.getSummaryLedger(policyNumber);
-  }
-
   render() {
     const { policy, summaryLedger } = this.props;
     if (!policy || !policy.policyID) {

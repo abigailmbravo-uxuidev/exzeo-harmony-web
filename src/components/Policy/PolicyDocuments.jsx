@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import PolicyConnect from '../../containers/Policy';
 import * as policyStateActions from '../../actions/policyStateActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as errorActions from '../../actions/errorActions';
@@ -21,6 +20,8 @@ export class PolicyDocuments extends Component {
   componentDidMount() {
     const { policyNumber } = this.props;
     this.props.actions.serviceActions.getPolicyDocuments(policyNumber);
+    this.props.actions.serviceActions.getLatestPolicy(policyNumber);
+    this.props.actions.serviceActions.getSummaryLedger(policyNumber);
   }
 
 

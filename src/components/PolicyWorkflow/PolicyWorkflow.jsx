@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as serviceActions from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
-import PolicyDocuments from '../PolicyDocuments/PolicyDocuments';
+import PolicyDocuments from '../Policy/PolicyDocuments';
+import PolicyHolderView from '../Policy/PolicyHolderView';
 
 export class PolicyWorkflow extends Component {
 
@@ -22,6 +23,7 @@ export class PolicyWorkflow extends Component {
           <div className="scroll">
             <div className="detail-wrapper">
               <Route exact path={`${url}/documents`} render={() => <PolicyDocuments auth={auth} policyNumber={policyNumber} />} />
+              <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policyNumber={policyNumber} />} />
             </div>
           </div>
         </div>
