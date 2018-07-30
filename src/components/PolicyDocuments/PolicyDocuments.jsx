@@ -10,6 +10,8 @@ import * as policyStateActions from '../../actions/policyStateActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as errorActions from '../../actions/errorActions';
 import Downloader from '../Common/Downloader';
+import Loader from '../Common/Loader';
+import PolicyTabs from '../Common/PolicyTabs';
 
 export const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
 export const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
@@ -17,13 +19,8 @@ export const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('
 export class PolicyDocuments extends Component {
 
   componentDidMount() {
-    const policyNumber = _.get(this.props, 'location.state.policyNumber');
-    if (policyNumber) {
-      this.props.actions.policyStateActions.updatePolicy(true, policyNumber);
-      this.props.actions.serviceActions.getPolicyDocuments(policyNumber);
-    } else {
-      window.location = '/';
-    }
+    const { policyNumber } = this.props;
+    this.props.actions.serviceActions.getPolicyDocuments(policyNumber);
   }
 
 
@@ -49,15 +46,20 @@ export class PolicyDocuments extends Component {
       return doc;
     });
 
-    return (
-      <PolicyConnect {...this.props}>
+    const { policy, policyNumber } = this.props;
+    if (!policy || !policy.policyID) {
+      return (<Loader />);
+    }
 
+    return (
+      <React.Fragment>
+        <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
         <BootstrapTable className="table-responsive table-striped" data={policyDocuments}>
           <TableHeaderColumn className="created-date" columnClassName="created-date" dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
           <TableHeaderColumn className="attachments" columnClassName="attachments" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
 
-      </PolicyConnect>);
+      </React.Fragment>);
   }
 }
 
@@ -68,13 +70,15 @@ PolicyDocuments.contextTypes = {
 PolicyDocuments.propTypes = {
   location: PropTypes.shape(),
   policy: PropTypes.shape(),
-  actions: PropTypes.shape()
+  actions: PropTypes.shape(),
+  policyNumber: PropTypes.string
 };
 
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  policyDocuments: state.service.policyDocuments || []
+  policyDocuments: state.service.policyDocuments || [],
+  policy: state.service.latestPolicy
 });
 
 const mapDispatchToProps = dispatch => ({

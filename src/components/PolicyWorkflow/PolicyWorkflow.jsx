@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as serviceActions from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
-
+import PolicyDocuments from '../PolicyDocuments/PolicyDocuments';
 
 export class PolicyWorkflow extends Component {
 
@@ -13,17 +14,14 @@ export class PolicyWorkflow extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { auth, match: { params: { policyNumber }, url } } = this.props;
     return (
       <div className="route policy-detail">
-        <PolicyWorkFlowDetailsConnect />
+        <PolicyWorkFlowDetailsConnect policyNumber={policyNumber} />
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
-              <nav className="nav-tabs">
-                <button className="btn btn-tab active"><i className="fa fa-file-text-o"></i>Documents</button>
-              </nav>
-              {children}
+              <Route exact path={`${url}/documents`} render={() => <PolicyDocuments auth={auth} policyNumber={policyNumber} />} />
             </div>
           </div>
         </div>

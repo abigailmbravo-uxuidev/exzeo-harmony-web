@@ -50,7 +50,7 @@ export class Splash extends Component {
                     <div className="card-footer">
                       <Link to={{ pathname: '/quote', state: { searchType: 'address' } }} className="btn btn-secondary btn-block"><i className="fa fa-plus" />New Quote</Link>
                       <Link to={{ pathname: '/quote/retrieve', state: { searchType: 'quote' } }} className="btn btn-primary btn-block"><i className="fa fa-history" />Retrieve Quote</Link>
-                      <Link to={{ pathname: '/policy', state: { searchType: 'policy' } }} className="btn btn-action btn-block"><i className="fa fa-history" />Retrieve Policy</Link>
+                      <Link to={{ pathname: '/policySearch', state: { searchType: 'policy' } }} className="btn btn-action btn-block"><i className="fa fa-history" />Retrieve Policy</Link>
                     </div>
                   </div>
                 </div>

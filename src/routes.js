@@ -16,7 +16,7 @@ import AppError from './containers/AppError';
 import AccessDenied from './containers/AccessDenied';
 import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
-import PolicyDocuments from './components/PolicyDocuments/PolicyDocuments';
+import Policy from './containers/Policy';
 import * as authActions from './actions/authActions';
 import * as errorActions from './actions/errorActions';
 
@@ -94,13 +94,12 @@ class Routes extends Component { // eslint-disable-line
               />
               <Route
                 exact
-                path="/policy"
+                path="/policySearch"
                 render={props => <PolicySearch auth={auth} {...props} />}
               />
               <Route
-                exact
-                path="/policy/documents"
-                render={props => <PolicyDocuments auth={auth} {...props} />}
+                path="/policy/:policyNumber"
+                render={props => <Policy auth={auth} {...props} />}
               />
               <Route exact path="/login" render={props => <Login auth={auth} {...props} />} />
               <Route exact path="/error" component={AppError} />

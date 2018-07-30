@@ -24,16 +24,16 @@ const agentLinks = [{
 //   outside: true,
 //   formName: 'floodQuoteForm'
 // },
-{
-  link: '/quote',
-  label: 'HO3 QUOTE',
-  styleName: 'agent-homeowners label'
-},
-{
-  link: '/policy',
-  label: 'HO3 POLICY',
-  styleName: 'agent-homeowners label'
-}];
+  {
+    link: '/quote',
+    label: 'HO3 QUOTE',
+    styleName: 'agent-homeowners label'
+  },
+  {
+    link: '/policySearch',
+    label: 'HO3 POLICY',
+    styleName: 'agent-homeowners label'
+  }];
 
 const formSubmitFloodQuote = () => {
   document.getElementsByName('formSubmitFloodQuote')[0].click();

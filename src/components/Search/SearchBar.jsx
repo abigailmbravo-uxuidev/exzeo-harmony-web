@@ -204,7 +204,7 @@ const getSearchType = () => {
       return 'quote';
     case '/quote':
       return 'address';
-    case '/policy':
+    case '/policySearch':
       return 'policy';
     default:
       return 'address';
