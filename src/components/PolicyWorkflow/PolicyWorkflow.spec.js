@@ -25,6 +25,9 @@ describe('Testing PolicyWorkflow component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      match: {
+        params: {}
+      },
       actions: {
         serviceActions: {
           clearPolicyResults() {}

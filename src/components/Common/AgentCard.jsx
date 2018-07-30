@@ -1,7 +1,7 @@
 import React from 'react';
 import normalizePhone from '../Form/normalizePhone';
 
-const AgentSearchCard = ({ agent, index
+const AgentCard = ({ agent, index
 }) => (
   <div className="agency agent contact card" key={index} tabIndex="0">
     <div className="contact-title">
@@ -18,32 +18,32 @@ const AgentSearchCard = ({ agent, index
           {agent.mailingAddress.city},&nbsp;
           {agent.mailingAddress.state}&nbsp;
           {agent.mailingAddress.zip}
-          {agent.status ? <span className="additional-data status"><label>STATUS:&nbsp;</label>{agent.status}</span> : null}
+          {agent.status && <span className="additional-data status"><label>STATUS:&nbsp;</label>{agent.status}</span>}
         </div>
         <div className="additional-contacts">
           <ul>
             <li>
               <div className="contact-methods">
-                {agent.primaryPhoneNumber ?
+                {agent.primaryPhoneNumber &&
                   <p className="phone">
                     <i className="fa fa-phone-square" />
                     <a href={`tel:${agent.primaryPhoneNumber}`}>{normalizePhone(agent.primaryPhoneNumber)}</a>
-                  </p> : null }
-                {agent.secondaryPhoneNumber ?
+                  </p> }
+                {agent.secondaryPhoneNumber &&
                   <p className="phone">
                     <small>2<sup>ND</sup><i className="fa fa-phone" /></small>
                     <a href={`tel:${agent.secondaryPhoneNumber}`}>{normalizePhone(agent.secondaryPhoneNumber)}</a>
-                  </p> : null }
-                {agent.faxNumber ?
+                  </p>}
+                {agent.faxNumber &&
                   <p className="fax">
                     <i className="fa fa-fax" />
                     <a href={`tel:${agent.faxNumber}`}>{normalizePhone(agent.faxNumber)}</a>
-                  </p> : null }
-                {agent.emailAddress ?
+                  </p> }
+                {agent.emailAddress &&
                   <p>
                     <i className="fa fa-envelope" />
                     <a href={`mailto:${agent.emailAddress}`}>{agent.emailAddress}</a>
-                  </p> : null }
+                  </p> }
               </div>
             </li>
           </ul>
@@ -53,4 +53,4 @@ const AgentSearchCard = ({ agent, index
   </div>
 );
 
-export default AgentSearchCard;
+export default AgentCard;
