@@ -1,31 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import * as policyStateActions from '../../actions/policyStateActions';
-import * as serviceActions from '../../actions/serviceActions';
-import * as errorActions from '../../actions/errorActions';
+import { setAppModalError } from '../../actions/errorActions';
 import Downloader from '../Common/Downloader';
-import Loader from '../Common/Loader';
 import PolicyTabs from '../Common/PolicyTabs';
 
 export const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
 export const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
 
 export class PolicyDocuments extends Component {
-
-  componentDidMount() {
-    const { policyNumber } = this.props;
-    this.props.actions.serviceActions.getPolicyDocuments(policyNumber);
-    this.props.actions.serviceActions.getLatestPolicy(policyNumber);
-    this.props.actions.serviceActions.getSummaryLedger(policyNumber);
-  }
-
-
   render() {
+    const { setAppModalErrorAction } = this.props;
     const attachmentUrl = attachments => (
       <span>
         { attachments.map((attachment, i) =>
@@ -33,13 +21,12 @@ export class PolicyDocuments extends Component {
             fileName={nameFormatter(attachment.fileName)}
             fileUrl={attachment.fileUrl}
             fileType={attachment.fileType}
-            errorHandler={err => this.props.actions.errorActions.setAppModalError(err.message)}
+            errorHandler={err => setAppModalErrorAction(err.message)}
             key={i}
           />
         )}
       </span>
     );
-
 
     const policyDocuments = _.map(this.props.policyDocuments, (doc) => {
       doc.attachments = [];
@@ -47,11 +34,7 @@ export class PolicyDocuments extends Component {
       return doc;
     });
 
-    const { policy, policyNumber } = this.props;
-    if (!policy || !policy.policyID) {
-      return (<Loader />);
-    }
-
+    const { policyNumber } = this.props;
     return (
       <React.Fragment>
         <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
@@ -59,35 +42,14 @@ export class PolicyDocuments extends Component {
           <TableHeaderColumn className="created-date" columnClassName="created-date" dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
           <TableHeaderColumn className="attachments" columnClassName="attachments" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
-
       </React.Fragment>);
   }
 }
 
-PolicyDocuments.contextTypes = {
-  router: PropTypes.object
-};
-
 PolicyDocuments.propTypes = {
-  location: PropTypes.shape(),
-  policy: PropTypes.shape(),
-  actions: PropTypes.shape(),
-  policyNumber: PropTypes.string
+  policyDocuments: PropTypes.shape(),
+  policyNumber: PropTypes.string,
+  setAppModalErrorAction: PropTypes.func
 };
 
-const mapStateToProps = state => ({
-  tasks: state.cg,
-  appState: state.appState,
-  policyDocuments: state.service.policyDocuments || [],
-  policy: state.service.latestPolicy
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    errorActions: bindActionCreators(errorActions, dispatch),
-    policyStateActions: bindActionCreators(policyStateActions, dispatch),
-    serviceActions: bindActionCreators(serviceActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PolicyDocuments);
+export default connect(null, { setAppModalErrorAction: setAppModalError })(PolicyDocuments);

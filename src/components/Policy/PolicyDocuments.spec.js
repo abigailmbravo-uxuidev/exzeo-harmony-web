@@ -63,7 +63,6 @@ describe('Testing PolicyDocuments component', () => {
     };
     const wrapper = shallow(<PolicyDocuments store={store} {...props} />);
     expect(wrapper);
-    wrapper.instance().componentDidMount();
     expect(dateFormatter(1514353342)).toEqual('12/27/2017');
     expect(nameFormatter('gfdg-43')).toEqual('gfdg');
   });
