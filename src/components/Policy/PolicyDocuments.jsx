@@ -8,7 +8,7 @@ import { setAppModalError } from '../../actions/errorActions';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';
 
-export const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
+export const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY h:mm A')} EST`;
 export const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
 
 export class PolicyDocuments extends Component {
@@ -39,8 +39,8 @@ export class PolicyDocuments extends Component {
       <React.Fragment>
         <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
         <BootstrapTable className="table-responsive table-striped" data={policyDocuments}>
-          <TableHeaderColumn className="created-date" columnClassName="created-date" dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
-          <TableHeaderColumn className="attachments" columnClassName="attachments" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
+          <TableHeaderColumn width="50%" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
+          <TableHeaderColumn width="50%" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
       </React.Fragment>);
   }
