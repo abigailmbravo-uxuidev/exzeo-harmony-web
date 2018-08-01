@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import normalizePhone from '../Form/normalizePhone';
 
-const AgentCard = ({ agent, index
+const AgentCard = ({ agent
 }) => (
-  <div className="agency agent contact card" key={index} tabIndex="0">
+  <div className="agency agent contact card" tabIndex="0">
     <div className="contact-title">
       <i className="fa fa-address-card margin bottom" />
       {agent.agentOfRecord ? <small><i className="card-icon fa fa-bookmark" /><label>AOR</label></small> : null }
@@ -55,8 +55,7 @@ const AgentCard = ({ agent, index
 );
 
 AgentCard.propTypes = {
-  agent: PropTypes.shape(),
-  index: PropTypes.number
+  agent: PropTypes.shape()
 };
 
 export default AgentCard;
