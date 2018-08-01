@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import normalizeNumbers from '../Form/normalizeNumbers';
 import Loader from '../Common/Loader';
 import PolicyTabs from '../Common/PolicyTabs';
