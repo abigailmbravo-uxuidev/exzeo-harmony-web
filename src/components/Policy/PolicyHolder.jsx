@@ -19,7 +19,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
                 <div className="contact-card-wrapper">
                   {policy.policyHolders &&
                      policy.policyHolders.map((policyHolder, index) => (
-                       <PolicyHolderCard policyHolder={policyHolder} index={index} id={policyHolder._id} policyHolderMailingAddress={policyHolderMailingAddress} policyNumber={policyNumber} />
+                       <PolicyHolderCard policyHolder={policyHolder} index={index} key={policyHolder._id} policyHolderMailingAddress={policyHolderMailingAddress} policyNumber={policyNumber} />
                      ))}
                 </div>
               </section>
@@ -31,7 +31,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
               <section className="display-element">
                 <div className="contact-card-wrapper">
                   {(agents && agents.filter(a => a.agentCode === policy.agentCode).map(agent =>
-                    <AgentCard agent={agent} index={agent.agentCode} />
+                    <AgentCard agent={agent} key={agent.agentCode} />
                     ))}
                 </div>
               </section>
@@ -45,7 +45,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
 
 PolicyHolder.propTypes = {
   policy: PropTypes.shape(),
-  agents: PropTypes.shape(),
+  agents: PropTypes.array,
   policyNumber: PropTypes.string
 };
 

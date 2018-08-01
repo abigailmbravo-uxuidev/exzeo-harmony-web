@@ -13,7 +13,7 @@ const PolicyTabs = ({ activeTab, policyNumber }) =>
 export default PolicyTabs;
 
 PolicyTabs.propTypes = {
-  activeTab: PropTypes.bool,
+  activeTab: PropTypes.string,
   policyNumber: PropTypes.string
 };
 

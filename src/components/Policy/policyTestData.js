@@ -10,8 +10,8 @@ const policyTestData = {
   eligibility: 'Yes',
   effectiveDate: '2017-01-04T20:14:46.793Z',
   endDate: '2018-01-04T20:14:46.793Z',
-  agencyId: '20000',
-  agentId: '60000',
+  agencyCode: 20000,
+  agentCode: 60000,
   property: {
     id: '12089DF01D986BF1A',
     source: 'CasaClue',

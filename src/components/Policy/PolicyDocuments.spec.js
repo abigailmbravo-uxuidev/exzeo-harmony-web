@@ -38,7 +38,15 @@ describe('Testing PolicyDocuments component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      policyDocuments: [{}],
+      policyDocuments: [{
+        fileUrl: 'http://cfs/v1/5b619675b63d290021a9c751/AppPacket-12-5019632-01-20180801-071705-igDSfakl4.pdf',
+        version: '',
+        envelopeId: '39679404-6f5a-4bf8-9c49-55e4f6559c2c',
+        fileName: 'AppPacket-12-5019632-01-20180801-071705-igDSfakl4.pdf',
+        createdDate: 1533122321,
+        createdBy: 'auth0|SYSTEMUSER|0',
+        policyNumber: '12-1009404-01'
+      }],
       location: {
         state: {
           policyNumber: 123
@@ -63,7 +71,5 @@ describe('Testing PolicyDocuments component', () => {
     };
     const wrapper = shallow(<PolicyDocuments store={store} {...props} />);
     expect(wrapper);
-    expect(dateFormatter(1514353342)).toEqual('12/27/2017');
-    expect(nameFormatter('gfdg-43')).toEqual('gfdg');
   });
 });

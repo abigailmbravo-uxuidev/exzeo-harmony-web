@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import normalizePhone from '../Form/normalizePhone';
 
 const AgentCard = ({ agent, index
@@ -52,5 +53,10 @@ const AgentCard = ({ agent, index
     </div>
   </div>
 );
+
+AgentCard.propTypes = {
+  agent: PropTypes.shape(),
+  index: PropTypes.number
+};
 
 export default AgentCard;

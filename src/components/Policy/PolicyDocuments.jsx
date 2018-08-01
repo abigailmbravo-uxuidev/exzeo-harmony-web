@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import _ from 'lodash';
 import { format } from '@exzeo/core-ui/lib/InputLifecycle/index';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { setAppModalError } from '../../actions/errorActions';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';
 
+const { fileNameFormatter, dateFormatter } = format;
+
 export class PolicyDocuments extends Component {
   render() {
-    const { setAppModalErrorAction } = this.props;
-    const { fileNameFormatter, dateFormatter } = format;
+    const { setAppModalErrorAction, policyNumber, policyDocuments } = this.props;
 
     const attachmentUrl = attachments => (
       <span>
@@ -27,13 +25,12 @@ export class PolicyDocuments extends Component {
       </span>
     );
 
-    const policyDocuments = _.map(this.props.policyDocuments, (doc) => {
+    policyDocuments.forEach((doc) => {
       doc.attachments = [];
       doc.attachments.push(doc);
       return doc;
     });
 
-    const { policyNumber } = this.props;
     return (
       <React.Fragment>
         <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
@@ -45,10 +42,14 @@ export class PolicyDocuments extends Component {
   }
 }
 
+PolicyDocuments.defaultProps = {
+  policyDocuments: []
+};
+
 PolicyDocuments.propTypes = {
-  policyDocuments: PropTypes.shape(),
+  policyDocuments: PropTypes.array,
   policyNumber: PropTypes.string,
   setAppModalErrorAction: PropTypes.func
 };
 
-export default connect(null, { setAppModalErrorAction: setAppModalError })(PolicyDocuments);
+export default PolicyDocuments;

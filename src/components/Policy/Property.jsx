@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Loader from '../Common/Loader';
 import PolicyTabs from '../Common/PolicyTabs';
 import normalizeNumbers from '../Form/normalizeNumbers';
@@ -116,8 +115,4 @@ Property.propTypes = {
   policyNumber: PropTypes.string
 };
 
-const mapStateToProps = state => ({
-  policy: state.service.latestPolicy
-});
-
-export default connect(mapStateToProps, null)(Property);
+export default Property;

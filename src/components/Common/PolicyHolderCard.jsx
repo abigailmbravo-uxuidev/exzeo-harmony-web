@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import normalizePhone from '../Form/normalizePhone';
 
-const PolicySearchCard = ({ policyHolder, policyHolderMailingAddress, index, policyNumber, id
+const PolicySearchCard = ({ policyHolder, policyHolderMailingAddress, index, policyNumber
 }) => (
-  <div key={`ph${id}`} className="primary-policyholder contact card">
+  <div className="primary-policyholder contact card">
     <div className="contact-title"><i className="fa fa-address-card-o" /><label>Policyholder {index + 1}</label></div>
     <div className="contact-details">
       <h4>{`${policyHolder.firstName} ${policyHolder.lastName}`}</h4>
@@ -33,5 +34,13 @@ ${policyHolderMailingAddress.city}, ${policyHolderMailingAddress.state} ${policy
     <div className="electronic-delivery"><label>Electronic Delivery: </label> {policyHolder.electronicDelivery ? 'Yes' : 'No'}</div>
   </div>
 );
+
+
+PolicySearchCard.propTypes = {
+  policyHolderMailingAddress: PropTypes.shape(),
+  policyHolder: PropTypes.shape(),
+  policyNumber: PropTypes.string,
+  index: PropTypes.number
+};
 
 export default PolicySearchCard;

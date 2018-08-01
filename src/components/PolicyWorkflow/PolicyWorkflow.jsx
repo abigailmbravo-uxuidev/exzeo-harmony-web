@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { setAppModalError } from '../../actions/errorActions';
 import { clearPolicyResults, getPolicyDocuments, getSummaryLedger, getLatestPolicy, getAgentsByAgency } from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 import PolicyDocuments from '../Policy/PolicyDocuments';
@@ -28,7 +29,7 @@ export class PolicyWorkflow extends Component {
   }
 
   render() {
-    const { auth, match: { params: { policyNumber }, url }, policy, agents, policyDocuments } = this.props;
+    const { auth, match: { params: { policyNumber }, url }, policy, agents, policyDocuments, setAppModalErrorAction } = this.props;
 
     if (!policy || !policy.policyID) {
       return (<Loader />);
@@ -39,7 +40,7 @@ export class PolicyWorkflow extends Component {
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
-              <Route exact path={`${url}/documents`} render={() => <PolicyDocuments auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} />} />
+              <Route exact path={`${url}/documents`} render={() => <PolicyDocuments auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
               <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolder auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
               <Route exact path={`${url}/property`} render={() => <Property auth={auth} policyNumber={policyNumber} policy={policy} />} />
               <Route exact path={`${url}/coverage`} render={() => <Coverage auth={auth} policyNumber={policyNumber} policy={policy} />} />
@@ -60,7 +61,8 @@ PolicyWorkflow.propTypes = {
   getPolicyDocumentsAction: PropTypes.func,
   getSummaryLedgerAction: PropTypes.func,
   getLatestPolicyAction: PropTypes.func,
-  getAgentsByAgencyAction: PropTypes.func
+  getAgentsByAgencyAction: PropTypes.func,
+  setAppModalErrorAction: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -70,6 +72,7 @@ const mapStateToProps = state => ({
 });
 export default connect(mapStateToProps,
   {
+    setAppModalErrorAction: setAppModalError,
     clearPolicyResultsAction: clearPolicyResults,
     getPolicyDocumentsAction: getPolicyDocuments,
     getSummaryLedgerAction: getSummaryLedger,
