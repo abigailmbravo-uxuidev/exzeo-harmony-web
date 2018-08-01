@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { clearPolicyResults, getPolicyDocuments, getSummaryLedger, getLatestPolicy, getAgentsByAgency } from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 import PolicyDocuments from '../Policy/PolicyDocuments';
-import PolicyHolderView from '../Policy/PolicyHolderView';
+import PolicyHolder from '../Policy/PolicyHolder';
 import Property from '../Policy/Property';
 import Coverage from '../Policy/Coverage';
 import Loader from '../Common/Loader';
@@ -40,7 +40,7 @@ export class PolicyWorkflow extends Component {
           <div className="scroll">
             <div className="detail-wrapper">
               <Route exact path={`${url}/documents`} render={() => <PolicyDocuments auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} />} />
-              <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
+              <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolder auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
               <Route exact path={`${url}/property`} render={() => <Property auth={auth} policyNumber={policyNumber} policy={policy} />} />
               <Route exact path={`${url}/coverage`} render={() => <Coverage auth={auth} policyNumber={policyNumber} policy={policy} />} />
             </div>

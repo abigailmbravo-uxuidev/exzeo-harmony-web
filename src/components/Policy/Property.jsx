@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import get from 'lodash/get';
-import moment from 'moment';
 import Loader from '../Common/Loader';
 import PolicyTabs from '../Common/PolicyTabs';
 import normalizeNumbers from '../Form/normalizeNumbers';
-
-export const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY')}`;
-export const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
 
 export const Property = ({ policy, policyNumber }) => {
   if (!policy || !policy.policyID) {
@@ -104,7 +99,7 @@ export const Property = ({ policy, policyNumber }) => {
               <dt className="WBDR">Wind Borne Debris Region (WBDR)</dt>
               <dd className="WBDR">{property.windMitigation.windBorneDebrisRegion}</dd>
               <dt className="windMitFactor">Wind Mit Factor</dt>
-              <dd className="windMitFactor">{get(rating, 'worksheet.elements.windMitigationFactors.windMitigationDiscount') || 0}</dd>
+              <dd className="windMitFactor">{rating.worksheet.elements.windMitigationFactors.windMitigationDiscount}</dd>
             </div>
           </dl>
         </div>

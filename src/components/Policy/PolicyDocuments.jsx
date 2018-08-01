@@ -2,23 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import moment from 'moment';
+import { format } from '@exzeo/core-ui/lib/InputLifecycle/index';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { setAppModalError } from '../../actions/errorActions';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';
 
-export const dateFormatter = cell => `${moment.unix(cell).format('MM/DD/YYYY h:mm A')} EST`;
-export const nameFormatter = cell => `${String(cell.match(/^(.+?)-/g)).replace('-', '')}`;
-
 export class PolicyDocuments extends Component {
   render() {
     const { setAppModalErrorAction } = this.props;
+    const { fileNameFormatter, dateFormatter } = format;
+
     const attachmentUrl = attachments => (
       <span>
         { attachments.map((attachment, i) =>
           <Downloader
-            fileName={nameFormatter(attachment.fileName)}
+            fileName={fileNameFormatter(attachment.fileName)}
             fileUrl={attachment.fileUrl}
             fileType={attachment.fileType}
             errorHandler={err => setAppModalErrorAction(err.message)}

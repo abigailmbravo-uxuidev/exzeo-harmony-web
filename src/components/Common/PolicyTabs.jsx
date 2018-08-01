@@ -8,7 +8,6 @@ const PolicyTabs = ({ activeTab, policyNumber }) =>
     <Link to={{ pathname: `/policy/${policyNumber}/property` }} className={`btn btn-tab ${activeTab === 'property' ? 'active' : ''}`}><i className="fa fa-map-marker" />Property</Link>
     <Link to={{ pathname: `/policy/${policyNumber}/coverage` }} className={`btn btn-tab ${activeTab === 'coverage' ? 'active' : ''}`}><i className="fa fa-sliders" />Coverage</Link>
     <Link to={{ pathname: `/policy/${policyNumber}/documents` }} className={`btn btn-tab ${activeTab === 'documents' ? 'active' : ''}`}><i className="fa fa-file-text-o" />Documents</Link>
-
   </nav>;
 
 export default PolicyTabs;

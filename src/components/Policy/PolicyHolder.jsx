@@ -4,7 +4,7 @@ import AgentCard from '../Common/AgentCard';
 import PolicyTabs from '../Common/PolicyTabs';
 import PolicyHolderCard from '../Common/PolicyHolderCard';
 
-export const PolicyHolderView = ({ policy, policyNumber, agents }) => {
+export const PolicyHolder = ({ policy, policyNumber, agents }) => {
   const { policyHolderMailingAddress } = policy;
   return (
     <React.Fragment>
@@ -43,10 +43,10 @@ export const PolicyHolderView = ({ policy, policyNumber, agents }) => {
     </React.Fragment>);
 };
 
-PolicyHolderView.propTypes = {
+PolicyHolder.propTypes = {
   policy: PropTypes.shape(),
   agents: PropTypes.shape(),
   policyNumber: PropTypes.string
 };
 
-export default PolicyHolderView;
+export default PolicyHolder;

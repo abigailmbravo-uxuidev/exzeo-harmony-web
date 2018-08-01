@@ -3,6 +3,7 @@
   "version": "0.6.7",
   "private": true,
   "dependencies": {
+    "@exzeo/core-ui": "0.1.x",
     "auth0-js": "~8.10.1",
     "axios": "~0.15.2",
     "babel-plugin-transform-decorators-legacy": "~1.3.4",
