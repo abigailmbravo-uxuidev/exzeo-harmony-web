@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { normalize } from '@exzeo/core-ui/lib/InputLifecycle/index';
-import Loader from '../Common/Loader';
 import PolicyTabs from '../Common/PolicyTabs';
 
 const { numbers } = normalize;
 
 export const Coverage = ({ policy, policyNumber }) => {
-  if (!policy || !policy.policyID) {
-    return (<Loader />);
-  }
   const { property, underwritingAnswers, rating, coverageLimits, coverageOptions, deductibles } = policy;
   const { monthsOccupied, rented, noPriorInsuranceSurcharge } = underwritingAnswers;
   const monthsOcc = monthsOccupied ? monthsOccupied.answer : null;

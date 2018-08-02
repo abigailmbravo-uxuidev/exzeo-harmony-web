@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Loader from '../Common/Loader';
 import PolicyTabs from '../Common/PolicyTabs';
 import normalizeNumbers from '../Form/normalizeNumbers';
 
 export const Property = ({ policy, policyNumber }) => {
-  if (!policy || !policy.policyID) {
-    return (<Loader />);
-  }
   const { property, rating } = policy;
-
   return (
     <React.Fragment>
       <PolicyTabs activeTab="property" policyNumber={policyNumber} />
