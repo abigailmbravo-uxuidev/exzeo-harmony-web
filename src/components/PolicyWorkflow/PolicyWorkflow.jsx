@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { setAppModalError } from '../../actions/errorActions';
 import { clearPolicyResults, getPolicyDocuments, getSummaryLedger, getLatestPolicy, getAgentsByAgency } from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
-import PolicyDocumentsView from '../Policy/PolicyDocuments';
+import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
 import PropertyView from '../Policy/Property';
 import CoverageView from '../Policy/Coverage';
@@ -40,7 +40,7 @@ export class PolicyWorkflow extends Component {
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
-              <Route exact path={`${url}/documents`} render={() => <PolicyDocumentsView auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
+              <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
               <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
               <Route exact path={`${url}/property`} render={() => <PropertyView auth={auth} policyNumber={policyNumber} policy={policy} />} />
               <Route exact path={`${url}/coverage`} render={() => <CoverageView auth={auth} policyNumber={policyNumber} policy={policy} />} />

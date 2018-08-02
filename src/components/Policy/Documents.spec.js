@@ -1,7 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-import ConnectedApp, { PolicyDocuments } from './PolicyDocuments';
+import ConnectedApp, { PolicyDocuments } from './Documents';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
