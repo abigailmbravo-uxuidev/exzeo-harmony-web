@@ -20,3 +20,5 @@ documentation
 
 package-lock.json
 .env.local
+.npmrc
+.idea

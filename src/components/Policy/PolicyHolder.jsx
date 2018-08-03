@@ -13,7 +13,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
           <div className="detail-group policyholder-details">
             {policy.policyHolders &&
                policy.policyHolders.map((policyHolder, index) => (
-                 <React.Fragment>
+                 <React.Fragment key={index}>
                  <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder {index + 1}</h3>
                  <section className="display-element policy-holder">
                   <dl>
@@ -36,7 +36,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
                       <dd className="policyholderEmail">{policyHolder.emailAddress}</dd>
                     </div>
                   </dl>
-                  { index==0 &&
+                  {index === 0 &&
                   <dl>
                     <div>
                       <dt className="policyHolderMailingAddress">Mailing Address</dt>
