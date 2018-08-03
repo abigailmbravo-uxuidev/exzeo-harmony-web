@@ -10,6 +10,7 @@ import PolicyHolderView from '../Policy/PolicyHolder';
 import PropertyView from '../Policy/Property';
 import CoverageView from '../Policy/Coverage';
 import Loader from '../Common/Loader';
+import Footer from '../Common/Footer';
 
 export class PolicyWorkflow extends Component {
 
@@ -47,6 +48,7 @@ export class PolicyWorkflow extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>);
   }
 }

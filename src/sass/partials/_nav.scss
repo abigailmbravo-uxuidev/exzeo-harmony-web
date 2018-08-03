@@ -180,55 +180,55 @@
           &.agent-dashboard {
             i {
               &:before {
-                content: "\f009";
+                content: "\f0e4";
               }
             }
           }
 
-          &.agent-flood {
+          &.quote {
             i {
               &:before {
-                content: "\f043";
-              }
-            }
-
-            &.retrieve {
-              i {
-                &:before {
-                  content: "\f1da";
-                }
-              }
-            }
-
-            &.new {
-              i {
-                &:before {
-                  content: "\f055";
-                }
+                content: "\f10d";
               }
             }
           }
 
-          &.agent-homeowners {
+          &.policy {
             i {
               &:before {
-                content: "\f015";
+                content: "\f15c";
               }
             }
 
-            &.retrieve {
-              i {
-                &:before {
-                  content: "\f1da";
-                }
-              }
-            }
+            &.policy-detail {
+                border-left: ($padding/2) solid rgba($bright-blue-darken-03, .4);
+                background-color: rgba($black, .1);
+                position: relative;
 
-            &.new {
-              i {
-                &:before {
-                  content: "\f055";
+                i {
+                    color: $white;
                 }
+
+                span {
+                    color: $white;
+
+                    &:after {
+                        content: '\f053';
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        background: $white;
+                        padding: ($padding*1.5) $padding;
+                        border-left: ($padding/2) solid $bright-blue;
+                        color: $black;
+                        font-family: $font-family-icon;
+                    }
+                }
+
+                &:hover {
+                  cursor: pointer;
+                  border-left: ($padding/2) solid rgba($bright-blue, .2);
+                  background-color: rgba($white, .1);
               }
             }
           }
