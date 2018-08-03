@@ -201,34 +201,34 @@
             }
 
             &.policy-detail {
-                border-left: ($padding/2) solid rgba($bright-blue-darken-03, .4);
-                background-color: rgba($black, .1);
-                position: relative;
+              position: relative;
+              border-left: ($padding/2) solid rgba($bright-blue-darken-03, .4);
+              background-color: rgba($black, .1);
 
-                i {
-                    color: $white;
+              i {
+                color: $white;
+              }
+
+              span {
+                color: $white;
+
+                &:after {
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  padding: ($padding*1.5) $padding;
+                  content: '\f053';
+                  color: $black;
+                  border-left: ($padding/2) solid $bright-blue;
+                  background: $white;
+                  font-family: $font-family-icon;
                 }
+              }
 
-                span {
-                    color: $white;
-
-                    &:after {
-                        content: '\f053';
-                        position: absolute;
-                        right: 0;
-                        top: 0;
-                        background: $white;
-                        padding: ($padding*1.5) $padding;
-                        border-left: ($padding/2) solid $bright-blue;
-                        color: $black;
-                        font-family: $font-family-icon;
-                    }
-                }
-
-                &:hover {
-                  cursor: pointer;
-                  border-left: ($padding/2) solid rgba($bright-blue, .2);
-                  background-color: rgba($white, .1);
+              &:hover {
+                cursor: pointer;
+                border-left: ($padding/2) solid rgba($bright-blue, .2);
+                background-color: rgba($white, .1);
               }
             }
           }
@@ -359,27 +359,27 @@
 }
 
 .nav-tabs {
+  position: sticky;
+  z-index: 100;
+  top: 0;
   display: flex;
   flex-grow: 1;
   flex-shrink: 1;
   width: 100%;
   margin-bottom: $padding*2;
   background: $cool-gray-01;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 
   .btn {
     &.btn-tab {
       display: flex;
       flex-direction: column;
+      text-transform: none;
+      border-bottom: ($padding/2) solid rgba($bright-blue, 0);
       border-radius: 0;
       box-shadow: none;
       font-size: $font-size-sm;
       font-weight: $font-weight-bold;
-      text-transform: none;
       @include button-variant($cool-gray-07, $btn-link-bg, $btn-link-border);
-      border-bottom: ($padding/2) solid rgba($bright-blue, 0);
 
       i {
         flex-grow: 0;

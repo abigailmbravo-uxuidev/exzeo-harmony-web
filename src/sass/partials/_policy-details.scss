@@ -1,7 +1,8 @@
 //policy quote-details
 
 .policy-detail {
-  .property-details, .policyholder-details {
+  .policyholder-details,
+  .property-details {
     section {
       &.display-element {
         border-bottom: 1px dashed $cool-gray-02;
@@ -10,10 +11,10 @@
           border-bottom-width: 0;
         }
 
-        &.home-and-location,
-        &.wind-mit,
         &.discount-discharge,
-        &.policy-holder {
+        &.home-and-location,
+        &.policy-holder,
+        &.wind-mit {
           margin-bottom: $padding*2;
 
           dl {
@@ -29,29 +30,30 @@
           }
         }
 
-        &.coverage-limits, &.deductibles {
-            margin-bottom: $padding*2;
+        &.coverage-limits,
+        &.deductibles {
+          margin-bottom: $padding*2;
 
-            dl {
-                margin-bottom: 0;
-                display: flex;
-                width: 100%;
+          dl {
+            display: flex;
+            width: 100%;
+            margin-bottom: 0;
 
-                &:nth-of-type(odd) {
-                    background: $cool-gray-01;
-                }
-
-                > div {
-                    display: flex;
-                    width: 100%;
-                    justify-content: space-between;
-                    padding: $padding;
-
-                    dd {
-                        margin-bottom: 0;
-                    }
-                }
+            &:nth-of-type(odd) {
+              background: $cool-gray-01;
             }
+
+            > div {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+              padding: $padding;
+
+              dd {
+                margin-bottom: 0;
+              }
+            }
+          }
         }
       }
     }
