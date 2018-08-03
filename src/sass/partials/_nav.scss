@@ -364,7 +364,10 @@
   flex-shrink: 1;
   width: 100%;
   margin-bottom: $padding*2;
-  border-bottom: ($padding/4) solid $bright-blue;
+  background: $cool-gray-01;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   .btn {
     &.btn-tab {
