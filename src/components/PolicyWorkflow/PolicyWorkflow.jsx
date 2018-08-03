@@ -30,9 +30,16 @@ export class PolicyWorkflow extends Component {
   }
 
   render() {
-    const { auth, match: { params: { policyNumber }, url }, policy, agents, policyDocuments, setAppModalErrorAction } = this.props;
+    const {
+      auth,
+      match: { params: { policyNumber }, url },
+      policy,
+      agents,
+      policyDocuments,
+      setAppModalErrorAction
+    } = this.props;
 
-    if (!policy || !policy.policyID) {
+    if (!(policy && policy.policyID)) {
       return (<Loader />);
     }
     return (
