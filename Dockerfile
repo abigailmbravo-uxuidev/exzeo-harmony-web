@@ -6,10 +6,6 @@ ARG NPM_TOKEN
 
 COPY package.json package.json  
 
-ARG NPM_TOKEN
-
-COPY package.json package.json  
-
 COPY . /app
 
 WORKDIR /app
