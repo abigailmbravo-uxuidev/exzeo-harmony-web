@@ -40,7 +40,7 @@ const formSubmitFloodQuote = () => {
   document.getElementsByName('formSubmitFloodQuote')[0].click();
 };
 
-const SideNav = ({params}) => (
+const SideNav = ({ params }) => (
   <nav className="site-nav">
     <ul>
       {agentLinks && agentLinks.length > 0 && agentLinks.map((agentLink, index) => (

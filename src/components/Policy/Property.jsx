@@ -68,64 +68,64 @@ export const Property = ({ policy, policyNumber }) => {
             </dl>
           </section>
           <section className="display-element wind-mit">
-              <h3 className="section-group-header"><i className="fa fa-flag" /> Wind Mitigation</h3>
-              <dl>
-                <div>
-                  <dt className="roofCovering">Roof Covering</dt>
-                  <dd className="roofCovering">{property.windMitigation.roofCovering}</dd>
-                </div>
-                <div>
-                  <dt className="roofDeckAttachment">Roof Deck Attachment</dt>
-                  <dd className="roofDeckAttachment">{property.windMitigation.roofDeckAttachment}</dd>
-                </div>
-                <div>
-                  <dt className="roofToWallAttachment">Roof to Wall Attachment</dt>
-                  <dd className="roofToWallAttachment">{property.windMitigation.roofToWallConnection}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div>
-                  <dt className="roofGeometry">Roof Geometry</dt>
-                  <dd className="roofGeometry">{property.windMitigation.roofGeometry}</dd>
-                </div>
-                <div>
-                  <dt className="SWR">Secondary Water Resistance (SWR)</dt>
-                  <dd className="SWR">{property.windMitigation.secondaryWaterResistance}</dd>
-                </div>
-                <div>
-                  <dt className="openingProtection">Opening Protection</dt>
-                  <dd className="openingProtection">{property.windMitigation.openingProtection}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div>
-                  <dt className="windSpeed">FBC Wind Speed</dt>
-                  <dd className="windSpeed">{property.windMitigation.floridaBuildingCodeWindSpeed}</dd>
-                </div>
-                <div>
-                  <dt className="windSpeedDesign">FBC Wind Speed Design</dt>
-                  <dd className="windSpeedDesign">{property.windMitigation.floridaBuildingCodeWindSpeedDesign}</dd>
-                </div>
-                <div>
-                  <dt className="terrain">Terrain</dt>
-                  <dd className="terrain">{property.windMitigation.terrain}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div>
-                  <dt className="internalPressureDesign">Internal Pressure Design</dt>
-                  <dd className="internalPressureDesign">{property.windMitigation.internalPressureDesign}</dd>
-                </div>
-                <div>
-                  <dt className="WBDR">Wind Borne Debris Region (WBDR)</dt>
-                  <dd className="WBDR">{property.windMitigation.windBorneDebrisRegion}</dd>
-                </div>
-                <div>
-                  <dt className="windMitFactor">Wind Mit Factor</dt>
-                  <dd className="windMitFactor">{rating.worksheet.elements.windMitigationFactors.windMitigationDiscount}</dd>
-                </div>
-              </dl>
-            </section>
+            <h3 className="section-group-header"><i className="fa fa-flag" /> Wind Mitigation</h3>
+            <dl>
+              <div>
+                <dt className="roofCovering">Roof Covering</dt>
+                <dd className="roofCovering">{property.windMitigation.roofCovering}</dd>
+              </div>
+              <div>
+                <dt className="roofDeckAttachment">Roof Deck Attachment</dt>
+                <dd className="roofDeckAttachment">{property.windMitigation.roofDeckAttachment}</dd>
+              </div>
+              <div>
+                <dt className="roofToWallAttachment">Roof to Wall Attachment</dt>
+                <dd className="roofToWallAttachment">{property.windMitigation.roofToWallConnection}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="roofGeometry">Roof Geometry</dt>
+                <dd className="roofGeometry">{property.windMitigation.roofGeometry}</dd>
+              </div>
+              <div>
+                <dt className="SWR">Secondary Water Resistance (SWR)</dt>
+                <dd className="SWR">{property.windMitigation.secondaryWaterResistance}</dd>
+              </div>
+              <div>
+                <dt className="openingProtection">Opening Protection</dt>
+                <dd className="openingProtection">{property.windMitigation.openingProtection}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="windSpeed">FBC Wind Speed</dt>
+                <dd className="windSpeed">{property.windMitigation.floridaBuildingCodeWindSpeed}</dd>
+              </div>
+              <div>
+                <dt className="windSpeedDesign">FBC Wind Speed Design</dt>
+                <dd className="windSpeedDesign">{property.windMitigation.floridaBuildingCodeWindSpeedDesign}</dd>
+              </div>
+              <div>
+                <dt className="terrain">Terrain</dt>
+                <dd className="terrain">{property.windMitigation.terrain}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="internalPressureDesign">Internal Pressure Design</dt>
+                <dd className="internalPressureDesign">{property.windMitigation.internalPressureDesign}</dd>
+              </div>
+              <div>
+                <dt className="WBDR">Wind Borne Debris Region (WBDR)</dt>
+                <dd className="WBDR">{property.windMitigation.windBorneDebrisRegion}</dd>
+              </div>
+              <div>
+                <dt className="windMitFactor">Wind Mit Factor</dt>
+                <dd className="windMitFactor">{rating.worksheet.elements.windMitigationFactors.windMitigationDiscount}</dd>
+              </div>
+            </dl>
+          </section>
         </div>
       </div>
     </React.Fragment>);

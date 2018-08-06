@@ -21,6 +21,11 @@ describe('Testing Base component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      match: {
+        params: {
+
+        }
+      },
       service: {
         currentAgent: {}
       },
