@@ -204,6 +204,28 @@
               position: relative;
               border-left: ($padding/2) solid rgba($bright-blue-darken-03, .4);
               background-color: rgba($black, .1);
+              @include for-tablet-portrait-up {
+                &:after {
+                  position: absolute;
+                  top: 0;
+                  right: -.25rem;
+                  bottom: 0;
+                  display: flex;
+                  align-items: center;
+                  padding: 0 0 0 ($padding/2);
+                  content: '\f053';
+                  color: $black;
+                  border-left: ($padding/2) solid $bright-blue;
+                  background: $white;
+                  font-family: $font-family-icon;
+                  font-size: $font-size-xs;
+                }
+              }
+              @include for-tablet-landscape-up {
+                &:after {
+                  display: none;
+                }
+              }
 
               i {
                 color: $white;
@@ -216,12 +238,18 @@
                   position: absolute;
                   top: 0;
                   right: 0;
-                  padding: ($padding*1.5) $padding;
+                  bottom: 0;
+                  display: flex;
+                  align-items: center;
+                  padding: $padding;
                   content: '\f053';
                   color: $black;
                   border-left: ($padding/2) solid $bright-blue;
                   background: $white;
                   font-family: $font-family-icon;
+                  @include for-phone-only {
+                    display: none;
+                  }
                 }
               }
 
