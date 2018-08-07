@@ -5,7 +5,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';
 
-const { fileNameFormatter, dateFormatter } = format;
+const { toFileName, toDate } = format;
 
 export class PolicyDocuments extends Component {
   render() {
@@ -15,7 +15,7 @@ export class PolicyDocuments extends Component {
       <span>
         { attachments.map((attachment, i) =>
           <Downloader
-            fileName={fileNameFormatter(attachment.fileName)}
+            fileName={toFileName(attachment.fileName)}
             fileUrl={attachment.fileUrl}
             fileType={attachment.fileType}
             errorHandler={err => setAppModalErrorAction(err.message)}
@@ -35,7 +35,7 @@ export class PolicyDocuments extends Component {
       <React.Fragment>
         <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
         <BootstrapTable className="table-responsive table-striped" data={policyDocuments}>
-          <TableHeaderColumn width="50%" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={dateFormatter}>Date</TableHeaderColumn>
+          <TableHeaderColumn width="50%" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={toDate}>Date</TableHeaderColumn>
           <TableHeaderColumn width="50%" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
       </React.Fragment>);
