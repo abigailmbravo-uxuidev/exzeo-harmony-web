@@ -52,8 +52,9 @@ export class Splash extends Component {
                       <Link to={{ pathname: '/quote/retrieve', state: { searchType: 'quote' } }} className="btn btn-primary btn-block"><i className="fa fa-history" />Retrieve Quote</Link>
                       <Link to={{ pathname: '/policy', state: { searchType: 'policy' } }} className="btn btn-action btn-block"><i className="fa fa-history" />Retrieve Policy</Link>
                     </div>
-                  </div>
+                  </div>          
                 </div>
+                <div className="marketing-ad"></div>
               </div>
               <Footer />
             </div>
