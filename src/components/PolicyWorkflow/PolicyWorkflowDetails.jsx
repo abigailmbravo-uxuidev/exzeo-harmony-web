@@ -11,17 +11,6 @@ import normalizeNumbers from '../Form/normalizeNumbers';
 
 export class PolicyWorkflowDetails extends Component {
 
-  componentDidMount() {
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.policyState.update && nextProps.policyState.policyNumber) {
-      this.props.actions.serviceActions.getLatestPolicy(nextProps.policyState.policyNumber);
-      this.props.actions.policyStateActions.updatePolicy(false, nextProps.policyState.policyNumber);
-    }
-    if (!_.isEqual(this.props.policy, nextProps.policy) && nextProps.policy.policyNumber) {
-      this.props.actions.serviceActions.getSummaryLedger(nextProps.policy.policyNumber);
-    }
-  }
   render() {
     const { policy, summaryLedger } = this.props;
     if (!policy || !policy.policyID) {
@@ -98,7 +87,9 @@ PolicyWorkflowDetails.propTypes = {
   policy: PropTypes.shape(),
   actions: PropTypes.shape(),
   policyState: PropTypes.shape(),
-  summaryLedger: PropTypes.shape()
+  summaryLedger: PropTypes.shape(),
+  policyNumber: PropTypes.string
+
 };
 
 

@@ -1,32 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as serviceActions from '../../actions/serviceActions';
+import { setAppModalError } from '../../actions/errorActions';
+import { clearPolicyResults, getPolicyDocuments, getSummaryLedger, getLatestPolicy, getAgentsByAgency } from '../../actions/serviceActions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
-
+import DocumentsView from '../Policy/Documents';
+import PolicyHolderView from '../Policy/PolicyHolder';
+import PropertyView from '../Policy/Property';
+import CoverageView from '../Policy/Coverage';
+import Loader from '../Common/Loader';
+import Footer from '../Common/Footer';
 
 export class PolicyWorkflow extends Component {
 
   componentDidMount() {
-    this.props.actions.serviceActions.clearPolicyResults();
+    const { match: { params: { policyNumber } },
+     getPolicyDocumentsAction,
+     getSummaryLedgerAction,
+     getLatestPolicyAction,
+     getAgentsByAgencyAction
+     } = this.props;
+    clearPolicyResults();
+    getPolicyDocumentsAction(policyNumber);
+    getSummaryLedgerAction(policyNumber);
+    getLatestPolicyAction(policyNumber).then((policy) => {
+      getAgentsByAgencyAction(policy.companyCode, policy.state, policy.agencyCode);
+    });
   }
 
   render() {
-    const { children } = this.props;
+    const {
+      auth,
+      match: { params: { policyNumber }, url },
+      policy,
+      agents,
+      policyDocuments,
+      setAppModalErrorAction
+    } = this.props;
+
+    if (!(policy && policy.policyID)) {
+      return (<Loader />);
+    }
     return (
       <div className="route policy-detail">
-        <PolicyWorkFlowDetailsConnect />
+        <PolicyWorkFlowDetailsConnect policyNumber={policyNumber} />
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
-              <nav className="nav-tabs">
-                <button className="btn btn-tab active"><i className="fa fa-file-text-o"></i>Documents</button>
-              </nav>
-              {children}
+              <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
+              <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
+              <Route exact path={`${url}/property`} render={() => <PropertyView auth={auth} policyNumber={policyNumber} policy={policy} />} />
+              <Route exact path={`${url}/coverage`} render={() => <CoverageView auth={auth} policyNumber={policyNumber} policy={policy} />} />
             </div>
           </div>
         </div>
+        <Footer />
       </div>);
   }
 }
@@ -36,23 +65,29 @@ PolicyWorkflow.contextTypes = {
 };
 
 PolicyWorkflow.propTypes = {
-  selectedPolicy: PropTypes.shape(),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ])
+  auth: PropTypes.shape(),
+  match: PropTypes.shape(),
+  getPolicyDocumentsAction: PropTypes.func,
+  getSummaryLedgerAction: PropTypes.func,
+  getLatestPolicyAction: PropTypes.func,
+  getAgentsByAgencyAction: PropTypes.func,
+  setAppModalErrorAction: PropTypes.func,
+  policy: PropTypes.shape(),
+  agents: PropTypes.array,
+  policyDocuments: PropTypes.array
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
-  appState: state.appState,
-  policyState: state.policyState
+  policy: state.service.latestPolicy,
+  agents: state.service.agents,
+  policyDocuments: state.service.policyDocuments || []
 });
-
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    serviceActions: bindActionCreators(serviceActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PolicyWorkflow);
+export default connect(mapStateToProps,
+  {
+    setAppModalErrorAction: setAppModalError,
+    clearPolicyResultsAction: clearPolicyResults,
+    getPolicyDocumentsAction: getPolicyDocuments,
+    getSummaryLedgerAction: getSummaryLedger,
+    getLatestPolicyAction: getLatestPolicy,
+    getAgentsByAgencyAction: getAgentsByAgency
+  })(PolicyWorkflow);

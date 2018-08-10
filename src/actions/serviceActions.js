@@ -172,9 +172,10 @@ export const getLatestPolicy = policyNumber => (dispatch) => {
 
   return Promise.resolve(axios(axiosConfig)).then((response) => {
     const data = { latestPolicy: response ? response.data : {} };
-    return dispatch(batchActions([
+    dispatch(batchActions([
       serviceRequest(data)
     ]));
+    return data.latestPolicy;
   })
     .catch((error) => {
       const message = handleError(error);

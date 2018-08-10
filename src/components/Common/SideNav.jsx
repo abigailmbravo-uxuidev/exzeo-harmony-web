@@ -24,22 +24,23 @@ const agentLinks = [{
 //   outside: true,
 //   formName: 'floodQuoteForm'
 // },
-{
-  link: '/quote',
-  label: 'HO3 QUOTE',
-  styleName: 'agent-homeowners label'
-},
-{
-  link: '/policy',
-  label: 'HO3 POLICY',
-  styleName: 'agent-homeowners label'
-}];
+  {
+    link: '/quote',
+    label: 'QUOTE',
+    styleName: 'quote label'
+  },
+  {
+    link: '/policy',
+    label: 'POLICY',
+    styleName: 'policy label'
+  }
+];
 
 const formSubmitFloodQuote = () => {
   document.getElementsByName('formSubmitFloodQuote')[0].click();
 };
 
-const SideNav = () => (
+const SideNav = ({ params }) => (
   <nav className="site-nav">
     <ul>
       {agentLinks && agentLinks.length > 0 && agentLinks.map((agentLink, index) => (
@@ -57,7 +58,7 @@ const SideNav = () => (
             }
           </li> :
           <li key={index}>
-            <NavLink exact={agentLink.exact} className={agentLink.styleName} to={agentLink.link} activeClassName="active">
+            <NavLink exact={agentLink.exact} className={`${agentLink.styleName} ${params.policyNumber && 'policy-detail'}`} to={agentLink.link} activeClassName="active">
               <i className="fa" />
               <span>{agentLink.label}</span>
             </NavLink>
