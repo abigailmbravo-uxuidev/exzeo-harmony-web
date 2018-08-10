@@ -109,6 +109,30 @@
             }
           }
         }
+
+        .marketing-ad {
+            width: 100%;
+            height: 250px;
+            display: block;
+            margin: $padding 0;
+            background-image: url('https://www.typtap.com/wp-content/uploads/2018/08/app-ad-desktop.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+
+            @include for-tablet-landscape-up {
+                height: 250px;
+            }
+
+            @include for-tablet-portrait-up {
+                height: 170px;
+            }
+
+            @include for-phone-only {
+                background-image: url('https://www.typtap.com/wp-content/uploads/2018/08/app-ad-mobile.png');
+                height: 250px;
+            }
+        }
       }
     }
   }
