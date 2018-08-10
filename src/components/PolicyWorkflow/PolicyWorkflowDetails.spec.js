@@ -56,26 +56,5 @@ describe('Testing PolicyWorkflowDetails component', () => {
     };
     const wrapper = shallow(<PolicyWorkflowDetails store={store} {...props} />);
     expect(wrapper);
-    wrapper.instance().componentWillReceiveProps({
-      policy: {
-        policyID: 12345,
-        policyNumber: 123,
-        policyHolders: []
-      },
-      policyState: {
-        update: true,
-        policyNumber: 123
-      },
-      actions: {
-        policyStateActions: {
-          updatePolicy() {}
-        },
-        serviceActions: {
-          getSummaryLedger() {},
-          getLatestPolicy() {}
-
-        }
-      }
-    });
   });
 });

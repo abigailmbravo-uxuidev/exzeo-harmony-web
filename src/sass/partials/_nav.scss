@@ -180,55 +180,83 @@
           &.agent-dashboard {
             i {
               &:before {
-                content: "\f009";
+                content: "\f0e4";
               }
             }
           }
 
-          &.agent-flood {
+          &.quote {
             i {
               &:before {
-                content: "\f043";
-              }
-            }
-
-            &.retrieve {
-              i {
-                &:before {
-                  content: "\f1da";
-                }
-              }
-            }
-
-            &.new {
-              i {
-                &:before {
-                  content: "\f055";
-                }
+                content: "\f10d";
               }
             }
           }
 
-          &.agent-homeowners {
+          &.policy {
             i {
               &:before {
-                content: "\f015";
+                content: "\f15c";
               }
             }
 
-            &.retrieve {
-              i {
-                &:before {
-                  content: "\f1da";
+            &.policy-detail {
+              position: relative;
+              border-left: ($padding/2) solid rgba($bright-blue-darken-03, .4);
+              background-color: rgba($black, .1);
+              @include for-tablet-portrait-up {
+                &:after {
+                  position: absolute;
+                  top: 0;
+                  right: -.25rem;
+                  bottom: 0;
+                  display: flex;
+                  align-items: center;
+                  padding: 0 0 0 ($padding/2);
+                  content: '\f053';
+                  color: $black;
+                  border-left: ($padding/2) solid $bright-blue;
+                  background: $white;
+                  font-family: $font-family-icon;
+                  font-size: $font-size-xs;
                 }
               }
-            }
-
-            &.new {
-              i {
-                &:before {
-                  content: "\f055";
+              @include for-tablet-landscape-up {
+                &:after {
+                  display: none;
                 }
+              }
+
+              i {
+                color: $white;
+              }
+
+              span {
+                color: $white;
+
+                &:after {
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  display: flex;
+                  align-items: center;
+                  padding: $padding;
+                  content: '\f053';
+                  color: $black;
+                  border-left: ($padding/2) solid $bright-blue;
+                  background: $white;
+                  font-family: $font-family-icon;
+                  @include for-phone-only {
+                    display: none;
+                  }
+                }
+              }
+
+              &:hover {
+                cursor: pointer;
+                border-left: ($padding/2) solid rgba($bright-blue, .2);
+                background-color: rgba($white, .1);
               }
             }
           }
@@ -359,24 +387,27 @@
 }
 
 .nav-tabs {
+  position: sticky;
+  z-index: 9;
+  top: 0;
   display: flex;
   flex-grow: 1;
   flex-shrink: 1;
   width: 100%;
   margin-bottom: $padding*2;
-  border-bottom: ($padding/4) solid $bright-blue;
+  background: $cool-gray-01;
 
   .btn {
     &.btn-tab {
       display: flex;
       flex-direction: column;
+      text-transform: none;
+      border-bottom: ($padding/2) solid rgba($bright-blue, 0);
       border-radius: 0;
       box-shadow: none;
       font-size: $font-size-sm;
       font-weight: $font-weight-bold;
-      text-transform: none;
       @include button-variant($cool-gray-07, $btn-link-bg, $btn-link-border);
-      border-bottom: ($padding/2) solid rgba($bright-blue, 0);
 
       i {
         flex-grow: 0;

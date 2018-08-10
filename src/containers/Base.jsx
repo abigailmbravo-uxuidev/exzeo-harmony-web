@@ -36,7 +36,7 @@ export class Base extends Component {
   componentDidMount() {
     this.props.auth.getProfile((err, result) => {
       const agency = result.agency;
-      
+
       if (agency) {
         this.props.actions.serviceActions.getAgency(agency.companyCode, agency.state, agency.agencyCode);
       }
@@ -66,7 +66,7 @@ export class Base extends Component {
                 <i className="fa fa-gear" />
               </h5>
             </div>
-            <SideNav />
+            <SideNav params={this.props.match.params} />
             <button className="btn logout btn-action" type="button" onClick={() => handleLogout(this.props)}>
               <div>
                 <i className="fa fa-sign-out" />

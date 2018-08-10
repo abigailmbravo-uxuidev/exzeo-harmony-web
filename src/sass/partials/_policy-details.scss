@@ -1,0 +1,61 @@
+//policy quote-details
+
+.policy-detail {
+  .policyholder-details,
+  .property-details {
+    section {
+      &.display-element {
+        border-bottom: 1px dashed $cool-gray-02;
+
+        &:last-child {
+          border-bottom-width: 0;
+        }
+
+        &.discount-discharge,
+        &.home-and-location,
+        &.policy-holder,
+        &.wind-mit {
+          margin-bottom: $padding*2;
+
+          dl {
+            display: flex;
+            flex-grow: 1;
+            flex-shrink: 1;
+
+            > div {
+              display: flex;
+              flex-direction: column;
+              margin-right: $padding*4;
+            }
+          }
+        }
+
+        &.coverage-limits,
+        &.deductibles {
+          margin-bottom: $padding*2;
+
+          dl {
+            display: flex;
+            width: 100%;
+            margin-bottom: 0;
+
+            &:nth-of-type(odd) {
+              background: $cool-gray-01;
+            }
+
+            > div {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+              padding: $padding;
+
+              dd {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
