@@ -155,7 +155,7 @@ export const Coverage = ({ policy, policyNumber }) => {
                 <dl>
                   <div>
                   <dt className="sinkhole">Sinkhole Deductible</dt>
-                  <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.amount ? `${numbers(deductibles`.sinkhole`.amount)}%` : 'No'}</dd>
+                  <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.amount ? `${numbers(deductibles.sinkhole.amount)}%` : 'No'}</dd>
                 </div>
               </dl>
             </section>
