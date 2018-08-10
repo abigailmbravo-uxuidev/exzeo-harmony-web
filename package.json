@@ -72,6 +72,7 @@
     "build-css": "node-sass src/sass --output-style 'compressed' -o src/css",
     "watch-css": "node-sass src/sass --output-style 'compressed' -o src/css --watch --recursive",
     "start-js": "react-scripts start",
+    "server": "./replace-dotenv.sh && exframe-web",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
