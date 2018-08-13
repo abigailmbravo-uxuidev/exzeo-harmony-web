@@ -20,6 +20,7 @@ export const Coverage = ({ policy, policyNumber }) => {
           <div className="detail-group property-details">
             <section className="display-element coverage-limits">
               <h3 className="section-group-header"><i className="fa fa-line-chart" /> Coverage Limits</h3>
+              <div className="left">
               <dl>
                 <div>
                   <dt className="yearHomeBuilt">A. Dwelling</dt>
@@ -62,6 +63,8 @@ export const Coverage = ({ policy, policyNumber }) => {
                   <dd className="yearRoofBuilt">{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
                 </div>
               </dl>
+              </div>
+              <div className="right re-stripe">
               <dl>
                 <div>
                   <dt className="moldProperty">Mold Property</dt>
@@ -98,48 +101,66 @@ export const Coverage = ({ policy, policyNumber }) => {
                   <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.calculatedAmount ? `$ ${numbers(deductibles.sinkhole.calculatedAmount)}` : '$ 0'}</dd>
                 </div>
               </dl>
+              </div>
             </section>
             <section className="display-element discount-discharge">
               <h3 className="section-group-header"><i className="fa fa-shopping-cart" /> Discount / Surcharge</h3>
+              <div className="left">
               <dl>
                 <div>
                   <dt className="townhouseRowhouse">Townhouse/Rowhouse</dt>
                   <dd className="townhouseRowhouse">{property.townhouseRowhouse === false ? 'No' : 'Yes'}</dd>
                 </div>
+              </dl>
+              <dl>
                 <div>
                   <dt className="everRented">Property Ever Rented</dt>
                   <dd className="everRented">{everRented}</dd>
                 </div>
+              </dl>
+              <dl>
                 <div>
                   <dt className="monthsOccupied">Seasonally Occupied</dt>
                   <dd className="monthsOccupied">{monthsOcc === '10+' || monthsOcc === '7-9' ? 'No' : 'Yes'}</dd>
                 </div>
+              </dl>
+              <dl>
                 <div>
                   <dt className="noPriorIns">No Prior Insurance</dt>
                   <dd className="noPriorIns">{noPriorIns}</dd>
                 </div>
               </dl>
+            </div>
+            <div className="right">
               <dl>
                 <div>
                   <dt className="burglarAlarm">Burglar Alarm</dt>
                   <dd className="burglarAlarm">{property.burglarAlarm ? 'Yes' : 'No'}</dd>
                 </div>
+              </dl>
+              <dl>
                 <div>
                   <dt className="fireAlarm">Fire Alarm</dt>
                   <dd className="fireAlarm">{property.fireAlarm ? 'Yes' : 'No'}</dd>
                 </div>
+              </dl>
+              <dl>
                 <div>
                   <dt className="sprinkler">Sprinkler</dt>
                   <dd className="sprinkler">{property.sprinkler === 'N' ? 'No' : property.sprinkler}</dd>
                 </div>
+              </dl>
+              <dl>
                 <div>
                   <dt className="windMitFactor">Wind Mit Facor</dt>
                   <dd className="windMitFactor">{windMitFactor}</dd>
                 </div>
               </dl>
+            </div>
             </section>
             <section className="display-element deductibles">
               <h3 className="section-group-header"><i className="fa fa-long-arrow-down" /> Deductible</h3>
+              <div className="left half">
               <dl>
                 <div>
                   <dt className="allOtherPerils">All other Perils</dt>
@@ -158,6 +179,7 @@ export const Coverage = ({ policy, policyNumber }) => {
                   <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.amount ? `${numbers(deductibles.sinkhole.amount)}%` : 'No'}</dd>
                 </div>
               </dl>
+            </div>
             </section>
           </div>
       </div>
