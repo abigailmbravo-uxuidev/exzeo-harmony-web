@@ -1,57 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {normalize} from '@exzeo/core-ui/lib/InputLifecycle/index';
+import { normalize } from '@exzeo/core-ui/lib/InputLifecycle';
 import PolicyTabs from '../Common/PolicyTabs';
 
-const {numbers} = normalize;
+const { numbers } = normalize;
 
-export const Property = ({policy, policyNumber}) => {
-  const {property, rating} = policy;
+export const Property = ({ policy, policyNumber }) => {
+  const { property, rating } = policy;
   return (<React.Fragment>
-    <PolicyTabs activeTab="property" policyNumber={policyNumber}/>
+    <PolicyTabs activeTab="property" policyNumber={policyNumber} />
     <div className="route-content">
       <div className="detail-group property-details">
         <section className="display-element home-and-location">
-          <h3 className="section-group-header"><i className="fa fa-map-marker"/> Home and Location</h3>
+          <h3 className="section-group-header"><i className="fa fa-map-marker" /> Home and Location</h3>
           <div className="left">
-          <dl>
-            <div>
-              <dt className="yearHomeBuilt">Year Home Built</dt>
-              <dd className="yearHomeBuilt">{property.yearBuilt}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="protectionClass">Protection Class</dt>
-              <dd className="protectionClass">{property.protectionClass}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="distToTidalWaters">Dist. to Tidal Waters</dt>
-              <dd className="distToTidalWaters">{numbers(property.distanceToTidalWater)} ft.</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="residenceType">Residence Type</dt>
-              <dd className="residenceType">{property.residenceType}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="construction">Construction</dt>
-              <dd className="construction">{property.constructionType}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="BCEG">BCEG</dt>
-              <dd className="BCEG">{property.buildingCodeEffectivenessGrading}</dd>
-            </div>
-          </dl>
+            <dl>
+              <div>
+                <dt className="yearHomeBuilt">Year Home Built</dt>
+                <dd className="yearHomeBuilt">{property.yearBuilt}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="protectionClass">Protection Class</dt>
+                <dd className="protectionClass">{property.protectionClass}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="distToTidalWaters">Dist. to Tidal Waters</dt>
+                <dd className="distToTidalWaters">{numbers(property.distanceToTidalWater)} ft.</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="residenceType">Residence Type</dt>
+                <dd className="residenceType">{property.residenceType}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="construction">Construction</dt>
+                <dd className="construction">{property.constructionType}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="BCEG">BCEG</dt>
+                <dd className="BCEG">{property.buildingCodeEffectivenessGrading}</dd>
+              </div>
+            </dl>
           </div>
-          <div  className="right">
+          <div className="right">
             <dl>
               <div>
                 <dt className="distToFireHydrant">Dist. to Fire Hydrant</dt>
@@ -96,46 +96,46 @@ export const Property = ({policy, policyNumber}) => {
           </div>
         </section>
         <section className="display-element wind-mit">
-          <h3 className="section-group-header"><i className="fa fa-flag"/> Wind Mitigation</h3>
-          <div  className="left">
-          <dl>
-            <div>
-              <dt className="roofCovering">Roof Covering</dt>
-              <dd className="roofCovering">{property.windMitigation.roofCovering}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="roofGeometry">Roof Geometry</dt>
-              <dd className="roofGeometry">{property.windMitigation.roofGeometry}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="windSpeed">FBC Wind Speed</dt>
-              <dd className="windSpeed">{property.windMitigation.floridaBuildingCodeWindSpeed}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="internalPressureDesign">Internal Pressure Design</dt>
-              <dd className="internalPressureDesign">{property.windMitigation.internalPressureDesign}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="roofDeckAttachment">Roof Deck Attachment</dt>
-              <dd className="roofDeckAttachment">{property.windMitigation.roofDeckAttachment}</dd>
-            </div>
-          </dl>
-          <dl>
-            <div>
-              <dt className="SWR">Secondary Water Resistance (SWR)</dt>
-              <dd className="SWR">{property.windMitigation.secondaryWaterResistance}</dd>
-            </div>
-          </dl>
+          <h3 className="section-group-header"><i className="fa fa-flag" /> Wind Mitigation</h3>
+          <div className="left">
+            <dl>
+              <div>
+                <dt className="roofCovering">Roof Covering</dt>
+                <dd className="roofCovering">{property.windMitigation.roofCovering}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="roofGeometry">Roof Geometry</dt>
+                <dd className="roofGeometry">{property.windMitigation.roofGeometry}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="windSpeed">FBC Wind Speed</dt>
+                <dd className="windSpeed">{property.windMitigation.floridaBuildingCodeWindSpeed}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="internalPressureDesign">Internal Pressure Design</dt>
+                <dd className="internalPressureDesign">{property.windMitigation.internalPressureDesign}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="roofDeckAttachment">Roof Deck Attachment</dt>
+                <dd className="roofDeckAttachment">{property.windMitigation.roofDeckAttachment}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div>
+                <dt className="SWR">Secondary Water Resistance (SWR)</dt>
+                <dd className="SWR">{property.windMitigation.secondaryWaterResistance}</dd>
+              </div>
+            </dl>
           </div>
-          <div  className="right">
+          <div className="right">
             <dl>
               <div>
                 <dt className="windSpeedDesign">FBC Wind Speed Design</dt>

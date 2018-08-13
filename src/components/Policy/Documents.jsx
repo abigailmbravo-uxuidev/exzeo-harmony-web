@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { format } from '@exzeo/core-ui/lib/InputLifecycle/index';
-import { date } from '@exzeo/core-ui/lib/Utilities/index';
+import { format } from '@exzeo/core-ui/lib/InputLifecycle';
+import { date } from '@exzeo/core-ui/lib/Utilities';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';

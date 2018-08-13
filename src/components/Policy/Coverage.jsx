@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { normalize } from '@exzeo/core-ui/lib/InputLifecycle/index';
+import { normalize } from '@exzeo/core-ui/lib/InputLifecycle';
 import PolicyTabs from '../Common/PolicyTabs';
 
 const { numbers } = normalize;
@@ -17,10 +17,10 @@ export const Coverage = ({ policy, policyNumber }) => {
     <React.Fragment>
       <PolicyTabs activeTab="coverage" policyNumber={policyNumber} />
       <div className="route-content coverage">
-          <div className="detail-group property-details">
-            <section className="display-element coverage-limits">
-              <h3 className="section-group-header"><i className="fa fa-line-chart" /> Coverage Limits</h3>
-              <div className="left">
+        <div className="detail-group property-details">
+          <section className="display-element coverage-limits">
+            <h3 className="section-group-header"><i className="fa fa-line-chart" /> Coverage Limits</h3>
+            <div className="left">
               <dl>
                 <div>
                   <dt className="yearHomeBuilt">A. Dwelling</dt>
@@ -63,8 +63,8 @@ export const Coverage = ({ policy, policyNumber }) => {
                   <dd className="yearRoofBuilt">{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
                 </div>
               </dl>
-              </div>
-              <div className="right re-stripe">
+            </div>
+            <div className="right re-stripe">
               <dl>
                 <div>
                   <dt className="moldProperty">Mold Property</dt>
@@ -101,11 +101,11 @@ export const Coverage = ({ policy, policyNumber }) => {
                   <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.calculatedAmount ? `$ ${numbers(deductibles.sinkhole.calculatedAmount)}` : '$ 0'}</dd>
                 </div>
               </dl>
-              </div>
-            </section>
-            <section className="display-element discount-discharge">
-              <h3 className="section-group-header"><i className="fa fa-shopping-cart" /> Discount / Surcharge</h3>
-              <div className="left">
+            </div>
+          </section>
+          <section className="display-element discount-discharge">
+            <h3 className="section-group-header"><i className="fa fa-shopping-cart" /> Discount / Surcharge</h3>
+            <div className="left">
               <dl>
                 <div>
                   <dt className="townhouseRowhouse">Townhouse/Rowhouse</dt>
@@ -157,31 +157,31 @@ export const Coverage = ({ policy, policyNumber }) => {
                 </div>
               </dl>
             </div>
-            </section>
-            <section className="display-element deductibles">
-              <h3 className="section-group-header"><i className="fa fa-long-arrow-down" /> Deductible</h3>
-              <div className="left half">
+          </section>
+          <section className="display-element deductibles">
+            <h3 className="section-group-header"><i className="fa fa-long-arrow-down" /> Deductible</h3>
+            <div className="left half">
               <dl>
                 <div>
                   <dt className="allOtherPerils">All other Perils</dt>
                   <dd className="allOtherPerils">{ `$ ${numbers(deductibles.allOtherPerils.amount)}`}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
+                </div>
+              </dl>
+              <dl>
+                <div>
                   <dt className="hurricane">Hurricane Deductible</dt>
                   <dd className="hurricane">{`${numbers(deductibles.hurricane.amount)}%`}</dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
+                </div>
+              </dl>
+              <dl>
+                <div>
                   <dt className="sinkhole">Sinkhole Deductible</dt>
                   <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.amount ? `${numbers(deductibles.sinkhole.amount)}%` : 'No'}</dd>
                 </div>
               </dl>
             </div>
-            </section>
-          </div>
+          </section>
+        </div>
       </div>
     </React.Fragment>);
 };
