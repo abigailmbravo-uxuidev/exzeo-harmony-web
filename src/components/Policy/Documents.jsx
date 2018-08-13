@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { format } from '@exzeo/core-ui/lib/InputLifecycle/index';
+import { date } from '@exzeo/core-ui/lib/Utilities/index';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';
 
-const { toFileName, toDate } = format;
+const { toFileName } = format;
+const { toLocaleDate } = date;
 
 export class PolicyDocuments extends Component {
   render() {
@@ -35,7 +37,7 @@ export class PolicyDocuments extends Component {
       <React.Fragment>
         <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
         <BootstrapTable className="table-responsive table-striped policy-documents" data={policyDocuments} options={{ sortName: 'createdDate', sortOrder: 'desc' }}>
-          <TableHeaderColumn className="date" columnClassName="date" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={toDate} dataSort >Date</TableHeaderColumn>
+          <TableHeaderColumn className="date" columnClassName="date" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={toLocaleDate} dataSort >Date</TableHeaderColumn>
           <TableHeaderColumn className="document-type" columnClassName="document-type" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
       </React.Fragment>);
