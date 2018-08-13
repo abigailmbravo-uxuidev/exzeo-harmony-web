@@ -22,83 +22,83 @@ export const Coverage = ({ policy, policyNumber }) => {
             <h3 className="section-group-header"><i className="fa fa-line-chart" /> Coverage Limits</h3>
             <div className="left">
               <dl>
-                <div>
-                  <dt className="yearHomeBuilt">A. Dwelling</dt>
-                  <dd className="yearHomeBuilt">{`$ ${numbers(coverageLimits.dwelling.amount)}`}</dd>
+                <div data-test="dwelling">
+                  <dt>A. Dwelling</dt>
+                  <dd>{`$ ${numbers(coverageLimits.dwelling.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="construction">B. Other Structures</dt>
-                  <dd className="construction">{`$ ${numbers(coverageLimits.otherStructures.amount)}`}</dd>
+                <div data-test="construction">
+                  <dt>B. Other Structures</dt>
+                  <dd>{`$ ${numbers(coverageLimits.otherStructures.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="yearRoofBuilt">C. Personal Property</dt>
-                  <dd className="yearRoofBuilt">{`$ ${numbers(coverageLimits.personalProperty.amount)}`}</dd>
+                <div data-test="personalProperty">
+                  <dt>C. Personal Property</dt>
+                  <dd>{`$ ${numbers(coverageLimits.personalProperty.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="yearRoofBuilt">D. Loss of Use</dt>
-                  <dd className="yearRoofBuilt">{`$ ${numbers(coverageLimits.lossOfUse.amount)}`}</dd>
+                <div data-test="lossOfUse">
+                  <dt>D. Loss of Use</dt>
+                  <dd>{`$ ${numbers(coverageLimits.lossOfUse.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="yearRoofBuilt">E. Personal Liability</dt>
-                  <dd className="yearRoofBuilt">{`$ ${numbers(coverageLimits.personalLiability.amount)}`}</dd>
+                <div data-test="personalLiability">
+                  <dt>E. Personal Liability</dt>
+                  <dd>{`$ ${numbers(coverageLimits.personalLiability.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="yearRoofBuilt">F. Medical Payments</dt>
-                  <dd className="yearRoofBuilt">{ `$ ${numbers(coverageLimits.medicalPayments.amount)}`}</dd>
+                <div data-test="medicalPayments">
+                  <dt>F. Medical Payments</dt>
+                  <dd>{ `$ ${numbers(coverageLimits.medicalPayments.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="yearRoofBuilt">Personal Property Replacement Cost</dt>
-                  <dd className="yearRoofBuilt">{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
+                <div data-test="personalPropertyReplacementCost">
+                  <dt>Personal Property Replacement Cost</dt>
+                  <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
                 </div>
               </dl>
             </div>
             <div className="right re-stripe">
               <dl>
-                <div>
-                  <dt className="moldProperty">Mold Property</dt>
-                  <dd className="moldProperty">{`$ ${numbers(coverageLimits.moldProperty.amount)}`}</dd>
+                <div data-test="moldProperty">
+                  <dt>Mold Property</dt>
+                  <dd>{`$ ${numbers(coverageLimits.moldProperty.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="moldLiability">Mold Liability</dt>
-                  <dd className="moldLiability">{`$ ${numbers(coverageLimits.moldLiability.amount)}`}</dd>
+                <div data-test="moldLiability">
+                  <dt>Mold Liability</dt>
+                  <dd>{`$ ${numbers(coverageLimits.moldLiability.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="ordinanceOrLaw">Ordinance or Law</dt>
-                  <dd className="ordinanceOrLaw">{`${coverageLimits.ordinanceOrLaw.amount}%`}</dd>
+                <div data-test="ordinanceOrLaw">
+                  <dt>Ordinance or Law</dt>
+                  <dd>{`${coverageLimits.ordinanceOrLaw.amount}%`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="allOtherPerils">All other Perils Deductible</dt>
-                  <dd className="allOtherPerils">{ `$ ${numbers(deductibles.allOtherPerils.amount)}`}</dd>
+                <div data-test="allOtherPerils-coverageLimits">
+                  <dt>All other Perils Deductible</dt>
+                  <dd>{ `$ ${numbers(deductibles.allOtherPerils.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="hurricane">Hurricane Deductible</dt>
-                  <dd className="hurricane">{`$ ${numbers(deductibles.hurricane.calculatedAmount)}`}</dd>
+                <div data-test="hurricane-coverageLimits">
+                  <dt>Hurricane Deductible</dt>
+                  <dd>{`$ ${numbers(deductibles.hurricane.calculatedAmount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="sinkhole">Sinkhole Deductible</dt>
-                  <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.calculatedAmount ? `$ ${numbers(deductibles.sinkhole.calculatedAmount)}` : '$ 0'}</dd>
+                <div data-test="sinkhole-coverageLimits">
+                  <dt>Sinkhole Deductible</dt>
+                  <dd>{deductibles.sinkhole && deductibles.sinkhole.calculatedAmount ? `$ ${numbers(deductibles.sinkhole.calculatedAmount)}` : '$ 0'}</dd>
                 </div>
               </dl>
             </div>
@@ -107,53 +107,53 @@ export const Coverage = ({ policy, policyNumber }) => {
             <h3 className="section-group-header"><i className="fa fa-shopping-cart" /> Discount / Surcharge</h3>
             <div className="left">
               <dl>
-                <div>
-                  <dt className="townhouseRowhouse">Townhouse/Rowhouse</dt>
-                  <dd className="townhouseRowhouse">{property.townhouseRowhouse === false ? 'No' : 'Yes'}</dd>
+                <div data-test="townhouseRowhouse">
+                  <dt>Townhouse/Rowhouse</dt>
+                  <dd>{property.townhouseRowhouse === false ? 'No' : 'Yes'}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="everRented">Property Ever Rented</dt>
-                  <dd className="everRented">{everRented}</dd>
+                <div data-test="everRented">
+                  <dt>Property Ever Rented</dt>
+                  <dd>{everRented}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="monthsOccupied">Seasonally Occupied</dt>
-                  <dd className="monthsOccupied">{monthsOcc === '10+' || monthsOcc === '7-9' ? 'No' : 'Yes'}</dd>
+                <div data-test="monthsOccupied">
+                  <dt>Seasonally Occupied</dt>
+                  <dd>{monthsOcc === '10+' || monthsOcc === '7-9' ? 'No' : 'Yes'}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="noPriorIns">No Prior Insurance</dt>
-                  <dd className="noPriorIns">{noPriorIns}</dd>
+                <div data-test="noPriorInsurance">
+                  <dt>No Prior Insurance</dt>
+                  <dd>{noPriorIns}</dd>
                 </div>
               </dl>
             </div>
             <div className="right">
               <dl>
-                <div>
-                  <dt className="burglarAlarm">Burglar Alarm</dt>
-                  <dd className="burglarAlarm">{property.burglarAlarm ? 'Yes' : 'No'}</dd>
+                <div data-test="burglarAlarm">
+                  <dt>Burglar Alarm</dt>
+                  <dd>{property.burglarAlarm ? 'Yes' : 'No'}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="fireAlarm">Fire Alarm</dt>
-                  <dd className="fireAlarm">{property.fireAlarm ? 'Yes' : 'No'}</dd>
+                <div data-test="fireAlarm">
+                  <dt>Fire Alarm</dt>
+                  <dd>{property.fireAlarm ? 'Yes' : 'No'}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="sprinkler">Sprinkler</dt>
-                  <dd className="sprinkler">{property.sprinkler === 'N' ? 'No' : property.sprinkler}</dd>
+                <div data-test="sprinkler">
+                  <dt>Sprinkler</dt>
+                  <dd>{property.sprinkler === 'N' ? 'No' : property.sprinkler}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="windMitFactor">Wind Mit Facor</dt>
-                  <dd className="windMitFactor">{windMitFactor}</dd>
+                <div data-test="windMitFactor">
+                  <dt>Wind Mit Facor</dt>
+                  <dd>{windMitFactor}</dd>
                 </div>
               </dl>
             </div>
@@ -162,21 +162,21 @@ export const Coverage = ({ policy, policyNumber }) => {
             <h3 className="section-group-header"><i className="fa fa-long-arrow-down" /> Deductible</h3>
             <div className="left half">
               <dl>
-                <div>
-                  <dt className="allOtherPerils">All other Perils</dt>
-                  <dd className="allOtherPerils">{ `$ ${numbers(deductibles.allOtherPerils.amount)}`}</dd>
+                <div data-test="allOtherPerils-deductibles">
+                  <dt>All other Perils</dt>
+                  <dd>{ `$ ${numbers(deductibles.allOtherPerils.amount)}`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="hurricane">Hurricane Deductible</dt>
-                  <dd className="hurricane">{`${numbers(deductibles.hurricane.amount)}%`}</dd>
+                <div data-test="hurricane-deductibles">
+                  <dt>Hurricane Deductible</dt>
+                  <dd>{`${numbers(deductibles.hurricane.amount)}%`}</dd>
                 </div>
               </dl>
               <dl>
-                <div>
-                  <dt className="sinkhole">Sinkhole Deductible</dt>
-                  <dd className="sinkhole">{deductibles.sinkhole && deductibles.sinkhole.amount ? `${numbers(deductibles.sinkhole.amount)}%` : 'No'}</dd>
+                <div data-test="sinkhole-deductibles">
+                  <dt>Sinkhole Deductible</dt>
+                  <dd>{deductibles.sinkhole && deductibles.sinkhole.amount ? `${numbers(deductibles.sinkhole.amount)}%` : 'No'}</dd>
                 </div>
               </dl>
             </div>
