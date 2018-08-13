@@ -34,9 +34,9 @@ export class PolicyDocuments extends Component {
     return (
       <React.Fragment>
         <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
-        <BootstrapTable className="table-responsive table-striped" data={policyDocuments}>
-          <TableHeaderColumn width="50%" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={toDate}>Date</TableHeaderColumn>
-          <TableHeaderColumn width="50%" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
+        <BootstrapTable className="table-responsive table-striped policy-documents" data={policyDocuments}>
+          <TableHeaderColumn className="date" columnClassName="date" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={toDate}>Date</TableHeaderColumn>
+          <TableHeaderColumn className="document-type" columnClassName="document-type" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
       </React.Fragment>);
   }
