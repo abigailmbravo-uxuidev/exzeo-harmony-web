@@ -408,6 +408,11 @@
       font-size: $font-size-sm;
       font-weight: $font-weight-bold;
       @include button-variant($cool-gray-07, $btn-link-bg, $btn-link-border);
+      @include for-phone-only {
+        > span {
+          display: none;
+        }
+      }
 
       i {
         flex-grow: 0;
