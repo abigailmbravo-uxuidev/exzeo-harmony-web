@@ -160,9 +160,8 @@ export const handleInitialize = (state) => {
     }
   });
 
-  if (_.trim(values.m2Name1)) {
-    values.isAdditional2 = true;
-  }
+  if (_.trim(values.m2Name1)) { values.isAdditional2 = true; }
+  if (_.trim(values.m3Name1)) { values.isAdditional3 = true; }
   values.isAdditional = true;
 
   return values;

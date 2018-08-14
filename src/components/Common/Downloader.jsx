@@ -7,14 +7,21 @@ export const downloadFile = (fileUrl, fileName, errorHandler) => {
 
   return axios.get(proxyUrl, { responseType: 'blob', params })
     .then((response) => {
-      const blobUrl = window.URL.createObjectURL(response.data);
-      const link = window.document.createElement('a');
-      link.href = blobUrl;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      return true;
+
+      if(window.navigator && window.navigator.msSaveOrOpenBlob){
+        window.navigator.msSaveOrOpenBlob(response.data, fileName);
+        return true;
+      }
+      else {
+        const blobUrl = window.URL.createObjectURL(response.data);
+        const link = window.document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        return true;
+      }
     })
     .catch(err => errorHandler({ message: err.response.statusText }));
 };

@@ -6,17 +6,15 @@ import { propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-import SearchBar from './SearchBar';
+import PolicySearchBar from './PolicySearchBar';
 import SearchResults from './SearchResults';
-import NoResultsConnect from './NoResults';
 
 export const SearchPolicy = props => (
   <div className="flex grow">
     <div className="search route-content">
-      <SearchBar />
+      <PolicySearchBar />
       <div className="survey-wrapper">
         <div className="results-wrapper">
-          <NoResultsConnect />
           <SearchResults />
         </div>
         <Footer />
