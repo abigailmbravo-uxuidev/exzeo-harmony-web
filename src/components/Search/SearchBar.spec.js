@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { handleSearchBarSubmit, validate, changePageQuote, changePagePolicy, handlePolicySearchSubmit } from './SearchBar';
+import ConnectedApp, { handleSearchBarSubmit, validate, changePageQuote } from './SearchBar';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -262,21 +262,7 @@ describe('Testing SearchBar component', () => {
       },
       ...propTypes
     };
-
-    changePagePolicy(props, false);
-    changePagePolicy(props, true);
-
     changePageQuote(props, false);
     changePageQuote(props, true);
-
-    handlePolicySearchSubmit({
-      firstName: '',
-      lastName: '',
-      address: '',
-      policyNumber: '',
-      searchType: 'policy',
-      isLoading: true,
-      hasSearched: true,
-      page: 1 }, props.dispatch, props);
   });
 });
