@@ -152,7 +152,7 @@ export const Coverage = ({ policy, policyNumber }) => {
               </dl>
               <dl>
                 <div data-test="windMitFactor">
-                  <dt>Wind Mit Facor</dt>
+                  <dt>Wind Mit Factor</dt>
                   <dd>{windMitFactor}</dd>
                 </div>
               </dl>
