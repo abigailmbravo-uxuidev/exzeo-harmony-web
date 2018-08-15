@@ -1,5 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import { format } from '@exzeo/core-ui/lib/InputLifecycle';
+
+const { toFileName } = format;
 
 export const downloadFile = (fileUrl, fileName, errorHandler) => {
   const proxyUrl = `${process.env.REACT_APP_API_URL}/download`;
@@ -29,7 +32,7 @@ export const downloadFile = (fileUrl, fileName, errorHandler) => {
 const Downloader = (props) => {
   const { fileName, fileUrl, errorHandler } = props;
   return (
-    <div className="btn btn-link" onClick={() => downloadFile(fileUrl, fileName, errorHandler)}>{ fileName }</div>
+    <div className="btn btn-link" onClick={() => downloadFile(fileUrl, fileName, errorHandler)}>{ toFileName(fileName) }</div>
   );
 };
 

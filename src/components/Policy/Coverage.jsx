@@ -28,7 +28,7 @@ export const Coverage = ({ policy, policyNumber }) => {
                 </div>
               </dl>
               <dl>
-                <div data-test="construction">
+                <div data-test="otherStructures">
                   <dt>B. Other Structures</dt>
                   <dd>{`$ ${numbers(coverageLimits.otherStructures.amount)}`}</dd>
                 </div>
