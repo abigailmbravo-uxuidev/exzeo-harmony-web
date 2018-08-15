@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PolicyTabs from '../Common/PolicyTabs';
-import normalizePhone from '../Form/normalizePhone';
+import AgentCard from '../Common/AgentCard';
+import PolicyHolderCard from '../Common/PolicyHolderCard';
 
 export const PolicyHolder = ({ policy, policyNumber, agents }) => {
   const { policyHolderMailingAddress } = policy;
@@ -9,47 +10,25 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
     <React.Fragment>
       <PolicyTabs activeTab="policyHolder" policyNumber={policyNumber} />
       <div className="route-content verify">
-          {/* Start Policyholders */}
-          <div className="detail-group policyholder-details">
-            {policy.policyHolders &&
-               policy.policyHolders.map((policyHolder, index) => (
-                 <React.Fragment key={index}>
-                 <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder {index + 1}</h3>
-                 <section className="display-element policy-holder">
-                  <dl>
-                    <div>
-                      <dt className="policyholderName">Policyholder Name</dt>
-                      <dd className="policyholderName">{policyHolder.firstName} {policyHolder.lastName}</dd>
-                    </div>
-                    <div>
-                      <dt className="policyholderPhone">Phone</dt>
-                      <dd className="policyholderPhone">{normalizePhone(policyHolder.primaryPhoneNumber)}</dd>
-                    </div>
-                    { policyHolder.secondaryPhoneNumber &&
-                      <div>
-                        <dt className="policyholderPhone">Phone</dt>
-                        <dd className="policyholderPhone">{normalizePhone(policyHolder.secondaryPhoneNumber)}</dd>
-                      </div>
-                    }
-                    <div>
-                      <dt className="policyholderEmail">Email</dt>
-                      <dd className="policyholderEmail">{policyHolder.emailAddress}</dd>
-                    </div>
-                  </dl>
-                  {index === 0 &&
-                  <dl>
-                    <div>
-                      <dt className="policyHolderMailingAddress">Mailing Address</dt>
-                      <dd className="policyHolderMailingAddress">{`${policyHolderMailingAddress.address1} ${policyHolderMailingAddress.address2 ? policyHolderMailingAddress.address2 : ''}
-                ${policyHolderMailingAddress.city}, ${policyHolderMailingAddress.state} ${policyHolderMailingAddress.zip}`}</dd>
-                    </div>
-                  </dl>
-                  }
-                </section>
-                </React.Fragment>
+        {/* Start Policyholders */}
+        <div className="detail-group policyholder-details">
+          {policy.policyHolders && policy.policyHolders.map((policyHolder, index) => (
+            <PolicyHolderCard policyHolder={policyHolder} policyHolderMailingAddress={policyHolderMailingAddress} index={policyHolder._id} phIndex={index} />
+           ))}
+        </div>
+        {/* End Policyholders */}
+        {/* Start Agent */}
+        <div className="detail-group policyholder-details">
+          <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Agent</h3>
+          <section className="display-element">
+            <div className="contact-card-wrapper">
+              {(agents && agents.filter(a => a.agentCode === policy.agentCode).map(agent =>
+                <AgentCard agent={agent} index={agent.agentCode} />
               ))}
-          </div>
-          {/* End Policyholders */}
+            </div>
+          </section>
+        </div>
+        {/* End Agent */}
       </div>
     </React.Fragment>);
 };
