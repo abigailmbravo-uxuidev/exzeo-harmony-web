@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { format } from '@exzeo/core-ui/lib/InputLifecycle';
 import { date } from '@exzeo/core-ui/lib/Utilities';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';
 
-const { toFileName } = format;
 const { toLocaleDate } = date;
 
 export class PolicyDocuments extends Component {
@@ -17,7 +15,7 @@ export class PolicyDocuments extends Component {
       <span>
         { attachments.map((attachment, i) =>
           <Downloader
-            fileName={toFileName(attachment.fileName)}
+            fileName={(attachment.fileName)}
             fileUrl={attachment.fileUrl}
             fileType={attachment.fileType}
             errorHandler={err => setAppModalErrorAction(err.message)}
