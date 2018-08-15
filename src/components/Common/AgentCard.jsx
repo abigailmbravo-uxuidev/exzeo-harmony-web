@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import normalizePhone from '../Form/normalizePhone';
 
 const AgentCard = ({ agent }) => (
-  <React.Fragment>
-    <section className="display-element agent">
-      <dl>
+  <section className="display-element agent">
+    <dl>
         <div>
           <dt className="agentName">Agent Name</dt>
           <dd className="agentName">{agent.firstName} {agent.lastName}</dd>
@@ -25,15 +24,14 @@ const AgentCard = ({ agent }) => (
           <dd className="agentEmail">{agent.emailAddress}</dd>
         </div>
       </dl>
-      <dl>
+    <dl>
         <div>
           <dt className="agentMailingAddress">Mailing Address</dt>
           <dd className="agentMailingAddress">{`${agent.mailingAddress.address1} ${agent.mailingAddress.address2 ? agent.mailingAddress.address2 : ''}
 ${agent.mailingAddress.city}, ${agent.mailingAddress.state} ${agent.mailingAddress.zip}`}</dd>
         </div>
       </dl>
-    </section>
-  </React.Fragment>
+  </section>
 );
 
 
