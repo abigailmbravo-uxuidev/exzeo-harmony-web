@@ -18,15 +18,11 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
         </div>
         {/* End Policyholders */}
         {/* Start Agent */}
-        <div className="detail-group policyholder-details">
+        <div className="detail-group agent-details">
           <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Agent</h3>
-          <section className="display-element">
-            <div className="contact-card-wrapper">
-              {(agents && agents.filter(a => a.agentCode === policy.agentCode).map(agent =>
-                <AgentCard agent={agent} index={agent.agentCode} />
+          {(agents && agents.filter(a => a.agentCode === policy.agentCode).map(agent =>
+            <AgentCard agent={agent} index={agent.agentCode} />
               ))}
-            </div>
-          </section>
         </div>
         {/* End Agent */}
       </div>
