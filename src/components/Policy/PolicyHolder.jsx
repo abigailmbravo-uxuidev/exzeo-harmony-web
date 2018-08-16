@@ -19,7 +19,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
         {/* End Policyholders */}
         {/* Start Agent */}
         <div className="detail-group agent-details">
-          <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Agent</h3>
+          <h3 data-test-="agentHeader" className="section-group-header"><i className="fa fa-vcard-o" /> Agent</h3>
           {(agents && agents.filter(a => a.agentCode === policy.agentCode).map(agent =>
             <AgentCard agent={agent} index={agent.agentCode} />
               ))}
