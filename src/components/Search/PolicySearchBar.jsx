@@ -150,7 +150,7 @@ export class PolicySearchBar extends Component {
 
           {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
           {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
-          {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
+          {generateField('address', 'Property Search Address Search', 'Property Search Address', formErrors, 'property-search', false)}
           {generateField('policyNumber', 'Policy No Search', 'Policy Number', formErrors, 'policy-no-search', false)}
           <button
             tabIndex="0"

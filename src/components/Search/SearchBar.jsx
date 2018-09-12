@@ -178,7 +178,7 @@ export class SearchForm extends Component {
           <div className="search-input-wrapper retrieve-quote-wrapper">
             {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
             {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
-            {generateField('address', 'Property Address Search', 'Property Address', formErrors, 'property-search', false)}
+            {generateField('address', 'Property Search Address Search', 'Property Search Address', formErrors, 'property-search', false)}
             {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search', false)}
             <button
               tabIndex="0"
