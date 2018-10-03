@@ -388,7 +388,7 @@ describe('Service Actions', () => {
       data: {
         service: 'policy-data',
         method: 'GET',
-        path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&active=true&page=1&pageSize=25&sort=policyNumber&sortDirection=desc'
+        path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&page=1&pageSize=25&sort=policyNumber&sortDirection=desc'
       }
     };
 

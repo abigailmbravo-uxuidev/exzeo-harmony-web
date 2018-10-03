@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { format } from '@exzeo/core-ui/lib/InputLifecycle';
+import { format } from '@exzeo/core-ui';
 
 const { toFileName } = format;
 
@@ -10,12 +10,10 @@ export const downloadFile = (fileUrl, fileName, errorHandler) => {
 
   return axios.get(proxyUrl, { responseType: 'blob', params })
     .then((response) => {
-
-      if(window.navigator && window.navigator.msSaveOrOpenBlob){
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(response.data, fileName);
         return true;
-      }
-      else {
+      } else {
         const blobUrl = window.URL.createObjectURL(response.data);
         const link = window.document.createElement('a');
         link.href = blobUrl;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { date } from '@exzeo/core-ui/lib/Utilities';
+import { date } from '@exzeo/core-ui';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import Downloader from '../Common/Downloader';
 import PolicyTabs from '../Common/PolicyTabs';
