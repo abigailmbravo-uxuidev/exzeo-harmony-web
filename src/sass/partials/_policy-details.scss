@@ -9,6 +9,7 @@
     }
   }
 
+  .agent-details,
   .policyholder-details,
   .property-details {
     section {
@@ -19,7 +20,8 @@
           border-bottom-width: 0;
         }
 
-        &.policy-holder {
+        &.agent,
+        &.policy-holder, {
           margin-bottom: $padding*2;
 
           dl {
