@@ -9,6 +9,7 @@ import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
 import PropertyView from '../Policy/Property';
 import CoverageView from '../Policy/Coverage';
+import BillingView from '../Policy/Billing';
 import Loader from '../Common/Loader';
 import Footer from '../Common/Footer';
 
@@ -33,14 +34,26 @@ export class PolicyWorkflow extends Component {
     const {
       auth,
       match: { params: { policyNumber }, url },
+      billing,
       policy,
       agents,
       policyDocuments,
       setAppModalErrorAction
     } = this.props;
 
-    if (!(policy && policy.policyID)) {
+    if (!(policy && policy.policyID) || !billing) {
       return (<Loader />);
+    }
+
+    if (policy && billing) {
+      let billToName;
+      if (billing.billToType === 'Additional Interest') {
+        billToName = policy.additionalInterests.find(p => policy.billToId === p._id);
+      }
+        ? 
+        : policy.policyHolders.find(p => policy.billToId === p._id).firstName;
+
+      console.log(lookup)
     }
     return (
       <div className="route policy-detail">
@@ -51,6 +64,7 @@ export class PolicyWorkflow extends Component {
               <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
               <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
               <Route exact path={`${url}/property`} render={() => <PropertyView auth={auth} policyNumber={policyNumber} policy={policy} />} />
+              <Route exact path={`${url}/billing`} render={() => <BillingView auth={auth} policyNumber={policyNumber} policy={policy} billing={billing} />} />
               <Route exact path={`${url}/coverage`} render={() => <CoverageView auth={auth} policyNumber={policyNumber} policy={policy} />} />
             </div>
           </div>
@@ -78,6 +92,7 @@ PolicyWorkflow.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  billing: state.service.getSummaryLedger,
   policy: state.service.latestPolicy,
   agents: state.service.agents,
   policyDocuments: state.service.policyDocuments || []
