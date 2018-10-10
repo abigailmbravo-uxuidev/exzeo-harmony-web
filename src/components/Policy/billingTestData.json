@@ -1,0 +1,77 @@
+{
+  "_id": "test",
+  "createdBy": {
+    "userId": "test",
+    "userName": "test"
+  },
+  "updatedBy": {
+    "userId": "test",
+    "userName": "test"
+  },
+  "companyCode": "TTIC",
+  "state": "FL",
+  "product": "HO3",
+  "policyNumber": "test01",
+  "policyTerm": 1,
+  "policyAccountCode": 10000,
+  "effectiveDate": "2018-11-23T05:00:00.000Z",
+  "cashNeeded": {
+    "$numberDecimal": "911.00"
+  },
+  "cashReceived": {
+    "$numberDecimal": "200.00"
+  },
+  "balance": {
+    "$numberDecimal": "711.00"
+  },
+  "initialPremium": 889,
+  "currentPremium": 889,
+  "sumOfEndorsements": 0,
+  "fullyEarnedFees": 27,
+  "equityDate": "2019-01-25T05:00:00.000Z",
+  "paymentPlanFees": 22,
+  "billToId": "DFBDFBDF1",
+  "billPlan": "Quarterly",
+  "billToType": "Policyholder",
+  "invoiceDate": "2018-12-16T05:00:00.000Z",
+  "invoiceDueDate": "2018-11-23T05:00:00.000Z",
+  "nonPaymentNoticeDate": "2019-01-05T05:00:00.000Z",
+  "nonPaymentNoticeDueDate": "2019-01-25T05:00:00.000Z",
+  "refundWriteOffDate": null,
+  "nextActionNeeded": "Send Payment Invoice",
+  "nextActionDate": "2018-12-16T05:00:00.000Z",
+  "noticeAmountDue": {
+    "$numberDecimal": "186.00"
+  },
+  "__v": 0,
+  "invoice": {
+    "quarterly": {
+      "q4": {
+        "dueDate": "2019-08-20T04:00:00.000Z",
+        "amount": 175,
+        "invoiceDate": "2019-07-06T04:00:00.000Z"
+      },
+      "q3": {
+        "dueDate": "2019-05-22T04:00:00.000Z",
+        "amount": 175,
+        "invoiceDate": "2019-04-07T04:00:00.000Z"
+      },
+      "q2": {
+        "dueDate": "2019-02-21T05:00:00.000Z",
+        "amount": 175,
+        "invoiceDate": "2019-01-07T05:00:00.000Z"
+      },
+      "q1": {
+        "dueDate": "2018-11-23T05:00:00.000Z",
+        "amount": 386,
+        "invoiceDate": "2018-10-09T04:00:00.000Z"
+      }
+    }
+  },
+  "status": {
+    "code": 3,
+    "displayText": "Partial Payment Received"
+  },
+  "updatedAt": "2018-10-09T15:44:32.706Z",
+  "createdAt": "2018-10-09T15:44:32.706Z"
+}
