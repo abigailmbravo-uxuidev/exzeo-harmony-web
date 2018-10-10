@@ -18,64 +18,61 @@ export const Billing = ({ policy, policyNumber, billing }) => {
       <PolicyTabs activeTab="billing" policyNumber={policyNumber} />
       <div className="route-content">
         <div className="detail-group policy-details">
-          <section className="display-element premium" >
+
+          <section className="display-element premium left">
             <h3 className="section-group-header"><i className="fa fa-area-chart" /> Premium</h3>
-            <div className="left">
-              <dl>
-                <div data-test="currentPremium">
-                  <dt>Current Premium</dt>
-                  <dd>$ {billing.currentPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div data-test="initialPremium">
-                  <dt>Initial Premium</dt>
-                  <dd>$ {billing.initialPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div data-test="balanceDue">
-                  <dt>Balance Due</dt>
-                  <dd>$ {billing.balance.$numberDecimal}</dd>
-                </div>
-              </dl>
-            </div>
+            <dl>
+              <div data-test="currentPremium">
+                <dt>Current Premium</dt>
+                <dd>$ {billing.currentPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div data-test="initialPremium">
+                <dt>Initial Premium</dt>
+                <dd>$ {billing.initialPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div data-test="balanceDue">
+                <dt>Balance Due</dt>
+                <dd>$ {billing.balance.$numberDecimal}</dd>
+              </div>
+            </dl>
           </section>
-          <section className="display-element home-and-location">
+          <section className="display-element billing-information right">
             <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
-            <div className="left">
-              <dl>
-                <div data-test="nextPayment">
-                  <dt>Next Payment</dt>
-                  <dd>$ {billing.noticeAmountDue.$numberDecimal}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div data-test="paymentDue">
-                  <dt>Payment Due</dt>
-                  <dd>{moment.utc(billing.invoiceDueDate).format('MM/DD/YYYY')}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div data-test="billPlan">
-                  <dt>Bill Plan</dt>
-                  <dd>{billing.billPlan}</dd>
-                </div>
-              </dl>
-              <dl>
-                <div data-test="billTo">
-                  <dt>Bill To</dt>
-                  <dd>{billing.billToName}</dd>
-                </div>
-              </dl>
-            </div>
+            <dl>
+              <div data-test="nextPayment">
+                <dt>Next Payment</dt>
+                <dd>$ {billing.noticeAmountDue.$numberDecimal}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div data-test="paymentDue">
+                <dt>Payment Due</dt>
+                <dd>{moment.utc(billing.invoiceDueDate).format('MM/DD/YYYY')}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div data-test="billPlan">
+                <dt>Bill Plan</dt>
+                <dd>{billing.billPlan}</dd>
+              </div>
+            </dl>
+            <dl>
+              <div data-test="billTo">
+                <dt>Bill To</dt>
+                <dd>{billing.billToName}</dd>
+              </div>
+            </dl>
           </section>
-          <section className="display-element">
+          <section className="display-element payments">
             <h3 className="section-group-header"><i className="fa fa-credit-card" /> Payments</h3>
-            <div className="left">
+            <div className="">
               <PaymentHistoryTable paymentHistory={billing.payments} />
             </div>
-            <div>
+            <div className="payments-received">
               <h4>Payments Received: $ {billing.cashReceived.$numberDecimal}</h4>
             </div>
           </section>

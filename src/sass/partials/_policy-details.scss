@@ -9,10 +9,9 @@
     }
   }
 
-  .agent-details,
+  .policy-details,
   .policyholder-details,
-  .property-details,
-  .policy-details {
+  .property-details {
     section {
       &.display-element {
         border-bottom: 1px dashed $cool-gray-02;
@@ -38,12 +37,13 @@
           }
         }
 
+        &.billing-information,
         &.coverage-limits,
         &.deductibles,
         &.discount-discharge,
         &.home-and-location,
-        &.wind-mit,
-        &.premium {
+        &.premium,
+        &.wind-mit {
           display: flex;
           flex-wrap: wrap;
           margin-bottom: $padding*2;
@@ -51,6 +51,15 @@
           > div {
             width: calc(50% - .5rem);
             margin-bottom: $padding*2;
+            
+            &.left {
+              margin-right: $padding;
+            }
+
+            &.right {
+              margin-left: $padding;
+            }
+
             @include for-phone-only {
               width: 100%;
               margin-bottom: 0;
@@ -76,14 +85,6 @@
                 }
               }
             }
-
-            &.left {
-              margin-right: $padding;
-            }
-
-            &.right {
-              margin-left: $padding;
-            }
           }
 
           dl {
@@ -106,6 +107,54 @@
               }
             }
           }
+        }
+      }
+    }
+  }
+
+  .policy-details {
+    display: flex;
+    flex-wrap: wrap;
+
+    .display-element {
+
+      &.payments {
+        width: 100%;
+
+        .payments-received {
+          h4 {
+            padding-right: $padding;
+            text-align: right;
+          }
+        }
+      }
+
+      &.left,
+      &.right {
+        flex-direction: column;
+        width: 50%;
+
+        h3 {
+          flex-grow: 0;
+          flex-shrink: 0;
+        }
+      }
+
+      &.left {
+        padding-right: $padding;
+        padding-bottom: 1rem;
+      }
+
+      &.right {
+        padding-bottom: 1rem;
+        padding-left: $padding;
+      }
+
+      @include for-phone-only {
+        &.left,
+        &.right {
+          width: 100%;
+          padding: 0 0 1rem;
         }
       }
     }
