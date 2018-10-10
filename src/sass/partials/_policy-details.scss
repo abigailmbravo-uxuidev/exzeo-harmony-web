@@ -10,7 +10,8 @@
   }
 
   .policyholder-details,
-  .property-details {
+  .property-details,
+  .policy-details {
     section {
       &.display-element {
         border-bottom: 1px dashed $cool-gray-02;
@@ -39,7 +40,8 @@
         &.deductibles,
         &.discount-discharge,
         &.home-and-location,
-        &.wind-mit {
+        &.wind-mit,
+        &.premium {
           display: flex;
           flex-wrap: wrap;
           margin-bottom: $padding*2;
