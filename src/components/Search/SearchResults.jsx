@@ -44,7 +44,7 @@ export const SearchResults = (props) => {
                   <span className="effctive-date">Effective Date</span>
                 </li>
                 <li>
-                  <Link to={{ pathname: `/policy/${policy.policyNumber}/documents` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
+                  <Link to={{ pathname: `/policy/${policy.policyNumber}/policyHolder` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
                     <span className="quote-no">{policy.policyNumber}</span>
                     <span className="property-address">{
                   `${policy.property.physicalAddress.address1}
