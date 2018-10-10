@@ -17,8 +17,8 @@ export const Billing = ({ policy, policyNumber, billing }) => {
     <React.Fragment>
       <PolicyTabs activeTab="billing" policyNumber={policyNumber} />
       <div className="route-content">
-        <div className="detail-group property-details">
-          <section className="display-element home-and-location" >
+        <div className="detail-group policy-details">
+          <section className="display-element premium" >
             <h3 className="section-group-header"><i className="fa fa-area-chart" /> Premium</h3>
             <div className="left">
               <dl>
