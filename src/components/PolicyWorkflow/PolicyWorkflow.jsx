@@ -45,16 +45,6 @@ export class PolicyWorkflow extends Component {
       return (<Loader />);
     }
 
-    if (policy && billing) {
-      let billToName;
-      if (billing.billToType === 'Additional Interest') {
-        billToName = policy.additionalInterests.find(p => policy.billToId === p._id);
-      }
-        ? 
-        : policy.policyHolders.find(p => policy.billToId === p._id).firstName;
-
-      console.log(lookup)
-    }
     return (
       <div className="route policy-detail">
         <PolicyWorkFlowDetailsConnect policyNumber={policyNumber} />
@@ -70,7 +60,8 @@ export class PolicyWorkflow extends Component {
           </div>
         </div>
         <Footer />
-      </div>);
+      </div>
+    );
   }
 }
 

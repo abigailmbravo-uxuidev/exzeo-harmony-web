@@ -287,7 +287,7 @@ const policyTestData = {
   },
   policyHolders: [
     {
-      id: 'DFBDFBDF1',
+      _id: 'DFBDFBDF1',
       order: 1,
       entityType: 'Person',
       firstName: 'Bryan1',

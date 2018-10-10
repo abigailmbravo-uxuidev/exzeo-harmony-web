@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { normalize } from '@exzeo/core-ui';
+import moment from 'moment';
 import PolicyTabs from '../Common/PolicyTabs';
-
-const { numbers } = normalize;
+import PaymentHistoryTable from './PaymentHistoryTable';
 
 export const Billing = ({ policy, policyNumber, billing }) => {
-  const { property, rating } = policy;
+  if (billing.billToType === 'Additional Interest') {
+    const ai = policy.additionalInterests.find(p => billing.billToId === p._id);
+    billing.billToName = `${ai.type}: ${ai.name1} ${ai.name2}`;
+  } else {
+    const ph = policy.policyHolders.find(p => billing.billToId === p._id);
+    billing.billToName = `Policyholder: ${ph.firstName} ${ph.lastName}`;
+  }
+
   return (
     <React.Fragment>
-      <PolicyTabs activeTab="property" policyNumber={policyNumber} />
+      <PolicyTabs activeTab="billing" policyNumber={policyNumber} />
       <div className="route-content">
         <div className="detail-group property-details">
           <section className="display-element home-and-location" >
@@ -18,19 +24,19 @@ export const Billing = ({ policy, policyNumber, billing }) => {
               <dl>
                 <div data-test="currentPremium">
                   <dt>Current Premium</dt>
-                  <dd>{billing.currentPremium}</dd>
+                  <dd>$ {billing.currentPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
                 </div>
               </dl>
               <dl>
                 <div data-test="initialPremium">
                   <dt>Initial Premium</dt>
-                  <dd>{billing.initialPremium}</dd>
+                  <dd>$ {billing.initialPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
                 </div>
               </dl>
               <dl>
                 <div data-test="balanceDue">
                   <dt>Balance Due</dt>
-                  <dd>{billing.balance.$numberDecimal}}</dd>
+                  <dd>$ {billing.balance.$numberDecimal}</dd>
                 </div>
               </dl>
             </div>
@@ -41,13 +47,13 @@ export const Billing = ({ policy, policyNumber, billing }) => {
               <dl>
                 <div data-test="nextPayment">
                   <dt>Next Payment</dt>
-                  <dd>{billing.noticeAmountDue.$numberDecimal}</dd>
+                  <dd>$ {billing.noticeAmountDue.$numberDecimal}</dd>
                 </div>
               </dl>
               <dl>
                 <div data-test="paymentDue">
                   <dt>Payment Due</dt>
-                  <dd>{billing.invoiceDueDate}</dd>
+                  <dd>{moment.utc(billing.invoiceDueDate).format('MM/DD/YYYY')}</dd>
                 </div>
               </dl>
               <dl>
@@ -59,15 +65,18 @@ export const Billing = ({ policy, policyNumber, billing }) => {
               <dl>
                 <div data-test="billTo">
                   <dt>Bill To</dt>
-                  <dd>{}</dd>
+                  <dd>{billing.billToName}</dd>
                 </div>
               </dl>
             </div>
           </section>
-          <section className="display-element home-and-location">
+          <section className="display-element">
             <h3 className="section-group-header"><i className="fa fa-credit-card" /> Payments</h3>
             <div className="left">
-              
+              <PaymentHistoryTable paymentHistory={billing.payments} />
+            </div>
+            <div>
+              <h4>Payments Received: $ {billing.cashReceived.$numberDecimal}</h4>
             </div>
           </section>
         </div>
