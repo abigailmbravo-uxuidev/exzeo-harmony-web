@@ -51,11 +51,11 @@ export class PolicyWorkflow extends Component {
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
-              <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
               <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
               <Route exact path={`${url}/property`} render={() => <PropertyView auth={auth} policyNumber={policyNumber} policy={policy} />} />
-              <Route exact path={`${url}/billing`} render={() => <BillingView auth={auth} policyNumber={policyNumber} policy={policy} billing={billing} />} />
               <Route exact path={`${url}/coverage`} render={() => <CoverageView auth={auth} policyNumber={policyNumber} policy={policy} />} />
+              <Route exact path={`${url}/billing`} render={() => <BillingView auth={auth} policyNumber={policyNumber} policy={policy} billing={billing} />} />
+              <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
             </div>
           </div>
         </div>
