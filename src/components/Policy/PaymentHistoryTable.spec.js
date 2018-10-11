@@ -38,6 +38,6 @@ describe('Test the PaymentHistoryTable Component', () => {
   it('Should Have Bootstrap Table elements', () => {
     const wrapper = shallow(<PaymentHistoryTable paymentHistory={payments} />);
     expect(wrapper.find('BootstrapTable')).toHaveLength(1);
-    expect(wrapper.find('TableHeaderColumn')).toHaveLength(5);
+    expect(wrapper.find('TableHeaderColumn')).toHaveLength(4);
   });
 });
