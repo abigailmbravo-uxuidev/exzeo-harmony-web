@@ -20,12 +20,8 @@ it('renders PolicyHolderCard', () => {
 
 it('renders PolicyHolderCard electronicDelivery false', () => {
   const wrapper = shallow(<PolicyHolderCard
-<<<<<<< HEAD
     phIndex={0}
-    index="1234"
-=======
     index={1234}
->>>>>>> Fixed PaymentHistoryTable test.
     policyHolderMailingAddress={{ }}
     policyHolder={{
       primaryPhoneNumber: '1234567890',

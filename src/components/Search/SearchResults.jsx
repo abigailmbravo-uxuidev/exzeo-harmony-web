@@ -44,13 +44,8 @@ export const SearchResults = (props) => {
                   <span className="effective-date">Effective Date</span>
                 </li>
                 <li>
-<<<<<<< HEAD
                   <Link to={{ pathname: `/policy/${policy.policyNumber}/policyHolder` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
                     <span className="quote-no">{policy.policyNumber}</span>
-=======
-                  <Link to={{ pathname: `/policy/${policy.policyNumber}/documents` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
-                    <span className="policy-no">{policy.policyNumber}</span>
->>>>>>> update billing section
                     <span className="property-address">{
                   `${policy.property.physicalAddress.address1}
                       ${policy.property.physicalAddress.city}, ${policy.property.physicalAddress.state}
