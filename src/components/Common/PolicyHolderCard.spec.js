@@ -4,7 +4,6 @@ import PolicyHolderCard from './PolicyHolderCard';
 
 it('renders PolicyHolderCard', () => {
   const wrapper = shallow(<PolicyHolderCard
-    phIndex={0}
     index={1234}
     policyHolderMailingAddress={{ address2: '123' }}
     policyHolder={{
@@ -20,7 +19,6 @@ it('renders PolicyHolderCard', () => {
 
 it('renders PolicyHolderCard electronicDelivery false', () => {
   const wrapper = shallow(<PolicyHolderCard
-    phIndex={0}
     index={1234}
     policyHolderMailingAddress={{ }}
     policyHolder={{

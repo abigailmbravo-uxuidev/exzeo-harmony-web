@@ -45,7 +45,7 @@ export const SearchResults = (props) => {
                 </li>
                 <li>
                   <Link to={{ pathname: `/policy/${policy.policyNumber}/policyHolder` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
-                    <span className="quote-no">{policy.policyNumber}</span>
+                    <span className="policy-no">{policy.policyNumber}</span>
                     <span className="property-address">{
                   `${policy.property.physicalAddress.address1}
                       ${policy.property.physicalAddress.city}, ${policy.property.physicalAddress.state}

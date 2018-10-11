@@ -18,7 +18,6 @@ export const Billing = ({ policy, policyNumber, billing }) => {
       <PolicyTabs activeTab="billing" policyNumber={policyNumber} />
       <div className="route-content">
         <div className="detail-group policy-details">
-
           <section className="display-element premium left">
             <h3 className="section-group-header"><i className="fa fa-area-chart" /> Premium</h3>
             <dl>
