@@ -4,7 +4,7 @@ import PolicyHolderCard from './PolicyHolderCard';
 
 it('renders PolicyHolderCard', () => {
   const wrapper = shallow(<PolicyHolderCard
-    index="1234"
+    index={1234}
     policyHolderMailingAddress={{ address2: '123' }}
     policyHolder={{
       primaryPhoneNumber: '1234567890',
@@ -19,7 +19,7 @@ it('renders PolicyHolderCard', () => {
 
 it('renders PolicyHolderCard electronicDelivery false', () => {
   const wrapper = shallow(<PolicyHolderCard
-    index="1234"
+    index={1234}
     policyHolderMailingAddress={{ }}
     policyHolder={{
       primaryPhoneNumber: '1234567890',
