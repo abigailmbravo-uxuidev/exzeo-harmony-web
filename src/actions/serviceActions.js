@@ -1,4 +1,5 @@
 import axios from 'axios';
+import orderBy from 'lodash/orderBy';
 import { batchActions } from 'redux-batched-actions';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
@@ -185,25 +186,32 @@ export const getLatestPolicy = policyNumber => (dispatch) => {
     });
 };
 
-export const getSummaryLedger = policyNumber => (dispatch) => {
-  const axiosConfig = runnerSetup({
+export const getSummaryLedger = policyNumber => async (dispatch) => {
+  const fetchBilling = runnerSetup({
     service: 'billing',
     method: 'GET',
     path: `summary-ledgers/${policyNumber}/latest`
   });
 
-  return axios(axiosConfig).then((response) => {
-    const data = { getSummaryLedger: response.data.result };
+  const fetchPayments = runnerSetup({
+    service: 'billing',
+    method: 'GET',
+    path: `payment-history/${policyNumber}`
+  });
+
+  try {
+    const [billing, paymentHistory] = await Promise.all([axios(fetchBilling), axios(fetchPayments)]);
+    const payments = orderBy(paymentHistory.data.result, ['date', 'createdAt'], ['desc', 'desc']);
+    const getSummaryLedger = { ...billing.data.result, payments };
     return dispatch(batchActions([
-      serviceRequest(data)
+      serviceRequest({ getSummaryLedger })
     ]));
-  })
-    .catch((error) => {
-      const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError({ message })
-      ]));
-    });
+  } catch (error) {
+    const message = handleError(error);
+    return dispatch(batchActions([
+      errorActions.setAppError({ message })
+    ]));
+  }
 };
 
 export const getPolicyDocuments = policyNumber => (dispatch) => {
