@@ -5,7 +5,6 @@ import PolicyTabs from '../Common/PolicyTabs';
 import PaymentHistoryTable from './PaymentHistoryTable';
 
 export const Billing = ({ policy, policyNumber, billing }) => {
-  
   let paymentDue;
   if(billing) {
     if (billing.billToType === 'Additional Interest') {
