@@ -214,7 +214,7 @@ ul.list-cards {
             }
           }
 
-          .quote-no {
+          .quote-no, .policy-no {
             flex-grow: 0;
             flex-shrink: 0;
             width: 5.75rem;
@@ -256,7 +256,7 @@ ul.list-cards {
             }
           }
 
-          .quote-state {
+          .quote-state, .policy-status {
             flex-grow: 0;
             flex-shrink: 0;
             @include for-phone-only {
@@ -273,6 +273,7 @@ ul.list-cards {
           .effective-date {
             flex-grow: 0;
             flex-shrink: 0;
+            width: 5rem;
             @include for-phone-only {
               display: flex;
               align-items: flex-start;

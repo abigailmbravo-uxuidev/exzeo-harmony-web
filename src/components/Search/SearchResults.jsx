@@ -40,19 +40,19 @@ export const SearchResults = (props) => {
                 <li className="header">
                   <span className="policy-no">Policy No.</span>
                   <span className="property-address">Property Address</span>
-                  <span className="quote-state">Policy Status</span>
-                  <span className="effctive-date">Effective Date</span>
+                  <span className="policy-status">Policy Status</span>
+                  <span className="effective-date">Effective Date</span>
                 </li>
                 <li>
-                  <Link to={{ pathname: `/policy/${policy.policyNumber}/documents` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
-                    <span className="quote-no">{policy.policyNumber}</span>
+                  <Link to={{ pathname: `/policy/${policy.policyNumber}/policyHolder` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
+                    <span className="policy-no">{policy.policyNumber}</span>
                     <span className="property-address">{
                   `${policy.property.physicalAddress.address1}
                       ${policy.property.physicalAddress.city}, ${policy.property.physicalAddress.state}
                       ${policy.property.physicalAddress.zip}`
                 }</span>
-                    <span className="quote-state">{policy.status}</span>
-                    <span className="effctive-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
+                    <span className="policy-status">{policy.status}</span>
+                    <span className="effective-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
                   </Link>
                 </li>
               </ul>
