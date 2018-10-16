@@ -41,7 +41,7 @@ export class PolicyWorkflow extends Component {
       setAppModalErrorAction
     } = this.props;
 
-    if (!(policy && policy.policyID) || !billing) {
+    if (!(policy && policy.policyID)) {
       return (<Loader />);
     }
 
