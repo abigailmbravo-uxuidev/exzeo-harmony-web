@@ -5,19 +5,27 @@ import PolicyTabs from '../Common/PolicyTabs';
 import PaymentHistoryTable from './PaymentHistoryTable';
 
 export const Billing = ({ policy, policyNumber, billing }) => {
-  if (billing.billToType === 'Additional Interest') {
-    const ai = policy.additionalInterests.find(p => billing.billToId === p._id);
-    billing.billToName = `${ai.type}: ${ai.name1} ${ai.name2}`;
-  } else {
-    const ph = policy.policyHolders.find(p => billing.billToId === p._id);
-    billing.billToName = `Policyholder: ${ph.firstName} ${ph.lastName}`;
+  let paymentDue;
+  if(billing) {
+    if (billing.billToType === 'Additional Interest') {
+      const ai = policy.additionalInterests.find(p => billing.billToId === p._id);
+      billing.billToName = `${ai.type}: ${ai.name1} ${ai.name2}`;
+    } else {
+      const ph = policy.policyHolders.find(p => billing.billToId === p._id);
+      billing.billToName = `Policyholder: ${ph.firstName} ${ph.lastName}`;
+    }
+
+    paymentDue = (billing.invoiceDueDate) 
+    ? moment.utc(billing.invoiceDueDate).format('MM/DD/YYYY') 
+    : '-';
   }
 
   return (
     <React.Fragment>
       <PolicyTabs activeTab="billing" policyNumber={policyNumber} />
-      <div className="route-content">
-        <div className="detail-group policy-details">
+      { billing && 
+        <div className="route-content">
+          <div className="detail-group policy-details">
           <section className="display-element premium left">
             <h3 className="section-group-header"><i className="fa fa-area-chart" /> Premium</h3>
             <dl>
@@ -50,7 +58,7 @@ export const Billing = ({ policy, policyNumber, billing }) => {
             <dl>
               <div data-test="paymentDue">
                 <dt>Payment Due</dt>
-                <dd>{moment.utc(billing.invoiceDueDate).format('MM/DD/YYYY')}</dd>
+                <dd>{paymentDue}</dd>
               </div>
             </dl>
             <dl>
@@ -75,8 +83,9 @@ export const Billing = ({ policy, policyNumber, billing }) => {
               <h4>Payments Received: $ {billing.cashReceived.$numberDecimal}</h4>
             </div>
           </section>
+          </div>
         </div>
-      </div>
+      }
     </React.Fragment>
   );
 };
