@@ -9,6 +9,7 @@
     }
   }
 
+  .agent-details,
   .policy-details,
   .policyholder-details,
   .property-details {
@@ -51,7 +52,7 @@
           > div {
             width: calc(50% - .5rem);
             margin-bottom: $padding*2;
-            
+
             &.left {
               margin-right: $padding;
             }
