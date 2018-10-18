@@ -43,7 +43,7 @@ export const Billing = ({ policy, policyNumber, billing }) => {
             <dl>
               <div data-test="balanceDue">
                 <dt>Balance Due</dt>
-                <dd>$ {billing.balance.$numberDecimal}</dd>
+                <dd>$ {billing.balance.$numberDecimal.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
               </div>
             </dl>
           </section>
@@ -52,7 +52,7 @@ export const Billing = ({ policy, policyNumber, billing }) => {
             <dl>
               <div data-test="nextPayment">
                 <dt>Next Payment</dt>
-                <dd>$ {billing.noticeAmountDue.$numberDecimal}</dd>
+                <dd>$ {billing.noticeAmountDue.$numberDecimal.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
               </div>
             </dl>
             <dl>
