@@ -52,14 +52,14 @@ class Routes extends Component { // eslint-disable-line
     return (
       <div>
         <Modal
-          isOpen={this.props.error.modalMessage !== undefined}
+          isOpen={this.props.error && this.props.error.message}
           contentLabel="Error Modal"
           className="card"
           overlayClassName="modal root-modal"
           appElement={document.getElementById('root')}
         >
           <div className="card-header"><h4><i className="fa fa-exclamation-circle" />&nbsp;Error</h4></div>
-          <div className="card-block"><p>{ this.props.error.modalMessage }</p></div>
+          <div className="card-block"><p>{ this.props.error.message }</p></div>
           <div className="card-footer">
             <button className="btn-primary" onClick={this.clearError}>close</button>
           </div>
