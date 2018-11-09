@@ -11,6 +11,7 @@ const mockStore = configureStore(middlewares);
 describe('Testing PolicySearchBar component', () => {
   it('should test connected app', () => {
     const initialState = {
+      search: {},
       service: {
         policyResults: {}
       },

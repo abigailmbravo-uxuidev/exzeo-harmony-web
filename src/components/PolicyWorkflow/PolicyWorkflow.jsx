@@ -33,6 +33,7 @@ export class PolicyWorkflow extends Component {
   render() {
     const {
       auth,
+      error,
       match: { params: { policyNumber }, url },
       billing,
       policy,
@@ -41,7 +42,7 @@ export class PolicyWorkflow extends Component {
       setAppModalErrorAction
     } = this.props;
 
-    if (!(policy && policy.policyID)) {
+    if (!error.message && !(policy && policy.policyID)) {
       return (<Loader />);
     }
 
@@ -86,7 +87,8 @@ const mapStateToProps = state => ({
   billing: state.service.getSummaryLedger,
   policy: state.service.latestPolicy,
   agents: state.service.agents,
-  policyDocuments: state.service.policyDocuments || []
+  policyDocuments: state.service.policyDocuments || [],
+  error: state.error
 });
 export default connect(mapStateToProps,
   {

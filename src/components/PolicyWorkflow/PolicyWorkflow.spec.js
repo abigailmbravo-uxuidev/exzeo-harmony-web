@@ -9,7 +9,8 @@ const mockStore = configureStore(middlewares);
 describe('Testing PolicyWorkflow component', () => {
   it('should test connected app', () => {
     const initialState = {
-      service: {}
+      service: {},
+      error: {}
     };
     const store = mockStore(initialState);
     const props = {};
@@ -19,7 +20,8 @@ describe('Testing PolicyWorkflow component', () => {
 
   it('should test PolicyWorkflow', () => {
     const initialState = {
-      service: {}
+      service: {},
+      error: {}
     };
     const store = mockStore(initialState);
     const props = {
@@ -27,9 +29,8 @@ describe('Testing PolicyWorkflow component', () => {
       getSummaryLedgerAction() {},
       getLatestPolicyAction() { return Promise.resolve({}); },
       getAgentsByAgencyAction() {},
-      match: {
-        params: {}
-      }
+      error: {},
+      match: { params: {} }
     };
     const wrapper = shallow(<PolicyWorkflow store={store} {...props} />);
     expect(wrapper);

@@ -16,10 +16,13 @@ import { generateField } from './searchUtils';
 
 const handleInitialize = (state) => {
   const values = {
-    address: '',
-    sortBy: 'policyNumber',
-    pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
-    totalPages: _.get(state.search, 'state.search.totalPages') || 0
+    address: state.search.address || '',
+    firstName: state.search.firstName || '',
+    lastName: state.search.lastName || '',
+    policyNumber: state.search.policyNumber || '',
+    sortBy: state.search.sortBy || 'policyNumber',
+    pageNumber: state.search.pageNumber || 1,
+    totalPages: state.search.totalPages || 1
   };
   return values;
 };
@@ -38,7 +41,8 @@ export const changePagePolicy = (props, isNext) => {
     policyNumber: (encodeURIComponent(fieldValues.policyNumber) !== 'undefined' ? encodeURIComponent(fieldValues.policyNumber) : ''),
     searchType: 'policy',
     isLoading: true,
-    hasSearched: true
+    hasSearched: true,
+    sortBy: fieldValues.sortBy
   };
 
 
@@ -50,6 +54,7 @@ export const changePagePolicy = (props, isNext) => {
 
   props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy, direction).then(() => {
     taskData.isLoading = false;
+    taskData.address = decodeURIComponent(taskData.address);
     props.actions.searchActions.setPolicySearch(taskData);
   });
 };
@@ -63,7 +68,8 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     searchType: 'policy',
     isLoading: true,
     hasSearched: true,
-    page: 1
+    page: 1,
+    sortBy: data.sortBy
   };
 
   props.actions.searchActions.setPolicySearch(taskData);
@@ -72,6 +78,7 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
 
   props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy, direction).then(() => {
     taskData.isLoading = false;
+    taskData.address = decodeURIComponent(taskData.address);
     props.actions.searchActions.setPolicySearch(taskData);
   });
 };
@@ -107,10 +114,6 @@ export const validate = (values) => {
 };
 
 export class PolicySearchBar extends Component {
-
-  componentDidMount() {
-    this.props.actions.serviceActions.clearPolicyResults();
-  }
 
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
@@ -205,7 +208,6 @@ const mapDispatchToProps = dispatch => ({
 
 const searchBarForm = reduxForm({
   form: 'PolicySearchBar',
-  enableReinitialize: true,
   validate
 })(PolicySearchBar);
 
