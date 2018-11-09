@@ -6,6 +6,8 @@ import PaymentHistoryTable from './PaymentHistoryTable';
 
 export const Billing = ({ policy, policyNumber, billing }) => {
   let paymentDue;
+  let balanceDue;
+  let nextPayment;
   if(billing) {
     if (billing.billToType === 'Additional Interest') {
       const ai = policy.additionalInterests.find(p => billing.billToId === p._id);
@@ -18,6 +20,11 @@ export const Billing = ({ policy, policyNumber, billing }) => {
     paymentDue = (billing.invoiceDueDate) 
     ? moment.utc(billing.invoiceDueDate).format('MM/DD/YYYY') 
     : '-';
+
+    balanceDue = parseFloat(billing.balance.$numberDecimal)
+      .toLocaleString('en', { minimumFractionDigits: 2 });
+    nextPayment = parseFloat(billing.noticeAmountDue.$numberDecimal)
+      .toLocaleString('en', { minimumFractionDigits: 2 });
   }
 
   return (
@@ -43,7 +50,7 @@ export const Billing = ({ policy, policyNumber, billing }) => {
             <dl>
               <div data-test="balanceDue">
                 <dt>Balance Due</dt>
-                <dd>$ {billing.balance.$numberDecimal}</dd>
+                <dd>{balanceDue !== 'NaN' ?  `$ ${balanceDue}` : '-'}</dd>
               </div>
             </dl>
           </section>
@@ -52,7 +59,7 @@ export const Billing = ({ policy, policyNumber, billing }) => {
             <dl>
               <div data-test="nextPayment">
                 <dt>Next Payment</dt>
-                <dd>$ {billing.noticeAmountDue.$numberDecimal}</dd>
+                <dd>{nextPayment !== 'NaN' ?  `$ ${nextPayment}` : '-'}</dd>
               </div>
             </dl>
             <dl>
