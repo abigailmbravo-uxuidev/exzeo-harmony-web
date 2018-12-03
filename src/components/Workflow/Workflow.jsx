@@ -77,10 +77,12 @@ export class Workflow extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.appState.data && (this.props.appState.data.currentControl !== nextProps.appState.data.currentControl)) {
-      this.setState((previousState, props) => ({
-        ...props,
-        currentControl: components[nextProps.appState.data.currentControl]
-      }));
+      if (nextProps.appState.data.currentControl) {
+        this.setState((previousState, props) => ({
+          ...props,
+          currentControl: components[nextProps.appState.data.currentControl]
+        }));
+      }
     }
     // if ((this.props.tasks[workflowModelName]) &&
     //   (nextProps.tasks[workflowModelName].data.activeTask &&
