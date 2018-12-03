@@ -18,11 +18,12 @@ import { MOCK_UI_QUESTIONS } from '../askUWAnswers';
 const userTasks = { formSubmit: 'askUWAnswers' };
 
 const handleFormSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.formSubmit;
-  const taskData = { ...data };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.formSubmit;
+  // const taskData = { ...data };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askToCustomizeDefaultQuote' });
 };
 
 const handleGetQuestions = state =>

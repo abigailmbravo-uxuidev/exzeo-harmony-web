@@ -14,6 +14,9 @@ import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
+import { MOCK_QUOTE } from '../mockQuote';
+import { MOCK_UI_QUESTIONS } from '../askToCustomizeDefaultQuote';
+
 const userTasks = {
   formSubmit: 'askToCustomizeDefaultQuote',
   customizeDefaultQuote: 'customizeDefaultQuote'
@@ -90,10 +93,11 @@ export const handleReset = (props) => {
 };
 
 const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
-  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  // const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
+  // _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
+
+  const values = getInitialValues(MOCK_UI_QUESTIONS, MOCK_QUOTE);
 
   values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
   values.fireAlarm = values.fireAlarm || false;
@@ -104,16 +108,15 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetQuestions = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  return taskData.uiQuestions;
-};
+const handleGetQuestions = state =>
+ // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+   MOCK_UI_QUESTIONS;
 
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  return _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
-  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
-};
+const handleGetQuoteData = state =>
+  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  // return _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
+  // _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
+   MOCK_QUOTE;
 
 export const Customize = (props) => {
   const {
