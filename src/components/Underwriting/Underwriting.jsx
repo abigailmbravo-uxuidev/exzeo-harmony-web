@@ -12,6 +12,9 @@ import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
+import { MOCK_QUOTE } from '../mockQuote';
+import { MOCK_UI_QUESTIONS } from '../askUWAnswers';
+
 const userTasks = { formSubmit: 'askUWAnswers' };
 
 const handleFormSubmit = (data, dispatch, props) => {
@@ -22,13 +25,12 @@ const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const handleGetQuestions = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  return uwQuestions;
-};
+const handleGetQuestions = state =>
+  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  // const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+   MOCK_UI_QUESTIONS;
 
-const handleGetQuoteData = state => state.service.quote;
+const handleGetQuoteData = state => MOCK_QUOTE;// state.service.quote;
 
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
@@ -52,8 +54,8 @@ const handleInitialize = (state) => {
 
 export const Underwriting = (props) => {
   const { appState, handleSubmit, fieldValues, quoteData } = props;
-  const taskData = props.tasks[appState.modelName].data;
-  const questions = taskData.previousTask.value.result;
+  // const taskData = props.tasks[appState.modelName].data;
+  const questions = MOCK_UI_QUESTIONS; // taskData.previousTask.value.result;
 
   return (
     <div className="route-content">

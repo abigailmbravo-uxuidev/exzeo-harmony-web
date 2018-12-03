@@ -26,23 +26,24 @@ import { MOCK_QUOTE } from '../mockQuote';
 const userTasks = { formSubmit: 'askAdditionalCustomerData' };
 
 export const handleFormSubmit = (data, dispatch, props) => {
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.formSubmit;
-  const taskData = data;
-  taskData.agentCode = String(taskData.agentCode);
+  // const workflowId = props.appState.instanceId;
+  // const taskName = userTasks.formSubmit;
+  // const taskData = data;
+  // taskData.agentCode = String(taskData.agentCode);
 
-  if (!taskData.isAdditional) {
-    taskData.FirstName2 = '';
-    taskData.LastName2 = '';
-    taskData.EmailAddress2 = '';
-    taskData.phoneNumber2 = '';
-  }
+  // if (!taskData.isAdditional) {
+  //   taskData.FirstName2 = '';
+  //   taskData.LastName2 = '';
+  //   taskData.EmailAddress2 = '';
+  //   taskData.phoneNumber2 = '';
+  // }
 
-  taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
-  taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
-  taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  // taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
+  // taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
+  // taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askUWAnswers' });
 };
 
 // const handleGetZipCodeSettings = (state) => {
