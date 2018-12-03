@@ -9,6 +9,8 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
 
+import { MOCK_QUOTE } from '../mockQuote';
+
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
     props.handleSelectQuote(quote, props);
@@ -107,17 +109,15 @@ export const SearchResults = (props) => {
       </div>
     );
   }
-  if (
-    props.tasks[props.appState.modelName] &&
-    props.tasks[props.appState.modelName].data.activeTask &&
-    props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
-  ) {
-    const quoteResults = props.tasks[props.appState.modelName].data.previousTask.value.result;
-    const quotes = quoteResults.quotes;
+  if (props.quoteResults) {
+    // props.tasks[props.appState.modelName] &&
+    // props.tasks[props.appState.modelName].data.activeTask &&
+    // props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
+    const quotes = props.quoteResults; // props.tasks[props.appState.modelName].data.previousTask.value.result;
     return (
       <div className="quote-list">
         {
-        quoteResults && quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
+        quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
             <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}` : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
@@ -177,7 +177,8 @@ const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   search: state.search,
-  policyResults: state.service.policyResults
+  policyResults: state.service.policyResults,
+  quoteResults: [MOCK_QUOTE]
 });
 
 const mapDispatchToProps = dispatch => ({

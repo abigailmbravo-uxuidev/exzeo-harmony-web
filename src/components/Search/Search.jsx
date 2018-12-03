@@ -17,29 +17,33 @@ const userTasks = {
 };
 
 export const handleSelectAddress = (address, props) => {
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.handleSelectAddress;
-  const data = {
-    igdId: address.id,
-    stateCode: address.physicalAddress.state
-  };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
+  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askAdditionalCustomerData' });
+
+  // const workflowId = props.appState.instanceId;
+  // const taskName = userTasks.handleSelectAddress;
+  // const data = {
+  //   igdId: address.id,
+  //   stateCode: address.physicalAddress.state
+  // };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
 };
 
 export const handleSelectQuote = (quote, props) => {
-  const workflowId = props.appState.instanceId;
+  // const workflowId = props.appState.instanceId;
 
-  if (quote.quoteState === 'Quote Started' || quote.quoteState === 'Application Started' || quote.quoteState === 'Quote Stopped') {
-    const taskName = userTasks.handleSelectQuote;
-    const data = {
-      quoteId: quote._id
-    };
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
-    props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
-  } else {
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showQuoteErrors: true, selectedQuote: quote });
-  }
+  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askAdditionalCustomerData' });
+
+  // if (quote.quoteState === 'Quote Started' || quote.quoteState === 'Application Started' || quote.quoteState === 'Quote Stopped') {
+  //   const taskName = userTasks.handleSelectQuote;
+  //   const data = {
+  //     quoteId: quote._id
+  //   };
+  //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
+  //   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
+  // } else {
+  //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showQuoteErrors: true, selectedQuote: quote });
+  // }
 };
 
 const closeQuoteError = (props) => {
@@ -48,19 +52,18 @@ const closeQuoteError = (props) => {
 
 export const Search = props => (
   <div className="flex grow">
-    { props.appState.data &&
-      <div className="search route-content">
-        <SearchBar />
-        { props.appState.data.submitting && <Loader /> }
-        <div className="survey-wrapper">
-          <div className="results-wrapper">
-            <NoResultsConnect />
-            <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
-          </div>
-          <Footer />
+    {/* { props.appState.data && */}
+    <div className="search route-content">
+      <SearchBar />
+      {/* { props.appState.data.submitting && <Loader /> } */}
+      <div className="survey-wrapper">
+        <div className="results-wrapper">
+          <NoResultsConnect />
+          <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
         </div>
+        <Footer />
       </div>
-  }
+    </div>
     {props.appState.data && props.appState.data.showQuoteErrors &&
       <QuoteError
         quote={props.appState.data.selectedQuote || {}}

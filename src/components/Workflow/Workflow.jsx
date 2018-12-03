@@ -72,52 +72,58 @@ export class Workflow extends Component {
 
   componentDidMount() {
     this.props.actions.serviceActions.clearPolicyResults();
-    this.props.actions.cgActions.startWorkflow(workflowModelName, workflowData);
+    // this.props.actions.cgActions.startWorkflow(workflowModelName, workflowData);
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((this.props.tasks[workflowModelName]) &&
-      (nextProps.tasks[workflowModelName].data.activeTask &&
-        this.props.tasks[workflowModelName].data.activeTask)) {
-      const activeTaskName = nextProps.tasks[workflowModelName].data.activeTask.name;
-      const oldActiveTaskName = this.props.tasks[workflowModelName].data.activeTask.name;
-      if (activeTaskName !== oldActiveTaskName) {
-        if (activeTaskName === 'askAdditionalCustomerData' ||
-          activeTaskName === 'askUWAnswers' ||
-          activeTaskName === 'askToCustomizeDefaultQuote') {
-          const quoteData = _.find(nextProps.tasks[workflowModelName].data.model.variables, { name: 'quote' }).value.result;
-          if (quoteData._id) { // eslint-disable-line
-            nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName, nextProps.appState.instanceId, {
-              quote: quoteData,
-              updateWorkflowDetails: true,
-              hideYoChildren: (activeTaskName === 'askAdditionalCustomerData' || activeTaskName === 'askUWAnswers')
-            });
-          }
-        }
-        window.scrollTo(0, 0);
-        const newComponent = components[activeTaskName];
-        this.setState((previousState, props) => ({
-          ...props,
-          currentControl: newComponent
-        }));
-      }
+    if (this.props.appState.data && (this.props.appState.data.currentControl !== nextProps.appState.data.currentControl)) {
+      this.setState((previousState, props) => ({
+        ...props,
+        currentControl: components[nextProps.appState.data.currentControl]
+      }));
     }
-    if (nextProps.tasks && nextProps.tasks[workflowModelName] &&
-      nextProps.tasks[workflowModelName].data &&
-      nextProps.tasks[workflowModelName].data.previousTask) {
-      const previousTaskName = nextProps.tasks[workflowModelName].data.previousTask.name;
-      if (previousTaskName === 'notifyDocusignApp' || previousTaskName === 'updateQuoteStateDocusign' || previousTaskName === 'generateQuoteApplicationPDFs') {
-        this.setState((previousState, props) => ({
-          ...props,
-          currentControl: <ThankYou />
-        }));
-      } else if (_.includes(underwritingDecisionErrors, previousTaskName)) {
-        this.setState((previousState, props) => ({
-          ...props,
-          currentControl: <Error />
-        }));
-      }
-    }
+    // if ((this.props.tasks[workflowModelName]) &&
+    //   (nextProps.tasks[workflowModelName].data.activeTask &&
+    //     this.props.tasks[workflowModelName].data.activeTask)) {
+    //   const activeTaskName = nextProps.tasks[workflowModelName].data.activeTask.name;
+    //   const oldActiveTaskName = this.props.tasks[workflowModelName].data.activeTask.name;
+    //   if (activeTaskName !== oldActiveTaskName) {
+    //     if (activeTaskName === 'askAdditionalCustomerData' ||
+    //       activeTaskName === 'askUWAnswers' ||
+    //       activeTaskName === 'askToCustomizeDefaultQuote') {
+    //       const quoteData = _.find(nextProps.tasks[workflowModelName].data.model.variables, { name: 'quote' }).value.result;
+    //       if (quoteData._id) { // eslint-disable-line
+    //         nextProps.actions.appStateActions.setAppState(nextProps.appState.modelName, nextProps.appState.instanceId, {
+    //           quote: quoteData,
+    //           updateWorkflowDetails: true,
+    //           hideYoChildren: (activeTaskName === 'askAdditionalCustomerData' || activeTaskName === 'askUWAnswers')
+    //         });
+    //       }
+    //     }
+    //     window.scrollTo(0, 0);
+    //     const newComponent = components[activeTaskName];
+    //     this.setState((previousState, props) => ({
+    //       ...props,
+    //       currentControl: newComponent
+    //     }));
+    //   }
+    // }
+    // if (nextProps.tasks && nextProps.tasks[workflowModelName] &&
+    //   nextProps.tasks[workflowModelName].data &&
+    //   nextProps.tasks[workflowModelName].data.previousTask) {
+    //   const previousTaskName = nextProps.tasks[workflowModelName].data.previousTask.name;
+    //   if (previousTaskName === 'notifyDocusignApp' || previousTaskName === 'updateQuoteStateDocusign' || previousTaskName === 'generateQuoteApplicationPDFs') {
+    //     this.setState((previousState, props) => ({
+    //       ...props,
+    //       currentControl: <ThankYou />
+    //     }));
+    //   } else if (_.includes(underwritingDecisionErrors, previousTaskName)) {
+    //     this.setState((previousState, props) => ({
+    //       ...props,
+    //       currentControl: <Error />
+    //     }));
+    //   }
+    // }
   }
 
   render() {

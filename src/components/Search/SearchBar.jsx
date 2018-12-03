@@ -205,7 +205,7 @@ export class SearchForm extends Component {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={this.props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            disabled={(this.props.appState.data && this.props.appState.data.submitting) || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>

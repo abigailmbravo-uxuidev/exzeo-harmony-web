@@ -16,6 +16,9 @@ import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
+
+import { MOCK_ACTIVE_AGENTS, MOCK_ZIPCODE_SETTINGS, MOCK_UI_QUESTIONS } from '../askAdditionalCustomerData';
+import { MOCK_QUOTE } from '../mockQuote';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -42,26 +45,26 @@ export const handleFormSubmit = (data, dispatch, props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const handleGetZipCodeSettings = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  if (!taskData) return null;
+// const handleGetZipCodeSettings = (state) => {
+//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+//   if (!taskData) return null;
 
-  const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
-  _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
+//   const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
+//   _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
 
-  const zipCodeSettingsQuote = _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }) ?
-  _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }).value.result[0] : null;
+//   const zipCodeSettingsQuote = _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }) ?
+//   _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }).value.result[0] : null;
 
-  return zipCodeSettingsQuote || zipCodeSettings;
-};
+//   return zipCodeSettingsQuote || zipCodeSettings;
+// };
 
 const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : { model: null };
-  const retrieveQuoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ?
-  _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result : retrieveQuoteData;
+  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : { model: null };
+  // const retrieveQuoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
+  const quoteData = MOCK_QUOTE;// _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ?
+  // _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result : retrieveQuoteData;
 
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+  const values = getInitialValues(MOCK_UI_QUESTIONS, quoteData);
 
   values.FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
   values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('MM/DD/YYYY');
@@ -75,20 +78,20 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetAgentsFromAgency = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  if (!taskData) return [];
+// const handleGetAgentsFromAgency = (state) => {
+//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+//   if (!taskData) return [];
 
-  const agentData = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
-  _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
-  return agentData;
-};
+//   const agentData = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
+//   _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
+//   return agentData;
+// };
 
-const getQuoteData = (state) => {
-  const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
-  return (quoteData ? quoteData.value.result : undefined);
-};
+// const getQuoteData = (state) => {
+//   const { cg, appState } = state;
+//   const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
+//   return (quoteData ? quoteData.value.result : undefined);
+// };
 
 export const CustomerInfo = (props) => {
   const {
@@ -98,8 +101,8 @@ export const CustomerInfo = (props) => {
     zipCodeSettings,
     agencyResults
   } = props;
-  const taskData = props.tasks[appState.modelName].data;
-  const questions = taskData.uiQuestions;
+  // const taskData = props.tasks[appState.modelName].data;
+  const questions = props.uiQuestions;
   const quoteData = props.quote;
   return (
     <div className="route-content">
@@ -180,10 +183,11 @@ const mapStateToProps = state => (
     tasks: state.cg,
     appState: state.appState,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
-    initialValues: handleInitialize(state),
-    agencyResults: handleGetAgentsFromAgency(state),
-    zipCodeSettings: handleGetZipCodeSettings(state),
-    quote: getQuoteData(state)
+    initialValues: handleInitialize(state, MOCK_UI_QUESTIONS),
+    agencyResults: MOCK_ACTIVE_AGENTS,
+    zipCodeSettings: MOCK_ZIPCODE_SETTINGS,
+    quote: MOCK_QUOTE,
+    uiQuestions: MOCK_UI_QUESTIONS
   });
 
 const mapDispatchToProps = dispatch => ({
