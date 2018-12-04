@@ -156,7 +156,7 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Coverage A</dt>
                 <dd className="fade">
-                $ {quote.coverageLimits && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
+                $ {quote.coverageLimits && this.props.appState.data && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
                 quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
                 </dd>
               </div>
@@ -167,11 +167,11 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                  {quote.rating && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
+                  {quote.rating && this.props.appState.data && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
                     <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} /> : '--'}
                 </dd>
               </div>
-              {this.props.appState.data.recalc && <div className="recalc-wrapper">
+              {this.props.appState.data && this.props.appState.data.recalc && <div className="recalc-wrapper">
                 <button
                   tabIndex={'0'}
                   className="btn btn-primary btn-round btn-sm"
