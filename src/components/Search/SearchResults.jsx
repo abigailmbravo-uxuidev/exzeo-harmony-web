@@ -8,8 +8,9 @@ import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
+import { getSearchType } from './searchUtils';
 
-import { MOCK_QUOTE } from '../mockQuote';
+import { MOCK_QUOTE, MOCK_ADDRESS } from '../mockQuote';
 
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
@@ -67,14 +68,14 @@ export const SearchResults = (props) => {
       </div>
     );
   }
-  if (
-    props.tasks[props.appState.modelName] &&
-    props.tasks[props.appState.modelName].data &&
-    props.tasks[props.appState.modelName].data.previousTask &&
-    props.tasks[props.appState.modelName].data.previousTask.name === 'searchAddress' &&
-    props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
+  if (props.searchType === 'address'
+  //   props.tasks[props.appState.modelName] &&
+  //   props.tasks[props.appState.modelName].data &&
+  //   props.tasks[props.appState.modelName].data.previousTask &&
+  //   props.tasks[props.appState.modelName].data.previousTask.name === 'searchAddress' &&
+  //   props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
   ) {
-    const addresses = props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
+    const addresses = MOCK_ADDRESS;// props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
 
     const onKeyPress = (event, address) => {
       if (event.charCode === 13) {
@@ -109,7 +110,7 @@ export const SearchResults = (props) => {
       </div>
     );
   }
-  if (props.quoteResults) {
+  if (props.searchType === 'quote') {
     // props.tasks[props.appState.modelName] &&
     // props.tasks[props.appState.modelName].data.activeTask &&
     // props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
@@ -178,7 +179,9 @@ const mapStateToProps = state => ({
   appState: state.appState,
   search: state.search,
   policyResults: state.service.policyResults,
-  quoteResults: [MOCK_QUOTE]
+  quoteResults: [MOCK_QUOTE],
+  searchType: getSearchType()
+
 });
 
 const mapDispatchToProps = dispatch => ({
