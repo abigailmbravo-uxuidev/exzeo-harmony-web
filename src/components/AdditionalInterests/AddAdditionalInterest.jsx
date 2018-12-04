@@ -20,11 +20,13 @@ const userTasks = {
 };
 
 export const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'No' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  window.location.href = '/quote/12-5151466-01/mailingBilling';
+
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.addAdditionalAIs;
+  // const taskData = { shouldUpdateAIs: 'No' };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 export const AddMortgagee = (props) => {

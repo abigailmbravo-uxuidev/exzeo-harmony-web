@@ -20,6 +20,8 @@ import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
+import { MOCK_UI_QUESTIONS, MOCK_BILLING_OPTIONS } from '../mailingBilling';
+import { MOCK_QUOTE } from '../mockQuote';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -29,33 +31,34 @@ const userTasks = {
 };
 
 export const handleFormSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.formSubmit;
-  const taskData = { ...data };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.formSubmit;
+  // const taskData = { ...data };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  window.location.href = '/quote/12-5151466-01/verify';
 };
 
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }).value.result :
-  _.find(taskData.model.variables, { name: 'quote' }).value.result;
-  return quoteData;
-};
+const handleGetQuoteData = state => MOCK_QUOTE
+  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  // const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }).value.result :
+  // _.find(taskData.model.variables, { name: 'quote' }).value.result;
+  // return quoteData;
+;
 
-const handleGetPaymentPlans = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  return paymentPlanResult;
-};
+const handleGetPaymentPlans = state => MOCK_BILLING_OPTIONS
+  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  // const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+  // return paymentPlanResult;
+;
 
 const handleInitialize = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = handleGetQuoteData(state);
 
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+  const values = getInitialValues(MOCK_UI_QUESTIONS, quoteData);
 
-  _.forEach(taskData.uiQuestions, (q) => {
+  _.forEach(MOCK_UI_QUESTIONS, (q) => {
     if (!values[q.name]) {
       values[q.name] = '';
     }
@@ -89,7 +92,7 @@ _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, '
 
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  return taskData.uiQuestions;
+  return MOCK_UI_QUESTIONS;
 };
 
 export const getSelectedPlan = (answer) => {

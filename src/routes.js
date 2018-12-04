@@ -28,6 +28,8 @@ import Share from './components/Share/Share';
 import AddAdditionalInterest from './components/AdditionalInterests/AddAdditionalInterest';
 import Assumptions from './components/Assumptions/Assumptions';
 import Mortgagee from './components/AdditionalInterests/Mortgagee';
+import Billing from './components/Billing/Billing';
+import Verify from './components/Verify/Verify';
 
 const auth = new Auth();
 
@@ -132,7 +134,16 @@ class Routes extends Component { // eslint-disable-line
                 path="/quote/:quoteNumber/addMortgagee"
                 render={props => <Quote auth={auth} {...props}><Mortgagee /></Quote>}
               />
-
+              <Route
+                exact
+                path="/quote/:quoteNumber/mailingBilling"
+                render={props => <Quote auth={auth} {...props}><Billing /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/verify"
+                render={props => <Quote auth={auth} {...props}><Verify /></Quote>}
+              />
               {/* <Route
                 exact
                 path="/quote/retrieve"

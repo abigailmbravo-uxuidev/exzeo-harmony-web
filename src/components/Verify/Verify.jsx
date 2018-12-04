@@ -13,6 +13,8 @@ import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
+import { MOCK_QUOTE } from '../mockQuote';
+import { MOCK_ACTIVE_AGENTS } from '../askAdditionalCustomerData';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -50,27 +52,27 @@ const hidePolicyHolderModal = (props) => {
 };
 
 export const handleFormSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.formSubmit;
-  const taskData = { ...data };
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.formSubmit;
+  // const taskData = { ...data };
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  const steps = [{
-    name: 'editVerify',
-    data: {
-      shouldEditVerify: 'false'
-    }
-  }, {
-    name: taskName,
-    data: taskData
-  }];
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // const steps = [{
+  //   name: 'editVerify',
+  //   data: {
+  //     shouldEditVerify: 'false'
+  //   }
+  // }, {
+  //   name: taskName,
+  //   data: taskData
+  // }];
 
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
-    .then(() => {
-      // now update the workflow details so the recalculated rate shows
-      props.actions.appStateActions.setAppState(props.appState.modelName,
-        workflowId, { ...props.appState.data, submitting: false });
-    });
+  // props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
+  //   .then(() => {
+  //     // now update the workflow details so the recalculated rate shows
+  //     props.actions.appStateActions.setAppState(props.appState.modelName,
+  //       workflowId, { ...props.appState.data, submitting: false });
+  //   });
 };
 
 export const handlePolicyHolderUpdate = (data, dispatch, props) => {
@@ -133,11 +135,11 @@ export const Verify = (props) => {
 
   const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};
 
-  const quoteData = _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
-  _.find(taskData.model.variables, { name: 'quote' }).value.result;
+  const quoteData = MOCK_QUOTE;// _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
+  // _.find(taskData.model.variables, { name: 'quote' }).value.result;
 
-  const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
-  _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
+  const agentList = MOCK_ACTIVE_AGENTS;// _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
+  // _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
 
   const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode }) || {};
 
