@@ -108,7 +108,7 @@ export class WorkflowDetails extends Component {
     if (!quote || !quote._id) { // eslint-disable-line
       return <div className="detailHeader" />;
     }
-    const isCustomize = this.props.appState.data.currentControl === 'askToCustomizeDefaultQuote';
+    const isCustomize = false;
     // const isCustomize = this.props.tasks[this.props.workflowModelName] && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask.name === 'askToCustomizeDefaultQuote';
     return (
       <div>

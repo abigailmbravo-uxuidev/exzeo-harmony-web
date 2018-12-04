@@ -23,61 +23,63 @@ const userTasks = {
 };
 
 export const handleFormSubmit = (data, dispatch, props) => {
-  const modelName = props.appState.modelName;
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.formSubmit;
-  dispatch(appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true }));
-  if (!props.appState.data.recalc) {
-    // the form was not modified so we dont need to customize quote, we do need to run two tasks in batch
-    props.actions.cgActions.completeTask(modelName, workflowId, taskName, {
-      shouldCustomizeQuote: 'No'
-    });
-  } else {
-    // the form was modified and now we need to recalc
-    const updatedQuote = convertQuoteStringsToNumber(data);
-    updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
+  window.location.href = '/quote/12-5151466-01/share';
 
-    const updatedQuoteResult = {
-      ...updatedQuote,
-      dwellingAmount: updatedQuote.dwellingAmount,
-      otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
-      personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
-      personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
-      propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
-      propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
-      lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
-      liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-      calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount))
-    };
+  // const modelName = props.appState.modelName;
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.formSubmit;
+  // dispatch(appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true }));
+  // if (!props.appState.data.recalc) {
+  //   // the form was not modified so we dont need to customize quote, we do need to run two tasks in batch
+  //   props.actions.cgActions.completeTask(modelName, workflowId, taskName, {
+  //     shouldCustomizeQuote: 'No'
+  //   });
+  // } else {
+  //   // the form was modified and now we need to recalc
+  //   const updatedQuote = convertQuoteStringsToNumber(data);
+  //   updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
 
-    if (updatedQuoteResult.personalPropertyAmount === 0) {
-      updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
-    }
+  //   const updatedQuoteResult = {
+  //     ...updatedQuote,
+  //     dwellingAmount: updatedQuote.dwellingAmount,
+  //     otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
+  //     personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
+  //     personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
+  //     propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
+  //     propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
+  //     lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
+  //     liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
+  //     calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount))
+  //   };
 
-    // Remove the sinkhole attribute from updatedQuoteResult
-    // if sinkholePerilCoverage is false
-    if (!updatedQuote.sinkholePerilCoverage) {
-      delete updatedQuoteResult.sinkhole;
-    }
+  //   if (updatedQuoteResult.personalPropertyAmount === 0) {
+  //     updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
+  //   }
 
-    // we need to run two tasks in sequence so call batchComplete in the cg actions
-    const steps = [{
-      name: userTasks.formSubmit,
-      data: {
-        shouldCustomizeQuote: 'Yes'
-      }
-    }, {
-      name: userTasks.customizeDefaultQuote,
-      data: updatedQuoteResult
-    }];
+  //   // Remove the sinkhole attribute from updatedQuoteResult
+  //   // if sinkholePerilCoverage is false
+  //   if (!updatedQuote.sinkholePerilCoverage) {
+  //     delete updatedQuoteResult.sinkhole;
+  //   }
 
-    props.actions.cgActions.batchCompleteTask(modelName, workflowId, steps)
-      .then(() => {
-        // now update the workflow details so the recalculated rate shows
-        props.actions.appStateActions.setAppState(modelName,
-          workflowId, { recalc: false, updateWorkflowDetails: true });
-      });
-  }
+  //   // we need to run two tasks in sequence so call batchComplete in the cg actions
+  //   const steps = [{
+  //     name: userTasks.formSubmit,
+  //     data: {
+  //       shouldCustomizeQuote: 'Yes'
+  //     }
+  //   }, {
+  //     name: userTasks.customizeDefaultQuote,
+  //     data: updatedQuoteResult
+  //   }];
+
+  //   props.actions.cgActions.batchCompleteTask(modelName, workflowId, steps)
+  //     .then(() => {
+  //       // now update the workflow details so the recalculated rate shows
+  //       props.actions.appStateActions.setAppState(modelName,
+  //         workflowId, { recalc: false, updateWorkflowDetails: true });
+  //     });
+  // }
 };
 
 export const handleFormChange = props => (event, newValue, previousValue) => {

@@ -17,7 +17,7 @@ const userTasks = {
 };
 
 export const handleSelectAddress = (address, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askAdditionalCustomerData' });
+  window.location.href = '/quote/12-5151466-01/customerInfo';
 
   // const workflowId = props.appState.instanceId;
   // const taskName = userTasks.handleSelectAddress;
@@ -31,8 +31,7 @@ export const handleSelectAddress = (address, props) => {
 
 export const handleSelectQuote = (quote, props) => {
   // const workflowId = props.appState.instanceId;
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askAdditionalCustomerData' });
+  window.location.href = '/quote/12-5151466-01/customerInfo';
 
   // if (quote.quoteState === 'Quote Started' || quote.quoteState === 'Application Started' || quote.quoteState === 'Quote Stopped') {
   //   const taskName = userTasks.handleSelectQuote;

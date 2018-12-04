@@ -23,7 +23,7 @@ const handleFormSubmit = (data, dispatch, props) => {
   // const taskData = { ...data };
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askToCustomizeDefaultQuote' });
+  window.location.href = '/quote/12-5151466-01/customize';
 };
 
 const handleGetQuestions = state =>

@@ -10,6 +10,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
 import Loader from '../Common/Loader';
+import { MOCK_QUOTE } from '../mockQuote';
 
 const userTasks = {
   sendEmailOrContinue: 'sendEmailOrContinue',
@@ -17,40 +18,44 @@ const userTasks = {
   refreshOnUnderWritingReviewError: 'refreshOnUnderWritingReviewError'
 };
 
-const getUnderwritingExceptions = (state) => {
-  const { cg, appState } = state;
-  return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?
-    cg[appState.modelName].data.previousTask.value : undefined);
-};
+const getUnderwritingExceptions = state => undefined
+  // const { cg, appState } = state;
+  // return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?
+  //   cg[appState.modelName].data.previousTask.value : undefined);
+;
 
-const getQuoteData = (state) => {
-  const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
-  return (quoteData ? quoteData.value.result : undefined);
-};
+const getQuoteData = state => MOCK_QUOTE
+  // const { cg, appState } = state;
+  // const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
+  // return (quoteData ? quoteData.value.result : undefined);
+;
 
 export const noShareSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.sendEmailOrContinue;
-  const taskData = { shouldSendEmail: 'No' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  window.location.href = '/quote/12-5151466-01/assumptions';
+
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.sendEmailOrContinue;
+  // const taskData = { shouldSendEmail: 'No' };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
 export const shareQuoteSubmit = (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // we need to call a batch complete here
-  const steps = [{
-    name: userTasks.sendEmailOrContinue,
-    data: { shouldSendEmail: 'Yes' }
-  }, {
-    name: userTasks.askEmail,
-    data
-  }];
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps).then(() => {
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showEmailPopup: false });
-  });
+  window.location.href = '/quote/12-5151466-01/assumptions';
+
+  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // // we need to call a batch complete here
+  // const steps = [{
+  //   name: userTasks.sendEmailOrContinue,
+  //   data: { shouldSendEmail: 'Yes' }
+  // }, {
+  //   name: userTasks.askEmail,
+  //   data
+  // }];
+  // props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps).then(() => {
+  //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showEmailPopup: false });
+  // });
 };
 
 export const shareQuote = (props) => {

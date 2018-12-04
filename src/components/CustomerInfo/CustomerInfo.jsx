@@ -43,7 +43,7 @@ export const handleFormSubmit = (data, dispatch, props) => {
   // taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askUWAnswers' });
+  window.location.href = '/quote/12-5151466-01/underwriting';
 };
 
 // const handleGetZipCodeSettings = (state) => {

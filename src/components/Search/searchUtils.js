@@ -32,7 +32,7 @@ export const getSearchType = () => {
   switch (path) {
     case '/quote/retrieve':
       return 'quote';
-    case '/quote':
+    case '/quote/SearchAddress':
       return 'address';
     case '/policy':
       return 'policy';

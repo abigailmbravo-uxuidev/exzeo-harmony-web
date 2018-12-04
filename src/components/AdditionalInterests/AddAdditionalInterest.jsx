@@ -12,6 +12,8 @@ import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
+import { MOCK_QUOTE } from '../mockQuote';
+import { MOCK_UI_QUESTIONS } from '../additionalInterests';
 
 const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'
@@ -26,11 +28,12 @@ export const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
 };
 
 export const AddMortgagee = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'mortgagee' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.addAdditionalAIs;
+  // const taskData = { shouldUpdateAIs: 'mortgagee' };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  window.location.href = '/quote/12-5151466-01/addMortgagee';
 };
 
 export const AddPremiumFinance = (props) => {
@@ -68,7 +71,7 @@ export const AddBillpayer = (props) => {
 const handleGetQuestions = (state) => {
   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
 
-  taskData.uiQuestions
+  MOCK_UI_QUESTIONS
   .filter(question => question.name === 'mortgagee' || question.name === 'premiumFinance')
   .forEach((q) => {
     if (q && Array.isArray(q.answers)) {
@@ -79,14 +82,14 @@ const handleGetQuestions = (state) => {
     }
     return q;
   });
-  return taskData.uiQuestions;
+  return MOCK_UI_QUESTIONS;
 };
 
-const handleGetQuoteData = (state) => {
-  const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
-  return (quoteData ? quoteData.value.result : undefined);
-};
+const handleGetQuoteData = state => MOCK_QUOTE
+  // const { cg, appState } = state;
+  // const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
+  // return (quoteData ? quoteData.value.result : undefined);
+;
 
 export const goToStep = (props, type) => {
   if (type === 'Mortgagee') AddMortgagee(props);
@@ -117,13 +120,13 @@ const handleInitialize = (state) => {
 //   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
 
   const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
+  const quoteData = MOCK_QUOTE; // _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
 
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+  const values = getInitialValues(MOCK_UI_QUESTIONS, quoteData);
 
-  userTasks.formSubmit = taskData.activeTask.name;
+  // userTasks.formSubmit = taskData.activeTask.name;
 
-  _.forEach(taskData.uiQuestions, (q) => {
+  _.forEach(MOCK_UI_QUESTIONS, (q) => {
     if (!values[q.name]) {
       values[q.name] = '';
     }

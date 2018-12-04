@@ -76,14 +76,14 @@ export class Workflow extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.appState.data && (this.props.appState.data.currentControl !== nextProps.appState.data.currentControl)) {
-      if (nextProps.appState.data.currentControl) {
-        this.setState((previousState, props) => ({
-          ...props,
-          currentControl: components[nextProps.appState.data.currentControl]
-        }));
-      }
-    }
+    // if (this.props.appState.data && (this.props.appState.data.currentControl !== nextProps.appState.data.currentControl)) {
+    //   if (nextProps.appState.data.currentControl) {
+    //     this.setState((previousState, props) => ({
+    //       ...props,
+    //       currentControl: components[nextProps.appState.data.currentControl]
+    //     }));
+    //   }
+    // }
     // if ((this.props.tasks[workflowModelName]) &&
     //   (nextProps.tasks[workflowModelName].data.activeTask &&
     //     this.props.tasks[workflowModelName].data.activeTask)) {
@@ -135,7 +135,7 @@ export class Workflow extends Component {
     return (
       <div className={`route ${activeStep}`}>
         <WorkFlowDetailsConnect workflowModelName={workflowModelName} />
-        {this.state.currentControl}
+        {this.props.children}
         <CheckErrorConnect redirectUrl={this.context.router ? this.context.router.route.location.pathname : ''} />
       </div>);
   }
@@ -146,6 +146,7 @@ Workflow.contextTypes = {
 };
 
 Workflow.propTypes = {
+  children: PropTypes.shape({}),
   actions: PropTypes.shape({
     cgActions: PropTypes.shape({
       startWorkflow: PropTypes.func,

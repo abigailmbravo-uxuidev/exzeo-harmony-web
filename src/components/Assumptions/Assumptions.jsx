@@ -15,9 +15,11 @@ import { CheckField } from '../Form/inputs';
 const userTasks = { formSubmit: 'showAssumptions' };
 
 export const handleOnSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.formSubmit;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName });
+  window.location.href = '/quote/12-5151466-01/additionalInterests';
+
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.formSubmit;
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
 };
 

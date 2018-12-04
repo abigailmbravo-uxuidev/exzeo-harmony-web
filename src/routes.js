@@ -20,6 +20,15 @@ import Policy from './containers/Policy';
 import * as authActions from './actions/authActions';
 import * as errorActions from './actions/errorActions';
 
+import CustomerInfo from './components/CustomerInfo/CustomerInfo';
+import Search from './components/Search/Search';
+import Underwriting from './components/Underwriting/Underwriting';
+import Customize from './components/Customize/Customize';
+import Share from './components/Share/Share';
+import AddAdditionalInterest from './components/AdditionalInterests/AddAdditionalInterest';
+import Assumptions from './components/Assumptions/Assumptions';
+import Mortgagee from './components/AdditionalInterests/Mortgagee';
+
 const auth = new Auth();
 
 const handleAuthentication = (nextState, replace) => {
@@ -80,9 +89,55 @@ class Routes extends Component { // eslint-disable-line
               />
               <Route
                 exact
+                path="/quote/SearchAddress"
+                render={props => <Quote auth={auth} {...props}><Search /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/retrieve"
+                render={props => <Quote auth={auth} {...props}><Search /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/CustomerInfo"
+                render={props => <Quote auth={auth} {...props}><CustomerInfo /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/underwriting"
+                render={props => <Quote auth={auth} {...props}><Underwriting /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/customize"
+                render={props => <Quote auth={auth} {...props}><Customize /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/share"
+                render={props => <Quote auth={auth} {...props}><Share /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/assumptions"
+                render={props => <Quote auth={auth} {...props}><Assumptions /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/additionalInterests"
+                render={props => <Quote auth={auth} {...props}><AddAdditionalInterest /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/addMortgagee"
+                render={props => <Quote auth={auth} {...props}><Mortgagee /></Quote>}
+              />
+
+              {/* <Route
+                exact
                 path="/quote/retrieve"
                 render={props => <Quote auth={auth} {...props} />}
-              />
+              /> */}
               <Route
                 exact
                 path="/policy"
