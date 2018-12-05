@@ -67,7 +67,7 @@ export class Search extends React.Component {
       <div className="flex grow">
         {/* { props.appState.data && */}
         <div className="search route-content">
-          <SearchBar />
+          <SearchBar cgFactory={this.props.cgFactory} />
           {/* { props.appState.data.submitting && <Loader /> } */}
           <div className="survey-wrapper">
             <div className="results-wrapper">

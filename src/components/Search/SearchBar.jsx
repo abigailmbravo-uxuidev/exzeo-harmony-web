@@ -68,36 +68,35 @@ export const changePageQuote = (props, isNext) => {
 };
 
 export const handleSearchBarSubmit = (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, 'workflowId', { currentControl: 'askAdditionalCustomerData', submitting: false });
+  const workflowId = props.appState.instanceId;
+  const taskName = userTasks.handleSearchBarSubmit;
+  const taskData = {
+    firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
+    lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
+    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
+    quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
+    zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
+    searchType: props.searchType,
+    hasSearched: true,
+    pageNumber: '1'
+  };
 
-  // const workflowId = props.appState.instanceId;
-  // const taskName = userTasks.handleSearchBarSubmit;
-  // const taskData = {
-  //   firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
-  //   lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-  //   address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
-  //   quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
-  //   zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
-  //   searchType: props.searchType,
-  //   hasSearched: true,
-  //   pageNumber: '1'
-  // };
-
-  // props.actions.searchActions.setQuoteSearch(taskData);
+  props.actions.searchActions.setQuoteSearch(taskData);
 
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
 
-  // // we need to make sure the active task is search otherwise we need to reset the workflow
+  // we need to make sure the active task is search otherwise we need to reset the workflow
   // if (!props.tasks[props.appState.modelName].data.activeTask) {
   //   props.actions.errorActions.setAppError({ message: 'An Error has occured' });
   // } else if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
-  //   const completeStep = {
-  //     stepName: taskName,
-  //     data: taskData
-  //   };
-  //   props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
+  //   // const completeStep = {
+  //   //   stepName: taskName,
+  //   //   data: taskData
+  //   // };
+  //   // props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
   // } else {
-  //   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.cgFactory.complete(taskData);
+    // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   // }
 };
 
