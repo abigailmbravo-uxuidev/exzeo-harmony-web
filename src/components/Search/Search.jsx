@@ -10,6 +10,7 @@ import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
+import cgFactory from '../../factory/cgFactory';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
@@ -17,7 +18,8 @@ const userTasks = {
 };
 
 export const handleSelectAddress = (address, props) => {
-  window.location.href = '/quote/12-5151466-01/customerInfo';
+  console.log(props.cgFactory.getState());
+  // window.location.href = '/quote/12-5151466-01/customerInfo';
 
   // const workflowId = props.appState.instanceId;
   // const taskName = userTasks.handleSelectAddress;
@@ -49,10 +51,15 @@ const closeQuoteError = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
+const workflowModelName = 'quoteModel';
+const workflowData = {
+  dsUrl: `${process.env.REACT_APP_API_URL}/ds`
+};
 export class Search extends React.Component {
 
   componentDidMount() {
     // TODO start workflow
+    this.props.cgFactory.start(workflowModelName, workflowData);
   }
 
   render() {
@@ -65,7 +72,7 @@ export class Search extends React.Component {
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
-              <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+              <SearchResults cgFactory={this.props.cgFactory} handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
             </div>
             <Footer />
           </div>
