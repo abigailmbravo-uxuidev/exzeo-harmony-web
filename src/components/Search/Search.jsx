@@ -49,27 +49,36 @@ const closeQuoteError = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
-export const Search = props => (
-  <div className="flex grow">
-    {/* { props.appState.data && */}
-    <div className="search route-content">
-      <SearchBar />
-      {/* { props.appState.data.submitting && <Loader /> } */}
-      <div className="survey-wrapper">
-        <div className="results-wrapper">
-          <NoResultsConnect />
-          <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+export class Search extends React.Component {
+
+  componentDidMount() {
+    // TODO start workflow
+  }
+
+  render() {
+    return (
+      <div className="flex grow">
+        {/* { props.appState.data && */}
+        <div className="search route-content">
+          <SearchBar />
+          {/* { props.appState.data.submitting && <Loader /> } */}
+          <div className="survey-wrapper">
+            <div className="results-wrapper">
+              <NoResultsConnect />
+              <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+            </div>
+            <Footer />
+          </div>
         </div>
-        <Footer />
+        {this.props.appState.data && this.props.appState.data.showQuoteErrors &&
+          <QuoteError
+            quote={this.props.appState.data.selectedQuote || {}}
+            closeButtonHandler={() => closeQuoteError(this.props)}
+          />}
       </div>
-    </div>
-    {props.appState.data && props.appState.data.showQuoteErrors &&
-      <QuoteError
-        quote={props.appState.data.selectedQuote || {}}
-        closeButtonHandler={() => closeQuoteError(props)}
-      />}
-  </div>
-);
+    );
+  }
+  }
 
 Search.propTypes = {
   appState: PropTypes.shape({
