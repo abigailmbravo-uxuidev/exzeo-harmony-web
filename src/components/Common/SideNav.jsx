@@ -25,7 +25,7 @@ const agentLinks = [{
 //   formName: 'floodQuoteForm'
 // },
   {
-    link: '/quote',
+    link: '/quote/SearchAddress',
     label: 'QUOTE',
     styleName: 'quote label'
   },
