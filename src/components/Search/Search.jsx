@@ -11,6 +11,7 @@ import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
 import cgFactory from '../../factory/cgFactory';
+import { createQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
@@ -18,6 +19,7 @@ const userTasks = {
 };
 
 export const handleSelectAddress = (address, props) => {
+  props.createQuote('0', address.id, address.physicalAddress.state);
   // window.location.href = '/quote/12-5151466-01/customerInfo';
 
   // const workflowId = props.appState.instanceId;
@@ -102,6 +104,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  createQuote: bindActionCreators(createQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

@@ -41,3 +41,4 @@ export const SEARCH = 'SEARCH';
 export const RESET_SEARCH = 'RESET_SEARCH';
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 
+export const CREATE_QUOTE = 'CREATE_QUOTE';

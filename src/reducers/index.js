@@ -9,6 +9,7 @@ import service from './serviceReducer';
 import completedTasks from './completedTasksReducer';
 import search from './searchReducer';
 import policy from './policyStateReducer';
+import quoteState from './quoteState.reducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   authState,
   error,
   completedTasks,
-  search
+  search,
+  quoteState
 });
 
 export default rootReducer;

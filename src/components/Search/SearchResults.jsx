@@ -9,6 +9,7 @@ import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
 import { getSearchType } from './searchUtils';
+import { createQuote } from '../../actions/quoteState.actions';
 
 import { MOCK_QUOTE, MOCK_ADDRESS } from '../mockQuote';
 
@@ -186,6 +187,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  createQuote: bindActionCreators(createQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

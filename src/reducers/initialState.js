@@ -19,5 +19,8 @@ export default {
   error: {},
   authState: {
     userProfile: null
+  },
+  quoteState: {
+    quote: null
   }
 };

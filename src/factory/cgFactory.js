@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import _ from 'lodash';
 
 function cgFactory() {
   const state = {
@@ -9,7 +9,7 @@ function cgFactory() {
   };
 
   function handleError(error) {
-    console.log('errrr');
+    console.log(error);
   }
 
 
@@ -20,7 +20,7 @@ function cgFactory() {
     state.workflowId = workflowId;
   }
 
-  function start(modelName, data) {
+  async function start(modelName, data) {
     const axiosConfig = {
       method: 'POST',
       headers: {
@@ -41,7 +41,7 @@ function cgFactory() {
         .catch(error => handleError(error));
   }
 
-  function complete(data) {
+  async function complete(stepName, data) {
     const axiosConfig = {
       method: 'POST',
       headers: {
@@ -50,38 +50,46 @@ function cgFactory() {
       url: `${process.env.REACT_APP_API_URL}/cg/complete`,
       data: {
         workflowId: state.workflowId,
-        stepName: state.activeTask,
+        stepName,
         data
       }
     };
     return axios(axiosConfig)
         .then((response) => {
-          const { data: { activeTask: { name }, modelInstanceId, model: { variables } } } = response;
+          const { data: { activeTask: { name }, modelInstanceId, model: { variables } } } = response.data;
           setState(name, modelInstanceId, variables);
         })
         .catch(error => handleError(error));
   }
 
-  function goToStep() {
+//   function goToStep() {
 
-  }
+//   }
 
   function getDataByName(name) {
-    return state.variables.find(v => v.name === name);
+    const result = state.variables.find(v => v.name === name);
+    return result && result.value && result.value.result ? result.value.result : null;
   }
 
   function getState() {
     return state;
   }
 
+  async function createQuote(address, igdID, stateCode) {
+    await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
 
-  function createQuote() {
+    await complete('search', { address, searchType: 'address' });
+    await complete('chooseAddress', {
+      igdId: igdID,
+      stateCode
+    });
 
+    return getDataByName('createQuote');
   }
 
+
   return {
-    getDataByName,
-    getState
+    createQuote
   };
 }
 

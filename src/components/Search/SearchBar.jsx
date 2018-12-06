@@ -10,6 +10,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import * as errorActions from '../../actions/errorActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as searchActions from '../../actions/searchActions';
+
 import Pagination from '../Common/Pagination';
 import { generateField, getSearchType } from './searchUtils';
 
