@@ -11,31 +11,12 @@ import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
 import { createQuote } from '../../actions/quoteState.actions';
-import history from '../../history';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
   handleSelectQuote: 'chooseQuote'
 };
 
-export const handleSelectAddress = async (address, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { submitting: true });
-  const quote = await props.createQuote('0', address.id, address.physicalAddress.state);
-  if (quote) {
-    props.actions.appStateActions.setAppState(props.appState.modelName, '', { submitting: false });
-
-    history.push(`/quote/${quote.quoteNumber}/customerInfo`);
-  }
-
-  // const workflowId = props.appState.instanceId;
-  // const taskName = userTasks.handleSelectAddress;
-  // const data = {
-  //   igdId: address.id,
-  //   stateCode: address.physicalAddress.state
-  // };
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
-};
 
 export const handleSelectQuote = (quote, props) => {
   // const workflowId = props.appState.instanceId;
@@ -59,6 +40,24 @@ const closeQuoteError = (props) => {
 
 export class Search extends React.Component {
 
+  handleSelectAddress = async (address) => {
+    this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: true });
+    const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
+    if (quote) {
+      this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: false });
+      this.props.history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+    }
+
+    // const workflowId = props.appState.instanceId;
+    // const taskName = userTasks.handleSelectAddress;
+    // const data = {
+    //   igdId: address.id,
+    //   stateCode: address.physicalAddress.state
+    // };
+    // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
+    // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
+  };
+
   render() {
     return (
       <div className="flex grow">
@@ -69,7 +68,7 @@ export class Search extends React.Component {
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
-              <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+              <SearchResults handleSelectAddress={this.handleSelectAddress} handleSelectQuote={handleSelectQuote} {...this.props} />
             </div>
             <Footer />
           </div>
