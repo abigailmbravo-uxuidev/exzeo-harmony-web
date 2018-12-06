@@ -100,7 +100,7 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
-  props.actions.serviceActions.searchAddress(encodeURIComponent(data.address));
+  props.actions.searchActions.searchAddresses(encodeURIComponent(data.address));
 };
 
 export const validate = (values) => {

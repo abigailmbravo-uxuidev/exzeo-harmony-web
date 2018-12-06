@@ -234,25 +234,3 @@ export const getPolicyDocuments = policyNumber => (dispatch) => {
       ]));
     });
 };
-
-
-export const searchAddress = address => (dispatch) => {
-  const axiosConfig = runnerSetup({
-    service: 'property-search',
-    method: 'GET',
-    path: `/v1/search/${address}/1/10`
-  });
-
-  return axios(axiosConfig).then((response) => {
-    const data = { addresses: response.data && response.data.result ? response.data.result.IndexResult : [] };
-    return dispatch(batchActions([
-      serviceRequest(data)
-    ]));
-  })
-    .catch((error) => {
-      const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError({ message })
-      ]));
-    });
-};

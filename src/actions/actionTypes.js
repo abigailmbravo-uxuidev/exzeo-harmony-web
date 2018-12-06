@@ -36,3 +36,8 @@ export const QUOTE_SEARCH = 'QUOTE_SEARCH';
 
 export const GET_POLICY = 'GET_POLICY';
 
+
+export const SEARCH = 'SEARCH';
+export const RESET_SEARCH = 'RESET_SEARCH';
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
+

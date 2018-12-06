@@ -75,7 +75,7 @@ export const SearchResults = (props) => {
   //   props.tasks[props.appState.modelName].data.previousTask.name === 'searchAddress' &&
   //   props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
   ) {
-    const addresses = props.addresses;// props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
+    const addresses = props.results;// props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
 
     const onKeyPress = (event, address) => {
       if (event.charCode === 13) {
@@ -181,7 +181,7 @@ const mapStateToProps = state => ({
   policyResults: state.service.policyResults,
   quoteResults: [MOCK_QUOTE],
   searchType: getSearchType(),
-  addresses: state.service.addresses
+  results: state.search.results
 
 });
 
