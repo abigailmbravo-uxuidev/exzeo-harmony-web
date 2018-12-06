@@ -95,9 +95,12 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
   //   // };
   //   // props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
   // } else {
-  props.cgFactory.complete(taskData);
     // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   // }
+};
+
+export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
+  props.actions.serviceActions.searchAddress(encodeURIComponent(data.address));
 };
 
 export const validate = (values) => {
@@ -145,10 +148,6 @@ export const validate = (values) => {
 
 
 export class SearchForm extends Component {
-
-  componentDidMount() {
-    this.props.actions.appStateActions.setAppState(this.props.appState.modelName, 'workflowId', { currentControl: 'chooseAddress' });
-  }
 
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
@@ -202,7 +201,7 @@ export class SearchForm extends Component {
       );
     }
     return (
-      <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
+      <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
         <div className="search-input-wrapper">
           {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true)}
           <button

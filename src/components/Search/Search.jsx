@@ -18,7 +18,6 @@ const userTasks = {
 };
 
 export const handleSelectAddress = (address, props) => {
-  console.log(props.cgFactory.getState());
   // window.location.href = '/quote/12-5151466-01/customerInfo';
 
   // const workflowId = props.appState.instanceId;
@@ -59,7 +58,6 @@ export class Search extends React.Component {
 
   componentDidMount() {
     // TODO start workflow
-    this.props.cgFactory.start(workflowModelName, workflowData);
   }
 
   render() {
@@ -67,12 +65,12 @@ export class Search extends React.Component {
       <div className="flex grow">
         {/* { props.appState.data && */}
         <div className="search route-content">
-          <SearchBar cgFactory={this.props.cgFactory} />
+          <SearchBar />
           {/* { props.appState.data.submitting && <Loader /> } */}
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
-              <SearchResults cgFactory={this.props.cgFactory} handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+              <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
             </div>
             <Footer />
           </div>

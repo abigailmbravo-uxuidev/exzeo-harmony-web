@@ -14,15 +14,9 @@ function cgFactory() {
 
 
   // TODO: clean this set stuff up
-  function setActiveTask(activeTask) {
+  function setState(activeTask, workflowId, variables) {
     state.activeTask = activeTask;
-  }
-
-  function setVariables(variables) {
     state.variables = variables;
-  }
-
-  function setWorkflowId(workflowId) {
     state.workflowId = workflowId;
   }
 
@@ -42,9 +36,7 @@ function cgFactory() {
     return axios(axiosConfig)
         .then((response) => {
           const { data: { activeTask: { name }, modelInstanceId, model: { variables } } } = response.data;
-          setActiveTask(name);
-          setWorkflowId(modelInstanceId);
-          setVariables(variables);
+          setState(name, modelInstanceId, variables);
         })
         .catch(error => handleError(error));
   }
@@ -65,9 +57,7 @@ function cgFactory() {
     return axios(axiosConfig)
         .then((response) => {
           const { data: { activeTask: { name }, modelInstanceId, model: { variables } } } = response;
-          setActiveTask(name);
-          setWorkflowId(modelInstanceId);
-          setVariables(variables);
+          setState(name, modelInstanceId, variables);
         })
         .catch(error => handleError(error));
   }
@@ -84,10 +74,12 @@ function cgFactory() {
     return state;
   }
 
+
+  function createQuote() {
+
+  }
+
   return {
-    start,
-    complete,
-    goToStep,
     getDataByName,
     getState
   };

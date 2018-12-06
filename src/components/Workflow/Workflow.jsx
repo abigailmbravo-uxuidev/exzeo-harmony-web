@@ -71,7 +71,7 @@ export class Workflow extends Component {
   // }
 
   componentDidMount() {
-    this.props.actions.serviceActions.clearPolicyResults();
+    // this.props.actions.serviceActions.clearPolicyResults();
 
     // TODO: Move the start workflow to the search
     // this.props.actions.cgActions.startWorkflow(workflowModelName, workflowData);

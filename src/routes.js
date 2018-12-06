@@ -30,7 +30,6 @@ import Assumptions from './components/Assumptions/Assumptions';
 import Mortgagee from './components/AdditionalInterests/Mortgagee';
 import Billing from './components/Billing/Billing';
 import Verify from './components/Verify/Verify';
-import cgFactory from './factory/cgFactory';
 
 const auth = new Auth();
 
@@ -44,7 +43,6 @@ const checkPublicPath = (path) => {
   const publicPaths = ['/login', '/logout', '/error', '/accessDenied', '/callback'];
   return (publicPaths.indexOf(path) === -1);
 };
-const cgInstance = cgFactory();
 
 class Routes extends Component { // eslint-disable-line
   componentWillMount() {
@@ -94,7 +92,7 @@ class Routes extends Component { // eslint-disable-line
               <Route
                 exact
                 path="/quote/SearchAddress"
-                render={props => <Quote auth={auth} {...props}><Search cgFactory={cgInstance} /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Search /></Quote>}
               />
               <Route
                 exact
