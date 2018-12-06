@@ -18,7 +18,6 @@ import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
 import { MOCK_ACTIVE_AGENTS, MOCK_ZIPCODE_SETTINGS, MOCK_UI_QUESTIONS } from '../askAdditionalCustomerData';
-import { MOCK_QUOTE } from '../mockQuote';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -62,7 +61,7 @@ export const handleFormSubmit = (data, dispatch, props) => {
 const handleInitialize = (state) => {
   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : { model: null };
   // const retrieveQuoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
-  const quoteData = MOCK_QUOTE;// _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ?
+  const quoteData = state.quoteState.quote;// _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ?
   // _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result : retrieveQuoteData;
 
   const values = getInitialValues(MOCK_UI_QUESTIONS, quoteData);
@@ -187,7 +186,7 @@ const mapStateToProps = state => (
     initialValues: handleInitialize(state, MOCK_UI_QUESTIONS),
     agencyResults: MOCK_ACTIVE_AGENTS,
     zipCodeSettings: MOCK_ZIPCODE_SETTINGS,
-    quote: MOCK_QUOTE,
+    quote: state.quoteState.quote,
     uiQuestions: MOCK_UI_QUESTIONS
   });
 

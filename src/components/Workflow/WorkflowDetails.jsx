@@ -10,8 +10,6 @@ import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as customize from '../Customize/Customize';
 
-import { MOCK_QUOTE } from '../mockQuote';
-
 export const handleRecalc = (props) => {
   customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
 };
@@ -103,9 +101,9 @@ export class WorkflowDetails extends Component {
 
 
   render() {
-    const quote = MOCK_QUOTE;
+    const quote = this.props.quote;
     // const { quote } = this.props;
-    if (!quote || !quote._id) { // eslint-disable-line
+    if (!quote || !quote.quoteNumber) { // eslint-disable-line
       return <div className="detailHeader" />;
     }
     const isCustomize = false;
@@ -224,7 +222,7 @@ WorkflowDetails.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  quote: state.service.quote,
+  quote: state.quoteState.quote,
   tasks: state.cg,
   appState: state.appState,
   completedTasks: state.completedTasks,
