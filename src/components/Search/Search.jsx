@@ -10,17 +10,22 @@ import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
-import cgFactory from '../../factory/cgFactory';
 import { createQuote } from '../../actions/quoteState.actions';
+import history from '../../history';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
   handleSelectQuote: 'chooseQuote'
 };
 
-export const handleSelectAddress = (address, props) => {
-  props.createQuote('0', address.id, address.physicalAddress.state);
-  // window.location.href = '/quote/12-5151466-01/customerInfo';
+export const handleSelectAddress = async (address, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { submitting: true });
+  const quote = await props.createQuote('0', address.id, address.physicalAddress.state);
+  if (quote) {
+    props.actions.appStateActions.setAppState(props.appState.modelName, '', { submitting: false });
+
+    history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+  }
 
   // const workflowId = props.appState.instanceId;
   // const taskName = userTasks.handleSelectAddress;
@@ -52,15 +57,7 @@ const closeQuoteError = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
-const workflowModelName = 'quoteModel';
-const workflowData = {
-  dsUrl: `${process.env.REACT_APP_API_URL}/ds`
-};
 export class Search extends React.Component {
-
-  componentDidMount() {
-    // TODO start workflow
-  }
 
   render() {
     return (
@@ -68,7 +65,7 @@ export class Search extends React.Component {
         {/* { props.appState.data && */}
         <div className="search route-content">
           <SearchBar />
-          {/* { props.appState.data.submitting && <Loader /> } */}
+          { this.props.appState.data.submitting && <Loader /> }
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />

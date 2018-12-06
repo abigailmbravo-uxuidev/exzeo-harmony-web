@@ -23,8 +23,10 @@ export function createQuote(address, igdID, stateCode) {
     try {
       const quoteData = await factoryInstance.createQuote(address, igdID, stateCode);
       dispatch(setCreateQuote(quoteData));
+      return quoteData;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
+      return null;
     }
   };
 }
