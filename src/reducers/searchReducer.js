@@ -5,6 +5,7 @@ const { search: SEARCH } = initialState;
 const PAGE_SIZE = 25;
 
 function setResults(state, action) {
+  console.log(action);
   return {
     ...state,
     currentPage: action.currentPage,

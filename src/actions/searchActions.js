@@ -143,3 +143,13 @@ export function searchQuotes(quoteSearchData) {
     }
   };
 }
+
+export function clearResults() {
+  return async (dispatch) => {
+    try {
+      dispatch(setSearchResults({}));
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+    }
+  };
+}

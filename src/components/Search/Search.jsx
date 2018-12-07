@@ -10,6 +10,7 @@ import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
+import { clearResults } from '../../actions/searchActions';
 import { createQuote, retrieveQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
@@ -27,6 +28,7 @@ export class Search extends React.Component {
 
   componentWillMount() {
     this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: false });
+    this.props.clearResults();
   }
 
   handleSelectQuote = async (quoteData) => {
@@ -115,6 +117,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createQuote: bindActionCreators(createQuote, dispatch),
   retrieveQuote: bindActionCreators(retrieveQuote, dispatch),
+  clearResults: bindActionCreators(clearResults, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
