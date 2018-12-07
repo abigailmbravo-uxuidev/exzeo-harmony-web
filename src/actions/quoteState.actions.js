@@ -11,6 +11,13 @@ export const setCreateQuote = data => ({
   }
 });
 
+export const setRetrieveQuote = data => ({
+  type: types.RETRIEVE_QUOTE,
+  quote: {
+    ...data
+  }
+});
+
 /**
  * Create a quote
  * @param {string} address
@@ -30,3 +37,22 @@ export function createQuote(address, igdID, stateCode) {
     }
   };
 }
+
+/**
+ * Retrieve a quote
+ * @param {string} quoteNumber
+ * @returns {Function}
+ */
+export function retrieveQuote(quoteNumber, quoteId) {
+  return async (dispatch) => {
+    try {
+      const quoteData = await factoryInstance.retrieveQuote(quoteNumber, quoteId);
+      dispatch(setRetrieveQuote(quoteData));
+      return quoteData;
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+      return null;
+    }
+  };
+}
+

@@ -97,7 +97,7 @@ class Routes extends Component { // eslint-disable-line
               <Route
                 exact
                 path="/quote/retrieve"
-                render={props => <Quote auth={auth} {...props}><Search /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Search {...props} /></Quote>}
               />
               <Route
                 exact

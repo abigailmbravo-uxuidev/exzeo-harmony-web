@@ -10,7 +10,7 @@ import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
-import { createQuote } from '../../actions/quoteState.actions';
+import { createQuote, retrieveQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
@@ -18,33 +18,46 @@ const userTasks = {
 };
 
 
-export const handleSelectQuote = (quote, props) => {
-  // const workflowId = props.appState.instanceId;
-  window.location.href = '/quote/12-5151466-01/customerInfo';
-
-  // if (quote.quoteState === 'Quote Started' || quote.quoteState === 'Application Started' || quote.quoteState === 'Quote Stopped') {
-  //   const taskName = userTasks.handleSelectQuote;
-  //   const data = {
-  //     quoteId: quote._id
-  //   };
-  //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
-  //   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
-  // } else {
-  //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showQuoteErrors: true, selectedQuote: quote });
-  // }
-};
-
 const closeQuoteError = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
 export class Search extends React.Component {
 
+
+  componentWillMount() {
+    this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: false });
+  }
+
+  handleSelectQuote = async (quoteData) => {
+    // const workflowId = props.appState.instanceId;
+    this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: true });
+
+    const quote = await this.props.retrieveQuote(quoteData.quoteNumber, quoteData._id);
+    this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: false });
+
+    if (quote) {
+      this.props.history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+    }
+
+    // if (quote.quoteState === 'Quote Started' || quote.quoteState === 'Application Started' || quote.quoteState === 'Quote Stopped') {
+    //   const taskName = userTasks.handleSelectQuote;
+    //   const data = {
+    //     quoteId: quote._id
+    //   };
+    //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
+    //   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
+    // } else {
+    //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showQuoteErrors: true, selectedQuote: quote });
+    // }
+  };
+
   handleSelectAddress = async (address) => {
     this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: true });
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
+    this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: false });
+
     if (quote) {
-      this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: false });
       this.props.history.push(`/quote/${quote.quoteNumber}/customerInfo`);
     }
 
@@ -64,11 +77,11 @@ export class Search extends React.Component {
         {/* { props.appState.data && */}
         <div className="search route-content">
           <SearchBar />
-          { this.props.appState.data.submitting && <Loader /> }
+          { this.props.appState.data && this.props.appState.data.submitting && <Loader /> }
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
-              <SearchResults handleSelectAddress={this.handleSelectAddress} handleSelectQuote={handleSelectQuote} {...this.props} />
+              <SearchResults handleSelectAddress={this.handleSelectAddress} handleSelectQuote={this.handleSelectQuote} {...this.props} />
             </div>
             <Footer />
           </div>
@@ -101,6 +114,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createQuote: bindActionCreators(createQuote, dispatch),
+  retrieveQuote: bindActionCreators(retrieveQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

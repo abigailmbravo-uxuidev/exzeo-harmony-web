@@ -10,10 +10,19 @@ function createQuote(state, action) {
   };
 }
 
+function retrieveQuote(state, action) {
+  return {
+    ...state,
+    quote: action.quote
+  };
+}
+
 export default function quoteReducer(state = initialState.quoteState, action) {
   switch (action.type) {
     case types.CREATE_QUOTE:
       return createQuote(state, action);
+    case types.RETRIEVE_QUOTE:
+      return retrieveQuote(state, action);
     default:
       return state;
   }

@@ -87,9 +87,21 @@ function cgFactory() {
     return getDataByName('createQuote');
   }
 
+  async function retrieveQuote(quoteNumber, quoteId) {
+    await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
+
+    await complete('search', { quoteNumber, searchType: 'quote' });
+    await complete('chooseQuote', {
+      quoteId
+    });
+
+    return getDataByName('retrieveQuote');
+  }
+
 
   return {
-    createQuote
+    createQuote,
+    retrieveQuote
   };
 }
 
