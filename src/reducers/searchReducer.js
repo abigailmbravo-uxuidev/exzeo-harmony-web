@@ -5,7 +5,6 @@ const { search: SEARCH } = initialState;
 const PAGE_SIZE = 25;
 
 function setResults(state, action) {
-  console.log(action);
   return {
     ...state,
     currentPage: action.currentPage,
@@ -15,8 +14,8 @@ function setResults(state, action) {
     sortDirection: action.sortDirection,
     results: action.results,
     totalRecords: action.totalRecords,
-    noResults: action.noResults
-
+    noResults: action.noResults,
+    hasSearched: action.hasSearched
   };
 }
 

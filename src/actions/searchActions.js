@@ -23,7 +23,8 @@ export function setSearchResults({
   sortDirection = '',
   results = [],
   totalRecords = 0,
-  noResults = true
+  noResults = true,
+  hasSearched = false
 }) {
   return {
     type: types.SET_SEARCH_RESULTS,
@@ -33,7 +34,8 @@ export function setSearchResults({
     sortDirection,
     results,
     totalRecords,
-    noResults
+    noResults,
+    hasSearched
   };
 }
 /**
@@ -43,6 +45,7 @@ export function setSearchResults({
  */
 function formatAddressResults(results) {
   return {
+    hasSearched: true,
     results: results.IndexResult,
     totalRecords: results.TotalCount,
     noResults: !results.TotalCount
