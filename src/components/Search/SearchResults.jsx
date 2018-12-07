@@ -11,8 +11,6 @@ import NoPolicyResultsConnect from './NoPolicyResults';
 import { getSearchType } from './searchUtils';
 import { createQuote } from '../../actions/quoteState.actions';
 
-import { MOCK_QUOTE, MOCK_ADDRESS } from '../mockQuote';
-
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
     props.handleSelectQuote(quote, props);
@@ -115,7 +113,7 @@ export const SearchResults = (props) => {
     // props.tasks[props.appState.modelName] &&
     // props.tasks[props.appState.modelName].data.activeTask &&
     // props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
-    const quotes = props.quoteResults; // props.tasks[props.appState.modelName].data.previousTask.value.result;
+    const quotes = props.results; // props.tasks[props.appState.modelName].data.previousTask.value.result;
     return (
       <div className="quote-list">
         {
@@ -180,7 +178,6 @@ const mapStateToProps = state => ({
   appState: state.appState,
   search: state.search,
   policyResults: state.service.policyResults,
-  quoteResults: [MOCK_QUOTE],
   searchType: getSearchType(),
   results: state.search.results
 

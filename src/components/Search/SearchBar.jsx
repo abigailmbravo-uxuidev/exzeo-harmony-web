@@ -71,7 +71,14 @@ export const changePageQuote = (props, isNext) => {
 export const handleSearchBarSubmit = (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSearchBarSubmit;
+  console.log(props.authState);
+  const { groups } = props.userProfile;
+  const userGroup = groups[0];
+  const { state, companyCode } = userGroup;
+
   const taskData = {
+    state,
+    companyCode,
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
     address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
@@ -83,6 +90,9 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
   };
 
   props.actions.searchActions.setQuoteSearch(taskData);
+
+  props.actions.searchActions.searchQuotes(taskData);
+
 
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
 
@@ -247,7 +257,8 @@ const mapStateToProps = state => ({
   searchType: getSearchType(),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
-  search: state.search
+  search: state.search,
+  userProfile: state.authState.userProfile
 });
 
 const mapDispatchToProps = dispatch => ({
