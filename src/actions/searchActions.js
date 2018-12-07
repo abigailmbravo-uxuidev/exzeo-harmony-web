@@ -83,3 +83,63 @@ export function searchAddresses(address) {
     }
   };
 }
+
+export async function fetchQuotes({
+  firstName,
+  lastName,
+  address,
+  companyCode,
+  quoteNumber,
+  quoteState,
+  state,
+  currentPage,
+  pageSize,
+  sort,
+  sortDirection
+}) {
+  const config = {
+    service: 'quote-data',
+    method: 'GET',
+    path: `/quotes?companyCode=${companyCode}&state=${state}&product=HO3&quoteNumber=${quoteNumber}&lastName=${lastName}&firstName=${firstName}&propertyAddress=${address}&page=${currentPage}&pageSize=${pageSize}&sort=${sort}&sortDirection=${sortDirection}&quoteState=${quoteState}`
+  };
+
+  try {
+    const response = await serviceRunner.callService(config);
+    return response && response.data && response.data.result ? response.data.result : {};
+  } catch (error) {
+    throw error;
+  }
+}
+
+/**
+ * Format results from quote query for state
+ * @param {object} results
+ * @returns {{currentPage: number, pageSize: number, sortBy: string, sortDirection: string, results: array, totalRecords: number, noResults: boolean}}
+ */
+function formatQuoteResults(results) {
+  return {
+    currentPage: results.currentPage,
+    pageSize: results.pageSize,
+    sortBy: results.sort,
+    sortDirection: results.sortDirection === -1 ? 'desc' : 'asc',
+    results: results.quotes,
+    totalRecords: results.totalNumberOfRecords,
+    noResults: !results.totalNumberOfRecords
+  };
+}
+
+/**
+ * Search for quotes matching some given criteria, set results as state
+ * @param {object} quoteSearchData
+ * @returns {Function}
+ */
+export function searchQuotes(quoteSearchData) {
+  return async (dispatch) => {
+    try {
+      const results = await fetchQuotes(quoteSearchData);
+      dispatch(setSearchResults(formatQuoteResults(results)));
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+    }
+  };
+}
