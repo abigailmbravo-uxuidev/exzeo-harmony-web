@@ -10,25 +10,25 @@ import * as appStateActions from '../../actions/appStateActions';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
 import Loader from '../Common/Loader';
-import { MOCK_QUOTE } from '../mockQuote';
+import { updateQuote } from '../../actions/quoteState.actions';
 
-const userTasks = {
-  sendEmailOrContinue: 'sendEmailOrContinue',
-  askEmail: 'askEmail',
-  refreshOnUnderWritingReviewError: 'refreshOnUnderWritingReviewError'
-};
-
-const getUnderwritingExceptions = state => undefined
-  // const { cg, appState } = state;
-  // return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?
-  //   cg[appState.modelName].data.previousTask.value : undefined);
-;
-
-const getQuoteData = state => MOCK_QUOTE
-  // const { cg, appState } = state;
-  // const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
-  // return (quoteData ? quoteData.value.result : undefined);
-;
+// const userTasks = {
+//   sendEmailOrContinue: 'sendEmailOrContinue',
+//   askEmail: 'askEmail',
+//   refreshOnUnderWritingReviewError: 'refreshOnUnderWritingReviewError'
+// };
+//
+// const getUnderwritingExceptions = state => undefined
+//   // const { cg, appState } = state;
+//   // return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?
+//   //   cg[appState.modelName].data.previousTask.value : undefined);
+// ;
+//
+// const getQuoteData = state => MOCK_QUOTE
+//   // const { cg, appState } = state;
+//   // const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
+//   // return (quoteData ? quoteData.value.result : undefined);
+// ;
 
 export const noShareSubmit = (data, dispatch, props) => {
   window.location.href = '/quote/12-5151466-01/assumptions';
@@ -67,22 +67,14 @@ export const closeShareSubmit = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
 };
 
-export const refereshUWReviewError = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.refreshOnUnderWritingReviewError;
-  const taskData = {
-    refresh: 'Yes'
-  };
-
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const refereshUWReviewError = async (props) => {
+  await props.updateQuote({ refresh: "Yes" }, props.quote.quoteNumber);
+  props.history.push('customerInfo')
 };
 
 const redirectToNewQuote = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-
-  window.location.href = '/';
+  props.history.push('/');
 };
 
 export const Share = props => (
@@ -122,42 +114,29 @@ export const Share = props => (
         primaryButtonHandler={shareQuoteSubmit}
         secondaryButtonHandler={() => closeShareSubmit(props)}
       />}
-    {!props.appState.data.submitting && _.filter(props.underwritingExceptions, { overridden: false }).length > 0 &&
+    {(!props.appState.data.submitting && props.underwritingExceptions.length) &&
       <ErrorPopup
         quote={props.quote}
-        underwritingExceptions={_.filter(props.underwritingExceptions, { overridden: false })}
+        underwritingExceptions={props.underwritingExceptions}
         refereshUWReviewError={() => refereshUWReviewError(props)}
         redirectToNewQuote={() => redirectToNewQuote(props)}
       />}
   </div>
 );
 
-
-Share.propTypes = {
-  ...propTypes,
-  tasks: PropTypes.shape({}),
-  appState: PropTypes.shape({ modelName: PropTypes.string, data: PropTypes.object }),
-  underwritingExceptions: PropTypes.arrayOf(PropTypes.shape())
-};
-
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  underwritingExceptions: state.quoteState.quote ? state.quoteState.quote.underwritingExceptions : [],
+  underwritingExceptions: state.quoteState.state ? state.quoteState.state.underwritingExceptions : [],
   quote: state.quoteState.quote
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Share' })(Share));
