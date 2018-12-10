@@ -27,7 +27,7 @@ const handleInitialize = (state) => {
   return values;
 };
 
-export const changePageQuote = (props, isNext) => {
+export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
   // const workflowId = props.appState.instanceId;
   // const taskName = userTasks.handleSearchBarSubmit;
@@ -61,7 +61,7 @@ export const changePageQuote = (props, isNext) => {
   localStorage.setItem('lastSearchData', JSON.stringify(taskData));
 
   props.actions.errorActions.clearAppError();
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
 
   // // we need to make sure the active task is search otherwise we need to reset the workflow
   // if (props.tasks[modelName].data.activeTask && (props.tasks[modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit)) {
@@ -74,10 +74,11 @@ export const changePageQuote = (props, isNext) => {
   //   props.actions.appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true });
   //   props.actions.cgActions.completeTask(modelName, workflowId, taskName, taskData);
   // }
-  props.actions.searchActions.searchQuotes(taskData);
+  await props.actions.searchActions.searchQuotes(taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 };
 
-export const handleSearchBarSubmit = (data, dispatch, props) => {
+export const handleSearchBarSubmit = async (data, dispatch, props) => {
   const workflowId = props.appState.instanceId;
   const taskName = userTasks.handleSearchBarSubmit;
   const { groups } = props.userProfile;
@@ -102,8 +103,9 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
 
   props.actions.searchActions.setQuoteSearch(taskData);
 
-  props.actions.searchActions.searchQuotes(taskData);
-
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.actions.searchActions.searchQuotes(taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
 

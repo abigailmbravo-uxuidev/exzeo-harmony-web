@@ -121,6 +121,7 @@ export async function fetchQuotes({
  */
 function formatQuoteResults(results) {
   return {
+    hasSearched: true,
     currentPage: results.currentPage,
     pageSize: results.pageSize,
     sortBy: results.sort,
