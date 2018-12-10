@@ -14,7 +14,7 @@ import WorkFlowDetailsConnect from './WorkflowDetails';
 // import CustomizeConnect from '../Customize/Customize';
 // import ShareConnect from '../Share/Share';
 // import AssumptionsConnect from '../Assumptions/Assumptions';
-// import Error from '../Error/Error';
+import Error from '../Error/Error';
 // import PolicyHolderConnect from '../PolicyHolder/PolicyHolder';
 // import AddAdditionalInterestConnect from '../AdditionalInterests/AddAdditionalInterest';
 // import TaskRunnerConnect from './TaskRunner';
@@ -145,24 +145,6 @@ export class Workflow extends Component {
 
 Workflow.contextTypes = {
   router: PropTypes.object
-};
-
-Workflow.propTypes = {
-  children: PropTypes.shape({}),
-  actions: PropTypes.shape({
-    cgActions: PropTypes.shape({
-      startWorkflow: PropTypes.func,
-      activeTasks: PropTypes.func,
-      completeTask: PropTypes.func
-    }),
-    appStateActions: PropTypes.shape({
-      setAppState: PropTypes.func,
-      setAppStateError: PropTypes.func
-    })
-  }),
-  tasks: PropTypes.shape({
-    activeTask: PropTypes.object
-  })
 };
 
 const mapStateToProps = state => ({

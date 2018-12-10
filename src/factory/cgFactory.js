@@ -61,6 +61,7 @@ function cgFactory() {
     return axios(axiosConfig)
         .then((response) => {
           const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
+
           setState(activeTaskName, modelInstanceId, variables, completedTasks);
         })
         .catch(error => handleError(error));
@@ -120,7 +121,14 @@ function cgFactory() {
     // if user refreshes it will ensure the state is synced up to the redux state;
     if (!state.activeTask) state = getReduxState().quoteState.state;
 
-    await complete(state.activeTask, data);
+    if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
+      await complete(state.activeTask, data);
+    } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
+    } else {
+      await complete(state.activeTask, data);
+    }
     const quote = await getQuoteServiceRequest(quoteId);
     return {
       quote,

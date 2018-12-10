@@ -146,8 +146,8 @@ Share.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  underwritingExceptions: getUnderwritingExceptions(state),
-  quote: getQuoteData(state)
+  underwritingExceptions: state.quoteState.quote ? state.quoteState.quote.underwritingExceptions : [],
+  quote: state.quoteState.quote
 });
 
 const mapDispatchToProps = dispatch => ({

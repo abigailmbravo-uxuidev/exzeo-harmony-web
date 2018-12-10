@@ -16,69 +16,80 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 
 import { MOCK_QUOTE } from '../mockQuote';
 import { MOCK_UI_QUESTIONS } from '../askToCustomizeDefaultQuote';
+import { updateQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
   formSubmit: 'askToCustomizeDefaultQuote',
   customizeDefaultQuote: 'customizeDefaultQuote'
 };
 
-export const handleFormSubmit = (data, dispatch, props) => {
-  window.location.href = '/quote/12-5151466-01/share';
+export const handleFormSubmit = async (data, dispatch, props) => {
+  // window.location.href = '/quote/12-5151466-01/share';
 
   // const modelName = props.appState.modelName;
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;
-  // dispatch(appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true }));
+  dispatch(appStateActions.setAppState('modelName', 'workflowId', { ...props.appState.data, submitting: true }));
   // if (!props.appState.data.recalc) {
   //   // the form was not modified so we dont need to customize quote, we do need to run two tasks in batch
-  //   props.actions.cgActions.completeTask(modelName, workflowId, taskName, {
-  //     shouldCustomizeQuote: 'No'
-  //   });
+  //   // props.actions.cgActions.completeTask(modelName, workflowId, taskName, {
+  //   //   shouldCustomizeQuote: 'No'
+  //   // });
+
   // } else {
-  //   // the form was modified and now we need to recalc
-  //   const updatedQuote = convertQuoteStringsToNumber(data);
-  //   updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
+    // the form was modified and now we need to recalc
+  const updatedQuote = convertQuoteStringsToNumber(data);
+  updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
 
-  //   const updatedQuoteResult = {
-  //     ...updatedQuote,
-  //     dwellingAmount: updatedQuote.dwellingAmount,
-  //     otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
-  //     personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
-  //     personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
-  //     propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
-  //     propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
-  //     lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
-  //     liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-  //     calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount))
-  //   };
+  const updatedQuoteResult = {
+    ...updatedQuote,
+    dwellingAmount: updatedQuote.dwellingAmount,
+    otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
+    personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
+    personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
+    propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
+    propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
+    lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
+    liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
+    calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount)),
+    recalc: !!props.appState.data.recalc
+  };
 
-  //   if (updatedQuoteResult.personalPropertyAmount === 0) {
-  //     updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
-  //   }
+  if (updatedQuoteResult.personalPropertyAmount === 0) {
+    updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
+  }
 
-  //   // Remove the sinkhole attribute from updatedQuoteResult
-  //   // if sinkholePerilCoverage is false
-  //   if (!updatedQuote.sinkholePerilCoverage) {
-  //     delete updatedQuoteResult.sinkhole;
-  //   }
+    // Remove the sinkhole attribute from updatedQuoteResult
+    // if sinkholePerilCoverage is false
+  if (!updatedQuote.sinkholePerilCoverage) {
+    delete updatedQuoteResult.sinkhole;
+  }
 
-  //   // we need to run two tasks in sequence so call batchComplete in the cg actions
-  //   const steps = [{
-  //     name: userTasks.formSubmit,
-  //     data: {
-  //       shouldCustomizeQuote: 'Yes'
-  //     }
-  //   }, {
-  //     name: userTasks.customizeDefaultQuote,
-  //     data: updatedQuoteResult
-  //   }];
+  await props.updateQuote(updatedQuoteResult, props.quoteData.quoteNumber);
 
-  //   props.actions.cgActions.batchCompleteTask(modelName, workflowId, steps)
-  //     .then(() => {
-  //       // now update the workflow details so the recalculated rate shows
-  //       props.actions.appStateActions.setAppState(modelName,
-  //         workflowId, { recalc: false, updateWorkflowDetails: true });
-  //     });
+  if (!props.appState.data.recalc) {
+    props.history.push('share');
+  }
+  props.actions.appStateActions.setAppState('', '', { recalc: false, submitting: false });
+
+    //       workflowId, { recalc: false, updateWorkflowDetails: true });
+    // // we need to run two tasks in sequence so call batchComplete in the cg actions
+    // const steps = [{
+    //   name: userTasks.formSubmit,
+    //   data: {
+    //     shouldCustomizeQuote: 'Yes'
+    //   }
+    // }, {
+    //   name: userTasks.customizeDefaultQuote,
+    //   data: updatedQuoteResult
+    // }];
+
+    // props.actions.cgActions.batchCompleteTask(modelName, workflowId, steps)
+    //   .then(() => {
+    //     // now update the workflow details so the recalculated rate shows
+    //     props.actions.appStateActions.setAppState(modelName,
+    //       workflowId, { recalc: false, updateWorkflowDetails: true });
+    //   });
   // }
 };
 
@@ -118,7 +129,7 @@ const handleGetQuoteData = state =>
   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   // return _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
   // _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
-   MOCK_QUOTE;
+   state.quoteState.quote;
 
 export const Customize = (props) => {
   const {
@@ -211,6 +222,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

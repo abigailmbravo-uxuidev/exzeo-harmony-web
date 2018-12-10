@@ -203,6 +203,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  enableReinitialize: true,
   form: 'CustomerInfo',
   onSubmitFail: failedSubmission
 })(CustomerInfo));
