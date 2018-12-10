@@ -18,31 +18,35 @@ import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
 import { MOCK_ACTIVE_AGENTS, MOCK_ZIPCODE_SETTINGS, MOCK_UI_QUESTIONS } from '../askAdditionalCustomerData';
+import { updateQuote } from '../../actions/quoteState.actions';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
 // ------------------------------------------------
 const userTasks = { formSubmit: 'askAdditionalCustomerData' };
 
-export const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = async (data, dispatch, props) => {
   // const workflowId = props.appState.instanceId;
   // const taskName = userTasks.formSubmit;
-  // const taskData = data;
-  // taskData.agentCode = String(taskData.agentCode);
+  const taskData = data;
+  taskData.agentCode = String(taskData.agentCode);
 
-  // if (!taskData.isAdditional) {
-  //   taskData.FirstName2 = '';
-  //   taskData.LastName2 = '';
-  //   taskData.EmailAddress2 = '';
-  //   taskData.phoneNumber2 = '';
-  // }
+  if (!taskData.isAdditional) {
+    taskData.FirstName2 = '';
+    taskData.LastName2 = '';
+    taskData.EmailAddress2 = '';
+    taskData.phoneNumber2 = '';
+  }
 
-  // taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
-  // taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
-  // taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), MOCK_ZIPCODE_SETTINGS[0].timezone).format();
+  taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
+  taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  window.location.href = '/quote/12-5151466-01/underwriting';
+  await props.updateQuote(taskData, props.quote.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('underwriting');
 };
 
 // const handleGetZipCodeSettings = (state) => {
@@ -191,6 +195,7 @@ const mapStateToProps = state => (
   });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

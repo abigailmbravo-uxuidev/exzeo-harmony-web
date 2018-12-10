@@ -1,6 +1,8 @@
 import axios from 'axios';
 import _ from 'lodash';
 
+import { callService } from '../utilities/serviceRunner';
+
 function cgFactory() {
   const state = {
     activeTask: '',
@@ -35,8 +37,8 @@ function cgFactory() {
 
     return axios(axiosConfig)
         .then((response) => {
-          const { data: { activeTask: { name }, modelInstanceId, model: { variables } } } = response.data;
-          setState(name, modelInstanceId, variables);
+          const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables } } } = response.data;
+          setState(activeTaskName, modelInstanceId, variables);
         })
         .catch(error => handleError(error));
   }
@@ -56,8 +58,8 @@ function cgFactory() {
     };
     return axios(axiosConfig)
         .then((response) => {
-          const { data: { activeTask: { name }, modelInstanceId, model: { variables } } } = response.data;
-          setState(name, modelInstanceId, variables);
+          const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables } } } = response.data;
+          setState(activeTaskName, modelInstanceId, variables);
         })
         .catch(error => handleError(error));
   }
@@ -98,10 +100,26 @@ function cgFactory() {
     return getDataByName('retrieveQuote');
   }
 
+  async function getQuote(quoteNumber) {
+    const response = await callService({
+      service: 'quote-data',
+      method: 'GET',
+      path: quoteNumber
+    });
+    return response.result;
+  }
+
+  async function updateQuote(data, quoteId) {
+    await complete(state.activeTask, data);
+    const quote = await getQuote(quoteId);
+    return quote;
+  }
+
 
   return {
     createQuote,
-    retrieveQuote
+    retrieveQuote,
+    updateQuote
   };
 }
 

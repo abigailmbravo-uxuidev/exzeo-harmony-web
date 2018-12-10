@@ -4,18 +4,10 @@ import cgFactory from '../factory/cgFactory';
 
 const factoryInstance = cgFactory();
 
-export const setCreateQuote = data => ({
-  type: types.CREATE_QUOTE,
-  quote: {
-    ...data
-  }
-});
 
-export const setRetrieveQuote = data => ({
-  type: types.RETRIEVE_QUOTE,
-  quote: {
-    ...data
-  }
+export const setQuote = data => ({
+  type: types.SET_QUOTE,
+  quote: data
 });
 
 /**
@@ -29,7 +21,7 @@ export function createQuote(address, igdID, stateCode) {
   return async (dispatch) => {
     try {
       const quoteData = await factoryInstance.createQuote(address, igdID, stateCode);
-      dispatch(setCreateQuote(quoteData));
+      dispatch(setQuote(quoteData));
       return quoteData;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
@@ -47,7 +39,7 @@ export function retrieveQuote(quoteNumber, quoteId) {
   return async (dispatch) => {
     try {
       const quoteData = await factoryInstance.retrieveQuote(quoteNumber, quoteId);
-      dispatch(setRetrieveQuote(quoteData));
+      dispatch(setQuote(quoteData));
       return quoteData;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
@@ -56,3 +48,21 @@ export function retrieveQuote(quoteNumber, quoteId) {
   };
 }
 
+/**
+ * Retrieve a quote
+ * @param {object} data
+ * @param {string} quoteNumber
+ * @returns {Function}
+ */
+export function updateQuote(data, quoteNumber) {
+  return async (dispatch) => {
+    try {
+      const quoteData = await factoryInstance.updateQuote(data, quoteNumber);
+      dispatch(setQuote(quoteData));
+      return quoteData;
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+      return null;
+    }
+  };
+}
