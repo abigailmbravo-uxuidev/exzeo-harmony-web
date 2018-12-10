@@ -6,7 +6,8 @@ import initialState from './initialState';
 function setQuote(state, action) {
   return {
     ...state,
-    quote: action.quote
+    quote: action.quote,
+    state: action.state
   };
 }
 

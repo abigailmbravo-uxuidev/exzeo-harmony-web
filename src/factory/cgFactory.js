@@ -4,10 +4,11 @@ import _ from 'lodash';
 import { callService } from '../utilities/serviceRunner';
 
 function cgFactory() {
-  const state = {
+  let state = {
     activeTask: '',
     variables: [],
-    workflowId: ''
+    workflowId: '',
+    completedTasks: []
   };
 
   function handleError(error) {
@@ -16,10 +17,11 @@ function cgFactory() {
 
 
   // TODO: clean this set stuff up
-  function setState(activeTask, workflowId, variables) {
+  function setState(activeTask, workflowId, variables, completedTasks) {
     state.activeTask = activeTask;
     state.variables = variables;
     state.workflowId = workflowId;
+    state.completedTasks = completedTasks;
   }
 
   async function start(modelName, data) {
@@ -58,8 +60,8 @@ function cgFactory() {
     };
     return axios(axiosConfig)
         .then((response) => {
-          const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables } } } = response.data;
-          setState(activeTaskName, modelInstanceId, variables);
+          const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
+          setState(activeTaskName, modelInstanceId, variables, completedTasks);
         })
         .catch(error => handleError(error));
   }
@@ -86,39 +88,49 @@ function cgFactory() {
       stateCode
     });
 
-    return getDataByName('createQuote');
+    return {
+      quote: getDataByName('createQuote'),
+      state: getState()
+    };
   }
 
-  async function retrieveQuote(quoteNumber, quoteId) {
+  async function getQuote(quoteNumber, quoteId) {
     await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
 
     await complete('search', { quoteNumber, searchType: 'quote' });
     await complete('chooseQuote', {
       quoteId
     });
-
-    return getDataByName('retrieveQuote');
+    return {
+      quote: getDataByName('retrieveQuote'),
+      state: getState()
+    };
   }
 
-  async function getQuote(quoteNumber) {
+  async function getQuoteServiceRequest(quoteNumber) {
     const response = await callService({
       service: 'quote-data',
       method: 'GET',
       path: quoteNumber
     });
-    return response.result;
+    return response.data.result;
   }
 
-  async function updateQuote(data, quoteId) {
+  async function updateQuote(data, quoteId, getReduxState) {
+    // if user refreshes it will ensure the state is synced up to the redux state;
+    if (!state.activeTask) state = getReduxState().quoteState.state;
+
     await complete(state.activeTask, data);
-    const quote = await getQuote(quoteId);
-    return quote;
+    const quote = await getQuoteServiceRequest(quoteId);
+    return {
+      quote,
+      state: getState()
+    };
   }
-
 
   return {
     createQuote,
-    retrieveQuote,
+    getQuote,
     updateQuote
   };
 }

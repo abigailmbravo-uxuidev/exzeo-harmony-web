@@ -11,7 +11,7 @@ import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
 import { clearResults } from '../../actions/searchActions';
-import { createQuote, retrieveQuote } from '../../actions/quoteState.actions';
+import { createQuote, getQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
   handleSelectAddress: 'chooseAddress',
@@ -35,7 +35,7 @@ export class Search extends React.Component {
     // const workflowId = props.appState.instanceId;
     this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: true });
 
-    const quote = await this.props.retrieveQuote(quoteData.quoteNumber, quoteData._id);
+    const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
     this.props.actions.appStateActions.setAppState(this.props.appState.modelName, '', { submitting: false });
 
     if (quote) {
@@ -116,7 +116,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createQuote: bindActionCreators(createQuote, dispatch),
-  retrieveQuote: bindActionCreators(retrieveQuote, dispatch),
+  getQuote: bindActionCreators(getQuote, dispatch),
   clearResults: bindActionCreators(clearResults, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),

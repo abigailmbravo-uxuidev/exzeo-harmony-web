@@ -15,15 +15,21 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 import { MOCK_QUOTE } from '../mockQuote';
 import { MOCK_UI_QUESTIONS } from '../askUWAnswers';
 
+import { updateQuote } from '../../actions/quoteState.actions';
+
 const userTasks = { formSubmit: 'askUWAnswers' };
 
-const handleFormSubmit = (data, dispatch, props) => {
+const handleFormSubmit = async (data, dispatch, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+
+  await props.updateQuote(data, props.quoteData.quoteNumber);
+
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;
   // const taskData = { ...data };
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  window.location.href = '/quote/12-5151466-01/customize';
+  props.history.push('customize');
 };
 
 const handleGetQuestions = state =>
@@ -31,7 +37,7 @@ const handleGetQuestions = state =>
   // const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
    MOCK_UI_QUESTIONS;
 
-const handleGetQuoteData = state => MOCK_QUOTE;// state.service.quote;
+const handleGetQuoteData = state => state.quoteState.quote;// state.service.quote;
 
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
@@ -129,6 +135,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

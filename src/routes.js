@@ -107,42 +107,42 @@ class Routes extends Component { // eslint-disable-line
               <Route
                 exact
                 path="/quote/:quoteNumber/underwriting"
-                render={props => <Quote auth={auth} {...props}><Underwriting /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Underwriting {...props} /></Quote>}
               />
               <Route
                 exact
                 path="/quote/:quoteNumber/customize"
-                render={props => <Quote auth={auth} {...props}><Customize /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Customize {...props} /></Quote>}
               />
               <Route
                 exact
                 path="/quote/:quoteNumber/share"
-                render={props => <Quote auth={auth} {...props}><Share /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Share {...props} /></Quote>}
               />
               <Route
                 exact
                 path="/quote/:quoteNumber/assumptions"
-                render={props => <Quote auth={auth} {...props}><Assumptions /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Assumptions {...props} /></Quote>}
               />
               <Route
                 exact
                 path="/quote/:quoteNumber/additionalInterests"
-                render={props => <Quote auth={auth} {...props}><AddAdditionalInterest /></Quote>}
+                render={props => <Quote auth={auth} {...props}><AddAdditionalInterest {...props} /></Quote>}
               />
               <Route
                 exact
                 path="/quote/:quoteNumber/addMortgagee"
-                render={props => <Quote auth={auth} {...props}><Mortgagee /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Mortgagee {...props} /></Quote>}
               />
               <Route
                 exact
                 path="/quote/:quoteNumber/mailingBilling"
-                render={props => <Quote auth={auth} {...props}><Billing /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Billing {...props} /></Quote>}
               />
               <Route
                 exact
                 path="/quote/:quoteNumber/verify"
-                render={props => <Quote auth={auth} {...props}><Verify /></Quote>}
+                render={props => <Quote auth={auth} {...props}><Verify {...props} /></Quote>}
               />
               {/* <Route
                 exact

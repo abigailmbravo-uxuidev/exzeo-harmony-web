@@ -5,9 +5,10 @@ import cgFactory from '../factory/cgFactory';
 const factoryInstance = cgFactory();
 
 
-export const setQuote = data => ({
+export const setQuote = (quoteData, state) => ({
   type: types.SET_QUOTE,
-  quote: data
+  quote: quoteData,
+  state
 });
 
 /**
@@ -20,9 +21,9 @@ export const setQuote = data => ({
 export function createQuote(address, igdID, stateCode) {
   return async (dispatch) => {
     try {
-      const quoteData = await factoryInstance.createQuote(address, igdID, stateCode);
-      dispatch(setQuote(quoteData));
-      return quoteData;
+      const { quote, state } = await factoryInstance.createQuote(address, igdID, stateCode);
+      dispatch(setQuote(quote, state));
+      return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
@@ -35,12 +36,12 @@ export function createQuote(address, igdID, stateCode) {
  * @param {string} quoteNumber
  * @returns {Function}
  */
-export function retrieveQuote(quoteNumber, quoteId) {
+export function getQuote(quoteNumber, quoteId) {
   return async (dispatch) => {
     try {
-      const quoteData = await factoryInstance.retrieveQuote(quoteNumber, quoteId);
-      dispatch(setQuote(quoteData));
-      return quoteData;
+      const { quote, state } = await factoryInstance.getQuote(quoteNumber, quoteId);
+      dispatch(setQuote(quote, state));
+      return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
@@ -55,11 +56,11 @@ export function retrieveQuote(quoteNumber, quoteId) {
  * @returns {Function}
  */
 export function updateQuote(data, quoteNumber) {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const quoteData = await factoryInstance.updateQuote(data, quoteNumber);
-      dispatch(setQuote(quoteData));
-      return quoteData;
+      const { quote, state } = await factoryInstance.updateQuote(data, quoteNumber, getState);
+      dispatch(setQuote(quote, state));
+      return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
