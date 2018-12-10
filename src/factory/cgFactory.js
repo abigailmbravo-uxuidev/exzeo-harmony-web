@@ -149,18 +149,27 @@ function cgFactory() {
         data
       }
     };
-    return axios(axiosConfig)
-        .then((response) => {
-          const { data: { previousTask = {}, activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
-          let underwritingReviewErrors = [];
 
-          if (previousTask.name === 'UnderwritingReviewError') {
-            underwritingReviewErrors.concat(previousTask.value.filter(uwe => !uwe.overridden))
-          }
+    try {
+      const response = await axios(axiosConfig);
 
-          setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors);
-        })
-        .catch(error => handleError(error));
+      const { data: { previousTask = {}, activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
+      let underwritingReviewErrors = [];
+
+      if (previousTask.name === 'UnderwritingReviewError') {
+        underwritingReviewErrors.concat(previousTask.value.filter(uwe => !uwe.overridden))
+      }
+
+      setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors);
+
+      if (activeTaskName === 'showCustomizedQuoteAndContinue') {
+        await complete(activeTaskName, {})
+      }
+    } catch (error) {
+      return handleError(error);
+    }
+
+
   }
 
 //   function goToStep() {
