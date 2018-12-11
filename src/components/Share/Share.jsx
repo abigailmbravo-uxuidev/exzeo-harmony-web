@@ -30,8 +30,12 @@ import { updateQuote } from '../../actions/quoteState.actions';
 //   // return (quoteData ? quoteData.value.result : undefined);
 // ;
 
-export const noShareSubmit = (data, dispatch, props) => {
-  window.location.href = '/quote/12-5151466-01/assumptions';
+export const noShareSubmit = async (data, dispatch, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  const submitData = { shouldSendEmail: 'No' };
+  await props.updateQuote(submitData, props.quote.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.history.push('assumptions');
 
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.sendEmailOrContinue;
@@ -40,8 +44,11 @@ export const noShareSubmit = (data, dispatch, props) => {
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-export const shareQuoteSubmit = (data, dispatch, props) => {
-  window.location.href = '/quote/12-5151466-01/assumptions';
+export const shareQuoteSubmit = async (data, dispatch, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  const submitData = { shouldSendEmail: 'Yes', ...data };
+  await props.updateQuote(submitData, props.quote.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false, showEmailPopup: false });
 
   // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
@@ -68,8 +75,8 @@ export const closeShareSubmit = (props) => {
 };
 
 export const refereshUWReviewError = async (props) => {
-  await props.updateQuote({ refresh: "Yes" }, props.quote.quoteNumber);
-  props.history.push('customerInfo')
+  await props.updateQuote({ refresh: 'Yes' }, props.quote.quoteNumber);
+  props.history.push('customerInfo');
 };
 
 const redirectToNewQuote = (props) => {

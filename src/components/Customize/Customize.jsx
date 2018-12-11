@@ -14,7 +14,6 @@ import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
-import { MOCK_QUOTE } from '../mockQuote';
 import { MOCK_UI_QUESTIONS } from '../askToCustomizeDefaultQuote';
 import { updateQuote } from '../../actions/quoteState.actions';
 
@@ -110,7 +109,7 @@ const handleInitialize = (state) => {
   // const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
   // _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
 
-  const values = getInitialValues(MOCK_UI_QUESTIONS, MOCK_QUOTE);
+  const values = getInitialValues(MOCK_UI_QUESTIONS, state.quoteState.quote);
 
   values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
   values.fireAlarm = values.fireAlarm || false;

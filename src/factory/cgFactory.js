@@ -68,6 +68,10 @@ function cgFactory() {
       await complete(state.activeTask, data);
     } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
       await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
+    }
+    if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
+      await complete(state.activeTask, { shouldSendEmail: 'Yes' });
+      await complete(state.activeTask, data);
     } else {
       await complete(state.activeTask, data);
     }
@@ -154,22 +158,20 @@ function cgFactory() {
       const response = await axios(axiosConfig);
 
       const { data: { previousTask = {}, activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
-      let underwritingReviewErrors = [];
+      const underwritingReviewErrors = [];
 
       if (previousTask.name === 'UnderwritingReviewError') {
-        underwritingReviewErrors.concat(previousTask.value.filter(uwe => !uwe.overridden))
+        underwritingReviewErrors.concat(previousTask.value.filter(uwe => !uwe.overridden));
       }
 
       setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors);
 
       if (activeTaskName === 'showCustomizedQuoteAndContinue') {
-        await complete(activeTaskName, {})
+        await complete(activeTaskName, {});
       }
     } catch (error) {
       return handleError(error);
     }
-
-
   }
 
 //   function goToStep() {
