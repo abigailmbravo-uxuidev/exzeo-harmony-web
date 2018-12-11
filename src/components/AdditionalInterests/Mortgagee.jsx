@@ -15,93 +15,100 @@ import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import ReactSelectField from '../Form/inputs/ReactSelectField';
 
-import { MOCK_QUOTE } from '../mockQuote';
 import { MOCK_UI_QUESTIONS } from '../additionalInterests';
+import { updateQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
   formSubmit: ''
 };
 
-export const handleFormSubmit = (data, dispatch, props) => {
-  window.location.href = '/quote/12-5151466-01/additionalInterests';
+export const handleFormSubmit = async (data, dispatch, props) => {
+  // window.location.href = '/quote/12-5151466-01/additionalInterests';
 
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;
-  // const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quoteData.additionalInterests;
 
-  // const mortgagee1 =
-  //   _.find(additionalInterests, { order: 0, type: 'Mortgagee' }) || {};
-  // const mortgagee2 =
-  //   _.find(additionalInterests, { order: 1, type: 'Mortgagee' }) || {};
-  // const mortgagee3 =
-  //   _.find(additionalInterests, { order: 2, type: 'Mortgagee' }) || {};
+  const mortgagee1 =
+    _.find(additionalInterests, { order: 0, type: 'Mortgagee' }) || {};
+  const mortgagee2 =
+    _.find(additionalInterests, { order: 1, type: 'Mortgagee' }) || {};
+  const mortgagee3 =
+    _.find(additionalInterests, { order: 2, type: 'Mortgagee' }) || {};
 
-  // _.remove(additionalInterests, ai => ai.type === 'Mortgagee');
+  _.remove(additionalInterests, ai => ai.type === 'Mortgagee');
 
-  // if (data.isAdditional) {
-  //   mortgagee1.name1 = data.m1Name1;
-  //   mortgagee1.name2 = data.m1Name2;
-  //   mortgagee1.referenceNumber = data.m1ReferenceNumber;
-  //   mortgagee1.order = 0;
-  //   mortgagee1.active = true;
-  //   mortgagee1.type = 'Mortgagee';
-  //   mortgagee1.mailingAddress = {
-  //     address1: data.m1MailingAddress1,
-  //     address2: data.m1MailingAddress2,
-  //     city: data.m1City,
-  //     state: data.m1State,
-  //     zip: data.m1Zip,
-  //     country: {
-  //       code: 'USA',
-  //       displayText: 'United States of America'
-  //     }
-  //   };
+  if (data.isAdditional) {
+    mortgagee1.name1 = data.m1Name1;
+    mortgagee1.name2 = data.m1Name2;
+    mortgagee1.referenceNumber = data.m1ReferenceNumber;
+    mortgagee1.order = 0;
+    mortgagee1.active = true;
+    mortgagee1.type = 'Mortgagee';
+    mortgagee1.mailingAddress = {
+      address1: data.m1MailingAddress1,
+      address2: data.m1MailingAddress2,
+      city: data.m1City,
+      state: data.m1State,
+      zip: data.m1Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
+      }
+    };
 
-  //   additionalInterests.push(mortgagee1);
-  // }
-  // if (data.isAdditional && data.isAdditional2) {
-  //   mortgagee2.name1 = data.m2Name1;
-  //   mortgagee2.name2 = data.m2Name2;
-  //   mortgagee2.referenceNumber = data.m2ReferenceNumber;
-  //   mortgagee2.order = 1;
-  //   mortgagee2.active = true;
-  //   mortgagee2.type = 'Mortgagee';
-  //   mortgagee2.mailingAddress = {
-  //     address1: data.m2MailingAddress1,
-  //     address2: data.m2MailingAddress2,
-  //     city: data.m2City,
-  //     state: data.m2State,
-  //     zip: data.m2Zip,
-  //     country: {
-  //       code: 'USA',
-  //       displayText: 'United States of America'
-  //     }
-  //   };
+    additionalInterests.push(mortgagee1);
+  }
+  if (data.isAdditional && data.isAdditional2) {
+    mortgagee2.name1 = data.m2Name1;
+    mortgagee2.name2 = data.m2Name2;
+    mortgagee2.referenceNumber = data.m2ReferenceNumber;
+    mortgagee2.order = 1;
+    mortgagee2.active = true;
+    mortgagee2.type = 'Mortgagee';
+    mortgagee2.mailingAddress = {
+      address1: data.m2MailingAddress1,
+      address2: data.m2MailingAddress2,
+      city: data.m2City,
+      state: data.m2State,
+      zip: data.m2Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
+      }
+    };
 
-  //   additionalInterests.push(mortgagee2);
-  // }
+    additionalInterests.push(mortgagee2);
+  }
 
-  // if (data.isAdditional && data.isAdditional2 && data.isAdditional3) {
-  //   mortgagee3.name1 = data.m3Name1;
-  //   mortgagee3.name2 = data.m3Name2;
-  //   mortgagee3.referenceNumber = data.m3ReferenceNumber;
-  //   mortgagee3.order = 2;
-  //   mortgagee3.active = true;
-  //   mortgagee3.type = 'Mortgagee';
-  //   mortgagee3.mailingAddress = {
-  //     address1: data.m3MailingAddress1,
-  //     address2: data.m3MailingAddress2,
-  //     city: data.m3City,
-  //     state: data.m3State,
-  //     zip: data.m3Zip,
-  //     country: {
-  //       code: 'USA',
-  //       displayText: 'United States of America'
-  //     }
-  //   };
+  if (data.isAdditional && data.isAdditional2 && data.isAdditional3) {
+    mortgagee3.name1 = data.m3Name1;
+    mortgagee3.name2 = data.m3Name2;
+    mortgagee3.referenceNumber = data.m3ReferenceNumber;
+    mortgagee3.order = 2;
+    mortgagee3.active = true;
+    mortgagee3.type = 'Mortgagee';
+    mortgagee3.mailingAddress = {
+      address1: data.m3MailingAddress1,
+      address2: data.m3MailingAddress2,
+      city: data.m3City,
+      state: data.m3State,
+      zip: data.m3Zip,
+      country: {
+        code: 'USA',
+        displayText: 'United States of America'
+      }
+    };
 
-  //   additionalInterests.push(mortgagee3);
-  // }
+    additionalInterests.push(mortgagee3);
+  }
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ additionalInterests }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
+  props.history.push('additionalInterests');
 
   // props.actions.appStateActions.setAppState(
   //   props.appState.modelName,
@@ -116,12 +123,12 @@ export const handleFormSubmit = (data, dispatch, props) => {
   // );
 };
 
-export const closeAndSavePreviousAIs = (props) => {
-  window.location.href = '/quote/12-5151466-01/additionalInterests';
+export const closeAndSavePreviousAIs = async (props) => {
+ // window.location.href = '/quote/12-5151466-01/additionalInterests';
 
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;
-  // const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quoteData.additionalInterests;
   // props.actions.appStateActions.setAppState(
   //   props.appState.modelName,
   //   workflowId,
@@ -133,6 +140,13 @@ export const closeAndSavePreviousAIs = (props) => {
   //   taskName,
   //   { additionalInterests }
   // );
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ additionalInterests }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
+  props.history.push('additionalInterests');
 };
 
 export const handleInitialize = (state) => {
@@ -142,7 +156,8 @@ export const handleInitialize = (state) => {
       : null;
   //   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
 
-  const quoteData = MOCK_QUOTE;
+  const quoteData = handleGetQuoteData(state);
+  const questions = handleGetQuestions(state);
     // taskData &&
     // taskData.model &&
     // taskData.model.variables &&
@@ -152,7 +167,7 @@ export const handleInitialize = (state) => {
     //       .result
     //   : {};
 
-  const values = getInitialValues(MOCK_UI_QUESTIONS, {
+  const values = getInitialValues(questions, {
     additionalInterests: _.filter(
       quoteData.additionalInterests,
       ai => ai.type === 'Mortgagee'
@@ -161,7 +176,7 @@ export const handleInitialize = (state) => {
 
   // userTasks.formSubmit = taskData.activeTask.name;
 
-  _.forEach(MOCK_UI_QUESTIONS, (q) => {
+  _.forEach(questions, (q) => {
     if (!values[q.name]) {
       values[q.name] = '';
     }
@@ -175,10 +190,17 @@ export const handleInitialize = (state) => {
 };
 
 export const handleGetQuestions = (state) => {
-  const taskData =
-    state.cg && state.appState && state.cg[state.appState.modelName]
-      ? state.cg[state.appState.modelName].data
-      : null;
+  MOCK_UI_QUESTIONS
+  .filter(question => question.name === 'mortgagee')
+  .forEach((q) => {
+    if (q && Array.isArray(q.answers)) {
+      q.answers.forEach((answer) => {
+        answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
+        return answer;
+      });
+    }
+    return q;
+  });
   return MOCK_UI_QUESTIONS;
 };
 
@@ -196,7 +218,7 @@ export const handleGetQuoteData = state =>
   //     ? _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value
   //         .result
   //     : {};
-   MOCK_QUOTE;
+   state.quoteState.quote || {};
 
 const getAnswers = (name, questions) =>
   _.get(_.find(questions, { name }), 'answers') || [];
@@ -442,6 +464,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

@@ -68,8 +68,7 @@ function cgFactory() {
       await complete(state.activeTask, data);
     } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
       await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
-    }
-    if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
+    }    else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
       await complete(state.activeTask, { shouldSendEmail: 'Yes' });
       await complete(state.activeTask, data);
     } else {

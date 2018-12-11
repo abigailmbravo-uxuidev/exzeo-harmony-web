@@ -12,15 +12,20 @@ import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import { MOCK_QUOTE } from '../mockQuote';
 import { MOCK_UI_QUESTIONS } from '../additionalInterests';
+import { updateQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
   addAdditionalAIs: 'addAdditionalAIs'
 };
 
-export const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
-  window.location.href = '/quote/12-5151466-01/mailingBilling';
+export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ shouldUpdateAIs: 'No' }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
+  props.history.push('mailingBilling');
 
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.addAdditionalAIs;
@@ -29,13 +34,19 @@ export const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-export const AddMortgagee = (props) => {
+export const AddMortgagee = async (props) => {
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.addAdditionalAIs;
   // const taskData = { shouldUpdateAIs: 'mortgagee' };
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  window.location.href = '/quote/12-5151466-01/askMortgagee';
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ shouldUpdateAIs: 'mortgagee' }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
+  props.history.push('askMortgagee');
 };
 
 export const AddPremiumFinance = (props) => {
@@ -70,24 +81,24 @@ export const AddBillpayer = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-const handleGetQuestions = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+// const handleGetQuestions = (state) => {
+//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
 
-  MOCK_UI_QUESTIONS
-  .filter(question => question.name === 'mortgagee' || question.name === 'premiumFinance')
-  .forEach((q) => {
-    if (q && Array.isArray(q.answers)) {
-      q.answers.forEach((answer) => {
-        answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
-        return answer;
-      });
-    }
-    return q;
-  });
-  return MOCK_UI_QUESTIONS;
-};
+//   MOCK_UI_QUESTIONS
+//   .filter(question => question.name === 'mortgagee' || question.name === 'premiumFinance')
+//   .forEach((q) => {
+//     if (q && Array.isArray(q.answers)) {
+//       q.answers.forEach((answer) => {
+//         answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
+//         return answer;
+//       });
+//     }
+//     return q;
+//   });
+//   return MOCK_UI_QUESTIONS;
+// };
 
-const handleGetQuoteData = state => MOCK_QUOTE
+const handleGetQuoteData = state => state.quoteState.quote || {}
   // const { cg, appState } = state;
   // const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
   // return (quoteData ? quoteData.value.result : undefined);
@@ -117,24 +128,7 @@ export const returnTaskName = (type) => {
   else if (type === 'Additional Insured') return 'askAdditionalInsured';
 };
 
-const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-//   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-
-  const { cg, appState } = state;
-  const quoteData = MOCK_QUOTE; // _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
-
-  const values = getInitialValues(MOCK_UI_QUESTIONS, quoteData);
-
-  // userTasks.formSubmit = taskData.activeTask.name;
-
-  _.forEach(MOCK_UI_QUESTIONS, (q) => {
-    if (!values[q.name]) {
-      values[q.name] = '';
-    }
-  });
-  return values;
-};
+// const handleInitialize = state => ({});
 
 export const openDeleteAdditionalInterest = (ai, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId,
@@ -269,12 +263,13 @@ const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'AddAdditionalInterestPage.values', {}),
-  initialValues: handleInitialize(state),
-  fieldQuestions: handleGetQuestions(state),
+  // initialValues: handleInitialize(state),
+  // fieldQuestions: handleGetQuestions(state),
   quoteData: handleGetQuoteData(state)
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
