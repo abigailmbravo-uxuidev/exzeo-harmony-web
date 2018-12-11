@@ -35,7 +35,7 @@ export const AddMortgagee = (props) => {
   // const taskData = { shouldUpdateAIs: 'mortgagee' };
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  window.location.href = '/quote/12-5151466-01/addMortgagee';
+  window.location.href = '/quote/12-5151466-01/askMortgagee';
 };
 
 export const AddPremiumFinance = (props) => {

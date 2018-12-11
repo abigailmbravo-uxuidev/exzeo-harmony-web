@@ -28,6 +28,12 @@ import Share from './components/Share/Share';
 import AddAdditionalInterest from './components/AdditionalInterests/AddAdditionalInterest';
 import Assumptions from './components/Assumptions/Assumptions';
 import Mortgagee from './components/AdditionalInterests/Mortgagee';
+
+import BillPayer from './components/AdditionalInterests/BillPayer';
+import PremiumFinance from './components/AdditionalInterests/PremiumFinance';
+import AdditionalInsured from './components/AdditionalInterests/AdditionalInsured';
+import AdditionalInterest from './components/AdditionalInterests/AdditionalInterest';
+
 import Billing from './components/Billing/Billing';
 import Verify from './components/Verify/Verify';
 
@@ -131,8 +137,28 @@ class Routes extends Component { // eslint-disable-line
               />
               <Route
                 exact
-                path="/quote/:quoteNumber/addMortgagee"
+                path="/quote/:quoteNumber/askMortgagee"
                 render={props => <Quote auth={auth} {...props}><Mortgagee {...props} /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/askAdditionalInterest"
+                render={props => <Quote auth={auth} {...props}><AdditionalInterest {...props} /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/askAdditionalInsured"
+                render={props => <Quote auth={auth} {...props}><AdditionalInsured {...props} /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/askPremiumFinance"
+                render={props => <Quote auth={auth} {...props}><PremiumFinance {...props} /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/askBillPayer"
+                render={props => <Quote auth={auth} {...props}><BillPayer {...props} /></Quote>}
               />
               <Route
                 exact
