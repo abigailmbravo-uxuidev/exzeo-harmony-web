@@ -15,7 +15,6 @@ import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import ReactSelectField from '../Form/inputs/ReactSelectField';
 
-import { MOCK_UI_QUESTIONS } from '../additionalInterests';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
@@ -148,10 +147,10 @@ export const closeAndSavePreviousAIs = async (props) => {
 };
 
 export const handleInitialize = (state) => {
-  const taskData =
-    state.cg && state.appState && state.cg[state.appState.modelName]
-      ? state.cg[state.appState.modelName].data
-      : null;
+  // const taskData =
+  //   state.cg && state.appState && state.cg[state.appState.modelName]
+  //     ? state.cg[state.appState.modelName].data
+  //     : null;
   //   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
 
   const quoteData = handleGetQuoteData(state);
@@ -188,8 +187,9 @@ export const handleInitialize = (state) => {
 };
 
 export const handleGetQuestions = (state) => {
-  MOCK_UI_QUESTIONS
-  .filter(question => question.name === 'mortgagee')
+  const questions = state.quoteState.state ? state.quoteState.state.uiQuestions : [];
+
+  questions.filter(question => question.name === 'mortgagee')
   .forEach((q) => {
     if (q && Array.isArray(q.answers)) {
       q.answers.forEach((answer) => {
@@ -199,7 +199,7 @@ export const handleGetQuestions = (state) => {
     }
     return q;
   });
-  return MOCK_UI_QUESTIONS;
+  return questions;
 };
 
 export const handleGetQuoteData = state =>
