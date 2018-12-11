@@ -12,7 +12,6 @@ import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import { MOCK_UI_QUESTIONS } from '../additionalInterests';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 const userTasks = {
@@ -44,8 +43,6 @@ export const AddMortgagee = async (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ shouldUpdateAIs: 'mortgagee' }, props.quoteData.quoteNumber);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
   props.history.push('askMortgagee');
 };
 
@@ -57,20 +54,28 @@ export const AddPremiumFinance = (props) => {
   props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 };
 
-export const AddAdditionalInsured = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'additionalInsured' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddAdditionalInsured = async (props) => {
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.addAdditionalAIs;
+  // const taskData = { shouldUpdateAIs: 'additionalInsured' };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ shouldUpdateAIs: 'additionalInsured' }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.history.push('askAdditionalInsured');
 };
 
-export const AddInterest = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'additionalInterest' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddInterest = async (props) => {
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.addAdditionalAIs;
+  // const taskData = { shouldUpdateAIs: 'additionalInterest' };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ shouldUpdateAIs: 'additionalInterest' }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.history.push('askAdditionalInterest');
 };
 
 export const AddBillpayer = (props) => {
@@ -140,17 +145,17 @@ export const hideAdditionalInterestModal = (props) => {
       { ...props.appState.data, showAdditionalInterestModal: false, showAdditionalInterestEditModal: false });
 };
 
-export const deleteAdditionalInterest = (selectedAdditionalInterest, props) => {
+export const deleteAdditionalInterest = async (selectedAdditionalInterest, props) => {
   const { appState, actions, quoteData } = props;
-  const workflowId = appState.instanceId;
+ // const workflowId = appState.instanceId;
   actions.appStateActions.setAppState(appState.modelName,
-      workflowId, {
+      '', {
         ...props.appState.data,
         submitting: true,
         showAdditionalInterestModal: false
       });
 
-  let additionalInterests = quoteData.additionalInterests || [];
+  const additionalInterests = quoteData.additionalInterests || [];
 
         // remove any existing items before submission
   const modifiedAIs = _.cloneDeep(additionalInterests);
@@ -163,21 +168,31 @@ export const deleteAdditionalInterest = (selectedAdditionalInterest, props) => {
     order += 1;
   });
 
-  const steps = [{ name: 'addAdditionalAIs', data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) } },
-    {
-      name: returnTaskName(selectedAdditionalInterest.type),
-      data: { additionalInterests: modifiedAIs }
-    }
-  ];
 
-  actions.cgActions.batchCompleteTask(appState.modelName, workflowId, steps)
-      .then(() => {
-        additionalInterests = modifiedAIs;
-        props.actions.appStateActions.setAppState(props.appState.modelName,
-          workflowId, { ...props.appState.data,
-            submitting: false,
-            showAdditionalInterestModal: false });
-      });
+  await props.updateQuote({ shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) }, props.quoteData.quoteNumber);
+
+  await props.updateQuote({ additionalInterests: modifiedAIs }, props.quoteData.quoteNumber);
+
+  props.actions.appStateActions.setAppState(props.appState.modelName,
+    '', { ...props.appState.data,
+      submitting: false,
+      showAdditionalInterestModal: false });
+
+  // const steps = [{ name: 'addAdditionalAIs', data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) } },
+  //   {
+  //     name: returnTaskName(selectedAdditionalInterest.type),
+  //     data: { additionalInterests: modifiedAIs }
+  //   }
+  // ];
+
+  // actions.cgActions.batchCompleteTask(appState.modelName, workflowId, steps)
+  //     .then(() => {
+  //       additionalInterests = modifiedAIs;
+  //       props.actions.appStateActions.setAppState(props.appState.modelName,
+  //         workflowId, { ...props.appState.data,
+  //           submitting: false,
+  //           showAdditionalInterestModal: false });
+  //     });
 };
 
 

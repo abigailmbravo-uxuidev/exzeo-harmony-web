@@ -5,9 +5,9 @@ import cgFactory from '../factory/cgFactory';
 const factoryInstance = cgFactory();
 
 
-export const setQuote = (quoteData, state) => ({
+export const setQuote = (quote, state) => ({
   type: types.SET_QUOTE,
-  quote: quoteData,
+  quote,
   state
 });
 

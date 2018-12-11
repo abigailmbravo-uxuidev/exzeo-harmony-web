@@ -8,7 +8,8 @@ function cgFactory() {
     variables: [],
     workflowId: '',
     completedTasks: [],
-    underwritingExceptions: []
+    underwritingExceptions: [],
+    uiQuestions: []
   };
 
   /**
@@ -68,7 +69,7 @@ function cgFactory() {
       await complete(state.activeTask, data);
     } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
       await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
-    }    else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
+    } else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
       await complete(state.activeTask, { shouldSendEmail: 'Yes' });
       await complete(state.activeTask, data);
     } else {
@@ -96,12 +97,13 @@ function cgFactory() {
    * @param completedTasks
    * @param underwritingReviewErrors
    */
-  function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors) {
+  function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions) {
     state.activeTask = activeTask;
     state.variables = variables;
     state.workflowId = workflowId;
     state.completedTasks = completedTasks;
     state.underwritingExceptions = underwritingReviewErrors;
+    state.uiQuestions = uiQuestions;
   }
 
   /**
@@ -156,14 +158,14 @@ function cgFactory() {
     try {
       const response = await axios(axiosConfig);
 
-      const { data: { previousTask = {}, activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
+      const { data: { uiQuestions, previousTask = {}, activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
       const underwritingReviewErrors = [];
 
       if (previousTask.name === 'UnderwritingReviewError') {
         underwritingReviewErrors.concat(previousTask.value.filter(uwe => !uwe.overridden));
       }
 
-      setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors);
+      setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions);
 
       if (activeTaskName === 'showCustomizedQuoteAndContinue') {
         await complete(activeTaskName, {});

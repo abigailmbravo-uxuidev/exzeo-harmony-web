@@ -144,8 +144,6 @@ export const closeAndSavePreviousAIs = async (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ additionalInterests }, props.quoteData.quoteNumber);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
   props.history.push('additionalInterests');
 };
 
