@@ -72,6 +72,9 @@ function cgFactory() {
     } else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
       await complete(state.activeTask, { shouldSendEmail: 'Yes' });
       await complete(state.activeTask, data);
+    } else if (state.activeTask === 'editVerify' && data.shouldEditVerify === 'false') {
+      await complete(state.activeTask, { shouldEditVerify: 'false' });
+      await complete(state.activeTask, data);
     } else {
       await complete(state.activeTask, data);
     }

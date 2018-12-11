@@ -13,8 +13,8 @@ import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
-import { MOCK_QUOTE } from '../mockQuote';
-import { MOCK_ACTIVE_AGENTS } from '../askAdditionalCustomerData';
+import { updateQuote } from '../../actions/quoteState.actions';
+
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -51,10 +51,10 @@ const hidePolicyHolderModal = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showPolicyHolderModal: false });
 };
 
-export const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = async (data, dispatch, props) => {
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;
-  // const taskData = { ...data };
+  const taskData = { ...data, shouldEditVerify: 'false' };
 
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // const steps = [{
@@ -73,6 +73,10 @@ export const handleFormSubmit = (data, dispatch, props) => {
   //     props.actions.appStateActions.setAppState(props.appState.modelName,
   //       workflowId, { ...props.appState.data, submitting: false });
   //   });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote(taskData, props.quote.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.history.push('thankYou');
 };
 
 export const handlePolicyHolderUpdate = (data, dispatch, props) => {
@@ -133,13 +137,16 @@ export const Verify = (props) => {
      submitting
    } = props;
 
-  const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};
+  // const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};
 
-  const quoteData = MOCK_QUOTE;// _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
+  const quoteData = props.quote;// _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
   // _.find(taskData.model.variables, { name: 'quote' }).value.result;
 
-  const agentList = MOCK_ACTIVE_AGENTS;// _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
+   // const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
   // _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
+  const stateFromQuoteState = props.stateFromQuoteState;
+  const result = stateFromQuoteState.variables.find(v => v.name === 'getActiveAgents');
+  const agentList = result && result.value && result.value.result ? result.value.result : [];
 
   const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode }) || {};
 
@@ -395,7 +402,7 @@ export const Verify = (props) => {
 
         </Form>}
       {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={handlePolicyHolderUpdate} secondaryButtonHandler={() => hidePolicyHolderModal(props)} parentProps={props} showSnackBar={props.appState.data.showSnackBar} />}
-      {appState.data.showScheduleDateModal && <ScheduleDate selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} secondaryButtonHandler={() => scheduleDateModal(props, false)} redirectToHome={() => redirectToHome(props)} />}
+      {appState.data.showScheduleDateModal && <ScheduleDate {...props} selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} secondaryButtonHandler={() => scheduleDateModal(props, false)} redirectToHome={() => redirectToHome(props)} />}
     </div>
   );
 };
@@ -421,10 +428,13 @@ Verify.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  fieldValues: _.get(state.form, 'Verify.values', {})
+  fieldValues: _.get(state.form, 'Verify.values', {}),
+  stateFromQuoteState: state.quoteState.state || { variables: [] },
+  quote: state.quoteState.quote || {}
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

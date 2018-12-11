@@ -36,6 +36,7 @@ import AdditionalInterest from './components/AdditionalInterests/AdditionalInter
 
 import Billing from './components/Billing/Billing';
 import Verify from './components/Verify/Verify';
+import ThankYou from './components/ThankYou/ThankYou';
 
 const auth = new Auth();
 
@@ -169,6 +170,11 @@ class Routes extends Component { // eslint-disable-line
                 exact
                 path="/quote/:quoteNumber/verify"
                 render={props => <Quote auth={auth} {...props}><Verify {...props} /></Quote>}
+              />
+              <Route
+                exact
+                path="/quote/:quoteNumber/thankYou"
+                render={props => <Quote auth={auth} {...props}><ThankYou {...props} /></Quote>}
               />
               {/* <Route
                 exact
