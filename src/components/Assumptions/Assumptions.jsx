@@ -8,26 +8,30 @@ import Footer from '../Common/Footer';
 // import { getInitialValues } from '../Customize/customizeHelpers';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-import TaskRunnerConnect from '../Workflow/TaskRunner';
+// import TaskRunnerConnect from '../Workflow/TaskRunner';
 
 import { CheckField } from '../Form/inputs';
+import { updateQuote } from '../../actions/quoteState.actions';
+import Loader from '../Common/Loader';
 
-const userTasks = { formSubmit: 'showAssumptions' };
+// const userTasks = { formSubmit: 'showAssumptions' };
 
-export const handleOnSubmit = (data, dispatch, props) => {
-  window.location.href = '/quote/12-5151466-01/additionalInterests';
-
+export const handleOnSubmit = async (data, dispatch, props) => {
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // const taskName = userTasks.formSubmit;
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true, showLoader: true, taskName });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({}, props.quote.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
+  props.history.push('additionalInterests');
 };
 
 export const Assumptions = (props) => {
   const { appState, handleSubmit, fieldValues } = props;
   return (
     <div className="route-content">
-      {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />}
+      {props.appState.data.submitting && <Loader />}
+      {/* {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />} */}
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper">
@@ -77,10 +81,12 @@ Assumptions.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  fieldValues: _.get(state.form, 'Assumptions.values', {})
+  fieldValues: _.get(state.form, 'Assumptions.values', {}),
+  quote: state.quoteState.quote
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
