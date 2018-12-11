@@ -19,9 +19,8 @@ import FieldGenerator from '../Form/FieldGenerator';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
+import { updateQuote } from '../../actions/quoteState.actions';
 
-import { MOCK_UI_QUESTIONS, MOCK_BILLING_OPTIONS } from '../mailingBilling';
-import { MOCK_QUOTE } from '../mockQuote';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
@@ -30,35 +29,45 @@ const userTasks = {
   formSubmit: 'askAdditionalQuestions'
 };
 
-export const handleFormSubmit = (data, dispatch, props) => {
+export const handleFormSubmit = async (data, dispatch, props) => {
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;
-  // const taskData = { ...data };
+  //  const taskData = { ...data };
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  window.location.href = '/quote/12-5151466-01/verify';
+ // window.location.href = '/quote/12-5151466-01/verify';
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote(data, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.history.push('verify');
 };
 
-const handleGetQuoteData = state => MOCK_QUOTE
+const handleGetQuoteData = state => state.quoteState.quote || {};
   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   // const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }).value.result :
   // _.find(taskData.model.variables, { name: 'quote' }).value.result;
   // return quoteData;
-;
 
-const handleGetPaymentPlans = state => MOCK_BILLING_OPTIONS
+
+const handleGetPaymentPlans = (state) => {
+  const stateFromQuoteState = state.quoteState.state || null;
+  if (!stateFromQuoteState) return {};
+  const result = stateFromQuoteState.variables.find(v => v.name === 'billingOptions');
+  return result && result.value && result.value.result ? result.value.result : {};
+}
   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   // const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
   // return paymentPlanResult;
 ;
 
 const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = handleGetQuoteData(state);
+  const uiQuestions = handleGetQuestions(state);
 
-  const values = getInitialValues(MOCK_UI_QUESTIONS, quoteData);
+  const values = getInitialValues(uiQuestions, quoteData);
 
-  _.forEach(MOCK_UI_QUESTIONS, (q) => {
+  _.forEach(uiQuestions, (q) => {
     if (!values[q.name]) {
       values[q.name] = '';
     }
@@ -89,11 +98,12 @@ _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, '
 
   return values;
 };
+const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
 
-const handleGetQuestions = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  return MOCK_UI_QUESTIONS;
-};
+// const handleGetQuestions = (state) => {
+//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+//   return MOCK_UI_QUESTIONS;
+// };
 
 export const getSelectedPlan = (answer) => {
   let selection;
@@ -293,6 +303,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
