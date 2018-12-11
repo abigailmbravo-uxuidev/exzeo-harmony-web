@@ -46,12 +46,16 @@ export const AddMortgagee = async (props) => {
   props.history.push('askMortgagee');
 };
 
-export const AddPremiumFinance = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'premiumFinance' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddPremiumFinance = async (props) => {
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.addAdditionalAIs;
+  // const taskData = { shouldUpdateAIs: 'premiumFinance' };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ shouldUpdateAIs: 'premiumFinance' }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.history.push('askPremiumFinance');
 };
 
 export const AddAdditionalInsured = async (props) => {
@@ -78,12 +82,16 @@ export const AddInterest = async (props) => {
   props.history.push('askAdditionalInterest');
 };
 
-export const AddBillpayer = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'billPayer' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddBillpayer = async (props) => {
+  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+  // const taskName = userTasks.addAdditionalAIs;
+  // const taskData = { shouldUpdateAIs: 'billPayer' };
+  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ shouldUpdateAIs: 'billPayer' }, props.quoteData.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.history.push('askBillPayer');
 };
 
 // const handleGetQuestions = (state) => {
