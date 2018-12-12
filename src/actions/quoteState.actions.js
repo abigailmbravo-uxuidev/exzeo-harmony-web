@@ -67,3 +67,16 @@ export function updateQuote(data, quoteNumber) {
     }
   };
 }
+
+export function goToStep(stepName, quoteNumber) {
+  return async (dispatch) => {
+    try {
+      const { quote, state } = await factoryInstance.goToStepDontUseThisInComponents(stepName, quoteNumber);
+      dispatch(setQuote(quote, state));
+      return quote;
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+      return null;
+    }
+  }
+}

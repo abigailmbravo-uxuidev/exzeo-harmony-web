@@ -13,80 +13,6 @@ function cgFactory() {
     underwritingQuestions: []
   };
 
-  /**
-   *
-   * @param address
-   * @param igdID
-   * @param stateCode
-   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
-   */
-  async function createQuote(address, igdID, stateCode) {
-    await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
-
-    await complete('search', { address, searchType: 'address' });
-    await complete('chooseAddress', {
-      igdId: igdID,
-      stateCode
-    });
-
-    return {
-      quote: getDataByName('createQuote'),
-      state: getState()
-    };
-  }
-
-  /**
-   *
-   * @param quoteNumber
-   * @param quoteId
-   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
-   */
-  async function getQuote(quoteNumber, quoteId) {
-    await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
-
-    await complete('search', { quoteNumber, searchType: 'quote' });
-    await complete('chooseQuote', {
-      quoteId
-    });
-    return {
-      quote: getDataByName('retrieveQuote'),
-      state: getState()
-    };
-  }
-
-  /**
-   *
-   * @param data
-   * @param quoteId
-   * @param getReduxState
-   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
-   */
-  async function updateQuote(data, quoteId, getReduxState) {
-    // if user refreshes it will ensure the state is synced up to the redux state;
-    if (!state.activeTask) state = getReduxState().quoteState.state;
-
-    if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
-      await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
-      await complete(state.activeTask, data);
-    } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
-      await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
-    } else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
-      await complete(state.activeTask, { shouldSendEmail: 'Yes' });
-      await complete(state.activeTask, data);
-    } else if (state.activeTask === 'editVerify' && data.shouldEditVerify === 'false') {
-      await complete(state.activeTask, { shouldEditVerify: 'false' });
-      await complete(state.activeTask, data);
-    } else {
-      await complete(state.activeTask, data);
-    }
-
-    const quote = await getQuoteServiceRequest(quoteId);
-    return {
-      quote,
-      state: getState()
-    };
-  }
-
   // TODO: clean this set stuff up
   function logError(error) {
     if (process.env.NODE_ENV !== 'production') {
@@ -146,18 +72,18 @@ function cgFactory() {
 
   /**
    *
-   * @private
    * @param stepName
    * @param data
+   * @param cgEndpoint
    * @returns {Promise<void>}
    */
-  async function complete(stepName, data) {
+  async function complete(stepName, data, cgEndpoint = 'complete') {
     const axiosConfig = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/cg/complete`,
+      url: `${process.env.REACT_APP_API_URL}/cg/${cgEndpoint}`,
       data: {
         workflowId: state.workflowId,
         stepName,
@@ -205,10 +131,6 @@ function cgFactory() {
     }
   }
 
-//   function goToStep() {
-
-//   }
-
   /**
    *
    * @private
@@ -245,10 +167,105 @@ function cgFactory() {
     }
   }
 
+  /**
+   *
+   * @param address
+   * @param igdID
+   * @param stateCode
+   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
+   */
+  async function createQuote(address, igdID, stateCode) {
+    await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
+
+    await complete('search', { address, searchType: 'address' });
+    await complete('chooseAddress', {
+      igdId: igdID,
+      stateCode
+    });
+
+    return {
+      quote: getDataByName('createQuote'),
+      state: getState()
+    };
+  }
+
+  /**
+   *
+   * @param quoteNumber
+   * @param quoteId
+   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
+   */
+  async function getQuote(quoteNumber, quoteId) {
+    await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
+
+    await complete('search', { quoteNumber, searchType: 'quote' });
+    await complete('chooseQuote', {
+      quoteId
+    });
+    return {
+      quote: getDataByName('retrieveQuote'),
+      state: getState()
+    };
+  }
+
+  /**
+   *
+   * @param data
+   * @param quoteId
+   * @param getReduxState
+   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
+   */
+  async function updateQuote(data, quoteNumber, getReduxState) {
+    // if user refreshes it will ensure the state is synced up to the redux state;
+    if (!state.activeTask) state = getReduxState().quoteState.state;
+
+    if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
+      await complete(state.activeTask, data);
+    } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
+    } else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
+      await complete(state.activeTask, { shouldSendEmail: 'Yes' });
+      await complete(state.activeTask, data);
+    } else if (state.activeTask === 'editVerify' && data.shouldEditVerify === 'false') {
+      await complete(state.activeTask, { shouldEditVerify: 'false' });
+      await complete(state.activeTask, data);
+    } else {
+      await complete(state.activeTask, data);
+    }
+
+    const quote = await getQuoteServiceRequest(quoteNumber);
+    return {
+      quote,
+      state: getState()
+    };
+  }
+
+  /**
+   *
+   * @param stepName
+   * @param quoteNumber
+   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array}}>}
+   */
+  async function goToStep(stepName, quoteNumber) {
+    try {
+      await complete(stepName, null, 'moveToTask');
+
+      const quote = await getQuoteServiceRequest(quoteNumber);
+      return {
+        quote,
+        state: getState()
+      };
+    } catch (error) {
+      logError(error);
+    }
+  }
+
   return {
     createQuote,
     getQuote,
-    updateQuote
+    updateQuote,
+    goToStepDontUseThisInComponents: goToStep
   };
 }
 

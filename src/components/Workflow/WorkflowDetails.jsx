@@ -9,6 +9,17 @@ import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as customize from '../Customize/Customize';
+import { goToStep as goToStepTerrible } from '../../actions/quoteState.actions';
+
+const STEP_NAME_MAP = {
+  askAdditionalCustomerData: 'customerInfo',
+  askUWAnswers: 'underwriting',
+  askToCustomizeDefaultQuote: 'customize',
+  sendEmailOrContinue: 'share',
+  addAdditionalAIs: 'additionalInterests',
+  askAdditionalQuestions: 'mailingBilling',
+  editVerify: 'verify'
+};
 
 export const handleRecalc = (props) => {
   customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
@@ -30,18 +41,21 @@ export const getQuoteFromModel = (state, props) => {
   });
 };
 
-export const goToStep = (props, taskName) => {
+export const goToStep = async (props, stepName) => {
   // don't allow submission until the other step is completed
   if (props.appState.data.submitting) return;
 
-  const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
-
-  if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
-      (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
-    const currentModelData = props.tasks && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
-    props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentModelData.model.completedTasks, props.completedTasks));
-    props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, nextPage: taskName });
-  }
+  await props.goToStepTerrible(stepName, props.quote.quoteNumber);
+  //
+  // const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
+  //
+  // if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
+  //     (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
+  //   const currentModelData = props.tasks && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
+  //   props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentModelData.model.completedTasks, props.completedTasks));
+  //   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, nextPage: taskName });
+  // }
+  props.history.push(`${STEP_NAME_MAP[stepName]}`);
 };
 
 export const getClassForStep = (stepName, props) =>
@@ -231,6 +245,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  goToStepTerrible: bindActionCreators(goToStepTerrible, dispatch),
   dispatch,
   actions: {
     serviceActions: bindActionCreators(serviceActions, dispatch),

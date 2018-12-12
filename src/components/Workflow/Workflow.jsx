@@ -131,12 +131,13 @@ export class Workflow extends Component {
   // }
 
   render() {
+    const  { match, history } = this.props;
     // const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
     //   this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
     const activeStep = '';
     return (
       <div className={`route ${activeStep}`}>
-        <WorkFlowDetailsConnect />
+        <WorkFlowDetailsConnect match={match} history={history} />
         {this.props.children}
         <CheckErrorConnect redirectUrl={this.context.router ? this.context.router.route.location.pathname : ''} />
       </div>);
