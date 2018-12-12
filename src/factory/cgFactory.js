@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { callService } from '../utilities/serviceRunner';
+import { callService, handleError } from '../utilities/serviceRunner';
 
 function cgFactory() {
   let state = {
@@ -79,6 +79,7 @@ function cgFactory() {
     } else {
       await complete(state.activeTask, data);
     }
+
     const quote = await getQuoteServiceRequest(quoteId);
     return {
       quote,
@@ -86,20 +87,24 @@ function cgFactory() {
     };
   }
 
-  function handleError(error) {
-    console.log(error);
+  // TODO: clean this set stuff up
+  function logError(error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('----- CG ERROR -----');
+      console.error(error);
+      console.error('----- CG ERROR -----');
+    }
   }
 
-
-  // TODO: clean this set stuff up
   /**
    *
-   * @private
    * @param activeTask
    * @param workflowId
    * @param variables
    * @param completedTasks
    * @param underwritingReviewErrors
+   * @param uiQuestions
+   * @param underwritingQuestions
    */
   function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions) {
     state.activeTask = activeTask;
@@ -161,18 +166,31 @@ function cgFactory() {
     };
 
     try {
-      const response = await axios(axiosConfig);
+      // deeply nested response object from cg/axios
+      const { data: { data } } = await axios(axiosConfig);
+      const {
+        modelInstanceId,
+        uiQuestions,
+        previousTask = {},
+        activeTask: {
+          name: activeTaskName
+        },
+        model: {
+          variables,
+          completedTasks
+        }
+      } = data;
 
-      const { data: { uiQuestions, previousTask = {}, activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
       let underwritingReviewErrors = [];
       let underwritingQuestions = [];
 
       if (previousTask.name === 'UnderwritingReviewError') {
         underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
       }
-      if (variables.find(v => v.name === 'getListOfUWQuestions')) {
-        const listOfUWQuestions = variables.find(v => v.name === 'getListOfUWQuestions').value.result;
-        underwritingQuestions = listOfUWQuestions;
+
+      const cgUWQuestions = variables.find(v => v.name === 'getListOfUWQuestions');
+      if (cgUWQuestions) {
+        underwritingQuestions = cgUWQuestions.value.result;
       }
       setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions);
 
@@ -180,7 +198,7 @@ function cgFactory() {
         await complete(activeTaskName, {});
       }
     } catch (error) {
-      return handleError(error);
+      return logError(error);
     }
   }
 
@@ -204,18 +222,24 @@ function cgFactory() {
   }
 
   /**
-   *
+   * Get quote directly through service-runner
    * @private
-   * @param quoteNumber
+   * @param {string} quoteNumber
    * @returns {Promise<*>}
    */
   async function getQuoteServiceRequest(quoteNumber) {
-    const response = await callService({
-      service: 'quote-data',
-      method: 'GET',
-      path: quoteNumber
-    });
-    return response.data.result;
+    try {
+      const response = await callService({
+        service: 'quote-data',
+        method: 'GET',
+        path: quoteNumber
+      });
+
+      return response.data.result;
+
+    } catch (error) {
+      handleError(error);
+    }
   }
 
   return {

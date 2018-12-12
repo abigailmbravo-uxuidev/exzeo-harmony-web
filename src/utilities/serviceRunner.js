@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default function handleError(err) {
+export function handleError(err) {
     // return default error message if non exists
   if (!err) return { message: 'An error occurred that was not handled properly.' };
 
