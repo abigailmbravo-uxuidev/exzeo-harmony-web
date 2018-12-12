@@ -12,12 +12,9 @@ import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
-import { MOCK_QUOTE } from '../mockQuote';
-import { MOCK_UI_QUESTIONS } from '../askUWAnswers';
-
 import { updateQuote } from '../../actions/quoteState.actions';
 
-const userTasks = { formSubmit: 'askUWAnswers' };
+// const userTasks = { formSubmit: 'askUWAnswers' };
 
 const handleFormSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
