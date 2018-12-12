@@ -9,7 +9,8 @@ function cgFactory() {
     workflowId: '',
     completedTasks: [],
     underwritingExceptions: [],
-    uiQuestions: []
+    uiQuestions: [],
+    underwritingQuestions: []
   };
 
   /**
@@ -100,13 +101,14 @@ function cgFactory() {
    * @param completedTasks
    * @param underwritingReviewErrors
    */
-  function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions) {
+  function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions) {
     state.activeTask = activeTask;
     state.variables = variables;
     state.workflowId = workflowId;
     state.completedTasks = completedTasks;
     state.underwritingExceptions = underwritingReviewErrors;
     state.uiQuestions = uiQuestions;
+    state.underwritingQuestions = underwritingQuestions;
   }
 
   /**
@@ -131,8 +133,8 @@ function cgFactory() {
 
     return axios(axiosConfig)
         .then((response) => {
-          const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables } } } = response.data;
-          setState(activeTaskName, modelInstanceId, variables);
+          const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
+          setState(activeTaskName, modelInstanceId, variables, completedTasks);
         })
         .catch(error => handleError(error));
   }
@@ -162,13 +164,17 @@ function cgFactory() {
       const response = await axios(axiosConfig);
 
       const { data: { uiQuestions, previousTask = {}, activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
-      const underwritingReviewErrors = [];
+      let underwritingReviewErrors = [];
+      let underwritingQuestions = [];
 
       if (previousTask.name === 'UnderwritingReviewError') {
-        underwritingReviewErrors.concat(previousTask.value.filter(uwe => !uwe.overridden));
+        underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
       }
-
-      setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions);
+      if (variables.find(v => v.name === 'getListOfUWQuestions')) {
+        const listOfUWQuestions = variables.find(v => v.name === 'getListOfUWQuestions').value.result;
+        underwritingQuestions = listOfUWQuestions;
+      }
+      setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions);
 
       if (activeTaskName === 'showCustomizedQuoteAndContinue') {
         await complete(activeTaskName, {});
@@ -220,3 +226,4 @@ function cgFactory() {
 }
 
 export default cgFactory;
+

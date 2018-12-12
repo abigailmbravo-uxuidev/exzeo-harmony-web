@@ -32,10 +32,12 @@ const handleFormSubmit = async (data, dispatch, props) => {
   props.history.push('customize');
 };
 
-const handleGetQuestions = state =>
-  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  // const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-   MOCK_UI_QUESTIONS;
+const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.underwritingQuestions : []);
+
+// const handleGetQuestions = state =>
+//   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
+//   // const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
+//    MOCK_UI_QUESTIONS;
 
 const handleGetQuoteData = state => state.quoteState.quote;// state.service.quote;
 
@@ -62,7 +64,7 @@ const handleInitialize = (state) => {
 export const Underwriting = (props) => {
   const { appState, handleSubmit, fieldValues, quoteData } = props;
   // const taskData = props.tasks[appState.modelName].data;
-  const questions = MOCK_UI_QUESTIONS; // taskData.previousTask.value.result;
+  const questions = props.questions; // taskData.previousTask.value.result;
 
   return (
     <div className="route-content">
@@ -142,5 +144,5 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Underwriting', onSubmitFail: failedSubmission
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Underwriting', onSubmitFail: failedSubmission, enableReinitialize: true
 })(Underwriting));
