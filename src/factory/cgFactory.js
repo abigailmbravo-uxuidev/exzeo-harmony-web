@@ -167,19 +167,22 @@ function cgFactory() {
 
     try {
       // deeply nested response object from cg/axios
-      const { data: { data } } = await axios(axiosConfig);
+      const response = await axios(axiosConfig);
+
       const {
-        modelInstanceId,
-        uiQuestions,
-        previousTask = {},
-        activeTask: {
-          name: activeTaskName
-        },
-        model: {
-          variables,
-          completedTasks
+        data: {
+          uiQuestions,
+          previousTask = {},
+          activeTask: {
+            name: activeTaskName
+          },
+          modelInstanceId,
+          model: {
+            variables,
+            completedTasks
+          }
         }
-      } = data;
+      } = response.data;
 
       let underwritingReviewErrors = [];
       let underwritingQuestions = [];
