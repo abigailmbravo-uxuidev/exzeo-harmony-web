@@ -234,3 +234,24 @@ export const getPolicyDocuments = policyNumber => (dispatch) => {
       ]));
     });
 };
+
+export const getZipcodeSettings = (companyCode, state, product, zip) => (dispatch) => {
+  const axiosConfig = runnerSetup({
+    service: 'underwriting',
+    method: 'GET',
+    path: `zip-code?companyCode=${companyCode}&state=${state}&product=${product}&zip=${zip}`
+  });
+
+  return axios(axiosConfig).then((response) => {
+    const data = { zipCodeSettings: response.data && response.data.result ? response.data.result[0] : { timezone: '' } };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError(message)
+      ]));
+    });
+};

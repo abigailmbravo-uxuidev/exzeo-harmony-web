@@ -16,10 +16,8 @@ import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-
-import { MOCK_ACTIVE_AGENTS, MOCK_ZIPCODE_SETTINGS } from '../askAdditionalCustomerData';
 import { updateQuote } from '../../actions/quoteState.actions';
-// ------------------------------------------------
+import { getZipcodeSettings, getAgents } from '../../actions/serviceActions';
 // List the user tasks that directly tie to
 //  the cg tasks.
 // ------------------------------------------------
@@ -38,7 +36,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     taskData.phoneNumber2 = '';
   }
 
-  taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), MOCK_ZIPCODE_SETTINGS[0].timezone).format();
+  taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipcodeSettings[0].timezone).format();
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
@@ -201,13 +199,15 @@ const mapStateToProps = state => (
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
     agentResults: state.service.agents,
-    zipCodeSettings: state.service.zipcodeSettings,
+    zipCodeSettings: state.service.zipCodeSettings,
     quote: state.quoteState.quote,
     uiQuestions: handleGetQuestions(state)
   });
 
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
+  getZipcodeSettings: bindActionCreators(getZipcodeSettings, dispatch),
+  getAgents: bindActionCreators(getAgents, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
