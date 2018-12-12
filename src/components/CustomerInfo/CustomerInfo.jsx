@@ -99,71 +99,81 @@ const handleInitialize = (state) => {
 //   return (quoteData ? quoteData.value.result : undefined);
 // };
 
-export const CustomerInfo = (props) => {
-  const {
+export class CustomerInfo extends React.Component {
+  componentDidMount() {
+    const { quote } = this.props;
+
+    if (quote && quote.property) {
+      this.props.getAgents(quote.companyCode, quote.state);
+      this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
+    }
+  }
+  render() {
+    const {
     // appState,
     handleSubmit,
     fieldValues,
     zipCodeSettings,
-    agencyResults
-  } = props;
+    agentResults
+  } = this.props;
   // const taskData = props.tasks[appState.modelName].data;
-  const questions = props.uiQuestions;
-  const quoteData = props.quote;
-  return (
-    <div className="route-content">
-      <SnackBar
-        {...props}
-        show={props.appState.data.showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
-      {props.appState.data.submitting && <Loader />}
-      <Form
-        id="CustomerInfo"
-        onSubmit={handleSubmit(handleFormSubmit)}
-        noValidate
-      >
-        <div className="scroll">
-          <div className="form-group survey-wrapper" role="group">
-            {questions.map((question, index) =>
-              <FieldGenerator
-                tabindex="0"
-                autoFocus={index === 1}
-                zipCodeSettings={zipCodeSettings}
-                data={quoteData}
-                question={question}
-                values={fieldValues}
-                key={index}
-              />
+    const questions = this.props.uiQuestions;
+    const quoteData = this.props.quote;
+    return (
+      <div className="route-content">
+        <SnackBar
+          {...this.props}
+          show={this.props.appState.data.showSnackBar}
+          timer={3000}
+        ><p>Please correct errors.</p></SnackBar>
+        {this.props.appState.data.submitting && <Loader />}
+        <Form
+          id="CustomerInfo"
+          onSubmit={handleSubmit(handleFormSubmit)}
+          noValidate
+        >
+          <div className="scroll">
+            <div className="form-group survey-wrapper" role="group">
+              {questions.map((question, index) =>
+                <FieldGenerator
+                  tabindex="0"
+                  autoFocus={index === 1}
+                  zipCodeSettings={zipCodeSettings}
+                  data={quoteData}
+                  question={question}
+                  values={fieldValues}
+                  key={index}
+                />
         )}
-            <div className="agentID">
-              <SelectFieldAgents
-                tabindex="0"
-                name="agentCode"
-                label="Agent"
-                onChange={function () { }}
-                validations={['required']}
-                agents={agencyResults}
-              />
+              <div className="agentID">
+                <SelectFieldAgents
+                  tabindex="0"
+                  name="agentCode"
+                  label="Agent"
+                  onChange={function () { }}
+                  validations={['required']}
+                  agents={agentResults}
+                />
+              </div>
             </div>
-          </div>
-          <div className="workflow-steps">
-            <button
-              tabIndex="0"
-              className="btn btn-primary"
-              type="submit"
-              form="CustomerInfo"
-              disabled={props.appState.data.submitting}
-            >
+            <div className="workflow-steps">
+              <button
+                tabIndex="0"
+                className="btn btn-primary"
+                type="submit"
+                form="CustomerInfo"
+                disabled={this.props.appState.data.submitting}
+              >
           next
         </button>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      </Form>
-    </div>
-  );
-};
+        </Form>
+      </div>
+    );
+  }
+}
 
 CustomerInfo.propTypes = {
   ...propTypes,
@@ -190,8 +200,8 @@ const mapStateToProps = state => (
     appState: state.appState,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
-    agencyResults: MOCK_ACTIVE_AGENTS,
-    zipCodeSettings: MOCK_ZIPCODE_SETTINGS,
+    agentResults: state.service.agents,
+    zipCodeSettings: state.service.zipcodeSettings,
     quote: state.quoteState.quote,
     uiQuestions: handleGetQuestions(state)
   });
