@@ -17,13 +17,13 @@ import normalizePhone from '../Form/normalizePhone';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
-import { MOCK_ACTIVE_AGENTS, MOCK_ZIPCODE_SETTINGS, MOCK_UI_QUESTIONS } from '../askAdditionalCustomerData';
+import { MOCK_ACTIVE_AGENTS, MOCK_ZIPCODE_SETTINGS } from '../askAdditionalCustomerData';
 import { updateQuote } from '../../actions/quoteState.actions';
 // ------------------------------------------------
 // List the user tasks that directly tie to
 //  the cg tasks.
 // ------------------------------------------------
-const userTasks = { formSubmit: 'askAdditionalCustomerData' };
+// const userTasks = { formSubmit: 'askAdditionalCustomerData' };
 
 export const handleFormSubmit = async (data, dispatch, props) => {
   // const workflowId = props.appState.instanceId;
@@ -62,13 +62,15 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 //   return zipCodeSettingsQuote || zipCodeSettings;
 // };
 
+const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
+
 const handleInitialize = (state) => {
   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : { model: null };
   // const retrieveQuoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
   const quoteData = state.quoteState.quote;// _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ?
   // _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result : retrieveQuoteData;
-
-  const values = getInitialValues(MOCK_UI_QUESTIONS, quoteData);
+  const uiQuestions = handleGetQuestions(state);
+  const values = getInitialValues(uiQuestions, quoteData);
 
   values.FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
   values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('MM/DD/YYYY');
@@ -99,7 +101,7 @@ const handleInitialize = (state) => {
 
 export const CustomerInfo = (props) => {
   const {
-    appState,
+    // appState,
     handleSubmit,
     fieldValues,
     zipCodeSettings,
@@ -187,11 +189,11 @@ const mapStateToProps = state => (
     tasks: state.cg,
     appState: state.appState,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
-    initialValues: handleInitialize(state, MOCK_UI_QUESTIONS),
+    initialValues: handleInitialize(state),
     agencyResults: MOCK_ACTIVE_AGENTS,
     zipCodeSettings: MOCK_ZIPCODE_SETTINGS,
     quote: state.quoteState.quote,
-    uiQuestions: MOCK_UI_QUESTIONS
+    uiQuestions: handleGetQuestions(state)
   });
 
 const mapDispatchToProps = dispatch => ({
