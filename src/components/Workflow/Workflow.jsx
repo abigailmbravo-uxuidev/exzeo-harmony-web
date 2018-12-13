@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
@@ -14,7 +15,6 @@ import WorkFlowDetailsConnect from './WorkflowDetails';
 // import CustomizeConnect from '../Customize/Customize';
 // import ShareConnect from '../Share/Share';
 // import AssumptionsConnect from '../Assumptions/Assumptions';
-import Error from '../Error/Error';
 // import PolicyHolderConnect from '../PolicyHolder/PolicyHolder';
 // import AddAdditionalInterestConnect from '../AdditionalInterests/AddAdditionalInterest';
 // import TaskRunnerConnect from './TaskRunner';
@@ -131,7 +131,7 @@ export class Workflow extends Component {
   // }
 
   render() {
-    const  { match, history } = this.props;
+    const { match, history } = this.props;
     // const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
     //   this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
     const activeStep = '';

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
-
+import { Redirect } from 'react-router';
 import Footer from '../Common/Footer';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
@@ -135,11 +135,13 @@ export const Customize = (props) => {
     quote,
     handleSubmit,
     reset,
-    fieldValues
+    fieldValues,
+    isHardStop
   } = props;
 
   return (
     <div className="route-content">
+      {isHardStop && <Redirect to={'error'} />}
       <SnackBar
         {...props}
         show={props.appState.data.showSnackBar}
@@ -216,7 +218,8 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Customize.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state),
+  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
 const mapDispatchToProps = dispatch => ({

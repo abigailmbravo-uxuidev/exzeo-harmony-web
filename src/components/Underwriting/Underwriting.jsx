@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
@@ -59,12 +60,13 @@ const handleInitialize = (state) => {
 };
 
 export const Underwriting = (props) => {
-  const { appState, handleSubmit, fieldValues, quoteData } = props;
+  const { appState, handleSubmit, fieldValues, quoteData, isHardStop } = props;
   // const taskData = props.tasks[appState.modelName].data;
   const questions = props.questions; // taskData.previousTask.value.result;
 
   return (
     <div className="route-content">
+      {isHardStop && <Redirect to={'error'} />}
       <SnackBar
         {...props}
         show={props.appState.data.showSnackBar}
@@ -130,7 +132,8 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Underwriting.values', {}),
   initialValues: handleInitialize(state),
   questions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
+  quoteData: handleGetQuoteData(state),
+  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
 const mapDispatchToProps = dispatch => ({

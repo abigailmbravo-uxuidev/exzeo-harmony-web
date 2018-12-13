@@ -2,6 +2,12 @@ import axios from 'axios';
 
 import { callService, handleError } from '../utilities/serviceRunner';
 
+const HARD_STOP_STEPS = [
+  'UWDecision1EndError', 'UWDecision2EndError',
+  'UWDecision3EndError', 'UWDecision4EndError',
+  'UWDecision5EndError'
+];
+
 function cgFactory() {
   let state = {
     activeTask: '',
@@ -10,7 +16,8 @@ function cgFactory() {
     completedTasks: [],
     underwritingExceptions: [],
     uiQuestions: [],
-    underwritingQuestions: []
+    underwritingQuestions: [],
+    isHardStop: false
   };
 
   // TODO: clean this set stuff up
@@ -40,6 +47,10 @@ function cgFactory() {
     state.underwritingExceptions = underwritingReviewErrors;
     state.uiQuestions = uiQuestions;
     state.underwritingQuestions = underwritingQuestions;
+  }
+
+  function setHardStop() {
+    state.isHardStop = true;
   }
 
   /**
@@ -99,9 +110,7 @@ function cgFactory() {
         data: {
           uiQuestions,
           previousTask = {},
-          activeTask: {
-            name: activeTaskName
-          },
+          activeTask = {},
           modelInstanceId,
           model: {
             variables,
@@ -116,15 +125,22 @@ function cgFactory() {
       if (previousTask.name === 'UnderWritingReviewError') {
         underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
       }
+      console.log(previousTask.name);
+      console.log(HARD_STOP_STEPS.includes(previousTask.name));
+
+      if (HARD_STOP_STEPS.includes(previousTask.name)) {
+        setHardStop();
+        underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
+      }
 
       const cgUWQuestions = variables.find(v => v.name === 'getListOfUWQuestions');
       if (cgUWQuestions) {
         underwritingQuestions = cgUWQuestions.value.result;
       }
-      setState(activeTaskName, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions);
+      setState(activeTask.name, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions);
 
-      if (activeTaskName === 'showCustomizedQuoteAndContinue') {
-        await complete(activeTaskName, {});
+      if (activeTask.name === 'showCustomizedQuoteAndContinue') {
+        await complete(activeTask.name, {});
       }
     } catch (error) {
       return logError(error);

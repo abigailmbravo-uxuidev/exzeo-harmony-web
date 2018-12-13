@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import WorkflowConnect from '../components/Workflow/Workflow';
 import BaseConnect from './Base';
 
-const Quote = props => <BaseConnect {...props} ><div className="workflow" role="article"><WorkflowConnect {...props}>{props.children}</WorkflowConnect></div></BaseConnect>;
+const Quote = props => <BaseConnect {...props} >
+  <div className="workflow" role="article">
+    <WorkflowConnect {...props}>{props.children}</WorkflowConnect></div>
+</BaseConnect>;
 
 Quote.propTypes = {
   children: PropTypes.shape()

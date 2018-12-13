@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Redirect } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
@@ -88,6 +89,7 @@ const redirectToNewQuote = (props) => {
 
 export const Share = props => (
   <div className="route-content">
+    {props.isHardStop && <Redirect to={'error'} />}
     {props.appState.data.submitting && <Loader />}
     <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={props.handleSubmit(noShareSubmit)} noValidate>
       <div className="scroll">
@@ -137,7 +139,8 @@ const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   underwritingExceptions: state.quoteState.state ? state.quoteState.state.underwritingExceptions : [],
-  quote: state.quoteState.quote
+  quote: state.quoteState.quote,
+  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
 const mapDispatchToProps = dispatch => ({

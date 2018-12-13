@@ -211,6 +211,7 @@ export class WorkflowDetails extends Component {
           </section>
         </div>
         {/* { this.props.tasks && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask !== 'askToSearchAgain' && */}
+        { !this.props.isHardStop &&
         <ul className="workflow-header">
           <div className="rule" />
           <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'askAdditionalCustomerData')} onClick={() => goToStep(this.props, 'askAdditionalCustomerData')} className={getClassForStep('askAdditionalCustomerData', this.props)}><i className={'fa fa-vcard'} /><span>Policyholder</span></a></li>
@@ -220,7 +221,7 @@ export class WorkflowDetails extends Component {
           <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'addAdditionalAIs')} onClick={() => goToStep(this.props, 'addAdditionalAIs')} className={getClassForStep('addAdditionalAIs', this.props)}><i className={'fa fa-user-plus'} /><span>Additional Parties</span></a></li>
           <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'askAdditionalQuestions')} onClick={() => goToStep(this.props, 'askAdditionalQuestions')} className={getClassForStep('askAdditionalQuestions', this.props)}><i className={'fa fa-envelope'} /><span>Mailing / Billing</span></a></li>
           <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'editVerify')} onClick={() => goToStep(this.props, 'editVerify')} className={getClassForStep('editVerify', this.props)}><i className={'fa fa-check-square'} /><span>Verify</span></a></li>
-        </ul>
+        </ul>}
         {/* } */}
       </div>
     );
@@ -257,7 +258,9 @@ const mapStateToProps = state => ({
   appState: state.appState,
   completedTasks: state.completedTasks,
   customizeFormValues: _.get(state.form, 'Customize.values', {}),
-  reactState: state
+  reactState: state,
+  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
+
 });
 
 const mapDispatchToProps = dispatch => ({
