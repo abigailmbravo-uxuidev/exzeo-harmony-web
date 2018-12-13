@@ -45,7 +45,10 @@ export const goToStep = async (props, stepName) => {
   // don't allow submission until the other step is completed
   if (props.appState.data.submitting) return;
 
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
   await props.goToStepTerrible(stepName, props.quote.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: false });
+
   //
   // const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
   //

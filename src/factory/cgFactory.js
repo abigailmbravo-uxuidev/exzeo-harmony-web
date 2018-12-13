@@ -161,7 +161,6 @@ function cgFactory() {
       });
 
       return response.data.result;
-
     } catch (error) {
       handleError(error);
     }
@@ -229,6 +228,9 @@ function cgFactory() {
       await complete(state.activeTask, data);
     } else if (state.activeTask === 'editVerify' && data.shouldEditVerify === 'false') {
       await complete(state.activeTask, { shouldEditVerify: 'false' });
+      await complete(state.activeTask, data);
+    } else if (state.activeTask === 'editVerify' && data.shouldEditVerify === 'PolicyHolder') {
+      await complete(state.activeTask, { shouldEditVerify: 'PolicyHolder' });
       await complete(state.activeTask, data);
     } else {
       await complete(state.activeTask, data);
