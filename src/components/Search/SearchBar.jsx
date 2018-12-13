@@ -79,8 +79,8 @@ export const changePageQuote = async (props, isNext) => {
 };
 
 export const handleSearchBarSubmit = async (data, dispatch, props) => {
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.handleSearchBarSubmit;
+  // const workflowId = props.appState.instanceId;
+  // const taskName = userTasks.handleSearchBarSubmit;
   const { groups } = props.userProfile;
   const userGroup = groups[0];
   const { state, companyCode } = userGroup;
