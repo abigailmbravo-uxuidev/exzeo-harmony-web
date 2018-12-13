@@ -40,6 +40,8 @@ describe('Testing NoResults component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
+      search: { results: [] },
       cg: {
         bb: {
           data: {
@@ -55,6 +57,7 @@ describe('Testing NoResults component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      results: [],
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,

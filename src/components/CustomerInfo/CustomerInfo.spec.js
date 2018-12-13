@@ -13,7 +13,10 @@ describe('Testing CustomerInfo component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      fieldQuestions: [],
+      history: [],
+      quote: {},
+      updateQuote() {},
+      uiQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
       appState: {
@@ -46,6 +49,10 @@ describe('Testing CustomerInfo component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      service: {
+        agents: []
+      },
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -61,6 +68,8 @@ describe('Testing CustomerInfo component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      updateQuote() {},
+      history: [],
       zipCodeSettings: {
         timezone: 'American/NewYork'
       },
@@ -73,7 +82,7 @@ describe('Testing CustomerInfo component', () => {
         }
       },
       fieldQuestions: [],
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         data: {

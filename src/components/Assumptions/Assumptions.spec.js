@@ -1,6 +1,5 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
 import ConnectedApp, { Assumptions, handleOnSubmit } from './Assumptions';
@@ -32,6 +31,7 @@ describe('Testing Assumptions component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -47,6 +47,9 @@ describe('Testing Assumptions component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       quoteData: {
         additionalInterests: []
       },

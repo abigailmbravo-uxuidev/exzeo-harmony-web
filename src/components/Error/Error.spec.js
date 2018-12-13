@@ -37,6 +37,7 @@ describe('Testing Error component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: { quote: {} },
       cg: {
         bb: {
           data: {
@@ -63,7 +64,7 @@ describe('Testing Error component', () => {
     const store = mockStore(initialState);
     const props = {
       fieldQuestions: [],
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         data: {

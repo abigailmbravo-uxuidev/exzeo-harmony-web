@@ -13,6 +13,7 @@ describe('Testing WorkflowDetails component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -71,6 +72,7 @@ describe('Testing WorkflowDetails component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
       updateQuote() {},
       quoteState: { state: {} },
       workflowState: { completedTasks: [] },
