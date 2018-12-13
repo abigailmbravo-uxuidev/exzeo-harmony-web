@@ -216,6 +216,7 @@ function cgFactory() {
    */
   async function updateQuote(data, quoteNumber, getReduxState) {
     // if user refreshes it will ensure the state is synced up to the redux state;
+    console.log(state);
     if (!state.activeTask) state = getReduxState().quoteState.state;
 
     if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
@@ -249,7 +250,9 @@ function cgFactory() {
    * @param quoteNumber
    * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array}}>}
    */
-  async function goToStep(stepName, quoteNumber) {
+  async function goToStep(stepName, quoteNumber, getReduxState) {
+    if (!state.activeTask) state = getReduxState().quoteState.state;
+
     try {
       await complete(stepName, null, 'moveToTask');
 

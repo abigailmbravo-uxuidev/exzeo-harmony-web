@@ -13,7 +13,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
-import { updateQuote } from '../../actions/quoteState.actions';
+import { updateQuote, goToStep as goToStepTerrible } from '../../actions/quoteState.actions';
 
 // ------------------------------------------------
 // List the user tasks that directly tie to
@@ -457,6 +457,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
+  goToStepTerrible: bindActionCreators(goToStepTerrible, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
