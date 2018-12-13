@@ -321,6 +321,7 @@ const paymentPlans = {
 describe('Testing Billing component', () => {
   it('should test props and render', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -343,6 +344,9 @@ describe('Testing Billing component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       paymentPlanResult: {
         options: []
       },
@@ -387,6 +391,7 @@ describe('Testing Billing component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -414,6 +419,9 @@ describe('Testing Billing component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       quoteData: {
         additionalInterests: []
       },
