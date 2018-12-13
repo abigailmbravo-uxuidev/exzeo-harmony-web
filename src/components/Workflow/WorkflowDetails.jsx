@@ -43,7 +43,9 @@ export const getQuoteFromModel = (state, props) => {
 
 export const goToStep = async (props, stepName) => {
   // don't allow submission until the other step is completed
-  if (props.appState.data.submitting) return;
+  const { activeTask, completedTasks } = props.workflowState;
+
+  if (props.appState.data.submitting || activeTask === stepName || !completedTasks.includes(stepName)) return;
 
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
   await props.goToStepTerrible(stepName, props.quote.quoteNumber);
@@ -61,8 +63,18 @@ export const goToStep = async (props, stepName) => {
   props.history.push(`${STEP_NAME_MAP[stepName]}`);
 };
 
-export const getClassForStep = (stepName, props) =>
-  // let className = '';
+export const getClassForStep = (stepName, props) => {
+  let className = '';
+  const { activeTask, completedTasks } = props.workflowState;
+
+  if (activeTask === stepName) {
+    className = 'active';
+  } else if (completedTasks.includes(stepName)) {
+    className = 'selected';
+  } else if (!completedTasks.includes(stepName)) {
+    className = 'disabled';
+  }
+  return className;
   // const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
   // if (currentData && currentData.activeTask && currentData.activeTask.name === stepName) {
   //   className = 'active';
@@ -72,7 +84,7 @@ export const getClassForStep = (stepName, props) =>
   //   className = 'disabled';
   // }
   // return className;
-   '';
+};
 
 export const onKeyPress = (event, props, stepName) => {
   if (event && event.preventDefault) event.preventDefault();
@@ -239,6 +251,7 @@ WorkflowDetails.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  workflowState: state.quoteState.state,
   quote: state.quoteState.quote,
   tasks: state.cg,
   appState: state.appState,
