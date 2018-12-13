@@ -30,11 +30,11 @@ describe('Testing WorkflowDetails component', () => {
     };
     const wrapper = shallow(<WorkflowDetails {...props} />);
     expect(wrapper);
-    wrapper.instance().componentWillReceiveProps({ ...props });
   });
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       service: {
         quote: {}
       },
@@ -71,6 +71,9 @@ describe('Testing WorkflowDetails component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      updateQuote() {},
+      quoteState: { state: {} },
+      workflowState: { completedTasks: [] },
       tasks: {
         bb: {
           data: {
@@ -84,6 +87,7 @@ describe('Testing WorkflowDetails component', () => {
         }
       },
       actions: {
+        updateQuote() {},
         cgActions: {
           completeTask() {},
           batchCompleteTask() { return Promise.resolve(); }

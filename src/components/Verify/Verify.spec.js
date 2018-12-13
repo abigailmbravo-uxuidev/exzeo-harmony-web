@@ -316,6 +316,7 @@ const quoteData = {
 describe('Testing Verify component', () => {
   it('should test props and render', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -340,6 +341,14 @@ describe('Testing Verify component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      goToStepTerrible() {},
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        }
+      },
+      stateFromQuoteState: { variables: [] },
+      quote: quoteData,
       tasks: {
         bb: {
           data: {
