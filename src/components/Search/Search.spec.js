@@ -12,6 +12,15 @@ describe('Testing Search component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      getQuote() {},
+      createQuote() {},
+      clearResults() {},
+      clearQuote() {},
+      actions: {
+        appStateActions: {
+          setAppState() {}
+        }
+      },
       handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
@@ -24,6 +33,22 @@ describe('Testing Search component', () => {
     };
     const wrapper = shallow(<Search {...props} />);
     expect(wrapper);
+    const address = {
+      physicalAddress:
+      {
+        address1: '1000 Poplar Ave',
+        address2: null,
+        city: 'Tampa',
+        state: 'FL',
+        county: 'Hillsborough',
+        zip: '33607',
+        latitude: 28.0959571,
+        longitude: -82.5380074
+      }
+    };
+
+    wrapper.instance().handleSelectAddress(address);
+    wrapper.instance().handleSelectQuote(props.quoteData);
   });
 
   it('should test connected app', () => {
@@ -85,24 +110,5 @@ describe('Testing Search component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
-
-    const address = {
-      physicalAddress:
-      {
-        address1: '1000 Poplar Ave',
-        address2: null,
-        city: 'Tampa',
-        state: 'FL',
-        county: 'Hillsborough',
-        zip: '33607',
-        latitude: 28.0959571,
-        longitude: -82.5380074
-      }
-    };
-
-    handleSelectAddress(address, props);
-    handleSelectQuote(props.quoteData, props);
-
-    Search(props);
   });
 });

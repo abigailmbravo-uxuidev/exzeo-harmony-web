@@ -425,6 +425,7 @@ describe('Testing Verify component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
       updateQuote() {},
       goToStepTerrible() {},
       quote: quoteData,
