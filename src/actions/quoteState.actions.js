@@ -80,3 +80,13 @@ export function goToStep(stepName, quoteNumber) {
     }
   };
 }
+
+export function clearQuote() {
+  return async (dispatch) => {
+    try {
+      dispatch(setQuote(null, {}));
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+    }
+  };
+}

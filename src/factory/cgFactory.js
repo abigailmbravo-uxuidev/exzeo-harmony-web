@@ -113,7 +113,7 @@ function cgFactory() {
       let underwritingReviewErrors = [];
       let underwritingQuestions = [];
 
-      if (previousTask.name === 'UnderwritingReviewError') {
+      if (previousTask.name === 'UnderWritingReviewError') {
         underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
       }
 

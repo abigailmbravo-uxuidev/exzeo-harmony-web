@@ -75,7 +75,9 @@ export const closeShareSubmit = (props) => {
 };
 
 export const refereshUWReviewError = async (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
   await props.updateQuote({ refresh: 'Yes' }, props.quote.quoteNumber);
+  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: false });
   props.history.push('customerInfo');
 };
 

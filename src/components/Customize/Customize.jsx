@@ -63,7 +63,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     delete updatedQuoteResult.sinkhole;
   }
 
-  await props.updateQuote(updatedQuoteResult, props.quoteData.quoteNumber);
+  await props.updateQuote(updatedQuoteResult, props.quote.quoteNumber);
 
   if (!props.appState.data.recalc) {
     props.history.push('share');
@@ -105,12 +105,12 @@ export const handleReset = (props) => {
 
 const handleInitialize = (state) => {
   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  // const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
+  // const quote = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
   // _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
-  const quoteData = handleGetQuoteData(state);
+  const quote = handleGetQuoteData(state);
   const questions = handleGetQuestions(state);
 
-  const values = getInitialValues(questions, quoteData);
+  const values = getInitialValues(questions, quote);
 
   values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
   values.fireAlarm = values.fireAlarm || false;
@@ -132,7 +132,7 @@ const handleGetQuoteData = state =>
 export const Customize = (props) => {
   const {
     fieldQuestions,
-    quoteData,
+    quote,
     handleSubmit,
     reset,
     fieldValues
@@ -157,7 +157,7 @@ export const Customize = (props) => {
             {fieldQuestions && fieldQuestions.map((question, index) =>
               <FieldGenerator
                 autoFocus={index === 1}
-                data={quoteData}
+                data={quote}
                 question={question}
                 values={fieldValues || {}}
                 onChange={handleFormChange(props)}
@@ -216,7 +216,7 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Customize.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state)
 });
 
 const mapDispatchToProps = dispatch => ({
