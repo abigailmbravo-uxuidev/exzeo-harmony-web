@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { Redirect } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
@@ -13,12 +11,7 @@ import ErrorPopup from '../Common/ErrorPopup';
 import Loader from '../Common/Loader';
 import { updateQuote } from '../../actions/quoteState.actions';
 
-// const userTasks = {
-//   sendEmailOrContinue: 'sendEmailOrContinue',
-//   askEmail: 'askEmail',
-//   refreshOnUnderWritingReviewError: 'refreshOnUnderWritingReviewError'
-// };
-//
+
 // const getUnderwritingExceptions = state => undefined
 //   // const { cg, appState } = state;
 //   // return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?

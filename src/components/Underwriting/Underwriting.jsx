@@ -15,8 +15,6 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 
-// const userTasks = { formSubmit: 'askUWAnswers' };
-
 const handleFormSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
 
@@ -60,7 +58,7 @@ const handleInitialize = (state) => {
 };
 
 export const Underwriting = (props) => {
-  const { appState, handleSubmit, fieldValues, quoteData, isHardStop } = props;
+  const { handleSubmit, fieldValues, quoteData, isHardStop } = props;
   // const taskData = props.tasks[appState.modelName].data;
   const questions = props.questions; // taskData.previousTask.value.result;
 

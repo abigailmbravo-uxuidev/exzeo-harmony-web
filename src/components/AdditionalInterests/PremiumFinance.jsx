@@ -18,11 +18,6 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 import ReactSelectField from '../Form/inputs/ReactSelectField';
 import { updateQuote } from '../../actions/quoteState.actions';
 
-
-const userTasks = {
-  formSubmit: ''
-};
-
 export const handleFormSubmit = async (data, dispatch, props) => {
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;

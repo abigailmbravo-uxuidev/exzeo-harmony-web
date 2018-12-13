@@ -13,11 +13,6 @@ import Loader from '../Common/Loader';
 import { clearResults } from '../../actions/searchActions';
 import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
 
-const userTasks = {
-  handleSelectAddress: 'chooseAddress',
-  handleSelectQuote: 'chooseQuote'
-};
-
 
 const closeQuoteError = (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
