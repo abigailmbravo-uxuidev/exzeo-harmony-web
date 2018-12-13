@@ -341,6 +341,7 @@ describe('Testing Verify component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
       goToStepTerrible() {},
       actions: {
         appStateActions: {
@@ -394,6 +395,7 @@ describe('Testing Verify component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: { quote: quoteData },
       cg: {
         bb: {
           data: {
@@ -423,6 +425,10 @@ describe('Testing Verify component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      updateQuote() {},
+      goToStepTerrible() {},
+      quote: quoteData,
+      quoteState: { quote: quoteData },
       actions: {
         appStateActions: {
           setAppState() {}
