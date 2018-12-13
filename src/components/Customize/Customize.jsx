@@ -16,11 +16,6 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 
-// const userTasks = {
-//   formSubmit: 'askToCustomizeDefaultQuote',
-//   customizeDefaultQuote: 'customizeDefaultQuote'
-// };
-
 export const handleFormSubmit = async (data, dispatch, props) => {
   // window.location.href = '/quote/12-5151466-01/share';
 

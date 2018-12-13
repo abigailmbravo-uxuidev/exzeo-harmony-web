@@ -17,10 +17,6 @@ import ReactSelectField from '../Form/inputs/ReactSelectField';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 
-const userTasks = {
-  formSubmit: ''
-};
-
 export const handleFormSubmit = async (data, dispatch, props) => {
   // window.location.href = '/quote/12-5151466-01/additionalInterests';
 

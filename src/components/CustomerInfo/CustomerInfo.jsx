@@ -18,10 +18,6 @@ import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import { updateQuote } from '../../actions/quoteState.actions';
 import { getZipcodeSettings, getAgents } from '../../actions/serviceActions';
-// List the user tasks that directly tie to
-//  the cg tasks.
-// ------------------------------------------------
-// const userTasks = { formSubmit: 'askAdditionalCustomerData' };
 
 export const handleFormSubmit = async (data, dispatch, props) => {
   // const workflowId = props.appState.instanceId;

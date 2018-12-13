@@ -14,8 +14,6 @@ import { CheckField } from '../Form/inputs';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Loader from '../Common/Loader';
 
-// const userTasks = { formSubmit: 'showAssumptions' };
-
 export const handleOnSubmit = async (data, dispatch, props) => {
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });

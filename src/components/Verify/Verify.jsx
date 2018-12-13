@@ -15,13 +15,6 @@ import normalizePhone from '../Form/normalizePhone';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 import { updateQuote, goToStep as goToStepTerrible } from '../../actions/quoteState.actions';
 
-// ------------------------------------------------
-// List the user tasks that directly tie to
-//  the cg tasks.
-// ------------------------------------------------
-const userTasks = {
-  formSubmit: 'askScheduleInspectionDates'
-};
 
 const STEP_NAME_MAP = {
   askAdditionalCustomerData: 'customerInfo',
@@ -152,7 +145,7 @@ export const Verify = (props) => {
   let mailingAddress = {};
   let deductibles = {};
 
-  const { tasks,
+  const {
     fieldValues,
      appState,
      handleSubmit,

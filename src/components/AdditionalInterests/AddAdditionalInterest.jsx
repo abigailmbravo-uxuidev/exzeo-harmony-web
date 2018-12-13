@@ -7,16 +7,12 @@ import { reduxForm, Form, propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
-import { getInitialValues } from '../Customize/customizeHelpers';
 import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import { updateQuote } from '../../actions/quoteState.actions';
 
-const userTasks = {
-  addAdditionalAIs: 'addAdditionalAIs'
-};
 
 export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });

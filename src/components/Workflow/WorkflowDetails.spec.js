@@ -23,9 +23,6 @@ describe('Testing WorkflowDetails component', () => {
         }
       },
       actions: {
-        cgActions: {
-          completeTask: (modelName, workflowId, taskName, taskData) => true
-        }
       },
       ...propTypes
     };
@@ -91,8 +88,7 @@ describe('Testing WorkflowDetails component', () => {
       actions: {
         updateQuote() {},
         cgActions: {
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
+          completeTask() {}
         },
         appStateActions: {
           setAppState() { return Promise.resolve(); }

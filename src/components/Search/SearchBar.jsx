@@ -14,10 +14,6 @@ import * as searchActions from '../../actions/searchActions';
 import Pagination from '../Common/Pagination';
 import { generateField, getSearchType } from './searchUtils';
 
-const userTasks = {
-  handleSearchBarSubmit: 'search'
-};
-
 const handleInitialize = (state) => {
   const values = {
     address: '',
