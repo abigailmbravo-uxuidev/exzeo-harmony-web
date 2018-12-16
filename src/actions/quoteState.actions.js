@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
-import cgFactory from '../factory/cgFactory';
+import cgFactory from '../utilities/cgFactory';
 
 const factoryInstance = cgFactory();
 

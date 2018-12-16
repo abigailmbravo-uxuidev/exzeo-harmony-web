@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { callService, handleError } from '../utilities/serviceRunner';
+import { callService, handleError } from './serviceRunner';
 
 const HARD_STOP_STEPS = [
   'UWDecision1EndError', 'UWDecision2EndError',
