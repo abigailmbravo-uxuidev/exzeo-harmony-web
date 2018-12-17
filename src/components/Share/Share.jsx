@@ -27,7 +27,7 @@ import { updateQuote } from '../../actions/quoteState.actions';
 export const noShareSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   const submitData = { shouldSendEmail: 'No' };
-  await props.updateQuote(submitData, props.quote.quoteNumber);
+  await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('assumptions');
 
@@ -41,7 +41,7 @@ export const noShareSubmit = async (data, dispatch, props) => {
 export const shareQuoteSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   const submitData = { shouldSendEmail: 'Yes', ...data };
-  await props.updateQuote(submitData, props.quote.quoteNumber);
+  await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber});
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false, showEmailPopup: false });
 
   // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
@@ -69,8 +69,10 @@ export const closeShareSubmit = (props) => {
 };
 
 export const refereshUWReviewError = async (props) => {
+  const data = { refresh: 'Yes' };
+
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  await props.updateQuote({ refresh: 'Yes' }, props.quote.quoteNumber);
+  await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber});
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: false });
   props.history.push('customerInfo');
 };

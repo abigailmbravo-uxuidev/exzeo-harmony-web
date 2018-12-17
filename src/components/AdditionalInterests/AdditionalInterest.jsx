@@ -73,7 +73,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   }
 
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ additionalInterests }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('additionalInterests');
 };
@@ -81,7 +81,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 export const closeAndSavePreviousAIs = async (props) => {
   const additionalInterests = props.quoteData.additionalInterests;
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ additionalInterests }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('additionalInterests');
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;

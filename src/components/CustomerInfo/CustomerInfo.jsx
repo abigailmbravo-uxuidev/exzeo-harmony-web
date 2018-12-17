@@ -37,7 +37,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  await props.updateQuote(taskData, props.quote.quoteNumber);
+  await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 
   props.history.push('underwriting');
@@ -98,7 +98,7 @@ export class CustomerInfo extends React.Component {
     const { quote } = this.props;
 
     if (quote && quote.property) {
-      this.props.getAgents(quote.companyCode, quote.state);
+      this.props.getAgents(quote.companyCode, quote.state, quote.agencyCode);
       this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
     }
   }

@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
-import cgFactory from '../utilities/cgFactory';
+import choreographer from '../utilities/choreographer';
 
-const factoryInstance = cgFactory();
+const factoryInstance = choreographer();
 
 
 export const setQuote = (quote, state) => ({
@@ -32,8 +32,9 @@ export function createQuote(address, igdID, stateCode) {
 }
 
 /**
- * Retrieve a quote
- * @param {string} quoteNumber
+ *
+ * @param quoteNumber
+ * @param quoteId
  * @returns {Function}
  */
 export function getQuote(quoteNumber, quoteId) {
@@ -50,28 +51,20 @@ export function getQuote(quoteNumber, quoteId) {
 }
 
 /**
- * Retrieve a quote
- * @param {object} data
- * @param {string} quoteNumber
+ *
+ * @param data
+ * @param quoteNumber
+ * @param stepName
  * @returns {Function}
  */
-export function updateQuote(data, quoteNumber) {
+export function updateQuote({
+  data = {},
+  quoteNumber,
+  stepName
+}) {
   return async (dispatch, getState) => {
     try {
-      const { quote, state } = await factoryInstance.updateQuote(data, quoteNumber, getState);
-      dispatch(setQuote(quote, state));
-      return quote;
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
-      return null;
-    }
-  };
-}
-
-export function goToStep(stepName, quoteNumber) {
-  return async (dispatch, getState) => {
-    try {
-      const { quote, state } = await factoryInstance.goToStepDontUseThisInComponents(stepName, quoteNumber, getState);
+      const { quote, state } = await factoryInstance.updateQuote({ data, quoteNumber, stepName, getReduxState: getState });
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {

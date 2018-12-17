@@ -15,8 +15,10 @@ import { updateQuote } from '../../actions/quoteState.actions';
 
 
 export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
+  const taskData = { shouldUpdateAIs: 'No' };
+
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ shouldUpdateAIs: 'No' }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: taskData, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
@@ -37,7 +39,7 @@ export const AddMortgagee = async (props) => {
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
 
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ shouldUpdateAIs: 'mortgagee' }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('askMortgagee');
 };
@@ -49,7 +51,7 @@ export const AddPremiumFinance = async (props) => {
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ shouldUpdateAIs: 'premiumFinance' }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('askPremiumFinance');
 };
@@ -61,7 +63,7 @@ export const AddAdditionalInsured = async (props) => {
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ shouldUpdateAIs: 'additionalInsured' }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('askAdditionalInsured');
 };
@@ -73,7 +75,7 @@ export const AddInterest = async (props) => {
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ shouldUpdateAIs: 'additionalInterest' }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('askAdditionalInterest');
 };
@@ -85,7 +87,7 @@ export const AddBillpayer = async (props) => {
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ shouldUpdateAIs: 'billPayer' }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('askBillPayer');
 };
@@ -173,9 +175,9 @@ export const deleteAdditionalInterest = async (selectedAdditionalInterest, props
   });
 
 
-  await props.updateQuote({ shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) }, quoteNumber: props.quoteData.quoteNumber });
 
-  await props.updateQuote({ additionalInterests: modifiedAIs }, props.quoteData.quoteNumber);
+  await props.updateQuote({ data: { additionalInterests: modifiedAIs }, quoteNumber: props.quoteData.quoteNumber });
 
   props.actions.appStateActions.setAppState(props.appState.modelName,
     '', { ...props.appState.data,

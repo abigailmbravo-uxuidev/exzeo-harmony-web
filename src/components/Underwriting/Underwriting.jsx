@@ -18,7 +18,7 @@ import { updateQuote } from '../../actions/quoteState.actions';
 const handleFormSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
 
-  await props.updateQuote(data, props.quoteData.quoteNumber);
+  await props.updateQuote({ data, quoteNumber: props.quoteData.quoteNumber });
 
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   // const taskName = userTasks.formSubmit;

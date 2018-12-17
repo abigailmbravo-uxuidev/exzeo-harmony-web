@@ -17,7 +17,7 @@ import Loader from '../Common/Loader';
 export const handleOnSubmit = async (data, dispatch, props) => {
   // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({}, props.quote.quoteNumber);
+  await props.updateQuote({ quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 
   // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});

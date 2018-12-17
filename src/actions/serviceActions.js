@@ -26,11 +26,11 @@ export const runnerSetup = data => ({
 });
 
 
-export const getAgents = (companyCode, state) => (dispatch) => {
+export const getAgents = (companyCode, state, agencyCode) => (dispatch) => {
   const axiosConfig = runnerSetup({
     service: 'agency',
     method: 'GET',
-    path: `v1/agents/${companyCode}/${state}`
+    path: `v1/agents/${companyCode}/${state}?agencyCode=${agencyCode}&status=Active`
   });
 
   return axios(axiosConfig).then((response) => {

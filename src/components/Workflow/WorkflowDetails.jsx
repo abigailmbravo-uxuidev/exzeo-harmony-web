@@ -9,7 +9,7 @@ import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as customize from '../Customize/Customize';
-import { goToStep as goToStepTerrible } from '../../actions/quoteState.actions';
+import { updateQuote } from '../../actions/quoteState.actions';
 
 const STEP_NAME_MAP = {
   askAdditionalCustomerData: 'customerInfo',
@@ -48,7 +48,7 @@ export const goToStep = async (props, stepName) => {
   if (props.appState.data.submitting || activeTask === stepName || !completedTasks.includes(stepName)) return;
 
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
-  await props.goToStepTerrible(stepName, props.quote.quoteNumber);
+  await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: false });
 
   //
@@ -130,7 +130,7 @@ export class WorkflowDetails extends Component {
 
 
   render() {
-    const quote = this.props.quote;
+    const { quote, workflowState } = this.props;
     // const { quote } = this.props;
     if (!quote || !quote.quoteNumber) { // eslint-disable-line
       return <div className="detailHeader" />;
@@ -183,8 +183,10 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Coverage A</dt>
                 <dd className="fade">
-                $ {quote.coverageLimits && this.props.appState.data && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '--'}
+                $ {quote.coverageLimits && (workflowState.activeTask !== 'askAdditionalCustomerData' && workflowState.activeTask !== 'askUWAnswers')
+                    ? quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    : '--'
+                  }
                 </dd>
               </div>
             </dl>
@@ -228,44 +230,20 @@ export class WorkflowDetails extends Component {
   }
 }
 
-WorkflowDetails.propTypes = {
-  quote: PropTypes.object,
-  completedTasks: PropTypes.any, // eslint-disable-line
-  actions: PropTypes.shape(),
-  workflowModelName: PropTypes.string,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    instanceId: PropTypes.string,
-    modelName: PropTypes.string,
-    data: PropTypes.shape({
-      quote: PropTypes.object,
-      updateWorkflowDetails: PropTypes.boolean,
-      hideYoChildren: PropTypes.boolean,
-      recalc: PropTypes.boolean,
-      showLoader: PropTypes.boolean,
-      isMoveTo: PropTypes.boolean,
-      submitting: PropTypes.boolean,
-      taskName: PropTypes.string,
-      taskData: PropTypes.shape({})
-    })
-  })
-};
-
 const mapStateToProps = state => ({
-  workflowState: state.quoteState.state,
-  quote: state.quoteState.quote,
   tasks: state.cg,
   appState: state.appState,
   completedTasks: state.completedTasks,
   customizeFormValues: _.get(state.form, 'Customize.values', {}),
-  reactState: state,
+  quote: state.quoteState.quote,
+  workflowState: state.quoteState.state,
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 
 });
 
 const mapDispatchToProps = dispatch => ({
-  goToStepTerrible: bindActionCreators(goToStepTerrible, dispatch),
   dispatch,
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     serviceActions: bindActionCreators(serviceActions, dispatch),
     cgActions: bindActionCreators(cgActions, dispatch),

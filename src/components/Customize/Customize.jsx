@@ -58,7 +58,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     delete updatedQuoteResult.sinkhole;
   }
 
-  await props.updateQuote(updatedQuoteResult, props.quote.quoteNumber);
+  await props.updateQuote({ data: updatedQuoteResult, quoteNumber: props.quote.quoteNumber });
 
   if (!props.appState.data.recalc) {
     props.history.push('share');

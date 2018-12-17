@@ -13,8 +13,9 @@ import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import normalizePhone from '../Form/normalizePhone';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
-import { updateQuote, goToStep as goToStepTerrible } from '../../actions/quoteState.actions';
+import { updateQuote } from '../../actions/quoteState.actions';
 
+const NO_AGENT_FOUND = { firstName: '', lastName: ''};
 
 const STEP_NAME_MAP = {
   askAdditionalCustomerData: 'customerInfo',
@@ -77,7 +78,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   //       workflowId, { ...props.appState.data, submitting: false });
   //   });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote(taskData, props.quote.quoteNumber);
+  await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
   props.history.push('thankYou');
 };
@@ -96,7 +97,7 @@ export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
   taskData.shouldEditVerify = 'PolicyHolder';
 
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote(taskData, props.quote.quoteNumber);
+  await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false, showPolicyHolderModal: false });
 
   // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
@@ -123,7 +124,7 @@ export const goToStep = async (props, stepName) => {
   if (props && props.appState && props.appState.data.submitting === true) return;
 
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
-  await props.goToStepTerrible(stepName, props.quote.quoteNumber);
+  await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: false });
 
   props.history.push(`${STEP_NAME_MAP[stepName]}`);
@@ -147,10 +148,12 @@ export const Verify = (props) => {
 
   const {
     fieldValues,
-     appState,
-     handleSubmit,
-     submitting
-   } = props;
+    appState,
+    handleSubmit,
+    submitting,
+    workflowState,
+    agentList
+  } = props;
 
   // const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};
 
@@ -159,11 +162,8 @@ export const Verify = (props) => {
 
    // const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
   // _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
-  const stateFromQuoteState = props.stateFromQuoteState;
-  const result = stateFromQuoteState.variables.find(v => v.name === 'getActiveAgents');
-  const agentList = result && result.value && result.value.result ? result.value.result : [];
 
-  const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode }) || {};
+  const selectedAgent = agentList.find(agent => agent.agentCode === quoteData.agentCode) || NO_AGENT_FOUND;
 
   if (quoteData) {
     property = quoteData.property;
@@ -422,35 +422,17 @@ export const Verify = (props) => {
   );
 };
 
-// ------------------------------------------------
-// Property type definitions
-// ------------------------------------------------
-Verify.propTypes = {
-  fieldValues: PropTypes.any,  // eslint-disable-line
-  submitting: PropTypes.any, // eslint-disable-line
-  handleSubmit: PropTypes.func,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string,
-    data: PropTypes.shape()
-  })
-};
-
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Verify.values', {}),
-  stateFromQuoteState: state.quoteState.state || { variables: [] },
+  agentList: state.service.agents || [],
+  workflowState: state.quoteState.state || { variables: [] },
   quote: state.quoteState.quote || {}
 });
 
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
-  goToStepTerrible: bindActionCreators(goToStepTerrible, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

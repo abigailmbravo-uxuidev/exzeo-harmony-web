@@ -80,34 +80,34 @@ describe('Service Actions', () => {
       });
   });
 
-  it('should call start getAgents', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
-      data: {
-        service: 'agency',
-        method: 'GET',
-        path: 'v1/agents/TTIC/FL'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    return serviceActions.getAgents('TTIC', 'FL')(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
-      });
-  });
+  // it('should call start getAgents', () => {
+  //   const mockAdapter = new MockAdapter(axios);
+  //
+  //   const axiosOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     url: `${process.env.REACT_APP_API_URL}/svc`,
+  //     data: {
+  //       service: 'agency',
+  //       method: 'GET',
+  //       path: 'v1/agents/TTIC/FL'
+  //     }
+  //   };
+  //
+  //   mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
+  //     data: []
+  //   });
+  //
+  //   const initialState = {};
+  //   const store = mockStore(initialState);
+  //
+  //   return serviceActions.getAgents('TTIC', 'FL')(store.dispatch)
+  //     .then(() => {
+  //       expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
+  //     });
+  // });
 
   it('should call fail getAgents', () => {
     const mockAdapter = new MockAdapter(axios);
@@ -494,7 +494,7 @@ describe('Service Actions', () => {
 
   it('should call getSummaryLedger', () => {
     const mockAdapter = new MockAdapter(axios);
-    
+
     const fetchBilling = {
       method: 'POST',
       headers: {

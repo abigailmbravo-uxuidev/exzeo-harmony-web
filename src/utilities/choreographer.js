@@ -8,7 +8,7 @@ const HARD_STOP_STEPS = [
   'UWDecision5EndError'
 ];
 
-function cgFactory() {
+function choreographer() {
   let state = {
     activeTask: '',
     variables: [],
@@ -19,15 +19,6 @@ function cgFactory() {
     underwritingQuestions: [],
     isHardStop: false
   };
-
-  // TODO: clean this set stuff up
-  function logError(error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('----- CG ERROR -----');
-      console.error(error);
-      console.error('----- CG ERROR -----');
-    }
-  }
 
   /**
    *
@@ -63,22 +54,18 @@ function cgFactory() {
   async function start(modelName, data) {
     const axiosConfig = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      url: `${process.env.REACT_APP_API_URL}/cg/start`,
+      headers: { 'Content-Type': 'application/json' },
       data: {
         modelName,
         data
-      },
-      url: `${process.env.REACT_APP_API_URL}/cg/start`
+      }
     };
 
-    return axios(axiosConfig)
-        .then((response) => {
-          const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
-          setState(activeTaskName, modelInstanceId, variables, completedTasks);
-        })
-        .catch(error => handleError(error));
+    const response = await axios(axiosConfig);
+
+    const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
+    setState(activeTaskName, modelInstanceId, variables, completedTasks);
   }
 
   /**
@@ -91,10 +78,8 @@ function cgFactory() {
   async function complete(stepName, data, cgEndpoint = 'complete') {
     const axiosConfig = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
       url: `${process.env.REACT_APP_API_URL}/cg/${cgEndpoint}`,
+      headers: { 'Content-Type': 'application/json' },
       data: {
         workflowId: state.workflowId,
         stepName,
@@ -120,30 +105,17 @@ function cgFactory() {
       } = response.data;
 
       let underwritingReviewErrors = [];
-      let underwritingQuestions = [];
-
-      if (previousTask.name === 'UnderWritingReviewError') {
-        underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
-      }
-      console.log(previousTask.name);
-      console.log(HARD_STOP_STEPS.includes(previousTask.name));
-
-      if (HARD_STOP_STEPS.includes(previousTask.name)) {
-        setHardStop();
-        underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
-      }
-
+      const isHardStop = HARD_STOP_STEPS.includes(previousTask.name);
       const cgUWQuestions = variables.find(v => v.name === 'getListOfUWQuestions');
-      if (cgUWQuestions) {
-        underwritingQuestions = cgUWQuestions.value.result;
-      }
-      setState(activeTask.name, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions);
+      const underwritingQuestions = cgUWQuestions ? cgUWQuestions.value.result : [];
 
-      if (activeTask.name === 'showCustomizedQuoteAndContinue') {
-        await complete(activeTask.name, {});
+      if (previousTask.name === 'UnderWritingReviewError' || isHardStop) {
+        underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
       }
+
+      setState(activeTask.name, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions);
     } catch (error) {
-      return logError(error);
+      throw handleError(error);
     }
   }
 
@@ -178,7 +150,7 @@ function cgFactory() {
 
       return response.data.result;
     } catch (error) {
-      handleError(error);
+      throw handleError(error);
     }
   }
 
@@ -224,71 +196,59 @@ function cgFactory() {
   }
 
   /**
-   *
+   * Update quote and quote state
    * @param data
-   * @param quoteId
+   * @param quoteNumber
+   * @param stepName
    * @param getReduxState
-   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
+   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array, isHardStop: boolean}}>}
    */
-  async function updateQuote(data, quoteNumber, getReduxState) {
+  async function updateQuote({ data, quoteNumber, stepName, getReduxState }) {
     // if user refreshes it will ensure the state is synced up to the redux state;
-    console.log(state);
     if (!state.activeTask) state = getReduxState().quoteState.state;
 
-    if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
+    // 'moveToTask' for going back to specific step in workflow
+    if (stepName) {
+      await complete(stepName, null, 'moveToTask');
+      // customize w/ recalculate
+    } else if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
       await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
       await complete(state.activeTask, data);
+      // customize and save
     } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
       await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
+      // share
     } else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
       await complete(state.activeTask, { shouldSendEmail: 'Yes' });
       await complete(state.activeTask, data);
-    } else if (state.activeTask === 'editVerify' && data.shouldEditVerify === 'false') {
-      await complete(state.activeTask, { shouldEditVerify: 'false' });
+      // verify
+    } else if (state.activeTask === 'editVerify') {
+      await complete(state.activeTask, { shouldEditVerify: data.shouldEditVerify });
       await complete(state.activeTask, data);
-    } else if (state.activeTask === 'editVerify' && data.shouldEditVerify === 'PolicyHolder') {
-      await complete(state.activeTask, { shouldEditVerify: 'PolicyHolder' });
-      await complete(state.activeTask, data);
+      // all other steps
     } else {
       await complete(state.activeTask, data);
     }
 
+    // if we land on this step, need to fire another complete
+    if (state.activeTask === 'showCustomizedQuoteAndContinue') {
+      await complete(state.activeTask, {});
+    }
+
     const quote = await getQuoteServiceRequest(quoteNumber);
+
     return {
       quote,
       state: getState()
     };
   }
 
-  /**
-   *
-   * @param stepName
-   * @param quoteNumber
-   * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array}}>}
-   */
-  async function goToStep(stepName, quoteNumber, getReduxState) {
-    if (!state.activeTask) state = getReduxState().quoteState.state;
-
-    try {
-      await complete(stepName, null, 'moveToTask');
-
-      const quote = await getQuoteServiceRequest(quoteNumber);
-      return {
-        quote,
-        state: getState()
-      };
-    } catch (error) {
-      logError(error);
-    }
-  }
-
   return {
     createQuote,
     getQuote,
-    updateQuote,
-    goToStepDontUseThisInComponents: goToStep
+    updateQuote
   };
 }
 
-export default cgFactory;
+export default choreographer;
 
