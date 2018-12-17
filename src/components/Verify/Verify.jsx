@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
@@ -151,7 +150,6 @@ export const Verify = (props) => {
     appState,
     handleSubmit,
     submitting,
-    workflowState,
     agentList
   } = props;
 
@@ -427,7 +425,6 @@ const mapStateToProps = state => ({
   appState: state.appState,
   fieldValues: _.get(state.form, 'Verify.values', {}),
   agentList: state.service.agents || [],
-  workflowState: state.quoteState.state || { variables: [] },
   quote: state.quoteState.quote || {}
 });
 
@@ -439,7 +436,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Verify', enableReinitialize: true })(Verify));
