@@ -3,8 +3,10 @@ import axios from 'axios';
 import { callService, handleError } from './serviceRunner';
 
 const HARD_STOP_STEPS = [
-  'UWDecision1EndError', 'UWDecision2EndError',
-  'UWDecision3EndError', 'UWDecision4EndError',
+  'UWDecision1EndError',
+  'UWDecision2EndError',
+  'UWDecision3EndError',
+  'UWDecision4EndError',
   'UWDecision5EndError'
 ];
 
@@ -21,7 +23,7 @@ function choreographer() {
   };
 
   /**
-   *
+   * Set values from cg response onto 'quoteState' object
    * @param activeTask
    * @param workflowId
    * @param variables
@@ -29,8 +31,10 @@ function choreographer() {
    * @param underwritingReviewErrors
    * @param uiQuestions
    * @param underwritingQuestions
+   * @param isHardStop
+   * @private
    */
-  function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions) {
+  function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions, isHardStop) {
     state.activeTask = activeTask;
     state.variables = variables;
     state.workflowId = workflowId;
@@ -38,17 +42,14 @@ function choreographer() {
     state.underwritingExceptions = underwritingReviewErrors;
     state.uiQuestions = uiQuestions;
     state.underwritingQuestions = underwritingQuestions;
-  }
-
-  function setHardStop() {
-    state.isHardStop = true;
+    state.isHardStop = isHardStop;
   }
 
   /**
-   *
-   * @private
+   * Start cg model instance
    * @param modelName
    * @param data
+   * @private
    * @returns {Promise<void>}
    */
   async function start(modelName, data) {
@@ -69,10 +70,11 @@ function choreographer() {
   }
 
   /**
-   *
+   * Complete cg step
    * @param stepName
    * @param data
    * @param cgEndpoint
+   * @private
    * @returns {Promise<void>}
    */
   async function complete(stepName, data, cgEndpoint = 'complete') {
@@ -113,23 +115,28 @@ function choreographer() {
         underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
       }
 
-      setState(activeTask.name, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions);
+      setState(activeTask.name, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions, isHardStop);
     } catch (error) {
       throw handleError(error);
     }
   }
 
   /**
-   *
-   * @private
+   * Find data in cg response 'variables' property by name
    * @param name
-   * @returns {null}
+   * @private
+   * @returns {*|null}
    */
   function getDataByName(name) {
     const result = state.variables.find(v => v.name === name);
     return result && result.value && result.value.result ? result.value.result : null;
   }
 
+  /**
+   * Get current state object
+   * @private
+   * @returns {{activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array, isHardStop: boolean}}
+   */
   function getState() {
     return state;
   }
@@ -155,10 +162,11 @@ function choreographer() {
   }
 
   /**
-   *
+   * Create/start a quote through CG
    * @param address
    * @param igdID
    * @param stateCode
+   * @public
    * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
    */
   async function createQuote(address, igdID, stateCode) {
@@ -177,9 +185,10 @@ function choreographer() {
   }
 
   /**
-   *
+   * Retrieve existing quote through CG and start new model instance
    * @param quoteNumber
    * @param quoteId
+   * @public
    * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array}}>}
    */
   async function getQuote(quoteNumber, quoteId) {
@@ -196,11 +205,12 @@ function choreographer() {
   }
 
   /**
-   * Update quote and quote state
+   * Update quote and quoteState object
    * @param data
    * @param quoteNumber
    * @param stepName
    * @param getReduxState
+   * @public
    * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array, isHardStop: boolean}}>}
    */
   async function updateQuote({ data, quoteNumber, stepName, getReduxState }) {
