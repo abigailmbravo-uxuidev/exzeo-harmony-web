@@ -41,7 +41,7 @@ import Error from './components/Error/Error';
 
 const auth = new Auth();
 
-const handleAuthentication = (nextState, replace) => {
+const handleAuthentication = (nextState) => {
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication();
   }
@@ -66,7 +66,9 @@ class Routes extends Component { // eslint-disable-line
       axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
     }
   }
+
   clearError = () => this.props.actions.errorActions.clearAppError();
+
   render() {
     return (
       <div>
@@ -213,10 +215,11 @@ class Routes extends Component { // eslint-disable-line
                 render={(props) => {
                   handleAuthentication(props);
                   return <Callback {...props} />;
-                }
-            }
+                }}
               />
-              <Route path="*" render={props => <NotFound auth={auth} {...props} />} />
+              <Route
+                path="*"
+                render={props => <NotFound auth={auth} {...props} />} />
             </Switch>
           </div>
         </Router>

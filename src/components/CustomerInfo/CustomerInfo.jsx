@@ -32,7 +32,9 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     taskData.phoneNumber2 = '';
   }
 
-  taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
+  taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate)
+    .format('YYYY-MM-DD'), props.zipCodeSettings.timezone)
+    .format();
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
@@ -67,7 +69,9 @@ const handleInitialize = (state) => {
   const values = getInitialValues(uiQuestions, quoteData);
 
   values.FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
-  values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('MM/DD/YYYY');
+  values.effectiveDate = moment(_.get(quoteData, 'effectiveDate'))
+    .utc()
+    .format('MM/DD/YYYY');
   values.phoneNumber = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
   values.phoneNumber2 = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
   values.electronicDelivery = _.get(quoteData, 'policyHolders[0].electronicDelivery') || false;
@@ -102,15 +106,16 @@ export class CustomerInfo extends React.Component {
       this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
     }
   }
+
   render() {
     const {
-    // appState,
-    handleSubmit,
-    fieldValues,
-    zipCodeSettings,
-    agentResults
-  } = this.props;
-  // const taskData = props.tasks[appState.modelName].data;
+      // appState,
+      handleSubmit,
+      fieldValues,
+      zipCodeSettings,
+      agentResults
+    } = this.props;
+
     const questions = this.props.uiQuestions;
     const quoteData = this.props.quote;
     return (
@@ -138,13 +143,13 @@ export class CustomerInfo extends React.Component {
                   values={fieldValues}
                   key={index}
                 />
-        )}
+              )}
               <div className="agentID">
                 <SelectFieldAgents
                   tabindex="0"
                   name="agentCode"
                   label="Agent"
-                  onChange={function () { }}
+                  onChange={() => {}}
                   validations={['required']}
                   agents={agentResults}
                 />
@@ -158,8 +163,8 @@ export class CustomerInfo extends React.Component {
                 form="CustomerInfo"
                 disabled={this.props.appState.data.submitting}
               >
-          next
-        </button>
+                next
+              </button>
             </div>
             <Footer />
           </div>
@@ -183,11 +188,6 @@ CustomerInfo.propTypes = {
   })
 };
 
-/**
-------------------------------------------------
-redux mapping
-------------------------------------------------
-*/
 const mapStateToProps = state => (
   {
     tasks: state.cg,
