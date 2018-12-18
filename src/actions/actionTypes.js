@@ -6,12 +6,6 @@ export const AUTHENTICATING = 'AUTHENTICATING';
 export const AUTHENTICATED = 'AUTHENTICATED';
 export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
 
-/* CG */
-export const CG_START = 'CG_START';
-export const CG_ACTIVE_TASK = 'CG_ACTIVE_TASK';
-export const CG_COMPLETE = 'CG_COMPLETE';
-export const CG_ERROR = 'CG_ERROR';
-
 /* SERVICE */
 export const SERVICE_REQUEST = 'SERVICE_REQUEST';
 

@@ -10,17 +10,15 @@ describe('App State Actions', () => {
     const store = mockStore(initialState);
 
     const inputProps = {
-      modelName: 'bb',
-      instanceId: '123',
       data: { bb: '123' }
-    }
+    };
 
     const stateObj = [{
       type: types.APPSTATE_SET,
       appState: { ...inputProps }
     }];
 
-    store.dispatch(appStateActions.setAppState(inputProps.modelName, inputProps.instanceId, inputProps.data));
+    store.dispatch(appStateActions.setAppState(inputProps.data));
 
     expect(store.getActions()).toEqual(stateObj);
   });
@@ -29,17 +27,15 @@ describe('App State Actions', () => {
     const store = mockStore(initialState);
 
     const inputProps = {
-      modelName: 'bb',
-      instanceId: '123',
       error: 'my error'
-    }
+    };
 
     const stateObj = [{
       type: types.APPSTATE_ERROR,
       appState: { ...inputProps }
     }];
 
-    store.dispatch(appStateActions.setAppStateError(inputProps.modelName, inputProps.instanceId, inputProps.error));
+    store.dispatch(appStateActions.setAppStateError(inputProps.error));
     expect(store.getActions()).toEqual(stateObj);
   });
   it('should call dispatchAppState', () => {
@@ -47,16 +43,14 @@ describe('App State Actions', () => {
     const store = mockStore(initialState);
 
     const inputProps = {
-      modelName: 'bb',
-      instanceId: '123',
       data: { bb: '123' }
-    }
+    };
 
     const stateObj = [{
       type: types.APPSTATE_SET,
       appState: { ...inputProps }
     }];
-
-    appStateActions.dispatchAppState(inputProps.modelName, inputProps.instanceId, inputProps.data)(store.dispatch);
+    store.dispatch(appStateActions.setAppStateError(stateObj));
+    appStateActions.dispatchAppState(inputProps.data)(store.dispatch);
   });
 });

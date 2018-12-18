@@ -3,10 +3,8 @@ import * as types from './actionTypes';
 // these actions are to allow the composite controls to communicate when their models are complete
 // this communication allows the workflow to move to the next step
 
-export const setAppState = (modelName, instanceId, data) => {
+export const setAppState = (data) => {
   const newAppStateData = {
-    modelName,
-    instanceId,
     data
   };
   const stateObj = {
@@ -16,10 +14,8 @@ export const setAppState = (modelName, instanceId, data) => {
   return stateObj;
 };
 
-export const setAppStateError = (modelName, instanceId, error) => {
+export const setAppStateError = (error) => {
   const newAppStateData = {
-    modelName,
-    instanceId,
     error
   };
   const stateObj = {
@@ -30,4 +26,4 @@ export const setAppStateError = (modelName, instanceId, error) => {
 };
 
 // thunk if needed
-export const dispatchAppState = (modelName, instanceId, data) => dispatch => dispatch(setAppState(modelName, instanceId, data));
+export const dispatchAppState = data => dispatch => dispatch(setAppState(data));

@@ -129,7 +129,6 @@ describe('Testing WorkflowDetails component', () => {
       }
     };
     getClassForStep('step', props);
-    goToStep(props, 'step');
     getQuoteFromModel(initialState, props);
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
