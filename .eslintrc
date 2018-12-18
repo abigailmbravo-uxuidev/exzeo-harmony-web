@@ -3,7 +3,7 @@
   "extends": "airbnb",
   "rules": {
     "react/forbid-prop-types" : 0,
-    "comma-dangle":  [2, "never"],
+    "comma-dangle":  [0, "ignore"],
     "import/no-extraneous-dependencies": 0,
     "no-unused-expressions": 0,
     "react/jsx-filename-extension": 0,
