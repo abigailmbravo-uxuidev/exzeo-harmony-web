@@ -14,8 +14,6 @@ import Loader from '../Common/Loader';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 import { CheckField } from '../Form/inputs';
 import normalizePhone from '../Form/normalizePhone';
-import PolicyHolderPopup from '../Common/PolicyHolderPopup';
-import { updateQuote } from '../../actions/quoteState.actions';
 import { goToStep } from '../../utilities/navigation';
 
 const NO_AGENT_FOUND = { firstName: '', lastName: '' };
