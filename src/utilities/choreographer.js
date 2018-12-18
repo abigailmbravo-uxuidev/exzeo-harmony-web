@@ -19,7 +19,8 @@ function choreographer() {
     underwritingExceptions: [],
     uiQuestions: [],
     underwritingQuestions: [],
-    isHardStop: false
+    isHardStop: false,
+    modelName: ''
   };
 
   /**
@@ -32,17 +33,24 @@ function choreographer() {
    * @param uiQuestions
    * @param underwritingQuestions
    * @param isHardStop
+   * @param modelName
    * @private
    */
-  function setState(activeTask, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions, isHardStop) {
-    state.activeTask = activeTask;
-    state.variables = variables;
-    state.workflowId = workflowId;
-    state.completedTasks = completedTasks;
-    state.underwritingExceptions = underwritingReviewErrors;
-    state.uiQuestions = uiQuestions;
-    state.underwritingQuestions = underwritingQuestions;
-    state.isHardStop = isHardStop;
+  function setState(args) {
+    Object.keys(args).map((key) => {
+      state[key] = args[key];
+      return key;
+    });
+
+    // state.activeTask = activeTask;
+    // state.variables = variables;
+    // state.workflowId = workflowId;
+    // state.completedTasks = completedTasks;
+    // state.underwritingExceptions = underwritingReviewErrors;
+    // state.uiQuestions = uiQuestions;
+    // state.underwritingQuestions = underwritingQuestions;
+    // state.isHardStop = isHardStop;
+    // state.modelName = modelName;
   }
 
   /**
@@ -65,8 +73,8 @@ function choreographer() {
 
     const response = await axios(axiosConfig);
 
-    const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
-    setState(activeTaskName, modelInstanceId, variables, completedTasks);
+    const { data: { activeTask: { name: activeTaskName }, modelInstanceId: workflowId, model: { variables, completedTasks } } } = response.data;
+    setState({ activeTask: activeTaskName, workflowId, variables, completedTasks });
   }
 
   /**
@@ -97,8 +105,8 @@ function choreographer() {
         data: {
           uiQuestions,
           previousTask = {},
-          activeTask = {},
-          modelInstanceId,
+          activeTask = { },
+          modelInstanceId: workflowId,
           model: {
             variables,
             completedTasks
@@ -115,7 +123,7 @@ function choreographer() {
         underwritingReviewErrors = previousTask.value.filter(uwe => !uwe.overridden);
       }
 
-      setState(activeTask.name, modelInstanceId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions, isHardStop);
+      setState({ activeTask: activeTask.name, workflowId, variables, completedTasks, underwritingReviewErrors, uiQuestions, underwritingQuestions, isHardStop });
     } catch (error) {
       throw handleError(error);
     }

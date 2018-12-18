@@ -10,16 +10,7 @@ import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as customize from '../Customize/Customize';
 import { updateQuote } from '../../actions/quoteState.actions';
-
-const STEP_NAME_MAP = {
-  askAdditionalCustomerData: 'customerInfo',
-  askUWAnswers: 'underwriting',
-  askToCustomizeDefaultQuote: 'customize',
-  sendEmailOrContinue: 'share',
-  addAdditionalAIs: 'additionalInterests',
-  askAdditionalQuestions: 'mailingBilling',
-  editVerify: 'verify'
-};
+import { goToStep } from '../../utilities/navigation';
 
 export const handleRecalc = (props) => {
   customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
@@ -39,28 +30,6 @@ export const getQuoteFromModel = (state, props) => {
         });
     }
   });
-};
-
-export const goToStep = async (props, stepName) => {
-  // don't allow submission until the other step is completed
-  const { activeTask, completedTasks } = props.workflowState;
-
-  if (props.appState.data.submitting || activeTask === stepName || !completedTasks.includes(stepName)) return;
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
-  await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: false });
-
-  //
-  // const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
-  //
-  // if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
-  //     (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
-  //   const currentModelData = props.tasks && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
-  //   props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentModelData.model.completedTasks, props.completedTasks));
-  //   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, nextPage: taskName });
-  // }
-  props.history.push(`${STEP_NAME_MAP[stepName]}`);
 };
 
 export const getClassForStep = (stepName, props) => {

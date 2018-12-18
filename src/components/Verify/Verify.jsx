@@ -14,18 +14,11 @@ import Loader from '../Common/Loader';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 import { CheckField } from '../Form/inputs';
 import normalizePhone from '../Form/normalizePhone';
+import PolicyHolderPopup from '../Common/PolicyHolderPopup';
+import { updateQuote } from '../../actions/quoteState.actions';
+import { goToStep } from '../../utilities/navigation';
 
 const NO_AGENT_FOUND = { firstName: '', lastName: '' };
-
-const STEP_NAME_MAP = {
-  askAdditionalCustomerData: 'customerInfo',
-  askUWAnswers: 'underwriting',
-  askToCustomizeDefaultQuote: 'customize',
-  sendEmailOrContinue: 'share',
-  addAdditionalAIs: 'additionalInterests',
-  askAdditionalQuestions: 'mailingBilling',
-  editVerify: 'verify'
-};
 
 // ------------------------------------------------
 // This allows the step to be completed in the CG,
@@ -117,26 +110,6 @@ export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
   //     props.actions.appStateActions.setAppState(props.appState.modelName,
   //       workflowId, { ...props.appState.data, submitting: false, showPolicyHolderModal: false });
   //   });
-};
-
-export const goToStep = async (props, stepName) => {
-  // don't allow submission until the other step is completed
-  if (props && props.appState && props.appState.data.submitting === true) return;
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
-  await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: false });
-
-  props.history.push(`${STEP_NAME_MAP[stepName]}`);
-
-  // const currentData = props.tasks && props.tasks[props.appState.modelName] && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
-
-  // if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
-  //     (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
-  //   props.actions.appStateActions.setAppState(props.appState.modelName, currentData.modelInstanceId, { ...props.appState.data, submitting: true });
-  //  // props.actions.completedTasksActions.dispatchCompletedTasks(_.union(currentData.model.completedTasks, props.completedTasks));
-  //   props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentData.model.completedTasks, props.completedTasks));
-  // }
 };
 
 export const Verify = (props) => {
@@ -472,7 +445,8 @@ const mapStateToProps = state => ({
   appState: state.appState,
   fieldValues: _.get(state.form, 'Verify.values', {}),
   agentList: state.service.agents || [],
-  quote: state.quoteState.quote || {}
+  quote: state.quoteState.quote || {},
+  workflowState: state.quoteState.state
 });
 
 const mapDispatchToProps = dispatch => ({
