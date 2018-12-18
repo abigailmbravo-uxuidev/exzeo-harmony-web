@@ -1,49 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
+import { Redirect } from 'react-router';
 import _ from 'lodash';
-import Footer from '../Common/Footer';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
-import FieldGenerator from '../Form/FieldGenerator';
+import { updateQuote } from '../../actions/quoteState.actions';
+import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
+import FieldGenerator from '../Form/FieldGenerator';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 
 const handleFormSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-
   await props.updateQuote({ data, quoteNumber: props.quoteData.quoteNumber });
-
-  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // const taskName = userTasks.formSubmit;
-  // const taskData = { ...data };
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+
   props.history.push('customize');
 };
 
 const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.underwritingQuestions : []);
 
-// const handleGetQuestions = state =>
-//   // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-//   // const uwQuestions = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-//    MOCK_UI_QUESTIONS;
-
-const handleGetQuoteData = state => state.quoteState.quote;// state.service.quote;
-
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
-  const data = handleGetQuoteData(state);
+  const data = state.quoteState.quote;
   const values = {};
   questions.forEach((question) => {
-    const val = _.get(data, `underwritingAnswers.${question.name}.answer`);
-    values[question.name] = val;
+    values[question.name] = _.get(data, `underwritingAnswers.${question.name}.answer`);
 
     const defaultAnswer = question && question.answers &&
     _.find(question.answers, { default: true }) ?
@@ -59,8 +46,7 @@ const handleInitialize = (state) => {
 
 export const Underwriting = (props) => {
   const { handleSubmit, fieldValues, quoteData, isHardStop } = props;
-  // const taskData = props.tasks[appState.modelName].data;
-  const questions = props.questions; // taskData.previousTask.value.result;
+  const questions = props.questions;
 
   return (
     <div className="route-content">
@@ -111,18 +97,12 @@ Underwriting.propTypes = {
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
     data: PropTypes.shape({
-      submitting: PropTypes.boolean
+      submitting: PropTypes.bool
     })
   }),
   quoteData: PropTypes.shape(),
   questions: PropTypes.arrayOf(PropTypes.shape())
 };
-
-/**
-------------------------------------------------
-redux mapping
-------------------------------------------------
-*/
 
 const mapStateToProps = state => ({
   tasks: state.cg,
@@ -130,17 +110,19 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Underwriting.values', {}),
   initialValues: handleInitialize(state),
   questions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state),
+  quoteData: state.quoteState.quote,
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Underwriting', onSubmitFail: failedSubmission, enableReinitialize: true
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'Underwriting',
+  onSubmitFail: failedSubmission,
+  enableReinitialize: true,
 })(Underwriting));

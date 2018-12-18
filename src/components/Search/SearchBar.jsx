@@ -15,19 +15,15 @@ import Pagination from '../Common/Pagination';
 import { generateField, getSearchType } from './searchUtils';
 
 const handleInitialize = (state) => {
-  const values = {
+  return {
     address: '',
     pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
     totalPages: _.get(state.search, 'state.search.totalPages') || 0
   };
-  return values;
 };
 
 export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
-  // const workflowId = props.appState.instanceId;
-  // const taskName = userTasks.handleSearchBarSubmit;
-  // const modelName = props.appState.modelName;
   const searchType = 'quote';
 
   const { groups } = props.userProfile;
@@ -59,24 +55,11 @@ export const changePageQuote = async (props, isNext) => {
   props.actions.errorActions.clearAppError();
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
 
-  // // we need to make sure the active task is search otherwise we need to reset the workflow
-  // if (props.tasks[modelName].data.activeTask && (props.tasks[modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit)) {
-  //   const completeStep = {
-  //     stepName: taskName,
-  //     data: taskData
-  //   };
-  //   props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
-  // } else {
-  //   props.actions.appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true });
-  //   props.actions.cgActions.completeTask(modelName, workflowId, taskName, taskData);
-  // }
   await props.actions.searchActions.searchQuotes(taskData);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 };
 
 export const handleSearchBarSubmit = async (data, dispatch, props) => {
-  // const workflowId = props.appState.instanceId;
-  // const taskName = userTasks.handleSearchBarSubmit;
   const { groups } = props.userProfile;
   const userGroup = groups[0];
   const { state, companyCode } = userGroup;
@@ -103,20 +86,6 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
   await props.actions.searchActions.searchQuotes(taskData);
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-
-  // we need to make sure the active task is search otherwise we need to reset the workflow
-  // if (!props.tasks[props.appState.modelName].data.activeTask) {
-  //   props.actions.errorActions.setAppError({ message: 'An Error has occured' });
-  // } else if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
-  //   // const completeStep = {
-  //   //   stepName: taskName,
-  //   //   data: taskData
-  //   // };
-  //   // props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
-  // } else {
-    // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  // }
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
@@ -168,15 +137,8 @@ export const validate = (values) => {
 
 
 export class SearchForm extends Component {
-
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
-
-    // const model = nextProps.tasks[nextProps.appState.modelName] || {};
-    // const previousTask = model.data && model.data.previousTask
-    //   ? model.data.previousTask
-    //   : {};
-
     const { totalRecords, pageSize, currentPage } = nextProps.search;
 
     if (nextProps.searchType === 'quote' && nextProps.search.hasSearched && !_.isEqual(this.props.searchResults, nextProps.searchResults)) {
@@ -190,11 +152,7 @@ export class SearchForm extends Component {
 
   render() {
     const { handleSubmit, formErrors, searchType, fieldValues } = this.props;
-    // const model = this.props.tasks[this.props.appState.modelName] || {};
-    // const previousTask = model.data && model.data.previousTask
-    //   ? model.data.previousTask
-    //   : {};
-    const { searchResults } = this.props;// previousTask.value && previousTask.value.result ? previousTask.value.result : [];
+    const { searchResults } = this.props;
 
     if (searchType === 'quote') {
       return (
