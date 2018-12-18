@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
 import { getInitialValues } from '../Customize/customizeHelpers';
@@ -205,7 +205,7 @@ const mapDispatchToProps = dispatch => ({
   getZipcodeSettings: bindActionCreators(getZipcodeSettings, dispatch),
   getAgents: bindActionCreators(getAgents, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

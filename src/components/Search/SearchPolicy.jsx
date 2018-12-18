@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import PolicySearchBar from './PolicySearchBar';
 import SearchResults from './SearchResults';
@@ -42,7 +42,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

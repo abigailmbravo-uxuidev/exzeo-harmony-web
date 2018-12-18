@@ -13,7 +13,7 @@ import {
 } from '../Form/inputs';
 
 import { getInitialValues } from '../Customize/customizeHelpers';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import FieldGenerator from '../Form/FieldGenerator';
 import Loader from '../Common/Loader';
@@ -297,7 +297,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

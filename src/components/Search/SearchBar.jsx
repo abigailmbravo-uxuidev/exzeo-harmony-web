@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-form';
 import _ from 'lodash';
 import Rules from '../Form/Rules';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import * as errorActions from '../../actions/errorActions';
 import * as serviceActions from '../../actions/serviceActions';
@@ -273,7 +273,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch),
     errorActions: bindActionCreators(errorActions, dispatch),
     serviceActions: bindActionCreators(serviceActions, dispatch),

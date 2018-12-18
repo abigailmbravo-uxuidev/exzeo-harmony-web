@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Footer from '../Common/Footer';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
@@ -116,7 +116,7 @@ const mapDispatchToProps = dispatch => ({
   getQuote: bindActionCreators(getQuote, dispatch),
   clearResults: bindActionCreators(clearResults, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

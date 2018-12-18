@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 
@@ -62,7 +62,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

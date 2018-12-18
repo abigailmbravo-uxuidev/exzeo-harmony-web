@@ -8,7 +8,7 @@ import Footer from '../Common/Footer';
 
 import { getInitialValues } from '../Customize/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 
 
@@ -106,7 +106,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import ScheduleDate from '../Common/ScheduleDate';
@@ -450,7 +450,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

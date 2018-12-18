@@ -9,7 +9,6 @@ import { getInitialValues } from '../Customize/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
 // import Footer from '../Common/Footer';
 // import { setDetails } from '../../../actions/detailsActions';
-import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
@@ -205,7 +204,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

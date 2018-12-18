@@ -6,7 +6,7 @@ import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
 import TextField from '../Form/inputs/TextField';
 import PhoneField from '../Form/inputs/PhoneField';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import normalizePhone from '../Form/normalizePhone';
 import CheckField from '../Form/inputs/CheckField';
@@ -109,7 +109,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import Loader from '../Common/Loader';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
 import { getSearchType } from './searchUtils';
@@ -186,7 +186,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createQuote: bindActionCreators(createQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
