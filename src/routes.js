@@ -67,7 +67,9 @@ class Routes extends Component { // eslint-disable-line
     }
   }
 
-  clearError = () => this.props.actions.errorActions.clearAppError();
+  clearError = () => {
+    this.props.actions.errorActions.clearAppError();
+  };
 
   render() {
     return (
@@ -80,127 +82,41 @@ class Routes extends Component { // eslint-disable-line
           appElement={document.getElementById('root')}
         >
           <div className="card-header"><h4><i className="fa fa-exclamation-circle" />&nbsp;Error</h4></div>
-          <div className="card-block"><p>{ this.props.error.message }</p></div>
+          <div className="card-block"><p>{this.props.error.message}</p></div>
           <div className="card-footer">
             <button className="btn-primary" onClick={this.clearError}>close</button>
           </div>
         </Modal>
+
         <Router>
           <div>
             <Helmet><title>Harmony Web - Agent HO3 Quote</title></Helmet>
             <Switch>
-              <Route
-                exact
-                path="/"
-                render={props => <Splash auth={auth} {...props} />}
-              />
-              <Route
-                exact
-                path="/quote"
-                render={props => <Quote auth={auth} {...props} />}
-              />
-              <Route
-                exact
-                path="/quote/SearchAddress"
-                render={props => <Quote auth={auth} {...props}><Search {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/retrieve"
-                render={props => <Quote auth={auth} {...props}><Search {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/customerInfo"
-                render={props => <Quote auth={auth} {...props}><CustomerInfo {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/underwriting"
-                render={props => <Quote auth={auth} {...props}><Underwriting {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/customize"
-                render={props => <Quote auth={auth} {...props}><Customize {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/share"
-                render={props => <Quote auth={auth} {...props}><Share {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/assumptions"
-                render={props => <Quote auth={auth} {...props}><Assumptions {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/additionalInterests"
-                render={props => <Quote auth={auth} {...props}><AddAdditionalInterest {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/askMortgagee"
-                render={props => <Quote auth={auth} {...props}><Mortgagee {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/askAdditionalInterest"
-                render={props => <Quote auth={auth} {...props}><AdditionalInterest {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/askAdditionalInsured"
-                render={props => <Quote auth={auth} {...props}><AdditionalInsured {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/askPremiumFinance"
-                render={props => <Quote auth={auth} {...props}><PremiumFinance {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/askBillPayer"
-                render={props => <Quote auth={auth} {...props}><BillPayer {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/mailingBilling"
-                render={props => <Quote auth={auth} {...props}><Billing {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/verify"
-                render={props => <Quote auth={auth} {...props}><Verify {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/thankYou"
-                render={props => <Quote auth={auth} {...props}><ThankYou {...props} /></Quote>}
-              />
-              <Route
-                exact
-                path="/quote/:quoteNumber/error"
-                render={props => <Quote auth={auth} {...props}><Error {...props} /></Quote>}
-              />
-              {/* <Route
-                exact
-                path="/quote/retrieve"
-                render={props => <Quote auth={auth} {...props} />}
-              /> */}
-              <Route
-                exact
-                path="/policy"
-                render={props => <PolicySearch auth={auth} {...props} />}
-              />
-              <Route
-                path="/policy/:policyNumber"
-                render={props => <Policy auth={auth} {...props} />}
-              />
-              <Route exact path="/login" render={props => <Login auth={auth} {...props} />} />
-              <Route exact path="/error" component={AppError} />
-              <Route exact path="/accessDenied" render={props => <AccessDenied auth={auth} {...props} />} />
+              <Route exact path="/"                                         render={props => <Splash auth={auth} {...props} />} />
+              <Route exact path="/quote"                                    render={props => <Quote auth={auth} {...props} />} />
+              <Route exact path="/quote/SearchAddress"                      render={props => <Quote auth={auth} {...props}><Search {...props} /></Quote>} />
+              <Route exact path="/quote/retrieve"                           render={props => <Quote auth={auth} {...props}><Search {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/customerInfo"          render={props => <Quote auth={auth} {...props}><CustomerInfo {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/underwriting"          render={props => <Quote auth={auth} {...props}><Underwriting {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/customize"             render={props => <Quote auth={auth} {...props}><Customize {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/share"                 render={props => <Quote auth={auth} {...props}><Share {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/assumptions"           render={props => <Quote auth={auth} {...props}><Assumptions {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/additionalInterests"   render={props => <Quote auth={auth} {...props}><AddAdditionalInterest {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/askMortgagee"          render={props => <Quote auth={auth} {...props}><Mortgagee {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/askAdditionalInterest" render={props => <Quote auth={auth} {...props}><AdditionalInterest {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/askAdditionalInsured"  render={props => <Quote auth={auth} {...props}><AdditionalInsured {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/askPremiumFinance"     render={props => <Quote auth={auth} {...props}><PremiumFinance {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/askBillPayer"          render={props => <Quote auth={auth} {...props}><BillPayer {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/mailingBilling"        render={props => <Quote auth={auth} {...props}><Billing {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/verify"                render={props => <Quote auth={auth} {...props}><Verify {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/thankYou"              render={props => <Quote auth={auth} {...props}><ThankYou {...props} /></Quote>} />
+              <Route exact path="/quote/:quoteNumber/error"                 render={props => <Quote auth={auth} {...props}><Error {...props} /></Quote>} />
+
+              <Route path="/policy/:policyNumber" render={props => <Policy auth={auth} {...props} />} />
+              <Route exact path="/policy"         render={props => <PolicySearch auth={auth} {...props} />} />
+              <Route exact path="/login"          render={props => <Login auth={auth} {...props} />} />
+              <Route exact path="/error"          render={props => <AppError {...props} />} />
+              <Route exact path="/accessDenied"   render={props => <AccessDenied auth={auth} {...props} />} />
               <Route
                 exact
                 path="/logout"
@@ -217,9 +133,8 @@ class Routes extends Component { // eslint-disable-line
                   return <Callback {...props} />;
                 }}
               />
-              <Route
-                path="*"
-                render={props => <NotFound auth={auth} {...props} />} />
+
+              <Route path="*" render={props => <NotFound auth={auth} {...props} />} />
             </Switch>
           </div>
         </Router>
