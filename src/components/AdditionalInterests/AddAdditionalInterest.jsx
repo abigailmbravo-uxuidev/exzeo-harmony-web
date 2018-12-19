@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import Footer from '../Common/Footer';
 import { setAppState } from '../../actions/appStateActions';
+import { updateQuote } from '../../actions/quoteState.actions';
 import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import { updateQuote } from '../../actions/quoteState.actions';
 
 
 export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
@@ -81,8 +81,6 @@ export const returnTaskName = (type) => {
   else if (type === 'Additional Insured') return 'askAdditionalInsured';
 };
 
-// const handleInitialize = state => ({});
-
 export const openDeleteAdditionalInterest = (ai, props) => {
   props.setAppState(
       { ...props.appState.data, showAdditionalInterestModal: true, selectedAI: ai, addAdditionalInterestType: ai.type });
@@ -104,17 +102,16 @@ export const deleteAdditionalInterest = async (selectedAdditionalInterest, props
 
   const additionalInterests = quoteData.additionalInterests || [];
 
-        // remove any existing items before submission
+  // remove any existing items before submission
   const modifiedAIs = _.cloneDeep(additionalInterests);
-    // remove any existing items before submission
-    _.remove(modifiedAIs, ai => ai._id === selectedAdditionalInterest._id); // eslint-disable-line
+  // remove any existing items before submission
+  _.remove(modifiedAIs, ai => ai._id === selectedAdditionalInterest._id); // eslint-disable-line
 
   let order = 0;
   _.each(_.filter(modifiedAIs, ai => ai.type === selectedAdditionalInterest.type), (ai) => {
     ai.order = order; // eslint-disable-line
     order += 1;
   });
-
 
   await props.updateQuote({ data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) }, quoteNumber: props.quoteData.quoteNumber });
 
@@ -193,17 +190,6 @@ export const AddAdditionalInterest = props => (
   </div>
 );
 
-
-AddAdditionalInterest.propTypes = {
-  ...propTypes,
-  tasks: PropTypes.shape({}),
-  appState: PropTypes.shape({ modelName: PropTypes.string, data: PropTypes.object }),
-  underwritingExceptions: PropTypes.arrayOf(PropTypes.shape())
-};
-
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
@@ -216,4 +202,5 @@ export default connect(mapStateToProps, {
   setAppState
 })(reduxForm({ form: 'AddAdditionalInterest',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission })(AddAdditionalInterest));
+  onSubmitFail: failedSubmission
+})(AddAdditionalInterest));

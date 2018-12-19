@@ -1,29 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
-import Footer from '../Common/Footer';
-// import localStorage from 'localStorage';
-
-import { getInitialValues } from '../Customize/customizeHelpers';
-import FieldGenerator from '../Form/FieldGenerator';
-// import Footer from '../Common/Footer';
-// import { setDetails } from '../../../actions/detailsActions';
 
 import * as appStateActions from '../../actions/appStateActions';
+import { updateQuote } from '../../actions/quoteState.actions';
+import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import { updateQuote } from '../../actions/quoteState.actions';
+import { getInitialValues } from '../Customize/customizeHelpers';
+import FieldGenerator from '../Form/FieldGenerator';
 
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // const taskName = userTasks.formSubmit;
   const additionalInterests = props.quoteData.additionalInterests;
-
   const additionalInterest1 = _.find(additionalInterests, { order: 0, type: 'Additional Interest' }) || {};
   const additionalInterest2 = _.find(additionalInterests, { order: 1, type: 'Additional Interest' }) || {};
 
@@ -75,37 +67,26 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
   props.history.push('additionalInterests');
 };
 
 export const closeAndSavePreviousAIs = async (props) => {
   const additionalInterests = props.quoteData.additionalInterests;
+
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
   props.history.push('additionalInterests');
-  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // const taskName = userTasks.formSubmit;
-  // const additionalInterests = props.quoteData.additionalInterests;
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, { additionalInterests });
 };
 
 export const handleInitialize = (state) => {
-//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-//   const quoteData = taskData && taskData.model &&
-//  taskData.model.variables &&
-//  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
-//  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
-//   _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
-
   const uiQuestions = handleGetQuestions(state);
   const quoteData = handleGetQuoteData(state);
 
   const values = getInitialValues(uiQuestions,
     { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Additional Interest') });
-
- // userTasks.formSubmit = taskData.activeTask.name;
 
   _.forEach(uiQuestions, (q) => {
     if (!values[q.name]) {
@@ -123,20 +104,7 @@ export const handleInitialize = (state) => {
 
 const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
 
-// const handleGetQuestions = (state) => {
-//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-//   return taskData.uiQuestions;
-// };
 const handleGetQuoteData = state => state.quoteState.quote || {};
-// export const handleGetQuoteData = (state) => {
-//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-//   const quoteData = taskData && taskData.model &&
-//  taskData.model.variables &&
-//  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }) &&
-//  _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value ?
-//   _.find(taskData.model.variables, { name: 'getQuoteBeforeAIs' }).value.result : {};
-//   return quoteData;
-// };
 
 export const AdditionalInterest = (props) => {
   const {
@@ -174,22 +142,6 @@ export const AdditionalInterest = (props) => {
   );
 };
 
-AdditionalInterest.propTypes = {
-  ...propTypes,
-  handleSubmit: PropTypes.func,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    data: PropTypes.shape({
-      recalc: PropTypes.boolean,
-      submitting: PropTypes.boolean
-    })
-  }),
-  fieldValues: PropTypes.any, // eslint-disable-line
-  initialized: PropTypes.bool,
-  initialize: PropTypes.func
-};
-
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
@@ -202,10 +154,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'AdditionalInterest',
-  onSubmitFail: failedSubmission })(AdditionalInterest));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'AdditionalInterest',
+  onSubmitFail: failedSubmission
+})(AdditionalInterest));

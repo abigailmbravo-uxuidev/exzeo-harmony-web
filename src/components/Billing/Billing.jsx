@@ -4,59 +4,43 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { reduxForm, Form, change, propTypes, Field } from 'redux-form';
+import { reduxForm, Form, change, Field } from 'redux-form';
 import _ from 'lodash';
-import Footer from '../Common/Footer';
-import { CheckInput } from '../Form/inputs/CheckField';
-import {
-  RadioFieldBilling, SelectFieldBilling
-} from '../Form/inputs';
-
-import { getInitialValues } from '../Customize/customizeHelpers';
 
 import * as appStateActions from '../../actions/appStateActions';
-import FieldGenerator from '../Form/FieldGenerator';
+import { updateQuote } from '../../actions/quoteState.actions';
+import Footer from '../Common/Footer';
+import failedSubmission from '../Common/reduxFormFailSubmit';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
-import failedSubmission from '../Common/reduxFormFailSubmit';
-import { updateQuote } from '../../actions/quoteState.actions';
+import { getInitialValues } from '../Customize/customizeHelpers';
+import FieldGenerator from '../Form/FieldGenerator';
+import { CheckInput } from '../Form/inputs/CheckField';
+import {
+  RadioFieldBilling,
+  SelectFieldBilling
+} from '../Form/inputs';
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // const taskName = userTasks.formSubmit;
-  //  const taskData = { ...data };
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
- // window.location.href = '/quote/12-5151466-01/verify';
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ data, quoteNumber: props.quoteData.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
   props.history.push('verify');
 };
 
 const handleGetQuoteData = state => state.quoteState.quote || {};
-  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  // const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithAdditionalQuestions' }).value.result :
-  // _.find(taskData.model.variables, { name: 'quote' }).value.result;
-  // return quoteData;
-
 
 const handleGetPaymentPlans = (state) => {
   const stateFromQuoteState = state.quoteState.state || null;
   if (!stateFromQuoteState) return {};
   const result = stateFromQuoteState.variables.find(v => v.name === 'billingOptions');
   return result && result.value && result.value.result ? result.value.result : {};
-}
-  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  // const paymentPlanResult = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-  // return paymentPlanResult;
-;
+};
 
 const handleInitialize = (state) => {
-  // const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
   const quoteData = handleGetQuoteData(state);
   const uiQuestions = handleGetQuestions(state);
-
   const values = getInitialValues(uiQuestions, quoteData);
 
   _.forEach(uiQuestions, (q) => {
@@ -66,7 +50,6 @@ const handleInitialize = (state) => {
   });
 
   const paymentPlans = handleGetPaymentPlans(state);
-
   const selectedBilling = _.find(paymentPlans.options, ['billToId', _.get(quoteData, 'billToId')]);
 
   if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !_.get(quoteData, 'billToId') && !_.get(quoteData, 'billPlan')) {
@@ -79,23 +62,15 @@ const handleInitialize = (state) => {
     values.billPlan = _.get(quoteData, 'billPlan') || '';
   }
 
-  values.sameAsProperty = false;
-
-  if (_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.address1'), _.get(quoteData, 'property.physicalAddress.address1')) &&
-  _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.city'), _.get(quoteData, 'property.physicalAddress.city')) &&
- _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.state'), _.get(quoteData, 'property.physicalAddress.state')) &&
-_.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, 'property.physicalAddress.zip'))) {
-    values.sameAsProperty = true;
-  }
+  values.sameAsProperty = _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.address1'), _.get(quoteData, 'property.physicalAddress.address1')) &&
+    _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.city'), _.get(quoteData, 'property.physicalAddress.city')) &&
+    _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.state'), _.get(quoteData, 'property.physicalAddress.state')) &&
+    _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, 'property.physicalAddress.zip'));
 
   return values;
 };
-const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
 
-// const handleGetQuestions = (state) => {
-//   const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-//   return MOCK_UI_QUESTIONS;
-// };
+const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
 
 export const getSelectedPlan = (answer) => {
   let selection;
@@ -264,26 +239,6 @@ export const Billing = (props) => {
   );
 };
 
-// ------------------------------------------------
-// Property type definitions
-// ------------------------------------------------
-Billing.propTypes = {
-  ...propTypes,
-  dispatch: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  fieldValues: PropTypes.any, // eslint-disable-line
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    data: PropTypes.shape({
-      recalc: PropTypes.boolean,
-      submitting: PropTypes.boolean
-    })
-  })
-};
-
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
@@ -297,14 +252,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Billing',
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'Billing',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission })(Billing));
+  onSubmitFail: failedSubmission
+})(Billing));

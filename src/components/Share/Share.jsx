@@ -4,59 +4,28 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import Footer from '../Common/Footer';
-
 import * as appStateActions from '../../actions/appStateActions';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
 import Loader from '../Common/Loader';
 import { updateQuote } from '../../actions/quoteState.actions';
 
-
-// const getUnderwritingExceptions = state => undefined
-//   // const { cg, appState } = state;
-//   // return ((cg[appState.modelName].data.previousTask.name === 'UnderWritingReviewError') ?
-//   //   cg[appState.modelName].data.previousTask.value : undefined);
-// ;
-//
-// const getQuoteData = state => MOCK_QUOTE
-//   // const { cg, appState } = state;
-//   // const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
-//   // return (quoteData ? quoteData.value.result : undefined);
-// ;
-
 export const noShareSubmit = async (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   const submitData = { shouldSendEmail: 'No' };
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-  props.history.push('assumptions');
 
-  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // const taskName = userTasks.sendEmailOrContinue;
-  // const taskData = { shouldSendEmail: 'No' };
-  // props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+  props.history.push('assumptions');
 };
 
 export const shareQuoteSubmit = async (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   const submitData = { shouldSendEmail: 'Yes', ...data };
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber});
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false, showEmailPopup: false });
-
-  // props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  // // we need to call a batch complete here
-  // const steps = [{
-  //   name: userTasks.sendEmailOrContinue,
-  //   data: { shouldSendEmail: 'Yes' }
-  // }, {
-  //   name: userTasks.askEmail,
-  //   data
-  // }];
-  // props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps).then(() => {
-  //   props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showEmailPopup: false });
-  // });
 };
 
 export const shareQuote = (props) => {
@@ -74,6 +43,7 @@ export const refereshUWReviewError = async (props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
   await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber});
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: false });
+
   props.history.push('customerInfo');
 };
 
@@ -84,8 +54,12 @@ const redirectToNewQuote = (props) => {
 
 export const Share = props => (
   <div className="route-content">
-    {props.isHardStop && <Redirect to={'error'} />}
-    {props.appState.data.submitting && <Loader />}
+    {props.isHardStop &&
+      <Redirect to="error" />
+    }
+    {props.appState.data.submitting &&
+      <Loader />
+    }
     <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={props.handleSubmit(noShareSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">
@@ -141,9 +115,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Share' })(Share));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'Share'
+})(Share));

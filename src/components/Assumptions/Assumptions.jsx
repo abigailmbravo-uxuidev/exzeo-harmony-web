@@ -1,26 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
-import Footer from '../Common/Footer';
-// import { getInitialValues } from '../Customize/customizeHelpers';
 
 import * as appStateActions from '../../actions/appStateActions';
-// import TaskRunnerConnect from '../Workflow/TaskRunner';
-
-import { CheckField } from '../Form/inputs';
 import { updateQuote } from '../../actions/quoteState.actions';
+import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
+import { CheckField } from '../Form/inputs';
 
 export const handleOnSubmit = async (data, dispatch, props) => {
-  // const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 
-  // props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, {});
   props.history.push('additionalInterests');
 };
 
@@ -28,8 +22,9 @@ export const Assumptions = (props) => {
   const { appState, handleSubmit, fieldValues } = props;
   return (
     <div className="route-content">
-      {props.appState.data.submitting && <Loader />}
-      {/* {props.appState.data.showLoader && <TaskRunnerConnect taskName={props.appState.data.taskName} taskData={props.appState.data.taskData} />} */}
+      {props.appState.data.submitting
+        && <Loader />
+      }
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper">
@@ -58,24 +53,6 @@ export const Assumptions = (props) => {
   );
 };
 
-Assumptions.propTypes = {
-  ...propTypes,
-  handleSubmit: PropTypes.func,
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    data: PropTypes.shape({
-      recalc: PropTypes.boolean,
-      submitting: PropTypes.boolean
-    })
-  }),
-    fieldValues: PropTypes.any, // eslint-disable-line
-  actions: PropTypes.shape({
-    cgActions: PropTypes.shape({ startWorkflow: PropTypes.func, activeTasks: PropTypes.func, completeTask: PropTypes.func }),
-    workflowActions: PropTypes.shape({ workflowComplete: PropTypes.func, workflowError: PropTypes.func })
-  }),
-  tasks: PropTypes.shape()
-};
-
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
@@ -86,9 +63,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Assumptions' })(Assumptions));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'Assumptions'
+})(Assumptions));
