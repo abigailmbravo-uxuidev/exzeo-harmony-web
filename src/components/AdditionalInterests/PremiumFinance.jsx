@@ -1,11 +1,10 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { batchActions } from 'redux-batched-actions';
 import { reduxForm, Form, change } from 'redux-form';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
@@ -16,7 +15,7 @@ import FieldGenerator from '../Form/FieldGenerator';
 import ReactSelectField from '../Form/inputs/ReactSelectField';
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
   const premiumFinance1 = _.find(additionalInterests, { order: 0, type: 'Premium Finance' }) || {};
   _.remove(additionalInterests, ai => ai.type === 'Premium Finance');
 
@@ -42,19 +41,19 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     additionalInterests.push(premiumFinance1);
   }
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('additionalInterests');
 };
 
 export const closeAndSavePreviousAIs = async (props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('additionalInterests');
 };
@@ -79,8 +78,8 @@ const handleGetQuoteData = state => state.quoteState.quote || {};
 
 export const handleInitialize = (state) => {
   const uiQuestions = handleGetQuestions(state);
-  const quoteData = handleGetQuoteData(state);
-  const values = getInitialValues(uiQuestions, { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Premium Finance') });
+  const quote = handleGetQuoteData(state);
+  const values = getInitialValues(uiQuestions, { additionalInterests: _.filter(quote.additionalInterests, ai => ai.type === 'Premium Finance') });
   _.forEach(uiQuestions, (q) => {
     if (!values[q.name]) {
       values[q.name] = '';
@@ -94,9 +93,7 @@ export const handleInitialize = (state) => {
 const getAnswers = (name, questions) => _.get(_.find(questions, { name }), 'answers') || [];
 
 export const setPremiumFinanceValues = (val, props) => {
-  props.actions.appStateActions.setAppState(
-    props.appState.modelName,
-    props.appState.instanceId,
+  props.setAppState(
     {
       ...props.appState.data,
       selectedPremiumFinanceOption: val
@@ -136,7 +133,7 @@ export const setPremiumFinanceValues = (val, props) => {
 export const PremiumFinance = (props) => {
   const {
     fieldQuestions,
-    quoteData,
+    quote,
     handleSubmit,
     fieldValues
   } = props;
@@ -172,7 +169,7 @@ export const PremiumFinance = (props) => {
               ).map((question, index) => (
                 <FieldGenerator
                   autoFocus={index === 1}
-                  data={quoteData}
+                  data={quote}
                   question={question}
                   values={fieldValues}
                   key={index}
@@ -199,17 +196,13 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'PremiumFinance.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, {
+  updateQuote,
+  setAppState
+})(reduxForm({
   form: 'PremiumFinance',
   onSubmitFail: failedSubmission
 })(PremiumFinance));

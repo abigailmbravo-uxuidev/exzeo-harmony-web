@@ -12,17 +12,20 @@ describe('Testing AddPremiumFinance component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      history: [],
-      quote: {},
       updateQuote() {},
+      setAppState(){},
+      handleSubmit() {},
+      history: [],
       fieldValues: {
         isAdditional: false
       },
-      handleSubmit() {},
+      quote: {
+        additionalInterests: []
+      },
       fieldQuestions: [],
-      quoteData: {},
       dispatch: store.dispatch,
       appState: {
+        modelName: 'bb',
         data: {
           submitting: false
         }
@@ -35,18 +38,6 @@ describe('Testing AddPremiumFinance component', () => {
   it('should test connected app', () => {
     const initialState = {
       quoteState: {},
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: [],
-            activeTask: {
-              name: 'bb'
-            }
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       }
@@ -54,40 +45,17 @@ describe('Testing AddPremiumFinance component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
+      setAppState(){},
+      handleSubmit() {},
       history: [],
       fieldValues: {
         isAdditional: false
       },
-      quoteData: {
+      quote: {
         additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {
