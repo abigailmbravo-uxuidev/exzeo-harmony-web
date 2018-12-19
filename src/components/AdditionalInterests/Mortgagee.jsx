@@ -5,7 +5,7 @@ import { batchActions } from 'redux-batched-actions';
 import { reduxForm, Form, change } from 'redux-form';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
@@ -17,7 +17,7 @@ import ReactSelectField from '../Form/inputs/ReactSelectField';
 
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
 
   const mortgagee1 = _.find(additionalInterests, { order: 0, type: 'Mortgagee' }) || {};
   const mortgagee2 = _.find(additionalInterests, { order: 1, type: 'Mortgagee' }) || {};
@@ -90,29 +90,29 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     additionalInterests.push(mortgagee3);
   }
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('additionalInterests');
 };
 
 export const closeAndSavePreviousAIs = async (props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('additionalInterests');
 };
 
 export const handleInitialize = (state) => {
-  const quoteData = handleGetQuoteData(state);
+  const quote = handleGetQuoteData(state);
   const questions = handleGetQuestions(state);
   const values = getInitialValues(questions, {
     additionalInterests: _.filter(
-      quoteData.additionalInterests,
+      quote.additionalInterests,
       ai => ai.type === 'Mortgagee'
     )
   });
@@ -153,9 +153,7 @@ const getAnswers = (name, questions) =>
   _.get(_.find(questions, { name }), 'answers') || [];
 
 export const setMortgageeValues = (val, props) => {
-  props.actions.appStateActions.setAppState(
-    props.appState.modelName,
-    props.appState.instanceId,
+  props.setAppState(
     {
       ...props.appState.data,
       selectedMortgageeOption: val
@@ -193,9 +191,7 @@ export const setMortgageeValues = (val, props) => {
 };
 
 export const setMortgagee2Values = (val, props) => {
-  props.actions.appStateActions.setAppState(
-    props.appState.modelName,
-    props.appState.instanceId,
+  props.setAppState(
     {
       ...props.appState.data,
       selectedMortgageeOption: val
@@ -233,9 +229,7 @@ export const setMortgagee2Values = (val, props) => {
 };
 
 export const setMortgagee3Values = (val, props) => {
-  props.actions.appStateActions.setAppState(
-    props.appState.modelName,
-    props.appState.instanceId,
+  props.setAppState(
     {
       ...props.appState.data,
       selectedMortgageeOption: val
@@ -273,7 +267,7 @@ export const setMortgagee3Values = (val, props) => {
 };
 
 export const Mortgagee = (props) => {
-  const { fieldQuestions, quoteData, handleSubmit, fieldValues } = props;
+  const { fieldQuestions, quote, handleSubmit, fieldValues } = props;
 
   return (
     <div className="route-content">
@@ -332,7 +326,7 @@ export const Mortgagee = (props) => {
               ).map((question, index) => (
                 <FieldGenerator
                   autoFocus={index === 1}
-                  data={quoteData}
+                  data={quote}
                   question={question}
                   values={fieldValues}
                   key={index}
@@ -373,17 +367,13 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Mortgagee.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, {
+  updateQuote,
+  setAppState
+})(reduxForm({
   form: 'Mortgagee',
   enableReinitialize: true,
   onSubmitFail: failedSubmission

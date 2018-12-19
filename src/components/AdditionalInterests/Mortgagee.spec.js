@@ -14,38 +14,14 @@ describe('Testing AddMortgagee component', () => {
     const props = {
       history: [],
       quote: {},
+      setAppState(){},
       updateQuote() {},
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      fieldQuestions: [{}],
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
-      },
       handleSubmit() {},
+      fieldQuestions: [{}],
       fieldValues: {
         isAdditional: true,
         isAdditional2: true
       },
-      quoteData: {},
       dispatch: store.dispatch,
       appState: {
         modelName: 'bb',
@@ -64,22 +40,6 @@ describe('Testing AddMortgagee component', () => {
   it('should test connected app', () => {
     const initialState = {
       quoteState: { quote: {} },
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {
-              variables: [
-                { name: 'getQuoteBeforeAIs', value: { result: { additionalInterests: [{ type: 'Mortgagee' }] } } }
-              ]
-            },
-            uiQuestions: [{}],
-            activeTask: {
-              name: 'bb'
-            }
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       }
@@ -87,47 +47,23 @@ describe('Testing AddMortgagee component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: {},
+      quote: { additionalInterests: []},
+      setAppState(){},
       updateQuote() {},
-      quoteData: {
-        additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
-      },
+      handleSubmit() {},
+      fieldQuestions: [{}],
       fieldValues: {
-        isAdditional: false
+        isAdditional: true,
+        isAdditional2: true
       },
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {
           submitting: false
         }
       }
-    };
+    }
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
 
