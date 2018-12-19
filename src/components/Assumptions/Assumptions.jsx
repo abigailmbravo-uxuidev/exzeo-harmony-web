@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
 import { CheckField } from '../Form/inputs';
 
 export const handleOnSubmit = async (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('additionalInterests');
 };
@@ -60,13 +60,9 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { 
+  updateQuote,
+   setAppState 
+  })(reduxForm({
   form: 'Assumptions'
 })(Assumptions));

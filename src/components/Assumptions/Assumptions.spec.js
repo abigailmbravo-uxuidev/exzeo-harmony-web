@@ -16,7 +16,7 @@ describe('Testing Assumptions component', () => {
       fieldValues: {
         confirmAssumptions: false
       },
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         data: {
@@ -31,16 +31,7 @@ describe('Testing Assumptions component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      quoteState: {},
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
-      },
+      quoteState: { quote: {}},
       appState: {
         modelName: 'bb'
       }
@@ -48,38 +39,14 @@ describe('Testing Assumptions component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: {},
+      setAppState(){},
       updateQuote() {},
-      quoteData: {
+      handleSubmit() {},
+      quote: {
         additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {
