@@ -15,42 +15,42 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
   const taskData = { shouldUpdateAIs: 'No' };
   props.setAppState({ ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: taskData, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
   props.setAppState({ ...props.appState.data, submitting: false });
   props.history.push('mailingBilling');
 };
 
 export const AddMortgagee = async (props) => {
   props.setAppState({ ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: props.quote.quoteNumber });
   props.setAppState({ ...props.appState.data, submitting: false });
   props.history.push('askMortgagee');
 };
 
 export const AddPremiumFinance = async (props) => {
   props.setAppState({ ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: props.quote.quoteNumber });
   props.setAppState({ ...props.appState.data, submitting: false });
   props.history.push('askPremiumFinance');
 };
 
 export const AddAdditionalInsured = async (props) => {
   props.setAppState({ ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: props.quote.quoteNumber });
   props.setAppState({ ...props.appState.data, submitting: false });
   props.history.push('askAdditionalInsured');
 };
 
 export const AddInterest = async (props) => {
   props.setAppState({ ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: props.quote.quoteNumber });
   props.setAppState({ ...props.appState.data, submitting: false });
   props.history.push('askAdditionalInterest');
 };
 
 export const AddBillpayer = async (props) => {
   props.setAppState({ ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: props.quote.quoteNumber });
   props.setAppState({ ...props.appState.data, submitting: false });
   props.history.push('askBillPayer');
 };
@@ -92,15 +92,14 @@ export const hideAdditionalInterestModal = (props) => {
 };
 
 export const deleteAdditionalInterest = async (selectedAdditionalInterest, props) => {
-  const { actions, quoteData } = props;
- // const workflowId = appState.instanceId;
-  actions.appStateActions.setAppState({
+  const { actions, quote } = props;
+  props.setAppState({
     ...props.appState.data,
     submitting: true,
     showAdditionalInterestModal: false
   });
 
-  const additionalInterests = quoteData.additionalInterests || [];
+  const additionalInterests = quote.additionalInterests || [];
 
   // remove any existing items before submission
   const modifiedAIs = _.cloneDeep(additionalInterests);
@@ -113,9 +112,9 @@ export const deleteAdditionalInterest = async (selectedAdditionalInterest, props
     order += 1;
   });
 
-  await props.updateQuote({ data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) }, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) }, quoteNumber: props.quote.quoteNumber });
 
-  await props.updateQuote({ data: { additionalInterests: modifiedAIs }, quoteNumber: props.quoteData.quoteNumber });
+  await props.updateQuote({ data: { additionalInterests: modifiedAIs }, quoteNumber: props.quote.quoteNumber });
 
   props.setAppState({ ...props.appState.data,
     submitting: false,
@@ -139,13 +138,13 @@ export const AddAdditionalInterest = props => (
             <button className="btn btn-secondary" type="button" onClick={() => AddMortgagee(props)}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
             <button className="btn btn-secondary" type="button" onClick={() => AddAdditionalInsured(props)}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
             <button className="btn btn-secondary" type="button" onClick={() => AddInterest(props)}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-            <button disabled={_.filter(props.quoteData.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => AddPremiumFinance(props)}><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
-            <button disabled={_.filter(props.quoteData.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => AddBillpayer(props)}><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
+            <button disabled={_.filter(props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => AddPremiumFinance(props)}><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
+            <button disabled={_.filter(props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => AddBillpayer(props)}><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
           </div>
           {/* list of additional interests*/}
           <div className="results-wrapper">
             <ul className="results result-cards">
-              {props.quoteData && props.quoteData.additionalInterests && props.quoteData.additionalInterests.map((question, index) =>
+              {props.quote && props.quote.additionalInterests && props.quote.additionalInterests.map((question, index) =>
                 <li key={index}>
                   <div>
                     {/* add className based on type - i.e. mortgagee could have class of mortgagee*/}
@@ -176,10 +175,10 @@ export const AddAdditionalInterest = props => (
           </div>
         </div>
         <div className="workflow-steps">
-          {props.quoteData.additionalInterests && props.quoteData.additionalInterests.length === 0 &&
+          {props.quote.additionalInterests && props.quote.additionalInterests.length === 0 &&
             <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>Not Applicable</button>
           }
-          {props.quoteData.additionalInterests && props.quoteData.additionalInterests.length > 0 &&
+          {props.quote.additionalInterests && props.quote.additionalInterests.length > 0 &&
           <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>next</button>
           }
         </div>
@@ -194,7 +193,7 @@ const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'AddAdditionalInterestPage.values', {}),
-  quoteData: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state)
 });
 
 export default connect(mapStateToProps, {
