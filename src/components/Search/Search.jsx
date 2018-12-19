@@ -29,7 +29,7 @@ export class Search extends React.Component {
   handleSelectQuote = async (quoteData) => {
     const { actions, appState, getQuote, history } = this.props;
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
-    const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
+    const quote = await getQuote(quoteData.quoteNumber, quoteData._id);
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
 
     if (quote) {
@@ -40,7 +40,7 @@ export class Search extends React.Component {
   handleSelectAddress = async (address) => {
     const { actions, appState, createQuote, history } = this.props;
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
-    const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
+    const quote = await createQuote('0', address.id, address.physicalAddress.state);
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
 
     if (quote) {
