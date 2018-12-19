@@ -17,7 +17,7 @@ describe('Testing AddAdditionalInterest component', () => {
       updateQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
-      quoteData: {},
+      quote: { additionalInterests: []},
       dispatch: store.dispatch,
       appState: {
         data: {
@@ -32,18 +32,6 @@ describe('Testing AddAdditionalInterest component', () => {
   it('should test connected app', () => {
     const initialState = {
       quoteState: {},
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: [],
-            activeTask: {
-              name: 'bb'
-            }
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       }
@@ -53,36 +41,13 @@ describe('Testing AddAdditionalInterest component', () => {
       history: [],
       quote: {},
       updateQuote() {},
-      quoteData: {
+      setAppState() {},
+      handleSubmit() {},
+      quote: {
         additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {

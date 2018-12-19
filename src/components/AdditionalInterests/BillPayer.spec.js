@@ -17,7 +17,7 @@ describe('Testing AddBillPayer component', () => {
       updateQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         data: {
@@ -53,36 +53,13 @@ describe('Testing AddBillPayer component', () => {
       history: [],
       quote: {},
       updateQuote() {},
-      quoteData: {
+      setAppState(){},
+      handleSubmit() {},
+      quote: {
         additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {

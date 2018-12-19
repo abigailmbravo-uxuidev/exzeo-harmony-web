@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
@@ -15,7 +15,7 @@ import FieldGenerator from '../Form/FieldGenerator';
 
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
   const billPayer1 = _.find(additionalInterests, { order: 0, type: 'Bill Payer' }) || {};
 
   _.remove(additionalInterests, ai => ai.type === 'Bill Payer');
@@ -42,19 +42,19 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     additionalInterests.push(billPayer1);
   }
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('additionalInterests');
 };
 
 export const closeAndSavePreviousAIs = async (props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('additionalInterests');
 };
@@ -65,8 +65,8 @@ const handleGetQuoteData = state => state.quoteState.quote || {};
 
 export const handleInitialize = (state) => {
   const uiQuestions = handleGetQuestions(state);
-  const quoteData = handleGetQuoteData(state);
-  const values = getInitialValues(uiQuestions, { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Bill Payer') });
+  const quote = handleGetQuoteData(state);
+  const values = getInitialValues(uiQuestions, { additionalInterests: _.filter(quote.additionalInterests, ai => ai.type === 'Bill Payer') });
 
   _.forEach(uiQuestions, (q) => {
     if (!values[q.name]) {
@@ -81,7 +81,7 @@ export const handleInitialize = (state) => {
 export const BillPayer = (props) => {
   const {
     fieldQuestions,
-    quoteData,
+    quote,
     handleSubmit,
     fieldValues
   } = props;
@@ -99,7 +99,7 @@ export const BillPayer = (props) => {
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-money" /> Bill Payer</h3>
             {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) =>
-              <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quoteData} question={question} values={fieldValues} key={index} />)}
+              <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quote} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
             <span className="button-label-wrap">
@@ -121,17 +121,14 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'BillPayer.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { 
+  updateQuote, 
+  setAppState 
+})(reduxForm({
   form: 'BillPayer',
   onSubmitFail: failedSubmission
 })(BillPayer));
