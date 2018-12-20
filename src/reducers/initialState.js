@@ -21,6 +21,7 @@ export default {
     userProfile: null
   },
   quoteState: {
-    quote: null
+    quote: null,
+    state: {}
   }
 };
