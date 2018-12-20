@@ -55,45 +55,6 @@ describe('Testing Workflow component', () => {
 
     const wrapper = shallow(<Workflow {...props} />);
     expect(wrapper);
-    wrapper.instance().componentWillReceiveProps({
-      appState: {
-
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        }
-      },
-      tasks: {
-        quoteModel: {
-          data: {
-            modelInstanceId: '123',
-            model: {
-              variables: [
-                { name: 'quote', value: { result: { _id: '12345' } } }
-              ]
-            },
-            previousTask: {
-              name: 'notifyDocusignApp',
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            activeTask: {
-              name: 'askAdditionalCustomerData',
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      }
-    });
   });
 
   it('should test connected app', () => {
@@ -247,66 +208,5 @@ describe('Testing Workflow component', () => {
     };
     const wrapper = shallow(<Workflow store={store} {...props} />);
     expect(wrapper);
-    wrapper.instance().componentWillReceiveProps({ ...props,
-      tasks: { quoteModel: {
-        data: {
-          modelInstanceId: '123',
-          model: {
-            variables: [{
-              name: 'quote',
-              value: {
-                result: {
-                  mailingAddress: {
-
-                  },
-                  deductibles: {
-                    hurricane: {},
-                    allOtherPerils: {}
-                  },
-                  quoteNumber: '12-1999999-01',
-                  property: {
-                    physicalAddress: {}
-                  },
-                  rating: {
-                    totalPremium: 1
-                  },
-                  coverageLimits: {
-                    dwelling: {},
-                    otherStructures: {},
-                    personalProperty: {},
-                    lossOfUse: {},
-                    personalLiability: {},
-                    medicalPayments: {},
-                    moldProperty: {},
-                    moldLiability: {},
-                    ordinanceOrLaw: {}
-                  },
-                  coverageOptions: {
-                    personalPropertyReplacementCost: {}
-                  }
-                }
-              }
-            }]
-          },
-          previousTask: {
-            name: 'step2',
-            value: {
-              result: {
-                quoteNumber: '12-1999999-01'
-              }
-            }
-          },
-          activeTask: {
-            name: 'askAdditionalCustomerData',
-            value: {
-              result: {
-                quoteNumber: '12-1999999-01'
-              }
-            }
-          },
-          uiQuestions: []
-        }
-      } }
-    });
   });
 });

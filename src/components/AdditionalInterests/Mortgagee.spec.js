@@ -12,6 +12,9 @@ describe('Testing AddMortgagee component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       tasks: {
         bb: {
           data: {
@@ -60,6 +63,7 @@ describe('Testing AddMortgagee component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: { quote: {} },
       cg: {
         bb: {
           data: {
@@ -82,6 +86,9 @@ describe('Testing AddMortgagee component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       quoteData: {
         additionalInterests: []
       },

@@ -9,6 +9,7 @@ const mockStore = configureStore(middlewares);
 
 it('renders PolicyHolderPopup', () => {
   const initialState = {
+    quoteState: {},
     cg: {
       bb: {
         data: {
@@ -29,7 +30,9 @@ it('renders PolicyHolderPopup', () => {
   };
   const store = mockStore(initialState);
   const props = {
-    quote: {}
+    quote: {},
+    history: [],
+    updateQuote() {}
   };
   const wrapper = shallow(<PolicyHolderPopup {...props} store={store} />);
   expect(wrapper);

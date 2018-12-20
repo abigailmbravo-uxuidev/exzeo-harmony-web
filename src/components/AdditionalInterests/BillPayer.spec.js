@@ -12,6 +12,9 @@ describe('Testing AddBillPayer component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
@@ -28,6 +31,7 @@ describe('Testing AddBillPayer component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -46,6 +50,9 @@ describe('Testing AddBillPayer component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       quoteData: {
         additionalInterests: []
       },

@@ -12,26 +12,24 @@ import normalizePhone from '../Form/normalizePhone';
 import CheckField from '../Form/inputs/CheckField';
 import SnackBar from './SnackBar';
 import failedSubmission from './reduxFormFailSubmit';
+import { updateQuote } from '../../actions/quoteState.actions';
 
-const handleQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : {};
-  const variables = _.get(taskData, 'model.variables');
-  return _.get(_.find(taskData.model.variables, { name: 'getFinalQuote' }), 'value.result') || _.get(_.find(variables, { name: 'quote' }), 'value.result') || {};
-};
+const handleQuoteData = state => state.quoteState.quote || {};
 const handleInitialize = (state) => {
-  const quoteData = handleQuoteData(state);
-  const values = {
-    isAdditional: _.has(quoteData, 'policyHolders[1].firstName')
-  };
-  values.pH1email = _.get(quoteData, 'policyHolders[0].emailAddress') || '';
-  values.pH1FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
-  values.pH1LastName = _.get(quoteData, 'policyHolders[0].lastName') || '';
-  values.pH1phone = normalizePhone(_.get(quoteData, 'policyHolders[0].primaryPhoneNumber') || '');
+  const quote = handleQuoteData(state);
 
-  values.pH2email = _.get(quoteData, 'policyHolders[1].emailAddress') || '';
-  values.pH2FirstName = _.get(quoteData, 'policyHolders[1].firstName') || '';
-  values.pH2LastName = _.get(quoteData, 'policyHolders[1].lastName') || '';
-  values.pH2phone = normalizePhone(_.get(quoteData, 'policyHolders[1].primaryPhoneNumber') || '');
+  const values = {
+    isAdditional: _.has(quote, 'policyHolders[1].firstName')
+  };
+  values.pH1email = _.get(quote, 'policyHolders[0].emailAddress') || '';
+  values.pH1FirstName = _.get(quote, 'policyHolders[0].firstName') || '';
+  values.pH1LastName = _.get(quote, 'policyHolders[0].lastName') || '';
+  values.pH1phone = normalizePhone(_.get(quote, 'policyHolders[0].primaryPhoneNumber') || '');
+
+  values.pH2email = _.get(quote, 'policyHolders[1].emailAddress') || '';
+  values.pH2FirstName = _.get(quote, 'policyHolders[1].firstName') || '';
+  values.pH2LastName = _.get(quote, 'policyHolders[1].lastName') || '';
+  values.pH2phone = normalizePhone(_.get(quote, 'policyHolders[1].primaryPhoneNumber') || '');
   return values;
 };
 const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler, fieldValues, parentProps, showSnackBar }) => (
@@ -102,13 +100,14 @@ PolicyHolderPopup.propTypes = {
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  quoteData: handleQuoteData(state),
+  quote: handleQuoteData(state),
   initialValues: handleInitialize(state),
   fieldValues: _.get(state.form, 'UpdatePolicyholder.values', {})
 
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuoteAction: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
@@ -119,6 +118,7 @@ const mapDispatchToProps = dispatch => ({
 // wire up redux form with the redux connect
 // ------------------------------------------------
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  enableReinitialize: true,
   form: 'UpdatePolicyholder',
   onSubmitFail: failedSubmission
 })(PolicyHolderPopup));

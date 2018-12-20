@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, getQuoteFromModel, ShowPremium, handleRecalc } from './WorkflowDetails';
+import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, handleRecalc } from './WorkflowDetails';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -13,6 +13,7 @@ describe('Testing WorkflowDetails component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -22,19 +23,16 @@ describe('Testing WorkflowDetails component', () => {
         }
       },
       actions: {
-        cgActions: {
-          completeTask: (modelName, workflowId, taskName, taskData) => true
-        }
       },
       ...propTypes
     };
     const wrapper = shallow(<WorkflowDetails {...props} />);
     expect(wrapper);
-    wrapper.instance().componentWillReceiveProps({ ...props });
   });
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: { state: {} },
       service: {
         quote: {}
       },
@@ -71,6 +69,10 @@ describe('Testing WorkflowDetails component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      updateQuote() {},
+      quoteState: { state: {} },
+      workflowState: { completedTasks: [] },
       tasks: {
         bb: {
           data: {
@@ -84,9 +86,9 @@ describe('Testing WorkflowDetails component', () => {
         }
       },
       actions: {
+        updateQuote() {},
         cgActions: {
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
+          completeTask() {}
         },
         appStateActions: {
           setAppState() { return Promise.resolve(); }
@@ -126,30 +128,13 @@ describe('Testing WorkflowDetails component', () => {
         calculatedHurricane: 2000
       }
     };
+
     getClassForStep('step', props);
     goToStep(props, 'step');
-    getQuoteFromModel(initialState, props);
+
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
     wrapper.render();
     handleRecalc(props);
-  });
-
-  it('should test ShowPremium true', () => {
-    const data = {
-      isCustomize: true,
-      totalPremium: 3423434
-    };
-    const wrapper = shallow(<ShowPremium {...data} />);
-    expect(wrapper);
-  });
-
-  it('should test ShowPremium false', () => {
-    const data = {
-      isCustomize: false,
-      totalPremium: 3423434
-    };
-    const wrapper = shallow(<ShowPremium {...data} />);
-    expect(wrapper);
   });
 });

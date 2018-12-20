@@ -12,6 +12,7 @@ describe('Testing Share component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      underwritingExceptions: [],
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -28,6 +29,7 @@ describe('Testing Share component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -54,6 +56,8 @@ describe('Testing Share component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      updateQuote() {},
+      history: [],
       actions: {
         appStateActions: {
           setAppState() {}
@@ -81,7 +85,7 @@ describe('Testing Share component', () => {
       },
       handleSubmit() {},
       fieldQuestions: [],
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         modelName: 'bb',

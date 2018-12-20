@@ -10,30 +10,29 @@ import * as appStateActions from '../../actions/appStateActions';
 import * as errorActions from '../../actions/errorActions';
 import * as serviceActions from '../../actions/serviceActions';
 import * as searchActions from '../../actions/searchActions';
+
 import Pagination from '../Common/Pagination';
 import { generateField, getSearchType } from './searchUtils';
 
-const userTasks = {
-  handleSearchBarSubmit: 'search'
-};
-
 const handleInitialize = (state) => {
-  const values = {
+  return {
     address: '',
     pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
     totalPages: _.get(state.search, 'state.search.totalPages') || 0
   };
-  return values;
 };
 
-export const changePageQuote = (props, isNext) => {
+export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.handleSearchBarSubmit;
-  const modelName = props.appState.modelName;
   const searchType = 'quote';
 
+  const { groups } = props.userProfile;
+  const userGroup = groups[0];
+  const { state, companyCode } = userGroup;
+
   const taskData = {
+    state,
+    companyCode,
     firstName: (encodeURIComponent(fieldValues.firstName) !== 'undefined' ? encodeURIComponent(fieldValues.firstName) : ''),
     lastName: (encodeURIComponent(fieldValues.lastName) !== 'undefined' ? encodeURIComponent(fieldValues.lastName) : ''),
     address: (encodeURIComponent(fieldValues.address) !== 'undefined' ? encodeURIComponent(String(fieldValues.address).trim()) : ''),
@@ -42,7 +41,9 @@ export const changePageQuote = (props, isNext) => {
     searchType,
     hasSearched: true,
     resultStart: '60',
-    pageSize: '25'
+    pageSize: '25',
+    sort: 'quoteNumber',
+    sortDirection: 'desc'
   };
 
 
@@ -52,25 +53,20 @@ export const changePageQuote = (props, isNext) => {
   localStorage.setItem('lastSearchData', JSON.stringify(taskData));
 
   props.actions.errorActions.clearAppError();
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
 
-  // we need to make sure the active task is search otherwise we need to reset the workflow
-  if (props.tasks[modelName].data.activeTask && (props.tasks[modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit)) {
-    const completeStep = {
-      stepName: taskName,
-      data: taskData
-    };
-    props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
-  } else {
-    props.actions.appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true });
-    props.actions.cgActions.completeTask(modelName, workflowId, taskName, taskData);
-  }
+  await props.actions.searchActions.searchQuotes(taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 };
 
-export const handleSearchBarSubmit = (data, dispatch, props) => {
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.handleSearchBarSubmit;
+export const handleSearchBarSubmit = async (data, dispatch, props) => {
+  const { groups } = props.userProfile;
+  const userGroup = groups[0];
+  const { state, companyCode } = userGroup;
+
   const taskData = {
+    state,
+    companyCode,
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
     address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
@@ -78,25 +74,22 @@ export const handleSearchBarSubmit = (data, dispatch, props) => {
     zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
     searchType: props.searchType,
     hasSearched: true,
-    pageNumber: '1'
+    pageNumber: '1',
+    pageSize: '25',
+    sort: 'quoteNumber',
+    sortDirection: 'desc'
   };
 
   props.actions.searchActions.setQuoteSearch(taskData);
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.actions.searchActions.searchQuotes(taskData);
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
 
-  // we need to make sure the active task is search otherwise we need to reset the workflow
-  if (!props.tasks[props.appState.modelName].data.activeTask) {
-    props.actions.errorActions.setAppError({ message: 'An Error has occured' });
-  } else if (props.tasks[props.appState.modelName].data.activeTask.name !== userTasks.handleSearchBarSubmit) {
-    const completeStep = {
-      stepName: taskName,
-      data: taskData
-    };
-    props.actions.cgActions.moveToTaskAndExecuteComplete(props.appState.modelName, workflowId, taskName, completeStep);
-  } else {
-    props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
-  }
+};
+
+export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
+  props.actions.searchActions.searchAddresses(encodeURIComponent(data.address));
 };
 
 export const validate = (values) => {
@@ -144,20 +137,13 @@ export const validate = (values) => {
 
 
 export class SearchForm extends Component {
-
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
+    const { totalRecords, pageSize, currentPage } = nextProps.search;
 
-    const model = nextProps.tasks[nextProps.appState.modelName] || {};
-    const previousTask = model.data && model.data.previousTask
-      ? model.data.previousTask
-      : {};
-
-    const quoteSearchResponse = previousTask.value && previousTask.value.result ? previousTask.value.result : {};
-
-    if (nextProps.searchType === 'quote' && nextProps.search.hasSearched && !_.isEqual(this.props.quoteSearchResponse, quoteSearchResponse)) {
-      const totalPages = Math.ceil(quoteSearchResponse.totalNumberOfRecords / quoteSearchResponse.pageSize);
-      const pageNumber = quoteSearchResponse.currentPage;
+    if (nextProps.searchType === 'quote' && nextProps.search.hasSearched && !_.isEqual(this.props.searchResults, nextProps.searchResults)) {
+      const totalPages = Math.ceil(totalRecords / pageSize); // Math.ceil(quoteSearchResponse.totalNumberOfRecords / quoteSearchResponse.pageSize);
+      const pageNumber = currentPage; // quoteSearchResponse.currentPage;
       dispatch(change('SearchBar', 'pageNumber', pageNumber));
       dispatch(change('SearchBar', 'totalPages', totalPages));
       nextProps.actions.searchActions.setQuoteSearch({ ...nextProps.search, totalPages, pageNumber });
@@ -166,11 +152,7 @@ export class SearchForm extends Component {
 
   render() {
     const { handleSubmit, formErrors, searchType, fieldValues } = this.props;
-    const model = this.props.tasks[this.props.appState.modelName] || {};
-    const previousTask = model.data && model.data.previousTask
-      ? model.data.previousTask
-      : {};
-    const quoteResults = previousTask.value && previousTask.value.result ? previousTask.value.result : [];
+    const { searchResults } = this.props;
 
     if (searchType === 'quote') {
       return (
@@ -190,14 +172,14 @@ export class SearchForm extends Component {
               <i className="fa fa-search" /><span>Search</span>
             </button>
           </div>
-          { quoteResults && quoteResults.quotes && quoteResults.quotes.length > 0 && fieldValues.totalPages > 1 &&
+          { searchResults && searchResults.length > 0 && fieldValues.totalPages > 1 &&
             <Pagination changePageForward={() => changePageQuote(this.props, true)} changePageBack={() => changePageQuote(this.props, false)} fieldValues={fieldValues} />
         }
         </Form>
       );
     }
     return (
-      <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
+      <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
         <div className="search-input-wrapper">
           {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true)}
           <button
@@ -205,7 +187,7 @@ export class SearchForm extends Component {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={this.props.appState.data.submitting || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            disabled={(this.props.appState.data && this.props.appState.data.submitting) || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>
@@ -242,7 +224,9 @@ const mapStateToProps = state => ({
   searchType: getSearchType(),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
-  search: state.search
+  search: state.search,
+  userProfile: state.authState.userProfile,
+  searchResults: state.search.results
 });
 
 const mapDispatchToProps = dispatch => ({

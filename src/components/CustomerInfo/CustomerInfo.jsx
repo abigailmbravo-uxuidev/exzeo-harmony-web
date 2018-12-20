@@ -1,30 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import momentTZ from 'moment-timezone';
-import moment from 'moment';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { reduxForm, Form } from 'redux-form';
+import momentTZ from 'moment-timezone';
+import moment from 'moment';
 import _ from 'lodash';
-import { reduxForm, Form, propTypes } from 'redux-form';
-import Footer from '../Common/Footer';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
-import FieldGenerator from '../Form/FieldGenerator';
-import { getInitialValues } from '../Customize/customizeHelpers';
-import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
+import { updateQuote } from '../../actions/quoteState.actions';
+import { getZipcodeSettings, getAgents } from '../../actions/serviceActions';
+import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
-import normalizePhone from '../Form/normalizePhone';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-// ------------------------------------------------
-// List the user tasks that directly tie to
-//  the cg tasks.
-// ------------------------------------------------
-const userTasks = { formSubmit: 'askAdditionalCustomerData' };
+import { getInitialValues } from '../Customize/customizeHelpers';
+import FieldGenerator from '../Form/FieldGenerator';
+import SelectFieldAgents from '../Form/inputs/SelectFieldAgents';
+import normalizePhone from '../Form/normalizePhone';
 
-export const handleFormSubmit = (data, dispatch, props) => {
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.formSubmit;
+export const handleFormSubmit = async (data, dispatch, props) => {
   const taskData = data;
   taskData.agentCode = String(taskData.agentCode);
 
@@ -38,30 +32,24 @@ export const handleFormSubmit = (data, dispatch, props) => {
   taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('underwriting');
 };
 
-const handleGetZipCodeSettings = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  if (!taskData) return null;
-
-  const zipCodeSettings = _.find(taskData.model.variables, { name: 'getZipCodeSettings' }) ?
-  _.find(taskData.model.variables, { name: 'getZipCodeSettings' }).value.result[0] : null;
-
-  const zipCodeSettingsQuote = _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }) ?
-  _.find(taskData.model.variables, { name: 'getZipCodeSettingsForQuote' }).value.result[0] : null;
-
-  return zipCodeSettingsQuote || zipCodeSettings;
+const handleGetQuestions = state => {
+  return state.quoteState.state
+    ? state.quoteState.state.uiQuestions
+    : [];
 };
 
 const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : { model: null };
-  const retrieveQuoteData = state.appState && state.appState.data ? state.appState.data.quote : {};
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }) ?
-  _.find(taskData.model.variables, { name: 'updateQuoteWithCustomerData' }).value.result : retrieveQuoteData;
-
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+  const quoteData = state.quoteState.quote;
+  const uiQuestions = handleGetQuestions(state);
+  const values = getInitialValues(uiQuestions, quoteData);
 
   values.FirstName = _.get(quoteData, 'policyHolders[0].firstName') || '';
   values.effectiveDate = moment(_.get(quoteData, 'effectiveDate')).utc().format('MM/DD/YYYY');
@@ -75,125 +63,107 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetAgentsFromAgency = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  if (!taskData) return [];
+export class CustomerInfo extends React.Component {
+  componentDidMount() {
+    const { quote } = this.props;
 
-  const agentData = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
-  _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
-  return agentData;
-};
+    if (quote && quote.property) {
+      this.props.getAgents(quote.companyCode, quote.state, quote.agencyCode);
+      this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
+    }
+  }
 
-const getQuoteData = (state) => {
-  const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'quote' });
-  return (quoteData ? quoteData.value.result : undefined);
-};
+  render() {
+    const {
+      appState,
+      handleSubmit,
+      fieldValues,
+      zipCodeSettings,
+      agentResults
+    } = this.props;
 
-export const CustomerInfo = (props) => {
-  const {
-    appState,
-    handleSubmit,
-    fieldValues,
-    zipCodeSettings,
-    agencyResults
-  } = props;
-  const taskData = props.tasks[appState.modelName].data;
-  const questions = taskData.uiQuestions;
-  const quoteData = props.quote;
-  return (
-    <div className="route-content">
-      <SnackBar
-        {...props}
-        show={props.appState.data.showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
-      {props.appState.data.submitting && <Loader />}
-      <Form
-        id="CustomerInfo"
-        onSubmit={handleSubmit(handleFormSubmit)}
-        noValidate
-      >
-        <div className="scroll">
-          <div className="form-group survey-wrapper" role="group">
-            {questions.map((question, index) =>
-              <FieldGenerator
-                tabindex="0"
-                autoFocus={index === 1}
-                zipCodeSettings={zipCodeSettings}
-                data={quoteData}
-                question={question}
-                values={fieldValues}
-                key={index}
-              />
-        )}
-            <div className="agentID">
-              <SelectFieldAgents
-                tabindex="0"
-                name="agentCode"
-                label="Agent"
-                onChange={function () { }}
-                validations={['required']}
-                agents={agencyResults}
-              />
+    const questions = this.props.uiQuestions;
+    const quoteData = this.props.quote;
+
+    return (
+      <div className="route-content">
+        <SnackBar
+          {...this.props}
+          show={appState.data.showSnackBar}
+          timer={3000}
+        ><p>Please correct errors.</p></SnackBar>
+        {appState.data.submitting &&
+          <Loader />
+        }
+        <Form
+          id="CustomerInfo"
+          onSubmit={handleSubmit(handleFormSubmit)}
+          noValidate
+        >
+          <div className="scroll">
+            <div className="form-group survey-wrapper" role="group">
+              {questions.map((question, index) =>
+                <FieldGenerator
+                  tabindex="0"
+                  autoFocus={index === 1}
+                  zipCodeSettings={zipCodeSettings}
+                  data={quoteData}
+                  question={question}
+                  values={fieldValues}
+                  key={index}
+                />
+              )}
+              <div className="agentID">
+                <SelectFieldAgents
+                  tabindex="0"
+                  name="agentCode"
+                  label="Agent"
+                  onChange={() => {}}
+                  validations={['required']}
+                  agents={agentResults}
+                />
+              </div>
             </div>
+            <div className="workflow-steps">
+              <button
+                tabIndex="0"
+                className="btn btn-primary"
+                type="submit"
+                form="CustomerInfo"
+                disabled={appState.data.submitting}
+              >next</button>
+            </div>
+            <Footer />
           </div>
-          <div className="workflow-steps">
-            <button
-              tabIndex="0"
-              className="btn btn-primary"
-              type="submit"
-              form="CustomerInfo"
-              disabled={props.appState.data.submitting}
-            >
-          next
-        </button>
-          </div>
-          <Footer />
-        </div>
-      </Form>
-    </div>
-  );
-};
+        </Form>
+      </div>
+    );
+  }
+}
 
-CustomerInfo.propTypes = {
-  ...propTypes,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string,
-    data: PropTypes.shape({
-      submitting: PropTypes.boolean,
-      taskName: PropTypes.string,
-      taskData: PropTypes.shape({})
-    })
-  })
-};
-
-/**
-------------------------------------------------
-redux mapping
-------------------------------------------------
-*/
 const mapStateToProps = state => (
   {
     tasks: state.cg,
     appState: state.appState,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
-    agencyResults: handleGetAgentsFromAgency(state),
-    zipCodeSettings: handleGetZipCodeSettings(state),
-    quote: getQuoteData(state)
+    agentResults: state.service.agents,
+    zipCodeSettings: state.service.zipCodeSettings,
+    quote: state.quoteState.quote,
+    uiQuestions: handleGetQuestions(state)
   });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
+  getZipcodeSettings: bindActionCreators(getZipcodeSettings, dispatch),
+  getAgents: bindActionCreators(getAgents, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  enableReinitialize: true,
   form: 'CustomerInfo',
   onSubmitFail: failedSubmission
 })(CustomerInfo));

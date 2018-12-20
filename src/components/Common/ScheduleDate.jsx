@@ -6,6 +6,7 @@ import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import { updateQuote } from '../../actions/quoteState.actions';
 
 
 const ScheduleDate = ({ appState, handleSubmit, verify, secondaryButtonHandler, quoteData, selectedAgent, redirectToHome }) => (
@@ -59,6 +60,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

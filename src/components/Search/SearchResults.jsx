@@ -8,6 +8,8 @@ import Loader from '../Common/Loader';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
+import { getSearchType } from './searchUtils';
+import { createQuote } from '../../actions/quoteState.actions';
 
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
@@ -65,14 +67,14 @@ export const SearchResults = (props) => {
       </div>
     );
   }
-  if (
-    props.tasks[props.appState.modelName] &&
-    props.tasks[props.appState.modelName].data &&
-    props.tasks[props.appState.modelName].data.previousTask &&
-    props.tasks[props.appState.modelName].data.previousTask.name === 'searchAddress' &&
-    props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
+  if (props.searchType === 'address'
+  //   props.tasks[props.appState.modelName] &&
+  //   props.tasks[props.appState.modelName].data &&
+  //   props.tasks[props.appState.modelName].data.previousTask &&
+  //   props.tasks[props.appState.modelName].data.previousTask.name === 'searchAddress' &&
+  //   props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
   ) {
-    const addresses = props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
+    const addresses = props.results;// props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
 
     const onKeyPress = (event, address) => {
       if (event.charCode === 13) {
@@ -107,17 +109,15 @@ export const SearchResults = (props) => {
       </div>
     );
   }
-  if (
-    props.tasks[props.appState.modelName] &&
-    props.tasks[props.appState.modelName].data.activeTask &&
-    props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
-  ) {
-    const quoteResults = props.tasks[props.appState.modelName].data.previousTask.value.result;
-    const quotes = quoteResults.quotes;
+  if (props.searchType === 'quote') {
+    // props.tasks[props.appState.modelName] &&
+    // props.tasks[props.appState.modelName].data.activeTask &&
+    // props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
+    const quotes = props.results; // props.tasks[props.appState.modelName].data.previousTask.value.result;
     return (
       <div className="quote-list">
         {
-        quoteResults && quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
+        quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
           <div className="icon-name">
             <i className="card-icon fa fa-user-circle" />
             <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}` : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
@@ -177,10 +177,14 @@ const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   search: state.search,
-  policyResults: state.service.policyResults
+  policyResults: state.service.policyResults,
+  searchType: getSearchType(),
+  results: state.search.results
+
 });
 
 const mapDispatchToProps = dispatch => ({
+  createQuote: bindActionCreators(createQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

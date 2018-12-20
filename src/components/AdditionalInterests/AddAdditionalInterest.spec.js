@@ -15,6 +15,9 @@ describe('Testing AddAdditionalInterest component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
@@ -31,6 +34,7 @@ describe('Testing AddAdditionalInterest component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -49,6 +53,9 @@ describe('Testing AddAdditionalInterest component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       actions: {
         appStateActions: {
           setAppState() {}

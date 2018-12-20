@@ -26,11 +26,11 @@ export const runnerSetup = data => ({
 });
 
 
-export const getAgents = (companyCode, state) => (dispatch) => {
+export const getAgents = (companyCode, state, agencyCode) => (dispatch) => {
   const axiosConfig = runnerSetup({
     service: 'agency',
     method: 'GET',
-    path: `v1/agents/${companyCode}/${state}`
+    path: `v1/agents/${companyCode}/${state}?agencyCode=${agencyCode}&status=Active`
   });
 
   return axios(axiosConfig).then((response) => {
@@ -231,6 +231,27 @@ export const getPolicyDocuments = policyNumber => (dispatch) => {
       const message = handleError(error);
       return dispatch(batchActions([
         errorActions.setAppError({ message })
+      ]));
+    });
+};
+
+export const getZipcodeSettings = (companyCode, state, product, zip) => (dispatch) => {
+  const axiosConfig = runnerSetup({
+    service: 'underwriting',
+    method: 'GET',
+    path: `zip-code?companyCode=${companyCode}&state=${state}&product=${product}&zip=${zip}`
+  });
+
+  return axios(axiosConfig).then((response) => {
+    const data = { zipCodeSettings: response.data && response.data.result ? response.data.result[0] : { timezone: '' } };
+    return dispatch(batchActions([
+      serviceRequest(data)
+    ]));
+  })
+    .catch((error) => {
+      const message = handleError(error);
+      return dispatch(batchActions([
+        errorActions.setAppError(message)
       ]));
     });
 };
