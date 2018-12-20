@@ -1,92 +1,69 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
-import Footer from '../Common/Footer';
-import * as cgActions from '../../actions/cgActions';
+import { bindActionCreators } from 'redux';
+import { reduxForm, Form } from 'redux-form';
+import _ from 'lodash';
+
+import { updateQuote } from '../../actions/quoteState.actions';
 import * as appStateActions from '../../actions/appStateActions';
-import { getInitialValues } from '../Customize/customizeHelpers';
+import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
-const userTasks = {
-  addAdditionalAIs: 'addAdditionalAIs'
-};
 
-export const noAddAdditionalInterestSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
+export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
   const taskData = { shouldUpdateAIs: 'No' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: taskData, quoteNumber: props.quoteData.quoteNumber });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('mailingBilling');
 };
 
-export const AddMortgagee = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'mortgagee' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddMortgagee = async (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: props.quoteData.quoteNumber });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('askMortgagee');
 };
 
-export const AddPremiumFinance = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'premiumFinance' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddPremiumFinance = async (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: props.quoteData.quoteNumber });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('askPremiumFinance');
 };
 
-export const AddAdditionalInsured = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'additionalInsured' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddAdditionalInsured = async (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: props.quoteData.quoteNumber });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('askAdditionalInsured');
 };
 
-export const AddInterest = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'additionalInterest' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddInterest = async (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: props.quoteData.quoteNumber });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('askAdditionalInterest');
 };
 
-export const AddBillpayer = (props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.addAdditionalAIs;
-  const taskData = { shouldUpdateAIs: 'billPayer' };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, taskData);
+export const AddBillpayer = async (props) => {
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  await props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: props.quoteData.quoteNumber });
+  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+
+  props.history.push('askBillPayer');
 };
 
-const handleGetQuestions = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-
-  taskData.uiQuestions
-  .filter(question => question.name === 'mortgagee' || question.name === 'premiumFinance')
-  .forEach((q) => {
-    if (q && Array.isArray(q.answers)) {
-      q.answers.forEach((answer) => {
-        answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
-        return answer;
-      });
-    }
-    return q;
-  });
-  return taskData.uiQuestions;
-};
-
-const handleGetQuoteData = (state) => {
-  const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
-  return (quoteData ? quoteData.value.result : undefined);
-};
+const handleGetQuoteData = state => state.quoteState.quote || {};
 
 export const goToStep = (props, type) => {
   if (type === 'Mortgagee') AddMortgagee(props);
@@ -112,25 +89,6 @@ export const returnTaskName = (type) => {
   else if (type === 'Additional Insured') return 'askAdditionalInsured';
 };
 
-const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-//   const quoteData = taskData && taskData.previousTask && taskData.previousTask.value ? taskData.previousTask.value.result : {};
-
-  const { cg, appState } = state;
-  const quoteData = _.find(cg[appState.modelName].data.model.variables, { name: 'getQuoteBeforeAIs' });
-
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
-
-  userTasks.formSubmit = taskData.activeTask.name;
-
-  _.forEach(taskData.uiQuestions, (q) => {
-    if (!values[q.name]) {
-      values[q.name] = '';
-    }
-  });
-  return values;
-};
-
 export const openDeleteAdditionalInterest = (ai, props) => {
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId,
       { ...props.appState.data, showAdditionalInterestModal: true, selectedAI: ai, addAdditionalInterestType: ai.type });
@@ -141,22 +99,21 @@ export const hideAdditionalInterestModal = (props) => {
       { ...props.appState.data, showAdditionalInterestModal: false, showAdditionalInterestEditModal: false });
 };
 
-export const deleteAdditionalInterest = (selectedAdditionalInterest, props) => {
+export const deleteAdditionalInterest = async (selectedAdditionalInterest, props) => {
   const { appState, actions, quoteData } = props;
-  const workflowId = appState.instanceId;
   actions.appStateActions.setAppState(appState.modelName,
-      workflowId, {
+      '', {
         ...props.appState.data,
         submitting: true,
         showAdditionalInterestModal: false
       });
 
-  let additionalInterests = quoteData.additionalInterests || [];
+  const additionalInterests = quoteData.additionalInterests || [];
 
-        // remove any existing items before submission
+  // remove any existing items before submission
   const modifiedAIs = _.cloneDeep(additionalInterests);
-    // remove any existing items before submission
-    _.remove(modifiedAIs, ai => ai._id === selectedAdditionalInterest._id); // eslint-disable-line
+  // remove any existing items before submission
+  _.remove(modifiedAIs, ai => ai._id === selectedAdditionalInterest._id); // eslint-disable-line
 
   let order = 0;
   _.each(_.filter(modifiedAIs, ai => ai.type === selectedAdditionalInterest.type), (ai) => {
@@ -164,21 +121,16 @@ export const deleteAdditionalInterest = (selectedAdditionalInterest, props) => {
     order += 1;
   });
 
-  const steps = [{ name: 'addAdditionalAIs', data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) } },
-    {
-      name: returnTaskName(selectedAdditionalInterest.type),
-      data: { additionalInterests: modifiedAIs }
-    }
-  ];
+  await props.updateQuote({ data: { shouldUpdateAIs: returnTaskDataName(selectedAdditionalInterest.type) }, quoteNumber: props.quoteData.quoteNumber });
 
-  actions.cgActions.batchCompleteTask(appState.modelName, workflowId, steps)
-      .then(() => {
-        additionalInterests = modifiedAIs;
-        props.actions.appStateActions.setAppState(props.appState.modelName,
-          workflowId, { ...props.appState.data,
-            submitting: false,
-            showAdditionalInterestModal: false });
-      });
+  await props.updateQuote({ data: { additionalInterests: modifiedAIs }, quoteNumber: props.quoteData.quoteNumber });
+
+  props.actions.appStateActions.setAppState(props.appState.modelName, '',
+    { ...props.appState.data,
+      submitting: false,
+      showAdditionalInterestModal: false
+    }
+  );
 };
 
 
@@ -249,36 +201,23 @@ export const AddAdditionalInterest = props => (
   </div>
 );
 
-
-AddAdditionalInterest.propTypes = {
-  ...propTypes,
-  tasks: PropTypes.shape({}),
-  appState: PropTypes.shape({ modelName: PropTypes.string, data: PropTypes.object }),
-  underwritingExceptions: PropTypes.arrayOf(PropTypes.shape())
-};
-
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'AddAdditionalInterestPage.values', {}),
-  initialValues: handleInitialize(state),
-  fieldQuestions: handleGetQuestions(state),
   quoteData: handleGetQuoteData(state)
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'AddAdditionalInterest',
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'AddAdditionalInterest',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission })(AddAdditionalInterest));
+  onSubmitFail: failedSubmission
+})(AddAdditionalInterest));

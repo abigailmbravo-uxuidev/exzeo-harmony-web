@@ -11,6 +11,8 @@ const mockStore = configureStore(middlewares);
 describe('Testing SearchBar component', () => {
   it('should test connected app', () => {
     const initialState = {
+      search: {},
+      authState: {},
       service: {
         policyResults: {}
       },
@@ -41,6 +43,7 @@ describe('Testing SearchBar component', () => {
     const props = {
       actions: {
         searchActions: {
+          searchQuotes() {},
           setQuoteSearch() {}
         }
       },
@@ -94,6 +97,9 @@ describe('Testing SearchBar component', () => {
     const store = mockStore(initialState);
 
     const props = {
+      userProfile: {
+        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+      },
       tasks: {
         ...initialState.cg
       },
@@ -104,6 +110,7 @@ describe('Testing SearchBar component', () => {
       dispatch: store.dispatch,
       actions: {
         searchActions: {
+          searchQuotes() {},
           setQuoteSearch() {},
           setPolicySearch() {}
         },
@@ -207,6 +214,9 @@ describe('Testing SearchBar component', () => {
     const store = mockStore(initialState);
 
     const props = {
+      userProfile: {
+        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+      },
       tasks: {
         ...initialState.cg
       },
@@ -220,6 +230,7 @@ describe('Testing SearchBar component', () => {
           searchPolicy() { return Promise.resolve(() => {}); }
         },
         searchActions: {
+          searchQuotes() {},
           setQuoteSearch() {},
           setPolicySearch() {}
         },

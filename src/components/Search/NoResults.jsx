@@ -1,29 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import {
-  bindActionCreators
-} from 'redux';
-import {
-  connect
-} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
-export const NoResults = (props) => {
-  if (props.tasks[props.appState.modelName] &&
-    props.tasks[props.appState.modelName].data.activeTask &&
-    (props.tasks[props.appState.modelName].data.activeTask.name === 'askToSearchAgain')) {
-    const previousTask = props.tasks[props.appState.modelName].data.previousTask;
+import { getSearchType } from './searchUtils';
 
+export const NoResults = (props) => {
+  if (props.hasSearched && props.results.length === 0) {
     return (
       <div className="survey-wrapper">
         <div className="card no-results">
           <div className="card-header"><h4>No Results Found</h4></div>
           <div className="card-block">
             {
-              (previousTask && previousTask.name === 'searchQuote' ?
+              (props.searchType === 'quote' ?
                 <p>There are no quotes found matching that search criteria. Please try to search again, or start a new quote.</p>
               :
                 <p>We&#39;re sorry we couldn&#39;t find any results matching your search parameters. Please
@@ -40,16 +32,12 @@ export const NoResults = (props) => {
   return <span />;
 };
 
-NoResults.propTypes = {
-  appState: PropTypes.shape({
-    modelName: PropTypes.string
-  }),
-  tasks: PropTypes.shape()
-};
-
 const mapStateToProps = state => ({
   tasks: state.cg,
-  appState: state.appState
+  appState: state.appState,
+  results: state.search.results,
+  hasSearched: state.search.hasSearched,
+  searchType: getSearchType()
 });
 
 const mapDispatchToProps = dispatch => ({

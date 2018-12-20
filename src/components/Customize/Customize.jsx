@@ -1,80 +1,53 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
-
+import { Redirect } from 'react-router';
 import Footer from '../Common/Footer';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
-import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
-const userTasks = {
-  formSubmit: 'askToCustomizeDefaultQuote',
-  customizeDefaultQuote: 'customizeDefaultQuote'
-};
+import { updateQuote } from '../../actions/quoteState.actions';
 
-export const handleFormSubmit = (data, dispatch, props) => {
-  const modelName = props.appState.modelName;
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.formSubmit;
-  dispatch(appStateActions.setAppState(modelName, workflowId, { ...props.appState.data, submitting: true }));
-  if (!props.appState.data.recalc) {
-    // the form was not modified so we dont need to customize quote, we do need to run two tasks in batch
-    props.actions.cgActions.completeTask(modelName, workflowId, taskName, {
-      shouldCustomizeQuote: 'No'
-    });
-  } else {
-    // the form was modified and now we need to recalc
-    const updatedQuote = convertQuoteStringsToNumber(data);
-    updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
+export const handleFormSubmit = async (data, dispatch, props) => {
+  dispatch(appStateActions.setAppState('modelName', 'workflowId', { ...props.appState.data, submitting: true }));
 
-    const updatedQuoteResult = {
-      ...updatedQuote,
-      dwellingAmount: updatedQuote.dwellingAmount,
-      otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
-      personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
-      personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
-      propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
-      propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
-      lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
-      liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-      calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount))
-    };
+  const updatedQuote = convertQuoteStringsToNumber(data);
+  updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
+  const updatedQuoteResult = {
+    ...updatedQuote,
+    dwellingAmount: updatedQuote.dwellingAmount,
+    otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * updatedQuote.dwellingAmount)),
+    personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * updatedQuote.dwellingAmount)),
+    personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
+    propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
+    propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
+    lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
+    liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
+    calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount)),
+    recalc: !!props.appState.data.recalc
+  };
 
-    if (updatedQuoteResult.personalPropertyAmount === 0) {
-      updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
-    }
-
-    // Remove the sinkhole attribute from updatedQuoteResult
-    // if sinkholePerilCoverage is false
-    if (!updatedQuote.sinkholePerilCoverage) {
-      delete updatedQuoteResult.sinkhole;
-    }
-
-    // we need to run two tasks in sequence so call batchComplete in the cg actions
-    const steps = [{
-      name: userTasks.formSubmit,
-      data: {
-        shouldCustomizeQuote: 'Yes'
-      }
-    }, {
-      name: userTasks.customizeDefaultQuote,
-      data: updatedQuoteResult
-    }];
-
-    props.actions.cgActions.batchCompleteTask(modelName, workflowId, steps)
-      .then(() => {
-        // now update the workflow details so the recalculated rate shows
-        props.actions.appStateActions.setAppState(modelName,
-          workflowId, { recalc: false, updateWorkflowDetails: true });
-      });
+  if (updatedQuoteResult.personalPropertyAmount === 0) {
+    updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
   }
+
+  if (!updatedQuote.sinkholePerilCoverage) {
+    delete updatedQuoteResult.sinkhole;
+  }
+
+  await props.updateQuote({ data: updatedQuoteResult, quoteNumber: props.quote.quoteNumber });
+
+  if (!props.appState.data.recalc) {
+    props.history.push('share');
+  }
+
+  props.actions.appStateActions.setAppState('', '', { recalc: false, submitting: false });
 };
 
 export const handleFormChange = props => (event, newValue, previousValue) => {
@@ -90,10 +63,9 @@ export const handleReset = (props) => {
 };
 
 const handleInitialize = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
-  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
-  const values = getInitialValues(taskData.uiQuestions, quoteData);
+  const quote = state.quoteState.quote;
+  const questions = handleGetQuestions(state);
+  const values = getInitialValues(questions, quote);
 
   values.sinkholePerilCoverage = values.sinkholePerilCoverage || false;
   values.fireAlarm = values.fireAlarm || false;
@@ -104,28 +76,21 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetQuestions = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  return taskData.uiQuestions;
-};
-
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  return _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }) ? _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision4' }).value.result :
-  _.find(taskData.model.variables, { name: 'updateQuoteWithUWDecision3' }).value.result;
-};
+const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
 
 export const Customize = (props) => {
   const {
     fieldQuestions,
-    quoteData,
+    quote,
     handleSubmit,
     reset,
-    fieldValues
+    fieldValues,
+    isHardStop
   } = props;
 
   return (
     <div className="route-content">
+      {isHardStop && <Redirect to={'error'} />}
       <SnackBar
         {...props}
         show={props.appState.data.showSnackBar}
@@ -143,7 +108,7 @@ export const Customize = (props) => {
             {fieldQuestions && fieldQuestions.map((question, index) =>
               <FieldGenerator
                 autoFocus={index === 1}
-                data={quoteData}
+                data={quote}
                 question={question}
                 values={fieldValues || {}}
                 onChange={handleFormChange(props)}
@@ -183,37 +148,25 @@ export const Customize = (props) => {
   );
 };
 
-Customize.propTypes = {
-  ...propTypes,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    data: PropTypes.shape({
-      recalc: PropTypes.boolean,
-      submitting: PropTypes.boolean
-    }),
-    instanceId: PropTypes.string
-  })
-};
-
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Customize.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
+  quote: state.quoteState.quote,
+  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-const reduxFormComponent = reduxForm({ form: 'Customize',
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'Customize',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission })(Customize);
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxFormComponent);
+  onSubmitFail: failedSubmission
+})(Customize));

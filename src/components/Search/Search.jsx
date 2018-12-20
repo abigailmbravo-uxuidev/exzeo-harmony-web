@@ -10,64 +10,70 @@ import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
 import Loader from '../Common/Loader';
+import { clearResults } from '../../actions/searchActions';
+import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
 
-const userTasks = {
-  handleSelectAddress: 'chooseAddress',
-  handleSelectQuote: 'chooseQuote'
+
+const closeQuoteError = ({ actions, appState }) => {
+  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showEmailPopup: false });
 };
 
-export const handleSelectAddress = (address, props) => {
-  const workflowId = props.appState.instanceId;
-  const taskName = userTasks.handleSelectAddress;
-  const data = {
-    igdId: address.id,
-    stateCode: address.physicalAddress.state
+export class Search extends React.Component {
+  componentWillMount() {
+    const { actions, appState, clearResults, clearQuote } = this.props;
+    actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
+    clearResults();
+    clearQuote();
+  }
+
+  handleSelectQuote = async (quoteData) => {
+    const { actions, appState, getQuote, history } = this.props;
+    actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
+    const quote = await getQuote(quoteData.quoteNumber, quoteData._id);
+    actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
+
+    if (quote) {
+      history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+    }
   };
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
-  props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
-};
 
-export const handleSelectQuote = (quote, props) => {
-  const workflowId = props.appState.instanceId;
+  handleSelectAddress = async (address) => {
+    const { actions, appState, createQuote, history } = this.props;
+    actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
+    const quote = await createQuote('0', address.id, address.physicalAddress.state);
+    actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
 
-  if (quote.quoteState === 'Quote Started' || quote.quoteState === 'Application Started' || quote.quoteState === 'Quote Stopped') {
-    const taskName = userTasks.handleSelectQuote;
-    const data = {
-      quoteId: quote._id
-    };
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { submitting: true });
-    props.actions.cgActions.completeTask(props.appState.modelName, workflowId, taskName, data);
-  } else {
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { showQuoteErrors: true, selectedQuote: quote });
-  }
-};
+    if (quote) {
+      history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+    }
+  };
 
-const closeQuoteError = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
-};
-
-export const Search = props => (
-  <div className="flex grow">
-    { props.appState.data &&
-      <div className="search route-content">
-        <SearchBar />
-        { props.appState.data.submitting && <Loader /> }
-        <div className="survey-wrapper">
-          <div className="results-wrapper">
-            <NoResultsConnect />
-            <SearchResults handleSelectAddress={handleSelectAddress} handleSelectQuote={handleSelectQuote} />
+  render() {
+    return (
+      <div className="flex grow">
+        <div className="search route-content">
+          <SearchBar />
+          {(this.props.appState.data && this.props.appState.data.submitting) &&
+            <Loader />
+          }
+          <div className="survey-wrapper">
+            <div className="results-wrapper">
+              <NoResultsConnect />
+              <SearchResults handleSelectAddress={this.handleSelectAddress} handleSelectQuote={this.handleSelectQuote} {...this.props} />
+            </div>
+            <Footer />
           </div>
-          <Footer />
         </div>
+        {(this.props.appState.data && this.props.appState.data.showQuoteErrors) &&
+          <QuoteError
+            quote={this.props.appState.data.selectedQuote || {}}
+            closeButtonHandler={() => closeQuoteError(this.props)}
+          />
+        }
       </div>
+    );
   }
-    {props.appState.data && props.appState.data.showQuoteErrors &&
-      <QuoteError
-        quote={props.appState.data.selectedQuote || {}}
-        closeButtonHandler={() => closeQuoteError(props)}
-      />}
-  </div>
-);
+}
 
 Search.propTypes = {
   appState: PropTypes.shape({
@@ -86,6 +92,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  createQuote: bindActionCreators(createQuote, dispatch),
+  clearQuote: bindActionCreators(clearQuote, dispatch),
+  getQuote: bindActionCreators(getQuote, dispatch),
+  clearResults: bindActionCreators(clearResults, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

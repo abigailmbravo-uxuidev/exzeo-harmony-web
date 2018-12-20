@@ -1,80 +1,61 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
-import * as cgActions from '../../actions/cgActions';
-import ScheduleDate from '../Common/ScheduleDate';
-import { CheckField } from '../Form/inputs';
-import Footer from '../Common/Footer';
+
 import * as appStateActions from '../../actions/appStateActions';
+import { updateQuote } from '../../actions/quoteState.actions';
+import ScheduleDate from '../Common/ScheduleDate';
+import Footer from '../Common/Footer';
 import Loader from '../Common/Loader';
-import normalizePhone from '../Form/normalizePhone';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
-// ------------------------------------------------
-// List the user tasks that directly tie to
-//  the cg tasks.
-// ------------------------------------------------
-const userTasks = {
-  formSubmit: 'askScheduleInspectionDates'
+import { CheckField } from '../Form/inputs';
+import normalizePhone from '../Form/normalizePhone';
+
+const NO_AGENT_FOUND = { firstName: '', lastName: '' };
+
+const STEP_NAME_MAP = {
+  askAdditionalCustomerData: 'customerInfo',
+  askUWAnswers: 'underwriting',
+  askToCustomizeDefaultQuote: 'customize',
+  sendEmailOrContinue: 'share',
+  addAdditionalAIs: 'additionalInterests',
+  askAdditionalQuestions: 'mailingBilling',
+  editVerify: 'verify'
 };
 
-// ------------------------------------------------
-// This allows the step to be completed in the CG,
-//  make sure the data matches what the step needs.
-// The appState id comes from props.appState.
-// ------------------------------------------------
-export const scheduleDateModal = (props, showModal) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !!showModal });
+export const scheduleDateModal = ({ actions, appState }, showModal) => {
+  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showScheduleDateModal: !!showModal });
 };
+
 const redirectToHome = (props) => {
   scheduleDateModal(props, false);
-  window.location.href = '/';
+  props.history.push('/');
 };
-
-// ------------------------------------------------
-// This function add a primary or secondary title
-// to the AI types. It uses the global component
-// variable to keep track of the AI types.
-// ------------------------------------------------
 
 const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
-const showPolicyHolderModal = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showPolicyHolderModal: true });
+const showPolicyHolderModal = ({ actions, appState }) => {
+  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: true });
 };
-const hidePolicyHolderModal = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showPolicyHolderModal: false });
-};
-
-export const handleFormSubmit = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
-  const taskName = userTasks.formSubmit;
-  const taskData = { ...data };
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  const steps = [{
-    name: 'editVerify',
-    data: {
-      shouldEditVerify: 'false'
-    }
-  }, {
-    name: taskName,
-    data: taskData
-  }];
-
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
-    .then(() => {
-      // now update the workflow details so the recalculated rate shows
-      props.actions.appStateActions.setAppState(props.appState.modelName,
-        workflowId, { ...props.appState.data, submitting: false });
-    });
+const hidePolicyHolderModal = ({ actions, appState }) => {
+  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: false });
 };
 
-export const handlePolicyHolderUpdate = (data, dispatch, props) => {
-  const workflowId = props.tasks[props.appState.modelName].data.modelInstanceId;
+export const handleFormSubmit = async (data, dispatch, props) => {
+  const { actions, appState, updateQuoteAction, quote, history } = props;
+  const taskData = { ...data, shouldEditVerify: 'false' };
+
+  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
+  await updateQuoteAction({ data: taskData, quoteNumber: quote.quoteNumber });
+  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: false });
+  history.push('thankYou');
+};
+
+export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
+  const { actions, appState, updateQuoteAction, quote } = props;
   const taskData = { ...data };
 
   if (!taskData.isAdditional) {
@@ -84,80 +65,66 @@ export const handlePolicyHolderUpdate = (data, dispatch, props) => {
     taskData.pH2phone = '';
   }
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { ...props.appState.data, submitting: true });
-  const steps = [{
-    name: 'editVerify',
-    data: {
-      shouldEditVerify: 'PolicyHolder'
-    }
-  }, {
-    name: 'editPolicyHolder',
-    data: taskData
-  }];
+  taskData.shouldEditVerify = 'PolicyHolder';
 
-  props.actions.cgActions.batchCompleteTask(props.appState.modelName, workflowId, steps)
-    .then(() => {
-      // now update the workflow details so the recalculated rate shows
-      props.actions.appStateActions.setAppState(props.appState.modelName,
-        workflowId, { ...props.appState.data, submitting: false, showPolicyHolderModal: false });
-    });
+  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
+  await updateQuoteAction({ data: taskData, quoteNumber: quote.quoteNumber });
+  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: false, showPolicyHolderModal: false });
 };
 
-export const goToStep = (props, taskName) => {
+export const goToStep = async (props, stepName) => {
+  const { appState, actions, updateQuoteAction, history, quote } = props;
   // don't allow submission until the other step is completed
-  if (props && props.appState && props.appState.data.submitting === true) return;
+  if (appState && appState.data.submitting === true) return;
 
-  const currentData = props.tasks && props.tasks[props.appState.modelName] && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
+  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { ...appState.data, submitting: true });
+  await updateQuoteAction({ stepName, quoteNumber: quote.quoteNumber });
+  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { ...appState.data, submitting: false });
 
-  if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
-      (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
-    props.actions.appStateActions.setAppState(props.appState.modelName, currentData.modelInstanceId, { ...props.appState.data, submitting: true });
-   // props.actions.completedTasksActions.dispatchCompletedTasks(_.union(currentData.model.completedTasks, props.completedTasks));
-    props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentData.model.completedTasks, props.completedTasks));
-  }
+  history.push(`${STEP_NAME_MAP[stepName]}`);
 };
 
 export const Verify = (props) => {
-  let property = {};
-  let coverageLimits = {};
-  let coverageOptions = {};
-  let mailingAddress = {};
-  let deductibles = {};
-
-  const { tasks,
+  const {
     fieldValues,
-     appState,
-     handleSubmit,
-     submitting
-   } = props;
+    appState,
+    handleSubmit,
+    submitting,
+    agentList,
+    quote: quoteData,
+  } = props;
 
-  const taskData = (tasks && appState && tasks[appState.modelName]) ? tasks[appState.modelName].data : {};
+  const {
+    property,
+    coverageLimits,
+    coverageOptions,
+    additionalInterests = [],
+    policyHolders = [],
+    policyHolderMailingAddress: mailingAddress = {},
+    deductibles
+  } = quoteData;
 
-  const quoteData = _.find(taskData.model.variables, { name: 'getFinalQuote' }) ? _.find(taskData.model.variables, { name: 'getFinalQuote' }).value.result :
-  _.find(taskData.model.variables, { name: 'quote' }).value.result;
+  const selectedAgent = agentList.find(agent =>
+    agent.agentCode === quoteData.agentCode
+  ) || NO_AGENT_FOUND;
 
-  const agentList = _.find(taskData.model.variables, { name: 'getActiveAgents' }) ?
-  _.find(taskData.model.variables, { name: 'getActiveAgents' }).value.result : [];
-
-  const selectedAgent = _.find(agentList, { agentCode: quoteData.agentCode }) || {};
-
-  if (quoteData) {
-    property = quoteData.property;
-    coverageLimits = quoteData.coverageLimits;
-    coverageOptions = quoteData.coverageOptions;
-    mailingAddress = quoteData.policyHolderMailingAddress || {};
-    deductibles = quoteData.deductibles;
-  }
 
   return (
     <div className="route-content verify">
-      { props.appState.data.submitting && <Loader /> }
-      { quoteData && quoteData.quoteNumber &&
-        <Form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props, true))} noValidate>
+      {appState.data.submitting &&
+        <Loader />
+      }
+      {quoteData.quoteNumber &&
+        <form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props, true))}>
           <div className="scroll">
             <div className="detail-wrapper">
               <div className="detail-group property-details">
-                <h3 className="section-group-header"><i className="fa fa-map-marker" /> Property Details<span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header">
+                  <i className="fa fa-map-marker" /> Property Details
+                  <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}>
+                    <i className="fa fa-pencil" /> Edit
+                  </span>
+                </h3>
                 <section className="display-element">
                   <dl className="quote-number">
                     <div>
@@ -171,7 +138,7 @@ export const Verify = (props) => {
                       <dd>{property.physicalAddress.address1}</dd>
                       <dd>{property.physicalAddress.address2}</dd>
                       <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
-                    property.physicalAddress.zip}`}</dd>
+                        property.physicalAddress.zip}`}</dd>
                     </div>
                   </dl>
                   <dl className="property-information">
@@ -181,11 +148,11 @@ export const Verify = (props) => {
                     </div>
                   </dl>
                   {/* <dl className="property-information">
-                    <div>
-                      <dt>Flood Zone</dt>
-                      <dd>{property.floodZone}</dd>
-                    </div>
-                  </dl>*/}
+                      <div>
+                        <dt>Flood Zone</dt>
+                        <dd>{property.floodZone}</dd>
+                      </div>
+                    </dl>*/}
                   <dl className="effective-date">
                     <div>
                       <dt>Effective Date</dt>
@@ -195,14 +162,19 @@ export const Verify = (props) => {
                   <dl className="agent">
                     <div>
                       <dt>Agent</dt>
-                      <dd>{`${selectedAgent.firstName} ${selectedAgent.lastName}` }</dd>
+                      <dd>{`${selectedAgent.firstName} ${selectedAgent.lastName}`}</dd>
                     </div>
                   </dl>
                 </section>
                 <CheckField styleName="verification" name="confirmProperyDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group quote-details">
-                <h3 className="section-group-header"><i className="fa fa-list" /> Quote Details<span className="edit-btn" onClick={() => goToStep(props, 'askToCustomizeDefaultQuote')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header">
+                  <i className="fa fa-list" /> Quote Details
+                  <span className="edit-btn" onClick={() => goToStep(props, 'askToCustomizeDefaultQuote')}>
+                    <i className="fa fa-pencil" /> Edit
+                  </span>
+                </h3>
                 <section className="display-element">
                   <dl>
                     <div>
@@ -267,8 +239,7 @@ export const Verify = (props) => {
                   <dl>
                     <div>
                       <dt>Ordinance or Law</dt>
-                      <dd>$ {(coverageLimits.dwelling.amount *
-                    (coverageLimits.ordinanceOrLaw.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      <dd>$ {(coverageLimits.dwelling.amount * (coverageLimits.ordinanceOrLaw.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                     </div>
                   </dl>
                   <dl>
@@ -295,35 +266,47 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group policyholder-details">
-                <h3 className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder Details<span className="edit-btn" onClick={() => showPolicyHolderModal(props)}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header">
+                  <i className="fa fa-vcard-o" /> Policyholder Details
+                  <span className="edit-btn" onClick={() => showPolicyHolderModal(props)}>
+                    <i className="fa fa-pencil" /> Edit
+                  </span>
+                </h3>
                 <section className="display-element">
-                  <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property inspection will results in failure to bind the policy.</p>
+                  <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their
+                    electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property
+                    inspection will results in failure to bind the policy.</p>
                   <div className="contact-card-wrapper">
-                    {(quoteData.policyHolders && quoteData.policyHolders.length > 0) ?
-                     quoteData.policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
-                     <div className="contact-card" key={`ph${index}`}>
-                       <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                       <dl>
-                         <div className="contact-name">
-                           <dt>Name</dt>
-                           <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
-                         </div>
-                         <div className="contact-phone">
-                           <dt>Phone Number</dt>
-                           <dd>{normalizePhone(policyHolder.primaryPhoneNumber)}</dd>
-                         </div>
-                         <div className="contact-email">
-                           <dt>Email</dt>
-                           <dd>{policyHolder.emailAddress}</dd>
-                         </div>
-                       </dl>
-                     </div>)) : null}
+                    {policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
+                      <div className="contact-card" key={`ph${index}`}>
+                        <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                        <dl>
+                          <div className="contact-name">
+                            <dt>Name</dt>
+                            <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                          </div>
+                          <div className="contact-phone">
+                            <dt>Phone Number</dt>
+                            <dd>{normalizePhone(policyHolder.primaryPhoneNumber)}</dd>
+                          </div>
+                          <div className="contact-email">
+                            <dt>Email</dt>
+                            <dd>{policyHolder.emailAddress}</dd>
+                          </div>
+                        </dl>
+                      </div>
+                    ))}
                   </div>
                 </section>
               </div>
               <hr className="section-divider" />
               <div className="detail-group mailing-address-details">
-                <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address<span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalQuestions')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header">
+                  <i className="fa fa-envelope" /> Mailing Address
+                  <span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalQuestions')}>
+                    <i className="fa fa-pencil" /> Edit
+                  </span>
+                </h3>
                 <section className="display-element">
                   <dl>
                     <div>
@@ -348,10 +331,14 @@ export const Verify = (props) => {
                 <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verified" isSwitch />
               </div>
               <div className="detail-group additional-interests-details">
-                <h3 className="section-group-header"><i className="fa fa-user-plus" /> Additional Parties<span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}><i className="fa fa-pencil" />  Edit</span></h3>
+                <h3 className="section-group-header">
+                  <i className="fa fa-user-plus" /> Additional Parties
+                  <span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}>
+                    <i className="fa fa-pencil" /> Edit
+                  </span>
+                </h3>
                 <section className="display-element additional-interests">
-                  {(quoteData.additionalInterests && quoteData.additionalInterests.length > 0) ?
-                    quoteData.additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
+                  {additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
                     <div className="card" key={`ph${index}`}>
                       <div className="icon-wrapper">
                         <i className={`fa ${additionalInterest.type}`} />
@@ -374,7 +361,8 @@ export const Verify = (props) => {
                         <label htmlFor="ref-number">Reference Number</label>
                         <span>{`${additionalInterest.referenceNumber}`}</span>
                       </div>
-                    </div>)) : null}
+                    </div>
+                  ))}
                 </section>
                 <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verified" isSwitch />
               </div>
@@ -382,54 +370,59 @@ export const Verify = (props) => {
             <div className="workflow-steps">
               <button
                 form="Verify"
+                className="btn btn-primary"
+                type="submit"
                 disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
                 !fieldValues.confirmPolicyHolderDetails ||
-               !fieldValues.confirmAdditionalInterestsDetails || submitting}
-                className="btn btn-primary" type="submit"
+                !fieldValues.confirmAdditionalInterestsDetails || submitting}
               >next</button>
             </div>
             <Footer />
           </div>
-
-        </Form>}
-      {appState.data.showPolicyHolderModal && <PolicyHolderPopup primaryButtonHandler={handlePolicyHolderUpdate} secondaryButtonHandler={() => hidePolicyHolderModal(props)} parentProps={props} showSnackBar={props.appState.data.showSnackBar} />}
-      {appState.data.showScheduleDateModal && <ScheduleDate selectedAgent={selectedAgent} quoteData={quoteData} verify={handleFormSubmit} secondaryButtonHandler={() => scheduleDateModal(props, false)} redirectToHome={() => redirectToHome(props)} />}
+        </form>
+      }
+      {appState.data.showPolicyHolderModal &&
+        <PolicyHolderPopup
+          primaryButtonHandler={handlePolicyHolderUpdate}
+          secondaryButtonHandler={() => hidePolicyHolderModal(props)}
+          parentProps={props}
+          showSnackBar={props.appState.data.showSnackBar}
+        />
+      }
+      {appState.data.showScheduleDateModal &&
+        <ScheduleDate
+          {...props}
+          selectedAgent={selectedAgent}
+          quoteData={quoteData}
+          verify={handleFormSubmit}
+          secondaryButtonHandler={() => scheduleDateModal(props, false)}
+          redirectToHome={() => redirectToHome(props)}
+        />
+      }
     </div>
   );
 };
 
-// ------------------------------------------------
-// Property type definitions
-// ------------------------------------------------
-Verify.propTypes = {
-  fieldValues: PropTypes.any,  // eslint-disable-line
-  submitting: PropTypes.any, // eslint-disable-line
-  handleSubmit: PropTypes.func,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string,
-    data: PropTypes.shape()
-  })
+Verify.defaultProps = {
+  quote: {},
 };
 
-// ------------------------------------------------
-// redux mapping
-// ------------------------------------------------
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,
-  fieldValues: _.get(state.form, 'Verify.values', {})
+  fieldValues: _.get(state.form, 'Verify.values', {}),
+  agentList: state.service.agents || [],
+  quote: state.quoteState.quote || {}
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuoteAction: bindActionCreators(updateQuote, dispatch),
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: 'Verify', enableReinitialize: true })(Verify));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'Verify',
+  enableReinitialize: true
+})(Verify));

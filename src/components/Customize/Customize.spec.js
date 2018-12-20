@@ -1,6 +1,5 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import ConnectedApp, { Customize, handleFormSubmit, handleFormChange, handleReset } from './Customize';
@@ -13,6 +12,7 @@ describe('Testing Customize component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
@@ -29,6 +29,7 @@ describe('Testing Customize component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -37,20 +38,20 @@ describe('Testing Customize component', () => {
               variables: [{
                 name: 'getQuote', value: { result: {} }
               },
-              { name: 'updateQuoteWithUWDecision3',
-                value: {
-                  result: {
-                    quoteNumber: '12-1999999-01'
+                { name: 'updateQuoteWithUWDecision3',
+                  value: {
+                    result: {
+                      quoteNumber: '12-1999999-01'
+                    }
                   }
-                }
-              },
-              { name: 'updateQuoteWithUWDecision4',
-                value: {
-                  result: {
-                    quoteNumber: '12-1999999-01'
+                },
+                { name: 'updateQuoteWithUWDecision4',
+                  value: {
+                    result: {
+                      quoteNumber: '12-1999999-01'
+                    }
                   }
-                }
-              }]
+                }]
             },
             uiQuestions: []
           }
@@ -62,6 +63,9 @@ describe('Testing Customize component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      updateQuote() {},
+      quote: {},
+      history: [],
       actions: {
         appStateActions: {
           setAppState() {}

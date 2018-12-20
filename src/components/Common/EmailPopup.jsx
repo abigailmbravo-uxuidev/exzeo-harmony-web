@@ -6,6 +6,7 @@ import { reduxForm, Form, propTypes } from 'redux-form';
 import TextField from '../Form/inputs/TextField';
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
+import { updateQuote } from '../../actions/quoteState.actions';
 
 const EmailPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
   <div className="email-modal modal active" role="article">
@@ -42,10 +43,12 @@ EmailPopup.propTypes = {
 // ------------------------------------------------
 const mapStateToProps = state => ({
   tasks: state.cg,
-  appState: state.appState
+  appState: state.appState,
+  quote: state.quoteState.quote
 });
 
 const mapDispatchToProps = dispatch => ({
+  updateQuote: bindActionCreators(updateQuote, dispatch),
   actions: {
     cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)

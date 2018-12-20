@@ -1,19 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Footer from '../Common/Footer';
-import _ from 'lodash';
+
+const handleGetQuoteData = state => state.quoteState.quote || {};
 
 const handleGetExceptions = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const exceptions = _.find(taskData.model.variables, { name: taskData.previousTask.name }).value;
-  return exceptions;
-};
-
-const handleGetQuoteData = (state) => {
-  const taskData = (state.cg && state.appState && state.cg[state.appState.modelName]) ? state.cg[state.appState.modelName].data : null;
-  const quoteData = _.find(taskData.model.variables, { name: 'quote' }).value.result;
-  return quoteData;
+  const quote = handleGetQuoteData(state);
+  return quote.underwritingExceptions || [];
 };
 
 const Error = ({ quote, exceptions }) => {
@@ -54,17 +47,7 @@ const Error = ({ quote, exceptions }) => {
       </div>
       <Footer />
     </div>
-  )
-};
-
-Error.propTypes = {
-  tasks: PropTypes.shape({
-    activeTask: PropTypes.object
-  }),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string
-  })
+  );
 };
 
 const mapStateToProps = state => ({
@@ -74,7 +57,4 @@ const mapStateToProps = state => ({
   exceptions: handleGetExceptions(state)
 });
 
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
-export default connect(mapStateToProps, null)(Error);
+export default connect(mapStateToProps)(Error);

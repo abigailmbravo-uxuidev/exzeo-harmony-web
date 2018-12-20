@@ -53,6 +53,7 @@ describe('Testing Underwriting component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       service: {
 
       },
@@ -86,6 +87,9 @@ describe('Testing Underwriting component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       actions: {
         appStateActions: {
           setAppState() {}

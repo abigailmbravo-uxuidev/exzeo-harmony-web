@@ -12,6 +12,9 @@ describe('Testing AddPremiumFinance component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      quote: {},
+      updateQuote() {},
       fieldValues: {
         isAdditional: false
       },
@@ -31,6 +34,7 @@ describe('Testing AddPremiumFinance component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      quoteState: {},
       cg: {
         bb: {
           data: {
@@ -49,6 +53,8 @@ describe('Testing AddPremiumFinance component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      updateQuote() {},
+      history: [],
       fieldValues: {
         isAdditional: false
       },
