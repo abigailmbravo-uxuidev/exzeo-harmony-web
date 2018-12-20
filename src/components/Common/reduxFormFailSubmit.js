@@ -1,4 +1,4 @@
-const failedSubmission = (errors, dispatch, submitError, props) => {
+const failedSubmission = (errors = {}, dispatch, submitError, props) => {
   props.actions.appStateActions.setAppState('', '', { ...props.appState.data, showSnackBar: true });
   const errorKeys = Object.keys(errors);
   const elem = document.querySelector(`#${errorKeys[0]}`);
