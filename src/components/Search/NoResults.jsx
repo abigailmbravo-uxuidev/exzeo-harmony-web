@@ -38,14 +38,6 @@ export const NoResults = (props) => {
   return <span />;
 };
 
-NoResults.propTypes = {
-  searchType: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string
-  }),
-  tasks: PropTypes.shape()
-};
-
 const mapStateToProps = state => ({
   tasks: state.cg,
   appState: state.appState,

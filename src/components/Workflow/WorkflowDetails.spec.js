@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, getQuoteFromModel, ShowPremium, handleRecalc } from './WorkflowDetails';
+import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, handleRecalc } from './WorkflowDetails';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -32,7 +32,7 @@ describe('Testing WorkflowDetails component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      quoteState: {},
+      quoteState: { state: {} },
       service: {
         quote: {}
       },
@@ -128,30 +128,13 @@ describe('Testing WorkflowDetails component', () => {
         calculatedHurricane: 2000
       }
     };
+
     getClassForStep('step', props);
     goToStep(props, 'step');
-    getQuoteFromModel(initialState, props);
+
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
     wrapper.render();
     handleRecalc(props);
-  });
-
-  it('should test ShowPremium true', () => {
-    const data = {
-      isCustomize: true,
-      totalPremium: 3423434
-    };
-    const wrapper = shallow(<ShowPremium {...data} />);
-    expect(wrapper);
-  });
-
-  it('should test ShowPremium false', () => {
-    const data = {
-      isCustomize: false,
-      totalPremium: 3423434
-    };
-    const wrapper = shallow(<ShowPremium {...data} />);
-    expect(wrapper);
   });
 });

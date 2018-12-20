@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import CountUp from 'react-countup';
+
 import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 import * as completedTasksActions from '../../actions/completedTasksActions';
 import * as serviceActions from '../../actions/serviceActions';
-import * as customize from '../Customize/Customize';
 import { updateQuote } from '../../actions/quoteState.actions';
+import * as customize from '../Customize/Customize';
+import ShowPremium from './ShowPremium';
 
 const STEP_NAME_MAP = {
   askAdditionalCustomerData: 'customerInfo',
@@ -25,65 +25,24 @@ export const handleRecalc = (props) => {
   customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
 };
 
-export const getQuoteFromModel = (state, props) => {
-  const startModelData = {
-    quoteId: (props.appState.data && props.appState.data.quote) ? props.appState.data.quote._id : state.quote._id // eslint-disable-line
-  };
-
-  props.actions.serviceActions.getQuote(startModelData.quoteId).then((response) => {
-    if (response.payload && response.payload[0].data.quote) {
-      props.actions.appStateActions.setAppState(props.appState.modelName,
-        props.appState.instanceId, {
-          ...props.appState.data,
-          updateWorkflowDetails: false
-        });
-    }
-  });
-};
-
 export const goToStep = async (props, stepName) => {
-  // don't allow submission until the other step is completed
   const { activeTask, completedTasks } = props.workflowState;
-
+  // don't allow submission until the other step is completed
   if (props.appState.data.submitting || activeTask === stepName || !completedTasks.includes(stepName)) return;
 
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
   await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: false });
 
-  //
-  // const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
-  //
-  // if ((currentData && currentData.activeTask && currentData.activeTask.name !== taskName) &&
-  //     (currentData && currentData.model && (_.includes(currentData.model.completedTasks, taskName) || _.includes(props.completedTasks, taskName)))) {
-  //   const currentModelData = props.tasks && props.tasks[props.appState.modelName].data ? props.tasks[props.appState.modelName].data : {};
-  //   props.actions.cgActions.moveToTask(props.appState.modelName, props.appState.instanceId, taskName, _.union(currentModelData.model.completedTasks, props.completedTasks));
-  //   props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true, nextPage: taskName });
-  // }
   props.history.push(`${STEP_NAME_MAP[stepName]}`);
 };
 
 export const getClassForStep = (stepName, props) => {
-  let className = '';
   const { activeTask, completedTasks } = props.workflowState;
 
-  if (activeTask === stepName) {
-    className = 'active';
-  } else if (completedTasks.includes(stepName)) {
-    className = 'selected';
-  } else if (!completedTasks.includes(stepName)) {
-    className = 'disabled';
-  }
-  return className;
-  // const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
-  // if (currentData && currentData.activeTask && currentData.activeTask.name === stepName) {
-  //   className = 'active';
-  // } else if (currentData && currentData.model && (_.includes(currentData.model.completedTasks, stepName) || _.includes(props.completedTasks, stepName))) {
-  //   className = 'selected';
-  // } else if (currentData && currentData.model && !_.includes(currentData.model.completedTasks, stepName) && !_.includes(props.completedTasks, stepName)) {
-  //   className = 'disabled';
-  // }
-  // return className;
+  if (activeTask === stepName) return 'active';
+
+  return completedTasks.includes(stepName) ? 'selected' : 'disabled';
 };
 
 export const onKeyPress = (event, props, stepName) => {
@@ -93,50 +52,13 @@ export const onKeyPress = (event, props, stepName) => {
   }
 };
 
-export const ShowPremium = ({ isCustomize, totalPremium }) => {
-  if (isCustomize) {
-    return (<CountUp prefix="$ " separator="," start={0} end={totalPremium} />);
-  }
-  return (<span>$ {totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>);
-};
-
-ShowPremium.propTypes = {
-  totalPremium: PropTypes.number,
-  isCustomize: PropTypes.boolean
-};
-
 export class WorkflowDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      quote: {}
-    };
-  }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.appState !== this.props.appState) {
-  //     if (((nextProps.appState.data && nextProps.appState.data.quote) || this.state.quote._id) && nextProps.appState.data.updateWorkflowDetails) { // eslint-disable-line
-  //       getQuoteFromModel(this.state, nextProps);
-  //     }
-  //   }
-  //   const quote = nextProps.quote || {};
-  //   if (nextProps.appState.data && nextProps.appState.data.hideYoChildren) {
-  //     delete quote.coverageLimits;
-  //   }
-  //   this.setState((prevProps, newProps) => ({ ...newProps,
-  //     quote
-  //   }));
-  // }
-
-
   render() {
-    const { quote, workflowState } = this.props;
-    // const { quote } = this.props;
-    if (!quote || !quote.quoteNumber) { // eslint-disable-line
-      return <div className="detailHeader" />;
+    const { quote, workflowState, isHardStop, appState } = this.props;
+    if (!quote || !quote.quoteNumber) {
+      return (<div className="detailHeader" />);
     }
     const isCustomize = false;
-    // const isCustomize = this.props.tasks[this.props.workflowModelName] && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask.name === 'askToCustomizeDefaultQuote';
     return (
       <div>
         <div className="detailHeader">
@@ -196,24 +118,27 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                  {quote.rating && this.props.appState.data && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
-                    <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} /> : '--'}
+                  {quote.rating && appState.data && !appState.data.recalc && !appState.data.updateWorkflowDetails
+                    ? <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} />
+                    : '--'
+                  }
                 </dd>
               </div>
-              {this.props.appState.data && this.props.appState.data.recalc && <div className="recalc-wrapper">
-                <button
-                  tabIndex={'0'}
-                  className="btn btn-primary btn-round btn-sm"
-                  type="button"
-                  onClick={() => handleRecalc(this.props)}
-                  disabled={this.props.appState.data.submitting}
-                ><i className="fa fa-refresh" /></button>
-              </div>}
+              {appState.data && appState.data.recalc &&
+                <div className="recalc-wrapper">
+                  <button
+                    tabIndex={'0'}
+                    className="btn btn-primary btn-round btn-sm"
+                    type="button"
+                    onClick={() => handleRecalc(this.props)}
+                    disabled={this.props.appState.data.submitting}
+                  ><i className="fa fa-refresh" /></button>
+                </div>
+              }
             </dl>
           </section>
         </div>
-        {/* { this.props.tasks && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask !== 'askToSearchAgain' && */}
-        { !this.props.isHardStop &&
+        {!isHardStop &&
         <ul className="workflow-header">
           <div className="rule" />
           <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'askAdditionalCustomerData')} onClick={() => goToStep(this.props, 'askAdditionalCustomerData')} className={getClassForStep('askAdditionalCustomerData', this.props)}><i className={'fa fa-vcard'} /><span>Policyholder</span></a></li>
@@ -237,8 +162,7 @@ const mapStateToProps = state => ({
   customizeFormValues: _.get(state.form, 'Customize.values', {}),
   quote: state.quoteState.quote,
   workflowState: state.quoteState.state,
-  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
-
+  isHardStop: state.quoteState.state.isHardStop
 });
 
 const mapDispatchToProps = dispatch => ({
