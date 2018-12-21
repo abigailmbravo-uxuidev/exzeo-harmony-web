@@ -1,0 +1,242 @@
+.train {
+  display: flex;
+  flex-direction: column;
+
+  .route {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 100%;
+    height: auto;
+
+    .route-content {
+      display: flex;
+      overflow: hidden;
+      flex-direction: column;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      width: 100%;
+      height: auto;
+
+      .scroll {
+        display: flex;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-direction: column;
+        flex-grow: 1;
+
+        section {
+          margin-bottom: 1rem;
+          border-bottom: 1px dashed $cool-gray-02;
+
+          .link-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            h5 {
+              margin-bottom: 0;
+            }
+          }
+
+          &.contacts {
+            display: flex;
+            flex-wrap: wrap;
+
+            h2, h3, h4, > p {
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 100%;
+            }
+
+            .contact-card {
+              flex-grow: 0;
+              flex-shrink: 0;
+              margin: 0 $padding ($padding*2);
+
+              &:first-of-type {
+                  margin-left: 0;
+              }
+
+              &:last-of-type {
+                  margin-right: 0;
+              }
+
+              .card-header {
+                display: flex;
+                overflow: visible;
+                justify-content: center;
+                height: 5rem;
+                margin-bottom: 2rem;
+                padding-top: $padding;
+
+                .image {
+                  display: block;
+                  width: 7rem;
+                  height: 7rem;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                  background-size: 5.5rem;
+                  font-family: $font-family-icon;
+                  position: relative;
+
+                  &:after {
+                      content: '\f2bd';
+                      width: 6rem;
+                      height: 6rem;
+                      font-size: 6rem;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      background-color: $white;
+                      margin: $padding;
+                      border-radius: 50%;
+                      border: 4px solid $cool-gray-06;
+                      color: $cool-gray-06;
+                  }
+
+                  &.Clark-Ramos {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Clark-Ramos.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+
+                    }
+                  }
+
+                  &.Edward-Spegowski {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Edward-Spegowski.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+
+                    }
+                  }
+
+                  &.Jodi-Kelly {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Jodi-Kelly.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+
+                    }
+                  }
+
+                  &.Victor-Ferdinandi {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Victor-Ferdinandi.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+                    }
+                  }
+
+                  &.Kevin-Mitchell {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Kevin-Mitchell.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+                    }
+                  }
+
+                  &.Yanet-Coursen {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Yanet-Coursen.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+                    }
+                  }
+
+                  &.Justine-Hilton {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Justine-Hilton.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+                    }
+                  }
+
+                  &.Jessica-Altimus {
+                    &:after {
+                        content: '';
+                        background-image: url("../img/Jessica-Altimus.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: 5.5rem;
+                    }
+                  }
+                }
+              }
+
+              .card-body {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                padding: $padding ($padding*2) ($padding*2);
+
+                .contact-info {
+                  .contact-name {
+                    margin-bottom: 0;
+                    text-align: center;
+                  }
+
+                  .contact-title {
+                    margin-bottom: 0;
+                    text-align: center;
+                  }
+
+                  .contact-email,
+                  .contact-phone,
+                  .contact-address,
+                  .email-message {
+                    margin: $padding/2 0 0;
+
+                    i {
+                      display: inline-flex;
+                      align-items: center;
+                      justify-content: center;
+                      width: .25rem;
+                      margin-right: $padding;
+                      font-size: $font-size-sm;
+                    }
+                  }
+
+                  .email-message {
+                      margin-left: $padding*1.5;
+                      font-size: $font-size-sm;
+                  }
+                }
+              }
+
+              @include for-phone-only {
+                  width: calc(100% - 1rem);
+              }
+
+              @include for-tablet-portrait-up {
+                  width: calc(50% - 1rem);
+              }
+
+              @include for-desktop-up {
+                  width: calc(25% - 1rem);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

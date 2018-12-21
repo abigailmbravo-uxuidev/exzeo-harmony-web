@@ -124,7 +124,7 @@
             @include transition(all 0.05s ease-in-out);
 
             i {
-              width: 4rem - ($padding/2);
+              width: 3rem - ($padding/2);
               text-decoration: none;
               color: $bright-blue-darken-04;
               @include transition(all 0.05s ease-in-out);
@@ -143,7 +143,7 @@
               background-color: $white;
 
               i {
-                width: 4rem - ($padding/2);
+                width: 3rem - ($padding/2);
                 text-decoration: none;
               }
 
@@ -167,7 +167,7 @@
           }
 
           i {
-            width: 4rem;
+            width: 3rem;
             text-align: center;
             text-decoration: none;
             @include transition(all 0.1s 0.2s ease-in-out);
@@ -257,6 +257,22 @@
                 cursor: pointer;
                 border-left: ($padding/2) solid rgba($bright-blue, .2);
                 background-color: rgba($white, .1);
+              }
+            }
+          }
+
+          &.training {
+            i {
+              &:before {
+                content: "\f05a";
+              }
+            }
+          }
+
+          &.contacts {
+            i {
+              &:before {
+                content: "\f0a1";
               }
             }
           }
