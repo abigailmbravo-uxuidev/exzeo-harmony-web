@@ -22,9 +22,12 @@ const ContactCard = ({image, name, title, phone, extension, email, address1, add
           {title && <p className="contact-title">{title}</p>}
           {phone && <p className="contact-phone"><i className="fa fa-phone" /><a href={`tel:${phone}`}>{formatPhone(phone)} {extension && `${extension}`}</a></p>}
           {address1 && <p className="contact-address"><i className="fa fa-map-marker" />
-            {address1}<br />
-            {address2}<br />
-            {city},&nbsp;{state}&nbsp;{zip}
+            <div className="contact-address-wrapper">
+              {address1}<br />
+              {address2 && address2}
+              {address2 && <br />}
+              {city},&nbsp;{state}&nbsp;{zip}
+            </div>
           </p>}
           {email && <p className="contact-email"><i className="fa fa-envelope" /><a href={`mailto:${email}`}>{email}</a></p>}
           {message && <p className="email-message">{message}</p>}

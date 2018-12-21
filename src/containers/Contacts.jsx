@@ -93,12 +93,12 @@ const supportContacts = [
     phone: '8442897968',
     extension: 'option 3',
     email: 'customerservice@typtap.com',
-    address1: 'TypTap Management Company',
+    address1: 'Payable to: TypTap Management Company',
     address2: 'PO Box 1120',
     city: 'Ocala',
     state: 'FL',
     zip: '34478',
-    message: 'Provide Policy #, Insured Name, Insured Address.'
+    message: 'Provide Policy #, Insured Name, Insured Address. We accept Visa, MasterCard and Discover.'
   },
   {
     image: '',
