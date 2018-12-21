@@ -8,21 +8,10 @@ const RadioOptionBilling = ({
   name,
   segmented,
   size,
-  value
+  value,
 }) => (
-  <div
-    className={classNames(
-      `radio-column-${size}`,
-      { selected: value === answer }
-    )}
-    onClick={() => onChange(answer)}
-  >
-    <label
-      className={classNames(
-      'label-segmented': segmented,
-      { selected: value === answer },
-      )} htmlFor={name}
-    >
+  <div className={classNames(`radio-column-${size}`, { selected: value === answer })} onClick={() => onChange(answer)} >
+    <label className={classNames({'label-segmented': segmented, selected: value === answer })} htmlFor={name}>
       <input
         onChange={() => onChange(answer)}
         name={name}
