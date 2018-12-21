@@ -21,11 +21,11 @@ const territoryManagerContacts = [
     email: 'espegowski@hcpci.com'
   },
   {
-    image: 'Jodi-Kelly',
-    name: 'Jodi Kelly',
+    image: 'Jodi-Kelley',
+    name: 'Jodi Kelley',
     title: 'Northeast Florida Rep',
     phone: '8134195220',
-    email: 'jkelly@hcpci.com'
+    email: 'jkelley@hcpci.com'
   },
   {
     image: 'Victor-Ferdinandi',
@@ -98,7 +98,7 @@ const supportContacts = [
     city: 'Ocala',
     state: 'FL',
     zip: '34478',
-    message: 'Provide Policy #, Insured Name, Insured Address. We accept Visa, MasterCard and Discover.'
+    message: 'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone with Visa, MasterCard and Discover.'
   },
   {
     image: '',
