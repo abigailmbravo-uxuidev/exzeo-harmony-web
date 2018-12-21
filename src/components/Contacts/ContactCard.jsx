@@ -21,7 +21,7 @@ const ContactCard = ({image, name, title, phone, cell, extension, email, address
           {name && <h4 className="contact-name">{name}</h4>}
           {title && <p className="contact-title">{title}</p>}
           {phone && <p className="contact-phone"><i className="fa fa-phone-square" /><a href={`tel:${phone}`}>{formatPhone(phone)} {extension && `${extension}`}</a></p>}
-          {cell && <p className="contact-phone mobile"><a href={`tel:${phone}`}>{formatPhone(cell)}</a><span>MOBILE</span></p>}
+          {cell && <p className="contact-phone mobile"><a href={`tel:${cell}`}>{formatPhone(cell)}</a><span>MOBILE</span></p>}
           {email && <p className="contact-email"><i className="fa fa-envelope" /><a href={`mailto:${email}`}>{email}</a></p>}
           {address1 && <p className="contact-address"><i className="fa fa-map-marker" />
             <div className="contact-address-wrapper">
