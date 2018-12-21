@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import BaseConnect from "./Base";
-import ContactCard from "../components/Contacts/ContactCard"
-import Footer from "../components/Common/Footer";
+import BaseConnect from './Base';
+import ContactCard from '../components/Contacts/ContactCard'
+import Footer from '../components/Common/Footer';
 
 const territoryManagerContacts = [
   {
@@ -11,6 +11,7 @@ const territoryManagerContacts = [
     name: 'Clark Ramos',
     title: 'Southeast Florida Rep',
     phone: '7865171810',
+    cell: '3053216071',
     email: 'cramos@hcpci.com'
   },
   {
@@ -98,7 +99,7 @@ const supportContacts = [
     city: 'Ocala',
     state: 'FL',
     zip: '34478',
-    message: 'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone with Visa, MasterCard and Discover.'
+    message: 'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
   },
   {
     image: '',
@@ -125,16 +126,16 @@ const Contacts = props => (
                 ))}
               </section>
               <section className="contacts">
-                <h2>Marketing</h2>
-                <p>Contact marketing for...</p>
-                {marketingContacts.map(contact => (
+                <h2>Support</h2>
+                <p>Support should be contacted for...</p>
+                {supportContacts.map(contact => (
                   <ContactCard {...contact} />
                 ))}
               </section>
               <section className="contacts">
-                <h2>Support</h2>
-                <p>Support should be contacted for...</p>
-                {supportContacts.map(contact => (
+                <h2>Marketing</h2>
+                <p>Contact marketing for...</p>
+                {marketingContacts.map(contact => (
                   <ContactCard {...contact} />
                 ))}
               </section>

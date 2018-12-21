@@ -10,7 +10,7 @@ function formatPhone(phoneNumberString) {
   return '';
 }
 
-const ContactCard = ({image, name, title, phone, extension, email, address1, address2, city, state, zip, message}) => {
+const ContactCard = ({image, name, title, phone, cell, extension, email, address1, address2, city, state, zip, message}) => {
   return (
     <div className="card contact-card">
       <div className="card-header">
@@ -20,7 +20,8 @@ const ContactCard = ({image, name, title, phone, extension, email, address1, add
         <div className="contact-info">
           {name && <h4 className="contact-name">{name}</h4>}
           {title && <p className="contact-title">{title}</p>}
-          {phone && <p className="contact-phone"><i className="fa fa-phone" /><a href={`tel:${phone}`}>{formatPhone(phone)} {extension && `${extension}`}</a></p>}
+          {phone && <p className="contact-phone"><i className="fa fa-phone-square" /><a href={`tel:${phone}`}>{formatPhone(phone)} {extension && `${extension}`}</a></p>}
+          {cell && <p className="contact-phone mobile"><a href={`tel:${phone}`}>{formatPhone(cell)}</a><span>MOBILE</span></p>}
           {email && <p className="contact-email"><i className="fa fa-envelope" /><a href={`mailto:${email}`}>{email}</a></p>}
           {address1 && <p className="contact-address"><i className="fa fa-map-marker" />
             <div className="contact-address-wrapper">
@@ -30,7 +31,7 @@ const ContactCard = ({image, name, title, phone, extension, email, address1, add
               {city},&nbsp;{state}&nbsp;{zip}
             </div>
           </p>}
-          {message && <p className="email-message">{message}</p>}
+          {message && <p className="email-message"><i className="fa fa-info-circle" /><div className="message-wrapper">{message}</div></p>}
         </div>
       </div>
     </div>

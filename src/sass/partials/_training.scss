@@ -193,7 +193,8 @@
 
                   .contact-email,
                   .contact-phone,
-                  .contact-address {
+                  .contact-address,
+                  .email-message {
                     margin: $padding/2 0 0;
                     display: flex;
                     align-items: flex-start;
@@ -214,12 +215,19 @@
                   .contact-email,
                   .contact-phone {
                       white-space: nowrap;
+
+                      &.mobile {
+                          margin-left: 1.5rem;
+                          display: flex;
+                          flex-direction: column;
+                          span {
+                              font-size: $font-size-xs;
+                          }
+                      }
                   }
 
                   .email-message {
-                      margin-left: $padding*2;
                       font-size: $font-size-sm;
-                      margin: $padding/2 0 0;
                   }
                 }
               }
