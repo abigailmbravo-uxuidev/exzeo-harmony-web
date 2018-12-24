@@ -12,6 +12,9 @@ describe('Testing Share component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      updateQuote(){},
+      handleSubmit() {},
+      setAppState(){},
       underwritingExceptions: [],
       fieldQuestions: [],
       quoteData: {},
@@ -21,7 +24,6 @@ describe('Testing Share component', () => {
           submitting: false
         }
       },
-      handleSubmit() {}
     };
     const wrapper = shallow(<Share {...props} />);
     expect(wrapper);
@@ -30,60 +32,16 @@ describe('Testing Share component', () => {
   it('should test connected app', () => {
     const initialState = {
       quoteState: {},
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            model: {
-              variables: [{
-                name: 'getQuote', value: { result: {} }
-              }]
-            },
-            uiQuestions: []
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       }
     };
     const store = mockStore(initialState);
     const props = {
-      updateQuote() {},
-      history: [],
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
-        }
-      },
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
+      updateQuote(){},
       handleSubmit() {},
+      setAppState(){},
+      history: [],
       fieldQuestions: [],
       quote: {},
       dispatch: store.dispatch,

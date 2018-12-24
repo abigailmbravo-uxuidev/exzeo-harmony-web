@@ -1,21 +1,20 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import Footer from '../Common/Footer';
-import * as appStateActions from '../../actions/appStateActions';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
 import Loader from '../Common/Loader';
+import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 export const noShareSubmit = async (data, dispatch, props) => {
   const submitData = { shouldSendEmail: 'No' };
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('assumptions');
 };
@@ -23,32 +22,32 @@ export const noShareSubmit = async (data, dispatch, props) => {
 export const shareQuoteSubmit = async (data, dispatch, props) => {
   const submitData = { shouldSendEmail: 'Yes', ...data };
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber});
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false, showEmailPopup: false });
+  props.setAppState({ ...props.appState.data, submitting: false, showEmailPopup: false });
 };
 
 export const shareQuote = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: true });
+  props.setAppState({ submitting: true });
+  props.setAppState({ showEmailPopup: true });
 };
 
 export const closeShareSubmit = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
+  props.setAppState({ showEmailPopup: false });
 };
 
 export const refereshUWReviewError = async (props) => {
   const data = { refresh: 'Yes' };
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
+  props.setAppState({ submitting: true });
   await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber});
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: false });
+  props.setAppState({ submitting: false });
 
   props.history.push('customerInfo');
 };
 
 const redirectToNewQuote = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
+  props.setAppState({ submitting: true });
   props.history.push('/');
 };
 
@@ -112,13 +111,6 @@ const mapStateToProps = state => ({
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { setAppState, updateQuote })(reduxForm({
   form: 'Share'
 })(Share));
