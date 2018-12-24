@@ -6,11 +6,9 @@ import moment from 'moment';
 import { reduxForm, Form, change, Field } from 'redux-form';
 import _ from 'lodash';
 
-import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
@@ -21,10 +19,7 @@ import {
 } from '../Form/inputs';
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
-
   props.history.push('verify');
 };
 
@@ -137,7 +132,9 @@ export const Billing = (props) => {
     dispatch,
     handleSubmit,
     fieldValues,
-    paymentPlanResult
+    paymentPlanResult,
+    showSnackBar,
+    isLoading
   } = props;
 
   const setPropertyToggle = () => {
@@ -179,10 +176,9 @@ export const Billing = (props) => {
     <div className="route-content">
       <SnackBar
         {...props}
-        show={props.appState.data.showSnackBar}
+        show={showSnackBar}
         timer={3000}
       ><p>Please correct errors.</p></SnackBar>
-      {props.appState.data.submitting && <Loader />}
       <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
@@ -229,7 +225,7 @@ export const Billing = (props) => {
           </div>
           <Field name="billToType" component="input" type="hidden" />
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Billing" disabled={props.appState.data.submitting || !props.fieldValues.billToId}>next</button>
+            <button className="btn btn-primary" type="submit" form="Billing" disabled={isLoading || !props.fieldValues.billToId}>next</button>
           </div>
           <Footer />
         </div>
@@ -239,7 +235,8 @@ export const Billing = (props) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Billing.values', {}),
   initialValues: handleInitialize(state),
@@ -248,7 +245,7 @@ const mapStateToProps = state => ({
   paymentPlanResult: handleGetPaymentPlans(state)
 });
 
-export default connect(mapStateToProps, { updateQuote, setAppState })(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'Billing',
   enableReinitialize: true,
   onSubmitFail: failedSubmission

@@ -40,12 +40,9 @@ const hidePolicyHolderModal = (props) => {
 };
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  const { appState, quote, history } = props;
+  const {  quote, history } = props;
   const taskData = { ...data, shouldEditVerify: 'false' };
-
-  props.setAppState({ ...appState.data, submitting: true });
   await props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
-  props.setAppState({ ...appState.data, submitting: false });
   history.push('thankYou');
 };
 
@@ -62,9 +59,8 @@ export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
 
   taskData.shouldEditVerify = 'PolicyHolder';
 
-  props.setAppState({ ...appState.data, submitting: true });
   await props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
-  props.setAppState({ ...appState.data, submitting: false, showPolicyHolderModal: false });
+  props.setAppState({ ...appState.data, showPolicyHolderModal: false });
 };
 
 export const Verify = (props) => {
@@ -93,9 +89,6 @@ export const Verify = (props) => {
 
   return (
     <div className="route-content verify">
-      {appState.data.submitting &&
-        <Loader />
-      }
       {quoteData.quoteNumber &&
         <form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props, true))}>
           <div className="scroll">
@@ -368,7 +361,7 @@ export const Verify = (props) => {
           primaryButtonHandler={handlePolicyHolderUpdate}
           secondaryButtonHandler={() => hidePolicyHolderModal(props)}
           parentProps={props}
-          showSnackBar={props.appState.data.showSnackBar}
+          showSnackBar={props.showSnackBar}
         />
       }
       {appState.data.showScheduleDateModal &&
@@ -390,7 +383,8 @@ Verify.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Verify.values', {}),
   agentList: state.service.agents || [],
