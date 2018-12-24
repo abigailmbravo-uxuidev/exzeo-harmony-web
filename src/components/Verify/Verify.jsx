@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import _ from 'lodash';
@@ -41,7 +40,7 @@ const hidePolicyHolderModal = (props) => {
 };
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  const { actions, appState, quote, history } = props;
+  const { appState, quote, history } = props;
   const taskData = { ...data, shouldEditVerify: 'false' };
 
   props.setAppState({ ...appState.data, submitting: true });
@@ -51,7 +50,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 };
 
 export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
-  const { actions, appState, quote } = props;
+  const { appState, quote } = props;
   const taskData = { ...data };
 
   if (!taskData.isAdditional) {
@@ -82,7 +81,6 @@ export const Verify = (props) => {
     property,
     coverageLimits,
     coverageOptions,
-    additionalInterests = [],
     policyHolders = [],
     policyHolderMailingAddress: mailingAddress = {},
     deductibles

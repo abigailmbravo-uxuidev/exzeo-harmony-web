@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { batchActions } from 'redux-batched-actions';
 import { reduxForm, Form, change } from 'redux-form';

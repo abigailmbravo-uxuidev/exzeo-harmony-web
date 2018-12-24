@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import Footer from '../Common/Footer';
 import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
@@ -92,7 +91,7 @@ export const hideAdditionalInterestModal = (props) => {
 };
 
 export const deleteAdditionalInterest = async (selectedAdditionalInterest, props) => {
-  const { actions, quote } = props;
+  const { quote } = props;
   props.setAppState({
     ...props.appState.data,
     submitting: true,

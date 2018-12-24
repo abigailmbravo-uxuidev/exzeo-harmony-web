@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
@@ -52,13 +51,11 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 
 export const handleFormChange = props => (event, newValue, previousValue) => {
   if (previousValue !== newValue) {
-    const workflowId = props.appState.instanceId;
     props.setAppState({ recalc: true, hideYoPremium: true });
   }
 };
 
 export const handleReset = (props) => {
-  const workflowId = props.appState.instanceId;
   props.setAppState({ recalc: false, hideYoPremium: false });
 };
 

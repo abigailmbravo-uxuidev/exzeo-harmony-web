@@ -27,7 +27,7 @@ export class Search extends React.Component {
   }
 
   handleSelectQuote = async (quoteData) => {
-    const { actions, appState, getQuote, history } = this.props;
+    const { actions, appState, history } = this.props;
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
     const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
@@ -38,7 +38,7 @@ export class Search extends React.Component {
   };
 
   handleSelectAddress = async (address) => {
-    const { actions, appState, createQuote, history } = this.props;
+    const { actions, appState, history } = this.props;
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
     actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
