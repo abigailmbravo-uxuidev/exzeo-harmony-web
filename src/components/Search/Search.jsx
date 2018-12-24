@@ -15,22 +15,22 @@ import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.acti
 
 
 const closeQuoteError = ({ actions, appState }) => {
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showEmailPopup: false });
+  actions.appStateActions.setAppState({ showEmailPopup: false });
 };
 
 export class Search extends React.Component {
   componentWillMount() {
     const { actions, appState, clearResults, clearQuote } = this.props;
-    actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
+    actions.appStateActions.setAppState({ submitting: false });
     clearResults();
     clearQuote();
   }
 
   handleSelectQuote = async (quoteData) => {
     const { actions, appState, history } = this.props;
-    actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
+    actions.appStateActions.setAppState({ submitting: true });
     const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
-    actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
+    actions.appStateActions.setAppState({ submitting: false });
 
     if (quote) {
       history.push(`/quote/${quote.quoteNumber}/customerInfo`);
@@ -39,9 +39,9 @@ export class Search extends React.Component {
 
   handleSelectAddress = async (address) => {
     const { actions, appState, history } = this.props;
-    actions.appStateActions.setAppState(appState.modelName, '', { submitting: true });
+    actions.appStateActions.setAppState({ submitting: true });
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
-    actions.appStateActions.setAppState(appState.modelName, '', { submitting: false });
+    actions.appStateActions.setAppState({ submitting: false });
 
     if (quote) {
       history.push(`/quote/${quote.quoteNumber}/customerInfo`);
