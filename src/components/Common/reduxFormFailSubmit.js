@@ -1,10 +1,12 @@
-const failedSubmission = (errors, dispatch, submitError, props) => {
-  props.setAppState({ ...props.appState.data, showSnackBar: true });
+import { toggleSnackbar } from '../../actions/appStateActions';
+
+const failedSubmission = (errors, dispatch) => {
+  dispatch(toggleSnackbar(true));
   const errorKeys = Object.keys(errors);
   const elem = document.querySelector(`#${errorKeys[0]}`);
   if (elem) elem.scrollIntoView({ block: 'end', behavior: 'smooth' });
   setTimeout(() => {
-    props.setAppState({ ...props.appState.data, showSnackBar: false });
+    dispatch(toggleSnackbar(false));
   }, 3000);
 };
 

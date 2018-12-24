@@ -68,21 +68,22 @@ export class CustomerInfo extends React.Component {
 
   render() {
     const {
-      appState,
       handleSubmit,
       fieldValues,
       zipCodeSettings,
-      agentResults
+      agentResults,
+      showSnackBar,
+      isLoading,
+      quote
     } = this.props;
 
     const questions = this.props.uiQuestions;
-    const quoteData = this.props.quote;
 
     return (
       <div className="route-content">
         <SnackBar
           {...this.props}
-          show={appState.data.showSnackBar}
+          show={showSnackBar}
           timer={3000}
         ><p>Please correct errors.</p></SnackBar>
         <Form
@@ -97,7 +98,7 @@ export class CustomerInfo extends React.Component {
                   tabindex="0"
                   autoFocus={index === 1}
                   zipCodeSettings={zipCodeSettings}
-                  data={quoteData}
+                  data={quote}
                   question={question}
                   values={fieldValues}
                   key={index}
@@ -120,7 +121,7 @@ export class CustomerInfo extends React.Component {
                 className="btn btn-primary"
                 type="submit"
                 form="CustomerInfo"
-                disabled={appState.isSubmitting}
+                disabled={isLoading}
               >next</button>
             </div>
             <Footer />
@@ -133,8 +134,8 @@ export class CustomerInfo extends React.Component {
 
 const mapStateToProps = state => (
   {
-    tasks: state.cg,
-    appState: state.appState,
+    isLoading: state.appState.isLoading,
+    showSnackBar: state.appState.showSnackBar,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
     agentResults: state.service.agents,

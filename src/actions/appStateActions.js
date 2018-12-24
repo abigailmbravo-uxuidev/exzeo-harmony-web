@@ -30,15 +30,24 @@ export const dispatchAppState = data => dispatch => dispatch(setAppState(data));
 
 /**
  *
- * @param isSubmitting
- * @returns {{type: string, isSubmitting: boolean}}
+ * @param isLoading
+ * @returns {{type: string, isLoading: boolean}}
  */
-export const toggleSubmitting = (isSubmitting) => {
+export const toggleLoading = (isLoading) => {
   return {
-    type: types.TOGGLE_SUBMITTING,
-    appState: {
-      isSubmitting
-    }
+    type: types.TOGGLE_LOADING,
+    isLoading
   };
 }
 
+/**
+ *
+ * @param showSnackBar
+ * @returns {{type: string, isSubmitting: boolean}}
+ */
+export const toggleSnackbar = (showSnackBar) => {
+  return {
+    type: types.TOGGLE_SNACKBAR,
+    showSnackBar
+  };
+}
