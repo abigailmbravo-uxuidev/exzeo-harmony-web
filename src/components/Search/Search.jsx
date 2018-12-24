@@ -14,20 +14,20 @@ import { clearResults } from '../../actions/searchActions';
 import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
 
 
-const closeQuoteError = ({ actions, appState }) => {
+const closeQuoteError = ({ actions }) => {
   actions.appStateActions.setAppState({ showEmailPopup: false });
 };
 
 export class Search extends React.Component {
   componentWillMount() {
-    const { actions, appState, clearResults, clearQuote } = this.props;
+    const { actions, clearResults, clearQuote } = this.props;
     actions.appStateActions.setAppState({ submitting: false });
     clearResults();
     clearQuote();
   }
 
   handleSelectQuote = async (quoteData) => {
-    const { actions, appState, history } = this.props;
+    const { actions, history } = this.props;
     actions.appStateActions.setAppState({ submitting: true });
     const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
     actions.appStateActions.setAppState({ submitting: false });
@@ -38,7 +38,7 @@ export class Search extends React.Component {
   };
 
   handleSelectAddress = async (address) => {
-    const { actions, appState, history } = this.props;
+    const { actions, history } = this.props;
     actions.appStateActions.setAppState({ submitting: true });
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
     actions.appStateActions.setAppState({ submitting: false });
