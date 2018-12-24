@@ -15,8 +15,6 @@ export const goToStep = async (props, stepName) => {
 
   if (props.appState.data.submitting || activeTask === stepName || !completedTasks.includes(stepName)) return;
 
-  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
   props.history.push(`${STEP_NAME_MAP[stepName]}`);
 };
