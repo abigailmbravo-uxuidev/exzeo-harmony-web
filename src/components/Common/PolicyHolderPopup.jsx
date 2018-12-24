@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
 import TextField from '../Form/inputs/TextField';
 import PhoneField from '../Form/inputs/PhoneField';
 
-import * as appStateActions from '../../actions/appStateActions';
 import normalizePhone from '../Form/normalizePhone';
 import CheckField from '../Form/inputs/CheckField';
 import SnackBar from './SnackBar';

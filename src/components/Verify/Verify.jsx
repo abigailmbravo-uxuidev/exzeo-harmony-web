@@ -8,7 +8,6 @@ import { setAppState }from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import ScheduleDate from '../Common/ScheduleDate';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 import { CheckField } from '../Form/inputs';
 import normalizePhone from '../Form/normalizePhone';
@@ -53,7 +52,7 @@ export class Verify extends React.Component {
   };
   
   handlePolicyHolderUpdate = async (data) => {
-    const { appState, quote } = this.props;
+    const {  quote } = this.props;
     const taskData = { ...data };
   
     if (!taskData.isAdditional) {
@@ -72,7 +71,6 @@ export class Verify extends React.Component {
   render() {
     const {
       fieldValues,
-      appState,
       handleSubmit,
       submitting,
       agentList,
