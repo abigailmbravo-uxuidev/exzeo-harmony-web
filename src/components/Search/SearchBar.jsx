@@ -6,10 +6,9 @@ import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-for
 import _ from 'lodash';
 import Rules from '../Form/Rules';
 
-import * as appStateActions from '../../actions/appStateActions';
-import * as errorActions from '../../actions/errorActions';
-import * as serviceActions from '../../actions/serviceActions';
-import * as searchActions from '../../actions/searchActions';
+import { setAppState } from '../../actions/appStateActions';
+import { clearAppError }from '../../actions/errorActions';
+import { searchQuotes, setQuoteSearch, searchAddresses } from '../../actions/searchActions';
 
 import Pagination from '../Common/Pagination';
 import { generateField, getSearchType } from './searchUtils';
@@ -49,14 +48,14 @@ export const changePageQuote = async (props, isNext) => {
 
   taskData.pageNumber = isNext ? String(Number(fieldValues.pageNumber) + 1) : String(Number(fieldValues.pageNumber) - 1);
 
-  props.actions.searchActions.setQuoteSearch(taskData);
+  props.setQuoteSearch(taskData);
   localStorage.setItem('lastSearchData', JSON.stringify(taskData));
 
-  props.actions.errorActions.clearAppError();
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  props.clearAppError();
+  props.setAppState({ ...props.appState.data, submitting: true });
 
-  await props.actions.searchActions.searchQuotes(taskData);
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  await props.searchQuotes(taskData);
+  props.setAppState({ ...props.appState.data, submitting: false });
 };
 
 export const handleSearchBarSubmit = async (data, dispatch, props) => {
@@ -80,16 +79,16 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
     sortDirection: 'desc'
   };
 
-  props.actions.searchActions.setQuoteSearch(taskData);
+  props.setQuoteSearch(taskData);
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.actions.searchActions.searchQuotes(taskData);
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.searchQuotes(taskData);
+  props.setAppState({ ...props.appState.data, submitting: false });
 
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
-  props.actions.searchActions.searchAddresses(encodeURIComponent(data.address));
+  props.searchAddresses(encodeURIComponent(data.address));
 };
 
 export const validate = (values) => {
@@ -146,7 +145,7 @@ export class SearchForm extends Component {
       const pageNumber = currentPage; // quoteSearchResponse.currentPage;
       dispatch(change('SearchBar', 'pageNumber', pageNumber));
       dispatch(change('SearchBar', 'totalPages', totalPages));
-      nextProps.actions.searchActions.setQuoteSearch({ ...nextProps.search, totalPages, pageNumber });
+      nextProps.setQuoteSearch({ ...nextProps.search, totalPages, pageNumber });
     }
   }
 
@@ -229,19 +228,16 @@ const mapStateToProps = state => ({
   searchResults: state.search.results
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch),
-    errorActions: bindActionCreators(errorActions, dispatch),
-    serviceActions: bindActionCreators(serviceActions, dispatch),
-    searchActions: bindActionCreators(searchActions, dispatch)
-  }
-});
-
 const searchBarForm = reduxForm({
   form: 'SearchBar',
   enableReinitialize: true,
   validate
 })(SearchBar);
 
-export default connect(mapStateToProps, mapDispatchToProps)(searchBarForm);
+export default connect(mapStateToProps, { 
+  setAppState, 
+  clearAppError,
+  searchQuotes, 
+  setQuoteSearch,
+  searchAddresses 
+})(searchBarForm);

@@ -66,27 +66,6 @@ describe('Testing SearchBar component', () => {
   });
   it('should test handleFormSubmit', () => {
     const initialState = {
-      cg: {
-        bb: {
-          data: {
-            activeTask: {
-              name: 'activeTask'
-            },
-            modelInstanceId: '123',
-            model: {
-              variables: [
-                { name: 'retrieveQuote',
-                  value: {
-                    result: {}
-                  } }, { name: 'getQuoteBeforePageLoop',
-                    value: {
-                      result: {}
-                    } }]
-            },
-            uiQuestions: []
-          }
-        }
-      },
       appState: {
         data: {
           showAdditionalInterestModal: false
@@ -100,30 +79,16 @@ describe('Testing SearchBar component', () => {
       userProfile: {
         groups: [{ state: 'FL', companyCode: 'TTIC' }]
       },
-      tasks: {
-        ...initialState.cg
-      },
       fieldValues: {
         searchType: 'address'
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      actions: {
-        searchActions: {
-          searchQuotes() {},
-          setQuoteSearch() {},
-          setPolicySearch() {}
-        },
-        appStateActions: {
-          setAppState() { }
-        },
-        errorActions: {
-          clearAppError() { }
-        },
-        cgActions: {
-          moveToTaskAndExecuteComplete() { return Promise.resolve(() => {}); }
-        }
-      },
+      setAppState() {},
+      clearAppError() {},
+      searchQuotes() {},
+      setQuoteSearch() {},
+      searchAddresses() {},
       appState: {
         modelName: 'bb',
         data: {
@@ -183,27 +148,6 @@ describe('Testing SearchBar component', () => {
 
   it('should paging functions', () => {
     const initialState = {
-      cg: {
-        bb: {
-          data: {
-            activeTask: {
-              name: 'activeTask'
-            },
-            modelInstanceId: '123',
-            model: {
-              variables: [
-                { name: 'retrieveQuote',
-                  value: {
-                    result: {}
-                  } }, { name: 'getQuoteBeforePageLoop',
-                    value: {
-                      result: {}
-                    } }]
-            },
-            uiQuestions: []
-          }
-        }
-      },
       appState: {
         data: {
           showAdditionalInterestModal: false
@@ -214,36 +158,19 @@ describe('Testing SearchBar component', () => {
     const store = mockStore(initialState);
 
     const props = {
+      setAppState() {},
+      clearAppError() {},
+      searchQuotes() {},
+      setQuoteSearch() {},
+      searchAddresses() {},
       userProfile: {
         groups: [{ state: 'FL', companyCode: 'TTIC' }]
-      },
-      tasks: {
-        ...initialState.cg
       },
       fieldValues: {
         searchType: 'address'
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      actions: {
-        serviceActions: {
-          searchPolicy() { return Promise.resolve(() => {}); }
-        },
-        searchActions: {
-          searchQuotes() {},
-          setQuoteSearch() {},
-          setPolicySearch() {}
-        },
-        appStateActions: {
-          setAppState() { }
-        },
-        errorActions: {
-          clearAppError() { }
-        },
-        cgActions: {
-          moveToTaskAndExecuteComplete() { return Promise.resolve(() => {}); }
-        }
-      },
       appState: {
         modelName: 'bb',
         data: {
