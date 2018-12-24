@@ -6,7 +6,7 @@ import errorReducer from './errorReducer';
 describe('Error Reducer', () => {
   it('should call errorReducer APP_ERROR', () => {
     const state = initialState.appState;
-    const inputProps = { data: { submitting: false, updateWorkflowDetails: false } };
+    const inputProps = { data: { submitting: false, updateWorkflowDetails: false }, isSubmitting: false };
     const action = {
       type: types.APP_ERROR,
       error: inputProps

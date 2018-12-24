@@ -27,7 +27,7 @@ const handleInitialize = (state) => {
 
     const defaultAnswer = question && question.answers &&
     _.find(question.answers, { default: true }) ?
-    _.find(question.answers, { default: true }).answer : null;
+      _.find(question.answers, { default: true }).answer : null;
 
     if (defaultAnswer && question.hidden) {
       values[question.name] = defaultAnswer;
@@ -64,7 +64,7 @@ export const Underwriting = (props) => {
                 values={fieldValues}
                 key={index}
               />
-        )}
+            )}
           </div>
           <div className="workflow-steps">
             <button

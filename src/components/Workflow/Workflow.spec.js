@@ -12,6 +12,7 @@ describe('Testing Workflow component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      clearPolicyResults() {},
       tasks: {
         quoteModel: {
           data: {
@@ -27,19 +28,6 @@ describe('Testing Workflow component', () => {
             },
             uiQuestions: []
           }
-        }
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          startWorkflow() { return Promise.resolve(); },
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
-        },
-        serviceActions: {
-          clearPolicyResults() {}
         }
       },
       fieldQuestions: [],
@@ -59,58 +47,12 @@ describe('Testing Workflow component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            model: {
-              variables: [{
-                name: 'getQuote', value: { result: {} }
-              }]
-            },
-            uiQuestions: []
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       }
     };
     const store = mockStore(initialState);
     const props = {
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          startWorkflow() { return Promise.resolve(); },
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
-        }
-      },
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
       handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
@@ -157,43 +99,7 @@ describe('Testing Workflow component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      actions: {
-        serviceActions: {
-          clearPolicyResults() {}
-        },
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {},
-          startWorkflow() { return Promise.resolve(); }
-        }
-      },
-      tasks: {
-        quoteModel: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            activeTask: {
-              name: 'step2',
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            previousTask: {
-              name: 'step1',
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
+      clearPolicyResults() {},
       handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},

@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 
-import { setAppState }from '../../actions/appStateActions';
+import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import ScheduleDate from '../Common/ScheduleDate';
 import Footer from '../Common/Footer';
@@ -16,7 +16,6 @@ import { goToStep } from '../../utilities/navigation';
 const NO_AGENT_FOUND = { firstName: '', lastName: '' };
 
 export class Verify extends React.Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -28,14 +27,14 @@ export class Verify extends React.Component {
   scheduleDateModal = (showModal) => {
     this.setState({ showScheduleDateModal: !!showModal });
   };
-  
+
   redirectToHome = () => {
     this.scheduleDateModal(false);
     this.props.history.push('/');
   };
-  
+
   handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
-  
+
   showPolicyHolderModal = () => {
     this.setState({ showPolicyHolderModal: true });
   };
@@ -43,29 +42,29 @@ export class Verify extends React.Component {
   hidePolicyHolderModal = () => {
     this.setState({ showPolicyHolderModal: false });
   };
-  
+
   handleFormSubmit = async (data) => {
-    const {  quote, history } = this.props;
+    const { quote, history } = this.props;
     const taskData = { ...data, shouldEditVerify: 'false' };
     await this.props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
     history.push('thankYou');
   };
-  
+
   handlePolicyHolderUpdate = async (data) => {
-    const {  quote } = this.props;
+    const { quote } = this.props;
     const taskData = { ...data };
-  
+
     if (!taskData.isAdditional) {
       taskData.pH2email = '';
       taskData.pH2FirstName = '';
       taskData.pH2LastName = '';
       taskData.pH2phone = '';
     }
-  
+
     taskData.shouldEditVerify = 'PolicyHolder';
-  
+
     await this.props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
-    this.setState({ showPolicyHolderModal: false})
+    this.setState({ showPolicyHolderModal: false });
   };
 
   render() {
@@ -379,8 +378,8 @@ export class Verify extends React.Component {
         }
       </div>
     );
-  };
-};
+  }
+}
 
 Verify.defaultProps = {
   quote: {},
