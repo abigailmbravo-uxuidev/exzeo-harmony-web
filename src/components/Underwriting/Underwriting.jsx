@@ -5,20 +5,14 @@ import { reduxForm, Form, propTypes } from 'redux-form';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
 
-import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import FieldGenerator from '../Form/FieldGenerator';
 
-
 const handleFormSubmit = async (data, dispatch, props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
-
   props.history.push('customize');
 };
 
@@ -44,7 +38,7 @@ const handleInitialize = (state) => {
 };
 
 export const Underwriting = (props) => {
-  const { handleSubmit, fieldValues, quote, isHardStop } = props;
+  const { handleSubmit, fieldValues, quote, isHardStop, showSnackBar, isLoading } = props;
   const questions = props.questions;
 
   return (
@@ -52,10 +46,9 @@ export const Underwriting = (props) => {
       {isHardStop && <Redirect to={'error'} />}
       <SnackBar
         {...props}
-        show={props.appState.data.showSnackBar}
+        show={showSnackBar}
         timer={3000}
       ><p>Please correct errors.</p></SnackBar>
-      {props.appState.data.submitting && <Loader />}
       <Form
         id="Underwriting"
         onSubmit={handleSubmit(handleFormSubmit)}
@@ -79,7 +72,7 @@ export const Underwriting = (props) => {
               className="btn btn-primary"
               type="submit"
               form="Underwriting"
-              disabled={props.appState.data.submitting}
+              disabled={isLoading}
             >next</button>
           </div>
           <Footer />
@@ -91,21 +84,13 @@ export const Underwriting = (props) => {
 
 Underwriting.propTypes = {
   ...propTypes,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string,
-    data: PropTypes.shape({
-      submitting: PropTypes.bool
-    })
-  }),
   quote: PropTypes.shape(),
   questions: PropTypes.arrayOf(PropTypes.shape())
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
-  appState: state.appState,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   fieldValues: _.get(state.form, 'Underwriting.values', {}),
   initialValues: handleInitialize(state),
   questions: handleGetQuestions(state),
@@ -114,7 +99,7 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { setAppState, updateQuote })(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'Underwriting',
   onSubmitFail: failedSubmission,
   enableReinitialize: true,
