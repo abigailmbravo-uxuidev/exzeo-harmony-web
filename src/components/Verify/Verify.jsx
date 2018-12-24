@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState }from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import ScheduleDate from '../Common/ScheduleDate';
 import Footer from '../Common/Footer';
@@ -23,7 +23,7 @@ const NO_AGENT_FOUND = { firstName: '', lastName: '' };
 // The appState id comes from props.appState.
 // ------------------------------------------------
 export const scheduleDateModal = (props, showModal) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showScheduleDateModal: !!showModal });
+  props.setAppState({ showScheduleDateModal: !!showModal });
 };
 
 const redirectToHome = (props) => {
@@ -33,25 +33,25 @@ const redirectToHome = (props) => {
 
 const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
-const showPolicyHolderModal = ({ actions, appState }) => {
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: true });
+const showPolicyHolderModal = (props) => {
+  props.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: true });
 };
-const hidePolicyHolderModal = ({ actions, appState }) => {
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: false });
+const hidePolicyHolderModal = (props) => {
+  props.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: false });
 };
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  const { actions, appState, updateQuoteAction, quote, history } = props;
+  const { actions, appState, quote, history } = props;
   const taskData = { ...data, shouldEditVerify: 'false' };
 
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
-  await updateQuoteAction({ data: taskData, quoteNumber: quote.quoteNumber });
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: false });
+  props.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
+  await props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
+  props.setAppState(appState.modelName, '', { ...appState.data, submitting: false });
   history.push('thankYou');
 };
 
 export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
-  const { actions, appState, updateQuoteAction, quote } = props;
+  const { actions, appState, quote } = props;
   const taskData = { ...data };
 
   if (!taskData.isAdditional) {
@@ -63,9 +63,9 @@ export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
 
   taskData.shouldEditVerify = 'PolicyHolder';
 
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
-  await updateQuoteAction({ data: taskData, quoteNumber: quote.quoteNumber });
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: false, showPolicyHolderModal: false });
+  props.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
+  await props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
+  props.setAppState(appState.modelName, '', { ...appState.data, submitting: false, showPolicyHolderModal: false });
 };
 
 export const Verify = (props) => {
@@ -400,15 +400,7 @@ const mapStateToProps = state => ({
   workflowState: state.quoteState.state
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuoteAction: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { setAppState, updateQuote })(reduxForm({
   form: 'Verify',
   enableReinitialize: true
 })(Verify));
