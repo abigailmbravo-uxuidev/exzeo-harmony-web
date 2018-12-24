@@ -7,7 +7,6 @@ import _ from 'lodash';
 import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import { getInitialValues } from '../Customize/customizeHelpers';
@@ -41,20 +40,14 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     additionalInterests.push(premiumFinance1);
   }
 
-  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
-
   props.history.push('additionalInterests');
 };
 
 export const closeAndSavePreviousAIs = async (props) => {
   const additionalInterests = props.quote.additionalInterests;
 
-  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
-
   props.history.push('additionalInterests');
 };
 
@@ -135,17 +128,18 @@ export const PremiumFinance = (props) => {
     fieldQuestions,
     quote,
     handleSubmit,
-    fieldValues
+    fieldValues,
+    isLoading,
+    showSnackBar
   } = props;
 
   return (
     <div className="route-content">
       <SnackBar
         {...props}
-        show={props.appState.data.showSnackBar}
+        show={showSnackBar}
         timer={3000}
       ><p>Please correct errors.</p></SnackBar>
-      { props.appState.data.submitting && <Loader /> }
       <Form id="PremiumFinance" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
@@ -181,7 +175,7 @@ export const PremiumFinance = (props) => {
               <span className="button-info">Oops! There is no Premium Finance</span>
               <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
             </span>
-            <button className="btn btn-primary" type="submit" form="PremiumFinance" disabled={props.appState.data.submitting}>Save</button>
+            <button className="btn btn-primary" type="submit" form="PremiumFinance" disabled={isLoading}>Save</button>
           </div>
           <Footer />
         </div>
@@ -191,7 +185,8 @@ export const PremiumFinance = (props) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'PremiumFinance.values', {}),
   initialValues: handleInitialize(state),

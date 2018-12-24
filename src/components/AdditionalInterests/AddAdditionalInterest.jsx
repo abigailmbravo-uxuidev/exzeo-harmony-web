@@ -5,7 +5,6 @@ import { reduxForm, Form } from 'redux-form';
 import Footer from '../Common/Footer';
 import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
-import Loader from '../Common/Loader';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -13,44 +12,44 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 
 export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
   const taskData = { shouldUpdateAIs: 'No' };
-  props.setAppState({ ...props.appState.data, submitting: true });
+  
   await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
+  
   props.history.push('mailingBilling');
 };
 
 export const AddMortgagee = async (props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
+  
   await props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
+  
   props.history.push('askMortgagee');
 };
 
 export const AddPremiumFinance = async (props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
+  
   await props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
+  
   props.history.push('askPremiumFinance');
 };
 
 export const AddAdditionalInsured = async (props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
+  
   await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
+  
   props.history.push('askAdditionalInsured');
 };
 
 export const AddInterest = async (props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
+  
   await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
+  
   props.history.push('askAdditionalInterest');
 };
 
 export const AddBillpayer = async (props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
+  
   await props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
+  
   props.history.push('askBillPayer');
 };
 
@@ -125,10 +124,9 @@ export const AddAdditionalInterest = props => (
   <div className="route-content">
     <SnackBar
       {...props}
-      show={props.appState.data.showSnackBar}
+      show={props.showSnackBar}
       timer={3000}
     ><p>Please correct errors.</p></SnackBar>
-    {props.appState.data.submitting && <Loader />}
     <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={props.handleSubmit(noAddAdditionalInterestSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">
@@ -175,10 +173,10 @@ export const AddAdditionalInterest = props => (
         </div>
         <div className="workflow-steps">
           {props.quote.additionalInterests && props.quote.additionalInterests.length === 0 &&
-            <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>Not Applicable</button>
+            <button className="btn btn-primary" type="submit" disabled={props.isLoading}>Not Applicable</button>
           }
           {props.quote.additionalInterests && props.quote.additionalInterests.length > 0 &&
-          <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>next</button>
+          <button className="btn btn-primary" type="submit" disabled={props.isLoading}>next</button>
           }
         </div>
         <Footer />
@@ -189,7 +187,8 @@ export const AddAdditionalInterest = props => (
 );
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'AddAdditionalInterestPage.values', {}),
   quote: handleGetQuoteData(state)

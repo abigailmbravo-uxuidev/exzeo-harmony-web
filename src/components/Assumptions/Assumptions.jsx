@@ -13,7 +13,7 @@ export const handleOnSubmit = async (data, dispatch, props) => {
 };
 
 export const Assumptions = (props) => {
-  const { appState, handleSubmit, fieldValues, isLoading } = props;
+  const { handleSubmit, fieldValues, isLoading } = props;
   return (
     <div className="route-content">
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
