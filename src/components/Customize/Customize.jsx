@@ -46,7 +46,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     props.history.push('share');
   }
 
-  props.setAppState({ recalc: false, submitting: false });
+  props.setAppState({ recalc: false });
 };
 
 export const handleFormChange = props => (event, newValue, previousValue) => {
@@ -82,7 +82,9 @@ export const Customize = (props) => {
     handleSubmit,
     reset,
     fieldValues,
-    isHardStop
+    isHardStop,
+    showSnackBar,
+    isSubmitting
   } = props;
 
   return (
@@ -90,10 +92,10 @@ export const Customize = (props) => {
       {isHardStop && <Redirect to={'error'} />}
       <SnackBar
         {...props}
-        show={props.appState.data.showSnackBar}
+        show={showSnackBar}
         timer={3000}
       ><p>Please correct errors.</p></SnackBar>
-      {props.appState.data.submitting && <Loader />}
+      {isSubmitting && <Loader />}
       <Form
         className="fade-in"
         id="Customize"
@@ -123,7 +125,7 @@ export const Customize = (props) => {
                   reset();
                 }}
                 type="button"
-                disabled={props.appState.data.submitting}
+                disabled={isSubmitting}
               >
                 Reset
               </button>
@@ -133,7 +135,7 @@ export const Customize = (props) => {
               className="btn btn-primary"
               type="submit"
               form="Customize"
-              disabled={props.appState.data.submitting}
+              disabled={isSubmitting}
             >
               {props.appState.data.recalc ? 'recalculate' : 'next'}
             </button>
@@ -146,7 +148,8 @@ export const Customize = (props) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isSubmitting: state.appState.isSubmitting,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Customize.values', {}),
   initialValues: handleInitialize(state),
