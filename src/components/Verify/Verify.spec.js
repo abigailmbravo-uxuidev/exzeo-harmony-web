@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Verify, handleFormSubmit, handlePolicyHolderUpdate, scheduleDateModal } from './Verify';
+import ConnectedApp, { Verify } from './Verify';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -311,7 +311,7 @@ const quoteData = {
     }
   ],
   __v: 0
- };
+};
 
 describe('Testing Verify component', () => {
   it('should pass because I (Jordan) commented out all of the tests for now', () => {
@@ -319,7 +319,7 @@ describe('Testing Verify component', () => {
   });
   it('should test props and render', () => {
     const initialState = {
-      service: {}, 
+      service: {},
       quoteState: {},
       appState: {
         modelName: 'bb'
@@ -327,11 +327,11 @@ describe('Testing Verify component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      workflowState: { completedTasks: []},
+      workflowState: { completedTasks: [] },
       agentList: [],
       history: [],
       setAppState() {},
-      updateQuote(){},
+      updateQuote() {},
       quote: quoteData,
       fieldValues: {},
       fieldQuestions: [],
@@ -347,6 +347,9 @@ describe('Testing Verify component', () => {
     };
     const wrapper = shallow(<Verify {...props} store={store} />);
     expect(wrapper);
+    wrapper.instance().handleFormSubmit({}, props.dispatch, props);
+    wrapper.instance().handlePolicyHolderUpdate({}, props.dispatch, props);
+    wrapper.instance().scheduleDateModal(props);
     wrapper.find('#askAdditionalCustomerData').simulate('click');
   });
 
@@ -365,7 +368,7 @@ describe('Testing Verify component', () => {
     const props = {
       history: [],
       setAppState() {},
-      updateQuote(){},
+      updateQuote() {},
       quote: quoteData,
       quoteState: { quote: quoteData },
       handleSubmit() {},
@@ -380,12 +383,9 @@ describe('Testing Verify component', () => {
           submitting: false
         }
       }
-  
+
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
-    handleFormSubmit({}, props.dispatch, props);
-    handlePolicyHolderUpdate({}, props.dispatch, props);
-    scheduleDateModal(props);
   });
 });

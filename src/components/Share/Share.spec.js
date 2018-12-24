@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Share, shareQuoteSubmit, noShareSubmit, shareQuote, closeShareSubmit, refereshUWReviewError } from './Share';
+import ConnectedApp, { Share } from './Share';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -12,12 +12,13 @@ describe('Testing Share component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      updateQuote(){},
+      history: [],
+      updateQuote() {},
       handleSubmit() {},
-      setAppState(){},
+      setAppState() {},
       underwritingExceptions: [],
       fieldQuestions: [],
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         data: {
@@ -27,6 +28,12 @@ describe('Testing Share component', () => {
     };
     const wrapper = shallow(<Share {...props} />);
     expect(wrapper);
+    const wrapperInstance = wrapper.instance();
+    wrapperInstance.shareQuoteSubmit({}, props.dispatch, props);
+    wrapperInstance.noShareSubmit({}, props.dispatch, props);
+    wrapperInstance.shareQuote(props);
+    wrapperInstance.closeShareSubmit(props);
+    wrapperInstance.refereshUWReviewError(props);
   });
 
   it('should test connected app', () => {
@@ -38,9 +45,9 @@ describe('Testing Share component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      updateQuote(){},
+      updateQuote() {},
       handleSubmit() {},
-      setAppState(){},
+      setAppState() {},
       history: [],
       fieldQuestions: [],
       quote: {},
@@ -55,10 +62,5 @@ describe('Testing Share component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
-    shareQuoteSubmit({}, props.dispatch, props);
-    noShareSubmit({}, props.dispatch, props);
-    shareQuote(props);
-    closeShareSubmit(props);
-    refereshUWReviewError(props);
   });
 });

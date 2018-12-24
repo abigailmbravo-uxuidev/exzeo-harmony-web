@@ -26,7 +26,7 @@ describe('Error Reducer', () => {
   });
   it('should call errorReducer REHYDRATE', () => {
     const state = initialState.appState;
-    const inputProps = { data: { submitting: false, updateWorkflowDetails: false } };
+    const inputProps = { data: { submitting: false, updateWorkflowDetails: false, isSubmitting: false } };
     const action = {
       type: persistTypes.REHYDRATE,
       payload: {

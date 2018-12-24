@@ -2,7 +2,6 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
-import failedSubmission from '../Common/reduxFormFailSubmit';
 import ConnectedApp, { CustomerInfo, handleFormSubmit } from './CustomerInfo';
 
 const middlewares = [];
@@ -69,7 +68,7 @@ describe('Testing CustomerInfo component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
-      setAppState(){},
+      setAppState() {},
       history: [],
       zipCodeSettings: {
         timezone: 'American/NewYork'
@@ -89,6 +88,5 @@ describe('Testing CustomerInfo component', () => {
     }, props.dispatch, props);
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
-    failedSubmission({}, props.dispatch, () => {}, props);
   });
 });

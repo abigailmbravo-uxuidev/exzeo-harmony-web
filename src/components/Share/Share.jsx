@@ -25,31 +25,30 @@ noShareSubmit = async () => {
 shareQuoteSubmit = async (data) => {
   const submitData = { shouldSendEmail: 'Yes', ...data };
 
-  await this.props.updateQuote({ data: submitData, quoteNumber: this.props.quote.quoteNumber});
-  this.setState({ showEmailPopup : false})
+  await this.props.updateQuote({ data: submitData, quoteNumber: this.props.quote.quoteNumber });
+  this.setState({ showEmailPopup: false });
 };
 
 shareQuote() {
-  this.setState({ showEmailPopup : true})
-};
+  this.setState({ showEmailPopup: true });
+}
 
 closeShareSubmit() {
-  this.setState({ showEmailPopup : false})
-};
+  this.setState({ showEmailPopup: false });
+}
 
 refereshUWReviewError = async () => {
   const data = { refresh: 'Yes' };
-  await this.props.updateQuote({ data, quoteNumber: this.props.quote.quoteNumber});
+  await this.props.updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
   this.props.history.push('customerInfo');
 };
 
 redirectToNewQuote() {
   this.props.history.push('/');
-};
+}
 
 
-render(){
-  
+render() {
   return (<div className="route-content">
     {this.props.isHardStop &&
       <Redirect to="error" />
@@ -99,9 +98,8 @@ render(){
         redirectToNewQuote={() => this.redirectToNewQuote()}
       />}
   </div>
-);
-
-  }
+  );
+}
 }
 
 const mapStateToProps = state => ({
