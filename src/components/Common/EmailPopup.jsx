@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import TextField from '../Form/inputs/TextField';
 
-import * as appStateActions from '../../actions/appStateActions';
+import {setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 const EmailPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
@@ -47,17 +47,6 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { setAppState, updateQuote })(reduxForm({
   form: 'SendEmail'
 })(EmailPopup));
