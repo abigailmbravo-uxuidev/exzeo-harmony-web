@@ -3,27 +3,19 @@ import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
 
-import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import { CheckField } from '../Form/inputs';
 
 export const handleOnSubmit = async (data, dispatch, props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ quoteNumber: props.quote.quoteNumber });
-  props.setAppState({ ...props.appState.data, submitting: false });
-
   props.history.push('additionalInterests');
 };
 
 export const Assumptions = (props) => {
-  const { appState, handleSubmit, fieldValues } = props;
+  const { appState, handleSubmit, fieldValues, isLoading } = props;
   return (
     <div className="route-content">
-      {props.appState.data.submitting
-        && <Loader />
-      }
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper">
@@ -43,7 +35,7 @@ export const Assumptions = (props) => {
             <CheckField styleName="confirm" name="confirmAssumptions" label="Confirmed" isSwitch autoFocus tabIndex={'0'} />
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || appState.data.submitting} tabIndex={'0'}>Next</button>
+            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || isLoading} tabIndex={'0'}>Next</button>
           </div>
           <Footer />
         </div>
@@ -53,15 +45,13 @@ export const Assumptions = (props) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
-  appState: state.appState,
+  isLoading: state.appState.isLoading,
   fieldValues: _.get(state.form, 'Assumptions.values', {}),
   quote: state.quoteState.quote
 });
 
 export default connect(mapStateToProps, { 
-  updateQuote,
-   setAppState 
+  updateQuote
   })(reduxForm({
   form: 'Assumptions'
 })(Assumptions));
