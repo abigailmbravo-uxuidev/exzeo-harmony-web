@@ -34,19 +34,19 @@ const redirectToHome = (props) => {
 const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
 const showPolicyHolderModal = (props) => {
-  props.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: true });
+  props.setAppState({ showPolicyHolderModal: true });
 };
 const hidePolicyHolderModal = (props) => {
-  props.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: false });
+  props.setAppState({ showPolicyHolderModal: false });
 };
 
 export const handleFormSubmit = async (data, dispatch, props) => {
   const { actions, appState, quote, history } = props;
   const taskData = { ...data, shouldEditVerify: 'false' };
 
-  props.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
+  props.setAppState({ ...appState.data, submitting: true });
   await props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
-  props.setAppState(appState.modelName, '', { ...appState.data, submitting: false });
+  props.setAppState({ ...appState.data, submitting: false });
   history.push('thankYou');
 };
 
@@ -63,9 +63,9 @@ export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
 
   taskData.shouldEditVerify = 'PolicyHolder';
 
-  props.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
+  props.setAppState({ ...appState.data, submitting: true });
   await props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
-  props.setAppState(appState.modelName, '', { ...appState.data, submitting: false, showPolicyHolderModal: false });
+  props.setAppState({ ...appState.data, submitting: false, showPolicyHolderModal: false });
 };
 
 export const Verify = (props) => {
