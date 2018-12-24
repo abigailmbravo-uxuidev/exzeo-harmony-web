@@ -7,7 +7,7 @@ import moment from 'moment';
 import { reduxForm, Form, change, Field } from 'redux-form';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -22,9 +22,9 @@ import {
 } from '../Form/inputs';
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: true });
+  await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('verify');
 };
@@ -39,9 +39,9 @@ const handleGetPaymentPlans = (state) => {
 };
 
 const handleInitialize = (state) => {
-  const quoteData = handleGetQuoteData(state);
+  const quote = handleGetQuoteData(state);
   const uiQuestions = handleGetQuestions(state);
-  const values = getInitialValues(uiQuestions, quoteData);
+  const values = getInitialValues(uiQuestions, quote);
 
   _.forEach(uiQuestions, (q) => {
     if (!values[q.name]) {
@@ -50,22 +50,22 @@ const handleInitialize = (state) => {
   });
 
   const paymentPlans = handleGetPaymentPlans(state);
-  const selectedBilling = _.find(paymentPlans.options, ['billToId', _.get(quoteData, 'billToId')]);
+  const selectedBilling = _.find(paymentPlans.options, ['billToId', _.get(quote, 'billToId')]);
 
-  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !_.get(quoteData, 'billToId') && !_.get(quoteData, 'billPlan')) {
+  if (paymentPlans && paymentPlans.options && paymentPlans.options.length === 1 && !_.get(quote, 'billToId') && !_.get(quote, 'billPlan')) {
     values.billToId = _.get(paymentPlans.options[0], 'billToId');
     values.billToType = _.get(paymentPlans.options[0], 'billToType');
     values.billPlan = 'Annual';
   } else if (selectedBilling) {
     values.billToId = selectedBilling.billToId;
     values.billToType = selectedBilling.billToType;
-    values.billPlan = _.get(quoteData, 'billPlan') || '';
+    values.billPlan = _.get(quote, 'billPlan') || '';
   }
 
-  values.sameAsProperty = _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.address1'), _.get(quoteData, 'property.physicalAddress.address1')) &&
-    _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.city'), _.get(quoteData, 'property.physicalAddress.city')) &&
-    _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.state'), _.get(quoteData, 'property.physicalAddress.state')) &&
-    _.isEqual(_.get(quoteData, 'policyHolderMailingAddress.zip'), _.get(quoteData, 'property.physicalAddress.zip'));
+  values.sameAsProperty = _.isEqual(_.get(quote, 'policyHolderMailingAddress.address1'), _.get(quote, 'property.physicalAddress.address1')) &&
+    _.isEqual(_.get(quote, 'policyHolderMailingAddress.city'), _.get(quote, 'property.physicalAddress.city')) &&
+    _.isEqual(_.get(quote, 'policyHolderMailingAddress.state'), _.get(quote, 'property.physicalAddress.state')) &&
+    _.isEqual(_.get(quote, 'policyHolderMailingAddress.zip'), _.get(quote, 'property.physicalAddress.zip'));
 
   return values;
 };
@@ -134,7 +134,7 @@ InstallmentTerm.propTypes = {
 export const Billing = (props) => {
   const {
     fieldQuestions,
-    quoteData,
+    quote,
     dispatch,
     handleSubmit,
     fieldValues,
@@ -167,7 +167,7 @@ export const Billing = (props) => {
     fieldQuestions.forEach((question) => {
       if (question.physicalAddressLocation) {
         if (!props.fieldValues.sameAsProperty) {
-          dispatch(change('Billing', question.name, _.get(quoteData, question.physicalAddressLocation)));
+          dispatch(change('Billing', question.name, _.get(quote, question.physicalAddressLocation)));
         } else {
           dispatch(change('Billing', question.name, ''));
         }
@@ -196,7 +196,7 @@ export const Billing = (props) => {
               }} isSwitch
             /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator
               onChange={setPropertyToggle}
-              data={quoteData}
+              data={quote}
               question={question} values={fieldValues} key={index}
             />))}
             <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
@@ -245,18 +245,11 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Billing.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state),
+  quote: handleGetQuoteData(state),
   paymentPlanResult: handleGetPaymentPlans(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote, setAppState })(reduxForm({
   form: 'Billing',
   enableReinitialize: true,
   onSubmitFail: failedSubmission

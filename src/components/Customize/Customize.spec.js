@@ -64,43 +64,9 @@ describe('Testing Customize component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
+      setAppState(){},
       quote: {},
       history: [],
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
-        }
-      },
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {
-              variables: [
-                { name: 'updateQuoteWithUWDecision3',
-                  value: {
-                    result: {
-                      quoteNumber: '12-1999999-01'
-                    }
-                  }
-                }
-              ]
-            },
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
       handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},

@@ -71,6 +71,8 @@ describe('Testing WorkflowDetails component', () => {
     const props = {
       history: [],
       updateQuote() {},
+      setAppState(){},
+      getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); },
       quoteState: { state: {} },
       workflowState: { completedTasks: [] },
       tasks: {
@@ -83,18 +85,6 @@ describe('Testing WorkflowDetails component', () => {
             model: {},
             uiQuestions: []
           }
-        }
-      },
-      actions: {
-        updateQuote() {},
-        cgActions: {
-          completeTask() {}
-        },
-        appStateActions: {
-          setAppState() { return Promise.resolve(); }
-        },
-        serviceActions: {
-          getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); }
         }
       },
       quote: {

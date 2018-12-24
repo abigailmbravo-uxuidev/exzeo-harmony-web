@@ -4,11 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import CountUp from 'react-countup';
-
-import * as appStateActions from '../../actions/appStateActions';
-import * as completedTasksActions from '../../actions/completedTasksActions';
-import * as serviceActions from '../../actions/serviceActions';
 import * as customize from '../Customize/Customize';
+import { setAppState } from '../../actions/appStateActions';
+import { getQuote } from '../../actions/serviceActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import { goToStep } from '../../utilities/navigation';
 
@@ -21,10 +19,9 @@ export const getQuoteFromModel = (state, props) => {
     quoteId: (props.appState.data && props.appState.data.quote) ? props.appState.data.quote._id : state.quote._id // eslint-disable-line
   };
 
-  props.actions.serviceActions.getQuote(startModelData.quoteId).then((response) => {
+  props.getQuote(startModelData.quoteId).then((response) => {
     if (response.payload && response.payload[0].data.quote) {
-      props.actions.appStateActions.setAppState(props.appState.modelName,
-        props.appState.instanceId, {
+      props.setAppState({
           ...props.appState.data,
           updateWorkflowDetails: false
         });
@@ -210,15 +207,4 @@ const mapStateToProps = state => ({
 
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatch,
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    serviceActions: bindActionCreators(serviceActions, dispatch),
-    
-    appStateActions: bindActionCreators(appStateActions, dispatch),
-    completedTasksActions: bindActionCreators(completedTasksActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowDetails);
+export default connect(mapStateToProps, { updateQuote, setAppState, getQuote })(WorkflowDetails);

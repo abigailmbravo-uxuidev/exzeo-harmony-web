@@ -6,7 +6,7 @@ import momentTZ from 'moment-timezone';
 import moment from 'moment';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState }from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import { getZipcodeSettings, getAgents } from '../../actions/serviceActions';
 import Footer from '../Common/Footer';
@@ -33,9 +33,9 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
+  props.setAppState({ ...props.appState.data, submitting: true });
   await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.setAppState({ ...props.appState.data, submitting: false });
 
   props.history.push('underwriting');
 };
@@ -154,12 +154,10 @@ const mapStateToProps = state => (
   });
 
 const mapDispatchToProps = dispatch => ({
+  setAppState: bindActionCreators(setAppState, dispatch),
   updateQuote: bindActionCreators(updateQuote, dispatch),
   getZipcodeSettings: bindActionCreators(getZipcodeSettings, dispatch),
-  getAgents: bindActionCreators(getAgents, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
+  getAgents: bindActionCreators(getAgents, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({

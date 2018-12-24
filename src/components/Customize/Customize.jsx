@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 import Footer from '../Common/Footer';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
-import * as appStateActions from '../../actions/appStateActions';
+import { setAppState }from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -15,7 +15,7 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  dispatch(appStateActions.setAppState('modelName', 'workflowId', { ...props.appState.data, submitting: true }));
+  props.setAppState({ ...props.appState.data, submitting: true });
 
   const updatedQuote = convertQuoteStringsToNumber(data);
   updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
@@ -47,19 +47,19 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     props.history.push('share');
   }
 
-  props.actions.appStateActions.setAppState('', '', { recalc: false, submitting: false });
+  props.setAppState({ recalc: false, submitting: false });
 };
 
 export const handleFormChange = props => (event, newValue, previousValue) => {
   if (previousValue !== newValue) {
     const workflowId = props.appState.instanceId;
-    props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { recalc: true, hideYoPremium: true });
+    props.setAppState({ recalc: true, hideYoPremium: true });
   }
 };
 
 export const handleReset = (props) => {
   const workflowId = props.appState.instanceId;
-  props.actions.appStateActions.setAppState(props.appState.modelName, workflowId, { recalc: false, hideYoPremium: false });
+  props.setAppState({ recalc: false, hideYoPremium: false });
 };
 
 const handleInitialize = (state) => {
@@ -158,14 +158,7 @@ const mapStateToProps = state => ({
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote, setAppState })(reduxForm({
   form: 'Customize',
   enableReinitialize: true,
   onSubmitFail: failedSubmission

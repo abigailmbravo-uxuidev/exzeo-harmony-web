@@ -391,7 +391,7 @@ describe('Testing Billing component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      quoteState: {},
+      quoteState: { quote: quoteData },
       cg: {
         bb: {
           data: {
@@ -420,18 +420,11 @@ describe('Testing Billing component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: {},
+      quote: quoteData,
+      setAppState(){},
       updateQuote() {},
-      quoteData: {
+      quote: {
         additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
