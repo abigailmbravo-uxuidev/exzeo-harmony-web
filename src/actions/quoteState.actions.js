@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import choreographer from '../utilities/choreographer';
+import { toggleSubmitting } from './appStateActions';
 
 const factoryInstance = choreographer();
 
@@ -21,12 +22,16 @@ export const setQuote = (quote, state) => ({
 export function createQuote(address, igdID, stateCode) {
   return async (dispatch) => {
     try {
+      dispatch(toggleSubmitting(true));
       const { quote, state } = await factoryInstance.createQuote(address, igdID, stateCode);
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
+    }
+    finally{
+      dispatch(toggleSubmitting(false));
     }
   };
 }
@@ -40,12 +45,16 @@ export function createQuote(address, igdID, stateCode) {
 export function getQuote(quoteNumber, quoteId) {
   return async (dispatch) => {
     try {
+      dispatch(toggleSubmitting(true));
       const { quote, state } = await factoryInstance.getQuote(quoteNumber, quoteId);
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
+    }
+    finally{
+      dispatch(toggleSubmitting(false));
     }
   };
 }
@@ -64,6 +73,7 @@ export function updateQuote({
 }) {
   return async (dispatch, getState) => {
     try {
+      dispatch(toggleSubmitting(true));
       const { quote, state } = await factoryInstance.updateQuote({ data, quoteNumber, stepName, getReduxState: getState });
       dispatch(setQuote(quote, state));
       return quote;
@@ -71,15 +81,22 @@ export function updateQuote({
       dispatch(errorActions.setAppError(error));
       return null;
     }
+    finally{
+      dispatch(toggleSubmitting(false));
+    }
   };
 }
 
 export function clearQuote() {
   return async (dispatch) => {
     try {
+      dispatch(toggleSubmitting(true));
       dispatch(setQuote(null, {}));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
+    }
+    finally{
+      dispatch(toggleSubmitting(false));
     }
   };
 }

@@ -27,3 +27,18 @@ export const setAppStateError = (error) => {
 
 // thunk if needed
 export const dispatchAppState = data => dispatch => dispatch(setAppState(data));
+
+/**
+ *
+ * @param isSubmitting
+ * @returns {{type: string, isSubmitting: boolean}}
+ */
+export const toggleSubmitting = (isSubmitting) => {
+  return {
+    type: types.TOGGLE_SUBMITTING,
+    appState: {
+      isSubmitting
+    }
+  };
+}
+

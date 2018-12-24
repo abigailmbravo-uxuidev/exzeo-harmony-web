@@ -9,6 +9,7 @@ import CheckErrorConnect from '../Error/CheckError';
 // import CustomerInfoConnect from '../CustomerInfo/CustomerInfo';
 // import UnderwritingConnect from '../Underwriting/Underwriting';
 import WorkFlowDetailsConnect from './WorkflowDetails';
+import Loader from '../Common/Loader';
 // import CustomizeConnect from '../Customize/Customize';
 // import ShareConnect from '../Share/Share';
 // import AssumptionsConnect from '../Assumptions/Assumptions';
@@ -128,12 +129,13 @@ export class Workflow extends Component {
   // }
 
   render() {
-    const { match, history } = this.props;
+    const { match, history, appState } = this.props;
     // const activeStep = (this.props.tasks && this.props.tasks[workflowModelName] && this.props.tasks[workflowModelName].data &&
     //   this.props.tasks[workflowModelName].data.activeTask) ? this.props.tasks[workflowModelName].data.activeTask.name : '';
     const activeStep = '';
     return (
       <div className={`route ${activeStep}`}>
+        {appState.isSubmitting && <Loader />}
         <WorkFlowDetailsConnect match={match} history={history} />
         {this.props.children}
         <CheckErrorConnect redirectUrl={this.context.router ? this.context.router.route.location.pathname : ''} />

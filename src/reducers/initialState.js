@@ -8,6 +8,7 @@ export default {
   service: {},
   completedTasks: [],
   appState: {
+    isSubmitting: false,
     data: {
       submitting: false,
       updateWorkflowDetails: false

@@ -12,6 +12,8 @@ export default function appStateReducer(state = initialState.appState, action) {
     case persistTypes.REHYDRATE:
       newState = (action.payload && action.payload.appState) ? action.payload.appState : newState;
       return newState;
+      case types.TOGGLE_SUBMITTING:
+      return { ...state, ...action.appState };
     default:
       return state;
   }
