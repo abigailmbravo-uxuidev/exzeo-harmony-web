@@ -6,19 +6,17 @@ import _ from 'lodash';
 import Rules from '../Form/Rules';
 
 import { setAppState } from '../../actions/appStateActions';
-import { clearAppError }from '../../actions/errorActions';
+import { clearAppError } from '../../actions/errorActions';
 import { searchQuotes, setQuoteSearch, searchAddresses } from '../../actions/searchActions';
 
 import Pagination from '../Common/Pagination';
 import { generateField, getSearchType } from './searchUtils';
 
-const handleInitialize = (state) => {
-  return {
-    address: '',
-    pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
-    totalPages: _.get(state.search, 'state.search.totalPages') || 0
-  };
-};
+const handleInitialize = state => ({
+  address: '',
+  pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
+  totalPages: _.get(state.search, 'state.search.totalPages') || 0
+});
 
 export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
@@ -83,11 +81,12 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
   props.setAppState({ ...props.appState.data, submitting: true });
   await props.searchQuotes(taskData);
   props.setAppState({ ...props.appState.data, submitting: false });
-
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
-  props.searchAddresses(encodeURIComponent(data.address));
+  const { address } = data;
+  props.setQuoteSearch({ searchType: 'address', address });
+  props.searchAddresses(encodeURIComponent(address));
 };
 
 export const validate = (values) => {
@@ -172,7 +171,7 @@ export class SearchForm extends Component {
           </div>
           { searchResults && searchResults.length > 0 && fieldValues.totalPages > 1 &&
             <Pagination changePageForward={() => changePageQuote(this.props, true)} changePageBack={() => changePageQuote(this.props, false)} fieldValues={fieldValues} />
-        }
+          }
         </Form>
       );
     }
@@ -233,10 +232,10 @@ const searchBarForm = reduxForm({
   validate
 })(SearchBar);
 
-export default connect(mapStateToProps, { 
-  setAppState, 
+export default connect(mapStateToProps, {
+  setAppState,
   clearAppError,
-  searchQuotes, 
+  searchQuotes,
   setQuoteSearch,
-  searchAddresses 
+  searchAddresses
 })(searchBarForm);
