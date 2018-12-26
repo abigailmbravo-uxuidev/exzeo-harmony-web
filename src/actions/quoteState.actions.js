@@ -29,8 +29,7 @@ export function createQuote(address, igdID, stateCode) {
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
-    }
-    finally{
+    } finally {
       dispatch(toggleLoading(false));
     }
   };
@@ -52,8 +51,7 @@ export function getQuote(quoteNumber, quoteId) {
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
-    }
-    finally{
+    } finally {
       dispatch(toggleLoading(false));
     }
   };
@@ -80,8 +78,7 @@ export function updateQuote({
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
-    }
-    finally{
+    } finally {
       dispatch(toggleLoading(false));
     }
   };
@@ -94,8 +91,7 @@ export function clearQuote() {
       dispatch(setQuote(null, {}));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
-    }
-    finally{
+    } finally {
       dispatch(toggleLoading(false));
     }
   };
