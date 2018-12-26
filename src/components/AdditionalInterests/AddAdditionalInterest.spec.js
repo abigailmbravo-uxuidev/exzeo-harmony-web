@@ -42,7 +42,7 @@ describe('Testing AddAdditionalInterest component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      updateQuote(){},
+      updateQuote() {},
       setAppState() {},
       handleSubmit() {},
       history: [],

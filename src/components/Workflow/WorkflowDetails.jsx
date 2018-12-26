@@ -21,9 +21,9 @@ export const getQuoteFromModel = (state, props) => {
   props.getQuote(startModelData.quoteId).then((response) => {
     if (response.payload && response.payload[0].data.quote) {
       props.setAppState({
-          ...props.appState.data,
-          updateWorkflowDetails: false
-        });
+        ...props.appState.data,
+        updateWorkflowDetails: false
+      });
     }
   });
 };
@@ -78,30 +78,13 @@ export class WorkflowDetails extends Component {
     };
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.appState !== this.props.appState) {
-  //     if (((nextProps.appState.data && nextProps.appState.data.quote) || this.state.quote._id) && nextProps.appState.data.updateWorkflowDetails) { // eslint-disable-line
-  //       getQuoteFromModel(this.state, nextProps);
-  //     }
-  //   }
-  //   const quote = nextProps.quote || {};
-  //   if (nextProps.appState.data && nextProps.appState.data.hideYoChildren) {
-  //     delete quote.coverageLimits;
-  //   }
-  //   this.setState((prevProps, newProps) => ({ ...newProps,
-  //     quote
-  //   }));
-  // }
-
-
   render() {
     const { quote, workflowState } = this.props;
     // const { quote } = this.props;
     if (!quote || !quote.quoteNumber) { // eslint-disable-line
       return <div className="detailHeader" />;
     }
-    const isCustomize = false;
-    // const isCustomize = this.props.tasks[this.props.workflowModelName] && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask.name === 'askToCustomizeDefaultQuote';
+    const isCustomize = workflowState.activeTask === 'askToCustomizeDefaultQuote';
     return (
       <div>
         <div className="detailHeader">
@@ -121,7 +104,7 @@ export class WorkflowDetails extends Component {
                 <dd className="fade">{quote.property.physicalAddress.address2}</dd>
                 <dd className="fade">
                   {quote.property.physicalAddress.city},&nbsp;
-                {quote.property.physicalAddress.state}&nbsp;
+                  {quote.property.physicalAddress.state}&nbsp;
                   {quote.property.physicalAddress.zip}
                 </dd>
               </div>
@@ -161,7 +144,7 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                  {quote.rating && this.props.appState.data && !this.props.appState.data.recalc && !this.props.appState.data.updateWorkflowDetails ?
+                  {quote.rating && this.props.appState.data && !this.props.appState.data.recalc ?
                     <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} /> : '--'}
                 </dd>
               </div>
@@ -177,7 +160,6 @@ export class WorkflowDetails extends Component {
             </dl>
           </section>
         </div>
-        {/* { this.props.tasks && this.props.tasks[this.props.workflowModelName].data && this.props.tasks[this.props.workflowModelName].data.activeTask && this.props.tasks[this.props.workflowModelName].data.activeTask !== 'askToSearchAgain' && */}
         { !this.props.isHardStop &&
         <ul className="workflow-header">
           <div className="rule" />

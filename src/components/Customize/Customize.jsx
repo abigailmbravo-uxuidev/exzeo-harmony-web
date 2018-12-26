@@ -6,7 +6,7 @@ import { Redirect } from 'react-router';
 import Footer from '../Common/Footer';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
-import { setAppState }from '../../actions/appStateActions';
+import { setAppState } from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -129,7 +129,7 @@ export const Customize = (props) => {
               >
                 Reset
               </button>
-             }
+            }
             <button
               tabIndex={'0'}
               className="btn btn-primary"

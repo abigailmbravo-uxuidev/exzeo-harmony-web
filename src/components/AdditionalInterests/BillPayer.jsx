@@ -115,7 +115,7 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
   updateQuote
 })(reduxForm({
   form: 'BillPayer',

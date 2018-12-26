@@ -12,44 +12,39 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 
 export const noAddAdditionalInterestSubmit = async (data, dispatch, props) => {
   const taskData = { shouldUpdateAIs: 'No' };
-  
+
   await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
-  
+
   props.history.push('mailingBilling');
 };
 
 export const AddMortgagee = async (props) => {
-  
   await props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: props.quote.quoteNumber });
-  
+
   props.history.push('askMortgagee');
 };
 
 export const AddPremiumFinance = async (props) => {
-  
   await props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: props.quote.quoteNumber });
-  
+
   props.history.push('askPremiumFinance');
 };
 
 export const AddAdditionalInsured = async (props) => {
-  
   await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: props.quote.quoteNumber });
-  
+
   props.history.push('askAdditionalInsured');
 };
 
 export const AddInterest = async (props) => {
-  
   await props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: props.quote.quoteNumber });
-  
+
   props.history.push('askAdditionalInterest');
 };
 
 export const AddBillpayer = async (props) => {
-  
   await props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: props.quote.quoteNumber });
-  
+
   props.history.push('askBillPayer');
 };
 
@@ -81,12 +76,12 @@ export const returnTaskName = (type) => {
 
 export const openDeleteAdditionalInterest = (ai, props) => {
   props.setAppState(
-      { ...props.appState.data, showAdditionalInterestModal: true, selectedAI: ai, addAdditionalInterestType: ai.type });
+    { ...props.appState.data, showAdditionalInterestModal: true, selectedAI: ai, addAdditionalInterestType: ai.type });
 };
 
 export const hideAdditionalInterestModal = (props) => {
   props.setAppState(
-      { ...props.appState.data, showAdditionalInterestModal: false, showAdditionalInterestEditModal: false });
+    { ...props.appState.data, showAdditionalInterestModal: false, showAdditionalInterestEditModal: false });
 };
 
 export const deleteAdditionalInterest = async (selectedAdditionalInterest, props) => {

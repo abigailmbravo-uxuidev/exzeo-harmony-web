@@ -50,8 +50,8 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote
 });
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
   updateQuote
-  })(reduxForm({
+})(reduxForm({
   form: 'Assumptions'
 })(Assumptions));

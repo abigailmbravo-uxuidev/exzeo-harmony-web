@@ -89,7 +89,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     additionalInterests.push(mortgagee3);
   }
 
-  
+
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
   props.history.push('additionalInterests');
 };
@@ -97,7 +97,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 export const closeAndSavePreviousAIs = async (props) => {
   const additionalInterests = props.quote.additionalInterests;
 
-  
+
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
   props.history.push('additionalInterests');
 };
@@ -129,20 +129,20 @@ export const handleGetQuestions = (state) => {
   const questions = state.quoteState.state ? state.quoteState.state.uiQuestions : [];
 
   questions.filter(question => question.name === 'mortgagee')
-  .forEach((q) => {
-    if (q && Array.isArray(q.answers)) {
-      q.answers.forEach((answer) => {
-        answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
-        return answer;
-      });
-    }
-    return q;
-  });
+    .forEach((q) => {
+      if (q && Array.isArray(q.answers)) {
+        q.answers.forEach((answer) => {
+          answer.displayText = `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`;
+          return answer;
+        });
+      }
+      return q;
+    });
   return questions;
 };
 
 export const handleGetQuoteData = state =>
-   state.quoteState.quote || {};
+  state.quoteState.quote || {};
 
 const getAnswers = (name, questions) =>
   _.get(_.find(questions, { name }), 'answers') || [];
@@ -290,30 +290,30 @@ export const Mortgagee = (props) => {
             )}
             {fieldValues.isAdditional2 &&
               fieldValues.isAdditional && (
-                <ReactSelectField
-                  label="Top Mortgagees (Mortgagee 2)"
-                  name="mortgage2"
+              <ReactSelectField
+                label="Top Mortgagees (Mortgagee 2)"
+                name="mortgage2"
+                searchable
+                labelKey="displayText"
+                autoFocus
+                value={props.appState.data.selectedMortgageeOption}
+                answers={getAnswers('mortgagee', fieldQuestions)}
+                onChange={val => setMortgagee2Values(val, props)}
+              />
+            )}
+            {fieldValues.isAdditional3 && fieldValues.isAdditional2 &&
+                fieldValues.isAdditional && (
+              <ReactSelectField
+                  label="Top Mortgagees (Mortgagee 3)"
+                  name="mortgage3"
                   searchable
                   labelKey="displayText"
                   autoFocus
                   value={props.appState.data.selectedMortgageeOption}
                   answers={getAnswers('mortgagee', fieldQuestions)}
-                  onChange={val => setMortgagee2Values(val, props)}
+                  onChange={val => setMortgagee3Values(val, props)}
                 />
-              )}
-            {fieldValues.isAdditional3 && fieldValues.isAdditional2 &&
-                fieldValues.isAdditional && (
-                  <ReactSelectField
-                    label="Top Mortgagees (Mortgagee 3)"
-                    name="mortgage3"
-                    searchable
-                    labelKey="displayText"
-                    autoFocus
-                    value={props.appState.data.selectedMortgageeOption}
-                    answers={getAnswers('mortgagee', fieldQuestions)}
-                    onChange={val => setMortgagee3Values(val, props)}
-                  />
-                )}
+            )}
             {fieldQuestions &&
               _.sortBy(
                 _.filter(fieldQuestions, q => q.name !== 'mortgagee'),
