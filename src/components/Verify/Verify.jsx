@@ -4,7 +4,6 @@ import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 
-import { setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import ScheduleDate from '../Common/ScheduleDate';
 import Footer from '../Common/Footer';
@@ -395,7 +394,7 @@ const mapStateToProps = state => ({
   workflowState: state.quoteState.state
 });
 
-export default connect(mapStateToProps, { setAppState, updateQuote })(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'Verify',
   enableReinitialize: true
 })(Verify));

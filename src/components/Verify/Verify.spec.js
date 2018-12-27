@@ -330,7 +330,6 @@ describe('Testing Verify component', () => {
       workflowState: { completedTasks: [] },
       agentList: [],
       history: [],
-      setAppState() {},
       updateQuote() {},
       quote: quoteData,
       fieldValues: {},
@@ -367,7 +366,6 @@ describe('Testing Verify component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      setAppState() {},
       updateQuote() {},
       quote: quoteData,
       quoteState: { quote: quoteData },

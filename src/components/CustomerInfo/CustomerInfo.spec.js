@@ -68,7 +68,6 @@ describe('Testing CustomerInfo component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
-      setAppState() {},
       history: [],
       zipCodeSettings: {
         timezone: 'American/NewYork'

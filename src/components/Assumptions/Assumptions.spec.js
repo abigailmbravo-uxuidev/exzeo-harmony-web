@@ -31,7 +31,7 @@ describe('Testing Assumptions component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      quoteState: { quote: {}},
+      quoteState: { quote: {} },
       appState: {
         modelName: 'bb'
       }
@@ -39,7 +39,6 @@ describe('Testing Assumptions component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      setAppState(){},
       updateQuote() {},
       handleSubmit() {},
       quote: {

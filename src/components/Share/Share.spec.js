@@ -15,7 +15,6 @@ describe('Testing Share component', () => {
       history: [],
       updateQuote() {},
       handleSubmit() {},
-      setAppState() {},
       underwritingExceptions: [],
       fieldQuestions: [],
       quote: {},
@@ -47,7 +46,6 @@ describe('Testing Share component', () => {
     const props = {
       updateQuote() {},
       handleSubmit() {},
-      setAppState() {},
       history: [],
       fieldQuestions: [],
       quote: {},

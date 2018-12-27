@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import CountUp from 'react-countup';
 import * as customize from '../Customize/Customize';
-import { setAppState } from '../../actions/appStateActions';
 import { getQuote } from '../../actions/serviceActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import { goToStep } from '../../utilities/navigation';
@@ -164,4 +163,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps, { updateQuote, setAppState, getQuote })(WorkflowDetails);
+export default connect(mapStateToProps, { updateQuote, getQuote })(WorkflowDetails);

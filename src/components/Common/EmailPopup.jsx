@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import TextField from '../Form/inputs/TextField';
-
-import {setAppState } from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 const EmailPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler }) => (
@@ -46,6 +44,6 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote
 });
 
-export default connect(mapStateToProps, { setAppState, updateQuote })(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'SendEmail'
 })(EmailPopup));

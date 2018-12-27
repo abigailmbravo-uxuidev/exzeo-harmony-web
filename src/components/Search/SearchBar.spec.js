@@ -84,7 +84,6 @@ describe('Testing SearchBar component', () => {
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      setAppState() {},
       clearAppError() {},
       searchQuotes() {},
       setQuoteSearch() {},
@@ -158,7 +157,6 @@ describe('Testing SearchBar component', () => {
     const store = mockStore(initialState);
 
     const props = {
-      setAppState() {},
       clearAppError() {},
       searchQuotes() {},
       setQuoteSearch() {},

@@ -65,7 +65,6 @@ describe('Testing Customize component', () => {
     const props = {
       setRecalc() {},
       updateQuote() {},
-      setAppState() {},
       quote: {},
       history: [],
       handleSubmit() {},

@@ -421,7 +421,6 @@ describe('Testing Billing component', () => {
     const props = {
       history: [],
       quote: quoteData,
-      setAppState(){},
       updateQuote() {},
       quote: {
         additionalInterests: []

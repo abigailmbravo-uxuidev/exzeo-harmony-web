@@ -71,7 +71,6 @@ describe('Testing WorkflowDetails component', () => {
     const props = {
       history: [],
       updateQuote() {},
-      setAppState() {},
       getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); },
       quoteState: { state: {} },
       workflowState: { completedTasks: [] },

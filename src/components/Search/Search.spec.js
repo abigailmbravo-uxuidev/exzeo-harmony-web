@@ -16,11 +16,6 @@ describe('Testing Search component', () => {
       createQuote() {},
       clearResults() {},
       clearQuote() {},
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        }
-      },
       handleSubmit() {},
       fieldQuestions: [],
       quote: {},
@@ -64,14 +59,6 @@ describe('Testing Search component', () => {
     const props = {
       quote: {
         quoteState: 'Quote Started'
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,

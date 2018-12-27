@@ -5,7 +5,6 @@ import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-for
 import _ from 'lodash';
 import Rules from '../Form/Rules';
 
-import { setAppState } from '../../actions/appStateActions';
 import { clearAppError } from '../../actions/errorActions';
 import { searchQuotes, setQuoteSearch, searchAddresses } from '../../actions/searchActions';
 
@@ -226,7 +225,6 @@ const searchBarForm = reduxForm({
 })(SearchBar);
 
 export default connect(mapStateToProps, {
-  setAppState,
   clearAppError,
   searchQuotes,
   setQuoteSearch,
