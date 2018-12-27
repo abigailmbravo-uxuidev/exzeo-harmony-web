@@ -13,6 +13,7 @@ describe('Testing WorkflowDetails component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      setRecalc() {},
       history: [],
       fieldQuestions: [],
       quoteData: {},
@@ -70,6 +71,7 @@ describe('Testing WorkflowDetails component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
+      setRecalc() {},
       updateQuote() {},
       getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); },
       quoteState: { state: {} },

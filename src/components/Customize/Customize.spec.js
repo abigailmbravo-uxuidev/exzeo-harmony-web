@@ -12,6 +12,7 @@ describe('Testing Customize component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      setRecalc() {},
       history: [],
       fieldQuestions: [],
       quoteData: {},

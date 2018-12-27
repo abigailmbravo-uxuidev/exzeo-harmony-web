@@ -5,52 +5,44 @@ import * as appStateActions from './appStateActions';
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 describe('App State Actions', () => {
-  it('should call setAppState', () => {
+  it('should call toggleLoading', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const inputProps = {
-      data: { bb: '123' }
-    };
-
     const stateObj = [{
-      type: types.APPSTATE_SET,
-      appState: { ...inputProps }
+      type: types.TOGGLE_LOADING,
+      isLoading: true
     }];
 
-    store.dispatch(appStateActions.setAppState(inputProps.data));
+    store.dispatch(appStateActions.toggleLoading(true));
 
     expect(store.getActions()).toEqual(stateObj);
   });
-  it('should call setAppStateError', () => {
+  it('should call toggleSnackbar', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const inputProps = {
-      error: 'my error'
-    };
-
     const stateObj = [{
-      type: types.APPSTATE_ERROR,
-      appState: { ...inputProps }
+      type: types.TOGGLE_SNACKBAR,
+      showSnackBar: true
     }];
 
-    store.dispatch(appStateActions.setAppStateError(inputProps.error));
+    store.dispatch(appStateActions.toggleSnackbar(true));
+
     expect(store.getActions()).toEqual(stateObj);
   });
-  it('should call dispatchAppState', () => {
+
+  it('should call setRecalc', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const inputProps = {
-      data: { bb: '123' }
-    };
-
     const stateObj = [{
-      type: types.APPSTATE_SET,
-      appState: { ...inputProps }
+      type: types.SET_RECALC,
+      isRecalc: true
     }];
-    store.dispatch(appStateActions.setAppStateError(stateObj));
-    appStateActions.dispatchAppState(inputProps.data)(store.dispatch);
+
+    store.dispatch(appStateActions.setRecalc(true));
+
+    expect(store.getActions()).toEqual(stateObj);
   });
 });
