@@ -6,6 +6,7 @@ import CountUp from 'react-countup';
 import * as customize from '../Customize/Customize';
 import { getQuote } from '../../actions/serviceActions';
 import { updateQuote } from '../../actions/quoteState.actions';
+import { setRecalc } from '../../actions/appStateActions';
 import { goToStep } from '../../utilities/navigation';
 
 export const handleRecalc = (props) => {
@@ -163,4 +164,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps, { updateQuote, getQuote })(WorkflowDetails);
+export default connect(mapStateToProps, { updateQuote, getQuote, setRecalc })(WorkflowDetails);
