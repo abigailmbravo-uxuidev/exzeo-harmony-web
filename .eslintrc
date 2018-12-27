@@ -13,8 +13,8 @@
     "mocha": true
   },
   "rules": {
-    "linebreak-style": [2, "unix"],
-    "max-len": [2, { "code": 120, "ignoreComments": true, "ignoreUrls": true }],
+    "linebreak-style": [0, "unix"],
+    "max-len": [1, { "code": 120, "ignoreComments": true, "ignoreUrls": true, "ignoreTemplateLiterals": true }],
     "import/no-extraneous-dependencies": 0,
     "comma-dangle":  [0, "ignore"],
     "react/jsx-filename-extension": 0,
