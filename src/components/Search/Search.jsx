@@ -2,47 +2,49 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Footer from '../Common/Footer';
 
-import * as appStateActions from '../../actions/appStateActions';
+import Footer from '../Common/Footer';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
+import { VALID_QUOTE_STATES } from './searchUtils';
+
 import QuoteError from '../Common/QuoteError';
 import { clearResults } from '../../actions/searchActions';
 import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
-import { VALID_QUOTE_STATES } from './searchUtils';
-
-const closeQuoteError = ({ actions }) => {
-  actions.appStateActions.setAppState({ showQuoteErrors: false });
-};
 
 export class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showQuoteErrors: false
+    };
+  }
+
   componentWillMount() {
-    const { actions, clearResults, clearQuote } = this.props;
-    actions.appStateActions.setAppState({ submitting: false });
+    const { clearResults, clearQuote } = this.props;
     clearResults();
     clearQuote();
   }
 
+  closeQuoteError = () => {
+    this.setState({ showQuoteErrors: false });
+  };
+
   handleSelectQuote = async (quoteData) => {
-    const { actions, history } = this.props;
-    actions.appStateActions.setAppState({ submitting: true });
+    const { history } = this.props;
     const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
-    actions.appStateActions.setAppState({ submitting: false });
 
     if (quote && VALID_QUOTE_STATES.includes(quote.quoteState)) {
       history.push(`/quote/${quote.quoteNumber}/customerInfo`);
     } else {
-      actions.appStateActions.setAppState({ showQuoteErrors: true });
+      this.setState({ showQuoteErrors: true });
     }
   };
 
   handleSelectAddress = async (address) => {
-    const { actions, history } = this.props;
-    actions.appStateActions.setAppState({ submitting: true });
+    const { history } = this.props;
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
-    actions.appStateActions.setAppState({ submitting: false });
 
     if (quote) {
       history.push(`/quote/${quote.quoteNumber}/customerInfo`);
@@ -62,10 +64,10 @@ export class Search extends React.Component {
             <Footer />
           </div>
         </div>
-        {(this.props.appState.data && this.props.appState.data.showQuoteErrors) &&
+        {this.state.showQuoteErrors &&
           <QuoteError
             quote={this.props.quote || {}}
-            closeButtonHandler={() => closeQuoteError(this.props)}
+            closeButtonHandler={() => this.closeQuoteError()}
           />
         }
       </div>
@@ -74,15 +76,7 @@ export class Search extends React.Component {
 }
 
 Search.propTypes = {
-  quote: PropTypes.shape({}),
-  appState: PropTypes.shape({
-    instanceId: PropTypes.string,
-    modelName: PropTypes.string,
-    data: PropTypes.shape({
-      selectedQuote: PropTypes.object,
-      showQuoteErrors: PropTypes.bool
-    })
-  })
+  quote: PropTypes.shape({})
 };
 
 const mapStateToProps = state => ({
@@ -91,15 +85,4 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote
 });
 
-const mapDispatchToProps = dispatch => ({
-  createQuote: bindActionCreators(createQuote, dispatch),
-  clearQuote: bindActionCreators(clearQuote, dispatch),
-  getQuote: bindActionCreators(getQuote, dispatch),
-  clearResults: bindActionCreators(clearResults, dispatch),
-  actions: {
-
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, { createQuote, clearQuote, getQuote, clearResults })(Search);
