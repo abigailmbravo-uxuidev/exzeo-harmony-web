@@ -9,13 +9,12 @@ import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import QuoteError from '../Common/QuoteError';
-import Loader from '../Common/Loader';
 import { clearResults } from '../../actions/searchActions';
 import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
-
+import { VALID_QUOTE_STATES } from './searchUtils';
 
 const closeQuoteError = ({ actions }) => {
-  actions.appStateActions.setAppState({ showEmailPopup: false });
+  actions.appStateActions.setAppState({ showQuoteErrors: false });
 };
 
 export class Search extends React.Component {
@@ -32,8 +31,10 @@ export class Search extends React.Component {
     const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
     actions.appStateActions.setAppState({ submitting: false });
 
-    if (quote) {
+    if (quote && VALID_QUOTE_STATES.includes(quote.quoteState)) {
       history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+    } else {
+      actions.appStateActions.setAppState({ showQuoteErrors: true });
     }
   };
 
@@ -53,9 +54,6 @@ export class Search extends React.Component {
       <div className="flex grow">
         <div className="search route-content">
           <SearchBar />
-          {(this.props.appState.data && this.props.appState.data.submitting) &&
-            <Loader />
-          }
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
@@ -66,7 +64,7 @@ export class Search extends React.Component {
         </div>
         {(this.props.appState.data && this.props.appState.data.showQuoteErrors) &&
           <QuoteError
-            quote={this.props.appState.data.selectedQuote || {}}
+            quote={this.props.quote || {}}
             closeButtonHandler={() => closeQuoteError(this.props)}
           />
         }
@@ -76,6 +74,7 @@ export class Search extends React.Component {
 }
 
 Search.propTypes = {
+  quote: PropTypes.shape({}),
   appState: PropTypes.shape({
     instanceId: PropTypes.string,
     modelName: PropTypes.string,
@@ -88,7 +87,8 @@ Search.propTypes = {
 
 const mapStateToProps = state => ({
   tasks: state.cg,
-  appState: state.appState
+  appState: state.appState,
+  quote: state.quoteState.quote
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -97,7 +97,7 @@ const mapDispatchToProps = dispatch => ({
   getQuote: bindActionCreators(getQuote, dispatch),
   clearResults: bindActionCreators(clearResults, dispatch),
   actions: {
-    
+
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });
