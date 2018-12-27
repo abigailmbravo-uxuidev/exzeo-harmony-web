@@ -37,18 +37,6 @@ describe('Testing WorkflowDetails component', () => {
       service: {
         quote: {}
       },
-      cg: {
-        bb: {
-          data: {
-            activeTask: {
-              name: 'step'
-            },
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       },
@@ -76,18 +64,6 @@ describe('Testing WorkflowDetails component', () => {
       getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); },
       quoteState: { state: {} },
       workflowState: { completedTasks: [] },
-      tasks: {
-        bb: {
-          data: {
-            activeTask: {
-              name: 'step'
-            },
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
-      },
       quote: {
         _id: '2345'
       },
