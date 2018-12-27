@@ -14,8 +14,6 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  props.setAppState({ ...props.appState.data, submitting: true });
-
   const updatedQuote = convertQuoteStringsToNumber(data);
   updatedQuote.dwellingAmount = Math.round(updatedQuote.dwellingAmount / 1000) * 1000;
   const updatedQuoteResult = {
@@ -51,12 +49,12 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 
 export const handleFormChange = props => (event, newValue, previousValue) => {
   if (previousValue !== newValue) {
-    props.setAppState({ recalc: true, hideYoPremium: true });
+    props.setAppState({ recalc: true });
   }
 };
 
 export const handleReset = (props) => {
-  props.setAppState({ recalc: false, hideYoPremium: false });
+  props.setAppState({ recalc: false });
 };
 
 const handleInitialize = (state) => {
