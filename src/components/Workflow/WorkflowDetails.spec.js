@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, getQuoteFromModel, ShowPremium, handleRecalc } from './WorkflowDetails';
+import ConnectedApp, { WorkflowDetails, getClassForStep, ShowPremium, handleRecalc } from './WorkflowDetails';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -71,7 +71,7 @@ describe('Testing WorkflowDetails component', () => {
     const props = {
       history: [],
       updateQuote() {},
-      setAppState(){},
+      setAppState() {},
       getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); },
       quoteState: { state: {} },
       workflowState: { completedTasks: [] },
@@ -119,7 +119,6 @@ describe('Testing WorkflowDetails component', () => {
       }
     };
     getClassForStep('step', props);
-    getQuoteFromModel(initialState, props);
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
     wrapper.render();

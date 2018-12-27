@@ -13,21 +13,6 @@ export const handleRecalc = (props) => {
   customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
 };
 
-export const getQuoteFromModel = (state, props) => {
-  const startModelData = {
-    quoteId: (props.appState.data && props.appState.data.quote) ? props.appState.data.quote._id : state.quote._id // eslint-disable-line
-  };
-
-  props.getQuote(startModelData.quoteId).then((response) => {
-    if (response.payload && response.payload[0].data.quote) {
-      props.setAppState({
-        ...props.appState.data,
-        updateWorkflowDetails: false
-      });
-    }
-  });
-};
-
 export const getClassForStep = (stepName, props) => {
   let className = '';
   const { activeTask, completedTasks } = props.workflowState;
@@ -40,15 +25,6 @@ export const getClassForStep = (stepName, props) => {
     className = 'disabled';
   }
   return className;
-  // const currentData = props.tasks && props.tasks[props.workflowModelName].data ? props.tasks[props.workflowModelName].data : {};
-  // if (currentData && currentData.activeTask && currentData.activeTask.name === stepName) {
-  //   className = 'active';
-  // } else if (currentData && currentData.model && (_.includes(currentData.model.completedTasks, stepName) || _.includes(props.completedTasks, stepName))) {
-  //   className = 'selected';
-  // } else if (currentData && currentData.model && !_.includes(currentData.model.completedTasks, stepName) && !_.includes(props.completedTasks, stepName)) {
-  //   className = 'disabled';
-  // }
-  // return className;
 };
 
 export const onKeyPress = (event, props, stepName) => {
@@ -144,17 +120,17 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                  {quote.rating && this.props.appState.data && !this.props.appState.data.recalc ?
+                  {quote.rating && !this.props.appState.isRecalc ?
                     <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} /> : '--'}
                 </dd>
               </div>
-              {this.props.appState.data && this.props.appState.data.recalc && <div className="recalc-wrapper">
+              {this.props.appState.isRecalc && <div className="recalc-wrapper">
                 <button
                   tabIndex={'0'}
                   className="btn btn-primary btn-round btn-sm"
                   type="button"
                   onClick={() => handleRecalc(this.props)}
-                  disabled={this.props.appState.data.submitting}
+                  disabled={this.props.appState.isLoading}
                 ><i className="fa fa-refresh" /></button>
               </div>}
             </dl>

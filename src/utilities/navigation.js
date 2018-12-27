@@ -10,10 +10,10 @@ const STEP_NAME_MAP = {
 };
 
 export const goToStep = async (props, stepName) => {
-    // don't allow submission until the other step is completed
+  // don't allow submission until the other step is completed
   const { activeTask, completedTasks } = props.workflowState;
 
-  if (props.appState.data.submitting || activeTask === stepName || !completedTasks.includes(stepName)) return;
+  if (props.appState.isLoading || activeTask === stepName || !completedTasks.includes(stepName)) return;
 
   await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
   props.history.push(`${STEP_NAME_MAP[stepName]}`);

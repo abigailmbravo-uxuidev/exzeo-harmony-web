@@ -71,7 +71,7 @@ export class CustomerInfo extends React.Component {
       zipCodeSettings,
       agentResults,
       showSnackBar,
-      isLoading,
+      submitting,
       quote
     } = this.props;
 
@@ -119,7 +119,7 @@ export class CustomerInfo extends React.Component {
                 className="btn btn-primary"
                 type="submit"
                 form="CustomerInfo"
-                disabled={isLoading}
+                disabled={submitting}
               >next</button>
             </div>
             <Footer />
@@ -132,7 +132,6 @@ export class CustomerInfo extends React.Component {
 
 const mapStateToProps = state => (
   {
-    isLoading: state.appState.isLoading,
     showSnackBar: state.appState.showSnackBar,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),

@@ -6,7 +6,7 @@ import { Redirect } from 'react-router';
 import Footer from '../Common/Footer';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
-import { setAppState } from '../../actions/appStateActions';
+import { setRecalc } from '../../actions/appStateActions';
 import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -27,7 +27,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
     liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
     calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount)),
-    recalc: !!props.appState.data.recalc
+    recalc: !!props.appState.isRecalc
   };
 
   if (updatedQuoteResult.personalPropertyAmount === 0) {
@@ -40,21 +40,21 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 
   await props.updateQuote({ data: updatedQuoteResult, quoteNumber: props.quote.quoteNumber });
 
-  if (!props.appState.data.recalc) {
+  if (!props.appState.isRecalc) {
     props.history.push('share');
   }
 
-  props.setAppState({ recalc: false });
+  props.setRecalc(false);
 };
 
 export const handleFormChange = props => (event, newValue, previousValue) => {
   if (previousValue !== newValue) {
-    props.setAppState({ recalc: true });
+    props.setRecalc(true);
   }
 };
 
 export const handleReset = (props) => {
-  props.setAppState({ recalc: false });
+  props.setRecalc(false);
 };
 
 const handleInitialize = (state) => {
@@ -82,7 +82,7 @@ export const Customize = (props) => {
     fieldValues,
     isHardStop,
     showSnackBar,
-    isSubmitting
+    submitting
   } = props;
 
   return (
@@ -93,7 +93,6 @@ export const Customize = (props) => {
         show={showSnackBar}
         timer={3000}
       ><p>Please correct errors.</p></SnackBar>
-      {isSubmitting && <Loader />}
       <Form
         className="fade-in"
         id="Customize"
@@ -114,7 +113,7 @@ export const Customize = (props) => {
             )}
           </div>
           <div className="workflow-steps">
-            {props.appState.data.recalc &&
+            {props.appState.isRecalc &&
               <button
                 tabIndex={'0'}
                 className="btn btn-secondary"
@@ -123,7 +122,7 @@ export const Customize = (props) => {
                   reset();
                 }}
                 type="button"
-                disabled={isSubmitting}
+                disabled={submitting}
               >
                 Reset
               </button>
@@ -133,9 +132,9 @@ export const Customize = (props) => {
               className="btn btn-primary"
               type="submit"
               form="Customize"
-              disabled={isSubmitting}
+              disabled={submitting}
             >
-              {props.appState.data.recalc ? 'recalculate' : 'next'}
+              {props.appState.isRecalc ? 'recalculate' : 'next'}
             </button>
           </div>
           <Footer />
@@ -146,7 +145,6 @@ export const Customize = (props) => {
 };
 
 const mapStateToProps = state => ({
-  isSubmitting: state.appState.isSubmitting,
   showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Customize.values', {}),
@@ -156,7 +154,7 @@ const mapStateToProps = state => ({
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
-export default connect(mapStateToProps, { updateQuote, setAppState })(reduxForm({
+export default connect(mapStateToProps, { updateQuote, setRecalc })(reduxForm({
   form: 'Customize',
   enableReinitialize: true,
   onSubmitFail: failedSubmission

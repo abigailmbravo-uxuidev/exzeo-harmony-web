@@ -14,6 +14,7 @@ export const DETAILS_SET = 'DETAILS_SET';
 export const DETAILS_GET = 'DETAILS_GET';
 
 /* APP STATE ACTIONS */
+export const SET_RECALC = 'SET_RECALC';
 export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR';
 export const APPSTATE_SET = 'APPSTATE_SET';

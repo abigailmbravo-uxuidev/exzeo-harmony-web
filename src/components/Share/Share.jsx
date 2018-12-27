@@ -53,9 +53,6 @@ render() {
     {this.props.isHardStop &&
       <Redirect to="error" />
     }
-    {this.props.isSubmitting &&
-      <Loader />
-    }
     <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={this.props.handleSubmit(this.noShareSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">

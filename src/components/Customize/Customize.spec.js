@@ -38,20 +38,20 @@ describe('Testing Customize component', () => {
               variables: [{
                 name: 'getQuote', value: { result: {} }
               },
-                { name: 'updateQuoteWithUWDecision3',
-                  value: {
-                    result: {
-                      quoteNumber: '12-1999999-01'
-                    }
+              { name: 'updateQuoteWithUWDecision3',
+                value: {
+                  result: {
+                    quoteNumber: '12-1999999-01'
                   }
-                },
-                { name: 'updateQuoteWithUWDecision4',
-                  value: {
-                    result: {
-                      quoteNumber: '12-1999999-01'
-                    }
+                }
+              },
+              { name: 'updateQuoteWithUWDecision4',
+                value: {
+                  result: {
+                    quoteNumber: '12-1999999-01'
                   }
-                }]
+                }
+              }]
             },
             uiQuestions: []
           }
@@ -64,7 +64,7 @@ describe('Testing Customize component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
-      setAppState(){},
+      setAppState() {},
       quote: {},
       history: [],
       handleSubmit() {},
@@ -83,7 +83,7 @@ describe('Testing Customize component', () => {
     expect(wrapper);
     handleFormSubmit({}, props.dispatch, props);
 
-    props.appState.data.recalc = true;
+    props.appState.isRecalc = true;
     handleFormSubmit({}, props.dispatch, props);
 
     handleReset(props);

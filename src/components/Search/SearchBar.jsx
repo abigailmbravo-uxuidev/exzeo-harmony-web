@@ -47,12 +47,8 @@ export const changePageQuote = async (props, isNext) => {
 
   props.setQuoteSearch(taskData);
   localStorage.setItem('lastSearchData', JSON.stringify(taskData));
-
   props.clearAppError();
-  props.setAppState({ ...props.appState.data, submitting: true });
-
   await props.searchQuotes(taskData);
-  props.setAppState({ ...props.appState.data, submitting: false });
 };
 
 export const handleSearchBarSubmit = async (data, dispatch, props) => {
@@ -77,10 +73,7 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
   };
 
   props.setQuoteSearch(taskData);
-
-  props.setAppState({ ...props.appState.data, submitting: true });
   await props.searchQuotes(taskData);
-  props.setAppState({ ...props.appState.data, submitting: false });
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
@@ -164,7 +157,7 @@ export class SearchForm extends Component {
               className="btn btn-success multi-input"
               type="submit"
               form="SearchBar"
-              disabled={this.props.appState.data.submitting || formErrors}
+              disabled={this.props.appState.isLoading || formErrors}
             >
               <i className="fa fa-search" /><span>Search</span>
             </button>
@@ -184,7 +177,7 @@ export class SearchForm extends Component {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={(this.props.appState.data && this.props.appState.data.submitting) || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            disabled={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>
