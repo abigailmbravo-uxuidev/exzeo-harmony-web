@@ -1,11 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-import failedSubmission from '../Common/reduxFormFailSubmit';
-import ConnectedApp, {
-  AddAdditionalInterest,
-  noAddAdditionalInterestSubmit, goToStep, returnTaskDataName, returnTaskName,
-  openDeleteAdditionalInterest, hideAdditionalInterestModal, deleteAdditionalInterest } from './AddAdditionalInterest';
+import { AddAdditionalInterest } from './AddAdditionalInterest';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -43,7 +39,6 @@ describe('Testing AddAdditionalInterest component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
-      setAppState() {},
       handleSubmit() {},
       history: [],
       quote: {},
@@ -56,31 +51,29 @@ describe('Testing AddAdditionalInterest component', () => {
         }
       }
     };
-    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
+    const wrapper = shallow(<AddAdditionalInterest store={store} {...props} />);
     expect(wrapper);
+    const instance = wrapper.instance();
 
-    noAddAdditionalInterestSubmit({}, props.dispatch, props);
-    goToStep(props, 'Mortgagee');
-    goToStep(props, 'PremiumFinance');
-    goToStep(props, 'Bill Payer');
-    goToStep(props, 'Additional Interest');
-    goToStep(props, 'Additional Insured');
-    returnTaskName('Mortgagee');
-    returnTaskName('PremiumFinance');
-    returnTaskName('Bill Payer');
-    returnTaskName('Additional Interest');
-    returnTaskName('Additional Insured');
-    returnTaskDataName('Mortgagee');
-    returnTaskDataName('PremiumFinance');
-    returnTaskDataName('Bill Payer');
-    returnTaskDataName('Additional Interest');
-    returnTaskDataName('Additional Insured');
-
-    AddAdditionalInterest(props);
-    openDeleteAdditionalInterest({}, props);
-    hideAdditionalInterestModal(props);
-
-    deleteAdditionalInterest({}, props);
-    failedSubmission({}, props.dispatch, () => {}, props);
+    instance.noAddAdditionalInterestSubmit({}, props.dispatch, props);
+    instance.goToStep('Mortgagee');
+    instance.goToStep('PremiumFinance');
+    instance.goToStep('Bill Payer');
+    instance.goToStep('Additional Interest');
+    instance.goToStep('Additional Insured');
+    instance.returnTaskName('Mortgagee');
+    instance.returnTaskName('PremiumFinance');
+    instance.returnTaskName('Bill Payer');
+    instance.returnTaskName('Additional Interest');
+    instance.returnTaskName('Additional Insured');
+    instance.returnTaskDataName('Mortgagee');
+    instance.returnTaskDataName('PremiumFinance');
+    instance.returnTaskDataName('Bill Payer');
+    instance.returnTaskDataName('Additional Interest');
+    instance.returnTaskDataName('Additional Insured');
+    instance.AddInterest();
+    instance.openDeleteAdditionalInterest({}, props);
+    instance.hideAdditionalInterestModal(props);
+    instance.deleteAdditionalInterest({}, props);
   });
 });

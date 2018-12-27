@@ -17,7 +17,7 @@ describe('Testing AddAdditionalInterest component', () => {
       updateQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
-      quote: { additionalInterests: []},
+      quote: { additionalInterests: [] },
       dispatch: store.dispatch,
       appState: {
         data: {
@@ -39,9 +39,7 @@ describe('Testing AddAdditionalInterest component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: {},
       updateQuote() {},
-      setAppState() {},
       handleSubmit() {},
       quote: {
         additionalInterests: []

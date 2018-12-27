@@ -53,7 +53,7 @@ describe('Testing AddBillPayer component', () => {
       history: [],
       quote: {},
       updateQuote() {},
-      setAppState(){},
+      
       handleSubmit() {},
       quote: {
         additionalInterests: []

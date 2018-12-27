@@ -1,8 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-import failedSubmission from '../Common/reduxFormFailSubmit';
-import ConnectedApp, { PremiumFinance, handleFormSubmit, closeAndSavePreviousAIs, handleInitialize, setPremiumFinanceValues } from './PremiumFinance';
+import ConnectedApp, { PremiumFinance, closeAndSavePreviousAIs, handleInitialize, setPremiumFinanceValues } from './PremiumFinance';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -13,7 +12,6 @@ describe('Testing AddPremiumFinance component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
-      setAppState(){},
       handleSubmit() {},
       history: [],
       fieldValues: {
@@ -33,6 +31,22 @@ describe('Testing AddPremiumFinance component', () => {
     };
     const wrapper = shallow(<PremiumFinance {...props} />);
     expect(wrapper);
+
+    const instance = wrapper.instance();
+
+    instance.handleFormSubmit({ isAdditional: true }, props.dispatch, props);
+    closeAndSavePreviousAIs(props);
+
+    const selectedPF = {
+      AIName1: 'One',
+      AIName2: 'Two',
+      AIAddress1: 'One Main Street',
+      AICity: 'Tampa',
+      AIState: 'FL',
+      AIZip: '33607'
+    };
+    instance.setPremiumFinanceValues(selectedPF, props);
+    instance.setPremiumFinanceValues(null, props);
   });
 
   it('should test connected app', () => {
@@ -45,7 +59,7 @@ describe('Testing AddPremiumFinance component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
-      setAppState(){},
+
       handleSubmit() {},
       history: [],
       fieldValues: {
@@ -65,22 +79,5 @@ describe('Testing AddPremiumFinance component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
-
-    handleFormSubmit({ isAdditional: true }, props.dispatch, props);
-    PremiumFinance(props);
-    closeAndSavePreviousAIs(props);
-    handleInitialize(initialState);
-    failedSubmission({}, props.dispatch, () => {}, props);
-
-    const selectedPF = {
-      AIName1: 'One',
-      AIName2: 'Two',
-      AIAddress1: 'One Main Street',
-      AICity: 'Tampa',
-      AIState: 'FL',
-      AIZip: '33607'
-    };
-    setPremiumFinanceValues(selectedPF, props);
-    setPremiumFinanceValues(null, props);
   });
 });
