@@ -7,7 +7,6 @@ import Footer from '../Common/Footer';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
 import { setRecalc } from '../../actions/appStateActions';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 

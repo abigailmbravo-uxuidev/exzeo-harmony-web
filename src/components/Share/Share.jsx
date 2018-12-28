@@ -5,7 +5,6 @@ import { reduxForm, Form } from 'redux-form';
 import Footer from '../Common/Footer';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
-import Loader from '../Common/Loader';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 export class Share extends React.Component {
