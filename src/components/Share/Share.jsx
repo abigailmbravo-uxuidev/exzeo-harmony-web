@@ -102,7 +102,7 @@ render() {
 const mapStateToProps = state => ({
   isLoading: state.appState.isLoading,
   appState: state.appState,
-  underwritingExceptions: state.quoteState.state ? state.quoteState.state.underwritingExceptions : [],
+  underwritingExceptions: state.quoteState.state ? state.quoteState.state.underwritingReviewErrors : [],
   quote: state.quoteState.quote,
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
