@@ -83,7 +83,7 @@ render() {
     </Form>
     {this.state.showEmailPopup &&
       <EmailPopup
-        primaryButtonHandler={() => this.shareQuoteSubmit()}
+        primaryButtonHandler={this.shareQuoteSubmit}
         secondaryButtonHandler={() => this.closeShareSubmit()}
       />}
     {(!this.props.isLoading && this.props.underwritingExceptions.length) &&
