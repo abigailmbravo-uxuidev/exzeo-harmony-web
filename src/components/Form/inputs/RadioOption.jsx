@@ -14,8 +14,8 @@ const RadioOption = ({
 }) => (
   <div
     className={classNames(
-        `radio-column-${size}`,
-        { selected: value === answer.answer }
+      `radio-column-${size}`,
+      { selected: value === answer.answer }
     )}
     onKeyPress={event => onKeyPress(event, answer.answer)}
     onClick={() => onChange(answer.answer)}

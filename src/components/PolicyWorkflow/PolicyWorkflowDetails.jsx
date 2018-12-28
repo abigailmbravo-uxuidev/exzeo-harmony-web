@@ -10,7 +10,6 @@ import normalizePhone from '../Form/normalizePhone';
 import normalizeNumbers from '../Form/normalizeNumbers';
 
 export class PolicyWorkflowDetails extends Component {
-
   render() {
     const { policy, summaryLedger } = this.props;
     if (!policy || !policy.policyID) {
@@ -80,7 +79,6 @@ export class PolicyWorkflowDetails extends Component {
       </section>
     </div>);
   }
-
 }
 
 PolicyWorkflowDetails.propTypes = {

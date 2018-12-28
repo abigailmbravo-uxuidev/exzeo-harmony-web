@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import logo from '../../img/TypTap.svg';
 
 const sideBarLinks = [{
-  /*link: 'https://www.typtap.com',
+  /* link: 'https://www.typtap.com',
   label: 'HOME'
 }, {
   className: 'active',
@@ -31,7 +31,7 @@ const Header = ({ toggleHeader, toggle, active }) => (
       <nav className={active ? 'active' : ''}>
         {sideBarLinks && sideBarLinks.length > 0 && sideBarLinks.map(sideBarLink => (
           <a key={sideBarLink.label} className={sideBarLink.className} href={sideBarLink.link}>{sideBarLink.label}</a>
-              ))}
+        ))}
       </nav>
       <div className={active ? 'nav-modal active' : 'nav-modal'} onClick={toggle} />
     </div>

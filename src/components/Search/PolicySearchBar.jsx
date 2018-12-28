@@ -114,7 +114,6 @@ export const validate = (values) => {
 };
 
 export class PolicySearchBar extends Component {
-
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
     if (!_.isEqual(this.props.policyResults, nextProps.policyResults)) {
@@ -167,7 +166,7 @@ export class PolicySearchBar extends Component {
         </div>
         { this.props.policyResults && this.props.policyResults.policies && this.props.policyResults.policies.length > 0 &&
         <Pagination changePageForward={() => changePagePolicy(this.props, true)} changePageBack={() => changePagePolicy(this.props, false)} fieldValues={fieldValues} />
-          }
+        }
       </Form>
     );
   }
@@ -198,7 +197,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    
+
     appStateActions: bindActionCreators(appStateActions, dispatch),
     errorActions: bindActionCreators(errorActions, dispatch),
     serviceActions: bindActionCreators(serviceActions, dispatch),

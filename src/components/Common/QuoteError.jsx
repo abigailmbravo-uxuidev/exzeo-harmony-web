@@ -19,7 +19,7 @@ const ErrorPopup = ({ quote, closeButtonHandler }) => (
                     <dd>{quote.quoteNumber}</dd>
                   </div>
                 </dl>
-                </div>}
+              </div>}
               {quote.property && <div className="display-element">
                 <dl className="property-information">
                   <div>
@@ -29,7 +29,7 @@ const ErrorPopup = ({ quote, closeButtonHandler }) => (
                     <dd>{`${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state} ${quote.property.physicalAddress.zip}`}</dd>
                   </div>
                 </dl>
-                </div>}
+              </div>}
             </section>
             <p>For questions or edits, please contact us.</p>
             <div className="contact-methods">
