@@ -38,7 +38,7 @@ export class WorkflowDetails extends Component {
   render() {
     const { quote, workflowState } = this.props;
     if (!quote || !quote.quoteNumber) {
-      return (<div className="detailHeader" />);
+      return (<div />);
     }
     const isCustomize = workflowState.activeTask === 'askToCustomizeDefaultQuote';
     return (
