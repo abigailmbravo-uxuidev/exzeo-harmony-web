@@ -14,7 +14,7 @@
 /*Set base typography*/
 @import "partials/_type";
 /*------------------------------------------------------------------------------------*/
-@import "https://fonts.googleapis.com/css?family=Roboto:100,300,500"; //base
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,500"); //base
 //buttons & links
 /*------------------------------------------------------------------------------------*/
 @import "partials/_buttons"; //inputs & forms
