@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@exzeo/core-ui": "0.3.x",
-    "@exzeo/react-scripts": "2.1.2",
+    "@exzeo/react-scripts": "1.0.3",
     "auth0-js": "~8.10.1",
     "axios": "~0.15.2",
     "classnames": "~2.2.5",
