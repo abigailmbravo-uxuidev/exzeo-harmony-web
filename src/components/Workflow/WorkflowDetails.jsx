@@ -1,30 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import CountUp from 'react-countup';
 import * as customize from '../Customize/Customize';
 import { getQuote } from '../../actions/serviceActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import { setRecalc } from '../../actions/appStateActions';
 import { goToStep } from '../../utilities/navigation';
+import ShowPremium from './ShowPremium';
 
 export const handleRecalc = (props) => {
   customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
 };
 
 export const getClassForStep = (stepName, props) => {
-  let className = '';
   const { activeTask, completedTasks } = props.workflowState;
 
-  if (activeTask === stepName) {
-    className = 'active';
-  } else if (completedTasks.includes(stepName)) {
-    className = 'selected';
-  } else if (!completedTasks.includes(stepName)) {
-    className = 'disabled';
-  }
-  return className;
+  if (activeTask === stepName) return 'active';
+
+  return completedTasks.includes(stepName) ? 'selected' : 'disabled';
 };
 
 export const onKeyPress = (event, props, stepName) => {
@@ -32,18 +25,6 @@ export const onKeyPress = (event, props, stepName) => {
   if (event && event.charCode === 13) {
     goToStep(props, stepName);
   }
-};
-
-export const ShowPremium = ({ isCustomize, totalPremium }) => {
-  if (isCustomize) {
-    return (<CountUp prefix="$ " separator="," start={0} end={totalPremium} />);
-  }
-  return (<span>$ {totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>);
-};
-
-ShowPremium.propTypes = {
-  totalPremium: PropTypes.number,
-  isCustomize: PropTypes.boolean
 };
 
 export class WorkflowDetails extends Component {
@@ -56,9 +37,8 @@ export class WorkflowDetails extends Component {
 
   render() {
     const { quote, workflowState } = this.props;
-    // const { quote } = this.props;
-    if (!quote || !quote.quoteNumber) { // eslint-disable-line
-      return <div className="detailHeader" />;
+    if (!quote || !quote.quoteNumber) {
+      return (<div className="detailHeader" />);
     }
     const isCustomize = workflowState.activeTask === 'askToCustomizeDefaultQuote';
     return (
@@ -160,8 +140,7 @@ const mapStateToProps = state => ({
   customizeFormValues: _.get(state.form, 'Customize.values', {}),
   quote: state.quoteState.quote,
   workflowState: state.quoteState.state,
-  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
-
+  isHardStop: state.quoteState.state.isHardStop
 });
 
 export default connect(mapStateToProps, { updateQuote, getQuote, setRecalc })(WorkflowDetails);

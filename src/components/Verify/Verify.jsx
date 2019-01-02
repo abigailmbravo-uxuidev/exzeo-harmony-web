@@ -76,6 +76,7 @@ export class Verify extends React.Component {
     } = this.props;
 
     const {
+      additionalInterests = [],
       property,
       coverageLimits,
       coverageOptions,
@@ -315,7 +316,7 @@ export class Verify extends React.Component {
                     </span>
                   </h3>
                   <section className="display-element additional-interests">
-                    {quoteData.additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
+                    {additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
                       <div className="card" key={`ph${index}`}>
                         <div className="icon-wrapper">
                           <i className={`fa ${additionalInterest.type}`} />

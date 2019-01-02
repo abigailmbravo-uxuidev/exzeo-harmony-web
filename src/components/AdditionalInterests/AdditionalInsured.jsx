@@ -9,6 +9,10 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
 
+const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
+
+const handleGetQuoteData = state => state.quoteState.quote || {};
+
 export const handleFormSubmit = async (data, dispatch, props) => {
   const additionalInterests = props.quote.additionalInterests;
   const additionalInsured1 = _.find(additionalInterests, { order: 0, type: 'Additional Insured' }) || {};
@@ -82,10 +86,6 @@ export const handleInitialize = (state) => {
 
   return values;
 };
-
-const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
-
-const handleGetQuoteData = state => state.quoteState.quote || {};
 
 export const AdditionalInsured = (props) => {
   const {

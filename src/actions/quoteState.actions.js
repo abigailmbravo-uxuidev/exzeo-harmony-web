@@ -3,9 +3,6 @@ import * as errorActions from './errorActions';
 import choreographer from '../utilities/choreographer';
 import { toggleLoading } from './appStateActions';
 
-const factoryInstance = choreographer();
-
-
 export const setQuote = (quote, state) => ({
   type: types.SET_QUOTE,
   quote,
@@ -23,7 +20,7 @@ export function createQuote(address, igdID, stateCode) {
   return async (dispatch) => {
     try {
       dispatch(toggleLoading(true));
-      const { quote, state } = await factoryInstance.createQuote(address, igdID, stateCode);
+      const { quote, state } = await choreographer.createQuote(address, igdID, stateCode);
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
@@ -45,7 +42,7 @@ export function getQuote(quoteNumber, quoteId) {
   return async (dispatch) => {
     try {
       dispatch(toggleLoading(true));
-      const { quote, state } = await factoryInstance.getQuote(quoteNumber, quoteId);
+      const { quote, state } = await choreographer.getQuote(quoteNumber, quoteId);
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
@@ -72,7 +69,7 @@ export function updateQuote({
   return async (dispatch, getState) => {
     try {
       dispatch(toggleLoading(true));
-      const { quote, state } = await factoryInstance.updateQuote({ data, quoteNumber, stepName, getReduxState: getState });
+      const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState });
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
