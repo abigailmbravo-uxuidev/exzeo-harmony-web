@@ -71,8 +71,8 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
     sortDirection: 'desc'
   };
 
-  props.setQuoteSearch(taskData);
   await props.searchQuotes(taskData);
+  props.setQuoteSearch(taskData);
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
