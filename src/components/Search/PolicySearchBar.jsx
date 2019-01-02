@@ -20,9 +20,9 @@ const handleInitialize = (state) => {
     firstName: state.search.firstName || '',
     lastName: state.search.lastName || '',
     policyNumber: state.search.policyNumber || '',
-    sortBy: state.search.sortBy || 'policyNumber',
-    pageNumber: state.search.pageNumber || 1,
-    totalPages: state.search.totalPages || 1
+    sortBy: 'policyNumber',
+    pageNumber: 1,
+    totalPages: 1
   };
   return values;
 };
