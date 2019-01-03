@@ -9,17 +9,18 @@
 # production
 /build
 
+.env.*
+.npmrc
+wallaby.js
+
 # misc
 .DS_Store
+.idea
+
+# npm/yarn logs
+package-lock.json
+yarn.lock
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-yarn.lock
 
-src/css/
-documentation
-
-package-lock.json
-.env.local
-.npmrc
-.idea
