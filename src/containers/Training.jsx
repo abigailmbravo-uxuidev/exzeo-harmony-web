@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import BaseConnect from './Base';
 import FancyExternalLink from '../components/FancyExternalLink';
@@ -36,7 +36,7 @@ const Training = props => (
           <div className="scroll">
             <div className="survey-wrapper">
               <section>
-                <h2>Reference Guides</h2>
+                <h2>Reference</h2>
                 <ul className="link-list">
                   {externalLinks.map(links => (
                     <FancyExternalLink {...links} />
@@ -52,8 +52,8 @@ const Training = props => (
   </BaseConnect>
 );
 
-Training.propTypes = {
-  children: PropTypes.shape()
-};
+// Training.propTypes = {
+//   children: PropTypes.shape()
+// };
 
 export default Training;

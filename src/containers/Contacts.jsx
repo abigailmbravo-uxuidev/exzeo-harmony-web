@@ -148,8 +148,8 @@ const Contacts = props => (
   </BaseConnect>
 );
 
-Contacts.propTypes = {
-  children: PropTypes.shape()
-};
+// Contacts.propTypes = {
+//   children: PropTypes.shape()
+// };
 
 export default Contacts;

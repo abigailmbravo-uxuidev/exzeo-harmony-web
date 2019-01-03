@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 function formatPhone(phoneNumberString) {
   const cleaned = `${phoneNumberString.replace(/\D/g)}`;
@@ -10,7 +10,7 @@ function formatPhone(phoneNumberString) {
   return '';
 }
 
-const ContactCard = ({image, name, title, phone, cell, extension, email, address1, address2, city, state, zip, message}) => {
+const ContactCard = ({ image, name, title, phone, cell, extension, email, address1, address2, city, state, zip, message }) => {
   return (
     <div className="card contact-card">
       <div className="card-header">
@@ -24,14 +24,14 @@ const ContactCard = ({image, name, title, phone, cell, extension, email, address
           {cell && <p className="contact-phone mobile"><a href={`tel:${cell}`}>{formatPhone(cell)}</a><span>MOBILE</span></p>}
           {email && <p className="contact-email"><i className="fa fa-envelope" /><a href={`mailto:${email}`}>{email}</a></p>}
           {address1 && <p className="contact-address"><i className="fa fa-map-marker" />
-            <div className="contact-address-wrapper">
+            <span className="contact-address-wrapper">
               {address1}<br />
               {address2 && address2}
               {address2 && <br />}
               {city},&nbsp;{state}&nbsp;{zip}
-            </div>
+            </span>
           </p>}
-          {message && <p className="email-message"><i className="fa fa-info-circle" /><div className="message-wrapper">{message}</div></p>}
+          {message && <p className="email-message"><i className="fa fa-info-circle" /><span className="message-wrapper">{message}</span></p>}
         </div>
       </div>
     </div>
