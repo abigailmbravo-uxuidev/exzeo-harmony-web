@@ -27,7 +27,7 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
                     <dd>{quote.quoteNumber}</dd>
                   </div>
                 </dl>
-                </div>}
+              </div>}
               {quote.property && <div className="display-element">
                 <dl className="property-information">
                   <div>
@@ -35,10 +35,10 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
                     <dd>{quote.property.physicalAddress.address1}</dd>
                     <dd>{quote.property.physicalAddress.address2}</dd>
                     <dd>{`${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state} ${
-                                            quote.property.physicalAddress.zip}`}</dd>
+                      quote.property.physicalAddress.zip}`}</dd>
                   </div>
                 </dl>
-                </div>}
+              </div>}
             </section>
             <p>Contact a TypTap customer service representative so we may further assist you in obtaining a quote.</p>
             <div className="contact-methods">

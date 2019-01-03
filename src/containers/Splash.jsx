@@ -9,7 +9,6 @@ import Footer from '../components/Common/Footer';
 import * as serviceActions from '../actions/serviceActions';
 
 export class Splash extends Component {
-
   componentDidMount() {
     this.props.actions.serviceActions.clearPolicyResults();
   }

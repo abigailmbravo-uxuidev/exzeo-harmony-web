@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
 import TextField from '../Form/inputs/TextField';
 import PhoneField from '../Form/inputs/PhoneField';
-import * as cgActions from '../../actions/cgActions';
-import * as appStateActions from '../../actions/appStateActions';
+
 import normalizePhone from '../Form/normalizePhone';
 import CheckField from '../Form/inputs/CheckField';
 import SnackBar from './SnackBar';
@@ -32,7 +30,7 @@ const handleInitialize = (state) => {
   values.pH2phone = normalizePhone(_.get(quote, 'policyHolders[1].primaryPhoneNumber') || '');
   return values;
 };
-const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryButtonHandler, fieldValues, parentProps, showSnackBar }) => (
+const PolicyHolderPopup = ({ isLoading, handleSubmit, primaryButtonHandler, secondaryButtonHandler, fieldValues, parentProps, showSnackBar }) => (
   <div className="edit-policyholder-modal modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">
@@ -79,7 +77,7 @@ const PolicyHolderPopup = ({ submitting, handleSubmit, primaryButtonHandler, sec
             </div>
             <div className="card-footer">
               <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button" disabled={showSnackBar}>Cancel</button>
-              <button className="btn btn-primary" type="submit" disabled={submitting || showSnackBar}>Save</button>
+              <button className="btn btn-primary" type="submit" disabled={isLoading || showSnackBar}>Save</button>
             </div>
           </Form>
         </div>
@@ -98,7 +96,8 @@ PolicyHolderPopup.propTypes = {
 // redux mapping
 // ------------------------------------------------
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   quote: handleQuoteData(state),
   initialValues: handleInitialize(state),
@@ -106,18 +105,7 @@ const mapStateToProps = state => ({
 
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuoteAction: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-// ------------------------------------------------
-// wire up redux form with the redux connect
-// ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   enableReinitialize: true,
   form: 'UpdatePolicyholder',
   onSubmitFail: failedSubmission

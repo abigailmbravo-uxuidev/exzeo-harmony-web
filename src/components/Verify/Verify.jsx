@@ -1,428 +1,401 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 
-import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import ScheduleDate from '../Common/ScheduleDate';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 import { CheckField } from '../Form/inputs';
 import normalizePhone from '../Form/normalizePhone';
+import { goToStep } from '../../utilities/navigation';
 
 const NO_AGENT_FOUND = { firstName: '', lastName: '' };
 
-const STEP_NAME_MAP = {
-  askAdditionalCustomerData: 'customerInfo',
-  askUWAnswers: 'underwriting',
-  askToCustomizeDefaultQuote: 'customize',
-  sendEmailOrContinue: 'share',
-  addAdditionalAIs: 'additionalInterests',
-  askAdditionalQuestions: 'mailingBilling',
-  editVerify: 'verify'
-};
-
-export const scheduleDateModal = ({ actions, appState }, showModal) => {
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showScheduleDateModal: !!showModal });
-};
-
-const redirectToHome = (props) => {
-  scheduleDateModal(props, false);
-  props.history.push('/');
-};
-
-const handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
-
-const showPolicyHolderModal = ({ actions, appState }) => {
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: true });
-};
-const hidePolicyHolderModal = ({ actions, appState }) => {
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { showPolicyHolderModal: false });
-};
-
-export const handleFormSubmit = async (data, dispatch, props) => {
-  const { actions, appState, updateQuoteAction, quote, history } = props;
-  const taskData = { ...data, shouldEditVerify: 'false' };
-
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
-  await updateQuoteAction({ data: taskData, quoteNumber: quote.quoteNumber });
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: false });
-  history.push('thankYou');
-};
-
-export const handlePolicyHolderUpdate = async (data, dispatch, props) => {
-  const { actions, appState, updateQuoteAction, quote } = props;
-  const taskData = { ...data };
-
-  if (!taskData.isAdditional) {
-    taskData.pH2email = '';
-    taskData.pH2FirstName = '';
-    taskData.pH2LastName = '';
-    taskData.pH2phone = '';
+export class Verify extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPolicyHolderModal: false,
+      showScheduleDateModal: false
+    };
   }
 
-  taskData.shouldEditVerify = 'PolicyHolder';
+  scheduleDateModal = (showModal) => {
+    this.setState({ showScheduleDateModal: !!showModal });
+  };
 
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: true });
-  await updateQuoteAction({ data: taskData, quoteNumber: quote.quoteNumber });
-  actions.appStateActions.setAppState(appState.modelName, '', { ...appState.data, submitting: false, showPolicyHolderModal: false });
-};
+  redirectToHome = () => {
+    this.scheduleDateModal(false);
+    this.props.history.push('/');
+  };
 
-export const goToStep = async (props, stepName) => {
-  const { appState, actions, updateQuoteAction, history, quote } = props;
-  // don't allow submission until the other step is completed
-  if (appState && appState.data.submitting === true) return;
+  handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
 
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { ...appState.data, submitting: true });
-  await updateQuoteAction({ stepName, quoteNumber: quote.quoteNumber });
-  actions.appStateActions.setAppState(appState.modelName, appState.instanceId, { ...appState.data, submitting: false });
+  showPolicyHolderModal = () => {
+    this.setState({ showPolicyHolderModal: true });
+  };
 
-  history.push(`${STEP_NAME_MAP[stepName]}`);
-};
+  hidePolicyHolderModal = () => {
+    this.setState({ showPolicyHolderModal: false });
+  };
 
-export const Verify = (props) => {
-  const {
-    fieldValues,
-    appState,
-    handleSubmit,
-    submitting,
-    agentList,
-    quote: quoteData,
-  } = props;
+  handleFormSubmit = async (data) => {
+    const { quote, history } = this.props;
+    const taskData = { ...data, shouldEditVerify: 'false' };
+    await this.props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
+    history.push('thankYou');
+  };
 
-  const {
-    property,
-    coverageLimits,
-    coverageOptions,
-    additionalInterests = [],
-    policyHolders = [],
-    policyHolderMailingAddress: mailingAddress = {},
-    deductibles
-  } = quoteData;
+  handlePolicyHolderUpdate = async (data) => {
+    const { quote } = this.props;
+    const taskData = { ...data };
 
-  const selectedAgent = agentList.find(agent =>
-    agent.agentCode === quoteData.agentCode
-  ) || NO_AGENT_FOUND;
+    if (!taskData.isAdditional) {
+      taskData.pH2email = '';
+      taskData.pH2FirstName = '';
+      taskData.pH2LastName = '';
+      taskData.pH2phone = '';
+    }
+
+    taskData.shouldEditVerify = 'PolicyHolder';
+
+    await this.props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
+    this.setState({ showPolicyHolderModal: false });
+  };
+
+  render() {
+    const {
+      fieldValues,
+      handleSubmit,
+      submitting,
+      agentList,
+      quote: quoteData,
+    } = this.props;
+
+    const {
+      additionalInterests = [],
+      property,
+      coverageLimits,
+      coverageOptions,
+      policyHolders = [],
+      policyHolderMailingAddress: mailingAddress = {},
+      deductibles
+    } = quoteData;
+
+    const selectedAgent = agentList.find(agent =>
+      agent.agentCode === quoteData.agentCode
+    ) || NO_AGENT_FOUND;
 
 
-  return (
-    <div className="route-content verify">
-      {appState.data.submitting &&
-        <Loader />
-      }
-      {quoteData.quoteNumber &&
-        <form id="Verify" onSubmit={handleSubmit(() => scheduleDateModal(props, true))}>
-          <div className="scroll">
-            <div className="detail-wrapper">
-              <div className="detail-group property-details">
-                <h3 className="section-group-header">
-                  <i className="fa fa-map-marker" /> Property Details
-                  <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(props, 'askAdditionalCustomerData')}>
-                    <i className="fa fa-pencil" /> Edit
-                  </span>
-                </h3>
-                <section className="display-element">
-                  <dl className="quote-number">
-                    <div>
-                      <dt>Quote Number</dt>
-                      <dd>{quoteData.quoteNumber}</dd>
-                    </div>
-                  </dl>
-                  <dl className="property-information">
-                    <div>
-                      <dt>Property Address</dt>
-                      <dd>{property.physicalAddress.address1}</dd>
-                      <dd>{property.physicalAddress.address2}</dd>
-                      <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
-                        property.physicalAddress.zip}`}</dd>
-                    </div>
-                  </dl>
-                  <dl className="property-information">
-                    <div>
-                      <dt>Year Built</dt>
-                      <dd>{property.yearBuilt}</dd>
-                    </div>
-                  </dl>
-                  {/* <dl className="property-information">
+    return (
+      <div className="route-content verify">
+        {quoteData.quoteNumber &&
+          <form id="Verify" onSubmit={handleSubmit(() => this.scheduleDateModal(true))}>
+            <div className="scroll">
+              <div className="detail-wrapper">
+                <div className="detail-group property-details">
+                  <h3 className="section-group-header">
+                    <i className="fa fa-map-marker" /> Property Details
+                    <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(this.props, 'askAdditionalCustomerData')}>
+                      <i className="fa fa-pencil" /> Edit
+                    </span>
+                  </h3>
+                  <section className="display-element">
+                    <dl className="quote-number">
                       <div>
-                        <dt>Flood Zone</dt>
-                        <dd>{property.floodZone}</dd>
-                      </div>
-                    </dl>*/}
-                  <dl className="effective-date">
-                    <div>
-                      <dt>Effective Date</dt>
-                      <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
-                    </div>
-                  </dl>
-                  <dl className="agent">
-                    <div>
-                      <dt>Agent</dt>
-                      <dd>{`${selectedAgent.firstName} ${selectedAgent.lastName}`}</dd>
-                    </div>
-                  </dl>
-                </section>
-                <CheckField styleName="verification" name="confirmProperyDetails" label="Verified" isSwitch />
-              </div>
-              <div className="detail-group quote-details">
-                <h3 className="section-group-header">
-                  <i className="fa fa-list" /> Quote Details
-                  <span className="edit-btn" onClick={() => goToStep(props, 'askToCustomizeDefaultQuote')}>
-                    <i className="fa fa-pencil" /> Edit
-                  </span>
-                </h3>
-                <section className="display-element">
-                  <dl>
-                    <div>
-                      <dt>Yearly Premium</dt>
-                      <dd>$ {quoteData.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>A. Dwelling</dt>
-                      <dd>$ {coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>B. Other Structures</dt>
-                      <dd>$ {coverageLimits.otherStructures.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>C. Personal Property</dt>
-                      <dd>$ {coverageLimits.personalProperty.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>D. Loss Of Use</dt>
-                      <dd>$ {coverageLimits.lossOfUse.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>E. Personal Liability</dt>
-                      <dd>$ {coverageLimits.personalLiability.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>F. Medical Payments</dt>
-                      <dd>$ {coverageLimits.medicalPayments.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Personal Property Replacement Cost</dt>
-                      <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Mold Property</dt>
-                      <dd>$ {coverageLimits.moldProperty.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Mold Liability</dt>
-                      <dd>$ {coverageLimits.moldLiability.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Ordinance or Law</dt>
-                      <dd>$ {(coverageLimits.dwelling.amount * (coverageLimits.ordinanceOrLaw.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>All Other Perils Deductible</dt>
-                      <dd>$ {deductibles.allOtherPerils.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Hurricane Deductible</dt>
-                      <dd>$ {deductibles.hurricane.calculatedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
-                    </div>
-                  </dl>
-                  {deductibles.sinkhole &&
-                    <dl>
-                      <div>
-                        <dt>Sinkhole Deductible</dt>
-                        <dd>$ {(coverageLimits.dwelling.amount * (deductibles.sinkhole.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                        <dt>Quote Number</dt>
+                        <dd>{quoteData.quoteNumber}</dd>
                       </div>
                     </dl>
-                  }
-                </section>
-                <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
-              </div>
-              <div className="detail-group policyholder-details">
-                <h3 className="section-group-header">
-                  <i className="fa fa-vcard-o" /> Policyholder Details
-                  <span className="edit-btn" onClick={() => showPolicyHolderModal(props)}>
-                    <i className="fa fa-pencil" /> Edit
-                  </span>
-                </h3>
-                <section className="display-element">
-                  <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their
-                    electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property
-                    inspection will results in failure to bind the policy.</p>
-                  <div className="contact-card-wrapper">
-                    {policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
-                      <div className="contact-card" key={`ph${index}`}>
-                        <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
-                        <dl>
-                          <div className="contact-name">
-                            <dt>Name</dt>
-                            <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
-                          </div>
-                          <div className="contact-phone">
-                            <dt>Phone Number</dt>
-                            <dd>{normalizePhone(policyHolder.primaryPhoneNumber)}</dd>
-                          </div>
-                          <div className="contact-email">
-                            <dt>Email</dt>
-                            <dd>{policyHolder.emailAddress}</dd>
-                          </div>
-                        </dl>
+                    <dl className="property-information">
+                      <div>
+                        <dt>Property Address</dt>
+                        <dd>{property.physicalAddress.address1}</dd>
+                        <dd>{property.physicalAddress.address2}</dd>
+                        <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
+                          property.physicalAddress.zip}`}</dd>
+                      </div>
+                    </dl>
+                    <dl className="property-information">
+                      <div>
+                        <dt>Year Built</dt>
+                        <dd>{property.yearBuilt}</dd>
+                      </div>
+                    </dl>
+                    {/* <dl className="property-information">
+                        <div>
+                          <dt>Flood Zone</dt>
+                          <dd>{property.floodZone}</dd>
+                        </div>
+                      </dl>*/}
+                    <dl className="effective-date">
+                      <div>
+                        <dt>Effective Date</dt>
+                        <dd>{moment.utc(quoteData.effectiveDate).format('MM/DD/YYYY')}</dd>
+                      </div>
+                    </dl>
+                    <dl className="agent">
+                      <div>
+                        <dt>Agent</dt>
+                        <dd>{`${selectedAgent.firstName} ${selectedAgent.lastName}`}</dd>
+                      </div>
+                    </dl>
+                  </section>
+                  <CheckField styleName="verification" name="confirmProperyDetails" label="Verified" isSwitch />
+                </div>
+                <div className="detail-group quote-details">
+                  <h3 className="section-group-header">
+                    <i className="fa fa-list" /> Quote Details
+                    <span className="edit-btn" onClick={() => goToStep(this.props, 'askToCustomizeDefaultQuote')}>
+                      <i className="fa fa-pencil" /> Edit
+                    </span>
+                  </h3>
+                  <section className="display-element">
+                    <dl>
+                      <div>
+                        <dt>Yearly Premium</dt>
+                        <dd>$ {quoteData.rating.totalPremium.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>A. Dwelling</dt>
+                        <dd>$ {coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>B. Other Structures</dt>
+                        <dd>$ {coverageLimits.otherStructures.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>C. Personal Property</dt>
+                        <dd>$ {coverageLimits.personalProperty.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>D. Loss Of Use</dt>
+                        <dd>$ {coverageLimits.lossOfUse.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>E. Personal Liability</dt>
+                        <dd>$ {coverageLimits.personalLiability.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>F. Medical Payments</dt>
+                        <dd>$ {coverageLimits.medicalPayments.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>Personal Property Replacement Cost</dt>
+                        <dd>{coverageOptions.personalPropertyReplacementCost.answer ? 'Yes' : 'No'}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>Mold Property</dt>
+                        <dd>$ {coverageLimits.moldProperty.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>Mold Liability</dt>
+                        <dd>$ {coverageLimits.moldLiability.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>Ordinance or Law</dt>
+                        <dd>$ {(coverageLimits.dwelling.amount * (coverageLimits.ordinanceOrLaw.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>All Other Perils Deductible</dt>
+                        <dd>$ {deductibles.allOtherPerils.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>Hurricane Deductible</dt>
+                        <dd>$ {deductibles.hurricane.calculatedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                      </div>
+                    </dl>
+                    {deductibles.sinkhole &&
+                      <dl>
+                        <div>
+                          <dt>Sinkhole Deductible</dt>
+                          <dd>$ {(coverageLimits.dwelling.amount * (deductibles.sinkhole.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                        </div>
+                      </dl>
+                    }
+                  </section>
+                  <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
+                </div>
+                <div className="detail-group policyholder-details">
+                  <h3 className="section-group-header">
+                    <i className="fa fa-vcard-o" /> Policyholder Details
+                    <span className="edit-btn" onClick={() => this.showPolicyHolderModal()}>
+                      <i className="fa fa-pencil" /> Edit
+                    </span>
+                  </h3>
+                  <section className="display-element">
+                    <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their
+                      electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property
+                      inspection will results in failure to bind the policy.</p>
+                    <div className="contact-card-wrapper">
+                      {policyHolders.map((policyHolder, index) => (_.trim(policyHolder.firstName).length > 0 &&
+                        <div className="contact-card" key={`ph${index}`}>
+                          <h4>{index === 0 ? 'Primary' : 'Secondary'} {'Policyholder'}</h4>
+                          <dl>
+                            <div className="contact-name">
+                              <dt>Name</dt>
+                              <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+                            </div>
+                            <div className="contact-phone">
+                              <dt>Phone Number</dt>
+                              <dd>{normalizePhone(policyHolder.primaryPhoneNumber)}</dd>
+                            </div>
+                            <div className="contact-email">
+                              <dt>Email</dt>
+                              <dd>{policyHolder.emailAddress}</dd>
+                            </div>
+                          </dl>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                </div>
+                <hr className="section-divider" />
+                <div className="detail-group mailing-address-details">
+                  <h3 className="section-group-header">
+                    <i className="fa fa-envelope" /> Mailing Address
+                    <span className="edit-btn" onClick={() => goToStep(this.props, 'askAdditionalQuestions')}>
+                      <i className="fa fa-pencil" /> Edit
+                    </span>
+                  </h3>
+                  <section className="display-element">
+                    <dl>
+                      <div>
+                        <dt>Street Address</dt>
+                        <dd>{mailingAddress.address1}</dd>
+                        <dd>{mailingAddress.address2}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>City/State/Zip</dt>
+                        <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
+                      </div>
+                    </dl>
+                    <dl>
+                      <div>
+                        <dt>Country</dt>
+                        <dd>{mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : 'USA'}</dd>
+                      </div>
+                    </dl>
+                  </section>
+                  <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verified" isSwitch />
+                </div>
+                <div className="detail-group additional-interests-details">
+                  <h3 className="section-group-header">
+                    <i className="fa fa-user-plus" /> Additional Parties
+                    <span className="edit-btn" onClick={() => goToStep(this.props, 'addAdditionalAIs')}>
+                      <i className="fa fa-pencil" /> Edit
+                    </span>
+                  </h3>
+                  <section className="display-element additional-interests">
+                    {additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
+                      <div className="card" key={`ph${index}`}>
+                        <div className="icon-wrapper">
+                          <i className={`fa ${additionalInterest.type}`} />
+                          <p>{this.handlePrimarySecondaryTitles(additionalInterest.type, additionalInterest.order)}</p>
+                        </div>
+                        <section>
+                          <h4>{`${additionalInterest.name1}`}</h4>
+                          <h4>{`${additionalInterest.name2}`}</h4>
+                          <p>
+                            {`${additionalInterest.mailingAddress.address1}`}
+                            {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ''}
+                          </p>
+                          <p>
+                            {`${additionalInterest.mailingAddress.city}, `}
+                            {`${additionalInterest.mailingAddress.state} `}
+                            {`${additionalInterest.mailingAddress.zip}`}
+                          </p>
+                        </section>
+                        <div className="ref-number">
+                          <label htmlFor="ref-number">Reference Number</label>
+                          <span>{`${additionalInterest.referenceNumber}`}</span>
+                        </div>
                       </div>
                     ))}
-                  </div>
-                </section>
+                  </section>
+                  <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verified" isSwitch />
+                </div>
               </div>
-              <hr className="section-divider" />
-              <div className="detail-group mailing-address-details">
-                <h3 className="section-group-header">
-                  <i className="fa fa-envelope" /> Mailing Address
-                  <span className="edit-btn" onClick={() => goToStep(props, 'askAdditionalQuestions')}>
-                    <i className="fa fa-pencil" /> Edit
-                  </span>
-                </h3>
-                <section className="display-element">
-                  <dl>
-                    <div>
-                      <dt>Street Address</dt>
-                      <dd>{mailingAddress.address1}</dd>
-                      <dd>{mailingAddress.address2}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>City/State/Zip</dt>
-                      <dd>{mailingAddress.city}, {mailingAddress.state} {mailingAddress.zip}</dd>
-                    </div>
-                  </dl>
-                  <dl>
-                    <div>
-                      <dt>Country</dt>
-                      <dd>{mailingAddress && mailingAddress.country ? mailingAddress.country.displayText : 'USA'}</dd>
-                    </div>
-                  </dl>
-                </section>
-                <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verified" isSwitch />
+              <div className="workflow-steps">
+                <button
+                  form="Verify"
+                  className="btn btn-primary"
+                  type="submit"
+                  disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
+                  !fieldValues.confirmPolicyHolderDetails ||
+                  !fieldValues.confirmAdditionalInterestsDetails || submitting}
+                >next</button>
               </div>
-              <div className="detail-group additional-interests-details">
-                <h3 className="section-group-header">
-                  <i className="fa fa-user-plus" /> Additional Parties
-                  <span className="edit-btn" onClick={() => goToStep(props, 'addAdditionalAIs')}>
-                    <i className="fa fa-pencil" /> Edit
-                  </span>
-                </h3>
-                <section className="display-element additional-interests">
-                  {additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
-                    <div className="card" key={`ph${index}`}>
-                      <div className="icon-wrapper">
-                        <i className={`fa ${additionalInterest.type}`} />
-                        <p>{handlePrimarySecondaryTitles(additionalInterest.type, additionalInterest.order)}</p>
-                      </div>
-                      <section>
-                        <h4>{`${additionalInterest.name1}`}</h4>
-                        <h4>{`${additionalInterest.name2}`}</h4>
-                        <p>
-                          {`${additionalInterest.mailingAddress.address1}`}
-                          {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ''}
-                        </p>
-                        <p>
-                          {`${additionalInterest.mailingAddress.city}, `}
-                          {`${additionalInterest.mailingAddress.state} `}
-                          {`${additionalInterest.mailingAddress.zip}`}
-                        </p>
-                      </section>
-                      <div className="ref-number">
-                        <label htmlFor="ref-number">Reference Number</label>
-                        <span>{`${additionalInterest.referenceNumber}`}</span>
-                      </div>
-                    </div>
-                  ))}
-                </section>
-                <CheckField styleName="verification" name="confirmAdditionalInterestsDetails" label="Verified" isSwitch />
-              </div>
+              <Footer />
             </div>
-            <div className="workflow-steps">
-              <button
-                form="Verify"
-                className="btn btn-primary"
-                type="submit"
-                disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
-                !fieldValues.confirmPolicyHolderDetails ||
-                !fieldValues.confirmAdditionalInterestsDetails || submitting}
-              >next</button>
-            </div>
-            <Footer />
-          </div>
-        </form>
-      }
-      {appState.data.showPolicyHolderModal &&
-        <PolicyHolderPopup
-          primaryButtonHandler={handlePolicyHolderUpdate}
-          secondaryButtonHandler={() => hidePolicyHolderModal(props)}
-          parentProps={props}
-          showSnackBar={props.appState.data.showSnackBar}
-        />
-      }
-      {appState.data.showScheduleDateModal &&
-        <ScheduleDate
-          {...props}
-          selectedAgent={selectedAgent}
-          quoteData={quoteData}
-          verify={handleFormSubmit}
-          secondaryButtonHandler={() => scheduleDateModal(props, false)}
-          redirectToHome={() => redirectToHome(props)}
-        />
-      }
-    </div>
-  );
-};
+          </form>
+        }
+        {this.state.showPolicyHolderModal &&
+          <PolicyHolderPopup
+            primaryButtonHandler={this.handlePolicyHolderUpdate}
+            secondaryButtonHandler={() => this.hidePolicyHolderModal()}
+            parentProps={this.props}
+          />
+        }
+        {this.state.showScheduleDateModal &&
+          <ScheduleDate
+            {...this.props}
+            selectedAgent={selectedAgent}
+            quoteData={quoteData}
+            verify={this.handleFormSubmit}
+            secondaryButtonHandler={() => this.scheduleDateModal(false)}
+            redirectToHome={() => this.redirectToHome()}
+          />
+        }
+      </div>
+    );
+  }
+}
 
 Verify.defaultProps = {
   quote: {},
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Verify.values', {}),
   agentList: state.service.agents || [],
-  quote: state.quoteState.quote || {}
+  quote: state.quoteState.quote || {},
+  workflowState: state.quoteState.state
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuoteAction: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'Verify',
   enableReinitialize: true
 })(Verify));

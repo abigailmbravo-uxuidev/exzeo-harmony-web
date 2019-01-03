@@ -40,11 +40,6 @@ it('renders without crashing', () => {
   };
   const store = mockStore(initialState);
   const props = {
-    actions: {
-      appStateActions: {
-        setAppState() {}
-      }
-    },
     fieldQuestions: [],
     quoteData: {},
     dispatch: store.dispatch,

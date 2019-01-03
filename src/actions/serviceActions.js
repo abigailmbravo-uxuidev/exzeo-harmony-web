@@ -6,8 +6,8 @@ import * as errorActions from './errorActions';
 
 export const handleError = (error) => {
   const message = error.response && error.response.data && error.response.data.error
-   ? error.response.data.error.message
-   : 'An error happened';
+    ? error.response.data.error.message
+    : 'An error happened';
   return (error.message) ? error.message : message;
 };
 

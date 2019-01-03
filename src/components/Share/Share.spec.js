@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Share, shareQuoteSubmit, noShareSubmit, shareQuote, closeShareSubmit, refereshUWReviewError } from './Share';
+import ConnectedApp, { Share } from './Share';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -12,44 +12,32 @@ describe('Testing Share component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      history: [],
+      updateQuote() {},
+      handleSubmit() {},
       underwritingExceptions: [],
       fieldQuestions: [],
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         data: {
           submitting: false
         }
       },
-      handleSubmit() {}
     };
     const wrapper = shallow(<Share {...props} />);
     expect(wrapper);
+    const wrapperInstance = wrapper.instance();
+    wrapperInstance.shareQuoteSubmit({}, props.dispatch, props);
+    wrapperInstance.noShareSubmit({}, props.dispatch, props);
+    wrapperInstance.shareQuote(props);
+    wrapperInstance.closeShareSubmit(props);
+    wrapperInstance.refereshUWReviewError(props);
   });
 
   it('should test connected app', () => {
     const initialState = {
       quoteState: {},
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            model: {
-              variables: [{
-                name: 'getQuote', value: { result: {} }
-              }]
-            },
-            uiQuestions: []
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       }
@@ -57,33 +45,8 @@ describe('Testing Share component', () => {
     const store = mockStore(initialState);
     const props = {
       updateQuote() {},
-      history: [],
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
-        }
-      },
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
       handleSubmit() {},
+      history: [],
       fieldQuestions: [],
       quote: {},
       dispatch: store.dispatch,
@@ -97,10 +60,5 @@ describe('Testing Share component', () => {
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
-    shareQuoteSubmit({}, props.dispatch, props);
-    noShareSubmit({}, props.dispatch, props);
-    shareQuote(props);
-    closeShareSubmit(props);
-    refereshUWReviewError(props);
   });
 });

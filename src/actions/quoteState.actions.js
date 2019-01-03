@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import choreographer from '../utilities/choreographer';
+import { toggleLoading } from './appStateActions';
 
 export const setQuote = (quote, state) => ({
   type: types.SET_QUOTE,
@@ -18,12 +19,15 @@ export const setQuote = (quote, state) => ({
 export function createQuote(address, igdID, stateCode) {
   return async (dispatch) => {
     try {
+      dispatch(toggleLoading(true));
       const { quote, state } = await choreographer.createQuote(address, igdID, stateCode);
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
 }
@@ -37,12 +41,15 @@ export function createQuote(address, igdID, stateCode) {
 export function getQuote(quoteNumber, quoteId) {
   return async (dispatch) => {
     try {
+      dispatch(toggleLoading(true));
       const { quote, state } = await choreographer.getQuote(quoteNumber, quoteId);
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
 }
@@ -61,12 +68,15 @@ export function updateQuote({
 }) {
   return async (dispatch, getState) => {
     try {
+      dispatch(toggleLoading(true));
       const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState });
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
 }
@@ -74,9 +84,12 @@ export function updateQuote({
 export function clearQuote() {
   return async (dispatch) => {
     try {
+      dispatch(toggleLoading(true));
       dispatch(setQuote(null, {}));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
 }

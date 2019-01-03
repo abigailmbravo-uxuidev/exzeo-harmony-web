@@ -1,30 +1,21 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import { CheckField } from '../Form/inputs';
 
 export const handleOnSubmit = async (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
   props.history.push('additionalInterests');
 };
 
 export const Assumptions = (props) => {
-  const { appState, handleSubmit, fieldValues } = props;
+  const { handleSubmit, fieldValues, isLoading } = props;
   return (
     <div className="route-content">
-      {props.appState.data.submitting
-        && <Loader />
-      }
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper">
@@ -44,7 +35,7 @@ export const Assumptions = (props) => {
             <CheckField styleName="confirm" name="confirmAssumptions" label="Confirmed" isSwitch autoFocus tabIndex={'0'} />
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || appState.data.submitting} tabIndex={'0'}>Next</button>
+            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || isLoading} tabIndex={'0'}>Next</button>
           </div>
           <Footer />
         </div>
@@ -54,19 +45,13 @@ export const Assumptions = (props) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
-  appState: state.appState,
+  isLoading: state.appState.isLoading,
   fieldValues: _.get(state.form, 'Assumptions.values', {}),
   quote: state.quoteState.quote
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, {
+  updateQuote
+})(reduxForm({
   form: 'Assumptions'
 })(Assumptions));

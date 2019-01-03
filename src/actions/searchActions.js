@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as serviceRunner from '../utilities/serviceRunner';
 import * as errorActions from './errorActions';
+import { toggleLoading } from './appStateActions';
 
 export const setPolicySearch = data => ({
   type: types.POLICY_SEARCH,
@@ -79,10 +80,13 @@ export async function fetchAddresses(address) {
 export function searchAddresses(address) {
   return async (dispatch) => {
     try {
+      dispatch(toggleLoading(true));
       const results = await fetchAddresses(address);
       dispatch(setSearchResults(formatAddressResults(results)));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
 }
@@ -140,10 +144,13 @@ function formatQuoteResults(results) {
 export function searchQuotes(quoteSearchData) {
   return async (dispatch) => {
     try {
+      dispatch(toggleLoading(true));
       const results = await fetchQuotes(quoteSearchData);
       dispatch(setSearchResults(formatQuoteResults(results)));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
 }

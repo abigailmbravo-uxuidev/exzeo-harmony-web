@@ -14,14 +14,13 @@ import Loader from '../Common/Loader';
 import Footer from '../Common/Footer';
 
 export class PolicyWorkflow extends Component {
-
   componentDidMount() {
     const { match: { params: { policyNumber } },
-     getPolicyDocumentsAction,
-     getSummaryLedgerAction,
-     getLatestPolicyAction,
-     getAgentsByAgencyAction
-     } = this.props;
+      getPolicyDocumentsAction,
+      getSummaryLedgerAction,
+      getLatestPolicyAction,
+      getAgentsByAgencyAction
+    } = this.props;
     clearPolicyResults();
     getPolicyDocumentsAction(policyNumber);
     getSummaryLedgerAction(policyNumber);

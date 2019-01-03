@@ -1,16 +1,13 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import momentTZ from 'moment-timezone';
 import moment from 'moment';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import { getZipcodeSettings, getAgents } from '../../actions/serviceActions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import { getInitialValues } from '../Customize/customizeHelpers';
@@ -32,19 +29,13 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
   await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
   props.history.push('underwriting');
 };
 
-const handleGetQuestions = state => {
-  return state.quoteState.state
-    ? state.quoteState.state.uiQuestions
-    : [];
-};
+const handleGetQuestions = state => (state.quoteState.state
+  ? state.quoteState.state.uiQuestions
+  : []);
 
 const handleInitialize = (state) => {
   const quoteData = state.quoteState.quote;
@@ -75,26 +66,24 @@ export class CustomerInfo extends React.Component {
 
   render() {
     const {
-      appState,
       handleSubmit,
       fieldValues,
       zipCodeSettings,
-      agentResults
+      agentResults,
+      showSnackBar,
+      submitting,
+      quote
     } = this.props;
 
     const questions = this.props.uiQuestions;
-    const quoteData = this.props.quote;
 
     return (
       <div className="route-content">
         <SnackBar
           {...this.props}
-          show={appState.data.showSnackBar}
+          show={showSnackBar}
           timer={3000}
         ><p>Please correct errors.</p></SnackBar>
-        {appState.data.submitting &&
-          <Loader />
-        }
         <Form
           id="CustomerInfo"
           onSubmit={handleSubmit(handleFormSubmit)}
@@ -107,7 +96,7 @@ export class CustomerInfo extends React.Component {
                   tabindex="0"
                   autoFocus={index === 1}
                   zipCodeSettings={zipCodeSettings}
-                  data={quoteData}
+                  data={quote}
                   question={question}
                   values={fieldValues}
                   key={index}
@@ -130,7 +119,7 @@ export class CustomerInfo extends React.Component {
                 className="btn btn-primary"
                 type="submit"
                 form="CustomerInfo"
-                disabled={appState.data.submitting}
+                disabled={submitting}
               >next</button>
             </div>
             <Footer />
@@ -143,8 +132,7 @@ export class CustomerInfo extends React.Component {
 
 const mapStateToProps = state => (
   {
-    tasks: state.cg,
-    appState: state.appState,
+    showSnackBar: state.appState.showSnackBar,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
     agentResults: state.service.agents,
@@ -153,16 +141,7 @@ const mapStateToProps = state => (
     uiQuestions: handleGetQuestions(state)
   });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  getZipcodeSettings: bindActionCreators(getZipcodeSettings, dispatch),
-  getAgents: bindActionCreators(getAgents, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote, getZipcodeSettings, getAgents })(reduxForm({
   enableReinitialize: true,
   form: 'CustomerInfo',
   onSubmitFail: failedSubmission

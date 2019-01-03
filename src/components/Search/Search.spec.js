@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { Search, handleSelectAddress, handleSelectQuote } from './Search';
+import ConnectedApp, { Search } from './Search';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -16,14 +16,9 @@ describe('Testing Search component', () => {
       createQuote() {},
       clearResults() {},
       clearQuote() {},
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        }
-      },
       handleSubmit() {},
       fieldQuestions: [],
-      quoteData: {},
+      quote: {},
       dispatch: store.dispatch,
       appState: {
         data: {
@@ -48,22 +43,13 @@ describe('Testing Search component', () => {
     };
 
     wrapper.instance().handleSelectAddress(address);
-    wrapper.instance().handleSelectQuote(props.quoteData);
+    wrapper.instance().handleSelectQuote(props.quote);
   });
 
   it('should test connected app', () => {
     const initialState = {
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: [],
-            activeTask: {
-              name: 'bb'
-            }
-          }
-        }
+      quoteState: {
+        quote: {}
       },
       appState: {
         modelName: 'bb'
@@ -71,35 +57,11 @@ describe('Testing Search component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      quoteData: {
+      quote: {
         quoteState: 'Quote Started'
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
       handleSubmit() {},
       appState: {
         modelName: 'bb',

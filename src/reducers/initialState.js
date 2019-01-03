@@ -8,10 +8,8 @@ export default {
   service: {},
   completedTasks: [],
   appState: {
-    data: {
-      submitting: false,
-      updateWorkflowDetails: false
-    }
+    isLoading: false,
+    isRecalc: false
   },
   navigation: {
     location: null

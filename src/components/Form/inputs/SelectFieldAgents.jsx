@@ -46,9 +46,9 @@ export const SelectInputAgents = ({
             <option aria-label={`${agent.firstName} ${agent.lastName}`} value={agent.agentCode} key={index}>
               {`${agent.firstName} ${agent.lastName}`}
             </option>
-            ))}
+          ))}
         </select>
-        ) : null}
+      ) : null}
 
       { Error }
     </div>
@@ -65,7 +65,7 @@ SelectInputAgents.propTypes = {
    * Tooltip for user
    */
   hint: PropTypes.string,
-    // Validations
+  // Validations
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,

@@ -83,20 +83,4 @@ it('renders without crashing', () => {
   };
   const wrapper = shallow(<ConnectedApp store={store} {...props} />);
   expect(wrapper);
-
-  expect(pageName(props)).toEqual('Loading Policyholder');
-  props.appState.data.nextPage = 'askUWAnswers';
-  expect(pageName(props)).toEqual('Loading Underwriting');
-  props.appState.data.nextPage = 'askToCustomizeDefaultQuote';
-  expect(pageName(props)).toEqual('Loading Customize');
-  props.appState.data.nextPage = 'sendEmailOrContinue';
-  expect(pageName(props)).toEqual('Loading Share');
-  props.appState.data.nextPage = 'addAdditionalAIs';
-  expect(pageName(props)).toEqual('Loading Additional Parties');
-  props.appState.data.nextPage = 'askAdditionalQuestions';
-  expect(pageName(props)).toEqual('Loading Mailing/Billing');
-  props.appState.data.nextPage = 'askScheduleInspectionDates';
-  expect(pageName(props)).toEqual('Loading Verify');
-  props.appState.data.nextPage = 'blah';
-  expect(pageName(props)).toEqual('Loading');
 });

@@ -12,6 +12,7 @@ describe('Testing Customize component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      setRecalc() {},
       history: [],
       fieldQuestions: [],
       quoteData: {},
@@ -38,20 +39,20 @@ describe('Testing Customize component', () => {
               variables: [{
                 name: 'getQuote', value: { result: {} }
               },
-                { name: 'updateQuoteWithUWDecision3',
-                  value: {
-                    result: {
-                      quoteNumber: '12-1999999-01'
-                    }
+              { name: 'updateQuoteWithUWDecision3',
+                value: {
+                  result: {
+                    quoteNumber: '12-1999999-01'
                   }
-                },
-                { name: 'updateQuoteWithUWDecision4',
-                  value: {
-                    result: {
-                      quoteNumber: '12-1999999-01'
-                    }
+                }
+              },
+              { name: 'updateQuoteWithUWDecision4',
+                value: {
+                  result: {
+                    quoteNumber: '12-1999999-01'
                   }
-                }]
+                }
+              }]
             },
             uiQuestions: []
           }
@@ -63,44 +64,10 @@ describe('Testing Customize component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      setRecalc() {},
       updateQuote() {},
       quote: {},
       history: [],
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {},
-          batchCompleteTask() { return Promise.resolve(); }
-        }
-      },
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {
-              variables: [
-                { name: 'updateQuoteWithUWDecision3',
-                  value: {
-                    result: {
-                      quoteNumber: '12-1999999-01'
-                    }
-                  }
-                }
-              ]
-            },
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
       handleSubmit() {},
       fieldQuestions: [],
       quoteData: {},
@@ -117,7 +84,7 @@ describe('Testing Customize component', () => {
     expect(wrapper);
     handleFormSubmit({}, props.dispatch, props);
 
-    props.appState.data.recalc = true;
+    props.appState.isRecalc = true;
     handleFormSubmit({}, props.dispatch, props);
 
     handleReset(props);

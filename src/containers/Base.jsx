@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
-import * as cgActions from '../actions/cgActions';
 import * as serviceActions from '../actions/serviceActions';
 
 const handleLogout = (props) => {
@@ -102,7 +101,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: {
     serviceActions: bindActionCreators(serviceActions, dispatch),
-    cgActions: bindActionCreators(cgActions, dispatch)
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Base);

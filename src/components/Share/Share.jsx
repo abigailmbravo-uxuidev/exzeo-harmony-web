@@ -1,66 +1,58 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import Footer from '../Common/Footer';
-import * as appStateActions from '../../actions/appStateActions';
 import EmailPopup from '../Common/EmailPopup';
 import ErrorPopup from '../Common/ErrorPopup';
-import Loader from '../Common/Loader';
 import { updateQuote } from '../../actions/quoteState.actions';
 
-export const noShareSubmit = async (data, dispatch, props) => {
+export class Share extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showEmailPopup: false
+    };
+  }
+
+noShareSubmit = async () => {
   const submitData = { shouldSendEmail: 'No' };
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
-  props.history.push('assumptions');
+  await this.props.updateQuote({ data: submitData, quoteNumber: this.props.quote.quoteNumber });
+  this.props.history.push('assumptions');
 };
 
-export const shareQuoteSubmit = async (data, dispatch, props) => {
+shareQuoteSubmit = async (data) => {
   const submitData = { shouldSendEmail: 'Yes', ...data };
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: submitData, quoteNumber: props.quote.quoteNumber});
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false, showEmailPopup: false });
+  await this.props.updateQuote({ data: submitData, quoteNumber: this.props.quote.quoteNumber });
+  this.setState({ showEmailPopup: false });
 };
 
-export const shareQuote = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: true });
-};
+shareQuote() {
+  this.setState({ showEmailPopup: true });
+}
 
-export const closeShareSubmit = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { showEmailPopup: false });
-};
+closeShareSubmit() {
+  this.setState({ showEmailPopup: false });
+}
 
-export const refereshUWReviewError = async (props) => {
+refereshUWReviewError = async () => {
   const data = { refresh: 'Yes' };
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber});
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: false });
-
-  props.history.push('customerInfo');
+  await this.props.updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
+  this.props.history.push('customerInfo');
 };
 
-const redirectToNewQuote = (props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { submitting: true });
-  props.history.push('/');
-};
+redirectToNewQuote() {
+  this.props.history.push('/');
+}
 
-export const Share = props => (
-  <div className="route-content">
-    {props.isHardStop &&
+
+render() {
+  return (<div className="route-content">
+    {this.props.isHardStop &&
       <Redirect to="error" />
     }
-    {props.appState.data.submitting &&
-      <Loader />
-    }
-    <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={props.handleSubmit(noShareSubmit)} noValidate>
+    <Form className={`${'styleName' || ''}`} id="SharePage" onSubmit={this.props.handleSubmit(this.noShareSubmit)} noValidate>
       <div className="scroll">
         <div className="form-group detail-wrapper">
           <section className="section-instructions">
@@ -83,42 +75,37 @@ export const Share = props => (
           </section>
         </div>
         <div className="workflow-steps">
-          <button className="btn btn-secondary" type="button" onClick={() => shareQuote(props)}>share</button>
-          <button className="btn btn-primary" type="submit" disabled={props.appState.data.submitting}>next</button>
+          <button className="btn btn-secondary" type="button" onClick={() => this.shareQuote()}>share</button>
+          <button className="btn btn-primary" type="submit" disabled={this.props.isLoading}>next</button>
         </div>
         <Footer />
       </div>
     </Form>
-    {props.appState.data.showEmailPopup &&
+    {this.state.showEmailPopup &&
       <EmailPopup
-        primaryButtonHandler={shareQuoteSubmit}
-        secondaryButtonHandler={() => closeShareSubmit(props)}
+        primaryButtonHandler={this.shareQuoteSubmit}
+        secondaryButtonHandler={() => this.closeShareSubmit()}
       />}
-    {(!props.appState.data.submitting && props.underwritingExceptions.length) &&
+    {(!this.props.isLoading && this.props.underwritingExceptions.length) &&
       <ErrorPopup
-        quote={props.quote}
-        underwritingExceptions={props.underwritingExceptions}
-        refereshUWReviewError={() => refereshUWReviewError(props)}
-        redirectToNewQuote={() => redirectToNewQuote(props)}
+        quote={this.props.quote}
+        underwritingExceptions={this.props.underwritingExceptions}
+        refereshUWReviewError={() => this.refereshUWReviewError()}
+        redirectToNewQuote={() => this.redirectToNewQuote()}
       />}
   </div>
-);
+  );
+}
+}
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
   appState: state.appState,
-  underwritingExceptions: state.quoteState.state ? state.quoteState.state.underwritingExceptions : [],
+  underwritingExceptions: state.quoteState.state && state.quoteState.state.underwritingExceptions ? state.quoteState.state.underwritingExceptions : [],
   quote: state.quoteState.quote,
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'Share'
 })(Share));

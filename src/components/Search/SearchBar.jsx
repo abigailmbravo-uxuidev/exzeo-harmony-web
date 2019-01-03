@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-form';
 import _ from 'lodash';
 import Rules from '../Form/Rules';
-import * as cgActions from '../../actions/cgActions';
-import * as appStateActions from '../../actions/appStateActions';
-import * as errorActions from '../../actions/errorActions';
-import * as serviceActions from '../../actions/serviceActions';
-import * as searchActions from '../../actions/searchActions';
+
+import { clearAppError } from '../../actions/errorActions';
+import { searchQuotes, setQuoteSearch, searchAddresses } from '../../actions/searchActions';
 
 import Pagination from '../Common/Pagination';
 import { generateField, getSearchType } from './searchUtils';
 
-const handleInitialize = (state) => {
-  return {
-    address: '',
-    pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
-    totalPages: _.get(state.search, 'state.search.totalPages') || 0
-  };
-};
+const handleInitialize = state => ({
+  address: '',
+  pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
+  totalPages: _.get(state.search, 'state.search.totalPages') || 0
+});
 
 export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
@@ -49,14 +44,10 @@ export const changePageQuote = async (props, isNext) => {
 
   taskData.pageNumber = isNext ? String(Number(fieldValues.pageNumber) + 1) : String(Number(fieldValues.pageNumber) - 1);
 
-  props.actions.searchActions.setQuoteSearch(taskData);
+  props.setQuoteSearch(taskData);
   localStorage.setItem('lastSearchData', JSON.stringify(taskData));
-
-  props.actions.errorActions.clearAppError();
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-
-  await props.actions.searchActions.searchQuotes(taskData);
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
+  props.clearAppError();
+  await props.searchQuotes(taskData);
 };
 
 export const handleSearchBarSubmit = async (data, dispatch, props) => {
@@ -80,16 +71,14 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
     sortDirection: 'desc'
   };
 
-  props.actions.searchActions.setQuoteSearch(taskData);
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.actions.searchActions.searchQuotes(taskData);
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
+  await props.searchQuotes(taskData);
+  props.setQuoteSearch(taskData);
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
-  props.actions.searchActions.searchAddresses(encodeURIComponent(data.address));
+  const { address } = data;
+  props.setQuoteSearch({ searchType: 'address', address });
+  props.searchAddresses(encodeURIComponent(address));
 };
 
 export const validate = (values) => {
@@ -146,7 +135,7 @@ export class SearchForm extends Component {
       const pageNumber = currentPage; // quoteSearchResponse.currentPage;
       dispatch(change('SearchBar', 'pageNumber', pageNumber));
       dispatch(change('SearchBar', 'totalPages', totalPages));
-      nextProps.actions.searchActions.setQuoteSearch({ ...nextProps.search, totalPages, pageNumber });
+      nextProps.setQuoteSearch({ ...nextProps.search, totalPages, pageNumber });
     }
   }
 
@@ -167,14 +156,14 @@ export class SearchForm extends Component {
               className="btn btn-success multi-input"
               type="submit"
               form="SearchBar"
-              disabled={this.props.appState.data.submitting || formErrors}
+              disabled={this.props.appState.isLoading || formErrors}
             >
               <i className="fa fa-search" /><span>Search</span>
             </button>
           </div>
           { searchResults && searchResults.length > 0 && fieldValues.totalPages > 1 &&
             <Pagination changePageForward={() => changePageQuote(this.props, true)} changePageBack={() => changePageQuote(this.props, false)} fieldValues={fieldValues} />
-        }
+          }
         </Form>
       );
     }
@@ -187,7 +176,7 @@ export class SearchForm extends Component {
             className="btn btn-success multi-input"
             type="submit"
             form="SearchBar"
-            disabled={(this.props.appState.data && this.props.appState.data.submitting) || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            disabled={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>
@@ -229,20 +218,15 @@ const mapStateToProps = state => ({
   searchResults: state.search.results
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
-    appStateActions: bindActionCreators(appStateActions, dispatch),
-    errorActions: bindActionCreators(errorActions, dispatch),
-    serviceActions: bindActionCreators(serviceActions, dispatch),
-    searchActions: bindActionCreators(searchActions, dispatch)
-  }
-});
-
 const searchBarForm = reduxForm({
   form: 'SearchBar',
   enableReinitialize: true,
   validate
 })(SearchBar);
 
-export default connect(mapStateToProps, mapDispatchToProps)(searchBarForm);
+export default connect(mapStateToProps, {
+  clearAppError,
+  searchQuotes,
+  setQuoteSearch,
+  searchAddresses
+})(searchBarForm);

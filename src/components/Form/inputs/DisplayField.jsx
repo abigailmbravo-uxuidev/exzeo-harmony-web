@@ -36,7 +36,7 @@ DisplayInput.propTypes = {
       PropTypes.number
     ])
   }),
-    // Name added to class on render
+  // Name added to class on render
   styleName: PropTypes.string
 };
 

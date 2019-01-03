@@ -21,7 +21,7 @@ const PolicyHolderCard = ({ policyHolder, policyHolderMailingAddress, phIndex
           <dt>Phone</dt>
           <dd>{normalizePhone(policyHolder.secondaryPhoneNumber)}</dd>
         </div>
-   }
+        }
         <div data-test="policyholderEmail">
           <dt>Email</dt>
           <dd>{policyHolder.emailAddress}</dd>
@@ -35,7 +35,7 @@ const PolicyHolderCard = ({ policyHolder, policyHolderMailingAddress, phIndex
             ${policyHolderMailingAddress.city}, ${policyHolderMailingAddress.state} ${policyHolderMailingAddress.zip}`}</dd>
         </div>
       </dl>
- }
+      }
     </section>
   </React.Fragment>
 );
