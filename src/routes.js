@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable no-multi-spaces */
+/* eslint-disable max-len */
 // src/routes.js
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';

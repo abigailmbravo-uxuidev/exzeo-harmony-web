@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { WorkflowDetails, getClassForStep, goToStep, handleRecalc } from './WorkflowDetails';
+import ConnectedApp, { WorkflowDetails, getClassForStep, handleRecalc } from './WorkflowDetails';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -13,6 +13,7 @@ describe('Testing WorkflowDetails component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
+      setRecalc() {},
       history: [],
       fieldQuestions: [],
       quoteData: {},
@@ -36,18 +37,6 @@ describe('Testing WorkflowDetails component', () => {
       service: {
         quote: {}
       },
-      cg: {
-        bb: {
-          data: {
-            activeTask: {
-              name: 'step'
-            },
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       },
@@ -70,33 +59,11 @@ describe('Testing WorkflowDetails component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
+      setRecalc() {},
       updateQuote() {},
+      getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); },
       quoteState: { state: {} },
       workflowState: { completedTasks: [] },
-      tasks: {
-        bb: {
-          data: {
-            activeTask: {
-              name: 'step'
-            },
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
-      },
-      actions: {
-        updateQuote() {},
-        cgActions: {
-          completeTask() {}
-        },
-        appStateActions: {
-          setAppState() { return Promise.resolve(); }
-        },
-        serviceActions: {
-          getQuote() { return Promise.resolve({ payload: [{ data: { quote: {} } }] }); }
-        }
-      },
       quote: {
         _id: '2345'
       },
@@ -130,8 +97,6 @@ describe('Testing WorkflowDetails component', () => {
     };
 
     getClassForStep('step', props);
-    goToStep(props, 'step');
-
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
     wrapper.render();

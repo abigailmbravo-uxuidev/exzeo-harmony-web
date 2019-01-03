@@ -34,7 +34,7 @@ export const ReactSelectInput = ({
           options={answers}
           onChange={onChange}
         />
-        ) : null}
+      ) : null}
       {Error}
     </div>
   );

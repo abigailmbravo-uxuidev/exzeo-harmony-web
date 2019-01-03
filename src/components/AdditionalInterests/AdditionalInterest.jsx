@@ -1,13 +1,9 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
-
-import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import { getInitialValues } from '../Customize/customizeHelpers';
@@ -15,7 +11,7 @@ import FieldGenerator from '../Form/FieldGenerator';
 
 
 export const handleFormSubmit = async (data, dispatch, props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
   const additionalInterest1 = _.find(additionalInterests, { order: 0, type: 'Additional Interest' }) || {};
   const additionalInterest2 = _.find(additionalInterests, { order: 1, type: 'Additional Interest' }) || {};
 
@@ -64,29 +60,23 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     additionalInterests.push(additionalInterest2);
   }
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
   props.history.push('additionalInterests');
 };
 
 export const closeAndSavePreviousAIs = async (props) => {
-  const additionalInterests = props.quoteData.additionalInterests;
+  const additionalInterests = props.quote.additionalInterests;
 
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
+  await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
   props.history.push('additionalInterests');
 };
 
 export const handleInitialize = (state) => {
   const uiQuestions = handleGetQuestions(state);
-  const quoteData = handleGetQuoteData(state);
+  const quote = handleGetQuoteData(state);
 
   const values = getInitialValues(uiQuestions,
-    { additionalInterests: _.filter(quoteData.additionalInterests, ai => ai.type === 'Additional Interest') });
+    { additionalInterests: _.filter(quote.additionalInterests, ai => ai.type === 'Additional Interest') });
 
   _.forEach(uiQuestions, (q) => {
     if (!values[q.name]) {
@@ -109,7 +99,7 @@ const handleGetQuoteData = state => state.quoteState.quote || {};
 export const AdditionalInterest = (props) => {
   const {
     fieldQuestions,
-    quoteData,
+    quote,
     handleSubmit,
     fieldValues
   } = props;
@@ -118,22 +108,21 @@ export const AdditionalInterest = (props) => {
     <div className="route-content">
       <SnackBar
         {...props}
-        show={props.appState.data.showSnackBar}
+        show={props.showSnackBar}
         timer={3000}
       ><p>Please correct errors.</p></SnackBar>
-      { props.appState.data.submitting && <Loader /> }
       <Form id="AdditionalInterest" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-handshake-o" /> Additional Interest</h3>
-            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quoteData} question={question} values={fieldValues} key={index} />)}
+            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quote} question={question} values={fieldValues} key={index} />)}
           </div>
           <div className="workflow-steps">
             <span className="button-label-wrap">
               <span className="button-info">Oops! There is no additional interest</span>
               <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
             </span>
-            <button className="btn btn-primary" type="submit" form="AdditionalInterest" disabled={props.appState.data.submitting}>Save</button>
+            <button className="btn btn-primary" type="submit" form="AdditionalInterest" disabled={props.isLoading}>Save</button>
           </div>
           <Footer />
         </div>
@@ -143,22 +132,18 @@ export const AdditionalInterest = (props) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'AdditionalInterest.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quoteData: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, {
+  updateQuote
+})(reduxForm({
   form: 'AdditionalInterest',
   onSubmitFail: failedSubmission
 })(AdditionalInterest));

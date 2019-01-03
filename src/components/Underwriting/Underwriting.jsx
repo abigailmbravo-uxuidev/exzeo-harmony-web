@@ -1,25 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
 
-import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import FieldGenerator from '../Form/FieldGenerator';
 
-
 const handleFormSubmit = async (data, dispatch, props) => {
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: true });
-  await props.updateQuote({ data, quoteNumber: props.quoteData.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, '', { ...props.appState.data, submitting: false });
-
+  await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber });
   props.history.push('customize');
 };
 
@@ -34,7 +27,7 @@ const handleInitialize = (state) => {
 
     const defaultAnswer = question && question.answers &&
     _.find(question.answers, { default: true }) ?
-    _.find(question.answers, { default: true }).answer : null;
+      _.find(question.answers, { default: true }).answer : null;
 
     if (defaultAnswer && question.hidden) {
       values[question.name] = defaultAnswer;
@@ -45,7 +38,7 @@ const handleInitialize = (state) => {
 };
 
 export const Underwriting = (props) => {
-  const { handleSubmit, fieldValues, quoteData, isHardStop } = props;
+  const { handleSubmit, fieldValues, quote, isHardStop, showSnackBar, isLoading } = props;
   const questions = props.questions;
 
   return (
@@ -53,10 +46,9 @@ export const Underwriting = (props) => {
       {isHardStop && <Redirect to={'error'} />}
       <SnackBar
         {...props}
-        show={props.appState.data.showSnackBar}
+        show={showSnackBar}
         timer={3000}
       ><p>Please correct errors.</p></SnackBar>
-      {props.appState.data.submitting && <Loader />}
       <Form
         id="Underwriting"
         onSubmit={handleSubmit(handleFormSubmit)}
@@ -67,12 +59,12 @@ export const Underwriting = (props) => {
             {questions && _.sortBy(questions, ['order']).map((question, index) =>
               <FieldGenerator
                 autoFocus={index === 0}
-                data={quoteData}
+                data={quote}
                 question={question}
                 values={fieldValues}
                 key={index}
               />
-        )}
+            )}
           </div>
           <div className="workflow-steps">
             <button
@@ -80,7 +72,7 @@ export const Underwriting = (props) => {
               className="btn btn-primary"
               type="submit"
               form="Underwriting"
-              disabled={props.appState.data.submitting}
+              disabled={isLoading}
             >next</button>
           </div>
           <Footer />
@@ -92,36 +84,22 @@ export const Underwriting = (props) => {
 
 Underwriting.propTypes = {
   ...propTypes,
-  tasks: PropTypes.shape(),
-  appState: PropTypes.shape({
-    modelName: PropTypes.string,
-    instanceId: PropTypes.string,
-    data: PropTypes.shape({
-      submitting: PropTypes.bool
-    })
-  }),
-  quoteData: PropTypes.shape(),
+  quote: PropTypes.shape(),
   questions: PropTypes.arrayOf(PropTypes.shape())
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
-  appState: state.appState,
+  isLoading: state.appState.isLoading,
+  showSnackBar: state.appState.showSnackBar,
   fieldValues: _.get(state.form, 'Underwriting.values', {}),
   initialValues: handleInitialize(state),
   questions: handleGetQuestions(state),
-  quoteData: state.quoteState.quote,
+  quote: state.quoteState.quote,
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'Underwriting',
   onSubmitFail: failedSubmission,
   enableReinitialize: true,

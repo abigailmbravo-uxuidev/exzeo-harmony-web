@@ -14,7 +14,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
         <div className="detail-group policyholder-details">
           {policy.policyHolders && policy.policyHolders.map((policyHolder, index) => (
             <PolicyHolderCard policyHolder={policyHolder} policyHolderMailingAddress={policyHolderMailingAddress} index={policyHolder._id} phIndex={index} />
-           ))}
+          ))}
         </div>
         {/* End Policyholders */}
         {/* Start Agent */}
@@ -22,7 +22,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
           <h3 data-test="agentHeader" className="section-group-header"><i className="fa fa-vcard-o" /> Agent</h3>
           {(agents && agents.filter(a => a.agentCode === policy.agentCode).map(agent =>
             <AgentCard agent={agent} index={agent.agentCode} />
-              ))}
+          ))}
         </div>
         {/* End Agent */}
       </div>

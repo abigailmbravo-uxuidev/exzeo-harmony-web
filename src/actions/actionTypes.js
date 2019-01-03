@@ -6,12 +6,6 @@ export const AUTHENTICATING = 'AUTHENTICATING';
 export const AUTHENTICATED = 'AUTHENTICATED';
 export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
 
-/* CG */
-export const CG_START = 'CG_START';
-export const CG_ACTIVE_TASK = 'CG_ACTIVE_TASK';
-export const CG_COMPLETE = 'CG_COMPLETE';
-export const CG_ERROR = 'CG_ERROR';
-
 /* SERVICE */
 export const SERVICE_REQUEST = 'SERVICE_REQUEST';
 
@@ -20,6 +14,9 @@ export const DETAILS_SET = 'DETAILS_SET';
 export const DETAILS_GET = 'DETAILS_GET';
 
 /* APP STATE ACTIONS */
+export const SET_RECALC = 'SET_RECALC';
+export const TOGGLE_LOADING = 'TOGGLE_LOADING';
+export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR';
 export const APPSTATE_SET = 'APPSTATE_SET';
 export const APPSTATE_ERROR = 'APPSTATE_ERROR';
 

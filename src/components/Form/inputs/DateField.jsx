@@ -57,23 +57,23 @@ export const DateInput = ({
        platformLower === 'firefox' ||
        platformLower === 'ie' ?
          <MaskedTextInput
-           tabIndex={'0'}
-           mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-           guide={false}
-           id={name}
-           name={name}
-           component="input"
-           type="text"
-           placeholder="MM/DD/YYYY"
-           validate={ruleArray}
-           {...input}
-         /> :
+          tabIndex={'0'}
+          mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
+          guide={false}
+          id={name}
+          name={name}
+          component="input"
+          type="text"
+          placeholder="MM/DD/YYYY"
+          validate={ruleArray}
+          {...input}
+        /> :
            <input
-             tabIndex={'0'}
-             type={'date'}
-             {...input}
-             value={formattedDate}
-           />}
+          tabIndex={'0'}
+          type={'date'}
+          {...input}
+          value={formattedDate}
+        />}
       {Error}
     </div>
   );

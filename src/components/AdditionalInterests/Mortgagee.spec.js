@@ -14,38 +14,14 @@ describe('Testing AddMortgagee component', () => {
     const props = {
       history: [],
       quote: {},
+
       updateQuote() {},
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      fieldQuestions: [{}],
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
-      },
       handleSubmit() {},
+      fieldQuestions: [{}],
       fieldValues: {
         isAdditional: true,
         isAdditional2: true
       },
-      quoteData: {},
       dispatch: store.dispatch,
       appState: {
         modelName: 'bb',
@@ -64,22 +40,6 @@ describe('Testing AddMortgagee component', () => {
   it('should test connected app', () => {
     const initialState = {
       quoteState: { quote: {} },
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {
-              variables: [
-                { name: 'getQuoteBeforeAIs', value: { result: { additionalInterests: [{ type: 'Mortgagee' }] } } }
-              ]
-            },
-            uiQuestions: [{}],
-            activeTask: {
-              name: 'bb'
-            }
-          }
-        }
-      },
       appState: {
         modelName: 'bb'
       }
@@ -87,40 +47,16 @@ describe('Testing AddMortgagee component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: {},
+      quote: { additionalInterests: [] },
+
       updateQuote() {},
-      quoteData: {
-        additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
-      },
+      handleSubmit() {},
+      fieldQuestions: [{}],
       fieldValues: {
-        isAdditional: false
+        isAdditional: true,
+        isAdditional2: true
       },
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {
@@ -128,14 +64,13 @@ describe('Testing AddMortgagee component', () => {
         }
       }
     };
-    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
+    const wrapper = shallow(<Mortgagee store={store} {...props} />);
     expect(wrapper);
+    const instance = wrapper.instance();
 
-    handleFormSubmit({ isAdditional: true, isAdditional2: true, isAdditional3: true }, props.dispatch, props);
-    Mortgagee(props);
-    closeAndSavePreviousAIs(props);
+    instance.handleFormSubmit({ isAdditional: true, isAdditional2: true, isAdditional3: true }, props.dispatch, props);
+    instance.closeAndSavePreviousAIs();
     handleInitialize(initialState);
-    failedSubmission({}, props.dispatch, () => {}, props);
 
     const selectedMortgagee = {
       AIName1: 'One',
@@ -145,13 +80,13 @@ describe('Testing AddMortgagee component', () => {
       AIState: 'FL',
       AIZip: '33607'
     };
-    setMortgagee2Values(selectedMortgagee, props);
-    setMortgageeValues(selectedMortgagee, props);
-    setMortgagee3Values(selectedMortgagee, props);
+    instance.setMortgagee2Values(selectedMortgagee);
+    instance.setMortgageeValues(selectedMortgagee);
+    instance.setMortgagee3Values(selectedMortgagee);
 
 
-    setMortgagee3Values(null, props);
-    setMortgagee2Values(null, props);
-    setMortgageeValues(null, props);
+    instance.setMortgagee3Values(null);
+    instance.setMortgagee2Values(null);
+    instance.setMortgageeValues(null);
   });
 });

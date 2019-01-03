@@ -3,36 +3,8 @@ import propTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
-export const pageName = (props) => {
-  const nextPage = props.appState && props.appState.data ? props.appState.data.nextPage : '';
-  switch (nextPage) {
-    case 'askAdditionalCustomerData':
-      return 'Loading Policyholder';
-
-    case 'askUWAnswers':
-      return 'Loading Underwriting';
-
-    case 'askToCustomizeDefaultQuote':
-      return 'Loading Customize';
-
-    case 'sendEmailOrContinue':
-      return 'Loading Share';
-
-    case 'addAdditionalAIs':
-      return 'Loading Additional Parties';
-
-    case 'askAdditionalQuestions':
-      return 'Loading Mailing/Billing';
-
-    case 'askScheduleInspectionDates':
-      return 'Loading Verify';
-    default:
-      return 'Loading';
-  }
-};
 const Loader = props => (
   <div className="loader modal">
     <div className="card" role="dialog">
@@ -46,11 +18,11 @@ const Loader = props => (
             </div>
           </div>
         </div>
-        <span>{pageName(props)}</span>
+        <span>Loading</span>
       </div>
     </div>
   </div>
-  );
+);
 
 Loader.propTypes = {
   appState: propTypes.shape({
@@ -67,7 +39,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

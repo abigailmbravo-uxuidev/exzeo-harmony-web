@@ -41,6 +41,8 @@ export const getSearchType = () => {
   }
 };
 
+export const VALID_QUOTE_STATES = ['Quote Started', 'Application Started', 'Quote Stopped'];
+
 export default {
   generateField,
   getSearchType,

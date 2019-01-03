@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-form';
 import _ from 'lodash';
 import Rules from '../Form/Rules';
-import * as cgActions from '../../actions/cgActions';
+
 import * as appStateActions from '../../actions/appStateActions';
 import * as errorActions from '../../actions/errorActions';
 import * as serviceActions from '../../actions/serviceActions';
@@ -20,9 +20,9 @@ const handleInitialize = (state) => {
     firstName: state.search.firstName || '',
     lastName: state.search.lastName || '',
     policyNumber: state.search.policyNumber || '',
-    sortBy: state.search.sortBy || 'policyNumber',
-    pageNumber: state.search.pageNumber || 1,
-    totalPages: state.search.totalPages || 1
+    sortBy: 'policyNumber',
+    pageNumber: 1,
+    totalPages: 1
   };
   return values;
 };
@@ -114,7 +114,6 @@ export const validate = (values) => {
 };
 
 export class PolicySearchBar extends Component {
-
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
     if (!_.isEqual(this.props.policyResults, nextProps.policyResults)) {
@@ -167,7 +166,7 @@ export class PolicySearchBar extends Component {
         </div>
         { this.props.policyResults && this.props.policyResults.policies && this.props.policyResults.policies.length > 0 &&
         <Pagination changePageForward={() => changePagePolicy(this.props, true)} changePageBack={() => changePagePolicy(this.props, false)} fieldValues={fieldValues} />
-          }
+        }
       </Form>
     );
   }
@@ -198,7 +197,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
+
     appStateActions: bindActionCreators(appStateActions, dispatch),
     errorActions: bindActionCreators(errorActions, dispatch),
     serviceActions: bindActionCreators(serviceActions, dispatch),

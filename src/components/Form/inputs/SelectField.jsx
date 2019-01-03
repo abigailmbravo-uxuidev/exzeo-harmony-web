@@ -17,11 +17,11 @@ export const SelectInput = ({
   const { touched, error, warning } = meta;
 
   const formGroupStyles = classNames('form-group select',
-  styleName,
-  name,
-  { valid: touched && !error },
-  { error: touched && error }
-);
+    styleName,
+    name,
+    { valid: touched && !error },
+    { error: touched && error }
+  );
 
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
   const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
@@ -49,9 +49,9 @@ export const SelectInput = ({
             >
               {answer.label || answer.answer}
             </option>
-            ))}
+          ))}
         </select>
-        ) : null}
+      ) : null}
       { Error }
     </div>
   );

@@ -1,33 +1,30 @@
 import * as types from './actionTypes';
+/**
+ *
+ * @param isLoading
+ * @returns {{type: string, isLoading: boolean}}
+ */
+export const toggleLoading = isLoading => ({
+  type: types.TOGGLE_LOADING,
+  isLoading
+});
 
-// these actions are to allow the composite controls to communicate when their models are complete
-// this communication allows the workflow to move to the next step
+/**
+ *
+ * @param showSnackBar
+ * @returns {{type: string, showSnackBar: boolean}}
+ */
+export const toggleSnackbar = showSnackBar => ({
+  type: types.TOGGLE_SNACKBAR,
+  showSnackBar
+});
 
-export const setAppState = (modelName, instanceId, data) => {
-  const newAppStateData = {
-    modelName,
-    instanceId,
-    data
-  };
-  const stateObj = {
-    type: types.APPSTATE_SET,
-    appState: newAppStateData
-  };
-  return stateObj;
-};
-
-export const setAppStateError = (modelName, instanceId, error) => {
-  const newAppStateData = {
-    modelName,
-    instanceId,
-    error
-  };
-  const stateObj = {
-    type: types.APPSTATE_ERROR,
-    appState: newAppStateData
-  };
-  return stateObj;
-};
-
-// thunk if needed
-export const dispatchAppState = (modelName, instanceId, data) => dispatch => dispatch(setAppState(modelName, instanceId, data));
+/**
+ *
+ * @param isRecalc
+ * @returns {{type: string, isRecalc: boolean}}
+ */
+export const setRecalc = isRecalc => ({
+  type: types.SET_RECALC,
+  isRecalc
+});
