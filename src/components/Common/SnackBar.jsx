@@ -33,7 +33,7 @@ export default class SnackBar extends Component {
       </div>
     );
   }
-  }
+}
 
 SnackBar.defaultProps = {
   show: false,

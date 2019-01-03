@@ -5,7 +5,6 @@ import { combineRules } from '../Rules';
 
 export default function reduxFormField(fieldComponent) {
   return class FormField extends Component {
-
     static propTypes = {
 
       /**
@@ -100,6 +99,5 @@ export default function reduxFormField(fieldComponent) {
         />
       );
     }
-
   };
 }

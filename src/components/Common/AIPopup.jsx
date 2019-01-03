@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
-import * as cgActions from '../../actions/cgActions';
 import * as appStateActions from '../../actions/appStateActions';
 
 const AdditionalInterestPopup = ({ appState, handleSubmit, primaryButtonHandler, secondaryButtonHandler, selectedAI }) => (
@@ -19,8 +18,8 @@ const AdditionalInterestPopup = ({ appState, handleSubmit, primaryButtonHandler,
               {`Are you sure you want to delete ${selectedAI.name1}`}
             </div>
             <div className="card-footer">
-              <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button" disabled={appState.data.submitting}>Cancel</button>
-              <button className="btn btn-primary" type="submit" disabled={appState.data.submitting}>Delete</button>
+              <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button" disabled={appState.isLoading}>Cancel</button>
+              <button className="btn btn-primary" type="submit" disabled={appState.isLoading}>Delete</button>
             </div>
           </Form>
         </div>
@@ -45,7 +44,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

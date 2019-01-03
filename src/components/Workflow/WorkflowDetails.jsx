@@ -1,40 +1,15 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-
-import * as cgActions from '../../actions/cgActions';
-import * as appStateActions from '../../actions/appStateActions';
-import * as completedTasksActions from '../../actions/completedTasksActions';
-import * as serviceActions from '../../actions/serviceActions';
-import { updateQuote } from '../../actions/quoteState.actions';
 import * as customize from '../Customize/Customize';
+import { getQuote } from '../../actions/serviceActions';
+import { updateQuote } from '../../actions/quoteState.actions';
+import { setRecalc } from '../../actions/appStateActions';
+import { goToStep } from '../../utilities/navigation';
 import ShowPremium from './ShowPremium';
-
-const STEP_NAME_MAP = {
-  askAdditionalCustomerData: 'customerInfo',
-  askUWAnswers: 'underwriting',
-  askToCustomizeDefaultQuote: 'customize',
-  sendEmailOrContinue: 'share',
-  addAdditionalAIs: 'additionalInterests',
-  askAdditionalQuestions: 'mailingBilling',
-  editVerify: 'verify'
-};
 
 export const handleRecalc = (props) => {
   customize.handleFormSubmit(props.customizeFormValues, props.dispatch, props);
-};
-
-export const goToStep = async (props, stepName) => {
-  const { activeTask, completedTasks } = props.workflowState;
-  // don't allow submission until the other step is completed
-  if (props.appState.data.submitting || activeTask === stepName || !completedTasks.includes(stepName)) return;
-
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: true });
-  await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
-  props.actions.appStateActions.setAppState(props.appState.modelName, props.appState.instanceId, { ...props.appState.data, submitting: false });
-
-  props.history.push(`${STEP_NAME_MAP[stepName]}`);
 };
 
 export const getClassForStep = (stepName, props) => {
@@ -53,12 +28,19 @@ export const onKeyPress = (event, props, stepName) => {
 };
 
 export class WorkflowDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quote: {}
+    };
+  }
+
   render() {
-    const { quote, workflowState, isHardStop, appState } = this.props;
+    const { quote, workflowState } = this.props;
     if (!quote || !quote.quoteNumber) {
-      return (<div className="detailHeader" />);
+      return (<div />);
     }
-    const isCustomize = false;
+    const isCustomize = workflowState.activeTask === 'askToCustomizeDefaultQuote';
     return (
       <div>
         <div className="detailHeader">
@@ -78,7 +60,7 @@ export class WorkflowDetails extends Component {
                 <dd className="fade">{quote.property.physicalAddress.address2}</dd>
                 <dd className="fade">
                   {quote.property.physicalAddress.city},&nbsp;
-                {quote.property.physicalAddress.state}&nbsp;
+                  {quote.property.physicalAddress.state}&nbsp;
                   {quote.property.physicalAddress.zip}
                 </dd>
               </div>
@@ -118,27 +100,23 @@ export class WorkflowDetails extends Component {
               <div>
                 <dt className="fade">Premium</dt>
                 <dd className="fade">
-                  {quote.rating && appState.data && !appState.data.recalc && !appState.data.updateWorkflowDetails
-                    ? <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} />
-                    : '--'
-                  }
+                  {quote.rating && !this.props.appState.isRecalc ?
+                    <ShowPremium totalPremium={quote.rating.totalPremium} isCustomize={isCustomize} /> : '--'}
                 </dd>
               </div>
-              {appState.data && appState.data.recalc &&
-                <div className="recalc-wrapper">
-                  <button
-                    tabIndex={'0'}
-                    className="btn btn-primary btn-round btn-sm"
-                    type="button"
-                    onClick={() => handleRecalc(this.props)}
-                    disabled={this.props.appState.data.submitting}
-                  ><i className="fa fa-refresh" /></button>
-                </div>
-              }
+              {this.props.appState.isRecalc && <div className="recalc-wrapper">
+                <button
+                  tabIndex={'0'}
+                  className="btn btn-primary btn-round btn-sm"
+                  type="button"
+                  onClick={() => handleRecalc(this.props)}
+                  disabled={this.props.appState.isLoading}
+                ><i className="fa fa-refresh" /></button>
+              </div>}
             </dl>
           </section>
         </div>
-        {!isHardStop &&
+        { !this.props.isHardStop &&
         <ul className="workflow-header">
           <div className="rule" />
           <li><a tabIndex="0" onKeyPress={event => onKeyPress(event, this.props, 'askAdditionalCustomerData')} onClick={() => goToStep(this.props, 'askAdditionalCustomerData')} className={getClassForStep('askAdditionalCustomerData', this.props)}><i className={'fa fa-vcard'} /><span>Policyholder</span></a></li>
@@ -165,15 +143,4 @@ const mapStateToProps = state => ({
   isHardStop: state.quoteState.state.isHardStop
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatch,
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    serviceActions: bindActionCreators(serviceActions, dispatch),
-    cgActions: bindActionCreators(cgActions, dispatch),
-    appStateActions: bindActionCreators(appStateActions, dispatch),
-    completedTasksActions: bindActionCreators(completedTasksActions, dispatch)
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowDetails);
+export default connect(mapStateToProps, { updateQuote, getQuote, setRecalc })(WorkflowDetails);

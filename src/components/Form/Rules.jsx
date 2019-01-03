@@ -21,8 +21,8 @@ const rules = {
   maxLength8AlphaNumeric: value => (!value || (validator.isLength(value, { max: 8 }) && validator.isAlphanumeric(value)) ? undefined : 'Only 8 letters or numbers allowed'),
   maxLength255: value => (!value || (validator.isLength(value, { max: 255 })) ? undefined : 'Only 255 characters allowed'),
   maxLength2OnlyAlpha: value => (!value || (validator.isLength(value, { max: 2 }) && validator.isAlpha(value)) ? undefined : 'Only 2 letters allowed'),
-  date: value => moment(value, 'MM/DD/YYYY', true).isValid() || moment(value, 'YYYY-MM-DD', true).isValid() ? undefined : 'Not a valid date',
-  dwellingRange: value => (calculatedValue(value) <= 2000000 && calculatedValue(value) >= 125000) ? undefined : 'Not a valid range.',
+  date: value => (moment(value, 'MM/DD/YYYY', true).isValid() || moment(value, 'YYYY-MM-DD', true).isValid() ? undefined : 'Not a valid date'),
+  dwellingRange: value => ((calculatedValue(value) <= 2000000 && calculatedValue(value) >= 125000) ? undefined : 'Not a valid range.'),
   dateCheck: value => (moment(value).isAfter(moment('2017-07-31')) ? undefined : 'Date must be at least 08/01/2017')
 };
 

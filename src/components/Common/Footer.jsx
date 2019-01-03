@@ -5,7 +5,7 @@ const Footer = () =>
     <div role="banner">
       <small className="copyright">
     &copy;{new Date().getFullYear()} TypTap Management Company. All rights reserved.
-  </small>
+      </small>
       <small>
         v.{process.env.REACT_APP_VERSION}
       </small>

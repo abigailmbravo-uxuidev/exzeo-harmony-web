@@ -90,11 +90,6 @@ describe('Testing Underwriting component', () => {
       history: [],
       quote: {},
       updateQuote() {},
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        }
-      },
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,

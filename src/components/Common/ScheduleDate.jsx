@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
-import * as cgActions from '../../actions/cgActions';
-import * as appStateActions from '../../actions/appStateActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 
-const ScheduleDate = ({ appState, handleSubmit, verify, secondaryButtonHandler, quoteData, selectedAgent, redirectToHome }) => (
+const ScheduleDate = ({ isLoading, handleSubmit, verify, secondaryButtonHandler, quoteData, selectedAgent, redirectToHome }) => (
   <div className="modal schedule-date-modal">
     <div className="survey-wrapper">
       <div className="card card-schedule-date">
@@ -32,7 +29,7 @@ const ScheduleDate = ({ appState, handleSubmit, verify, secondaryButtonHandler, 
           <div className="card-footer">
             <button className="btn btn-secondary btn-block" type="button" onClick={secondaryButtonHandler}>Edit Quote</button>
             <button className="btn btn-secondary btn-block" type="button" onClick={redirectToHome}>Save Quote, Continue Later</button>
-            <button className="btn btn-primary btn-block" type="submit" disabled={appState.data.submitting}>Send Application for signature</button>
+            <button className="btn btn-primary btn-block" type="submit" disabled={isLoading}>Send Application for signature</button>
           </div>
         </Form>
       </div>
@@ -55,21 +52,13 @@ ScheduleDate.propTypes = {
 
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
+  isLoading: state.appState.isLoading,
   appState: state.appState
-});
-
-const mapDispatchToProps = dispatch => ({
-  updateQuote: bindActionCreators(updateQuote, dispatch),
-  actions: {
-    cgActions: bindActionCreators(cgActions, dispatch),
-    appStateActions: bindActionCreators(appStateActions, dispatch)
-  }
 });
 
 // ------------------------------------------------
 // wire up redux form with the redux connect
 // ------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+export default connect(mapStateToProps, { updateQuote })(reduxForm({
   form: 'ScheduleDate'
 })(ScheduleDate));

@@ -50,39 +50,15 @@ describe('Testing AddAdditionalInterest component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      history: [],
-      quote: {},
+      
+      handleSubmit() {},
       updateQuote() {},
-      quoteData: {
+      history: [],
+      quote: {
         additionalInterests: []
-      },
-      actions: {
-        appStateActions: {
-          setAppState() {}
-        },
-        cgActions: {
-          completeTask() {}
-        }
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
-      tasks: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            previousTask: {
-              value: {
-                result: {
-                  quoteNumber: '12-1999999-01'
-                }
-              }
-            },
-            uiQuestions: []
-          }
-        }
-      },
-      handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {

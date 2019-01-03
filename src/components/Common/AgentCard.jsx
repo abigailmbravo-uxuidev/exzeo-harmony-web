@@ -18,7 +18,7 @@ const AgentCard = ({ agent }) => (
           <dt>Phone</dt>
           <dd>{normalizePhone(agent.secondaryPhoneNumber)}</dd>
         </div>
-   }
+      }
       <div data-test="agentEmail">
         <dt>Email</dt>
         <dd>{agent.emailAddress}</dd>
