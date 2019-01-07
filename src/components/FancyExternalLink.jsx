@@ -1,10 +1,18 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-const FancyExternalLink = ({ url, title, description }) => (
+const FancyExternalLink = ({ productIcon, url, title, description, linkIcon }) => (
   <li>
-    <h5><a href={url} target="_blank" rel="noopener noreferrer">{title}</a></h5>
-    <p>{description}</p>
+    <a href={url} target="_blank" rel="noopener noreferrer">
+      <div className={productIcon} />
+      <div className="link-details">
+        <h5>{title}</h5>
+        <p>{description}</p>
+      </div>
+      <div className="link-icon">
+        <span className={linkIcon} />
+      </div>
+    </a>
   </li>
 );
 

@@ -36,8 +36,116 @@
             padding: 0;
             list-style: none;
 
-            h5 {
-              margin-bottom: 0;
+            li {
+              border-bottom: 1px dotted $cool-gray-00;
+
+              &:last-of-type {
+                border-width: 0;
+              }
+
+              a {
+                display: flex;
+                padding: $padding 0;
+                @include transition(all .2s ease-in-out);
+
+                .home {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+                  width: 4rem;
+                  background-image: url("../img/TypTap-Home-Insurance-logo.svg");
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                  background-size: 75%;
+                  margin-left: $padding;
+                }
+
+                .link-details {
+                  flex-grow: 1;
+                  flex-shrink: 1;
+                  padding: ($padding/2) $padding;
+
+                  h5 {
+                    margin-bottom: $padding/2;
+                    @include transition(all .2s ease-in-out);
+                  }
+
+                  p {
+                    margin-bottom: 0;
+                    color: $cool-gray-10;
+                    @include transition(all .2s ease-in-out);
+                  }
+                }
+
+                .link-icon {
+                  display: flex;
+                  align-items: center;
+                  flex-grow: 0;
+                  flex-shrink: 0;
+                  justify-content: center;
+                  width: 4rem;
+
+                  span {
+                    position: relative;
+                    color: $bright-blue-lighten-01;
+                    font-family: $font-family-icon;
+                    font-size: 1.5rem;
+                    @include transition(all .2s ease-in-out);
+
+                    &.pdf {
+                      &:before {
+                        content: "\f1c1";
+                        color: $red;
+                        @include transition(all .2s ease-in-out);
+                      }
+
+                      &:after {
+                        position: absolute;
+                        right: -.5rem;
+                        bottom: -.25rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 1rem;
+                        height: 1rem;
+                        content: '\f063';
+                        color: $white;
+                        border-radius: 50%;
+                        background: $bright-blue;
+                        font-size: 0.5rem;
+                        line-height: 1;
+                        @include transition(all .2s ease-in-out);
+                      }
+                    }
+                  }
+                }
+
+                &:hover {
+                    background: rgba($cool-gray-00, .75);
+                  .link-details {
+                    h5 {
+                     color: $bright-blue;
+                    }
+
+                    p {
+                     // color: $bright-blue;
+                    }
+                  }
+
+                  .link-icon {
+                    span {
+                      &.pdf {
+                        &:before {
+                          color: $red-lighten-01;
+                        }
+
+                        &:after {
+                          background: $bright-blue-darken-01;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
 
@@ -45,7 +153,10 @@
             display: flex;
             flex-wrap: wrap;
 
-            h2, h3, h4, > p {
+            > p,
+            h2,
+            h3,
+            h4 {
               flex-grow: 0;
               flex-shrink: 0;
               width: 100%;
@@ -55,6 +166,15 @@
               flex-grow: 0;
               flex-shrink: 0;
               margin: 0 $padding ($padding*2);
+              @include for-phone-only {
+                width: calc(100% - 1rem);
+              }
+              @include for-tablet-portrait-up {
+                width: calc(50% - 1rem);
+              }
+              @include for-desktop-up {
+                width: calc(33.33% - 1rem);
+              }
 
               .card-header {
                 display: flex;
@@ -65,6 +185,7 @@
                 padding-top: $padding;
 
                 .image {
+                  position: relative;
                   display: block;
                   width: 7rem;
                   height: 7rem;
@@ -72,103 +193,99 @@
                   background-position: center center;
                   background-size: 5.5rem;
                   font-family: $font-family-icon;
-                  position: relative;
 
                   &:after {
-                      content: '\f2bd';
-                      width: 6rem;
-                      height: 6rem;
-                      font-size: 6rem;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      background-color: $white;
-                      margin: $padding;
-                      border-radius: 50%;
-                      border: 4px solid $cool-gray-06;
-                      color: $cool-gray-06;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 6rem;
+                    height: 6rem;
+                    margin: $padding;
+                    content: '\f2bd';
+                    color: $cool-gray-06;
+                    border: 4px solid $cool-gray-06;
+                    border-radius: 50%;
+                    background-color: $white;
+                    font-size: 6rem;
                   }
 
                   &.Clark-Ramos {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Clark-Ramos.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
-
+                      content: '';
+                      background-image: url("../img/Clark-Ramos.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
 
                   &.Edward-Spegowski {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Edward-Spegowski.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
-
+                      content: '';
+                      background-image: url("../img/Edward-Spegowski.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
 
                   &.Jodi-Kelley {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Jodi-Kelley.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
-
+                      content: '';
+                      background-image: url("../img/Jodi-Kelley.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
 
                   &.Victor-Ferdinandi {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Victor-Ferdinandi.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
+                      content: '';
+                      background-image: url("../img/Victor-Ferdinandi.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
 
                   &.Kevin-Mitchell {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Kevin-Mitchell.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
+                      content: '';
+                      background-image: url("../img/Kevin-Mitchell.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
 
                   &.Yanet-Coursen {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Yanet-Coursen.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
+                      content: '';
+                      background-image: url("../img/Yanet-Coursen.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
 
                   &.Justine-Hilton {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Justine-Hilton.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
+                      content: '';
+                      background-image: url("../img/Justine-Hilton.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
 
                   &.Jessica-Altimus {
                     &:after {
-                        content: '';
-                        background-image: url("../img/Jessica-Altimus.png");
-                        background-repeat: no-repeat;
-                        background-position: center center;
-                        background-size: 5.5rem;
+                      content: '';
+                      background-image: url("../img/Jessica-Altimus.png");
+                      background-repeat: no-repeat;
+                      background-position: center center;
+                      background-size: 5.5rem;
                     }
                   }
                 }
@@ -191,22 +308,22 @@
                     text-align: center;
                   }
 
+                  .contact-address,
                   .contact-email,
                   .contact-phone,
-                  .contact-address,
                   .email-message {
-                    margin: $padding/2 0 0;
                     display: flex;
                     align-items: flex-start;
+                    margin: $padding/2 0 0;
 
                     i {
                       display: inline-flex;
                       align-items: center;
+                      flex-grow: 0;
+                      flex-shrink: 0;
                       justify-content: center;
                       width: 1rem;
                       height: 1.5rem;
-                      flex-grow: 0;
-                      flex-shrink: 0;
                       margin-right: $padding;
                       font-size: $font-size-sm;
                     }
@@ -214,34 +331,23 @@
 
                   .contact-email,
                   .contact-phone {
-                      white-space: nowrap;
+                    white-space: nowrap;
 
-                      &.mobile {
-                          margin-left: 1.5rem;
-                          display: flex;
-                          flex-direction: column;
-                          span {
-                              font-size: $font-size-xs;
-                          }
+                    &.mobile {
+                      display: flex;
+                      flex-direction: column;
+                      margin-left: 1.5rem;
+
+                      span {
+                        font-size: $font-size-xs;
                       }
+                    }
                   }
 
                   .email-message {
-                      font-size: $font-size-sm;
+                    font-size: $font-size-sm;
                   }
                 }
-              }
-
-              @include for-phone-only {
-                  width: calc(100% - 1rem);
-              }
-
-              @include for-tablet-portrait-up {
-                  width: calc(50% - 1rem);
-              }
-
-              @include for-desktop-up {
-                  width: calc(33.33% - 1rem);
               }
             }
           }

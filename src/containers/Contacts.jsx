@@ -37,39 +37,6 @@ const territoryManagerContacts = [
   }
 ];
 
-const marketingContacts = [
-  {
-    image: 'Kevin-Mitchell',
-    name: 'Kevin Mitchell',
-    title: 'Senior Vice President',
-    phone: '8134053603',
-    email: 'kmitchell@hcigroup.com'
-  },
-  {
-    image: 'Yanet-Coursen',
-    name: 'Yanet Coursen',
-    title: 'VP Sales & Marketing',
-    phone: '8134053273',
-    email: 'ycoursen@hcpci.com'
-  },
-  {
-    image: 'Justine-Hilton',
-    name: 'Justine Hilton',
-    title: 'Marketing Coordinator',
-    phone: '8882105235',
-    extension: 'option 5',
-    email: 'jhilton@hcigroup.com'
-  },
-  {
-    image: 'Jessica-Altimus',
-    name: 'Jessica Altimus',
-    title: 'Marketing Coordinator',
-    phone: '8882105235',
-    extension: 'option 5',
-    email: 'jaltimus@hcpci.com'
-  }
-];
-
 const supportContacts = [
   {
     image: '',
@@ -122,21 +89,14 @@ const Contacts = props => (
                 <h2>Territory Representatives</h2>
                 <p>Your territory rep is the first point of contact for...</p>
                 {territoryManagerContacts.map(contact => (
-                  <ContactCard {...contact} />
+                  <ContactCard key={contact.name} {...contact} />
                 ))}
               </section>
               <section className="contacts">
                 <h2>Support</h2>
                 <p>Support should be contacted for...</p>
                 {supportContacts.map(contact => (
-                  <ContactCard {...contact} />
-                ))}
-              </section>
-              <section className="contacts">
-                <h2>Marketing</h2>
-                <p>Contact marketing for...</p>
-                {marketingContacts.map(contact => (
-                  <ContactCard {...contact} />
+                  <ContactCard key={contact.name} {...contact} />
                 ))}
               </section>
             </div>
