@@ -39,12 +39,6 @@ const agentLinks = [{
     label: 'HELPFUL INFO',
     styleName: 'training label'
   }
-  /*,
-  {
-    link: '/contacts',
-    label: 'CONTACTS',
-    styleName: 'contacts label'
-  }*/
 ];
 
 const formSubmitFloodQuote = () => {
