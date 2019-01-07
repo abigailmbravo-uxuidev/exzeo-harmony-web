@@ -22,22 +22,6 @@ const externalLinks = [
     description: 'Detailed list of the TypTap HO3 underwriting guidelines.',
     linkIcon: 'pdf'
   },
-  /* {
-    key: 3,
-    productIcon: 'home',
-    url: 'https://cdn.typtap.com/2018/12/home-pw-change.pdf',
-    title: 'Password Change | TypTap Homeowners Insurance',
-    description: 'Quick how-to for changing your password.',
-    linkIcon: 'pdf'
-  },
-  {
-    key: 4,
-    url: 'https://www.youtube.com/watch?v=atCdv0FLWQg&feature=youtu.be',
-    productIcon: 'home',
-    title: 'Training Video | TypTap Homeowners Insurance',
-    description: 'How-to quote and bind instructional video for the TypTap Insurance App.',
-    linkIcon: 'pdf'
-  },*/
   {
     key: 5,
     url: 'https://cdn.typtap.com/2019/01/TT-HO3-County-Map-1218.pdf',
