@@ -10,8 +10,8 @@
     "lint": "./node_modules/.bin/eslint src"
   },
   "dependencies": {
-    "@exzeo/core-ui": "0.4.x",
-    "@exzeo/react-scripts": "1.0.3",
+    "@exzeo/core-ui": "^0.4.1",
+    "@exzeo/react-scripts": "1.0.4",
     "auth0-js": "~8.10.1",
     "axios": "~0.15.2",
     "classnames": "~2.2.5",
