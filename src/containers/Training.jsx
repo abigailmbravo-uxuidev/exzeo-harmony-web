@@ -11,7 +11,7 @@ const externalLinks = [
     productIcon: 'home',
     url: 'https://cdn.typtap.com/2018/12/TT-Pilot-Agents-one-pager-112818.pdf',
     title: 'TypTap Homeowners Agent Program Guide',
-    description: 'Reference guide for Payments, How to Login, Open Counties, Year Built and Agency Support.',
+    description: 'Reference guide for payments, how to login, open counties, year built and agency support.',
     linkIcon: 'pdf'
   },
   {
@@ -19,7 +19,7 @@ const externalLinks = [
     productIcon: 'home',
     url: 'https://cdn.typtap.com/2019/01/TT-HO3-Quick-Ref-Guide.pdf',
     title: 'TypTap Homeowners Quick Reference Guide',
-    description: 'Detailed list of the TypTap Homeowners underwriting guidelines.',
+    description: 'Detailed list of the TypTap HO3 underwriting guidelines.',
     linkIcon: 'pdf'
   },
   /* {
