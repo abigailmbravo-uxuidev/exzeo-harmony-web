@@ -94,7 +94,7 @@ export default class Auth {
       { agencyCode: appMetadata.agencyCode, companyCode: appMetadata.companyCode, state: appMetadata.state } :
       legacyAgency.isAgency ?
       { agencyCode: legacyAgency.agencyCode, companyCode: legacyAgency.companyCode, state: legacyAgency.state } :
-      null
+      null;
 
     this.userProfile = { 
       ...profile,
