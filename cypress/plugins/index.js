@@ -11,11 +11,6 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-// const { parsed: envConfig } = require('dotenv').config({ path: `${process.cwd()}/${process.env.npm_package_config_react_env_file || '.env'}` });
+// Format: module.exports = (on, config) => { on('<event>', (arg1, arg2) => { plugin stuff here }})
 
-module.exports = (on, config) => {
-
-  console.log(config);
-
-  return config;
-};
+module.exports = () => {};
