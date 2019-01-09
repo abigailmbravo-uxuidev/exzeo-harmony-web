@@ -369,7 +369,20 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.searchPolicy('12-4001126-01', 'Test', 'Test', '123', '1', '25', 'policyNumber', 'desc')(store.dispatch)
+    const params = {
+      policyNumber: '12-4001126-01',
+      firstName: 'Test',
+      lastName: 'Test',
+      address: '123',
+      page: '1',
+      pageSize: 25,
+      sort: 'policyNumber',
+      direction: 'desc',
+      companyCode: 'TTIC',
+      state: 'FL'
+    };
+
+    return serviceActions.searchPolicy(params)(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
       });
@@ -398,7 +411,19 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.searchPolicy(null, 'Test', 'Test', '123', '1', '25', 'policyNumber', 'desc')(store.dispatch)
+    const params = {
+      policyNumber: '12-4001126-01',
+      firstName: 'Test',
+      lastName: 'Test',
+      address: '123',
+      page: '1',
+      pageSize: 25,
+      sort: 'policyNumber',
+      direction: 'desc',
+      companyCode: 'TTIC',
+      state: 'FL'
+    };
+    return serviceActions.searchPolicy(params)(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
       });
@@ -492,15 +517,15 @@ describe('Service Actions', () => {
     };
 
     mockAdapter
-      .onPost(fetchBilling.url).reply(200, { result: {}})
-      .onPost(fetchPayments.url).reply(200, { data: []});
+      .onPost(fetchBilling.url).reply(200, { result: {} })
+      .onPost(fetchPayments.url).reply(200, { data: [] });
 
     const initialState = {};
     const store = mockStore(initialState);
 
     return serviceActions.getSummaryLedger('test01')(store.dispatch)
       .then(() => {
-        expect(store.getActions()[0].payload[0].data.getSummaryLedger).toEqual({ payments: [] })
+        expect(store.getActions()[0].payload[0].data.getSummaryLedger).toEqual({ payments: [] });
         expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
       });
   });
