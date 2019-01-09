@@ -47,7 +47,6 @@ Cypress.Commands.add('login', (userType = 'CSR') => {
     auth.login({ username: 'ttic-20000', password: 'Password1' }, () => { });
 
     if (useMockAuth0) {
-      cy.log('failed');
       cy.visit('/');
       cy.get('#submit')
         .then(() => {

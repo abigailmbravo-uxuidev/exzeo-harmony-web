@@ -6,11 +6,9 @@
     "server": "./replace-dotenv.sh && exframe-web",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage",
-    "lint": "./node_modules/.bin/eslint src --ext .jsx --ext .js",
+    "lint": "eslint src --ext .jsx --ext .js",
     "start": "react-scripts start",
-    "start:mock-auth0": "$(npm config set harmony-web:react_env_file .env.mockauth0 && npm start)",
-    "cypress:open": "cypress open",
-    "cypress:open-mock-auth0": "$(npm config set harmony-web:react_env_file .env.mockauth0 && npm run cypress:open)"
+    "cypress": "react-scripts cypress"
   },
   "dependencies": {
     "@exzeo/core-ui": "^0.4.1",
