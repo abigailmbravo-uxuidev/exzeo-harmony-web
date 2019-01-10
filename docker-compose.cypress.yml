@@ -5,18 +5,13 @@ services:
       context: .
       dockerfile: Dockerfile.cypress
       args:
-      - NPM_TOKEN=c3973c9a-3b6e-4242-8af5-7036269c8f0b
+      - NPM_TOKEN=TOKEN_GOES_HERE
     container_name: harmony-web-cypress
     environment:
-      - PORT=80
-      - API_URL=https://api.harmony-ins.com
-      - AUTH0_PRIMARY_URL=http://devcsr.harmony-ins.com:8383
-      - AQA_SSO_URL=https://www-qa.typtap.com/agency/agents/sso
-      - AUTH0_DOMAIN=ashton-sandbox.auth0.com
-      - AUTH0_CLIENT_ID=_aVZ55R37kcyZ3NtQcps0bwZ09YYdPLd
-      - AUTH0_CONNECTION=ashton-sandbox
-      - AUTH0_AUDIENCE=http://harmony-sandbox
-      - REACT_APP_VERSION="1.0"
-      - REACT_APP_CYPRESS_URL=http://devagent.harmony-ins.com:8383
-    ports:
-      - "8383:80"
+      # To use mock-auth0, uncomment following group
+      # - REACT_APP_API_URL=http://devapi.harmony-ins.com:8000
+      # - REACT_APP_AUTH0_DOMAIN=mock-auth0:8888
+      # - REACT_APP_AUTH0_CLIENT_ID=https://mock-auth0:8888
+      # - REACT_APP_AUTH0_CONNECTION=ashton-sandbox
+      # - REACT_APP_AUTH0_AUDIENCE=https://mock-auth0:8888
+      - REACT_APP_CYPRESS_URL=http://www.harmony-ins.com

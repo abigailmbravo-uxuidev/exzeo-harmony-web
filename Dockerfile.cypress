@@ -7,12 +7,13 @@ ARG NPM_TOKEN
 WORKDIR /app
 
 COPY cypress/package.json /app/package.json
-RUN echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc && ls -la
+RUN echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
 RUN npm install
 
-ADD cypress.json cypress/ ./
+ADD cypress.json /app/
+ADD cypress/ /app/cypress
 
 # Install app
-RUN npm cache clean --force && rm -f .npmrc && ls -la
+RUN npm cache clean --force && rm -f .npmrc
 
 CMD ["npm", "run", "cypress", "--", "--headless"]
