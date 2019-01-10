@@ -40,7 +40,7 @@ const Training = props => (
           <div className="scroll">
             <div className="survey-wrapper">
               <section className="reference-links">
-                <h2>Reference</h2>
+                <h2><i className="fa fa-book" />&nbsp;Reference</h2>
 
                 <ul className="link-list">
                   {externalLinks.map(link => (

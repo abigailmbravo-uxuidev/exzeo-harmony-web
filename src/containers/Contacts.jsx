@@ -97,13 +97,13 @@ const Contacts = props => (
           <div className="scroll">
             <div className="survey-wrapper">
               <section className="contacts">
-                <h3><i className="fa fa-map-marker" /> Territory Representatives</h3>
+                <h2><i className="fa fa-map-marker" />&nbsp;Territory Representatives</h2>
                 {territoryManagerContacts.map(contact => (
                   <ContactCard key={contact.name} {...contact} />
                 ))}
               </section>
               <section className="contacts">
-                <h3><i className="fa fa-address-book" /> Support</h3>
+                <h2><i className="fa fa-address-book" />&nbsp;Support</h2>
                 {supportContacts.map(contact => (
                   <ContactCard key={contact.name} {...contact} />
                 ))}
