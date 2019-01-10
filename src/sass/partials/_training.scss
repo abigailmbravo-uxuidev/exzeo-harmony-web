@@ -224,28 +224,63 @@
                     }
                   }
 
-                  .contact-phone {
-                    margin-right: $padding;
+                  .contact-details {
 
-                    i {
-                      color: $bright-blue-darken-04;
-                    }
-                  }
+                      .contact-phone {
+                        margin-right: $padding;
+                        display: inline-flex;
+                        align-items: center;
+                        line-height: 1;
 
-                  .contact-email {
-                    margin-right: $padding;
+                        i {
+                          color: $bright-blue-darken-04;
+                        }
 
-                    i {
-                      color: $bright-blue-darken-04;
-                    }
-                  }
+                        &.mobile {
 
-                  .contact-address {
-                    margin-right: $padding;
+                            i {
+                                font-size: $font-size-xs;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                flex-grow: 0;
+                                flex-shrink: 0;
+                                width: auto;
+                                height: 1rem;
+                                background: $bright-blue-darken-04;
+                                color: $white;
+                                padding: $padding/2;
+                                border-radius: 3px;
 
-                    i {
-                      color: $bright-blue-darken-04;
-                    }
+                                span {
+                                    font-size: $font-size-xs;
+                                    margin-left: $padding/2;
+                                    line-height: 1;
+                                }
+                            }
+                        }
+                      }
+
+                      .contact-email {
+                        margin-right: $padding;
+                        display: inline-flex;
+                        align-items: center;
+                        line-height: 1;
+
+                        i {
+                          color: $bright-blue-darken-04;
+                        }
+                      }
+
+                      .contact-address {
+                        margin-right: $padding;
+                        display: inline-flex;
+                        align-items: center;
+
+                        i {
+                          color: $bright-blue-darken-04;
+                        }
+                      }
                   }
 
                   .contact-disclaimer {
