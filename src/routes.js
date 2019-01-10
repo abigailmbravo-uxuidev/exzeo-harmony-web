@@ -19,8 +19,8 @@ import AccessDenied from './containers/AccessDenied';
 import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 import Policy from './containers/Policy';
+import Contacts from './containers/Contacts';
 import Training from './containers/Training';
-// import Contacts from './containers/Contacts';
 
 import * as authActions from './actions/authActions';
 import * as errorActions from './actions/errorActions';
@@ -122,9 +122,8 @@ class Routes extends Component { // eslint-disable-line
               <Route exact path="/login"          render={props => <Login auth={auth} {...props} />} />
               <Route exact path="/error"          render={props => <AppError {...props} />} />
               <Route exact path="/accessDenied"   render={props => <AccessDenied auth={auth} {...props} />} />
+              <Route exact path="/contacts"       render={props => <Contacts auth={auth} {...props} />} />
               <Route exact path="/training"       render={props => <Training auth={auth} {...props} />} />
-              {/* <!-- This path will be added in an upcoming sprint -->
-              <Route exact path="/contacts"       render={props => <Contacts auth={auth} {...props} />} /> */}
               <Route
                 exact
                 path="/logout"
