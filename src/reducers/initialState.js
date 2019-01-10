@@ -24,7 +24,7 @@ export default {
   },
   agencyState: {
     agencies: [],
-    agency: {},
+    agency: null,
     agents: []
   },
 };
