@@ -35,6 +35,11 @@ const agentLinks = [{
     styleName: 'policy label'
   },
   {
+    link: '/contacts',
+    label: 'CONTACTS',
+    styleName: 'contact label'
+  },
+  {
     link: '/training',
     label: 'HELPFUL INFO',
     styleName: 'training label'
