@@ -97,7 +97,7 @@ const Contacts = props => (
           <div className="scroll">
             <div className="survey-wrapper">
               <section className="contacts">
-                <h2><i className="fa fa-map-marker" />&nbsp;Territory Representatives</h2>
+                <h2><i className="fa fa-map-marker" />&nbsp;Territory Managers</h2>
                 {territoryManagerContacts.map(contact => (
                   <ContactCard key={contact.name} {...contact} />
                 ))}
