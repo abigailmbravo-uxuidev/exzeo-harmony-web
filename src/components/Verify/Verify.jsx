@@ -390,7 +390,7 @@ const mapStateToProps = state => ({
   showSnackBar: state.appState.showSnackBar,
   appState: state.appState,
   fieldValues: _.get(state.form, 'Verify.values', {}),
-  agentList: state.service.agents || [],
+  agentList: state.agencyState.agents || [],
   quote: state.quoteState.quote || {},
   workflowState: state.quoteState.state
 });

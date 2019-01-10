@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Header from '../components/Common/Header';
 import SideNav from '../components/Common/SideNav';
-import * as serviceActions from '../actions/serviceActions';
+import { getAgency } from '../actions/agency.actions';
 
 const handleLogout = (props) => {
   window.persistor.purge(); // i hate this with my entire being...
@@ -37,7 +36,7 @@ export class Base extends Component {
       const agency = result.agency;
 
       if (agency) {
-        this.props.actions.serviceActions.getAgency(agency.companyCode, agency.state, agency.agencyCode);
+        this.props.getAgency(agency.agencyCode);
       }
     });
   }
@@ -88,19 +87,13 @@ export class Base extends Component {
 Base.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   auth: PropTypes.shape({ getIdToken: PropTypes.func, isAuthenticated: PropTypes.func, getProfile: PropTypes.func, userProfile: PropTypes.object }),
-  actions: PropTypes.shape({
-    serviceActions: PropTypes.objectOf(PropTypes.func)
-  })
+  getAgency: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   tasks: state.cg,
   authState: state.authState,
-  currentAgency: state.service.agency
+  currentAgency: state.agencyState.agency
 });
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    serviceActions: bindActionCreators(serviceActions, dispatch),
-  }
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Base);
+
+export default connect(mapStateToProps, { getAgency })(Base);

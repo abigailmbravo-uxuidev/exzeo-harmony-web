@@ -53,9 +53,7 @@ describe('Testing Base component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      service: {
-        currentAgent: {}
-      },
+      agencyState: {},
       cg: {
         bb: {
           data: {
