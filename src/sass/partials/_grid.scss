@@ -187,7 +187,7 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 .react-bs-table .react-bs-container-header > table > thead > tr > th .date-filter-input,
 .react-bs-table .react-bs-container-header > table > thead > tr > th .number-filter-input {
   float: left;
-  width: calc(100% - 4.5rem - $padding);
+  width: calc(100% - 4.5rem - #{$padding});
   margin-left: $padding;
 }
 

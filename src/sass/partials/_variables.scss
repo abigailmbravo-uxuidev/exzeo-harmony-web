@@ -123,9 +123,6 @@ $link-hover-decoration: underline !default;
 @mixin for-tablet-landscape-up {
   @media (min-width: 900px) { @content; }
 }
-@mixin for-1024-up {
-  @media (min-width: 1025px) { @content; }
-}
 @mixin for-desktop-up {
   @media (min-width: 1200px) { @content; }
 }

@@ -13,7 +13,6 @@ describe('Testing AddBillPayer component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: {},
       updateQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
@@ -51,9 +50,7 @@ describe('Testing AddBillPayer component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: {},
       updateQuote() {},
-      
       handleSubmit() {},
       quote: {
         additionalInterests: []

@@ -420,7 +420,6 @@ describe('Testing Billing component', () => {
     const store = mockStore(initialState);
     const props = {
       history: [],
-      quote: quoteData,
       updateQuote() {},
       quote: {
         additionalInterests: []
