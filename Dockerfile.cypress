@@ -1,20 +1,18 @@
-FROM node:10-alpine
+FROM cypress/base:10
 
 LABEL maintainer=Exzeo
 
-RUN apk update && apk --no-cache add bash libc6-compat g++ make python
-
 ARG NPM_TOKEN
 
-WORKDIR /app/
+WORKDIR /app
+
 COPY cypress/package.json /app/package.json
-RUN echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+RUN echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc && ls -la
 RUN npm install
 
-ADD cypress/ cypress.json app/
+ADD cypress.json cypress/ ./
 
 # Install app
-RUN npm cache clean --force && \ 
-rm -f .npmrc
+RUN npm cache clean --force && rm -f .npmrc && ls -la
 
 CMD ["npm", "run", "cypress", "--", "--headless"]
