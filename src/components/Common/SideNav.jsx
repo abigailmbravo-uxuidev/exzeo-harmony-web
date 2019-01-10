@@ -24,16 +24,21 @@ const agentLinks = [{
 //   outside: true,
 //   formName: 'floodQuoteForm'
 // },
-{
-  link: '/quote/searchAddress',
-  label: 'QUOTE',
-  styleName: 'quote label'
-},
-{
-  link: '/policy',
-  label: 'POLICY',
-  styleName: 'policy label'
-}
+  {
+    link: '/quote/searchAddress',
+    label: 'QUOTE',
+    styleName: 'quote label'
+  },
+  {
+    link: '/policy',
+    label: 'POLICY',
+    styleName: 'policy label'
+  },
+  {
+    link: '/training',
+    label: 'HELPFUL INFO',
+    styleName: 'training label'
+  }
 ];
 
 const formSubmitFloodQuote = () => {

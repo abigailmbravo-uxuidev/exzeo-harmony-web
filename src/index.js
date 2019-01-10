@@ -1,22 +1,22 @@
-// app.js runs on localhost:8000
-import 'babel-polyfill';
+import 'react-app-polyfill/ie11';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { asyncSessionStorage } from 'redux-persist/storages';
-import Routes from './routes';
-import configureStore from './store/configureStore';
 
-import '../node_modules/font-awesome/css/font-awesome.min.css';
-import './css/typtap-theme.css';
+import configureStore from './store/configureStore';
+import Routes from './routes';
+
+import '../node_modules/font-awesome/scss/font-awesome.scss';
+import './sass/typtap-theme.scss';
 
 const store = configureStore();
 const persistor = persistStore(store, { storage: asyncSessionStorage });
 window.persistor = persistor; // i hate this with my entire being...
 
-const holder = document.getElementById('root');
+const target = document.getElementById('root');
 render(
   <Provider store={store} persistor={persistor}><Routes store={store} /></Provider>,
-  holder
+  target
 );

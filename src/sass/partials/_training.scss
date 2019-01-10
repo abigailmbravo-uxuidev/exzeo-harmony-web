@@ -1,0 +1,155 @@
+.train {
+  display: flex;
+  flex-direction: column;
+
+  .route {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 100%;
+    height: auto;
+
+    .route-content {
+      display: flex;
+      overflow: hidden;
+      flex-direction: column;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      width: 100%;
+      height: auto;
+
+      .scroll {
+        display: flex;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-direction: column;
+        flex-grow: 1;
+
+        section {
+          margin-bottom: 1rem;
+          border-bottom: 1px dashed $cool-gray-02;
+
+          .link-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+              border-bottom: 1px dotted $cool-gray-00;
+
+              &:last-of-type {
+                border-width: 0;
+              }
+
+              a {
+                display: flex;
+                padding: $padding 0;
+                @include transition(all .2s ease-in-out);
+
+                .home {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+                  width: 4rem;
+                  background-image: url("../img/TypTap-Home-Insurance-logo.svg");
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                  background-size: 75%;
+                  margin-left: $padding;
+                }
+
+                .link-details {
+                  flex-grow: 1;
+                  flex-shrink: 1;
+                  padding: ($padding/2) $padding;
+
+                  h5 {
+                    margin-bottom: $padding/2;
+                    @include transition(all .2s ease-in-out);
+                  }
+
+                  p {
+                    margin-bottom: 0;
+                    color: $cool-gray-10;
+                    @include transition(all .2s ease-in-out);
+                  }
+                }
+
+                .link-icon {
+                  display: flex;
+                  align-items: center;
+                  flex-grow: 0;
+                  flex-shrink: 0;
+                  justify-content: center;
+                  width: 4rem;
+
+                  span {
+                    position: relative;
+                    color: $bright-blue-lighten-01;
+                    font-family: $font-family-icon;
+                    font-size: 1.5rem;
+                    @include transition(all .2s ease-in-out);
+
+                    &.pdf {
+                      &:before {
+                        content: "\f1c1";
+                        color: $red;
+                        @include transition(all .2s ease-in-out);
+                      }
+
+                      &:after {
+                        position: absolute;
+                        right: -.5rem;
+                        bottom: -.25rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 1rem;
+                        height: 1rem;
+                        content: '\f063';
+                        color: $white;
+                        border-radius: 50%;
+                        background: $bright-blue;
+                        font-size: 0.5rem;
+                        line-height: 1;
+                        @include transition(all .2s ease-in-out);
+                      }
+                    }
+                  }
+                }
+
+                &:hover {
+                    background: rgba($cool-gray-00, .75);
+                  .link-details {
+                    h5 {
+                     color: $bright-blue;
+                    }
+
+                    p {
+                     // color: $bright-blue;
+                    }
+                  }
+
+                  .link-icon {
+                    span {
+                      &.pdf {
+                        &:before {
+                          color: $red-lighten-01;
+                        }
+
+                        &:after {
+                          background: $bright-blue-darken-01;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
