@@ -31,118 +31,226 @@
           margin-bottom: 1rem;
           border-bottom: 1px dashed $cool-gray-02;
 
-          .link-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
+          &:last-of-type {
+            border-bottom-width: 0;
+          }
 
-            li {
-              border-bottom: 1px dotted $cool-gray-00;
+          &.reference-links {
+            .link-list {
+              margin: 0;
+              padding: 0;
+              list-style: none;
 
-              &:last-of-type {
-                border-width: 0;
-              }
+              li {
+                border-bottom: 1px dotted $cool-gray-00;
 
-              a {
-                display: flex;
-                padding: $padding 0;
-                @include transition(all .2s ease-in-out);
-
-                .home {
-                  flex-grow: 0;
-                  flex-shrink: 0;
-                  width: 4rem;
-                  background-image: url("../img/TypTap-Home-Insurance-logo.svg");
-                  background-repeat: no-repeat;
-                  background-position: center center;
-                  background-size: 75%;
-                  margin-left: $padding;
+                &:last-of-type {
+                  border-width: 0;
                 }
 
-                .link-details {
-                  flex-grow: 1;
-                  flex-shrink: 1;
-                  padding: ($padding/2) $padding;
-
-                  h5 {
-                    margin-bottom: $padding/2;
-                    @include transition(all .2s ease-in-out);
-                  }
-
-                  p {
-                    margin-bottom: 0;
-                    color: $cool-gray-10;
-                    @include transition(all .2s ease-in-out);
-                  }
-                }
-
-                .link-icon {
+                a {
                   display: flex;
-                  align-items: center;
-                  flex-grow: 0;
-                  flex-shrink: 0;
-                  justify-content: center;
-                  width: 4rem;
+                  padding: $padding 0;
+                  @include transition(all 0.2s ease-in-out);
 
-                  span {
-                    position: relative;
-                    color: $bright-blue-lighten-01;
-                    font-family: $font-family-icon;
-                    font-size: 1.5rem;
-                    @include transition(all .2s ease-in-out);
-
-                    &.pdf {
-                      &:before {
-                        content: "\f1c1";
-                        color: $red;
-                        @include transition(all .2s ease-in-out);
-                      }
-
-                      &:after {
-                        position: absolute;
-                        right: -.5rem;
-                        bottom: -.25rem;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 1rem;
-                        height: 1rem;
-                        content: '\f063';
-                        color: $white;
-                        border-radius: 50%;
-                        background: $bright-blue;
-                        font-size: 0.5rem;
-                        line-height: 1;
-                        @include transition(all .2s ease-in-out);
-                      }
-                    }
+                  .home {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    width: 4rem;
+                    margin-left: $padding;
+                    background-image: url("../img/TypTap-Home-Insurance-logo.svg");
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: 75%;
                   }
-                }
 
-                &:hover {
-                    background: rgba($cool-gray-00, .75);
                   .link-details {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    padding: ($padding/2) $padding;
+
                     h5 {
-                     color: $bright-blue;
+                      margin-bottom: $padding/2;
+                      @include transition(all 0.2s ease-in-out);
                     }
 
                     p {
-                     // color: $bright-blue;
+                      margin-bottom: 0;
+                      color: $cool-gray-10;
+                      @include transition(all 0.2s ease-in-out);
                     }
                   }
 
                   .link-icon {
+                    display: flex;
+                    align-items: center;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    justify-content: center;
+                    width: 4rem;
+
                     span {
+                      position: relative;
+                      color: $bright-blue-lighten-01;
+                      font-family: $font-family-icon;
+                      font-size: 1.5rem;
+                      @include transition(all 0.2s ease-in-out);
+
                       &.pdf {
                         &:before {
-                          color: $red-lighten-01;
+                          content: "\f1c1";
+                          color: $red;
+                          @include transition(all 0.2s ease-in-out);
                         }
 
                         &:after {
-                          background: $bright-blue-darken-01;
+                          position: absolute;
+                          right: -.5rem;
+                          bottom: -.25rem;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          width: 1rem;
+                          height: 1rem;
+                          content: '\f063';
+                          color: $white;
+                          border-radius: 50%;
+                          background: $bright-blue;
+                          font-size: 0.5rem;
+                          line-height: 1;
+                          @include transition(all 0.2s ease-in-out);
                         }
                       }
                     }
+                  }
+
+                  &:hover {
+                    background: rgba($cool-gray-00, .75);
+
+                    .link-details {
+                      h5 {
+                        color: $bright-blue;
+                      }
+                    }
+
+                    .link-icon {
+                      span {
+                        &.pdf {
+                          &:before {
+                            color: $red-lighten-01;
+                          }
+
+                          &:after {
+                            background: $bright-blue-darken-01;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.contacts {
+            h3 {
+              margin-bottom: 1rem;
+            }
+
+            .card {
+              padding: ($padding)($padding*1.5);
+
+              &.contact-card {
+                align-items: center;
+                flex-direction: row;
+                margin: 0 0 ($padding*2);
+
+                .card-header {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-right: $padding;
+                  padding: $padding;
+                  color: $green;
+                  border-bottom-width: 0;
+                  background: $white;
+                  font-size: $font-size-h2;
+
+                  > div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 3rem;
+
+                    &.image {
+                        width: 4rem;
+                        height: 4rem;
+                        margin: -$padding;
+                        background-repeat: no-repeat;
+                        background-position: center center;
+                        background-size: cover;
+
+                        &.clark-ramos {
+                          background-image: url("../img/clark-ramos.png");
+                        }
+
+                        &.edward-spegowski {
+                          background-image: url("../img/edward-spegowski.png");
+                        }
+
+                        &.jodi-kelley {
+                          background-image: url("../img/jodi-kelley.png");
+                        }
+
+                        &.victor-ferdinandi {
+                          background-image: url("../img/victor-ferdinandi.png");
+                        }
+
+                        &.yanet-coursen {
+                          background-image: url("../img/yanet-coursen.png");
+                        }
+                    }
+                  }
+                }
+
+                .card-body {
+                  h4 {
+                    &.contact-name {
+                      margin-bottom: $padding/2;
+
+                      .contact-title {
+                        font-weight: $font-weight-normal;
+                      }
+                    }
+                  }
+
+                  .contact-phone {
+                    margin-right: $padding;
+
+                    i {
+                      color: $bright-blue-darken-04;
+                    }
+                  }
+
+                  .contact-email {
+                    margin-right: $padding;
+
+                    i {
+                      color: $bright-blue-darken-04;
+                    }
+                  }
+
+                  .contact-address {
+                    margin-right: $padding;
+
+                    i {
+                      color: $bright-blue-darken-04;
+                    }
+                  }
+
+                  .contact-disclaimer {
+                    margin-top: $padding/2;
+                    font-size: $font-size-sm;
                   }
                 }
               }

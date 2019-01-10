@@ -39,7 +39,7 @@ const Training = props => (
         <div className="route-content">
           <div className="scroll">
             <div className="survey-wrapper">
-              <section>
+              <section className="reference-links">
                 <h2>Reference</h2>
 
                 <ul className="link-list">
