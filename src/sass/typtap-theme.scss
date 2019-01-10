@@ -108,7 +108,7 @@ input[readonly] {
     @include for-phone-only {
       right: $margin*2;
       left: $margin*2 !important;
-      width: calc(100% - ($margin*4));
+      width: calc(100% - (#{$margin}*4));
       max-width: 100%;
       margin: 0;
 

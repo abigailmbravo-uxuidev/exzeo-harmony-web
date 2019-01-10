@@ -3,23 +3,18 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-function createLocalStorage() {
-  let store = {};
-  return {
-    getItem(key) {
-      return store[key];
-    },
-    setItem(key, value) {
-      store[key] = value.toString();
-    },
-    clear() {
-      store = {};
-    },
-    removeItem(key) {
-      delete store[key];
-    }
-  };
-}
+const localStorageMock = {
+  setItem(key, value) {
+    storage[key] = String(value) || '';
+  },
+  getItem(key) {
+    return key in storage ? String(storage[key]) : null;
+  },
+  removeItem(key) {
+    storage[key] = null;
+  }
+};
 
-const localStorageMock = createLocalStorage();
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+global.localStorage = localStorageMock;
+
+export default localStorageMock
