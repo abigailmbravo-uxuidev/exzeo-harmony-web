@@ -1,8 +1,0 @@
-node_modules
-README.md
-.gitignore
-.git
-documentation
-
-/cypress
-.env

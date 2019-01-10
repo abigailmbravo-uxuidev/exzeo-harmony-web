@@ -1,0 +1,9 @@
+{
+  "name": "harmony-web-cypress",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@exzeo/react-scripts": "1.0.4",
+    "cypress": "^3.1.4"
+  }
+}

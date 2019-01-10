@@ -8,9 +8,7 @@
     "test": "react-scripts test --coverage",
     "lint": "eslint src --ext .jsx --ext .js",
     "start": "react-scripts start",
-    "cypress": "react-scripts cypress",
-    "docker": "rm .dockerignore; cp harmony-web.dockerignore .dockerignore; docker build .",
-    "docker:cypress": "rm .dockerignore; cp cypress.dockerignore .dockerignore; docker build . -f Dockerfile.cypress"
+    "cypress": "react-scripts cypress"
   },
   "dependencies": {
     "@exzeo/core-ui": "^0.4.1",
