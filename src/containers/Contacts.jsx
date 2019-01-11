@@ -70,11 +70,11 @@ const supportContacts = [
     email: 'customerservice@typtap.com'
   },
   {
-    icon: 'fa fa-shopping-cart',
+    icon: 'fa fa-group',
     name: 'Marketing',
     title: '',
-    phone: '8442897968',
-    extension: 'option 6',
+    phone: '8882105235',
+    extension: 'option 5',
     email: 'marketing@typtap.com'
   },
   {
