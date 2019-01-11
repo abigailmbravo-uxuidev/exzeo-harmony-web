@@ -1,6 +1,10 @@
-# cypress
+# Cypress
 
-### This is the temporary README for using cypress.
+## This is the README for testing harmony-web via Cypress
+### If you only want the docker container - for CI purposes, e.g. - scroll [here](#Docker-Readme).
+
+This document assumes you have already read the README for Harmony 
+[here](https://bitbucket.org/exzeo-usa/harmony-web/src/master/) and followed all steps listed there.
 
 In another repository, `git clone
 git@bitbucket.org:exzeo-usa/create-react-app.git`.
@@ -15,3 +19,8 @@ to the current (unpublished) build with the cypress script.
 After this is linked, navigate back to your harmony-web directory
 and run `npm run cypress` to test with the test runner,
 or `npm run cypress -- --headless` to run in headless mode.
+
+
+---
+
+### Docker Readme
