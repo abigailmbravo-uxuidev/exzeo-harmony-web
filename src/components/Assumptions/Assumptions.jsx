@@ -9,7 +9,7 @@ import { CheckField } from '../Form/inputs';
 
 export const handleOnSubmit = async (data, dispatch, props) => {
   await props.updateQuote({ quoteNumber: props.quote.quoteNumber });
-  props.history.push('additionalInterests');
+  props.history.replace('additionalInterests');
 };
 
 export const Assumptions = (props) => {

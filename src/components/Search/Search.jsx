@@ -24,6 +24,7 @@ export class Search extends React.Component {
     const { clearResults, clearQuote } = this.props;
     clearResults();
     clearQuote();
+    console.log(this.props.history);
   }
 
   closeQuoteError = () => {
@@ -35,7 +36,7 @@ export class Search extends React.Component {
     const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
 
     if (quote && VALID_QUOTE_STATES.includes(quote.quoteState)) {
-      history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
     } else {
       this.setState({ showQuoteErrors: true });
     }
@@ -46,7 +47,7 @@ export class Search extends React.Component {
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
 
     if (quote) {
-      history.push(`/quote/${quote.quoteNumber}/customerInfo`);
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
     }
   };
 

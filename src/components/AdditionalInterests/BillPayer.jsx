@@ -40,16 +40,16 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   }
 
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
-  props.history.push('additionalInterests');
+  props.history.replace('additionalInterests');
 };
 
 export const closeAndSavePreviousAIs = async (props) => {
   const additionalInterests = props.quote.additionalInterests;
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
-  props.history.push('additionalInterests');
+  props.history.replace('additionalInterests');
 };
 
-const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
 
 const handleGetQuoteData = state => state.quoteState.quote || {};
 
