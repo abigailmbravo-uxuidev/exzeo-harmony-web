@@ -6,19 +6,18 @@
 This document assumes you have already read the README for Harmony 
 [here](https://bitbucket.org/exzeo-usa/harmony-web/src/master/) and followed all steps listed there.
 
-In another repository, `git clone
-git@bitbucket.org:exzeo-usa/create-react-app.git`.
-Navigate inside of this repository and checkout branch HAR-5616,
-`git checkout HAR-5616`, then navigate into react/scripts
-`cd packages/react-scripts`. Once here, run `npm link` to simlink this package.
-
-After this is linked, return to your `harmony-web` directory
-and `npm link @exzeo/react-scripts`. This will link your scripts
-to the current (unpublished) build with the cypress script.
-
-After this is linked, navigate back to your harmony-web directory
-and run `npm run cypress` to test with the test runner,
+Run `npm run cypress` to test with the test runner,
 or `npm run cypress -- --headless` to run in headless mode.
+
+## Builds
+
+### Local
+To run it locally, just run the app locally: `npm run start`. Cypress will default to testing here when running `npm run cypress`
+or `npm run cypress -- --headless.`
+
+### HIT
+To run using HIT, first follow the HIT directions
+[here](https://issuecenter.atlassian.net/wiki/spaces/SDLC/pages/577634574/Running+HIT).
 
 
 ---
