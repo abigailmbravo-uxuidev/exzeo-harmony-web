@@ -35,7 +35,7 @@ export class PolicyDocuments extends Component {
       <React.Fragment>
         <PolicyTabs activeTab="documents" policyNumber={policyNumber} />
         <BootstrapTable className="table-responsive table-striped policy-documents" data={policyDocuments} options={{ sortName: 'createdDate', sortOrder: 'desc' }}>
-          <TableHeaderColumn className="date" columnClassName="date" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={toLocaleDate} dataSort >Date</TableHeaderColumn>
+          <TableHeaderColumn className="date" columnClassName="date" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={x => toLocaleDate(x)} dataSort >Date</TableHeaderColumn>
           <TableHeaderColumn className="document-type" columnClassName="document-type" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
         </BootstrapTable>
       </React.Fragment>);
