@@ -22,7 +22,7 @@ Cypress.Commands.add('login', (userType = 'CSR') => {
       cy.get('.auth0-label-submit').click();
     }
 });
-
+  
 const LOCAL_STORAGE_MEMORY = {};
 
 Cypress.Commands.add('saveLocalStorage', () => {
