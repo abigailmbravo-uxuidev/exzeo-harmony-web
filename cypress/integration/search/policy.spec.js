@@ -9,12 +9,7 @@ describe('Search Policy test - no params', () => {
       .should('include', 'http://devagent.harmony-ins.com:8383/')
       .then(() => {
         cy.get('.policy > span').click();
-        cy.get('#PolicySearchBar').submit();
-        cy.wait(1000);
-        cy.get('.results-wrapper > div.quote-list').should('exist')
-          .then(($policyList) => {
-            expect($policyList.children().length).to.be.gt(5);
-          });
+        cy.get('#PolicySearchBar').should('exist');
     });
   });
 });
