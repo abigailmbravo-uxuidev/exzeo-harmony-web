@@ -1,4 +1,7 @@
-Cypress.Commands.add('happypathTo', page => {
+import defaultUser from '../fixtures/defaultUser.json';
+
+Cypress.Commands.add('happypathTo', (page, data = defaultUser) => {
+  const { address, customerInfo: { firstName, lastName, email, phone, agentCode } } = data;
   cy.clearCookies();
   cy.login();
 
@@ -6,16 +9,16 @@ Cypress.Commands.add('happypathTo', page => {
     cy.get('.btn[href="/quote/searchAddress"]').click().then(() => {
 
       if (page !== 'searchAddress') {
-        cy.get('input[name=address]').type('4131 TEST ADDRESS');
+        cy.get('input[name=address]').type(address);
         cy.get('.btn-success[form=SearchBar]').click();
         cy.get('.results > li[tabindex=0]').click().then(() => {
 
           if (page !== 'customerInfo') {
-            cy.get('#FirstName > input').type('Bruce');
-            cy.get('#LastName > input').type('Wayne');
-            cy.get('#EmailAddress > input').type('Batman@gmail.com');
-            cy.get('.form-group.phoneNumber > input').type('123 456 7890');
-            cy.get('select[name="agentCode"]').select("60000");
+            cy.get('#FirstName > input').type(firstName);
+            cy.get('#LastName > input').type(lastName);
+            cy.get('#EmailAddress > input').type(email);
+            cy.get('.form-group.phoneNumber > input').type(phone);
+            cy.get('select[name="agentCode"]').select(agentCode);
             cy.get('button[form="CustomerInfo"]').click().then(() => {
 
               if (page !== 'underwriting') {
