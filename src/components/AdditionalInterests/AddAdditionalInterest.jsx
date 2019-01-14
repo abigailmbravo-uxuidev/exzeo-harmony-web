@@ -21,32 +21,32 @@ export class AddAdditionalInterest extends React.Component {
   noAddAdditionalInterestSubmit = async () => {
     const taskData = { shouldUpdateAIs: 'No' };
     await this.props.updateQuote({ data: taskData, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('mailingBilling');
+    this.props.history.replace('mailingBilling');
   };
 
   AddMortgagee = async () => {
     await this.props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('askMortgagee');
+    this.props.history.replace('askMortgagee');
   };
 
   AddPremiumFinance = async (props) => {
     await this.props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('askPremiumFinance');
+    this.props.history.replace('askPremiumFinance');
   };
 
   AddAdditionalInsured = async (props) => {
     await this.props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('askAdditionalInsured');
+    this.props.history.replace('askAdditionalInsured');
   };
 
   AddInterest = async (props) => {
     await this.props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('askAdditionalInterest');
+    this.props.history.replace('askAdditionalInterest');
   };
 
   AddBillpayer = async (props) => {
     await this.props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('askBillPayer');
+    this.props.history.replace('askBillPayer');
   };
 
   goToStep = (type) => {

@@ -13,10 +13,10 @@ import FieldGenerator from '../Form/FieldGenerator';
 
 const handleFormSubmit = async (data, dispatch, props) => {
   await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber });
-  props.history.push('customize');
+  props.history.replace('customize');
 };
 
-const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.underwritingQuestions : []);
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.underwritingQuestions) ? state.quoteState.state.underwritingQuestions: []);
 
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
