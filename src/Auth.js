@@ -33,7 +33,7 @@ export default class Auth {
 
   login() {
     const options = {};
-    if (window.localStorage.getItem('relogin')) {
+    if (window.localStorage.getItem('relogin') === 'true') {
       options.prompt = 'login';
     }
     this.auth0.authorize(options);
@@ -100,7 +100,7 @@ export default class Auth {
       { agencyCode: legacyAgency.agencyCode, companyCode: legacyAgency.companyCode, state: legacyAgency.state } :
       null;
 
-    this.userProfile = { 
+    this.userProfile = {
       ...profile,
 
       groups,

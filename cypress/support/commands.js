@@ -26,8 +26,8 @@
 
 Cypress.Commands.add('login', (userType = 'CSR') => {
   cy.clearCookies();
-  
-  window.localStorage.setItem('relogin', true);
+
+  window.localStorage.setItem('relogin', 'true');
   const token = localStorage.getItem('id_token');
   const exp = localStorage.getItem('expires_at');
   const now = new Date().getTime();
