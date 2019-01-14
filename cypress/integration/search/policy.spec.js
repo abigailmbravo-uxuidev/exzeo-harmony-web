@@ -1,6 +1,5 @@
 describe('Search Policy test - no params', () => {
-  beforeEach('Login', () => {
-    cy.clearCookies();
+  before('Login', () => {
     cy.login();
   });
 
