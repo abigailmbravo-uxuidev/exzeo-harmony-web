@@ -9,9 +9,6 @@ Cypress.Commands.add('login', (userType = 'CSR') => {
     }
   });
 
-  cy.clearCookies();
-  cy.clearLocalStorage();
-
   if (useMockAuth0) {
     cy.get('#submit')
       .then(() => {
@@ -24,4 +21,21 @@ Cypress.Commands.add('login', (userType = 'CSR') => {
     cy.get('input[name="password"]').type('Password1', { force: true });
       cy.get('.auth0-label-submit').click();
     }
+});
+
+const LOCAL_STORAGE_MEMORY = {};
+
+Cypress.Commands.add('saveLocalStorage', () => {
+  Object.keys(localStorage)
+    .filter(key => (key === 'access_token') || (key === 'id_token'))
+    .forEach(key => {
+      LOCAL_STORAGE_MEMORY[key] = localStorage[key];
+    });
+});
+
+Cypress.Commands.add('restoreLocalStorage', () => {
+  Object.keys(LOCAL_STORAGE_MEMORY)
+    .forEach(key => {
+      localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
+    });
 });
