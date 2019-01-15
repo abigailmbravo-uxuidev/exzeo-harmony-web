@@ -1,29 +1,3 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
 Cypress.Commands.add('login', (userType = 'CSR') => {
   cy.clearCookies();
 
@@ -44,12 +18,16 @@ Cypress.Commands.add('login', (userType = 'CSR') => {
         });
     } else {
       cy.visit('/');
-      cy.get('.auth0-label-submit')
-        .then(() => {
+      cy.wait(1000);
+      cy.get('button').then(button => {
+        if (button.hasClass('auth0-lock-submit')) {
           cy.get('.auth0-lock-input-username > .auth0-lock-input-wrap > .auth0-lock-input').type('ttic-20000');
           cy.get('.auth0-lock-input-password > .auth0-lock-input-wrap > .auth0-lock-input').type('Password1');
           cy.get('.auth0-label-submit').click();
-        });
+        } else {
+          cy.get('.auth0-lock-social-button').click();
+        }
+      })
     }
   }
 });
