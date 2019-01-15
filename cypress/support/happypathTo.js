@@ -1,8 +1,14 @@
+// Custom command to use the happypath to navigate through the app to a specific page
+// If your test stops at any specific page it will assert the URL is correct for that page
+// Defaults to the entire happy path, returning you to landing
+// Pages are: ['landing', 'searchAddress', 'customerInfo', 'underwriting', 'customize', 'share'
+// 'assumptions', 'additionalInterests', 'mailingBilling', 'verify', 'thankYou']
+
 import defaultUser from '../fixtures/defaultUser.json';
 
 Cypress.Commands.add('happypathTo', (page, data = defaultUser) => {
   const { address, customerInfo: { firstName, lastName, email, phone, agentCode } } = data;
-  cy.clearCookies();
+
   cy.login();
 
   if (page !== 'landing') {

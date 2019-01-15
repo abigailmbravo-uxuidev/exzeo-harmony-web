@@ -1,27 +1,29 @@
-Cypress.Commands.add('login', (userType = 'CSR') => {
-  window.localStorage.setItem('relogin', 'true');
-  const token = localStorage.getItem('id_token');
-  const exp = localStorage.getItem('expires_at');
-  const now = new Date().getTime();
+import defaultLogin from '../fixtures/defaultLogin.json';
 
-  if (!token || !exp || now > exp) {
-    const useMockAuth0 = Cypress.env('REACT_APP_USE_MOCK_AUTH0');
+Cypress.Commands.add('login', (userType = 'CSR', loginInfo = defaultLogin) => {
+  const useMockAuth0 = Cypress.env('REACT_APP_USE_MOCK_AUTH0');
 
-    if (useMockAuth0) {
-      cy.visit('/');
-      cy.get('#submit')
-        .then(() => {
-          cy.get('#userType').select(userType);
-          cy.get('#submit').click();
-        });
-    } else {
-      cy.visit('/');
-      cy.get('.auth0-label-submit')
-        .then(() => {
-          cy.get('.auth0-lock-input-username > .auth0-lock-input-wrap > .auth0-lock-input').type('ttic-20000');
-          cy.get('.auth0-lock-input-password > .auth0-lock-input-wrap > .auth0-lock-input').type('Password1');
-          cy.get('.auth0-label-submit').click();
-        });
+  cy.visit('/logout');
+  cy.visit('/', {
+    onBeforeLoad: win => {
+      win.sessionStorage.clear();
+      win.localStorage.clear();
     }
+  });
+
+  cy.clearCookies();
+  cy.clearLocalStorage();
+
+  if (useMockAuth0) {
+    cy.get('#submit')
+      .then(() => {
+        cy.get('#userType').select(userType);
+        cy.get('#submit').click();
+      });
+  } else {
+    cy.get('.auth0-loading-screen').should('not.exist');
+    cy.get('input[name="username"]').type(loginInfo.username, { force: true });
+    cy.get('input[name="password"]').type(loginInfo.password);
+    cy.get('.auth0-label-submit').click();
   }
 });
