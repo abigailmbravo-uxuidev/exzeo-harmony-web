@@ -78,9 +78,9 @@ export class Base extends Component {
             {this.props.children}
           </div>
         </main>
-        <form id="floodQuoteForm" name="floodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL} target="_blank">
+        {/* <form id="floodQuoteForm" name="floodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL} target="_blank">
           <input type="hidden" name="token" value={this.props.auth.getIdToken()} />
-        </form>
+        </form> */}
       </div>);
   }
 }

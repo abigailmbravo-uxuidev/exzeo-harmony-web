@@ -32,11 +32,7 @@ export default class Auth {
   }
 
   login() {
-    const options = {};
-    if (window.localStorage.getItem('relogin') === 'true') {
-      options.prompt = 'login';
-    }
-    this.auth0.authorize(options);
+    this.auth0.authorize();
   }
 
   checkAuth() {
