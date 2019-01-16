@@ -11,9 +11,6 @@ Cypress.Commands.add('login', (userType = 'CSR', loginInfo = defaultLogin) => {
     }
   });
 
-  cy.clearCookies();
-  cy.clearLocalStorage();
-
   if (useMockAuth0) {
     cy.get('#submit')
       .then(() => {
@@ -23,7 +20,7 @@ Cypress.Commands.add('login', (userType = 'CSR', loginInfo = defaultLogin) => {
   } else {
     cy.get('.auth0-loading-screen').should('not.exist');
     cy.get('input[name="username"]').type(loginInfo.username, { force: true });
-    cy.get('input[name="password"]').type(loginInfo.password);
-    cy.get('.auth0-label-submit').click();
+    cy.get('input[name="password"]').type(loginInfo.password, { force: true });
+    cy.get('.auth0-label-submit').click({ force: true });
   }
 });

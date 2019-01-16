@@ -6,7 +6,7 @@
 
 import defaultUser from '../fixtures/defaultUser.json';
 
-Cypress.Commands.add('happypathTo', (page, data = defaultUser) => {
+Cypress.Commands.add('quoteWorkflow', (page = '', data = defaultUser) => {
   const { address, customerInfo: { firstName, lastName, email, phone, agentCode } } = data;
 
   cy.login();

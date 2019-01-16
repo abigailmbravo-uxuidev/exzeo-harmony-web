@@ -13,5 +13,10 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+import './globalHooks';
+import './quoteWorkflow';
 import './login';
-import './happypathTo';
+import './persistLocalStorage';
+
+// Use this folder if you want any custom cypress stuff that will only be local
+import '../local';
