@@ -8,7 +8,7 @@ import SideNav from '../components/Common/SideNav';
 import * as serviceActions from '../actions/serviceActions';
 
 const handleLogout = (props) => {
-  window.persistor.purge(); // i hate this with my entire being...
+  window.persistor.purge();
   props.auth.logout();
 };
 
@@ -78,10 +78,8 @@ export class Base extends Component {
             {this.props.children}
           </div>
         </main>
-        {/* <form id="floodQuoteForm" name="floodQuoteForm" method="post" action={process.env.REACT_APP_AQA_SSO_URL} target="_blank">
-          <input type="hidden" name="token" value={this.props.auth.getIdToken()} />
-        </form> */}
-      </div>);
+      </div>
+    );
   }
 }
 
@@ -103,4 +101,5 @@ const mapDispatchToProps = dispatch => ({
     serviceActions: bindActionCreators(serviceActions, dispatch),
   }
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Base);

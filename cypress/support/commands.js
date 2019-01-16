@@ -18,7 +18,7 @@ Cypress.Commands.add('login', (userType = 'CSR') => {
   } else {
       cy.get('.auth0-loading-screen').should('not.exist');
       cy.get('input[name="username"]').type('ttic-20000', { force: true });
-    cy.get('input[name="password"]').type('Password1', { force: true });
+      cy.get('input[name="password"]').type('Password1', { force: true });
       cy.get('.auth0-label-submit').click();
     }
 });
