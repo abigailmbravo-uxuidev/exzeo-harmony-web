@@ -44,6 +44,7 @@ export function setAgents(agents) {
  *
  * @param companyCode
  * @param state
+ * @param agencyCode
  * @returns {Function}
  */
 export function getAgencies(companyCode, state, agencyCode) {
@@ -112,6 +113,7 @@ export async function fetchAgency(agencyCode) {
  *
  * @param companyCode
  * @param state
+ * @param agencyCode
  * @returns {Promise<Array>}
  */
 export async function fetchAgencies(companyCode, state, agencyCode = '') {
