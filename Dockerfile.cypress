@@ -13,7 +13,6 @@ RUN npm install
 ADD cypress.json /app/
 ADD cypress/ /app/cypress
 
-# Install app
 RUN npm cache clean --force && rm -f .npmrc
 
 CMD ["npm", "run", "cypress", "--", "--headless"]
