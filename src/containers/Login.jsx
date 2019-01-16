@@ -11,7 +11,7 @@ class Login extends Component {
     if (!isAuthenticated()) {
       props.auth.login();
     } else {
-      history.push('/');
+      history.replace('/');
     }
   }
   render() {

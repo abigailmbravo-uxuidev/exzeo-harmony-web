@@ -40,7 +40,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   await props.updateQuote({ data: updatedQuoteResult, quoteNumber: props.quote.quoteNumber });
 
   if (!props.appState.isRecalc) {
-    props.history.push('share');
+    props.history.replace('share');
   }
 
   props.setRecalc(false);
@@ -70,7 +70,7 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
 
 export const Customize = (props) => {
   const {

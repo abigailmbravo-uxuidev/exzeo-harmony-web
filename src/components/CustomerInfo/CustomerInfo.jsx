@@ -31,13 +31,10 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
   await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
-  props.history.push('underwriting');
+  props.history.replace('underwriting');
 };
 
-const handleGetQuestions = state => (state.quoteState.state &&
-  state.quoteState.state.uiQuestions
-  ? state.quoteState.state.uiQuestions
-  : []);
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
 
 const handleInitialize = (state) => {
   const quoteData = state.quoteState.quote;
