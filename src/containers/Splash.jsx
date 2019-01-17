@@ -41,7 +41,7 @@ export class Splash extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="marketing-ad" />
+                  <div className="exzeo" />
                 </div>
                 <Footer />
               </div>
