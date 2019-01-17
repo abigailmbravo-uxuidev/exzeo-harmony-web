@@ -9,7 +9,7 @@ import Loader from '../Common/Loader';
 
 export class Workflow extends Component {
   componentDidMount() {
-    this.props.clearPolicyResults();
+    // this.props.clearPolicyResults();
   }
   render() {
     const { match, history, isLoading } = this.props;

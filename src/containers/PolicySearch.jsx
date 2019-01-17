@@ -10,12 +10,20 @@ export class PolicySearch extends Component {
   componentDidMount() {
     this.props.actions.searchActions.setPolicySearch({ searchType: 'policy' });
   }
+
+  componentWillUnmount() {
+    this.props.actions.serviceActions.clearPolicyResults()
+  }
   render() {
-    return (<BaseConnect {...this.props} ><div className="workflow" role="article">
-      <div className={'route search'}>
-        <SearchPolicyConnect />
-      </div>
-    </div></BaseConnect>);
+    return (
+      <BaseConnect {...this.props} >
+        <div className="workflow" role="article">
+          <div className={'route search'}>
+            <SearchPolicyConnect />
+          </div>
+        </div>
+      </BaseConnect>
+    );
   }
 }
 

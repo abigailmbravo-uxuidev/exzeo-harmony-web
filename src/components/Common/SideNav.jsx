@@ -32,9 +32,13 @@ const SideNav = ({ params }) => (
     <ul>
       {agentLinks.map((agentLink, index) => (
         <li key={index}>
-          <NavLink exact={agentLink.exact} className={classNames(agentLink.styleName, { 'policy-detail': params.policyNumber })} to={agentLink.link} activeClassName="active">
-            <i className="fa" />
-            <span>{agentLink.label}</span>
+          <NavLink
+            exact={agentLink.exact}
+            className={classNames(agentLink.styleName, { 'policy-detail': params.policyNumber })}
+            to={agentLink.link}
+            activeClassName="active">
+              <i className="fa" />
+              <span>{agentLink.label}</span>
           </NavLink>
         </li>
       ))}

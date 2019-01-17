@@ -24,7 +24,6 @@ export class Search extends React.Component {
     const { clearResults, clearQuote } = this.props;
     clearResults();
     clearQuote();
-    console.log(this.props.history);
   }
 
   closeQuoteError = () => {

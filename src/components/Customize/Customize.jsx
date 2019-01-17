@@ -153,7 +153,10 @@ const mapStateToProps = state => ({
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
-export default connect(mapStateToProps, { updateQuote, setRecalc })(reduxForm({
+export default connect(mapStateToProps, {
+  updateQuote,
+  setRecalc
+})(reduxForm({
   form: 'Customize',
   enableReinitialize: true,
   onSubmitFail: failedSubmission
