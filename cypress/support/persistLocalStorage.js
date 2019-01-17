@@ -4,7 +4,7 @@ Cypress.Commands.add('saveLocalStorage', () => {
   const ourKeys = ['access_token', 'id_token'];
 
   Object.keys(localStorage)
-    .filter(key => ourKeys.indexOf(key) !== -1)
+    .filter(key => ourKeys.includes(key))
     .forEach(key => {
       LOCAL_STORAGE_MEMORY[key] = localStorage[key];
     });

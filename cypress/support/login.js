@@ -1,6 +1,6 @@
 import defaultLogin from '../fixtures/defaultLogin.json';
 
-Cypress.Commands.add('login', (userType = 'CSR', loginInfo = defaultLogin) => {
+Cypress.Commands.add('login', (loginInfo = defaultLogin) => {
   const useMockAuth0 = Cypress.env('REACT_APP_USE_MOCK_AUTH0');
 
   cy.visit('/logout');
@@ -14,7 +14,7 @@ Cypress.Commands.add('login', (userType = 'CSR', loginInfo = defaultLogin) => {
   if (useMockAuth0) {
     cy.get('#submit')
       .then(() => {
-        cy.get('#userType').select(userType);
+        cy.get('#userType').select(loginInfo.userType);
         cy.get('#submit').click();
       });
   } else {
