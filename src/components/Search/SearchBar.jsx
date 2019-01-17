@@ -169,7 +169,7 @@ export class SearchForm extends Component {
     }
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
-        <div className="search-input-wrapper">
+        <div className="search-input-wrapper" data-test="searchPropertyAddress">
           {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true)}
           <button
             tabIndex="0"

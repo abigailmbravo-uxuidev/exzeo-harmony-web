@@ -10,7 +10,7 @@ import { getSearchType } from './searchUtils';
 export const NoResults = (props) => {
   if (props.hasSearched && props.results.length === 0) {
     return (
-      <div className="survey-wrapper">
+      <div className="survey-wrapper" data-test="noResults">
         <div className="card no-results">
           <div className="card-header"><h4>No Results Found</h4></div>
           <div className="card-block">
