@@ -1,7 +1,7 @@
 import React from 'react';
 import ShowPremium from './ShowPremium';
 
-const DetailHeader = ({ activeTask, handleRecalc, isLoading, quote }) => {
+const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) => {
   const useAnimationForPremium = activeTask === 'askToCustomizeDefaultQuote';
   return (
     <div className="detailHeader">
@@ -61,12 +61,12 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, quote }) => {
           <div>
             <dt className="fade">Premium</dt>
             <dd className="fade">
-              {(quote.rating && !this.props.appState.isRecalc) &&
+              {(quote.rating && !isRecalc) &&
                 <ShowPremium premium={quote.rating.totalPremium} useAnimation={useAnimationForPremium} />
               }
             </dd>
           </div>
-          {this.props.appState.isRecalc &&
+          {isRecalc &&
             <div className="recalc-wrapper">
               <button
                 tabIndex={'0'}

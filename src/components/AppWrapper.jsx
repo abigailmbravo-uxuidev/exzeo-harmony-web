@@ -6,6 +6,7 @@ import { getAgency } from '../actions/serviceActions';
 
 import Header from './Common/Header';
 import SideNav from './Common/SideNav';
+import CheckError from './Error/CheckError';
 
 class AppWrapper extends React.Component {
   state = {
@@ -38,6 +39,11 @@ class AppWrapper extends React.Component {
   };
 
   render() {
+    const {
+      errorRedirectUrl,
+      match,
+    } = this.props;
+
     return (
       <div className={classNames('app-wrapper', { 'active': this.state.activeSideNav })}>
         <Header
@@ -53,7 +59,7 @@ class AppWrapper extends React.Component {
                 <i className="fa fa-gear" />
               </h5>
             </div>
-            <SideNav params={this.props.match.params} />
+            <SideNav params={match.params} />
             <Button
               baseClass="action"
               customClass="logout"
@@ -74,6 +80,8 @@ class AppWrapper extends React.Component {
             {this.props.render()}
           </div>
         </main>
+
+        <CheckError redirectUrl={errorRedirectUrl}/>
       </div>
     );
   }
@@ -83,19 +91,4 @@ AppWrapper.defaultProps = {
   userProfile: {}
 };
 
-
 export default AppWrapper;
-
-// const mapStateToProps = state => {
-//   return {
-//     authState: state.authState,
-//     agency: state.service.agency
-//   }
-// };
-
-// export default connect(mapStateToProps, { getAgency })(AppWrapper);
-
-
-//<div className="workflow" role="article">*/}
-//<WorkflowConnect {...props}>{props.children}</WorkflowConnect>*/}
-//</div>*/}

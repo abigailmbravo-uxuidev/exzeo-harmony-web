@@ -16,7 +16,7 @@ export default {
   },
   error: {},
   authState: {
-    userProfile: null
+    userProfile: undefined
   },
   quoteState: {
     quote: null,

@@ -1,49 +1,51 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { shape, string } from 'prop-types';
 import classNames from 'classnames';
+import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
 
 
-const agentLinks = [
+const getNavLinks = ({ params }) => [
   {
-    link: '/',
+    key: '1',
+    to: '/',
     label: 'DASHBOARD',
     styleName: 'agent-dashboard',
-    exact: true
+    hasIcon: true,
+    exact: true,
   },
   {
-    link: '/quote/searchAddress',
+    key: '2',
+    to: '/search/address',
     label: 'QUOTE',
-    styleName: 'quote label'
+    styleName: 'quote label',
+    hasIcon: true,
   },
   {
-    link: '/policy',
+    key: '3',
+    to: '/policy',
     label: 'POLICY',
-    styleName: 'policy label'
+    styleName: classNames('policy label', { 'policy-detail': params.policyNumber }),
+    hasIcon: true,
   },
   {
-    link: '/training',
+    key: '4',
+    to: '/training',
     label: 'HELPFUL INFO',
-    styleName: 'training label'
+    styleName: 'training label',
+    hasIcon: true,
   }
 ];
 
 const SideNav = ({ params }) => (
   <nav className="site-nav">
-    <ul>
-      {agentLinks.map((agentLink, index) => (
-        <li key={index}>
-          <NavLink
-            exact={agentLink.exact}
-            className={classNames(agentLink.styleName, { 'policy-detail': params.policyNumber })}
-            to={agentLink.link}
-            activeClassName="active">
-              <i className="fa" />
-              <span>{agentLink.label}</span>
-          </NavLink>
-        </li>
-      ))}
-    </ul>
+    <SideNavigation navLinks={getNavLinks({ params })} />
   </nav>
 );
+
+SideNav.propTypes = {
+  params: shape({
+    policyNumber: string
+  }).isRequired,
+};
 
 export default SideNav;

@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
+import { clearResults } from '../../actions/searchActions';
+import QuoteError from '../Common/QuoteError';
 import Footer from '../Common/Footer';
+
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import { VALID_QUOTE_STATES } from './searchUtils';
 
-import QuoteError from '../Common/QuoteError';
-import { clearResults } from '../../actions/searchActions';
-import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
 
 export class Search extends React.Component {
   constructor(props) {
