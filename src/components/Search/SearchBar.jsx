@@ -169,14 +169,14 @@ export class SearchForm extends Component {
     }
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
-        <div className="search-input-wrapper" data-test="searchPropertyAddress">
+        <div className="search-input-wrapper">
           {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true)}
           <button
             tabIndex="0"
             className="btn btn-success multi-input"
             type="submit"
-            form="SearchBar"
-            disabled={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            form="SearchBar" disabled={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            data-test="submit"
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>
