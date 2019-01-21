@@ -28,10 +28,9 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = defaultUser) => {
             cy.get('button[form="CustomerInfo"]').click().then(() => {
 
               if (page !== 'underwriting') {
-                cy.get('input[name="rented"][value="Never"] + span').click();
-                cy.get('input[name="previousClaims"][value="No claims ever filed"] + span').click();
-                cy.get('input[name="monthsOccupied"][value="10+"] + span').click();
-                cy.get('input[name="business"][value="No"] + span').click();
+                Object.entries(data.underwriting).forEach(([name, value]) => {
+                  cy.get(`input[name="${name}"][value="${value}"] + span`).click();
+                });
                 cy.get('button[form="Underwriting"]').click().then(() => {
 
                   if (page !== 'customize') {
