@@ -67,9 +67,19 @@ cypress/
       -[feature-test].spec.js
 ```
 
- **Project Opinions**
+**Project Opinions**
 
-Favor dot notation over callback notation.  
+When creating a test, place any reusable functions at the top, inside the describe.
+For example, if you are always typing on the same inputs, this is a good place
+to create a reusable type call.
+
+If you are always making similar `cy.get()` calls, alias them in `beforeEach`.
+
+If you are using a function which is useful for all tests, for example `get()`ing
+based on a `data-test` tag, put these into the `support/utils.js` file.
+
+Favor dot notation over callback notation. Only use `then` calls if necessary.
+
 *Not this*:
 ```js
 cy.get('button[type="submit"][form="SearchBar"]')
@@ -87,3 +97,4 @@ cy.get('button[type="submit"][form="SearchBar"]')
   .and('contain', 'Search')
   .click();
 ```
+
