@@ -32,7 +32,7 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting })
                 Object.entries(underwriting).forEach(([name, value]) => {
                   cy.get(`input[name="${name}"][value="${value}"] + span`).click();
                 });
-                cy.get('button[form="Underwriting"]').click().then(() => {
+                cy._submit().then(() => {
 
                   if (page !== 'customize') {
                     cy.get('button[form="Customize"]').click().then(() => {
