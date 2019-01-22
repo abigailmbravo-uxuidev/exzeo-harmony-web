@@ -8,7 +8,7 @@ import user from '../fixtures/defaultUser.json';
 import underwriting from '../fixtures/defaultUnderwriting.json';
 
 Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting }) => {
-  const { address, customerInfo: { firstName, lastName, email, phone, agentCode } } = user;
+  const { address, customerInfo, agentCode } = user;
 
   cy.login();
 
@@ -21,12 +21,11 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting })
         cy.get('.results > li[tabindex=0]').click().then(() => {
 
           if (page !== 'customerInfo') {
-            cy.get('#FirstName > input').type(FirstName);
-            cy.get('#LastName > input').type(LastName);
-            cy.get('#EmailAddress > input').type(EmailAddress);
-            cy.get('.form-group.phoneNumber > input').type(phoneNumber);
-            cy.get('select[name="agentCode"]').select(agentCode);
-            cy.get('button[form="CustomerInfo"]').click().then(() => {
+            Object.entries(customerInfo).forEach(([field, value]) => {
+              cy.findDataTag(`${field}_input`).type(value);
+            });
+            cy.findDataTag('agentCode_select').select(agentCode);
+            cy._submit().then(() => {
 
               if (page !== 'underwriting') {
                 Object.entries(underwriting).forEach(([name, value]) => {

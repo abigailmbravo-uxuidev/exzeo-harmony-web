@@ -10,23 +10,23 @@ describe('Policyholder Testing', () => {
       if ($input.val()) cy.wrap($input).type('{selectall}{backspace}');
     };
     
-    primaryPolicyTags.forEach(tag => cy.getData(`${tag}_input`)
+    primaryPolicyTags.forEach(tag => cy.findDataTag(`${tag}_input`)
       .then($input => clearIfFull($input)));
 
     cy.get('.form-group.survey-wrapper').then($el => {
       if ($el.find('#isAdditional').hasClass('active')) {
-        secondaryPolicyTags.forEach(tag => cy.getData(`${tag}_input`)
+        secondaryPolicyTags.forEach(tag => cy.findDataTag(`${tag}_input`)
           .then($input => clearIfFull($input)));
       };
     });
   };
 
   const fillFromData = (fields = [], user = defaultUser) => 
-    fields.forEach(tag => cy.getData(`${tag}_input`).type(user.customerInfo[tag]));
+    fields.forEach(tag => cy.findDataTag(`${tag}_input`).type(user.customerInfo[tag]));
 
   const checkError = (parent, message = 'Field Required') => {
     cy.get('.snackbar').should('be.visible');
-    cy.getData(parent).find('> span').should('contain', message);
+    cy.findDataTag(parent).find('> span').should('contain', message);
   };
 
   const toggleSecondUser = (dir = 'on') => {
@@ -42,8 +42,8 @@ describe('Policyholder Testing', () => {
     cy.get('.snackbar').should('be.visible');
     errors.forEach(tag => {
       ['EmailAddress', 'EmailAddress2'].includes(tag) ?
-        cy.getData(tag).find('> span').should('contain', 'Not a valid email address')
-        : cy.getData(tag).find('> span').should('contain', 'Field Required');
+        cy.findDataTag(tag).find('> span').should('contain', 'Not a valid email address')
+        : cy.findDataTag(tag).find('> span').should('contain', 'Field Required');
     });
     clearAllText();
   };
@@ -58,7 +58,7 @@ describe('Policyholder Testing', () => {
   });
 
   it('All Inputs Empty Value', () => {
-    cy.getData('submit').click();
+    cy.findDataTag('submit').click();
     submitAndCheckErrors(primaryPolicyTags);
   });
 
@@ -109,15 +109,15 @@ describe('Policyholder Testing', () => {
   });
 
   it('Primary Policyholder Invalid Character', () => {
-    cy.getData('FirstName_input').type('π');
+    cy.findDataTag('FirstName_input').type('π');
     cy._submit();
     checkError('FirstName', 'Invalid characters');
     
-    cy.getData('LastName_input').type('π');
+    cy.findDataTag('LastName_input').type('π');
     cy._submit();
     checkError('LastName', 'Invalid characters');
 
-    cy.getData('EmailAddress_input').type('π');
+    cy.findDataTag('EmailAddress_input').type('π');
     cy._submit();
     checkError('EmailAddress', 'Not a valid email address');
   });
@@ -125,15 +125,15 @@ describe('Policyholder Testing', () => {
   it('Secondary Policyholder Invalid Character', () => {
     toggleSecondUser();
 
-    cy.getData('FirstName2_input').type('π');
+    cy.findDataTag('FirstName2_input').type('π');
     cy._submit();
     checkError('FirstName2', 'Invalid characters');
 
-    cy.getData('LastName2_input').type('π');
+    cy.findDataTag('LastName2_input').type('π');
     cy._submit();
     checkError('LastName2', 'Invalid characters');
 
-    cy.getData('EmailAddress2_input').type('π');
+    cy.findDataTag('EmailAddress2_input').type('π');
     cy._submit();
     checkError('EmailAddress2', 'Not a valid email address');
   });
@@ -147,15 +147,15 @@ describe('Policyholder Testing', () => {
     toggleSecondUser();
     fillFromData(primaryPolicyTags);
     fillFromData(['FirstName2', 'LastName2', 'phoneNumber2'], secondUser);
+    cy._submit();
     checkError('EmailAddress2', 'Not a valid email address');
   });
 
   it('Invalid Contact Phone', () => {
     fillFromData(
-      primaryPolicyTags, 
+      primaryPolicyTags,
       { ...defaultUser, customerInfo: { ...defaultUser.customerInfo, phoneNumber: '123' }}
     );
-    cy._submit();
     checkError('phoneNumber', 'is not a valid Phone Number.');
     clearAllText();
 
@@ -170,13 +170,13 @@ describe('Policyholder Testing', () => {
   
   it('Invalid Effective Date', () => {
     fillFromData(primaryPolicyTags);
-    cy.getData('effectiveDate_input').clear();
+    cy.findDataTag('effectiveDate_input').clear();
     cy._submit();
     checkError('effectiveDate', 'Not a valid date');
     clearAllText();
 
     fillFromData(primaryPolicyTags);
-    cy.getData('effectiveDate_input').type('1900-01-01');
+    cy.findDataTag('effectiveDate_input').type('1900-01-01');
     cy._submit();
     checkError('effectiveDate', 'Date must be at least 08/01/2017');
   });
