@@ -25,7 +25,7 @@ import Error from '../../components/Error/Error';
 import Loader from '../../components/Common/Loader';
 import WorkflowNavigation from './WorkflowNavigation';
 
-import { STEP_NAME_MAP } from './constants/choreographer';
+import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 
 
 class Quote extends Component {
@@ -42,7 +42,7 @@ class Quote extends Component {
     if (isLoading || activeTask === stepName || !completedTasks.includes(stepName)) return;
 
     await updateQuote({ stepName, quoteNumber: quote.quoteNumber });
-    history.replace(`${STEP_NAME_MAP[stepName]}`);
+    history.replace(ROUTE_TO_STEP_NAME[stepName]);
   };
 
   render() {
@@ -94,7 +94,9 @@ const mapStateToProps = (state) => {
   return {
     agency: state.service.agency,
     error: state.error,
-    isLoading: state.appState.isLoading
+    isLoading: state.appState.isLoading,
+    quote: state.quoteState.quote,
+    workflowState: state.quoteState.state,
   }
 };
 

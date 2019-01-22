@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { goToStep } from '../../utilities/navigation';
 import { updateQuote } from '../../actions/quoteState.actions';
 import { setRecalc } from '../../actions/appStateActions';
 
+import { STEP_NAMES } from './constants/choreographer';
 import DetailHeader from './DetailHeader';
+import { TabNavigation } from '@exzeo/core-ui/src/@Harmony/Navigation';
+
 
 export class WorkflowNavigation extends Component {
   getClassForStep = (stepName) => {
@@ -16,11 +18,68 @@ export class WorkflowNavigation extends Component {
     return completedTasks.includes(stepName) ? 'selected' : 'disabled';
   };
 
-  onKeyPress = (event, stepName) => {
+  onKeyPress = (stepName, event) => {
+    const { goToStep } = this.props;
+
     if (event && event.preventDefault) event.preventDefault();
     if (event && event.charCode === 13) {
-      this.props.goToStep(stepName);
+      goToStep(stepName);
     }
+  };
+
+  getNavLinks = () => {
+    const { goToStep } = this.props;
+
+    return [{
+      key: STEP_NAMES.askAdditionalCustomerData,
+      iconId: 'fa fa-vcard',
+      label: 'Policyholder',
+      className: this.getClassForStep(STEP_NAMES.askAdditionalCustomerData),
+      handleClick: () => goToStep(STEP_NAMES.askAdditionalCustomerData),
+      onKeyPress: (e) => this.onKeyPress(STEP_NAMES.askAdditionalCustomerData, e),
+    }, {
+      key: STEP_NAMES.askUWAnswers,
+      iconId: 'fa fa-list-ol',
+      label: 'Underwriting',
+      className: this.getClassForStep(STEP_NAMES.askUWAnswers),
+      handleClick: () => goToStep(STEP_NAMES.askUWAnswers),
+      onKeyPress: (e) => this.onKeyPress(STEP_NAMES.askUWAnswers, e),
+    }, {
+      key: STEP_NAMES.askToCustomizeDefaultQuote,
+      iconId: 'fa fa-sliders',
+      label: 'Customize',
+      className: this.getClassForStep(STEP_NAMES.askToCustomizeDefaultQuote),
+      handleClick: () => goToStep(STEP_NAMES.askToCustomizeDefaultQuote),
+      onKeyPress: (e) => this.onKeyPress(STEP_NAMES.askToCustomizeDefaultQuote, e),
+    }, {
+      key: STEP_NAMES.sendEmailOrContinue,
+      iconId: 'fa fa-share-alt',
+      label: 'Share',
+      className: this.getClassForStep(STEP_NAMES.sendEmailOrContinue),
+      handleClick: () => goToStep(STEP_NAMES.sendEmailOrContinue),
+      onKeyPress: (e) => this.onKeyPress(STEP_NAMES.sendEmailOrContinue, e),
+    }, {
+      key: STEP_NAMES.addAdditionalAIs,
+      iconId: 'fa fa-user-plus',
+      label: 'Additional Parties',
+      className: this.getClassForStep(STEP_NAMES.addAdditionalAIs),
+      handleClick: () => goToStep(STEP_NAMES.addAdditionalAIs),
+      onKeyPress: (e) => this.onKeyPress(STEP_NAMES.addAdditionalAIs, e),
+    }, {
+      key: STEP_NAMES.askAdditionalQuestions,
+      iconId: 'fa fa-envelope',
+      label: 'Mailing / Billing',
+      className: this.getClassForStep(STEP_NAMES.askAdditionalQuestions),
+      handleClick: () => goToStep(STEP_NAMES.askAdditionalQuestions),
+      onKeyPress: (e) => this.onKeyPress(STEP_NAMES.askAdditionalQuestions, e),
+    }, {
+      key: STEP_NAMES.editVerify,
+      iconId: 'fa fa-check-square',
+      label: 'Verify',
+      className: this.getClassForStep(STEP_NAMES.editVerify),
+      handleClick: () => goToStep(STEP_NAMES.editVerify),
+      onKeyPress: (e) => this.onKeyPress(STEP_NAMES.editVerify, e),
+    }]
   };
 
   render() {
@@ -38,79 +97,7 @@ export class WorkflowNavigation extends Component {
         />
 
         {!workflowState.isHardStop &&
-          <ul className="workflow-header">
-            <div className="rule" />
-            <li>
-              <a
-                onKeyPress={event => this.onKeyPress(event, this.props, 'askAdditionalCustomerData')}
-                onClick={() => goToStep(this.props, 'askAdditionalCustomerData')}
-                className={this.getClassForStep('askAdditionalCustomerData', this.props)}
-              >
-                <i className={'fa fa-vcard'} /><span
-              >Policyholder</span>
-              </a>
-            </li>
-            <li>
-              <a
-                tabIndex="0"
-                onKeyPress={event => this.onKeyPress(event, this.props, 'askUWAnswers')}
-                onClick={() => goToStep(this.props, 'askUWAnswers')}
-                className={this.getClassForStep('askUWAnswers', this.props)}>
-                <i className={'fa fa-list-ol'} />
-                <span>Underwriting</span>
-              </a>
-            </li>
-            <li>
-              <a
-                tabIndex="0"
-                onKeyPress={event => this.onKeyPress(event, this.props, 'askToCustomizeDefaultQuote')}
-                onClick={() => goToStep(this.props, 'askToCustomizeDefaultQuote')}
-                className={this.getClassForStep('askToCustomizeDefaultQuote', this.props)}>
-                <i className={'fa fa-sliders'} /><span
-              >Customize</span>
-              </a>
-            </li>
-            <li>
-              <a
-                tabIndex="0"
-                onKeyPress={event => this.onKeyPress(event, this.props, 'sendEmailOrContinue')}
-                onClick={() => goToStep(this.props, 'sendEmailOrContinue')}
-                className={this.getClassForStep('sendEmailOrContinue', this.props)}>
-                <i className={'fa fa-share-alt'} />
-                <span>Share</span>
-              </a>
-            </li>
-            <li>
-              <a
-                tabIndex="0"
-                onKeyPress={event => this.onKeyPress(event, this.props, 'addAdditionalAIs')}
-                onClick={() => goToStep(this.props, 'addAdditionalAIs')}
-                className={this.getClassForStep('addAdditionalAIs', this.props)}>
-                <i className={'fa fa-user-plus'} />
-                <span>Additional Parties</span>
-              </a>
-            </li>
-            <li>
-              <a
-                tabIndex="0"
-                onKeyPress={event => this.onKeyPress(event, this.props, 'askAdditionalQuestions')}
-                onClick={() => goToStep(this.props, 'askAdditionalQuestions')}
-                className={this.getClassForStep('askAdditionalQuestions', this.props)}>
-                <i className={'fa fa-envelope'} /><span
-              >Mailing / Billing</span>
-              </a>
-            </li>
-            <li>
-              <a
-                tabIndex="0"
-                onKeyPress={event => this.onKeyPress(event, this.props, 'editVerify')}
-                onClick={() => goToStep(this.props, 'editVerify')}
-                className={this.getClassForStep('editVerify', this.props)}>
-                <i className={'fa fa-check-square'} />
-                <span>Verify</span>
-              </a>
-            </li>
-          </ul>
+          <TabNavigation navLinks={this.getNavLinks()} />
         }
       </div>
     );
