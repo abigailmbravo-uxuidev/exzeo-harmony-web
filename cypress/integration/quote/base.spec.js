@@ -1,5 +1,11 @@
 describe('Agency Happy Path', () => {
-  it('Navigates through the entire workflow with default data path', () => {
-    cy.quoteWorkflow();
+  before('gets fixtures', function () {
+    cy.fixture('defaultUser').as('user');
+    cy.fixture('defaultUnderwriting').as('underwriting')
+  });
+  
+  it('Navigates through the quote workflow', function () {
+    const { underwriting, user } = this;
+    cy.quoteWorkflow('', { user, underwriting });
   });
 });

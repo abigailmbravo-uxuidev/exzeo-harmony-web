@@ -4,10 +4,11 @@
 // Pages are: ['landing', 'searchAddress', 'customerInfo', 'underwriting', 'customize', 'share'
 // 'assumptions', 'additionalInterests', 'mailingBilling', 'verify', 'thankYou']
 
-import defaultUser from '../fixtures/defaultUser.json';
+import user from '../fixtures/defaultUser.json';
+import underwriting from '../fixtures/defaultUnderwriting.json';
 
-Cypress.Commands.add('quoteWorkflow', (page = '', data = defaultUser) => {
-  const { address, customerInfo: { firstName, lastName, email, phone, agentCode } } = data;
+Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting }) => {
+  const { address, customerInfo: { firstName, lastName, email, phone, agentCode } } = user;
 
   cy.login();
 
@@ -28,7 +29,7 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = defaultUser) => {
             cy.get('button[form="CustomerInfo"]').click().then(() => {
 
               if (page !== 'underwriting') {
-                Object.entries(data.underwriting).forEach(([name, value]) => {
+                Object.entries(underwriting).forEach(([name, value]) => {
                   cy.get(`input[name="${name}"][value="${value}"] + span`).click();
                 });
                 cy.get('button[form="Underwriting"]').click().then(() => {
