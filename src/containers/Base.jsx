@@ -57,8 +57,8 @@ export class Base extends Component {
       <div className={this.state.headerActive ? 'app-wrapper blur' : 'app-wrapper'} >
         <Header toggleHeader={this.toggleClassHeader} toggle={this.toggleClass} active={this.state.active} />
         <main role="document">
-          <aside activeclassname="active" className={this.state.headerActive ? 'content-panel-left active' : 'content-panel-left'}>
-            <div className="user">
+          <aside  className={this.state.headerActive ? 'content-panel-left active' : 'content-panel-left'}>
+            <div className="user" data-test="user-info">
               <label htmlFor="user">Agency</label>
               <h5 className="user-name">
                 <span><div>{ populateAgencyName(this.props) }</div></span>

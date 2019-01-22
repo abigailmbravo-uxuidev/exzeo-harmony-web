@@ -5,7 +5,6 @@ import momentTZ from 'moment-timezone';
 import moment from 'moment';
 import _ from 'lodash';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import { getZipcodeSettings, getAgents } from '../../actions/serviceActions';
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';
@@ -29,11 +28,17 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   taskData.effectiveDate = momentTZ.tz(moment.utc(taskData.effectiveDate).format('YYYY-MM-DD'), props.zipCodeSettings.timezone).format();
   taskData.phoneNumber = taskData.phoneNumber.replace(/[^\d]/g, '');
   taskData.phoneNumber2 = taskData.phoneNumber2.replace(/[^\d]/g, '');
+
   await props.updateQuote({ data: taskData, quoteNumber: props.quote.quoteNumber });
+
   props.history.replace('underwriting');
 };
 
-const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
+const handleGetQuestions = state => {
+  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
+    ? state.quoteState.state.uiQuestions
+    : [];
+};
 
 const handleInitialize = (state) => {
   const quoteData = state.quoteState.quote;
@@ -139,7 +144,7 @@ const mapStateToProps = state => (
     uiQuestions: handleGetQuestions(state)
   });
 
-export default connect(mapStateToProps, { updateQuote, getZipcodeSettings, getAgents })(reduxForm({
+export default connect(mapStateToProps, { getZipcodeSettings, getAgents })(reduxForm({
   enableReinitialize: true,
   form: 'CustomerInfo',
   onSubmitFail: failedSubmission

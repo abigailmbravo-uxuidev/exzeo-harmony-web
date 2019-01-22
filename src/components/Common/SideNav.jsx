@@ -12,22 +12,19 @@ const getNavLinks = ({ params }) => [
     styleName: 'agent-dashboard',
     hasIcon: true,
     exact: true,
-  },
-  {
+  }, {
     key: '2',
     to: '/search/address',
     label: 'QUOTE',
     styleName: 'quote label',
     hasIcon: true,
-  },
-  {
+  }, {
     key: '3',
     to: '/policy',
     label: 'POLICY',
     styleName: classNames('policy label', { 'policy-detail': params.policyNumber }),
     hasIcon: true,
-  },
-  {
+  }, {
     key: '4',
     to: '/training',
     label: 'HELPFUL INFO',

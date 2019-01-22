@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { submit } from 'redux-form';
 
-import { getAgency } from '../../actions/serviceActions';
 import { updateQuote } from '../../actions/quoteState.actions';
 
 import App from '../../components/AppWrapper';
@@ -29,11 +28,24 @@ import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 
 
 class Quote extends Component {
+  state = {
+    isRecalc: false,
+  };
 
+  setRecalc = (isRecalc) => {
+    this.setState(() => ({ isRecalc }))
+  };
 
   handlePremiumRecalc = () => {
     const { submitForm } = this.props;
     submitForm('Customize');
+  };
+
+  handleUpdateQuote = async ({data, quoteNumber}) => {
+    const { updateQuote } = this.props;
+    const quote = await updateQuote({ data, quoteNumber });
+
+    return quote;
   };
 
   goToStep = async (stepName) => {
@@ -46,17 +58,15 @@ class Quote extends Component {
   };
 
   render() {
-    const { agency, auth, history, isLoading, match, location, userProfile } = this.props;
+    const { auth, history, isLoading, match, location } = this.props;
+    const { isRecalc } = this.state;
 
     return (
       <App
-        agency={agency}
-        auth={auth}
         errorRedirectUrl={location.pathname}
+        logout={auth.logout}
         match={match}
-        userProfile={userProfile}
         render={() => (
-          <div className="workflow" role="article">
             <div className="route">
               {isLoading
               && <Loader />
@@ -65,25 +75,25 @@ class Quote extends Component {
               <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep}/>
 
               {/*{ Gandalf will be replacing most/all of these routes }*/}
-              <Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} />} />
-              <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} />} />
-              <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} />} />
-              <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} />} />
-              <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} />} />
-              <Route exact path={`${match.url}/additionalInterests`}   render={props => <AddAdditionalInterest {...props} />} />
-              <Route exact path={`${match.url}/askMortgagee`}          render={props => <Mortgagee {...props} />} />
-              <Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} />} />
-              <Route exact path={`${match.url}/askAdditionalInsured`}  render={props => <AdditionalInsured {...props} />} />
-              <Route exact path={`${match.url}/askPremiumFinance`}     render={props => <PremiumFinance {...props} />} />
-              <Route exact path={`${match.url}/askBillPayer`}          render={props => <BillPayer {...props} />} />
-              <Route exact path={`${match.url}/mailingBilling`}        render={props => <Billing {...props} />} />
-              <Route exact path={`${match.url}/verify`}                render={props => <Verify {...props} />} />
-              <Route exact path={`${match.url}/thankYou`}              render={props => <ThankYou {...props} />} />
-              <Route exact path={`${match.url}/error`}                 render={props => <Error {...props} />} />
+              <Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
+              <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/additionalInterests`}   render={props => <AddAdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/askMortgagee`}          render={props => <Mortgagee {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/askAdditionalInsured`}  render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/askPremiumFinance`}     render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/askBillPayer`}          render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/mailingBilling`}        render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/verify`}                render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
+              <Route exact path={`${match.url}/thankYou`}              render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
+              <Route exact path={`${match.url}/error`}                 render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
               {/*{ ^^^ Gandalf will be replacing most/all of these routes ^^^ }*/}
 
             </div>
-          </div>
+
         )}
       />
     );
@@ -92,8 +102,6 @@ class Quote extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    agency: state.service.agency,
-    error: state.error,
     isLoading: state.appState.isLoading,
     quote: state.quoteState.quote,
     workflowState: state.quoteState.state,
@@ -101,7 +109,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  getAgency,
   submitForm: submit,
   updateQuote,
 })(Quote);

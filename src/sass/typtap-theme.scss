@@ -937,21 +937,18 @@ main[role="document"] {
     ul {
       li {
         a {
-          i,
-          span {
+          color: $white;
+          i {
             color: $white;
           }
 
           &.active {
             border-left-color: $bright-blue;
             font-weight: $font-weight-bold;
+            color: $body-color;
 
             i {
               color: $green;
-            }
-
-            span {
-              color: $body-color;
             }
 
             &:hover {

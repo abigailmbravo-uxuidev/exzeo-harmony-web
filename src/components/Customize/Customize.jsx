@@ -6,11 +6,8 @@ import { Redirect } from 'react-router';
 import Footer from '../Common/Footer';
 import { convertQuoteStringsToNumber, getInitialValues } from './customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
-import { setRecalc } from '../../actions/appStateActions';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-
-import { updateQuote } from '../../actions/quoteState.actions';
 
 export const handleFormSubmit = async (data, dispatch, props) => {
   const updatedQuote = convertQuoteStringsToNumber(data);
@@ -26,7 +23,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * updatedQuote.dwellingAmount)),
     liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
     calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * updatedQuote.dwellingAmount)),
-    recalc: !!props.appState.isRecalc
+    recalc: !!props.isRecalc
   };
 
   if (updatedQuoteResult.personalPropertyAmount === 0) {
@@ -39,8 +36,9 @@ export const handleFormSubmit = async (data, dispatch, props) => {
 
   await props.updateQuote({ data: updatedQuoteResult, quoteNumber: props.quote.quoteNumber });
 
-  if (!props.appState.isRecalc) {
+  if (!props.isRecalc) {
     props.history.replace('share');
+    return;
   }
 
   props.setRecalc(false);
@@ -70,7 +68,11 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
+const handleGetQuestions = state => {
+  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
+    ? state.quoteState.state.uiQuestions
+    : [];
+};
 
 export const Customize = (props) => {
   const {
@@ -86,33 +88,33 @@ export const Customize = (props) => {
 
   return (
     <div className="route-content">
-      {isHardStop && <Redirect to={'error'} />}
+      {isHardStop &&
+        <Redirect to={'error'} />
+      }
       <SnackBar
-        {...props}
         show={showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
+        timer={3000}>
+        <p>Please correct errors.</p>
+      </SnackBar>
       <Form
         className="fade-in"
         id="Customize"
-        onSubmit={handleSubmit(handleFormSubmit)}
-        noValidate
-      >
+        onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            {fieldQuestions && fieldQuestions.map((question, index) =>
+            {fieldQuestions.map((question, index) =>
               <FieldGenerator
+                key={index}
                 autoFocus={index === 1}
                 data={quote}
                 question={question}
                 values={fieldValues || {}}
                 onChange={handleFormChange(props)}
-                key={index}
               />
             )}
           </div>
           <div className="workflow-steps">
-            {props.appState.isRecalc &&
+            {props.isRecalc &&
               <button
                 tabIndex={'0'}
                 className="btn btn-secondary"
@@ -133,7 +135,7 @@ export const Customize = (props) => {
               form="Customize"
               disabled={submitting}
             >
-              {props.appState.isRecalc ? 'recalculate' : 'next'}
+              {props.isRecalc ? 'recalculate' : 'next'}
             </button>
           </div>
           <Footer />
@@ -145,7 +147,6 @@ export const Customize = (props) => {
 
 const mapStateToProps = state => ({
   showSnackBar: state.appState.showSnackBar,
-  appState: state.appState,
   fieldValues: _.get(state.form, 'Customize.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
@@ -153,10 +154,7 @@ const mapStateToProps = state => ({
   isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
-export default connect(mapStateToProps, {
-  updateQuote,
-  setRecalc
-})(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'Customize',
   enableReinitialize: true,
   onSubmitFail: failedSubmission

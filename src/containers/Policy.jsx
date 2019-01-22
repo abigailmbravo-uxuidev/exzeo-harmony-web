@@ -1,14 +1,17 @@
 import React from 'react';
 
-import PolicyWorkflowConnect from '../components/PolicyWorkflow/PolicyWorkflow';
-import BaseConnect from './Base';
+import PolicyWorkflow from '../components/PolicyWorkflow/PolicyWorkflow';
+import AppWrapper from '../components/AppWrapper';
 
-const Policy = props => (
-  <BaseConnect {...props} >
-    <div className="workflow" role="article">
-      <PolicyWorkflowConnect {...props} />
-      </div>
-    </BaseConnect>
+const Policy = ({ auth, location, match }) => (
+  <AppWrapper
+    errorRedirectUrl={location.pathname}
+    logout={auth.logout}
+    match={match}
+    render={() => (
+      <PolicyWorkflow auth={auth} match={match} />
+    )}
+  />
 );
 
 export default Policy;

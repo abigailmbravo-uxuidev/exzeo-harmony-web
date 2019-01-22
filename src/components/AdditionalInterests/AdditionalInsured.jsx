@@ -2,16 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
-import { updateQuote } from '../../actions/quoteState.actions';
+
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
 
-const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
-
-const handleGetQuoteData = state => state.quoteState.quote || {};
+const handleGetQuestions = state => {
+  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
+  ? state.quoteState.state.uiQuestions
+  : []
+};
 
 export const handleFormSubmit = async (data, dispatch, props) => {
   const additionalInterests = props.quote.additionalInterests;
@@ -73,7 +75,7 @@ export const closeAndSavePreviousAIs = async (props) => {
 
 export const handleInitialize = (state) => {
   const uiQuestions = handleGetQuestions(state);
-  const quote = handleGetQuoteData(state);
+  const quote = state.quoteState.quote || {};
   const values = getInitialValues(uiQuestions,
     { additionalInterests: _.filter(quote.additionalInterests, ai => ai.type === 'Additional Insured') });
 
@@ -98,15 +100,24 @@ export const AdditionalInsured = (props) => {
   return (
     <div className="route-content">
       <SnackBar
-        {...props}
         show={props.showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
-      <Form id="AdditionalInsured" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
+        timer={3000}>
+        <p>Please correct errors.</p>
+      </SnackBar>
+      <Form id="AdditionalInsured" onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-user-plus" /> Additional Insured</h3>
-            {fieldQuestions && _.sortBy(fieldQuestions, 'sort').map((question, index) => <FieldGenerator autoFocus={index === 1} tabIndex={index} data={quote} question={question} values={fieldValues} key={index} />)}
+            {_.sortBy(fieldQuestions, 'sort').map((question, index) => (
+              <FieldGenerator
+                key={index}
+                autoFocus={index === 1}
+                tabIndex={index}
+                data={quote}
+                question={question}
+                values={fieldValues}
+              />
+            ))}
           </div>
           <div className="workflow-steps">
             <span className="button-label-wrap">
@@ -125,17 +136,15 @@ export const AdditionalInsured = (props) => {
 const mapStateToProps = state => ({
   isLoading: state.appState.isLoading,
   showSnackBar: state.appState.showSnackBar,
-  appState: state.appState,
   fieldValues: _.get(state.form, 'AdditionalInsured.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: handleGetQuoteData(state)
+  quote: state.quoteState.quote || {},
+
 });
 
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'AdditionalInsured',
   onSubmitFail: failedSubmission
 })(AdditionalInsured));

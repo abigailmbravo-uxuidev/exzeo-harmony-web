@@ -1,11 +1,13 @@
 import React from 'react';
+import { func, shape, string } from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
 import { Button } from '@exzeo/core-ui';
 
-import { getAgency } from '../actions/serviceActions';
+import { getNavLinks } from '../utilities/navigation';
 
 import Header from './Common/Header';
-import SideNav from './Common/SideNav';
 import CheckError from './Error/CheckError';
 
 class AppWrapper extends React.Component {
@@ -13,25 +15,9 @@ class AppWrapper extends React.Component {
     activeSideNav: false,
   };
 
-  componentDidMount() {
-    const { userProfile } = this.props;
-    const { agency } = userProfile;
-    if (agency) {
-      getAgency(agency.companyCode, agency.state, agency.agencyCode);
-    }
-  };
-
   handleLogout = () => {
     window.persistor.purge();
-    this.props.auth.logout();
-  };
-
-  getAgencyName = () => {
-    const { agency, userProfile } = this.props;
-    if (agency) {
-      return agency.displayName;
-    }
-    return userProfile.name || '';
+    this.props.logout();
   };
 
   toggleSideNav = () => {
@@ -42,6 +28,8 @@ class AppWrapper extends React.Component {
     const {
       errorRedirectUrl,
       match,
+      routeClassName,
+      userDisplayName
     } = this.props;
 
     return (
@@ -52,14 +40,18 @@ class AppWrapper extends React.Component {
         />
         <main role="document">
           <aside className="content-panel-left">
-            <div className="user">
+            <div className="user" data-test="user-info">
               <label htmlFor="user">Agency</label>
               <h5 className="user-name">
-                <span><div>{this.getAgencyName()}</div></span>
+                <span><div>{userDisplayName}</div></span>
                 <i className="fa fa-gear" />
               </h5>
             </div>
-            <SideNav params={match.params} />
+
+            <nav className="site-nav">
+              <SideNavigation navLinks={getNavLinks({ params: match.params })} />
+            </nav>
+
             <Button
               baseClass="action"
               customClass="logout"
@@ -77,7 +69,9 @@ class AppWrapper extends React.Component {
           }
 
           <div className="content-wrapper">
+            <div className={classNames(routeClassName)} role="article">
             {this.props.render()}
+            </div>
           </div>
         </main>
 
@@ -87,8 +81,29 @@ class AppWrapper extends React.Component {
   }
 }
 
-AppWrapper.defaultProps = {
-  userProfile: {}
+AppWrapper.propTypes = {
+
+  logout: func.isRequired,
+  match: shape({
+    params: shape({}),
+  }).isRequired,
+  displayName: string,
+  errorRedirectUrl: string,
+  render: func,
+  routeClassName: string,
 };
 
-export default AppWrapper;
+AppWrapper.defaultProps = {
+  displayName: '',
+  errorRedirectUrl: undefined,
+  routeClassName: 'workflow',
+};
+
+const mapStateToProps = state => {
+  const userDisplayName = (state.service.agency || {}).displayName || (state.authState.userProfile || {}).name;
+  return {
+    userDisplayName,
+  }
+};
+
+export default connect(mapStateToProps)(AppWrapper);
