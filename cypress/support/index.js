@@ -18,6 +18,5 @@ import './login';
 import './persistLocalStorage';
 import './quoteWorkflow';
 import './utils';
-
 // Use this folder if you want any custom cypress stuff that will only be local
 import '../local';

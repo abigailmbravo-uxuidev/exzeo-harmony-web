@@ -21,10 +21,10 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting })
         cy.get('.results > li[tabindex=0]').click().then(() => {
 
           if (page !== 'customerInfo') {
-            cy.get('#FirstName > input').type(firstName);
-            cy.get('#LastName > input').type(lastName);
-            cy.get('#EmailAddress > input').type(email);
-            cy.get('.form-group.phoneNumber > input').type(phone);
+            cy.get('#FirstName > input').type(FirstName);
+            cy.get('#LastName > input').type(LastName);
+            cy.get('#EmailAddress > input').type(EmailAddress);
+            cy.get('.form-group.phoneNumber > input').type(phoneNumber);
             cy.get('select[name="agentCode"]').select(agentCode);
             cy.get('button[form="CustomerInfo"]').click().then(() => {
 
