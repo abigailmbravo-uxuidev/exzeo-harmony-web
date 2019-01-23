@@ -11,7 +11,7 @@
     "cypress": "react-scripts cypress"
   },
   "dependencies": {
-    "@exzeo/core-ui": "^0.4.1",
+    "@exzeo/core-ui": "^0.4.3",
     "@exzeo/react-scripts": "1.0.8",
     "auth0-js": "~8.10.1",
     "axios": "~0.15.2",
