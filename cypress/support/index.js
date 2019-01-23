@@ -14,6 +14,7 @@
 // ***********************************************************
 
 import './globalHooks';
+import './inputs';
 import './login';
 import './persistLocalStorage';
 import './quoteWorkflow';

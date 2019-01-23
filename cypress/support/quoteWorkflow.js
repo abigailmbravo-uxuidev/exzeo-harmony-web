@@ -4,8 +4,8 @@
 // Pages are: ['landing', 'searchAddress', 'customerInfo', 'underwriting', 'customize', 'share'
 // 'assumptions', 'additionalInterests', 'mailingBilling', 'verify', 'thankYou']
 
-import user from '../fixtures/defaultUser.json';
-import underwriting from '../fixtures/defaultUnderwriting.json';
+import user from '../fixtures/user.json';
+import underwriting from '../fixtures/underwriting.json';
 
 Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting }) => {
   const { address, customerInfo: { firstName, lastName, email, phone, agentCode } } = user;

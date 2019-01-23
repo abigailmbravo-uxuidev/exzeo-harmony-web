@@ -1,6 +1,6 @@
-import defaultLogin from '../fixtures/defaultLogin.json';
+import login from '../fixtures/login.json';
 
-Cypress.Commands.add('login', (loginInfo = defaultLogin) => {
+Cypress.Commands.add('login', (loginInfo = login) => {
   const useMockAuth0 = Cypress.env('REACT_APP_USE_MOCK_AUTH0');
 
   cy.visit('/logout');
