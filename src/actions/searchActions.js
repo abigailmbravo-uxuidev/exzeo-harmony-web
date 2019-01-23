@@ -147,7 +147,6 @@ export function searchQuotes(quoteSearchData) {
       dispatch(toggleLoading(true));
       const results = await fetchQuotes(quoteSearchData);
       dispatch(setSearchResults(formatQuoteResults(results)));
-      // dispatch(errorActions.setAppError({ message: 'Some Error!!!'}));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
     } finally {
