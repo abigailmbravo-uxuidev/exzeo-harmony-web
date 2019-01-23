@@ -40,7 +40,6 @@ export const handleFormSubmit = async (data, dispatch, props) => {
     props.history.replace('share');
     return;
   }
-
   props.setRecalc(false);
 };
 
@@ -68,11 +67,7 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetQuestions = state => {
-  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
-    ? state.quoteState.state.uiQuestions
-    : [];
-};
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
 
 export const Customize = (props) => {
   const {
@@ -91,9 +86,7 @@ export const Customize = (props) => {
       {isHardStop &&
         <Redirect to={'error'} />
       }
-      <SnackBar
-        show={showSnackBar}
-        timer={3000}>
+      <SnackBar show={showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>
       <Form
@@ -104,37 +97,35 @@ export const Customize = (props) => {
           <div className="form-group survey-wrapper" role="group">
             {fieldQuestions.map((question, index) =>
               <FieldGenerator
-                key={index}
                 autoFocus={index === 1}
                 data={quote}
                 question={question}
                 values={fieldValues || {}}
                 onChange={handleFormChange(props)}
+                key={index}
               />
             )}
           </div>
           <div className="workflow-steps">
             {props.isRecalc &&
               <button
-                tabIndex={'0'}
+                tabIndex="0"
                 className="btn btn-secondary"
+                type="button"
+                disabled={submitting}
                 onClick={() => {
                   handleReset(props);
                   reset();
-                }}
-                type="button"
-                disabled={submitting}
-              >
+                }}>
                 Reset
               </button>
             }
             <button
-              tabIndex={'0'}
+              tabIndex="0"
               className="btn btn-primary"
               type="submit"
               form="Customize"
-              disabled={submitting}
-            >
+              disabled={submitting}>
               {props.isRecalc ? 'recalculate' : 'next'}
             </button>
           </div>

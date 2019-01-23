@@ -73,7 +73,7 @@ export const closeAndSavePreviousAIs = async (props) => {
 
 export const handleInitialize = (state) => {
   const uiQuestions = handleGetQuestions(state);
-  const quote = state.quoteState.quote || {};
+  const quote = handleGetQuoteData(state);
 
   const values = getInitialValues(uiQuestions,
     { additionalInterests: _.filter(quote.additionalInterests, ai => ai.type === 'Additional Interest') });
@@ -92,11 +92,9 @@ export const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetQuestions = state => {
-  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
-    ? state.quoteState.state.uiQuestions
-    : [];
-};
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
+
+const handleGetQuoteData = state => state.quoteState.quote || {};
 
 export const AdditionalInterest = (props) => {
   const {
@@ -108,9 +106,7 @@ export const AdditionalInterest = (props) => {
 
   return (
     <div className="route-content">
-      <SnackBar
-        show={props.showSnackBar}
-        timer={3000}>
+      <SnackBar show={props.showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>
       <Form id="AdditionalInterest" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -148,7 +144,7 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'AdditionalInterest.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: state.quoteState.quote || {},
+  quote: handleGetQuoteData(state)
 });
 
 export default connect(mapStateToProps)(reduxForm({

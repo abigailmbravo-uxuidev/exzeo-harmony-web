@@ -34,11 +34,7 @@ export const handleFormSubmit = async (data, dispatch, props) => {
   props.history.replace('underwriting');
 };
 
-const handleGetQuestions = state => {
-  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
-    ? state.quoteState.state.uiQuestions
-    : [];
-};
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
 
 const handleInitialize = (state) => {
   const quoteData = state.quoteState.quote;

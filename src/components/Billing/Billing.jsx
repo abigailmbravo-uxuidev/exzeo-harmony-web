@@ -32,7 +32,7 @@ const handleGetPaymentPlans = (state) => {
 };
 
 const handleInitialize = (state) => {
-  const quote = state.quoteState.quote || {};
+  const quote = handleGetQuoteData(state);
   const uiQuestions = handleGetQuestions(state);
   const values = getInitialValues(uiQuestions, quote);
 
@@ -173,9 +173,7 @@ export const Billing = (props) => {
 
   return (
     <div className="route-content">
-      <SnackBar
-        show={showSnackBar}
-        timer={3000}>
+      <SnackBar show={showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>
       <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -248,7 +246,7 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Billing.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: state.quoteState.quote || {},
+  quote: handleGetQuoteData(state),
   paymentPlanResult: handleGetPaymentPlans(state)
 });
 

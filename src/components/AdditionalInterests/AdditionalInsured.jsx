@@ -9,11 +9,9 @@ import failedSubmission from '../Common/reduxFormFailSubmit';
 import { getInitialValues } from '../Customize/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
 
-const handleGetQuestions = state => {
-  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
-  ? state.quoteState.state.uiQuestions
-  : []
-};
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
+
+const handleGetQuoteData = state => state.quoteState.quote || {};
 
 export const handleFormSubmit = async (data, dispatch, props) => {
   const additionalInterests = props.quote.additionalInterests;
@@ -99,9 +97,7 @@ export const AdditionalInsured = (props) => {
 
   return (
     <div className="route-content">
-      <SnackBar
-        show={props.showSnackBar}
-        timer={3000}>
+      <SnackBar show={props.showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>
       <Form id="AdditionalInsured" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -139,8 +135,7 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'AdditionalInsured.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: state.quoteState.quote || {},
-
+  quote: handleGetQuoteData(state)
 });
 
 

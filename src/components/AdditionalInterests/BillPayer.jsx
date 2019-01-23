@@ -48,15 +48,13 @@ export const closeAndSavePreviousAIs = async (props) => {
   props.history.replace('additionalInterests');
 };
 
-const handleGetQuestions = state => {
-  return state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
-    ? state.quoteState.state.uiQuestions
-    : [];
-};
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
+
+const handleGetQuoteData = state => state.quoteState.quote || {};
 
 export const handleInitialize = (state) => {
   const uiQuestions = handleGetQuestions(state);
-  const quote = state.quoteState.quote || {};
+  const quote = handleGetQuoteData(state);
   const values = getInitialValues(uiQuestions, { additionalInterests: _.filter(quote.additionalInterests, ai => ai.type === 'Bill Payer') });
 
   _.forEach(uiQuestions, (q) => {
@@ -79,9 +77,7 @@ export const BillPayer = (props) => {
 
   return (
     <div className="route-content">
-      <SnackBar
-        show={props.showSnackBar}
-        timer={3000}>
+      <SnackBar show={props.showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
@@ -111,7 +107,7 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'BillPayer.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: state.quoteState.quote || {},
+  quote: handleGetQuoteData(state)
 });
 
 

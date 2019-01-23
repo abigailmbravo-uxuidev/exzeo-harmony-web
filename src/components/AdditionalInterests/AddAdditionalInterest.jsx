@@ -104,9 +104,7 @@ export class AddAdditionalInterest extends React.Component {
   render() {
     return (
       <div className="route-content">
-      <SnackBar
-        show={this.props.showSnackBar}
-        timer={3000}>
+      <SnackBar show={this.props.showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>
       <Form id="AddAdditionalInterestPage" onSubmit={this.props.handleSubmit(this.noAddAdditionalInterestSubmit)}>

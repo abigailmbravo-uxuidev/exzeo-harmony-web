@@ -13,7 +13,7 @@ import FieldGenerator from '../Form/FieldGenerator';
 import ReactSelectField from '../Form/inputs/ReactSelectField';
 
 export const handleInitialize = (state) => {
-  const quote = state.quoteState.quote || {};
+  const quote = handleGetQuoteData(state);
   const questions = handleGetQuestions(state);
   const values = getInitialValues(questions, {
     additionalInterests: _.filter(
@@ -51,14 +51,13 @@ export const handleGetQuestions = (state) => {
   return questions;
 };
 
+export const handleGetQuoteData = state =>
+  state.quoteState.quote || {};
+
 const getAnswers = (name, questions) =>
   _.get(_.find(questions, { name }), 'answers') || [];
 
 export class Mortgagee extends React.Component {
-  state = {
-
-  };
-
   setMortgageeValues = (val) => {
     this.setState({ selectedMortgageeOption: val });
 
@@ -240,7 +239,6 @@ export class Mortgagee extends React.Component {
 
   closeAndSavePreviousAIs = async () => {
     const additionalInterests = this.props.quote.additionalInterests;
-
     await this.props.updateQuote({ data: { additionalInterests }, quoteNumber: this.props.quote.quoteNumber });
     this.props.history.replace('additionalInterests');
   };
@@ -250,9 +248,7 @@ export class Mortgagee extends React.Component {
 
     return (
       <div className="route-content">
-        <SnackBar
-          show={this.props.showSnackBar}
-          timer={3000}>
+        <SnackBar show={this.props.showSnackBar} timer={3000}>
           <p>Please correct errors.</p>
         </SnackBar>
 
@@ -341,7 +337,7 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Mortgagee.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: state.quoteState.quote || {},
+  quote: handleGetQuoteData(state)
 });
 
 export default connect(mapStateToProps)(reduxForm({

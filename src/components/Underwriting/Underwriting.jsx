@@ -15,11 +15,8 @@ const handleFormSubmit = async (data, dispatch, props) => {
   props.history.replace('customize');
 };
 
-const handleGetQuestions = state => {
-  return state.quoteState.state && Array.isArray(state.quoteState.state.underwritingQuestions)
-    ? state.quoteState.state.underwritingQuestions
-    : [];
-};
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.underwritingQuestions) ? state.quoteState.state.underwritingQuestions: []);
+
 const handleInitialize = (state) => {
   const questions = handleGetQuestions(state);
   const data = state.quoteState.quote;
@@ -46,11 +43,9 @@ export const Underwriting = (props) => {
   return (
     <div className="route-content">
       {isHardStop &&
-        <Redirect to={'error'} />
+        <Redirect to="error" />
       }
-      <SnackBar
-        show={showSnackBar}
-        timer={3000}>
+      <SnackBar show={showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>
       <Form id="Underwriting" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -68,12 +63,13 @@ export const Underwriting = (props) => {
           </div>
           <div className="workflow-steps">
             <button
-              tabIndex={0}
+              tabIndex="0"
               className="btn btn-primary"
               type="submit"
               form="Underwriting"
-              disabled={isLoading}
-            >next</button>
+              disabled={isLoading}>
+              next
+            </button>
           </div>
           <Footer />
         </div>

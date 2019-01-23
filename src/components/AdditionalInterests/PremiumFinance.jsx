@@ -34,9 +34,11 @@ export const handleGetQuestions = (state) => {
   return questions;
 };
 
+const handleGetQuoteData = state => state.quoteState.quote || {};
+
 export const handleInitialize = (state) => {
   const uiQuestions = handleGetQuestions(state);
-  const quote = state.quoteState.quote || {};
+  const quote = handleGetQuoteData(state);
   const values = getInitialValues(uiQuestions, { additionalInterests: _.filter(quote.additionalInterests, ai => ai.type === 'Premium Finance') });
   _.forEach(uiQuestions, (q) => {
     if (!values[q.name]) {
@@ -134,9 +136,7 @@ export class PremiumFinance extends React.Component {
 
     return (
       <div className="route-content">
-        <SnackBar
-          show={showSnackBar}
-          timer={3000}>
+        <SnackBar show={showSnackBar} timer={3000}>
           <p>Please correct errors.</p>
         </SnackBar>
         <Form id="PremiumFinance" onSubmit={handleSubmit(this.handleFormSubmit)} >
@@ -191,7 +191,7 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'PremiumFinance.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: state.quoteState.quote || {},
+  quote: handleGetQuoteData(state)
 });
 
 export default connect(mapStateToProps)(reduxForm({

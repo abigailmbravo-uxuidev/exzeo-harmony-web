@@ -8,15 +8,14 @@ export const CheckError = ({ error, redirectUrl }) => {
     const errorPath = '/error';
     return <Redirect to={{ pathname: errorPath, state: { redirectUrl } }} />;
   }
-
   return <span />;
 };
 
 CheckError.propTypes = {
+  redirectUrl: PropTypes.string,
   error: PropTypes.shape({
     message: PropTypes.string
   }),
-  redirectUrl: PropTypes.string
 };
 
 CheckError.defaultProps = {
