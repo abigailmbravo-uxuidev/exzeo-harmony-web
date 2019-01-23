@@ -27,7 +27,10 @@ describe('Share Testing', () => {
   });
 
   it('"Confirmed" Value left at Default "No"', () => {
-
+    cy._submit();
+    cy.findDataTag('confirmAssumptions_input').should('have.value', '');
+    cy.findDataTag('submit').should('be.disabled');
+    cy.findDataTag('tab-nav-sendEmailOrContinue').click();
   });
 
   it('All Inputs Empty Value', () => {
@@ -38,13 +41,15 @@ describe('Share Testing', () => {
   });
 
   it('Input Empty Value', function() {
+    const { email, firstName, lastName } = this.user.customerInfo;
+
     toggleModal('on');
-    cy.findDataTag('emailAddr_input').type(this.user.customerInfo.email);
+    cy.findDataTag('emailAddr_input').type(email);
     cy.get('#SendEmail').submit();
     cy.findDataTag('name').find('> span').should('contain', 'Field Required');
     clearAll();
     
-    cy.findDataTag('name_input').type(`${this.user.customerInfo.firstName} ${this.user.customerInfo.lastName}`);
+    cy.findDataTag('name_input').type(`${firstName} ${lastName}`);
     cy.get('#SendEmail').submit();
     cy.findDataTag('emailAddr').find('> span').should('contain', 'Field Required');
   });

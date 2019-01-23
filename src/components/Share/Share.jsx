@@ -76,7 +76,7 @@ render() {
         </div>
         <div className="workflow-steps">
           <button className="btn btn-secondary" type="button" onClick={() => this.shareQuote()} data-test="share">share</button>
-          <button className="btn btn-primary" type="submit" disabled={this.props.isLoading}>next</button>
+          <button className="btn btn-primary" type="submit" disabled={this.props.isLoading} data-test="submit">next</button>
         </div>
         <Footer />
       </div>
