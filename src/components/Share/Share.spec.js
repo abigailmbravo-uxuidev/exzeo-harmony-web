@@ -32,7 +32,7 @@ describe('Testing Share component', () => {
     wrapperInstance.noShareSubmit({}, props.dispatch, props);
     wrapperInstance.shareQuote(props);
     wrapperInstance.closeShareSubmit(props);
-    wrapperInstance.refereshUWReviewError(props);
+    wrapperInstance.refreshUWReviewError();
   });
 
   it('should test connected app', () => {

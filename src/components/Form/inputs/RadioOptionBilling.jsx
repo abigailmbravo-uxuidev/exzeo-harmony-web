@@ -26,34 +26,13 @@ const RadioOptionBilling = ({
 
 RadioOptionBilling.propTypes = {
   paymentPlan : PropTypes.any, // eslint-disable-line
-  /**
-   * Answer used to generate option
-   */
-  answer: PropTypes.string,
-
-  /**
-   * Name for option
-   */
+  answer: PropTypes.shape({
+    answer: PropTypes.string
+  }),
   name: PropTypes.string,
-
-  /**
-   * Change handler from parent
-   */
   onChange: PropTypes.func.isRequired,
-
-  /**
-   * Number of answers, for styling
-   */
   size: PropTypes.number,
-
-  /**
-   * Whether to use segmented slides
-   */
   segmented: PropTypes.bool,
-
-  /**
-   * Used to find if options is selected
-   */
   value: PropTypes.any, // eslint-disable-line
 };
 

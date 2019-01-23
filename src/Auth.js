@@ -34,7 +34,7 @@ export default class Auth {
     this.auth0.parseHash(window.location.hash, (err, authResult) => {
       if (err) history.replace(`/accessDenied?error=${err.errorDescription ? err.errorDescription : 'Access Denied' }`);
 
-      if (authResult.accessToken && authResult.idToken) {
+      if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         history.replace('/');
       }

@@ -13,7 +13,7 @@ export const PolicyHolder = ({ policy, policyNumber, agents }) => {
         {/* Start Policyholders */}
         <div className="detail-group policyholder-details">
           {policy.policyHolders && policy.policyHolders.map((policyHolder, index) => (
-            <PolicyHolderCard policyHolder={policyHolder} policyHolderMailingAddress={policyHolderMailingAddress} index={policyHolder._id} phIndex={index} />
+            <PolicyHolderCard key={policyHolder._id} policyHolder={policyHolder} policyHolderMailingAddress={policyHolderMailingAddress} index={policyHolder._id} phIndex={index} />
           ))}
         </div>
         {/* End Policyholders */}

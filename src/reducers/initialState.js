@@ -1,7 +1,6 @@
 export default {
   search: {},
-  workflowData: {},
-  policyState: {
+  policy: {
     policyNumber: null,
     update: false
   },
@@ -10,9 +9,6 @@ export default {
   appState: {
     isLoading: false,
     isRecalc: false
-  },
-  navigation: {
-    location: null
   },
   error: {},
   authState: {

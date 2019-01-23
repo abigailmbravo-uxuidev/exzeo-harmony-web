@@ -1,7 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-import ConnectedApp, { PolicySearch } from '../modules/Search/Policy';
+import ConnectedApp, { PolicySearch } from './Policy';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -17,11 +17,11 @@ describe('Testing Quote component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      actions: {
-        searchActions: {
-          setPolicySearch() {}
-        }
-      }
+      auth: {
+        logout: x => x,
+      },
+      match: {},
+      setPolicySearch() {}
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
@@ -30,20 +30,16 @@ describe('Testing Quote component', () => {
   it('should test PolicySearch', () => {
     const initialState = {
       search: {},
-      actions: {
-        searchActions: {
-          setPolicySearch() {}
-        }
-      }
+      setPolicySearch() {}
     };
     const store = mockStore(initialState);
     const props = {
+      auth: {
+        logout: x => x,
+      },
+      match: {},
       search: {},
-      actions: {
-        searchActions: {
-          setPolicySearch() {}
-        }
-      }
+      setPolicySearch() {}
     };
     const wrapper = shallow(<PolicySearch store={store} {...props} />);
     expect(wrapper);

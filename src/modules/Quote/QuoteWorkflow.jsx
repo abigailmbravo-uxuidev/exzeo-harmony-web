@@ -27,7 +27,7 @@ import WorkflowNavigation from './WorkflowNavigation';
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 
 
-class Quote extends Component {
+export class QuoteWorkflow extends Component {
   state = {
     isRecalc: false,
   };
@@ -111,4 +111,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   submitForm: submit,
   updateQuote,
-})(Quote);
+})(QuoteWorkflow);
