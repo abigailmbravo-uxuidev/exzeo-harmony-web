@@ -37,7 +37,7 @@ const Splash = ({ auth, match }) => (
                     </div>
                   </div>
                 </div>
-                <div className="marketing-ad" />
+                <div className="exzeo" />
               </div>
               <Footer />
             </div>
