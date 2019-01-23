@@ -1,7 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 
-import BaseConnect from './Base';
 import FancyExternalLink from '../components/FancyExternalLink';
 import Footer from '../components/Common/Footer';
 import AppWrapper from '../components/AppWrapper';
@@ -59,7 +57,5 @@ const Training = ({ auth, match }) => (
     )}
   />
 );
-
-Training
 
 export default Training;

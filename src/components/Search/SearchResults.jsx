@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import Loader from '../Common/Loader';
+import { Loader } from '@exzeo/core-ui';
 
 import * as appStateActions from '../../actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';

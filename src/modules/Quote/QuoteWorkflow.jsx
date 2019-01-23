@@ -58,7 +58,7 @@ class Quote extends Component {
   };
 
   render() {
-    const { auth, history, isLoading, match, location } = this.props;
+    const { auth, history, isLoading, match, location, uiQuestions } = this.props;
     const { isRecalc } = this.state;
 
     return (
@@ -67,33 +67,28 @@ class Quote extends Component {
         logout={auth.logout}
         match={match}
         render={() => (
-            <div className="route">
-              {isLoading
-              && <Loader />
-              }
+          <div className="route">
+            {isLoading && <Loader />}
 
-              <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep}/>
-
-              {/*{ Gandalf will be replacing most/all of these routes }*/}
-              <Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
-              <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/additionalInterests`}   render={props => <AddAdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/askMortgagee`}          render={props => <Mortgagee {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/askAdditionalInsured`}  render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/askPremiumFinance`}     render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/askBillPayer`}          render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/mailingBilling`}        render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/verify`}                render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
-              <Route exact path={`${match.url}/thankYou`}              render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
-              <Route exact path={`${match.url}/error`}                 render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
-              {/*{ ^^^ Gandalf will be replacing most/all of these routes ^^^ }*/}
-
-            </div>
-
+            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep}/>
+            {/*{ Gandalf will be replacing most/all of these routes }*/}
+            <Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} uiQuestions={uiQuestions} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
+            <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/additionalInterests`}   render={props => <AddAdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/askMortgagee`}          render={props => <Mortgagee {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/askAdditionalInsured`}  render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/askPremiumFinance`}     render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/askBillPayer`}          render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/mailingBilling`}        render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/verify`}                render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
+            <Route exact path={`${match.url}/thankYou`}              render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
+            <Route exact path={`${match.url}/error`}                 render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
+            {/*{ ^^^ Gandalf will be replacing most/all of these routes ^^^ }*/}
+          </div>
         )}
       />
     );
@@ -101,10 +96,15 @@ class Quote extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const uiQuestions = state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
+    ? state.quoteState.state.uiQuestions
+    : [];
+
   return {
     isLoading: state.appState.isLoading,
-    quote: state.quoteState.quote,
-    workflowState: state.quoteState.state,
+    quote: state.quoteState.quote || {},
+    workflowState: state.quoteState.state || {},
+    uiQuestions,
   }
 };
 

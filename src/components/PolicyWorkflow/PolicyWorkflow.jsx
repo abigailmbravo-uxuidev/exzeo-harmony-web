@@ -10,7 +10,7 @@ import PolicyHolderView from '../Policy/PolicyHolder';
 import PropertyView from '../Policy/Property';
 import CoverageView from '../Policy/Coverage';
 import BillingView from '../Policy/Billing';
-import Loader from '../Common/Loader';
+import { Loader } from '@exzeo/core-ui';
 import Footer from '../Common/Footer';
 
 export class PolicyWorkflow extends Component {

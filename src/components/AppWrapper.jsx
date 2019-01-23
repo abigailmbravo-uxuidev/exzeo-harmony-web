@@ -70,7 +70,7 @@ class AppWrapper extends React.Component {
 
           <div className="content-wrapper">
             <div className={classNames(routeClassName)} role="article">
-            {this.props.render()}
+            {this.props.children || this.props.render()}
             </div>
           </div>
         </main>
@@ -82,7 +82,6 @@ class AppWrapper extends React.Component {
 }
 
 AppWrapper.propTypes = {
-
   logout: func.isRequired,
   match: shape({
     params: shape({}),

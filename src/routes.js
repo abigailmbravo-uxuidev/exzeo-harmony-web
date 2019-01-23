@@ -69,11 +69,7 @@ class Routes extends Component {
   };
 
   render() {
-    const {
-      agency,
-      authState,
-      error,
-    } = this.props;
+    const { error } = this.props;
 
     return (
       <div>
@@ -101,8 +97,8 @@ class Routes extends Component {
               <Route exact path="/accessDenied" render={props => <AccessDenied auth={auth} {...props} />} />
               <Route exact path="/training"     render={props => <Training auth={auth} {...props} />} />
 
-              <Route path="/search"                 render={props => <QuoteSearch auth={auth} userProfile={authState.userProfile} {...props} />} />
-              <Route path="/quote/:quoteNumber"     render={props => <QuoteModule auth={auth} agency={agency} userProfile={authState.userProfile} {...props}/> } />
+              <Route path="/search"                 render={props => <QuoteSearch auth={auth} {...props} />} />
+              <Route path="/quote/:quoteNumber"     render={props => <QuoteModule auth={auth} {...props}/> } />
               <Route path="/policy/:policyNumber"   render={props => <Policy auth={auth} {...props} />} />
               {/* <!-- This path will be added in an upcoming sprint -->
               <Route exact path="/contacts"       render={props => <Contacts auth={auth} {...props} />} /> */}
