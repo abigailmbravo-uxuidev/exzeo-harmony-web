@@ -58,6 +58,10 @@ const getAnswers = (name, questions) =>
   _.get(_.find(questions, { name }), 'answers') || [];
 
 export class Mortgagee extends React.Component {
+  state = {
+    selectedMortgageeOption: {},
+  };
+
   setMortgageeValues = (val) => {
     this.setState({ selectedMortgageeOption: val });
 
