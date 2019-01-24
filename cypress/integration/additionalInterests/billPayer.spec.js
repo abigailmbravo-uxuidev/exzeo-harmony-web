@@ -17,15 +17,15 @@ describe('Premium Finance Testing', () => {
 
   it('All Premium Finance Inputs Empty Value', () => {
     goBack().then(() => {
-      cy.findDataTag('premium-finance_add').click();
+      cy.findDataTag('bill-payer_add').click();
 
       cy.submitAndCheckErrors(fields);
     });
   });
 
-  it('Premium Finance Empty Value', function() {
+  it('Premium Finance Empty Value', function () {
     goBack().then(() => {
-      cy.findDataTag('premium-finance_add').click();
+      cy.findDataTag('bill-payer_add').click();
 
       cy.fillFields(fields.filter(field => field !== 'name1'), this.user);
       cy.submitAndCheckErrors(['name1']);
@@ -51,7 +51,7 @@ describe('Premium Finance Testing', () => {
 
   it('Premium Finance Invalid Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('premium-finance_add').click();
+      cy.findDataTag('bill-payer_add').click();
 
       cy.fillFields(['state'], { state: 'foo' });
       cy.submitAndCheckErrors(['state'], ['Only 2 letters allowed']);
