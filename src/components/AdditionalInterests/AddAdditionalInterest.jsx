@@ -117,7 +117,7 @@ export class AddAdditionalInterest extends React.Component {
             <div className="button-group">
               <button className="btn btn-secondary" type="button" onClick={() => this.AddMortgagee()} data-test="mortgagee_add"><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
               <button className="btn btn-secondary" type="button" onClick={() => this.AddAdditionalInsured()} data-test="ains_add"><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddInterest()} data-test="additional-interest_add"><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.AddInterest()} data-test="ai_add"><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
               <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddPremiumFinance()} data-test="premium-finance_add"><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
               <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddBillpayer()} data-test="bill-payer_add"><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
             </div>
