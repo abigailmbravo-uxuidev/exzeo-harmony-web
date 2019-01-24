@@ -26,7 +26,6 @@ import WorkflowNavigation from './WorkflowNavigation';
 
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 
-
 export class QuoteWorkflow extends Component {
   state = {
     isRecalc: false,

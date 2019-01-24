@@ -188,6 +188,18 @@ export const getLatestPolicy = policyNumber => (dispatch) => {
     });
 };
 
+// Temporary to fix bug. serviceActions will all be removed in future.
+export const clearPolicy = () => {
+  return {
+    type: types.SERVICE_REQUEST,
+    data: {
+      latestPolicy: {},
+      getSummaryLedger: {},
+      policyDocuments: [],
+    }
+  }
+};
+
 export const getSummaryLedger = policyNumber => async (dispatch) => {
   const fetchBilling = runnerSetup({
     service: 'billing',

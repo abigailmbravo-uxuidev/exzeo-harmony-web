@@ -5,11 +5,10 @@ import PolicyTabs from '../Common/PolicyTabs';
 
 const { numbers } = normalize;
 
-export const Property = ({ policy, policyNumber }) => {
+export const Property = ({ policy }) => {
   const { property, rating } = policy;
   return (
     <React.Fragment>
-      <PolicyTabs activeTab="property" policyNumber={policyNumber} />
       <div className="route-content">
         <div className="detail-group property-details">
           <section className="display-element home-and-location">
@@ -179,10 +178,6 @@ export const Property = ({ policy, policyNumber }) => {
       </div>
     </React.Fragment>
   );
-};
-
-Property.contextTypes = {
-  router: PropTypes.object
 };
 
 Property.propTypes = {
