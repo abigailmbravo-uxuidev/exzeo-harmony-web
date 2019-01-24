@@ -177,7 +177,7 @@ export class PremiumFinance extends React.Component {
                 <span className="button-info">Oops! There is no Premium Finance</span>
                 <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(this.props)}>Go Back</button>
               </span>
-              <button className="btn btn-primary" type="submit" form="PremiumFinance" disabled={isLoading}>Save</button>
+              <button className="btn btn-primary" type="submit" form="PremiumFinance" disabled={isLoading} data-test="submit">Save</button>
             </div>
             <Footer />
           </div>
