@@ -1,11 +1,8 @@
+import { goBack, fillAndCheckForErrors } from './utils';
+
 describe('Additional Insured Testing', () => {
   const ains1fields = ['ains1Name1', 'ains1MailingAddress1', 'ains1City', 'ains1State', 'ains1Zip'];
   const ains2fields = ['ains2Name1', 'ains2MailingAddress1', 'ains2City', 'ains2State', 'ains2Zip'];
-  const goBack = () => cy.window().then(window => {
-    if (!window.location.href.includes('additionalInterests')) {
-      cy.findDataTag('addAdditionalAIs').click();
-    };
-  });
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');
@@ -28,25 +25,7 @@ describe('Additional Insured Testing', () => {
     goBack().then(() => {
       cy.findDataTag('ains_add').click();
 
-      cy.fillFields(ains1fields.filter(field => field !== 'ains1Name1'), this.ains1);
-      cy.submitAndCheckErrors(['ains1Name1']);
-      cy.clearAllText(ains1fields);
-
-      cy.fillFields(ains1fields.filter(field => field !== 'ains1MailingAddress1'), this.ains1);
-      cy.submitAndCheckErrors(['ains1MailingAddress1']);
-      cy.clearAllText(ains1fields);
-
-      cy.fillFields(ains1fields.filter(field => field !== 'ains1City'), this.ains1);
-      cy.submitAndCheckErrors(['ains1City']);
-      cy.clearAllText(ains1fields);
-
-      cy.fillFields(ains1fields.filter(field => field !== 'ains1State'), this.ains1);
-      cy.submitAndCheckErrors(['ains1State']);
-      cy.clearAllText(ains1fields);
-
-      cy.fillFields(ains1fields.filter(field => field !== 'ains1Zip'), this.ains1);
-      cy.submitAndCheckErrors(['ains1Zip']);
-      cy.clearAllText(ains1fields);
+      cy.submitAndCheckErrors(ains1fields);
     });
   });
 
@@ -78,25 +57,15 @@ describe('Additional Insured Testing', () => {
       cy.findDataTag('ains_add').click();
       cy.findDataTag('isAdditional2_switch').click();
 
-      cy.fillFields(ains2fields.filter(field => field !== 'ains2Name1'), this.ains2);
-      cy.submitAndCheckErrors(['ains2Name1']);
-      cy.clearAllText(ains2fields);
+      fillAndCheckForErrors(ains2fields, ['ains2Name1'], this.ains2);
 
-      cy.fillFields(ains2fields.filter(field => field !== 'ains2MailingAddress1'), this.ains2);
-      cy.submitAndCheckErrors(['ains2MailingAddress1']);
-      cy.clearAllText(ains2fields);
+      fillAndCheckForErrors(ains2fields, ['ains2MailingAddress1'], this.ains2);
 
-      cy.fillFields(ains2fields.filter(field => field !== 'ains2City'), this.ains2);
-      cy.submitAndCheckErrors(['ains2City']);
-      cy.clearAllText(ains2fields);
+      fillAndCheckForErrors(ains2fields, ['ains2City'], this.ains2);
 
-      cy.fillFields(ains2fields.filter(field => field !== 'ains2State'), this.ains2);
-      cy.submitAndCheckErrors(['ains2State']);
-      cy.clearAllText(ains2fields);
+      fillAndCheckForErrors(ains2fields, ['ains2State'], this.ains2);
 
-      cy.fillFields(ains2fields.filter(field => field !== 'ains2Zip'), this.ains2);
-      cy.submitAndCheckErrors(['ains2Zip']);
-      cy.clearAllText(ains2fields);
+      fillAndCheckForErrors(ains2fields, ['ains2Zip'], this.ains2);
 
       cy.clearAllText([...ains1fields, ...ains2fields]);
     });

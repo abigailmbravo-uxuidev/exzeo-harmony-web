@@ -1,11 +1,7 @@
+import { goBack, fillAndCheckForErrors } from './utils';
+
 describe('Premium Finance Testing', () => {
   const fields = ['name1', 'mailingAddress1', 'city', 'state', 'zip'];
-
-  const goBack = () => cy.window().then(window => {
-    if (!window.location.href.includes('additionalInterests')) {
-      cy.findDataTag('addAdditionalAIs').click();
-    };
-  });
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');
@@ -27,25 +23,15 @@ describe('Premium Finance Testing', () => {
     goBack().then(() => {
       cy.findDataTag('bill-payer_add').click();
 
-      cy.fillFields(fields.filter(field => field !== 'name1'), this.user);
-      cy.submitAndCheckErrors(['name1']);
-      cy.clearAllText(fields);
+      fillAndCheckForErrors(fields, ['name1'], this.user);
 
-      cy.fillFields(fields.filter(field => field !== 'mailingAddress1'), this.user);
-      cy.submitAndCheckErrors(['mailingAddress1']);
-      cy.clearAllText(fields);
+      fillAndCheckForErrors(fields, ['mailingAddress1'], this.user);
 
-      cy.fillFields(fields.filter(field => field !== 'city'), this.user);
-      cy.submitAndCheckErrors(['city']);
-      cy.clearAllText(fields);
+      fillAndCheckForErrors(fields, ['city'], this.user);
 
-      cy.fillFields(fields.filter(field => field !== 'state'), this.user);
-      cy.submitAndCheckErrors(['state']);
-      cy.clearAllText(fields);
+      fillAndCheckForErrors(fields, ['state'], this.user);
 
-      cy.fillFields(fields.filter(field => field !== 'zip'), this.user);
-      cy.submitAndCheckErrors(['zip']);
-      cy.clearAllText(fields);
+      fillAndCheckForErrors(fields, ['zip'], this.user);
     });
   });
 

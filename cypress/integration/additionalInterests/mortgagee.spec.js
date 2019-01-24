@@ -1,13 +1,9 @@
+import { goBack, fillAndCheckForErrors } from './utils';
+
 describe('Mortgagee Testing', () => {
   const m1fields = ['m1Name1', 'm1MailingAddress1', 'm1City', 'm1State', 'm1Zip'];
   const m2fields = ['m2Name1', 'm2MailingAddress1', 'm2City', 'm2State', 'm2Zip'];
   const m3fields = ['m3Name1', 'm3MailingAddress1', 'm3City', 'm3State', 'm3Zip'];
-
-  const goBack = () => cy.window().then(window => {
-      if (!window.location.href.includes('additionalInterests')) {
-        cy.findDataTag('addAdditionalAIs').click();
-      };
-    });
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');
@@ -31,25 +27,15 @@ describe('Mortgagee Testing', () => {
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
 
-      cy.fillFields(m1fields.filter(field => field !== 'm1Name1'), this.m1data);
-      cy.submitAndCheckErrors(['m1Name1']);
-      cy.clearAllText(m1fields);
+      fillAndCheckForErrors(m1fields, ['m1Name1'], this.m1data);
 
-      cy.fillFields(m1fields.filter(field => field !== 'm1MailingAddress1'), this.m1data);
-      cy.submitAndCheckErrors(['m1MailingAddress1']);
-      cy.clearAllText(m1fields);
+      fillAndCheckForErrors(m1fields, ['m1MailingAddress1'], this.m1data);
 
-      cy.fillFields(m1fields.filter(field => field !== 'm1City'), this.m1data);
-      cy.submitAndCheckErrors(['m1City']);
-      cy.clearAllText(m1fields);
+      fillAndCheckForErrors(m1fields, ['m1City'], this.m1data);
 
-      cy.fillFields(m1fields.filter(field => field !== 'm1State'), this.m1data);
-      cy.submitAndCheckErrors(['m1State']);
-      cy.clearAllText(m1fields);
+      fillAndCheckForErrors(m1fields, ['m1State'], this.m1data);
 
-      cy.fillFields(m1fields.filter(field => field !== 'm1Zip'), this.m1data);
-      cy.submitAndCheckErrors(['m1Zip']);
-      cy.clearAllText(m1fields);
+      fillAndCheckForErrors(m1fields, ['m1Zip'], this.m1data);
     });
   });
 
@@ -81,25 +67,15 @@ describe('Mortgagee Testing', () => {
       cy.findDataTag('mortgagee_add').click();
       cy.findDataTag('isAdditional2_switch').click();
 
-      cy.fillFields(m2fields.filter(field => field !== 'm2Name1'), this.m2data);
-      cy.submitAndCheckErrors(['m2Name1']);
-      cy.clearAllText(m2fields);
+      fillAndCheckForErrors(m2fields, ['m2Name1'], this.m2data);
 
-      cy.fillFields(m2fields.filter(field => field !== 'm2MailingAddress1'), this.m2data);
-      cy.submitAndCheckErrors(['m2MailingAddress1']);
-      cy.clearAllText(m2fields);
+      fillAndCheckForErrors(m2fields, ['m2MailingAddress1'], this.m2data);
 
-      cy.fillFields(m2fields.filter(field => field !== 'm2City'), this.m2data);
-      cy.submitAndCheckErrors(['m2City']);
-      cy.clearAllText(m2fields);
+      fillAndCheckForErrors(m2fields, ['m2City'], this.m2data);
 
-      cy.fillFields(m2fields.filter(field => field !== 'm2State'), this.m2data);
-      cy.submitAndCheckErrors(['m2State']);
-      cy.clearAllText(m2fields);
+      fillAndCheckForErrors(m2fields, ['m2State'], this.m2data);
 
-      cy.fillFields(m2fields.filter(field => field !== 'm2Zip'), this.m2data);
-      cy.submitAndCheckErrors(['m2Zip']);
-      cy.clearAllText(m2fields);
+      fillAndCheckForErrors(m2fields, ['m2Zip'], this.m2data);
 
       cy.clearAllText([...m1fields, ...m2fields]);
     });
@@ -136,25 +112,15 @@ describe('Mortgagee Testing', () => {
       cy.findDataTag('isAdditional2_switch').click();
       cy.findDataTag('isAdditional3_switch').click();
 
-      cy.fillFields(m3fields.filter(field => field !== 'm3Name1'), this.m3data);
-      cy.submitAndCheckErrors(['m3Name1']);
-      cy.clearAllText(m3fields);
+      fillAndCheckForErrors(m3fields, ['m3Name1'], this.m3data);
 
-      cy.fillFields(m3fields.filter(field => field !== 'm3MailingAddress1'), this.m3data);
-      cy.submitAndCheckErrors(['m3MailingAddress1']);
-      cy.clearAllText(m3fields);
+      fillAndCheckForErrors(m3fields, ['m3MailingAddress1'], this.m3data);
 
-      cy.fillFields(m3fields.filter(field => field !== 'm3City'), this.m3data);
-      cy.submitAndCheckErrors(['m3City']);
-      cy.clearAllText(m3fields);
+      fillAndCheckForErrors(m3fields, ['m3City'], this.m3data);
 
-      cy.fillFields(m3fields.filter(field => field !== 'm3State'), this.m3data);
-      cy.submitAndCheckErrors(['m3State']);
-      cy.clearAllText(m3fields);
+      fillAndCheckForErrors(m3fields, ['m3State'], this.m3data);
 
-      cy.fillFields(m3fields.filter(field => field !== 'm3Zip'), this.m3data);
-      cy.submitAndCheckErrors(['m3Zip']);
-      cy.clearAllText(m3fields);
+      fillAndCheckForErrors(m3fields, ['m3Zip'], this.m3data);
 
       cy.clearAllText([...m1fields, ...m2fields, ...m3fields]);
     });
