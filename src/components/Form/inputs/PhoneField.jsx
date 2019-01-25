@@ -36,7 +36,7 @@ const formGroupStyles = classNames(
   const Error = touched && (error || warning) && (
     <span>{error || warning}</span>
   );
-  
+
   const Label = label && (<label htmlFor={name} data-test={`${input.name}_label`}>
     {label}
     {Hint}
