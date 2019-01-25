@@ -18,32 +18,32 @@ export const PhoneInput = ({
   name,
   dependsOn
 }) => {
-  const { touched, error, warning } = meta;
+const { touched, error, warning } = meta;
 
-  const ruleArray = combineRules(validations, { dependsOn });
+const ruleArray = combineRules(validations, { dependsOn });
 
-  const formGroupStyles = classNames(
-    'form-group',
-    styleName,
-    name,
-    { disabled },
-    { valid: touched && !error },
-    { error: touched && error }
+const formGroupStyles = classNames(
+  'form-group',
+  styleName,
+  name,
+  { disabled },
+  { valid: touched && !error },
+  { error: touched && error }
   );
-
+  
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
-
+  
   const Error = touched && (error || warning) && (
     <span>{error || warning}</span>
   );
 
-  const Label = label && (<label htmlFor={name}>
+  const Label = label && (<label htmlFor={name} data-test={`${input.name}_label`}>
     {label}
     {Hint}
   </label>);
 
   return (
-    <div className={formGroupStyles} id={name}>
+    <div className={formGroupStyles} id={name} data-test={input.name}>
       {Label}
       <MaskedTextInput
         tabIndex={'0'}
@@ -56,6 +56,7 @@ export const PhoneInput = ({
         placeholder="(555) 555-5555"
         validate={ruleArray}
         {...input}
+        data-test={`${input.name}_input`}
       />
       {Error}
     </div>

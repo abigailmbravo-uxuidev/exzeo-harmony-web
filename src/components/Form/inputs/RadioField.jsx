@@ -44,13 +44,13 @@ export const RadioInput = ({
   };
 
   return (
-    <div className={formGroupStyles} id={name} role="group">
-      <label className={labelStyles} htmlFor={name}>
+    <div className={formGroupStyles} id={name} role="group" data-test={name}>
+      <label className={labelStyles} htmlFor={name} data-test={`${name}_label`}>
         {label}
         {Hint}
         {DisplayField}
       </label>
-      <div className={answerWrapperStyles}>
+      <div className={answerWrapperStyles} data-test={`${name}_input`}>
         {answers && answers.length > 0 && answers.map((answer, index) =>
           <RadioOption
             autoFocus={autoFocus}
