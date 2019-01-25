@@ -225,7 +225,7 @@ export const Billing = (props) => {
           </div>
           <Field name="billToType" component="input" type="hidden" />
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Billing" disabled={isLoading || !props.fieldValues.billToId}>next</button>
+            <button className="btn btn-primary" type="submit" form="Billing" disabled={isLoading || !props.fieldValues.billToId} data-test="submit">next</button>
           </div>
           <Footer />
         </div>
