@@ -10,7 +10,7 @@ describe('Property Address Search Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('defaultuser').as('user');
+    cy.fixture('user').as('user');
   });
 
   it('Test Empty Values', function() {

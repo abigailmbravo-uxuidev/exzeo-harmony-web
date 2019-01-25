@@ -19,7 +19,7 @@ describe('Underwriting Testing', () => {
   });
 
   beforeEach('Establish fixtures', function() {
-    cy.fixture('defaultUnderwriting').as('defaultValues');
+    cy.fixture('underwriting').as('defaultValues');
   });
 
   it('All Inputs Empty Value', function() {

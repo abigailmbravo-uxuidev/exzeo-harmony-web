@@ -337,6 +337,7 @@ export class Mortgagee extends React.Component {
                 type="submit"
                 form="Mortgagee"
                 disabled={submitting}
+                data-test="submit"
               >
               Save
               </button>

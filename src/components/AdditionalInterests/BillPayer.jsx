@@ -95,7 +95,7 @@ export const BillPayer = (props) => {
               <span className="button-info">Oops! There is no billpayer</span>
               <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
             </span>
-            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.isLoading}>Save</button>
+            <button className="btn btn-primary" type="submit" form="BillPayer" disabled={props.isLoading} data-test="submit">Save</button>
           </div>
           <Footer />
         </div>

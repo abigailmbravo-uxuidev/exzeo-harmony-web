@@ -1,4 +1,4 @@
-import defaultUser from '../../fixtures/defaultUser.json';
+import user from '../../fixtures/user.json';
 import secondUser from '../../fixtures/secondUser.json';
 
 describe('Policyholder Testing', () => {
@@ -21,8 +21,8 @@ describe('Policyholder Testing', () => {
     });
   };
 
-  const fillFromData = (fields = [], user = defaultUser) => 
-    fields.forEach(tag => cy.findDataTag(`${tag}_input`).type(user.customerInfo[tag]));
+  const fillFromData = (fields = [], data = user) => 
+    fields.forEach(tag => cy.findDataTag(`${tag}_input`).type(data.customerInfo[tag]));
 
   const checkError = (parent, message = 'Field Required') => {
     cy.get('.snackbar').should('be.visible');
@@ -154,7 +154,7 @@ describe('Policyholder Testing', () => {
   it('Invalid Contact Phone', () => {
     fillFromData(
       primaryPolicyTags,
-      { ...defaultUser, customerInfo: { ...defaultUser.customerInfo, phoneNumber: '123' }}
+      { ...user, customerInfo: { ...user.customerInfo, phoneNumber: '123' }}
     );
     checkError('phoneNumber', 'is not a valid Phone Number.');
     clearAllText();

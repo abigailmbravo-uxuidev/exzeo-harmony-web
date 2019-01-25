@@ -23,7 +23,7 @@ describe('Share Testing', () => {
 
   beforeEach('Reset page, establish fixutres', () => {
     toggleModal('off');
-    cy.fixture('defaultUser').as('user');
+    cy.fixture('user').as('user');
   });
 
   it('"Confirmed" Value left at Default "No"', () => {
@@ -41,15 +41,15 @@ describe('Share Testing', () => {
   });
 
   it('Input Empty Value', function() {
-    const { email, firstName, lastName } = this.user.customerInfo;
+    const { EmailAddress, FirstName, LastName } = this.user.customerInfo;
 
     toggleModal('on');
-    cy.findDataTag('emailAddr_input').type(email);
+    cy.findDataTag('emailAddr_input').type(EmailAddress);
     cy.get('#SendEmail').submit();
     cy.findDataTag('name').find('> span').should('contain', 'Field Required');
     clearAll();
     
-    cy.findDataTag('name_input').type(`${firstName} ${lastName}`);
+    cy.findDataTag('name_input').type(`${FirstName} ${LastName}`);
     cy.get('#SendEmail').submit();
     cy.findDataTag('emailAddr').find('> span').should('contain', 'Field Required');
   });
