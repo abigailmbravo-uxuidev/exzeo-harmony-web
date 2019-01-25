@@ -18,7 +18,8 @@ add `.npmrc` file **you will need this file before attempting* `npm install`
 @exzeo:registry=https://registry.npmjs.org/
 ```
 
-add `.env.local` file
+add `.env.local` file  
+**this file is used to override default the configuration which runs locally, and points to a local Harmony backend.*  
 ```.bash
 # uncomment to point to sandbox
 # REACT_APP_API_URL=https://api.harmony-ins.com
@@ -34,11 +35,6 @@ add `.env.local` file
 # REACT_APP_CYPRESS_URL=https://agency.harmony-ins.com
 ```
 
-install dependencies
-```bash
-npm install
-```
-
 **Important!**  
 append the following to `/etc/hosts` file on your machine
 ```bash
@@ -48,6 +44,16 @@ append the following to `/etc/hosts` file on your machine
 127.0.0.1               devcsr.harmony-ins.com
 127.0.0.1               devagent.harmony-ins.com
 127.0.0.1               mock-auth0
+```
+
+install dependencies
+```bash
+npm install
+```
+
+run the app
+```bash
+npm start
 ```
 
 ### Contributing to Harmony CSR
