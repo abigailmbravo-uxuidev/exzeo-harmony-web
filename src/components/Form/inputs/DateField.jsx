@@ -43,15 +43,14 @@ export const DateInput = ({
   const formatMaxDate = moment(max).format('MM/DD/YYYY');
   const platformLower = platform.name ? platform.name.toLowerCase() : '';
 
-  const Label = label && (<label className="date-label-wrapper" htmlFor={name}>
+  const Label = label && (<label className="date-label-wrapper" htmlFor={name} data-test={`${name}_label`}>
     {label}
     {formatMaxDate && formatMinDate ? <div className="date-min-max">{formatMinDate} - {formatMaxDate}</div> : null}
     {Hint}
   </label>);
 
-
   return (
-    <div className={formGroupStyles} id={name}>
+    <div className={formGroupStyles} id={name} data-test={name}>
       {Label}
       {platformLower === 'safari' ||
        platformLower === 'firefox' ||
@@ -67,12 +66,14 @@ export const DateInput = ({
           placeholder="MM/DD/YYYY"
           validate={ruleArray}
           {...input}
+          data-test={`${name}_input`}
         /> :
            <input
           tabIndex={'0'}
           type={'date'}
           {...input}
           value={formattedDate}
+          data-test={`${name}_input`}
         />}
       {Error}
     </div>

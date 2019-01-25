@@ -1,10 +1,10 @@
 {
   "address": "4131 TEST ADDRESS",
   "customerInfo": {
-    "firstName": "Bruce",
-    "lastName": "Wayne",
-    "email": "Batman@gmail.com",
-    "phone": "123 456 7890",
-    "agentCode": "60000"
-  }
+    "FirstName": "Bruce",
+    "LastName": "Wayne",
+    "EmailAddress": "Batman@gmail.com",
+    "phoneNumber": "123 456 7890"
+  },
+  "agentCode": "60000"
 }
