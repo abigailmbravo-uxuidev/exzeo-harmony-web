@@ -13,7 +13,6 @@ export const SelectInputAgents = ({
   meta
 }) => {
   const { onChange, name, value, disabled } = input;
-
   const { touched, error, warning } = meta;
   const formGroupStyles = classNames('form-group select', { styleName }, { name });
   const Hint = hint && (<FieldHint name={name} hint={hint} />);

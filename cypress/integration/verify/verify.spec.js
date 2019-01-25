@@ -2,21 +2,7 @@ describe('Verify testing', () => {
   const pH1Fields = ['pH1FirstName', 'pH1LastName', 'pH1phone', 'pH1email'];
   const pH2Fields = ['pH2FirstName', 'pH2LastName', 'pH2phone', 'pH2email'];
   const switchTags = ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'];
-
-  const clearAllText = fields => {
-    fields.forEach(tag => {
-      cy.findDataTag(`${tag}_input`).then($input => {
-        if ($input.val()) { cy.wrap($input).type('{selectall}{backspace}'); }
-      });
-    });
-  };
-
-  const fillFromData = (fields = [], user) => 
-    fields.forEach(field => cy.findDataTag(`${field}_input`).type(user[field]));
-    
-
-  const checkError = (parent, message = 'Field Required') => 
-    cy.findDataTag(parent).find('> span').should('contain', message);
+  const errors = Array(4).fill('Field Required');
 
   const closeModal = () =>
     cy.get('[data-test="cancel"]:not([disabled])').click({ force: true });
@@ -25,44 +11,31 @@ describe('Verify testing', () => {
     cy.quoteWorkflow('verify');
   });
 
-  beforeEach('Establish fixtures', function() {
+  beforeEach('Establish fixtures', () => {
     cy.fixture('pH1').as('pH1');
     cy.fixture('pH2').as('pH2');
   });
 
   it('Primary Policyholder Empty Value', function() {
+    const { pH1 } = this;
     cy.findDataTag('edit_policyholder').click();
+    cy.clearAllText(pH1Fields);
 
-    clearAllText(pH1Fields);
-    cy._submit('#UpdatePolicyholder');
-    cy.get('.snackbar').should('be.visible');
-    pH1Fields.forEach(field => checkError(field));
+    cy.submitAndCheckValidation(pH1Fields, {errors, form: '#UpdatePolicyholder' });
 
-    pH1Fields.forEach(fieldToLeaveBlank => {
-      clearAllText(pH1Fields);
-      fillFromData(pH1Fields.filter(field => fieldToLeaveBlank !== field), this.pH1);
-      cy._submit('#UpdatePolicyholder');
-      cy.get('.snackbar').should('be.visible');
-      checkError(fieldToLeaveBlank);
-    });
+    pH1Fields.forEach(leaveBlank => cy.verifyForm(pH1Fields, [leaveBlank], pH1, { errors }));
   });
 
   it('Secondary Policyholder Empty Value', function() {
+    const { pH2 } = this;
     closeModal();
     cy.findDataTag('edit_policyholder').click();
     cy.findDataTag('isAdditional_switch').click();
-    clearAllText(pH2Fields);
-    cy._submit('#UpdatePolicyholder');
-    cy.get('.snackbar').should('be.visible');
-    pH2Fields.forEach(field => checkError(field));
+    cy.clearAllText(pH2Fields);
+    
+    cy.submitAndCheckValidation(pH2Fields, { errors, form: '#UpdatePolicyholder' });
 
-    pH2Fields.forEach(fieldToLeaveBlank => {
-      clearAllText(pH2Fields);
-      fillFromData(pH2Fields.filter(field => fieldToLeaveBlank !== field), this.pH2);
-      cy._submit('#UpdatePolicyholder');
-      cy.get('.snackbar').should('be.visible');
-      checkError(fieldToLeaveBlank);
-    });
+    pH2Fields.forEach(leaveBlank => cy.verifyForm(pH2Fields, [leaveBlank], pH2, { errors }));
 
     closeModal();
   });
@@ -73,9 +46,9 @@ describe('Verify testing', () => {
 
   //   pH1Fields.forEach(fieldToCheck => {
   //     clearAllText([fieldToCheck]);
-  //     fillFromData(pH1Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••'});
+  //     cy.fillFields(pH1Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••'});
   //     cy._submit('#UpdatePolicyholder');
-  //     cy.get('.snackbar').should('be.visible');
+  //     cy.get('.checkForSnackbar').should('be.visible');
   //     checkError(
   //       fieldToCheck, 
   //       fieldToCheck.includes('email') ? 'Not a valid email address' : 'Invalid characters'
@@ -91,9 +64,9 @@ describe('Verify testing', () => {
 
   //   pH2Fields.forEach(fieldToCheck => {
   //     clearAllText([fieldToCheck]);
-  //     fillFromData(pH2Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••' });
+  //     cy.fillFields(pH2Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••' });
   //     cy._submit('#UpdatePolicyholder');
-  //     cy.get('.snackbar').should('be.visible');
+  //     cy.get('.checkForSnackbar').should('be.visible');
   //     checkError(
   //       fieldToCheck,
   //       fieldToCheck.includes('email') ? 'Not a valid email address' : 'Invalid characters'
@@ -107,18 +80,10 @@ describe('Verify testing', () => {
   it('Invalid Email Address', () => {
     cy.findDataTag('edit_policyholder').click();
     cy.findDataTag('isAdditional_switch').click();
+    
+    cy.verifyForm(['pH1email'], undefined, { pH1email: 'batman' }, { form: '#UpdatePolicyholder' });
 
-    clearAllText(['pH1email']);
-    fillFromData(['pH1email'], { pH1email: 'batman' });
-    cy._submit('#UpdatePolicyholder');
-    cy.get('.snackbar').should('be.visible');
-    checkError('pH1email', 'Not a valid email address');
-
-    clearAllText(['pH2email']);
-    fillFromData(['pH2email'], { pH2email: 'thebutler' });
-    cy._submit('#UpdatePolicyholder');
-    cy.get('.snackbar').should('be.visible');
-    checkError('pH2email', 'Not a valid email address');
+    cy.verifyForm(['pH2email'], undefined, { pH2email: 'batman' }, { form: '#UpdatePolicyholder' });
 
     closeModal();
   });
@@ -127,17 +92,9 @@ describe('Verify testing', () => {
     cy.findDataTag('edit_policyholder').click();
     cy.findDataTag('isAdditional_switch').click();
 
-    clearAllText(['pH1phone']);
-    fillFromData(['pH1phone'], { pH1phone: '123' });
-    cy._submit('#UpdatePolicyholder');
-    cy.get('.snackbar').should('be.visible');
-    checkError('pH1phone', 'is not a valid Phone Number.');
+    cy.verifyForm(['pH1phone'], undefined, { pH1phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' });
 
-    clearAllText(['pH2phone']);
-    fillFromData(['pH2phone'], { pH2phone: '123' });
-    cy._submit('#UpdatePolicyholder');
-    cy.get('.snackbar').should('be.visible');
-    checkError('pH2phone', 'is not a valid Phone Number.');
+    cy.verifyForm(['pH2phone'], undefined, { pH2phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' });
 
     closeModal();
   });
@@ -157,4 +114,4 @@ describe('Verify testing', () => {
       tagsToToggle.forEach(tag => cy.findDataTag(`${tag}_switch`).click());
     }
   });
-})
+});

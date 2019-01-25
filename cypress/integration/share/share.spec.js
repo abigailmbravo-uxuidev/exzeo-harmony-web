@@ -1,19 +1,11 @@
 describe('Share Testing', () => {
-  const toggleModal = dir => {
+  const toggleModal = (dir = 'on') => {
     cy.get('div.route-content').then($wrap => {
       if ($wrap.find('.modal.active').length && dir === 'off') {
-        cy.findDataTag('cancel_email').click();
+        cy.findDataTag('cancel').click();
       } else if (dir === 'on') {
         cy.findDataTag('share').click();
       }
-    });
-  };
-
-  const clearAll = () => {
-    ['emailAddr_input', 'name_input'].forEach(tag => {
-      cy.findDataTag(tag).then($input => {
-        if ($input.val()) { cy.wrap($input).type('{selectall}{backspace}'); }
-      });
     });
   };
 
@@ -22,8 +14,8 @@ describe('Share Testing', () => {
   });
 
   beforeEach('Reset page, establish fixutres', () => {
-    toggleModal('off');
     cy.fixture('user').as('user');
+    toggleModal('off');
   });
 
   it('"Confirmed" Value left at Default "No"', () => {
@@ -34,30 +26,23 @@ describe('Share Testing', () => {
   });
 
   it('All Inputs Empty Value', () => {
-    toggleModal('on');
-    cy.get('#SendEmail').submit();
-    cy.findDataTag('name').find('> span').should('contain', 'Field Required');
-    cy.findDataTag('emailAddr').find('> span').should('contain', 'Field Required');
+    toggleModal();
+
+    cy.submitAndCheckValidation(['name', 'emailAddr'], { errors: Array(2).fill('Field Required'), form: '#SendEmail', checkForSnackbar: false });
   });
 
   it('Input Empty Value', function() {
     const { EmailAddress, FirstName, LastName } = this.user.customerInfo;
+    toggleModal();
 
-    toggleModal('on');
-    cy.findDataTag('emailAddr_input').type(EmailAddress);
-    cy.get('#SendEmail').submit();
-    cy.findDataTag('name').find('> span').should('contain', 'Field Required');
-    clearAll();
-    
-    cy.findDataTag('name_input').type(`${FirstName} ${LastName}`);
-    cy.get('#SendEmail').submit();
-    cy.findDataTag('emailAddr').find('> span').should('contain', 'Field Required');
+    cy.verifyForm(['emailAddr'], ['name'], { emailAddr: EmailAddress }, { form: '#SendEmail', checkForSnackbar: false });
+
+    cy.verifyForm(['name'], ['emailAddr'], { name: `${FirstName} ${LastName}` }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false });
   });
 
   it('Input Invalid Character', () => {
-    toggleModal('on');
-    cy.findDataTag('emailAddr_input').type('å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√');
-    cy.get('#SendEmail').submit();
-    cy.findDataTag('emailAddr').find('> span').should('contain', 'Not a valid email address');
+    toggleModal();
+
+    cy.verifyForm(['emailAddr'], undefined, { emailAddr: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false });
   });
 });

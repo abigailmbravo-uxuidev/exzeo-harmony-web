@@ -69,24 +69,31 @@ cypress/
 
 **Project Opinions**
 
+Whenever possible, use a reusable function listed in `support/inputs` or 
+`support/utils`. This should cover the majority of test cases. **Favor `findDataTag()` over 
+`get()`**. If you have to `get()` frequently, consider adding data-test tags into the 
+harmony-web code itself.
+
 When creating a test, place any reusable functions at the top, inside the describe.
 For example, if you are always typing on the same inputs, this is a good place
-to create a reusable type call.
+to create a reusable call.
 
-If you are always making similar `cy.get()` calls, alias them in `beforeEach`.
+When using fixtures, if they are used more than once in the suite, alias them in the
+`beforeEach()` call using `cy.fixture().as()`. If you do, your `it()` statement must
+use the `function()` notation rather than arrow notation. In all other cases  -
+including `before` and `beforeEach`, even when aliasing - use arrow notation.
 
-If you are using a function which is useful for all tests, for example `get()`ing
-based on a `data-test` tag, put these into the `support/utils.js` file.
-
-Favor dot notation over callback notation. Only use `then` calls if necessary.
+Favor dot notation over callback notation. Only use `then` calls if necessary. A good
+place for then calls is when waiting on async calls, such as either a network request
+or getting a fixture from `cy/fixtures`. 
 
 *Not this*:
 ```js
 cy.get('button[type="submit"][form="SearchBar"]')
-  .should(button => {
-    expect(button).to.not.be.disabled;
-    expect(button).to.contain('Search');
-    button.click();
+  .should($button => {
+    expect($button).to.not.be.disabled;
+    expect($button).to.contain('Search');
+    $button.click();
   });
 ```
 

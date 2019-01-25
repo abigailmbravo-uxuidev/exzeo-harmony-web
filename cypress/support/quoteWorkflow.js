@@ -13,71 +13,73 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting })
   cy.route('POST', '/cg/complete').as('complete');
   cy.login();
 
-
   if (page !== 'landing') {
     cy.get('.btn[href="/quote/searchAddress"]').click();
-      if (page !== 'searchAddress') {
-        cy.get('input[name=address]').type(address);
-        cy.get('.btn-success[form=SearchBar]').click();
-        cy.get('.results > li[tabindex=0]').click();
-        Cypress._.times(2, () => cy.wait('@complete'));
 
-          if (page !== 'customerInfo') {
-            Object.entries(customerInfo).forEach(([field, value]) => {
-              cy.findDataTag(`${field}_input`).type(value);
-            });
-            cy.findDataTag('agentCode_select').select(agentCode);
-            cy._submit()
+    if (page !== 'searchAddress') {
+      cy.get('input[name=address]').type(address);
+      cy.get('.btn-success[form=SearchBar]').click();
+      cy.get('.results > li[tabindex=0]').click();
+      cy.wait('@complete');
 
-              if (page !== 'underwriting') {
-                Object.entries(underwriting).forEach(([name, value]) => {
-                  cy.get(`input[name="${name}"][value="${value}"] + span`).click();
-                });
-                cy._submit()
+      if (page !== 'customerInfo') {
+        Object.entries(customerInfo).forEach(([field, value]) => {
+          cy.findDataTag(`${field}_input`).type(value);
+        });
+        cy.findDataTag('agentCode_select').select(agentCode);
+        cy._submit();
+        cy.wait('@complete');
 
-            if (page !== 'customize') {
-              cy.get('button[form="Customize"]').click();
+        if (page !== 'underwriting') {
+          Object.entries(underwriting).forEach(([name, value]) => {
+            cy.get(`input[name="${name}"][value="${value}"] + span`).click();
+          });
+          cy._submit();
+          cy.wait('@complete');
+
+          if (page !== 'customize') {
+            cy.get('button[form="Customize"]').click();
+            cy.wait('@complete');
+
+            if (page !== 'share') {
+              cy.get('#SharePage').submit();
               cy.wait('@complete');
 
-              if (page !== 'share') {
-                cy.get('#SharePage').submit();
+              if (page !== 'assumptions') {
+                cy.get('input[name="confirmAssumptions"] + .switch-div').click();
+                cy.get('button[form="Assumptions"]').click();
                 cy.wait('@complete');
 
-                if (page !== 'assumptions') {
-                  cy.get('input[name="confirmAssumptions"] + .switch-div').click();
-                  cy.get('button[form="Assumptions"]').click()
+                if (page !== 'additionalInterests') {
+                  cy.get('form#AddAdditionalInterestPage button[type="submit"]').click();
                   cy.wait('@complete');
 
-                  if (page !== 'additionalInterests') {
-                    cy.get('form#AddAdditionalInterestPage button[type="submit"]').click();
+                  if (page !== 'mailingBilling') {
+                    cy.get('input[name="sameAsProperty"] + .switch-div').click();
+                    cy.get('button[form="Billing"]').click();
                     cy.wait('@complete');
 
-                    if (page !== 'mailingBilling') {
-                      cy.get('input[name="sameAsProperty"] + .switch-div').click();
-                      cy.get('button[form="Billing"]').click()
+                    if (page !== 'verify') {
+                      cy.get('input[name="confirmProperyDetails"] + .switch-div').click();
+                      cy.get('input[name="confirmQuoteDetails"] + .switch-div').click();
+                      cy.get('input[name="confirmPolicyHolderDetails"] + .switch-div').click();
+                      cy.get('input[name="confirmAdditionalInterestsDetails"] + .switch-div').click();
+                      cy.get('button[form="Verify"]').click();
+                      cy.get('.card-footer > button[type="submit"]').click();
                       cy.wait('@complete');
 
-                      if (page !== 'verify') {
-                        cy.get('input[name="confirmProperyDetails"] + .switch-div').click();
-                        cy.get('input[name="confirmQuoteDetails"] + .switch-div').click();
-                        cy.get('input[name="confirmPolicyHolderDetails"] + .switch-div').click();
-                        cy.get('input[name="confirmAdditionalInterestsDetails"] + .switch-div').click();
-                        cy.get('button[form="Verify"]').click()
-                        cy.get('.card-footer > button[type="submit"]').click()
-                        cy.wait('@complete');
-
-                        if (page !== 'thankYou') {
-                          cy.get('#thanks a[href="/"]').click()
-                          cy.url().should('eq', `${Cypress.config().baseUrl}/`);
-                        } else { cy.url().should('include', 'thankYou'); }
-                      } else { cy.url().should('include', 'verify'); }
-                    } else { cy.url().should('include', 'mailingBilling'); }
-                  } else { cy.url().should('include', 'additionalInterests'); }
-                } else { cy.url().should('include', 'assumptions'); }
-              } else { cy.url().should('include', 'share'); }
-            } else { cy.url().should('include', 'customize'); }
-          } else { cy.url().should('include', 'underwriting'); }
-        } else { cy.url().should('include', 'customerInfo'); }
-      } else { cy.url().should('include', 'searchAddress'); }
+                      if (page !== 'thankYou') {
+                        cy.get('#thanks a[href="/"]').click();
+                        cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+                      } else { cy.url().should('include', 'thankYou'); }
+                    } else { cy.url().should('include', 'verify'); }
+                  } else { cy.url().should('include', 'mailingBilling'); }
+                } else { cy.url().should('include', 'additionalInterests'); }
+              } else { cy.url().should('include', 'assumptions'); }
+            } else { cy.url().should('include', 'share'); }
+          } else { cy.url().should('include', 'customize'); }
+        } else { cy.url().should('include', 'underwriting'); }
+      } else { cy.url().should('include', 'customerInfo'); }
+    } else { cy.url().should('include', 'searchAddress'); }
   } else { cy.url().should('eq', `${Cypress.config().baseUrl}/`); }
 });

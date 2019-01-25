@@ -3,9 +3,3 @@ export const goBack = () => cy.window().then(window => {
     cy.findDataTag('addAdditionalAIs').click();
   };
 });
-
-export const fillAndCheckForErrors = (baseFields, exceptedFields = [], data) => {
-  cy.fillFields(baseFields.filter(field => exceptedFields.indexOf(field) === -1), data);
-  cy.submitAndCheckErrors(exceptedFields);
-  cy.clearAllText(baseFields);
-};

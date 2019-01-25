@@ -1,4 +1,4 @@
-import { goBack, fillAndCheckForErrors } from './utils';
+import { goBack } from './utils';
 
 describe('Mortgagee Testing', () => {
   const m1fields = ['m1Name1', 'm1MailingAddress1', 'm1City', 'm1State', 'm1Zip'];
@@ -18,111 +18,86 @@ describe('Mortgagee Testing', () => {
   it('All Mortgagee 1 Empty Value', () => {
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
+      cy.clearAllText(m1fields);
 
-      cy.submitAndCheckErrors(m1fields);
+      cy.submitAndCheckValidation(m1fields);
     });
   });
 
   it('Mortgagee 1 Empty Value', function() {
+    const { m1data } = this;
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
+      cy.clearAllText(m1fields);
 
-      fillAndCheckForErrors(m1fields, ['m1Name1'], this.m1data);
-
-      fillAndCheckForErrors(m1fields, ['m1MailingAddress1'], this.m1data);
-
-      fillAndCheckForErrors(m1fields, ['m1City'], this.m1data);
-
-      fillAndCheckForErrors(m1fields, ['m1State'], this.m1data);
-
-      fillAndCheckForErrors(m1fields, ['m1Zip'], this.m1data);
+      m1fields.forEach(leaveBlank => cy.verifyForm(m1fields, [leaveBlank], m1data));
     });
   });
 
   it('Mortgagee 1 Invalid Input Value', () => {
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
-
-      cy.fillFields(['m1State'], { m1State: 'foo' });
-      cy.submitAndCheckErrors(['m1State'], ['Only 2 letters allowed']);
-
-      cy.fillFields(['m1Zip'], { m1Zip: '123456789' });
-      cy.submitAndCheckErrors(['m1Zip'], ['Only 8 letters or numbers allowed']);
-
       cy.clearAllText(m1fields);
+
+      cy.verifyForm(['m1State'], undefined, { m1State: 'foo' }, { errors: ['Only 2 letters allowed'] });
+
+      cy.verifyForm(['m1Zip'], undefined, { m1Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 
-  it('All Mortgagee 2 Empty Input Value', function() {
+  it('All Mortgagee 2 Empty Input Value', () => {
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
       cy.findDataTag('isAdditional2_switch').click();
+      cy.clearAllText(m2fields);
 
-      cy.submitAndCheckErrors(m2fields);
+      cy.submitAndCheckValidation(m2fields);
     });
   });
 
   it('Mortgagee 2 Empty Value', function() {
+    const { m2data } = this;
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
       cy.findDataTag('isAdditional2_switch').click();
-
-      fillAndCheckForErrors(m2fields, ['m2Name1'], this.m2data);
-
-      fillAndCheckForErrors(m2fields, ['m2MailingAddress1'], this.m2data);
-
-      fillAndCheckForErrors(m2fields, ['m2City'], this.m2data);
-
-      fillAndCheckForErrors(m2fields, ['m2State'], this.m2data);
-
-      fillAndCheckForErrors(m2fields, ['m2Zip'], this.m2data);
-
-      cy.clearAllText([...m1fields, ...m2fields]);
-    });
-  });
-
-  it('Mortgagee 2 Invalid Input', function() {
-    goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
-
-      cy.fillFields(['m2State'], { m2State: 'foo' });
-      cy.submitAndCheckErrors(['m2State'], ['Only 2 letters allowed']);
-
-      cy.fillFields(['m2Zip'], { m2Zip: '123456789' });
-      cy.submitAndCheckErrors(['m2Zip'], ['Only 8 letters or numbers allowed']);
-
       cy.clearAllText(m2fields);
+
+      m2fields.forEach(leaveBlank => cy.verifyForm(m2fields, [leaveBlank], m2data));
     });
   });
 
-  it('All Mortgagee 3 Empty Input Value', function() {
+  it('Mortgagee 2 Invalid Input', () => {
+    goBack().then(() => {
+      cy.findDataTag('mortgagee_add').click();
+      cy.findDataTag('isAdditional2_switch').click();
+      cy.clearAllText(m2fields);
+
+      cy.verifyForm(['m2State'], undefined, { m2State: 'foo' }, { errors: ['Only 2 letters allowed'] });
+
+      cy.verifyForm(['m2Zip'], undefined, { m2Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+    });
+  });
+
+  it('All Mortgagee 3 Empty Input Value', () => {
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
       cy.findDataTag('isAdditional2_switch').click();
       cy.findDataTag('isAdditional3_switch').click();
+      cy.clearAllText(m3fields);
 
-      cy.submitAndCheckErrors(m3fields);
+      cy.submitAndCheckValidation(m3fields);
     });
   });
 
-  it('Mortgagee 3 Empty Value', function () {
+  it('Mortgagee 3 Empty Value', function() {
+    const { m3data } = this;
     goBack().then(() => {
       cy.findDataTag('mortgagee_add').click();
       cy.findDataTag('isAdditional2_switch').click();
       cy.findDataTag('isAdditional3_switch').click();
-
-      fillAndCheckForErrors(m3fields, ['m3Name1'], this.m3data);
-
-      fillAndCheckForErrors(m3fields, ['m3MailingAddress1'], this.m3data);
-
-      fillAndCheckForErrors(m3fields, ['m3City'], this.m3data);
-
-      fillAndCheckForErrors(m3fields, ['m3State'], this.m3data);
-
-      fillAndCheckForErrors(m3fields, ['m3Zip'], this.m3data);
-
-      cy.clearAllText([...m1fields, ...m2fields, ...m3fields]);
+      cy.clearAllText(m3fields);
+      
+      m3fields.forEach(leaveBlank => cy.verifyForm(m3fields, [leaveBlank], m3data));
     });
   });
 
@@ -131,14 +106,11 @@ describe('Mortgagee Testing', () => {
       cy.findDataTag('mortgagee_add').click();
       cy.findDataTag('isAdditional2_switch').click();
       cy.findDataTag('isAdditional3_switch').click();
+      cy.clearAllText(m3fields);
 
-      cy.fillFields(['m3State'], { m3State: 'foo' });
-      cy.submitAndCheckErrors(['m3State'], ['Only 2 letters allowed']);
+      cy.verifyForm(['m3State'], undefined, { m3State: 'foo' }, { errors: ['Only 2 letters allowed'] });
 
-      cy.fillFields(['m3Zip'], { m3Zip: '123456789' });
-      cy.submitAndCheckErrors(['m3Zip'], ['Only 8 letters or numbers allowed']);
-
-      cy.clearAllText(m2fields);
+      cy.verifyForm(['m3Zip'], undefined, { m3Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 });

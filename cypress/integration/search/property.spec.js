@@ -3,7 +3,12 @@ describe('Property Address Search Testing', () => {
   const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
   const hasSearchInput = address => 
     cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
-  const buttonIsDisabled = () => cy.findDataTag('submit').should('be.disabled');
+  const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
+  const fillAndCheckErrors = (text, submit = true) => {
+    cy.findDataTag('address').type(text);
+    submit ? cy._submit().then(() => hasSearchInput(text.trim())) : isButtonDisabled();
+    clear();
+  };
   
   before('Go to the search page', () => {
     cy.quoteWorkflow('searchAddress');
@@ -13,34 +18,20 @@ describe('Property Address Search Testing', () => {
     cy.fixture('user').as('user');
   });
 
-  it('Test Empty Values', function() {
+  it('Property Address Search Bar Empty Value', function() {
     const { user: { address }} = this;
 
-    buttonIsDisabled();
-    
-    type('     ');
-    buttonIsDisabled();
-    clear();
+    isButtonDisabled();
 
-    type(` ${address}`)
-    cy._submit();
-    hasSearchInput(address);
-    clear();
+    fillAndCheckErrors('     ', false);
 
-    type(`{selectall}{backspace}     ${address}`);
-    cy._submit();
-    hasSearchInput(address);
-    clear();
+    fillAndCheckErrors(`  ${address}`);
 
-    type(`{selectall}{backspace}${address} `);
-    cy._submit();
-    hasSearchInput(address);
-    clear();
+    fillAndCheckErrors(`      ${address}`);
 
-    type(`{selectall}{backspace}${address}     `);
-    cy._submit();
-    hasSearchInput(address);
-    clear();
+    fillAndCheckErrors(`${address}  `);
+
+    fillAndCheckErrors(`${address}     `);
   });
 
   it('Test Invalid Addresses', function() {
@@ -55,13 +46,11 @@ describe('Property Address Search Testing', () => {
     clear();
 
     type(`{selectall}{backspace}${address}π`);
-    buttonIsDisabled();
-
+    isButtonDisabled();
     cy.findDataTag('address_label').find('span > i')
       .should('exist')
       .and('be.visible')
       .trigger('mouseenter');
-
     cy.get('[data-id="tooltip"]')
     // workaround for visibility testing in Cypress Chrome 67
       .should('have.css', 'visibility', 'visible')

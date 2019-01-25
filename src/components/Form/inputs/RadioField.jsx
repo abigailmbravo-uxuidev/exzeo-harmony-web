@@ -28,8 +28,6 @@ export const RadioInput = ({
     { disabled },
   );
 
-  console.log(name)
-
   const labelStyles = classNames('group-label', { 'label-segmented': segmented });
 
   const answerWrapperStyles = classNames('segmented-answer-wrapper', { error: touched && error });

@@ -4,16 +4,15 @@ describe('Customize Testing', () => {
   });
 
   const type = amnt => cy.findDataTag('dwellingAmount_input').type(`{selectall}{backspace}${amnt}`);
-  const checkError = () => cy.findDataTag('dwellingAmount').find('> span').should('contain', 'Not a valid range.');
 
   it('Dwelling Limit', () => {
     type('0');
-    checkError();
+    cy.checkError('dwellingAmount', 'Not a valid range.');
 
     type('124000');
-    checkError();
+    cy.checkError('dwellingAmount', 'Not a valid range.');
 
     type('2100000');
-    checkError();
+    cy.checkError('dwellingAmount', 'Not a valid range.');
   });
 });

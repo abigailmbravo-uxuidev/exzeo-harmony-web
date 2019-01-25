@@ -1,4 +1,4 @@
-import { goBack, fillAndCheckForErrors } from './utils';
+import { goBack } from './utils';
 
 describe('Additional Interest Testing', () => {
   const ai1fields = ['ai1Name1', 'ai1MailingAddress1', 'ai1City', 'ai1State', 'ai1Zip'];
@@ -16,38 +16,30 @@ describe('Additional Interest Testing', () => {
   it('All Additional Interest 1 Inputs Empty Value', () => {
     goBack().then(() => {
       cy.findDataTag('ai_add').click();
+      cy.clearAllText(ai1fields);
 
-      cy.submitAndCheckErrors(ai1fields);
+      cy.submitAndCheckValidation(ai1fields);
     });
   });
 
-  it('Additional Interest 1 Empty Value', function () {
+  it('Additional Interest 1 Empty Value', function() {
+    const { ai1 } = this;
     goBack().then(() => {
       cy.findDataTag('ai_add').click();
+      cy.clearAllText(ai1fields);
 
-      fillAndCheckForErrors(ai1fields, ['ai1Name1'], this.ai1);
-
-      fillAndCheckForErrors(ai1fields, ['ai1MailingAddress1'], this.ai1);
-
-      fillAndCheckForErrors(ai1fields, ['ai1City'], this.ai1);
-
-      fillAndCheckForErrors(ai1fields, ['ai1State'], this.ai1);
-
-      fillAndCheckForErrors(ai1fields, ['ai1Zip'], this.ai1);
+      ai1fields.forEach(leaveBlank => cy.verifyForm(ai1fields, [leaveBlank], ai1));
     });
   });
 
   it('Additional Interest 1 Invalid Input Value', () => {
     goBack().then(() => {
       cy.findDataTag('ai_add').click();
-
-      cy.fillFields(['ai1State'], { ai1State: 'foo' });
-      cy.submitAndCheckErrors(['ai1State'], ['Only 2 letters allowed']);
-
-      cy.fillFields(['ai1Zip'], { ai1Zip: '123456789' });
-      cy.submitAndCheckErrors(['ai1Zip'], ['Only 8 letters or numbers allowed']);
-
       cy.clearAllText(ai1fields);
+
+      cy.verifyForm(['ai1State'], undefined, { ai1State: 'foo' }, { errors: ['Only 2 letters allowed'] });
+
+      cy.verifyForm(['ai1Zip'], undefined, { ai1Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 
@@ -55,25 +47,20 @@ describe('Additional Interest Testing', () => {
     goBack().then(() => {
       cy.findDataTag('ai_add').click();
       cy.findDataTag('isAdditional2_switch').click();
+      cy.clearAllText(ai2fields);
 
-      cy.submitAndCheckErrors(ai2fields);
+      cy.submitAndCheckValidation(ai2fields);
     });
   });
 
-  it('Additional Interest 2 Empty Value', function () {
+  it('Additional Interest 2 Empty Value', function() {
+    const { ai2 } = this;
     goBack().then(() => {
       cy.findDataTag('ai_add').click();
       cy.findDataTag('isAdditional2_switch').click();
+      cy.clearAllText(ai2fields);
 
-      fillAndCheckForErrors(ai2fields, ['ai2Name1'], this.ai2);
-
-      fillAndCheckForErrors(ai2fields, ['ai2MailingAddress1'], this.ai2);
-
-      fillAndCheckForErrors(ai2fields, ['ai2City'], this.ai2);
-
-      fillAndCheckForErrors(ai2fields, ['ai2State'], this.ai2);
-
-      fillAndCheckForErrors(ai2fields, ['ai2Zip'], this.ai2);
+      ai2fields.forEach(leaveBlank => cy.verifyForm(ai2fields, [leaveBlank], ai2));
     });
   });
 
@@ -81,14 +68,11 @@ describe('Additional Interest Testing', () => {
     goBack().then(() => {
       cy.findDataTag('ai_add').click();
       cy.findDataTag('isAdditional2_switch').click();
-
-      cy.fillFields(['ai2State'], { ai2State: 'foo' });
-      cy.submitAndCheckErrors(['ai2State'], ['Only 2 letters allowed']);
-
-      cy.fillFields(['ai2Zip'], { ai2Zip: '123456789' });
-      cy.submitAndCheckErrors(['ai2Zip'], ['Only 8 letters or numbers allowed']);
-
       cy.clearAllText(ai2fields);
+
+      cy.verifyForm(['ai2State'], undefined, { ai2State: 'foo' }, { errors: ['Only 2 letters allowed'] });
+
+      cy.verifyForm(['ai2Zip'], undefined, { ai2Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 });

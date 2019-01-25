@@ -19,8 +19,8 @@ const EmailPopup = ({ submitting, handleSubmit, primaryButtonHandler, secondaryB
               <TextField type="text" name={'emailAddr'} styleName={'emailAddress'} label={'Email Address'} validations={['required', 'email']} />
             </div>
             <div className="card-footer">
-              <button className="btn btn-secondary" onClick={secondaryButtonHandler} data-test="cancel_email" type="button">Cancel</button>
-              <button className="btn btn-primary" type="submit" disabled={submitting} data-test="submit_email">Send Email</button>
+              <button className="btn btn-secondary" onClick={secondaryButtonHandler} data-test="cancel" type="button">Cancel</button>
+              <button className="btn btn-primary" type="submit" disabled={submitting} data-test="submit">Send Email</button>
             </div>
           </Form>
         </div>
