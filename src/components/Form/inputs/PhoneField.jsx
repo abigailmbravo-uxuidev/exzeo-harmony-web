@@ -37,13 +37,13 @@ export const PhoneInput = ({
     <span>{error || warning}</span>
   );
 
-  const Label = label && (<label htmlFor={name}>
+  const Label = label && (<label htmlFor={name} data-test={`${input.name}_label`}>
     {label}
     {Hint}
   </label>);
 
   return (
-    <div className={formGroupStyles} id={name}>
+    <div className={formGroupStyles} id={name} data-test={input.name}>
       {Label}
       <MaskedTextInput
         tabIndex={'0'}
@@ -56,6 +56,7 @@ export const PhoneInput = ({
         placeholder="(555) 555-5555"
         validate={ruleArray}
         {...input}
+        data-test={`${input.name}_input`}
       />
       {Error}
     </div>
