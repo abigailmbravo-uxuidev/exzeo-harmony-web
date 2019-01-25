@@ -41,15 +41,14 @@ export const SliderInput = ({
 
   const calculatedValue = Number(Math.round(value / 1000) * 1000);
 
-
   return (
-    <div className={formGroupStyles}>
-      <label htmlFor={name}>
+    <div className={formGroupStyles} data-test={name}>
+      <label htmlFor={name} data-test={`${name}_label`}>
         {label}
         {Hint}
       </label>
       <div className="range-wrapper">
-        <div className="range-control-wrapper">
+        <div className="range-control-wrapper" data-test={`${name}_slider_wrapper`}>
           <span className="range-limit">{leftLabel || min || '0'}</span>
           <input
             autoFocus={autoFocus}
@@ -61,6 +60,7 @@ export const SliderInput = ({
             step={step}
             value={calculatedValue}
             onChange={input.onChange}
+            data-test={`${name}_slider`}
           />
           <span className="range-limit">{rightLabel || max}</span>
         </div>
@@ -71,6 +71,7 @@ export const SliderInput = ({
             value={`$ ${calculatedValue >= 100000 ? calculatedValue.toLocaleString() : Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
+            data-test={`${name}_input`}
           />
         </span>
       </div>
