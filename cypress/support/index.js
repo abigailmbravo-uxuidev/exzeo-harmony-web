@@ -13,8 +13,11 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-import './commands';
+import './globalHooks';
+import './login';
+import './persistLocalStorage';
+import './quoteWorkflow';
+import './utils';
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+// Use this folder if you want any custom cypress stuff that will only be local
+import '../local';
