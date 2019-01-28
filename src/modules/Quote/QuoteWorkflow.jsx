@@ -23,8 +23,10 @@ import ThankYou from '../../components/ThankYou/ThankYou';
 import Error from '../../components/Error/Error';
 import Loader from '../../components/Common/Loader';
 import WorkflowNavigation from './WorkflowNavigation';
+import Footer from '../../components/Common/Footer'
 
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
+import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 
 export class QuoteWorkflow extends Component {
   state = {
@@ -71,8 +73,10 @@ export class QuoteWorkflow extends Component {
 
             <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
-            <Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} uiQuestions={uiQuestions} updateQuote={this.handleUpdateQuote} />} />
-            <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
+
+            <Gandalf path={location.pathname} footer={location.pathname.split('/')[3] === 'underwriting' ? <Footer /> : null}/>
+
+            {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
