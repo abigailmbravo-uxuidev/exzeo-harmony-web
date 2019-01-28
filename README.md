@@ -18,21 +18,21 @@ add `.npmrc` file **you will need this file before attempting* `npm install`
 @exzeo:registry=https://registry.npmjs.org/
 ```
 
-add `.env.local` file
+add `.env.local` file  
+**this file is used to override default the configuration which runs locally, and points to a local Harmony backend.*  
 ```.bash
-# point to sandbox
-REACT_APP_API_URL=https://api.harmony-ins.com
+# uncomment to point to sandbox
+# REACT_APP_API_URL=https://api.harmony-ins.com
 
-# running locally using mock-auth0
-#REACT_APP_AUTH0_DOMAIN=mock-auth0:8888
-#REACT_APP_AUTH0_CLIENT_ID=https://mock-auth0:8888
-#REACT_APP_AUTH0_CONNECTION=ashton-sandbox
-#REACT_APP_AUTH0_AUDIENCE=https://mock-auth0:8888
-```
+# uncomment to use mock-auth0 (must be pointing to local backend)
+# REACT_APP_AUTH0_DOMAIN=mock-auth0:8888
+# REACT_APP_AUTH0_CLIENT_ID=https://mock-auth0:8888
+# REACT_APP_AUTH0_CONNECTION=ashton-sandbox
+# REACT_APP_AUTH0_AUDIENCE=https://mock-auth0:8888
+# REACT_APP_USE_MOCK_AUTH0=true
 
-install dependencies
-```bash
-npm install
+# uncomment to test cypress against sandbox environment
+# REACT_APP_CYPRESS_URL=https://agency.harmony-ins.com
 ```
 
 **Important!**  
@@ -44,6 +44,16 @@ append the following to `/etc/hosts` file on your machine
 127.0.0.1               devcsr.harmony-ins.com
 127.0.0.1               devagent.harmony-ins.com
 127.0.0.1               mock-auth0
+```
+
+install dependencies
+```bash
+npm install
+```
+
+run the app
+```bash
+npm start
 ```
 
 ### Contributing to Harmony CSR

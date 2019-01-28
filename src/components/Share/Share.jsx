@@ -18,7 +18,7 @@ export class Share extends React.Component {
 noShareSubmit = async () => {
   const submitData = { shouldSendEmail: 'No' };
   await this.props.updateQuote({ data: submitData, quoteNumber: this.props.quote.quoteNumber });
-  this.props.history.push('assumptions');
+  this.props.history.replace('assumptions');
 };
 
 shareQuoteSubmit = async (data) => {
@@ -39,11 +39,11 @@ closeShareSubmit() {
 refereshUWReviewError = async () => {
   const data = { refresh: 'Yes' };
   await this.props.updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
-  this.props.history.push('customerInfo');
+  this.props.history.replace('customerInfo');
 };
 
 redirectToNewQuote() {
-  this.props.history.push('/');
+  this.props.history.replace('/');
 }
 
 

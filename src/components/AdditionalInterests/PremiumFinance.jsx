@@ -16,11 +16,11 @@ export const closeAndSavePreviousAIs = async (props) => {
   const additionalInterests = props.quote.additionalInterests;
 
   await props.updateQuote({ data: { additionalInterests }, quoteNumber: props.quote.quoteNumber });
-  props.history.push('additionalInterests');
+  props.history.replace('additionalInterests');
 };
 
 export const handleGetQuestions = (state) => {
-  const questions = state.quoteState.state ? state.quoteState.state.uiQuestions : [];
+  const questions = state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: [];
 
   questions.filter(question => question.name === 'premiumFinance')
     .forEach((q) => {
@@ -122,7 +122,7 @@ export class PremiumFinance extends React.Component {
     }
 
     await this.props.updateQuote({ data: { additionalInterests }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('additionalInterests');
+    this.props.history.replace('additionalInterests');
   };
 
   render() {

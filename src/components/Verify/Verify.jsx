@@ -29,7 +29,7 @@ export class Verify extends React.Component {
 
   redirectToHome = () => {
     this.scheduleDateModal(false);
-    this.props.history.push('/');
+    this.props.history.replace('/');
   };
 
   handlePrimarySecondaryTitles = (type, order) => `${type} ${order + 1}`;
@@ -46,7 +46,7 @@ export class Verify extends React.Component {
     const { quote, history } = this.props;
     const taskData = { ...data, shouldEditVerify: 'false' };
     await this.props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
-    history.push('thankYou');
+    history.replace('thankYou');
   };
 
   handlePolicyHolderUpdate = async (data) => {

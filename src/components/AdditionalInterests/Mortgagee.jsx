@@ -37,7 +37,7 @@ export const handleInitialize = (state) => {
 };
 
 export const handleGetQuestions = (state) => {
-  const questions = state.quoteState.state ? state.quoteState.state.uiQuestions : [];
+  const questions = state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: [];
 
   questions.filter(question => question.name === 'mortgagee')
     .forEach((q) => {
@@ -244,13 +244,13 @@ export class Mortgagee extends React.Component {
 
 
     await this.props.updateQuote({ data: { additionalInterests }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('additionalInterests');
+    this.props.history.replace('additionalInterests');
   };
 
   closeAndSavePreviousAIs = async () => {
     const additionalInterests = this.props.quote.additionalInterests;
     await this.props.updateQuote({ data: { additionalInterests }, quoteNumber: this.props.quote.quoteNumber });
-    this.props.history.push('additionalInterests');
+    this.props.history.replace('additionalInterests');
   };
 
   render() {

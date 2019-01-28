@@ -67,7 +67,7 @@ class Routes extends Component { // eslint-disable-line
         this.props.actions.authActions.dispatchUserProfile(profile);
       });
     } else if (!isAuthenticated() && checkPublicPath(window.location.pathname)) {
-      history.push('/login');
+      history.replace('/login');
       axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
     }
   }
@@ -124,6 +124,7 @@ class Routes extends Component { // eslint-disable-line
               <Route exact path="/accessDenied"   render={props => <AccessDenied auth={auth} {...props} />} />
               <Route exact path="/contacts"       render={props => <Contacts auth={auth} {...props} />} />
               <Route exact path="/training"       render={props => <Training auth={auth} {...props} />} />
+              <Route exact path="/thankYou"       render={props => <Quote auth={auth} {...props}><ThankYou {...props} /></Quote>} />
               <Route
                 exact
                 path="/logout"

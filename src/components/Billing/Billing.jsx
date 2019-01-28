@@ -20,14 +20,14 @@ import {
 
 export const handleFormSubmit = async (data, dispatch, props) => {
   await props.updateQuote({ data, quoteNumber: props.quote.quoteNumber });
-  props.history.push('verify');
+  props.history.replace('verify');
 };
 
 const handleGetQuoteData = state => state.quoteState.quote || {};
 
 const handleGetPaymentPlans = (state) => {
   const stateFromQuoteState = state.quoteState.state || null;
-  if (!stateFromQuoteState) return {};
+  if (!stateFromQuoteState || !stateFromQuoteState.variables) return {};
   const result = stateFromQuoteState.variables.find(v => v.name === 'billingOptions');
   return result && result.value && result.value.result ? result.value.result : {};
 };
@@ -64,7 +64,7 @@ const handleInitialize = (state) => {
   return values;
 };
 
-const handleGetQuestions = state => (state.quoteState.state ? state.quoteState.state.uiQuestions : []);
+const handleGetQuestions = state => (state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions) ? state.quoteState.state.uiQuestions: []);
 
 export const getSelectedPlan = (answer) => {
   let selection;
