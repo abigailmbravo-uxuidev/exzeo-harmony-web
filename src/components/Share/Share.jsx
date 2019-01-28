@@ -86,7 +86,7 @@ render() {
         primaryButtonHandler={this.shareQuoteSubmit}
         secondaryButtonHandler={() => this.closeShareSubmit()}
       />}
-    {(!this.props.isLoading && this.props.underwritingExceptions.length) &&
+    {(!this.props.isLoading && this.props.underwritingExceptions.length > 0) &&
       <ErrorPopup
         quote={this.props.quote}
         underwritingExceptions={this.props.underwritingExceptions}
