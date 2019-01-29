@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { reduxForm, propTypes } from 'redux-form';
 import _ from 'lodash';
 import TextField from '../Form/inputs/TextField';
 import PhoneField from '../Form/inputs/PhoneField';
@@ -40,7 +40,7 @@ const PolicyHolderPopup = ({ isLoading, handleSubmit, primaryButtonHandler, seco
             show={showSnackBar}
             timer={3000}
           ><p>Please correct errors.</p></SnackBar>
-          <Form className={'fade-in'} id="UpdatePolicyholder" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
+          <form className="fade-in" id="UpdatePolicyholder" onSubmit={handleSubmit(primaryButtonHandler)} noValidate>
             <div className="card-header">
               <h4><i className="fa fa-vcard" /> Edit Policyholder(s)</h4>
             </div>
@@ -79,7 +79,7 @@ const PolicyHolderPopup = ({ isLoading, handleSubmit, primaryButtonHandler, seco
               <button className="btn btn-secondary" onClick={secondaryButtonHandler} type="button" disabled={showSnackBar} data-test="cancel">Cancel</button>
               <button className="btn btn-primary" type="submit" disabled={isLoading || showSnackBar} data-test="submit">Save</button>
             </div>
-          </Form>
+          </form>
         </div>
       </div>
     </div>

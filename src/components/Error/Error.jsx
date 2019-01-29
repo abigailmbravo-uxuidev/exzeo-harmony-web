@@ -9,7 +9,7 @@ const handleGetExceptions = (state) => {
   return quote.underwritingExceptions || [];
 };
 
-const Error = ({ quote, exceptions }) => {
+const Error = ({ exceptions }) => {
   let hasFatalError;
   return (
     <div className="route-content">
@@ -22,7 +22,7 @@ const Error = ({ quote, exceptions }) => {
                 <h3 className="section-group-header error"><i className="fa fa-exclamation-triangle" /> Property does not qualify for automated quote</h3>
                 <h4>The following errors have occurred for this property:</h4>
                 <ul className="error-list">
-                  {exceptions && exceptions.map((exception, key) => {
+                  {exceptions.map((exception, key) => {
                     if (exception.action === 'Fatal Error') {
                       hasFatalError = true;
                       return <li key={key}>{exception.agentMessage}</li>;
@@ -32,7 +32,9 @@ const Error = ({ quote, exceptions }) => {
                     return '';
                   })}
                 </ul>
-                {!hasFatalError && <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>}
+                {!hasFatalError &&
+                  <p>Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.</p>
+                }
               </div>
             </div>
           </section>

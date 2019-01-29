@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes } from 'redux-form';
+import { reduxForm, Form } from 'redux-form';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -43,32 +42,28 @@ export const Underwriting = (props) => {
 
   return (
     <div className="route-content">
-      {isHardStop && <Redirect to={'error'} />}
-      <SnackBar
-        {...props}
-        show={showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
-      <Form
-        id="Underwriting"
-        onSubmit={handleSubmit(handleFormSubmit)}
-        noValidate
-      >
+      {isHardStop &&
+        <Redirect to="error" />
+      }
+      <SnackBar show={showSnackBar} timer={3000}>
+        <p>Please correct errors.</p>
+      </SnackBar>
+      <Form id="Underwriting" onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
-            {questions && _.sortBy(questions, ['order']).map((question, index) =>
+            {_.sortBy(questions, ['order']).map((question, index) =>
               <FieldGenerator
+                key={index}
                 autoFocus={index === 0}
                 data={quote}
                 question={question}
                 values={fieldValues}
-                key={index}
               />
             )}
           </div>
           <div className="workflow-steps">
             <button
-              tabIndex={0}
+              tabIndex="0"
               className="btn btn-primary"
               type="submit"
               form="Underwriting"
@@ -84,7 +79,6 @@ export const Underwriting = (props) => {
 };
 
 Underwriting.propTypes = {
-  ...propTypes,
   quote: PropTypes.shape(),
   questions: PropTypes.arrayOf(PropTypes.shape())
 };
@@ -100,7 +94,7 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { updateQuote })(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'Underwriting',
   onSubmitFail: failedSubmission,
   enableReinitialize: true,

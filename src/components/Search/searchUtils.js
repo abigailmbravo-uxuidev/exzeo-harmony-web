@@ -31,9 +31,9 @@ export const generateField = (name, placeholder, labelText, formErrors, formGrou
 export const getSearchType = () => {
   const path = window.location.pathname;
   switch (path) {
-    case '/quote/retrieve':
+    case '/search/retrieve':
       return 'quote';
-    case '/quote/SearchAddress':
+    case '/search/address':
       return 'address';
     case '/policy':
       return 'policy';

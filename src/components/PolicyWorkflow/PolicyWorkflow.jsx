@@ -2,15 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Loader } from '@exzeo/core-ui';
 import { setAppModalError } from '../../actions/errorActions';
-import { clearPolicyResults, getPolicyDocuments, getSummaryLedger, getLatestPolicy, getAgentsByAgency } from '../../actions/serviceActions';
+import {
+  clearPolicyResults,
+  getPolicyDocuments,
+  getSummaryLedger,
+  getLatestPolicy,
+  clearPolicy
+} from '../../actions/serviceActions';
+import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
 import PropertyView from '../Policy/Property';
 import CoverageView from '../Policy/Coverage';
 import BillingView from '../Policy/Billing';
-import Loader from '../Common/Loader';
+import PolicyTabs from '../Common/PolicyTabs';
 import Footer from '../Common/Footer';
 
 export class PolicyWorkflow extends Component {
@@ -19,20 +27,24 @@ export class PolicyWorkflow extends Component {
       getPolicyDocumentsAction,
       getSummaryLedgerAction,
       getLatestPolicyAction,
-      getAgentsByAgencyAction
+      getAgentsByAgencyCode,
     } = this.props;
-    clearPolicyResults();
     getPolicyDocumentsAction(policyNumber);
     getSummaryLedgerAction(policyNumber);
     getLatestPolicyAction(policyNumber).then((policy) => {
-      getAgentsByAgencyAction(policy.companyCode, policy.state, policy.agencyCode);
+      getAgentsByAgencyCode(policy.agencyCode);
     });
+  }
+
+  componentWillUnmount() {
+    this.props.clearPolicy();
   }
 
   render() {
     const {
       auth,
       error,
+      location,
       match: { params: { policyNumber }, url },
       billing,
       policy,
@@ -41,9 +53,12 @@ export class PolicyWorkflow extends Component {
       setAppModalErrorAction
     } = this.props;
 
-    if (!error.message && !(policy && policy.policyID)) {
-      return (<Loader />);
+    if (!error.message && !policy.policyID) {
+      return <Loader />;
     }
+
+    const pathnameSplit = location.pathname.split('/');
+    const activeTab = pathnameSplit[pathnameSplit.length - 1];
 
     return (
       <div className="route policy-detail">
@@ -51,11 +66,12 @@ export class PolicyWorkflow extends Component {
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
-              <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policyNumber={policyNumber} policy={policy} agents={agents} />} />
-              <Route exact path={`${url}/property`} render={() => <PropertyView auth={auth} policyNumber={policyNumber} policy={policy} />} />
-              <Route exact path={`${url}/coverage`} render={() => <CoverageView auth={auth} policyNumber={policyNumber} policy={policy} />} />
-              <Route exact path={`${url}/billing`} render={() => <BillingView auth={auth} policyNumber={policyNumber} policy={policy} billing={billing} />} />
-              <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyNumber={policyNumber} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
+              <PolicyTabs activeTab={activeTab} policyNumber={policyNumber} />
+              <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policy={policy} agents={agents} />} />
+              <Route exact path={`${url}/property`} render={() => <PropertyView auth={auth} policy={policy} />} />
+              <Route exact path={`${url}/coverage`} render={() => <CoverageView auth={auth} policy={policy} />} />
+              <Route exact path={`${url}/billing`} render={() => <BillingView auth={auth} policy={policy} billing={billing} />} />
+              <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
             </div>
           </div>
         </div>
@@ -65,8 +81,8 @@ export class PolicyWorkflow extends Component {
   }
 }
 
-PolicyWorkflow.contextTypes = {
-  router: PropTypes.object
+PolicyWorkflow.defaultProps = {
+  policy: {}
 };
 
 PolicyWorkflow.propTypes = {
@@ -75,26 +91,27 @@ PolicyWorkflow.propTypes = {
   getPolicyDocumentsAction: PropTypes.func,
   getSummaryLedgerAction: PropTypes.func,
   getLatestPolicyAction: PropTypes.func,
-  getAgentsByAgencyAction: PropTypes.func,
+  getAgentsByAgencyCode: PropTypes.func,
   setAppModalErrorAction: PropTypes.func,
+  clearPolicy: PropTypes.func,
   policy: PropTypes.shape(),
   agents: PropTypes.array,
-  policyDocuments: PropTypes.array
+  policyDocuments: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
   billing: state.service.getSummaryLedger,
   policy: state.service.latestPolicy,
-  agents: state.service.agents,
+  agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
-  error: state.error
+  error: state.error,
 });
-export default connect(mapStateToProps,
-  {
-    setAppModalErrorAction: setAppModalError,
-    clearPolicyResultsAction: clearPolicyResults,
-    getPolicyDocumentsAction: getPolicyDocuments,
-    getSummaryLedgerAction: getSummaryLedger,
-    getLatestPolicyAction: getLatestPolicy,
-    getAgentsByAgencyAction: getAgentsByAgency
+export default connect(mapStateToProps, {
+  setAppModalErrorAction: setAppModalError,
+  clearPolicyResultsAction: clearPolicyResults,
+  getPolicyDocumentsAction: getPolicyDocuments,
+  getSummaryLedgerAction: getSummaryLedger,
+  getLatestPolicyAction: getLatestPolicy,
+  clearPolicy,
+  getAgentsByAgencyCode,
   })(PolicyWorkflow);

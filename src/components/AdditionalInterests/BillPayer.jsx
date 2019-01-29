@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -78,11 +77,9 @@ export const BillPayer = (props) => {
 
   return (
     <div className="route-content">
-      <SnackBar
-        {...props}
-        show={props.showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
+      <SnackBar show={props.showSnackBar} timer={3000}>
+        <p>Please correct errors.</p>
+      </SnackBar>
       <Form id="BillPayer" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
@@ -107,7 +104,6 @@ export const BillPayer = (props) => {
 const mapStateToProps = state => ({
   isLoading: state.appState.isLoading,
   showSnackBar: state.appState.showSnackBar,
-  appState: state.appState,
   fieldValues: _.get(state.form, 'BillPayer.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
@@ -115,9 +111,7 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'BillPayer',
   onSubmitFail: failedSubmission
 })(BillPayer));

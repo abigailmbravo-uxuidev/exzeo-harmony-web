@@ -15,14 +15,8 @@ describe('Testing PolicySearchBar component', () => {
       service: {
         policyResults: {}
       },
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
+      authState: {
+        userProfile: { groups: [{}] }
       },
       form: {
         PolicySearchBar: {
@@ -74,7 +68,13 @@ describe('Testing PolicySearchBar component', () => {
   });
 
   it('should paging functions', () => {
-    const props = { fieldValues: {}, actions: { searchActions: { setPolicySearch() {} }, serviceActions: { searchPolicy() { return Promise.resolve(); } } } };
+    const props = {
+      userProfile: { groups: [{}] },
+      fieldValues: {},
+      actions: { searchActions: { setPolicySearch() {} },
+        serviceActions: { searchPolicy() { return Promise.resolve(); } }
+      }
+    };
     changePagePolicy(props, false);
     changePagePolicy(props, true);
     handlePolicySearchSubmit({

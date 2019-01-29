@@ -14,7 +14,7 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting })
   cy.login();
 
   if (page !== 'landing') {
-    cy.get('.btn[href="/quote/searchAddress"]').click();
+    cy.get('.btn[href="/search/address"]').click();
 
     if (page !== 'searchAddress') {
       cy.get('input[name=address]').type(address);

@@ -5,7 +5,7 @@ import policyStateReducer from './policyStateReducer';
 
 describe('policyState Reducer', () => {
   it('should call policyStateReducer GET_POLICY', () => {
-    const state = initialState.policyState;
+    const state = initialState.policy;
     const inputProps = {};
     const action = {
       type: types.GET_POLICY,
@@ -16,11 +16,11 @@ describe('policyState Reducer', () => {
   });
 
   it('should call policyStateReducer REHYDRATE', () => {
-    const state = initialState.policyState;
+    const state = initialState.policy;
     const inputProps = {};
     const action = {
       type: persistTypes.REHYDRATE,
-      policyState: {}
+      policy: {}
     };
 
     expect(policyStateReducer(state, action)).toEqual(inputProps);

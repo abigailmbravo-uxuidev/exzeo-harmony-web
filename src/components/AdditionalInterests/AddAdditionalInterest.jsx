@@ -2,21 +2,19 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
+
 import Footer from '../Common/Footer';
-import { updateQuote } from '../../actions/quoteState.actions';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
 export class AddAdditionalInterest extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showAdditionalInterestModal: false,
-      selectedAI: null,
-      addAdditionalInterestType: ''
-    };
-  }
+  state = {
+    showAdditionalInterestModal: false,
+    selectedAI: null,
+    addAdditionalInterestType: ''
+  };
+
 
   noAddAdditionalInterestSubmit = async () => {
     const taskData = { shouldUpdateAIs: 'No' };
@@ -104,13 +102,12 @@ export class AddAdditionalInterest extends React.Component {
   };
 
   render() {
-    return (<div className="route-content">
-      <SnackBar
-        {...this.props}
-        show={this.props.showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
-      <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={this.props.handleSubmit(this.noAddAdditionalInterestSubmit)} noValidate>
+    return (
+      <div className="route-content">
+      <SnackBar show={this.props.showSnackBar} timer={3000}>
+        <p>Please correct errors.</p>
+      </SnackBar>
+      <Form id="AddAdditionalInterestPage" onSubmit={this.props.handleSubmit(this.noAddAdditionalInterestSubmit)}>
         <div className="scroll">
           <div className="form-group detail-wrapper">
             <p>Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)</p>
@@ -165,13 +162,14 @@ export class AddAdditionalInterest extends React.Component {
           <Footer />
         </div>
       </Form>
-      { this.state.showAdditionalInterestModal &&
-      <AdditionalInterestModal
-        {...this.props}
-        selectedAI={this.state.selectedAI}
-        primaryButtonHandler={() => this.deleteAdditionalInterest(this.state.selectedAI)}
-        secondaryButtonHandler={() => this.hideAdditionalInterestModal()}
-      /> }
+      {this.state.showAdditionalInterestModal &&
+        <AdditionalInterestModal
+          {...this.props}
+          selectedAI={this.state.selectedAI}
+          primaryButtonHandler={() => this.deleteAdditionalInterest(this.state.selectedAI)}
+          secondaryButtonHandler={() => this.hideAdditionalInterestModal()}
+        />
+      }
     </div>
     );
   }
@@ -185,9 +183,8 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote || {}
 });
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({ form: 'AddAdditionalInterest',
+export default connect(mapStateToProps)(reduxForm({
+  form: 'AddAdditionalInterest',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission
+  onSubmitFail: failedSubmission,
 })(AddAdditionalInterest));

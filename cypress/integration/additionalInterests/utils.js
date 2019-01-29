@@ -1,5 +1,5 @@
 export const goBack = () => cy.window().then(window => {
   if (!window.location.href.includes('additionalInterests')) {
-    cy.findDataTag('addAdditionalAIs').click();
+    cy.findDataTag('tab-nav-addAdditionalAIs').click();
   };
 });

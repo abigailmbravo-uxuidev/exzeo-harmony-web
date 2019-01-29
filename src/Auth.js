@@ -14,53 +14,42 @@ export default class Auth {
     sso: true
   });
 
-  renewInterval;
+  renewInterval = setInterval(() => { this.checkAuth(); }, 5000);
 
   userProfile;
 
-  constructor() {
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.checkAuth = this.checkAuth.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
-    this.isAuthenticated = this.isAuthenticated.bind(this);
-    this.getAccessToken = this.getAccessToken.bind(this);
-    this.getProfile = this.getProfile.bind(this);
-
-    // check if the user is actually logged out from another sso site
-    this.renewInterval = setInterval(() => { this.checkAuth(); }, 5000);
-  }
-
-  login() {
+  login = () => {
     this.auth0.authorize();
-  }
+  };
 
-  checkAuth() {
+  checkAuth = () => {
     if (this.isAuthenticated()) {
       return;
     }
 
     this.logout();
-  }
+  };
 
-  handleAuthentication() {
+  handleAuthentication = () => {
     this.auth0.parseHash(window.location.hash, (err, authResult) => {
+      if (err) {
+        history.replace(`/accessDenied?error=${err.errorDescription ? err.errorDescription : 'Access Denied' }`);
+        return;
+      }
+
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         history.replace('/');
-      } else if (err) {
-        history.replace(`/accessDenied?error=${err.errorDescription}`);
       }
     });
-  }
+  };
 
   setSession = (authResult) => {
-    // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-  }
+  };
 
   getIdToken = () => {
     const idToken = localStorage.getItem('id_token');
@@ -68,7 +57,7 @@ export default class Auth {
       throw new Error('No id token found');
     }
     return idToken;
-  }
+  };
 
   getAccessToken = () => {
     const accessToken = localStorage.getItem('access_token');
@@ -76,57 +65,68 @@ export default class Auth {
       throw new Error('No access token found');
     }
     return accessToken;
-  }
+  };
 
-  getProfile = (cb) => {
+  getProfile = () => {
     const idToken = localStorage.getItem('id_token');
-    if (!idToken) {
-      cb('No Id Token');
-    }
-    const profile = jwtDecode(idToken);
+    if (!idToken) return null;
 
+    const profile = jwtDecode(idToken);
     const groups = profile['https://heimdall.security/groups'];
     const roles = profile['https://heimdall.security/roles'];
     const username = profile['https://heimdall.security/username'];
     const appMetadata = profile['https://heimdall.security/app_metadata'];
     const legacyAgency = groups ? groups[0] : {};
-    const agency = appMetadata && appMetadata.agencyCode ?
-      { agencyCode: appMetadata.agencyCode, companyCode: appMetadata.companyCode, state: appMetadata.state } :
-      legacyAgency.isAgency ?
-      { agencyCode: legacyAgency.agencyCode, companyCode: legacyAgency.companyCode, state: legacyAgency.state } :
-      null;
+
+    let agency = {};
+    if (appMetadata && appMetadata.agencyCode) {
+      agency = {
+        agencyCode: appMetadata.agencyCode,
+        companyCode: appMetadata.companyCode,
+        state: appMetadata.state
+      }
+    } else if (legacyAgency.isAgency){
+      agency = {
+        agencyCode: legacyAgency.agencyCode,
+        companyCode: legacyAgency.companyCode,
+        state: legacyAgency.state
+      }
+    } else {
+      agency = null
+    }
 
     this.userProfile = {
       ...profile,
-
       groups,
       roles,
       username,
       appMetadata,
       agency
     };
+
     delete this.userProfile['https://heimdall.security/groups'];
     delete this.userProfile['https://heimdall.security/roles'];
     delete this.userProfile['https://heimdall.security/username'];
     delete this.userProfile['https://heimdall.security/app_metadata'];
 
-    cb(null, this.userProfile);
-  }
+    return this.userProfile;
+  };
 
-  logout() {
-    // Clear access token and ID token from local storage
+  logout = () => {
     localStorage.clear();
-    this.userProfile = null;
-    this.auth0.logout({ returnTo: process.env.REACT_APP_AUTH0_PRIMARY_URL, clientID: process.env.REACT_APP_AUTH0_CLIENT_ID, federated: true });
-  }
+    this.userProfile = undefined;
+    this.auth0.logout({
+      returnTo: process.env.REACT_APP_AUTH0_PRIMARY_URL,
+      clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
+      federated: true
+    });
+  };
 
   isAuthenticated = () => {
     const idToken = localStorage.getItem('id_token');
-    if (!idToken) {
-      return false;
-    }
+    if (!idToken) return false;
+
     const payload = jwtDecode(idToken);
     return Math.floor(Date.now() / 1000) < payload.exp;
-  }
-
+  };
 }

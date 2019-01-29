@@ -58,36 +58,24 @@ export const SelectInput = ({
 };
 
 SelectInput.propTypes = {
-
-  // Answers used to generate options
   answers: PropTypes.arrayOf(PropTypes.shape({
     answer: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
     label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     image: PropTypes.string
   })),
-
-  // Used to generate tooltip
   hint: PropTypes.string,
-
-  // Input props provided by redux-form
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
     value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string])
   }),
-
-  // Label for field
   label: PropTypes.string,
-
-  // Validations
-  meta: {
+  meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.string,
     warning: PropTypes.string
-  },
-
-  // Name added to class on render
+  }),
   styleName: PropTypes.string
 };
 

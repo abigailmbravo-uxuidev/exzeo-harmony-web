@@ -1,29 +1,18 @@
 import React from 'react';
-import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-import ConnectedApp from './Policy';
-
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+import Policy from './Policy';
 
 describe('Testing Policy component', () => {
   it('should test connected app', () => {
-    const initialState = {
-      actions: {
-        searchActions: {
-          setPolicy() {}
-        }
-      }
-    };
-    const store = mockStore(initialState);
     const props = {
-      actions: {
-        searchActions: {
-          setPolicy() {}
-        }
+      location: {
+        pathname: '/policy'
+      },
+      auth: {
+        logout: () => {}
       }
     };
-    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
+    const wrapper = shallow(<Policy {...props} />);
     expect(wrapper);
   });
 });

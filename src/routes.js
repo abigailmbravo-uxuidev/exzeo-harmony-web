@@ -1,48 +1,30 @@
 /* eslint-disable no-multi-spaces */
 /* eslint-disable max-len */
-// src/routes.js
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import axios from 'axios';
 import Modal from 'react-modal';
+import axios from 'axios';
+
+import { setUserProfile } from './actions/authActions';
+import { clearAppError } from './actions/errorActions';
+import { getAgency } from './actions/agency.actions';
+
 import history from './history';
 import Auth from './Auth';
+import QuoteModule from './modules/Quote';
+import QuoteSearch from './modules/Search/Quote';
+
 import Login from './containers/Login';
 import Splash from './containers/Splash';
-import Quote from './containers/Quote';
-import PolicySearch from './containers/PolicySearch';
+import PolicySearch from './modules/Search/Policy';
 import AppError from './containers/AppError';
 import AccessDenied from './containers/AccessDenied';
 import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 import Policy from './containers/Policy';
 import Training from './containers/Training';
-// import Contacts from './containers/Contacts';
-
-import * as authActions from './actions/authActions';
-import * as errorActions from './actions/errorActions';
-
-import CustomerInfo from './components/CustomerInfo/CustomerInfo';
-import Search from './components/Search/Search';
-import Underwriting from './components/Underwriting/Underwriting';
-import Customize from './components/Customize/Customize';
-import Share from './components/Share/Share';
-import AddAdditionalInterest from './components/AdditionalInterests/AddAdditionalInterest';
-import Assumptions from './components/Assumptions/Assumptions';
-import Mortgagee from './components/AdditionalInterests/Mortgagee';
-
-import BillPayer from './components/AdditionalInterests/BillPayer';
-import PremiumFinance from './components/AdditionalInterests/PremiumFinance';
-import AdditionalInsured from './components/AdditionalInterests/AdditionalInsured';
-import AdditionalInterest from './components/AdditionalInterests/AdditionalInterest';
-
-import Billing from './components/Billing/Billing';
-import Verify from './components/Verify/Verify';
-import ThankYou from './components/ThankYou/ThankYou';
-import Error from './components/Error/Error';
 
 const auth = new Auth();
 
@@ -57,37 +39,48 @@ const checkPublicPath = (path) => {
   return (publicPaths.indexOf(path) === -1);
 };
 
-class Routes extends Component { // eslint-disable-line
+class Routes extends Component {
+  profile = null;
+
   componentWillMount() {
     const { isAuthenticated, userProfile, getProfile } = auth;
     if (isAuthenticated() && !userProfile && checkPublicPath(window.location.pathname)) {
       const idToken = localStorage.getItem('id_token');
       axios.defaults.headers.common['authorization'] = `bearer ${idToken}`; // eslint-disable-line
-      getProfile((err, profile) => {
-        this.props.actions.authActions.dispatchUserProfile(profile);
-      });
+      this.profile = getProfile();
+      this.props.setUserProfile(this.profile);
     } else if (!isAuthenticated() && checkPublicPath(window.location.pathname)) {
       history.replace('/login');
       axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
     }
   }
 
+  componentDidMount() {
+    const { agency, getAgency } = this.props;
+    if (!agency && this.profile && this.profile.agency) {
+      const { agency: { agencyCode } } = this.profile;
+      getAgency(agencyCode);
+    }
+  }
+
   clearError = () => {
-    this.props.actions.errorActions.clearAppError();
+    const { clearAppError } = this.props;
+    clearAppError()
   };
 
   render() {
+    const { error } = this.props;
+
     return (
       <div>
         <Modal
-          isOpen={(this.props.error && !!this.props.error.message)}
+          isOpen={(error && !!error.message)}
           contentLabel="Error Modal"
           className="card"
           overlayClassName="modal root-modal"
-          appElement={document.getElementById('root')}
-        >
+          appElement={document.getElementById('root')}>
           <div className="card-header"><h4><i className="fa fa-exclamation-circle" />&nbsp;Error</h4></div>
-          <div className="card-block"><p>{ this.props.error.message }</p></div>
+          <div className="card-block"><p>{ error.message }</p></div>
           <div className="card-footer">
             <button className="btn-primary" onClick={this.clearError}>close</button>
           </div>
@@ -97,34 +90,16 @@ class Routes extends Component { // eslint-disable-line
           <div>
             <Helmet><title>Harmony Web - Agent HO3 Quote</title></Helmet>
             <Switch>
-              <Route exact path="/"                                         render={props => <Splash auth={auth} {...props} />} />
-              <Route exact path="/quote"                                    render={props => <Quote auth={auth} {...props} />} />
-              <Route exact path="/quote/SearchAddress"                      render={props => <Quote auth={auth} {...props}><Search {...props} /></Quote>} />
-              <Route exact path="/quote/retrieve"                           render={props => <Quote auth={auth} {...props}><Search {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/customerInfo"          render={props => <Quote auth={auth} {...props}><CustomerInfo {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/underwriting"          render={props => <Quote auth={auth} {...props}><Underwriting {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/customize"             render={props => <Quote auth={auth} {...props}><Customize {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/share"                 render={props => <Quote auth={auth} {...props}><Share {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/assumptions"           render={props => <Quote auth={auth} {...props}><Assumptions {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/additionalInterests"   render={props => <Quote auth={auth} {...props}><AddAdditionalInterest {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/askMortgagee"          render={props => <Quote auth={auth} {...props}><Mortgagee {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/askAdditionalInterest" render={props => <Quote auth={auth} {...props}><AdditionalInterest {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/askAdditionalInsured"  render={props => <Quote auth={auth} {...props}><AdditionalInsured {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/askPremiumFinance"     render={props => <Quote auth={auth} {...props}><PremiumFinance {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/askBillPayer"          render={props => <Quote auth={auth} {...props}><BillPayer {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/mailingBilling"        render={props => <Quote auth={auth} {...props}><Billing {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/verify"                render={props => <Quote auth={auth} {...props}><Verify {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/thankYou"              render={props => <Quote auth={auth} {...props}><ThankYou {...props} /></Quote>} />
-              <Route exact path="/quote/:quoteNumber/error"                 render={props => <Quote auth={auth} {...props}><Error {...props} /></Quote>} />
+              <Route exact path="/"             render={props => <Splash auth={auth} {...props} />} />
+              <Route exact path="/policy"       render={props => <PolicySearch auth={auth} {...props} />} />
+              <Route exact path="/login"        render={props => <Login auth={auth} {...props} />} />
+              <Route exact path="/error"        render={props => <AppError {...props} />} />
+              <Route exact path="/accessDenied" render={props => <AccessDenied auth={auth} {...props} />} />
+              <Route exact path="/training"     render={props => <Training auth={auth} {...props} />} />
 
-              <Route path="/policy/:policyNumber" render={props => <Policy auth={auth} {...props} />} />
-              <Route exact path="/policy"         render={props => <PolicySearch auth={auth} {...props} />} />
-              <Route exact path="/login"          render={props => <Login auth={auth} {...props} />} />
-              <Route exact path="/error"          render={props => <AppError {...props} />} />
-              <Route exact path="/accessDenied"   render={props => <AccessDenied auth={auth} {...props} />} />
-              <Route exact path="/training"       render={props => <Training auth={auth} {...props} />} />
-              <Route exact path="/thankYou"       render={props => <Quote auth={auth} {...props}><ThankYou {...props} /></Quote>} />
-
+              <Route path="/search"                 render={props => <QuoteSearch auth={auth} {...props} />} />
+              <Route path="/quote/:quoteNumber"     render={props => <QuoteModule auth={auth} {...props}/> } />
+              <Route path="/policy/:policyNumber"   render={props => <Policy auth={auth} {...props} />} />
               {/* <!-- This path will be added in an upcoming sprint -->
               <Route exact path="/contacts"       render={props => <Contacts auth={auth} {...props} />} /> */}
               <Route
@@ -153,15 +128,16 @@ class Routes extends Component { // eslint-disable-line
   }
 }
 
-const mapStateToProps = state => ({
-  error: state.error
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: {
-    authActions: bindActionCreators(authActions, dispatch),
-    errorActions: bindActionCreators(errorActions, dispatch)
+const mapStateToProps = state => {
+  return {
+    agency: state.agencyState.agency,
+    authState: state.authState,
+    error: state.error,
   }
-});
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default connect(mapStateToProps, {
+  clearAppError,
+  getAgency,
+  setUserProfile,
+})(Routes);

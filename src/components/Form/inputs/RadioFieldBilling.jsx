@@ -86,53 +86,22 @@ export const RadioInputBilling = ({
 };
 
 RadioInputBilling.propTypes = {
-paymentPlans: PropTypes.any, // eslint-disable-line
-  /**
-   * Answers used to generate options
-   */
-  answers: PropTypes.any, // eslint-disable-line
-  /**
-   * Used for dependent radio field, activates
-   * read only input
-   */
-  displayValue: PropTypes.any, // eslint-disable-line
-
-  /**
-   * Tooltip for user
-   */
+paymentPlans: PropTypes.any,
+  answers: PropTypes.any,
+  displayValue: PropTypes.any,
   hint: PropTypes.string,
-
-  /**
-   * Provided by redux-form Field
-   */
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.any, // eslint-disable-line
+    value: PropTypes.any,
   }),
-
-  /**
-   * Label for form field
-   */
   label: PropTypes.string,
-
-  /**
-   * Validation results
-   */
   meta: PropTypes.shape({
     warning: PropTypes.string,
     error: PropTypes.string,
     touched: PropTypes.bool
   }),
-
-  /**
-   * Whether field is segmented radio
-   */
-
-  /**
-   * Classname for form-group
-   */
   segmented: PropTypes.bool,
   styleName: PropTypes.string
 };
