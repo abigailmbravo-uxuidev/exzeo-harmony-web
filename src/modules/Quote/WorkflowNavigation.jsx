@@ -29,7 +29,7 @@ export class WorkflowNavigation extends Component {
     if (!quote || !quote.quoteNumber) return null;
 
     return (
-      <div>
+      <div className="nav-and-header-wrapper">
         <DetailHeader
           activeTask={workflowState.activeTask}
           handleRecalc={handleRecalc}

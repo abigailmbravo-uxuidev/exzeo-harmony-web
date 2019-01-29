@@ -73,9 +73,13 @@ export class QuoteWorkflow extends Component {
 
             <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
+            <Gandalf
+              path={location.pathname}
+              footer={location.pathname.split('/')[3] === 'underwriting' ? <Footer /> : null}
+              className="survey-wrapper"
 
-            <Gandalf path={location.pathname} footer={location.pathname.split('/')[3] === 'underwriting' ? <Footer /> : null}/>
-
+            />
+            {/*<Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} uiQuestions={uiQuestions} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
@@ -108,6 +112,7 @@ const mapStateToProps = (state) => {
     quote: state.quoteState.quote || {},
     workflowState: state.quoteState.state || {},
     uiQuestions,
+    zipCodeSettings: state.service.zipCodeSettings
   }
 };
 
