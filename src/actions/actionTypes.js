@@ -39,3 +39,7 @@ export const RESET_SEARCH = 'RESET_SEARCH';
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 
 export const SET_QUOTE = 'SET_QUOTE';
+
+export const SET_AGENCIES = 'SET_AGENCIES';
+export const SET_AGENTS = 'SET_AGENTS';
+export const SET_AGENCY = 'SET_AGENCY';

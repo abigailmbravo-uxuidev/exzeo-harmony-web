@@ -117,25 +117,8 @@ header {
           }
         }
       }
-      @include for-tablet-portrait-up {
-        position: absolute;
-        z-index: 200;
-        top: 3.375rem;
-        right: $padding;
-        display: none;
-        flex-direction: column;
-        width: auto;
-        height: auto;
-        padding: $padding;
-        border-top-width: 0;
-        background: $warm-gray-01;
-        box-shadow: $card-box-shadow-alt;
 
-        &.active {
-          display: flex;
-        }
-      }
-      @include for-tablet-landscape-up {
+      @include for-tablet-portrait-up {
         position: relative;
         top: 0;
         right: 0;

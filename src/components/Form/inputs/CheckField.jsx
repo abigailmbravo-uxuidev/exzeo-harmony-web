@@ -37,12 +37,16 @@ export const CheckInput = ({
     }
   };
 
-  const Switch = isSwitch && (<div className="switch-div" tabIndex={'0'} onClick={() => onChange(!value)} onKeyPress={event => onKeyPress(event, !value)} />);
+  const Switch = isSwitch && (<div className="switch-div" tabIndex={'0'} onClick={() => onChange(!value)} onKeyPress={event => onKeyPress(event, !value)} data-test={`${name}-switch`}/>);
 
 
   return (
-    <div className={formGroupStyles} id={name}>
-      <label htmlFor={name} onClick={() => (!isSwitch ? onChange(!value) : () => {})}>
+    <div className={formGroupStyles} id={name} data-test={name}>
+      <label
+        htmlFor={name}
+        onClick={() => (!isSwitch ? onChange(!value) : () => {})}
+        data-test={`${name}-label`}
+      >
         {label}
         {Hint}
         <input
@@ -51,6 +55,7 @@ export const CheckInput = ({
           type="checkbox"
           checked={value}
           onChange={() => onChange(!value)}
+          data-test={`${name}-input`}
         />
         {Switch}
       </label>
