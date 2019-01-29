@@ -132,6 +132,7 @@ export const Customize = (props) => {
               type="submit"
               form="Customize"
               disabled={submitting}
+              data-test="submit"
             >
               {props.appState.isRecalc ? 'recalculate' : 'next'}
             </button>
