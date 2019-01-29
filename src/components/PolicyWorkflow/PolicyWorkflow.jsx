@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAppModalError } from '../../actions/errorActions';
-import { clearPolicyResults, getPolicyDocuments, getSummaryLedger, getLatestPolicy, getAgentsByAgency } from '../../actions/serviceActions';
+import { clearPolicyResults, getPolicyDocuments, getSummaryLedger, getLatestPolicy } from '../../actions/serviceActions';
+import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
@@ -19,13 +20,12 @@ export class PolicyWorkflow extends Component {
       getPolicyDocumentsAction,
       getSummaryLedgerAction,
       getLatestPolicyAction,
-      getAgentsByAgencyAction
     } = this.props;
     clearPolicyResults();
     getPolicyDocumentsAction(policyNumber);
     getSummaryLedgerAction(policyNumber);
     getLatestPolicyAction(policyNumber).then((policy) => {
-      getAgentsByAgencyAction(policy.companyCode, policy.state, policy.agencyCode);
+      this.props.getAgentsByAgencyCode(policy.agencyCode);
     });
   }
 
@@ -75,7 +75,7 @@ PolicyWorkflow.propTypes = {
   getPolicyDocumentsAction: PropTypes.func,
   getSummaryLedgerAction: PropTypes.func,
   getLatestPolicyAction: PropTypes.func,
-  getAgentsByAgencyAction: PropTypes.func,
+  getAgentsByAgencyCode: PropTypes.func,
   setAppModalErrorAction: PropTypes.func,
   policy: PropTypes.shape(),
   agents: PropTypes.array,
@@ -85,7 +85,7 @@ PolicyWorkflow.propTypes = {
 const mapStateToProps = state => ({
   billing: state.service.getSummaryLedger,
   policy: state.service.latestPolicy,
-  agents: state.service.agents,
+  agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
   error: state.error
 });
@@ -96,5 +96,5 @@ export default connect(mapStateToProps,
     getPolicyDocumentsAction: getPolicyDocuments,
     getSummaryLedgerAction: getSummaryLedger,
     getLatestPolicyAction: getLatestPolicy,
-    getAgentsByAgencyAction: getAgentsByAgency
+    getAgentsByAgencyCode
   })(PolicyWorkflow);

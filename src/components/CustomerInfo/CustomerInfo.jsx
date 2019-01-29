@@ -5,8 +5,9 @@ import momentTZ from 'moment-timezone';
 import moment from 'moment';
 import _ from 'lodash';
 
+import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { updateQuote } from '../../actions/quoteState.actions';
-import { getZipcodeSettings, getAgents } from '../../actions/serviceActions';
+import { getZipcodeSettings } from '../../actions/serviceActions';
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -57,7 +58,7 @@ export class CustomerInfo extends React.Component {
     const { quote } = this.props;
 
     if (quote && quote.property) {
-      this.props.getAgents(quote.companyCode, quote.state, quote.agencyCode);
+      this.props.getAgentsByAgencyCode(quote.agencyCode);
       this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
     }
   }
@@ -133,13 +134,13 @@ const mapStateToProps = state => (
     showSnackBar: state.appState.showSnackBar,
     fieldValues: _.get(state.form, 'CustomerInfo.values', {}),
     initialValues: handleInitialize(state),
-    agentResults: state.service.agents,
+    agentResults: state.agencyState.agents,
     zipCodeSettings: state.service.zipCodeSettings,
     quote: state.quoteState.quote,
     uiQuestions: handleGetQuestions(state)
   });
 
-export default connect(mapStateToProps, { updateQuote, getZipcodeSettings, getAgents })(reduxForm({
+export default connect(mapStateToProps, { updateQuote, getZipcodeSettings, getAgentsByAgencyCode })(reduxForm({
   enableReinitialize: true,
   form: 'CustomerInfo',
   onSubmitFail: failedSubmission
