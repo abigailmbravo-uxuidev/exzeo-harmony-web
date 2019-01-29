@@ -15,13 +15,6 @@
       grid-column-end: -1;
       margin: $padding/2;
   }
-
-  // TODO this is for development purposes only.
-  > * {
-    border: 1px dotted $warm-gray-04;
-  }
-  // TODO the above is for development purposed only.
-
 }
 
 @include for-phone-only {

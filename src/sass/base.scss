@@ -1,7 +1,7 @@
 /*BASE LAYOUT & STYLES*/
 /*###################################################*/
 @import "partials/_mixins";
-@import "partials/_variables";
+//@import "partials/_variables";
 @import "partials/utilities/_flex";
 @import "partials/mixins/_hover";
 @import "partials/mixins/_flexbox";
@@ -90,7 +90,7 @@
 /*------------------------------------------------------------------------------------*/
 @import "partials/_policy-details"; //Policy Details Page
 /*------------------------------------------------------------------------------------*/
-@import "partials/_view-grid"; //grid
+//@import "partials/_view-grid"; //grid
 /*------------------------------------------------------------------------------------*/
 hr {
   &.section-divider {
