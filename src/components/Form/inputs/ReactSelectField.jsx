@@ -22,8 +22,8 @@ export const ReactSelectInput = ({
   const formGroupStyles = classNames('form-group', styleName, name, Error ? 'error' : '');
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
   return (
-    <div className={formGroupStyles}>
-      { label && <label htmlFor={name}>{label}{Hint}</label> }
+    <div className={formGroupStyles} data-test={name}>
+      {label && <label htmlFor={name} data-test={`${name}-label`}>{label}{Hint}</label> }
       {answers && answers.length >= 0 ? (
         <Select
           name={name}

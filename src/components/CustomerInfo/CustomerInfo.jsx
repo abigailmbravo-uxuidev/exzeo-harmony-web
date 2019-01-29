@@ -119,6 +119,7 @@ export class CustomerInfo extends React.Component {
                 type="submit"
                 form="CustomerInfo"
                 disabled={submitting}
+                data-test="submit"
               >next</button>
             </div>
             <Footer />

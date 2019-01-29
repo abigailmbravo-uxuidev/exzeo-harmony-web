@@ -246,7 +246,7 @@ export class Verify extends React.Component {
                 <div className="detail-group policyholder-details">
                   <h3 className="section-group-header">
                     <i className="fa fa-vcard-o" /> Policyholder Details
-                    <span className="edit-btn" onClick={() => this.showPolicyHolderModal()}>
+                    <span className="edit-btn" onClick={() => this.showPolicyHolderModal()} data-test="edit-policyholder">
                       <i className="fa fa-pencil" /> Edit
                     </span>
                   </h3>
@@ -353,6 +353,7 @@ export class Verify extends React.Component {
                   disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
                   !fieldValues.confirmPolicyHolderDetails ||
                   !fieldValues.confirmAdditionalInterestsDetails || submitting}
+                  data-test="submit"
                 >next</button>
               </div>
               <Footer />

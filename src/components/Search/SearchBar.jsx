@@ -177,6 +177,7 @@ export class SearchForm extends Component {
             type="submit"
             form="SearchBar"
             disabled={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            data-test="submit"
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>

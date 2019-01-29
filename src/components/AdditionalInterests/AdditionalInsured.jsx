@@ -113,7 +113,7 @@ export const AdditionalInsured = (props) => {
               <span className="button-info">Oops! There is no additional insured</span>
               <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(props)}>Go Back</button>
             </span>
-            <button className="btn btn-primary" type="submit" form="AdditionalInsured" disabled={props.isLoading}>Save</button>
+            <button className="btn btn-primary" type="submit" form="AdditionalInsured" disabled={props.isLoading} data-test="submit">Save</button>
           </div>
           <Footer />
         </div>
