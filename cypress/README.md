@@ -5,7 +5,10 @@
 This assumes you already have harmony-web
 [configured](https://bitbucket.org/exzeo-usa/harmony-web/src/master/).
 
-Confirm that the cypress url exists in `.env.local`
+By default, Cypress is configured to run against a local instance of Harmony-Web running on your computer.
+To change this behavior and point to a different environment, see below.
+
+Confirm that the following ENV variable is in `.env.local`
 ```bash
 # uncomment to test cypress against sandbox environment
 # REACT_APP_CYPRESS_URL=https://agency.harmony-ins.com
@@ -107,4 +110,3 @@ cy.get('button[type="submit"][form="SearchBar"]')
   .and('contain', 'Search')
   .click();
 ```
-
