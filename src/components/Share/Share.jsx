@@ -71,8 +71,8 @@ export class Share extends React.Component {
               </section>
             </div>
             <div className="workflow-steps">
-              <button className="btn btn-secondary" type="button" onClick={this.shareQuote}>share</button>
-              <button className="btn btn-primary" type="submit" disabled={this.props.isLoading}>next</button>
+              <button className="btn btn-secondary" type="button" data-test="share" onClick={this.shareQuote}>share</button>
+              <button className="btn btn-primary" type="submit" data-test="submit" disabled={this.props.isLoading}>next</button>
             </div>
             <Footer />
           </div>

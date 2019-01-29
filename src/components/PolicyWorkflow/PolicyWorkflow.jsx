@@ -9,9 +9,9 @@ import {
   getPolicyDocuments,
   getSummaryLedger,
   getLatestPolicy,
-  getAgentsByAgency,
   clearPolicy
 } from '../../actions/serviceActions';
+import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
@@ -27,17 +27,17 @@ export class PolicyWorkflow extends Component {
       getPolicyDocumentsAction,
       getSummaryLedgerAction,
       getLatestPolicyAction,
-      getAgentsByAgencyAction
+      getAgentsByAgencyCode,
     } = this.props;
     getPolicyDocumentsAction(policyNumber);
     getSummaryLedgerAction(policyNumber);
     getLatestPolicyAction(policyNumber).then((policy) => {
-      getAgentsByAgencyAction(policy.companyCode, policy.state, policy.agencyCode);
+      getAgentsByAgencyCode(policy.agencyCode);
     });
   }
 
   componentWillUnmount() {
-    this.props.clearPolicyAction();
+    this.props.clearPolicy();
   }
 
   render() {
@@ -91,27 +91,27 @@ PolicyWorkflow.propTypes = {
   getPolicyDocumentsAction: PropTypes.func,
   getSummaryLedgerAction: PropTypes.func,
   getLatestPolicyAction: PropTypes.func,
-  getAgentsByAgencyAction: PropTypes.func,
+  getAgentsByAgencyCode: PropTypes.func,
   setAppModalErrorAction: PropTypes.func,
+  clearPolicy: PropTypes.func,
   policy: PropTypes.shape(),
   agents: PropTypes.array,
-  policyDocuments: PropTypes.array
+  policyDocuments: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
   billing: state.service.getSummaryLedger,
   policy: state.service.latestPolicy,
-  agents: state.service.agents,
+  agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
-  error: state.error
+  error: state.error,
 });
-
 export default connect(mapStateToProps, {
   setAppModalErrorAction: setAppModalError,
   clearPolicyResultsAction: clearPolicyResults,
   getPolicyDocumentsAction: getPolicyDocuments,
   getSummaryLedgerAction: getSummaryLedger,
   getLatestPolicyAction: getLatestPolicy,
-  getAgentsByAgencyAction: getAgentsByAgency,
-  clearPolicyAction: clearPolicy,
-})(PolicyWorkflow);
+  clearPolicy,
+  getAgentsByAgencyCode,
+  })(PolicyWorkflow);

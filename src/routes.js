@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import { setUserProfile } from './actions/authActions';
 import { clearAppError } from './actions/errorActions';
-import { getAgency } from './actions/serviceActions';
+import { getAgency } from './actions/agency.actions';
 
 import history from './history';
 import Auth from './Auth';
@@ -58,8 +58,8 @@ class Routes extends Component {
   componentDidMount() {
     const { agency, getAgency } = this.props;
     if (!agency && this.profile && this.profile.agency) {
-      const { agency: { companyCode, state, agencyCode } } = this.profile;
-      getAgency(companyCode, state, agencyCode);
+      const { agency: { agencyCode } } = this.profile;
+      getAgency(agencyCode);
     }
   }
 
@@ -130,7 +130,7 @@ class Routes extends Component {
 
 const mapStateToProps = state => {
   return {
-    agency: state.service.agency,
+    agency: state.agencyState.agency,
     authState: state.authState,
     error: state.error,
   }

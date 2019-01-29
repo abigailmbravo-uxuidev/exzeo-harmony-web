@@ -67,9 +67,9 @@ export const Underwriting = (props) => {
               className="btn btn-primary"
               type="submit"
               form="Underwriting"
-              disabled={isLoading}>
-              next
-            </button>
+              disabled={isLoading}
+              data-test="submit"
+            >next</button>
           </div>
           <Footer />
         </div>

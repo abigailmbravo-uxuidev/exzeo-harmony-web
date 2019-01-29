@@ -17,5 +17,10 @@ export default {
   quoteState: {
     quote: null,
     state: {}
-  }
+  },
+  agencyState: {
+    agencies: [],
+    agency: null,
+    agents: []
+  },
 };

@@ -234,7 +234,7 @@ export class Verify extends React.Component {
                 <div className="detail-group policyholder-details">
                   <h3 className="section-group-header">
                     <i className="fa fa-vcard-o" /> Policyholder Details
-                    <span className="edit-btn" onClick={() => this.showPolicyHolderModal()}>
+                    <span className="edit-btn" onClick={() => this.showPolicyHolderModal()} data-test="edit-policyholder">
                       <i className="fa fa-pencil" /> Edit
                     </span>
                   </h3>
@@ -341,6 +341,7 @@ export class Verify extends React.Component {
                   disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
                   !fieldValues.confirmPolicyHolderDetails ||
                   !fieldValues.confirmAdditionalInterestsDetails || submitting}
+                  data-test="submit"
                 >next</button>
               </div>
               <Footer />
@@ -376,7 +377,7 @@ Verify.defaultProps = {
 const mapStateToProps = state => ({
   showSnackBar: state.appState.showSnackBar,
   fieldValues: _.get(state.form, 'Verify.values', {}),
-  agentList: state.service.agents || [],
+  agentList: state.agencyState.agents || [],
   quote: state.quoteState.quote || {},
   workflowState: state.quoteState.state
 });

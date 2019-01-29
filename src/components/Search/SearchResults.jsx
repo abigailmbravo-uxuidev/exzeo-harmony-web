@@ -80,7 +80,7 @@ export const SearchResults = (props) => {
 
     return (
       <div>
-        <ul className="results result-cards">
+        <ul className="results result-cards" data-test="search-results">
           {addresses
             ? addresses.map((address, index) => (
               <li id={address.id} key={index} tabIndex={'0'} onKeyPress={event => onKeyPress(event, address)}>

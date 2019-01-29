@@ -125,7 +125,9 @@ export const Customize = (props) => {
               className="btn btn-primary"
               type="submit"
               form="Customize"
-              disabled={submitting}>
+              disabled={submitting}
+              data-test="submit"
+            >
               {props.isRecalc ? 'recalculate' : 'next'}
             </button>
           </div>

@@ -33,6 +33,10 @@ export const resetSearch = (props) => {
 
 export const changePagePolicy = (props, isNext) => {
   const { fieldValues } = props;
+  const { groups } = props.userProfile;
+  const userGroup = groups[0];
+  const { state, companyCode } = userGroup;
+  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
     firstName: (encodeURIComponent(fieldValues.firstName) !== 'undefined' ? encodeURIComponent(fieldValues.firstName) : ''),
@@ -42,17 +46,17 @@ export const changePagePolicy = (props, isNext) => {
     searchType: 'policy',
     isLoading: true,
     hasSearched: true,
-    sortBy: fieldValues.sortBy
+    page: isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1,
+    pageSize: 25,
+    sort: fieldValues.sortBy,
+    direction,
+    companyCode,
+    state
   };
-
-
-  taskData.pageNumber = isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1;
-
   props.actions.searchActions.setPolicySearch(taskData);
 
-  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
-
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy, direction).then(() => {
+  // TODO pass in object
+  props.actions.serviceActions.searchPolicy(taskData).then(() => {
     taskData.isLoading = false;
     taskData.address = decodeURIComponent(taskData.address);
     props.actions.searchActions.setPolicySearch(taskData);
@@ -60,6 +64,11 @@ export const changePagePolicy = (props, isNext) => {
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
+  const { groups } = props.userProfile;
+  const userGroup = groups[0];
+  const { state, companyCode } = userGroup;
+  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
+
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
@@ -69,14 +78,16 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     isLoading: true,
     hasSearched: true,
     page: 1,
-    sortBy: data.sortBy
+    pageSize: 25,
+    sort: data.sortBy,
+    direction,
+    companyCode,
+    state
   };
 
   props.actions.searchActions.setPolicySearch(taskData);
 
-  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
-
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy, direction).then(() => {
+  props.actions.serviceActions.searchPolicy(taskData).then(() => {
     taskData.isLoading = false;
     taskData.address = decodeURIComponent(taskData.address);
     props.actions.searchActions.setPolicySearch(taskData);
@@ -190,7 +201,8 @@ const mapStateToProps = state => ({
   formErrors: getFormSyncErrors('PolicySearchBar')(state),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
-  search: state.search
+  search: state.search,
+  userProfile: state.authState.userProfile
 });
 
 const mapDispatchToProps = dispatch => ({

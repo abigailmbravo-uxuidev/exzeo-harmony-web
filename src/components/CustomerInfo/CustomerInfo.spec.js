@@ -48,7 +48,8 @@ describe('Testing CustomerInfo component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      service: {
+      service: {},
+      agencyState: {
         agents: []
       },
       quoteState: {},

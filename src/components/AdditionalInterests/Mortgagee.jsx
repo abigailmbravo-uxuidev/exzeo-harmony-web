@@ -324,7 +324,9 @@ export class Mortgagee extends React.Component {
                 className="btn btn-primary"
                 type="submit"
                 form="Mortgagee"
-                disabled={submitting}>
+                disabled={submitting}
+                data-test="submit"
+              >
                 Save
               </button>
             </div>
@@ -341,11 +343,11 @@ const mapStateToProps = state => ({
   fieldValues: _.get(state.form, 'Mortgagee.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state),
 });
 
 export default connect(mapStateToProps)(reduxForm({
   form: 'Mortgagee',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission
+  onSubmitFail: failedSubmission,
 })(Mortgagee));

@@ -33,13 +33,13 @@ export const TextInput = ({
     <span>{error || warning}</span>
   );
 
-  const Label = label && (<label htmlFor={name}>
+  const Label = label && (<label htmlFor={name} data-test={`${name}-label`}>
     {label}
     {Hint}
   </label>);
 
   return (
-    <div className={formGroupStyles} id={name}>
+    <div className={formGroupStyles} id={name} data-test={name}>
       {Label}
       <input
         readOnly={readOnly}
@@ -47,6 +47,7 @@ export const TextInput = ({
         tabIndex={'0'}
         {...input}
         type={type}
+        data-test={`${name}-input`}
       />
       {Error}
     </div>

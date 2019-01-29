@@ -355,6 +355,7 @@ describe('Testing Verify component', () => {
 
   it('should test connected app', () => {
     const initialState = {
+      agencyState: {},
       service: {},
       quoteState: { quote: quoteData },
       appState: {
