@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+
 
 const FancyExternalLink = ({ productIcon, url, title, description, linkIcon }) => (
   <li>

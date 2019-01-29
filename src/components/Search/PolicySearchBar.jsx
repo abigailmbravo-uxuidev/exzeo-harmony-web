@@ -139,7 +139,7 @@ export class PolicySearchBar extends Component {
   render() {
     const { handleSubmit, formErrors, fieldValues } = this.props;
     return (
-      <Form id="PolicySearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)} noValidate>
+      <Form id="PolicySearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)}>
         <div className="search-input-wrapper search-policy-wrapper">
 
           <SelectField
@@ -186,18 +186,16 @@ export class PolicySearchBar extends Component {
 PolicySearchBar.propTypes = {
   ...propTypes,
   handleSubmit: PropTypes.func,
-  tasks: PropTypes.shape({}),
   appState: PropTypes.shape({
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
     data: PropTypes.shape({
-      submitting: PropTypes.boolean
+      submitting: PropTypes.bool
     })
   })
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'PolicySearchBar.values', { address: '', sortBy: 'policyNumber' }),
   formErrors: getFormSyncErrors('PolicySearchBar')(state),

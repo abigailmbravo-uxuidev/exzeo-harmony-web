@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import Loader from '../Common/Loader';
+import { Loader } from '@exzeo/core-ui';
 
 import * as appStateActions from '../../actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
@@ -28,7 +28,9 @@ export const SearchResults = (props) => {
   if (props.search && props.search.searchType === 'policy') {
     return (
       <div className="quote-list">
-        {props.search && props.search.isLoading && <Loader />}
+        {props.search && props.search.isLoading &&
+          <Loader />
+        }
         {
           policyResults && policyResults.policies && policyResults.policies.length > 0 && policyResults.policies.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
             <div className="icon-name">
@@ -67,14 +69,8 @@ export const SearchResults = (props) => {
       </div>
     );
   }
-  if (props.searchType === 'address'
-  //   props.tasks[props.appState.modelName] &&
-  //   props.tasks[props.appState.modelName].data &&
-  //   props.tasks[props.appState.modelName].data.previousTask &&
-  //   props.tasks[props.appState.modelName].data.previousTask.name === 'searchAddress' &&
-  //   props.tasks[props.appState.modelName].data.activeTask.name !== 'askToSearchAgain'
-  ) {
-    const addresses = props.results;// props.tasks[props.appState.modelName].data.previousTask.value.result.IndexResult;
+  if (props.searchType === 'address') {
+    const addresses = props.results;
 
     const onKeyPress = (event, address) => {
       if (event.charCode === 13) {
@@ -110,10 +106,7 @@ export const SearchResults = (props) => {
     );
   }
   if (props.searchType === 'quote') {
-    // props.tasks[props.appState.modelName] &&
-    // props.tasks[props.appState.modelName].data.activeTask &&
-    // props.tasks[props.appState.modelName].data.activeTask.name === 'chooseQuote'
-    const quotes = props.results; // props.tasks[props.appState.modelName].data.previousTask.value.result;
+    const quotes = props.results;
     return (
       <div className="quote-list">
         {

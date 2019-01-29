@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import { CheckField } from '../Form/inputs';
 
@@ -50,8 +49,6 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote
 });
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'Assumptions'
 })(Assumptions));

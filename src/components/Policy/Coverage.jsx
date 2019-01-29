@@ -5,7 +5,7 @@ import PolicyTabs from '../Common/PolicyTabs';
 
 const { numbers } = normalize;
 
-export const Coverage = ({ policy, policyNumber }) => {
+export const Coverage = ({ policy }) => {
   const { property, underwritingAnswers, rating, coverageLimits, coverageOptions, deductibles } = policy;
   const { monthsOccupied, rented, noPriorInsuranceSurcharge } = underwritingAnswers;
   const monthsOcc = monthsOccupied ? monthsOccupied.answer : null;
@@ -14,9 +14,7 @@ export const Coverage = ({ policy, policyNumber }) => {
   const windMitFactor = rating && rating.worksheet ? rating.worksheet.elements.windMitigationFactors.windMitigationDiscount : '0';
 
   return (
-    <React.Fragment>
-      <PolicyTabs activeTab="coverage" policyNumber={policyNumber} />
-      <div className="route-content coverage">
+    <div className="route-content coverage">
         <div className="detail-group property-details">
           <section className="display-element coverage-limits">
             <h3 className="section-group-header"><i className="fa fa-line-chart" /> Coverage Limits</h3>
@@ -183,16 +181,11 @@ export const Coverage = ({ policy, policyNumber }) => {
           </section>
         </div>
       </div>
-    </React.Fragment>);
-};
-
-Coverage.contextTypes = {
-  router: PropTypes.object
+  );
 };
 
 Coverage.propTypes = {
   policy: PropTypes.shape(),
-  policyNumber: PropTypes.string
 };
 
 export default Coverage;

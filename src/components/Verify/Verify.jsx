@@ -4,24 +4,19 @@ import { reduxForm } from 'redux-form';
 import _ from 'lodash';
 import moment from 'moment';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import ScheduleDate from '../Common/ScheduleDate';
 import Footer from '../Common/Footer';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 import { CheckField } from '../Form/inputs';
 import normalizePhone from '../Form/normalizePhone';
-import { goToStep } from '../../utilities/navigation';
 
 const NO_AGENT_FOUND = { firstName: '', lastName: '' };
 
 export class Verify extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showPolicyHolderModal: false,
-      showScheduleDateModal: false
-    };
-  }
+  state = {
+    showPolicyHolderModal: false,
+    showScheduleDateModal: false,
+  };
 
   scheduleDateModal = (showModal) => {
     this.setState({ showScheduleDateModal: !!showModal });
@@ -72,6 +67,7 @@ export class Verify extends React.Component {
       handleSubmit,
       submitting,
       agentList,
+      goToStep,
       quote: quoteData,
     } = this.props;
 
@@ -85,9 +81,7 @@ export class Verify extends React.Component {
       deductibles
     } = quoteData;
 
-    const selectedAgent = agentList.find(agent =>
-      agent.agentCode === quoteData.agentCode
-    ) || NO_AGENT_FOUND;
+    const selectedAgent = agentList.find(agent => agent.agentCode === quoteData.agentCode) || NO_AGENT_FOUND;
 
 
     return (
@@ -99,7 +93,7 @@ export class Verify extends React.Component {
                 <div className="detail-group property-details">
                   <h3 className="section-group-header">
                     <i className="fa fa-map-marker" /> Property Details
-                    <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(this.props, 'askAdditionalCustomerData')}>
+                    <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep('askAdditionalCustomerData')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
                   </h3>
@@ -125,12 +119,6 @@ export class Verify extends React.Component {
                         <dd>{property.yearBuilt}</dd>
                       </div>
                     </dl>
-                    {/* <dl className="property-information">
-                        <div>
-                          <dt>Flood Zone</dt>
-                          <dd>{property.floodZone}</dd>
-                        </div>
-                      </dl>*/}
                     <dl className="effective-date">
                       <div>
                         <dt>Effective Date</dt>
@@ -149,7 +137,7 @@ export class Verify extends React.Component {
                 <div className="detail-group quote-details">
                   <h3 className="section-group-header">
                     <i className="fa fa-list" /> Quote Details
-                    <span className="edit-btn" onClick={() => goToStep(this.props, 'askToCustomizeDefaultQuote')}>
+                    <span className="edit-btn" onClick={() => goToStep('askToCustomizeDefaultQuote')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
                   </h3>
@@ -281,7 +269,7 @@ export class Verify extends React.Component {
                 <div className="detail-group mailing-address-details">
                   <h3 className="section-group-header">
                     <i className="fa fa-envelope" /> Mailing Address
-                    <span className="edit-btn" onClick={() => goToStep(this.props, 'askAdditionalQuestions')}>
+                    <span className="edit-btn" onClick={() => goToStep('askAdditionalQuestions')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
                   </h3>
@@ -311,7 +299,7 @@ export class Verify extends React.Component {
                 <div className="detail-group additional-interests-details">
                   <h3 className="section-group-header">
                     <i className="fa fa-user-plus" /> Additional Parties
-                    <span className="edit-btn" onClick={() => goToStep(this.props, 'addAdditionalAIs')}>
+                    <span className="edit-btn" onClick={() => goToStep('addAdditionalAIs')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
                   </h3>
@@ -387,16 +375,14 @@ Verify.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  isLoading: state.appState.isLoading,
   showSnackBar: state.appState.showSnackBar,
-  appState: state.appState,
   fieldValues: _.get(state.form, 'Verify.values', {}),
   agentList: state.agencyState.agents || [],
   quote: state.quoteState.quote || {},
   workflowState: state.quoteState.state
 });
 
-export default connect(mapStateToProps, { updateQuote })(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'Verify',
   enableReinitialize: true
 })(Verify));

@@ -70,11 +70,13 @@ export const searchPolicy = searchParams => (dispatch) => {
 };
 
 export const clearPolicyResults = () => (dispatch) => {
-  const data = { policyResults: {
-    totalNumberOfRecords: 1,
-    pageSize: 1,
-    currentPage: 1
-  } };
+  const data = {
+    policyResults: {
+      totalNumberOfRecords: 1,
+      pageSize: 1,
+      currentPage: 1
+    }
+  };
   return dispatch(batchActions([
     serviceRequest(data)
   ]));
@@ -100,6 +102,18 @@ export const getLatestPolicy = policyNumber => (dispatch) => {
         errorActions.setAppError({ message })
       ]));
     });
+};
+
+// Temporary to fix bug. serviceActions will all be removed in future.
+export const clearPolicy = () => {
+  return {
+    type: types.SERVICE_REQUEST,
+    data: {
+      latestPolicy: {},
+      getSummaryLedger: {},
+      policyDocuments: [],
+    }
+  }
 };
 
 export const getSummaryLedger = policyNumber => async (dispatch) => {

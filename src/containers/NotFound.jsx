@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import Header from '../components/Common/Header';
 
 const NotFound = function NotFound() {
   return (
     <div className="app-wrapper">
-      <Header />
+      <Header toggleSideNav={x => x} />
       <main role="document">
         <div className="route-content">
           <div className="error-content" role="article">
