@@ -47,7 +47,7 @@ describe('Property Address Search Testing', () => {
 
     type(`{selectall}{backspace}${address}π`);
     isButtonDisabled();
-    cy.findDataTag('address_label').find('span > i')
+    cy.findDataTag('address-label').find('span > i')
       .should('exist')
       .and('be.visible')
       .trigger('mouseenter');

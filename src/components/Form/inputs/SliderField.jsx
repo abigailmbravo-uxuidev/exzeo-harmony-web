@@ -43,12 +43,12 @@ export const SliderInput = ({
 
   return (
     <div className={formGroupStyles} data-test={name}>
-      <label htmlFor={name} data-test={`${name}_label`}>
+      <label htmlFor={name} data-test={`${name}-label`}>
         {label}
         {Hint}
       </label>
       <div className="range-wrapper">
-        <div className="range-control-wrapper" data-test={`${name}_slider_wrapper`}>
+        <div className="range-control-wrapper" data-test={`${name}-slider-wrapper`}>
           <span className="range-limit">{leftLabel || min || '0'}</span>
           <input
             autoFocus={autoFocus}
@@ -60,7 +60,7 @@ export const SliderInput = ({
             step={step}
             value={calculatedValue}
             onChange={input.onChange}
-            data-test={`${name}_slider`}
+            data-test={`${name}-slider`}
           />
           <span className="range-limit">{rightLabel || max}</span>
         </div>
@@ -71,7 +71,7 @@ export const SliderInput = ({
             value={`$ ${calculatedValue >= 100000 ? calculatedValue.toLocaleString() : Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
-            data-test={`${name}_input`}
+            data-test={`${name}-input`}
           />
         </span>
       </div>

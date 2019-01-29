@@ -13,7 +13,7 @@ export const getErrorToolTip = (formErrors, fieldName) => {
 
 export const generateField = (name, placeholder, labelText, formErrors, formGroupCss, autoFocus) => {
   const field = (<div className={(formErrors && formErrors[name]) ? `form-group error ${formGroupCss}` : `form-group ${formGroupCss}`}>
-    <label htmlFor={name} data-test={`${name}_label`}>{getErrorToolTip(formErrors, name)} {labelText}
+    <label htmlFor={name} data-test={`${name}-label`}>{getErrorToolTip(formErrors, name)} {labelText}
     </label>
     <Field
       autoFocus={autoFocus}

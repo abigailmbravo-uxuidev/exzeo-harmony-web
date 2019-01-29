@@ -27,7 +27,7 @@ export const SelectInputAgents = ({
 
   return (
     <div className={formGroupStyles} data-test={name}>
-      <label htmlFor={name} data-test={`${name}_label`}>
+      <label htmlFor={name} data-test={`${name}-label`}>
         {label}
         {Hint}
       </label>
@@ -40,7 +40,7 @@ export const SelectInputAgents = ({
           disabled={disabled}
           onChange={onChange}
           aria-activedescendant={value}
-          data-test={`${name}_select`}
+          data-test={`${name}-select`}
         >
           <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
           {agents.map((agent, index) => (

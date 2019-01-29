@@ -2,6 +2,7 @@ import { goBack } from './utils';
 
 describe('Premium Finance Testing', () => {
   const fields = ['name1', 'mailingAddress1', 'city', 'state', 'zip'];
+  const toggleModalOn = () => cy.findDataTag('bill-payer-add').click();
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');
@@ -13,7 +14,7 @@ describe('Premium Finance Testing', () => {
 
   it('All Premium Finance Inputs Empty Value', () => {
     goBack().then(() => {
-      cy.findDataTag('bill-payer_add').click();
+      toggleModalOn();
       cy.clearAllText(fields);
 
       cy.submitAndCheckValidation(fields);
@@ -23,7 +24,7 @@ describe('Premium Finance Testing', () => {
   it('Premium Finance Empty Value', function () {
     const { user } = this;
     goBack().then(() => {
-      cy.findDataTag('bill-payer_add').click();
+      toggleModalOn();
       cy.clearAllText(fields);
 
       fields.forEach(leaveBlank => cy.verifyForm(fields, [leaveBlank], user));
@@ -32,7 +33,7 @@ describe('Premium Finance Testing', () => {
 
   it('Premium Finance Invalid Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('bill-payer_add').click();
+      toggleModalOn();
       cy.clearAllText(fields);
 
       cy.verifyForm(['state'], undefined, { state: 'foo' }, { errors: ['Only 2 letters allowed'] });

@@ -69,10 +69,13 @@ cypress/
 
 **Project Opinions**
 
+To navigate to a page inside fo the app, use the `cy.quoteWorkflow()` fn detailed
+in `support/quoteWorkflow`.
+
 Whenever possible, use a reusable function listed in `support/inputs` or 
 `support/utils`. This should cover the majority of test cases. **Favor `findDataTag()` over 
 `get()`**. If you have to `get()` frequently, consider adding data-test tags into the 
-harmony-web code itself.
+harmony-web code itself. **When adding data-test tags, use dashes.**
 
 When creating a test, place any reusable functions at the top, inside the describe.
 For example, if you are always typing on the same inputs, this is a good place

@@ -115,11 +115,11 @@ export class AddAdditionalInterest extends React.Component {
           <div className="form-group detail-wrapper">
             <p>Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)</p>
             <div className="button-group">
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddMortgagee()} data-test="mortgagee_add"><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddAdditionalInsured()} data-test="ains_add"><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddInterest()} data-test="ai_add"><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddPremiumFinance()} data-test="premium-finance_add"><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
-              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddBillpayer()} data-test="bill-payer_add"><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.AddMortgagee()} data-test="mortgagee-add"><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.AddAdditionalInsured()} data-test="ains-add"><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.AddInterest()} data-test="ai-add"><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
+              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddPremiumFinance()} data-test="premium-finance-add"><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
+              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddBillpayer()} data-test="bill-payer-add"><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
             </div>
             {/* list of additional interests*/}
             <div className="results-wrapper">
@@ -156,10 +156,10 @@ export class AddAdditionalInterest extends React.Component {
           </div>
           <div className="workflow-steps">
             {this.props.quote.additionalInterests && this.props.quote.additionalInterests.length === 0 &&
-            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading}>Not Applicable</button>
+            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading} data-test="submit">Not Applicable</button>
             }
             {this.props.quote.additionalInterests && this.props.quote.additionalInterests.length > 0 &&
-            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading}>next</button>
+            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading} data-test="submit">next</button>
             }
           </div>
           <Footer />

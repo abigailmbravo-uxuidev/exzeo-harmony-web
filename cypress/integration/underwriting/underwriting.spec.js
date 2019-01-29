@@ -4,7 +4,7 @@ describe('Underwriting Testing', () => {
   const toggleExcept = (except = [], values) => {
     Object.entries(values).forEach(([key, value]) => {
       if (!except.includes(key)) { 
-        cy.findDataTag(`${key}_input`).find(`input[value="${value}"] + span`).click();
+        cy.findDataTag(`${key}-input`).find(`input[value="${value}"] + span`).click();
       };
     });
   };

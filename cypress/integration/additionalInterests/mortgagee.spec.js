@@ -4,6 +4,8 @@ describe('Mortgagee Testing', () => {
   const m1fields = ['m1Name1', 'm1MailingAddress1', 'm1City', 'm1State', 'm1Zip'];
   const m2fields = ['m2Name1', 'm2MailingAddress1', 'm2City', 'm2State', 'm2Zip'];
   const m3fields = ['m3Name1', 'm3MailingAddress1', 'm3City', 'm3State', 'm3Zip'];
+  const toggleModalOn = () => cy.findDataTag('mortgagee-add').click();
+  const addUser = val => cy.findDataTag(`isAdditional${val}-switch`).click();
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');
@@ -17,7 +19,7 @@ describe('Mortgagee Testing', () => {
 
   it('All Mortgagee 1 Empty Value', () => {
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
+      toggleModalOn();
       cy.clearAllText(m1fields);
 
       cy.submitAndCheckValidation(m1fields);
@@ -27,7 +29,7 @@ describe('Mortgagee Testing', () => {
   it('Mortgagee 1 Empty Value', function() {
     const { m1data } = this;
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
+      toggleModalOn();
       cy.clearAllText(m1fields);
 
       m1fields.forEach(leaveBlank => cy.verifyForm(m1fields, [leaveBlank], m1data));
@@ -36,7 +38,7 @@ describe('Mortgagee Testing', () => {
 
   it('Mortgagee 1 Invalid Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
+      toggleModalOn();
       cy.clearAllText(m1fields);
 
       cy.verifyForm(['m1State'], undefined, { m1State: 'foo' }, { errors: ['Only 2 letters allowed'] });
@@ -47,8 +49,8 @@ describe('Mortgagee Testing', () => {
 
   it('All Mortgagee 2 Empty Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
+      toggleModalOn();
+      addUser(2);
       cy.clearAllText(m2fields);
 
       cy.submitAndCheckValidation(m2fields);
@@ -58,8 +60,8 @@ describe('Mortgagee Testing', () => {
   it('Mortgagee 2 Empty Value', function() {
     const { m2data } = this;
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
+      toggleModalOn();
+      addUser(2);
       cy.clearAllText(m2fields);
 
       m2fields.forEach(leaveBlank => cy.verifyForm(m2fields, [leaveBlank], m2data));
@@ -68,8 +70,8 @@ describe('Mortgagee Testing', () => {
 
   it('Mortgagee 2 Invalid Input', () => {
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
+      toggleModalOn();
+      addUser(2);
       cy.clearAllText(m2fields);
 
       cy.verifyForm(['m2State'], undefined, { m2State: 'foo' }, { errors: ['Only 2 letters allowed'] });
@@ -80,9 +82,9 @@ describe('Mortgagee Testing', () => {
 
   it('All Mortgagee 3 Empty Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
-      cy.findDataTag('isAdditional3_switch').click();
+      toggleModalOn();
+      addUser(2);
+      addUser(3);
       cy.clearAllText(m3fields);
 
       cy.submitAndCheckValidation(m3fields);
@@ -92,9 +94,9 @@ describe('Mortgagee Testing', () => {
   it('Mortgagee 3 Empty Value', function() {
     const { m3data } = this;
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
-      cy.findDataTag('isAdditional3_switch').click();
+      toggleModalOn();
+      addUser(2);
+      addUser(3);
       cy.clearAllText(m3fields);
       
       m3fields.forEach(leaveBlank => cy.verifyForm(m3fields, [leaveBlank], m3data));
@@ -103,9 +105,9 @@ describe('Mortgagee Testing', () => {
 
   it('Mortgagee 3 Invalid Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('mortgagee_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
-      cy.findDataTag('isAdditional3_switch').click();
+      toggleModalOn();
+      addUser(2);
+      addUser(3);
       cy.clearAllText(m3fields);
 
       cy.verifyForm(['m3State'], undefined, { m3State: 'foo' }, { errors: ['Only 2 letters allowed'] });

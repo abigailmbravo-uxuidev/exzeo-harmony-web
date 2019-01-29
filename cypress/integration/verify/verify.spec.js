@@ -3,9 +3,10 @@ describe('Verify testing', () => {
   const pH2Fields = ['pH2FirstName', 'pH2LastName', 'pH2phone', 'pH2email'];
   const switchTags = ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'];
   const errors = Array(4).fill('Field Required');
+  const toggleModalOn = () => cy.findDataTag('edit-policyholder').click();
+  const addAdditional = () => cy.findDataTag('isAdditional-switch').click();
 
-  const closeModal = () =>
-    cy.get('[data-test="cancel"]:not([disabled])').click({ force: true });
+  const closeModal = () => { cy.get('[data-test="cancel"]:not([disabled])').click({ force: true }) };
 
   before(() => {
     cy.quoteWorkflow('verify');
@@ -18,7 +19,7 @@ describe('Verify testing', () => {
 
   it('Primary Policyholder Empty Value', function() {
     const { pH1 } = this;
-    cy.findDataTag('edit_policyholder').click();
+    toggleModalOn();
     cy.clearAllText(pH1Fields);
 
     cy.submitAndCheckValidation(pH1Fields, {errors, form: '#UpdatePolicyholder' });
@@ -29,8 +30,8 @@ describe('Verify testing', () => {
   it('Secondary Policyholder Empty Value', function() {
     const { pH2 } = this;
     closeModal();
-    cy.findDataTag('edit_policyholder').click();
-    cy.findDataTag('isAdditional_switch').click();
+    toggleModalOn();
+    addAdditional();
     cy.clearAllText(pH2Fields);
     
     cy.submitAndCheckValidation(pH2Fields, { errors, form: '#UpdatePolicyholder' });
@@ -42,7 +43,7 @@ describe('Verify testing', () => {
 
   // AWAITING BUGFIX HAR-5702
   // it('Primary Policyholder Invalid Character', () => {
-  //   cy.findDataTag('edit_policyholder').click();
+  //   toggleModalOn();
 
   //   pH1Fields.forEach(fieldToCheck => {
   //     clearAllText([fieldToCheck]);
@@ -59,8 +60,8 @@ describe('Verify testing', () => {
   // });
 
   // it('Secondary Policyholder Invalid Character', () => {
-  //   cy.findDataTag('edit_policyholder').click();
-  //   cy.findDataTag('isAdditional_switch').click();
+  //   toggleModalOn();
+  //   addAdditional();
 
   //   pH2Fields.forEach(fieldToCheck => {
   //     clearAllText([fieldToCheck]);
@@ -78,8 +79,8 @@ describe('Verify testing', () => {
   // END BUGFIX AWAIT
 
   it('Invalid Email Address', () => {
-    cy.findDataTag('edit_policyholder').click();
-    cy.findDataTag('isAdditional_switch').click();
+    toggleModalOn();
+    addAdditional();
     
     cy.verifyForm(['pH1email'], undefined, { pH1email: 'batman' }, { form: '#UpdatePolicyholder' });
 
@@ -89,8 +90,8 @@ describe('Verify testing', () => {
   });
 
   it('Invalid Contact Phone', () => {
-    cy.findDataTag('edit_policyholder').click();
-    cy.findDataTag('isAdditional_switch').click();
+    toggleModalOn();
+    addAdditional();
 
     cy.verifyForm(['pH1phone'], undefined, { pH1phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' });
 
@@ -109,9 +110,9 @@ describe('Verify testing', () => {
   it('Some "Verified Values left at Default "No"', () => {
     for (let i = 0; i < switchTags.length - 1; i++) {
       const tagsToToggle = switchTags.slice(0, i + 1);
-      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}_switch`).click());
+      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}-switch`).click());
       cy.findDataTag('submit').should('be.disabled');
-      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}_switch`).click());
+      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}-switch`).click());
     }
   });
 });

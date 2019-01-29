@@ -3,6 +3,8 @@ import { goBack } from './utils';
 describe('Additional Interest Testing', () => {
   const ai1fields = ['ai1Name1', 'ai1MailingAddress1', 'ai1City', 'ai1State', 'ai1Zip'];
   const ai2fields = ['ai2Name1', 'ai2MailingAddress1', 'ai2City', 'ai2State', 'ai2Zip'];
+  const toggleModalOn = () => cy.findDataTag('ai-add').click();
+  const addAdditional = () => cy.findDataTag('isAdditional2-switch').click();
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');
@@ -15,7 +17,7 @@ describe('Additional Interest Testing', () => {
 
   it('All Additional Interest 1 Inputs Empty Value', () => {
     goBack().then(() => {
-      cy.findDataTag('ai_add').click();
+      toggleModalOn();
       cy.clearAllText(ai1fields);
 
       cy.submitAndCheckValidation(ai1fields);
@@ -25,7 +27,7 @@ describe('Additional Interest Testing', () => {
   it('Additional Interest 1 Empty Value', function() {
     const { ai1 } = this;
     goBack().then(() => {
-      cy.findDataTag('ai_add').click();
+      toggleModalOn();
       cy.clearAllText(ai1fields);
 
       ai1fields.forEach(leaveBlank => cy.verifyForm(ai1fields, [leaveBlank], ai1));
@@ -34,7 +36,7 @@ describe('Additional Interest Testing', () => {
 
   it('Additional Interest 1 Invalid Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('ai_add').click();
+      toggleModalOn();
       cy.clearAllText(ai1fields);
 
       cy.verifyForm(['ai1State'], undefined, { ai1State: 'foo' }, { errors: ['Only 2 letters allowed'] });
@@ -45,8 +47,8 @@ describe('Additional Interest Testing', () => {
 
   it('All Additional Interest 2 Inputs Empty Value', () => {
     goBack().then(() => {
-      cy.findDataTag('ai_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
+      toggleModalOn();
+      addAdditional();
       cy.clearAllText(ai2fields);
 
       cy.submitAndCheckValidation(ai2fields);
@@ -56,8 +58,8 @@ describe('Additional Interest Testing', () => {
   it('Additional Interest 2 Empty Value', function() {
     const { ai2 } = this;
     goBack().then(() => {
-      cy.findDataTag('ai_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
+      toggleModalOn();
+      addAdditional();
       cy.clearAllText(ai2fields);
 
       ai2fields.forEach(leaveBlank => cy.verifyForm(ai2fields, [leaveBlank], ai2));
@@ -66,8 +68,8 @@ describe('Additional Interest Testing', () => {
 
   it('Additional Interest 2 Invalid Input Value', () => {
     goBack().then(() => {
-      cy.findDataTag('ai_add').click();
-      cy.findDataTag('isAdditional2_switch').click();
+      toggleModalOn();
+      addAdditional();
       cy.clearAllText(ai2fields);
 
       cy.verifyForm(['ai2State'], undefined, { ai2State: 'foo' }, { errors: ['Only 2 letters allowed'] });

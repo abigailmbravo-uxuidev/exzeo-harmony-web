@@ -20,7 +20,7 @@ describe('Share Testing', () => {
 
   it('"Confirmed" Value left at Default "No"', () => {
     cy._submit();
-    cy.findDataTag('confirmAssumptions_input').should('have.value', '');
+    cy.findDataTag('confirmAssumptions-input').should('have.value', '');
     cy.findDataTag('submit').should('be.disabled');
     cy.findDataTag('tab-nav-sendEmailOrContinue').click();
   });

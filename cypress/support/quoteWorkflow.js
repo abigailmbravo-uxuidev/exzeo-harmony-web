@@ -24,47 +24,47 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting })
 
       if (page !== 'customerInfo') {
         Object.entries(customerInfo).forEach(([field, value]) => {
-          cy.findDataTag(`${field}_input`).type(value);
+          cy.findDataTag(`${field}-input`).type(value);
         });
-        cy.findDataTag('agentCode_select').select(agentCode);
-        cy._submit();
+        cy.findDataTag('agentCode-select').select(agentCode);
+        cy._submit('#CustomerInfo');
         cy.wait('@complete');
 
         if (page !== 'underwriting') {
           Object.entries(underwriting).forEach(([name, value]) => {
             cy.get(`input[name="${name}"][value="${value}"] + span`).click();
           });
-          cy._submit();
+          cy._submit('#Underwriting');
           cy.wait('@complete');
 
           if (page !== 'customize') {
-            cy.get('button[form="Customize"]').click();
+            cy._submit('#Customize');
             cy.wait('@complete');
 
             if (page !== 'share') {
-              cy.get('#SharePage').submit();
+              cy._submit('#SharePage');
               cy.wait('@complete');
 
               if (page !== 'assumptions') {
-                cy.get('input[name="confirmAssumptions"] + .switch-div').click();
-                cy.get('button[form="Assumptions"]').click();
+                cy.findDataTag('confirmAssumptions-switch').click();
+                cy._submit('#Assumptions');
                 cy.wait('@complete');
 
                 if (page !== 'additionalInterests') {
-                  cy.get('form#AddAdditionalInterestPage button[type="submit"]').click();
+                  cy._submit('#AddAdditionalInterestPage');
                   cy.wait('@complete');
 
                   if (page !== 'mailingBilling') {
-                    cy.get('input[name="sameAsProperty"] + .switch-div').click();
-                    cy.get('button[form="Billing"]').click();
+                    cy.findDataTag('sameAsProperty-switch').click();
+                    cy._submit('#Billing');
                     cy.wait('@complete');
 
                     if (page !== 'verify') {
-                      cy.get('input[name="confirmProperyDetails"] + .switch-div').click();
-                      cy.get('input[name="confirmQuoteDetails"] + .switch-div').click();
-                      cy.get('input[name="confirmPolicyHolderDetails"] + .switch-div').click();
-                      cy.get('input[name="confirmAdditionalInterestsDetails"] + .switch-div').click();
-                      cy.get('button[form="Verify"]').click();
+                      cy.findDataTag('confirmProperyDetails-switch').click();
+                      cy.findDataTag('confirmQuoteDetails-switch').click();
+                      cy.findDataTag('confirmPolicyHolderDetails-switch').click();
+                      cy.findDataTag('confirmAdditionalInterestsDetails-switch').click();
+                      cy._submit('#Verify')
                       cy.get('.card-footer > button[type="submit"]').click();
                       cy.wait('@complete');
 

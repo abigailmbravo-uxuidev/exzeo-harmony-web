@@ -79,10 +79,10 @@ describe('Policyholder Testing', () => {
   });
   
   it('Invalid Effective Date', () => {
-    cy.findDataTag('effectiveDate_input').clear();
+    cy.findDataTag('effectiveDate-input').clear();
     cy.submitAndCheckValidation(['effectiveDate'], { errors: ['Not a valid date'] });
 
-    cy.findDataTag('effectiveDate_input').type('1900-01-01');
+    cy.findDataTag('effectiveDate-input').type('1900-01-01');
     cy.submitAndCheckValidation(['effectiveDate'], { errors: ['Date must be at least 08/01/2017'] });
   });
 });
