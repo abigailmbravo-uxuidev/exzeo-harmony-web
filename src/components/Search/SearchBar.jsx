@@ -157,6 +157,7 @@ export class SearchForm extends Component {
               type="submit"
               form="SearchBar"
               disabled={this.props.appState.isLoading || formErrors}
+              data-test="submit"
             >
               <i className="fa fa-search" /><span>Search</span>
             </button>

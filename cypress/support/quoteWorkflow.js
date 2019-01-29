@@ -1,85 +1,78 @@
-// Custom command to use the happypath to navigate through the app to a specific page
+// Custom command to use the happypath to navigate through the app to a specific page to stop on
 // If your test stops at any specific page it will assert the URL is correct for that page
 // Defaults to the entire happy path, returning you to landing
-// Pages are: ['landing', 'searchAddress', 'customerInfo', 'underwriting', 'customize', 'share'
+// Stop Pages are: ['landing', 'searchAddress', 'customerInfo', 'underwriting', 'customize', 'share'
 // 'assumptions', 'additionalInterests', 'mailingBilling', 'verify', 'thankYou']
 
 import user from '../fixtures/user.json';
 import underwriting from '../fixtures/underwriting.json';
+import { _login, _landing, _searchAddress, _customerInfo, _underwriting, _customize, _share, _assumptions, _additionalInterests, _mailingBilling, _verify, _scheduleDate, _thankYou } from './navigation';
 
-Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting }) => {
+Cypress.Commands.add('quoteWorkflow', (stop, start = 'login', data = { user, underwriting }) => {
   const { address, customerInfo, agentCode } = user;
-  cy.server();
-  cy.route('POST', '/cg/complete').as('complete');
-  cy.login();
+  let prev;
 
-  if (page !== 'landing') {
-    cy.get('.btn[href="/search/address"]').click();
-
-    if (page !== 'searchAddress') {
-      cy.get('input[name=address]').type(address);
-      cy.get('.btn-success[form=SearchBar]').click();
-      cy.get('.results > li[tabindex=0]').click();
-      cy.wait('@complete');
-
-      if (page !== 'customerInfo') {
-        Object.entries(customerInfo).forEach(([field, value]) => {
-          cy.findDataTag(`${field}-input`).type(value);
-        });
-        cy.findDataTag('agentCode-select').select(agentCode);
-        cy._submit('#CustomerInfo');
-        cy.wait('@complete');
-
-        if (page !== 'underwriting') {
-          Object.entries(underwriting).forEach(([name, value]) => {
-            cy.get(`input[name="${name}"][value="${value}"] + span`).click();
-          });
-          cy._submit('#Underwriting');
-          cy.wait('@complete');
-
-          if (page !== 'customize') {
-            cy._submit('#Customize');
-            cy.wait('@complete');
-
-            if (page !== 'share') {
-              cy._submit('#SharePage');
-              cy.wait('@complete');
-
-              if (page !== 'assumptions') {
-                cy.findDataTag('confirmAssumptions-switch').click();
-                cy._submit('#Assumptions');
-                cy.wait('@complete');
-
-                if (page !== 'additionalInterests') {
-                  cy._submit('#AddAdditionalInterestPage');
-                  cy.wait('@complete');
-
-                  if (page !== 'mailingBilling') {
-                    cy.findDataTag('sameAsProperty-switch').click();
-                    cy._submit('#Billing');
-                    cy.wait('@complete');
-
-                    if (page !== 'verify') {
-                      cy.findDataTag('confirmProperyDetails-switch').click();
-                      cy.findDataTag('confirmQuoteDetails-switch').click();
-                      cy.findDataTag('confirmPolicyHolderDetails-switch').click();
-                      cy.findDataTag('confirmAdditionalInterestsDetails-switch').click();
-                      cy._submit('#Verify')
-                      cy.get('.card-footer > button[type="submit"]').click();
-                      cy.wait('@complete');
-
-                      if (page !== 'thankYou') {
-                        cy.get('#thanks a[href="/"]').click();
-                        cy.url().should('eq', `${Cypress.config().baseUrl}/`);
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+  if (start === 'login') {
+    _login();
+    prev = 'login';
     }
+
+  if ((stop !== 'landing' && prev === 'login') || start === 'landing') {
+    _landing();
+    prev = 'landing';
+  }
+
+  if ((stop !== 'searchAddress' && prev === 'landing') || start === 'searchAddress') {
+    _searchAddress(address);
+    prev = 'searchAddress';
+  }
+
+  if ((stop !== 'customerInfo' && prev === 'searchAddress') || start === 'customerInfo') {
+    _customerInfo(customerInfo, agentCode);
+    prev = 'customerInfo';
+  }
+
+  if ((stop !== 'underwriting' && prev === 'customerInfo') || start === 'underwriting') {
+    _underwriting(underwriting);
+    prev  = 'underwriting';
+  }
+
+  if ((stop !== 'customize' && prev === 'underwriting') || start === 'customize') {
+    _customize();
+    prev = 'customize';
+  }
+
+  if ((stop !== 'share' && prev === 'customize') || start === 'share') {
+    _share();
+    prev = 'share';
+  }
+
+  if ((stop !== 'assumptions' && prev === 'share') || start === 'assumptions') {
+    _assumptions();
+    prev = 'assumptions';
+  }
+
+  if ((stop !== 'additionalInterests' && prev === 'assumptions') || start === 'additionalInterests') {
+    _additionalInterests();
+    prev = 'additionalInterests';
+  }
+
+  if ((stop !== 'mailingBilling' && prev === 'additionalInterests') || start === 'mailingBilling') {
+    _mailingBilling();
+    prev = 'mailingBilling';
+  }
+
+  if ((stop !== 'verify' && prev === 'mailingBilling') || start === 'verify') {
+    _verify();
+    prev = 'verify';
+  }
+
+  if ((stop !== 'scheduleDate'  && prev === 'verify') || start === 'scheduleDate') {
+    _scheduleDate();
+    prev = 'scheduleDate';
+  }
+
+  if ((stop !== 'thankYou' && prev === 'scheduleDate') || start === 'thankYou') {
+    _thankYou();
   }
 });

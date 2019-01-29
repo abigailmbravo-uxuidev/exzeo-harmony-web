@@ -1,7 +1,7 @@
 describe('Property Address Search Testing', () => {
   const type = text => cy.findDataTag('address').type(text);
   const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
-  const hasSearchInput = address => 
+  const hasSearchInput = address =>
     cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
   const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
   const fillAndCheckErrors = (text, submit = true) => {
@@ -9,7 +9,7 @@ describe('Property Address Search Testing', () => {
     submit ? cy._submit().then(() => hasSearchInput(text.trim())) : isButtonDisabled();
     clear();
   };
-  
+
   before('Go to the search page', () => {
     cy.quoteWorkflow('searchAddress');
   });

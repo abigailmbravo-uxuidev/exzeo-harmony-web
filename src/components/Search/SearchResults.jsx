@@ -108,7 +108,7 @@ export const SearchResults = (props) => {
   if (props.searchType === 'quote') {
     const quotes = props.results;
     return (
-      <div className="quote-list">
+      <div className="quote-list" data-test="quote-list">
         {
           quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
             <div className="icon-name">
