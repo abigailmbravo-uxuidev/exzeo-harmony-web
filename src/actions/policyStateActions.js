@@ -10,5 +10,3 @@ export const updatePolicy = (update, policyNumber) => {
   };
   return stateObj;
 };
-
-export const dispatchGetLatestPolicy = (update, policyNumber) => dispatch => dispatch(updatePolicy(update, policyNumber));
