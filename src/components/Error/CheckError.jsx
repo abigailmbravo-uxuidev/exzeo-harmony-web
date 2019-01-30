@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
+const ERROR_PATH = '/error';
+
 export const CheckError = ({ error, redirectUrl }) => {
-  if (error && error.message) {
-    const errorPath = '/error';
-    return <Redirect to={{ pathname: errorPath, state: { redirectUrl } }} />;
-  }
-  return <span />;
+  return error && error.message
+    ? <Redirect to={{ pathname: ERROR_PATH, state: { redirectUrl } }} />
+    : null;
 };
 
 CheckError.propTypes = {
-  redirectUrl: PropTypes.string,
   error: PropTypes.shape({
     message: PropTypes.string
-  }),
+  }).isRequired,
+  redirectUrl: PropTypes.string,
 };
 
 CheckError.defaultProps = {
