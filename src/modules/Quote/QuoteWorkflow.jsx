@@ -69,7 +69,7 @@ export class QuoteWorkflow extends Component {
           <div className="route">
             {isLoading && <Loader />}
 
-            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep}/>
+            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             <Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} uiQuestions={uiQuestions} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />

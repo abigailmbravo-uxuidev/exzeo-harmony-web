@@ -27,15 +27,10 @@ const handleInitialize = (state) => {
   return values;
 };
 
-export const resetSearch = (props) => {
-  props.actions.serviceActions.clearPolicyResults();
-};
-
 export const changePagePolicy = (props, isNext) => {
   const { fieldValues } = props;
-  const { groups } = props.userProfile;
-  const userGroup = groups[0];
-  const { state, companyCode } = userGroup;
+  const { agency = {} } = props.userProfile;
+  const { state, companyCode } = agency;
   const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
@@ -64,9 +59,8 @@ export const changePagePolicy = (props, isNext) => {
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
-  const { groups } = props.userProfile;
-  const userGroup = groups[0];
-  const { state, companyCode } = userGroup;
+  const { agency = {} } = props.userProfile;
+  const { state, companyCode } = agency;
   const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {

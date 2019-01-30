@@ -13,7 +13,7 @@ describe('Testing ClearError component', () => {
     const props = {
       actions: {
         errorActions: {
-          dispatchClearAppError: () => {}
+          clearAppError: () => {}
         }
       },
       ...propTypes

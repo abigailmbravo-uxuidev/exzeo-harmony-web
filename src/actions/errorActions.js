@@ -14,5 +14,3 @@ export const clearAppError = () => ({
   type: types.APP_ERROR_CLEAR,
   error: {}
 });
-
-export const dispatchClearAppError = () => dispatch => dispatch(clearAppError());
