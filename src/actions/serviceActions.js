@@ -46,13 +46,25 @@ export const getQuote = quoteId => (dispatch) => {
     });
 };
 
-export const searchPolicy = searchParams => (dispatch) => {
-  const { policyNumber, firstName, lastName, address, page, pageSize, sort, direction, companyCode, state } = searchParams;
+export const searchPolicy = ({
+  policyNumber,
+  firstName,
+  lastName,
+  address,
+  page,
+  pageSize,
+  sort,
+  direction,
+  companyCode = 'TTIC',
+  state = 'FL',
+  product = 'HO3',
+}) => (dispatch) => {
+
   const formattedAddress = address.replace(' ', '&#32;');
   const axiosConfig = runnerSetup({
     service: 'policy-data',
     method: 'GET',
-    path: `/transactions?companyCode=${companyCode}&state=${state}&product=HO3&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&page=${page}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
+    path: `/transactions?companyCode=${companyCode}&state=${state}&product=${product}&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&page=${page}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
   });
 
   return Promise.resolve(axios(axiosConfig)).then((response) => {
@@ -165,7 +177,7 @@ export const getPolicyDocuments = policyNumber => (dispatch) => {
     });
 };
 
-export const getZipcodeSettings = (companyCode, state, product, zip) => (dispatch) => {
+export const getZipcodeSettings = (companyCode = 'TTIC', state = 'FL', product = 'HO3', zip) => (dispatch) => {
   const axiosConfig = runnerSetup({
     service: 'underwriting',
     method: 'GET',
