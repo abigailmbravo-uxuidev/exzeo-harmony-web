@@ -1,6 +1,6 @@
-// Custom command to use the happypath to navigate through the app to a specific page to stop on
+// Custom command to use the default path to navigate through the app to a specific page to stop on
 // If your test stops at any specific page it will assert the URL is correct for that page
-// Defaults to the entire happy path, returning you to landing
+// Defaults to the entire path, returning you to landing
 // Stop Pages are: ['landing', 'searchAddress', 'customerInfo', 'underwriting', 'customize', 'share'
 // 'assumptions', 'additionalInterests', 'mailingBilling', 'verify', 'thankYou']
 
@@ -9,6 +9,7 @@ import underwriting from '../fixtures/underwriting.json';
 import { _login, _landing, _searchAddress, _customerInfo, _underwriting, _customize, _share, _assumptions, _additionalInterests, _mailingBilling, _verify, _scheduleDate, _thankYou } from './navigation';
 
 Cypress.Commands.add('quoteWorkflow', (stop, start = 'login', data = { user, underwriting }) => {
+  cy.log(stop);
   const { address, customerInfo, agentCode } = user;
   let prev;
 

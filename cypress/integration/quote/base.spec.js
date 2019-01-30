@@ -6,6 +6,6 @@ describe('Agency Happy Path', () => {
   
   it('Navigates through the quote workflow', function () {
     const { underwriting, user } = this;
-    cy.quoteWorkflow('', { user, underwriting });
+    cy.quoteWorkflow(undefined, undefined, { user, underwriting });
   });
 });
