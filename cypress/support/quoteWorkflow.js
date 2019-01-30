@@ -71,15 +71,15 @@ Cypress.Commands.add('quoteWorkflow', (page = '', data = { user, underwriting })
                       if (page !== 'thankYou') {
                         cy.get('#thanks a[href="/"]').click();
                         cy.url().should('eq', `${Cypress.config().baseUrl}/`);
-                      } else { cy.url().should('include', 'thankYou'); }
-                    } else { cy.url().should('include', 'verify'); }
-                  } else { cy.url().should('include', 'mailingBilling'); }
-                } else { cy.url().should('include', 'additionalInterests'); }
-              } else { cy.url().should('include', 'assumptions'); }
-            } else { cy.url().should('include', 'share'); }
-          } else { cy.url().should('include', 'customize'); }
-        } else { cy.url().should('include', 'underwriting'); }
-      } else { cy.url().should('include', 'customerInfo'); }
-    } else { cy.url().should('include', 'searchAddress'); }
-  } else { cy.url().should('eq', `${Cypress.config().baseUrl}/`); }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 });

@@ -5,7 +5,6 @@ describe('Verify testing', () => {
   const errors = Array(4).fill('Field Required');
   const toggleModalOn = () => cy.findDataTag('edit-policyholder').click();
   const addAdditional = () => cy.findDataTag('isAdditional-switch').click();
-
   const closeModal = () => { cy.get('[data-test="cancel"]:not([disabled])').click({ force: true }) };
 
   before(() => {

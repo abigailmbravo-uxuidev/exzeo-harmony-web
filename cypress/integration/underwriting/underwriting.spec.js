@@ -14,7 +14,6 @@ describe('Underwriting Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.reload();
     cy.fixture('underwriting').as('data');
   });
 
@@ -23,22 +22,25 @@ describe('Underwriting Testing', () => {
   });
 
   it('"Is the home or any structure on the property ever rented?" Empty Value', function() {
+    cy.reload();
     toggleExcept(['rented'], this.data);
     cy.submitAndCheckValidation(['rented']);
   });
 
   it('"When was the last claim filed?" Empty Value', function() {
-    
+    cy.reload();
     toggleExcept(['previousClaims'], this.data);
     cy.submitAndCheckValidation(['previousClaims']);
   });
 
   it('"How many months a year does the owner live in the home?" Empty Value', function() {
+    cy.reload();
     toggleExcept(['monthsOccupied'], this.data);
     cy.submitAndCheckValidation(['monthsOccupied']);
   });
 
   it('"Is a business conducted on the property?" Empty Value', function() {
+    cy.reload();
     toggleExcept(['business'], this.data);
     cy.submitAndCheckValidation(['business']);
   });
