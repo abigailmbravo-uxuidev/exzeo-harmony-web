@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { TabNavigation } from '@exzeo/core-ui/src/@Harmony/Navigation';
 
 import { updateQuote } from '../../actions/quoteState.actions';
-import { setRecalc } from '../../actions/appStateActions';
 
 import { getNavLinks } from './constants/workflowNavigation';
 import DetailHeader from './DetailHeader';
@@ -26,7 +25,7 @@ export class WorkflowNavigation extends Component {
   };
 
   render() {
-    const { appState, quote, workflowState, handleRecalc, goToStep } = this.props;
+    const { isLoading, isRecalc, quote, workflowState, handleRecalc, goToStep } = this.props;
     if (!quote || !quote.quoteNumber) return null;
 
     return (
@@ -34,8 +33,8 @@ export class WorkflowNavigation extends Component {
         <DetailHeader
           activeTask={workflowState.activeTask}
           handleRecalc={handleRecalc}
-          isLoading={appState.isLoading}
-          isRecalc={appState.isRecalc}
+          isLoading={isLoading}
+          isRecalc={isRecalc}
           quote={quote}
         />
 
@@ -53,12 +52,10 @@ export class WorkflowNavigation extends Component {
 }
 
 const mapStateToProps = state => ({
-  appState: state.appState,
   quote: state.quoteState.quote,
   workflowState: state.quoteState.state,
 });
 
 export default connect(mapStateToProps, {
-  updateQuote,
-  setRecalc
+  updateQuote
 })(WorkflowNavigation);
