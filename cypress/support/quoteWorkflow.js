@@ -6,15 +6,31 @@
 
 import user from '../fixtures/user.json';
 import underwriting from '../fixtures/underwriting.json';
-import { _login, _landing, _searchAddress, _customerInfo, _underwriting, _customize, _share, _assumptions, _additionalInterests, _mailingBilling, _verify, _scheduleDate, _thankYou } from './navigation';
+import { 
+  _landing, 
+  _searchAddress, 
+  _customerInfo, 
+  _underwriting, 
+  _customize, 
+  _share, 
+  _assumptions, 
+  _additionalInterests, 
+  _mailingBilling,
+  _verify, 
+  _scheduleDate, 
+  _thankYou 
+} from './navigation';
 
 Cypress.Commands.add('quoteWorkflow', (stop, start = 'login', data = { user, underwriting }) => {
-  cy.log(stop);
   const { address, customerInfo, agentCode } = user;
   let prev;
 
+  //Route stubbing
+  cy.server();
+  cy.route('POST', '/cg/complete').as('complete');
+
   if (start === 'login') {
-    _login();
+    cy.login();
     prev = 'login';
     }
 

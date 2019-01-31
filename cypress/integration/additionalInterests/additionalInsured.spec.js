@@ -4,7 +4,7 @@ describe('Additional Insured Testing', () => {
   const ains1fields = ['ains1Name1', 'ains1MailingAddress1', 'ains1City', 'ains1State', 'ains1Zip'];
   const ains2fields = ['ains2Name1', 'ains2MailingAddress1', 'ains2City', 'ains2State', 'ains2Zip'];
   const toggleModalOn = () => cy.findDataTag('ains-add').click();
-  const addAdditional = () => cy.findDataTag('isAdditional2-switch').click();
+  const addAdditional = () => cy.findDataTag('isAdditional2').find('.switch-div').click();
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');

@@ -1,11 +1,11 @@
 describe('Back Button Testing', () => {
   const getAndSearchQuote = () => {
     cy.wait(3500);
-    cy.get('#quoteDetails > dl > div > dd.fade').then($quote => {
+    cy.findDataTag('quote-details').find('> dl > div > dd.fade').then($quote => {
       cy.go('back');
       cy.url().should('eql', `${Cypress.env('REACT_APP_CYPRESS_URL')}/`);
       cy.get('.btn[href="/search/retrieve"]').click();
-      cy.findDataTag('quoteNumber').type('12-5156827-01');
+      cy.findDataTag('quoteNumber').find('input').type($quote.text());
       cy._submit('#SearchBar');
       cy.findDataTag('quote-list').should('not.be.empty');
       cy.wait(1500);
@@ -13,7 +13,7 @@ describe('Back Button Testing', () => {
     });
   };
 
-  beforeEach(() => {
+  before(() => {
     cy.quoteWorkflow('searchAddress');
   });
 
@@ -39,7 +39,7 @@ describe('Back Button Testing', () => {
   });
 
   it('Browser Back Button (Part 2)', () => {
-    cy.quoteWorkflow('assumptions', 'searchAddress');
+    cy.quoteWorkflow('assumptions', 'landing');
     getAndSearchQuote();
 
     cy.quoteWorkflow('additionalInterests', 'landing');
@@ -56,7 +56,7 @@ describe('Back Button Testing', () => {
   });
 
   it('Browser Back Button (Part 3)', () => {
-    cy.quoteWorkflow('thankYou', 'searchAddress');
+    cy.quoteWorkflow('thankYou', 'landing');
     cy.wait(1500);
     cy.go('back');
     cy.url().should('eql', `${Cypress.env('REACT_APP_CYPRESS_URL')}/`);

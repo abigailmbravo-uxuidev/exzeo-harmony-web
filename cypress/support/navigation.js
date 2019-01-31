@@ -1,9 +1,3 @@
-export const _login = () => {
-  cy.server();
-  cy.route('POST', '/cg/complete').as('complete');
-  cy.login();
-};
-
 export const _landing = () => cy.get('.btn[href="/search/address"]').click();
 
 export const _searchAddress = address => {
@@ -15,9 +9,9 @@ export const _searchAddress = address => {
 
 export const _customerInfo = (customerInfo, agentCode) => {
   Object.entries(customerInfo).forEach(([field, value]) => {
-    cy.findDataTag(`${field}-input`).type(value);
+    cy.findDataTag(`${field}`).find('input').type(value);
   });
-  cy.findDataTag('agentCode-select').select(agentCode);
+  cy.findDataTag('agentCode').find('select').select(agentCode);
   cy._submit('#CustomerInfo');
   cy.wait('@complete');
 };
@@ -41,7 +35,7 @@ export const _share = () => {
 };
 
 export const _assumptions = () => {
-  cy.findDataTag('confirmAssumptions-switch').click();
+  cy.findDataTag('confirmAssumptions').find('.switch-div').click();
   cy._submit('#Assumptions');
   cy.wait('@complete');
 };
@@ -52,16 +46,16 @@ export const _additionalInterests = () => {
 };
 
 export const _mailingBilling = () => {
-  cy.findDataTag('sameAsProperty-switch').click();
+  cy.findDataTag('sameAsProperty').find('.switch-div').click();
   cy._submit('#Billing');
   cy.wait('@complete');
 };
 
 export const _verify = () => {
-  cy.findDataTag('confirmProperyDetails-switch').click();
-  cy.findDataTag('confirmQuoteDetails-switch').click();
-  cy.findDataTag('confirmPolicyHolderDetails-switch').click();
-  cy.findDataTag('confirmAdditionalInterestsDetails-switch').click();
+  cy.findDataTag('confirmProperyDetails').find('.switch-div').click();
+  cy.findDataTag('confirmQuoteDetails').find('.switch-div').click();
+  cy.findDataTag('confirmPolicyHolderDetails').find('.switch-div').click();
+  cy.findDataTag('confirmAdditionalInterestsDetails').find('.switch-div').click();
   cy._submit('#Verify');
 };
 

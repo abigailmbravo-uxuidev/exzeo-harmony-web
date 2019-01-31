@@ -3,7 +3,7 @@ describe('Customize Testing', () => {
     cy.quoteWorkflow('customize');
   });
 
-  const type = amnt => cy.findDataTag('dwellingAmount-input').type(`{selectall}{backspace}${amnt}`);
+  const type = amnt => cy.findDataTag('dwellingAmount').find('.range-value input').type(`{selectall}{backspace}${amnt}`);
 
   it('Dwelling Limit', () => {
     type('0');
