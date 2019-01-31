@@ -58,8 +58,14 @@ export class QuoteWorkflow extends Component {
     history.replace(ROUTE_TO_STEP_NAME[stepName]);
   };
 
+  handleGandalfSubmit = (values) => {
+    window.alert(`Whoo hoo!!! You submitted the form!
+      ${JSON.stringify(values, 0, 2)}
+    `);
+  };
+
   render() {
-    const { auth, history, isLoading, match, location, uiQuestions } = this.props;
+    const { auth, history, isLoading, match, location, uiQuestions, quote } = this.props;
     const { isRecalc } = this.state;
 
     return (
@@ -74,9 +80,11 @@ export class QuoteWorkflow extends Component {
             <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             <Gandalf
-              path={location.pathname}
-              footer={location.pathname.split('/')[3] === 'underwriting' ? <Footer /> : null}
               className="survey-wrapper"
+              path={location.pathname}
+              initialValues={quote}
+              handleSubmit={this.handleGandalfSubmit}
+              footer={<Footer />}
 
             />
             {/*<Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} uiQuestions={uiQuestions} updateQuote={this.handleUpdateQuote} />} />*/}
