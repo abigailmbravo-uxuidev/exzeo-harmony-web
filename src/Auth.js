@@ -78,7 +78,7 @@ export default class Auth {
     const appMetadata = profile['https://heimdall.security/app_metadata'];
     const legacyAgency = groups ? groups[0] : {};
 
-    let agency = {};
+    let agency;
     if (appMetadata && appMetadata.agencyCode) {
       agency = {
         agencyCode: appMetadata.agencyCode,
@@ -91,8 +91,6 @@ export default class Auth {
         companyCode: legacyAgency.companyCode,
         state: legacyAgency.state
       }
-    } else {
-      agency = null
     }
 
     this.userProfile = {

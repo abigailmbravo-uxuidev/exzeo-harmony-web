@@ -99,7 +99,7 @@ AppWrapper.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  const userDisplayName = (state.service.agency || {}).displayName || (state.authState.userProfile || {}).name;
+  const userDisplayName = (state.agencyState.agency || {}).displayName || (state.authState.userProfile || {}).name;
   return {
     userDisplayName,
   }
