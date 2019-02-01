@@ -15,8 +15,40 @@
   }
 }
 
+// TITLE component
+.title {
+  margin: (-$padding) (-$padding/2) ($padding*2);
+  padding: ($padding);
+  color: $bright-blue-darken-04;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-bold;
+
+  @include for-phone-only {
+    font-size: $font-size-h3;
+  }
+}
+
+// SECTION componet
+section {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $padding*2;
+}
+
+section {
+  display: grid;
+  padding: $padding*2;
+
+  > * {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    padding: $padding/2;
+  }
+}
+
+// responsize styles
 @include for-phone-only {
-  .view-grid {
+  .view-grid, section {
     grid-template-columns: repeat(1, 1fr);
 
     .view-col-1, .view-col-2, .view-col-3, .view-col-4, .view-col-5, .view-col-6, .view-col-7, .view-col-8, .view-col-9, .view-col-10, .view-col-11 {
@@ -25,7 +57,7 @@
   }
 }
 @include for-tablet-portrait-up {
-  .view-grid {
+  .view-grid, section {
     grid-template-columns: repeat(6, 1fr);
 
     .view-col-1, .view-col-2, .view-col-3 {
@@ -44,7 +76,7 @@
   }
 }
 @include for-tablet-landscape-up {
-  .view-grid {
+  .view-grid, section {
     grid-template-columns: repeat(12, 1fr);
 
     .view-col-1 {
@@ -90,36 +122,5 @@
     .view-col-11 {
       grid-column: span 11;
     }
-  }
-}
-
-// TITLE component
-.title {
-  margin: (-$padding) (-$padding/2) ($padding*2);
-  padding: ($padding);
-  color: $bright-blue-darken-04;
-  font-size: $font-size-h2;
-  font-weight: $font-weight-bold;
-
-  @include for-phone-only {
-    font-size: $font-size-h3;
-  }
-}
-
-// SECTION componet
-section {
-  display: flex;
-  flex-wrap: wrap;
-  padding: $padding*2;
-}
-
-section {
-  display: grid;
-  padding: $padding*2;
-
-  > * {
-    grid-column-start: 1;
-    grid-column-end: -1;
-    padding: $padding/2;
   }
 }
