@@ -99,6 +99,13 @@ export class Share extends React.Component {
   }
 }
 
+Share.defaultProps = {
+  isLoading: false,
+  underwritingExceptions: [],
+  quote: {},
+  isHardStop: false
+};
+
 const mapStateToProps = state => ({
   isLoading: state.appState.isLoading,
   underwritingExceptions: state.quoteState.state && state.quoteState.state.underwritingExceptions ? state.quoteState.state.underwritingExceptions : [],
