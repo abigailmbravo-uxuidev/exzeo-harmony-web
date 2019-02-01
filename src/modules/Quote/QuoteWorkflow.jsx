@@ -27,6 +27,7 @@ import Footer from '../../components/Common/Footer'
 
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
+import { getQuoteSelector } from '../../selectors/quote.selectors';
 
 export class QuoteWorkflow extends Component {
   state = {
@@ -125,7 +126,7 @@ const mapStateToProps = (state) => {
 
   return {
     isLoading: state.appState.isLoading,
-    quote: state.quoteState.quote || {},
+    quote: getQuoteSelector(state),
     workflowState: state.quoteState.state || {},
     uiQuestions,
     zipCodeSettings: state.service.zipCodeSettings
