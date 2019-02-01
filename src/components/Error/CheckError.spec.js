@@ -12,17 +12,10 @@ describe('Testing CheckError component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      fieldQuestions: [],
       error: {
         message: 'something went wrong'
       },
       dispatch: store.dispatch,
-      appState: {
-        data: {
-          submitting: false
-        },
-        modelName: 'bb'
-      }
     };
     const wrapper = shallow(<CheckError {...props} />);
     expect(wrapper);
@@ -30,31 +23,11 @@ describe('Testing CheckError component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
-      },
-      appState: {
-        modelName: 'bb'
-      }
+      error: {},
     };
     const store = mockStore(initialState);
-    const props = {
-      fieldQuestions: [],
-      quoteData: {},
-      dispatch: store.dispatch,
-      appState: {
-        data: {
-          submitting: false
-        }
-      }
-    };
-    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
+
+    const wrapper = shallow(<ConnectedApp store={store} />);
     expect(wrapper);
   });
 });

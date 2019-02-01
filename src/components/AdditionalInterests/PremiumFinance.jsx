@@ -4,7 +4,6 @@ import { batchActions } from 'redux-batched-actions';
 import { reduxForm, Form, change } from 'redux-form';
 import _ from 'lodash';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
@@ -137,12 +136,10 @@ export class PremiumFinance extends React.Component {
 
     return (
       <div className="route-content">
-        <SnackBar
-          {...this.props}
-          show={showSnackBar}
-          timer={3000}
-        ><p>Please correct errors.</p></SnackBar>
-        <Form id="PremiumFinance" onSubmit={handleSubmit(this.handleFormSubmit)} noValidate>
+        <SnackBar show={showSnackBar} timer={3000}>
+          <p>Please correct errors.</p>
+        </SnackBar>
+        <Form id="PremiumFinance" onSubmit={handleSubmit(this.handleFormSubmit)} >
           <div className="scroll">
             <div className="form-group survey-wrapper" role="group">
               <h3 className="section-group-header"><i className="fa fa-money" /> Premium Finance</h3>
@@ -177,7 +174,7 @@ export class PremiumFinance extends React.Component {
                 <span className="button-info">Oops! There is no Premium Finance</span>
                 <button className="btn btn-secondary" type="button" onClick={() => closeAndSavePreviousAIs(this.props)}>Go Back</button>
               </span>
-              <button className="btn btn-primary" type="submit" form="PremiumFinance" disabled={isLoading}>Save</button>
+              <button className="btn btn-primary" type="submit" form="PremiumFinance" disabled={isLoading} data-test="submit">Save</button>
             </div>
             <Footer />
           </div>
@@ -197,9 +194,7 @@ const mapStateToProps = state => ({
   quote: handleGetQuoteData(state)
 });
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'PremiumFinance',
   onSubmitFail: failedSubmission
 })(PremiumFinance));

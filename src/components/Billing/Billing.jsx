@@ -6,7 +6,6 @@ import moment from 'moment';
 import { reduxForm, Form, change, Field } from 'redux-form';
 import _ from 'lodash';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import SnackBar from '../Common/SnackBar';
@@ -174,26 +173,33 @@ export const Billing = (props) => {
 
   return (
     <div className="route-content">
-      <SnackBar
-        {...props}
-        show={showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
-      <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)} noValidate>
+      <SnackBar show={showSnackBar} timer={3000}>
+        <p>Please correct errors.</p>
+      </SnackBar>
+      <Form className="fade-in" id="Billing" onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="scroll">
           <div className="form-group survey-wrapper" role="group">
             <h3 className="section-group-header"><i className="fa fa-envelope" /> Mailing Address</h3>
             <CheckInput
-              label="Is the mailing address the same as the property address?" input={{
+              label="Is the mailing address the same as the property address?"
+              isSwitch
+              input={{
                 value: fieldValues.sameAsProperty,
                 name: 'sameAsProperty',
                 onChange: fillMailForm
-              }} isSwitch
-            /> {fieldQuestions && fieldQuestions.map((question, index) => (<FieldGenerator
-              onChange={setPropertyToggle}
-              data={quote}
-              question={question} values={fieldValues} key={index}
-            />))}
+              }}
+            />
+
+            {fieldQuestions.map((question, index) => (
+              <FieldGenerator
+                key={index}
+                onChange={setPropertyToggle}
+                data={quote}
+                question={question}
+                values={fieldValues}
+              />
+            ))}
+
             <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
             <SelectFieldBilling
               name="billToId"
@@ -225,7 +231,7 @@ export const Billing = (props) => {
           </div>
           <Field name="billToType" component="input" type="hidden" />
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Billing" disabled={isLoading || !props.fieldValues.billToId}>next</button>
+            <button className="btn btn-primary" type="submit" form="Billing" disabled={isLoading || !props.fieldValues.billToId} data-test="submit">next</button>
           </div>
           <Footer />
         </div>
@@ -237,7 +243,6 @@ export const Billing = (props) => {
 const mapStateToProps = state => ({
   isLoading: state.appState.isLoading,
   showSnackBar: state.appState.showSnackBar,
-  appState: state.appState,
   fieldValues: _.get(state.form, 'Billing.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
@@ -245,7 +250,7 @@ const mapStateToProps = state => ({
   paymentPlanResult: handleGetPaymentPlans(state)
 });
 
-export default connect(mapStateToProps, { updateQuote })(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'Billing',
   enableReinitialize: true,
   onSubmitFail: failedSubmission

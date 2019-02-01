@@ -27,12 +27,11 @@ const handleInitialize = (state) => {
   return values;
 };
 
-export const resetSearch = (props) => {
-  props.actions.serviceActions.clearPolicyResults();
-};
-
 export const changePagePolicy = (props, isNext) => {
   const { fieldValues } = props;
+  const { agency = {} } = props.userProfile;
+  const { state, companyCode } = agency;
+  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
     firstName: (encodeURIComponent(fieldValues.firstName) !== 'undefined' ? encodeURIComponent(fieldValues.firstName) : ''),
@@ -42,17 +41,17 @@ export const changePagePolicy = (props, isNext) => {
     searchType: 'policy',
     isLoading: true,
     hasSearched: true,
-    sortBy: fieldValues.sortBy
+    page: isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1,
+    pageSize: 25,
+    sort: fieldValues.sortBy,
+    direction,
+    companyCode,
+    state
   };
-
-
-  taskData.pageNumber = isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1;
-
   props.actions.searchActions.setPolicySearch(taskData);
 
-  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
-
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.pageNumber, 25, fieldValues.sortBy, direction).then(() => {
+  // TODO pass in object
+  props.actions.serviceActions.searchPolicy(taskData).then(() => {
     taskData.isLoading = false;
     taskData.address = decodeURIComponent(taskData.address);
     props.actions.searchActions.setPolicySearch(taskData);
@@ -60,6 +59,10 @@ export const changePagePolicy = (props, isNext) => {
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
+  const { agency = {} } = props.userProfile;
+  const { state, companyCode } = agency;
+  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
+
   const taskData = {
     firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
     lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
@@ -69,14 +72,16 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     isLoading: true,
     hasSearched: true,
     page: 1,
-    sortBy: data.sortBy
+    pageSize: 25,
+    sort: data.sortBy,
+    direction,
+    companyCode,
+    state
   };
 
   props.actions.searchActions.setPolicySearch(taskData);
 
-  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
-
-  props.actions.serviceActions.searchPolicy(taskData.policyNumber, taskData.firstName, taskData.lastName, taskData.address, taskData.page, 25, data.sortBy, direction).then(() => {
+  props.actions.serviceActions.searchPolicy(taskData).then(() => {
     taskData.isLoading = false;
     taskData.address = decodeURIComponent(taskData.address);
     props.actions.searchActions.setPolicySearch(taskData);
@@ -128,7 +133,7 @@ export class PolicySearchBar extends Component {
   render() {
     const { handleSubmit, formErrors, fieldValues } = this.props;
     return (
-      <Form id="PolicySearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)} noValidate>
+      <Form id="PolicySearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)}>
         <div className="search-input-wrapper search-policy-wrapper">
 
           <SelectField
@@ -175,29 +180,27 @@ export class PolicySearchBar extends Component {
 PolicySearchBar.propTypes = {
   ...propTypes,
   handleSubmit: PropTypes.func,
-  tasks: PropTypes.shape({}),
   appState: PropTypes.shape({
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
     data: PropTypes.shape({
-      submitting: PropTypes.boolean
+      submitting: PropTypes.bool
     })
   })
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'PolicySearchBar.values', { address: '', sortBy: 'policyNumber' }),
   formErrors: getFormSyncErrors('PolicySearchBar')(state),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
-  search: state.search
+  search: state.search,
+  userProfile: state.authState.userProfile
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: {
-
     appStateActions: bindActionCreators(appStateActions, dispatch),
     errorActions: bindActionCreators(errorActions, dispatch),
     serviceActions: bindActionCreators(serviceActions, dispatch),

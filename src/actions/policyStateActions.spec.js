@@ -33,7 +33,6 @@ describe('policyStateActions', () => {
         update: false
       }
     }];
-    policyStateActions.dispatchGetLatestPolicy(false, '1');
     store.dispatch(policyStateActions.updatePolicy(false, '1'));
     expect(store.getActions()).toEqual(stateObj);
   });

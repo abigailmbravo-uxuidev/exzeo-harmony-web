@@ -1,9 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 
-import BaseConnect from './Base';
 import FancyExternalLink from '../components/FancyExternalLink';
 import Footer from '../components/Common/Footer';
+import AppWrapper from '../components/AppWrapper';
 
 const externalLinks = [
   {
@@ -32,16 +31,18 @@ const externalLinks = [
   }
 ];
 
-const Training = props => (
-  <BaseConnect {...props}>
-    <div className="train" role="article">
+const Training = ({ auth, match }) => (
+  <AppWrapper
+    logout={auth.logout}
+    match={match}
+    routeClassName="train"
+    render={() => (
       <div className="route">
         <div className="route-content">
           <div className="scroll">
             <div className="survey-wrapper">
               <section>
                 <h2>Reference</h2>
-
                 <ul className="link-list">
                   {externalLinks.map(link => (
                     <FancyExternalLink key={link.key} {...link} />
@@ -53,12 +54,8 @@ const Training = props => (
           </div>
         </div>
       </div>
-    </div>
-  </BaseConnect>
+    )}
+  />
 );
-
-// Training.propTypes = {
-//   children: PropTypes.shape()
-// };
 
 export default Training;

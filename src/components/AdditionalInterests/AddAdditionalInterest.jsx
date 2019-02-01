@@ -2,21 +2,19 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
+
 import Footer from '../Common/Footer';
-import { updateQuote } from '../../actions/quoteState.actions';
 import AdditionalInterestModal from '../Common/AIPopup';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 
 export class AddAdditionalInterest extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showAdditionalInterestModal: false,
-      selectedAI: null,
-      addAdditionalInterestType: ''
-    };
-  }
+  state = {
+    showAdditionalInterestModal: false,
+    selectedAI: null,
+    addAdditionalInterestType: ''
+  };
+
 
   noAddAdditionalInterestSubmit = async () => {
     const taskData = { shouldUpdateAIs: 'No' };
@@ -104,22 +102,21 @@ export class AddAdditionalInterest extends React.Component {
   };
 
   render() {
-    return (<div className="route-content">
-      <SnackBar
-        {...this.props}
-        show={this.props.showSnackBar}
-        timer={3000}
-      ><p>Please correct errors.</p></SnackBar>
-      <Form className={`${'styleName' || ''}`} id="AddAdditionalInterestPage" onSubmit={this.props.handleSubmit(this.noAddAdditionalInterestSubmit)} noValidate>
+    return (
+      <div className="route-content">
+      <SnackBar show={this.props.showSnackBar} timer={3000}>
+        <p>Please correct errors.</p>
+      </SnackBar>
+      <Form id="AddAdditionalInterestPage" onSubmit={this.props.handleSubmit(this.noAddAdditionalInterestSubmit)}>
         <div className="scroll">
           <div className="form-group detail-wrapper">
             <p>Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)</p>
             <div className="button-group">
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddMortgagee()}><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddAdditionalInsured()}><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddInterest()}><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddPremiumFinance()}><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
-              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddBillpayer()}><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.AddMortgagee()} data-test="mortgagee-add"><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.AddAdditionalInsured()} data-test="ains-add"><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.AddInterest()} data-test="ai-add"><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
+              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddPremiumFinance()} data-test="premium-finance-add"><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
+              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddBillpayer()} data-test="bill-payer-add"><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
             </div>
             {/* list of additional interests*/}
             <div className="results-wrapper">
@@ -156,22 +153,23 @@ export class AddAdditionalInterest extends React.Component {
           </div>
           <div className="workflow-steps">
             {this.props.quote.additionalInterests && this.props.quote.additionalInterests.length === 0 &&
-            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading}>Not Applicable</button>
+            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading} data-test="submit">Not Applicable</button>
             }
             {this.props.quote.additionalInterests && this.props.quote.additionalInterests.length > 0 &&
-            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading}>next</button>
+            <button className="btn btn-primary" type="submit" disabled={this.props.isLoading} data-test="submit">next</button>
             }
           </div>
           <Footer />
         </div>
       </Form>
-      { this.state.showAdditionalInterestModal &&
-      <AdditionalInterestModal
-        {...this.props}
-        selectedAI={this.state.selectedAI}
-        primaryButtonHandler={() => this.deleteAdditionalInterest(this.state.selectedAI)}
-        secondaryButtonHandler={() => this.hideAdditionalInterestModal()}
-      /> }
+      {this.state.showAdditionalInterestModal &&
+        <AdditionalInterestModal
+          {...this.props}
+          selectedAI={this.state.selectedAI}
+          primaryButtonHandler={() => this.deleteAdditionalInterest(this.state.selectedAI)}
+          secondaryButtonHandler={() => this.hideAdditionalInterestModal()}
+        />
+      }
     </div>
     );
   }
@@ -185,9 +183,8 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote || {}
 });
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({ form: 'AddAdditionalInterest',
+export default connect(mapStateToProps)(reduxForm({
+  form: 'AddAdditionalInterest',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission
+  onSubmitFail: failedSubmission,
 })(AddAdditionalInterest));

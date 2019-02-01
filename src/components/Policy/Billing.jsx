@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import PolicyTabs from '../Common/PolicyTabs';
 import PaymentHistoryTable from './PaymentHistoryTable';
 
 export const Billing = ({ policy, policyNumber, billing }) => {
@@ -29,8 +28,7 @@ export const Billing = ({ policy, policyNumber, billing }) => {
 
   return (
     <React.Fragment>
-      <PolicyTabs activeTab="billing" policyNumber={policyNumber} />
-      { billing &&
+      {billing &&
         <div className="route-content">
           <div className="detail-group policy-details">
             <section className="display-element premium left">
@@ -97,14 +95,9 @@ export const Billing = ({ policy, policyNumber, billing }) => {
   );
 };
 
-Billing.contextTypes = {
-  router: PropTypes.object
-};
-
 Billing.propTypes = {
   billing: PropTypes.shape(),
   policy: PropTypes.shape(),
-  policyNumber: PropTypes.string
 };
 
 export default Billing;

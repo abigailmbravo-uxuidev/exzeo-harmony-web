@@ -29,7 +29,7 @@ const ScheduleDate = ({ isLoading, handleSubmit, verify, secondaryButtonHandler,
           <div className="card-footer">
             <button className="btn btn-secondary btn-block" type="button" onClick={secondaryButtonHandler} disabled={isLoading}>Edit Quote</button>
             <button className="btn btn-secondary btn-block" type="button" onClick={redirectToHome} disabled={isLoading}>Save Quote, Continue Later</button>
-            <button className="btn btn-primary btn-block" type="submit" disabled={isLoading}>Send Application for signature</button>
+            <button className="btn btn-primary btn-block" type="submit" disabled={isLoading} data-test="submit">Send Application for signature</button>
           </div>
         </Form>
       </div>

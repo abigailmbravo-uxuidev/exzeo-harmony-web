@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 
 const STEP_NAME_MAP = {
   askAdditionalCustomerData: 'customerInfo',
@@ -18,3 +19,32 @@ export const goToStep = async (props, stepName) => {
   await props.updateQuote({ stepName, quoteNumber: props.quote.quoteNumber });
   props.history.replace(`${STEP_NAME_MAP[stepName]}`);
 };
+
+export const getNavLinks = ({ params }) => [
+  {
+    key: 'home',
+    to: '/',
+    label: 'DASHBOARD',
+    styleName: 'agent-dashboard',
+    hasIcon: true,
+    exact: true,
+  }, {
+    key: 'searchAddress',
+    to: '/search/address',
+    label: 'QUOTE',
+    styleName: 'quote label',
+    hasIcon: true,
+  }, {
+    key: 'policy',
+    to: '/policy',
+    label: 'POLICY',
+    styleName: classNames('policy label', { 'policy-detail': params.policyNumber }),
+    hasIcon: true,
+  }, {
+    key: 'training',
+    to: '/training',
+    label: 'HELPFUL INFO',
+    styleName: 'training label',
+    hasIcon: true,
+  }
+];

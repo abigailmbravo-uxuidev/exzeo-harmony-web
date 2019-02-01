@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import normalizePhone from '../Form/normalizePhone';
 
-const PolicyHolderCard = ({ policyHolder, policyHolderMailingAddress, phIndex
-}) => (
+const PolicyHolderCard = ({ policyHolder, policyHolderMailingAddress, phIndex }) => (
   <React.Fragment>
     <h3 data-test="policyholderHeader" className="section-group-header"><i className="fa fa-vcard-o" /> Policyholder {phIndex + 1}</h3>
     <section className="display-element policy-holder">

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { batchActions } from 'redux-batched-actions';
 import { reduxForm, Form, change } from 'redux-form';
 import _ from 'lodash';
+import { Loader } from '@exzeo/core-ui';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
-import Loader from '../Common/Loader';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
 import { getInitialValues } from '../Customize/customizeHelpers';
@@ -59,13 +58,9 @@ const getAnswers = (name, questions) =>
   _.get(_.find(questions, { name }), 'answers') || [];
 
 export class Mortgagee extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-  }
-
+  state = {
+    selectedMortgageeOption: {},
+  };
 
   setMortgageeValues = (val) => {
     this.setState({ selectedMortgageeOption: val });
@@ -242,7 +237,6 @@ export class Mortgagee extends React.Component {
       additionalInterests.push(mortgagee3);
     }
 
-
     await this.props.updateQuote({ data: { additionalInterests }, quoteNumber: this.props.quote.quoteNumber });
     this.props.history.replace('additionalInterests');
   };
@@ -258,17 +252,17 @@ export class Mortgagee extends React.Component {
 
     return (
       <div className="route-content">
-        <SnackBar {...this.props} show={this.props.showSnackBar} timer={3000}>
+        <SnackBar show={this.props.showSnackBar} timer={3000}>
           <p>Please correct errors.</p>
         </SnackBar>
-        {this.props.isLoading && <Loader />}
-        <Form id="Mortgagee" onSubmit={handleSubmit(this.handleFormSubmit)} noValidate>
+
+        <Form id="Mortgagee" onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div className="scroll">
             <div className="form-group survey-wrapper" role="group">
               <h3 className="section-group-header">
                 <i className="fa fa-bank" /> Mortgagee
               </h3>
-              {fieldValues.isAdditional && (
+              {fieldValues.isAdditional &&
                 <ReactSelectField
                   label="Top Mortgagees (Mortgagee 1)"
                   name="mortgage"
@@ -279,9 +273,8 @@ export class Mortgagee extends React.Component {
                   answers={getAnswers('mortgagee', fieldQuestions)}
                   onChange={val => this.setMortgageeValues(val)}
                 />
-              )}
-              {fieldValues.isAdditional2 &&
-              fieldValues.isAdditional && (
+              }
+              {(fieldValues.isAdditional2 && fieldValues.isAdditional) &&
                 <ReactSelectField
                   label="Top Mortgagees (Mortgagee 2)"
                   name="mortgage2"
@@ -292,9 +285,8 @@ export class Mortgagee extends React.Component {
                   answers={getAnswers('mortgagee', fieldQuestions)}
                   onChange={val => this.setMortgagee2Values(val)}
                 />
-              )}
-              {fieldValues.isAdditional3 && fieldValues.isAdditional2 &&
-                fieldValues.isAdditional && (
+              }
+              {(fieldValues.isAdditional3 && fieldValues.isAdditional2 && fieldValues.isAdditional) &&
                 <ReactSelectField
                   label="Top Mortgagees (Mortgagee 3)"
                   name="mortgage3"
@@ -305,13 +297,10 @@ export class Mortgagee extends React.Component {
                   answers={getAnswers('mortgagee', fieldQuestions)}
                   onChange={val => this.setMortgagee3Values(val)}
                 />
-              )}
-              {fieldQuestions &&
-              _.sortBy(
-                _.filter(fieldQuestions, q => q.name !== 'mortgagee'),
-                'sort'
-              ).map((question, index) => (
-                <FieldGenerator
+              }
+              {fieldQuestions && _.sortBy(_.filter(fieldQuestions, q => q.name !== 'mortgagee'), 'sort')
+                .map((question, index) => (
+                  <FieldGenerator
                   autoFocus={index === 1}
                   data={quote}
                   question={question}
@@ -327,9 +316,8 @@ export class Mortgagee extends React.Component {
                   id="goBack"
                   className="btn btn-secondary"
                   type="button"
-                  onClick={() => this.closeAndSavePreviousAIs()}
-                >
-                Go Back
+                  onClick={this.closeAndSavePreviousAIs}>
+                  Go Back
                 </button>
               </span>
               <button
@@ -337,8 +325,9 @@ export class Mortgagee extends React.Component {
                 type="submit"
                 form="Mortgagee"
                 disabled={submitting}
+                data-test="submit"
               >
-              Save
+                Save
               </button>
             </div>
             <Footer />
@@ -350,19 +339,15 @@ export class Mortgagee extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.appState.isLoading,
   showSnackBar: state.appState.showSnackBar,
-  appState: state.appState,
   fieldValues: _.get(state.form, 'Mortgagee.values', {}),
   initialValues: handleInitialize(state),
   fieldQuestions: handleGetQuestions(state),
-  quote: handleGetQuoteData(state)
+  quote: handleGetQuoteData(state),
 });
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'Mortgagee',
   enableReinitialize: true,
-  onSubmitFail: failedSubmission
+  onSubmitFail: failedSubmission,
 })(Mortgagee));
