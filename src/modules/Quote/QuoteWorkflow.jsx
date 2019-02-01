@@ -27,7 +27,8 @@ import Footer from '../../components/Common/Footer'
 
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { getQuoteSelector } from '../../selectors/quote.selectors';
+import { getQuoteSelector } from '../../selectors/quoteState.selectors';
+import { getAgentsList } from '../../selectors/agencyState.selectors';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { getZipcodeSettings } from '../../actions/serviceActions';
 
@@ -77,7 +78,7 @@ export class QuoteWorkflow extends Component {
   };
 
   render() {
-    const { auth, history, isLoading, match, location, uiQuestions, quote } = this.props;
+    const { auth, history, isLoading, match, location, uiQuestions, quote, agentResults } = this.props;
     const { isRecalc } = this.state;
 
     return (
@@ -93,6 +94,8 @@ export class QuoteWorkflow extends Component {
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             <Route exact path={`${match.url}/customerInfo`}          render={props => 
             <Gandalf
+             /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
+              options={{ agentResults }}
               className="survey-wrapper"
               path={location.pathname}
               initialValues={quote}
@@ -138,7 +141,8 @@ const mapStateToProps = (state) => {
     quote: getQuoteSelector(state),
     workflowState: state.quoteState.state || {},
     uiQuestions,
-    zipCodeSettings: state.service.zipCodeSettings
+    zipCodeSettings: state.service.zipCodeSettings,
+    agentResults: getAgentsList(state),
   }
 };
 
