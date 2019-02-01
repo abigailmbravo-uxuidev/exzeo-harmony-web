@@ -99,6 +99,7 @@
   padding: ($padding);
   color: $bright-blue-darken-04;
   font-size: $font-size-h2;
+  font-weight: $font-weight-bold;
 
   @include for-phone-only {
     font-size: $font-size-h3;
