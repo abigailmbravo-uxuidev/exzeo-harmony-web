@@ -1,12 +1,10 @@
 .view-grid {
   display: flex;
   flex-wrap: wrap;
-  padding: $padding*2;
 }
 
 .view-grid {
   display: grid;
-  padding: $padding*2;
 
   > * {
     grid-column-start: 1;
