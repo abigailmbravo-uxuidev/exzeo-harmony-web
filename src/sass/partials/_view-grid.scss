@@ -105,3 +105,21 @@
     font-size: $font-size-h3;
   }
 }
+
+// SECTION componet
+section {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $padding*2;
+}
+
+section {
+  display: grid;
+  padding: $padding*2;
+
+  > * {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    padding: $padding/2;
+  }
+}
