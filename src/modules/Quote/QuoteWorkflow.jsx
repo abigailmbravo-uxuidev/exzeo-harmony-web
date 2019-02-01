@@ -28,11 +28,22 @@ import Footer from '../../components/Common/Footer'
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { getQuoteSelector } from '../../selectors/quote.selectors';
+import { getAgentsByAgencyCode } from '../../actions/agency.actions';
+import { getZipcodeSettings } from '../../actions/serviceActions';
 
 export class QuoteWorkflow extends Component {
   state = {
     isRecalc: false,
   };
+
+  componentDidMount(){
+    const { quote } = this.props;
+
+    if (quote && quote.property) {
+      this.props.getAgentsByAgencyCode(quote.agencyCode);
+      this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
+    }
+  }
 
   setRecalc = (isRecalc) => {
     this.setState(() => ({ isRecalc }))
@@ -59,10 +70,10 @@ export class QuoteWorkflow extends Component {
     history.replace(ROUTE_TO_STEP_NAME[stepName]);
   };
 
-  handleGandalfSubmit = (values) => {
-    window.alert(`Whoo hoo!!! You submitted the form!
-      ${JSON.stringify(values, 0, 2)}
-    `);
+  handleGandalfSubmit = async (values) => {
+    const { zipCodeSettings, quote, history, updateQuote } = this.props;
+    await updateQuote({  data: values, quoteNumber: quote.quoteNumber, options: { timezone: zipCodeSettings.timezone } });
+    history.replace('underwriting');
   };
 
   render() {
@@ -80,6 +91,7 @@ export class QuoteWorkflow extends Component {
 
             <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
+            <Route exact path={`${match.url}/customerInfo`}          render={props => 
             <Gandalf
               className="survey-wrapper"
               path={location.pathname}
@@ -88,15 +100,12 @@ export class QuoteWorkflow extends Component {
               renderFooter={({ submitting, pristine }) => (
                 <React.Fragment>
                   <div className="btn-group">
-                    <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>Next</button>
+                    <button type="submit" className="btn btn-primary" disabled={submitting}>Next</button>
                   </div>
                   <Footer />
                 </React.Fragment>
               )}
-
-
-            />
-            {/*<Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} uiQuestions={uiQuestions} updateQuote={this.handleUpdateQuote} />} />*/}
+            />} />
             <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
@@ -136,4 +145,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   submitForm: submit,
   updateQuote,
+  getAgentsByAgencyCode,
+  getZipcodeSettings
 })(QuoteWorkflow);

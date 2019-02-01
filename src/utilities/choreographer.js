@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { callService, handleError } from './serviceRunner';
+import { formattedDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
 
 const HARD_STOP_STEPS = [
   'UWDecision1EndError',
@@ -60,6 +61,34 @@ function setState({
   state.uiQuestions = uiQuestions;
   state.underwritingQuestions = underwritingQuestions;
   state.isHardStop = isHardStop;
+}
+
+function formatForCGStep(data, quoteNumber, activeTask, options) {
+  const taskData = {};
+
+  if(activeTask === 'askAdditionalCustomerData'){
+    const { timezone } = options;
+
+    taskData.agentCode = String(data.agentCode);
+
+    taskData.FirstName = data.policyHolders[0].firstName;
+    taskData.LastName = data.policyHolders[0].lastName;
+    taskData.EmailAddress = data.policyHolders[0].emailAddress;
+    taskData.phoneNumber = data.policyHolders[0].primaryPhoneNumber;
+    taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false 
+    taskData.effectiveDate = formattedDate(data.effectiveDate, FORMATS.SECONDARY, timezone);
+
+  if (data.additionalPolicyholder) {
+    taskData.FirstName2 = data.policyHolders[1].firstName;
+    taskData.LastName2 = data.policyHolders[1].lastName;
+    taskData.EmailAddress2 = data.policyHolders[1].emailAddress;
+    taskData.phoneNumber2 = data.policyHolders[1].primaryPhoneNumber;
+
+  }
+    return taskData; 
+  }
+  
+  return data;
 }
 
 /**
@@ -235,7 +264,7 @@ async function getQuote(quoteNumber, quoteId) {
  * @public
  * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array, isHardStop: boolean}}>}
  */
-async function updateQuote({ data, quoteNumber, stepName, getReduxState }) {
+async function updateQuote({ data, quoteNumber, stepName, getReduxState, options }) {
   // if user refreshes it will ensure the state is synced up to the redux state;
   if (!state.activeTask) setState(getReduxState().quoteState.state);
 
@@ -243,23 +272,27 @@ async function updateQuote({ data, quoteNumber, stepName, getReduxState }) {
   if (stepName) {
     await complete(stepName, null, 'moveToTask');
     // customize w/ recalculate
-  } else if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
+  } 
+
+  const quoteData = formatForCGStep(data, quoteNumber, state.activeTask, options);
+  
+  if (state.activeTask === 'askToCustomizeDefaultQuote' && quoteData.recalc) {
     await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
-    await complete(state.activeTask, data);
+    await complete(state.activeTask, quoteData);
     // customize and save
-  } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
+  } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !quoteData.recalc) {
     await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
     // share
-  } else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
+  } else if (state.activeTask === 'sendEmailOrContinue' && quoteData.shouldSendEmail === 'Yes') {
     await complete(state.activeTask, { shouldSendEmail: 'Yes' });
-    await complete(state.activeTask, data);
+    await complete(state.activeTask, quoteData);
     // verify
   } else if (state.activeTask === 'editVerify') {
-    await complete(state.activeTask, { shouldEditVerify: data.shouldEditVerify });
-    await complete(state.activeTask, data);
+    await complete(state.activeTask, { shouldEditVerify: quoteData.shouldEditVerify });
+    await complete(state.activeTask, quoteData);
     // all other steps
   } else {
-    await complete(state.activeTask, data);
+    await complete(state.activeTask, quoteData);
   }
 
   // if we land on this step, need to fire another complete
