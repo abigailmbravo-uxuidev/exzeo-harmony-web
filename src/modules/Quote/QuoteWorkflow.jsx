@@ -84,11 +84,19 @@ export class QuoteWorkflow extends Component {
               path={location.pathname}
               initialValues={quote}
               handleSubmit={this.handleGandalfSubmit}
-              footer={<Footer />}
+              renderFooter={({ submitting, pristine }) => (
+                <React.Fragment>
+                  <div className="btn-group">
+                    <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>Next</button>
+                  </div>
+                  <Footer />
+                </React.Fragment>
+              )}
+
 
             />
             {/*<Route exact path={`${match.url}/customerInfo`}          render={props => <CustomerInfo {...props} uiQuestions={uiQuestions} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
+            <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
