@@ -9,13 +9,13 @@
   > * {
     grid-column-start: 1;
     grid-column-end: -1;
-    padding: $padding/2;
+    padding: $padding;
   }
 }
 
 // TITLE component
 .title {
-  margin: (-$padding) (-$padding/2) ($padding*2);
+  margin: 0 0 $padding;
   padding: ($padding);
   color: $bright-blue-darken-04;
   font-size: $font-size-h2;
@@ -27,21 +27,22 @@
 }
 
 // SECTION componet
-section {
-  display: flex;
-  flex-wrap: wrap;
-  padding: $padding*2;
-}
+.view-grid {
+    section {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+    }
 
-section {
-  display: grid;
-  padding: $padding*2;
+    section {
+      display: grid;
 
-  > * {
-    grid-column-start: 1;
-    grid-column-end: -1;
-    padding: $padding/2;
-  }
+      > * {
+        grid-column-start: 1;
+        grid-column-end: -1;
+        padding: $padding;
+      }
+    }
 }
 
 // responsize styles
