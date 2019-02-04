@@ -1,7 +1,6 @@
 /*BASE LAYOUT & STYLES*/
 /*###################################################*/
-@import "partials/_mixins";
-//@import "partials/_variables";
+@import "partials/_mixins"; //@import "partials/_variables";
 @import "partials/utilities/_flex";
 @import "partials/mixins/_hover";
 @import "partials/mixins/_flexbox";
@@ -128,12 +127,27 @@ hr {
   }
 }
 
-
 .nav-and-header-wrapper {
   flex-grow: 1;
   flex-shrink: 1;
 }
+
 .scroll.survey-wrapper {
   flex-grow: 1;
   flex-shrink: 1;
+  @include for-phone-only {
+    padding: 0;
+
+    .view-grid {
+      > .title,
+       > section,
+      > .form-group {
+        padding: $padding ($padding*1.5);
+      }
+    }
+  }
+}
+
+.active .workflow .detailHeader section.premium {
+  top: 0;
 }
