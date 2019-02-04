@@ -8,6 +8,11 @@ export const STEP_NAMES = {
   editVerify: 'editVerify',
 };
 
+export const NEXT_PAGE_ROUTING = {
+  customerInfo: 'underwriting',
+  underwriting: 'customize' 
+}
+
 export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   {
     key: STEP_NAMES.askAdditionalCustomerData,

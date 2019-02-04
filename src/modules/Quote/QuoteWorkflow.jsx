@@ -26,6 +26,7 @@ import WorkflowNavigation from './WorkflowNavigation';
 import Footer from '../../components/Common/Footer'
 
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
+import { NEXT_PAGE_ROUTING } from './constants/workflowNavigation';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { getQuoteSelector } from '../../selectors/quoteState.selectors';
 import { getAgentsList } from '../../selectors/agencyState.selectors';
@@ -72,10 +73,11 @@ export class QuoteWorkflow extends Component {
   };
 
   handleGandalfSubmit = async (values) => {
-    const { zipCodeSettings, quote, history, updateQuote } = this.props;
+    const { zipCodeSettings, quote, history, updateQuote, location } = this.props;
     await updateQuote({  data: values, quoteNumber: quote.quoteNumber, options: { timezone: zipCodeSettings.timezone } });
-    history.replace('underwriting');
-  };
+        // TODO: Figure out a routing solution
+    history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+  }
 
   render() {
     const { auth, history, isLoading, match, location, uiQuestions, quote, agentResults } = this.props;
