@@ -13,6 +13,12 @@ export const NEXT_PAGE_ROUTING = {
   underwriting: 'customize' 
 }
 
+export const PAGE_ROUTING = {
+  'customerInfo': 0,
+  'uderwriting' : 1,
+  'customize': 2
+};
+
 export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   {
     key: STEP_NAMES.askAdditionalCustomerData,

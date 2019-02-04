@@ -26,7 +26,7 @@ import WorkflowNavigation from './WorkflowNavigation';
 import Footer from '../../components/Common/Footer'
 
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
-import { NEXT_PAGE_ROUTING } from './constants/workflowNavigation';
+import { NEXT_PAGE_ROUTING, PAGE_ROUTING } from './constants/workflowNavigation';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { getQuoteSelector } from '../../selectors/quoteState.selectors';
 import { getAgentsList } from '../../selectors/agencyState.selectors';
@@ -94,8 +94,9 @@ export class QuoteWorkflow extends Component {
 
             <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
-            <Route exact path={`${match.url}/customerInfo`}          render={props => 
+            <Route path={`${match.url}`}          render={props => 
             <Gandalf
+              currentPage={PAGE_ROUTING[location.pathname.split('/')[3]]}
              /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
               options={{ agentResults }}
               className="survey-wrapper"
@@ -111,7 +112,7 @@ export class QuoteWorkflow extends Component {
                 </React.Fragment>
               )}
             />} />
-            <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
+            {/* <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} /> */}
             <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
