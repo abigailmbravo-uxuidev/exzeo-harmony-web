@@ -23,4 +23,7 @@ export default {
     agency: null,
     agents: []
   },
+  list: {
+
+  }
 };

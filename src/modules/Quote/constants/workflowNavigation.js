@@ -10,13 +10,13 @@ export const STEP_NAMES = {
 
 export const NEXT_PAGE_ROUTING = {
   customerInfo: 'underwriting',
-  underwriting: 'customize' 
-}
+  underwriting: 'customize'
+};
 
 export const PAGE_ROUTING = {
   'customerInfo': 0,
-  'uderwriting' : 1,
-  'customize': 2
+  'underwriting' : 1,
+  'customize': 2,
 };
 
 export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [

@@ -77,10 +77,10 @@ export class QuoteWorkflow extends Component {
     await updateQuote({  data: values, quoteNumber: quote.quoteNumber, options: { timezone: zipCodeSettings.timezone } });
         // TODO: Figure out a routing solution
     history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
-  }
+  };
 
   render() {
-    const { auth, history, isLoading, match, location, uiQuestions, quote, agentResults } = this.props;
+    const { auth, history, isLoading, match, location, options, quote, agentResults } = this.props;
     const { isRecalc } = this.state;
 
     return (
@@ -94,26 +94,33 @@ export class QuoteWorkflow extends Component {
 
             <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
-            <Route path={`${match.url}`}          render={props => 
-            <Gandalf
-              currentPage={PAGE_ROUTING[location.pathname.split('/')[3]]}
-             /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
-              options={{ agentResults }}
-              className="survey-wrapper"
-              path={location.pathname}
-              initialValues={quote}
-              handleSubmit={this.handleGandalfSubmit}
-              renderFooter={({ submitting, pristine }) => (
+            <Route
+              path={`${match.url}`}
+              render={props => (
                 <React.Fragment>
-                  <div className="btn-group">
-                    <button type="submit" className="btn btn-primary" disabled={submitting}>Next</button>
-                  </div>
-                  <Footer />
+                {location.pathname !== `${match.url}/underwriting` &&
+                    <Gandalf
+                      currentPage={PAGE_ROUTING[location.pathname.split('/')[3]]}
+                      /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
+                      options={options}
+                      className="survey-wrapper"
+                      path={location.pathname}
+                      initialValues={quote}
+                      handleSubmit={this.handleGandalfSubmit}
+                      renderFooter={({ submitting, pristine }) => (
+                        <React.Fragment>
+                          <div className="btn-group">
+                            <button type="submit" className="btn btn-primary" disabled={submitting}>Next</button>
+                          </div>
+                          <Footer />
+                        </React.Fragment>
+                      )}
+                    />
+                }
                 </React.Fragment>
-              )}
-            />} />
-            {/* <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} /> */}
-            <Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />
+              )} />
+            <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
+            {/*<Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />*/}
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/additionalInterests`}   render={props => <AddAdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
@@ -146,6 +153,7 @@ const mapStateToProps = (state) => {
     uiQuestions,
     zipCodeSettings: state.service.zipCodeSettings,
     agentResults: getAgentsList(state),
+    options: state.list,
   }
 };
 
