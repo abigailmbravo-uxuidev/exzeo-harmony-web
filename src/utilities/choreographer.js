@@ -87,6 +87,14 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
   }
     return taskData; 
   }
+  else if (activeTask === 'askUWAnswers') {
+    Object.keys(data.underwritingAnswers).map(uw => {
+       taskData[uw] = data.underwritingAnswers[uw].answer;
+       return uw;
+    });
+    return taskData; 
+
+  }
   
   return data;
 }
