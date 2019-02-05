@@ -74,13 +74,13 @@ export class QuoteWorkflow extends Component {
 
   handleGandalfSubmit = async (values) => {
     const { zipCodeSettings, quote, history, updateQuote, location } = this.props;
-    await updateQuote({  data: values, quoteNumber: quote.quoteNumber, options: { timezone: zipCodeSettings.timezone } });
+    await updateQuote({  data: values, quoteNumber: quote.quoteNumber, options: { timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' } });
         // TODO: Figure out a routing solution
     history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
   };
 
   render() {
-    const { auth, history, isLoading, match, location, options, quote, agentResults } = this.props;
+    const { auth, history, isLoading, match, location, options, quote } = this.props;
     const { isRecalc } = this.state;
 
     return (
@@ -98,7 +98,7 @@ export class QuoteWorkflow extends Component {
               path={`${match.url}`}
               render={props => (
                 <React.Fragment>
-                {location.pathname !== `${match.url}/underwriting` &&
+                {
                     <Gandalf
                       currentPage={PAGE_ROUTING[location.pathname.split('/')[3]]}
                       /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
@@ -119,7 +119,7 @@ export class QuoteWorkflow extends Component {
                 }
                 </React.Fragment>
               )} />
-            <Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />
+            {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />*/}
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/assumptions`}           render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />

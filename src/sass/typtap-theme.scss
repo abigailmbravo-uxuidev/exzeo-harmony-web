@@ -133,6 +133,15 @@ input[readonly] {
         .label-segmented {
           border-right-width: 0;
 
+          &.selected {
+            span {
+              color: $body-color;
+              border-color: $bright-blue-lighten-02;
+              background: $white;
+              box-shadow: 0 0 0 2px $bright-blue-lighten-02 inset;
+            }
+          }
+
           input[type=radio] {
             &:checked {
               + span {
