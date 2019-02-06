@@ -347,8 +347,8 @@ input[readonly] {
     }
   }
   //range input
-  &.range-component {
-    label {}
+  &.range-component,
+  &.slider {
 
     .range-wrapper {
       display: flex;
@@ -611,7 +611,8 @@ input[readonly] {
       background-color: lighten($green-lighten-02, 30%);
     }
 
-    &.range-component {
+    &.range-component,
+    &.slider {
       .range-wrapper {
         .range-value {
           &:before {

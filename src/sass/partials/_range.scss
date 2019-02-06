@@ -16,16 +16,16 @@
 @mixin thumb() {
     width: $thumb-width;
     height: $thumb-height;
-    cursor: pointer;
     border: $thumb-border-width solid $thumb-border-color;
     border-radius: $thumb-radius;
     background: $thumb-color;
+    cursor: pointer;
+
     @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
 }
 
-.range-component {
-    label {}
-
+.range-component,
+.slider {
     .range-wrapper {
         display: flex;
         align-items: center;
@@ -50,9 +50,10 @@
             }
 
             [type=range] {
-                width: $track-width;
                 margin: $thumb-height / 2 0;
+                width: $track-width;
                 background: transparent;
+
                 -webkit-appearance: none;
 
                 &:focus {
@@ -63,12 +64,14 @@
                     border: $track-border-width solid $track-border-color;
                     border-radius: $track-radius;
                     background: $track-color;
+
                     @include track();
                     @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
                 }
 
                 &::-webkit-slider-thumb {
                     margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+
                     @include thumb();
                     -webkit-appearance: none;
                 }
@@ -81,6 +84,7 @@
                     border: $track-border-width solid $track-border-color;
                     border-radius: $track-radius;
                     background: $track-color;
+
                     @include track();
                     @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
                 }
@@ -90,10 +94,11 @@
                 }
 
                 &::-ms-track {
-                    color: transparent;
                     border-width: $thumb-width 0;
                     border-color: transparent;
                     background: transparent;
+                    color: transparent;
+
                     @include track();
                 }
 
@@ -101,6 +106,7 @@
                     border: $track-border-width solid $track-border-color;
                     border-radius: $track-radius * 2;
                     background: darken($track-color, $contrast);
+
                     @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
                 }
 
@@ -108,6 +114,7 @@
                     border: $track-border-width solid $track-border-color;
                     border-radius: $track-radius * 2;
                     background: $track-color;
+
                     @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
                 }
 
@@ -126,11 +133,11 @@
         }
 
         .range-value {
-            margin-left: $padding;
+            position: relative;
+            flex-basis: 104px;
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: 104px;
-            position: relative;
+            margin-left: $padding;
 
             input {
                 padding-left: 18px;
@@ -138,8 +145,8 @@
 
             .value-label {
                 position: absolute;
-                left: 6px;
                 top: 6px;
+                left: 6px;
             }
         }
     }
