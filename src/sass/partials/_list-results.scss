@@ -70,33 +70,17 @@ ul.list-cards {
 
   .card {
     display: flex;
+    flex-direction: column;
     margin: 0 0 ($padding/2);
     padding: $padding $padding*1.5;
 
-    @include for-phone-only {
-      flex-direction: column;
-    }
-    @include for-tablet-portrait-up {
-      flex-direction: column;
-    }
-    @include for-desktop-up {
-      flex-direction: row;
-    }
-
     .icon-name {
       display: flex;
-      flex-basis: auto;
       flex-grow: 1;
       flex-shrink: 1;
+      margin-bottom: $padding;
       width: auto;
       cursor: default;
-
-      @include for-desktop-up {
-        flex-basis: 14rem;
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: 14rem;
-      }
 
       i {
         display: flex;
@@ -120,13 +104,6 @@ ul.list-cards {
         width: auto;
         text-overflow: ellipsis;
         line-height: 2rem;
-
-        @include for-desktop-up {
-          flex-basis: 12rem;
-          flex-grow: 0;
-          flex-shrink: 0;
-          width: 12rem;
-        }
       }
     }
 
