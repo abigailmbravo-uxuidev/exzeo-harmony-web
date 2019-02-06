@@ -16,12 +16,12 @@ h4 {
 /*------------------------------------------------------------------------------------*/
 a,
 a:visited {
-  text-decoration: none;
   color: $bright-blue;
+  text-decoration: none;
 
   &:hover {
-    text-decoration: none !important;
     color: $bright-blue-darken-02;
+    text-decoration: none !important;
   }
 }
 //buttons
@@ -75,9 +75,9 @@ textarea {
   background: lighten($cool-gray-00, 2.5%);
   // Placeholder
   &::placeholder {
+    color: $cool-gray-02;
     // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
-    color: $cool-gray-02;
   }
 
   &:focus {
@@ -95,22 +95,23 @@ textarea {
 }
 
 input[readonly] {
-  text-align: right;
-  color: $cool-gray-03;
   border-bottom: 2px solid $green-lighten-02;
   background-color: rgba($white, 0);
+  color: $cool-gray-03;
+  text-align: right;
   font-weight: $font-weight-normal;
 }
 
 .form-group {
   .__react_component_tooltip {
     max-width: 24rem;
+
     @include for-phone-only {
       right: $margin*2;
       left: $margin*2 !important;
-      width: calc(100% - (#{$margin}*4));
-      max-width: 100%;
       margin: 0;
+      max-width: 100%;
+      width: calc(100% - (#{$margin}*4));
 
       &.place-left,
       &.place-right {
@@ -135,20 +136,20 @@ input[readonly] {
 
           &.selected {
             span {
-              color: $body-color;
               border-color: $bright-blue-lighten-02;
               background: $white;
               box-shadow: 0 0 0 2px $bright-blue-lighten-02 inset;
+              color: $body-color;
             }
           }
 
           input[type=radio] {
             &:checked {
               + span {
-                color: $body-color;
                 border-color: $bright-blue-lighten-02;
                 background: $white;
                 box-shadow: 0 0 0 3px $bright-blue-lighten-02 inset;
+                color: $body-color;
               }
             }
           }
@@ -156,6 +157,7 @@ input[readonly] {
           span {
             border: 2px solid $cool-gray-02;
             box-shadow: 0 0 0 2px $white inset;
+
             @include button-variant($body-color, $white, $cool-gray-02);
 
             &,
@@ -175,8 +177,8 @@ input[readonly] {
         div {
           img {
             -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
             -webkit-filter: opacity(.5);
+            filter: grayscale(100%);
             filter: opacity(.5);
           }
 
@@ -188,10 +190,10 @@ input[readonly] {
             input[type=radio] {
               &:checked {
                 + span {
-                  color: $cool-gray-02;
                   border-color: $cool-gray-02;
                   background: $cool-gray-00;
                   box-shadow: 0 0 0 2px $cool-gray-02 inset;
+                  color: $cool-gray-02;
                 }
               }
             }
@@ -205,25 +207,25 @@ input[readonly] {
         div {
           img {
             -webkit-filter: grayscale(100%);
-            filter: grayscale(100%);
             -webkit-filter: opacity(.5);
+            filter: grayscale(100%);
             filter: opacity(.5);
           }
 
           .label-segmented {
             span {
-              color: $body-color;
               border-color: $red-lighten-01;
               background-color: lighten($red-lighten-04, 20%);
+              color: $body-color;
             }
 
             input[type=radio] {
               &:checked {
                 + span {
-                  color: $red;
                   border-color: $red;
                   background: lighten($red-lighten-04, 20%);
                   box-shadow: 0 0 0 2px $red inset;
+                  color: $red;
                 }
               }
             }
@@ -239,9 +241,9 @@ input[readonly] {
         flex-basis: 3.5rem;
         width: 3.5rem;
         height: 1.5rem;
-        cursor: pointer;
         border-radius: 0.75rem;
         background: $cool-gray-04;
+        cursor: pointer;
 
         &:before {
           width: 1.5rem;
@@ -263,8 +265,8 @@ input[readonly] {
             background: $bright-blue-lighten-02;
 
             &:before {
-              transform: translateX(2rem);
               border-color: $cool-gray-01;
+              transform: translateX(2rem);
             }
 
             &:after {
@@ -358,24 +360,28 @@ input[readonly] {
           &::-webkit-slider-runnable-track {
             border: $track-border-width solid $track-border-color;
             background: $cool-gray-03;
+
             @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
           }
 
           &::-moz-range-track {
             border: $track-border-width solid $track-border-color;
             background: $cool-gray-03;
+
             @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
           }
 
           &::-ms-fill-lower {
             border: $track-border-width solid $track-border-color;
             background: darken($cool-gray-03, $contrast);
+
             @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
           }
 
           &::-ms-fill-upper {
             border: $track-border-width solid $track-border-color;
             background: $cool-gray-03;
+
             @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
           }
 
@@ -389,11 +395,13 @@ input[readonly] {
           @mixin thumb() {
             border: 2px solid $cool-gray-01;
             background: lighten($cool-gray-00, 10%);
+
             @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
           }
 
           &::-webkit-slider-thumb {
             margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+
             @include thumb();
             -webkit-appearance: none;
           }
@@ -410,24 +418,28 @@ input[readonly] {
             &::-webkit-slider-runnable-track {
               border: $track-border-width solid $cool-gray-02;
               background: $cool-gray-02;
+
               @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
             }
 
             &::-moz-range-track {
               border: $track-border-width solid $cool-gray-02;
               background: $cool-gray-02;
+
               @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
             }
 
             &::-ms-fill-lower {
               border: $track-border-width solid $cool-gray-02;
               background: darken($cool-gray-02, $contrast);
+
               @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
             }
 
             &::-ms-fill-upper {
               border: $track-border-width solid $cool-gray-02;
               background: $cool-gray-02;
+
               @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
             }
 
@@ -441,11 +453,13 @@ input[readonly] {
             @mixin thumb() {
               border: 2px solid $green;
               background: $white;
+
               @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
             }
 
             &::-webkit-slider-thumb {
               margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+
               @include thumb();
               -webkit-appearance: none;
             }
@@ -470,10 +484,10 @@ input[readonly] {
           left: -1.5rem;
           width: 0;
           height: 0;
-          content: "";
           border-top: 1.1875rem solid transparent;
           border-right: 1.5rem solid lighten($cool-gray-00, 2.5%);
           border-bottom: 1.1875rem solid transparent;
+          content: "";
         }
 
         input {}
@@ -487,24 +501,28 @@ input[readonly] {
             &::-webkit-slider-runnable-track {
               border: $track-border-width solid $red;
               background: $red-lighten-04;
+
               @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
             }
 
             &::-moz-range-track {
               border: $track-border-width solid $red;
               background: $red-lighten-04;
+
               @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
             }
 
             &::-ms-fill-lower {
               border: $track-border-width solid $red;
               background: darken($red-lighten-04, $contrast);
+
               @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
             }
 
             &::-ms-fill-upper {
               border: $track-border-width solid $red;
               background: $red-lighten-04;
+
               @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
             }
 
@@ -518,11 +536,13 @@ input[readonly] {
             @mixin thumb() {
               border: 2px solid $red;
               background: lighten($red, 10%);
+
               @include shadow($thumb-shadow-size, $thumb-shadow-blur, $red);
             }
 
             &::-webkit-slider-thumb {
               margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+
               @include thumb();
               -webkit-appearance: none;
             }
@@ -608,10 +628,10 @@ input[readonly] {
   }
 
   i.fa-info-circle {
-    cursor: help;
     color: $bright-blue;
     font-size: 1rem;
     line-height: 1.25rem;
+    cursor: help;
   }
 }
 
@@ -637,8 +657,8 @@ select {
 
 .detail-wrapper {
   .section-group-header {
-    width: 100%;
     padding: ($padding);
+    width: 100%;
     color: $bright-blue-darken-03;
 
     &.error {
@@ -682,6 +702,7 @@ html {
 header {
   border-bottom: 2px solid $bright-blue;
   background: $black;
+
   @include for-tablet-landscape-up {
     max-width: 64rem;
   }
@@ -693,6 +714,7 @@ header {
     > .logo {
       flex-basis: 7rem;
       width: 7rem;
+
       @include for-phone-only {
         margin-left: 4rem;
       }
@@ -702,7 +724,6 @@ header {
       @include for-phone-only {
         background: $white;
       }
-
       @include for-tablet-portrait-up {
         border-width: 0;
         background: transparent;
@@ -718,28 +739,30 @@ header {
           }
         }
         @include for-tablet-portrait-up {
-          color: $bright-blue;
           border-top: 1px dashed $cool-gray-02;
+          color: $bright-blue;
 
           &:first-child {
             border-top-width: 0;
           }
         }
         @include for-tablet-landscape-up {
-          color: $cool-gray-04;
           border-top-width: 0;
+          color: $cool-gray-04;
         }
 
         &:hover {
           color: $bright-blue-lighten-02;
+
           @include for-tablet-landscape-up {
             color: $white;
           }
         }
 
         &.active {
-          color: $cool-gray-00;
           border-bottom-color: $bright-blue;
+          color: $cool-gray-00;
+
           @include for-phone-only {
             color: $body-color;
           }
@@ -752,6 +775,7 @@ header {
 
           &:hover {
             color: $cool-gray-00;
+
             @include for-phone-only {
               color: $body-color;
             }
@@ -809,6 +833,7 @@ header {
 /*------------------------------------------------------------------------------------*/
 main[role="document"] {
   box-shadow: 0 0 15px 0 rgba($black, .5);
+
   @include for-tablet-landscape-up {
     max-width: 64rem;
   }
@@ -876,6 +901,7 @@ main[role="document"] {
                   &.CoverageC,
                   &.YearBuilt {
                     order: 3;
+
                     @include for-phone-only {
                       display: none;
                     }
@@ -922,10 +948,10 @@ main[role="document"] {
 .content-panel-left {
   background-color: $cool-gray-12;
   background-image: url("../img/typtap-bg.png");
-  background-repeat: no-repeat;
   background-position-x: center;
   background-position-y: -3rem;
   background-size: cover;
+  background-repeat: no-repeat;
 
   .user {
     border-bottom: 2px solid mix($cool-gray-12, $bright-blue, 40);
@@ -953,8 +979,8 @@ main[role="document"] {
 
           &.active {
             border-left-color: $bright-blue;
-            font-weight: $font-weight-bold;
             color: $body-color;
+            font-weight: $font-weight-bold;
 
             i {
               color: $green;
@@ -997,8 +1023,8 @@ main[role="document"] {
         color: $cool-gray-08;
 
         span {
-          color: $cool-gray-06;
           background: $cool-gray-01;
+          color: $cool-gray-06;
         }
       }
     }
@@ -1089,8 +1115,8 @@ main[role="document"] {
 
             &:focus,
             &:hover {
-              cursor: default;
               color: $cool-gray-14;
+              cursor: default;
 
               i {
                 color: $green-darken-01;
@@ -1115,8 +1141,8 @@ main[role="document"] {
 
             &:focus,
             &:hover {
-              cursor: pointer;
               color: $cool-gray-08;
+              cursor: pointer;
 
               i {
                 color: $bright-blue;
@@ -1250,12 +1276,6 @@ ul.result-cards {
     i {
       color: $green;
     }
-
-    section {
-      ul {
-        li {}
-      }
-    }
   }
 }
 //Demographics page
@@ -1264,8 +1284,8 @@ ul.result-cards {
   .form-group {
     .FirstName {
       @include for-tablet-portrait-up {
-        width: 40%;
         padding-right: $padding*2;
+        width: 40%;
       }
     }
 
@@ -1278,32 +1298,32 @@ ul.result-cards {
     .EmailAddress {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        width: 60%;
         padding-right: $padding*2;
+        width: 60%;
       }
     }
 
     .phoneNumber {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        width: 40%;
         padding-right: 0;
+        width: 40%;
       }
     }
 
     .effectiveDate {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        width: 40%;
         padding-right: $padding*2;
+        width: 40%;
       }
     }
 
     .agentID {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        width: 60%;
         padding-right: 0;
+        width: 60%;
       }
     }
   }
@@ -1378,6 +1398,7 @@ ul.result-cards {
   .m2City {
     flex-grow: 1;
     width: auto;
+
     @include for-phone-only {
       width: 100%;
     }
@@ -1393,6 +1414,7 @@ ul.result-cards {
   .m2State,
   .state {
     width: 6rem;
+
     @include for-phone-only {
       width: 40%;
     }
@@ -1408,6 +1430,7 @@ ul.result-cards {
   .m2Zip,
   .zip {
     width: 12rem;
+
     @include for-phone-only {
       width: 60%;
     }
@@ -1418,8 +1441,8 @@ ul.result-cards {
     @include for-tablet-portrait-up {
       input {
         flex-grow: 1;
-        width: 40%;
         padding-right: 0;
+        width: 40%;
       }
     }
   }
@@ -1430,8 +1453,8 @@ ul.result-cards {
   .form-group {
     .firstName {
       @include for-tablet-portrait-up {
-        width: 40%;
         padding-right: $padding*2;
+        width: 40%;
       }
     }
 
@@ -1444,16 +1467,16 @@ ul.result-cards {
     .emailAddress {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        width: 60%;
         padding-right: $padding*2;
+        width: 60%;
       }
     }
 
     .primaryPhoneNumber {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        width: 40%;
         padding-right: 0;
+        width: 40%;
       }
     }
   }
@@ -1465,6 +1488,7 @@ ul.result-cards {
     .city {
       flex-grow: 1;
       width: auto;
+
       @include for-phone-only {
         width: 100%;
       }
@@ -1472,6 +1496,7 @@ ul.result-cards {
 
     .State {
       width: 6rem;
+
       @include for-phone-only {
         width: 40%;
       }
@@ -1479,6 +1504,7 @@ ul.result-cards {
 
     .zip {
       width: 12rem;
+
       @include for-phone-only {
         width: 60%;
       }
@@ -1557,6 +1583,7 @@ ul.result-cards {
     aside {
       border-left: 1px dotted $cool-gray-01;
       background: $cool-gray-00;
+
       @include for-phone-only {
         border-left-width: 0;
       }
@@ -1596,18 +1623,20 @@ ul.result-cards {
 /*------------------------------------------------------------------------------------*/
 .thanks-content {
   .card-thanks {
-    max-width: 36rem;
     margin-bottom: $padding;
+    max-width: 36rem;
     box-shadow: 0 0 50px rgba($black, .4);
+
     @include for-phone-only {
-      max-width: 300px;
       margin: 0 0 ($padding*2);
+      max-width: 300px;
     }
 
     .card-header-image-thanks {
       height: 16rem;
       background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
       background-size: cover;
+
       @include for-phone-only {
         height: 12rem;
       }
@@ -1620,8 +1649,8 @@ ul.result-cards {
       h6 {
         margin: (-$padding*1.75) (-$padding*2.5);
         padding: $padding;
-        color: $white;
         background: rgba($green-darken-03,.9);
+        color: $white;
       }
     }
   }

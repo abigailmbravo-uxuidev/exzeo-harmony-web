@@ -72,6 +72,7 @@ ul.list-cards {
     display: flex;
     margin: 0 0 ($padding/2);
     padding: $padding $padding*1.5;
+
     @include for-phone-only {
       flex-direction: column;
     }
@@ -89,6 +90,7 @@ ul.list-cards {
       flex-shrink: 1;
       width: auto;
       cursor: default;
+
       @include for-desktop-up {
         flex-basis: 14rem;
         flex-grow: 0;
@@ -113,10 +115,12 @@ ul.list-cards {
         flex-basis: auto;
         flex-grow: 1;
         flex-shrink: 1;
+        margin: 0;
+        padding: 0 0 0 $padding;
         width: auto;
-        padding-left: $padding;
         text-overflow: ellipsis;
         line-height: 2rem;
+
         @include for-desktop-up {
           flex-basis: 12rem;
           flex-grow: 0;
@@ -130,7 +134,7 @@ ul.list-cards {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-      flex-shrink: 0;
+      flex-shrink: 1;
 
       ul {
         margin: 0;
@@ -143,6 +147,7 @@ ul.list-cards {
           flex-shrink: 0;
           justify-content: space-between;
           font-size: $font-size-sm;
+
           @include for-phone-only {
             padding-top: $padding;
             border-top: 1px dashed $cool-gray-01;
@@ -195,6 +200,7 @@ ul.list-cards {
             width: 100%;
             border-width: 0;
             border-radius: 0;
+
             @include for-phone-only {
               flex-direction: column;
               padding: 0;
@@ -209,8 +215,8 @@ ul.list-cards {
             }
 
             &:hover {
-              color: $bright-blue-darken-04;
               background: rgba($bright-blue, .2);
+              color: $bright-blue-darken-04;
             }
           }
 
@@ -218,6 +224,7 @@ ul.list-cards {
             flex-grow: 0;
             flex-shrink: 0;
             width: 5.75rem;
+
             @include for-phone-only {
               flex-basis: 0;
             }
@@ -226,6 +233,7 @@ ul.list-cards {
           .property-address {
             flex-grow: 1;
             flex-shrink: 1;
+
             @include for-phone-only {
               font-size: $font-size-h5;
             }
@@ -241,6 +249,7 @@ ul.list-cards {
             display: flex;
             flex-grow: 0;
             flex-shrink: 0;
+
             @include for-phone-only {
               align-items: flex-end;
               justify-content: space-between;
@@ -259,6 +268,7 @@ ul.list-cards {
           .quote-state, .policy-status {
             flex-grow: 0;
             flex-shrink: 0;
+
             @include for-phone-only {
               flex-basis: auto;
             }
@@ -274,6 +284,7 @@ ul.list-cards {
             flex-grow: 0;
             flex-shrink: 0;
             width: 5rem;
+
             @include for-phone-only {
               display: flex;
               align-items: flex-start;
@@ -312,6 +323,7 @@ ul.list-cards {
             flex-basis: 5rem;
             flex-grow: 0;
             flex-shrink: 0;
+
             @include for-phone-only {
               display: none;
             }
@@ -327,6 +339,7 @@ ul.list-cards {
             flex-grow: 0;
             flex-shrink: 0;
             font-weight: $font-weight-bold;
+
             @include for-phone-only {
               flex-basis: auto;
             }
@@ -363,8 +376,8 @@ ul.list-cards {
         flex-basis: 20%;
         flex-grow: 0;
         flex-shrink: 0;
-        width: 20%;
         margin: 0;
+        width: 20%;
       }
 
       p {
@@ -375,9 +388,9 @@ ul.list-cards {
         display: flex;
         flex-basis: 80%;
         flex-direction: column;
-        width: 80%;
         margin: 0;
         padding: 0;
+        width: 80%;
       }
     }
 
