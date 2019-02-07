@@ -5,14 +5,15 @@
   }
 
   .form-group {
+    padding-bottom: $padding*3;
+
     &.switch {
       flex-direction: row;
-      padding-bottom: 1rem;
 
       label {
         flex-grow: 1;
         flex-shrink: 1;
-        margin-bottom: $padding*1.5;
+        margin-bottom: 0;
         width: auto;
       }
 
@@ -88,6 +89,47 @@
               color: $cool-gray-01;
             }
           }
+        }
+      }
+    }
+
+    &.display {
+      position: relative;
+      flex-direction: row;
+
+      label {
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin-bottom: 0;
+        width: auto;
+
+        &.disabled {
+          color: $warm-gray-14;
+
+          span {
+            margin-left: $padding;
+          }
+        }
+      }
+
+      output {
+        position: absolute;
+        top: -($padding/2);
+        right: 0;
+        flex-grow: 0;
+        flex-shrink: 0;
+        max-width: 6.5rem;
+        width: 6.5rem;
+      }
+    }
+
+    &.radio {
+      &.segmented {
+        output {
+          position: absolute;
+          top: -($padding/2);
+          right: 0;
+          max-width: 6.5rem;
         }
       }
     }
