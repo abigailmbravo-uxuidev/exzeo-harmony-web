@@ -94,7 +94,13 @@ textarea {
   }
 }
 
-input[readonly] {
+output {
+  border-bottom-color: $cool-gray-00;
+  background: lighten($cool-gray-00, 10%);
+}
+
+input[readonly],
+output {
   border-bottom: 2px solid $green-lighten-02;
   background-color: rgba($white, 0);
   color: $cool-gray-03;
@@ -129,6 +135,8 @@ input[readonly] {
   }
 
   &.segmented {
+    position: relative;
+
     .segmented-answer-wrapper {
       div {
         .label-segmented {
@@ -159,13 +167,6 @@ input[readonly] {
             box-shadow: 0 0 0 2px $white inset;
 
             @include button-variant($body-color, $white, $cool-gray-02);
-
-            &,
-            &.active,
-            &:active {
-              &.focus,
-              &:focus {}
-            }
           }
         }
       }
@@ -232,6 +233,13 @@ input[readonly] {
           }
         }
       }
+    }
+
+    output {
+      position: absolute;
+      top: -($padding/2);
+      right: 0;
+      max-width: 6.5rem;
     }
   }
 
