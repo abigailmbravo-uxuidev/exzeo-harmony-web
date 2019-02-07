@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
 import _ from 'lodash';
 
-import { updateQuote } from '../../actions/quoteState.actions';
 import Footer from '../Common/Footer';
 import { CheckField } from '../Form/inputs';
 
@@ -35,7 +34,7 @@ export const Assumptions = (props) => {
             <CheckField styleName="confirm" name="confirmAssumptions" label="Confirmed" isSwitch autoFocus tabIndex={'0'} />
           </div>
           <div className="workflow-steps">
-            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || isLoading} tabIndex={'0'}>Next</button>
+            <button className="btn btn-primary" type="submit" form="Assumptions" disabled={!fieldValues.confirmAssumptions || isLoading} tabIndex={'0'} data-test="submit">Next</button>
           </div>
           <Footer />
         </div>
@@ -50,8 +49,6 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote
 });
 
-export default connect(mapStateToProps, {
-  updateQuote
-})(reduxForm({
+export default connect(mapStateToProps)(reduxForm({
   form: 'Assumptions'
 })(Assumptions));

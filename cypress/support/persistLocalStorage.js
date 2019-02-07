@@ -1,3 +1,6 @@
+// This file is to persist and rehydrate local storage.
+// Add/remove keys from ourKeys as necessary to bypass Cypress's local storage clear.
+
 const LOCAL_STORAGE_MEMORY = {};
 
 Cypress.Commands.add('saveLocalStorage', () => {

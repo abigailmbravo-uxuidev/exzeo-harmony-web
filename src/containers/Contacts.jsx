@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { shape, func } from 'prop-types';
 
-import BaseConnect from './Base';
+import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard'
 import Footer from '../components/Common/Footer';
 
@@ -89,36 +89,37 @@ const supportContacts = [
   }
 ];
 
-const Contacts = props => (
-  <BaseConnect {...props}>
-    <div className="train" role="article">
-      <div className="route">
-        <div className="route-content">
-          <div className="scroll">
-            <div className="survey-wrapper">
-              <section className="contacts">
-                <h2><i className="fa fa-map-marker" />&nbsp;Territory Managers</h2>
-                {territoryManagerContacts.map(contact => (
-                  <ContactCard key={contact.name} {...contact} />
-                ))}
-              </section>
-              <section className="contacts">
-                <h2><i className="fa fa-address-book" />&nbsp;Support</h2>
-                {supportContacts.map(contact => (
-                  <ContactCard key={contact.name} {...contact} />
-                ))}
-              </section>
-            </div>
-            <Footer />
+const Contacts = ({ auth, match }) => (
+  <AppWrapper logout={auth.logout} match={match} routeClassName="train">
+    <div className="route">
+      <div className="route-content">
+        <div className="scroll">
+          <div className="survey-wrapper">
+            <section className="contacts">
+              <h2>Territory Representatives</h2>
+              <p>Your territory rep is the first point of contact for...</p>
+              {territoryManagerContacts.map(contact => (
+                <ContactCard key={contact.name} {...contact} />
+              ))}
+            </section>
+            <section className="contacts">
+              <h2>Support</h2>
+              <p>Support should be contacted for...</p>
+              {supportContacts.map(contact => (
+                <ContactCard key={contact.name} {...contact} />
+              ))}
+            </section>
           </div>
+          <Footer />
         </div>
       </div>
     </div>
-  </BaseConnect>
+  </AppWrapper>
 );
 
-// Contacts.propTypes = {
-//   children: PropTypes.shape()
-// };
+Contacts.propTypes = {
+  auth: shape({ logout: func }),
+  match: shape({ params: shape({}) }),
+};
 
 export default Contacts;

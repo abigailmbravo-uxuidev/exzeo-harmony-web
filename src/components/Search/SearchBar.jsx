@@ -21,9 +21,8 @@ export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
   const searchType = 'quote';
 
-  const { groups } = props.userProfile;
-  const userGroup = groups[0];
-  const { state, companyCode } = userGroup;
+  const { agency = {} } = props.userProfile;
+  const { state, companyCode } = agency;
 
   const taskData = {
     state,
@@ -51,9 +50,8 @@ export const changePageQuote = async (props, isNext) => {
 };
 
 export const handleSearchBarSubmit = async (data, dispatch, props) => {
-  const { groups } = props.userProfile;
-  const userGroup = groups[0];
-  const { state, companyCode } = userGroup;
+  const { agency = {} } = props.userProfile;
+  const { state, companyCode } = agency;
 
   const taskData = {
     state,
@@ -177,6 +175,7 @@ export class SearchForm extends Component {
             type="submit"
             form="SearchBar"
             disabled={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            data-test="submit"
           >
             <i className="fa fa-search" /><span>Search</span>
           </button>

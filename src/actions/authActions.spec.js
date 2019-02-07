@@ -32,7 +32,6 @@ describe('authActions', () => {
       }
     }];
 
-    authActions.dispatchUserProfile({});
     store.dispatch(authActions.setUserProfile({}));
 
     expect(store.getActions()).toEqual(stateObj);

@@ -10,7 +10,10 @@ describe('Testing PolicyWorkflow component', () => {
   it('should test connected app', () => {
     const initialState = {
       service: {},
-      error: {}
+      error: {},
+      agencyState: {
+        agents: []
+      }
     };
     const store = mockStore(initialState);
     const props = {};
@@ -28,7 +31,7 @@ describe('Testing PolicyWorkflow component', () => {
       getPolicyDocumentsAction() {},
       getSummaryLedgerAction() {},
       getLatestPolicyAction() { return Promise.resolve({}); },
-      getAgentsByAgencyAction() {},
+      getAgentsByAgencyCode() {},
       error: {},
       match: { params: {} }
     };

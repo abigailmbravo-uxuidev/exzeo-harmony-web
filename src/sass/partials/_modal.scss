@@ -139,21 +139,3 @@
     }
   }
 }
-
-.blur {
-  + main[role="document"] {
-    .content-wrapper {
-      filter: blur(5px);
-      @include for-tablet-landscape-up {
-        filter: blur(0);
-      }
-    }
-  }
-
-  .content-wrapper {
-    filter: blur(5px);
-    @include for-tablet-landscape-up {
-      filter: blur(0);
-    }
-  }
-}

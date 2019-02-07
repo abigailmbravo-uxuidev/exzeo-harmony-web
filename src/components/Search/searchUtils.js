@@ -13,7 +13,7 @@ export const getErrorToolTip = (formErrors, fieldName) => {
 
 export const generateField = (name, placeholder, labelText, formErrors, formGroupCss, autoFocus) => {
   const field = (<div className={(formErrors && formErrors[name]) ? `form-group error ${formGroupCss}` : `form-group ${formGroupCss}`}>
-    <label htmlFor={name}>{getErrorToolTip(formErrors, name)} {labelText}
+    <label htmlFor={name} data-test={`${name}-label`}>{getErrorToolTip(formErrors, name)} {labelText}
     </label>
     <Field
       autoFocus={autoFocus}
@@ -22,6 +22,7 @@ export const generateField = (name, placeholder, labelText, formErrors, formGrou
       placeholder={placeholder}
       type="text"
       component="input"
+      data-test={name}
     />
   </div>);
   return field;
@@ -30,9 +31,9 @@ export const generateField = (name, placeholder, labelText, formErrors, formGrou
 export const getSearchType = () => {
   const path = window.location.pathname;
   switch (path) {
-    case '/quote/retrieve':
+    case '/search/retrieve':
       return 'quote';
-    case '/quote/SearchAddress':
+    case '/search/address':
       return 'address';
     case '/policy':
       return 'policy';
