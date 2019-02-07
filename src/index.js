@@ -10,6 +10,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { asyncSessionStorage } from 'redux-persist/storages';
+import axios from 'axios';
+import { retry } from '@exzeo/core-ui';
 
 import configureStore from './store/configureStore';
 import Routes from './routes';
@@ -17,6 +19,7 @@ import Routes from './routes';
 import '../node_modules/font-awesome/scss/font-awesome.scss';
 import './sass/typtap-theme.scss';
 
+retry(axios);
 const store = configureStore();
 const persistor = persistStore(store, { storage: asyncSessionStorage });
 window.persistor = persistor; // i hate this with my entire being...
