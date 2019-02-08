@@ -8,7 +8,9 @@
     padding-bottom: $padding*3;
 
     &.switch {
+      align-items: center;
       flex-direction: row;
+      flex-wrap: nowrap;
 
       label {
         flex-grow: 1;
@@ -115,11 +117,11 @@
       output {
         position: absolute;
         top: -($padding/2);
-        right: 0;
+        right: $padding;
         flex-grow: 0;
         flex-shrink: 0;
         max-width: 6.5rem;
-        width: 6.5rem;
+        width: 6.5rem;;
       }
     }
 
@@ -128,7 +130,7 @@
         output {
           position: absolute;
           top: -($padding/2);
-          right: 0;
+          right: $padding;
           max-width: 6.5rem;
         }
       }
