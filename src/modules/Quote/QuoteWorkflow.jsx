@@ -112,11 +112,11 @@ export class QuoteWorkflow extends Component {
                           <div className="btn-group">
                             <button type="submit" className="btn btn-primary" disabled={submitting}>Next</button>
                           </div>
-                          <Footer />
                         </React.Fragment>
                       )}
                     />
                 }
+                <Footer />
                 </React.Fragment>
               )} />
             {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
