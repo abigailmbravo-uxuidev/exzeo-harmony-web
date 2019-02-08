@@ -55,7 +55,7 @@ function handleSetQuote(state, action) {
     return {
       ...map,
       [question.name]: (question.answers || []).map(answer => ({
-        value: answer.answer,
+        answer: answer.answer,
         label: answer.label,
       }))
     }
