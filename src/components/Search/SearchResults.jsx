@@ -19,7 +19,7 @@ const onKeypressQuote = (event, quote, props) => {
 
 const onKeypressPolicy = (event, policy, props) => {
   if (event.charCode === 13) {
-    // handleSelectPolicy(quote, props);
+    // handleSelectPolicy(policy, props);
   }
 };
 
@@ -38,22 +38,21 @@ export const SearchResults = (props) => {
             tabIndex={0}
             onKeyPress={event => onKeypressPolicy(event, policy, props)}
             id={policy.PolicyID}
-            className="card"
-          >
-            <div className="icon-name">
-              <i className="card-icon fa fa-user-circle" />
-              <h4 title={policy.policyHolders && policy.policyHolders.length > 0 ? `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}` : ''}>{policy.policyHolders[0] && `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}</h4>
-            </div>
-            <section>
-              <ul id="policy-search-results" className="policy-search-results">
-                <li className="header">
-                  <span className="policy-no">Policy No.</span>
-                  <span className="property-address">Property Address</span>
-                  <span className="policy-status">Policy Status</span>
-                  <span className="effective-date">Effective Date</span>
-                </li>
-                <li>
-                  <Link to={{ pathname: `/policy/${policy.policyNumber}/policyHolder` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1} row`}>
+            className="card">
+            <Link to={{ pathname: `/policy/${policy.policyNumber}/policyHolder` }} className={`${policy.policyNumber + policy.property.physicalAddress.address1}`}>
+              <div className="icon-name">
+                <i className="card-icon fa fa-user-circle" />
+                <h4 title={policy.policyHolders && policy.policyHolders.length > 0 ? `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}` : ''}>{policy.policyHolders[0] && `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}</h4>
+              </div>
+              <section>
+                <ul id="policy-search-results" className="policy-search-results">
+                  <li className="header">
+                    <span className="policy-no">Policy No.</span>
+                    <span className="property-address">Property Address</span>
+                    <span className="policy-status">Policy Status</span>
+                    <span className="effective-date">Effective Date</span>
+                  </li>
+                  <li>
                     <span className="policy-no">{policy.policyNumber}</span>
                     <span className="property-address">{
                       `${policy.property.physicalAddress.address1}
@@ -62,10 +61,10 @@ export const SearchResults = (props) => {
                     }</span>
                     <span className="policy-status">{policy.status}</span>
                     <span className="effective-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
-                  </Link>
-                </li>
-              </ul>
-            </section>
+                  </li>
+                </ul>
+              </section>
+            </Link>
           </li>))
         }
         {
