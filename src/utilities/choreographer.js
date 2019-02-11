@@ -96,16 +96,32 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     return taskData;
 
   }
-  else if (activeTask === 'customize') {
+  else if (activeTask === 'askToCustomizeDefaultQuote') {
     /* (data, quoteNumber, activeTask, options) */
 
     /* const updatedQuote = convertQuoteStringsToNumber(data); */
+
+    //hidden fields on the form 
+    taskData.propertyIncidentalOccupancies = "None";
+
 
     taskData.dwellingAmount = data.coverageLimits.dwelling.amount;
     taskData.otherStructuresAmount = Math.ceil(((data.coverageLimits.otherStructures.value / 100) * data.coverageLimits.dwelling.amount));
     taskData.personalPropertyAmount = Math.ceil(((data.coverageLimits.personalProperty.value / 100) * data.coverageLimits.dwelling.amount));
     taskData.personalPropertyReplacementCostCoverage = data.coverageOptions.personalPropertyReplacementCost.answer || false;
-    taskData.lossOfUse = Math.ceil(((data.coverageLimits.lossOfUse.value / 100) * data.coverageLimits.dwelling.amount))
+    taskData.lossOfUse = data.coverageLimits.lossOfUse.value; // should be the number value
+    taskData.personalLiability = Math.ceil(((data.coverageLimits.personalLiability.value / 100) * data.coverageLimits.dwelling.amount));
+    taskData.medicalPayments = data.coverageLimits.medicalPayments.amount;
+    taskData.moldProperty = data.coverageLimits.moldProperty.amount;
+    taskData.moldLiability = data.coverageLimits.moldLiability.amount;
+    taskData.ordinanceOrLaw = Math.ceil(((data.coverageLimits.ordinanceOrLaw.amount / 100) * data.coverageLimits.dwelling.amount));
+    taskData.sinkholePerilCoverage = data.coverageOptions.sinkholePerilCoverage.answer;
+    taskData.sinkhole =  data.coverageOptions.sinkholePerilCoverage.answer ? 10: 0;
+    taskData.allOtherPerils = data.deductibles.allOtherPerils.answer;
+    taskData.hurricane = data.deductibles.hurricane.amount;
+    taskData.calculatedHurricane = Math.ceil(((data.deductibles.hurricane.amount / 100.0) * data.coverageLimits.dwelling.amount));
+  
+
     //   const updatedQuoteResult = {
     //     ...updatedQuote,
     //     dwellingAmount: data.coverageLimits.dwelling.amount,
@@ -116,7 +132,7 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     //     propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
     //     lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * data.coverageLimits.dwelling.amount)),
     //     liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-    //     calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * data.coverageLimits.dwelling.amount)),
+    //     ,
     //     recalc: !!props.isRecalc
     //   };
     //
@@ -138,7 +154,11 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     // };
   }
 
-  return data;
+  return {
+    ...taskData,
+    ...data.property.windMitigation,
+    ...data.property
+  };
 }
 
 /**
