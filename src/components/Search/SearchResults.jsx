@@ -27,17 +27,22 @@ export const SearchResults = (props) => {
   const { policyResults } = props;
   if (props.search && props.search.searchType === 'policy') {
     return (
-      <div className="quote-list">
+      <ul className="policy-list">
         {props.search && props.search.isLoading &&
           <Loader />
         }
         {
-          policyResults && policyResults.policies && policyResults.policies.length > 0 && policyResults.policies.map((policy, index) => (<div tabIndex={0} onKeyPress={event => onKeypressPolicy(event, policy, props)} id={policy.PolicyID} className="card" key={index}>
+          policyResults && policyResults.policies && policyResults.policies.length > 0 && policyResults.policies.map((policy, index) => (
+          <li
+            key={index}
+            tabIndex={0}
+            onKeyPress={event => onKeypressPolicy(event, policy, props)}
+            id={policy.PolicyID}
+            className="card"
+          >
             <div className="icon-name">
               <i className="card-icon fa fa-user-circle" />
-              <div className="card-name">
-                <h4 title={policy.policyHolders && policy.policyHolders.length > 0 ? `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}` : ''}>{policy.policyHolders[0] && `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}</h4>
-              </div>
+              <h4 title={policy.policyHolders && policy.policyHolders.length > 0 ? `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}` : ''}>{policy.policyHolders[0] && `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}</h4>
             </div>
             <section>
               <ul id="policy-search-results" className="policy-search-results">
@@ -61,12 +66,12 @@ export const SearchResults = (props) => {
                 </li>
               </ul>
             </section>
-          </div>))
+          </li>))
         }
         {
           props.search && props.search.hasSearched && policyResults && policyResults.policies && policyResults.policies.length === 0 && <NoPolicyResultsConnect />
         }
-      </div>
+      </ul>
     );
   }
   if (props.searchType === 'address') {
@@ -108,9 +113,15 @@ export const SearchResults = (props) => {
   if (props.searchType === 'quote') {
     const quotes = props.results;
     return (
-      <div className="quote-list" data-test="quote-list">
-        {
-          quotes && quotes.map((quote, index) => (<div tabIndex={0} onKeyPress={event => onKeypressQuote(event, quote, props)} id={quote._id} className="card" key={index}>
+      <ul className="quote-list" data-test="quote-list">
+        {quotes && quotes.map((quote, index) => (
+          <li
+            key={index}
+            tabIndex={0}
+            onKeyPress={event => onKeypressQuote(event, quote, props)}
+            id={quote._id}
+            className="card"
+            onClick={() => props.handleSelectQuote(quote, props)}>
             <div className="icon-name">
               <i className="card-icon fa fa-user-circle" />
               <h4 title={quote.policyHolders && quote.policyHolders.length > 0 ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}` : ''}>{quote.policyHolders[0] && `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}</h4>
@@ -126,25 +137,23 @@ export const SearchResults = (props) => {
                   <span className="premium">Premium</span>
                 </li>
                 <li>
-                  <a onClick={() => props.handleSelectQuote(quote, props)} >
-                    <span className="quote-no">{quote.quoteNumber}</span>
-                    <span className="property-address">{`${quote.property.physicalAddress.address1}
-                          ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
-                          ${quote.property.physicalAddress.zip}
-                          `}</span>
-                    <div className="quote-detail-wrapper">
-                      <span className="quote-state">{quote.quoteState}</span>
-                      <span className="effective-date">{moment.utc(quote.effectiveDate).format('MM/DD/YYYY')}</span>
-                      <span className="started-on">{moment.utc(quote.createdAt).format('MM/DD/YYYY')}</span>
-                      <span className="premium">$ {quote.rating ? quote.rating.totalPremium : '-'}</span>
-                    </div>
-                  </a>
+                  <span className="quote-no">{quote.quoteNumber}</span>
+                  <span className="property-address">{`${quote.property.physicalAddress.address1}
+                        ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
+                        ${quote.property.physicalAddress.zip}
+                        `}</span>
+                  <div className="quote-detail-wrapper">
+                    <span className="quote-state">{quote.quoteState}</span>
+                    <span className="effective-date">{moment.utc(quote.effectiveDate).format('MM/DD/YYYY')}</span>
+                    <span className="started-on">{moment.utc(quote.createdAt).format('MM/DD/YYYY')}</span>
+                    <span className="premium">$ {quote.rating ? quote.rating.totalPremium : '-'}</span>
+                  </div>
                 </li>
               </ul>
             </section>
-          </div>))
+          </li>))
         }
-      </div>
+      </ul>
     );
   }
 

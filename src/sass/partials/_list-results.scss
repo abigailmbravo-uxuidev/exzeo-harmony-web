@@ -63,7 +63,7 @@ ul.list-cards {
   }
 }
 
-.quote-list {
+.quote-list, .policy-list {
   flex-grow: 1;
   margin-bottom: $padding/2;
   padding: $padding*2;
@@ -73,6 +73,15 @@ ul.list-cards {
     flex-direction: column;
     margin: 0 0 ($padding/2);
     padding: $padding $padding*1.5;
+
+    @include transition(all .2s ease-in-out);
+
+    &:hover {
+      z-index: 2;
+      box-shadow: $card-box-shadow-hover;
+      cursor: pointer;
+      transform: scale(1.004);
+    }
 
     .icon-name {
       display: flex;
