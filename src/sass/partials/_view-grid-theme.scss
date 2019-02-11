@@ -7,6 +7,10 @@
   .form-group {
     padding-bottom: $padding*3;
 
+    @include for-phone-only {
+      padding-bottom: $padding*3;
+    }
+
     &.switch {
       align-items: center;
       flex-direction: row;

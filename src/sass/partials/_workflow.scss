@@ -323,7 +323,7 @@
           }
           @include for-tablet-portrait-up {
             display: block;
-            font-size: $xsmall-font-size;
+            font-size: $font-size-xs;
           }
           @include for-tablet-landscape-up {
             display: block;

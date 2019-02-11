@@ -1,27 +1,28 @@
 .detail-wrapper,
 .survey-wrapper {
-  flex-direction: row;
-  padding: ($padding*2) ($padding*2) 0;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-  flex-grow: 1;
-  height: auto;
   align-content: flex-start;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  padding: ($padding*2) ($padding*2) 0;
+  height: auto;
 
   .section-group-header {
-    width: 100%;
     margin: (-$padding) (-$padding/2) ($padding*2);
     padding: ($padding);
+    width: 100%;
     color: $bright-blue-darken-04;
     font-size: $font-size-h2;
+
     @include for-phone-only {
       font-size: $font-size-h3;
     }
   }
 
   &.form-group {
-    margin-bottom: 0;
     flex-grow: 0;
+    margin-bottom: 0;
     width: auto;
 
     .display-element {
@@ -68,14 +69,11 @@
   }
 
   .form-group {
-    padding-bottom: 3.052rem;
     border-bottom: 1px dashed $cool-gray-02;
-    @include for-phone-only {
-      padding-bottom: 1.563rem;
-    }
 
     label {
       font-size: $font-size-h4;
+
       @include for-phone-only {
         font-size: $font-size-h5;
       }

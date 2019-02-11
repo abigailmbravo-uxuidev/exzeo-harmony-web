@@ -139,14 +139,6 @@ hr {
 
   @include for-phone-only {
     padding: 0;
-
-    .view-grid {
-      > .title,
-       > section,
-      > .form-group {
-        padding: $padding ($padding*1.5);
-      }
-    }
   }
 }
 
