@@ -19,5 +19,5 @@ import './login';
 import './persistLocalStorage';
 import './quoteWorkflow';
 import './utils';
-// Use this folder if you want any custom cypress stuff that will only be local
-import '../local';
+// Uncomment if you want to include custom local configuration (i.e., dashboard theme, paths, etc.)
+// import '../local';
