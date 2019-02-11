@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { callService, handleError } from './serviceRunner';
 import { formattedDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
+import { convertQuoteStringsToNumber } from '../components/Customize/customizeHelpers';
 
 const HARD_STOP_STEPS = [
   'UWDecision1EndError',
@@ -75,7 +76,7 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.LastName = data.policyHolders[0].lastName;
     taskData.EmailAddress = data.policyHolders[0].emailAddress;
     taskData.phoneNumber = data.policyHolders[0].primaryPhoneNumber;
-    taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false 
+    taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false
     taskData.effectiveDate = formattedDate(data.effectiveDate, FORMATS.SECONDARY, timezone);
 
   if (data.additionalPolicyholder) {
@@ -85,17 +86,58 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.phoneNumber2 = data.policyHolders[1].primaryPhoneNumber;
 
   }
-    return taskData; 
+    return taskData;
   }
   else if (activeTask === 'askUWAnswers') {
     Object.keys(data.underwritingAnswers).map(uw => {
        taskData[uw] = data.underwritingAnswers[uw].answer;
        return uw;
     });
-    return taskData; 
+    return taskData;
 
   }
-  
+  else if (activeTask === 'customize') {
+    /* (data, quoteNumber, activeTask, options) */
+
+    /* const updatedQuote = convertQuoteStringsToNumber(data); */
+
+    taskData.dwellingAmount = data.coverageLimits.dwelling.amount;
+    taskData.otherStructuresAmount = Math.ceil(((data.coverageLimits.otherStructures.value / 100) * data.coverageLimits.dwelling.amount));
+    taskData.personalPropertyAmount = Math.ceil(((data.coverageLimits.personalProperty.value / 100) * data.coverageLimits.dwelling.amount));
+    taskData.personalPropertyReplacementCostCoverage = data.coverageOptions.personalPropertyReplacementCost.answer || false;
+    taskData.lossOfUse = Math.ceil(((data.coverageLimits.lossOfUse.value / 100) * data.coverageLimits.dwelling.amount))
+    //   const updatedQuoteResult = {
+    //     ...updatedQuote,
+    //     dwellingAmount: data.coverageLimits.dwelling.amount,
+    //     otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * data.coverageLimits.dwelling.amount)),
+    //     personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * data.coverageLimits.dwelling.amount)),
+    //     personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
+    //     propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
+    //     propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
+    //     lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * data.coverageLimits.dwelling.amount)),
+    //     liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
+    //     calculatedHurricane: Math.ceil(((updatedQuote.hurricane / 100.0) * data.coverageLimits.dwelling.amount)),
+    //     recalc: !!props.isRecalc
+    //   };
+    //
+    //   if (updatedQuoteResult.personalPropertyAmount === 0) {
+    //     updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
+    //   }
+    //
+    //   if (!updatedQuote.sinkholePerilCoverage) {
+    //     delete updatedQuoteResult.sinkhole;
+    //   }
+    //
+    //   await props.updateQuote({ data: updatedQuoteResult, quoteNumber: props.quote.quoteNumber });
+    //
+    //   if (!props.isRecalc) {
+    //     props.history.replace('share');
+    //     return;
+    //   }
+    //   props.setRecalc(false);
+    // };
+  }
+
   return data;
 }
 
@@ -280,10 +322,10 @@ async function updateQuote({ data, quoteNumber, stepName, getReduxState, options
   if (stepName) {
     await complete(stepName, null, 'moveToTask');
     // customize w/ recalculate
-  } 
+  }
 
   const quoteData = formatForCGStep(data, quoteNumber, state.activeTask, options);
-  
+
   if (state.activeTask === 'askToCustomizeDefaultQuote' && quoteData.recalc) {
     await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
     await complete(state.activeTask, quoteData);

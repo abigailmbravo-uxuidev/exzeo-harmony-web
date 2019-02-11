@@ -28,10 +28,12 @@ import Footer from '../../components/Common/Footer'
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import { NEXT_PAGE_ROUTING, PAGE_ROUTING } from './constants/workflowNavigation';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { getQuoteSelector } from '../../selectors/quoteState.selectors';
+import { getQuoteSelector } from '../../selectors/choreographer.selectors';
 import { getAgentsList } from '../../selectors/agencyState.selectors';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { getZipcodeSettings } from '../../actions/serviceActions';
+
+import MOCK_TEMPLATE from '../../mock-data/mockTemplate';
 
 export class QuoteWorkflow extends Component {
   state = {
@@ -79,6 +81,23 @@ export class QuoteWorkflow extends Component {
     history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
   };
 
+  getConfigForJsonTransform = () => {
+    return MOCK_TEMPLATE.pages.reduce((pageComponentsMap, page) => {
+
+      const pageComponents = page.components.reduce((componentMap, component) => {
+        if ((component.data.extendedProperties || {}).transformConfig) {
+          componentMap[component.data.path] = component.data.extendedProperties.transformConfig.value;
+        }
+        return componentMap;
+      }, {});
+
+      return {
+        ...pageComponentsMap,
+        ...pageComponents
+      }
+    }, {});
+  };
+
   render() {
     const { auth, history, isLoading, match, location, options, quote } = this.props;
     const { isRecalc } = this.state;
@@ -107,7 +126,9 @@ export class QuoteWorkflow extends Component {
                       path={location.pathname}
                       initialValues={quote}
                       handleSubmit={this.handleGandalfSubmit}
-                      renderFooter={({ submitting, pristine }) => (
+                      template={MOCK_TEMPLATE}
+                      transformConfig={this.getConfigForJsonTransform()}
+                      renderFooter={({ submitting }) => (
                         <React.Fragment>
                           <div className="btn-group">
                             <button type="submit" className="btn btn-primary" disabled={submitting}>Next</button>
