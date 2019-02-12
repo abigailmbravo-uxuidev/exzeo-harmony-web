@@ -795,7 +795,77 @@ const mock = {
           children: [],
         },
       ],
-    }
+    },
+    {
+      name: 'share',
+      step: {},
+      components: [
+        {
+          id: 1,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            type: '$SHARE',
+          }
+        },
+      ],
+    },
+    {
+      name: 'assumptions',
+      step: {},
+      components: [
+        {
+          id: 1,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            type: '$ASSUMPTIONS',
+          }
+        },
+      ],
+    },
+    {
+      name: 'additionalInterests',
+      step: {},
+      components: [
+        {
+          id: 1,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            type: '$ADDITIONAL_INTERESTS',
+          }
+        },
+      ],
+    },
+    {
+      name: 'mailingBilling',
+      step: {},
+      components: [
+        {
+          id: 1,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            type: '$MAILING_BILLING',
+          }
+        },
+      ],
+    },
+    {
+      name: 'verify',
+      step: {},
+      components: [
+        {
+          id: 1,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            type: '$VERIFY',
+          }
+        },
+      ],
+    },
   ]
 };
 
