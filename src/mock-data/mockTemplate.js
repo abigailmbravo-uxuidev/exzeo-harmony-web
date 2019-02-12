@@ -752,7 +752,6 @@ const mock = {
             label: 'Does the property have a burglar alarm?',
             size: '12',
             path: 'property.burglarAlarm',
-            validation: ['isRequired'],
             options: []
           },
           children: [],
@@ -766,7 +765,6 @@ const mock = {
             label: 'Does the property have a fire alarm?',
             size: '12',
             path: 'property.fireAlarm',
-            validation: ['isRequired'],
             options: []
           },
           children: [],
