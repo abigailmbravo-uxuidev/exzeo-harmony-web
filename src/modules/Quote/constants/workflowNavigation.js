@@ -18,7 +18,23 @@ export const PAGE_ROUTING = {
   'customerInfo': 0,
   'underwriting' : 1,
   'customize': 2,
+  'share': 3,
+  'assumptions': 4,
+  'additionalInterests': 5,
+  'mailingBilling': 6,
+  'verify': 7,
+  'thankYou': 8,
 };
+
+export const ROUTES_NOT_HANDLED_BY_GANDALF = [
+  'additionalInterests',
+  'askMortgagee',
+  'askAdditionalInterest',
+  'askAdditionalInsured',
+  'askPremiumFinance',
+  'askBillPayer',
+  'error',
+];
 
 export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   {

@@ -26,7 +26,7 @@ import WorkflowNavigation from './WorkflowNavigation';
 import Footer from '../../components/Common/Footer'
 
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
-import { NEXT_PAGE_ROUTING, PAGE_ROUTING } from './constants/workflowNavigation';
+import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF } from './constants/workflowNavigation';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { getQuoteSelector } from '../../selectors/choreographer.selectors';
 import { getAgentsList } from '../../selectors/agencyState.selectors';
@@ -101,6 +101,9 @@ export class QuoteWorkflow extends Component {
   render() {
     const { auth, history, isLoading, match, location, options, quote } = this.props;
     const { isRecalc } = this.state;
+    const currentStep = location.pathname.split('/')[3];
+    const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
+    const shouldPassCallback = PAGE_ROUTING[currentStep] === 2;
 
     return (
       <App
@@ -111,32 +114,33 @@ export class QuoteWorkflow extends Component {
           <div className="route">
             {isLoading && <Loader />}
 
-            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
+            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} isRecalc={isRecalc} history={history} goToStep={this.goToStep}/>
             {/*{ Gandalf will be replacing most/all of these routes }*/}
-            { location.pathname.split('/')[3] !== 'share' && location.pathname.split('/')[3] !== 'assumptions' && <Route
+            {shouldUseGandalf&&
+            <Route
               path={`${match.url}`}
               render={props => (
                 <React.Fragment>
-                {
-                    <Gandalf
-                      currentPage={PAGE_ROUTING[location.pathname.split('/')[3]]}
-                      /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
-                      options={options}
-                      className="survey-wrapper"
-                      path={location.pathname}
-                      initialValues={quote}
-                      handleSubmit={this.handleGandalfSubmit}
-                      template={MOCK_TEMPLATE}
-                      transformConfig={this.getConfigForJsonTransform()}
-                      renderFooter={({ submitting }) => (
-                        <React.Fragment>
-                          <div className="btn-group">
-                            <button type="submit" className="btn btn-primary" disabled={submitting}>Next</button>
-                          </div>
-                        </React.Fragment>
-                      )}
-                    />
-                }
+                <Gandalf
+                  currentPage={PAGE_ROUTING[currentStep]}
+                  /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
+                  options={options}
+                  className="survey-wrapper"
+                  path={location.pathname}
+                  initialValues={quote}
+                  handleSubmit={this.handleGandalfSubmit}
+                  template={MOCK_TEMPLATE}
+                  transformConfig={this.getConfigForJsonTransform()}
+                  onDirtyCallback={shouldPassCallback ? this.setRecalc : undefined}
+                  renderFooter={({ submitting }) => (
+                    <React.Fragment>
+                      <div className="btn-group">
+                        <button type="submit" className="btn btn-primary" disabled={submitting}>{this.state.isRecalc ? 'recalculate' : 'next'}</button>
+                      </div>
+                    </React.Fragment>
+                  )}
+                />
+
                 <Footer />
                 </React.Fragment>
               )} />
