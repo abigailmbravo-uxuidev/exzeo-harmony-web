@@ -1,11 +1,10 @@
 .modal {
   position: fixed;
-  z-index: 1;
-  z-index: 10000;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 10000;
   background: $modal-bg;
 
   &.schedule-date-modal {
@@ -14,12 +13,13 @@
   }
 
   &.edit-policyholder-modal {
-    z-index: 30;
     top: 3.375rem;
+    z-index: 30;
 
     .contact-message {
       width: 60%;
       height: 100%;
+
       @include for-phone-only {
         width: 100%;
       }
@@ -27,6 +27,7 @@
       .card-policyholder {
         position: relative;
         max-height: 90%;
+
         @include for-phone-only {
           max-height: 100%;
         }
@@ -39,6 +40,7 @@
           flex-grow: 0;
           flex-shrink: 0;
           width: 100%;
+
           @include for-phone-only {
             flex-direction: column;
           }
@@ -47,6 +49,7 @@
             flex-grow: 1;
             flex-shrink: 1;
             border-bottom: 1px dashed $cool-gray-02;
+
             @include for-phone-only {
               flex-grow: 0;
               flex-shrink: 0;
@@ -76,8 +79,9 @@
     flex-direction: column;
     flex-shrink: 1;
     justify-content: flex-start;
-    height: 100%;
     padding: $padding*2;
+    height: 100%;
+
     @include for-phone-only {
       padding: $padding 0;
     }
@@ -106,13 +110,14 @@
 /*------------------------------------------------------------------------------------*/
 .nav-modal {
   position: absolute;
-  z-index: 20;
   top: 3.375rem;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 20;
   visibility: hidden;
   background: $modal-bg;
+
   @include transition(all 0.1s ease-in-out);
 
   &.active {
@@ -123,17 +128,18 @@
 
 .aside-modal {
   position: absolute;
-  z-index: 20;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 20;
   visibility: hidden;
   background: $modal-bg;
 
   &.active {
     visibility: visible;
     background: $modal-bg;
+
     @include for-tablet-landscape-up {
       visibility: hidden;
     }
