@@ -96,7 +96,8 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     return taskData;
 
   }
-  else if (activeTask === 'askToCustomizeDefaultQuote') {
+  else if (activeTask === 'customizeDefaultQuote') {
+
     /* (data, quoteNumber, activeTask, options) */
 
     /* const updatedQuote = convertQuoteStringsToNumber(data); */
@@ -105,12 +106,13 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.propertyIncidentalOccupancies = "None";
 
 
-    taskData.dwellingAmount = data.coverageLimits.dwelling.amount;
+    taskData.dwellingAmount = Number(data.coverageLimits.dwelling.amount);
     taskData.otherStructuresAmount = Math.ceil(((data.coverageLimits.otherStructures.value / 100) * data.coverageLimits.dwelling.amount));
     taskData.personalPropertyAmount = Math.ceil(((data.coverageLimits.personalProperty.value / 100) * data.coverageLimits.dwelling.amount));
     taskData.personalPropertyReplacementCostCoverage = data.coverageOptions.personalPropertyReplacementCost.answer || false;
-    taskData.lossOfUse = data.coverageLimits.lossOfUse.value; // should be the number value
-    taskData.personalLiability = Math.ceil(((data.coverageLimits.personalLiability.value / 100) * data.coverageLimits.dwelling.amount));
+    taskData.lossOfUseAmount = data.coverageLimits.lossOfUse.value;
+    taskData.lossOfUse = Math.ceil(((data.coverageLimits.lossOfUse.value / 100) * data.coverageLimits.dwelling.amount));
+    taskData.personalLiability = data.coverageLimits.personalLiability.amount;
     taskData.medicalPayments = data.coverageLimits.medicalPayments.amount;
     taskData.moldProperty = data.coverageLimits.moldProperty.amount;
     taskData.moldLiability = data.coverageLimits.moldLiability.amount;
@@ -120,8 +122,10 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.allOtherPerils = data.deductibles.allOtherPerils.answer;
     taskData.hurricane = data.deductibles.hurricane.amount;
     taskData.calculatedHurricane = Math.ceil(((data.deductibles.hurricane.amount / 100.0) * data.coverageLimits.dwelling.amount));
-  
-
+    taskData.propertyIncidentalOccupanciesMainDwelling = data.coverageOptions.propertyIncidentalOccupanciesMainDwelling.answer;
+    taskData.propertyIncidentalOccupanciesOtherStructures = data.coverageOptions.propertyIncidentalOccupanciesOtherStructures.answer;
+    taskData.allOtherPerils = data.deductibles.allOtherPerils.amount;
+    taskData.liabilityIncidentalOccupancies = data.coverageOptions.liabilityIncidentalOccupancies.answer;
     //   const updatedQuoteResult = {
     //     ...updatedQuote,
     //     dwellingAmount: data.coverageLimits.dwelling.amount,
