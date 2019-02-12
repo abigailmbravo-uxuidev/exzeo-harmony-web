@@ -27,12 +27,16 @@ export const PAGE_ROUTING = {
 };
 
 export const ROUTES_NOT_HANDLED_BY_GANDALF = [
+  'share',
+  'assumptions',
   'additionalInterests',
   'askMortgagee',
   'askAdditionalInterest',
   'askAdditionalInsured',
   'askPremiumFinance',
   'askBillPayer',
+  'mailingBilling',
+  'verify',
   'error',
 ];
 
