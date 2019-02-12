@@ -19,3 +19,5 @@ import './login';
 import './persistLocalStorage';
 import './quoteWorkflow';
 import './utils';
+// Uncomment if you want to include custom local configuration (i.e., dashboard theme, paths, etc.)
+// import '../local';
