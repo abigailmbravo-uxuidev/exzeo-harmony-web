@@ -7,7 +7,7 @@ import Footer from '../components/Common/Footer';
 
 const territoryManagerContacts = [
   {
-    image: 'Clark-Ramos',
+    icon: 'image clark-ramos',
     name: 'Clark Ramos',
     title: 'Southeast Florida Rep',
     phone: '7865171810',
@@ -15,31 +15,38 @@ const territoryManagerContacts = [
     email: 'cramos@hcpci.com'
   },
   {
-    image: 'Edward-Spegowski',
+    icon: 'image edward-spegowski',
     name: 'Edward Spegowski',
     title: 'Southwest Florida Rep',
     phone: '8134195243',
     email: 'espegowski@hcpci.com'
   },
   {
-    image: 'Jodi-Kelley',
+    icon: 'image jodi-kelley',
     name: 'Jodi Kelley',
     title: 'Northeast Florida Rep',
     phone: '8134195220',
     email: 'jkelley@hcpci.com'
   },
   {
-    image: 'Victor-Ferdinandi',
+    icon: 'image victor-ferdinandi',
     name: 'Victor Ferdinandi',
     title: 'West Central Florida Rep',
     phone: '8134195245',
     email: 'vferdinandi@hcpci.com'
+  },
+  {
+    icon: 'image yanet-coursen',
+    name: 'Yanet Coursen',
+    title: 'VP, Sales & Marketing',
+    phone: '8134053273',
+    email: 'ycoursen@hcpci.com'
   }
 ];
 
 const supportContacts = [
   {
-    image: '',
+    icon: 'fa fa-building-o',
     name: 'Agency Support',
     title: '',
     phone: '8442897968',
@@ -47,7 +54,15 @@ const supportContacts = [
     email: 'agencysupport@typtap.com'
   },
   {
-    image: '',
+    icon: 'fa fa-life-ring',
+    name: 'Claims',
+    title: '',
+    phone: '8442897968',
+    extension: 'option 1',
+    email: 'claims@typtap.com'
+  },
+  {
+    icon: 'fa fa-handshake-o',
     name: 'Customer Service',
     title: '',
     phone: '8442897968',
@@ -55,26 +70,22 @@ const supportContacts = [
     email: 'customerservice@typtap.com'
   },
   {
-    image: '',
+    icon: 'fa fa-group',
+    name: 'Marketing',
+    title: '',
+    phone: '8882105235',
+    extension: 'option 5',
+    email: 'marketing@typtap.com'
+  },
+  {
+    icon: 'fa fa-credit-card',
     name: 'Payments',
     title: '',
+    message: 'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
     phone: '8442897968',
     extension: 'option 3',
     email: 'customerservice@typtap.com',
-    address1: 'Payable to: TypTap Management Company',
-    address2: 'PO Box 1120',
-    city: 'Ocala',
-    state: 'FL',
-    zip: '34478',
-    message: 'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
-  },
-  {
-    image: '',
-    name: 'Claims',
-    title: '',
-    phone: '8442897968',
-    extension: 'option 1',
-    email: 'claims@typtap.com'
+    disclaimer: 'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
   }
 ];
 

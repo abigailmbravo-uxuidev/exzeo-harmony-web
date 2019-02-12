@@ -43,7 +43,7 @@ export const SliderInput = ({
 
   return (
     <div className={formGroupStyles} data-test={name}>
-      <label htmlFor={name} data-test={`${name}-label`}>
+      <label htmlFor={name}>
         {label}
         {Hint}
       </label>
@@ -71,7 +71,6 @@ export const SliderInput = ({
             value={`$ ${calculatedValue >= 100000 ? calculatedValue.toLocaleString() : Number(value).toLocaleString()}`}
             onChange={handleChange}
             name={name}
-            data-test={`${name}-input`}
           />
         </span>
       </div>

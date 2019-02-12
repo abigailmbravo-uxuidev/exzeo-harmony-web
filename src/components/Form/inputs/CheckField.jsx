@@ -37,7 +37,7 @@ export const CheckInput = ({
     }
   };
 
-  const Switch = isSwitch && (<div className="switch-div" tabIndex={'0'} onClick={() => onChange(!value)} onKeyPress={event => onKeyPress(event, !value)} data-test={`${name}-switch`}/>);
+  const Switch = isSwitch && (<div className="switch-div" tabIndex={'0'} onClick={() => onChange(!value)} onKeyPress={event => onKeyPress(event, !value)} />);
 
 
   return (
@@ -45,7 +45,6 @@ export const CheckInput = ({
       <label
         htmlFor={name}
         onClick={() => (!isSwitch ? onChange(!value) : () => {})}
-        data-test={`${name}-label`}
       >
         {label}
         {Hint}
@@ -55,7 +54,6 @@ export const CheckInput = ({
           type="checkbox"
           checked={value}
           onChange={() => onChange(!value)}
-          data-test={`${name}-input`}
         />
         {Switch}
       </label>

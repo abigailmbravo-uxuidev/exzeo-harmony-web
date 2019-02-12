@@ -5,7 +5,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
   const useAnimationForPremium = activeTask === 'askToCustomizeDefaultQuote';
   return (
     <div className="detailHeader">
-      <section id="quoteDetails">
+      <section id="quoteDetails" data-test="quote-details">
         <dl>
           <div>
             <dt className="fade">Quote Number</dt>

@@ -31,6 +31,10 @@
           margin-bottom: 1rem;
           border-bottom: 1px dashed $cool-gray-02;
 
+          &:last-of-type {
+            border-bottom-width: 0;
+          }
+
           .link-list {
             margin: 0;
             padding: 0;
@@ -46,17 +50,18 @@
               a {
                 display: flex;
                 padding: $padding 0;
-                @include transition(all .2s ease-in-out);
+
+                @include transition(all 0.2s ease-in-out);
 
                 .home {
                   flex-grow: 0;
                   flex-shrink: 0;
+                  margin-left: $padding;
                   width: 4rem;
                   background-image: url("../img/TypTap-Home-Insurance-logo.svg");
-                  background-repeat: no-repeat;
                   background-position: center center;
                   background-size: 75%;
-                  margin-left: $padding;
+                  background-repeat: no-repeat;
                 }
 
                 .link-details {
@@ -66,13 +71,15 @@
 
                   h5 {
                     margin-bottom: $padding/2;
-                    @include transition(all .2s ease-in-out);
+
+                    @include transition(all 0.2s ease-in-out);
                   }
 
                   p {
                     margin-bottom: 0;
                     color: $cool-gray-10;
-                    @include transition(all .2s ease-in-out);
+
+                    @include transition(all 0.2s ease-in-out);
                   }
                 }
 
@@ -87,15 +94,17 @@
                   span {
                     position: relative;
                     color: $bright-blue-lighten-01;
-                    font-family: $font-family-icon;
                     font-size: 1.5rem;
-                    @include transition(all .2s ease-in-out);
+                    font-family: $font-family-icon;
+
+                    @include transition(all 0.2s ease-in-out);
 
                     &.pdf {
                       &:before {
-                        content: "\f1c1";
                         color: $red;
-                        @include transition(all .2s ease-in-out);
+                        content: "\f1c1";
+
+                        @include transition(all 0.2s ease-in-out);
                       }
 
                       &:after {
@@ -107,27 +116,25 @@
                         justify-content: center;
                         width: 1rem;
                         height: 1rem;
-                        content: '\f063';
-                        color: $white;
                         border-radius: 50%;
                         background: $bright-blue;
+                        color: $white;
+                        content: '\f063';
                         font-size: 0.5rem;
                         line-height: 1;
-                        @include transition(all .2s ease-in-out);
+
+                        @include transition(all 0.2s ease-in-out);
                       }
                     }
                   }
                 }
 
                 &:hover {
-                    background: rgba($cool-gray-00, .75);
+                  background: rgba($cool-gray-00, .75);
+
                   .link-details {
                     h5 {
-                     color: $bright-blue;
-                    }
-
-                    p {
-                     // color: $bright-blue;
+                      color: $bright-blue;
                     }
                   }
 
@@ -143,6 +150,146 @@
                         }
                       }
                     }
+                  }
+                }
+              }
+            }
+          }
+
+          &.contacts {
+            h3 {
+              margin-bottom: 1rem;
+            }
+
+            .card {
+              padding: ($padding)($padding*1.5);
+
+              &.contact-card {
+                align-items: center;
+                flex-direction: row;
+                margin: 0 0 ($padding*2);
+
+                .card-header {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-right: $padding;
+                  padding: $padding;
+                  border-bottom-width: 0;
+                  background: $white;
+                  color: $green;
+                  font-size: $font-size-h2;
+
+                  > div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 3rem;
+
+                    &.image {
+                        margin: -$padding;
+                        width: 4rem;
+                        height: 4rem;
+                        background-position: center center;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+
+                        &.clark-ramos {
+                          background-image: url("../img/clark-ramos.png");
+                        }
+
+                        &.edward-spegowski {
+                          background-image: url("../img/edward-spegowski.png");
+                        }
+
+                        &.jodi-kelley {
+                          background-image: url("../img/jodi-kelley.png");
+                        }
+
+                        &.victor-ferdinandi {
+                          background-image: url("../img/victor-ferdinandi.png");
+                        }
+
+                        &.yanet-coursen {
+                          background-image: url("../img/yanet-coursen.png");
+                        }
+                    }
+                  }
+                }
+
+                .card-body {
+                  h4 {
+                    &.contact-name {
+                      margin-bottom: $padding/2;
+
+                      .contact-title {
+                        font-weight: $font-weight-normal;
+                      }
+                    }
+                  }
+
+                  .contact-details {
+
+                      .contact-phone {
+                        display: inline-flex;
+                        align-items: center;
+                        margin-right: $padding;
+                        line-height: 1;
+
+                        i {
+                          color: $bright-blue-darken-04;
+                        }
+
+                        &.mobile {
+
+                            i {
+                                display: inline-flex;
+                                align-items: center;
+                                flex-grow: 0;
+                                flex-shrink: 0;
+                                justify-content: center;
+                                padding: $padding/2;
+                                width: auto;
+                                height: 1rem;
+                                border-radius: 3px;
+                                background: $bright-blue-darken-04;
+                                color: $white;
+                                font-size: $font-size-xs;
+
+                                span {
+                                    margin-left: $padding/2;
+                                    font-size: $font-size-xs;
+                                    line-height: 1;
+                                }
+                            }
+                        }
+                      }
+
+                      .contact-email {
+                        display: inline-flex;
+                        align-items: center;
+                        margin-right: $padding;
+                        line-height: 1;
+
+                        i {
+                          color: $bright-blue-darken-04;
+                        }
+                      }
+
+                      .contact-address {
+                        display: inline-flex;
+                        align-items: center;
+                        margin-right: $padding;
+
+                        i {
+                          color: $bright-blue-darken-04;
+                        }
+                      }
+                  }
+
+                  .contact-disclaimer {
+                    margin-top: $padding/2;
+                    font-size: $font-size-sm;
                   }
                 }
               }

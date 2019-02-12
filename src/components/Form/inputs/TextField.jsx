@@ -33,7 +33,7 @@ export const TextInput = ({
     <span>{error || warning}</span>
   );
 
-  const Label = label && (<label htmlFor={name} data-test={`${name}-label`}>
+  const Label = label && (<label htmlFor={name}>
     {label}
     {Hint}
   </label>);
@@ -47,7 +47,6 @@ export const TextInput = ({
         tabIndex={'0'}
         {...input}
         type={type}
-        data-test={`${name}-input`}
       />
       {Error}
     </div>

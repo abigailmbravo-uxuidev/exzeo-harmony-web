@@ -43,7 +43,7 @@ const Training = ({ auth, match }) => (
             <div className="survey-wrapper">
               <section>
                 <h2>Reference</h2>
-                <ul className="link-list">
+                <ul className="link-list reference-links">
                   {externalLinks.map(link => (
                     <FancyExternalLink key={link.key} {...link} />
                   ))}
