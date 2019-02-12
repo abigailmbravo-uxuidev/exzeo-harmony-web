@@ -41,6 +41,12 @@ export const getNavLinks = ({ params }) => [
     styleName: classNames('policy label', { 'policy-detail': params.policyNumber }),
     hasIcon: true,
   }, {
+    key: 'contacts',
+    to: '/contacts',
+    label: 'CONTACTS',
+    styleName: 'contacts label',
+    hasIcon: true,
+  }, {
     key: 'training',
     to: '/training',
     label: 'HELPFUL INFO',

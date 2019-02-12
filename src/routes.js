@@ -25,6 +25,7 @@ import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 import Policy from './containers/Policy';
 import Training from './containers/Training';
+import Contacts from './containers/Contacts';
 
 const auth = new Auth();
 
@@ -80,7 +81,7 @@ class Routes extends Component {
           overlayClassName="modal root-modal"
           appElement={document.getElementById('root')}>
           <div className="card-header"><h4><i className="fa fa-exclamation-circle" />&nbsp;Error</h4></div>
-          <div className="card-block"><p>{ error.message }</p></div>
+          <div className="card-block"><p>{error.message}</p></div>
           <div className="card-footer">
             <button className="btn-primary" onClick={this.clearError}>close</button>
           </div>
@@ -90,18 +91,17 @@ class Routes extends Component {
           <div>
             <Helmet><title>Harmony Web - Agent HO3 Quote</title></Helmet>
             <Switch>
-              <Route exact path="/"             render={props => <Splash auth={auth} {...props} />} />
-              <Route exact path="/policy"       render={props => <PolicySearch auth={auth} {...props} />} />
-              <Route exact path="/login"        render={props => <Login auth={auth} {...props} />} />
-              <Route exact path="/error"        render={props => <AppError {...props} />} />
+              <Route exact path="/" render={props => <Splash auth={auth} {...props} />} />
+              <Route exact path="/policy" render={props => <PolicySearch auth={auth} {...props} />} />
+              <Route exact path="/login" render={props => <Login auth={auth} {...props} />} />
+              <Route exact path="/error" render={props => <AppError {...props} />} />
               <Route exact path="/accessDenied" render={props => <AccessDenied auth={auth} {...props} />} />
-              <Route exact path="/training"     render={props => <Training auth={auth} {...props} />} />
+              <Route exact path="/training" render={props => <Training auth={auth} {...props} />} />
 
-              <Route path="/search"                 render={props => <QuoteSearch auth={auth} {...props} />} />
-              <Route path="/quote/:quoteNumber"     render={props => <QuoteModule auth={auth} {...props}/> } />
-              <Route path="/policy/:policyNumber"   render={props => <Policy auth={auth} {...props} />} />
-              {/* <!-- This path will be added in an upcoming sprint -->
-              <Route exact path="/contacts"       render={props => <Contacts auth={auth} {...props} />} /> */}
+              <Route path="/search" render={props => <QuoteSearch auth={auth} {...props} />} />
+              <Route path="/quote/:quoteNumber" render={props => <QuoteModule auth={auth} {...props} />} />
+              <Route path="/policy/:policyNumber" render={props => <Policy auth={auth} {...props} />} />
+              <Route exact path="/contacts" render={props => <Contacts auth={auth} {...props} />} />
               <Route
                 exact
                 path="/logout"
