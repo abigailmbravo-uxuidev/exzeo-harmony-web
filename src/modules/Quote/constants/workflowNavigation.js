@@ -10,7 +10,8 @@ export const STEP_NAMES = {
 
 export const NEXT_PAGE_ROUTING = {
   customerInfo: 'underwriting',
-  underwriting: 'customize'
+  underwriting: 'customize',
+  customize: 'share'
 };
 
 export const PAGE_ROUTING = {
