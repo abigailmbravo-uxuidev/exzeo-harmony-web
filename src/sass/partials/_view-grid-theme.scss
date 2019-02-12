@@ -3,19 +3,16 @@
     display: flex;
     flex-direction: row-reverse;
   }
-
   .form-group {
     padding-bottom: $padding*3;
 
     @include for-phone-only {
       padding-bottom: $padding*3;
     }
-
     &.switch {
       align-items: center;
       flex-direction: row;
       flex-wrap: wrap;
-
       label {
         flex-grow: 0;
         flex-shrink: 0;
@@ -30,18 +27,15 @@
           flex-shrink: 1;
           width: auto;
         }
-
         span {
           margin: 0 $padding;
         }
       }
-
       span[data-name="error-field"] {
         flex-grow: 0;
         flex-shrink: 0;
         width: 100%;
       }
-
       .switch-div {
         position: relative;
         flex-basis: 3.5rem;
@@ -56,7 +50,6 @@
         cursor: pointer;
         -webkit-transition: 0.4s;
         transition: 0.4s;
-
         &:before {
           position: absolute;
           z-index: 2;
@@ -71,7 +64,6 @@
           -webkit-transition: 0.4s;
           transition: 0.4s;
         }
-
         &:after {
           position: absolute;
           top: 0.25rem;
@@ -82,10 +74,8 @@
           font-weight: $font-weight-bold;
           font-size: 0.7rem;
         }
-
         &.active {
           background: $bright-blue-lighten-02;
-
           &:before {
             border-color: $cool-gray-01;
             background-color: lighten($cool-gray-00, 10%);
@@ -93,17 +83,14 @@
             -ms-transform: translateX(2rem);
             transform: translateX(2rem);
           }
-
           &:after {
             top: 0.25rem;
             left: 0.5rem;
             color: $white;
             content: "Yes";
           }
-
           &.disabled {
             background-color: $cool-gray-00;
-
             &:after {
               color: $cool-gray-01;
             }
@@ -111,26 +98,21 @@
         }
       }
     }
-
     &.display {
       position: relative;
       flex-direction: row;
-
       label {
         flex-grow: 1;
         flex-shrink: 1;
         margin-bottom: 0;
         width: auto;
-
         &.disabled {
           color: $warm-gray-14;
-
           span {
             margin-left: $padding;
           }
         }
       }
-
       output {
         position: absolute;
         top: -($padding/2);
@@ -138,10 +120,10 @@
         flex-grow: 0;
         flex-shrink: 0;
         max-width: 6.5rem;
-        width: 6.5rem;;
+        width: 6.5rem;
+        ;
       }
     }
-
     &.radio {
       &.segmented {
         output {
