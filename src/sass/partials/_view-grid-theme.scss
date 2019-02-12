@@ -14,13 +14,26 @@
     &.switch {
       align-items: center;
       flex-direction: row;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
 
       label {
-        flex-grow: 1;
-        flex-shrink: 1;
+        flex-grow: 0;
+        flex-shrink: 0;
         margin-bottom: 0;
-        width: auto;
+        width: calc(100vw - 12.25rem);
+
+        @include for-phone-only {
+          width: calc(100vw - 5.5rem);
+        }
+        @include for-tablet-landscape-up {
+          flex-grow: 1;
+          flex-shrink: 1;
+          width: auto;
+        }
+
+        span {
+          margin: 0 $padding;
+        }
       }
 
       span[data-name="error-field"] {
