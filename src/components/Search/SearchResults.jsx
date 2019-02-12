@@ -59,8 +59,10 @@ export const SearchResults = (props) => {
                       ${policy.property.physicalAddress.city}, ${policy.property.physicalAddress.state}
                       ${policy.property.physicalAddress.zip}`
                     }</span>
-                    <span className="policy-status">{policy.status}</span>
-                    <span className="effective-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
+                    <div className="policy card-detail-wrapper">
+                      <span className="policy-status">{policy.status}</span>
+                      <span className="effective-date">{moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}</span>
+                    </div>
                   </li>
                 </ul>
               </section>
@@ -141,7 +143,7 @@ export const SearchResults = (props) => {
                         ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
                         ${quote.property.physicalAddress.zip}
                         `}</span>
-                  <div className="quote-detail-wrapper">
+                  <div className="quote card-detail-wrapper">
                     <span className="quote-state">{quote.quoteState}</span>
                     <span className="effective-date">{moment.utc(quote.effectiveDate).format('MM/DD/YYYY')}</span>
                     <span className="started-on">{moment.utc(quote.createdAt).format('MM/DD/YYYY')}</span>
