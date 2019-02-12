@@ -37,7 +37,7 @@ const formGroupStyles = classNames(
     <span>{error || warning}</span>
   );
 
-  const Label = label && (<label htmlFor={name} data-test={`${input.name}-label`}>
+  const Label = label && (<label htmlFor={name}>
     {label}
     {Hint}
   </label>);
@@ -56,7 +56,6 @@ const formGroupStyles = classNames(
         placeholder="(555) 555-5555"
         validate={ruleArray}
         {...input}
-        data-test={`${input.name}-input`}
       />
       {Error}
     </div>

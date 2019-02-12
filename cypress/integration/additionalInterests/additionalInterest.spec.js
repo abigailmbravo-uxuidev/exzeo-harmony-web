@@ -4,7 +4,7 @@ describe('Additional Interest Testing', () => {
   const ai1fields = ['ai1Name1', 'ai1MailingAddress1', 'ai1City', 'ai1State', 'ai1Zip'];
   const ai2fields = ['ai2Name1', 'ai2MailingAddress1', 'ai2City', 'ai2State', 'ai2Zip'];
   const toggleModalOn = () => cy.findDataTag('ai-add').click();
-  const addAdditional = () => cy.findDataTag('isAdditional2-switch').click();
+  const addAdditional = () => cy.findDataTag('isAdditional2').find('.switch-div').click();
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');

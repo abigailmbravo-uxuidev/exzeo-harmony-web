@@ -5,7 +5,7 @@ describe('Mortgagee Testing', () => {
   const m2fields = ['m2Name1', 'm2MailingAddress1', 'm2City', 'm2State', 'm2Zip'];
   const m3fields = ['m3Name1', 'm3MailingAddress1', 'm3City', 'm3State', 'm3Zip'];
   const toggleModalOn = () => cy.findDataTag('mortgagee-add').click();
-  const addUser = val => cy.findDataTag(`isAdditional${val}-switch`).click();
+  const addUser = val => cy.findDataTag(`isAdditional${val}`).find('.switch-div').click();
 
   before(() => {
     cy.quoteWorkflow('additionalInterests');

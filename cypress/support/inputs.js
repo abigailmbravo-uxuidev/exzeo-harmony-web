@@ -3,7 +3,7 @@
  * @param {Object} data - Data to fill out with keys corresponding to each entry in fields.
  */
 Cypress.Commands.add('fillFields', (fields = [], data) =>
-  fields.forEach(field => cy.findDataTag(`${field}-input`).type(data[field]))
+  fields.forEach(field => cy.findDataTag(`${field}`).find('input').type(data[field]))
 );
 
 /**
@@ -41,7 +41,7 @@ Cypress.Commands.add('submitAndCheckValidation', (fields = [], options = {}) => 
  */
 Cypress.Commands.add('clearAllText', fields => {
   fields.forEach(tag => {
-    cy.findDataTag(`${tag}-input`).then($input => {
+    cy.findDataTag(`${tag}`).find('input').then($input => {
       if ($input.val()) { cy.wrap($input).type('{selectall}{backspace}'); }
     });
   });

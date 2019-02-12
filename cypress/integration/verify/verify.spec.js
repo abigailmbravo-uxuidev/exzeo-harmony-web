@@ -4,7 +4,7 @@ describe('Verify testing', () => {
   const switchTags = ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'];
   const errors = Array(4).fill('Field Required');
   const toggleModalOn = () => cy.findDataTag('edit-policyholder').click();
-  const addAdditional = () => cy.findDataTag('isAdditional-switch').click();
+  const addAdditional = () => cy.findDataTag('isAdditional').find('.switch-div').click();
   const closeModal = () => { cy.get('[data-test="cancel"]:not([disabled])').click({ force: true }) };
 
   before(() => {
@@ -109,9 +109,9 @@ describe('Verify testing', () => {
   it('Some "Verified Values left at Default "No"', () => {
     for (let i = 0; i < switchTags.length - 1; i++) {
       const tagsToToggle = switchTags.slice(0, i + 1);
-      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}-switch`).click());
+      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}`).find('.switch-div').click());
       cy.findDataTag('submit').should('be.disabled');
-      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}-switch`).click());
+      tagsToToggle.forEach(tag => cy.findDataTag(`${tag}`).find('.switch-div').click());
     }
   });
 });
