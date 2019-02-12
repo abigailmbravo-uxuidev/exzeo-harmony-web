@@ -79,13 +79,13 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false
     taskData.effectiveDate = formattedDate(data.effectiveDate, FORMATS.SECONDARY, timezone);
 
-  if (data.additionalPolicyholder) {
-    taskData.FirstName2 = data.policyHolders[1].firstName;
-    taskData.LastName2 = data.policyHolders[1].lastName;
-    taskData.EmailAddress2 = data.policyHolders[1].emailAddress;
-    taskData.phoneNumber2 = data.policyHolders[1].primaryPhoneNumber;
+    if (data.additionalPolicyholder) {
+      taskData.FirstName2 = data.policyHolders[1].firstName;
+      taskData.LastName2 = data.policyHolders[1].lastName;
+      taskData.EmailAddress2 = data.policyHolders[1].emailAddress;
+      taskData.phoneNumber2 = data.policyHolders[1].primaryPhoneNumber;
 
-  }
+    }
     return taskData;
   }
   else if (activeTask === 'askUWAnswers') {
@@ -96,15 +96,14 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     return taskData;
 
   }
-  else if (activeTask === 'customizeDefaultQuote') {
+  else if (activeTask === 'askToCustomizeDefaultQuote') {
 
     /* (data, quoteNumber, activeTask, options) */
 
     /* const updatedQuote = convertQuoteStringsToNumber(data); */
-
     //hidden fields on the form 
+    taskData.recalc = data.recalc;
     taskData.propertyIncidentalOccupancies = "None";
-
 
     taskData.dwellingAmount = Number(data.coverageLimits.dwelling.amount);
     taskData.otherStructuresAmount = Math.ceil(((data.coverageLimits.otherStructures.value / 100) * data.coverageLimits.dwelling.amount));
@@ -126,43 +125,15 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.propertyIncidentalOccupanciesOtherStructures = data.coverageOptions.propertyIncidentalOccupanciesOtherStructures.answer;
     taskData.allOtherPerils = data.deductibles.allOtherPerils.amount;
     taskData.liabilityIncidentalOccupancies = data.coverageOptions.liabilityIncidentalOccupancies.answer;
-    //   const updatedQuoteResult = {
-    //     ...updatedQuote,
-    //     dwellingAmount: data.coverageLimits.dwelling.amount,
-    //     otherStructuresAmount: Math.ceil(((updatedQuote.otherStructuresAmount / 100) * data.coverageLimits.dwelling.amount)),
-    //     personalPropertyAmount: Math.ceil(((updatedQuote.personalPropertyAmount / 100) * data.coverageLimits.dwelling.amount)),
-    //     personalPropertyReplacementCostCoverage: (updatedQuote.personalPropertyReplacementCostCoverage || false),
-    //     propertyIncidentalOccupanciesMainDwelling: (updatedQuote.propertyIncidentalOccupancies === 'Main Dwelling'),
-    //     propertyIncidentalOccupanciesOtherStructures: (updatedQuote.propertyIncidentalOccupancies === 'Other Structures'),
-    //     lossOfUse: Math.ceil(((updatedQuote.lossOfUseAmount / 100) * data.coverageLimits.dwelling.amount)),
-    //     liabilityIncidentalOccupancies: (updatedQuote.propertyIncidentalOccupancies !== 'None'),
-    //     ,
-    //     recalc: !!props.isRecalc
-    //   };
-    //
-    //   if (updatedQuoteResult.personalPropertyAmount === 0) {
-    //     updatedQuoteResult.personalPropertyReplacementCostCoverage = false;
-    //   }
-    //
-    //   if (!updatedQuote.sinkholePerilCoverage) {
-    //     delete updatedQuoteResult.sinkhole;
-    //   }
-    //
-    //   await props.updateQuote({ data: updatedQuoteResult, quoteNumber: props.quote.quoteNumber });
-    //
-    //   if (!props.isRecalc) {
-    //     props.history.replace('share');
-    //     return;
-    //   }
-    //   props.setRecalc(false);
-    // };
-  }
 
-  return {
-    ...taskData,
-    ...data.property.windMitigation,
-    ...data.property
-  };
+    return {
+      ...taskData,
+      ...data.property.windMitigation,
+      ...data.property,
+    }
+  }
+  
+  return data;
 }
 
 /**

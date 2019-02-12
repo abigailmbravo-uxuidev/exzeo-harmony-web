@@ -76,9 +76,10 @@ export class QuoteWorkflow extends Component {
 
   handleGandalfSubmit = async (values) => {
     const { zipCodeSettings, quote, history, updateQuote, location } = this.props;
-    await updateQuote({  data: values, quoteNumber: quote.quoteNumber, options: { timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' } });
-        // TODO: Figure out a routing solution
-    history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+    const { isRecalc } = this.state;
+    await updateQuote({  data: { ...values, recalc: isRecalc }, quoteNumber: quote.quoteNumber, options: { timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' } });
+        // TODO: Figure out a routing solution 
+    if(!isRecalc) history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
   };
 
   getConfigForJsonTransform = () => {
