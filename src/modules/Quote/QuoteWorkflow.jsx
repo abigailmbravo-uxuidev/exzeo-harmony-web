@@ -113,7 +113,7 @@ export class QuoteWorkflow extends Component {
 
             <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} history={history} goToStep={this.goToStep} isRecalc={isRecalc} />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
-            <Route
+            { location.pathname.split('/')[3] !== 'share' && location.pathname.split('/')[3] !== 'assumptions' && <Route
               path={`${match.url}`}
               render={props => (
                 <React.Fragment>
@@ -140,6 +140,7 @@ export class QuoteWorkflow extends Component {
                 <Footer />
                 </React.Fragment>
               )} />
+            }
             {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />*/}
             <Route exact path={`${match.url}/share`}                 render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />
