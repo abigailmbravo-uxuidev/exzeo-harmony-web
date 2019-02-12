@@ -35,6 +35,8 @@ import { getZipcodeSettings } from '../../actions/serviceActions';
 
 import MOCK_TEMPLATE from '../../mock-data/mockTemplate';
 
+const FORM_ID = 'QuoteWorkflow';
+
 export class QuoteWorkflow extends Component {
   state = {
     isRecalc: false,
@@ -54,8 +56,9 @@ export class QuoteWorkflow extends Component {
   };
 
   handlePremiumRecalc = () => {
-    const { submitForm } = this.props;
-    submitForm('Customize');
+    document
+    .getElementById(FORM_ID)
+    .dispatchEvent(new Event("submit", { cancelable: true }))
   };
 
   handleUpdateQuote = async ({data, quoteNumber}) => {
@@ -123,6 +126,7 @@ export class QuoteWorkflow extends Component {
               render={props => (
                 <React.Fragment>
                 <Gandalf
+                  formId={FORM_ID}
                   currentPage={PAGE_ROUTING[currentStep]}
                   /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
                   options={options}
