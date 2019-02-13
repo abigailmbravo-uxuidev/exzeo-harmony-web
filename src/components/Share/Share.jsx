@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { reduxForm, Form } from 'redux-form';
+import { Link } from 'react-router-dom';
 
 import Footer from '../Common/Footer';
 import EmailPopup from '../Common/EmailPopup';
@@ -53,7 +54,7 @@ export class Share extends React.Component {
             <div className="form-group detail-wrapper">
               <section className="section-instructions" data-test="share-section-one">
                 <h3 className="section-group-header"><i className="fa fa-share-alt" /> Share</h3>
-                <p>To SHARE this quote as a PDF via email, click the SHARE button</p>
+                <p>To SHARE this quote as a PDF via email, click the <strong>SHARE</strong> button</p>
               </section>
               <section className="section-instructions" data-test="share-section-two">
                 <h3 className="section-group-header"><i className="fa fa-arrow-circle-right" /> Continue</h3>
@@ -63,11 +64,11 @@ export class Share extends React.Component {
                   <li>Name and email address of additional owners</li>
                   <li>Name and address of any other additional insured to add to this policy</li>
                 </ul>
-                <p>When you are prepared to move forward, click the NEXT button</p>
+                <p>When you are prepared to move forward, click the <strong>NEXT</strong> button</p>
               </section>
               <section className="section-instructions" data-test="share-section-three">
                 <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
-                <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i className="fa fa-th-large" /> DASHBOARD tab</p>
+                <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i className="fa fa-dashboard" /> <strong>DASHBOARD</strong> tab</p>
               </section>
             </div>
             <div className="workflow-steps">

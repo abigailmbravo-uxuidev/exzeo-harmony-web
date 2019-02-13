@@ -1,7 +1,14 @@
+.survey-wrapper, .detail-wrapper {
+  .form-group {
+    padding-bottom: $padding*3;
+  }
+}
+
 .view-grid {
   .btn-group {
     display: flex;
     flex-direction: row-reverse;
+    margin-bottom: $padding*1.5;
   }
   .form-group {
     padding-bottom: $padding*3;
