@@ -16,7 +16,7 @@ RUN echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
 RUN npm ci && \
  mv .default.env .env && \
  npm run build && \
- npm cache clean --force
+ npm cache verify
 
 RUN rm -f .npmrc
 
