@@ -21,18 +21,21 @@ add `.npmrc` file **you will need this file before attempting* `npm install`
 add `.env.local` file  
 **this file is used to override default the configuration which runs locally, and points to a local Harmony backend.*  
 ```.bash
-# uncomment to point to sandbox
-# REACT_APP_API_URL=https://api.harmony-ins.com
+# point to specific env
+REACT_APP_API_URL=https://api.harmony-ins.com
 
-# uncomment to use mock-auth0 (must be pointing to local backend)
-# REACT_APP_AUTH0_DOMAIN=mock-auth0:8888
-# REACT_APP_AUTH0_CLIENT_ID=https://mock-auth0:8888
-# REACT_APP_AUTH0_CONNECTION=ashton-sandbox
-# REACT_APP_AUTH0_AUDIENCE=https://mock-auth0:8888
-# REACT_APP_USE_MOCK_AUTH0=true
+# use mock-auth0 (for local dev with docker)
+#REACT_APP_API_URL=http://devapi.harmony-ins.com:8000
+#REACT_APP_AUTH0_DOMAIN=mock-auth0:8888
+#REACT_APP_AUTH0_CLIENT_ID=https://mock-auth0:8888
+#REACT_APP_AUTH0_CONNECTION=ashton-sandbox
+#REACT_APP_AUTH0_AUDIENCE=https://mock-auth0:8888
 
-# uncomment to test cypress against sandbox environment
-# REACT_APP_CYPRESS_URL=https://agency.harmony-ins.com
+# point cypress to a different environment
+#CYPRESS_BASE_URL=https://agency.harmony-ins.com
+
+#CYPRESS_FIXTURES=false
+#CYPRESS_USE_MOCK_AUTH0=true
 ```
 
 **Important!**  
