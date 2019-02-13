@@ -44,8 +44,8 @@ ScheduleDate.propTypes = {
   appState: PropTypes.shape({
     modelName: PropTypes.string,
     data: PropTypes.shape({
-      recalc: PropTypes.boolean,
-      submitting: PropTypes.boolean
+      recalc: PropTypes.bool,
+      submitting: PropTypes.bool
     })
   })
 };
