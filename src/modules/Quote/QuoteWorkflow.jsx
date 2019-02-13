@@ -81,7 +81,7 @@ export class QuoteWorkflow extends Component {
     const { zipCodeSettings, quote, history, updateQuote, location } = this.props;
     const { isRecalc } = this.state;
     await updateQuote({  data: { ...values, recalc: isRecalc }, quoteNumber: quote.quoteNumber, options: { timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' } });
-        // TODO: Figure out a routing solution 
+        // TODO: Figure out a routing solution
     if(!isRecalc) history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
   };
 
@@ -118,7 +118,7 @@ export class QuoteWorkflow extends Component {
           <div className="route">
             {isLoading && <Loader />}
 
-            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} isRecalc={isRecalc} history={history} goToStep={this.goToStep}/>
+            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} isRecalc={isRecalc} history={history} goToStep={this.goToStep} isLoading={isLoading}/>
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             {shouldUseGandalf&&
             <Route
