@@ -2,6 +2,7 @@
 ul.list-cards {
   li {
     margin-bottom: $padding/2;
+
     >a,
     >div {
       align-items: center;
@@ -9,9 +10,11 @@ ul.list-cards {
       border: $card-border-width solid $card-border-color;
       border-radius: $card-border-radius;
       background: $white;
+
       section {
         flex-direction: column;
         flex-grow: 1;
+
         h2,
         h3,
         h4,
@@ -21,30 +24,38 @@ ul.list-cards {
           color: $warm-gray-08;
         }
       }
+
       i {
         color: $bright-blue-darken-04;
+
         &.card-icon {
           margin-right: $padding;
         }
+
         &.fa-map-marker {
           justify-content: flex-start;
         }
       }
     }
+
     >a {
       &:hover {
         cursor: pointer;
+
         section {
+
           h2,
           h3,
           h4,
           h5 {
             color: $bright-blue-darken-04;
           }
+
           p {
             color: $bright-blue-darken-04;
           }
         }
+
         i {
           color: $bright-blue-darken-04;
         }
@@ -58,6 +69,7 @@ ul.list-cards {
   flex-grow: 1;
   margin-bottom: $padding/2;
   padding: $padding*2;
+
   .card {
     display: flex;
     flex-direction: column;
@@ -65,11 +77,13 @@ ul.list-cards {
     padding: $padding $padding*1.5;
 
     @include transition(all .2s ease-in-out);
+
     &:hover {
       z-index: 2;
       box-shadow: $card-box-shadow-hover;
       cursor: pointer;
       transform: scale(1.004);
+
       section {
         ul {
           li {
@@ -87,12 +101,14 @@ ul.list-cards {
         }
       }
     }
+
     .icon-name {
       display: flex;
       flex-grow: 1;
       flex-shrink: 1;
       margin-bottom: $padding;
       width: auto;
+
       i {
         display: flex;
         flex-basis: 2rem;
@@ -103,6 +119,7 @@ ul.list-cards {
         height: 2rem;
         font-size: $font-size-h2;
       }
+
       h4 {
         display: inline-block;
         overflow: hidden;
@@ -116,15 +133,18 @@ ul.list-cards {
         line-height: 2rem;
       }
     }
+
     section {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
       flex-shrink: 1;
+
       ul {
         margin: 0;
         padding: 0;
         list-style: none;
+
         li {
           display: flex;
           flex-grow: 1;
@@ -133,10 +153,12 @@ ul.list-cards {
           color: $warm-gray-14;
           font-size: $font-size-sm;
 
+          @include transition(all .2s ease-in-out);
           @include for-phone-only {
             flex-direction: column;
             padding-top: $padding;
             border-top: 1px dashed $cool-gray-01;
+
             &:first-child {
               padding-top: 0;
               border-top-width: 0;
@@ -146,6 +168,7 @@ ul.list-cards {
             flex-direction: column;
             padding-top: $padding;
             border-top: 1px dashed $cool-gray-01;
+
             &:first-child {
               border-top-width: 0;
             }
@@ -156,6 +179,7 @@ ul.list-cards {
             padding-top: 0;
             border-top-width: 0;
           }
+
           .quote-no,
           .policy-no {
             flex-grow: 0;
@@ -166,6 +190,7 @@ ul.list-cards {
               width: auto;
             }
           }
+
           .property-address {
             flex-grow: 1;
             flex-shrink: 1;
@@ -181,6 +206,7 @@ ul.list-cards {
               font-size: $font-size-sm;
             }
           }
+
           .card-detail-wrapper {
             display: flex;
             flex-grow: 0;
@@ -197,14 +223,17 @@ ul.list-cards {
             }
             @include for-tablet-landscape-up {
               justify-content: flex-start;
+
               &.quote {
                 width: 23rem;
               }
+
               &.policy {
                 width: 14rem;
               }
             }
           }
+
           &.header {
             @include for-phone-only {
               display: none;
@@ -217,15 +246,18 @@ ul.list-cards {
               background: $cool-gray-01;
               font-size: $font-size-xs;
             }
+
             .premium {
               font-weight: $font-weight-normal;
             }
+
             .property-address {
               @include for-tablet-landscape-up {
                 font-size: $font-size-xs;
               }
             }
           }
+
           .quote-state,
           .policy-status {
             flex-grow: 0;
@@ -241,6 +273,7 @@ ul.list-cards {
               width: 9rem;
             }
           }
+
           .effective-date {
             flex-grow: 0;
             flex-shrink: 0;
@@ -250,6 +283,7 @@ ul.list-cards {
               align-items: flex-start;
               flex-direction: column;
               width: auto;
+
               &:before {
                 margin-right: $padding/2;
                 content: "Effective:";
@@ -260,6 +294,7 @@ ul.list-cards {
               display: flex;
               align-items: center;
               width: auto;
+
               &:before {
                 margin-right: $padding/2;
                 content: "Effective:";
@@ -269,12 +304,14 @@ ul.list-cards {
             @include for-tablet-landscape-up {
               display: block;
               width: 5rem;
+
               &:before {
                 margin-right: 0;
                 content: "";
               }
             }
           }
+
           .started-on {
             flex-grow: 0;
             flex-shrink: 0;
@@ -290,6 +327,7 @@ ul.list-cards {
               display: block;
             }
           }
+
           .premium {
             flex-grow: 0;
             flex-shrink: 0;
