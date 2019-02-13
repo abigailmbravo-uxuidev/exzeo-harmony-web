@@ -16,7 +16,7 @@ export const NEXT_PAGE_ROUTING = {
 
 export const PAGE_ROUTING = {
   'customerInfo': 0,
-  'underwriting' : 1,
+  'underwriting': 1,
   'customize': 2,
   'share': 3,
   'assumptions': 4,
@@ -38,6 +38,7 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = [
   'mailingBilling',
   'verify',
   'error',
+  'thankYou',
 ];
 
 export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [

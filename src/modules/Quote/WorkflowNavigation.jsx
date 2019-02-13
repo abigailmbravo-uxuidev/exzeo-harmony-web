@@ -25,7 +25,7 @@ export class WorkflowNavigation extends Component {
   };
 
   render() {
-    const { quote, workflowState, handleRecalc, goToStep, isRecalc, isLoading } = this.props;
+    const { quote, workflowState, handleRecalc, goToStep, isRecalc, isLoading, isThankYou } = this.props;
     if (!quote || !quote.quoteNumber) return null;
 
     return (
@@ -38,7 +38,7 @@ export class WorkflowNavigation extends Component {
           quote={quote}
         />
 
-        {!workflowState.isHardStop &&
+        {(!workflowState.isHardStop && !isThankYou) &&
           <TabNavigation
             navLinks={getNavLinks({
               goToStep,
