@@ -5,7 +5,7 @@ describe('Policy Search', () => {
 
   it('The URL is accurate after logging in', () => {
     cy.url()
-      .should('include', Cypress.env('REACT_APP_CYPRESS_URL'));
+      .should('include', Cypress.config('baseUrl'));
   });
 
   it('The search bar exists on Policy tab', () => {
