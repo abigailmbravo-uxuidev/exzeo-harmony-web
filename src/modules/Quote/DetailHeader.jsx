@@ -49,9 +49,9 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
             <dt className="fade">Coverage A</dt>
             <dd className="fade">
               $ {(quote.coverageLimits && (activeTask !== 'askAdditionalCustomerData' && activeTask !== 'askUWAnswers'))
-              ? quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-              : '--'
-            }
+                ? quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                : '--'
+              }
             </dd>
           </div>
         </dl>
@@ -64,6 +64,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
               {(quote.rating && !isRecalc) &&
                 <ShowPremium premium={quote.rating.totalPremium} useAnimation={useAnimationForPremium} />
               }
+              {(!quote.rating || isRecalc) && '$ --'}
             </dd>
           </div>
           {isRecalc &&

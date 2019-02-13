@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import CountUp from 'react-countup';
 import { format } from '@exzeo/core-ui';
 
-export const ShowPremium = ({ useAnimation, premium }) => {
-  return !!premium
-    ? useAnimation
-      ? <CountUp duration={1.50} prefix="$ " separator="," start={premium + 100} end={premium} />
-      : <span>{format.toCurrency(premium)}</span>
-    : '--'
+export const ShowPremium = ({ premium }) => {
+  return (<CountUp duration={1.5} prefix="$ " separator="," start={premium + 100} end={premium} />);
 };
 
 ShowPremium.propTypes = {
