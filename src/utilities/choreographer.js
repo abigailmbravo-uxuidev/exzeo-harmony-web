@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import { callService, handleError } from './serviceRunner';
 import { formattedDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
-import { convertQuoteStringsToNumber } from '../components/Customize/customizeHelpers';
 
 const HARD_STOP_STEPS = [
   'UWDecision1EndError',
@@ -316,33 +315,34 @@ async function updateQuote({ data, quoteNumber, stepName, getReduxState, options
   // 'moveToTask' for going back to specific step in workflow
   if (stepName) {
     await complete(stepName, null, 'moveToTask');
-    // customize w/ recalculate
   }
+  else if(!stepName){
 
-  const quoteData = formatForCGStep(data, quoteNumber, state.activeTask, options);
+    const quoteData = formatForCGStep(data, quoteNumber, state.activeTask, options);
 
-  if (state.activeTask === 'askToCustomizeDefaultQuote' && quoteData.recalc) {
-    await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
-    await complete(state.activeTask, quoteData);
-    // customize and save
-  } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !quoteData.recalc) {
-    await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
-    // share
-  } else if (state.activeTask === 'sendEmailOrContinue' && quoteData.shouldSendEmail === 'Yes') {
-    await complete(state.activeTask, { shouldSendEmail: 'Yes' });
-    await complete(state.activeTask, quoteData);
-    // verify
-  } else if (state.activeTask === 'editVerify') {
-    await complete(state.activeTask, { shouldEditVerify: quoteData.shouldEditVerify });
-    await complete(state.activeTask, quoteData);
-    // all other steps
-  } else {
-    await complete(state.activeTask, quoteData);
-  }
+    if (state.activeTask === 'askToCustomizeDefaultQuote' && quoteData.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
+      await complete(state.activeTask, quoteData);
+      // customize and save
+    } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !quoteData.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
+      // share
+    } else if (state.activeTask === 'sendEmailOrContinue' && quoteData.shouldSendEmail === 'Yes') {
+      await complete(state.activeTask, { shouldSendEmail: 'Yes' });
+      await complete(state.activeTask, quoteData);
+      // verify
+    } else if (state.activeTask === 'editVerify') {
+      await complete(state.activeTask, { shouldEditVerify: quoteData.shouldEditVerify });
+      await complete(state.activeTask, quoteData);
+      // all other steps
+    } else {
+      await complete(state.activeTask, quoteData);
+    }
 
-  // if we land on this step, need to fire another complete
-  if (state.activeTask === 'showCustomizedQuoteAndContinue') {
-    await complete(state.activeTask, {});
+    // if we land on this step, need to fire another complete
+    if (state.activeTask === 'showCustomizedQuoteAndContinue') {
+      await complete(state.activeTask, {});
+    }
   }
 
   const quote = await getQuoteServiceRequest(quoteNumber);
