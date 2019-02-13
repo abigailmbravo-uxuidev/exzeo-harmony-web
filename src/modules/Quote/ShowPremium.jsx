@@ -6,7 +6,7 @@ import { format } from '@exzeo/core-ui';
 export const ShowPremium = ({ useAnimation, premium }) => {
   return !!premium
     ? useAnimation
-      ? <CountUp prefix="$ " separator="," start={0} end={premium} />
+      ? <CountUp duration={1.50} prefix="$ " separator="," start={premium + 100} end={premium} />
       : <span>{format.toCurrency(premium)}</span>
     : '--'
 };
