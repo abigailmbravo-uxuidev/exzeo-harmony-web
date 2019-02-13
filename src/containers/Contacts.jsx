@@ -96,15 +96,13 @@ const Contacts = ({ auth, match }) => (
         <div className="scroll">
           <div className="survey-wrapper">
             <section className="contacts">
-              <h2>Territory Representatives</h2>
-              <p>Your territory rep is the first point of contact for...</p>
+              <h2><i className="fa fa-map-marker" /> Territory Representatives</h2>
               {territoryManagerContacts.map(contact => (
                 <ContactCard key={contact.name} {...contact} />
               ))}
             </section>
             <section className="contacts">
-              <h2>Support</h2>
-              <p>Support should be contacted for...</p>
+              <h2><i className="fa fa-address-book" /> Support</h2>
               {supportContacts.map(contact => (
                 <ContactCard key={contact.name} {...contact} />
               ))}
