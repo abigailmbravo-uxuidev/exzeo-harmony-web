@@ -380,7 +380,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: flex-end;
-    padding: 0 ($padding*2) ($padding*2);
+    padding: $padding ($padding*2) ($padding*2);
 
     .button-label-wrap {
       display: flex;

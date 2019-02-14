@@ -7,13 +7,12 @@
       margin-bottom: $padding*2;
       padding-bottom: $paragraph-margin-bottom;
       width: 100%;
-      border-bottom: 1px dashed $cool-gray-02;
     }
   }
 }
 
 .email-modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -34,12 +33,22 @@
     align-items: center;
 
     .card-email {
+      position: relative;
       margin: $padding 0;
       width: 36rem;
 
       @include for-phone-only {
         margin: 0 0 ($padding*2);
         max-width: 19.375rem;
+      }
+
+      .loader {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        bottom: -1px;
+        left: -1px;
+        border-radius: $border-radius;
       }
     }
   }
