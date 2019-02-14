@@ -12,8 +12,8 @@ const mock = {
           data: {
             text: 'Primary Policyholder',
             icon: 'fa fa-user-circle',
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 2,
@@ -24,9 +24,9 @@ const mock = {
             label: 'First Name',
             size: '5',
             path: 'policyHolders[0].firstName',
-            validation: ['isRequired', 'isMaxLength255']
-          },
-          children: [],
+            validation: ['isRequired', 'isMaxLength255'],
+            children: []
+          }
         },
         {
           id: 3,
@@ -37,10 +37,9 @@ const mock = {
             label: 'Last Name',
             size: '7',
             path: 'policyHolders[0].lastName',
-            validation: ['isRequired', 'isMaxLength255']
-
-          },
-          children: [],
+            validation: ['isRequired', 'isMaxLength255'],
+            children: []
+          }
         },
         {
           id: 4,
@@ -52,9 +51,8 @@ const mock = {
             size: '8',
             path: 'policyHolders[0].emailAddress',
             validation: ['isRequired', 'isEmail'],
-
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 5,
@@ -65,10 +63,10 @@ const mock = {
             label: 'Contact Phone',
             size: '4',
             path: 'policyHolders[0].primaryPhoneNumber',
-            validation: ['isRequired', 'isPhone']
+            validation: ['isRequired', 'isPhone'],
+            children: []
 
-          },
-          children: [],
+          }
         },
         {
           id: 6,
@@ -77,9 +75,9 @@ const mock = {
           data: {
             type: 'switch',
             label: 'Do you want to add an additional Policyholder?',
-            path: 'additionalPolicyholder'
-          },
-          children: []
+            path: 'additionalPolicyholder',
+            children: []
+          }
         },
         {
           id: 3453,
@@ -88,72 +86,71 @@ const mock = {
             { path: 'additionalPolicyholder', value: true }
           ],
           data: {
-
-          },
-          children: [
-            {
-              id: 7,
-              type: '$TITLE',
-              dependencies: [],
-              data: {
-                text: 'Secondary Policyholder',
-                icon: 'fa fa-user-circle',
+            children: [
+              {
+                id: 7,
+                type: '$TITLE',
+                dependencies: [],
+                data: {
+                  text: 'Secondary Policyholder',
+                  icon: 'fa fa-user-circle',
+                  children: []
+                }
               },
-              children: []
-            },
-            {
-              id: 8,
-              type: '$INPUT',
-              dependencies: [],
-              data: {
-                type: 'text',
-                label: 'First Name',
-                size: '5',
-                path: 'policyHolders[1].firstName',
-                validation: ['isRequired', 'isMaxLength255']
+              {
+                id: 8,
+                type: '$INPUT',
+                dependencies: [],
+                data: {
+                  type: 'text',
+                  label: 'First Name',
+                  size: '5',
+                  path: 'policyHolders[1].firstName',
+                  validation: ['isRequired', 'isMaxLength255'],
+                  children: []
+                }
               },
-              children: [],
-            },
-            {
-              id: 9,
-              type: '$INPUT',
-              dependencies: [],
-              data: {
-                type: 'text',
-                label: 'Last Name',
-                size: '7',
-                path: 'policyHolders[1].lastName',
-                validation: ['isRequired', 'isMaxLength255']
+              {
+                id: 9,
+                type: '$INPUT',
+                dependencies: [],
+                data: {
+                  type: 'text',
+                  label: 'Last Name',
+                  size: '7',
+                  path: 'policyHolders[1].lastName',
+                  validation: ['isRequired', 'isMaxLength255'],
+                  children: []
+                }
               },
-              children: [],
-            },
-            {
-              id: 10,
-              type: '$INPUT',
-              dependencies: [],
-              data: {
-                type: 'text',
-                label: 'Email Address',
-                size: '8',
-                path: 'policyHolders[1].emailAddress',
-                validation: ['isRequired']
+              {
+                id: 10,
+                type: '$INPUT',
+                dependencies: [],
+                data: {
+                  type: 'text',
+                  label: 'Email Address',
+                  size: '8',
+                  path: 'policyHolders[1].emailAddress',
+                  validation: ['isRequired'],
+                  children: []
+                }
               },
-              children: [],
-            },
-            {
-              id: 11,
-              type: '$INPUT',
-              dependencies: [],
-              data: {
-                type: 'phone',
-                label: 'Contact Phone',
-                size: '4',
-                path: 'policyHolders[1].primaryPhoneNumber',
-                validation: ['isRequired', 'isPhone']
-              },
-              children: [],
-            },
-          ]
+              {
+                id: 11,
+                type: '$INPUT',
+                dependencies: [],
+                data: {
+                  type: 'phone',
+                  label: 'Contact Phone',
+                  size: '4',
+                  path: 'policyHolders[1].primaryPhoneNumber',
+                  validation: ['isRequired', 'isPhone'],
+                  children: []
+                }
+              }
+            ]
+          }
         },
         {
           id: 12,
@@ -164,9 +161,9 @@ const mock = {
             label: 'Effective Date',
             size: '6',
             path: 'effectiveDate',
-            validation: ['isRequired', 'isDate']
-          },
-          children: [],
+            validation: ['isRequired', 'isDate'],
+            children: []
+          }
         },
         {
           id: 13,
@@ -178,11 +175,11 @@ const mock = {
             size: '6',
             path: 'agentCode',
             validation: ['isRequired'],
-            options: 'agents'
-          },
-          children: [],
-        },
-      ],
+            options: 'agents',
+            children: []
+          }
+        }
+      ]
 
     },
     {
@@ -194,10 +191,10 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            type: '$UNDERWRITING',
+            type: '$UNDERWRITING'
           }
-        },
-      ],
+        }
+      ]
     },
     {
       name: 'customize',
@@ -210,8 +207,8 @@ const mock = {
           data: {
             text: 'Coverage Limits',
             icon: 'fa fa-line-chart',
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 2,
@@ -222,14 +219,14 @@ const mock = {
             type: 'slider',
             label: 'Dwelling Limit',
             validation: ['dwellingRange'],
-            hint : "This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  ",
+            hint: 'This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  ',
             extendedProperties: {
               min: 'coverageLimits.dwelling.minAmount',
               max: 'coverageLimits.dwelling.maxAmount',
               step: 1000
             },
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 3,
@@ -242,16 +239,16 @@ const mock = {
             size: '12',
             path: 'coverageLimits.otherStructures.value',
             validation: ['isRequired'],
-            hint : "This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.",
+            hint: 'This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.',
             options: 'uiQuestions.otherStructuresAmount',
             extendedProperties: {
               transformConfig: {
                 value: '${Math.ceil(((it.coverageLimits.otherStructures.value / 100) * it.coverageLimits.dwelling.amount))}',
-                format: 'currency',
-              },
+                format: 'currency'
+              }
             },
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 4,
@@ -264,16 +261,16 @@ const mock = {
             size: '12',
             path: 'coverageLimits.personalProperty.value',
             validation: ['isRequired'],
-            hint : "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
+            hint: 'This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.',
             extendedProperties: {
               transformConfig: {
                 value: '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.amount))}',
                 format: 'currency'
-              },
+              }
             },
-            options: 'uiQuestions.personalPropertyAmount'
-          },
-          children: [],
+            options: 'uiQuestions.personalPropertyAmount',
+            children: []
+          }
         },
         {
           id: 6,
@@ -286,9 +283,9 @@ const mock = {
             label: 'Do you want Personal Property Replacement Cost Coverage?',
             size: '12',
             path: 'coverageOptions.personalPropertyReplacementCost.answer',
-            hint : "Replacement Cost Coverage replaces your damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, your loss for personal property will be paid out at Actual Cash Value.",
-          },
-          children: [],
+            hint: 'Replacement Cost Coverage replaces your damaged possessions at today\'s prices without deducting for depreciation. If you choose not to select this coverage, your loss for personal property will be paid out at Actual Cash Value.',
+            children: []
+          }
         },
         {
           id: 7,
@@ -299,17 +296,17 @@ const mock = {
               transformConfig: {
                 value: '${Math.ceil(((it.coverageLimits.lossOfUse.value / 100) * it.coverageLimits.dwelling.amount))}',
                 format: 'currency'
-              },
+              }
             },
             type: 'display',
             label: 'Loss of Use Limit',
             size: '12',
             path: 'coverageLimits.lossOfUse.value',
             validation: ['isRequired'],
-            hint : "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
+            hint: 'This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.',
             options: [],
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 8,
@@ -324,16 +321,16 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "label" : "$ 100,000",
-                "answer" : 100000
+                'label': '$ 100,000',
+                'answer': 100000
               },
               {
-                "label" : "$ 300,000",
-                "answer" : 300000
+                'label': '$ 300,000',
+                'answer': 300000
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 9,
@@ -352,9 +349,9 @@ const mock = {
             size: '12',
             path: 'coverageLimits.medicalPayments.amount',
             validation: ['isRequired'],
-            options: []
-          },
-          children: [],
+            options: [],
+            children: []
+          }
         },
         {
           id: 10,
@@ -369,20 +366,20 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "label" : "$ 10,000",
-                "answer" : 10000
+                'label': '$ 10,000',
+                'answer': 10000
               },
               {
-                "label" : "$ 25,000",
-                "answer" : 25000
+                'label': '$ 25,000',
+                'answer': 25000
               },
               {
-                "label" : "$ 50,000",
-                "answer" : 50000
+                'label': '$ 50,000',
+                'answer': 50000
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 473292,
@@ -397,16 +394,16 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "label" : "$ 50,000",
-                "answer" : 50000
+                'label': '$ 50,000',
+                'answer': 50000
               },
               {
-                "label" : "$ 100,000",
-                "answer" : 100000
+                'label': '$ 100,000',
+                'answer': 100000
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 11,
@@ -422,16 +419,16 @@ const mock = {
             extendedProperties: {},
             options: [
               {
-                "label" : "25% of Dwelling Limit",
-                "answer" : 25
+                'label': '25% of Dwelling Limit',
+                'answer': 25
               },
               {
-                "label" : "50% of Dwelling Limit",
-                "answer" : 50
+                'label': '50% of Dwelling Limit',
+                'answer': 50
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 12,
@@ -440,8 +437,8 @@ const mock = {
           data: {
             text: 'Coverage Options',
             icon: 'fa fa-user-circle',
-          },
-          children: [],
+            children: []
+          }
         },
         // {
         //   id: 13,
@@ -479,9 +476,9 @@ const mock = {
             size: '12',
             path: 'coverageOptions.sinkholePerilCoverage.answer',
             validation: [],
-            options: []
-          },
-          children: [],
+            options: [],
+            children: []
+          }
         },
         {
           id: 15,
@@ -490,8 +487,8 @@ const mock = {
           data: {
             text: 'Deductibles',
             icon: 'fa fa-user-circle',
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 16,
@@ -504,9 +501,9 @@ const mock = {
             size: '12',
             path: 'deductibles.allOtherPerils.amount',
             validation: ['isRequired'],
-            options: 'uiQuestions.allOtherPerils'
-          },
-          children: [],
+            options: 'uiQuestions.allOtherPerils',
+            children: []
+          }
         },
         {
           id: 17,
@@ -516,7 +513,7 @@ const mock = {
             extendedProperties: {
               transformConfig: {
                 value: '${Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.amount))}',
-                format: 'currency',
+                format: 'currency'
               }
             },
             segmented: true,
@@ -526,9 +523,9 @@ const mock = {
             path: 'deductibles.hurricane.value',
             validation: ['isRequired'],
             options: 'uiQuestions.hurricane',
+            children: []
 
-          },
-          children: [],
+          }
         },
         {
           id: 19,
@@ -545,12 +542,12 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : 10,
-                "label" : "10% of Dwelling Limit"
+                'answer': 10,
+                'label': '10% of Dwelling Limit'
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 20,
@@ -559,8 +556,8 @@ const mock = {
           data: {
             text: 'Wind Mitigation',
             icon: 'fa fa-user-circle',
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 21,
@@ -575,17 +572,17 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : "Non-FBC"
+                'answer': 'Non-FBC'
               },
               {
-                "answer" : "FBC"
+                'answer': 'FBC'
               },
               {
-                "answer" : "Other"
+                'answer': 'Other'
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 22,
@@ -600,26 +597,26 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : "A"
+                'answer': 'A'
               },
               {
-                "answer" : "B"
+                'answer': 'B'
               },
               {
-                "answer" : "C"
+                'answer': 'C'
               },
               {
-                "answer" : "D"
+                'answer': 'D'
               },
               {
-                "answer" : "Concrete"
+                'answer': 'Concrete'
               },
               {
-                "answer" : "Other"
+                'answer': 'Other'
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 23,
@@ -634,23 +631,23 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : "Toe Nails"
+                'answer': 'Toe Nails'
               },
               {
-                "answer" : "Clips"
+                'answer': 'Clips'
               },
               {
-                "answer" : "Single Wraps"
+                'answer': 'Single Wraps'
               },
               {
-                "answer" : "Double Wraps"
+                'answer': 'Double Wraps'
               },
               {
-                "answer" : "Other"
+                'answer': 'Other'
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 24,
@@ -665,20 +662,20 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : "Flat"
+                'answer': 'Flat'
               },
               {
-                "answer" : "Gable"
+                'answer': 'Gable'
               },
               {
-                "answer" : "Hip"
+                'answer': 'Hip'
               },
               {
-                "answer" : "Other"
+                'answer': 'Other'
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 26,
@@ -693,17 +690,17 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : "Yes"
+                'answer': 'Yes'
               },
               {
-                "answer" : "No"
+                'answer': 'No'
               },
               {
-                "answer" : "Other"
+                'answer': 'Other'
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 27,
@@ -718,20 +715,20 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : "None"
+                'answer': 'None'
               },
               {
-                "answer" : "Basic"
+                'answer': 'Basic'
               },
               {
-                "answer" : "Hurricane"
+                'answer': 'Hurricane'
               },
               {
-                "answer" : "Other"
+                'answer': 'Other'
               }
-            ]
-          },
-          children: [],
+            ],
+            children: []
+          }
         },
         {
           id: 28,
@@ -740,8 +737,8 @@ const mock = {
           data: {
             text: 'Discounts',
             icon: 'fa fa-user-circle',
-          },
-          children: [],
+            children: []
+          }
         },
         {
           id: 29,
@@ -752,9 +749,9 @@ const mock = {
             label: 'Does the property have a burglar alarm?',
             size: '12',
             path: 'property.burglarAlarm',
-            options: []
-          },
-          children: [],
+            options: [],
+            children: []
+          }
         },
         {
           id: 30,
@@ -765,9 +762,9 @@ const mock = {
             label: 'Does the property have a fire alarm?',
             size: '12',
             path: 'property.fireAlarm',
-            options: []
-          },
-          children: [],
+            options: [],
+            children: []
+          }
         },
         {
           id: 31,
@@ -782,19 +779,19 @@ const mock = {
             validation: ['isRequired'],
             options: [
               {
-                "answer" : "N"
+                'answer': 'N'
               },
               {
-                "answer" : "A"
+                'answer': 'A'
               },
               {
-                "answer" : "B"
+                'answer': 'B'
               }
-            ]
-          },
-          children: [],
-        },
-      ],
+            ],
+            children: []
+          }
+        }
+      ]
     },
     {
       name: 'share',
@@ -805,10 +802,10 @@ const mock = {
           type: '$SHARE',
           dependencies: [],
           data: {
-            type: '$SHARE',
+            type: '$SHARE'
           }
-        },
-      ],
+        }
+      ]
     },
     {
       name: 'assumptions',
@@ -819,10 +816,10 @@ const mock = {
           type: '$ASSUMPTIONS',
           dependencies: [],
           data: {
-            type: '$ASSUMPTIONS',
+            type: '$ASSUMPTIONS'
           }
-        },
-      ],
+        }
+      ]
     },
     {
       name: 'additionalInterests',
@@ -833,10 +830,10 @@ const mock = {
           type: '$ADDITIONAL_INTERESTS',
           dependencies: [],
           data: {
-            type: '$ADDITIONAL_INTERESTS',
+            type: '$ADDITIONAL_INTERESTS'
           }
-        },
-      ],
+        }
+      ]
     },
     {
       name: 'mailingBilling',
@@ -847,10 +844,10 @@ const mock = {
           type: '$MAILING_BILLING',
           dependencies: [],
           data: {
-            type: '$MAILING_BILLING',
+            type: '$MAILING_BILLING'
           }
-        },
-      ],
+        }
+      ]
     },
     {
       name: 'verify',
@@ -861,11 +858,11 @@ const mock = {
           type: '$VERIFY',
           dependencies: [],
           data: {
-            type: '$VERIFY',
+            type: '$VERIFY'
           }
-        },
-      ],
-    },
+        }
+      ]
+    }
   ]
 };
 
