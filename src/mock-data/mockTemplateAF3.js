@@ -12,8 +12,9 @@ const mock = {
             data: {
               text: 'Primary Policyholder',
               icon: 'fa fa-user-circle',
+              children: [],
             },
-            children: [],
+            
           },
           {
             id: 2,
@@ -24,9 +25,10 @@ const mock = {
               label: 'First Name',
               size: '5',
               path: 'policyHolders[0].firstName',
-              validation: ['isRequired', 'isMaxLength255']
+              validation: ['isRequired', 'isMaxLength255'],
+              children: [],
             },
-            children: [],
+            
           },
           {
             id: 3,
@@ -37,10 +39,10 @@ const mock = {
               label: 'Last Name',
               size: '7',
               path: 'policyHolders[0].lastName',
-              validation: ['isRequired', 'isMaxLength255']
-  
+              validation: ['isRequired', 'isMaxLength255'],
+              children: [],
             },
-            children: [],
+            
           },
           {
             id: 4,
@@ -52,9 +54,9 @@ const mock = {
               size: '8',
               path: 'policyHolders[0].emailAddress',
               validation: ['isRequired', 'isEmail'],
-  
+              children: [],
             },
-            children: [],
+            
           },
           {
             id: 5,
@@ -65,10 +67,10 @@ const mock = {
               label: 'Contact Phone',
               size: '4',
               path: 'policyHolders[0].primaryPhoneNumber',
-              validation: ['isRequired', 'isPhone']
-  
+              validation: ['isRequired', 'isPhone'],
+              children: [],
             },
-            children: [],
+            
           },
           {
             id: 6,
@@ -77,9 +79,10 @@ const mock = {
             data: {
               type: 'switch',
               label: 'Do you want to add an additional Policyholder?',
-              path: 'additionalPolicyholder'
+              path: 'additionalPolicyholder',
+              children: []
             },
-            children: []
+            
           },
           {
             id: 3453,
@@ -88,72 +91,75 @@ const mock = {
               { path: 'additionalPolicyholder', value: true }
             ],
             data: {
-  
+                children: [
+                    {
+                      id: 7,
+                      type: '$TITLE',
+                      dependencies: [],
+                      data: {
+                        text: 'Secondary Policyholder',
+                        icon: 'fa fa-user-circle',
+                        children: []
+                      },
+                      
+                    },
+                    {
+                      id: 8,
+                      type: '$INPUT',
+                      dependencies: [],
+                      data: {
+                        type: 'text',
+                        label: 'First Name',
+                        size: '5',
+                        path: 'policyHolders[1].firstName',
+                        validation: ['isRequired', 'isMaxLength255'],
+                        children: [],
+                      },
+                      
+                    },
+                    {
+                      id: 9,
+                      type: '$INPUT',
+                      dependencies: [],
+                      data: {
+                        type: 'text',
+                        label: 'Last Name',
+                        size: '7',
+                        path: 'policyHolders[1].lastName',
+                        validation: ['isRequired', 'isMaxLength255'],
+                        children: [],
+                      },
+                     
+                    },
+                    {
+                      id: 10,
+                      type: '$INPUT',
+                      dependencies: [],
+                      data: {
+                        type: 'text',
+                        label: 'Email Address',
+                        size: '8',
+                        path: 'policyHolders[1].emailAddress',
+                        validation: ['isRequired'],
+                        children: [],
+                      },
+                      
+                    },
+                    {
+                      id: 11,
+                      type: '$INPUT',
+                      dependencies: [],
+                      data: {
+                        type: 'phone',
+                        label: 'Contact Phone',
+                        size: '4',
+                        path: 'policyHolders[1].primaryPhoneNumber',
+                        validation: ['isRequired', 'isPhone'],
+                        children: [],
+                      },
+                    },
+                  ]
             },
-            children: [
-              {
-                id: 7,
-                type: '$TITLE',
-                dependencies: [],
-                data: {
-                  text: 'Secondary Policyholder',
-                  icon: 'fa fa-user-circle',
-                },
-                children: []
-              },
-              {
-                id: 8,
-                type: '$INPUT',
-                dependencies: [],
-                data: {
-                  type: 'text',
-                  label: 'First Name',
-                  size: '5',
-                  path: 'policyHolders[1].firstName',
-                  validation: ['isRequired', 'isMaxLength255']
-                },
-                children: [],
-              },
-              {
-                id: 9,
-                type: '$INPUT',
-                dependencies: [],
-                data: {
-                  type: 'text',
-                  label: 'Last Name',
-                  size: '7',
-                  path: 'policyHolders[1].lastName',
-                  validation: ['isRequired', 'isMaxLength255']
-                },
-                children: [],
-              },
-              {
-                id: 10,
-                type: '$INPUT',
-                dependencies: [],
-                data: {
-                  type: 'text',
-                  label: 'Email Address',
-                  size: '8',
-                  path: 'policyHolders[1].emailAddress',
-                  validation: ['isRequired']
-                },
-                children: [],
-              },
-              {
-                id: 11,
-                type: '$INPUT',
-                dependencies: [],
-                data: {
-                  type: 'phone',
-                  label: 'Contact Phone',
-                  size: '4',
-                  path: 'policyHolders[1].primaryPhoneNumber',
-                  validation: ['isRequired', 'isPhone']
-                },
-                children: [],
-              },
-            ]
           },
           {
             id: 12,
@@ -164,9 +170,10 @@ const mock = {
               label: 'Effective Date',
               size: '6',
               path: 'effectiveDate',
-              validation: ['isRequired', 'isDate']
+              validation: ['isRequired', 'isDate'],
+              children: [],
             },
-            children: [],
+            
           },
           {
             id: 13,
@@ -178,9 +185,10 @@ const mock = {
               size: '6',
               path: 'agentCode',
               validation: ['isRequired'],
-              options: 'agents'
+              options: 'agents',
+              children: [],
             },
-            children: [],
+            
           },
         ],
   
@@ -210,8 +218,8 @@ const mock = {
             data: {
               text: 'Coverage Limits',
               icon: 'fa fa-line-chart',
+              children: [],
             },
-            children: [],
           },
           {
             id: 2,
@@ -228,8 +236,9 @@ const mock = {
                 max: 'coverageLimits.dwelling.maxAmount',
                 step: 1000
               },
+              children: [],
             },
-            children: [],
+           
           },
           {
             id: 4,
@@ -248,9 +257,10 @@ const mock = {
                 max: 'coverageLimits.dwelling.maxAmount',
                 step: 1000
               },
+              children: [],
               options: 'uiQuestions.personalPropertyAmount'
             },
-            children: [],
+            
           },
           {
             id: 6,
@@ -264,8 +274,8 @@ const mock = {
               size: '12',
               path: 'coverageOptions.personalPropertyReplacementCost.answer',
               hint : "Replacement Cost Coverage replaces your damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, your loss for personal property will be paid out at Actual Cash Value.",
+              children: [],
             },
-            children: [],
           },
           {
             id: 16,
@@ -301,8 +311,8 @@ const mock = {
                 }
               ],
               hint : "All other Perils Deductible",
+              children: [],
             },
-            children: [],
           },
         ],
       },
