@@ -816,7 +816,7 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
+          type: '$ASSUMPTIONS',
           dependencies: [],
           data: {
             type: '$ASSUMPTIONS',
@@ -830,7 +830,7 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
+          type: '$ADDITIONAL_INTERESTS',
           dependencies: [],
           data: {
             type: '$ADDITIONAL_INTERESTS',
@@ -844,7 +844,7 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
+          type: '$MAILING_BILLING',
           dependencies: [],
           data: {
             type: '$MAILING_BILLING',
@@ -858,7 +858,7 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
+          type: '$VERIFY',
           dependencies: [],
           data: {
             type: '$VERIFY',
