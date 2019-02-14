@@ -8,6 +8,9 @@ export const STEP_NAMES = {
   editVerify: 'editVerify',
 };
 
+/*
+  TODO: This group of constants is meant to disappear as development of Gandalf continues
+ */
 export const NEXT_PAGE_ROUTING = {
   customerInfo: 'underwriting',
   underwriting: 'customize',
@@ -27,6 +30,20 @@ export const PAGE_ROUTING = {
 };
 
 export const ROUTES_NOT_HANDLED_BY_GANDALF = [
+  'assumptions',
+  'additionalInterests',
+  'askMortgagee',
+  'askAdditionalInterest',
+  'askAdditionalInsured',
+  'askPremiumFinance',
+  'askBillPayer',
+  'mailingBilling',
+  'verify',
+  'error',
+  'thankYou',
+];
+
+export const ROUTES_NOT_USING_FOOTER = [
   'share',
   'assumptions',
   'additionalInterests',
@@ -40,6 +57,10 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = [
   'error',
   'thankYou',
 ];
+
+/*
+  TODO: The above group of constants is meant to disappear as development of Gandalf continues
+ */
 
 export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   {

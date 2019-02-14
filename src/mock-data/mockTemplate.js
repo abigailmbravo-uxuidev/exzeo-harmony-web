@@ -802,7 +802,7 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
+          type: '$SHARE',
           dependencies: [],
           data: {
             type: '$SHARE',
