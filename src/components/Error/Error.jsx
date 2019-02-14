@@ -53,7 +53,6 @@ const Error = ({ exceptions }) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   quote: handleGetQuoteData(state),
   exceptions: handleGetExceptions(state)

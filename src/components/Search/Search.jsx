@@ -87,7 +87,6 @@ Search.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   quote: state.quoteState.quote
 });

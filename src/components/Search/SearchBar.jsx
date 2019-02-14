@@ -191,7 +191,6 @@ const SearchBar = props => new SearchForm(props);
 SearchBar.propTypes = {
   ...propTypes,
   handleSubmit: PropTypes.func,
-  tasks: PropTypes.shape({}),
   appState: PropTypes.shape({
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
@@ -206,7 +205,6 @@ SearchForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   fieldValues: _.get(state.form, 'SearchBar.values', { address: '', sortBy: 'policyNumber' }),
   formErrors: getFormSyncErrors('SearchBar')(state),

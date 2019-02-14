@@ -171,13 +171,11 @@ SearchResults.propTypes = {
       dontSeeAddress: PropTypes.bool
     })
   }),
-  tasks: PropTypes.shape(),
   handleSelect: PropTypes.func,
   handleSelectQuote: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   search: state.search,
   policyResults: state.service.policyResults,
@@ -189,7 +187,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createQuote: bindActionCreators(createQuote, dispatch),
   actions: {
-
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
 });

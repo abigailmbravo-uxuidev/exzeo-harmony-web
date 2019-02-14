@@ -33,7 +33,6 @@ Loader.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState
 });
 
