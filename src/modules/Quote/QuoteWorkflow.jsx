@@ -133,8 +133,7 @@ export class QuoteWorkflow extends Component {
       <App
         errorRedirectUrl={location.pathname}
         logout={auth.logout}
-        match={match}
-      >
+        match={match} >
           <div className="route">
             {isLoading && <Loader />}
             {workflowState.isHardStop && <Redirect to={'error'} />}
@@ -199,17 +198,11 @@ export class QuoteWorkflow extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const uiQuestions = state.quoteState.state && Array.isArray(state.quoteState.state.uiQuestions)
-    ? state.quoteState.state.uiQuestions
-    : [];
-
   return {
     isLoading: state.appState.isLoading,
     quote: getQuoteSelector(state),
     workflowState: state.quoteState.state || {},
-    uiQuestions,
     zipCodeSettings: state.service.zipCodeSettings,
-    agentResults: getAgentsList(state),
     options: state.list,
   }
 };
