@@ -5,7 +5,7 @@
 // 'assumptions', 'additionalInterests', 'mailingBilling', 'verify', 'thankYou']
 
 import user from '../fixtures/stockData/user.json';
-import underwriting from '../fixtures/underwriting.json';
+import underwriting from '../fixtures/stockData/underwriting.json';
 import { 
   _landing, 
   _searchAddress, 
