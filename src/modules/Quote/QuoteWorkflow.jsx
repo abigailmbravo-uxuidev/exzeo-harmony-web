@@ -99,11 +99,11 @@ export class QuoteWorkflow extends Component {
   };
 
   getConfigForJsonTransform = () => {
-    return MOCK_TEMPLATE.pages.reduce((pageComponentsMap, page) => {
+    return MOCK_TEMPLATE[currentPage].reduce((pageComponentsMap, page) => {
 
       const pageComponents = page.components.reduce((componentMap, component) => {
-        if ((component.data.extendedProperties || {}).transformConfig) {
-          componentMap[component.data.path] = component.data.extendedProperties.transformConfig.value;
+        if ((component.formData.metaData || {}).target) {
+          componentMap[component.path] = component.formData.metaData.target;
         }
         return componentMap;
       }, {});
@@ -119,9 +119,11 @@ export class QuoteWorkflow extends Component {
     const { auth, history, isLoading, match, location, options, quote, workflowState } = this.props;
     const { isRecalc } = this.state;
     const currentStep = location.pathname.split('/')[3];
+    const currentPage = PAGE_ROUTING[currentStep];
     const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const shouldPassCallback = PAGE_ROUTING[currentStep] === 2;
+    const transformConfig = this.getConfigForJsonTransform(currentStep);
     const customHandlers = {
       onDirtyCallback: shouldPassCallback ? this.setRecalc : undefined,
       setEmailPopup: this.setShowEmailPopup,
@@ -148,14 +150,14 @@ export class QuoteWorkflow extends Component {
                     <Gandalf
                       formId={FORM_ID}
                       className="survey-wrapper"
-                      currentPage={PAGE_ROUTING[currentStep]}
+                      currentPage={currentPage}
                       path={location.pathname}
                       handleSubmit={this.handleGandalfSubmit}
                       initialValues={quote}
                       template={MOCK_TEMPLATE}
                       /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
                       options={options}
-                      transformConfig={this.getConfigForJsonTransform()}
+                      transformConfig={transformConfig}
                       customHandlers={customHandlers}
                       customComponents={this.customComponents}
                       renderFooter={({ submitting }) => (
