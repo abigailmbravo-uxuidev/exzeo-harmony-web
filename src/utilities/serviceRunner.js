@@ -17,11 +17,12 @@ export function handleError(err) {
  * @param data
  * @returns {Promise<void>}
  */
-export async function callService(data, customUrl) {
+export async function callService(data, customUrl = '') {
+  console.log('custom', customUrl)
   const axiosConfig = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    url: `${process.env.REACT_APP_API_URL}/svc${customUrl ? `?${customUrl}` : ''}`,
+    url: `${process.env.REACT_APP_API_URL}/svc?${customUrl}`,
     data
   };
 

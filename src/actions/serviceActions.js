@@ -16,12 +16,12 @@ export const serviceRequest = data => ({
   data
 });
 
-export const runnerSetup = data => ({
+export const runnerSetup = (data, customUrl = '') => ({
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
   },
-  url: `${process.env.REACT_APP_API_URL}/svc`,
+  url: `${process.env.REACT_APP_API_URL}/svc?${customUrl}`,
   data
 });
 
@@ -30,7 +30,7 @@ export const getQuote = quoteId => (dispatch) => {
     service: 'quote-data',
     method: 'GET',
     path: `${quoteId}`
-  });
+  }, 'getQuote');
 
   return axios(axiosConfig).then((response) => {
     const data = { quote: response.data.result };
@@ -65,7 +65,7 @@ export const searchPolicy = ({
     service: 'policy-data',
     method: 'GET',
     path: `/transactions?companyCode=${companyCode}&state=${state}&product=${product}&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&page=${page}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
-  });
+  }, 'searchPolicy');
 
   return Promise.resolve(axios(axiosConfig)).then((response) => {
     const data = { policyResults: response.data };
@@ -99,7 +99,7 @@ export const getLatestPolicy = policyNumber => (dispatch) => {
     service: 'policy-data',
     method: 'GET',
     path: `transactions/${policyNumber}/latest`
-  });
+  }, 'getLatestPolicy');
 
   return Promise.resolve(axios(axiosConfig)).then((response) => {
     const data = { latestPolicy: response ? response.data : {} };
@@ -133,13 +133,13 @@ export const getSummaryLedger = policyNumber => async (dispatch) => {
     service: 'billing',
     method: 'GET',
     path: `summary-ledgers/${policyNumber}/latest`
-  });
+  }, 'fetchBilling');
 
   const fetchPayments = runnerSetup({
     service: 'billing',
     method: 'GET',
     path: `payment-history/${policyNumber}`
-  });
+  }, 'fetchPayments');
 
   try {
     const [billing, paymentHistory] = await Promise.all([axios(fetchBilling), axios(fetchPayments)]);
@@ -161,7 +161,7 @@ export const getPolicyDocuments = policyNumber => (dispatch) => {
     service: 'file-index',
     method: 'GET',
     path: `v1/fileindex/${policyNumber}`
-  });
+  }, 'getPolicyDocuments');
 
   return axios(axiosConfig).then((response) => {
     const data = { policyDocuments: response.data.result };
@@ -182,7 +182,7 @@ export const getZipcodeSettings = (companyCode = 'TTIC', state = 'FL', product =
     service: 'underwriting',
     method: 'GET',
     path: `zip-code?companyCode=${companyCode}&state=${state}&product=${product}&zip=${zip}`
-  });
+  }, 'getZipcodeSettings');
 
   return axios(axiosConfig).then((response) => {
     const data = { zipCodeSettings: response.data && response.data.result ? response.data.result[0] : { timezone: '' } };

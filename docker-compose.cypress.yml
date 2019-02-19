@@ -15,7 +15,7 @@ services:
       # - REACT_APP_CYPRESS_URL=ttp://devagent.harmony-ins.com:8383
 
       # # point to local using mock-auth0
-      # - REACT_APP_USE_MOCK_AUTH0=true
-      # - REACT_APP_CYPRESS_URL=ttp://devagent.harmony-ins.com:8383
+      # - CYPRESS_USE_MOCK_AUTH0=true
+      # - CYPRESS_BASE_URL=ttp://devagent.harmony-ins.com:8383
 
 

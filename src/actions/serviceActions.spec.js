@@ -30,7 +30,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getQuote`,
       data: {
         service: 'quote-data',
         method: 'GET',
@@ -59,7 +59,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getQuote`,
       data: {
         service: 'quote-data',
         method: 'GET',
@@ -93,7 +93,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getQuote`,
       data: {
         service: 'quote-data',
         method: 'GET',
@@ -122,7 +122,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getQuote`,
       data: {
         service: 'quote-data',
         method: 'GET',
@@ -151,7 +151,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?searchPolicy`,
       data: {
         service: 'policy-data',
         method: 'GET',
@@ -193,7 +193,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?searchPolicy`,
       data: {
         service: 'policy-data',
         method: 'GET',
@@ -234,7 +234,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getLatestPolicy`,
       data: {
         service: 'policy-data',
         method: 'GET',
@@ -263,7 +263,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getLatestPolicy`,
       data: {
         service: 'policy-data',
         method: 'GET',
@@ -292,7 +292,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?fetchBilling`,
       data: {
         service: 'billing',
         method: 'GET',
@@ -305,7 +305,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?fetchPayments`,
       data: {
         service: 'billing',
         method: 'GET',
@@ -335,7 +335,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getSummaryLedger`,
       data: {
         service: 'billing',
         method: 'GET',
@@ -364,7 +364,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getPolicyDocuments`,
       data: {
         service: 'file-index',
         method: 'GET',
@@ -393,7 +393,7 @@ describe('Service Actions', () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: `${process.env.REACT_APP_API_URL}/svc`,
+      url: `${process.env.REACT_APP_API_URL}/svc?getPolicyDocuments`,
       data: {
         service: 'file-index',
         method: 'GET',

@@ -72,7 +72,7 @@ function setState({
 async function start(modelName, data) {
   const axiosConfig = {
     method: 'POST',
-    url: `${process.env.REACT_APP_API_URL}/cg/start`,
+    url: `${process.env.REACT_APP_API_URL}/cg/start?${modelName}`,
     headers: { 'Content-Type': 'application/json' },
     data: {
       modelName,
@@ -99,10 +99,10 @@ async function start(modelName, data) {
  * @private
  * @returns {Promise<void>}
  */
-async function complete(stepName, data, cgEndpoint = 'complete') {
+async function complete(stepName = '', data, cgEndpoint = 'complete') {
   const axiosConfig = {
     method: 'POST',
-    url: `${process.env.REACT_APP_API_URL}/cg/${cgEndpoint}`,
+    url: `${process.env.REACT_APP_API_URL}/cg/${cgEndpoint}?${stepName}`,
     headers: { 'Content-Type': 'application/json' },
     data: {
       workflowId: state.workflowId,
@@ -175,7 +175,7 @@ async function getQuoteServiceRequest(quoteNumber) {
       service: 'quote-data',
       method: 'GET',
       path: quoteNumber
-    });
+    }, 'getQuoteServiceRequest');
 
     return response.data.result;
   } catch (error) {

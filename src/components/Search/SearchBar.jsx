@@ -196,7 +196,7 @@ SearchBar.propTypes = {
     modelName: PropTypes.string,
     instanceId: PropTypes.string,
     data: PropTypes.shape({
-      submitting: PropTypes.boolean
+      submitting: PropTypes.bool
     })
   })
 };

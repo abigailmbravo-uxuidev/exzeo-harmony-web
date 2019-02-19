@@ -65,7 +65,7 @@ export async function fetchAddresses(address) {
   };
 
   try {
-    const response = await serviceRunner.callService(config);
+    const response = await serviceRunner.callService(config, 'fetchAddresses');
     return response && response.data && response.data.result ? response.data.result : {};
   } catch (error) {
     throw error;
@@ -111,7 +111,7 @@ export async function fetchQuotes({
   };
 
   try {
-    const response = await serviceRunner.callService(config);
+    const response = await serviceRunner.callService(config, 'fetchQuotes');
     return response && response.data && response.data.result ? response.data.result : {};
   } catch (error) {
     throw error;
