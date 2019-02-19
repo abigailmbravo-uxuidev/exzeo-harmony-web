@@ -1,7 +1,7 @@
 describe('Agency Happy Path', () => {
   before('gets fixtures', () => {
-    cy.fixture('user').as('user');
-    cy.fixture('underwriting').as('underwriting');
+    cy.fixture('stockData/user').as('user');
+    cy.fixture('stockData/underwriting').as('underwriting');
   });
   
   it('Navigates through the quote workflow', function () {

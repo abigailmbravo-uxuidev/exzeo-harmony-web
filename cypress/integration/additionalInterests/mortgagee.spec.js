@@ -12,9 +12,9 @@ describe('Mortgagee Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('mortgagee1').as('m1data');
-    cy.fixture('mortgagee2').as('m2data');
-    cy.fixture('mortgagee3').as('m3data');
+    cy.fixture('stockData/mortgagee1').as('m1data');
+    cy.fixture('stockData/mortgagee2').as('m2data');
+    cy.fixture('stockData/mortgagee3').as('m3data');
   });
 
   it('All Mortgagee 1 Empty Value', () => {

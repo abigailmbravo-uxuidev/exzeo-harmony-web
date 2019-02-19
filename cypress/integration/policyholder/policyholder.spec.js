@@ -15,8 +15,8 @@ describe('Policyholder Testing', () => {
   });
 
   beforeEach('Establish fixtures and reset', () => {
-    cy.fixture('user').as('user');
-    cy.fixture('secondUser').as('secondUser');
+    cy.fixture('stockData/user').as('user');
+    cy.fixture('stockData/secondUser').as('secondUser');
     toggleSecondUser('off');
   });
 

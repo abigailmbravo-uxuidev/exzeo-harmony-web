@@ -12,8 +12,8 @@ describe('Verify testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('pH1').as('pH1');
-    cy.fixture('pH2').as('pH2');
+    cy.fixture('stockData/pH1').as('pH1');
+    cy.fixture('stockData/pH2').as('pH2');
   });
 
   it('Primary Policyholder Empty Value', function() {

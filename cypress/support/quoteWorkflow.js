@@ -4,7 +4,7 @@
 // Stop Pages are: ['landing', 'searchAddress', 'customerInfo', 'underwriting', 'customize', 'share'
 // 'assumptions', 'additionalInterests', 'mailingBilling', 'verify', 'thankYou']
 
-import user from '../fixtures/user.json';
+import user from '../fixtures/stockData/user.json';
 import underwriting from '../fixtures/underwriting.json';
 import { 
   _landing, 

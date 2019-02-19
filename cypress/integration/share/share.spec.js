@@ -14,7 +14,7 @@ describe('Share Testing', () => {
   });
 
   beforeEach('Reset page, establish fixutres', () => {
-    cy.fixture('user').as('user');
+    cy.fixture('stockData/user').as('user');
     toggleModal('off');
   });
 

@@ -11,8 +11,8 @@ describe('Additional Insured Testing', () => {
   });
   
   beforeEach('Establish fixtures', () => {
-    cy.fixture('ains1').as('ains1');
-    cy.fixture('ains2').as('ains2');
+    cy.fixture('stockData/ains1').as('ains1');
+    cy.fixture('stockData/ains2').as('ains2');
   });
 
   it('All Additional Insure 1 Inputs Empty Value', () => {

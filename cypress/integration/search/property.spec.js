@@ -15,7 +15,7 @@ describe('Property Address Search Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('user').as('user');
+    cy.fixture('stockData/user').as('user');
   });
 
   it('Property Address Search Bar Empty Value', function() {

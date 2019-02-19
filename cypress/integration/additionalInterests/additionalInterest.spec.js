@@ -11,8 +11,8 @@ describe('Additional Interest Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('ai1').as('ai1');
-    cy.fixture('ai2').as('ai2');
+    cy.fixture('stockData/ai1').as('ai1');
+    cy.fixture('stockData/ai2').as('ai2');
   });
 
   it('All Additional Interest 1 Inputs Empty Value', () => {

@@ -14,7 +14,7 @@ describe('Underwriting Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('underwriting').as('data');
+    cy.fixture('stockData/underwriting').as('data');
   });
 
   it('All Inputs Empty Value', () => {

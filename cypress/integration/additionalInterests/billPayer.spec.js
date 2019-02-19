@@ -9,7 +9,7 @@ describe('Premium Finance Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('additionalUser').as('user');
+    cy.fixture('stockData/additionalUser').as('user');
   });
 
   it('All Premium Finance Inputs Empty Value', () => {
