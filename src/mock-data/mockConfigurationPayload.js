@@ -21,7 +21,7 @@ const mock = {
           dependencies: [],
           path: 'policyHolders[0].firstName',
           data: {
-            type: 'text',
+            component: 'text',
             label: 'First Name',
             size: '5'
           },
@@ -40,7 +40,7 @@ const mock = {
           dependencies: [],
           path: 'policyHolders[0].lastName',
           data: {
-            type: 'text',
+            component: 'text',
             label: 'Last Name',
             size: '7'
           },
@@ -59,7 +59,7 @@ const mock = {
           dependencies: [],
           path: 'policyHolders[0].emailAddress',
           data: {
-            type: 'text',
+            component: 'text',
             label: 'Email Address',
             size: '8',
           },
@@ -78,7 +78,7 @@ const mock = {
           dependencies: [],
           path: 'policyHolders[0].primaryPhoneNumber',
           data: {
-            type: 'phone',
+            component: 'phone',
             label: 'Contact Phone',
             size: '4'
           },
@@ -96,7 +96,7 @@ const mock = {
           type: '$INPUT',
           dependencies: [],
           data: {
-            type: 'switch',
+            component: 'switch',
             label: 'Do you want to add an additional Policyholder?',
             path: 'additionalPolicyholder'
           },
@@ -113,12 +113,22 @@ const mock = {
           },
           children: [
             {
+              id: 7,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Secondary Policyholder',
+                icon: 'fa fa-user-circle',
+                children: []
+              }
+            },
+            {
               id: 10,
               type: '$INPUT',
               dependencies: [],
               path: 'policyHolders[1].firstName',
               data: {
-                type: 'text',
+                component: 'text',
                 label: 'First Name',
                 size: '5'
               },
@@ -137,7 +147,7 @@ const mock = {
               dependencies: [],
               path: 'policyHolders[1].lastName',
               data: {
-                type: 'text',
+                component: 'text',
                 label: 'Last Name',
                 size: '7'
               },
@@ -156,7 +166,7 @@ const mock = {
               dependencies: [],
               path: 'policyHolders[1].emailAddress',
               data: {
-                type: 'text',
+                component: 'text',
                 label: 'Email Address',
                 size: '8',
               },
@@ -175,7 +185,7 @@ const mock = {
               dependencies: [],
               path: 'policyHolders[1].primaryPhoneNumber',
               data: {
-                type: 'phone',
+                component: 'phone',
                 label: 'Contact Phone',
                 size: '4'
               },
@@ -196,7 +206,7 @@ const mock = {
           dependencies: [],
           path: 'effectiveDate',
           data: {
-            type: 'date',
+            component: 'date',
             label: 'Effective Date',
             size: '6'
           },
@@ -215,7 +225,7 @@ const mock = {
           dependencies: [],
           path: 'agentCode',
           data: {
-            type: 'select',
+            component: 'select',
             label: 'Agent',
             size: '6',
             options: 'agents'
@@ -230,7 +240,6 @@ const mock = {
           children: [],
         },
       ],
-
     },
     {
       name: 'underwriting',
@@ -241,7 +250,7 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            type: '$UNDERWRITING',
+            component: '$UNDERWRITING',
           }
         },
       ],
@@ -266,7 +275,7 @@ const mock = {
           dependencies: [],
           path: 'document.coverageLimits.dwelling.value',
           data: {
-            type: 'slider',
+            component: 'slider',
             label: 'Dwelling Limit',
             validation: ['dwellingRange'],
             hint : "This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  ",
@@ -292,7 +301,7 @@ const mock = {
           path: 'coverageLimits.otherStructures.value',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Other Structures Limit',
             size: '12',
             hint : "This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.",
@@ -320,7 +329,7 @@ const mock = {
           path: 'coverageLimits.personalProperty.value',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Personal Property Limit',
             size: '12',
             hint : "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
@@ -349,7 +358,7 @@ const mock = {
           ],
           path: 'coverageOptions.personalPropertyReplacementCost.answer',
           data: {
-            type: 'switch',
+            component: 'switch',
             label: 'Do you want Personal Property Replacement Cost Coverage?',
             size: '12',
             hint : "Replacement Cost Coverage replaces your damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, your loss for personal property will be paid out at Actual Cash Value.",
@@ -375,7 +384,7 @@ const mock = {
                 format: 'currency'
               },
             },
-            type: 'display',
+            component: 'display',
             label: 'Loss of Use Limit',
             size: '12',
             hint : "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
@@ -397,7 +406,7 @@ const mock = {
           path: 'coverageLimits.personalLiability.value',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Personal Liability Limit',
             size: '12'
           },
@@ -428,7 +437,7 @@ const mock = {
                 format: 'currency'
               }
             },
-            type: 'display',
+            component: 'display',
             label: 'Medical Payments to Others',
             size: '12',
             options: []
@@ -449,7 +458,7 @@ const mock = {
           path: 'coverageLimits.moldProperty.value',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
             size: '12'
           },
@@ -484,7 +493,7 @@ const mock = {
           path: 'coverageLimits.moldLiability.amount',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
             size: '12'
           },
@@ -515,7 +524,7 @@ const mock = {
           path: 'coverageLimits.ordinanceOrLaw.value',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Ordinance or Law Coverage Limit',
             size: '12',
             extendedProperties: {}
@@ -556,7 +565,7 @@ const mock = {
         //   dependencies: [],
         //   data: {
         //     segmented: true,
-        //     type: 'radio',
+        //     component: 'radio',
         //     label: 'Property Permitted Incidental Occupancies',
         //     size: '12',
         //     path: 'coverageOptions.propertyIncidentalOccupancies.answer',
@@ -582,7 +591,7 @@ const mock = {
           path: 'coverageOptions.sinkholePerilCoverage.answer',
           data: {
             segmented: true,
-            type: 'switch',
+            component: 'switch',
             label: 'Do you want Sinkhole Loss Coverage?',
             size: '12',
             options: []
@@ -608,12 +617,12 @@ const mock = {
         },
         {
           id: 16,
-          type: '$INPUT',
+          component: '$INPUT',
           dependencies: [],
           path: 'deductibles.allOtherPerils.value',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'All Other Perils Deductible',
             size: '12',
             options: 'uiQuestions.allOtherPerils'
@@ -640,7 +649,7 @@ const mock = {
               }
             },
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Hurricane Deductible',
             size: '12',
             options: 'uiQuestions.hurricane',
@@ -664,7 +673,7 @@ const mock = {
           ],
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Sinkhole Deductible',
             size: '12',
             path: 'deductibles.sinkhole.amount',
@@ -696,12 +705,12 @@ const mock = {
         },
         {
           id: 21,
-          type: '$INPUT',
+          component: '$INPUT',
           dependencies: [],
           path: 'property.windMitigation.roofCovering',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Roof Covering:',
             size: '12'
           },
@@ -736,7 +745,7 @@ const mock = {
           path: 'property.windMitigation.roofDeckAttachment',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Roof Deck Attachment:',
             size: '12'
           },
@@ -783,7 +792,7 @@ const mock = {
           path: 'property.windMitigation.roofToWallConnection',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Roof to Wall Attachment:',
             size: '12'
           },
@@ -826,7 +835,7 @@ const mock = {
           path: 'property.windMitigation.roofGeometry',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Roof Geometry:',
             size: '12'
           },
@@ -865,7 +874,7 @@ const mock = {
           path: 'property.windMitigation.secondaryWaterResistance',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Secondary Water Resistance (SWR):',
             size: '12'
           },
@@ -900,7 +909,7 @@ const mock = {
           path: 'property.windMitigation.openingProtection',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Opening Protection:',
             size: '12'
           },
@@ -948,7 +957,7 @@ const mock = {
           dependencies: [],
           path: 'property.burglarAlarm',
           data: {
-            type: 'switch',
+            component: 'switch',
             label: 'Does the property have a burglar alarm?',
             size: '12',
             options: []
@@ -967,7 +976,7 @@ const mock = {
           dependencies: [],
           path: 'property.fireAlarm',
           data: {
-            type: 'switch',
+            component: 'switch',
             label: 'Does the property have a fire alarm?',
             size: '12',
             options: []
@@ -987,7 +996,7 @@ const mock = {
           path: 'property.sprinkler',
           data: {
             segmented: true,
-            type: 'radio',
+            component: 'radio',
             label: 'Sprinkler',
             size: '12',
           },
@@ -1026,7 +1035,7 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            type: '$SHARE',
+            component: '$SHARE',
           }
         },
       ],
@@ -1040,7 +1049,7 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            type: '$ASSUMPTIONS',
+            component: '$ASSUMPTIONS',
           }
         },
       ],
@@ -1054,7 +1063,7 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            type: '$ADDITIONAL_INTERESTS',
+            component: '$ADDITIONAL_INTERESTS',
           }
         },
       ],
@@ -1068,7 +1077,7 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            type: '$MAILING_BILLING',
+            component: '$MAILING_BILLING',
           }
         },
       ],
@@ -1082,7 +1091,7 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            type: '$VERIFY',
+            component: '$VERIFY',
           }
         },
       ],
