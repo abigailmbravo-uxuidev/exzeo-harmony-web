@@ -1,4 +1,5 @@
 import { goBack } from './utils';
+import routes from '../../support/routes';
 
 describe('Additional Insured Testing', () => {
   const ains1fields = ['ains1Name1', 'ains1MailingAddress1', 'ains1City', 'ains1State', 'ains1Zip'];
@@ -7,10 +8,12 @@ describe('Additional Insured Testing', () => {
   const addAdditional = () => cy.findDataTag('isAdditional2').find('.switch-div').click();
 
   before(() => {
+    routes();
     cy.quoteWorkflow('additionalInterests');
   });
   
   beforeEach('Establish fixtures', () => {
+    routes();
     cy.fixture('stockData/ains1').as('ains1');
     cy.fixture('stockData/ains2').as('ains2');
   });
