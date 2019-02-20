@@ -1,4 +1,17 @@
 import routes from "../../support/routes";
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting,
+  navCustomize,
+  navShare,
+  navAssumptions,
+  navAdditionalInterests,
+  navMailingBilling,
+  navScheduleDate,
+  navVerify
+} from '../../helpers';
 
 describe('Share Testing', () => {
   const toggleModal = (dir = 'on') => {
@@ -13,7 +26,12 @@ describe('Share Testing', () => {
 
   before('Navigate to Share page', () => {
     routes();
-    cy.quoteWorkflow('share');
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
+    navUnderwriting();
+    navCustomize();
   });
 
   beforeEach('Reset page, establish fixutres', () => {
@@ -23,7 +41,7 @@ describe('Share Testing', () => {
   });
 
   it('"Confirmed" Value left at Default "No"', () => {
-    cy._submit();
+    cy.clickSubmit();
     cy.findDataTag('confirmAssumptions').find('input').should('have.value', '');
     cy.findDataTag('submit').should('be.disabled');
     cy.findDataTag('tab-nav-sendEmailOrContinue').click();

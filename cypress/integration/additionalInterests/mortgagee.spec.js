@@ -1,5 +1,14 @@
 import { goBack } from './utils';
 import routes from '../../support/routes';
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting,
+  navCustomize,
+  navShare,
+  navAssumptions
+} from '../../helpers';
 
 describe('Mortgagee Testing', () => {
   const m1fields = ['m1Name1', 'm1MailingAddress1', 'm1City', 'm1State', 'm1Zip'];
@@ -10,7 +19,14 @@ describe('Mortgagee Testing', () => {
 
   before(() => {
     routes();
-    cy.quoteWorkflow('additionalInterests');
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
+    navUnderwriting();
+    navCustomize();
+    navShare();
+    navAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {

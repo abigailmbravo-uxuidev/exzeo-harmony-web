@@ -12,17 +12,17 @@ const stubGetServiceRequest = (fixture, result, useConfig = false) => {
 export const navLanding = () => cy.get('.btn[href="/search/address"]').click();
 
 export const navSearchAddress = (address = user.address)  => {
-  cy.get('input[name=address]').type(address);
-  cy.clickSubmit('#SearchBar');
-  cy.findDataTag('search-results').find('li[tabindex=0]').click();
+  cy.get('input[name=address]').type(address)
+    .clickSubmit('#SearchBar')
+    .findDataTag('search-results').find('li[tabindex=0]').click();
 };
 
 export const navCustomerInfo = (customerInfo = user.customerInfo, agentCode = user.agentCode) => {
   Object.entries(customerInfo).forEach(([field, value]) => {
     cy.findDataTag(`${field}`).find('input').type(value);
   });
-  cy.findDataTag('agentCode').find('select').select(agentCode);
-  cy.clickSubmit('#CustomerInfo');
+  cy.findDataTag('agentCode').find('select').select(agentCode)
+    .clickSubmit('#CustomerInfo');
 };
 
 export const navUnderwriting = (data = underwriting, fixture, updates, useConfig) => {
@@ -49,8 +49,8 @@ export const navShare = () => {
 };
 
 export const navAssumptions = () => {
-  cy.findDataTag('confirmAssumptions').find('.switch-div').click();
-  cy.clickSubmit('#Assumptions');
+  cy.findDataTag('confirmAssumptions').find('.switch-div').click()
+    .clickSubmit('#Assumptions');
 };
 
 export const navAdditionalInterests = () => {
@@ -58,16 +58,16 @@ export const navAdditionalInterests = () => {
 };
 
 export const navMailingBilling = () => {
-  cy.findDataTag('sameAsProperty').find('.switch-div').click();
-  cy.clickSubmit('#Billing');
+  cy.get('select[name="billToId"]').select('5c6e90f9a19e6d000eed72d7')
+    .clickSubmit('#Billing');
 };
 
 export const navVerify = () => {
-  cy.findDataTag('confirmProperyDetails').find('.switch-div').click();
-  cy.findDataTag('confirmQuoteDetails').find('.switch-div').click();
-  cy.findDataTag('confirmPolicyHolderDetails').find('.switch-div').click();
-  cy.findDataTag('confirmAdditionalInterestsDetails').find('.switch-div').click();
-  cy.clickSubmit('#Verify');
+  cy.findDataTag('confirmProperyDetails').find('.switch-div').click()
+    .findDataTag('confirmQuoteDetails').find('.switch-div').click()
+    .findDataTag('confirmPolicyHolderDetails').find('.switch-div').click()
+    .findDataTag('confirmAdditionalInterestsDetails').find('.switch-div').click()
+    .clickSubmit('#Verify');
 };
 
 export const navScheduleDate = () => {
@@ -75,6 +75,6 @@ export const navScheduleDate = () => {
 };
 
 export const navThankYou = () => {
-  cy.get('#thanks a[href="/"]').click();
-  cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+  cy.get('#thanks a[href="/"]').click()
+    .url().should('eq', `${Cypress.config().baseUrl}/`);
 };

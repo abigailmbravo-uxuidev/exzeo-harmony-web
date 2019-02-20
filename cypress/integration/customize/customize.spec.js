@@ -1,9 +1,19 @@
 import routes from "../../support/routes";
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting
+} from '../../helpers';
 
 describe('Customize Testing', () => {
   before('Go to customize page', () => {
     routes();
-    cy.quoteWorkflow('customize');
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
+    navUnderwriting();
   });
 
   const type = amnt => cy.findDataTag('dwellingAmount').find('.range-value input').type(`{selectall}{backspace}${amnt}`);

@@ -1,4 +1,8 @@
 import routes from "../../support/routes";
+import {
+  navLanding,
+  navSearchAddress
+} from '../../helpers';
 
 describe('Policyholder Testing', () => {
   const primaryPolicyFields = ['FirstName', 'LastName', 'EmailAddress', 'phoneNumber'];
@@ -14,7 +18,9 @@ describe('Policyholder Testing', () => {
   
   before('Go to Policyholder page', () => {
     routes();
-    cy.quoteWorkflow('customerInfo');
+    cy.login();
+    navLanding();
+    navSearchAddress();
   });
 
   beforeEach('Establish fixtures and reset', () => {

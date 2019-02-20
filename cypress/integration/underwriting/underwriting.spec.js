@@ -1,4 +1,13 @@
 import routes from "../../support/routes";
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting,
+  navCustomize,
+  navShare,
+  navAssumptions
+} from '../../helpers';
 
 describe('Underwriting Testing', () => {
   const fields = ['rented', 'previousClaims', 'monthsOccupied', 'business'];
@@ -13,7 +22,10 @@ describe('Underwriting Testing', () => {
 
   before('Go to Underwriting page', () => {
     routes();
-    cy.quoteWorkflow('underwriting');
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
   });
 
   beforeEach('Establish fixtures', () => {

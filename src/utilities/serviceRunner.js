@@ -18,7 +18,6 @@ export function handleError(err) {
  * @returns {Promise<void>}
  */
 export async function callService(data, customUrl = '') {
-  console.log('custom', customUrl)
   const axiosConfig = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

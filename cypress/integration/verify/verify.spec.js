@@ -1,4 +1,17 @@
 import routes from "../../support/routes";
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting,
+  navCustomize,
+  navShare,
+  navAssumptions,
+  navAdditionalInterests,
+  navMailingBilling,
+  navVerify,
+  navScheduleDate
+} from '../../helpers';
 
 describe('Verify testing', () => {
   const pH1Fields = ['pH1FirstName', 'pH1LastName', 'pH1phone', 'pH1email'];
@@ -11,7 +24,16 @@ describe('Verify testing', () => {
 
   before(() => {
     routes();
-    cy.quoteWorkflow('verify');
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
+    navUnderwriting();
+    navCustomize();
+    navShare();
+    navAssumptions();
+    navAdditionalInterests();
+    navMailingBilling();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -51,7 +73,7 @@ describe('Verify testing', () => {
   //   pH1Fields.forEach(fieldToCheck => {
   //     clearAllText([fieldToCheck]);
   //     cy.fillFields(pH1Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••'});
-  //     cy._submit('#UpdatePolicyholder');
+  //     cy.clickSubmit('#UpdatePolicyholder');
   //     cy.get('.checkForSnackbar').should('be.visible');
   //     checkError(
   //       fieldToCheck, 
@@ -69,7 +91,7 @@ describe('Verify testing', () => {
   //   pH2Fields.forEach(fieldToCheck => {
   //     clearAllText([fieldToCheck]);
   //     cy.fillFields(pH2Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••' });
-  //     cy._submit('#UpdatePolicyholder');
+  //     cy.clickSubmit('#UpdatePolicyholder');
   //     cy.get('.checkForSnackbar').should('be.visible');
   //     checkError(
   //       fieldToCheck,

@@ -1,5 +1,14 @@
 import { goBack } from './utils';
 import routes from '../../support/routes';
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting,
+  navCustomize,
+  navShare,
+  navAssumptions
+} from '../../helpers';
 
 describe('Premium Finance Testing', () => {
   const fields = ['name1', 'mailingAddress1', 'city', 'state', 'zip'];
@@ -7,7 +16,14 @@ describe('Premium Finance Testing', () => {
 
   before(() => {
     routes();
-    cy.quoteWorkflow('additionalInterests');
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
+    navUnderwriting();
+    navCustomize();
+    navShare();
+    navAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {

@@ -1,11 +1,29 @@
 import routes from "../../support/routes";
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting,
+  navCustomize,
+  navShare,
+  navAssumptions,
+  navAdditionalInterests
+} from '../../helpers';
 
 describe('Mailing/Billing Testing', () => {
   const fields = ['address1', 'city', 'state', 'zip'];
 
   before(() => {
     routes();
-    cy.quoteWorkflow('mailingBilling');
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
+    navUnderwriting();
+    navCustomize();
+    navShare();
+    navAssumptions();
+    navAdditionalInterests();
   });
 
   it('All Mailing Address Inputs Empty Value', () => {
