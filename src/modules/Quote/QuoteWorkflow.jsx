@@ -32,7 +32,10 @@ import { getAgentsList } from '../../selectors/agencyState.selectors';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { getZipcodeSettings } from '../../actions/serviceActions';
 
-import MOCK_TEMPLATE from '../../mock-data/mockTemplate';
+import { defaultMemoize } from 'reselect';
+
+// import MOCK_TEMPLATE from '../../mock-data/mockTemplate';
+import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
 // import MOCK_TEMPLATE from '../../mock-data/mockTemplateAF3';
 
 const FORM_ID = 'QuoteWorkflow';
@@ -99,7 +102,7 @@ export class QuoteWorkflow extends Component {
   };
 
   getConfigForJsonTransform = () => {
-    return MOCK_TEMPLATE[currentPage].reduce((pageComponentsMap, page) => {
+    return MOCK_TEMPLATE.pages.reduce((pageComponentsMap, page) => {
 
       const pageComponents = page.components.reduce((componentMap, component) => {
         if ((component.formData.metaData || {}).target) {
@@ -123,7 +126,7 @@ export class QuoteWorkflow extends Component {
     const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const shouldPassCallback = PAGE_ROUTING[currentStep] === 2;
-    const transformConfig = this.getConfigForJsonTransform(currentStep);
+    const transformConfig = this.getConfigForJsonTransform(currentPage);
     const customHandlers = {
       onDirtyCallback: shouldPassCallback ? this.setRecalc : undefined,
       setEmailPopup: this.setShowEmailPopup,

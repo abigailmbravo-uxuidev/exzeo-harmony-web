@@ -13,6 +13,7 @@ const mock = {
             text: 'Primary Policyholder',
             icon: 'fa fa-user-circle',
           },
+          formData: {},
           children: [],
         },
         {
@@ -30,7 +31,6 @@ const mock = {
             type: 'string',
             required: true,
             metaData: { minLength: 1, maxLength: 255 },
-            children: [],
           },
           children: [],
         },
@@ -52,7 +52,6 @@ const mock = {
               minLength: 1,
               maxLength: 255
             },
-            children: [],
           },
           children: [],
         },
@@ -74,7 +73,6 @@ const mock = {
               minLength: 1,
               maxLength: 255
             },
-            children: [],
           },
           children: [],
         },
@@ -95,7 +93,6 @@ const mock = {
             metaData: {
               pattern: '^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'
             },
-            children: [],
           },
           children: [],
         },
@@ -108,6 +105,7 @@ const mock = {
             component: 'switch',
             label: 'Do you want to add an additional Policyholder?',
           },
+          formData: {},
           children: []
         },
         {
@@ -117,6 +115,7 @@ const mock = {
             { path: 'additionalPolicyholder', value: true }
           ],
           data: {},
+          formData: {},
           children: [
             {
               id: 7,
@@ -126,7 +125,9 @@ const mock = {
                 text: 'Secondary Policyholder',
                 icon: 'fa fa-user-circle',
                 children: []
-              }
+              },
+              formData: {},
+              children: [],
             },
             {
               id: 10,
@@ -146,7 +147,6 @@ const mock = {
                   minLength: 1,
                   maxLength: 255
                 },
-                children: [],
               },
               children: [],
             },
@@ -168,7 +168,6 @@ const mock = {
                   minLength: 1,
                   maxLength: 255
                 },
-                children: [],
               },
               children: [],
             },
@@ -190,7 +189,6 @@ const mock = {
                   minLength: 1,
                   maxLength: 255
                 },
-                children: [],
               },
               children: [],
             },
@@ -211,7 +209,6 @@ const mock = {
                 metaData: {
                   pattern: '^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$'
                 },
-                children: [],
               },
               children: [],
             }
@@ -234,7 +231,6 @@ const mock = {
             metaData: {
               format: 'date-time'
             },
-            children: []
           },
           children: [],
         },
@@ -254,7 +250,6 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {},
-            children: []
           },
           children: [],
         },
@@ -270,7 +265,9 @@ const mock = {
           dependencies: [],
           data: {
             component: '$UNDERWRITING',
-          }
+          },
+          formData: {},
+          children: [],
         },
       ],
     },
@@ -286,20 +283,21 @@ const mock = {
             text: 'Coverage Limits',
             icon: 'fa fa-line-chart',
           },
+          formData: {},
           children: [],
         },
         {
           id: 2,
           type: '$INPUT',
-          path: 'document.coverageLimits.dwelling.value',
+          path: 'coverageLimits.dwelling.value',
           dependencies: [],
           data: {
             component: 'slider',
             label: 'Dwelling Limit',
             hint : "This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  ",
             extendedProperties: {
-              min: 'config.coverageLimits.dwelling.minAmount',
-              max: 'document.coverageLimits.dwelling.maxAmount',
+              min: 'coverageLimits.dwelling.minAmount',
+              max: 'coverageLimits.dwelling.maxAmount',
               step: 1000,
               validation: 'dwellingRange'
             },
@@ -309,7 +307,6 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {},
-            children: []
           },
           children: [],
         },
@@ -336,7 +333,6 @@ const mock = {
             metaData: {
               target: '${Math.ceil(((it.document.coverageLimits.otherStructures.value / 100) * it.document.coverageLimits.dwelling.amount))}',
             },
-            children: []
           },
           children: [],
         },
@@ -363,7 +359,6 @@ const mock = {
             metaData: {
               target: '${Math.ceil(((it.document.coverageLimits.personalProperty.value / 100) * it.document.coverageLimits.dwelling.amount))}',
             },
-            children: []
           },
           children: [],
         },
@@ -385,7 +380,6 @@ const mock = {
             type: 'boolean',
             required: true,
             metaData: {},
-            children: []
           },
           children: [],
         },
@@ -411,7 +405,6 @@ const mock = {
             metaData: {
               target: '${Math.ceil(((it.document.coverageLimits.lossOfUse.value / 100) * it.document.coverageLimits.dwelling.amount))}',
             },
-            children: []
           },
           children: [],
         },
@@ -436,7 +429,6 @@ const mock = {
                 { label: '$ 300,000', answer: 300000 }
               ]
             },
-            children: []
           },
           children: [],
         },
@@ -462,7 +454,6 @@ const mock = {
             metaData: {
               target: '${2000}'
             },
-            children: []
           },
           children: [],
         },
@@ -497,7 +488,6 @@ const mock = {
                 }
               ]
             },
-            children: []
           },
           children: [],
         },
@@ -528,7 +518,6 @@ const mock = {
                 }
               ]
             },
-            children: []
           },
           children: [],
         },
@@ -559,7 +548,6 @@ const mock = {
                 }
               ]
             },
-            children: []
           },
           children: [],
         },
@@ -571,6 +559,7 @@ const mock = {
             text: 'Coverage Options',
             icon: 'fa fa-user-circle',
           },
+          formData: {},
           children: [],
         },
         // {
@@ -614,7 +603,6 @@ const mock = {
             type: 'boolean',
             required: true,
             metaData: {},
-            children: [],
           },
           children: [],
         },
@@ -626,6 +614,7 @@ const mock = {
             text: 'Deductibles',
             icon: 'fa fa-user-circle',
           },
+          formData: {},
           children: [],
         },
         {
@@ -645,7 +634,6 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {},
-            children: [],
           },
           children: [],
         },
@@ -675,7 +663,6 @@ const mock = {
             metaData: {
               target: '${Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.amount))}',
             },
-            children: [],
           },
           children: [],
         },
@@ -704,7 +691,6 @@ const mock = {
             // required: '${it.coverageOptions.sinkholePerilCoverage.answer}',
             required: true,
             metaData: {},
-            children: [],
           },
           children: [],
         },
@@ -716,6 +702,7 @@ const mock = {
             text: 'Wind Mitigation',
             icon: 'fa fa-user-circle',
           },
+          formData: {},
           children: [],
         },
         {
@@ -749,7 +736,6 @@ const mock = {
                 }
               ]
             },
-            children: [],
           },
           children: [],
         },
@@ -796,7 +782,6 @@ const mock = {
                 }
               ]
             },
-            children: [],
           },
           children: [],
         },
@@ -839,7 +824,6 @@ const mock = {
                 }
               ]
             },
-            children: [],
           },
           children: [],
         },
@@ -878,7 +862,6 @@ const mock = {
                 }
               ]
             },
-            children: [],
           },
           children: [],
         },
@@ -913,7 +896,6 @@ const mock = {
                 }
               ]
             },
-            children: [],
           },
           children: [],
         },
@@ -964,6 +946,7 @@ const mock = {
             text: 'Discounts',
             icon: 'fa fa-user-circle',
           },
+          formData:{},
           children: [],
         },
         {
@@ -1051,7 +1034,9 @@ const mock = {
           dependencies: [],
           data: {
             component: '$SHARE',
-          }
+          },
+          formData: {},
+          children: [],
         },
       ],
     },
@@ -1065,7 +1050,9 @@ const mock = {
           dependencies: [],
           data: {
             component: '$ASSUMPTIONS',
-          }
+          },
+          formData: {},
+          children: [],
         },
       ],
     },
@@ -1079,7 +1066,9 @@ const mock = {
           dependencies: [],
           data: {
             component: '$ADDITIONAL_INTERESTS',
-          }
+          },
+          formData: {},
+          children: [],
         },
       ],
     },
@@ -1093,7 +1082,9 @@ const mock = {
           dependencies: [],
           data: {
             component: '$MAILING_BILLING',
-          }
+          },
+          formData: {},
+          children: [],
         },
       ],
     },
@@ -1107,7 +1098,9 @@ const mock = {
           dependencies: [],
           data: {
             component: '$VERIFY',
-          }
+          },
+          formData: {},
+          children: [],
         },
       ],
     },
