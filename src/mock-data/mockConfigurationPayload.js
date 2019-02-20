@@ -243,7 +243,7 @@ const mock = {
             component: 'select',
             label: 'Agent',
             size: '6',
-            options: 'agents'
+            dataSource: 'agents'
           },
           formData: {
             path: 'agentCode',
@@ -321,7 +321,7 @@ const mock = {
             label: 'Other Structures Limit',
             size: '12',
             hint : "This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.",
-            options: 'uiQuestions.otherStructuresAmount',
+            dataSource: 'uiQuestions.otherStructuresAmount',
             extendedProperties: {
                 output: 'currency',
             },
@@ -350,7 +350,7 @@ const mock = {
             extendedProperties: {
                 output: 'currency'
             },
-            options: 'uiQuestions.personalPropertyAmount'
+            dataSource: 'uiQuestions.personalPropertyAmount'
           },
           formData: {
             path: 'coverageLimits.personalProperty.value',
@@ -396,7 +396,6 @@ const mock = {
             extendedProperties: {
               output: 'currency'
             },
-            options: [],
           },
           formData: {
             path: 'coverageLimits.lossOfUse.value',
@@ -411,7 +410,7 @@ const mock = {
         {
           id: 8,
           type: '$INPUT',
-          path: 'coverageLimits.personalLiability.value',
+          path: 'coverageLimits.personalLiability.amount',
           dependencies: [],
           data: {
             component: 'radio',
@@ -435,7 +434,7 @@ const mock = {
         {
           id: 9,
           type: '$INPUT',
-          path: 'coverageLimits.medicalPayments.value',
+          path: 'coverageLimits.medicalPayments.amount',
           dependencies: [],
           data: {
             component: 'display',
@@ -443,9 +442,9 @@ const mock = {
             size: '12',
             segmented: true,
             extendedProperties: {
-              output: 'currency'
+              output: 'currency',
             },
-            options: []
+            dataSource: []
           },
           formData: {
             path: 'coverageLimits.medicalPayments.value',
@@ -460,7 +459,7 @@ const mock = {
         {
           id: 10,
           type: '$INPUT',
-          path: 'coverageLimits.moldProperty.value',
+          path: 'coverageLimits.moldProperty.amount',
           dependencies: [],
           data: {
             component: 'radio',
@@ -524,7 +523,7 @@ const mock = {
         {
           id: 11,
           type: '$INPUT',
-          path: 'coverageLimits.ordinanceOrLaw.value',
+          path: 'coverageLimits.ordinanceOrLaw.amount',
           dependencies: [],
           data: {
             segmented: true,
@@ -573,7 +572,7 @@ const mock = {
         //     size: '12',
         //     path: 'coverageOptions.propertyIncidentalOccupancies.answer',
         //     validation: ['isRequired'],
-        //     options: [
+        //     dataSource: [
         //       {
         //         "answer" : "Main Dwelling",
         //       },
@@ -620,14 +619,14 @@ const mock = {
         {
           id: 16,
           component: '$INPUT',
-          path: 'deductibles.allOtherPerils.value',
+          path: 'deductibles.allOtherPerils.amount',
           dependencies: [],
           data: {
             component: 'radio',
             label: 'All Other Perils Deductible',
             size: '12',
             segmented: true,
-            options: 'uiQuestions.allOtherPerils'
+            dataSource: 'uiQuestions.allOtherPerils'
           },
           formData:  {
             path: 'deductibles.allOtherPerils.value',
@@ -647,14 +646,10 @@ const mock = {
             component: 'radio',
             label: 'Hurricane Deductible',
             size: '12',
-            options: 'uiQuestions.hurricane',
+            dataSource: 'uiQuestions.hurricane',
             extendedProperties: {
-
-
-                output: 'percentage',
-
+              output: 'currency',
             },
-
           },
           formData:  {
             path: 'deductibles.hurricane.value',
@@ -678,7 +673,7 @@ const mock = {
             label: 'Sinkhole Deductible',
             size: '12',
             segmented: true,
-            options: [
+            dataSource: [
               {
                 "answer" : 10,
                 "label" : "10% of Dwelling Limit"
@@ -958,7 +953,6 @@ const mock = {
             component: 'switch',
             label: 'Does the property have a burglar alarm?',
             size: '12',
-            options: []
           },
           formData:  {
             path: 'property.burglarAlarm',
@@ -977,7 +971,6 @@ const mock = {
             component: 'switch',
             label: 'Does the property have a fire alarm?',
             size: '12',
-            options: []
           },
           formData:  {
             path: 'property.fireAlarm',
