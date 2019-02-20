@@ -4,7 +4,6 @@ export const _searchAddress = address => {
   cy.get('input[name=address]').type(address);
   cy._submit('#SearchBar');
   cy.findDataTag('search-results').find('li[tabindex=0]').click();
-  cy.wait('@complete');
 };
 
 export const _customerInfo = (customerInfo, agentCode) => {
@@ -13,7 +12,6 @@ export const _customerInfo = (customerInfo, agentCode) => {
   });
   cy.findDataTag('agentCode').find('select').select(agentCode);
   cy._submit('#CustomerInfo');
-  cy.wait('@complete');
 };
 
 export const _underwriting = data => {
@@ -21,34 +19,28 @@ export const _underwriting = data => {
     cy.get(`input[name="${name}"][value="${value}"] + span`).click();
   });
   cy._submit('#Underwriting');
-  cy.wait('@complete');
 };
 
 export const _customize = () => {
   cy._submit('#Customize');
-  cy.wait('@complete');
 };
 
 export const _share = () => {
   cy._submit('#SharePage');
-  cy.wait('@complete');
 };
 
 export const _assumptions = () => {
   cy.findDataTag('confirmAssumptions').find('.switch-div').click();
   cy._submit('#Assumptions');
-  cy.wait('@complete');
 };
 
 export const _additionalInterests = () => {
   cy._submit('#AddAdditionalInterestPage');
-  cy.wait('@complete');
 };
 
 export const _mailingBilling = () => {
   cy.findDataTag('sameAsProperty').find('.switch-div').click();
   cy._submit('#Billing');
-  cy.wait('@complete');
 };
 
 export const _verify = () => {
@@ -61,7 +53,6 @@ export const _verify = () => {
 
 export const _scheduleDate = () => {
   cy._submit('.modal');
-  cy.wait('@complete');
 };
 
 export const _thankYou = () => {

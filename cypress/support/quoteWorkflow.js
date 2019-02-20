@@ -20,19 +20,15 @@ import {
   _scheduleDate, 
   _thankYou 
 } from './navigation';
+import routes from './routes.js';
 
 Cypress.Commands.add('quoteWorkflow', (stop, start = 'login', data = { user, underwriting }) => {
   const { address, customerInfo, agentCode } = user;
   let prev;
-
-  //Route stubbing
-  cy.server();
-  cy.route('POST', '/cg/complete').as('complete');
-
   if (start === 'login') {
     cy.login();
     prev = 'login';
-    }
+  }
 
   if ((stop !== 'landing' && prev === 'login') || start === 'landing') {
     _landing();

@@ -1,0 +1,253 @@
+{
+  "status": 200,
+  "message": "success",
+  "result": {
+    "_id": "5c6d60018a45890012c2d526",
+    "agencyCode": 20000,
+    "agentCode": 60000,
+    "companyCode": "TTIC",
+    "state": "FL",
+    "product": "HO3",
+    "quoteNumber": "12-5158995-01",
+    "effectiveDate": "2019-03-22T04:00:00.000Z",
+    "endDate": "2020-03-22T04:00:00.000Z",
+    "quoteState": "Quote Started",
+    "createdAt": "2019-02-20T14:11:13.303Z",
+    "updatedAt": "2019-02-20T14:14:37.858Z",
+    "createdBy": {
+      "_id": "5c6d60018a45890012c2d527",
+      "userId": "auth0|59419e3a43e76f16f68c3349",
+      "userName": "tticcsr"
+    },
+    "updatedBy": {
+      "_id": "5c6d60cd036960001121f583",
+      "userId": "auth0|59419e3a43e76f16f68c3349",
+      "userName": "tticcsr"
+    },
+    "billToId": "",
+    "billToType": "Policyholder",
+    "property": {
+      "townhouseRowhouse": false,
+      "pool": false,
+      "poolSecured": false,
+      "divingBoard": false,
+      "trampoline": false,
+      "fireAlarm": false,
+      "burglarAlarm": false,
+      "gatedCommunity": false,
+      "_id": "5c6d60018a45890012c2d529",
+      "id": "12000000000000001",
+      "source": "CasaClue",
+      "physicalAddress": {
+        "_id": "5c6d60018a45890012c2d52a",
+        "address1": "4131 TEST ADDRESS",
+        "address2": "",
+        "city": "SARASOTA",
+        "state": "FL",
+        "county": "SARASOTA",
+        "zip": "00001",
+        "latitude": 27.27967,
+        "longitude": -82.47786
+      },
+      "residenceType": "SINGLE FAMILY",
+      "yearBuilt": 1998,
+      "constructionType": "MASONRY",
+      "territory": "715-51",
+      "protectionClass": 3,
+      "buildingCodeEffectivenessGrading": 3,
+      "familyUnits": "1-2",
+      "squareFeet": 2640,
+      "yearOfRoof": null,
+      "timezone": "America/New_York",
+      "sprinkler": "N",
+      "floodZone": "X",
+      "distanceToTidalWater": 17740.8,
+      "distanceToFireHydrant": 264.052744,
+      "distanceToFireStation": 0.79,
+      "windMitigation": {
+        "_id": "5c6d60018a45890012c2d52b",
+        "roofGeometry": "Other",
+        "roofCovering": "Other",
+        "roofDeckAttachment": "Other",
+        "roofToWallConnection": "Other",
+        "secondaryWaterResistance": "Other",
+        "openingProtection": "Other",
+        "floridaBuildingCodeWindSpeed": 130,
+        "floridaBuildingCodeWindSpeedDesign": 130,
+        "windBorneDebrisRegion": "Yes",
+        "internalPressureDesign": "Other",
+        "terrain": "B"
+      }
+    },
+    "coverageLimits": {
+      "_id": "5c6d60018a45890012c2d52c",
+      "dwelling": {
+        "_id": "5c6d60018a45890012c2d52d",
+        "displayText": "Dwelling",
+        "amount": 314000,
+        "letterDesignation": "A",
+        "format": "Currency",
+        "minAmount": 283000,
+        "maxAmount": 408000
+      },
+      "otherStructures": {
+        "_id": "5c6d60018a45890012c2d52e",
+        "displayText": "Other Structures",
+        "letterDesignation": "B",
+        "amount": 6280,
+        "format": "Currency"
+      },
+      "personalProperty": {
+        "_id": "5c6d60018a45890012c2d52f",
+        "displayText": "Personal Property",
+        "letterDesignation": "C",
+        "amount": 78500,
+        "format": "Currency"
+      },
+      "lossOfUse": {
+        "_id": "5c6d60018a45890012c2d530",
+        "displayText": "Loss of Use",
+        "letterDesignation": "D",
+        "amount": 31400,
+        "format": "Currency"
+      },
+      "personalLiability": {
+        "_id": "5c6d60018a45890012c2d531",
+        "displayText": "Personal Liability",
+        "letterDesignation": "E",
+        "amount": 300000,
+        "format": "Currency"
+      },
+      "medicalPayments": {
+        "_id": "5c6d60018a45890012c2d532",
+        "displayText": "Medical Payments",
+        "letterDesignation": "F",
+        "amount": 2000,
+        "format": "Currency"
+      },
+      "ordinanceOrLaw": {
+        "_id": "5c6d60018a45890012c2d533",
+        "displayText": "Ordinance or Law",
+        "amount": 25,
+        "format": "Percentage",
+        "ofCoverageLimit": "dwelling"
+      },
+      "moldProperty": {
+        "_id": "5c6d60018a45890012c2d534",
+        "displayText": "Mold Property",
+        "amount": 10000,
+        "format": "Currency"
+      },
+      "moldLiability": {
+        "_id": "5c6d60018a45890012c2d535",
+        "displayText": "Mold Liability",
+        "amount": 50000,
+        "format": "Currency"
+      }
+    },
+    "coverageOptions": {
+      "sinkholePerilCoverage": {
+        "displayText": "Sinkhole Peril Coverage",
+        "answer": true
+      },
+      "personalPropertyReplacementCost": {
+        "displayText": "Personal Property Replacement Cost",
+        "answer": true
+      },
+      "propertyIncidentalOccupanciesMainDwelling": {
+        "displayText": "Property Permitted Incidental Occupancies Main Dwelling",
+        "answer": false
+      },
+      "propertyIncidentalOccupanciesOtherStructures": {
+        "displayText": "Property Permitted Incidental Occupancies Other Structures",
+        "answer": false
+      },
+      "liabilityIncidentalOccupancies": {
+        "displayText": "Liability Permitted Incidental Occupancies",
+        "answer": false
+      }
+    },
+    "deductibles": {
+      "hurricane": {
+        "displayText": "Hurricane",
+        "amount": 2,
+        "format": "Percentage",
+        "ofCoverageLimit": "dwelling",
+        "calculatedAmount": 6280
+      },
+      "allOtherPerils": {
+        "displayText": "All Other Perils",
+        "amount": 1000,
+        "format": "Currency"
+      },
+      "sinkhole": {
+        "displayText": "Sinkhole",
+        "amount": 10,
+        "format": "Percentage",
+        "ofCoverageLimit": "dwelling",
+        "calculatedAmount": 31400
+      }
+    },
+    "underwritingAnswers": {
+      "noPriorInsuranceSurcharge": {
+        "question": "If not new purchase, please provide proof of prior insurance.",
+        "answer": "No",
+        "source": "Default"
+      },
+      "floodCoverage": {
+        "question": "Does this property have a separate insurance policy covering flood losses?",
+        "answer": "Yes",
+        "source": "Default"
+      }
+    },
+    "additionalInterests": [],
+    "policyHolders": [{
+      "electronicDelivery": false,
+      "_id": "5c6d60cd036960001121f55f",
+      "emailAddress": "batman.robin@gmail.com",
+      "primaryPhoneNumber": "1234567890",
+      "lastName": "Wayne",
+      "firstName": "Bruce",
+      "entityType": "Person",
+      "order": 0
+    }],
+    "underwritingExceptions": [{
+      "fields": [],
+      "_id": "5c6d60cd036960001121f581",
+      "overridden": false,
+      "internalMessage": "Missing required information to complete quote - Underwriting Info",
+      "overriddenAt": null,
+      "agentMessage": "Missing required information to complete quote - Underwriting Info",
+      "code": "002",
+      "canOverride": false,
+      "displayText": "Missing Info - Underwriting Info",
+      "category": "Property",
+      "overriddenBy": {
+        "_id": "5c6d60cd036960001121f582",
+        "userId": null,
+        "userName": null
+      },
+      "action": "Missing Info",
+      "active": true
+    }, {
+      "fields": [],
+      "_id": "5c6d60cd036960001121f57f",
+      "overridden": false,
+      "internalMessage": "Missing required information to complete quote -  Mailing/Billing Info",
+      "overriddenAt": null,
+      "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
+      "code": "003",
+      "canOverride": false,
+      "displayText": "Missing Info - Mailing/Billing Info",
+      "category": "Coverages & Deductibles",
+      "overriddenBy": {
+        "_id": "5c6d60cd036960001121f580",
+        "userId": null,
+        "userName": null
+      },
+      "action": "Missing Info",
+      "active": true
+    }],
+    "__v": 0
+  }
+}

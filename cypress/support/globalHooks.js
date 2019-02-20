@@ -1,3 +1,5 @@
+import routes from "./routes";
+
 // Global before, beforeEach, afterEach
 // These hooks run on every test, everywhere
 // Try not to write global afterEach, this is an antipattern
