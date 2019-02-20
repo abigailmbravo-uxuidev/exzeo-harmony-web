@@ -148,7 +148,7 @@ export class QuoteWorkflow extends Component {
             {shouldUseGandalf &&
               <Route
                 path={`${match.url}`}
-                render={props => (
+                render={() => (
                   <React.Fragment>
                     <Gandalf
                       formId={FORM_ID}

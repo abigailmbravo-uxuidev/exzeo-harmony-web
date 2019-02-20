@@ -289,7 +289,7 @@ const mock = {
         {
           id: 2,
           type: '$INPUT',
-          path: 'coverageLimits.dwelling.value',
+          path: 'coverageLimits.dwelling.amount',
           dependencies: [],
           data: {
             component: 'slider',
@@ -331,7 +331,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.document.coverageLimits.otherStructures.value / 100) * it.document.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.coverageLimits.otherStructures.value / 100) * it.coverageLimits.dwelling.amount))}',
             },
           },
           children: [],
@@ -357,7 +357,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.document.coverageLimits.personalProperty.value / 100) * it.document.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.amount))}',
             },
           },
           children: [],
@@ -403,7 +403,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.document.coverageLimits.lossOfUse.value / 100) * it.document.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.coverageLimits.lossOfUse.value / 100) * it.coverageLimits.dwelling.amount))}',
             },
           },
           children: [],
