@@ -1,7 +1,10 @@
+import routes from "../../support/routes";
+
 describe('Mailing/Billing Testing', () => {
   const fields = ['address1', 'city', 'state', 'zip'];
 
   before(() => {
+    routes();
     cy.quoteWorkflow('mailingBilling');
   });
 

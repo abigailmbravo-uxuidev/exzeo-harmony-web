@@ -1,5 +1,8 @@
+import routes from "../../support/routes";
+
 describe('Customize Testing', () => {
   before('Go to customize page', () => {
+    routes();
     cy.quoteWorkflow('customize');
   });
 

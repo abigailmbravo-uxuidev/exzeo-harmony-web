@@ -1,4 +1,5 @@
 import { goBack } from './utils';
+import routes from '../../support/routes';
 
 describe('Mortgagee Testing', () => {
   const m1fields = ['m1Name1', 'm1MailingAddress1', 'm1City', 'm1State', 'm1Zip'];
@@ -8,10 +9,12 @@ describe('Mortgagee Testing', () => {
   const addUser = val => cy.findDataTag(`isAdditional${val}`).find('.switch-div').click();
 
   before(() => {
+    routes();
     cy.quoteWorkflow('additionalInterests');
   });
 
   beforeEach('Establish fixtures', () => {
+    routes();
     cy.fixture('stockData/mortgagee1').as('m1data');
     cy.fixture('stockData/mortgagee2').as('m2data');
     cy.fixture('stockData/mortgagee3').as('m3data');

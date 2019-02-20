@@ -23,7 +23,7 @@ Cypress.Commands.add('checkError', (field, message = 'Field Required') =>
  */
 Cypress.Commands.add('submitAndCheckValidation', (fields = [], options = {}) => {
   const { errors = null, form = 'body', checkForSnackbar = true } = options;
-  cy._submit(form);
+  cy.clickSubmit(form);
   checkForSnackbar && cy.get('.snackbar').should('be.visible');
   fields.forEach((field, i) => {
     if (errors && errors[i]) {

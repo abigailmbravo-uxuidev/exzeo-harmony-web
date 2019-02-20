@@ -1,3 +1,5 @@
+import routes from "../../support/routes";
+
 describe('Policyholder Testing', () => {
   const primaryPolicyFields = ['FirstName', 'LastName', 'EmailAddress', 'phoneNumber'];
   const secondaryPolicyFields = ['FirstName2', 'LastName2', 'EmailAddress2', 'phoneNumber2'];
@@ -11,10 +13,12 @@ describe('Policyholder Testing', () => {
   };
   
   before('Go to Policyholder page', () => {
+    routes();
     cy.quoteWorkflow('customerInfo');
   });
 
   beforeEach('Establish fixtures and reset', () => {
+    routes();
     cy.fixture('stockData/user').as('user');
     cy.fixture('stockData/secondUser').as('secondUser');
     toggleSecondUser('off');

@@ -1,3 +1,5 @@
+import routes from "../../support/routes";
+
 describe('Share Testing', () => {
   const toggleModal = (dir = 'on') => {
     cy.get('div.route-content').then($wrap => {
@@ -10,10 +12,12 @@ describe('Share Testing', () => {
   };
 
   before('Navigate to Share page', () => {
+    routes();
     cy.quoteWorkflow('share');
   });
 
   beforeEach('Reset page, establish fixutres', () => {
+    routes();
     cy.fixture('stockData/user').as('user');
     toggleModal('off');
   });

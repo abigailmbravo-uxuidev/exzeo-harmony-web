@@ -1,5 +1,8 @@
+import routes from "../../support/routes";
+
 describe('Policy Search', () => {
   before('Login', () => {
+    routes();
     cy.login();
   });
 

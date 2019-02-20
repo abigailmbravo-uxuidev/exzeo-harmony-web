@@ -1,3 +1,5 @@
+import routes from "../../support/routes";
+
 describe('Verify testing', () => {
   const pH1Fields = ['pH1FirstName', 'pH1LastName', 'pH1phone', 'pH1email'];
   const pH2Fields = ['pH2FirstName', 'pH2LastName', 'pH2phone', 'pH2email'];
@@ -8,10 +10,12 @@ describe('Verify testing', () => {
   const closeModal = () => { cy.get('[data-test="cancel"]:not([disabled])').click({ force: true }) };
 
   before(() => {
+    routes();
     cy.quoteWorkflow('verify');
   });
 
   beforeEach('Establish fixtures', () => {
+    routes();
     cy.fixture('stockData/pH1').as('pH1');
     cy.fixture('stockData/pH2').as('pH2');
   });

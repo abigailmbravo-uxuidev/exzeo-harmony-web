@@ -1,14 +1,17 @@
 import { goBack } from './utils';
+import routes from '../../support/routes';
 
 describe('Premium Finance Testing', () => {
   const fields = ['name1', 'mailingAddress1', 'city', 'state', 'zip'];
   const toggleModalOn = () => cy.findDataTag('bill-payer-add').click();
 
   before(() => {
+    routes();
     cy.quoteWorkflow('additionalInterests');
   });
 
   beforeEach('Establish fixtures', () => {
+    routes();
     cy.fixture('stockData/additionalUser').as('user');
   });
 

@@ -1,4 +1,14 @@
 import { goBack } from './utils';
+import routes from '../../support/routes';
+import {
+  navLanding,
+  navSearchAddress,
+  navCustomerInfo,
+  navUnderwriting,
+  navCustomize,
+  navShare,
+  navAssumptions
+} from '../../helpers';
 
 describe('Additional Interest Testing', () => {
   const ai1fields = ['ai1Name1', 'ai1MailingAddress1', 'ai1City', 'ai1State', 'ai1Zip'];
@@ -7,10 +17,19 @@ describe('Additional Interest Testing', () => {
   const addAdditional = () => cy.findDataTag('isAdditional2').find('.switch-div').click();
 
   before(() => {
-    cy.quoteWorkflow('additionalInterests');
+    routes();
+    cy.login();
+    navLanding();
+    navSearchAddress();
+    navCustomerInfo();
+    navUnderwriting();
+    navCustomize();
+    navShare();
+    navAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {
+    routes();
     cy.fixture('stockData/ai1').as('ai1');
     cy.fixture('stockData/ai2').as('ai2');
   });

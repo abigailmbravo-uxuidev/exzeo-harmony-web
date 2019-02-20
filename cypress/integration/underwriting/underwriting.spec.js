@@ -1,3 +1,5 @@
+import routes from "../../support/routes";
+
 describe('Underwriting Testing', () => {
   const fields = ['rented', 'previousClaims', 'monthsOccupied', 'business'];
 
@@ -10,10 +12,12 @@ describe('Underwriting Testing', () => {
   };
 
   before('Go to Underwriting page', () => {
+    routes();
     cy.quoteWorkflow('underwriting');
   });
 
   beforeEach('Establish fixtures', () => {
+    routes();
     cy.fixture('stockData/underwriting').as('data');
   });
 

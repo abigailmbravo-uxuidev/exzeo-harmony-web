@@ -1,3 +1,5 @@
+import routes from "../../support/routes";
+
 describe('Property Address Search Testing', () => {
   const type = text => cy.findDataTag('address').find('input').type(text);
   const clear = () => cy.findDataTag('address').find('input').type('{selectall}{backspace}');
@@ -11,10 +13,12 @@ describe('Property Address Search Testing', () => {
   };
 
   before('Go to the search page', () => {
+    routes();
     cy.quoteWorkflow('searchAddress');
   });
 
   beforeEach('Establish fixtures', () => {
+    routes();
     cy.fixture('stockData/user').as('user');
   });
 

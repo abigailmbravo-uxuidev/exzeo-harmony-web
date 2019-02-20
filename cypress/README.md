@@ -72,8 +72,8 @@ cypress/
 
 **Project Opinions**
 
-To navigate to a page inside fo the app, use the `cy.quoteWorkflow()` fn detailed
-in `support/quoteWorkflow`. This should be written in your `before()` hook and will
+To navigate to a page inside of the app, use the navigation helpers.
+This should be written in your `before()` hook and will
 most likely be utilized on every test.
 
 Whenever possible, use a reusable function listed in `support/inputs` or 

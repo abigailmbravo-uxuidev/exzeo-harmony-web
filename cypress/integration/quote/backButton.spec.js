@@ -16,6 +16,7 @@ describe('Back Button Testing', () => {
   };
 
   before(() => {
+    routes();
     cy.quoteWorkflow('searchAddress');
   });
 
