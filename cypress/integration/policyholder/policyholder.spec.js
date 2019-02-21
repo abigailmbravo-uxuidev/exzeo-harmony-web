@@ -15,7 +15,7 @@ describe('Policyholder Testing', () => {
       };
     });
   };
-  
+
   before('Go to Policyholder page', () => {
     routes();
     cy.login();
@@ -87,7 +87,7 @@ describe('Policyholder Testing', () => {
 
     cy.verifyForm(['phoneNumber2'], undefined, { phoneNumber2: '456' }, { errors: ['is not a valid Phone Number.'] });
   });
-  
+
   it('Invalid Effective Date', () => {
     cy.findDataTag('effectiveDate').find('input').clear();
     cy.submitAndCheckValidation(['effectiveDate'], { errors: ['Not a valid date'] });

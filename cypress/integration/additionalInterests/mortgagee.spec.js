@@ -31,17 +31,17 @@ describe('Mortgagee Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     routes();
-    cy.fixture('stockData/mortgagee1').as('m1data');
-    cy.fixture('stockData/mortgagee2').as('m2data');
-    cy.fixture('stockData/mortgagee3').as('m3data');
+    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/mortgagee')
+      .fixture('stockData/mortgagee1').as('m1data')
+      .fixture('stockData/mortgagee2').as('m2data')
+      .fixture('stockData/mortgagee3').as('m3data');
   });
 
   it('All Mortgagee 1 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(m1fields);
-
-      cy.submitAndCheckValidation(m1fields);
+      cy.clearAllText(m1fields)
+        .submitAndCheckValidation(m1fields);
     });
   });
 
@@ -58,11 +58,11 @@ describe('Mortgagee Testing', () => {
   it('Mortgagee 1 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(m1fields);
+      cy.clearAllText(m1fields)
 
-      cy.verifyForm(['m1State'], undefined, { m1State: 'foo' }, { errors: ['Only 2 letters allowed'] });
+        .verifyForm(['m1State'], undefined, { m1State: 'foo' }, { errors: ['Only 2 letters allowed'] })
 
-      cy.verifyForm(['m1Zip'], undefined, { m1Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+        .verifyForm(['m1Zip'], undefined, { m1Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 
@@ -70,9 +70,8 @@ describe('Mortgagee Testing', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
-      cy.clearAllText(m2fields);
-
-      cy.submitAndCheckValidation(m2fields);
+      cy.clearAllText(m2fields)
+        .submitAndCheckValidation(m2fields);
     });
   });
 
@@ -91,11 +90,9 @@ describe('Mortgagee Testing', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
-      cy.clearAllText(m2fields);
-
-      cy.verifyForm(['m2State'], undefined, { m2State: 'foo' }, { errors: ['Only 2 letters allowed'] });
-
-      cy.verifyForm(['m2Zip'], undefined, { m2Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+      cy.clearAllText(m2fields)
+        .verifyForm(['m2State'], undefined, { m2State: 'foo' }, { errors: ['Only 2 letters allowed'] })
+        .verifyForm(['m2Zip'], undefined, { m2Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 
@@ -104,9 +101,9 @@ describe('Mortgagee Testing', () => {
       toggleModalOn();
       addUser(2);
       addUser(3);
-      cy.clearAllText(m3fields);
 
-      cy.submitAndCheckValidation(m3fields);
+      cy.clearAllText(m3fields)
+        .submitAndCheckValidation(m3fields);
     });
   });
 
@@ -117,7 +114,7 @@ describe('Mortgagee Testing', () => {
       addUser(2);
       addUser(3);
       cy.clearAllText(m3fields);
-      
+
       m3fields.forEach(leaveBlank => cy.verifyForm(m3fields, [leaveBlank], m3data));
     });
   });
@@ -127,11 +124,10 @@ describe('Mortgagee Testing', () => {
       toggleModalOn();
       addUser(2);
       addUser(3);
-      cy.clearAllText(m3fields);
 
-      cy.verifyForm(['m3State'], undefined, { m3State: 'foo' }, { errors: ['Only 2 letters allowed'] });
-
-      cy.verifyForm(['m3Zip'], undefined, { m3Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+      cy.clearAllText(m3fields)
+        .verifyForm(['m3State'], undefined, { m3State: 'foo' }, { errors: ['Only 2 letters allowed'] })
+        .verifyForm(['m3Zip'], undefined, { m3Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 });

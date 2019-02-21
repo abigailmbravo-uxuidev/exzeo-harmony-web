@@ -34,6 +34,8 @@ describe('Back Button Testing', () => {
     navLanding();
   });
 
+  beforeEach(() => routes());
+
   it('Browser Back Button (Part 1)', () => {
     cy.go('back');
     cy.url().should('eql', `${Cypress.config('baseUrl')}/`);

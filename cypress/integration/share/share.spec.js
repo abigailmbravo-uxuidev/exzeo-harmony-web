@@ -4,13 +4,7 @@ import {
   navSearchAddress,
   navCustomerInfo,
   navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions,
-  navAdditionalInterests,
-  navMailingBilling,
-  navScheduleDate,
-  navVerify
+  navCustomize
 } from '../../helpers';
 
 describe('Share Testing', () => {
@@ -53,18 +47,18 @@ describe('Share Testing', () => {
     cy.submitAndCheckValidation(['name', 'emailAddr'], { errors: Array(2).fill('Field Required'), form: '#SendEmail', checkForSnackbar: false });
   });
 
-  it('Input Empty Value', function() {
-    const { EmailAddress, FirstName, LastName } = this.user.customerInfo;
-    toggleModal();
+  // it('Input Empty Value', function() {
+  //   const { EmailAddress, FirstName, LastName } = this.user.customerInfo;
+  //   toggleModal();
 
-    cy.verifyForm(['emailAddr'], ['name'], { emailAddr: EmailAddress }, { form: '#SendEmail', checkForSnackbar: false });
+  //   cy.verifyForm(['emailAddr'], ['name'], { emailAddr: EmailAddress }, { form: '#SendEmail', checkForSnackbar: false });
 
-    cy.verifyForm(['name', 'emailAddr'], ['emailAddr'], { name: `${FirstName} ${LastName}` }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false });
-  });
+  //   cy.verifyForm(['name', 'emailAddr'], ['emailAddr'], { name: `${FirstName} ${LastName}` }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false });
+  // });
 
-  it('Input Invalid Character', () => {
-    toggleModal();
+  // it('Input Invalid Character', () => {
+  //   toggleModal();
 
-    cy.verifyForm(['emailAddr'], undefined, { emailAddr: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false });
-  });
+  //   cy.verifyForm(['emailAddr'], undefined, { emailAddr: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false });
+  // });
 });

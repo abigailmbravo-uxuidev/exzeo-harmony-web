@@ -24,7 +24,7 @@
       "userId": "auth0|59419e3a43e76f16f68c3349",
       "userName": "tticcsr"
     },
-    "billToId": "5c6da8348a45890012c5a799",
+    "billToId": "5c6ea206a19e6d000eedd87a",
     "billToType": "Policyholder",
     "property": {
       "townhouseRowhouse": false,
@@ -190,7 +190,7 @@
     },
     "underwritingAnswers": {
       "business": {
-        "answer": "No",
+        "answer": "Yes",
         "question": "Is a business conducted on the property?",
         "source": "Customer"
       },

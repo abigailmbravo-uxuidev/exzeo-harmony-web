@@ -8,9 +8,7 @@ import {
   navShare,
   navAssumptions,
   navAdditionalInterests,
-  navMailingBilling,
-  navVerify,
-  navScheduleDate
+  navMailingBilling
 } from '../../helpers';
 
 describe('Verify testing', () => {
@@ -20,7 +18,7 @@ describe('Verify testing', () => {
   const errors = Array(4).fill('Field Required');
   const toggleModalOn = () => cy.findDataTag('edit-policyholder').click();
   const addAdditional = () => cy.findDataTag('isAdditional').find('.switch-div').click();
-  const closeModal = () => { cy.get('[data-test="cancel"]:not([disabled])').click({ force: true }) };
+  const closeModal = () => cy.get('[data-test="cancel"]:not([disabled])').click({ force: true }).wait(1000);
 
   before(() => {
     routes();
@@ -38,28 +36,26 @@ describe('Verify testing', () => {
 
   beforeEach('Establish fixtures', () => {
     routes();
-    cy.fixture('stockData/pH1').as('pH1');
-    cy.fixture('stockData/pH2').as('pH2');
+    cy.fixture('stockData/pH1').as('pH1')
+      .fixture('stockData/pH2').as('pH2');
   });
 
   it('Primary Policyholder Empty Value', function() {
     const { pH1 } = this;
     toggleModalOn();
-    cy.clearAllText(pH1Fields);
-
-    cy.submitAndCheckValidation(pH1Fields, {errors, form: '#UpdatePolicyholder' });
+    cy.clearAllText(pH1Fields)
+      .submitAndCheckValidation(pH1Fields, {errors, form: '#UpdatePolicyholder' });
 
     pH1Fields.forEach(leaveBlank => cy.verifyForm(pH1Fields, [leaveBlank], pH1, { errors }));
+    closeModal();
   });
 
   it('Secondary Policyholder Empty Value', function() {
     const { pH2 } = this;
-    closeModal();
     toggleModalOn();
     addAdditional();
-    cy.clearAllText(pH2Fields);
-    
-    cy.submitAndCheckValidation(pH2Fields, { errors, form: '#UpdatePolicyholder' });
+    cy.clearAllText(pH2Fields)
+      .submitAndCheckValidation(pH2Fields, { errors, form: '#UpdatePolicyholder' });
 
     pH2Fields.forEach(leaveBlank => cy.verifyForm(pH2Fields, [leaveBlank], pH2, { errors }));
 
@@ -76,7 +72,7 @@ describe('Verify testing', () => {
   //     cy.clickSubmit('#UpdatePolicyholder');
   //     cy.get('.checkForSnackbar').should('be.visible');
   //     checkError(
-  //       fieldToCheck, 
+  //       fieldToCheck,
   //       fieldToCheck.includes('email') ? 'Not a valid email address' : 'Invalid characters'
   //     );
   //   });
@@ -106,10 +102,9 @@ describe('Verify testing', () => {
   it('Invalid Email Address', () => {
     toggleModalOn();
     addAdditional();
-    
-    cy.verifyForm(['pH1email'], undefined, { pH1email: 'batman' }, { form: '#UpdatePolicyholder' });
 
-    cy.verifyForm(['pH2email'], undefined, { pH2email: 'batman' }, { form: '#UpdatePolicyholder' });
+    cy.verifyForm(['pH1email'], undefined, { pH1email: 'batman' }, { form: '#UpdatePolicyholder' })
+      .verifyForm(['pH2email'], undefined, { pH2email: 'batman' }, { form: '#UpdatePolicyholder' });
 
     closeModal();
   });
@@ -118,17 +113,14 @@ describe('Verify testing', () => {
     toggleModalOn();
     addAdditional();
 
-    cy.verifyForm(['pH1phone'], undefined, { pH1phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' });
-
-    cy.verifyForm(['pH2phone'], undefined, { pH2phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' });
+    cy.verifyForm(['pH1phone'], undefined, { pH1phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' })
+      .verifyForm(['pH2phone'], undefined, { pH2phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' });
 
     closeModal();
   });
 
   it('All "Verified" Values left at Default "No"', () => {
-    switchTags.forEach(tag => 
-      cy.findDataTag(tag).should('not.have.class', 'active')
-    );
+    switchTags.forEach(tag => cy.findDataTag(tag).should('not.have.class', 'active'));
     cy.findDataTag('submit').should('be.disabled');
   });
 

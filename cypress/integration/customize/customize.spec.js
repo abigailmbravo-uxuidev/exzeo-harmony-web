@@ -16,7 +16,8 @@ describe('Customize Testing', () => {
     navUnderwriting();
   });
 
-  const type = amnt => cy.findDataTag('dwellingAmount').find('.range-value input').type(`{selectall}{backspace}${amnt}`);
+  const type = amnt =>
+    cy.findDataTag('dwellingAmount').find('.range-value input').type(`{selectall}{backspace}${amnt}`);
 
   it('Dwelling Limit', () => {
     type('0');

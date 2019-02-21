@@ -25,13 +25,14 @@ describe('Additional Interest Testing', () => {
     navUnderwriting();
     navCustomize();
     navShare();
-    navAssumptions();
+    navAssumptions();;
   });
 
   beforeEach('Establish fixtures', () => {
     routes();
-    cy.fixture('stockData/ai1').as('ai1');
-    cy.fixture('stockData/ai2').as('ai2');
+    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/additionalInterest')
+      .fixture('stockData/ai1').as('ai1')
+      .fixture('stockData/ai2').as('ai2');
   });
 
   it('All Additional Interest 1 Inputs Empty Value', () => {
@@ -56,11 +57,9 @@ describe('Additional Interest Testing', () => {
   it('Additional Interest 1 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(ai1fields);
-
-      cy.verifyForm(['ai1State'], undefined, { ai1State: 'foo' }, { errors: ['Only 2 letters allowed'] });
-
-      cy.verifyForm(['ai1Zip'], undefined, { ai1Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+      cy.clearAllText(ai1fields)
+        .verifyForm(['ai1State'], undefined, { ai1State: 'foo' }, { errors: ['Only 2 letters allowed'] })
+        .verifyForm(['ai1Zip'], undefined, { ai1Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 
@@ -68,9 +67,8 @@ describe('Additional Interest Testing', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();
-      cy.clearAllText(ai2fields);
-
-      cy.submitAndCheckValidation(ai2fields);
+      cy.clearAllText(ai2fields)
+        .submitAndCheckValidation(ai2fields);
     });
   });
 
@@ -89,11 +87,9 @@ describe('Additional Interest Testing', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();
-      cy.clearAllText(ai2fields);
-
-      cy.verifyForm(['ai2State'], undefined, { ai2State: 'foo' }, { errors: ['Only 2 letters allowed'] });
-
-      cy.verifyForm(['ai2Zip'], undefined, { ai2Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+      cy.clearAllText(ai2fields)
+        .verifyForm(['ai2State'], undefined, { ai2State: 'foo' }, { errors: ['Only 2 letters allowed'] })
+        .verifyForm(['ai2Zip'], undefined, { ai2Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 });

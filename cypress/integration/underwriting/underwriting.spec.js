@@ -1,12 +1,10 @@
+import _ from 'lodash';
+
 import routes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions
+  navCustomerInfo
 } from '../../helpers';
 
 describe('Underwriting Testing', () => {
@@ -14,14 +12,23 @@ describe('Underwriting Testing', () => {
 
   const toggleExcept = (except = [], values) => {
     Object.entries(values).forEach(([key, value]) => {
-      if (!except.includes(key)) { 
+      if (!except.includes(key)) {
         cy.findDataTag(`${key}`).find(`input[value="${value}"] + span`).click();
       };
     });
   };
 
+  const stubWithBlankAnswers = () => {
+    cy.fixture('stubs/getQuoteServiceRequest').then(fx => {
+      routes();
+      const currentFixture = _.cloneDeep(fx);
+      _.mergeWith(currentFixture, { result: { ...currentFixture.result, underwritingAnswers: {} } }, (obj, src) => !_.isNil(src) ? src : obj);
+      cy.route('POST', '/svc?getQuoteServiceRequest', currentFixture).as('getQuoteServiceRequest');
+    });
+  };
+
   before('Go to Underwriting page', () => {
-    routes();
+    stubWithBlankAnswers();
     cy.login();
     navLanding();
     navSearchAddress();
@@ -29,7 +36,7 @@ describe('Underwriting Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    routes();
+    stubWithBlankAnswers();
     cy.fixture('stockData/underwriting').as('data');
   });
 

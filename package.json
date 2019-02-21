@@ -13,10 +13,11 @@
   },
   "dependencies": {
     "@exzeo/core-ui": "^0.4.7",
-    "@exzeo/react-scripts": "1.0.11",
+    "@exzeo/react-scripts": "1.0.12",
     "auth0-js": "~8.10.1",
     "axios": "~0.15.2",
     "classnames": "~2.2.5",
+    "colin-cypress-dark": "0.0.0-development",
     "core-js": "^2.6.2",
     "exframe-web": "^1.0.0",
     "font-awesome": "~4.7.0",

@@ -35,7 +35,7 @@ describe('Mailing/Billing Testing', () => {
   it('Mailing Address Empty Value', () => {
     cy.fixture('stockData/mailing').then(mailing => {
       cy.clearAllText(fields);
-      
+
       fields.forEach(leaveBlank => cy.verifyForm(fields, [leaveBlank], mailing));
     });
   });

@@ -28,15 +28,15 @@ describe('Premium Finance Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     routes();
-    cy.fixture('stockData/additionalUser').as('user');
+    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/billpayer')
+      .fixture('stockData/additionalUser').as('user');
   });
 
   it('All Premium Finance Inputs Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(fields);
-
-      cy.submitAndCheckValidation(fields);
+      cy.clearAllText(fields)
+        .submitAndCheckValidation(fields);
     });
   });
 
@@ -53,11 +53,9 @@ describe('Premium Finance Testing', () => {
   it('Premium Finance Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(fields);
-
-      cy.verifyForm(['state'], undefined, { state: 'foo' }, { errors: ['Only 2 letters allowed'] });
-
-      cy.verifyForm(['zip'], undefined, { zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+      cy.clearAllText(fields)
+        .verifyForm(['state'], undefined, { state: 'foo' }, { errors: ['Only 2 letters allowed'] })
+        .verifyForm(['zip'], undefined, { zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
 });

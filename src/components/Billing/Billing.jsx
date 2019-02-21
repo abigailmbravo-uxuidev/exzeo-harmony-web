@@ -171,9 +171,6 @@ export const Billing = (props) => {
     dispatch(change('Billing', 'sameAsProperty', !props.fieldValues.sameAsProperty));
   };
 
-  //
-  console.log(props.fieldValues.billToId)
-
   return (
     <div className="route-content">
       <SnackBar show={showSnackBar} timer={3000}>

@@ -1,4 +1,5 @@
-import _ from 'lodash'; //eslint-disable-line
+import _ from 'lodash';
+
 import routes from "../../support/routes";
 import {
   navLanding
@@ -71,5 +72,5 @@ describe('Property Address Search Testing', () => {
         .should('have.css', 'visibility', 'visible')
         .and('contain', 'Invalid characters');
     });
-  })
+  });
 });
