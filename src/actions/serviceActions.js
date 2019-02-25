@@ -3,6 +3,7 @@ import orderBy from 'lodash/orderBy';
 import { batchActions } from 'redux-batched-actions';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
+import * as listActions from '../state/actionTypes/list.actionTypes';
 
 export const handleError = (error) => {
   const message = error.response && error.response.data && error.response.data.error
@@ -186,6 +187,12 @@ export const getZipcodeSettings = (companyCode = 'TTIC', state = 'FL', product =
 
   return axios(axiosConfig).then((response) => {
     const data = { zipCodeSettings: response.data && response.data.result ? response.data.result[0] : { timezone: '' } };
+    // ===== temporary until we remove this 'serviceActions' state slice
+    dispatch({
+      type: listActions.SET_ZIP_SETTINGS,
+      zipCodeSettings: data.zipCodeSettings || {},
+    });
+    // =====
     return dispatch(batchActions([
       serviceRequest(data)
     ]));

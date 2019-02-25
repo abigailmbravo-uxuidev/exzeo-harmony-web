@@ -24,6 +24,9 @@ export default {
     agents: []
   },
   list: {
-
+    zipCodeSettings: {},
+    uiQuestions: {},
+    underwritingQuestions: [],
+    agents: [],
   }
 };

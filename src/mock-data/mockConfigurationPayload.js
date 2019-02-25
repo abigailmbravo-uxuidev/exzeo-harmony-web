@@ -222,7 +222,11 @@ const mock = {
           data: {
             component: 'date',
             label: 'Effective Date',
-            size: '6'
+            size: '6',
+            extendedProperties: {
+              min: 'zipCodeSettings.minEffectiveDate',
+              max: 'zipCodeSettings.maxEffectiveDate',
+            }
           },
           formData: {
             path: 'effectiveDate',

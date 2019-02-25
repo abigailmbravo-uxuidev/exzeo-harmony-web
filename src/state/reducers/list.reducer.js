@@ -1,5 +1,6 @@
 import * as persistTypes from 'redux-persist/constants';
 import * as types from '../../actions/actionTypes';
+import * as listTypes from '../actionTypes/list.actionTypes';
 import initialState from '../../reducers/initialState';
 
 export default function listReducer(state = initialState.list, action) {
@@ -8,6 +9,8 @@ export default function listReducer(state = initialState.list, action) {
       return handleSetAgents(state, action);
     case types.SET_QUOTE:
       return handleSetQuote(state, action);
+    case listTypes.SET_ZIP_SETTINGS:
+      return handleSetZipCodeSettings(state, action);
     case persistTypes.REHYDRATE:
       return (action.payload && action.payload.list) ? action.payload.list : initialState.list;
     default:
@@ -65,5 +68,13 @@ function handleSetQuote(state, action) {
     ...state,
     underwritingQuestions: underwritingQuestions,
     uiQuestions: uiQuestionMap,
+  }
+}
+
+function handleSetZipCodeSettings(state, action) {
+
+  return {
+    ...state,
+    zipCodeSettings: action.zipCodeSettings,
   }
 }
