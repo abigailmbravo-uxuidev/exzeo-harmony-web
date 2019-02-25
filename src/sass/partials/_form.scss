@@ -198,6 +198,12 @@ label {
         margin: 0 ($margin/2);
     }
 
+    .secondary-label {
+      margin-left: $padding;
+      font-weight: $font-weight-normal;
+      font-size: $font-size-sm;
+    }
+    // TODO: remove when all inputs are updated with secondary label
     &.date-label-wrapper {
         display: flex;
         align-items: baseline;
