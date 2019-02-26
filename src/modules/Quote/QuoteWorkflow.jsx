@@ -1,7 +1,3 @@
-import CustomerInfo from '../../components/CustomerInfo/CustomerInfo';
-import Underwriting from '../../components/Underwriting/Underwriting';
-import Customize from '../../components/Customize/Customize';
-import Share from '../../components/Share/Share';
 import Assumptions from '../../components/Assumptions/Assumptions';
 import AddAdditionalInterest from '../../components/AdditionalInterests/AddAdditionalInterest';
 import Mortgagee from '../../components/AdditionalInterests/Mortgagee';
@@ -21,24 +17,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { submit } from 'redux-form';
+import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
+import { Button } from '@exzeo/core-ui/src';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { getZipcodeSettings } from '../../actions/serviceActions';
 import { getQuoteSelector } from '../../selectors/choreographer.selectors';
 import App from '../../components/AppWrapper';
-
-import WorkflowButtons from './WorkflowButtons';
-import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
-import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
-
-// import { defaultMemoize } from 'reselect';
-// import MOCK_TEMPLATE from '../../mock-data/mockTemplate';
 import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
-import { defaultMemoize } from 'reselect';
-import { Button } from '@exzeo/core-ui/src';
-// import MOCK_TEMPLATE from '../../mock-data/mockTemplateAF3';
+
+import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
+import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
+import Share from './Share';
 
 const FORM_ID = 'QuoteWorkflow';
 
@@ -48,6 +40,7 @@ export class QuoteWorkflow extends Component {
 
     this.customComponents = {
       $SHARE: Share,
+      $ASSUMPTIONS: Assumptions,
     };
 
     this.state = {
@@ -122,10 +115,6 @@ export class QuoteWorkflow extends Component {
     }, {});
   };
 
-  resetCustomizeForm = () => {
-
-  };
-
   // ============= v NOT used by Gandalf v ============= //
   handleUpdateQuote = async ({ data, quoteNumber }) => {
     const { updateQuote } = this.props;
@@ -137,7 +126,17 @@ export class QuoteWorkflow extends Component {
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const { auth, history, isLoading, match, location, options, quote, workflowState } = this.props;
+    const {
+      auth,
+      history,
+      isLoading,
+      location,
+      match,
+      options,
+      quote,
+      workflowState,
+    } = this.props;
+
     const { isRecalc } = this.state;
     const currentStep = location.pathname.split('/')[3];
     const currentPage = PAGE_ROUTING[currentStep];
@@ -220,7 +219,7 @@ export class QuoteWorkflow extends Component {
             {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />*/}
             {/*<Route exact path={`${match.url}/share`} render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            <Route exact path={`${match.url}/assumptions`} render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />
+            {/*<Route exact path={`${match.url}/assumptions`} render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             <Route exact path={`${match.url}/additionalInterests`} render={props => <AddAdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askMortgagee`} render={props => <Mortgagee {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />

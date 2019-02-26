@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import EmailPopup from '../Common/EmailPopup';
-import ErrorPopup from '../Common/ErrorPopup';
+import EmailPopup from '../../components/Common/EmailPopup';
+import ErrorPopup from '../../components/Common/ErrorPopup';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 
@@ -25,7 +25,7 @@ export class Share extends React.Component {
   refreshUWReviewError = async () => {
     const { customHandlers, updateQuote } = this.props;
     const data = { refresh: 'Yes' };
-    await this.props.updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
+    await updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
 
     customHandlers.history.replace('customerInfo');
   };
@@ -91,7 +91,6 @@ export class Share extends React.Component {
             redirectToNewQuote={() => this.redirectToNewQuote()}
           />
         }
-
       </React.Fragment>
     );
   }
