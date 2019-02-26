@@ -37,6 +37,7 @@ import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_
 // import MOCK_TEMPLATE from '../../mock-data/mockTemplate';
 import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
 import { defaultMemoize } from 'reselect';
+import { Button } from '@exzeo/core-ui/src';
 // import MOCK_TEMPLATE from '../../mock-data/mockTemplateAF3';
 
 const FORM_ID = 'QuoteWorkflow';
@@ -45,19 +46,17 @@ export class QuoteWorkflow extends Component {
   constructor(props) {
     super(props);
 
+    this.customComponents = {
+      $SHARE: Share,
+    };
+
+    this.state = {
+      isRecalc: false,
+      showEmailPopup: false,
+    };
+
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
   }
-
-  customComponents = {
-    $SHARE: Share,
-  };
-
-  state = {
-    isRecalc: false,
-    showEmailPopup: false,
-  };
-
-
 
   componentDidMount() {
     const { quote } = this.props;
@@ -78,19 +77,6 @@ export class QuoteWorkflow extends Component {
 
   setShowEmailPopup = (showEmailPopup) => {
     this.setState(() => ({ showEmailPopup }));
-  };
-
-  handlePremiumRecalc = () => {
-    document
-      .getElementById(FORM_ID)
-      .dispatchEvent(new Event("submit", { cancelable: true }))
-  };
-
-  handleUpdateQuote = async ({ data, quoteNumber }) => {
-    const { updateQuote } = this.props;
-    const quote = await updateQuote({ data, quoteNumber });
-
-    return quote;
   };
 
   goToStep = async (stepName) => {
@@ -117,9 +103,6 @@ export class QuoteWorkflow extends Component {
       .dispatchEvent(new Event('submit', { cancelable: true }));
   };
 
-  secondaryClickHandler = () => {
-
-  };
 
   getConfigForJsonTransform() {
     // template will come from state/props
@@ -138,6 +121,20 @@ export class QuoteWorkflow extends Component {
       }
     }, {});
   };
+
+  resetCustomizeForm = () => {
+
+  };
+
+  // ============= v NOT used by Gandalf v ============= //
+  handleUpdateQuote = async ({ data, quoteNumber }) => {
+    const { updateQuote } = this.props;
+    const quote = await updateQuote({ data, quoteNumber });
+
+    return quote;
+  };
+
+  // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
     const { auth, history, isLoading, match, location, options, quote, workflowState } = this.props;
@@ -164,7 +161,14 @@ export class QuoteWorkflow extends Component {
             {isLoading && <Loader />}
             {workflowState.isHardStop && <Redirect to={'error'} />}
 
-            <WorkflowNavigation handleRecalc={this.handlePremiumRecalc} isRecalc={isRecalc} history={history} goToStep={this.goToStep} isLoading={isLoading} isThankYou={currentStep === 'thankYou'} />
+            <WorkflowNavigation
+              handleRecalc={this.primaryClickHandler}
+              isRecalc={isRecalc}
+              history={history}
+              goToStep={this.goToStep}
+              isLoading={isLoading}
+              showNavigationTabs={!workflowState.isHardStop && (currentStep !== 'thankYou')}
+            />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             {shouldUseGandalf &&
               <Route
@@ -179,19 +183,31 @@ export class QuoteWorkflow extends Component {
                       handleSubmit={this.handleGandalfSubmit}
                       initialValues={quote}
                       template={MOCK_TEMPLATE}
-                      /* passing needed data as options all the way to the Input component, I don't really like that but we can prob do something with state */
-                      options={options}
+                      options={options}  // enums for select/radio fields
                       transformConfig={transformConfig}
                       customHandlers={customHandlers}
                       customComponents={this.customComponents}
-                      renderFooter={({ submitting }) => (
+                      renderFooter={({ submitting, reset }) => (
                         <React.Fragment>
                           {shouldRenderFooter &&
-                            <WorkflowButtons
-                              labelPrimary={this.state.isRecalc ? 'recalculate' : 'next'}
-                              handlePrimaryClick={this.primaryClickHandler}
-                              disabledPrimary={submitting}
-                            />
+                            <div className="btn-group">
+                              <Button
+                                data-test="button-primary"
+                                className={Button.constants.classNames.primary}
+                                onClick={this.primaryClickHandler}
+                                disabled={submitting}
+                                label={this.state.isRecalc ? 'recalculate' : 'next'}
+                              />
+
+                              {this.state.isRecalc &&
+                                <Button
+                                  data-test="button-secondary"
+                                  className={Button.constants.classNames.secondary}
+                                  onClick={reset}
+                                  label="reset"
+                                />
+                              }
+                            </div>
                           }
                         </React.Fragment>
                       )}

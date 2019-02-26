@@ -4,12 +4,9 @@ import { Button } from '@exzeo/core-ui';
 
 const WorkflowButtons = ({
   disabledPrimary,
-  disabledSecondary,
   handlePrimaryClick,
-  handleSecondaryClick,
   labelPrimary,
-  labelSecondary,
-  showSecondary,
+  secondaryConfig,
 }) => (
   <div className="btn-group">
     <Button
@@ -19,13 +16,13 @@ const WorkflowButtons = ({
       disabled={disabledPrimary}
       label={labelPrimary}
     />
-    {showSecondary &&
+    {secondaryConfig.show &&
       <Button
         data-test="button-secondary"
         className={Button.constants.classNames.secondary}
-        onClick={handleSecondaryClick}
-        disabled={disabledSecondary}
-        label={labelSecondary}
+        onClick={secondaryConfig.handleClick}
+        disabled={secondaryConfig.disabled}
+        label={secondaryConfig.label}
       />
     }
   </div>
