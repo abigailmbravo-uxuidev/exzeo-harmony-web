@@ -1,10 +1,3 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
-import { submit } from 'redux-form';
-import { updateQuote } from '../../actions/quoteState.actions';
-
-import App from '../../components/AppWrapper';
 import CustomerInfo from '../../components/CustomerInfo/CustomerInfo';
 import Underwriting from '../../components/Underwriting/Underwriting';
 import Customize from '../../components/Customize/Customize';
@@ -24,23 +17,37 @@ import Loader from '../../components/Common/Loader';
 import WorkflowNavigation from './WorkflowNavigation';
 import Footer from '../../components/Common/Footer'
 
-import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
-import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+import { submit } from 'redux-form';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { getQuoteSelector } from '../../selectors/choreographer.selectors';
-import { getAgentsList } from '../../selectors/agencyState.selectors';
+
+import { updateQuote } from '../../actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { getZipcodeSettings } from '../../actions/serviceActions';
+import { getQuoteSelector } from '../../selectors/choreographer.selectors';
+import App from '../../components/AppWrapper';
 
-import { defaultMemoize } from 'reselect';
+import WorkflowButtons from './WorkflowButtons';
+import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
+import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
 
+// import { defaultMemoize } from 'reselect';
 // import MOCK_TEMPLATE from '../../mock-data/mockTemplate';
 import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
+import { defaultMemoize } from 'reselect';
 // import MOCK_TEMPLATE from '../../mock-data/mockTemplateAF3';
 
 const FORM_ID = 'QuoteWorkflow';
 
 export class QuoteWorkflow extends Component {
+  constructor(props) {
+    super(props);
+
+    this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
+  }
+
   customComponents = {
     $SHARE: Share,
   };
@@ -49,6 +56,8 @@ export class QuoteWorkflow extends Component {
     isRecalc: false,
     showEmailPopup: false,
   };
+
+
 
   componentDidMount() {
     const { quote } = this.props;
@@ -101,7 +110,19 @@ export class QuoteWorkflow extends Component {
     if(!(isRecalc || workflowState.isHardStop)) history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
   };
 
-  getConfigForJsonTransform = () => {
+  primaryClickHandler = () => {
+    // remote submit
+    document
+      .getElementById(FORM_ID)
+      .dispatchEvent(new Event('submit', { cancelable: true }));
+  };
+
+  secondaryClickHandler = () => {
+
+  };
+
+  getConfigForJsonTransform() {
+    // template will come from state/props
     return MOCK_TEMPLATE.pages.reduce((pageComponentsMap, page) => {
 
       const pageComponents = page.components.reduce((componentMap, component) => {
@@ -125,8 +146,8 @@ export class QuoteWorkflow extends Component {
     const currentPage = PAGE_ROUTING[currentStep];
     const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
-    const shouldPassCallback = PAGE_ROUTING[currentStep] === 2;
-    const transformConfig = this.getConfigForJsonTransform(currentPage);
+    const shouldPassCallback = currentPage === 2;
+    const transformConfig = this.getConfigForJsonTransform();
     const customHandlers = {
       onDirtyCallback: shouldPassCallback ? this.setRecalc : undefined,
       setEmailPopup: this.setShowEmailPopup,
@@ -166,12 +187,11 @@ export class QuoteWorkflow extends Component {
                       renderFooter={({ submitting }) => (
                         <React.Fragment>
                           {shouldRenderFooter &&
-                            <div className="btn-group">
-                              <button
-                                type="submit"
-                                className="btn btn-primary"
-                                disabled={submitting}>{this.state.isRecalc ? 'recalculate' : 'next'}</button>
-                            </div>
+                            <WorkflowButtons
+                              labelPrimary={this.state.isRecalc ? 'recalculate' : 'next'}
+                              handlePrimaryClick={this.primaryClickHandler}
+                              disabledPrimary={submitting}
+                            />
                           }
                         </React.Fragment>
                       )}

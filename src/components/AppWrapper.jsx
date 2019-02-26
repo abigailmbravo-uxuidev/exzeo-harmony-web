@@ -53,7 +53,7 @@ class AppWrapper extends React.Component {
             </nav>
 
             <Button
-              baseClass="action"
+              className={Button.constants.classNames.action}
               customClass="logout"
               onClick={this.handleLogout}
               data-test="sidenav-logout">
