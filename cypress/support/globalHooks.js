@@ -13,10 +13,6 @@
 // ** NOTE: Do not write a global after(), it does not execute where you think it will
 // and it's an anti-pattern anyway.
 
-beforeEach('Reset local storage', () => {
-  cy.restoreLocalStorage();
-});
+beforeEach('Reset local storage', () => cy.restoreLocalStorage());
 
-afterEach('Save local storage', () => {
-  cy.saveLocalStorage();
-});
+afterEach('Save local storage', () => cy.saveLocalStorage());

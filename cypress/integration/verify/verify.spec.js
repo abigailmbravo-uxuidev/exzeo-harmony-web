@@ -67,14 +67,18 @@ describe('Verify testing', () => {
   //   toggleModalOn();
 
   //   pH1Fields.forEach(fieldToCheck => {
-  //     clearAllText([fieldToCheck]);
-  //     cy.fillFields(pH1Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••'});
-  //     cy.clickSubmit('#UpdatePolicyholder');
-  //     cy.get('.checkForSnackbar').should('be.visible');
-  //     checkError(
-  //       fieldToCheck,
-  //       fieldToCheck.includes('email') ? 'Not a valid email address' : 'Invalid characters'
-  //     );
+  //     cy.verifyForm([fieldToCheck], undefined, { [fieldToCheck]: '•••' }, {
+  //       errors: fieldToCheck.includes('email') ? ['Not a valid email address'] : ['Invalid characters'],
+  //       form: '#UpdatePolicyholder'
+  //     });
+  //     // cy.clearAllText([fieldToCheck]);
+  //     // cy.fillFields(pH1Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••'});
+  //     // cy.clickSubmit('#UpdatePolicyholder');
+  //     // cy.get('.checkForSnackbar').should('be.visible');
+  //     // cy.checkError(
+  //     //   fieldToCheck,
+  //     //   fieldToCheck.includes('email') ? 'Not a valid email address' : 'Invalid characters'
+  //     // );
   //   });
 
   //   closeModal();
@@ -85,14 +89,18 @@ describe('Verify testing', () => {
   //   addAdditional();
 
   //   pH2Fields.forEach(fieldToCheck => {
-  //     clearAllText([fieldToCheck]);
-  //     cy.fillFields(pH2Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••' });
-  //     cy.clickSubmit('#UpdatePolicyholder');
-  //     cy.get('.checkForSnackbar').should('be.visible');
-  //     checkError(
-  //       fieldToCheck,
-  //       fieldToCheck.includes('email') ? 'Not a valid email address' : 'Invalid characters'
-  //     );
+  //     cy.verifyForm([fieldToCheck], undefined, { [fieldToCheck]: '•••'}, {
+  //       errors: fieldToCheck.includes('email') ? ['Not a valid email address'] : ['Invalid characters'],
+  //       form: '#UpdatePolicyholder'
+  //     });
+  //     // cy.clearAllText([fieldToCheck]);
+  //     // cy.fillFields(pH2Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••' });
+  //     // cy.clickSubmit('#UpdatePolicyholder');
+  //     // cy.get('.checkForSnackbar').should('be.visible');
+  //     // cy.checkError(
+  //     //   fieldToCheck,
+  //     //   fieldToCheck.includes('email') ? 'Not a valid email address' : 'Invalid characters'
+  //     // );
   //   });
 
   //   closeModal();

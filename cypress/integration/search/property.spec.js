@@ -33,15 +33,10 @@ describe('Property Address Search Testing', () => {
     const { address } = user;
 
     isButtonDisabled();
-
     fillAndCheckErrors('     ', false);
-
     fillAndCheckErrors(`  ${address}`);
-
     fillAndCheckErrors(`      ${address}`);
-
     fillAndCheckErrors(`${address}  `);
-
     fillAndCheckErrors(`${address}     `);
   });
 
@@ -54,10 +49,10 @@ describe('Property Address Search Testing', () => {
       cy.route('POST', '/svc?fetchAddresses', currentFixture);
 
       type('INVALID ADDRESS');
-      cy.clickSubmit();
-      cy.findDataTag('no-results').find('.no-results .card-header > h4')
-        .should('contain', 'No Results Found');
-      cy.findDataTag('no-results').find('.no-results .card-block > p')
+      cy.clickSubmit()
+        .findDataTag('no-results').find('.no-results .card-header > h4')
+        .should('contain', 'No Results Found')
+        .findDataTag('no-results').find('.no-results .card-block > p')
         .should('contain', 'We\'re sorry we couldn\'t');
       clear();
 
@@ -66,8 +61,8 @@ describe('Property Address Search Testing', () => {
       cy.findDataTag('address').find('label span > i')
         .should('exist')
         .and('be.visible')
-        .trigger('mouseenter');
-      cy.get('[data-id="tooltip"]')
+        .trigger('mouseenter')
+        .get('[data-id="tooltip"]')
         // workaround for visibility testing in Cypress Chrome 67
         .should('have.css', 'visibility', 'visible')
         .and('contain', 'Invalid characters');
