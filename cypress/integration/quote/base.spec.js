@@ -20,11 +20,11 @@ describe('Agency Happy Path', () => {
   const { address, customerInfo, agentCode } = user;
 
   before('gets fixtures', () => {
-    routes(true);
+    stubAllRoutes(true);
     cy.login();
   });
 
-  beforeEach(() => routes(true));
+  beforeEach(() => stubAllRoutes(true));
 
   it('Navigates through the quote workflow', () => {
     navLanding();

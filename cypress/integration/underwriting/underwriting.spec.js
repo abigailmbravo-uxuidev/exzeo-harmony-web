@@ -30,7 +30,6 @@ describe('Underwriting Testing', () => {
 
   before('Go to Underwriting page', () => {
     stubWithBlankAnswers();
-    cy.login();
     navLanding();
     navSearchAddress();
     navCustomerInfo();

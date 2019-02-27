@@ -29,11 +29,11 @@ export const navCustomerInfo = (customerInfo = user.customerInfo, agentCode = us
 };
 
 export const navUnderwriting = (data = underwriting, fixture, updates, useConfig) => {
-  if (!fixture) { fixture = _.cloneDeep(serviceFx); };
+  if (!fixture) { fixture = serviceFx; };
   if (!updates) {
     updates = {
       underwritingAnswers: { business: { answer: "No" } },
-      rating: { netPremium: 2640, totalPremium: 2667}
+      rating: { netPremium: 2640, totalPremium: 2667 }
     };
   };
   stubGetServiceRequest(fixture, updates, useConfig);
