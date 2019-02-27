@@ -9,6 +9,7 @@ import {
   navShare,
   navAssumptions
 } from '../../helpers';
+import user from '../../fixtures/stockData/additionalUser.json';
 
 describe('Premium Finance Testing', () => {
   const fields = ['name1', 'mailingAddress1', 'city', 'state', 'zip'];
@@ -28,8 +29,7 @@ describe('Premium Finance Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     routes();
-    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/billpayer')
-      .fixture('stockData/additionalUser').as('user');
+    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/billpayer');
   });
 
   it('All Premium Finance Inputs Empty Value', () => {
@@ -40,8 +40,7 @@ describe('Premium Finance Testing', () => {
     });
   });
 
-  it('Premium Finance Empty Value', function () {
-    const { user } = this;
+  it('Premium Finance Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(fields);

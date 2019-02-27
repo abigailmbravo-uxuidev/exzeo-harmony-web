@@ -48,7 +48,7 @@ describe('Property Address Search Testing', () => {
       _.mergeWith(currentFixture, res, (obj, src) => !_.isNil(src) ? src : obj);
       cy.route('POST', '/svc?fetchAddresses', currentFixture);
 
-      type('INVALID ADDRESS');
+      type('ADDRESS NOT FOUND');
       cy.clickSubmit()
         .findDataTag('no-results').find('.no-results .card-header > h4')
         .should('contain', 'No Results Found')

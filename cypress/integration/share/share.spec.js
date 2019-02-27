@@ -6,6 +6,7 @@ import {
   navUnderwriting,
   navCustomize
 } from '../../helpers';
+import user from '../../fixtures/stockData/user.json';
 
 describe('Share Testing', () => {
   const toggleModal = (dir = 'on') => {
@@ -30,15 +31,14 @@ describe('Share Testing', () => {
 
   beforeEach('Reset page, establish fixutres', () => {
     routes();
-    cy.fixture('stockData/user').as('user');
     toggleModal('off');
   });
 
   it('"Confirmed" Value left at Default "No"', () => {
-    cy.clickSubmit();
-    cy.findDataTag('confirmAssumptions').find('input').should('have.value', '');
-    cy.findDataTag('submit').should('be.disabled');
-    cy.findDataTag('tab-nav-sendEmailOrContinue').click();
+    cy.clickSubmit()
+      .findDataTag('confirmAssumptions').find('input').should('have.value', '')
+      .findDataTag('submit').should('be.disabled')
+      .findDataTag('tab-nav-sendEmailOrContinue').click();
   });
 
   it('All Inputs Empty Value', () => {
@@ -47,18 +47,17 @@ describe('Share Testing', () => {
     cy.submitAndCheckValidation(['name', 'emailAddr'], { errors: Array(2).fill('Field Required'), form: '#SendEmail', checkForSnackbar: false });
   });
 
-  // it('Input Empty Value', function() {
-  //   const { EmailAddress, FirstName, LastName } = this.user.customerInfo;
-  //   toggleModal();
+  it('Input Empty Value', () => {
+    const { EmailAddress, FirstName, LastName } = user.customerInfo;
+    toggleModal();
 
-  //   cy.verifyForm(['emailAddr'], ['name'], { emailAddr: EmailAddress }, { form: '#SendEmail', checkForSnackbar: false });
+    cy.verifyForm(['emailAddr'], ['name'], { emailAddr: EmailAddress }, { form: '#SendEmail', checkForSnackbar: false })
+      .verifyForm(['name', 'emailAddr'], ['emailAddr'], { name: `${FirstName} ${LastName}` }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false });
+  });
 
-  //   cy.verifyForm(['name', 'emailAddr'], ['emailAddr'], { name: `${FirstName} ${LastName}` }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false });
-  // });
+  it('Input Invalid Character', () => {
+    toggleModal();
 
-  // it('Input Invalid Character', () => {
-  //   toggleModal();
-
-  //   cy.verifyForm(['emailAddr'], undefined, { emailAddr: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false });
-  // });
+    cy.verifyForm(['emailAddr'], undefined, { emailAddr: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false });
+  });
 });

@@ -9,6 +9,9 @@ import {
   navShare,
   navAssumptions
 } from '../../helpers';
+import m1data from '../../fixtures/stockData/mortgagee1.json';
+import m2data from '../../fixtures/stockData/mortgagee2.json';
+import m3data from '../../fixtures/stockData/mortgagee3.json';
 
 describe('Mortgagee Testing', () => {
   const m1fields = ['m1Name1', 'm1MailingAddress1', 'm1City', 'm1State', 'm1Zip'];
@@ -31,10 +34,7 @@ describe('Mortgagee Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     routes();
-    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/mortgagee')
-      .fixture('stockData/mortgagee1').as('m1data')
-      .fixture('stockData/mortgagee2').as('m2data')
-      .fixture('stockData/mortgagee3').as('m3data');
+    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/mortgagee');
   });
 
   it('All Mortgagee 1 Empty Value', () => {
@@ -45,8 +45,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 1 Empty Value', function() {
-    const { m1data } = this;
+  it('Mortgagee 1 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(m1fields);
@@ -59,9 +58,7 @@ describe('Mortgagee Testing', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(m1fields)
-
         .verifyForm(['m1State'], undefined, { m1State: 'foo' }, { errors: ['Only 2 letters allowed'] })
-
         .verifyForm(['m1Zip'], undefined, { m1Zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
     });
   });
@@ -75,8 +72,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 2 Empty Value', function() {
-    const { m2data } = this;
+  it('Mortgagee 2 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
@@ -102,13 +98,11 @@ describe('Mortgagee Testing', () => {
       addUser(2);
       addUser(3);
 
-      cy.clearAllText(m3fields)
-        .submitAndCheckValidation(m3fields);
+      cy.clearAllText(m3fields).submitAndCheckValidation(m3fields);
     });
   });
 
-  it('Mortgagee 3 Empty Value', function() {
-    const { m3data } = this;
+  it('Mortgagee 3 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);

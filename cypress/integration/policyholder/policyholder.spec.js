@@ -3,6 +3,8 @@ import {
   navLanding,
   navSearchAddress
 } from '../../helpers';
+import user from '../../fixtures/stockData/user.json';
+import secondUser from '../../fixtures/stockData/secondUser.json';
 
 describe('Policyholder Testing', () => {
   const primaryPolicyFields = ['FirstName', 'LastName', 'EmailAddress', 'phoneNumber'];
@@ -25,8 +27,6 @@ describe('Policyholder Testing', () => {
 
   beforeEach('Establish fixtures and reset', () => {
     routes();
-    cy.fixture('stockData/user').as('user');
-    cy.fixture('stockData/secondUser').as('secondUser');
     toggleSecondUser('off');
   });
 
@@ -34,20 +34,17 @@ describe('Policyholder Testing', () => {
     cy.submitAndCheckValidation(primaryPolicyFields);
   });
 
-  it('Primary Policyholder Empty Value', function() {
-    const { user: { customerInfo } } = this;
-
-    primaryPolicyFields.forEach(leaveBlank => cy.verifyForm(primaryPolicyFields, [leaveBlank], customerInfo));
+  it('Primary Policyholder Empty Value', () => {
+    primaryPolicyFields.forEach(leaveBlank => cy.verifyForm(primaryPolicyFields, [leaveBlank], user.customerInfo));
   });
 
-  it('Secondary Policyholder Empty Value', function() {
-    const { secondUser: { customerInfo } } = this;
+  it('Secondary Policyholder Empty Value', () => {
     toggleSecondUser();
     cy.clearAllText(secondaryPolicyFields);
 
     cy.submitAndCheckValidation(secondaryPolicyFields);
 
-    secondaryPolicyFields.forEach(leaveBlank => cy.verifyForm(secondaryPolicyFields, [leaveBlank], customerInfo));
+    secondaryPolicyFields.forEach(leaveBlank => cy.verifyForm(secondaryPolicyFields, [leaveBlank], secondUser.customerInfo));
   });
 
   it('Primary Policyholder Invalid Character', () => {

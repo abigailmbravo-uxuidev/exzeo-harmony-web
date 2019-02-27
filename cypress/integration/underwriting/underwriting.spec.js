@@ -6,6 +6,7 @@ import {
   navSearchAddress,
   navCustomerInfo
 } from '../../helpers';
+import uwData from '../../fixtures/stockData/underwriting.json';
 
 describe('Underwriting Testing', () => {
   const fields = ['rented', 'previousClaims', 'monthsOccupied', 'business'];
@@ -37,34 +38,33 @@ describe('Underwriting Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     stubWithBlankAnswers();
-    cy.fixture('stockData/underwriting').as('data');
   });
 
   it('All Inputs Empty Value', () => {
     cy.submitAndCheckValidation(fields);
   });
 
-  it('"Is the home or any structure on the property ever rented?" Empty Value', function() {
+  it('"Is the home or any structure on the property ever rented?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['rented'], this.data);
+    toggleExcept(['rented'], uwData);
     cy.submitAndCheckValidation(['rented']);
   });
 
-  it('"When was the last claim filed?" Empty Value', function() {
+  it('"When was the last claim filed?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['previousClaims'], this.data);
+    toggleExcept(['previousClaims'], uwData);
     cy.submitAndCheckValidation(['previousClaims']);
   });
 
-  it('"How many months a year does the owner live in the home?" Empty Value', function() {
+  it('"How many months a year does the owner live in the home?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['monthsOccupied'], this.data);
+    toggleExcept(['monthsOccupied'], uwData);
     cy.submitAndCheckValidation(['monthsOccupied']);
   });
 
-  it('"Is a business conducted on the property?" Empty Value', function() {
+  it('"Is a business conducted on the property?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['business'], this.data);
+    toggleExcept(['business'], uwData);
     cy.submitAndCheckValidation(['business']);
   });
 });

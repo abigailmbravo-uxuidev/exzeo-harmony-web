@@ -10,6 +10,8 @@ import {
   navAdditionalInterests,
   navMailingBilling
 } from '../../helpers';
+import pH1 from '../../fixtures/stockData/pH1.json';
+import pH2 from '../../fixtures/stockData/pH2.json';
 
 describe('Verify testing', () => {
   const pH1Fields = ['pH1FirstName', 'pH1LastName', 'pH1phone', 'pH1email'];
@@ -40,8 +42,7 @@ describe('Verify testing', () => {
       .fixture('stockData/pH2').as('pH2');
   });
 
-  it('Primary Policyholder Empty Value', function() {
-    const { pH1 } = this;
+  it('Primary Policyholder Empty Value', () => {
     toggleModalOn();
     cy.clearAllText(pH1Fields)
       .submitAndCheckValidation(pH1Fields, {errors, form: '#UpdatePolicyholder' });
@@ -50,8 +51,7 @@ describe('Verify testing', () => {
     closeModal();
   });
 
-  it('Secondary Policyholder Empty Value', function() {
-    const { pH2 } = this;
+  it('Secondary Policyholder Empty Value', () => {
     toggleModalOn();
     addAdditional();
     cy.clearAllText(pH2Fields)

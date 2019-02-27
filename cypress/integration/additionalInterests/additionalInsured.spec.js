@@ -9,6 +9,8 @@ import {
   navShare,
   navAssumptions
 } from '../../helpers';
+import ains1 from '../../fixtures/stockData/ains1.json';
+import ains2 from '../../fixtures/stockData/ains2.json';
 
 describe('Additional Insured Testing', () => {
   const ains1fields = ['ains1Name1', 'ains1MailingAddress1', 'ains1City', 'ains1State', 'ains1Zip'];
@@ -30,22 +32,17 @@ describe('Additional Insured Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     routes();
-    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/additionalInsured')
-      .fixture('stockData/ains1').as('ains1')
-      .fixture('stockData/ains2').as('ains2');
+    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/additionalInsured');
   });
 
   it('All Additional Insure 1 Inputs Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(ains1fields)
-
-        .submitAndCheckValidation(ains1fields);
+      cy.clearAllText(ains1fields).submitAndCheckValidation(ains1fields);
     });
   });
 
-  it('Additional Insured 1 Empty Value', function() {
-    const { ains1 } = this;
+  it('Additional Insured 1 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ains1fields);
@@ -72,8 +69,7 @@ describe('Additional Insured Testing', () => {
     });
   });
 
-  it('Additional Insured 2 Empty Value', function() {
-    const { ains2 } = this;
+  it('Additional Insured 2 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();
