@@ -44,6 +44,7 @@ export class QuoteWorkflow extends Component {
     };
 
     this.state = {
+      needsConfirmation: false,
       isRecalc: false,
       showEmailPopup: false,
     };
@@ -60,13 +61,22 @@ export class QuoteWorkflow extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { workflowState: pWorkflowState } = prevProps;
+    const { workflowState } = this.props;
+
+    if (workflowState.activeTask === 'showAssumptions' && pWorkflowState.activeTask !== 'showAssumptions') {
+      this.setState({ needsConfirmation: true });
+    }
+  }
+
   getLocalState = () => {
     return this.state;
   };
 
-  setRecalc = (isRecalc) => {
-    this.setState(() => ({ isRecalc }))
-  };
+  // setRecalc = (isRecalc) => {
+  //   this.setState(() => ({ isRecalc }))
+  // };
 
   setShowEmailPopup = (showEmailPopup) => {
     this.setState(() => ({ showEmailPopup }));
@@ -115,6 +125,14 @@ export class QuoteWorkflow extends Component {
     }, {});
   };
 
+  handleDirtyForm = (isDirty) => {
+    const { workflowState } = this.props;
+    this.setState({
+      isRecalc: workflowState.activeTask === 'askToCustomizeDefaultQuote' && isDirty,
+      needsConfirmation: workflowState.activeTask === 'showAssumptions' && !isDirty,
+    })
+  };
+
   // ============= v NOT used by Gandalf v ============= //
   handleUpdateQuote = async ({ data, quoteNumber }) => {
     const { updateQuote } = this.props;
@@ -137,15 +155,14 @@ export class QuoteWorkflow extends Component {
       workflowState,
     } = this.props;
 
-    const { isRecalc } = this.state;
+    const { isRecalc, needsConfirmation } = this.state;
     const currentStep = location.pathname.split('/')[3];
     const currentPage = PAGE_ROUTING[currentStep];
     const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
-    const shouldPassCallback = currentPage === 2;
     const transformConfig = this.getConfigForJsonTransform();
     const customHandlers = {
-      onDirtyCallback: shouldPassCallback ? this.setRecalc : undefined,
+      onDirtyCallback: this.handleDirtyForm,
       setEmailPopup: this.setShowEmailPopup,
       getState: this.getLocalState,
       history: history,
@@ -194,7 +211,7 @@ export class QuoteWorkflow extends Component {
                                 data-test="button-primary"
                                 className={Button.constants.classNames.primary}
                                 onClick={this.primaryClickHandler}
-                                disabled={submitting}
+                                disabled={submitting || needsConfirmation}
                                 label={this.state.isRecalc ? 'recalculate' : 'next'}
                               />
 

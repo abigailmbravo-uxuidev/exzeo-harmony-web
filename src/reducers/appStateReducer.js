@@ -9,15 +9,17 @@ export default function appStateReducer(state = initialState.appState, action) {
       return { ...state, ...action.appState };
     case types.APPSTATE_ERROR:
       return { ...state, ...action.appState };
-    case persistTypes.REHYDRATE:
-      newState = (action.payload && action.payload.appState) ? action.payload.appState : newState;
-      return newState;
     case types.TOGGLE_LOADING:
       return { ...state, isLoading: action.isLoading };
     case types.TOGGLE_SNACKBAR:
       return { ...state, showSnackBar: action.showSnackBar };
     case types.SET_RECALC:
       return { ...state, isRecalc: action.isRecalc };
+    case persistTypes.REHYDRATE:
+      newState = (action.payload && action.payload.appState)
+        ? { ...action.payload.appState, isLoading: false }
+        : newState;
+      return newState;
     default:
       return state;
   }

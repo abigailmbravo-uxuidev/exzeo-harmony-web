@@ -100,7 +100,7 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     /* (data, quoteNumber, activeTask, options) */
 
     /* const updatedQuote = convertQuoteStringsToNumber(data); */
-    //hidden fields on the form 
+    //hidden fields on the form
     taskData.recalc = data.recalc;
     taskData.propertyIncidentalOccupancies = "None";
 
@@ -131,7 +131,10 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
       ...data.property,
     }
   }
-  
+  else if (activeTask === 'showAssumptions') {
+    // do nothing I believe
+  }
+
   return data;
 }
 

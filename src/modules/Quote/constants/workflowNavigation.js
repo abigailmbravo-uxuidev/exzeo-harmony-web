@@ -14,7 +14,8 @@ export const STEP_NAMES = {
 export const NEXT_PAGE_ROUTING = {
   customerInfo: 'underwriting',
   underwriting: 'customize',
-  customize: 'share'
+  customize: 'share',
+  share: 'assumptions',
 };
 
 export const PAGE_ROUTING = {
@@ -44,7 +45,6 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = [
 
 export const ROUTES_NOT_USING_FOOTER = [
   'share',
-  'assumptions',
   'additionalInterests',
   'askMortgagee',
   'askAdditionalInterest',
