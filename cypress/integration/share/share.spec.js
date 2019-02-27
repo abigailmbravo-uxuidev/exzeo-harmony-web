@@ -1,10 +1,10 @@
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize
 } from '../../helpers';
 import user from '../../fixtures/stockData/user.json';
 
@@ -22,11 +22,11 @@ describe('Share Testing', () => {
   before('Navigate to Share page', () => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
   });
 
   beforeEach('Reset page, establish fixutres', () => {
@@ -41,13 +41,13 @@ describe('Share Testing', () => {
       .findDataTag('tab-nav-sendEmailOrContinue').click();
   });
 
-  it('All Inputs Empty Value', () => {
+  it('NEG:All Inputs Empty Value', () => {
     toggleModal();
 
     cy.submitAndCheckValidation(['name', 'emailAddr'], { errors: Array(2).fill('Field Required'), form: '#SendEmail', checkForSnackbar: false });
   });
 
-  it('Input Empty Value', () => {
+  it('NEG:Input Empty Value', () => {
     const { EmailAddress, FirstName, LastName } = user.customerInfo;
     toggleModal();
 
@@ -55,7 +55,7 @@ describe('Share Testing', () => {
       .verifyForm(['name', 'emailAddr'], ['emailAddr'], { name: `${FirstName} ${LastName}` }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false });
   });
 
-  it('Input Invalid Character', () => {
+  it('NEG:Input Invalid Character', () => {
     toggleModal();
 
     cy.verifyForm(['emailAddr'], undefined, { emailAddr: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false });

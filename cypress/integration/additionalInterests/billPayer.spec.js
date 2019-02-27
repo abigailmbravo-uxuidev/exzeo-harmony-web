@@ -1,13 +1,13 @@
 import { goBack } from './utils';
-import stubAllRoutes from '../../support/routes';
+import stubAllRoutes from '../../support/stubAllRoutes';
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions
 } from '../../helpers';
 import user from '../../fixtures/stockData/additionalUser.json';
 
@@ -18,13 +18,13 @@ describe('Premium Finance Testing', () => {
   before(() => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -32,7 +32,7 @@ describe('Premium Finance Testing', () => {
     cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/billpayer');
   });
 
-  it('All Premium Finance Inputs Empty Value', () => {
+  it('NEG:All Premium Finance Inputs Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(fields)
@@ -40,7 +40,7 @@ describe('Premium Finance Testing', () => {
     });
   });
 
-  it('Premium Finance Empty Value', () => {
+  it('NEG:Premium Finance Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(fields);
@@ -49,7 +49,7 @@ describe('Premium Finance Testing', () => {
     });
   });
 
-  it('Premium Finance Invalid Input Value', () => {
+  it('NEG:Premium Finance Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(fields)

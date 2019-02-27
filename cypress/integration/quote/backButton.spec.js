@@ -1,16 +1,16 @@
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions,
-  navAdditionalInterests,
-  navMailingBilling,
-  navScheduleDate,
-  navVerify
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions,
+  navigateThroughAdditionalInterests,
+  navigateThroughMailingBilling,
+  navigateThroughScheduleDate,
+  navigateThroughVerify
 } from '../../helpers';
 
 describe('Back Button Testing', () => {
@@ -31,7 +31,7 @@ describe('Back Button Testing', () => {
   before(() => {
     stubAllRoutes();
     cy.login();
-    navLanding();
+    navigateThroughLanding();
   });
 
   beforeEach(() => stubAllRoutes());
@@ -40,97 +40,97 @@ describe('Back Button Testing', () => {
     cy.go('back');
     cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
 
-    navLanding();
-    navSearchAddress();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
     cy.wait(1500);
     cy.go('back');
     cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
 
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
     cy.wait(1500);
     cy.go('back');
     cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
 
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
     getAndSearchQuote();
 
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
     getAndSearchQuote();
   });
 
   it('Browser Back Button (Part 2)', () => {
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
     getAndSearchQuote();
 
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
     getAndSearchQuote();
 
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
-    navAdditionalInterests();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
     getAndSearchQuote();
 
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
-    navAdditionalInterests();
-    navMailingBilling();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
     getAndSearchQuote();
 
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
-    navAdditionalInterests();
-    navMailingBilling();
-    navVerify();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
+    navigateThroughVerify();
     getAndSearchQuote();
   });
 
   it('Browser Back Button (Part 3)', () => {
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
-    navAdditionalInterests();
-    navMailingBilling();
-    navVerify();
-    navScheduleDate();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
+    navigateThroughVerify();
+    navigateThroughScheduleDate();
     cy.wait(1500);
     cy.go('back');
     cy.url().should('eql', `${Cypress.config('baseUrl')}/`);

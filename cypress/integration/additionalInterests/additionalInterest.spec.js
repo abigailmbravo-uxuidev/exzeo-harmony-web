@@ -1,13 +1,13 @@
 import { goBack } from './utils';
-import stubAllRoutes from '../../support/routes';
+import stubAllRoutes from '../../support/stubAllRoutes';
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions
 } from '../../helpers';
 import ai1 from '../../fixtures/stockData/ai1.json';
 import ai2 from '../../fixtures/stockData/ai2.json';
@@ -22,13 +22,13 @@ describe('Additional Interest Testing', () => {
   before(() => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -36,7 +36,7 @@ describe('Additional Interest Testing', () => {
     cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/additionalInterest');
   });
 
-  it('NEG All Additional Interest 1 Inputs Empty Value', () => {
+  it('NEG:All Additional Interest 1 Inputs Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ai1fields);
@@ -45,7 +45,7 @@ describe('Additional Interest Testing', () => {
     });
   });
 
-  it('NEG Additional Interest 1 Empty Value', () => {
+  it('NEG:Additional Interest 1 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ai1fields);
@@ -54,7 +54,7 @@ describe('Additional Interest Testing', () => {
     });
   });
 
-  it('NEG Additional Interest 1 Invalid Input Value', () => {
+  it('NEG:Additional Interest 1 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ai1fields)
@@ -63,7 +63,7 @@ describe('Additional Interest Testing', () => {
     });
   });
 
-  it('NEG All Additional Interest 2 Inputs Empty Value', () => {
+  it('NEG:All Additional Interest 2 Inputs Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();
@@ -72,7 +72,7 @@ describe('Additional Interest Testing', () => {
     });
   });
 
-  it('NEG Additional Interest 2 Empty Value', () => {
+  it('NEG:Additional Interest 2 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();
@@ -82,7 +82,7 @@ describe('Additional Interest Testing', () => {
     });
   });
 
-  it('NEG Additional Interest 2 Invalid Input Value', () => {
+  it('NEG:Additional Interest 2 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();

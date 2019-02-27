@@ -1,14 +1,14 @@
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions,
-  navAdditionalInterests,
-  navMailingBilling
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions,
+  navigateThroughAdditionalInterests,
+  navigateThroughMailingBilling
 } from '../../helpers';
 import pH1 from '../../fixtures/stockData/pH1.json';
 import pH2 from '../../fixtures/stockData/pH2.json';
@@ -25,15 +25,15 @@ describe('Verify testing', () => {
   before(() => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
-    navAdditionalInterests();
-    navMailingBilling();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -42,7 +42,7 @@ describe('Verify testing', () => {
       .fixture('stockData/pH2').as('pH2');
   });
 
-  it('Primary Policyholder Empty Value', () => {
+  it('NEG:Primary Policyholder Empty Value', () => {
     toggleModalOn();
     cy.clearAllText(pH1Fields)
       .submitAndCheckValidation(pH1Fields, {errors, form: '#UpdatePolicyholder' });
@@ -51,7 +51,7 @@ describe('Verify testing', () => {
     closeModal();
   });
 
-  it('Secondary Policyholder Empty Value', () => {
+  it('NEG:Secondary Policyholder Empty Value', () => {
     toggleModalOn();
     addAdditional();
     cy.clearAllText(pH2Fields)
@@ -63,7 +63,7 @@ describe('Verify testing', () => {
   });
 
   // AWAITING BUGFIX HAR-5702
-  // it('Primary Policyholder Invalid Character', () => {
+  // it('NEG:Primary Policyholder Invalid Character', () => {
   //   toggleModalOn();
 
   //   pH1Fields.forEach(fieldToCheck => {
@@ -73,7 +73,7 @@ describe('Verify testing', () => {
   //     });
   //     // cy.clearAllText([fieldToCheck]);
   //     // cy.fillFields(pH1Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••'});
-  //     // cy.clickSubmit('#UpdatePolicyholder');
+  //     // cy.clickSubmit('NEG:#UpdatePolicyholder');
   //     // cy.get('.checkForSnackbar').should('be.visible');
   //     // cy.checkError(
   //     //   fieldToCheck,
@@ -84,7 +84,7 @@ describe('Verify testing', () => {
   //   closeModal();
   // });
 
-  // it('Secondary Policyholder Invalid Character', () => {
+  // it('NEG:Secondary Policyholder Invalid Character', () => {
   //   toggleModalOn();
   //   addAdditional();
 
@@ -95,7 +95,7 @@ describe('Verify testing', () => {
   //     });
   //     // cy.clearAllText([fieldToCheck]);
   //     // cy.fillFields(pH2Fields.filter(field => field === fieldToCheck), { [fieldToCheck]: '•••' });
-  //     // cy.clickSubmit('#UpdatePolicyholder');
+  //     // cy.clickSubmit('NEG:#UpdatePolicyholder');
   //     // cy.get('.checkForSnackbar').should('be.visible');
   //     // cy.checkError(
   //     //   fieldToCheck,
@@ -107,7 +107,7 @@ describe('Verify testing', () => {
   // });
   // END BUGFIX AWAIT
 
-  it('Invalid Email Address', () => {
+  it('NEG:Invalid Email Address', () => {
     toggleModalOn();
     addAdditional();
 
@@ -117,7 +117,7 @@ describe('Verify testing', () => {
     closeModal();
   });
 
-  it('Invalid Contact Phone', () => {
+  it('NEG:Invalid Contact Phone', () => {
     toggleModalOn();
     addAdditional();
 
@@ -127,12 +127,12 @@ describe('Verify testing', () => {
     closeModal();
   });
 
-  it('All "Verified" Values left at Default "No"', () => {
+  it('NEG:All "Verified" Values left at Default "No"', () => {
     switchTags.forEach(tag => cy.findDataTag(tag).should('not.have.class', 'active'));
     cy.findDataTag('submit').should('be.disabled');
   });
 
-  it('Some "Verified Values left at Default "No"', () => {
+  it('NEG:Some "Verified Values left at Default "No"', () => {
     for (let i = 0; i < switchTags.length - 1; i++) {
       const tagsToToggle = switchTags.slice(0, i + 1);
       tagsToToggle.forEach(tag => cy.findDataTag(`${tag}`).find('.switch-div').click());

@@ -10,15 +10,17 @@ const stubGetServiceRequest = (fixture, result, useConfig = false) => {
   cy.server().route('POST', '/svc?getQuoteServiceRequest', useConfig ? stub(fixture) : fixture).as('getQuoteServiceRequest');
 };
 
-export const navLanding = () => cy.get('.btn[href="/search/address"]').click();
+// Functions which navigate through each page
 
-export const navSearchAddress = (address = user.address)  =>
+export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
+
+export const navigateThroughSearchAddress = (address = user.address)  =>
   cy.get('input[name=address]').type(address)
     .clickSubmit('#SearchBar')
     .findDataTag('search-results').find('li[tabindex=0]').click()
     .wait('@fetchAddresses');
 
-export const navCustomerInfo = (customerInfo = user.customerInfo, agentCode = user.agentCode) => {
+export const navigateThroughCustomerInfo = (customerInfo = user.customerInfo, agentCode = user.agentCode) => {
   Object.entries(customerInfo).forEach(([field, value]) => {
     cy.findDataTag(`${field}`).find('input').type(value);
   });
@@ -28,7 +30,7 @@ export const navCustomerInfo = (customerInfo = user.customerInfo, agentCode = us
     .wait('@getQuoteServiceRequest');
 };
 
-export const navUnderwriting = (data = underwriting, fixture, updates, useConfig) => {
+export const navigateThroughUnderwriting = (data = underwriting, fixture, updates, useConfig) => {
   if (!fixture) { fixture = serviceFx; };
   if (!updates) {
     updates = {
@@ -43,18 +45,18 @@ export const navUnderwriting = (data = underwriting, fixture, updates, useConfig
   cy.clickSubmit('#Underwriting').wait('@getQuoteServiceRequest');
 };
 
-export const navCustomize = () => cy.clickSubmit('#Customize').wait('@getQuoteServiceRequest');
+export const navigateThroughCustomize = () => cy.clickSubmit('#Customize').wait('@getQuoteServiceRequest');
 
-export const navShare = () => cy.clickSubmit('#SharePage').wait('@getQuoteServiceRequest');
+export const navigateThroughShare = () => cy.clickSubmit('#SharePage').wait('@getQuoteServiceRequest');
 
-export const navAssumptions = () =>
+export const navigateThroughAssumptions = () =>
   cy.findDataTag('confirmAssumptions').find('.switch-div').click()
     .clickSubmit('#Assumptions').wait('@getQuoteServiceRequest');
 
-export const navAdditionalInterests = () =>
+export const navigateThroughAdditionalInterests = () =>
   cy.clickSubmit('#AddAdditionalInterestPage').wait('@getQuoteServiceRequest');
 
-export const navMailingBilling = () => {
+export const navigateThroughMailingBilling = () => {
   cy.findDataTag('sameAsProperty').find('input')
     // If the toggle is off, turn it on
     .then($input => {
@@ -68,16 +70,16 @@ export const navMailingBilling = () => {
     .clickSubmit('#Billing').wait('@getQuoteServiceRequest');
 };
 
-export const navVerify = () =>
+export const navigateThroughVerify = () =>
   cy.findDataTag('confirmProperyDetails').find('.switch-div').click()
     .findDataTag('confirmQuoteDetails').find('.switch-div').click()
     .findDataTag('confirmPolicyHolderDetails').find('.switch-div').click()
     .findDataTag('confirmAdditionalInterestsDetails').find('.switch-div').click()
     .clickSubmit('#Verify');
 
-export const navScheduleDate = () => cy.clickSubmit('.modal').wait('@getQuoteServiceRequest');
+export const navigateThroughScheduleDate = () => cy.clickSubmit('.modal').wait('@getQuoteServiceRequest');
 
-export const navThankYou = () =>
+export const navigateThroughThankYou = () =>
   cy.get('#thanks a[href="/"]').click()
     .url().should('eq', `${Cypress.config().baseUrl}/`);
 

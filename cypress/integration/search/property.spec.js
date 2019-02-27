@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding
+  navigateThroughLanding
 } from '../../helpers';
 import user from '../../fixtures/stockData/user.json';
 
@@ -21,7 +21,7 @@ describe('Property Address Search Testing', () => {
   before('Go to the search page', () => {
     stubAllRoutes();
     cy.login();
-    navLanding();
+    navigateThroughLanding();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -29,7 +29,7 @@ describe('Property Address Search Testing', () => {
     cy.fixture('stockData/user').as('user');
   });
 
-  it('Property Address Search Bar Empty Value', () => {
+  it('NEG:Property Address Search Bar Empty Value', () => {
     const { address } = user;
 
     isButtonDisabled();
@@ -40,7 +40,7 @@ describe('Property Address Search Testing', () => {
     fillAndCheckErrors(`${address}     `);
   });
 
-  it('Test Invalid Addresses', () => {
+  it('NEG:Test Invalid Addresses', () => {
     cy.fixture('stubs/fetchAddresses.json').then(fx => {
       const { address } = user;
       const currentFixture = _.cloneDeep(fx);

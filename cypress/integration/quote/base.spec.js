@@ -1,18 +1,18 @@
 import user from '../../fixtures/stockData/user.json';
 import underwriting from '../../fixtures/stockData/underwriting.json';
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions,
-  navAdditionalInterests,
-  navMailingBilling,
-  navVerify,
-  navScheduleDate,
-  navThankYou
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions,
+  navigateThroughAdditionalInterests,
+  navigateThroughMailingBilling,
+  navigateThroughVerify,
+  navigateThroughScheduleDate,
+  navigateThroughThankYou
 } from '../../helpers';
 import stubAllRoutes from '../../support/routes';
 
@@ -27,17 +27,17 @@ describe('Agency Happy Path', () => {
   beforeEach(() => stubAllRoutes(true));
 
   it('Navigates through the quote workflow', () => {
-    navLanding();
-    navSearchAddress(address);
-    navCustomerInfo(customerInfo, agentCode);
-    navUnderwriting(underwriting, undefined, undefined, true);
-    navCustomize();
-    navShare();
-    navAssumptions();
-    navAdditionalInterests();
-    navMailingBilling();
-    navVerify();
-    navScheduleDate();
-    navThankYou();
+    navigateThroughLanding();
+    navigateThroughSearchAddress(address);
+    navigateThroughCustomerInfo(customerInfo, agentCode);
+    navigateThroughUnderwriting(underwriting, undefined, undefined, true);
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
+    navigateThroughVerify();
+    navigateThroughScheduleDate();
+    navigateThroughThankYou();
   });
 });

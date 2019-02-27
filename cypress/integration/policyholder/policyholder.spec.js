@@ -1,7 +1,7 @@
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding,
-  navSearchAddress
+  navigateThroughLanding,
+  navigateThroughSearchAddress
 } from '../../helpers';
 import user from '../../fixtures/stockData/user.json';
 import secondUser from '../../fixtures/stockData/secondUser.json';
@@ -21,8 +21,8 @@ describe('Policyholder Testing', () => {
   before('Go to Policyholder page', () => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
   });
 
   beforeEach('Establish fixtures and reset', () => {
@@ -30,15 +30,15 @@ describe('Policyholder Testing', () => {
     toggleSecondUser('off');
   });
 
-  it('All Inputs Empty Value', () => {
+  it('NEG:All Inputs Empty Value', () => {
     cy.submitAndCheckValidation(primaryPolicyFields);
   });
 
-  it('Primary Policyholder Empty Value', () => {
+  it('NEG:Primary Policyholder Empty Value', () => {
     primaryPolicyFields.forEach(leaveBlank => cy.verifyForm(primaryPolicyFields, [leaveBlank], user.customerInfo));
   });
 
-  it('Secondary Policyholder Empty Value', () => {
+  it('NEG:Secondary Policyholder Empty Value', () => {
     toggleSecondUser();
     cy.clearAllText(secondaryPolicyFields);
 
@@ -47,7 +47,7 @@ describe('Policyholder Testing', () => {
     secondaryPolicyFields.forEach(leaveBlank => cy.verifyForm(secondaryPolicyFields, [leaveBlank], secondUser.customerInfo));
   });
 
-  it('Primary Policyholder Invalid Character', () => {
+  it('NEG:Primary Policyholder Invalid Character', () => {
     cy.clearAllText(primaryPolicyFields);
     cy.verifyForm(['FirstName'], undefined, { FirstName: '∞' }, { errors: ['Invalid characters'] });
 
@@ -56,7 +56,7 @@ describe('Policyholder Testing', () => {
     cy.verifyForm(['EmailAddress'], undefined, { EmailAddress: '∞' });
   });
 
-  it('Secondary Policyholder Invalid Character', () => {
+  it('NEG:Secondary Policyholder Invalid Character', () => {
     toggleSecondUser();
     cy.clearAllText(secondaryPolicyFields);
 
@@ -67,7 +67,7 @@ describe('Policyholder Testing', () => {
     cy.verifyForm(['EmailAddress2'], undefined, { EmailAddress2: '∞' });
   });
 
-  it('Invalid Email Address', () => {
+  it('NEG:Invalid Email Address', () => {
     toggleSecondUser();
     cy.clearAllText([...primaryPolicyFields, ...secondaryPolicyFields]);
 
@@ -76,7 +76,7 @@ describe('Policyholder Testing', () => {
     cy.verifyForm(undefined, ['EmailAddress2']);
   });
 
-  it('Invalid Contact Phone', () => {
+  it('NEG:Invalid Contact Phone', () => {
     toggleSecondUser();
     cy.clearAllText([...primaryPolicyFields, ...secondaryPolicyFields]);
 
@@ -85,7 +85,7 @@ describe('Policyholder Testing', () => {
     cy.verifyForm(['phoneNumber2'], undefined, { phoneNumber2: '456' }, { errors: ['is not a valid Phone Number.'] });
   });
 
-  it('Invalid Effective Date', () => {
+  it('NEG:Invalid Effective Date', () => {
     cy.findDataTag('effectiveDate').find('input').clear();
     cy.submitAndCheckValidation(['effectiveDate'], { errors: ['Not a valid date'] });
 

@@ -1,4 +1,4 @@
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 
 describe('Policy Search', () => {
   before('Login', () => {

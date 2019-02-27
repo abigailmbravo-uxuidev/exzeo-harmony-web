@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo
 } from '../../helpers';
 import uwData from '../../fixtures/stockData/underwriting.json';
 
@@ -30,38 +30,38 @@ describe('Underwriting Testing', () => {
 
   before('Go to Underwriting page', () => {
     stubWithBlankAnswers();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
   });
 
   beforeEach('Establish fixtures', () => {
     stubWithBlankAnswers();
   });
 
-  it('All Inputs Empty Value', () => {
+  it('NEG:All Inputs Empty Value', () => {
     cy.submitAndCheckValidation(fields);
   });
 
-  it('"Is the home or any structure on the property ever rented?" Empty Value', () => {
+  it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
     cy.reload();
     toggleExcept(['rented'], uwData);
     cy.submitAndCheckValidation(['rented']);
   });
 
-  it('"When was the last claim filed?" Empty Value', () => {
+  it('NEG:"When was the last claim filed?" Empty Value', () => {
     cy.reload();
     toggleExcept(['previousClaims'], uwData);
     cy.submitAndCheckValidation(['previousClaims']);
   });
 
-  it('"How many months a year does the owner live in the home?" Empty Value', () => {
+  it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
     cy.reload();
     toggleExcept(['monthsOccupied'], uwData);
     cy.submitAndCheckValidation(['monthsOccupied']);
   });
 
-  it('"Is a business conducted on the property?" Empty Value', () => {
+  it('NEG:"Is a business conducted on the property?" Empty Value', () => {
     cy.reload();
     toggleExcept(['business'], uwData);
     cy.submitAndCheckValidation(['business']);

@@ -1,13 +1,13 @@
 import { goBack } from './utils';
-import stubAllRoutes from '../../support/routes';
+import stubAllRoutes from '../../support/stubAllRoutes';
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions
 } from '../../helpers';
 import m1data from '../../fixtures/stockData/mortgagee1.json';
 import m2data from '../../fixtures/stockData/mortgagee2.json';
@@ -23,13 +23,13 @@ describe('Mortgagee Testing', () => {
   before(() => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -37,7 +37,7 @@ describe('Mortgagee Testing', () => {
     cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/mortgagee');
   });
 
-  it('All Mortgagee 1 Empty Value', () => {
+  it('NEG:All Mortgagee 1 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(m1fields)
@@ -45,7 +45,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 1 Empty Value', () => {
+  it('NEG:Mortgagee 1 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(m1fields);
@@ -54,7 +54,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 1 Invalid Input Value', () => {
+  it('NEG:Mortgagee 1 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(m1fields)
@@ -63,7 +63,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('All Mortgagee 2 Empty Input Value', () => {
+  it('NEG:All Mortgagee 2 Empty Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
@@ -72,7 +72,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 2 Empty Value', () => {
+  it('NEG:Mortgagee 2 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
@@ -82,7 +82,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 2 Invalid Input', () => {
+  it('NEG:Mortgagee 2 Invalid Input', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
@@ -92,7 +92,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('All Mortgagee 3 Empty Input Value', () => {
+  it('NEG:All Mortgagee 3 Empty Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
@@ -102,7 +102,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 3 Empty Value', () => {
+  it('NEG:Mortgagee 3 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);
@@ -113,7 +113,7 @@ describe('Mortgagee Testing', () => {
     });
   });
 
-  it('Mortgagee 3 Invalid Input Value', () => {
+  it('NEG:Mortgagee 3 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addUser(2);

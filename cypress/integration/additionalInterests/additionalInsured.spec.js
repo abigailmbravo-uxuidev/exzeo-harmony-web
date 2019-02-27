@@ -1,13 +1,13 @@
 import { goBack } from './utils';
-import stubAllRoutes from '../../support/routes';
+import stubAllRoutes from '../../support/stubAllRoutes';
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions
 } from '../../helpers';
 import ains1 from '../../fixtures/stockData/ains1.json';
 import ains2 from '../../fixtures/stockData/ains2.json';
@@ -21,13 +21,13 @@ describe('Additional Insured Testing', () => {
   before(() => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -35,14 +35,14 @@ describe('Additional Insured Testing', () => {
     cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/additionalInsured');
   });
 
-  it('All Additional Insure 1 Inputs Empty Value', () => {
+  it('NEG:All Additional Insure 1 Inputs Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ains1fields).submitAndCheckValidation(ains1fields);
     });
   });
 
-  it('Additional Insured 1 Empty Value', () => {
+  it('NEG:Additional Insured 1 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ains1fields);
@@ -51,7 +51,7 @@ describe('Additional Insured Testing', () => {
     });
   });
 
-  it('Additional Insured 1 Invalid Input Value', () => {
+  it('NEG:Additional Insured 1 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ains1fields)
@@ -60,7 +60,7 @@ describe('Additional Insured Testing', () => {
     });
   });
 
-  it('All Additional Insure 2 Inputs Empty Value', () => {
+  it('NEG:All Additional Insure 2 Inputs Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();
@@ -69,7 +69,7 @@ describe('Additional Insured Testing', () => {
     });
   });
 
-  it('Additional Insured 2 Empty Value', () => {
+  it('NEG:Additional Insured 2 Empty Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();
@@ -79,7 +79,7 @@ describe('Additional Insured Testing', () => {
     });
   });
 
-  it('Additional Insured 2 Invalid Input Value', () => {
+  it('NEG:Additional Insured 2 Invalid Input Value', () => {
     goBack().then(() => {
       toggleModalOn();
       addAdditional();

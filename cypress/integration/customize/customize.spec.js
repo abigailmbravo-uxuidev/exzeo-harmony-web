@@ -1,25 +1,25 @@
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting
 } from '../../helpers';
 
 describe('Customize Testing', () => {
   before('Go to customize page', () => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
   });
 
   const type = amnt =>
     cy.findDataTag('dwellingAmount').find('.range-value input').type(`{selectall}{backspace}${amnt}`);
 
-  it('Dwelling Limit', () => {
+  it('NEG:Dwelling Limit', () => {
     type('0');
     cy.checkError('dwellingAmount', 'Not a valid range.');
 

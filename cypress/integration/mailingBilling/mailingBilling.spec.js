@@ -1,13 +1,13 @@
-import stubAllRoutes from "../../support/routes";
+import stubAllRoutes from "../../support/stubAllRoutes";
 import {
-  navLanding,
-  navSearchAddress,
-  navCustomerInfo,
-  navUnderwriting,
-  navCustomize,
-  navShare,
-  navAssumptions,
-  navAdditionalInterests
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughCustomerInfo,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions,
+  navigateThroughAdditionalInterests
 } from '../../helpers';
 
 describe('Mailing/Billing Testing', () => {
@@ -16,23 +16,23 @@ describe('Mailing/Billing Testing', () => {
   before(() => {
     stubAllRoutes();
     cy.login();
-    navLanding();
-    navSearchAddress();
-    navCustomerInfo();
-    navUnderwriting();
-    navCustomize();
-    navShare();
-    navAssumptions();
-    navAdditionalInterests();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughCustomerInfo();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
   });
 
-  it('All Mailing Address Inputs Empty Value', () => {
+  it('NEG:All Mailing Address Inputs Empty Value', () => {
     cy.clearAllText(fields);
 
     cy.submitAndCheckValidation(fields);
   });
 
-  it('Mailing Address Empty Value', () => {
+  it('NEG:Mailing Address Empty Value', () => {
     cy.fixture('stockData/mailing').then(mailing => {
       cy.clearAllText(fields);
 
@@ -40,7 +40,7 @@ describe('Mailing/Billing Testing', () => {
     });
   });
 
-  it('Mailing Address Invalid Input Value', () => {
+  it('NEG:Mailing Address Invalid Input Value', () => {
     cy.clearAllText(fields);
 
     cy.verifyForm(['state'], undefined, { state: 'foo ' }, { errors: ['Only 2 letters allowed'] });
