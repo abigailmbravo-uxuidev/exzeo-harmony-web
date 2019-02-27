@@ -1,4 +1,4 @@
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress,
@@ -14,7 +14,7 @@ describe('Mailing/Billing Testing', () => {
   const fields = ['address1', 'city', 'state', 'zip'];
 
   before(() => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
     navSearchAddress();

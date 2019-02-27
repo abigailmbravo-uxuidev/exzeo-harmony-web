@@ -1,4 +1,4 @@
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress,
@@ -29,12 +29,12 @@ describe('Back Button Testing', () => {
   };
 
   before(() => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
   });
 
-  beforeEach(() => routes());
+  beforeEach(() => stubAllRoutes());
 
   it('Browser Back Button (Part 1)', () => {
     cy.go('back');

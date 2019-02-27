@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding
 } from '../../helpers';
@@ -19,13 +19,13 @@ describe('Property Address Search Testing', () => {
   };
 
   before('Go to the search page', () => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
   });
 
   beforeEach('Establish fixtures', () => {
-    routes();
+    stubAllRoutes();
     cy.fixture('stockData/user').as('user');
   });
 

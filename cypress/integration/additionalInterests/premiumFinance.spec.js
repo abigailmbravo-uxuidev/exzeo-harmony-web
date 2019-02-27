@@ -1,5 +1,5 @@
 import { goBack } from './utils';
-import routes from '../../support/routes';
+import stubAllRoutes from '../../support/routes';
 import {
   navLanding,
   navSearchAddress,
@@ -17,7 +17,7 @@ describe('Premium Finance Testing', () => {
   const toggleModalOn = () => cy.findDataTag('premium-finance-add').click();
 
   before(() => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
     navSearchAddress();
@@ -29,7 +29,7 @@ describe('Premium Finance Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    routes();
+    stubAllRoutes();
     cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/premiumFinance');
   });
 

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress,
@@ -21,7 +21,7 @@ describe('Underwriting Testing', () => {
 
   const stubWithBlankAnswers = () => {
     cy.fixture('stubs/getQuoteServiceRequest').then(fx => {
-      routes();
+      stubAllRoutes();
       const currentFixture = _.cloneDeep(fx);
       _.mergeWith(currentFixture, { result: { ...currentFixture.result, underwritingAnswers: {} } }, (obj, src) => !_.isNil(src) ? src : obj);
       cy.route('POST', '/svc?getQuoteServiceRequest', currentFixture).as('getQuoteServiceRequest');

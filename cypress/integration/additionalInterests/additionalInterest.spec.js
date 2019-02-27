@@ -1,5 +1,5 @@
 import { goBack } from './utils';
-import routes from '../../support/routes';
+import stubAllRoutes from '../../support/routes';
 import {
   navLanding,
   navSearchAddress,
@@ -20,7 +20,7 @@ describe('Additional Interest Testing', () => {
   const addAdditional = () => cy.findDataTag('isAdditional2').find('.switch-div').click();
 
   before(() => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
     navSearchAddress();
@@ -32,7 +32,7 @@ describe('Additional Interest Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    routes();
+    stubAllRoutes();
     cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/additionalInterest');
   });
 

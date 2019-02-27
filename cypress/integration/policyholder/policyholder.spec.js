@@ -1,4 +1,4 @@
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress
@@ -19,14 +19,14 @@ describe('Policyholder Testing', () => {
   };
 
   before('Go to Policyholder page', () => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
     navSearchAddress();
   });
 
   beforeEach('Establish fixtures and reset', () => {
-    routes();
+    stubAllRoutes();
     toggleSecondUser('off');
   });
 

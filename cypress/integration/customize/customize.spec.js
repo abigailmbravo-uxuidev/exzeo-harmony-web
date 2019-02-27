@@ -1,4 +1,4 @@
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress,
@@ -8,7 +8,7 @@ import {
 
 describe('Customize Testing', () => {
   before('Go to customize page', () => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
     navSearchAddress();

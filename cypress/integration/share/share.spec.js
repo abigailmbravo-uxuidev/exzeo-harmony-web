@@ -1,4 +1,4 @@
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress,
@@ -20,7 +20,7 @@ describe('Share Testing', () => {
   };
 
   before('Navigate to Share page', () => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
     navSearchAddress();
@@ -30,7 +30,7 @@ describe('Share Testing', () => {
   });
 
   beforeEach('Reset page, establish fixutres', () => {
-    routes();
+    stubAllRoutes();
     toggleModal('off');
   });
 

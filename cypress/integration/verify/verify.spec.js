@@ -1,4 +1,4 @@
-import routes from "../../support/routes";
+import stubAllRoutes from "../../support/routes";
 import {
   navLanding,
   navSearchAddress,
@@ -23,7 +23,7 @@ describe('Verify testing', () => {
   const closeModal = () => cy.get('[data-test="cancel"]:not([disabled])').click({ force: true }).wait(1000);
 
   before(() => {
-    routes();
+    stubAllRoutes();
     cy.login();
     navLanding();
     navSearchAddress();
@@ -37,7 +37,7 @@ describe('Verify testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
-    routes();
+    stubAllRoutes();
     cy.fixture('stockData/pH1').as('pH1')
       .fixture('stockData/pH2').as('pH2');
   });
