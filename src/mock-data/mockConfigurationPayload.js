@@ -1094,10 +1094,40 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
+          type: '$TITLE',
           dependencies: [],
           data: {
-            component: '$MAILING_BILLING',
+            text: 'Mailing Address',
+            icon: 'fa fa-envelope'
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 2,
+          type: '$INPUT',
+          path: 'sameAsPropertyAddress',
+          dependencies: [],
+          data: {
+            component: 'switch',
+            label: 'Is the mailing address the same as the property address?',
+            size: '12',
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 3,
+          type: '$INPUT',
+          path: 'policyHolderMailingAddress.address1',
+          dependencies: [],
+          data: {
+            component: 'text',
+            label: 'Address 1',
+            size: '12',
+            extendedProperties: {
+              target: '${it.sameAsPropertyAddress ? it.property.physicalAddress.address1 : \'\'}',
+            }
           },
           formData: {},
           children: [],

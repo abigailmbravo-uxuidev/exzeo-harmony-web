@@ -8,8 +8,6 @@ import Billing from '../../components/Billing/Billing';
 import Verify from '../../components/Verify/Verify';
 import ThankYou from '../../components/ThankYou/ThankYou';
 import Error from '../../components/Error/Error';
-import Loader from '../../components/Common/Loader';
-import WorkflowNavigation from './WorkflowNavigation';
 import Footer from '../../components/Common/Footer'
 
 import React, { Component } from 'react';
@@ -18,7 +16,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { Button } from '@exzeo/core-ui/src';
+import { Button, Loader } from '@exzeo/core-ui';
 
 import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
 
@@ -32,6 +30,7 @@ import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import Share from './Share';
 import Assumptions from './components/Assumptions';
+import WorkflowNavigation from './WorkflowNavigation';
 
 const FORM_ID = 'QuoteWorkflow';
 
@@ -99,8 +98,8 @@ export class QuoteWorkflow extends Component {
     return MOCK_TEMPLATE.pages.reduce((pageComponentsMap, page) => {
 
       const pageComponents = page.components.reduce((componentMap, component) => {
-        if ((component.formData.metaData || {}).target) {
-          componentMap[component.path] = component.formData.metaData.target;
+        if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
+          componentMap[component.path] = (component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target;
         }
         return componentMap;
       }, {});
@@ -176,51 +175,47 @@ export class QuoteWorkflow extends Component {
             />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             {shouldUseGandalf &&
-              <Route
-                path={`${match.url}`}
-                render={() => (
-                  <React.Fragment>
-                    <Gandalf
-                      formId={FORM_ID}
-                      className="survey-wrapper"
-                      currentPage={currentPage}
-                      path={location.pathname}
-                      handleSubmit={this.handleGandalfSubmit}
-                      initialValues={quote}
-                      template={MOCK_TEMPLATE}
-                      options={options}  // enums for select/radio fields
-                      transformConfig={transformConfig}
-                      customHandlers={customHandlers}
-                      customComponents={this.customComponents}
-                      renderFooter={({ submitting, reset }) => (
-                        <React.Fragment>
-                          {shouldRenderFooter &&
-                            <div className="btn-group">
-                              <Button
-                                data-test="submit"
-                                className={Button.constants.classNames.primary}
-                                onClick={this.primaryClickHandler}
-                                disabled={submitting || needsConfirmation}
-                                label={this.state.isRecalc ? 'recalculate' : 'next'}
-                              />
+              <React.Fragment>
+                <Gandalf
+                  formId={FORM_ID}
+                  className="survey-wrapper"
+                  currentPage={currentPage}
+                  path={location.pathname}
+                  handleSubmit={this.handleGandalfSubmit}
+                  initialValues={quote}
+                  template={MOCK_TEMPLATE}
+                  options={options}  // enums for select/radio fields
+                  transformConfig={transformConfig}
+                  customHandlers={customHandlers}
+                  customComponents={this.customComponents}
+                  renderFooter={({ submitting, reset }) => (
+                    <React.Fragment>
+                      {shouldRenderFooter &&
+                        <div className="btn-group">
+                          <Button
+                            data-test="submit"
+                            className={Button.constants.classNames.primary}
+                            onClick={this.primaryClickHandler}
+                            disabled={submitting || needsConfirmation}
+                            label={this.state.isRecalc ? 'recalculate' : 'next'}
+                          />
 
-                              {this.state.isRecalc &&
-                                <Button
-                                  data-test="reset"
-                                  className={Button.constants.classNames.secondary}
-                                  onClick={reset}
-                                  label="reset"
-                                />
-                              }
-                            </div>
+                          {this.state.isRecalc &&
+                            <Button
+                              data-test="reset"
+                              className={Button.constants.classNames.secondary}
+                              onClick={reset}
+                              label="reset"
+                            />
                           }
-                        </React.Fragment>
-                      )}
-                    />
+                        </div>
+                      }
+                    </React.Fragment>
+                  )}
+                />
 
-                    <Footer />
-                  </React.Fragment>
-                )} />
+                <Footer />
+              </React.Fragment>
             }
             {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />*/}
@@ -232,7 +227,7 @@ export class QuoteWorkflow extends Component {
             <Route exact path={`${match.url}/askAdditionalInsured`} render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askPremiumFinance`} render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askBillPayer`} render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />
-            <Route exact path={`${match.url}/mailingBilling`} render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />
+            {/*<Route exact path={`${match.url}/mailingBilling`} render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
             <Route exact path={`${match.url}/thankYou`} render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/error`} render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
