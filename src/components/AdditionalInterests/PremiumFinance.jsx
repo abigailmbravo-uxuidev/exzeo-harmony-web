@@ -75,6 +75,7 @@ export class PremiumFinance extends React.Component {
             'mailingAddress1',
             _.get(selectedPremiumFinance, 'AIAddress1')
           ),
+          change('PremiumFinance','mailingAddress2',''),
           change('PremiumFinance', 'city', _.get(selectedPremiumFinance, 'AICity')),
           change('PremiumFinance', 'state', _.get(selectedPremiumFinance, 'AIState')),
           change('PremiumFinance', 'zip', String(_.get(selectedPremiumFinance, 'AIZip')))
@@ -86,6 +87,7 @@ export class PremiumFinance extends React.Component {
           change('PremiumFinance', 'name1', ''),
           change('PremiumFinance', 'name2', ''),
           change('PremiumFinance', 'mailingAddress1', ''),
+          change('PremiumFinance','mailingAddress2',''),
           change('PremiumFinance', 'city', ''),
           change('PremiumFinance', 'state', ''),
           change('PremiumFinance', 'zip', '')
