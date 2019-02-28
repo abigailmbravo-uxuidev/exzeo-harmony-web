@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import EmailPopup from '../../components/Common/EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
@@ -9,9 +8,9 @@ import { updateQuote } from '../../actions/quoteState.actions';
 export class Share extends React.Component {
   noShareSubmit = async () => {
     const { customHandlers, updateQuote } = this.props;
-    await updateQuote({ data: { shouldSendEmail: 'No' }, quoteNumber: this.props.quote.quoteNumber });
-
-    customHandlers.history.replace('assumptions');
+    // await updateQuote({ data: { shouldSendEmail: 'No' }, quoteNumber: this.props.quote.quoteNumber });
+    customHandlers.handleGandalfSubmit({ shouldSendEmail: 'No' });
+    // customHandlers.history.replace('assumptions');
   };
 
   shareQuoteSubmit = async (data) => {
@@ -36,7 +35,6 @@ export class Share extends React.Component {
 
   render() {
     const {
-      isHardStop,
       underwritingExceptions,
       isLoading,
       quote,
@@ -49,9 +47,6 @@ export class Share extends React.Component {
     const { showEmailPopup } = getState();
     return (
       <React.Fragment>
-        {isHardStop &&
-          <Redirect to="error" />
-        }
         <section className="section-instructions">
           <div className="title"><i className="fa fa-share-alt" /> Share</div>
           <p>To SHARE this quote as a PDF via email, click the <strong>SHARE</strong> button</p>
@@ -100,14 +95,12 @@ Share.defaultProps = {
   isLoading: false,
   underwritingExceptions: [],
   quote: {},
-  isHardStop: false
 };
 
 const mapStateToProps = state => ({
   isLoading: state.appState.isLoading,
   underwritingExceptions: state.quoteState.state && state.quoteState.state.underwritingExceptions ? state.quoteState.state.underwritingExceptions : [],
   quote: state.quoteState.quote,
-  isHardStop: state.quoteState.state ? state.quoteState.state.isHardStop : false
 });
 
 export default connect(mapStateToProps, { updateQuote })(Share);

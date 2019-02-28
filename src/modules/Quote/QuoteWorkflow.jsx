@@ -1,4 +1,3 @@
-import Assumptions from '../../components/Assumptions/Assumptions';
 import AddAdditionalInterest from '../../components/AdditionalInterests/AddAdditionalInterest';
 import Mortgagee from '../../components/AdditionalInterests/Mortgagee';
 import AdditionalInterest from '../../components/AdditionalInterests/AdditionalInterest';
@@ -21,16 +20,18 @@ import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { Button } from '@exzeo/core-ui/src';
 
+import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
+
 import { updateQuote } from '../../actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { getZipcodeSettings } from '../../actions/serviceActions';
 import { getQuoteSelector } from '../../selectors/choreographer.selectors';
 import App from '../../components/AppWrapper';
-import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
 
 import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import Share from './Share';
+import Assumptions from './components/Assumptions';
 
 const FORM_ID = 'QuoteWorkflow';
 
@@ -44,7 +45,6 @@ export class QuoteWorkflow extends Component {
     };
 
     this.state = {
-      needsConfirmation: false,
       isRecalc: false,
       showEmailPopup: false,
     };
@@ -61,22 +61,9 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { workflowState: pWorkflowState } = prevProps;
-    const { workflowState } = this.props;
-
-    if (workflowState.activeTask === 'showAssumptions' && pWorkflowState.activeTask !== 'showAssumptions') {
-      this.setState({ needsConfirmation: true });
-    }
-  }
-
   getLocalState = () => {
     return this.state;
   };
-
-  // setRecalc = (isRecalc) => {
-  //   this.setState(() => ({ isRecalc }))
-  // };
 
   setShowEmailPopup = (showEmailPopup) => {
     this.setState(() => ({ showEmailPopup }));
@@ -129,7 +116,6 @@ export class QuoteWorkflow extends Component {
     const { workflowState } = this.props;
     this.setState({
       isRecalc: workflowState.activeTask === 'askToCustomizeDefaultQuote' && isDirty,
-      needsConfirmation: workflowState.activeTask === 'showAssumptions' && !isDirty,
     })
   };
 
@@ -161,10 +147,13 @@ export class QuoteWorkflow extends Component {
     const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const transformConfig = this.getConfigForJsonTransform();
+    // TODO going to use Context to pass these directly to custom components,
+    //  so Gandalf does not need to know about these.
     const customHandlers = {
       onDirtyCallback: this.handleDirtyForm,
       setEmailPopup: this.setShowEmailPopup,
       getState: this.getLocalState,
+      handleSubmit: this.handleGandalfSubmit,
       history: history,
     };
 
@@ -208,7 +197,7 @@ export class QuoteWorkflow extends Component {
                           {shouldRenderFooter &&
                             <div className="btn-group">
                               <Button
-                                data-test="button-primary"
+                                data-test="submit"
                                 className={Button.constants.classNames.primary}
                                 onClick={this.primaryClickHandler}
                                 disabled={submitting || needsConfirmation}
@@ -217,7 +206,7 @@ export class QuoteWorkflow extends Component {
 
                               {this.state.isRecalc &&
                                 <Button
-                                  data-test="button-secondary"
+                                  data-test="reset"
                                   className={Button.constants.classNames.secondary}
                                   onClick={reset}
                                   label="reset"

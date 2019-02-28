@@ -1042,18 +1042,6 @@ const mock = {
       step: {},
       components: [
         {
-          id: 1234,
-          type: '$TITLE',
-          dependencies: [],
-          data: {
-            text: 'All properties will be inspected within 30 days of the effective date.'
-          },
-          formData: {
-
-          },
-          children: [],
-        },
-        {
           id: 1,
           type: '$CUSTOM',
           dependencies: [],
@@ -1063,25 +1051,25 @@ const mock = {
           formData: {},
           children: [],
         },
-        {
-          id: 6,
-          type: '$INPUT',
-          path: 'confirmAssumptions',
-          dependencies: [],
-          data: {
-            component: 'switch',
-            label: 'Confirmed',
-            size: '12',
-            customClass: 'confirm'
-          },
-          formData: {
-            path: 'coverageOptions.personalPropertyReplacementCost.answer',
-            type: 'boolean',
-            required: true,
-            metaData: {},
-          },
-          children: [],
-        },
+        // {
+        //   id: 6,
+        //   type: '$INPUT',
+        //   path: 'confirmAssumptions',
+        //   dependencies: [],
+        //   data: {
+        //     component: 'switch',
+        //     label: 'Confirmed',
+        //     size: '12',
+        //     customClass: 'confirm'
+        //   },
+        //   formData: {
+        //     path: 'coverageOptions.personalPropertyReplacementCost.answer',
+        //     type: 'boolean',
+        //     required: true,
+        //     metaData: {},
+        //   },
+        //   children: [],
+        // },
       ],
     },
     {

@@ -16,6 +16,7 @@ export const NEXT_PAGE_ROUTING = {
   underwriting: 'customize',
   customize: 'share',
   share: 'assumptions',
+  assumptions: 'additionalInterests',
 };
 
 export const PAGE_ROUTING = {
@@ -45,6 +46,7 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = [
 
 export const ROUTES_NOT_USING_FOOTER = [
   'share',
+  'assumptions',
   'additionalInterests',
   'askMortgagee',
   'askAdditionalInterest',
