@@ -23,13 +23,28 @@ describe('Underwriting Testing', () => {
     cy.fixture('stubs/getQuoteServiceRequest').then(fx => {
       stubAllRoutes();
       const currentFixture = _.cloneDeep(fx);
-      _.mergeWith(currentFixture, { result: { ...currentFixture.result, underwritingAnswers: {} } }, (obj, src) => !_.isNil(src) ? src : obj);
+      _.mergeWith(currentFixture, { 
+        result: { ...currentFixture.result, underwritingAnswers: {} }}, (obj, src) => !_.isNil(src) ? src : obj);
       cy.route('POST', '/svc?getQuoteServiceRequest', currentFixture).as('getQuoteServiceRequest');
     });
   };
 
+  const checkRadios = (tag, values) =>
+    cy.findDataTag(tag).find('div').find('div').each(($div, index) => 
+      cy.wrap($div).find('label input').should('have.attr', 'value', values[index]));
+
+  const clickEachRadio = (tag, len) =>
+    cy.findDataTag(tag).find('div div').each($div =>
+      cy.wrap($div).should('have.attr', 'class', `radio-column-${len}`).click().should('have.attr', 'class', `radio-column-${len} selected`))
+
   before('Go to Underwriting page', () => {
     stubWithBlankAnswers();
+    cy.fixture('stubs/complete/askAdditionalCustomerData').then(fx => {
+      fx.data.model.variables[0].value.result[2].hidden = false;
+      cy.route('POST', '/cg/complete?askAdditionalCustomerData', fx);
+      cy.log(fx.data.model.variables[0].value.result[2]);
+    });
+    cy.login();
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughCustomerInfo();
@@ -37,6 +52,11 @@ describe('Underwriting Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     stubWithBlankAnswers();
+    cy.fixture('stubs/complete/askAdditionalCustomerData').then(fx => {
+      fx.data.model.variables[0].value.result[2].hidden = false;
+      cy.route('POST', '/cg/complete?askAdditionalCustomerData', fx);
+      cy.log(fx.data.model.variables[0].value.result[2]);
+    });
   });
 
   it('NEG:All Inputs Empty Value', () => {
@@ -66,4 +86,49 @@ describe('Underwriting Testing', () => {
     toggleExcept(['business'], uwData);
     cy.submitAndCheckValidation(['business']);
   });
+
+  it('POS:Underwriting Workflow', () =>
+    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
+      .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
+      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
+      .checkWorkflowSection('tab-nav-sendEmailOrContinue')
+      .checkWorkflowSection('tab-nav-addAdditionalAIs')
+      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
+      .checkWorkflowSection('tab-nav-editVerify')
+  );
+  
+  it('POS:Property Ever Rented Text / Input', () => {
+    cy.reload().checkLabel('rented', 'Is the home or any structures on the property ever rented?');
+    checkRadios('rented', ['Yes', 'Occasionally', 'Never']);
+    clickEachRadio('rented', 3);
+  });
+
+  it('POS:Last Claim Filed Text / Input', () => {
+    cy.reload().checkLabel('previousClaims', 'When was the last claim filed?');
+    checkRadios('previousClaims', ['No claims ever filed', 'Less than 3 Years', '3-5 Years', 'Over 5 Years', 'Unknown']);
+    clickEachRadio('previousClaims', 5);
+  });
+  
+
+  it('POS:Owner Lives Text / Input', () => {
+    cy.reload().checkLabel('monthsOccupied', 'How many months a year does the owner live in the home?');
+    checkRadios('monthsOccupied', ['0-3', '4-6', '7-9', '10+']);
+    clickEachRadio('monthsOccupied', 4);
+  });
+
+  it('POS:Wiring, Plumbing, and HVAC Text / Input', () => {
+    cy.reload().checkLabel('fourPointUpdates', 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?');
+    checkRadios('fourPointUpdates', ['Yes', 'No', 'Unknown']);
+    clickEachRadio('fourPointUpdates', 3);
+  });
+
+  it('POS:Business Conducted Text / Input', () => {
+    cy.reload().checkLabel('business', 'Is a business conducted on the property?');
+    checkRadios('business', ['Yes', 'No']);
+    clickEachRadio('business', 2);
+  });
+
+  it('POS:Underwriting Next Button', () =>
+    cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'submit')
+  );
 });
