@@ -18,6 +18,11 @@ describe('Policyholder Testing', () => {
     });
   };
 
+  const checkText = (tag, text) =>
+    cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text);
+  const checkLabel = (tag, text) =>
+    cy.findDataTag(tag).find('label').should('contain', text);
+
   before('Go to Policyholder page', () => {
     stubAllRoutes();
     cy.login();
@@ -92,4 +97,86 @@ describe('Policyholder Testing', () => {
     cy.findDataTag('effectiveDate').find('input').type('1900-01-01');
     cy.submitAndCheckValidation(['effectiveDate'], { errors: ['Date must be at least 08/01/2017'] });
   });
+
+  it('POS:Policyholder Detail Header', () => {
+    const checkHeaderSection = (tag, contents = []) =>
+      cy.findDataTag(tag).find('dl div').children().each(($el, index) => expect($el).to.contain(contents[index]));
+
+      checkHeaderSection('quote-details', ['Quote Number', '-']);
+      checkHeaderSection('property-details', ['Address', user.address, '', 'SARASOTA']);
+      checkHeaderSection('year-built', ['Year Built', '1998']);
+      checkHeaderSection('construction-type', ['Construction Type', 'MASONRY']);
+      checkHeaderSection('coverage-details', ['Coverage A', '--']);
+      checkHeaderSection('premium', ['Premium', '']);
+  });
+
+  it('POS:Policyholder Workflow', () => {
+    const checkWorkflowSection = (tag, active = false) =>
+      cy.findDataTag(tag).find('a').should('have.attr', 'class', active ? 'active' : 'disabled');
+    
+    checkWorkflowSection('tab-nav-askAdditionalCustomerData', true);
+    checkWorkflowSection('tab-nav-askUWAnswers');
+    checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote');
+    checkWorkflowSection('tab-nav-sendEmailOrContinue');
+    checkWorkflowSection('tab-nav-addAdditionalAIs');
+    checkWorkflowSection('tab-nav-askAdditionalQuestions');
+    checkWorkflowSection('tab-nav-editVerify');
+  });
+  
+  it('POS:Primary Policyholder Text', () => {
+    cy.get('span.section-group-header').first().find('i').should('have.attr', 'class', 'fa Primary Policyholder')
+      .get('span.section-group-header').should('contain', 'Primary Policyholder');
+    checkLabel('FirstName', 'First Name');
+    checkLabel('LastName', 'Last Name');
+    checkLabel('EmailAddress', 'Email Address');
+    checkLabel('phoneNumber', 'Contact Phone');
+  });
+
+  it('POS:Primary Policyholder Input', () => {
+    cy.clearAllText(primaryPolicyFields);
+    const { FirstName, LastName, EmailAddress } = user.customerInfo;
+
+    checkText('FirstName', FirstName);
+    checkText('LastName', LastName);
+    checkText('EmailAddress', EmailAddress);
+    checkText('phoneNumber', '(123)');
+  });
+  
+  it('POS:Secondary Policyholder Text', () => {
+    toggleSecondUser();
+    cy.get('span.section-group-header').contains('Secondary Policyholder').should('exist')
+      .find('i').should('have.attr', 'class', 'fa Secondary Policyholder');
+    checkLabel('FirstName2', 'First Name');
+    checkLabel('LastName2', 'Last Name');
+    checkLabel('EmailAddress2', 'Email Address');
+    checkLabel('phoneNumber2', 'Policyholder Contact Phone');
+  });
+
+  it('POS:Secondary Policyholder Input', () => {
+    toggleSecondUser();
+    cy.clearAllText(secondaryPolicyFields);
+    const { FirstName2, LastName2, EmailAddress2 } = secondUser.customerInfo;
+
+    checkText('FirstName2', FirstName2);
+    checkText('LastName2', LastName2);
+    checkText('EmailAddress2', EmailAddress2);
+    checkText('phoneNumber2', '(123) ');
+  });
+
+  it('POS:Policy Details Text', () => {
+    cy.get('span.section-group-header').contains('Policy Details').should('exist')
+      .find('i').should('have.attr', 'class', 'fa Policy Details');
+    checkLabel('effectiveDate', 'Effective Date');
+    cy.findDataTag('effectiveDate').find('div.date-min-max').should('contain', '-');
+    checkLabel('agentCode', 'Agent');
+  });
+
+  it('POS:Policy Details Input', () =>
+    cy.findDataTag('effectiveDate').find('input[type="date"]').should('have.attr', 'type', 'date')
+      .findDataTag('agentCode').find('option').first().should('contain', 'Please select...').and('be.disabled')
+  );
+
+  it('POS:Policyholder Next Button', () =>
+    cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'submit')
+  );
 });
