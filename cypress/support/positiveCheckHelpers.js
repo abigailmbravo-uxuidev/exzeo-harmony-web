@@ -4,7 +4,7 @@
  */
 
 Cypress.Commands.add('checkWorkflowSection', (tag, className = 'disabled') =>
-  cy.findDataTag(tag).find('a').should('have.attr', 'class', className))
+  cy.findDataTag(tag).find('a').should('have.attr', 'class', className));
 
 /**
  * @param {string} tag - String name of data-test tag.
@@ -18,4 +18,4 @@ Cypress.Commands.add('checkLabel', (tag, text) =>
  * @param {string} text - Check this text is now in value of input
  */
 Cypress.Commands.add('checkText', (tag, text) =>
-  cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text))
+  cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text));

@@ -14,7 +14,7 @@ export const handleOnSubmit = async (data, dispatch, props) => {
 export const Assumptions = (props) => {
   const { handleSubmit, fieldValues, isLoading } = props;
   return (
-    <div className="route-content">
+    <div className="route-content" data-test="assumptions">
       <Form id="Assumptions" onSubmit={handleSubmit(handleOnSubmit)} noValidate>
         <div className="scroll">
           <div className="form-group survey-wrapper">

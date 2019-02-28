@@ -26,4 +26,4 @@ export default (useConfig = false) => cy.server()
   .route('POST', '/cg/moveToTask?askAdditionalQuestions', useConfig ? stub('fx:stubs/moveToTask/askAdditionalQuestions') : 'fx:stubs/moveToTask/askAdditionalQuestions')
   .route('POST', '/cg/complete?editVerify', useConfig ? stub('fx:stubs/complete/editVerify') : 'fx:stubs/complete/editVerify')
   .route('POST', '/cg/moveToTask?editVerify', useConfig ? stub('fx:stubs/moveToTask/editVerify') : 'fx:stubs/moveToTask/editVerify')
-  .route('POST', '/cg/complete?askScheduleInspectionDates', useConfig ? stub('fx:stubs/complete/askScheduleInspectionDates') : 'fx:stubs/complete/askScheduleInspectionDates')
+  .route('POST', '/cg/complete?askScheduleInspectionDates', useConfig ? stub('fx:stubs/complete/askScheduleInspectionDates') : 'fx:stubs/complete/askScheduleInspectionDates');

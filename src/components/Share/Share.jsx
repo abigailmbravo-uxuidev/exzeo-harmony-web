@@ -51,11 +51,11 @@ export class Share extends React.Component {
         <Form id="SharePage" onSubmit={this.props.handleSubmit(this.noShareSubmit)}>
           <div className="scroll">
             <div className="form-group detail-wrapper">
-              <section className="section-instructions">
+              <section className="section-instructions" data-test="share-section-one">
                 <h3 className="section-group-header"><i className="fa fa-share-alt" /> Share</h3>
                 <p>To SHARE this quote as a PDF via email, click the SHARE button</p>
               </section>
-              <section className="section-instructions">
+              <section className="section-instructions" data-test="share-section-two">
                 <h3 className="section-group-header"><i className="fa fa-arrow-circle-right" /> Continue</h3>
                 <p>To CONTINUE the quote process, you will need the following</p>
                 <ul>
@@ -65,7 +65,7 @@ export class Share extends React.Component {
                 </ul>
                 <p>When you are prepared to move forward, click the NEXT button</p>
               </section>
-              <section className="section-instructions">
+              <section className="section-instructions" data-test="share-section-three">
                 <h3 className="section-group-header"><i className="fa fa-quote-left" /> New Quote</h3>
                 <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i className="fa fa-th-large" /> DASHBOARD tab</p>
               </section>

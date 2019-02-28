@@ -23,19 +23,19 @@ describe('Underwriting Testing', () => {
     cy.fixture('stubs/getQuoteServiceRequest').then(fx => {
       stubAllRoutes();
       const currentFixture = _.cloneDeep(fx);
-      _.mergeWith(currentFixture, { 
+      _.mergeWith(currentFixture, {
         result: { ...currentFixture.result, underwritingAnswers: {} }}, (obj, src) => !_.isNil(src) ? src : obj);
       cy.route('POST', '/svc?getQuoteServiceRequest', currentFixture).as('getQuoteServiceRequest');
     });
   };
 
   const checkRadios = (tag, values) =>
-    cy.findDataTag(tag).find('div').find('div').each(($div, index) => 
+    cy.findDataTag(tag).find('div').find('div').each(($div, index) =>
       cy.wrap($div).find('label input').should('have.attr', 'value', values[index]));
 
   const clickEachRadio = (tag, len) =>
     cy.findDataTag(tag).find('div div').each($div =>
-      cy.wrap($div).should('have.attr', 'class', `radio-column-${len}`).click().should('have.attr', 'class', `radio-column-${len} selected`))
+      cy.wrap($div).should('have.attr', 'class', `radio-column-${len}`).click().should('have.attr', 'class', `radio-column-${len} selected`));
 
   before('Go to Underwriting page', () => {
     stubWithBlankAnswers();
@@ -96,7 +96,7 @@ describe('Underwriting Testing', () => {
       .checkWorkflowSection('tab-nav-askAdditionalQuestions')
       .checkWorkflowSection('tab-nav-editVerify')
   );
-  
+
   it('POS:Property Ever Rented Text / Input', () => {
     cy.reload().checkLabel('rented', 'Is the home or any structures on the property ever rented?');
     checkRadios('rented', ['Yes', 'Occasionally', 'Never']);
@@ -108,7 +108,7 @@ describe('Underwriting Testing', () => {
     checkRadios('previousClaims', ['No claims ever filed', 'Less than 3 Years', '3-5 Years', 'Over 5 Years', 'Unknown']);
     clickEachRadio('previousClaims', 5);
   });
-  
+
 
   it('POS:Owner Lives Text / Input', () => {
     cy.reload().checkLabel('monthsOccupied', 'How many months a year does the owner live in the home?');

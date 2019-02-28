@@ -114,7 +114,7 @@ describe('Policyholder Testing', () => {
       .checkWorkflowSection('tab-nav-askAdditionalQuestions')
       .checkWorkflowSection('tab-nav-editVerify')
   );
-  
+
   it('POS:Primary Policyholder Text', () =>
     cy.get('span.section-group-header').first().find('i').should('have.attr', 'class', 'fa Primary Policyholder')
       .get('span.section-group-header').should('contain', 'Primary Policyholder')
@@ -133,7 +133,7 @@ describe('Policyholder Testing', () => {
     .checkText('EmailAddress', EmailAddress)
     .checkText('phoneNumber', '(123) ');
   });
-  
+
   it('POS:Secondary Policyholder Text', () => {
     toggleSecondUser();
     cy.get('span.section-group-header').contains('Secondary Policyholder').should('exist')
