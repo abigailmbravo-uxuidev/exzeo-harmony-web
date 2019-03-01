@@ -29,14 +29,6 @@ describe('Underwriting Testing', () => {
     });
   };
 
-  const checkRadios = (tag, values) =>
-    cy.findDataTag(tag).find('div').find('div').each(($div, index) =>
-      cy.wrap($div).find('label input').should('have.attr', 'value', values[index]));
-
-  const clickEachRadio = (tag, len) =>
-    cy.findDataTag(tag).find('div div').each($div =>
-      cy.wrap($div).should('have.attr', 'class', `radio-column-${len}`).click().should('have.attr', 'class', `radio-column-${len} selected`));
-
   before('Go to Underwriting page', () => {
     stubWithBlankAnswers();
     cy.fixture('stubs/complete/askAdditionalCustomerData').then(fx => {
@@ -59,76 +51,76 @@ describe('Underwriting Testing', () => {
     });
   });
 
-  it('NEG:All Inputs Empty Value', () => {
-    cy.submitAndCheckValidation(fields);
-  });
+  // it('NEG:All Inputs Empty Value', () => {
+  //   cy.submitAndCheckValidation(fields);
+  // });
 
-  it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
-    cy.reload();
-    toggleExcept(['rented'], uwData);
-    cy.submitAndCheckValidation(['rented']);
-  });
+  // it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
+  //   cy.reload();
+  //   toggleExcept(['rented'], uwData);
+  //   cy.submitAndCheckValidation(['rented']);
+  // });
 
-  it('NEG:"When was the last claim filed?" Empty Value', () => {
-    cy.reload();
-    toggleExcept(['previousClaims'], uwData);
-    cy.submitAndCheckValidation(['previousClaims']);
-  });
+  // it('NEG:"When was the last claim filed?" Empty Value', () => {
+  //   cy.reload();
+  //   toggleExcept(['previousClaims'], uwData);
+  //   cy.submitAndCheckValidation(['previousClaims']);
+  // });
 
-  it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
-    cy.reload();
-    toggleExcept(['monthsOccupied'], uwData);
-    cy.submitAndCheckValidation(['monthsOccupied']);
-  });
+  // it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
+  //   cy.reload();
+  //   toggleExcept(['monthsOccupied'], uwData);
+  //   cy.submitAndCheckValidation(['monthsOccupied']);
+  // });
 
-  it('NEG:"Is a business conducted on the property?" Empty Value', () => {
-    cy.reload();
-    toggleExcept(['business'], uwData);
-    cy.submitAndCheckValidation(['business']);
-  });
+  // it('NEG:"Is a business conducted on the property?" Empty Value', () => {
+  //   cy.reload();
+  //   toggleExcept(['business'], uwData);
+  //   cy.submitAndCheckValidation(['business']);
+  // });
 
-  it('POS:Underwriting Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-      .checkWorkflowSection('tab-nav-editVerify')
+  // it('POS:Underwriting Workflow', () =>
+  //   cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
+  //     .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
+  //     .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
+  //     .checkWorkflowSection('tab-nav-sendEmailOrContinue')
+  //     .checkWorkflowSection('tab-nav-addAdditionalAIs')
+  //     .checkWorkflowSection('tab-nav-askAdditionalQuestions')
+  //     .checkWorkflowSection('tab-nav-editVerify')
+  // );
+
+  it('POS:Property Ever Rented Text / Input', () =>
+    cy.reload().checkLabel('rented', 'Is the home or any structures on the property ever rented?')
+      .checkRadios('rented', ['Yes', 'Occasionally', 'Never'])
+      .clickEachRadio('rented')
   );
 
-  it('POS:Property Ever Rented Text / Input', () => {
-    cy.reload().checkLabel('rented', 'Is the home or any structures on the property ever rented?');
-    checkRadios('rented', ['Yes', 'Occasionally', 'Never']);
-    clickEachRadio('rented', 3);
-  });
-
-  it('POS:Last Claim Filed Text / Input', () => {
-    cy.reload().checkLabel('previousClaims', 'When was the last claim filed?');
-    checkRadios('previousClaims', ['No claims ever filed', 'Less than 3 Years', '3-5 Years', 'Over 5 Years', 'Unknown']);
-    clickEachRadio('previousClaims', 5);
-  });
+  it('POS:Last Claim Filed Text / Input', () =>
+    cy.reload().checkLabel('previousClaims', 'When was the last claim filed?')
+      .checkRadios('previousClaims', ['No claims ever filed', 'Less than 3 Years', '3-5 Years', 'Over 5 Years', 'Unknown'])
+      .clickEachRadio('previousClaims')
+  );
 
 
-  it('POS:Owner Lives Text / Input', () => {
-    cy.reload().checkLabel('monthsOccupied', 'How many months a year does the owner live in the home?');
-    checkRadios('monthsOccupied', ['0-3', '4-6', '7-9', '10+']);
-    clickEachRadio('monthsOccupied', 4);
-  });
+  it('POS:Owner Lives Text / Input', () =>
+    cy.reload().checkLabel('monthsOccupied', 'How many months a year does the owner live in the home?')
+      .checkRadios('monthsOccupied', ['0-3', '4-6', '7-9', '10+'])
+      .clickEachRadio('monthsOccupied')
+  );
 
-  it('POS:Wiring, Plumbing, and HVAC Text / Input', () => {
-    cy.reload().checkLabel('fourPointUpdates', 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?');
-    checkRadios('fourPointUpdates', ['Yes', 'No', 'Unknown']);
-    clickEachRadio('fourPointUpdates', 3);
-  });
+  it('POS:Wiring, Plumbing, and HVAC Text / Input', () =>
+    cy.reload().checkLabel('fourPointUpdates', 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?')
+      .checkRadios('fourPointUpdates', ['Yes', 'No', 'Unknown'])
+      .clickEachRadio('fourPointUpdates')
+  );
 
-  it('POS:Business Conducted Text / Input', () => {
-    cy.reload().checkLabel('business', 'Is a business conducted on the property?');
-    checkRadios('business', ['Yes', 'No']);
-    clickEachRadio('business', 2);
-  });
+  it('POS:Business Conducted Text / Input', () =>
+    cy.reload().checkLabel('business', 'Is a business conducted on the property?')
+      .checkRadios('business', ['Yes', 'No'])
+      .clickEachRadio('business')
+  );
 
   it('POS:Underwriting Next Button', () =>
-    cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'submit')
+    cy.checkNextButton()
   );
 });

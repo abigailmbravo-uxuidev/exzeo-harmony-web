@@ -169,6 +169,6 @@ describe('Policyholder Testing', () => {
   );
 
   it('POS:Policyholder Next Button', () =>
-    cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'submit')
+    cy.checkNextButton()
   );
 });

@@ -118,6 +118,7 @@ describe('Share Testing', () => {
       .get('.switch-div').click().get('input[name="confirmAssumptions"]').should('have.attr', 'value', 'true')
       .get('.switch-div').click().get('input[name="confirmAssumptions"]').should('have.attr', 'value', 'false')
       .findDataTag('submit').should('be.disabled')
-      .get('.switch-div').click().findDataTag('submit').should('not.be.disabled');
+      .get('.switch-div').click().findDataTag('submit').should('not.be.disabled')
+      .checkNextButton();
   });
 });
