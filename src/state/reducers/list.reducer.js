@@ -35,6 +35,16 @@ function handleSetAgents(state, action) {
   };
 }
 
+function getBillingInfo(state) {
+  const billingVar = state.variables.find(v => v.name === 'billingOptions');
+  if (!billingVar) return { billingOptions: [], billPlans: {} };
+
+  return {
+    billingOptions: billingVar.value.result.options.map(o => ({ label: o.displayText, answer: o.billToId })),
+    billPlans: billingVar.value.result.paymentPlans,
+  }
+}
+
 function handleSetQuote(state, action) {
   // WE could put these in a selector but this doesn't get run often and will probably change a lot when 'workflow' is implemented
   const underwritingQuestions = action.state.underwritingQuestions
@@ -64,19 +74,15 @@ function handleSetQuote(state, action) {
     }
   }, {});
 
+  const billingData = getBillingInfo(action.state);
+
   return {
     ...state,
     underwritingQuestions: underwritingQuestions,
     uiQuestions: uiQuestionMap,
-    billingOptions: getBillingOptions(action.state),
+    billingOptions: billingData.billingOptions,
+    billPlans: billingData.billPlans,
   }
-}
-
-function getBillingOptions(state) {
-  const billingVar = state.variables.find(v => v.name === 'billingOptions');
-  if (!billingVar) return [];
-
-  return billingVar.value.result.options.map(o => ({ label: o.displayText, answer: o.billToId }));
 }
 
 function handleSetZipCodeSettings(state, action) {

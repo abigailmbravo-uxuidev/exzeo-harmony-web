@@ -1144,7 +1144,9 @@ const mock = {
             size: '12',
             extendedProperties: {}
           },
-          formData: {},
+          formData: {
+            required: true,
+          },
           children: [],
         },
         {
@@ -1158,7 +1160,9 @@ const mock = {
             size: '12',
             extendedProperties: {}
           },
-          formData: {},
+          formData: {
+            required: true,
+          },
           children: [],
         },
         {
@@ -1172,7 +1176,9 @@ const mock = {
             size: '9',
             extendedProperties: {}
           },
-          formData: {},
+          formData: {
+            required: true,
+          },
           children: [],
         },
         {
@@ -1186,7 +1192,9 @@ const mock = {
             size: '1',
             extendedProperties: {}
           },
-          formData: {},
+          formData: {
+            required: true,
+          },
           children: [],
         },
         {
@@ -1200,7 +1208,9 @@ const mock = {
             size: '2',
             extendedProperties: {}
           },
-          formData: {},
+          formData: {
+            required: true,
+          },
           children: [],
         },
         {
@@ -1223,11 +1233,28 @@ const mock = {
             component: 'select',
             label: 'Bill To',
             dataSource: 'billingOptions',
+            extendedProperties: {}
+          },
+          formData: {
+            required: true,
+          },
+          children: [],
+        },
+        {
+          id: 348833,
+          type: '$CUSTOM',
+          path: 'billToId',
+          dependencies: [],
+          data: {
+            component: '$MAILING_BILLING',
+            dataSource: 'billPlans',
             extendedProperties: {
-
+              subscribe: true,
             }
           },
-          formData: {},
+          formData: {
+            required: true,
+          },
           children: [],
         },
 

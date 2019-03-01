@@ -4,7 +4,6 @@ import AdditionalInterest from '../../components/AdditionalInterests/AdditionalI
 import AdditionalInsured from '../../components/AdditionalInterests/AdditionalInsured';
 import PremiumFinance from '../../components/AdditionalInterests/PremiumFinance';
 import BillPayer from '../../components/AdditionalInterests/BillPayer';
-import Billing from '../../components/Billing/Billing';
 import Verify from '../../components/Verify/Verify';
 import ThankYou from '../../components/ThankYou/ThankYou';
 import Error from '../../components/Error/Error';
@@ -31,6 +30,7 @@ import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import Share from './Share';
 import Assumptions from './components/Assumptions';
 import AddressListener from './components/AddressListener';
+import MailingBilling from './components/MailingBilling';
 import WorkflowNavigation from './WorkflowNavigation';
 
 const FORM_ID = 'QuoteWorkflow';
@@ -43,6 +43,7 @@ export class QuoteWorkflow extends Component {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
       $ADDRESS_LISTENER: AddressListener,
+      $MAILING_BILLING: MailingBilling,
     };
 
     this.state = {
