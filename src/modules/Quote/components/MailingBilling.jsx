@@ -7,7 +7,13 @@ const PLAN_TITLES = {
   quarterly: 'Quarterly Installment Plan',
 };
 
+function getBillPlans(options, formValues) {
+  return '';
+}
+
 const MailingBilling = ({ config, options, formValues }) => {
+  const billPlans = getBillPlans(options, formValues);
+
   return (
     <React.Fragment>
        <Field name="billPlan" validate={validation.isRequired}>

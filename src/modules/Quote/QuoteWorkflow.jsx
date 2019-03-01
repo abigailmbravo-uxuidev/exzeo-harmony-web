@@ -8,6 +8,8 @@ import Verify from '../../components/Verify/Verify';
 import ThankYou from '../../components/ThankYou/ThankYou';
 import Error from '../../components/Error/Error';
 import Footer from '../../components/Common/Footer'
+import Billing from '../../components/Billing/Billing';
+
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -230,7 +232,7 @@ export class QuoteWorkflow extends Component {
             <Route exact path={`${match.url}/askAdditionalInsured`} render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askPremiumFinance`} render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askBillPayer`} render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />
-            {/*<Route exact path={`${match.url}/mailingBilling`} render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />*/}
+            <Route exact path={`${match.url}/mailingBilling`} render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
             <Route exact path={`${match.url}/thankYou`} render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/error`} render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />

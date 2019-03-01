@@ -32,6 +32,7 @@ export const PAGE_ROUTING = {
 };
 
 export const ROUTES_NOT_HANDLED_BY_GANDALF = [
+  'mailingBilling',
   'additionalInterests',
   'askMortgagee',
   'askAdditionalInterest',
@@ -52,7 +53,6 @@ export const ROUTES_NOT_USING_FOOTER = [
   'askAdditionalInsured',
   'askPremiumFinance',
   'askBillPayer',
-  'mailingBilling',
   'verify',
   'error',
   'thankYou',
