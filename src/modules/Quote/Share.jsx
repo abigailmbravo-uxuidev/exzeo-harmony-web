@@ -9,14 +9,13 @@ export class Share extends React.Component {
   noShareSubmit = async () => {
     const { customHandlers, updateQuote } = this.props;
     // await updateQuote({ data: { shouldSendEmail: 'No' }, quoteNumber: this.props.quote.quoteNumber });
-    customHandlers.handleGandalfSubmit({ shouldSendEmail: 'No' });
+    customHandlers.handleSubmit({ shouldSendEmail: 'No' });
     // customHandlers.history.replace('assumptions');
   };
 
   shareQuoteSubmit = async (data) => {
     const { customHandlers, updateQuote } = this.props;
-    const submitData = { shouldSendEmail: 'Yes', ...data };
-    await updateQuote({ data: submitData, quoteNumber: this.props.quote.quoteNumber });
+    customHandlers.handleSubmit({ shouldSendEmail: 'Yes', ...data });
 
     customHandlers.setEmailPopup(false);
   };

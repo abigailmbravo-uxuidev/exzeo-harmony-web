@@ -68,7 +68,15 @@ function handleSetQuote(state, action) {
     ...state,
     underwritingQuestions: underwritingQuestions,
     uiQuestions: uiQuestionMap,
+    billingOptions: getBillingOptions(action.state),
   }
+}
+
+function getBillingOptions(state) {
+  const billingVar = state.variables.find(v => v.name === 'billingOptions');
+  if (!billingVar) return [];
+
+  return billingVar.value.result.options.map(o => ({ label: o.displayText, answer: o.billToId }));
 }
 
 function handleSetZipCodeSettings(state, action) {

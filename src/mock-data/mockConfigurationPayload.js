@@ -1091,9 +1091,26 @@ const mock = {
     {
       name: 'mailingBilling',
       step: {},
+      meta: {},
       components: [
         {
           id: 1,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            component: '$ADDRESS_LISTENER',
+            extendedProperties: {
+              subscribe: true,
+              watchField: 'sameAsPropertyAddress',
+              fieldPrefix: 'policyHolderMailingAddress',
+              matchPrefix: 'property.physicalAddress'
+            }
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 34576,
           type: '$TITLE',
           dependencies: [],
           data: {
@@ -1117,7 +1134,7 @@ const mock = {
           children: [],
         },
         {
-          id: 3,
+          id: 2562,
           type: '$INPUT',
           path: 'policyHolderMailingAddress.address1',
           dependencies: [],
@@ -1125,13 +1142,95 @@ const mock = {
             component: 'text',
             label: 'Address 1',
             size: '12',
+            extendedProperties: {}
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 23332,
+          type: '$INPUT',
+          path: 'policyHolderMailingAddress.address2',
+          dependencies: [],
+          data: {
+            component: 'text',
+            label: 'Address 2',
+            size: '12',
+            extendedProperties: {}
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 234522,
+          type: '$INPUT',
+          path: 'policyHolderMailingAddress.city',
+          dependencies: [],
+          data: {
+            component: 'text',
+            label: 'City',
+            size: '9',
+            extendedProperties: {}
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 56778,
+          type: '$INPUT',
+          path: 'policyHolderMailingAddress.state',
+          dependencies: [],
+          data: {
+            component: 'text',
+            label: 'State',
+            size: '1',
+            extendedProperties: {}
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 74352,
+          type: '$INPUT',
+          path: 'policyHolderMailingAddress.zip',
+          dependencies: [],
+          data: {
+            component: 'text',
+            label: 'Zip',
+            size: '2',
+            extendedProperties: {}
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 340933,
+          type: '$TITLE',
+          dependencies: [],
+          data: {
+            text: 'Billing Information',
+            icon: 'fa fa-dollar'
+          },
+          formData: {},
+          children: [],
+        },
+        {
+          id: 345933,
+          type: '$INPUT',
+          path: 'billToId',
+          dependencies: [],
+          data: {
+            component: 'select',
+            label: 'Bill To',
+            dataSource: 'billingOptions',
             extendedProperties: {
-              target: '${it.sameAsPropertyAddress ? it.property.physicalAddress.address1 : \'\'}',
+
             }
           },
           formData: {},
           children: [],
         },
+
       ],
     },
     {
@@ -1139,7 +1238,7 @@ const mock = {
       step: {},
       components: [
         {
-          id: 1,
+          id: 673334,
           type: '$CUSTOM',
           dependencies: [],
           data: {

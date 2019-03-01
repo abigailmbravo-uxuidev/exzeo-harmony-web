@@ -30,6 +30,7 @@ import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
 import Share from './Share';
 import Assumptions from './components/Assumptions';
+import AddressListener from './components/AddressListener';
 import WorkflowNavigation from './WorkflowNavigation';
 
 const FORM_ID = 'QuoteWorkflow';
@@ -41,6 +42,7 @@ export class QuoteWorkflow extends Component {
     this.customComponents = {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
+      $ADDRESS_LISTENER: AddressListener,
     };
 
     this.state = {
