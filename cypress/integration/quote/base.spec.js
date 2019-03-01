@@ -14,7 +14,7 @@ import {
   navigateThroughScheduleDate,
   navigateThroughThankYou
 } from '../../helpers';
-import stubAllRoutes from '../../support/routes';
+import stubAllRoutes from '../../support/stubAllRoutes';
 
 describe('Agency Happy Path', () => {
   const { address, customerInfo, agentCode } = user;
