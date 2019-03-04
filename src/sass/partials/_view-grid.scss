@@ -153,12 +153,12 @@
 
       .view-col-1,
       .view-col-2,
-      .view-col-3 {
+      .view-col-3,
+      .view-col-4 {
         //adjusts to 1/3 container
         grid-column: span 2;
       }
 
-      .view-col-4,
       .view-col-5,
       .view-col-6,
       .view-col-7,

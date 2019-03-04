@@ -5,22 +5,23 @@ import { format, date } from '@exzeo/core-ui';
 const PaymentPlanView = ({ paymentPlan }) => {
   return (
     <React.Fragment>
+      <h4>Installment Plans</h4>
       {paymentPlan && paymentPlan.amount &&
         <dl className="view-col-4">
-          <dt><span>Annual</span> Installment Plan</dt>
+          <dt>Annual</dt>
           <dd>{format.toCurrency(paymentPlan.amount)} : {date.formatDate(paymentPlan.dueDate)}</dd>
         </dl>
       }
       {paymentPlan && paymentPlan.s1 && paymentPlan.s2 &&
         <dl className="view-col-4">
-          <dt><span>Semi-Annual</span> Installment Plan</dt>
+          <dt>Semi-Annual</dt>
           <dd>{format.toCurrency(paymentPlan.s1.amount)} : {date.formatDate(paymentPlan.s1.dueDate)}</dd>
           <dd>{format.toCurrency(paymentPlan.s2.amount)} : {date.formatDate(paymentPlan.s2.dueDate)}</dd>
         </dl>
       }
       {paymentPlan && paymentPlan.q1 && paymentPlan.q2 && paymentPlan.q3 && paymentPlan.q4 &&
         <dl className="view-col-4">
-          <dt><span>Quarterly</span> Installment Plan</dt>
+          <dt>Quarterly</dt>
           <dd>{format.toCurrency(paymentPlan.q1.amount)} : {date.formatDate(paymentPlan.q1.dueDate)}</dd>
           <dd>{format.toCurrency(paymentPlan.q2.amount)} : {date.formatDate(paymentPlan.q2.dueDate)}</dd>
           <dd>{format.toCurrency(paymentPlan.q3.amount)} : {date.formatDate(paymentPlan.q3.dueDate)}</dd>

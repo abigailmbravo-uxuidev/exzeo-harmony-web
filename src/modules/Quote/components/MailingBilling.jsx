@@ -19,7 +19,7 @@ function getPaymentPlans(availablePlans, paymentPlans) {
 
   const planNames = Object.keys(paymentPlans);
   const visiblePlans = planNames.filter(p => availablePlans.indexOf(PAY_PLANS[p]) > -1);
-  return visiblePlans.reduce((acc, plan) => ({ ...acc, ...paymentPlans[plan]}), {});
+  return visiblePlans.reduce((acc, plan) => ({ ...acc, ...paymentPlans[plan] }), {});
 }
 
 const MailingBilling = ({ config, options, formValues }) => {
@@ -29,9 +29,9 @@ const MailingBilling = ({ config, options, formValues }) => {
 
   return (
     <React.Fragment>
-       <Field name="billPlan" validate={validation.isRequired}>
-         {({ input, meta }) => (
-           <Radio
+      <Field name="billPlan" validate={validation.isRequired}>
+        {({ input, meta }) => (
+          <Radio
             input={input}
             meta={meta}
             label="Bill Plan"
@@ -39,9 +39,9 @@ const MailingBilling = ({ config, options, formValues }) => {
             answers={(billToConfig || {}).payPlanOptions || emptyArray}
             dataTest="billPlan"
             segmented
-           />
-         )}
-       </Field>
+          />
+        )}
+      </Field>
 
 
       <Field name="billToType" subscription={{}}>
@@ -54,7 +54,7 @@ const MailingBilling = ({ config, options, formValues }) => {
         )}
       </Field>
 
-      <section>
+      <section className="billing-plan-wrapper">
         <PaymentPlanView paymentPlan={paymentPlan} />
       </section>
 

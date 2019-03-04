@@ -28,6 +28,25 @@
       margin: 0 0 0 $padding;
       padding: 0 0 0 ($padding*2);
     }
+
+    &.billing-plan-wrapper {
+      h4 {
+        margin-bottom: 0;
+      }
+      dl {
+        dt {
+          color: $bright-blue-darken-04;
+        }
+        dd {
+          margin: 0 (-$padding);
+          padding: ($padding/2);
+
+          &:nth-of-type(odd) {
+            background: $cool-gray-00;
+          }
+        }
+      }
+    }
   }
   .workflow-steps {
     margin-top: $padding*1.5;
