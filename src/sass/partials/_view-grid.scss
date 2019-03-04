@@ -145,6 +145,14 @@
         grid-column: span 1;
       }
     }
+    .view-grid {
+      > div {
+        padding: $padding*2;
+      }
+      > section > dl {
+        padding: 0 ($padding*2);
+      }
+    }
   }
   @include for-tablet-portrait-up {
     .view-grid,
