@@ -37,11 +37,23 @@ function handleSetAgents(state, action) {
 
 function getBillingInfo(state) {
   const billingVar = state.variables.find(v => v.name === 'billingOptions');
-  if (!billingVar) return { billingOptions: [], billPlans: {} };
+  if (!billingVar) return { billingOptions: [], billPlans: {}, billToConfig: {} };
 
   return {
+    // build billing options array for 'select' field
     billingOptions: billingVar.value.result.options.map(o => ({ label: o.displayText, answer: o.billToId })),
-    billPlans: billingVar.value.result.paymentPlans,
+    //
+    paymentPlans: billingVar.value.result.paymentPlans,
+    billToConfig: billingVar.value.result.options.reduce((map, option) => {
+      return {
+        ...map,
+        [option.billToId]: {
+          billToType:option.billToType,
+          availablePlans: option.payPlans,
+          payPlanOptions: option.payPlans.map(p => ({ label: p, answer: p })),
+        }
+      }
+    }, {})
   }
 }
 
@@ -81,7 +93,8 @@ function handleSetQuote(state, action) {
     underwritingQuestions: underwritingQuestions,
     uiQuestions: uiQuestionMap,
     billingOptions: billingData.billingOptions,
-    billPlans: billingData.billPlans,
+    paymentPlans: billingData.paymentPlans,
+    billToConfig: billingData.billToConfig,
   }
 }
 

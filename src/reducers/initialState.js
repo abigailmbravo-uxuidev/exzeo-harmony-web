@@ -28,5 +28,8 @@ export default {
     uiQuestions: {},
     underwritingQuestions: [],
     agents: [],
+    billToConfig: {},
+    billingOptions: [],
+    paymentPlans: {},
   }
 };
