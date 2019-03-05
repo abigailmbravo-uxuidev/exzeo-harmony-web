@@ -16,10 +16,10 @@ import { generateField } from './searchUtils';
 
 const handleInitialize = (state) => {
   const values = {
-    address: state.search.address || '',
-    firstName: state.search.firstName || '',
-    lastName: state.search.lastName || '',
-    policyNumber: state.search.policyNumber || '',
+    address: '',
+    firstName: '',
+    lastName: '',
+    policyNumber: '',
     sortBy: 'policyNumber',
     pageNumber: 1,
     totalPages: 1
