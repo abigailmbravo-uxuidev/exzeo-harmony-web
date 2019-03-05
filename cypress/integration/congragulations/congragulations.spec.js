@@ -46,6 +46,7 @@ describe('Congragulations Testing', () => {
       .findDataTag('schedule-date-modal').find('.card-block p').each(($p, i) => cy.wrap($p).should('contain', text[i]))
       .findDataTag('schedule-date-modal').find('.card-block ul li')
       .first().should('contain', 'fakeEmail@asdl.com')
+      .next().should('contain', 'fakeEmail@asdl.com')
       .next().should('contain', 'test@typtap.com')
 
     // Modal Button testing

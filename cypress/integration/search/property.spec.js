@@ -24,10 +24,7 @@ describe('Property Address Search Testing', () => {
     navigateThroughLanding();
   });
 
-  beforeEach('Establish fixtures', () => {
-    stubAllRoutes();
-    cy.fixture('stockData/user').as('user');
-  });
+  beforeEach(() => stubAllRoutes());
 
   it('NEG:Property Address Search Bar Empty Value', () => {
     const { address } = user;
@@ -41,13 +38,9 @@ describe('Property Address Search Testing', () => {
   });
 
   it('NEG:Test Invalid Addresses', () => {
-    cy.fixture('stubs/fetchAddresses.json').then(fx => {
+    cy.setFx('stubs/fetchAddresses', ['result.IndexResult', []])
+    .then(() => {
       const { address } = user;
-      const currentFixture = _.cloneDeep(fx);
-      const res = { result: { IndexResult: [] } };
-      _.mergeWith(currentFixture, res, (obj, src) => !_.isNil(src) ? src : obj);
-      cy.route('POST', '/svc?fetchAddresses', currentFixture);
-
       type('ADDRESS NOT FOUND');
       cy.clickSubmit()
         .findDataTag('no-results').find('.no-results .card-header > h4')

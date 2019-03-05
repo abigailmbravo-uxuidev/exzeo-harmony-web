@@ -97,6 +97,7 @@ describe('Mailing/Billing Testing', () => {
         .findDataTag('zip').find('input[name="zip"]').should('have.attr', 'value', zip)
     )
   );
+
   it('POS:Mailing / Billing Input 2', () =>
     cy.findDataTag('billToId').find('select[aria-activedescendant*="5c6"]').should('exist')
       .clickEachRadio('billPlan')

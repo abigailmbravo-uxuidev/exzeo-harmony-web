@@ -40,11 +40,7 @@ describe('Verify testing', () => {
     navigateThroughMailingBilling();
   });
 
-  beforeEach('Establish fixtures', () => {
-    stubAllRoutes();
-    cy.fixture('stockData/pH1').as('pH1')
-      .fixture('stockData/pH2').as('pH2');
-  });
+  beforeEach(() => stubAllRoutes());
 
   const checkSection = (name, data, path) => {
     cy.findDataTag('verify').find(path || `.${name}-details section.display-element dl`).each(($el, i) =>

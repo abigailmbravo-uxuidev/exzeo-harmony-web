@@ -221,10 +221,8 @@ describe('Customize Testing', () => {
   );
 
   it('POS:Customize Button', () =>
-    cy.modifyFxAndStub(
-      'stubs/complete/askToCustomizeDefaultQuote',
-      { data: { previousTask: { name: 'askToCustomizeDefaultQuote' }}}
-    ).then(() => {
+    cy.setFx('stubs/complete/askToCustomizeDefaultQuote', ['data.previousTask.name', 'askToCustomizeDefaultQuote' ])
+      .then(() => {
       // We have to modify something to show recalculate/reset buttons
       type(300000);
       cy.findDataTag('customize').find('.workflow-steps button.btn-primary').should('contain', 'recalculate').click()

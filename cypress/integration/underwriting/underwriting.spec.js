@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import stubAllRoutes from "../../support/stubAllRoutes";
 import {
   navigateThroughLanding,
@@ -19,22 +17,13 @@ describe('Underwriting Testing', () => {
     });
   };
 
-  const stubWithBlankAnswers = () => {
-    cy.fixture('stubs/getQuoteServiceRequest').then(fx => {
-      stubAllRoutes();
-      const currentFixture = _.cloneDeep(fx);
-      _.mergeWith(currentFixture, {
-        result: { ...currentFixture.result, underwritingAnswers: {} }}, (obj, src) => !_.isNil(src) ? src : obj);
-      cy.route('POST', '/svc?getQuoteServiceRequest', currentFixture).as('getQuoteServiceRequest');
-    });
-  };
+  const stubWithBlankAnswers = () =>
+    cy.setFx('stubs/getQuoteServiceRequest', ['result.underwritingAnswers', {}]);
 
   before('Go to Underwriting page', () => {
+    stubAllRoutes();
     stubWithBlankAnswers();
-    cy.fixture('stubs/complete/askAdditionalCustomerData').then(fx => {
-      fx.data.model.variables[0].value.result[2].hidden = false;
-      cy.route('POST', '/cg/complete?askAdditionalCustomerData', fx);
-    });
+    cy.setFx('stubs/complete/askAdditionalCustomerData', ['data.model.variables[0].value.result[2].hidden', false]);
     cy.login();
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -42,11 +31,8 @@ describe('Underwriting Testing', () => {
   });
 
   beforeEach('Establish fixtures', () => {
+    stubAllRoutes();
     stubWithBlankAnswers();
-    cy.fixture('stubs/complete/askAdditionalCustomerData').then(fx => {
-      fx.data.model.variables[0].value.result[2].hidden = false;
-      cy.route('POST', '/cg/complete?askAdditionalCustomerData', fx);
-    });
   });
 
   it('NEG:All Inputs Empty Value', () => {

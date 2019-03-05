@@ -26,7 +26,6 @@ export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, ag
   });
   cy.findDataTag('agentCode').find('select').select(agentCode)
     .clickSubmit('#CustomerInfo')
-    .log('customerinfo')
     .wait('@getQuoteServiceRequest');
 };
 
