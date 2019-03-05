@@ -1160,9 +1160,7 @@ const mock = {
             size: '12',
             extendedProperties: {}
           },
-          formData: {
-            required: true,
-          },
+          formData: {},
           children: [],
         },
         {

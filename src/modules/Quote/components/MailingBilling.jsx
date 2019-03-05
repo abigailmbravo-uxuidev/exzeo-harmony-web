@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, Radio, OnChangeListener, validation, emptyObject, emptyArray } from '@exzeo/core-ui';
+import { Field, Radio, OnChangeListener, WhenFieldChanges, validation, emptyObject, emptyArray } from '@exzeo/core-ui';
 import PaymentPlanView from './PaymentPlanView';
 
 const PLAN_LABELS = {
@@ -43,12 +43,23 @@ const MailingBilling = ({ config, options, formValues }) => {
         )}
       </Field>
 
-
+      {/* watching billToId and setting billToType accordingly */}
       <Field name="billToType" subscription={{}}>
         {({ input: { onChange } }) => (
           <OnChangeListener name="billToId">
             {(value) => {
               onChange(options.billToConfig[value].billToType)
+            }}
+          </OnChangeListener>
+        )}
+      </Field>
+
+      {/* watching billToId and setting billPlan accordingly */}
+      <Field name="billPlan" subscription={{}}>
+        {({ input: { onChange } }) => (
+          <OnChangeListener name="billToId">
+            {() => {
+              onChange(PAY_PLANS['annual'])
             }}
           </OnChangeListener>
         )}

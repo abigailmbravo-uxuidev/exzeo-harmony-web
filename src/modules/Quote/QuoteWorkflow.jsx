@@ -4,12 +4,6 @@ import AdditionalInterest from '../../components/AdditionalInterests/AdditionalI
 import AdditionalInsured from '../../components/AdditionalInterests/AdditionalInsured';
 import PremiumFinance from '../../components/AdditionalInterests/PremiumFinance';
 import BillPayer from '../../components/AdditionalInterests/BillPayer';
-import Verify from '../../components/Verify/Verify';
-import ThankYou from '../../components/ThankYou/ThankYou';
-import Error from '../../components/Error/Error';
-import Footer from '../../components/Common/Footer'
-// import Billing from '../../components/Billing/Billing';
-
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -25,14 +19,20 @@ import { updateQuote } from '../../actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
 import { getZipcodeSettings } from '../../actions/serviceActions';
 import { getQuoteSelector } from '../../selectors/choreographer.selectors';
-import App from '../../components/AppWrapper';
 
 import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
-import Share from './Share';
+
+import Verify from '../../components/Verify/Verify';
+import ThankYou from '../../components/ThankYou/ThankYou';
+import Footer from '../../components/Common/Footer'
+import Error from '../../components/Error/Error';
+import App from '../../components/AppWrapper';
+
 import Assumptions from './components/Assumptions';
 import AddressListener from './components/AddressListener';
 import MailingBilling from './components/MailingBilling';
+import Share from './components/Share';
 import WorkflowNavigation from './WorkflowNavigation';
 
 const FORM_ID = 'QuoteWorkflow';

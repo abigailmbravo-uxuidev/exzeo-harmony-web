@@ -17,6 +17,7 @@ export const NEXT_PAGE_ROUTING = {
   customize: 'share',
   share: 'assumptions',
   assumptions: 'additionalInterests',
+  mailingBilling: 'verify',
 };
 
 export const PAGE_ROUTING = {

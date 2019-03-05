@@ -134,6 +134,16 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
   else if (activeTask === 'showAssumptions') {
     // do nothing I believe
   }
+  else if (activeTask === 'askAdditionalQuestions') {
+    taskData.billToId = data.billToId;
+    taskData.billToType = data.billToType;
+    taskData.billPlan = data.billPlan;
+
+    return {
+      ...taskData,
+      ...data.policyHolderMailingAddress,
+    }
+  }
 
   return data;
 }
