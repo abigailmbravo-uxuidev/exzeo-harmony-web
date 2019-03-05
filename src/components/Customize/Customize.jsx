@@ -82,7 +82,7 @@ export const Customize = (props) => {
   } = props;
 
   return (
-    <div className="route-content">
+    <div className="route-content" data-test="customize">
       {isHardStop &&
         <Redirect to={'error'} />
       }
