@@ -226,7 +226,8 @@
       }
     },
     "additionalInterests": [],
-    "policyHolders": [{
+    "policyHolders": [
+      {
       "electronicDelivery": false,
       "_id": "5c6da8348a45890012c5a799",
       "emailAddress": "fakeEmail@asdl.com",
@@ -235,7 +236,18 @@
       "firstName": "Dan",
       "entityType": "Person",
       "order": 0
-    }],
+      },
+      {
+        "electronicDelivery": false,
+        "_id": "5c7d102c84a0c9000e573c6f",
+        "emailAddress": "fakeEmail@asdl.com",
+        "entityType": "Person",
+        "firstName": "Philip",
+        "lastName": "Marlowe",
+        "order": 0,
+        "primaryPhoneNumber": "2234032018"
+      }    
+    ],
     "underwritingExceptions": [],
     "__v": 0,
     "cost": {

@@ -2,7 +2,7 @@ import stubAllRoutes from '../../support/stubAllRoutes';
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughCustomerInfo,
+  navigateThroughPolicyholder,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
@@ -15,7 +15,7 @@ describe('Basic Additional Parties Testing', () => {
     cy.login();
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
@@ -35,6 +35,5 @@ describe('Basic Additional Parties Testing', () => {
         cy.wrap($el).should('have.attr', 'type', 'button')
           .find('div i').should('have.attr', 'class', 'fa fa-plus')
       ).findDataTag('submit').should('contain', 'Not Applicable').and('have.attr', 'type', 'submit');
-
   });
 });

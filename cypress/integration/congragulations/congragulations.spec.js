@@ -1,7 +1,7 @@
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughCustomerInfo,
+  navigateThroughPolicyholder,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
@@ -21,7 +21,7 @@ describe('Congragulations Testing', () => {
     cy.login();
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
@@ -35,16 +35,15 @@ describe('Congragulations Testing', () => {
   beforeEach(() => stubAllRoutes());
 
   it('POS:Congratulations Modal Header Text', () => {
+    const text = ['You have successfully completed', 'With this information' , 'Once all electronic signatures','NOTE: All signatures','Once you send'];
+
     // Modal Header testing
     cy.findDataTag('schedule-date-modal').find('.card-header h4').should('contain', 'Send Application')
       .find('i').should('have.attr', 'class', 'fa fa-envelope')
 
     // Modal Text testing
       .findDataTag('schedule-date-modal').find('.card-block h3').should('contain', 'Congratulations')
-      .findDataTag('schedule-date-modal').find('.card-block p').each(($p, index) => {
-        const text = ['You have successfully completed', 'With this information', 'Once all electronic signatures', 'NOTE: All signatures', 'Once you send'];
-        cy.wrap($p).should('contain', text[index]);
-      })
+      .findDataTag('schedule-date-modal').find('.card-block p').each(($p, i) => cy.wrap($p).should('contain', text[i]))
       .findDataTag('schedule-date-modal').find('.card-block ul li')
       .first().should('contain', 'fakeEmail@asdl.com')
       .next().should('contain', 'test@typtap.com')
@@ -68,9 +67,9 @@ describe('Congragulations Testing', () => {
       .next().should('contain', 'Signatures on the application')
       .next().should('contain', 'Once the policy is issued')
       .findDataTag('thanks').find('.scroll .detail-wrapper .detail-group p').should('contain', 'Thank you')
-      
+
       // Return to Dashboard Button testing
       .findDataTag('thanks').find('.workflow-steps a').should('contain', 'Return to Dashboard')
-      .and('have.attr', 'class', 'btn btn-primary').click().url().should('eq', `${Cypress.config().baseUrl}/`)
+      .and('have.attr', 'class', 'btn btn-primary').click().url().should('eq', `${Cypress.config().baseUrl}/`);
   });
 });

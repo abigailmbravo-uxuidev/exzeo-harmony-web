@@ -61,8 +61,7 @@ describe('Property Address Search Testing', () => {
       cy.findDataTag('address').find('label span > i')
         .should('exist')
         .and('be.visible')
-        .trigger('mouseenter')
-        .get('[data-id="tooltip"]')
+        .trigger('mouseenter').get('[data-id="tooltip"]')
         // workaround for visibility testing in Cypress Chrome 67
         .should('have.css', 'visibility', 'visible')
         .and('contain', 'Invalid characters');

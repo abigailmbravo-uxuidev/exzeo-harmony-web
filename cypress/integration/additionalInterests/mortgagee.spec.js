@@ -3,7 +3,7 @@ import stubAllRoutes from '../../support/stubAllRoutes';
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughCustomerInfo,
+  navigateThroughPolicyholder,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
@@ -25,7 +25,7 @@ describe('Mortgagee Testing', () => {
     cy.login();
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();

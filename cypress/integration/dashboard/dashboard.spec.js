@@ -6,7 +6,7 @@ describe('Dashboard Testing', () => {
     cy.login();
   });
 
-  it('POS:Dashboard Banner', () => 
+  it('POS:Dashboard Banner', () =>
     cy.get('img[alt="TypTap Insurance"]').should('exist').click().wait('@fetchAgency')
       .get('a[href="tel:844-289-7968"]').should('exist')
   );
@@ -31,7 +31,7 @@ describe('Dashboard Testing', () => {
       .get('.product.card .card-block p').should('contain', 'TypTap currently offers')
   );
 
-  it('POS:Dashboard Image', () => 
+  it('POS:Dashboard Image', () =>
     cy.get('.card-header-image-home').should('exist')
       .get('div.exzeo').should('exist')
   );

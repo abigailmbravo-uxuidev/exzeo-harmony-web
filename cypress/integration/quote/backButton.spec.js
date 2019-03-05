@@ -2,7 +2,7 @@ import stubAllRoutes from "../../support/stubAllRoutes";
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughCustomerInfo,
+  navigateThroughPolicyholder,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
@@ -48,20 +48,20 @@ describe('Back Button Testing', () => {
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     cy.wait(1500);
     cy.go('back');
     cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     getAndSearchQuote();
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     getAndSearchQuote();
@@ -70,7 +70,7 @@ describe('Back Button Testing', () => {
   it('Browser Back Button (Part 2)', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
@@ -78,7 +78,7 @@ describe('Back Button Testing', () => {
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
@@ -87,7 +87,7 @@ describe('Back Button Testing', () => {
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
@@ -97,7 +97,7 @@ describe('Back Button Testing', () => {
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
@@ -108,7 +108,7 @@ describe('Back Button Testing', () => {
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
@@ -122,7 +122,7 @@ describe('Back Button Testing', () => {
   it('Browser Back Button (Part 3)', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();

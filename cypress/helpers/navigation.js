@@ -20,7 +20,7 @@ export const navigateThroughSearchAddress = (address = user.address)  =>
     .findDataTag('search-results').find('li[tabindex=0]').click()
     .wait('@fetchAddresses');
 
-export const navigateThroughCustomerInfo = (customerInfo = user.customerInfo, agentCode = user.agentCode) => {
+export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, agentCode = user.agentCode) => {
   Object.entries(customerInfo).forEach(([field, value]) => {
     cy.findDataTag(`${field}`).find('input').type(value);
   });

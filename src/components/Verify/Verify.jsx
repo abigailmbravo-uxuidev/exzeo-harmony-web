@@ -85,7 +85,7 @@ export class Verify extends React.Component {
 
 
     return (
-      <div className="route-content verify">
+      <div className="route-content verify" data-test="verify">
         {quoteData.quoteNumber &&
           <form id="Verify" onSubmit={handleSubmit(() => this.scheduleDateModal(true))}>
             <div className="scroll">

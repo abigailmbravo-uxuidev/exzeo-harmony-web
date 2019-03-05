@@ -3,7 +3,7 @@ import underwriting from '../../fixtures/stockData/underwriting.json';
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughCustomerInfo,
+  navigateThroughPolicyholder,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
@@ -29,7 +29,7 @@ describe('Agency Happy Path', () => {
   it('Navigates through the quote workflow', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress(address);
-    navigateThroughCustomerInfo(customerInfo, agentCode);
+    navigateThroughPolicyholder(customerInfo, agentCode);
     navigateThroughUnderwriting(underwriting, undefined, undefined, true);
     navigateThroughCustomize();
     navigateThroughShare();

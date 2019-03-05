@@ -4,7 +4,7 @@ import stubAllRoutes from "../../support/stubAllRoutes";
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughCustomerInfo
+  navigateThroughPolicyholder
 } from '../../helpers';
 import uwData from '../../fixtures/stockData/underwriting.json';
 
@@ -34,12 +34,11 @@ describe('Underwriting Testing', () => {
     cy.fixture('stubs/complete/askAdditionalCustomerData').then(fx => {
       fx.data.model.variables[0].value.result[2].hidden = false;
       cy.route('POST', '/cg/complete?askAdditionalCustomerData', fx);
-      cy.log(fx.data.model.variables[0].value.result[2]);
     });
     cy.login();
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughCustomerInfo();
+    navigateThroughPolicyholder();
   });
 
   beforeEach('Establish fixtures', () => {
@@ -47,47 +46,46 @@ describe('Underwriting Testing', () => {
     cy.fixture('stubs/complete/askAdditionalCustomerData').then(fx => {
       fx.data.model.variables[0].value.result[2].hidden = false;
       cy.route('POST', '/cg/complete?askAdditionalCustomerData', fx);
-      cy.log(fx.data.model.variables[0].value.result[2]);
     });
   });
 
-  // it('NEG:All Inputs Empty Value', () => {
-  //   cy.submitAndCheckValidation(fields);
-  // });
+  it('NEG:All Inputs Empty Value', () => {
+    cy.submitAndCheckValidation(fields);
+  });
 
-  // it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['rented'], uwData);
-  //   cy.submitAndCheckValidation(['rented']);
-  // });
+  it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['rented'], uwData);
+    cy.submitAndCheckValidation(['rented']);
+  });
 
-  // it('NEG:"When was the last claim filed?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['previousClaims'], uwData);
-  //   cy.submitAndCheckValidation(['previousClaims']);
-  // });
+  it('NEG:"When was the last claim filed?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['previousClaims'], uwData);
+    cy.submitAndCheckValidation(['previousClaims']);
+  });
 
-  // it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['monthsOccupied'], uwData);
-  //   cy.submitAndCheckValidation(['monthsOccupied']);
-  // });
+  it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['monthsOccupied'], uwData);
+    cy.submitAndCheckValidation(['monthsOccupied']);
+  });
 
-  // it('NEG:"Is a business conducted on the property?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['business'], uwData);
-  //   cy.submitAndCheckValidation(['business']);
-  // });
+  it('NEG:"Is a business conducted on the property?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['business'], uwData);
+    cy.submitAndCheckValidation(['business']);
+  });
 
-  // it('POS:Underwriting Workflow', () =>
-  //   cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-  //     .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
-  //     .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
-  //     .checkWorkflowSection('tab-nav-sendEmailOrContinue')
-  //     .checkWorkflowSection('tab-nav-addAdditionalAIs')
-  //     .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-  //     .checkWorkflowSection('tab-nav-editVerify')
-  // );
+  it('POS:Underwriting Workflow', () =>
+    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
+      .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
+      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
+      .checkWorkflowSection('tab-nav-sendEmailOrContinue')
+      .checkWorkflowSection('tab-nav-addAdditionalAIs')
+      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
+      .checkWorkflowSection('tab-nav-editVerify')
+  );
 
   it('POS:Property Ever Rented Text / Input', () =>
     cy.reload().checkLabel('rented', 'Is the home or any structures on the property ever rented?')
@@ -120,7 +118,5 @@ describe('Underwriting Testing', () => {
       .clickEachRadio('business')
   );
 
-  it('POS:Underwriting Next Button', () =>
-    cy.checkNextButton()
-  );
+  it('POS:Underwriting Next Button', () => cy.checkNextButton());
 });

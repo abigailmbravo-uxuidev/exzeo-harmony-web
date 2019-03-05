@@ -59,3 +59,14 @@ Cypress.Commands.add('verifyForm', ((baseFields = [], fieldsLeftBlank = [], data
   cy.fillFields(baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1), data);
   cy.submitAndCheckValidation(fieldsLeftBlank.length ? fieldsLeftBlank : baseFields, submitOptions);
 }));
+
+/**
+ * Uses the native slider setter, instead of React's
+ * @param {Object} slider - Native DOM node for the slider.
+ * @param {value} number - A number to which to set the slider value.
+ */
+Cypress.Commands.add('nativeSetSliderValue', (slider, value) => {
+  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+  nativeInputValueSetter.call(slider, value);
+  slider.dispatchEvent(new Event('change', { value, bubbles: true }));
+});
