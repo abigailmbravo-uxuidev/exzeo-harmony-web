@@ -215,6 +215,18 @@ const mock = {
           ]
         },
         {
+          id: 3453111,
+          type: '$TITLE',
+          dependencies: [],
+          data: {
+            text: 'Policy Details',
+            icon: 'fa fa-user-circle',
+          },
+          formData: {},
+          children: [],
+
+        },
+        {
           id: 15,
           type: '$INPUT',
           path: 'effectiveDate',
@@ -1094,22 +1106,6 @@ const mock = {
       meta: {},
       components: [
         {
-          id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$ADDRESS_LISTENER',
-            extendedProperties: {
-              subscribe: true,
-              watchField: 'sameAsPropertyAddress',
-              fieldPrefix: 'policyHolderMailingAddress',
-              matchPrefix: 'property.physicalAddress'
-            }
-          },
-          formData: {},
-          children: [],
-        },
-        {
           id: 34576,
           type: '$TITLE',
           dependencies: [],
@@ -1121,94 +1117,19 @@ const mock = {
           children: [],
         },
         {
-          id: 2,
-          type: '$INPUT',
-          path: 'sameAsPropertyAddress',
+          id: 1,
+          type: '$CUSTOM',
           dependencies: [],
           data: {
-            component: 'switch',
-            label: 'Is the mailing address the same as the property address?',
-            size: '12',
+            component: '$ADDRESS',
+            extendedProperties: {
+              subscribe: true,
+              watchField: 'sameAsPropertyAddress',
+              fieldPrefix: 'policyHolderMailingAddress',
+              matchPrefix: 'property.physicalAddress'
+            }
           },
           formData: {},
-          children: [],
-        },
-        {
-          id: 2562,
-          type: '$INPUT',
-          path: 'policyHolderMailingAddress.address1',
-          dependencies: [],
-          data: {
-            component: 'text',
-            label: 'Address 1',
-            size: '12',
-            extendedProperties: {}
-          },
-          formData: {
-            required: true,
-          },
-          children: [],
-        },
-        {
-          id: 23332,
-          type: '$INPUT',
-          path: 'policyHolderMailingAddress.address2',
-          dependencies: [],
-          data: {
-            component: 'text',
-            label: 'Address 2',
-            size: '12',
-            extendedProperties: {}
-          },
-          formData: {},
-          children: [],
-        },
-        {
-          id: 234522,
-          type: '$INPUT',
-          path: 'policyHolderMailingAddress.city',
-          dependencies: [],
-          data: {
-            component: 'text',
-            label: 'City',
-            size: '9',
-            extendedProperties: {}
-          },
-          formData: {
-            required: true,
-          },
-          children: [],
-        },
-        {
-          id: 56778,
-          type: '$INPUT',
-          path: 'policyHolderMailingAddress.state',
-          dependencies: [],
-          data: {
-            component: 'text',
-            label: 'State',
-            size: '1',
-            extendedProperties: {}
-          },
-          formData: {
-            required: true,
-          },
-          children: [],
-        },
-        {
-          id: 74352,
-          type: '$INPUT',
-          path: 'policyHolderMailingAddress.zip',
-          dependencies: [],
-          data: {
-            component: 'text',
-            label: 'Zip',
-            size: '2',
-            extendedProperties: {}
-          },
-          formData: {
-            required: true,
-          },
           children: [],
         },
         {

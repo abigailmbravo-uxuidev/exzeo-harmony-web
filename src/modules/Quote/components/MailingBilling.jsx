@@ -2,12 +2,6 @@ import React from 'react';
 import { Field, Radio, OnChangeListener, WhenFieldChanges, validation, emptyObject, emptyArray } from '@exzeo/core-ui';
 import PaymentPlanView from './PaymentPlanView';
 
-const PLAN_LABELS = {
-  'Annual': 'Annual Installment Plan',
-  'Semi-Annual': 'Semi-Annual Installment Plan',
-  'Quarterly': 'Quarterly Installment Plan',
-};
-
 const PAY_PLANS = {
   'annual': 'Annual',
   'semiAnnual': 'Semi-Annual',
@@ -25,7 +19,7 @@ function getPaymentPlans(availablePlans, paymentPlans) {
 const MailingBilling = ({ config, options, formValues }) => {
   const billToConfig = options.billToConfig[`${formValues.billToId}`] || emptyObject;
   const availablePlans = (billToConfig || {}).availablePlans || emptyArray;
-  const paymentPlan = getPaymentPlans(availablePlans, options.paymentPlans)
+  const paymentPlan = getPaymentPlans(availablePlans, options.paymentPlans);
 
   return (
     <React.Fragment>
@@ -48,7 +42,7 @@ const MailingBilling = ({ config, options, formValues }) => {
         {({ input: { onChange } }) => (
           <OnChangeListener name="billToId">
             {(value) => {
-              onChange(options.billToConfig[value].billToType)
+              onChange((options.billToConfig[value] || {}).billToType || '')
             }}
           </OnChangeListener>
         )}

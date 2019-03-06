@@ -30,7 +30,7 @@ import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
 
 import Assumptions from './components/Assumptions';
-import AddressListener from './components/AddressListener';
+import Address from './components/AddressListener';
 import MailingBilling from './components/MailingBilling';
 import Share from './components/Share';
 import WorkflowNavigation from './WorkflowNavigation';
@@ -44,7 +44,7 @@ export class QuoteWorkflow extends Component {
     this.customComponents = {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
-      $ADDRESS_LISTENER: AddressListener,
+      $ADDRESS: Address,
       $MAILING_BILLING: MailingBilling,
     };
 
