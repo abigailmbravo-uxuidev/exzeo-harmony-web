@@ -104,5 +104,5 @@ describe('Underwriting Testing', () => {
       .clickEachRadio('business')
   );
 
-  it('POS:Underwriting Next Button', () => cy.checkNextButton());
+  it('POS:Underwriting Next Button', () => cy.checkSubmitButton());
 });

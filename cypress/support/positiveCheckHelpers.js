@@ -16,8 +16,8 @@ Cypress.Commands.add('checkLabel', (tag, text) =>
  * @param {string} tag - String name of data-test tag.
  * @param {string} text - Check this text is now in value of input
  */
-Cypress.Commands.add('checkText', (tag, text) =>
-  cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text));
+Cypress.Commands.add('checkText', (tag, text = 'ZZ') =>
+  cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`, { force: true }).should('have.attr', 'value', text));
 
 /**
  * Checks that every radio has values as described
@@ -41,5 +41,14 @@ Cypress.Commands.add('clickEachRadio', tag =>
  * Confirms the submit button exists in the form
  * @param {string} form - Name of the form within which to check for submit button.
  */
-Cypress.Commands.add('checkNextButton', ((form = 'body') =>
+Cypress.Commands.add('checkSubmitButton', ((form = 'body') =>
   cy.get(form).findDataTag('submit').should('exist').and('have.attr', 'type', 'submit')));
+
+Cypress.Commands.add('chooseSelectOption', (tag, option = 0) =>
+  cy.findDataTag(tag).find('input')
+    .type(' ', { force: true })
+    .get('div.Select-menu div[role="option"]').then($arr => cy.wrap($arr[option]).click()));
+
+Cypress.Commands.add('resetSelectOption', (tag, placeholder = 'Select...') =>
+  cy.findDataTag(tag).find('span.Select-clear').click()
+    .findDataTag(tag).find('.Select-control .Select-placeholder').should('contain', placeholder));

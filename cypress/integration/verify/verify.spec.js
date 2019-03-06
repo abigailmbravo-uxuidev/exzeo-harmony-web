@@ -285,5 +285,5 @@ describe('Verify testing', () => {
     )
   );
 
-  it('POS:Next Button', () => cy.checkNextButton());
+  it('POS:Next Button', () => cy.checkSubmitButton());
 });

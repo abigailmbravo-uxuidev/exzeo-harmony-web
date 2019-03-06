@@ -169,6 +169,6 @@ describe('Policyholder Testing', () => {
   );
 
   it('POS:Policyholder Next Button', () =>
-    cy.checkNextButton()
+    cy.checkSubmitButton()
   );
 });

@@ -111,6 +111,6 @@ describe('Mailing/Billing Testing', () => {
   );
 
   it('POS:Next Button', () =>
-    cy.checkNextButton()
+    cy.checkSubmitButton()
   );
 });
