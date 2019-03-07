@@ -1,17 +1,7 @@
-import _ from 'lodash';
-
-import { stub } from '.';
 import user from '../fixtures/stockData/user.json';
 import underwriting from '../fixtures/stockData/underwriting.json';
-import serviceFx from '../fixtures/stubs/getQuoteServiceRequest.json';
-
-const stubGetServiceRequest = (fixture, result, useConfig = false) => {
-  _.merge(fixture, { result });
-  cy.server().route('POST', '/svc?getQuoteServiceRequest', useConfig ? stub(fixture) : fixture).as('getQuoteServiceRequest');
-};
 
 // Functions which navigate through each page
-
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
 
 export const navigateThroughSearchAddress = (address = user.address)  =>
@@ -29,15 +19,16 @@ export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, ag
     .wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughUnderwriting = (data = underwriting, fixture, updates, useConfig) => {
-  if (!fixture) { fixture = serviceFx; };
+export const navigateThroughUnderwriting = (data = underwriting, updates, useConfig) => {
   if (!updates) {
-    updates = {
-      underwritingAnswers: { business: { answer: "No" } },
-      rating: { netPremium: 2640, totalPremium: 2667 }
-    };
+    updates = [
+      ['result.underwritingAnswers.business.answer', 'NO'],
+      ['rating.netPremium', 2640],
+      ['rating.totalPremium', 2667]
+    ]
   };
-  stubGetServiceRequest(fixture, updates, useConfig);
+
+  cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig);
   Object.entries(data).forEach(([name, value]) => {
     cy.get(`input[name="${name}"][value="${value}"] + span`).click();
   });

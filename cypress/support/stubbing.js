@@ -1,14 +1,17 @@
 import _ from 'lodash';
 
+import { stub } from '../helpers';
+
 /**
  * Modify a default fixture with new data and restub the route
  * @param {string} fileRoute - The file path to the fixture file
- * @param {Object} valueArr - The new data we're merging in. Should be in form [path, value] or [[path, value], [path2, value2], ...].
+ * @param {Object} values - The new data we're merging in. Should be in form [path, value] or [[path, value], [path2, value2], ...].
+ * @param {bool} useConfig - Whether or not the stubbing is turned on or off by the config file.
  * @param {string} url - Optional parameter to give a route other than the standard one for our stubs. Used if your filepath is heterodox to function.
  */
-Cypress.Commands.add('setFx', (filePath, values, url) =>
+Cypress.Commands.add('setFx', (filePath, values, useConfig, url) =>
   cy.fixture(filePath).then(fx => {
-    // Split the path to create our route
+    // Split the path and remove the stubs/ filepath to create our route
     const routes = filePath.split('/').slice(1);
     // If no route for the fiture is given we assume one of two usual scenarios
     if (!url) {
@@ -23,8 +26,8 @@ Cypress.Commands.add('setFx', (filePath, values, url) =>
     } else {
       values.forEach(([path, value]) => _.set(response, path, value));
     };
-    // Stub our new route
-    cy.route('POST', url, response)
+    // Stub our new route optionally using the config variable to toggle stubbing
+    cy.route('POST', url, useConfig ? stub(response) : response)
     // Convention is naming the route the query param
       .as(routes[routes.length - 1]);
   })

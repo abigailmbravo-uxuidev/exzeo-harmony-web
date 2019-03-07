@@ -30,7 +30,7 @@ describe('Agency Happy Path', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress(address);
     navigateThroughPolicyholder(customerInfo, agentCode);
-    navigateThroughUnderwriting(underwriting, undefined, undefined, true);
+    navigateThroughUnderwriting(underwriting, undefined, true);
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
