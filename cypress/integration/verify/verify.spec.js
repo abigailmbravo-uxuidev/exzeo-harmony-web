@@ -232,7 +232,7 @@ describe('Verify testing', () => {
     cy.url().should('include', 'verify');
   });
 
-  it('POS: Policyholder Details Edit Button', () =>
+  it('POS:Policyholder Details Edit Button', () =>
     cy.findDataTag('verify').find('.policyholder-details span.edit-btn').should('contain', 'Edit')
       .find('i').should('have.attr', 'class', 'fa fa-pencil').click()
       .get('.edit-policyholder-modal').should('exist').and('have.attr', 'class', 'edit-policyholder-modal modal active')
