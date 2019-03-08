@@ -73,7 +73,7 @@ describe('Premium Finance Testing', () => {
 
       cy.findDataTag('bill-payer-add').should('have.attr', 'class', 'btn btn-secondary').click()
         .get('#BillPayer .survey-wrapper > h3.section-group-header').should('contain', 'Bill Payer').find('i').should('have.attr', 'class', 'fa fa-money')
-        .find('input[name="isAdditional"]').should('have.attr', 'value', 'true')
+        .get('input[name="isAdditional"]').should('have.attr', 'value', 'true')
         .next().click().findDataTag('name1').should('not.exist')
         .findDataTag('isAdditional').find('label[for="isAdditional"] > .switch-div').click().findDataTag('name1').should('exist');;
 

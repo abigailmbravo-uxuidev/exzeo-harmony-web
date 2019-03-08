@@ -23,9 +23,9 @@ export const navigateThroughUnderwriting = (data = underwriting, updates, useCon
   if (!updates) {
     updates = [
       ['result.underwritingAnswers.business.answer', 'NO'],
-      ['rating.netPremium', 2640],
-      ['rating.totalPremium', 2667]
-    ]
+      ['result.rating.netPremium', 2640],
+      ['result.rating.totalPremium', 2667]
+    ];
   };
 
   cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig);
@@ -39,14 +39,17 @@ export const navigateThroughCustomize = () => cy.clickSubmit('#Customize').wait(
 
 export const navigateThroughShare = () => cy.clickSubmit('#SharePage').wait('@getQuoteServiceRequest');
 
-export const navigateThroughAssumptions = () =>
+export const navigateThroughAssumptions = (updates, useConfig) => {
+  if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
   cy.findDataTag('confirmAssumptions').find('.switch-div').click()
     .clickSubmit('#Assumptions').wait('@getQuoteServiceRequest');
+};
 
 export const navigateThroughAdditionalInterests = () =>
   cy.clickSubmit('#AddAdditionalInterestPage').wait('@getQuoteServiceRequest');
 
-export const navigateThroughMailingBilling = () => {
+export const navigateThroughMailingBilling = (updates, useConfig) => {
+  if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
   cy.findDataTag('sameAsProperty').find('input')
     // If the toggle is off, turn it on
     .then($input => {
@@ -58,7 +61,7 @@ export const navigateThroughMailingBilling = () => {
     .get('select[name="billToId"] > option:not([disabled])').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#Billing').wait('@getQuoteServiceRequest');
-};
+}
 
 export const navigateThroughVerify = () =>
   cy.findDataTag('confirmProperyDetails').find('.switch-div').click()
@@ -72,4 +75,3 @@ export const navigateThroughScheduleDate = () => cy.clickSubmit('.modal').wait('
 export const navigateThroughThankYou = () =>
   cy.get('#thanks a[href="/"]').click()
     .url().should('eq', `${Cypress.config().baseUrl}/`);
-

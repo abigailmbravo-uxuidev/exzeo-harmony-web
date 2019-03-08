@@ -48,6 +48,8 @@ describe('Customize Testing', () => {
   });
 
   it('POS:Customize Detail Header', () => {
+    cy.findDataTag('tab-nav-askUWAnswers').click();
+    navigateThroughUnderwriting();
     const details = [
       { dt: 'Quote Number', dd: '-' },
       { dt: 'Coverage A', dd: '$ 314,000' },
@@ -59,7 +61,7 @@ describe('Customize Testing', () => {
       .findDataTag('coverage-details').find('dl > div > dt').should('contain', details[1].dt)
       .next().should('contain', details[1].dd)
       .findDataTag('premium').find('dl > div > dt').should('contain', details[2].dt)
-      .next().find('span').should('contain', details[2].dd);
+      .next().should('contain', details[2].dd);
   });
 
   it('POS:Customize Workflow', () =>
@@ -220,16 +222,14 @@ describe('Customize Testing', () => {
       .clickEachRadio('sprinkler')
   );
 
-  it('POS:Customize Button', () =>
-    cy.setFx('stubs/complete/askToCustomizeDefaultQuote', ['data.previousTask.name', 'askToCustomizeDefaultQuote' ])
-      .then(() => {
-      // We have to modify something to show recalculate/reset buttons
-      type(300000);
-      cy.findDataTag('customize').find('.workflow-steps button.btn-primary').should('contain', 'recalculate').click()
-        .findDataTag('premium').find('dl > div > dd > span').should('contain', '$');
-      type(300000);
-      cy.findDataTag('customize').find('.workflow-steps button.btn-secondary').should('contain', 'Reset').click()
-        .findDataTag('customize').find('.workflow-steps button.btn-primary').should('contain', 'next');
-    })
-  );
+  it('POS:Customize Button', () => {
+    cy.route('POST', '/cg/complete?askToCustomizeDefaultQuote', 'fx:stubs/complete/recalculate-askToCustomizeDefaultQuote');
+    // We have to modify something to show recalculate/reset buttons
+    type(300000);
+    cy.findDataTag('customize').find('.workflow-steps button.btn-primary').should('contain', 'recalculate').click()
+      .findDataTag('premium').find('dl > div > dd > span').should('contain', '$ 2,667');
+    type(300000);
+    cy.findDataTag('customize').find('.workflow-steps button.btn-secondary').should('contain', 'Reset').click()
+      .findDataTag('customize').find('.workflow-steps button.btn-primary').should('contain', 'next');
+  });
 });
