@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { OnChangeListener, WhenFieldChanges, Field, Input, Switch } from '@exzeo/core-ui';
+import { OnChangeListener, Field, Input, Switch, validation } from '@exzeo/core-ui';
 import _get from 'lodash/get';
 
 const AddressListener = ({ config, formValues, size }) => {
@@ -21,7 +21,7 @@ const AddressListener = ({ config, formValues, size }) => {
         </Field>
       }
 
-      <Field name={`${fieldPrefix}.address1`}>
+      <Field name={`${fieldPrefix}.address1`} validate={validation.isRequired}>
         {({ input, meta }) => (
           <Input
             input={input}
@@ -45,7 +45,7 @@ const AddressListener = ({ config, formValues, size }) => {
         )}
       </Field>
 
-      <Field name={`${fieldPrefix}.city`}>
+      <Field name={`${fieldPrefix}.city`} validate={validation.isRequired}>
         {({ input, meta }) => (
           <Input
             input={input}
@@ -58,7 +58,7 @@ const AddressListener = ({ config, formValues, size }) => {
         )}
       </Field>
 
-      <Field name={`${fieldPrefix}.state`}>
+      <Field name={`${fieldPrefix}.state`} validate={validation.isRequired}>
         {({ input, meta }) => (
           <Input
             input={input}
@@ -71,7 +71,7 @@ const AddressListener = ({ config, formValues, size }) => {
         )}
       </Field>
 
-      <Field name={`${fieldPrefix}.zip`}>
+      <Field name={`${fieldPrefix}.zip`} validate={validation.isRequired}>
         {({ input, meta }) => (
           <Input
             input={input}
