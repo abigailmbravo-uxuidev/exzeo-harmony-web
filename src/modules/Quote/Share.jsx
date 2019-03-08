@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import EmailPopup from '../../../components/Common/EmailPopup';
-import ErrorPopup from '../../../components/Common/ErrorPopup';
+import EmailPopup from '../../components/Common/EmailPopup';
+import ErrorPopup from '../../components/Common/ErrorPopup';
 
-import { updateQuote } from '../../../actions/quoteState.actions';
+import { updateQuote } from '../../actions/quoteState.actions';
 
 export class Share extends React.Component {
   noShareSubmit = async () => {

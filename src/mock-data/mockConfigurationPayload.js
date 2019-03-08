@@ -1165,7 +1165,7 @@ const mock = {
           path: 'billToId',
           dependencies: [],
           data: {
-            component: '$MAILING_BILLING',
+            component: '$BILLING',
             dataSource: 'billPlans',
             extendedProperties: {
               subscribe: true,

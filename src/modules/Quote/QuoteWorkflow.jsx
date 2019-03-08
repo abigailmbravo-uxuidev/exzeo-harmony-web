@@ -29,10 +29,8 @@ import Footer from '../../components/Common/Footer'
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
 
-import Assumptions from './components/Assumptions';
-import Address from './components/AddressListener';
-import MailingBilling from './components/MailingBilling';
-import Share from './components/Share';
+import Assumptions from './Assumptions';
+import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
 
 const FORM_ID = 'QuoteWorkflow';
@@ -44,8 +42,6 @@ export class QuoteWorkflow extends Component {
     this.customComponents = {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
-      $ADDRESS: Address,
-      $MAILING_BILLING: MailingBilling,
     };
 
     this.state = {
