@@ -10,7 +10,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-primaryPolicyholder',
             text: 'Primary Policyholder',
             icon: 'fa fa-user-circle',
           },
@@ -123,7 +122,6 @@ const mock = {
               type: '$TITLE',
               dependencies: [],
               data: {
-                name: 'title-secondaryPolicyholder',
                 text: 'Secondary Policyholder',
                 icon: 'fa fa-user-circle',
                 children: []
@@ -221,7 +219,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-policyDetails',
             text: 'Policy Details',
             icon: 'fa fa-user-circle',
           },
@@ -299,7 +296,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-coverageLimits',
             text: 'Coverage Limits',
             icon: 'fa fa-line-chart',
           },
@@ -575,7 +571,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-coverageOptions',
             text: 'Coverage Options',
             icon: 'fa fa-user-circle',
           },
@@ -631,7 +626,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-deductibles',
             text: 'Deductibles',
             icon: 'fa fa-user-circle',
           },
@@ -716,7 +710,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-windMitigation',
             text: 'Wind Mitigation',
             icon: 'fa fa-user-circle',
           },
@@ -961,7 +954,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-discounts',
             text: 'Discounts',
             icon: 'fa fa-user-circle',
           },
@@ -1118,7 +1110,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-mailingAddress',
             text: 'Mailing Address',
             icon: 'fa fa-envelope'
           },
@@ -1146,7 +1137,6 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            name: 'title-billingInformation',
             text: 'Billing Information',
             icon: 'fa fa-dollar'
           },
