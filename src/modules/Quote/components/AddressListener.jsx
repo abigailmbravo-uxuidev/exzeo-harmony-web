@@ -15,6 +15,7 @@ const AddressListener = ({ config, formValues, size }) => {
               meta={meta}
               label="Is the mailing address the same as the property address?"
               customClass="switch"
+              dataTest={watchField}
             />
           )}
         </Field>
@@ -27,7 +28,7 @@ const AddressListener = ({ config, formValues, size }) => {
             meta={meta}
             label="Address1"
             styleName="input"
-
+            dataTest={`${fieldPrefix}.address1`}
           />
         )}
       </Field>
@@ -39,6 +40,7 @@ const AddressListener = ({ config, formValues, size }) => {
             meta={meta}
             label="Address2"
             styleName="input"
+            dataTest={`${fieldPrefix}.address2`}
           />
         )}
       </Field>
@@ -51,6 +53,7 @@ const AddressListener = ({ config, formValues, size }) => {
             label="City"
             size="view-col-9"
             styleName="input"
+            dataTest={`${fieldPrefix}.city`}
           />
         )}
       </Field>
@@ -63,6 +66,7 @@ const AddressListener = ({ config, formValues, size }) => {
             label="State"
             size="view-col-1"
             styleName="input"
+            dataTest={`${fieldPrefix}.state`}
           />
         )}
       </Field>
@@ -75,6 +79,7 @@ const AddressListener = ({ config, formValues, size }) => {
             label="Zip"
             size="view-col-2"
             styleName="input"
+            dataTest={`${fieldPrefix}.zip`}
           />
         )}
       </Field>
@@ -84,8 +89,9 @@ const AddressListener = ({ config, formValues, size }) => {
           <OnChangeListener name={watchField}>
             {(value) => {
               if (value) {
-                onChange(_get(formValues, `${matchPrefix}.address1`, ''))
-
+                onChange(_get(formValues, `${matchPrefix}.address1`, ''));
+              } else {
+                onChange('');
               }
             }}
           </OnChangeListener>
@@ -97,8 +103,9 @@ const AddressListener = ({ config, formValues, size }) => {
           <OnChangeListener name={watchField}>
             {(value) => {
               if (value) {
-                onChange(_get(formValues, `${matchPrefix}.address2`, ''))
-
+                onChange(_get(formValues, `${matchPrefix}.address2`, ''));
+              } else {
+                onChange('');
               }
             }}
           </OnChangeListener>
@@ -110,8 +117,9 @@ const AddressListener = ({ config, formValues, size }) => {
           <OnChangeListener name={watchField}>
             {(value) => {
               if (value) {
-                onChange(_get(formValues, `${matchPrefix}.city`, ''))
-
+                onChange(_get(formValues, `${matchPrefix}.city`, ''));
+              } else {
+                onChange('');
               }
             }}
           </OnChangeListener>
@@ -123,8 +131,9 @@ const AddressListener = ({ config, formValues, size }) => {
           <OnChangeListener name={watchField}>
             {(value) => {
               if (value) {
-                onChange(_get(formValues, `${matchPrefix}.state`, ''))
-
+                onChange(_get(formValues, `${matchPrefix}.state`, ''));
+              } else {
+                onChange('');
               }
             }}
           </OnChangeListener>
@@ -136,25 +145,14 @@ const AddressListener = ({ config, formValues, size }) => {
           <OnChangeListener name={watchField}>
             {(value) => {
               if (value) {
-                onChange(_get(formValues, `${matchPrefix}.zip`, ''))
-
+                onChange(_get(formValues, `${matchPrefix}.zip`, ''));
+              } else {
+                onChange('');
               }
             }}
           </OnChangeListener>
         )}
       </Field>
-
-      {/*<Field name={watchField} subscription={{ active: true }}>*/}
-        {/*{({ input: { onChange }, meta: { active } }) => (*/}
-          {/*<OnChangeListener name={`${fieldPrefix}.zip`}>*/}
-            {/*{() => {*/}
-              {/*if (!active && _get(formValues, watchField)) {*/}
-                {/*onChange(false)*/}
-              {/*}*/}
-            {/*}}*/}
-          {/*</OnChangeListener>*/}
-        {/*)}*/}
-      {/*</Field>*/}
     </section>
   );
 };
