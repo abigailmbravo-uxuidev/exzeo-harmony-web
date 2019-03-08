@@ -218,21 +218,16 @@ export class QuoteWorkflow extends Component {
                 <Footer />
               </React.Fragment>
             }
-            {/*<Route exact path={`${match.url}/underwriting`}          render={props => <Underwriting {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/*<Route exact path={`${match.url}/customize`}             render={props => <Customize {...props} updateQuote={this.handleUpdateQuote} isRecalc={isRecalc} setRecalc={this.setRecalc} />} />*/}
-            {/*<Route exact path={`${match.url}/share`} render={props => <Share {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/*<Route exact path={`${match.url}/assumptions`} render={props => <Assumptions {...props} updateQuote={this.handleUpdateQuote} />} />*/}
+
             <Route exact path={`${match.url}/additionalInterests`} render={props => <AddAdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askMortgagee`} render={props => <Mortgagee {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askAdditionalInsured`} render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askPremiumFinance`} render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/askBillPayer`} render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />
-            {/*<Route exact path={`${match.url}/mailingBilling`} render={props => <Billing {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
             <Route exact path={`${match.url}/thankYou`} render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/error`} render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
-            {/*{ ^^^ Gandalf will be replacing most/all of these routes ^^^ }*/}
           </div>
       </App>
     );
