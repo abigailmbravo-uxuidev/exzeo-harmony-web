@@ -695,14 +695,18 @@ const mock = {
                 "answer" : 10,
                 "label" : "10% of Dwelling Limit"
               }
-            ]
+            ],
+            extendedProperties: {
+              output: 'currency',
+            }
           },
           formData:  {
             path: 'deductibles.sinkhole.value',
             type: 'integer',
-            // required: '${it.coverageOptions.sinkholePerilCoverage.answer}',
             required: true,
-            metaData: {},
+            metaData: {
+              target: '${Math.ceil(((it.deductibles.sinkhole.amount / 100) * it.coverageLimits.dwelling.amount))}',
+            },
           },
           children: [],
         },
