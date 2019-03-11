@@ -181,12 +181,12 @@ export class QuoteWorkflow extends Component {
                   formId={FORM_ID}
                   className="survey-wrapper"
                   currentPage={currentPage}
-                  path={location.pathname}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
                   template={MOCK_TEMPLATE}
                   options={options}  // enums for select/radio fields
                   transformConfig={transformConfig}
+                  path={location.pathname}
                   customHandlers={customHandlers}
                   customComponents={this.customComponents}
                   renderFooter={({ submitting, reset }) => (
