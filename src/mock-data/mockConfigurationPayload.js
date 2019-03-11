@@ -573,7 +573,7 @@ const mock = {
           dependencies: [],
           data: {
             text: 'Coverage Options',
-            icon: 'fa fa-user-circle',
+            icon: 'fa fa-tasks',
           },
           formData: {},
           children: [],
@@ -628,7 +628,7 @@ const mock = {
           dependencies: [],
           data: {
             text: 'Deductibles',
-            icon: 'fa fa-user-circle',
+            icon: 'fa fa-money',
           },
           formData: {},
           children: [],
@@ -716,7 +716,7 @@ const mock = {
           dependencies: [],
           data: {
             text: 'Wind Mitigation',
-            icon: 'fa fa-user-circle',
+            icon: 'fa fa-flag',
           },
           formData: {},
           children: [],
@@ -960,7 +960,7 @@ const mock = {
           dependencies: [],
           data: {
             text: 'Discounts',
-            icon: 'fa fa-user-circle',
+            icon: 'fa fa-scissors',
           },
           formData:{},
           children: [],
