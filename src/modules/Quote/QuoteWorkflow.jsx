@@ -189,7 +189,7 @@ export class QuoteWorkflow extends Component {
                   path={location.pathname}
                   customHandlers={customHandlers}
                   customComponents={this.customComponents}
-                  renderFooter={({ submitting, reset }) => (
+                  renderFooter={({ submitting, form }) => (
                     <React.Fragment>
                       {shouldRenderFooter &&
                         <div className="btn-group">
@@ -205,7 +205,7 @@ export class QuoteWorkflow extends Component {
                             <Button
                               data-test="reset"
                               className={Button.constants.classNames.secondary}
-                              onClick={reset}
+                              onClick={form.reset}
                               label="reset"
                             />
                           }
