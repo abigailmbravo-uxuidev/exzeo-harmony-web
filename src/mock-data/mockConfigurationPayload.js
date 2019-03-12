@@ -1148,26 +1148,25 @@ const mock = {
           formData: {},
           children: [],
         },
-        {
-          id: 345933,
-          type: '$INPUT',
-          path: 'billToId',
-          dependencies: [],
-          data: {
-            component: 'select',
-            label: 'Bill To',
-            dataSource: 'billingOptions',
-            extendedProperties: {}
-          },
-          formData: {
-            required: true,
-          },
-          children: [],
-        },
+        // {
+        //   id: 345933,
+        //   type: '$INPUT',
+        //   path: 'billToId',
+        //   dependencies: [],
+        //   data: {
+        //     component: 'select',
+        //     label: 'Bill To',
+        //     dataSource: 'billingOptions',
+        //     extendedProperties: {}
+        //   },
+        //   formData: {
+        //     required: true,
+        //   },
+        //   children: [],
+        // },
         {
           id: 348833,
           type: '$CUSTOM',
-          path: 'billToId',
           dependencies: [],
           data: {
             component: '$BILLING',
