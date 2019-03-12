@@ -15,16 +15,15 @@ import {
 
 describe('Back Button Testing', () => {
   const getAndSearchQuote = () => {
-    cy.wait(3500);
+    
     cy.findDataTag('quote-details').find('> dl > div > dd.fade').then($quote => {
-      cy.go('back');
-      cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
-      cy.get('.btn[href="/search/retrieve"]').click();
-      cy.findDataTag('quoteNumber').find('input').type($quote.text());
-      cy.clickSubmit('#SearchBar');
-      cy.findDataTag('quote-list').should('not.be.empty');
-      cy.wait(1500);
-      cy.go('back');
+      cy.go('back')
+        .url().should('eql', `${Cypress.config('baseUrl')}/`)
+        .get('.btn[href="/search/retrieve"]').click()
+        .findDataTag('quoteNumber').find('input').type($quote.text())
+        .clickSubmit('#SearchBar')
+        .findDataTag('quote-list').should('not.be.empty')
+        .go('back');
     });
   };
 
@@ -37,21 +36,19 @@ describe('Back Button Testing', () => {
   beforeEach(() => stubAllRoutes());
 
   it('Browser Back Button (Part 1)', () => {
-    cy.go('back');
-    cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
+    cy.go('back')
+      .url().should('eql', `${Cypress.config('baseUrl')}/`);
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    cy.wait(1500);
-    cy.go('back');
-    cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
+    cy.wait('@getZipcodeSettings').go('back')
+      .url().should('eql', `${Cypress.config('baseUrl')}/`);
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
-    cy.wait(1500);
-    cy.go('back');
-    cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
+    cy.go('back')
+      .url().should('eql', `${Cypress.config('baseUrl')}/`);
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -131,8 +128,7 @@ describe('Back Button Testing', () => {
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    cy.wait(1500);
-    cy.go('back');
-    cy.url().should('eql', `${Cypress.config('baseUrl')}/`);
+    cy.go('back')
+      .url().should('eql', `${Cypress.config('baseUrl')}/`);
   });
 });

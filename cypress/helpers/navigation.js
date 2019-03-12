@@ -61,7 +61,7 @@ export const navigateThroughMailingBilling = (updates, useConfig) => {
     .get('select[name="billToId"] > option:not([disabled])').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#Billing').wait('@getQuoteServiceRequest');
-}
+};
 
 export const navigateThroughVerify = () =>
   cy.findDataTag('confirmProperyDetails').find('.switch-div').click()
