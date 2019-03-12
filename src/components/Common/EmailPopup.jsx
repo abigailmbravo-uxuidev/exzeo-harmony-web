@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import TextField from '../Form/inputs/TextField';
-import { Loader } from '@exzeo/core-ui/src';
+import { Loader, Input, validation } from '@exzeo/core-ui';
 
 const EmailPopup = ({
   submitting,
@@ -21,22 +21,38 @@ const EmailPopup = ({
                 <h4><i className="fa fa-share-alt" /> Share Quote</h4>
               </div>
               <div className="card-block">
-                <TextField autoFocus type="text" name="name" value styleName="name" label="Name" validations={['required']} />
-                <TextField type="text" name="emailAddr" styleName="emailAddress" label="Email Address" validations={['required', 'email']} />
+                <Field
+                  name="name"
+                  styleName="text"
+                  component={Input}
+                  label="Name"
+                  validate={validation.isRequired}
+                  dataTest="name"
+                />
+
+                <Field
+                  name="emailAddr"
+                  styleName="text"
+                  component={Input}
+                  label="Email Address"
+                  validate={[validation.isRequired, validation.email]}
+                  dataTest="emailAddr"
+                />
+
               </div>
               <div className="card-footer">
                 <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleCancel}
-                  data-test="cancel"
+                  data-test="modal-cancel"
                 >Cancel</button>
                 <button
                   className="btn btn-primary"
                   type="button"
                   onClick={handleSubmit}
                   disabled={submitting}
-                  data-test="submit"
+                  data-test="modal-submit"
                 >Send Email</button>
               </div>
             </div>
