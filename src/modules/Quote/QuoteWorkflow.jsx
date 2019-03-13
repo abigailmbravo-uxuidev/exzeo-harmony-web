@@ -78,12 +78,12 @@ export class QuoteWorkflow extends Component {
     history.replace(ROUTE_TO_STEP_NAME[stepName]);
   };
 
-  handleGandalfSubmit = async (values) => {
+  handleGandalfSubmit = async ({ shouldNav, ...values}) => {
     const { zipCodeSettings, quote, history, updateQuote, location, workflowState } = this.props;
     const { isRecalc } = this.state;
     await updateQuote({ data: { ...values, recalc: isRecalc }, quoteNumber: quote.quoteNumber, options: { timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' } });
         // TODO: Figure out a routing solution
-    if(!(isRecalc || workflowState.isHardStop)) history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+    if(!(isRecalc || workflowState.isHardStop || shouldNav === 'false')) history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
   };
 
   primaryClickHandler = () => {

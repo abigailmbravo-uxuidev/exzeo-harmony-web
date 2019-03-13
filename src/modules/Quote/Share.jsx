@@ -1,29 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import EmailPopup from '../../components/Common/EmailPopup';
+import { Button } from '@exzeo/core-ui';
+
+import EmailPopup from './EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 
 export class Share extends React.Component {
   noShareSubmit = async () => {
-    const { customHandlers, updateQuote } = this.props;
-    // await updateQuote({ data: { shouldSendEmail: 'No' }, quoteNumber: this.props.quote.quoteNumber });
+    const { customHandlers } = this.props;
     customHandlers.handleSubmit({ shouldSendEmail: 'No' });
-    // customHandlers.history.replace('assumptions');
   };
 
   shareQuoteSubmit = async (data) => {
-    const { customHandlers, updateQuote } = this.props;
-    customHandlers.handleSubmit({ shouldSendEmail: 'Yes', ...data });
-
+    const { customHandlers } = this.props;
+    customHandlers.handleSubmit({ shouldNav: 'false', shouldSendEmail: 'Yes', ...data });
     customHandlers.setEmailPopup(false);
   };
 
   refreshUWReviewError = async () => {
-    const { customHandlers, updateQuote } = this.props;
+    const { customHandlers } = this.props;
     const data = { refresh: 'Yes' };
-    await updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
+    await customHandlers.updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
 
     customHandlers.history.replace('customerInfo');
   };
@@ -47,11 +46,11 @@ export class Share extends React.Component {
     return (
       <React.Fragment>
         <section className="section-instructions">
-          <div className="title"><i className="fa fa-share-alt" /> Share</div>
+          <div className="title" data-test="Share"><i className="fa fa-share-alt" /> Share</div>
           <p>To SHARE this quote as a PDF via email, click the <strong>SHARE</strong> button</p>
         </section>
-        <section className="section-instructions">
-          <div className="title"><i className="fa fa-arrow-circle-right" /> Continue</div>
+        <section className="section-instructions" data-test="section-1">
+          <div className="title" data-test="Continue"><i className="fa fa-arrow-circle-right" /> Continue</div>
           <p>To CONTINUE the quote process, you will need the following</p>
           <ul>
             <li>Mortgage information</li>
@@ -60,13 +59,23 @@ export class Share extends React.Component {
           </ul>
           <p>When you are prepared to move forward, click the <strong>NEXT</strong> button</p>
         </section>
-        <section className="section-instructions">
+        <section className="section-instructions" data-test="section-2">
           <div className="title"><i className="fa fa-quote-left" /> New Quote</div>
           <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i className="fa fa-dashboard" /> <strong>DASHBOARD</strong> tab</p>
         </section>
         <div className="btn-group">
-          <button className="btn btn-secondary" type="button" data-test="share" onClick={() => setEmailPopup(true)}>share</button>
-          <button className="btn btn-primary" type="button" onClick={this.noShareSubmit} data-test="submit" disabled={isLoading}>next</button>
+          <Button
+            className={Button.constants.classNames.secondary}
+            onClick={() => setEmailPopup(true)}
+            disabled={isLoading}
+            data-test="share"
+          >share</Button>
+          <Button
+            className={Button.constants.classNames.primary}
+            onClick={this.noShareSubmit}
+            disabled={isLoading}
+            data-test="submit"
+          >next</Button>
         </div>
 
 
@@ -94,6 +103,7 @@ Share.defaultProps = {
   isLoading: false,
   underwritingExceptions: [],
   quote: {},
+  customHandlers: {}
 };
 
 const mapStateToProps = state => ({

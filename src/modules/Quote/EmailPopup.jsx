@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import TextField from '../Form/inputs/TextField';
-import { Loader, Input, validation } from '@exzeo/core-ui';
+import { Loader, Input, Button, validation } from '@exzeo/core-ui';
 
 const EmailPopup = ({
   submitting,
@@ -17,7 +16,7 @@ const EmailPopup = ({
               <Loader />
             }
             <div className="fade-in" id="SendEmail">
-              <div className="card-header">
+              <div className="card-header" data-test="modal-header">
                 <h4><i className="fa fa-share-alt" /> Share Quote</h4>
               </div>
               <div className="card-block">
@@ -35,25 +34,23 @@ const EmailPopup = ({
                   styleName="text"
                   component={Input}
                   label="Email Address"
-                  validate={[validation.isRequired, validation.email]}
+                  validate={[validation.isRequired, validation.isEmail]}
                   dataTest="emailAddr"
                 />
 
               </div>
               <div className="card-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
+                <Button
+                  className={Button.constants.classNames.secondary}
                   onClick={handleCancel}
                   data-test="modal-cancel"
-                >Cancel</button>
-                <button
-                  className="btn btn-primary"
-                  type="button"
+                >Cancel</Button>
+                <Button
+                  className={Button.constants.classNames.primary}
                   onClick={handleSubmit}
                   disabled={submitting}
                   data-test="modal-submit"
-                >Send Email</button>
+                >Send Email</Button>
               </div>
             </div>
           </div>
