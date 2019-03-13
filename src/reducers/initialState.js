@@ -28,8 +28,11 @@ export default {
     uiQuestions: {},
     underwritingQuestions: [],
     agents: [],
-    billToConfig: {},
-    billingOptions: [],
-    paymentPlans: {},
+    billingConfig: {
+      billToConfig: {},
+      billingOptions: [],
+      defaultBillToId: '',
+      paymentPlans: {},},
+
   }
 };
