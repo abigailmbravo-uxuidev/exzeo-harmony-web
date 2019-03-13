@@ -14,7 +14,7 @@ export default class Auth {
     sso: true
   });
 
-  renewInterval = setInterval(() => { this.checkAuth(); }, 5000);
+  renewInterval = setInterval(() => { this.checkAuth(); }, process.env.REACT_APP_AUTH_WAIT);
 
   userProfile;
 
@@ -84,13 +84,13 @@ export default class Auth {
         agencyCode: appMetadata.agencyCode,
         companyCode: appMetadata.companyCode,
         state: appMetadata.state
-      }
+      };
     } else if (legacyAgency.isAgency){
       agency = {
         agencyCode: legacyAgency.agencyCode,
         companyCode: legacyAgency.companyCode,
         state: legacyAgency.state
-      }
+      };
     }
 
     this.userProfile = {
