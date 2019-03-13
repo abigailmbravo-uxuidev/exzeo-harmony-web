@@ -39,13 +39,12 @@ function getBillingInfo(state) {
   const billingVar = state.variables.find(v => v.name === 'billingOptions');
   if (!billingVar) return undefined;
 
-  let defaultBillToId = '';
+  const defaultBillToId = (billingVar.value.result.options[0] || {}).billToId;
   const billingOptions = [];
   const billToConfig = {};
   const paymentPlans = billingVar.value.result.paymentPlans;
 
   billingVar.value.result.options.forEach(option => {
-    if (option.billToType === 'Policyholder') defaultBillToId = option.billToId;
     billingOptions.push(({ label: option.displayText, answer: option.billToId }));
     billToConfig[`${option.billToId}`] = {
       billToType:option.billToType,
@@ -59,20 +58,6 @@ function getBillingInfo(state) {
     billToConfig,
     defaultBillToId,
     paymentPlans,
-    // // build billing options array for 'select' field
-    // billingOptions: billingVar.value.result.options.map(o => ({ label: o.displayText, answer: o.billToId })),
-    // paymentPlans: billingVar.value.result.paymentPlans,
-    // // derive properties/values to be used by Billing component
-    // billToConfig: billingVar.value.result.options.reduce((map, option) => {
-    //   return {
-    //     ...map,
-    //     [option.billToId]: {
-    //       billToType:option.billToType,
-    //       availablePlans: option.payPlans,
-    //       payPlanOptions: option.payPlans.map(p => ({ label: p, answer: p })),
-    //     }
-    //   }
-    // }, {})
   }
 }
 
