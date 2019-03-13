@@ -77,6 +77,7 @@ export class Mortgagee extends React.Component {
             'm1MailingAddress1',
             _.get(selectedMortgagee, 'AIAddress1')
           ),
+          change('Mortgagee','m1MailingAddress2',''),
           change('Mortgagee', 'm1City', _.get(selectedMortgagee, 'AICity')),
           change('Mortgagee', 'm1State', _.get(selectedMortgagee, 'AIState')),
           change('Mortgagee', 'm1Zip', String(_.get(selectedMortgagee, 'AIZip')))
@@ -88,6 +89,7 @@ export class Mortgagee extends React.Component {
           change('Mortgagee', 'm1Name1', ''),
           change('Mortgagee', 'm1Name2', ''),
           change('Mortgagee', 'm1MailingAddress1', ''),
+          change('Mortgagee','m1MailingAddress2',''),
           change('Mortgagee', 'm1City', ''),
           change('Mortgagee', 'm1State', ''),
           change('Mortgagee', 'm1Zip', '')
@@ -111,6 +113,7 @@ export class Mortgagee extends React.Component {
             'm2MailingAddress1',
             _.get(selectedMortgagee, 'AIAddress1')
           ),
+          change('Mortgagee','m2MailingAddress2',''),
           change('Mortgagee', 'm2City', _.get(selectedMortgagee, 'AICity')),
           change('Mortgagee', 'm2State', _.get(selectedMortgagee, 'AIState')),
           change('Mortgagee', 'm2Zip', String(_.get(selectedMortgagee, 'AIZip')))
@@ -122,6 +125,7 @@ export class Mortgagee extends React.Component {
           change('Mortgagee', 'm2Name1', ''),
           change('Mortgagee', 'm2Name2', ''),
           change('Mortgagee', 'm2MailingAddress1', ''),
+          change('Mortgagee','m2MailingAddress2',''),
           change('Mortgagee', 'm2City', ''),
           change('Mortgagee', 'm2State', ''),
           change('Mortgagee', 'm2Zip', '')
@@ -144,6 +148,7 @@ export class Mortgagee extends React.Component {
             'm3MailingAddress1',
             _.get(selectedMortgagee, 'AIAddress1')
           ),
+          change('Mortgagee','m3MailingAddress2',''),
           change('Mortgagee', 'm3City', _.get(selectedMortgagee, 'AICity')),
           change('Mortgagee', 'm3State', _.get(selectedMortgagee, 'AIState')),
           change('Mortgagee', 'm3Zip', String(_.get(selectedMortgagee, 'AIZip')))
@@ -155,6 +160,7 @@ export class Mortgagee extends React.Component {
           change('Mortgagee', 'm3Name1', ''),
           change('Mortgagee', 'm3Name2', ''),
           change('Mortgagee', 'm3MailingAddress1', ''),
+          change('Mortgagee','m3MailingAddress2',''),
           change('Mortgagee', 'm3City', ''),
           change('Mortgagee', 'm3State', ''),
           change('Mortgagee', 'm3Zip', '')

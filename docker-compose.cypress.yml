@@ -15,6 +15,4 @@ services:
       # - CYPRESS_BASE_URL=ttp://devagent.harmony-ins.com:8383
 
       # # point to local using mock-auth0
-      # - CYPRESS_USE_MOCK_AUTH0=true
-
-
+      # -CYPRESS_USE_MOCK_AUTH0=true

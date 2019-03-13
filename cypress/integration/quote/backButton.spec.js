@@ -15,7 +15,7 @@ import {
 
 describe('Back Button Testing', () => {
   const getAndSearchQuote = () => {
-    
+
     cy.findDataTag('quote-details').find('> dl > div > dd.fade').then($quote => {
       cy.go('back')
         .url().should('eql', `${Cypress.config('baseUrl')}/`)

@@ -39,7 +39,7 @@ describe('Additional Parties, on Additional Interest Page Positive', () => {
         .get('#AddAdditionalInterestPage .results.result-cards li').eq(4).checkCard({ tag: 'Additional Insured', index: 2 })
         .get('#AddAdditionalInterestPage .results.result-cards li').eq(5).checkCard({ tag: 'Additional Interest', index: 1 })
         .get('#AddAdditionalInterestPage .results.result-cards li').eq(6).checkCard({ tag: 'Additional Interest', index: 2 })
-        .get('#AddAdditionalInterestPage .results.result-cards li').eq(7).checkCard({ tag: 'Premium Finance', index: 1 })
+        .get('#AddAdditionalInterestPage .results.result-cards li').eq(7).checkCard({ tag: 'Premium Finance', index: 1 });
     }).wait(1000)
   );
 
