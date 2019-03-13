@@ -220,7 +220,7 @@ const mock = {
           dependencies: [],
           data: {
             text: 'Policy Details',
-            icon: 'fa fa-user-circle',
+            icon: 'fa fa-file-text',
           },
           formData: {},
           children: [],
