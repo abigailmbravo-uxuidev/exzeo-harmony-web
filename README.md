@@ -24,9 +24,6 @@ add `.env.local` file
 # point to specific env
 REACT_APP_API_URL=https://api.harmony-ins.com
 
-# Comment this out to run with default production spec on this timeout
-REACT_APP_AUTH_WAIT=86400000
-
 # use mock-auth0 (for local dev with docker)
 #REACT_APP_API_URL=http://devapi.harmony-ins.com:8000
 #REACT_APP_AUTH0_DOMAIN=mock-auth0:8888

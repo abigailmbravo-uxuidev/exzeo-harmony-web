@@ -14,7 +14,7 @@ export default class Auth {
     sso: true
   });
 
-  renewInterval = setInterval(() => { this.checkAuth(); }, process.env.REACT_APP_AUTH_WAIT);
+  renewInterval = !window.Cypress && setInterval(() => this.checkAuth(), 5000);
 
   userProfile;
 
