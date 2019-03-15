@@ -11,7 +11,7 @@ import {
 } from '../../helpers';
 import ains1 from '../../fixtures/stockData/ains1.json';
 import ains2 from '../../fixtures/stockData/ains2.json';
-import { ains1Fields, ains2Fields } from './additionalInsuredInputs.js';
+import { ains1Fields, ains2Fields } from './additionalInsuredInputs';
 
 describe('Additional Insured Testing', () => {
   const toggleModalOn = () => cy.findDataTag('ains-add').click();
@@ -76,7 +76,7 @@ describe('Additional Insured Testing', () => {
       toggleModalOn();
       addAdditional();
       cy.clearAllText([...ains1Fields, ...ains2Fields])
-        .wrap(ains1Required).each(leaveBlank => cy.verifyForm(ains2Required, [leaveBlank], ains2));
+        .wrap(ains1Required).each(fieldToLeaveBlank => cy.verifyForm(ains2Required, [fieldToLeaveBlank], ains2));
     })
   );
 
@@ -101,7 +101,7 @@ describe('Additional Insured Testing', () => {
         .find('input[name="isAdditional"]').should('have.attr', 'value', 'true')
         .next().click().findDataTag('ains1Name1').should('not.exist')
         .findDataTag('isAdditional').find('label[for="isAdditional"] > .switch-div').click().findDataTag('ains1Name1').should('exist')
-        .wrap(ains1Fields).each(({name, label}) => cy.checkLabel(name, label).checkText(name))
+        .wrap(ains1Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name))
 
       // AI2 Testing
         .findDataTag('isAdditional2').find('label').should('contain', 'Do you want to add second Additional Insured?')
