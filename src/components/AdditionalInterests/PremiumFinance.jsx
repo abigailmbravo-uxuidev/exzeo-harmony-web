@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';
 import failedSubmission from '../Common/reduxFormFailSubmit';
-import { getInitialValues } from '../Customize/customizeHelpers';
+import { getInitialValues } from '../../utilities/customizeHelpers';
 import FieldGenerator from '../Form/FieldGenerator';
 import ReactSelectField from '../Form/inputs/ReactSelectField';
 
