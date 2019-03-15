@@ -45,11 +45,11 @@ export class Share extends React.Component {
     const { showEmailPopup } = getState();
     return (
       <React.Fragment>
-        <section className="section-instructions">
+        <section className="section-instructions" data-test="section-1">
           <div className="title" data-test="Share"><i className="fa fa-share-alt" /> Share</div>
           <p>To SHARE this quote as a PDF via email, click the <strong>SHARE</strong> button</p>
         </section>
-        <section className="section-instructions" data-test="section-1">
+        <section className="section-instructions" data-test="section-2">
           <div className="title" data-test="Continue"><i className="fa fa-arrow-circle-right" /> Continue</div>
           <p>To CONTINUE the quote process, you will need the following</p>
           <ul>
@@ -59,8 +59,8 @@ export class Share extends React.Component {
           </ul>
           <p>When you are prepared to move forward, click the <strong>NEXT</strong> button</p>
         </section>
-        <section className="section-instructions" data-test="section-2">
-          <div className="title"><i className="fa fa-quote-left" /> New Quote</div>
+        <section className="section-instructions" data-test="section-3">
+          <div className="title" data-test="NewQuote"><i className="fa fa-quote-left" /> New Quote</div>
           <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i className="fa fa-dashboard" /> <strong>DASHBOARD</strong> tab</p>
         </section>
         <div className="btn-group">
