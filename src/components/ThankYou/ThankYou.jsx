@@ -3,7 +3,7 @@ import Footer from '../Common/Footer';
 
 const ThankYou = () => (
   <div className="route-content">
-    <div id="thanks">
+    <div id="thanks" data-test="thanks">
       <div className="scroll">
         <div className="detail-wrapper form-group" role="article">
           <div className="detail-group">

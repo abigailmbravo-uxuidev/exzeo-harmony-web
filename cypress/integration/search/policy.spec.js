@@ -1,5 +1,8 @@
+import stubAllRoutes from "../../support/stubAllRoutes";
+
 describe('Policy Search', () => {
   before('Login', () => {
+    stubAllRoutes();
     cy.login();
   });
 

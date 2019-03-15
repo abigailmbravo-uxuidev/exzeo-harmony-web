@@ -1,44 +1,84 @@
 import { goBack } from './utils';
+import stubAllRoutes from '../../support/stubAllRoutes';
+import {
+  navigateThroughLanding,
+  navigateThroughSearchAddress,
+  navigateThroughPolicyholder,
+  navigateThroughUnderwriting,
+  navigateThroughCustomize,
+  navigateThroughShare,
+  navigateThroughAssumptions
+} from '../../helpers';
+import user from '../../fixtures/stockData/additionalUser.json';
 
 describe('Premium Finance Testing', () => {
   const fields = ['name1', 'mailingAddress1', 'city', 'state', 'zip'];
   const toggleModalOn = () => cy.findDataTag('bill-payer-add').click();
 
   before(() => {
-    cy.quoteWorkflow('additionalInterests');
+    stubAllRoutes();
+    cy.login();
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughPolicyholder();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
   });
 
   beforeEach('Establish fixtures', () => {
-    cy.fixture('additionalUser').as('user');
+    stubAllRoutes();
+    cy.route('POST', '/cg/complete?addAdditionalAIs', 'fx:stubs/addAdditionalAIs/billpayer');
   });
 
-  it('All Premium Finance Inputs Empty Value', () => {
+  it('NEG:All Premium Finance Inputs Empty Value', () =>
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(fields);
+      cy.clearAllText(fields)
+        .submitAndCheckValidation(fields);
+    })
+  );
 
-      cy.submitAndCheckValidation(fields);
-    });
-  });
-
-  it('Premium Finance Empty Value', function () {
-    const { user } = this;
+  it('NEG:Premium Finance Empty Value', () =>
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(fields);
 
       fields.forEach(leaveBlank => cy.verifyForm(fields, [leaveBlank], user));
-    });
-  });
+    })
+  );
 
-  it('Premium Finance Invalid Input Value', () => {
+  it('NEG:Premium Finance Invalid Input Value', () =>
     goBack().then(() => {
       toggleModalOn();
-      cy.clearAllText(fields);
+      cy.clearAllText(fields)
+        .verifyForm(['state'], undefined, { state: 'foo' }, { errors: ['Only 2 letters allowed'] })
+        .verifyForm(['zip'], undefined, { zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+    })
+  );
 
-      cy.verifyForm(['state'], undefined, { state: 'foo' }, { errors: ['Only 2 letters allowed'] });
+  it('POS:Bill Payer', () =>
+    goBack().then(() => {
+      const bpLabelText = [
+        ['name1', 'Name 1'],
+        ['name2', 'Name 2'],
+        ['mailingAddress1', 'Mailing Address 1'],
+        ['mailingAddress2', 'Mailing Address 2'],
+        ['city', 'City'],
+        ['state', 'State'],
+        ['zip', 'Zip'],
+        ['referenceNumber', 'Reference Number']
+      ];
 
-      cy.verifyForm(['zip'], undefined, { zip: '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
-    });
-  });
+      cy.findDataTag('bill-payer-add').should('have.attr', 'class', 'btn btn-secondary').click()
+        .get('#BillPayer .survey-wrapper > h3.section-group-header').should('contain', 'Bill Payer').find('i').should('have.attr', 'class', 'fa fa-money')
+        .get('input[name="isAdditional"]').should('have.attr', 'value', 'true')
+        .next().click().findDataTag('name1').should('not.exist')
+        .findDataTag('isAdditional').find('label[for="isAdditional"] > .switch-div').click().findDataTag('name1').should('exist');;
+
+      bpLabelText.forEach(([tag, text]) => cy.checkLabel(tag, text));
+      bpLabelText.forEach(([tag]) => cy.checkText(tag));
+    })
+  );
 });

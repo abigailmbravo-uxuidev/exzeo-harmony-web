@@ -7,7 +7,7 @@ import { updateQuote } from '../../actions/quoteState.actions';
 
 
 const ScheduleDate = ({ isLoading, handleSubmit, verify, secondaryButtonHandler, quoteData, selectedAgent, redirectToHome }) => (
-  <div className="modal schedule-date-modal">
+  <div className="modal schedule-date-modal" data-test="schedule-date-modal">
     <div className="survey-wrapper">
       <div className="card card-schedule-date">
         <Form noValidate onSubmit={handleSubmit(verify)}>

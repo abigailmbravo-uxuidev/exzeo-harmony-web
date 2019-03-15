@@ -1,0 +1,722 @@
+{
+  "status": 200,
+  "message": "success",
+  "data": {
+    "modelInstanceId": "1144711",
+    "modelName": "quoteModel",
+    "activeTask": {
+      "name": "chooseAddress",
+      "metaInfo": {
+        "taskType": "userTask",
+        "expectedInputs": [{
+          "name": "igdId",
+          "dataType": "string",
+          "required": true,
+          "displayText": "IGD ID"
+        }, {
+          "name": "stateCode",
+          "dataType": "string",
+          "required": true,
+          "displayText": "State Code"
+        }]
+      }
+    },
+    "previousTask": {
+      "name": "searchAddress",
+      "value": {
+        "message": "success",
+        "status": 200,
+        "result": {
+          "IndexResult": [{
+            "id": "12105038ACD2DE81F",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "WINTER HAVEN",
+              "latitude": "28.02124",
+              "zip": "33880",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.73689",
+              "county": "POLK",
+              "address1": "0 AVENUE A SW"
+            }
+          }, {
+            "id": "12087C234E639E07A",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "SADDLEBUNCH KEY",
+              "latitude": "24.62734",
+              "zip": "33040",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.59191",
+              "county": "MONROE",
+              "address1": "0 BAY DR"
+            }
+          }, {
+            "id": "12073C641D9051895",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "TALLAHASSEE",
+              "latitude": "30.432980",
+              "zip": "32310",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-84.522060",
+              "county": "LEON",
+              "address1": "0 BLOUNTSTOWN HWY"
+            }
+          }, {
+            "id": "12105BA80D14EDD76",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "LAKELAND",
+              "latitude": "28.03583",
+              "zip": "33815",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.97370",
+              "county": "POLK",
+              "address1": "0 CENTRAL AVE S"
+            }
+          }, {
+            "id": "121059C8A5607A59F",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "DUNDEE",
+              "latitude": "28.01014",
+              "zip": "33838",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.62202",
+              "county": "POLK",
+              "address1": "0 FOUSE AVE"
+            }
+          }, {
+            "id": "12105D95F94A64FD0",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "LAKELAND",
+              "latitude": "27.97035",
+              "zip": "33813",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.97226",
+              "county": "POLK",
+              "address1": "0 KRENSON WOODS RD"
+            }
+          }, {
+            "id": "12073C7516479B2CB",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "TALLAHASSEE",
+              "latitude": "30.342840",
+              "zip": "32305",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-84.394430",
+              "county": "LEON",
+              "address1": "0 ROCKY WOOD RD"
+            }
+          }, {
+            "id": "12095CCF23D5E8ABE",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "ORLANDO",
+              "latitude": "28.413440",
+              "zip": "32827",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.243990",
+              "county": "ORANGE",
+              "address1": "0 TAVISTOCK RD"
+            }
+          }, {
+            "id": "12095CE5A3FBC0C70",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "APOPKA",
+              "latitude": "28.71038",
+              "zip": "32712",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.52398",
+              "county": "ORANGE",
+              "address1": "0 VICK RD"
+            }
+          }, {
+            "id": "12105BEE96A90D2FC",
+            "source": "casaclue",
+            "residenceType": "N/A",
+            "physicalAddress": {
+              "city": "LAKE WALES",
+              "latitude": "27.89577",
+              "zip": "33898",
+              "state": "FL",
+              "address2": "",
+              "longitude": "-81.52827",
+              "county": "POLK",
+              "address1": "0 VILLAS CT"
+            }
+          }],
+          "TotalCount": 60,
+          "Message": "match found"
+        },
+        "timeTookByEndpoint": 125
+      }
+    },
+    "tasks": {
+      "userTasks": ["addAdditionalAIs", "askAdditionalCustomerData", "askAdditionalInsured", "askAdditionalInterest", "askAdditionalPolicyHolder", "askAdditionalQuestions", "askBillPayer", "askEmail", "askMortgagee", "askPremiumFinance", "askScheduleInspectionDates", "askToCustomizeDefaultQuote", "askToSearchAgain", "askUWAnswers", "chooseAddress", "chooseQuote", "customizeDefaultQuote", "editPolicyHolder", "editVerify", "refreshOnUnderWritingReviewError", "search", "sendEmailOrContinue", "showAssumptions", "showCustomizedQuoteAndContinue"],
+      "variableTasks": ["UWDecision1EndError", "UWDecision2EndError", "UWDecision3EndError", "UWDecision4EndError", "UWDecision5EndError", "UnderWritingReviewError", "buildDeductibles", "docuSignUrl", "filterDeductibles", "filterPolicyHolders", "filterPolicyHoldersById", "filteredEditPolicyHolder", "filteredFirstPolicyHolder", "getDocumentsForDocusign", "getFirstZipCodeFromArray", "getFirstZipCodeFromArrayForPDF", "mergeQuoteforUWD1", "mergeQuoteforUWD2", "mergeQuoteforUWD3", "mergeQuoteforUWD4", "mergeQuoteforUWD5", "prepareEditPolicyHolderArray", "prepareFirstPolicyHolderArray", "preparePolicyHolders", "searchEnd", "singleQuote", "transactionSpec", "uiTasks", "underWritingReviewEndError", "zipCodeSettingsForPDFTimezone"],
+      "modelTasks": [],
+      "receiveTasks": ["getQuoteApplicationPDFs"],
+      "serviceTasks": ["UWDecision1", "UWDecision2", "UWDecision3", "UWDecision4", "UWDecision5", "billingOptions", "billingOptionsForQuoteSummary", "createQuote", "emailQuoteSummaryPDF", "generateAgentQuoteSummaryPDF", "generateQuoteApplicationPDFs", "getActiveAgents", "getAgencyDocument", "getAgentDocument", "getCompanyContactList", "getCost", "getFinalQuote", "getInfoFromCasaclue", "getListOfUWQuestions", "getQuote", "getQuoteApplicationFormsList", "getQuoteBeforeAIs", "getQuoteBeforeRate", "getQuoteForSummary", "getQuoteSummaryForm", "getQuoteWithAIs", "getRate", "getRecipients", "getZipCodeSettings", "getZipCodeSettingsForQuote", "notifyDocusignApp", "notifyInspectionApp", "quote", "quoteSchema", "retrieveQuote", "searchAddress", "searchQuote", "showFinalQuoteDetail", "updateQuoteStateBeforeAssumptions", "updateQuoteStateDocusign", "updateQuoteStateFatalUWD4", "updateQuoteStateReviewUWD4", "updateQuoteStateUWD1", "updateQuoteStateUWD2", "updateQuoteStateUWD3", "updateQuoteStateUWD5", "updateQuoteWithAdditionalInsurers", "updateQuoteWithAdditionalInterests", "updateQuoteWithAdditionalPolicyHolder", "updateQuoteWithAdditionalQuestions", "updateQuoteWithBillPayer", "updateQuoteWithCustomerData", "updateQuoteWithCustomizedInfo", "updateQuoteWithEditPolicyHolder", "updateQuoteWithMortgagees", "updateQuoteWithPremiumFinance", "updateQuoteWithRatesAndCost", "updateQuoteWithUWAnswers", "updateQuoteWithUWDecision1", "updateQuoteWithUWDecision2", "updateQuoteWithUWDecision3", "updateQuoteWithUWDecision4", "updateQuoteWithUWDecision5"]
+    },
+    "uiQuestions": [{
+      "_id": "5bbba313ec85020015b7dd1e",
+      "__v": 0,
+      "name": "igdId",
+      "question": "property id?",
+      "description": "Enter the IGDID",
+      "answerType": "text",
+      "answers": [],
+      "group": [],
+      "models": ["quote"],
+      "product": ["HO3"],
+      "state": ["FL"],
+      "companyId": ["TTIC"],
+      "steps": ["chooseAddress"],
+      "validations": []
+    }, {
+      "_id": "5bbba313ec85020015b7dd21",
+      "__v": 0,
+      "name": "stateCode",
+      "description": "Choose an address",
+      "answerType": "text",
+      "answers": [],
+      "group": [],
+      "models": ["quote"],
+      "product": ["HO3"],
+      "state": ["FL"],
+      "companyId": ["TTIC"],
+      "steps": ["chooseAddress"],
+      "validations": []
+    }],
+    "model": {
+      "state": "running",
+      "globalVariables": [{
+        "name": "currentActiveTask",
+        "value": "chooseAddress"
+      }, {
+        "name": "lastActiveTask",
+        "value": "searchAddress"
+      }, {
+        "name": "modelName",
+        "value": "quoteModel"
+      }, {
+        "name": "completedTasks",
+        "value": ["_4", "searchAddress", "_3", "search", "docuSignUrl", "uiTasks", "seqStartEvent"]
+      }],
+      "variables": [{
+        "name": "searchAddress",
+        "value": {
+          "message": "success",
+          "status": 200,
+          "result": {
+            "IndexResult": [{
+              "id": "12105038ACD2DE81F",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "WINTER HAVEN",
+                "latitude": "28.02124",
+                "zip": "33880",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.73689",
+                "county": "POLK",
+                "address1": "0 AVENUE A SW"
+              }
+            }, {
+              "id": "12087C234E639E07A",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "SADDLEBUNCH KEY",
+                "latitude": "24.62734",
+                "zip": "33040",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.59191",
+                "county": "MONROE",
+                "address1": "0 BAY DR"
+              }
+            }, {
+              "id": "12073C641D9051895",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "TALLAHASSEE",
+                "latitude": "30.432980",
+                "zip": "32310",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-84.522060",
+                "county": "LEON",
+                "address1": "0 BLOUNTSTOWN HWY"
+              }
+            }, {
+              "id": "12105BA80D14EDD76",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "LAKELAND",
+                "latitude": "28.03583",
+                "zip": "33815",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.97370",
+                "county": "POLK",
+                "address1": "0 CENTRAL AVE S"
+              }
+            }, {
+              "id": "121059C8A5607A59F",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "DUNDEE",
+                "latitude": "28.01014",
+                "zip": "33838",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.62202",
+                "county": "POLK",
+                "address1": "0 FOUSE AVE"
+              }
+            }, {
+              "id": "12105D95F94A64FD0",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "LAKELAND",
+                "latitude": "27.97035",
+                "zip": "33813",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.97226",
+                "county": "POLK",
+                "address1": "0 KRENSON WOODS RD"
+              }
+            }, {
+              "id": "12073C7516479B2CB",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "TALLAHASSEE",
+                "latitude": "30.342840",
+                "zip": "32305",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-84.394430",
+                "county": "LEON",
+                "address1": "0 ROCKY WOOD RD"
+              }
+            }, {
+              "id": "12095CCF23D5E8ABE",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "ORLANDO",
+                "latitude": "28.413440",
+                "zip": "32827",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.243990",
+                "county": "ORANGE",
+                "address1": "0 TAVISTOCK RD"
+              }
+            }, {
+              "id": "12095CE5A3FBC0C70",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "APOPKA",
+                "latitude": "28.71038",
+                "zip": "32712",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.52398",
+                "county": "ORANGE",
+                "address1": "0 VICK RD"
+              }
+            }, {
+              "id": "12105BEE96A90D2FC",
+              "source": "casaclue",
+              "residenceType": "N/A",
+              "physicalAddress": {
+                "city": "LAKE WALES",
+                "latitude": "27.89577",
+                "zip": "33898",
+                "state": "FL",
+                "address2": "",
+                "longitude": "-81.52827",
+                "county": "POLK",
+                "address1": "0 VILLAS CT"
+              }
+            }],
+            "TotalCount": 60,
+            "Message": "match found"
+          },
+          "timeTookByEndpoint": 125
+        }
+      }, {
+        "name": "address",
+        "value": "0"
+      }, {
+        "name": "searchType",
+        "value": "address"
+      }, {
+        "name": "uiTasks",
+        "value": {
+          "tasks": [{
+            "name": "search",
+            "label": "Enter Address",
+            "order": 1,
+            "link": "search",
+            "component": "Search"
+          }, {
+            "name": "chooseAddress",
+            "data": [{
+              "key": "property",
+              "value": "searchAddress"
+            }],
+            "label": "Property Address",
+            "order": 2,
+            "link": "search"
+          }, {
+            "name": "chooseQuote",
+            "data": [{
+              "key": "quoteSearchResults",
+              "value": "searchQuote"
+            }],
+            "label": "Property Quote",
+            "order": 3,
+            "link": "search"
+          }, {
+            "name": "askAdditionalCustomerData",
+            "data": [{
+              "key": "questions",
+              "value": "api"
+            }, {
+              "key": "quote",
+              "value": "quote"
+            }, {
+              "fields": ["property.physicalAddress", "property.yearBuilt"],
+              "key": "quoteDetails",
+              "value": "quote"
+            }],
+            "label": "Demographics",
+            "order": 4,
+            "link": "demographics",
+            "component": "Demographics"
+          }, {
+            "name": "askUWAnswers",
+            "data": [{
+              "key": "quote",
+              "value": "quote"
+            }, {
+              "key": "questions",
+              "value": "getListOfUWQuestions"
+            }, {
+              "fields": ["property.physicalAddress", "property.yearBuilt"],
+              "key": "quoteDetails",
+              "value": "quote"
+            }],
+            "label": "UnderWriting Q&A",
+            "order": 5,
+            "link": "underwriting",
+            "component": "UnderWriting"
+          }, {
+            "name": "askToCustomizeDefaultQuote",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Customize Quote",
+            "order": 6,
+            "link": "customize",
+            "component": "Customize"
+          }, {
+            "name": "sendEmailOrContinue",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Share Quote",
+            "order": 7,
+            "link": "share",
+            "component": "Share"
+          }, {
+            "name": "askAdditionalPolicyHolder",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Add Additional Policyholder",
+            "order": 8,
+            "link": "additionalpolicyholder",
+            "component": "AdditionalPolicyHolder"
+          }, {
+            "name": "askMortgagee",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Add Additional Mortgagee",
+            "order": 9,
+            "link": "additionalmortgagee",
+            "component": "AdditionalInterest"
+          }, {
+            "name": "askPremiumFinance",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Add Additional PremiumFinance",
+            "order": 10,
+            "link": "additionalPremiumFinance",
+            "component": "AdditionalInterest"
+          }, {
+            "name": "askAdditionalInterest",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Add Additional Interest",
+            "order": 11,
+            "link": "additionalInterest",
+            "component": "AdditionalInterest"
+          }, {
+            "name": "askAdditionalInsured",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Add Additional Insured",
+            "order": 12,
+            "link": "additionalInsured",
+            "component": "AdditionalInterest"
+          }, {
+            "name": "askBillPayer",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Add Bill Payer",
+            "order": 13,
+            "link": "additionalBillPayer",
+            "component": "AdditionalInterest"
+          }, {
+            "name": "askAdditionalQuestions",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Billing Info",
+            "order": 14,
+            "link": "billing",
+            "component": "Billing"
+          }, {
+            "name": "showAssumptions",
+            "data": [{
+              "key": "quote",
+              "value": "getQuote"
+            }, {
+              "key": "questions",
+              "value": "api"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Assumption",
+            "order": 15,
+            "link": "assumptions"
+          }, {
+            "name": "askScheduleInspectionDates",
+            "data": [{
+              "key": "quote",
+              "value": "getFinalQuote"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress", "property.yearBuilt", "rating.totalPremium", "coverageLimits.dwelling.amount"],
+              "key": "quoteDetails",
+              "value": "getQuote"
+            }],
+            "label": "Verify & Write policy",
+            "order": 16,
+            "link": "verify",
+            "component": "Verify"
+          }, {
+            "name": "UWDecision1EndError",
+            "data": [{
+              "key": "underWritingExceptions",
+              "value": "UWDecision1EndError"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress"],
+              "key": "quote",
+              "value": "quote"
+            }],
+            "order": 17,
+            "link": "error",
+            "component": "Share"
+          }, {
+            "link": "error",
+            "name": "UWDecision2EndError",
+            "order": 18
+          }, {
+            "link": "error",
+            "name": "UWDecision3EndError",
+            "order": 19
+          }, {
+            "link": "error",
+            "name": "UWDecision4EndError",
+            "order": 20
+          }, {
+            "link": "error",
+            "name": "UWDecision5EndError",
+            "order": 21
+          }, {
+            "name": "refreshOnUnderWritingReviewError",
+            "data": [{
+              "key": "underWritingExceptions",
+              "value": "UnderWritingReviewError"
+            }, {
+              "fields": ["quoteNumber", "property.physicalAddress"],
+              "key": "quote",
+              "value": "quote"
+            }],
+            "label": "Share Quote",
+            "order": 22,
+            "link": "share",
+            "component": "Share"
+          }, {
+            "link": "search/noresults",
+            "name": "askToSearchAgain",
+            "order": 23
+          }]
+        }
+      }, {
+        "name": "docuSignUrl",
+        "value": "https://api.harmony-ins.com/ds"
+      }, {
+        "name": "search",
+        "value": {
+          "address": "0",
+          "searchType": "address"
+        }
+      }, {
+        "name": "dsUrl",
+        "value": "https://api.harmony-ins.com/ds"
+      }],
+      "modelName": "quoteModel",
+      "tasks": {
+        "userTasks": ["addAdditionalAIs", "askAdditionalCustomerData", "askAdditionalInsured", "askAdditionalInterest", "askAdditionalPolicyHolder", "askAdditionalQuestions", "askBillPayer", "askEmail", "askMortgagee", "askPremiumFinance", "askScheduleInspectionDates", "askToCustomizeDefaultQuote", "askToSearchAgain", "askUWAnswers", "chooseAddress", "chooseQuote", "customizeDefaultQuote", "editPolicyHolder", "editVerify", "refreshOnUnderWritingReviewError", "search", "sendEmailOrContinue", "showAssumptions", "showCustomizedQuoteAndContinue"],
+        "variableTasks": ["UWDecision1EndError", "UWDecision2EndError", "UWDecision3EndError", "UWDecision4EndError", "UWDecision5EndError", "UnderWritingReviewError", "buildDeductibles", "docuSignUrl", "filterDeductibles", "filterPolicyHolders", "filterPolicyHoldersById", "filteredEditPolicyHolder", "filteredFirstPolicyHolder", "getDocumentsForDocusign", "getFirstZipCodeFromArray", "getFirstZipCodeFromArrayForPDF", "mergeQuoteforUWD1", "mergeQuoteforUWD2", "mergeQuoteforUWD3", "mergeQuoteforUWD4", "mergeQuoteforUWD5", "prepareEditPolicyHolderArray", "prepareFirstPolicyHolderArray", "preparePolicyHolders", "searchEnd", "singleQuote", "transactionSpec", "uiTasks", "underWritingReviewEndError", "zipCodeSettingsForPDFTimezone"],
+        "modelTasks": [],
+        "receiveTasks": ["getQuoteApplicationPDFs"],
+        "serviceTasks": ["UWDecision1", "UWDecision2", "UWDecision3", "UWDecision4", "UWDecision5", "billingOptions", "billingOptionsForQuoteSummary", "createQuote", "emailQuoteSummaryPDF", "generateAgentQuoteSummaryPDF", "generateQuoteApplicationPDFs", "getActiveAgents", "getAgencyDocument", "getAgentDocument", "getCompanyContactList", "getCost", "getFinalQuote", "getInfoFromCasaclue", "getListOfUWQuestions", "getQuote", "getQuoteApplicationFormsList", "getQuoteBeforeAIs", "getQuoteBeforeRate", "getQuoteForSummary", "getQuoteSummaryForm", "getQuoteWithAIs", "getRate", "getRecipients", "getZipCodeSettings", "getZipCodeSettingsForQuote", "notifyDocusignApp", "notifyInspectionApp", "quote", "quoteSchema", "retrieveQuote", "searchAddress", "searchQuote", "showFinalQuoteDetail", "updateQuoteStateBeforeAssumptions", "updateQuoteStateDocusign", "updateQuoteStateFatalUWD4", "updateQuoteStateReviewUWD4", "updateQuoteStateUWD1", "updateQuoteStateUWD2", "updateQuoteStateUWD3", "updateQuoteStateUWD5", "updateQuoteWithAdditionalInsurers", "updateQuoteWithAdditionalInterests", "updateQuoteWithAdditionalPolicyHolder", "updateQuoteWithAdditionalQuestions", "updateQuoteWithBillPayer", "updateQuoteWithCustomerData", "updateQuoteWithCustomizedInfo", "updateQuoteWithEditPolicyHolder", "updateQuoteWithMortgagees", "updateQuoteWithPremiumFinance", "updateQuoteWithRatesAndCost", "updateQuoteWithUWAnswers", "updateQuoteWithUWDecision1", "updateQuoteWithUWDecision2", "updateQuoteWithUWDecision3", "updateQuoteWithUWDecision4", "updateQuoteWithUWDecision5"]
+      },
+      "modelInstanceId": "1144711",
+      "completedTasks": ["uiTasks", "docuSignUrl", "search", "searchAddress"],
+      "activeTask": {
+        "name": "chooseAddress",
+        "metaInfo": {
+          "taskType": "userTask",
+          "expectedInputs": [{
+            "name": "igdId",
+            "dataType": "string",
+            "required": true,
+            "displayText": "IGD ID"
+          }, {
+            "name": "stateCode",
+            "dataType": "string",
+            "required": true,
+            "displayText": "State Code"
+          }]
+        }
+      }
+    }
+  }
+}

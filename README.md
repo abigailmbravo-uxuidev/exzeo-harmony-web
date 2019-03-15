@@ -33,9 +33,8 @@ REACT_APP_API_URL=https://api.harmony-ins.com
 
 # point cypress to a different environment
 #CYPRESS_BASE_URL=https://agency.harmony-ins.com
-
-#CYPRESS_FIXTURES=false
 #CYPRESS_USE_MOCK_AUTH0=true
+#CYPRESS_FIXTURES=false
 ```
 
 **Important!**  

@@ -17,7 +17,7 @@ export const SelectFieldBilling = ({
   const Hint = hint && (<FieldHint name={name} hint={hint} />);
 
   return (
-    <div className={formGroupStyles}>
+    <div className={formGroupStyles} data-test={name}>
       <label htmlFor={name}>
         {label}
         {Hint}

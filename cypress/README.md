@@ -72,8 +72,8 @@ cypress/
 
 **Project Opinions**
 
-To navigate to a page inside fo the app, use the `cy.quoteWorkflow()` fn detailed
-in `support/quoteWorkflow`. This should be written in your `before()` hook and will
+To navigate to a page inside of the app, use the navigation helpers.
+This should be written in your `before()` hook and will
 most likely be utilized on every test.
 
 Whenever possible, use a reusable function listed in `support/inputs` or 
@@ -91,9 +91,19 @@ which utilize these fixtures must use the `function()` notation rather than arro
 notation. In all other cases  - including `before` and `beforeEach`, even when aliasing 
 - use arrow notation.
 
+If you want to update a fixture, most of the time you will use the cy.setFx()
+function detailed in `support/stubbing.js`. After using this function you will need to wrap
+the remainder of your test in a `then()` call like so:
+```js
+cy.setFx('/stubs/foo/bar', ['res.keyToChange', 'newValueString']).then(() =>
+  cy.findDataTag('foo') //etc etc
+);
+```
+
 Favor dot notation over callback notation. Only use `then` calls if necessary. A good
 place for then calls is when waiting on async calls, such as either a network request
-or getting a fixture from `cy/fixtures`. 
+or getting a fixture from `cy/fixtures`. Also avoid these `then` calls because they expost the
+element as a jQuery element, without the Cypress wrapper, requiring using the jQuery assertions.
 
 *Not this*:
 ```js

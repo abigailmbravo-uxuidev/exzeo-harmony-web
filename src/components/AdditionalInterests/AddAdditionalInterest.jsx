@@ -103,7 +103,7 @@ export class AddAdditionalInterest extends React.Component {
 
   render() {
     return (
-      <div className="route-content">
+      <div className="route-content" data-test="add-additional-interest">
       <SnackBar show={this.props.showSnackBar} timer={3000}>
         <p>Please correct errors.</p>
       </SnackBar>

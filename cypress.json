@@ -1,6 +1,9 @@
 {
   "projectId": "qd8etr",
   "chromeWebSecurity": false,
-  "testFiles": "**/**.spec.js"
+  "testFiles": "**/**.spec.js",
+  "videoUploadOnPasses": false,
+  "defaultCommandTimeout": 12000,
+  "reporter": "teamcity",
+  "numTestsKeptInMemory": 0
 }
-

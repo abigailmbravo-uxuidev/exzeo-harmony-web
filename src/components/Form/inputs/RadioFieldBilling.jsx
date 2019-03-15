@@ -58,7 +58,7 @@ export const RadioInputBilling = ({
 
 
   return (
-    <div className={formGroupStyles} role="group">
+    <div className={formGroupStyles} role="group" data-test={name}>
       <label className={labelStyles} htmlFor={name}>
         {label}
         {Hint}

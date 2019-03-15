@@ -78,7 +78,7 @@ export const getSelectedPlan = (answer) => {
   return selection;
 };
 
-export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="installment-term">
+export const InstallmentTerm = ({ paymentPlans, payPlans }) => (<div className="installment-term" data-test="installment-term">
   {payPlans && payPlans.map((payPlan, index) => {
     const paymentPlan = paymentPlans[getSelectedPlan(payPlan)];
     return (

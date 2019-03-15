@@ -1,3 +1,11 @@
+import _ from 'lodash';
+
+import stubAllRoutes from "../../support/stubAllRoutes";
+import {
+  navigateThroughLanding
+} from '../../helpers';
+import user from '../../fixtures/stockData/user.json';
+
 describe('Property Address Search Testing', () => {
   const type = text => cy.findDataTag('address').find('input').type(text);
   const clear = () => cy.findDataTag('address').find('input').type('{selectall}{backspace}');
@@ -6,54 +14,65 @@ describe('Property Address Search Testing', () => {
   const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
   const fillAndCheckErrors = (text, submit = true) => {
     cy.findDataTag('address').find('input').type(text);
-    submit ? cy._submit().then(() => hasSearchInput(text.trim())) : isButtonDisabled();
+    submit ? cy.clickSubmit().then(() => hasSearchInput(text.trim())) : isButtonDisabled();
     clear();
   };
 
   before('Go to the search page', () => {
-    cy.quoteWorkflow('searchAddress');
+    stubAllRoutes();
+    cy.login();
+    navigateThroughLanding();
   });
 
-  beforeEach('Establish fixtures', () => {
-    cy.fixture('user').as('user');
-  });
+  beforeEach(() => stubAllRoutes());
 
-  it('Property Address Search Bar Empty Value', function() {
-    const { user: { address }} = this;
+  it('NEG:Property Address Search Bar Empty Value', () => {
+    const { address } = user;
 
     isButtonDisabled();
-
     fillAndCheckErrors('     ', false);
-
     fillAndCheckErrors(`  ${address}`);
-
     fillAndCheckErrors(`      ${address}`);
-
     fillAndCheckErrors(`${address}  `);
-
     fillAndCheckErrors(`${address}     `);
   });
 
-  it('Test Invalid Addresses', function() {
-    const { user: { address } } = this;
+  it('NEG:Test Invalid Addresses', () => {
+    cy.setFx('stubs/fetchAddresses', ['result.IndexResult', []])
+    .then(() => {
+      const { address } = user;
+      type('ADDRESS NOT FOUND');
+      cy.clickSubmit()
+        .findDataTag('no-results').find('.no-results .card-header > h4')
+        .should('contain', 'No Results Found')
+        .findDataTag('no-results').find('.no-results .card-block > p')
+        .should('contain', 'We\'re sorry we couldn\'t');
+      clear();
 
-    type('INVALID ADDRESS');
-    cy._submit();
-    cy.findDataTag('no-results').find('.no-results .card-header > h4')
-      .should('contain', 'No Results Found');
-    cy.findDataTag('no-results').find('.no-results .card-block > p')
-      .should('contain', 'We\'re sorry we couldn\'t');
-    clear();
+      type(`{selectall}{backspace}${address}π`);
+      isButtonDisabled();
+      cy.findDataTag('address').find('label span > i')
+        .should('exist')
+        .and('be.visible')
+        .trigger('mouseenter').get('[data-id="tooltip"]')
+        // workaround for visibility testing in Cypress Chrome 67
+        .should('have.css', 'visibility', 'visible')
+        .and('contain', 'Invalid characters');
+    });
+  });
 
-    type(`{selectall}{backspace}${address}π`);
-    isButtonDisabled();
-    cy.findDataTag('address').find('label span > i')
-      .should('exist')
-      .and('be.visible')
-      .trigger('mouseenter');
-    cy.get('[data-id="tooltip"]')
-    // workaround for visibility testing in Cypress Chrome 67
-      .should('have.css', 'visibility', 'visible')
-      .and('contain', 'Invalid characters');
+  it('POS:Property Search', () => {
+    const { address } = user;
+    cy.findDataTag('address').find('label').should('contain', 'Property Address')
+      .findDataTag('search-results').find('div small p').each($el => expect($el).to.contain('If'))
+      .findDataTag('address').find('input[name="address"]').should('have.attr', 'placeholder', 'Search for Property Address');
+    type(`{selectall}{backspace}${address}`);
+    cy.findDataTag('address').find('[name="address"]').should('have.attr', 'value', address)
+      .findDataTag('submit').should('exist').and('not.be.disabled')
+      .clickSubmit().then(() => hasSearchInput(address))
+      .findDataTag('search-results').find('li').first().find('a').children()
+      .first().should('have.attr', 'class', 'card-icon fa fa-map-marker')
+      .next().should('exist')
+      .next().should('have.attr', 'class', 'fa fa-chevron-circle-right');
   });
 });

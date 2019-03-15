@@ -13,7 +13,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           </div>
         </dl>
       </section>
-      <section id="propertyDetails" className="propertyDetails">
+      <section id="propertyDetails" className="propertyDetails" data-test="property-details">
         <dl>
           <div>
             <dt>Address</dt>
@@ -27,7 +27,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           </div>
         </dl>
       </section>
-      <section id="yearBuilt" className="yearBuilt">
+      <section id="yearBuilt" className="yearBuilt" data-test="year-built">
         <dl>
           <div>
             <dt className="fade">Year Built</dt>
@@ -35,7 +35,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           </div>
         </dl>
       </section>
-      <section id="constructionType" className="constructionType">
+      <section id="constructionType" className="constructionType" data-test="construction-type">
         <dl>
           <div>
             <dt className="fade">Construction Type</dt>
@@ -43,7 +43,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           </div>
         </dl>
       </section>
-      <section id="coverageDetails">
+      <section id="coverageDetails" data-test="coverage-details">
         <dl>
           <div>
             <dt className="fade">Coverage A</dt>
@@ -56,7 +56,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           </div>
         </dl>
       </section>
-      <section id="premium" className="premium">
+      <section id="premium" className="premium" data-test="premium">
         <dl>
           <div>
             <dt className="fade">Premium</dt>
