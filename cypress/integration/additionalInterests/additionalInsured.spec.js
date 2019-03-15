@@ -54,9 +54,10 @@ describe('Additional Insured Testing', () => {
 
   it('NEG:Additional Insured 1 Invalid Input Value', () =>
     goBack().then(() => {
-      toggleModalOn();
       const state = ains1Fields.find(({ name }) => name === 'ains1State');
       const zip = ains1Fields.find(({ name }) => name === 'ains1Zip');
+
+      toggleModalOn();
       cy.clearAllText(ains1Fields)
         .verifyForm([{ ...state, error: 'Only 2 letters allowed'}], undefined, { ains1State: 'foo' })
         .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { ains1Zip: '123456789' });
@@ -82,10 +83,11 @@ describe('Additional Insured Testing', () => {
 
   it('NEG:Additional Insured 2 Invalid Input Value', () =>
     goBack().then(() => {
-      toggleModalOn();
-      addAdditional();
       const state = ains2Fields.find(({ name }) => name === 'ains2State');
       const zip = ains2Fields.find(({ name }) => name === 'ains2Zip');
+
+      toggleModalOn();
+      addAdditional();
       cy.clearAllText([...ains1Fields, ...ains2Fields])
         .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { ains2State: 'foo' })
         .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { ains2Zip: '123456789' });

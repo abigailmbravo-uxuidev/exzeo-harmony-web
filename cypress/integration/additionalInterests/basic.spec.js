@@ -22,7 +22,7 @@ describe('Basic Additional Parties Testing', () => {
     navigateThroughAssumptions();
   });
 
-  it('POS:Additional Parties', () => {
+  it('POS:Additional Parties', () =>
     cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
       .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
       .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'selected')
@@ -34,6 +34,6 @@ describe('Basic Additional Parties Testing', () => {
       .get('.button-group').children().each($el =>
         cy.wrap($el).should('have.attr', 'type', 'button')
           .find('div i').should('have.attr', 'class', 'fa fa-plus')
-      ).findDataTag('submit').should('contain', 'Not Applicable').and('have.attr', 'type', 'submit');
-  });
+      ).findDataTag('submit').should('contain', 'Not Applicable').and('have.attr', 'type', 'submit')
+  );
 });

@@ -55,9 +55,9 @@ describe('Additional Interest Testing', () => {
 
   it('NEG:Additional Interest 1 Invalid Input Value', () =>
     goBack().then(() => {
-      toggleModalOn();
       const state = ai1Fields.find(({ name }) => name === 'ai1State');
       const zip = ai1Fields.find(({ name }) => name === 'ai1Zip');
+      toggleModalOn();
       cy.clearAllText(ai1Fields)
         .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { ai1State: 'foo' })
         .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { ai1Zip: '123456789' });
@@ -83,10 +83,10 @@ describe('Additional Interest Testing', () => {
 
   it('NEG:Additional Interest 2 Invalid Input Value', () =>
     goBack().then(() => {
-      toggleModalOn();
-      addAdditional();
       const state = ai2Fields.find(({ name }) => name === 'ai2State');
       const zip = ai2Fields.find(({ name }) => name === 'ai2Zip');
+      toggleModalOn();
+      addAdditional();
       cy.clearAllText(ai2Fields)
         .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { ai2State: 'foo' })
         .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { ai2Zip: '123456789' });
