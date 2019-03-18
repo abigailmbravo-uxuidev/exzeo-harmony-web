@@ -39,44 +39,44 @@ describe('Underwriting Testing', () => {
     stubWithBlankAnswers();
   });
 
-  // it('NEG:All Inputs Empty Value', () => {
-  //   const fields = ["underwritingAnswers.rented.answer_wrapper", "underwritingAnswers.previousClaims.answer_wrapper", "underwritingAnswers.monthsOccupied.answer_wrapper", "underwritingAnswers.business.answer_wrapper"];
-  //   cy.submitAndCheckValidation(fields);
-  // });
+  it('NEG:All Inputs Empty Value', () => {
+    const fields = ["underwritingAnswers.rented.answer_wrapper", "underwritingAnswers.previousClaims.answer_wrapper", "underwritingAnswers.monthsOccupied.answer_wrapper", "underwritingAnswers.business.answer_wrapper"];
+    cy.submitAndCheckValidation(fields);
+  });
 
-  // it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['underwritingAnswers.rented.answer'], data);
-  //   cy.submitAndCheckValidation(['underwritingAnswers.rented.answer_wrapper']);
-  // });
+  it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['underwritingAnswers.rented.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.rented.answer_wrapper']);
+  });
 
-  // it('NEG:"When was the last claim filed?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['underwritingAnswers.previousClaims.answer'], data);
-  //   cy.submitAndCheckValidation(['underwritingAnswers.previousClaims.answer_wrapper']);
-  // });
+  it('NEG:"When was the last claim filed?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['underwritingAnswers.previousClaims.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.previousClaims.answer_wrapper']);
+  });
 
-  // it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['underwritingAnswers.monthsOccupied.answer'], data);
-  //   cy.submitAndCheckValidation(['underwritingAnswers.monthsOccupied.answer_wrapper']);
-  // });
+  it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['underwritingAnswers.monthsOccupied.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.monthsOccupied.answer_wrapper']);
+  });
 
-  // it('NEG:"Is a business conducted on the property?" Empty Value', () => {
-  //   cy.reload();
-  //   toggleExcept(['underwritingAnswers.business.answer'], data);
-  //   cy.submitAndCheckValidation(['underwritingAnswers.business.answer_wrapper']);
-  // });
+  it('NEG:"Is a business conducted on the property?" Empty Value', () => {
+    cy.reload();
+    toggleExcept(['underwritingAnswers.business.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.business.answer_wrapper']);
+  });
 
-  // it('POS:Underwriting Workflow', () =>
-  //   cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-  //     .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
-  //     .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
-  //     .checkWorkflowSection('tab-nav-sendEmailOrContinue')
-  //     .checkWorkflowSection('tab-nav-addAdditionalAIs')
-  //     .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-  //     .checkWorkflowSection('tab-nav-editVerify')
-  // );
+  it('POS:Underwriting Workflow', () =>
+    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
+      .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
+      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
+      .checkWorkflowSection('tab-nav-sendEmailOrContinue')
+      .checkWorkflowSection('tab-nav-addAdditionalAIs')
+      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
+      .checkWorkflowSection('tab-nav-editVerify')
+  );
 
   it('POS:Property Ever Rented Text / Input', () =>
     cy.reload().checkLabel('underwritingAnswers.rented.answer_wrapper', 'Is the home or any structures on the property ever rented?')

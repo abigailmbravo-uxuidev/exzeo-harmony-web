@@ -30,9 +30,9 @@ export const navigateThroughUnderwriting = (data = underwriting, updates, useCon
 
   cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig);
   Object.entries(data).forEach(([name, value]) => {
-    cy.get(`input[name="${name}"][value="${value}"] + span`).click();
+    cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click();
   });
-  cy.clickSubmit('#Underwriting').wait('@getQuoteServiceRequest');
+  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
 export const navigateThroughCustomize = () => cy.clickSubmit('#Customize').wait('@getQuoteServiceRequest');
