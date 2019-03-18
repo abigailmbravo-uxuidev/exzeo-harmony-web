@@ -247,7 +247,7 @@ const mock = {
               min: 'zipCodeSettings.minEffectiveDate',
               max: 'zipCodeSettings.maxEffectiveDate',
             },
-            validation: ['isPhone'],
+            validation: ['minEffectiveDate'],
           },
           formData: {
             path: 'effectiveDate',
