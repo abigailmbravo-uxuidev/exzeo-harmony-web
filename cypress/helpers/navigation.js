@@ -14,8 +14,8 @@ export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, ag
   Object.entries(customerInfo).forEach(([field, value]) => {
     cy.findDataTag(`${field}`).find('input').type(value);
   });
-  cy.findDataTag('agentCode').find('select').select(agentCode)
-    .clickSubmit('#CustomerInfo')
+  cy.findDataTag('agentCode').select(agentCode)
+    .clickSubmit('#QuoteWorkflow')
     .wait('@getQuoteServiceRequest');
 };
 

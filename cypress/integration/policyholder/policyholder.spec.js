@@ -3,17 +3,31 @@ import {
   navigateThroughLanding,
   navigateThroughSearchAddress
 } from '../../helpers';
-import user from '../../fixtures/stockData/user.json';
-import secondUser from '../../fixtures/stockData/secondUser.json';
 
 describe('Policyholder Testing', () => {
-  const primaryPolicyFields = ['FirstName', 'LastName', 'EmailAddress', 'phoneNumber'];
-  const secondaryPolicyFields = ['FirstName2', 'LastName2', 'EmailAddress2', 'phoneNumber2'];
+  const user = {
+    "customerInfo": {
+      "policyHolders[0].firstName_wrapper": "Bruce",
+      "policyHolders[0].lastName_wrapper": "Wayne",
+      "policyHolders[0].emailAddress_wrapper": "Batman@gmail.com",
+      "policyHolders[0].primaryPhoneNumber_wrapper": "123 456 7890"
+    }
+  };
+  const secondUser = {
+    "customerInfo": {
+      "policyHolders[1].firstName_wrapper": "Dick",
+      "policyHolders[1].lastName_wrapper": "Grayson",
+      "policyHolders[1].emailAddress_wrapper": "Robin@hotmail.com",
+      "policyHolders[1].primaryPhoneNumber_wrapper": "135 792 4680"
+    }
+  };
+  const primaryPolicyFields = ['policyHolders[0].firstName_wrapper', 'policyHolders[0].lastName_wrapper', 'policyHolders[0].emailAddress_wrapper', 'policyHolders[0].primaryPhoneNumber_wrapper'];
+  const secondaryPolicyFields = ['policyHolders[1].firstName_wrapper', 'policyHolders[1].lastName_wrapper', 'policyHolders[1].emailAddress_wrapper', 'policyHolders[1].primaryPhoneNumber_wrapper'];
 
   const toggleSecondUser = (dir = 'on') => {
-    cy.get('#isAdditional').then($el => {
-      if (($el.hasClass('active') && dir === 'off') || ($el.hasClass('inactive') && dir === 'on')) {
-        cy.wrap($el).find('input[name = "isAdditional"] + .switch-div').click();
+    cy.findDataTag('additionalPolicyholder').then($el => {
+      if (($el.hasClass('active') && dir === 'off') || (!$el.hasClass('active') && dir === 'on')) {
+        cy.wrap($el).click();
       };
     });
   };
@@ -49,48 +63,39 @@ describe('Policyholder Testing', () => {
 
   it('NEG:Primary Policyholder Invalid Character', () => {
     cy.clearAllText(primaryPolicyFields);
-    cy.verifyForm(['FirstName'], undefined, { FirstName: '∞' }, { errors: ['Invalid characters'] });
+    cy.verifyForm(['policyHolders[0].firstName_wrapper'], undefined, { 'policyHolders[0].firstName_wrapper': '∞' }, { errors: ['Invalid characters'] });
 
-    cy.verifyForm(['LastName'], undefined, { LastName: '∞' }, { errors: ['Invalid characters'] });
+    cy.verifyForm(['policyHolders[0].lastName_wrapper'], undefined, { 'policyHolders[0].lastName_wrapper': '∞' }, { errors: ['Invalid characters'] });
 
-    cy.verifyForm(['EmailAddress'], undefined, { EmailAddress: '∞' });
+    cy.verifyForm(['policyHolders[0].emailAddress_wrapper'], undefined, { 'policyHolders[0].emailAddress_wrapper': '∞' }, { errors: ['Not a valid email address']});
   });
 
   it('NEG:Secondary Policyholder Invalid Character', () => {
     toggleSecondUser();
     cy.clearAllText(secondaryPolicyFields);
 
-    cy.verifyForm(['FirstName2'], undefined, { FirstName2: '∞' }, { errors: ['Invalid characters'] });
+    cy.verifyForm(['policyHolders[1].firstName_wrapper'], undefined, { 'policyHolders[1].firstName_wrapper': '∞' }, { errors: ['Invalid characters'] });
 
-    cy.verifyForm(['LastName2'], undefined, { LastName2: '∞' }, { errors: ['Invalid characters'] });
+    cy.verifyForm(['policyHolders[1].lastName_wrapper'], undefined, { 'policyHolders[1].lastName_wrapper': '∞' }, { errors: ['Invalid characters'] });
 
-    cy.verifyForm(['EmailAddress2'], undefined, { EmailAddress2: '∞' });
-  });
-
-  it('NEG:Invalid Email Address', () => {
-    toggleSecondUser();
-    cy.clearAllText([...primaryPolicyFields, ...secondaryPolicyFields]);
-
-    cy.verifyForm(undefined, ['EmailAddress']);
-
-    cy.verifyForm(undefined, ['EmailAddress2']);
+    cy.verifyForm(['policyHolders[1].emailAddress_wrapper'], undefined, { 'policyHolders[1].emailAddress_wrapper': '∞' }, { errors: ['Not a valid email address']});
   });
 
   it('NEG:Invalid Contact Phone', () => {
     toggleSecondUser();
     cy.clearAllText([...primaryPolicyFields, ...secondaryPolicyFields]);
 
-    cy.verifyForm(['phoneNumber'], undefined, { phoneNumber: '123' }, { errors: ['is not a valid Phone Number.']});
+    cy.verifyForm(['policyHolders[0].primaryPhoneNumber_wrapper'], undefined, { 'policyHolders[0].primaryPhoneNumber_wrapper': '123' }, { errors: ['Not a valid Phone Number.']});
 
-    cy.verifyForm(['phoneNumber2'], undefined, { phoneNumber2: '456' }, { errors: ['is not a valid Phone Number.'] });
+    cy.verifyForm(['policyHolders[1].primaryPhoneNumber_wrapper'], undefined, { 'policyHolders[1].primaryPhoneNumber_wrapper': '456' }, { errors: ['Not a valid Phone Number.'] });
   });
 
   it('NEG:Invalid Effective Date', () => {
-    cy.findDataTag('effectiveDate').find('input').clear();
-    cy.submitAndCheckValidation(['effectiveDate'], { errors: ['Not a valid date'] });
+    cy.findDataTag('effectiveDate_wrapper').find('input').clear();
+    cy.submitAndCheckValidation(['effectiveDate_wrapper']);
 
-    cy.findDataTag('effectiveDate').find('input').type('1900-01-01');
-    cy.submitAndCheckValidation(['effectiveDate'], { errors: ['Date must be at least 08/01/2017'] });
+    // cy.findDataTag('effectiveDate_wrapper').find('input').type('1900-01-01');
+    // cy.submitAndCheckValidation(['effectiveDate_wrapper'], { errors: ['Date must be at least 08/01/2017'] });
   });
 
   it('POS:Policyholder Detail Header', () => {
@@ -98,7 +103,7 @@ describe('Policyholder Testing', () => {
       cy.findDataTag(tag).find('dl div').children().each(($el, index) => expect($el).to.contain(values[index]));
 
       checkHeaderSection('quote-details', ['Quote Number', '-']);
-      checkHeaderSection('property-details', ['Address', user.address, '', 'SARASOTA']);
+      checkHeaderSection('property-details', ['Address', '4131 TEST ADDRESS', '', 'SARASOTA']);
       checkHeaderSection('year-built', ['Year Built', '1998']);
       checkHeaderSection('construction-type', ['Construction Type', 'MASONRY']);
       checkHeaderSection('coverage-details', ['Coverage A', '--']);
@@ -116,56 +121,54 @@ describe('Policyholder Testing', () => {
   );
 
   it('POS:Primary Policyholder Text', () =>
-    cy.get('span.section-group-header').first().find('i').should('have.attr', 'class', 'fa Primary Policyholder')
-      .get('span.section-group-header').should('contain', 'Primary Policyholder')
-      .checkLabel('FirstName', 'First Name')
-      .checkLabel('LastName', 'Last Name')
-      .checkLabel('EmailAddress', 'Email Address')
-      .checkLabel('phoneNumber', 'Contact Phone')
+    cy.findDataTag('Primary Policyholder').should('contain', 'Primary Policyholder')
+      .find('i').should('have.attr', 'class', 'fa fa-user-circle')
+      .checkLabel('policyHolders[0].firstName_wrapper', 'First Name')
+      .checkLabel('policyHolders[0].lastName_wrapper', 'Last Name')
+      .checkLabel('policyHolders[0].emailAddress_wrapper', 'Email Address')
+      .checkLabel('policyHolders[0].primaryPhoneNumber_wrapper', 'Contact Phone')
     );
 
   it('POS:Primary Policyholder Input', () => {
     cy.clearAllText(primaryPolicyFields);
-    const { FirstName, LastName, EmailAddress } = user.customerInfo;
 
-    cy.checkText('FirstName', FirstName)
-    .checkText('LastName', LastName)
-    .checkText('EmailAddress', EmailAddress)
-    .checkText('phoneNumber', '(123) ');
+    cy.checkText('policyHolders[0].firstName_wrapper', user.customerInfo['policyHolders[0].firstName_wrapper'])
+      .checkText('policyHolders[0].lastName_wrapper', user.customerInfo['policyHolders[0].lastName_wrapper'])
+      .checkText('policyHolders[0].emailAddress_wrapper', user.customerInfo['policyHolders[0].emailAddress_wrapper'])
+      .checkText('policyHolders[0].primaryPhoneNumber_wrapper', '(123)    -    ');
   });
 
   it('POS:Secondary Policyholder Text', () => {
     toggleSecondUser();
-    cy.get('span.section-group-header').contains('Secondary Policyholder').should('exist')
-      .find('i').should('have.attr', 'class', 'fa Secondary Policyholder')
-      .checkLabel('FirstName2', 'First Name')
-      .checkLabel('LastName2', 'Last Name')
-      .checkLabel('EmailAddress2', 'Email Address')
-      .checkLabel('phoneNumber2', 'Policyholder Contact Phone');
+    cy.findDataTag('Secondary Policyholder').should('contain', 'Secondary Policyholder')
+      .find('i').should('have.attr', 'class', 'fa fa-user-circle')
+      .checkLabel('policyHolders[1].firstName_wrapper', 'First Name')
+      .checkLabel('policyHolders[1].lastName_wrapper', 'Last Name')
+      .checkLabel('policyHolders[1].emailAddress_wrapper', 'Email Address')
+      .checkLabel('policyHolders[1].primaryPhoneNumber_wrapper', 'Contact Phone')
   });
 
   it('POS:Secondary Policyholder Input', () => {
     toggleSecondUser();
     cy.clearAllText(secondaryPolicyFields);
-    const { FirstName2, LastName2, EmailAddress2 } = secondUser.customerInfo;
 
-    cy.checkText('FirstName2', FirstName2)
-      .checkText('LastName2', LastName2)
-      .checkText('EmailAddress2', EmailAddress2)
-      .checkText('phoneNumber2', '(123) ');
+    cy.checkText('policyHolders[1].firstName_wrapper', user.customerInfo['policyHolders[1].firstName_wrapper'])
+      .checkText('policyHolders[1].lastName_wrapper', user.customerInfo['policyHolders[1].lastName_wrapper'])
+      .checkText('policyHolders[1].emailAddress_wrapper', user.customerInfo['policyHolders[1].emailAddress_wrapper'])
+      .checkText('policyHolders[1].primaryPhoneNumber_wrapper', '(123)    -    ');
   });
 
   it('POS:Policy Details Text', () =>
-    cy.get('span.section-group-header').contains('Policy Details').should('exist')
-      .find('i').should('have.attr', 'class', 'fa Policy Details')
-      .checkLabel('effectiveDate', 'Effective Date')
-      .findDataTag('effectiveDate').find('div.date-min-max').should('contain', '-')
-      .checkLabel('agentCode', 'Agent')
+    cy.findDataTag('Policy Details').should('contain', 'Policy Details')
+      .find('i').should('have.attr', 'class', 'fa fa-file-text')
+      .checkLabel('effectiveDate_wrapper', 'Effective Date')
+      .findDataTag('effectiveDate_wrapper').find('span.secondary-label').should('contain', '-')
+      .checkLabel('agentCode_wrapper', 'Agent')
   );
 
   it('POS:Policy Details Input', () =>
-    cy.findDataTag('effectiveDate').find('input[type="date"]').should('have.attr', 'type', 'date')
-      .findDataTag('agentCode').find('option').first().should('contain', 'Please select...').and('be.disabled')
+    cy.findDataTag('effectiveDate').should('have.attr', 'type', 'date')
+      .findDataTag('agentCode').find('option').first().should('contain', 'Please Select...').and('be.disabled')
   );
 
   it('POS:Policyholder Next Button', () =>

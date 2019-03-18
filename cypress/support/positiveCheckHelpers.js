@@ -42,7 +42,7 @@ Cypress.Commands.add('clickEachRadio', tag =>
  * @param {string} form - Name of the form within which to check for submit button.
  */
 Cypress.Commands.add('checkSubmitButton', ((form = 'body') =>
-  cy.get(form).findDataTag('submit').should('exist').and('have.attr', 'type', 'submit')));
+  cy.get(form).findDataTag('submit').should('exist').and('have.attr', 'type', 'button')));
 
 /**
  * @param {string} tag - Name of the data test tag wrapping the select
