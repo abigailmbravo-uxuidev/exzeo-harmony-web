@@ -41,8 +41,8 @@ export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow').wait(
 
 export const navigateThroughAssumptions = (updates, useConfig) => {
   if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
-  cy.findDataTag('confirmAssumptions').find('.switch-div').click()
-    .clickSubmit('#Assumptions').wait('@getQuoteServiceRequest');
+  cy.findDataTag('confirm-assumptions').click()
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
 export const navigateThroughAdditionalInterests = () =>
