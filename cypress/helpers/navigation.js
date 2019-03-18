@@ -35,9 +35,9 @@ export const navigateThroughUnderwriting = (data = underwriting, updates, useCon
   cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughCustomize = () => cy.clickSubmit('#Customize').wait('@getQuoteServiceRequest');
+export const navigateThroughCustomize = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
-export const navigateThroughShare = () => cy.clickSubmit('#SharePage').wait('@getQuoteServiceRequest');
+export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
 export const navigateThroughAssumptions = (updates, useConfig) => {
   if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }

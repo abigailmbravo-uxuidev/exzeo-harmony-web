@@ -225,10 +225,10 @@ describe('Customize Testing', () => {
   //   cy.route('POST', '/cg/complete?askToCustomizeDefaultQuote', 'fx:stubs/complete/recalculate-askToCustomizeDefaultQuote');
   //   // We have to modify something to show recalculate/reset buttons
   //   type(300000);
-  //   cy.findDataTag('customize').find('.workflow-steps button.btn-primary').should('contain', 'recalculate').click()
+  //   cy.findDataTag('submit').should('contain', 'recalculate').click()
   //     .findDataTag('premium').find('dl > div > dd > span').should('contain', '$ 2,667');
   //   type(300000);
-  //   cy.findDataTag('customize').find('.workflow-steps button.btn-secondary').should('contain', 'Reset').click()
-  //     .findDataTag('customize').find('.workflow-steps button.btn-primary').should('contain', 'next');
+  //   cy.findDataTag('reset').should('contain', 'Reset').click()
+  //     .findDataTag('submit').should('contain', 'next');
   // });
 });

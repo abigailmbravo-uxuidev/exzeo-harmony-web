@@ -7,15 +7,14 @@ import {
   navigateThroughCustomize,
   navigateThroughShare
 } from '../../helpers';
-import user from '../../fixtures/stockData/user.json';
 
 describe('Share Testing', () => {
-  const sections = ['share-section-one', 'share-section-two', 'share-section-three'];
+  const sections = ['section-1', 'section-2', 'section-3'];
 
   const toggleModal = (dir = 'on') => {
-    cy.get('div.route-content').then($wrap => {
+    cy.get('div.scroll.survey-wrapper').then($wrap => {
       if ($wrap.find('.modal.active').length && dir === 'off') {
-        cy.findDataTag('cancel').click();
+        cy.findDataTag('modal-cancel').click();
       } else if (dir === 'on') {
         cy.findDataTag('share').click();
       }
@@ -39,29 +38,27 @@ describe('Share Testing', () => {
 
   it('"Confirmed" Value left at Default "No"', () => {
     cy.clickSubmit()
-      .findDataTag('confirmAssumptions').find('input').should('have.value', '')
+      .findDataTag('confirm-assumptions').should('have.attr', 'data-value', 'false')
       .findDataTag('submit').should('be.disabled')
       .findDataTag('tab-nav-sendEmailOrContinue').click();
   });
 
   it('NEG:All Inputs Empty Value', () => {
     toggleModal();
-
-    cy.submitAndCheckValidation(['name', 'emailAddr'], { errors: Array(2).fill('Field Required'), form: '#SendEmail', checkForSnackbar: false });
+    cy.findDataTag('modal-submit').click().checkError('name_wrapper').checkError('emailAddr_wrapper');
   });
 
   it('NEG:Input Empty Value', () => {
-    const { EmailAddress, FirstName, LastName } = user.customerInfo;
     toggleModal();
 
-    cy.verifyForm(['emailAddr'], ['name'], { emailAddr: EmailAddress }, { form: '#SendEmail', checkForSnackbar: false })
-      .verifyForm(['name', 'emailAddr'], ['emailAddr'], { name: `${FirstName} ${LastName}` }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false });
+    cy.verifyForm(['name_wrapper', 'emailAddr_wrapper'], ['name_wrapper'], { emailAddr_wrapper: "Batman@gmail.com" }, { form: '#SendEmail', checkForSnackbar: false, button: 'modal-submit' })
+      .verifyForm(['name_wrapper', 'emailAddr_wrapper'], ['emailAddr_wrapper'], { name_wrapper: 'Bruce Wayne' }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false, button: 'modal-submit' });
   });
 
   it('NEG:Input Invalid Character', () => {
     toggleModal();
 
-    cy.verifyForm(['emailAddr'], undefined, { emailAddr: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false });
+    cy.verifyForm(['emailAddr_wrapper'], undefined, { emailAddr_wrapper: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false, button: 'modal-submit', errors: ['Not a valid email address'] });
   });
 
   it('POS:Share Workflow', () =>
@@ -75,7 +72,7 @@ describe('Share Testing', () => {
   );
 
   it('POS:Share Header Text', () =>
-    sections.forEach(tag => cy.findDataTag(tag).find('h3').should('exist').find('i.fa').should('exist'))
+    sections.forEach(tag => cy.findDataTag(tag).find('div.title').should('exist').find('i.fa').should('exist'))
   );
 
   it('POS:Share Text', () =>
@@ -86,7 +83,7 @@ describe('Share Testing', () => {
     cy.reload().findDataTag('share').should('exist').and('contain', 'share')
       .click().then(() =>
         cy.get('.card.card-email #SendEmail').should('exist')
-          .findDataTag('cancel').should('exist').click().then(() =>
+          .findDataTag('modal-cancel').should('exist').click().then(() =>
             cy.get('.card.card-email').should('not.exist')
               .findDataTag('share').click().then(() =>
                 cy.get('.card.card-email #SendEmail').should('exist')
@@ -97,28 +94,34 @@ describe('Share Testing', () => {
 
   it('POS:Share Modal', () =>
     cy.reload().findDataTag('share').click().then(() =>
-      cy.checkLabel('name', 'Name')
-        .checkLabel('emailAddr', 'Email Address')
-        .checkText('name', 'John Doe')
-        .checkText('emailAddr', 'John.Doe@gmail.com')
-        .get('#SendEmail').find('[data-test="submit"]')
+      cy.checkLabel('name_wrapper', 'Name')
+        .checkLabel('emailAddr_wrapper', 'Email Address')
+        .checkText('name_wrapper', 'John Doe')
+        .checkText('emailAddr_wrapper', 'John.Doe@gmail.com')
+        .findDataTag('modal-submit').should('exist')
     )
   );
 
   it('POS:Next Button', () =>
-    cy.reload().findDataTag('submit').should('exist').and('have.attr', 'type', 'submit')
+    cy.reload().findDataTag('submit').should('exist').and('have.attr', 'type', 'button')
   );
 
   it('POS:Share Page 2', () => {
     navigateThroughShare();
-    cy.findDataTag('assumptions').find('form .scroll .form-group.survey-wrapper').children().first().should('contain', 'All properties will be inspected')
+    cy.get('form#QuoteWorkflow').children().first().should('contain', 'All properties will be inspected')
       .next().should('contain', 'Please be aware')
-      .findDataTag('confirmAssumptions').find('label').should('contain', 'Confirmed')
-      .find('input[name="confirmAssumptions"]').should('have.attr', 'value', '')
-      .get('.switch-div').click().get('input[name="confirmAssumptions"]').should('have.attr', 'value', 'true')
-      .get('.switch-div').click().get('input[name="confirmAssumptions"]').should('have.attr', 'value', 'false')
+      .findDataTag('assumptions-list').find('li').first().should('contain', 'Properties with pools')
+      .next().should('contain', 'Special Flood Hazard Areas')
+      .next().should('contain', 'Property is not in state of disrepair')
+      .next().should('contain', 'Roof covering does not exceed')
+      .find('ul > li').first().should('contain', 'Roof cannot be over 20 years old')
+      .next().should('contain', 'Roof cannot be over 40 years old')
+      .findDataTag('confirm-assumptions_wrapper').find('label').should('contain', 'Confirmed')
+      .findDataTag('confirm-assumptions').should('have.attr', 'data-value', 'false')
+      .click().should('have.attr', 'data-value', 'true')
+      .click().should('have.attr', 'data-value', 'false')
       .findDataTag('submit').should('be.disabled')
-      .get('.switch-div').click().findDataTag('submit').should('not.be.disabled')
+      .findDataTag('confirm-assumptions').click().findDataTag('submit').should('not.be.disabled')
       .checkSubmitButton();
   });
 });
