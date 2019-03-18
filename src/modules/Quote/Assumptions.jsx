@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AssumptionsMessage } from '@exzeo/core-ui/src/@Harmony';
 import { Switch, Button, noop } from '@exzeo/core-ui';
+import { BUTTON_CLASS } from '@exzeo/core-ui/src/Button';
 
 export const Assumptions = ({ customHandlers }) => {
   const [confirmed, setConfirmed] = useState(false);
@@ -26,7 +27,7 @@ export const Assumptions = ({ customHandlers }) => {
       />
       <div className="btn-group">
       <Button
-        className={Button.constants.classNames.primary}
+        className={BUTTON_CLASS.primary}
         disabled={!confirmed}
         onClick={() => customHandlers.handleSubmit({})}
         label="next"
