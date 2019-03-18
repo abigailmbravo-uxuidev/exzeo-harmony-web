@@ -24,7 +24,8 @@ const mock = {
           data: {
             component: 'text',
             label: 'First Name',
-            size: '5'
+            size: '5',
+            validation: ['isValidNameFormat'],
           },
           formData:  {
             path: 'policyHolders.policyHolder.firstName',
@@ -42,7 +43,8 @@ const mock = {
           data: {
             component: 'text',
             label: 'Last Name',
-            size: '7'
+            size: '7',
+            validation: ['isValidNameFormat'],
           },
           formData:  {
             path: 'policyHolders.policyHolder.lastName',
@@ -64,6 +66,7 @@ const mock = {
             component: 'text',
             label: 'Email Address',
             size: '8',
+            validation: ['isEmail'],
           },
           formData:  {
             path: 'policyHolders.policyHolder.emailAddress',
@@ -84,7 +87,8 @@ const mock = {
           data: {
             component: 'phone',
             label: 'Contact Phone',
-            size: '4'
+            size: '4',
+            validation: ['isPhone'],
           },
           formData:  {
             path: 'policyHolders.policyHolder.primaryPhoneNumber',
@@ -137,7 +141,8 @@ const mock = {
               data: {
                 component: 'text',
                 label: 'First Name',
-                size: '5'
+                size: '5',
+                validation: ['isValidNameFormat'],
               },
               formData:  {
                 path: 'policyHolders.policyHolder.firstName',
@@ -158,7 +163,8 @@ const mock = {
               data: {
                 component: 'text',
                 label: 'Last Name',
-                size: '7'
+                size: '7',
+                validation: ['isValidNameFormat'],
               },
               formData:  {
                 path: 'policyHolders.policyHolder.lastName',
@@ -180,6 +186,7 @@ const mock = {
                 component: 'text',
                 label: 'Email Address',
                 size: '8',
+                validation: ['isEmail'],
               },
               formData:  {
                 path: 'policyHolders.policyHolder.emailAddress',
@@ -200,7 +207,8 @@ const mock = {
               data: {
                 component: 'phone',
                 label: 'Contact Phone',
-                size: '4'
+                size: '4',
+                validation: ['isPhone'],
               },
               formData:  {
                 path: 'policyHolders.policyHolder.primaryPhoneNumber',
@@ -238,7 +246,8 @@ const mock = {
             extendedProperties: {
               min: 'zipCodeSettings.minEffectiveDate',
               max: 'zipCodeSettings.maxEffectiveDate',
-            }
+            },
+            validation: ['isPhone'],
           },
           formData: {
             path: 'effectiveDate',
