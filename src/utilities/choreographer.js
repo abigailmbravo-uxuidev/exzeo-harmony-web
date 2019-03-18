@@ -89,8 +89,14 @@ function formatForCGStep(activeTask, data, options) {
     return taskData;
   }
   else if (activeTask === 'askUWAnswers') {
+    ((options.underwritingQuestions || []).filter(u => !!u.hidden)).map(uwAnswers => {
+      taskData[uwAnswers.name] = uwAnswers.defaultValue;
+    });
+
     Object.keys(data.underwritingAnswers).map(uw => {
+      if(data.underwritingAnswers[uw].answer){
        taskData[uw] = data.underwritingAnswers[uw].answer;
+      }
        return uw;
     });
     return taskData;
@@ -114,7 +120,7 @@ function formatForCGStep(activeTask, data, options) {
     taskData.medicalPayments = data.coverageLimits.medicalPayments.amount;
     taskData.moldProperty = data.coverageLimits.moldProperty.amount;
     taskData.moldLiability = data.coverageLimits.moldLiability.amount;
-    taskData.ordianceOrLaw = data.coverageLimits.ordinanceOrLaw.amount;
+    taskData.ordinanceOrLaw = data.coverageLimits.ordinanceOrLaw.amount;
     // taskData.ordinanceOrLaw = Math.ceil(((data.coverageLimits.ordinanceOrLaw.amount / 100) * data.coverageLimits.dwelling.amount));
     taskData.sinkholePerilCoverage = data.coverageOptions.sinkholePerilCoverage.answer;
     taskData.sinkhole =  data.coverageOptions.sinkholePerilCoverage.answer ? 10: 0;
