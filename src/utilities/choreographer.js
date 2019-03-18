@@ -63,9 +63,10 @@ function setState({
   state.isHardStop = isHardStop;
 }
 
-function formatForCGStep(data, quoteNumber, activeTask, options) {
-  const taskData = {};
+function formatForCGStep(activeTask, data, options) {
+  if ((options || {}).cgEndpoint === 'moveToTask') return {};
 
+  const taskData = {};
   if(activeTask === 'askAdditionalCustomerData'){
     const { timezone } = options;
 
@@ -75,7 +76,7 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.LastName = data.policyHolders[0].lastName;
     taskData.EmailAddress = data.policyHolders[0].emailAddress;
     taskData.phoneNumber = data.policyHolders[0].primaryPhoneNumber;
-    taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false
+    taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false;
     taskData.effectiveDate = formattedDate(data.effectiveDate, FORMATS.SECONDARY, timezone);
 
     if (data.additionalPolicyholder) {
@@ -95,8 +96,7 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     return taskData;
 
   }
-  else if (activeTask === 'askToCustomizeDefaultQuote') {
-
+  else if (activeTask === 'customizeDefaultQuote') {
     /* (data, quoteNumber, activeTask, options) */
 
     /* const updatedQuote = convertQuoteStringsToNumber(data); */
@@ -114,7 +114,8 @@ function formatForCGStep(data, quoteNumber, activeTask, options) {
     taskData.medicalPayments = data.coverageLimits.medicalPayments.amount;
     taskData.moldProperty = data.coverageLimits.moldProperty.amount;
     taskData.moldLiability = data.coverageLimits.moldLiability.amount;
-    taskData.ordinanceOrLaw = Math.ceil(((data.coverageLimits.ordinanceOrLaw.amount / 100) * data.coverageLimits.dwelling.amount));
+    taskData.ordianceOrLaw = data.coverageLimits.ordinanceOrLaw.amount;
+    // taskData.ordinanceOrLaw = Math.ceil(((data.coverageLimits.ordinanceOrLaw.amount / 100) * data.coverageLimits.dwelling.amount));
     taskData.sinkholePerilCoverage = data.coverageOptions.sinkholePerilCoverage.answer;
     taskData.sinkhole =  data.coverageOptions.sinkholePerilCoverage.answer ? 10: 0;
     taskData.allOtherPerils = data.deductibles.allOtherPerils.answer;
@@ -182,18 +183,20 @@ async function start(modelName, data) {
  * @param stepName
  * @param data
  * @param cgEndpoint
+ * @param [options]
  * @private
  * @returns {Promise<void>}
  */
-async function complete(stepName = '', data, cgEndpoint = 'complete') {
+async function complete(stepName = '', data = {}, options = {}) {
+  const quoteData = formatForCGStep(stepName, data, options);
   const axiosConfig = {
     method: 'POST',
-    url: `${process.env.REACT_APP_API_URL}/cg/${cgEndpoint}?${stepName}`,
+    url: `${process.env.REACT_APP_API_URL}/cg/${options.cgEndpoint || 'complete'}?${stepName}`,
     headers: { 'Content-Type': 'application/json' },
     data: {
       workflowId: state.workflowId,
       stepName,
-      data
+      data: quoteData
     }
   };
 
@@ -281,10 +284,7 @@ async function createQuote(address, igdID, stateCode) {
   await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
 
   await complete('search', { address, searchType: 'address' });
-  await complete('chooseAddress', {
-    igdId: igdID,
-    stateCode
-  });
+  await complete('chooseAddress', { igdId: igdID, stateCode });
 
   return {
     quote: getDataByName('createQuote'),
@@ -303,9 +303,7 @@ async function getQuote(quoteNumber, quoteId) {
   await start('quoteModel', { dsUrl: `${process.env.REACT_APP_API_URL}/ds` });
 
   await complete('search', { quoteNumber, searchType: 'quote' });
-  await complete('chooseQuote', {
-    quoteId
-  });
+  await complete('chooseQuote', { quoteId });
   return {
     quote: getDataByName('retrieveQuote'),
     state: getState()
@@ -318,6 +316,7 @@ async function getQuote(quoteNumber, quoteId) {
  * @param quoteNumber
  * @param stepName
  * @param getReduxState
+ * @param [options]
  * @public
  * @returns {Promise<{quote: *, state: {activeTask: string, variables: Array, workflowId: string, completedTasks: Array, underwritingExceptions: Array, uiQuestions: Array, underwritingQuestions: Array, isHardStop: boolean}}>}
  */
@@ -327,34 +326,31 @@ async function updateQuote({ data, quoteNumber, stepName, getReduxState, options
 
   // 'moveToTask' for going back to specific step in workflow
   if (stepName) {
-    await complete(stepName, null, 'moveToTask');
+    await complete(stepName, {}, { cgEndpoint: 'moveToTask' });
   }
-  else if(!stepName){
-
-    const quoteData = formatForCGStep(data, quoteNumber, state.activeTask, options);
-
-    if (state.activeTask === 'askToCustomizeDefaultQuote' && quoteData.recalc) {
-      await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' });
-      await complete(state.activeTask, quoteData);
+  else if (!stepName) {
+    if (state.activeTask === 'askToCustomizeDefaultQuote' && data.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'Yes' }, options);
+      await complete(state.activeTask, data, options);
       // customize and save
-    } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !quoteData.recalc) {
-      await complete(state.activeTask, { shouldCustomizeQuote: 'No' });
+    } else if (state.activeTask === 'askToCustomizeDefaultQuote' && !data.recalc) {
+      await complete(state.activeTask, { shouldCustomizeQuote: 'No' }, options);
       // share
-    } else if (state.activeTask === 'sendEmailOrContinue' && quoteData.shouldSendEmail === 'Yes') {
-      await complete(state.activeTask, { shouldSendEmail: 'Yes' });
-      await complete(state.activeTask, quoteData);
+    } else if (state.activeTask === 'sendEmailOrContinue' && data.shouldSendEmail === 'Yes') {
+      await complete(state.activeTask, { shouldSendEmail: 'Yes' }, options);
+      await complete(state.activeTask, data, options);
       // verify
     } else if (state.activeTask === 'editVerify') {
-      await complete(state.activeTask, { shouldEditVerify: quoteData.shouldEditVerify });
-      await complete(state.activeTask, quoteData);
+      await complete(state.activeTask, { shouldEditVerify: data.shouldEditVerify }, options);
+      await complete(state.activeTask, data, options);
       // all other steps
     } else {
-      await complete(state.activeTask, quoteData);
+      await complete(state.activeTask, data, options);
     }
 
     // if we land on this step, need to fire another complete
     if (state.activeTask === 'showCustomizedQuoteAndContinue') {
-      await complete(state.activeTask, {});
+      await complete(state.activeTask, {}, options);
     }
   }
 
