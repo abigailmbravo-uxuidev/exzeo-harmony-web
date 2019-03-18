@@ -25,16 +25,16 @@ Cypress.Commands.add('checkText', (tag, text = 'ZZ') =>
  * @param {array} values - Array of values for each radio.
  */
 Cypress.Commands.add('checkRadios', (tag, values) =>
-  cy.findDataTag(tag).find('div div').each(($div, index) =>
-    cy.wrap($div).find('label input').should('have.attr', 'value', values[index])));
+  cy.findDataTag(tag).find('.segmented-answer-wrapper > div').each(($div, index) =>
+    cy.wrap($div).find('label span').should('contain', values[index])));
 
 /**
- * Clicks each radio and confirms it has the selected class
+ * Clicks each radio and confirms it has the 'selected' class, then afterwards confirms only one is selected
  * @param {string} tag - String name of data-test tag.
  */
 Cypress.Commands.add('clickEachRadio', tag =>
-  cy.findDataTag(tag).find('div div').each(($div, __, $list) =>
-    cy.wrap($div).click().should('have.attr', 'class', `radio-column-${$list.length} selected`)
+  cy.findDataTag(tag).find('.segmented-answer-wrapper > div').each($div =>
+    cy.wrap($div).click().find('label').should('have.attr', 'class', 'label-segmented selected')
   ).filter('.selected').should('have.length', 1));
 
 /**

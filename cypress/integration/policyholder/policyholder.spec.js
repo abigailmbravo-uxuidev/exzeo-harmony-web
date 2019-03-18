@@ -94,8 +94,8 @@ describe('Policyholder Testing', () => {
     cy.findDataTag('effectiveDate_wrapper').find('input').clear();
     cy.submitAndCheckValidation(['effectiveDate_wrapper']);
 
-    // cy.findDataTag('effectiveDate_wrapper').find('input').type('1900-01-01');
-    // cy.submitAndCheckValidation(['effectiveDate_wrapper'], { errors: ['Date must be at least 08/01/2017'] });
+    cy.findDataTag('effectiveDate_wrapper').find('input').type('1900-01-01');
+    cy.submitAndCheckValidation(['effectiveDate_wrapper'], { errors: ['Date must be at least 08/01/2017'] });
   });
 
   it('POS:Policyholder Detail Header', () => {
