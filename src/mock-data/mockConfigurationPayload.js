@@ -666,7 +666,7 @@ const mock = {
         {
           id: 17,
           type: '$INPUT',
-          path: 'deductibles.hurricane.value',
+          path: 'deductibles.hurricane.amount',
           dependencies: [],
           data: {
             segmented: true,
@@ -683,7 +683,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.deductibles.hurricane.amount / 100) * it.coverageLimits.dwelling.amount))}',
             },
           },
           children: [],
