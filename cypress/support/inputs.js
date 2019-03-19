@@ -7,8 +7,8 @@ Cypress.Commands.add('fillFields', (fields = [], data) =>
 );
 
 /**
- * @param {string} field - Field name to find.
- * @param {string} message - Expected error message.
+ * @param {string} name - Field name to find.
+ * @param {string} error - Expected error message.
  */
 Cypress.Commands.add('checkError', ({ name, error = 'Field Required' }) =>
   cy.findDataTag(name).find('> span').should('contain', error));
@@ -28,7 +28,7 @@ Cypress.Commands.add('submitAndCheckValidation', (fields = [], options = {}) => 
 });
 
 /**
- * @param {array} fields - Array of strings corresponding to data-test tags to clear.
+ * @param {array} fields - Array of field objects corresponding to data-test tags to clear.
  */
 Cypress.Commands.add('clearAllText', fields =>
   cy.wrap(fields).each(({ name }) => {
