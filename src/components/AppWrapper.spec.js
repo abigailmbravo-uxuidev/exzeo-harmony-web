@@ -28,17 +28,26 @@ describe('Testing AppWrapper component', () => {
     children: <div />
   }
 
-  it('should test props and render', () => {
-      const wrapper = mount(
-        <Provider store={store}>
-          <Router>
-            <AppWrapper {...props} />
-          </Router>
-        </Provider>);
+  window.persistor = { purge(){}}
 
+  const wrapper = mount(
+    <Provider store={store}>
+      <Router>
+        <AppWrapper {...props} />
+      </Router>
+    </Provider>);
+
+  it('should test props and render', () => {
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('main')).toHaveLength(1);
     expect(wrapper.find('.content-wrapper')).toHaveLength(1);
-    expect(wrapper.find('.site-nav')).toHaveLength(1);
+    expect(wrapper.find('.site-nav')).toHaveLength(1)
+  });
+
+
+  it('should test click events', () => {
+    wrapper.find(`Button[data-test="sidenav-logout"]`).simulate('click')
+    const header = wrapper.find(`Header`);
+    header.find('button').simulate('click')
   });
 });
