@@ -156,6 +156,7 @@ export class QuoteWorkflow extends Component {
       getState: this.getLocalState,
       handleSubmit: this.handleGandalfSubmit,
       history: history,
+      updateQuote: this.handleUpdateQuote
     };
 
     return (
