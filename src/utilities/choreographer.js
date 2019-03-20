@@ -112,8 +112,11 @@ function formatForCGStep(activeTask, data, options) {
 
     taskData.dwellingAmount = Number(data.coverageLimits.dwelling.amount);
     taskData.otherStructuresAmount = Math.ceil(((data.coverageLimits.otherStructures.value / 100) * data.coverageLimits.dwelling.amount));
-    taskData.personalPropertyAmount = Math.ceil(((data.coverageLimits.personalProperty.value / 100) * data.coverageLimits.dwelling.amount));
-    taskData.personalPropertyReplacementCostCoverage = data.coverageOptions.personalPropertyReplacementCost.answer || false;
+    const personalPropertyAmount = Math.ceil(((data.coverageLimits.personalProperty.value / 100) * data.coverageLimits.dwelling.amount));
+    taskData.personalPropertyAmount = personalPropertyAmount;
+    taskData.personalPropertyReplacementCostCoverage = personalPropertyAmount
+      ? (data.coverageOptions.personalPropertyReplacementCost.answer || false)
+      : false;
     taskData.lossOfUseAmount = data.coverageLimits.lossOfUse.value;
     taskData.lossOfUse = Math.ceil(((data.coverageLimits.lossOfUse.value / 100) * data.coverageLimits.dwelling.amount));
     taskData.personalLiability = data.coverageLimits.personalLiability.amount;
