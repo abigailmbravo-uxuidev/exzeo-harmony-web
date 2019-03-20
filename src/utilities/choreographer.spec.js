@@ -1,4 +1,3 @@
-
 import sinon from 'sinon';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
@@ -4794,7 +4793,7 @@ const MOCK_COMPLETE_CHOOSE_CG_DATA = {
 
 const MOCK_COMPLETE_ASK_CG_DATA = {
 
-}
+};
 
 const MOCK_QUOTE =  {
   "_id": "5c912720d9fac4000ee85156",
@@ -5057,7 +5056,7 @@ describe('Choreographer tests', () => {
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
 
-    const data = { dsUrl: `${process.env.REACT_APP_API_URL}/ds` }
+    const data = { dsUrl: `${process.env.REACT_APP_API_URL}/ds` };
 
     const mockAdapter = new MockAdapter(axios);
 
@@ -5067,12 +5066,11 @@ describe('Choreographer tests', () => {
         'Content-Type': 'application/json'
       },
       url: `${process.env.REACT_APP_API_URL}/cg/start?${MOCK_START_CG_DATA.modelName}`,
-      data: { 
+      data: {
         modelName: MOCK_START_CG_DATA.modelName,
         data
       }
     };
-
 
     const axiosOptionsCompleteSearch = {
       method: 'POST',
@@ -5082,7 +5080,6 @@ describe('Choreographer tests', () => {
       url: `${process.env.REACT_APP_API_URL}/cg/complete?search`,
       data: {"workflowId":"3290730","stepName":"search","data":{"quoteNumber":"12-5160868-01","searchType":"quote"}}
     };
-
 
     const axiosOptionsCompleteChoose = {
       method: 'POST',
@@ -5122,14 +5119,13 @@ describe('Choreographer tests', () => {
       }
     };
 
-
     const axiosOptionsGetQuote = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       url: `${process.env.REACT_APP_API_URL}/svc?getQuoteServiceRequest`,
-      data: { 
+      data: {
         service: 'quote-data',
         method: 'GET',
         path: MOCK_QUOTE.quoteNumber
@@ -5153,18 +5149,18 @@ describe('Choreographer tests', () => {
     });
 
     mockAdapter.onPost(axiosOptionsGetQuote.url, axiosOptionsGetQuote.data).reply(200, {
-      data: { 
+      data: {
         result: MOCK_QUOTE
       }
     });
-  })
+  });
 
   afterEach(() => {
     sandbox.restore()
-  })
+  });
 
   describe('test createQuote', () => {
-    
+
     it('called createQuote', () => {
       const result = sinon.spy(choreographer, 'createQuote');
 
@@ -5175,11 +5171,11 @@ describe('Choreographer tests', () => {
   });
 
   describe('test updateQuote', () => {
-    
+
     it('called updateQuote', () => {
       const result = sinon.spy(choreographer, 'updateQuote');
-      const submitData = { 
-          data: MOCK_QUOTE, 
+      const submitData = {
+          data: MOCK_QUOTE,
           stepName: MOCK_COMPLETE_ASK_CG_DATA.activeTask,
           getReduxState: x => x,
           options: [],
@@ -5192,7 +5188,7 @@ describe('Choreographer tests', () => {
   });
 
   describe('test getQuote', () => {
-    
+
     it('called getQuote', () => {
       const result = sinon.spy(choreographer, 'getQuote');
      choreographer.getQuote(MOCK_QUOTE.quoteNumber, MOCK_QUOTE._id);

@@ -2,63 +2,53 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
 
-import Share from './Share';
+import ConnectedApp, { Share } from './Share';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe('Testing Share component', () => {
-  // it('should test props and render', () => {
-  //   const initialState = {};
-  //   const store = mockStore(initialState);
-  //   const props = {
-  //     history: [],
-  //     updateQuote() {},
-  //     handleSubmit() {},
-  //     underwritingExceptions: [],
-  //     fieldQuestions: [],
-  //     quote: {},
-  //     dispatch: store.dispatch,
-  //     appState: {
-  //       data: {
-  //         submitting: false
-  //       }
-  //     },
-  //   };
-  //   const wrapper = shallow(<Share {...props} />);
-  //   expect(wrapper);
-  //   const wrapperInstance = wrapper.instance();
-  //   wrapperInstance.shareQuoteSubmit({}, props.dispatch, props);
-  //   wrapperInstance.noShareSubmit({}, props.dispatch, props);
-  //   wrapperInstance.shareQuote(props);
-  //   wrapperInstance.closeShareSubmit(props);
-  //   wrapperInstance.refreshUWReviewError();
-  // });
+  const baseProps = {
+    underwritingExceptions: [],
+    isLoading: false,
+    quote: {},
+    customHandlers: {
+      setEmailPopup: x => x,
+      getState: () => ({ showEmailPopup: false }),
+      updateQuote: x => x,
+      handleSubmit: x => x,
+      history: {
+        replace: x => x,
+      }
+    },
+    updateQuote() {},
+    handleSubmit() {},
+  };
+  it('should render', () => {
+
+    const wrapper = shallow(<Share {...baseProps} />);
+    expect(wrapper);
+    const wrapperInstance = wrapper.instance();
+    wrapperInstance.shareQuoteSubmit({});
+    wrapperInstance.noShareSubmit({});
+    wrapperInstance.refreshUWReviewError();
+    wrapperInstance.redirectToNewQuote();
+  });
 
   it('should test connected app', () => {
     const initialState = {
-      quoteState: {},
+      quoteState: {
+        quote: {},
+        state: {
+          underwritingExceptions: []
+        }
+      },
       appState: {
-        modelName: 'bb'
+        isLoading: false,
       }
     };
     const store = mockStore(initialState);
-    const props = {
-      updateQuote() {},
-      handleSubmit() {},
-      history: [],
-      fieldQuestions: [],
-      quote: {},
-      dispatch: store.dispatch,
-      appState: {
-        modelName: 'bb',
-        data: {
-          submitting: false
-        }
-      }
-
-    };
-    const wrapper = shallow(<Share store={store} {...props} />);
+    const wrapper = shallow(<Share store={store} {...baseProps} />);
     expect(wrapper);
   });
 });

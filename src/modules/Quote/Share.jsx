@@ -5,8 +5,6 @@ import { Button } from '@exzeo/core-ui';
 import EmailPopup from './EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
 
-import { updateQuote } from '../../actions/quoteState.actions';
-
 export class Share extends React.Component {
   noShareSubmit = async () => {
     const { customHandlers } = this.props;
@@ -112,4 +110,4 @@ const mapStateToProps = state => ({
   quote: state.quoteState.quote,
 });
 
-export default connect(mapStateToProps, { updateQuote })(Share);
+export default connect(mapStateToProps)(Share);
