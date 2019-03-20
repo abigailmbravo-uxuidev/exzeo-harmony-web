@@ -89,9 +89,11 @@ function formatForCGStep(activeTask, data, options) {
     return taskData;
   }
   else if (activeTask === 'askUWAnswers') {
-    ((options.underwritingQuestions || []).filter(u => !!u.hidden)).map(uwAnswers => {
-      taskData[uwAnswers.name] = uwAnswers.defaultValue;
-    });
+    ((options.underwritingQuestions || [])
+      .filter(u => !!u.hidden))
+      .forEach(uwAnswers =>
+        taskData[uwAnswers.name] = uwAnswers.defaultValue
+    );
 
     Object.keys(data.underwritingAnswers).map(uw => {
       if(data.underwritingAnswers[uw].answer){
