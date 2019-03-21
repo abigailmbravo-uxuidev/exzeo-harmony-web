@@ -88,9 +88,14 @@ export class QuoteWorkflow extends Component {
 
   primaryClickHandler = () => {
     // remote submit
-    document
-      .getElementById(FORM_ID)
-      .dispatchEvent(new Event('submit', { cancelable: true }));
+    const form = document.getElementById(FORM_ID);
+    if (typeof(Event) === 'function') {
+      form.dispatchEvent(new Event('submit', { cancelable: true }));
+    } else {
+      let event = document.createEvent('Event');
+      event.initEvent('submit', true, true);
+      form.dispatchEvent(event);
+    }
   };
 
 
