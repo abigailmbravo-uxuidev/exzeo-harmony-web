@@ -9,7 +9,6 @@ import {
   navigateThroughShare,
   navigateThroughAssumptions
 } from '../../helpers';
-import user from '../../fixtures/stockData/additionalUser.json';
 import { fields } from './basicInputs';
 
 
@@ -45,7 +44,7 @@ describe('Premium Finance Testing', () => {
   it('NEG:Premium Finance Empty Value', () =>
     goBack().then(() => {
       toggleModalOn();
-      cy.wrap(requiredFields).each(fieldToLeaveBlank => cy.verifyForm(requiredFields, [fieldToLeaveBlank], user));
+      cy.wrap(requiredFields).each(fieldToLeaveBlank => cy.verifyForm(requiredFields, [fieldToLeaveBlank]));
     })
   );
 
@@ -55,8 +54,8 @@ describe('Premium Finance Testing', () => {
       const state = fields.find(({ name }) => name === 'state');
       const zip = fields.find(({ name }) => name === 'zip');
       cy.clearAllText(fields)
-        .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { state: 'foo' })
-        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { zip: '123456789' });
+        .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
+        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }])
     })
   );
 

@@ -4,8 +4,12 @@ export const fields = [
     error: 'Field Required',
     label: 'Address 1',
 <<<<<<< HEAD
+<<<<<<< HEAD
     required: true
 =======
+=======
+    type: 'text',
+>>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: '123 test address'
 >>>>>>> b336eef8... Add input struct to share
@@ -14,8 +18,12 @@ export const fields = [
     name: 'address2',
     label: 'Address 2',
 <<<<<<< HEAD
+<<<<<<< HEAD
     required: false
 =======
+=======
+    type: 'text',
+>>>>>>> cfd76656... Add test data into input presets
     required: false,
     data: '123 test address'
 >>>>>>> b336eef8... Add input struct to share
@@ -25,8 +33,12 @@ export const fields = [
     error: 'Field Required',
     label: 'City',
 <<<<<<< HEAD
+<<<<<<< HEAD
     required: true
 =======
+=======
+    type: 'text',
+>>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: 'tampa'
 >>>>>>> b336eef8... Add input struct to share
@@ -36,8 +48,12 @@ export const fields = [
     error: 'Field Required',
     label: 'State',
 <<<<<<< HEAD
+<<<<<<< HEAD
     required: true
 =======
+=======
+    type: 'text',
+>>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: 'fl'
 >>>>>>> b336eef8... Add input struct to share
@@ -47,8 +63,12 @@ export const fields = [
     error: 'Field Required',
     label: 'Zip',
 <<<<<<< HEAD
+<<<<<<< HEAD
     required: true
 =======
+=======
+    type: 'text',
+>>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: '00001'
 >>>>>>> b336eef8... Add input struct to share

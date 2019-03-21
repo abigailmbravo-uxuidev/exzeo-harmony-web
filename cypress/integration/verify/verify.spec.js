@@ -107,10 +107,10 @@ describe('Verify testing', () => {
     const phone2 = pH2Fields.find(({ name }) => name === 'pH2phone');
     toggleModal();
 
-    cy.verifyForm([{ ...email1, error: 'Not a valid email address' }], undefined, { pH1email: 'batman' }, submitOptions)
-      .verifyForm([{ ...email2, error: 'Not a valid email address' }], undefined, { pH2email: 'batman' }, submitOptions)
-      .verifyForm([{ ...phone1, error: 'is not a valid Phone Number.' }], undefined, { pH1phone: '123' }, submitOptions)
-      .verifyForm([{ ...phone2, error: 'is not a valid Phone Number.' }], undefined, { pH2phone: '123' }, submitOptions)
+    cy.verifyForm([{ ...email1, error: 'Not a valid email address', data: 'batman' }], undefined, undefined, submitOptions)
+      .verifyForm([{ ...email2, error: 'Not a valid email address', data: 'batman' }], undefined, undefined, submitOptions)
+      .verifyForm([{ ...phone1, error: 'is not a valid Phone Number.', data: '123' }], undefined, undefined, submitOptions)
+      .verifyForm([{ ...phone2, error: 'is not a valid Phone Number.', data: '123' }], undefined, undefined, submitOptions)
 
     toggleModal('off');
   });

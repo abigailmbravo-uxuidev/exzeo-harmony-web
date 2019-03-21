@@ -18,7 +18,7 @@ export const pH1Fields = [
   {
     name: 'pH1phone',
     error: 'Field Required',
-    type: 'phone',
+    type: 'text',
     label: 'Primary Phone',
     required: true,
     data: '8131234567'
@@ -53,7 +53,7 @@ export const pH2Fields = [
   {
     name: 'pH2phone',
     error: 'Field Required',
-    type: 'phone',
+    type: 'text',
     label: 'Primary Phone',
     required: true,
     data: '8131234567'

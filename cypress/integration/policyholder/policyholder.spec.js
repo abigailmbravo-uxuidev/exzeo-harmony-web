@@ -6,9 +6,6 @@ import {
 import { ph1Fields, ph2Fields, policyDetailsFields, workflowSections } from './policyholderFields';
 
 describe('Policyholder Testing', () => {
-  // const primaryPolicyFields = ['FirstName', 'LastName', 'EmailAddress', 'phoneNumber'];
-  // const secondaryPolicyFields = ['FirstName2', 'LastName2', 'EmailAddress2', 'phoneNumber2'];
-
   const toggleSecondUser = (dir = 'on') =>
     cy.get('#isAdditional').then($el => {
       if (($el.hasClass('active') && dir === 'off') || ($el.hasClass('inactive') && dir === 'on')) {
@@ -43,33 +40,33 @@ describe('Policyholder Testing', () => {
   );
 
   it('NEG:Primary Policyholder Empty Value', () =>
-    cy.wrap(ph1Fields).each(fieldToLeaveBlank => cy.verifyForm(ph1Fields, [fieldToLeaveBlank], user.customerInfo))
+    cy.wrap(ph1Fields).each(fieldToLeaveBlank => cy.verifyForm(ph1Fields, [fieldToLeaveBlank]))
   );
 
   it('NEG:Secondary Policyholder Empty Value', () => {
     toggleSecondUser();
     cy.clearAllText(ph2Fields)
       .submitAndCheckValidation(ph2Fields)
-      .wrap(ph2Fields).each(fieldToLeaveBlank => cy.verifyForm(ph2Fields, [fieldToLeaveBlank], secondUser.customerInfo));
+      .wrap(ph2Fields).each(fieldToLeaveBlank => cy.verifyForm(ph2Fields, [fieldToLeaveBlank]));
   });
 
   it('NEG:Primary Policyholder Invalid Character', () =>
     cy.clearAllText(ph1Fields)
       .verifyForm([
-        { ...firstName , error: 'Invalid characters' },
-        { ...lastName, error: 'Invalid characters' },
-        email
-      ], undefined, { FirstName: '∞', LastName: '∞', EmailAddress: '∞' })
+        { ...firstName , error: 'Invalid characters', data: '∞' },
+        { ...lastName, error: 'Invalid characters', data: '∞' },
+        { ...email, error: 'Not a valid email address', data: '∞' }
+      ])
   );
 
   it('NEG:Secondary Policyholder Invalid Character', () => {
     toggleSecondUser();
     cy.clearAllText(ph2Fields)
       .verifyForm([
-        { ...firstName2, error: 'Invalid characters' },
-        { ...lastName2, error: 'Invalid characters' },
-        email2
-      ], undefined, { FirstName2: '∞', LastName2: '∞', EmailAddress2: '∞' });
+        { ...firstName2, error: 'Invalid characters', data: '∞' },
+        { ...lastName2, error: 'Invalid characters', data: '∞' },
+        { ...email2, error: 'Not a valid email address', data: '∞'}
+      ])
   });
 
   it('NEG:Invalid Email Address', () => {
@@ -82,17 +79,17 @@ describe('Policyholder Testing', () => {
     toggleSecondUser();
     cy.clearAllText([...ph1Fields, ...ph2Fields])
       .verifyForm([
-        { ...phone, error: 'is not a valid Phone Number.'},
-        { ...phone2, error: 'is not a valid Phone Number.' }
-      ], undefined, { phoneNumber: '123', phoneNumber2: '123' });
+        { ...phone, error: 'Not a valid Phone Number', data: '123' },
+        { ...phone2, error: 'Not a valid Phone Number', data: '123' }
+      ])
   });
 
   it('NEG:Invalid Effective Date', () =>
     cy.findDataTag('effectiveDate').find('input').clear()
       .submitAndCheckValidation([effectiveDate])
       .verifyForm([
-        { ...effectiveDate, error: 'Date must be at least 08/01/2017' }
-      ], undefined, { effectiveDate: '1900-01-01'})
+        { ...effectiveDate, error: 'Date must be at least 08/01/2017', data: '1900-01-01' }
+      ])
   );
 
   it('POS:Policyholder Detail Header', () => {

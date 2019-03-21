@@ -9,8 +9,6 @@ import {
   navigateThroughShare,
   navigateThroughAssumptions
 } from '../../helpers';
-import ai1 from '../../fixtures/stockData/ai1.json';
-import ai2 from '../../fixtures/stockData/ai2.json';
 import { ai1Fields, ai2Fields } from './additionalInterestInputs';
 
 
@@ -49,7 +47,7 @@ describe('Additional Interest Testing', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(ai1Fields)
-        .wrap(ai1Required).each(fieldToLeaveBlank => cy.verifyForm(ai1Required, [fieldToLeaveBlank], ai1));
+        .wrap(ai1Required).each(fieldToLeaveBlank => cy.verifyForm(ai1Required, [fieldToLeaveBlank]));
     })
   );
 
@@ -59,8 +57,8 @@ describe('Additional Interest Testing', () => {
       const zip = ai1Fields.find(({ name }) => name === 'ai1Zip');
       toggleModalOn();
       cy.clearAllText(ai1Fields)
-        .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { ai1State: 'foo' })
-        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { ai1Zip: '123456789' });
+        .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
+        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
     })
   );
 
@@ -77,7 +75,7 @@ describe('Additional Interest Testing', () => {
       toggleModalOn();
       addAdditional();
       cy.clearAllText(ai2Fields)
-        .wrap(ai2Required).each(fieldToLeaveBlank => cy.verifyForm(ai2Required, [fieldToLeaveBlank], ai2));
+        .wrap(ai2Required).each(fieldToLeaveBlank => cy.verifyForm(ai2Required, [fieldToLeaveBlank]));
     })
   );
 
@@ -88,8 +86,8 @@ describe('Additional Interest Testing', () => {
       toggleModalOn();
       addAdditional();
       cy.clearAllText(ai2Fields)
-        .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { ai2State: 'foo' })
-        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { ai2Zip: '123456789' });
+        .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
+        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
     })
   );
 

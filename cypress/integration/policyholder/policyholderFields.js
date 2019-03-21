@@ -3,27 +3,33 @@ export const ph1Fields = [
     name: 'FirstName',
     error: 'Field Required',
     label: 'First Name',
-    required: true
+    type: 'text',
+    required: true,
+    data: 'Bruce'
   },
   {
     name: 'LastName',
     error: 'Field Required',
     label: 'Last Name',
-    required: true
+    type: 'text',
+    required: true,
+    data: 'Wayne'
   },
   {
     name: 'EmailAddress',
     error: 'Not a valid email address',
     label: 'Email Address',
-    type: 'email',
-    required: true
+    type: 'text',
+    required: true,
+    data: 'Batman@gmail.com'
   },
   {
     name: 'phoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
-    type: 'phone',
-    required: true
+    type: 'text',
+    required: true,
+    data: '123 456 7890'
   }
 ];
 
@@ -32,27 +38,33 @@ export const ph2Fields = [
     name: 'FirstName2',
     error: 'Field Required',
     label: 'First Name',
-    required: true
+    type: 'text',
+    required: true,
+    data: 'Dick'
   },
   {
     name: 'LastName2',
     error: 'Field Required',
     label: 'Last Name',
-    required: true
+    type: 'text',
+    required: true,
+    data: 'Grayson'
   },
   {
     name: 'EmailAddress2',
     error: 'Not a valid email address',
     label: 'Email Address',
-    type: 'email',
-    required: true
+    type: 'text',
+    required: true,
+    data: 'Robin@hotmail.com'
   },
   {
     name: 'phoneNumber2',
     error: 'Field Required',
-    label: 'Policyholder Contact Phone',
-    type: 'phone',
-    required: true
+    label: 'Contact Phone',
+    type: 'text',
+    required: true,
+    data: '135 792 4680'
   }
 ];
 
@@ -61,7 +73,7 @@ export const policyDetailsFields = [
     name: 'effectiveDate',
     error: 'Not a valid date',
     label: 'Effective Date',
-    type: 'date',
+    type: 'text',
     required: true
   },
   {

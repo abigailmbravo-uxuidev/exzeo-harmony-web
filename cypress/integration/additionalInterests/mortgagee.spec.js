@@ -9,10 +9,7 @@ import {
   navigateThroughShare,
   navigateThroughAssumptions
 } from '../../helpers';
-import m1data from '../../fixtures/stockData/mortgagee1.json';
-import m2data from '../../fixtures/stockData/mortgagee2.json';
-import m3data from '../../fixtures/stockData/mortgagee3.json';
-import {m1Fields, m2Fields, m3Fields } from './mortgageeFields';
+import { m1Fields, m2Fields, m3Fields } from './mortgageeFields';
 
 describe('Mortgagee Testing', () => {
   const toggleModalOn = () => cy.findDataTag('mortgagee-add').click();
@@ -50,7 +47,7 @@ describe('Mortgagee Testing', () => {
     goBack().then(() => {
       toggleModalOn();
       cy.clearAllText(m1Fields)
-        .wrap(m1Required).each(fieldToLeaveBlank => cy.verifyForm(m1Required, [fieldToLeaveBlank], m1data));
+        .wrap(m1Required).each(fieldToLeaveBlank => cy.verifyForm(m1Required, [fieldToLeaveBlank]));
     })
   );
 
@@ -61,8 +58,8 @@ describe('Mortgagee Testing', () => {
 
       toggleModalOn();
       cy.clearAllText(m1Fields)
-        .verifyForm([{ ...m1State, error: 'Only 2 letters allowed'}], undefined, { m1State: 'foo' })
-        .verifyForm([{ ...m1Zip, error: 'Only 8 letters or numbers allowed'}], undefined, { m1Zip: '123456789' })
+        .verifyForm([{ ...m1State, error: 'Only 2 letters allowed', data: 'foo' }])
+        .verifyForm([{ ...m1Zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }])
     })
   );
 
@@ -79,7 +76,7 @@ describe('Mortgagee Testing', () => {
       toggleModalOn();
       addUser(2);
       cy.clearAllText(m2Fields)
-        .wrap(m2Required).each(fieldToLeaveBlank => cy.verifyForm(m2Required, [fieldToLeaveBlank], m2data));
+        .wrap(m2Required).each(fieldToLeaveBlank => cy.verifyForm(m2Required, [fieldToLeaveBlank]));
     })
   );
 
@@ -91,8 +88,8 @@ describe('Mortgagee Testing', () => {
       toggleModalOn();
       addUser(2);
       cy.clearAllText(m2Fields)
-        .verifyForm([{ ...m2State, error: 'Only 2 letters allowed' }], undefined, { m2State: 'foo' })
-        .verifyForm([{ ...m2Zip, error: 'Only 8 letters or numbers allowed' }], undefined, { m2Zip: '123456789' })
+        .verifyForm([{ ...m2State, error: 'Only 2 letters allowed', data: 'foo' }])
+        .verifyForm([{ ...m2Zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
     })
   );
 
@@ -112,7 +109,7 @@ describe('Mortgagee Testing', () => {
       addUser(2);
       addUser(3);
       cy.clearAllText(m3Fields)
-        .wrap(m3Required).each(fieldToLeaveBlank => cy.verifyForm(m3Required, [fieldToLeaveBlank], m3data));
+        .wrap(m3Required).each(fieldToLeaveBlank => cy.verifyForm(m3Required, [fieldToLeaveBlank]));
     })
   );
 
@@ -126,8 +123,8 @@ describe('Mortgagee Testing', () => {
       addUser(3);
 
       cy.clearAllText(m3Fields)
-        .verifyForm([{ ...m3State, error: 'Only 2 letters allowed' }], undefined, { m3State: 'foo' })
-        .verifyForm([{ ...m3Zip, error: 'Only 8 letters or numbers allowed' }], undefined, { m3Zip: '123456789' })
+        .verifyForm([{ ...m3State, error: 'Only 2 letters allowed', data: 'foo'}])
+        .verifyForm([{ ...m3Zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
     })
   );
 

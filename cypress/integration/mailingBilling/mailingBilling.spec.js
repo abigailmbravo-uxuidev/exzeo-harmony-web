@@ -25,27 +25,25 @@ describe('Mailing/Billing Testing', () => {
     navigateThroughAdditionalInterests();
   });
 
-  const textFields = fields.filter(field => !field.type || field.type === 'text');
+  const textFields = fields.filter(field => field.type === 'text');
   const reqTextFields = textFields.filter(({ required }) => required !== false);
-  const radioFields = fields.filter(field => field.type && field.type === 'radio');
+  const radioFields = fields.filter(field => field.type === 'radio');
 
   it('NEG:All Mailing Address Inputs Empty Value', () =>
     cy.clearAllText(textFields).submitAndCheckValidation(reqTextFields)
   );
 
-  it('NEG:Mailing Address Empty Value', () => {
-    cy.fixture('stockData/mailing').then(mailing => {
-      cy.clearAllText(textFields)
-        .wrap(reqTextFields).each(fieldToLeaveBlank => cy.verifyForm(reqTextFields, [fieldToLeaveBlank], mailing));
-    });
-  });
+  it('NEG:Mailing Address Empty Value', () =>
+    cy.clearAllText(textFields)
+      .wrap(reqTextFields).each(fieldToLeaveBlank => cy.verifyForm(reqTextFields, [fieldToLeaveBlank]))
+  );
 
   it('NEG:Mailing Address Invalid Input Value', () => {
     const state = fields.find(({ name }) => name === 'state');
     const zip = fields.find(({ name }) => name === 'zip');
     cy.clearAllText(textFields)
-      .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { state: 'foo' })
-      .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { zip: '123456789' });
+      .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
+      .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
   });
 
   it('POS:Mailing / Billing Workflow', () =>

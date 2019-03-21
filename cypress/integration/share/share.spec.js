@@ -60,7 +60,7 @@ describe('Share Testing', () => {
     toggleModal();
     const email = fields.find(({ name }) => name === 'emailAddr_wrapper');
 
-    cy.verifyForm([{ ...email, error: 'Not a valid email address' }], undefined, { emailAddr_wrapper: 'å∫∂®ƒ©' }, submitOptions);
+    cy.verifyForm([{ ...email, error: 'Not a valid email address', data: 'å∫∂®ƒ©' }], undefined, undefined, submitOptions);
   });
 
   it('POS:Share Workflow', () =>
