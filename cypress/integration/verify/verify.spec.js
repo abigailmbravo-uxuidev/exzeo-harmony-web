@@ -110,7 +110,7 @@ describe('Verify testing', () => {
     cy.verifyForm([{ ...email1, error: 'Not a valid email address', data: 'batman' }], undefined, undefined, submitOptions)
       .verifyForm([{ ...email2, error: 'Not a valid email address', data: 'batman' }], undefined, undefined, submitOptions)
       .verifyForm([{ ...phone1, error: 'is not a valid Phone Number.', data: '123' }], undefined, undefined, submitOptions)
-      .verifyForm([{ ...phone2, error: 'is not a valid Phone Number.', data: '123' }], undefined, undefined, submitOptions)
+      .verifyForm([{ ...phone2, error: 'is not a valid Phone Number.', data: '123' }], undefined, undefined, submitOptions);
 
     toggleModal('off');
   });

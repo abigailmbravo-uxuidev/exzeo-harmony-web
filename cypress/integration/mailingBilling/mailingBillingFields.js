@@ -120,3 +120,16 @@ export const workflowSections = [
   }
 ];
 
+export const pageHeaders = [
+  {
+    name: 'Mailing Address',
+    text: 'Mailing Address',
+    icon: 'fa fa-envelope'
+  },
+  {
+    name: 'Billing Information',
+    text: 'Billing Information',
+    icon: 'fa fa-dollar'
+  }
+];
+

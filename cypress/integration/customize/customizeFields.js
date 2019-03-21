@@ -158,7 +158,7 @@ export const fields = [
     label: 'Sprinkler',
     values: ['N', 'A', 'B']
   }
-]
+];
 
 export const workflowSections = [
   {
@@ -191,4 +191,30 @@ export const workflowSections = [
   }
 ];
 
-export const headers = ['Coverage Limits', 'Coverage Options', 'Deductibles', 'Wind Mitigation', 'Discounts'];
+export const pageHeaders = [
+  {
+    name: 'Coverage Limits',
+    text: 'Coverage Limits',
+    icon: 'fa fa-line-chart'
+  },
+  { 
+    name: 'Coverage Options',
+    text: 'Coverage Options',
+    icon: 'fa fa-tasks'
+  },
+  { 
+    name: 'Deductibles',
+    text: 'Deductibles',
+    icon: 'fa fa-money'
+  },
+  { 
+    name: 'Wind Mitigation',
+    text: 'Wind Mitigation',
+    icon: 'fa fa-flag'
+  },
+  { 
+    name: 'Discounts',
+    text: 'Discounts',
+    icon: 'fa fa-scissors'
+  }
+];

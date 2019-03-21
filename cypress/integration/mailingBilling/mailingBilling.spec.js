@@ -9,7 +9,7 @@ import {
   navigateThroughAssumptions,
   navigateThroughAdditionalInterests
 } from '../../helpers';
-import { fields, workflowSections } from './mailingBillingFields';
+import { fields, workflowSections, pageHeaders } from './mailingBillingFields';
 
 describe('Mailing/Billing Testing', () => {
   before(() => {
@@ -51,10 +51,7 @@ describe('Mailing/Billing Testing', () => {
   );
 
   it('POS:Mailing / Billing Header Text', () =>
-    cy.get('div.title').first()
-      .should('contain', 'Mailing Address').find('i').should('have.attr', 'class', 'fa fa-envelope')
-      .get('div.title').last()
-      .should('contain', 'Billing Information').find('i').should('have.attr', 'class', 'fa fa-dollar')
+    cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
   );
 
   it('POS:Mailing / Billing Label Text', () =>

@@ -13,6 +13,15 @@ Cypress.Commands.add('checkLabel', (tag, text) =>
   cy.findDataTag(tag).find('label').should('contain', text));
 
 /**
+ * @param {Object} header - Header object
+ * @param {string} header.name - Name of the wrapping data-test tag
+ * @param {string} header.text - Text of the header
+ * @param {string} header.icon - Icon classname
+ */
+Cypress.Commands.add('checkHeader', ({ name, text, icon }) =>
+  cy.findDataTag(name).should('contain', text).find('i').should('have.attr', 'class', icon));
+
+/**
  * @param {string} tag - String name of data-test tag.
  * @param {string} text - Check this text is now in value of input
  */

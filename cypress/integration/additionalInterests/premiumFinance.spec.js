@@ -55,7 +55,7 @@ describe('Premium Finance Testing', () => {
       const zip = fields.find(({ name }) => name === 'zip');
       cy.clearAllText(fields)
         .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
-        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }])
+        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
     })
   );
 

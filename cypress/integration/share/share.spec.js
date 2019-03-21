@@ -7,7 +7,7 @@ import {
   navigateThroughCustomize,
   navigateThroughShare
 } from '../../helpers';
-import { fields, workflowSections } from './shareFields';
+import { fields, workflowSections, pageHeaders } from './shareFields';
 
 describe('Share Testing', () => {
   const sections = ['section-1', 'section-2', 'section-3'];
@@ -68,10 +68,8 @@ describe('Share Testing', () => {
   );
 
   it('POS:Share Header / Text', () =>
-    sections.forEach(tag => 
-      cy.findDataTag(tag).find('div.title').should('exist').find('i.fa').should('exist')
-        .findDataTag(tag).find('p').should('contain', 'quote')
-    )
+    cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
+      .wrap(sections).each(tag => cy.findDataTag(tag).find('p').should('contain', 'quote'))
   );
 
   it('POS:Share Button', () =>

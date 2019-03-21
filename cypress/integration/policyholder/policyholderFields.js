@@ -115,3 +115,21 @@ export const workflowSections = [
     status: 'disabled'
   }
 ];
+
+export const pageHeaders = [
+  {
+    name: 'Primary Policyholder',
+    text: 'Primary Policyholder',
+    icon: 'fa fa-user-circle'
+  },
+  {
+    name: 'Secondary Policyholder',
+    text: 'Secondary Policyholder',
+    icon: 'fa fa-user-circle'
+  },
+  {
+    name: 'Policy Details',
+    text: 'Policy Details',
+    icon: 'fa fa-file-text'
+  }
+];

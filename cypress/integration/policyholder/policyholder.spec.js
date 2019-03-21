@@ -3,7 +3,7 @@ import {
   navigateThroughLanding,
   navigateThroughSearchAddress
 } from '../../helpers';
-import { ph1Fields, ph2Fields, policyDetailsFields, workflowSections } from './policyholderFields';
+import { ph1Fields, ph2Fields, policyDetailsFields, workflowSections, pageHeaders } from './policyholderFields';
 
 describe('Policyholder Testing', () => {
   const toggleSecondUser = (dir = 'on') =>
@@ -66,7 +66,7 @@ describe('Policyholder Testing', () => {
         { ...firstName2, error: 'Invalid characters', data: '∞' },
         { ...lastName2, error: 'Invalid characters', data: '∞' },
         { ...email2, error: 'Not a valid email address', data: '∞'}
-      ])
+      ]);
   });
 
   it('NEG:Invalid Email Address', () => {
@@ -81,7 +81,7 @@ describe('Policyholder Testing', () => {
       .verifyForm([
         { ...phone, error: 'Not a valid Phone Number', data: '123' },
         { ...phone2, error: 'Not a valid Phone Number', data: '123' }
-      ])
+      ]);
   });
 
   it('NEG:Invalid Effective Date', () =>
@@ -104,28 +104,28 @@ describe('Policyholder Testing', () => {
       checkHeaderSection('premium', ['Premium', '']);
   });
 
+  it('POS:Check Headers', () => {
+    toggleSecondUser();
+    cy.wrap(pageHeaders).each(header => cy.checkHeader(header));
+  });
+
   it('POS:Policyholder Workflow', () =>
     cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Primary Policyholder Label / Text', () =>
-    cy.get('span.section-group-header').first().find('i').should('have.attr', 'class', 'fa Primary Policyholder')
-      .get('span.section-group-header').should('contain', 'Primary Policyholder')
-      .wrap(ph1Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name))
-    );
+    cy.wrap(ph1Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name))
+  );
 
   it('POS:Secondary Policyholder Label / Text', () => {
     toggleSecondUser();
-    cy.get('span.section-group-header').contains('Secondary Policyholder').should('exist')
-      .find('i').should('have.attr', 'class', 'fa Secondary Policyholder')
-      .wrap(ph2Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name));
+    cy.wrap(ph2Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name));
   });
 
   it('POS:Policy Details Text', () =>
-    cy.get('span.section-group-header').contains('Policy Details').should('exist')
-      .find('i').should('have.attr', 'class', 'fa Policy Details')
-      .wrap(policyDetailsFields).each(({ name, label }) => cy.checkLabel(name, label))
-      .findDataTag('effectiveDate').find('div.date-min-max').should('contain', '-')
+    cy.checkLabel('effectiveDate_wrapper', 'Effective Date')
+      .findDataTag('effectiveDate_wrapper').find('span.secondary-label').should('contain', '-')
+      .checkLabel('agentCode_wrapper', 'Agent')
   );
 
   it('POS:Policy Details Input', () =>

@@ -48,3 +48,21 @@ export const workflowSections = [
   }
 ];
 
+export const pageHeaders = [
+  {
+    name: 'Share',
+    text: 'Share',
+    icon: 'fa fa-share-alt'
+  },
+  {
+    name: 'Continue',
+    text: 'Continue',
+    icon: 'fa fa-arrow-circle-right'
+  },
+  {
+    name: 'NewQuote',
+    text: 'New Quote',
+    icon: 'fa fa-quote-left'
+  }
+];
+

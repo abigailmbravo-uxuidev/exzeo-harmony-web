@@ -59,7 +59,7 @@ describe('Mortgagee Testing', () => {
       toggleModalOn();
       cy.clearAllText(m1Fields)
         .verifyForm([{ ...m1State, error: 'Only 2 letters allowed', data: 'foo' }])
-        .verifyForm([{ ...m1Zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }])
+        .verifyForm([{ ...m1Zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
     })
   );
 

@@ -5,7 +5,7 @@ import {
   navigateThroughPolicyholder,
   navigateThroughUnderwriting
 } from '../../helpers';
-import { workflowSections, fields, headers } from './customizeFields';
+import { workflowSections, fields, pageHeaders } from './customizeFields';
 
 describe('Customize Testing', () => {
   before('Go to customize page', () => {
@@ -70,8 +70,7 @@ describe('Customize Testing', () => {
   );
 
   it('POS:Customize Header Text', () =>
-    cy.get('#QuoteWorkflow').find('div.title').each(($div, i) =>
-      cy.wrap($div).should('contain', headers[i]).find('i.fa').should('exist'))
+    cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
   );
 
   it('POS:Checks all fields', () => {
