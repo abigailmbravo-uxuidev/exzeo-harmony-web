@@ -2,236 +2,555 @@
   "status": 200,
   "message": "success",
   "data": {
-    "modelInstanceId": "2636085",
+    "modelInstanceId": "3359699",
     "modelName": "quoteModel",
     "activeTask": {
       "metaInfo": {
         "expectedInputs": [{
-            "dataType": "number",
-            "defaultValue": "1000",
-            "displayText": "All Other Perils",
-            "name": "allOtherPerils",
-            "required": true
-          },
-          {
-            "dataType": "boolean",
-            "defaultValue": "false",
-            "displayText": "Burglar Alarm",
-            "name": "burglarAlarm",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "7180",
-            "displayText": "Calculated Hurricane",
-            "name": "calculatedHurricane",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "359000",
-            "displayText": "Dwelling Limit",
-            "name": "dwellingAmount",
-            "required": true
-          },
-          {
-            "dataType": "boolean",
-            "defaultValue": "false",
-            "displayText": "Fire Alarm",
-            "name": "fireAlarm",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "130",
-            "displayText": "Florida Building Code Wind Speed",
-            "name": "floridaBuildingCodeWindSpeed",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "130",
-            "displayText": "Florida Building Code Wind Speed Design",
-            "name": "floridaBuildingCodeWindSpeedDesign",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "2",
-            "displayText": "Hurricane",
-            "name": "hurricane",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Other",
-            "displayText": "Internal Pressure Design",
-            "name": "internalPressureDesign",
-            "required": true
-          },
-          {
-            "dataType": "boolean",
-            "defaultValue": "false",
-            "displayText": "Liability Incidental Occupancies",
-            "name": "liabilityIncidentalOccupancies",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "35900",
-            "displayText": "Loss Of Use",
-            "name": "lossOfUse",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "2000",
-            "displayText": "Medical Payments",
-            "name": "medicalPayments",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "50000",
-            "displayText": "Mold Liability",
-            "name": "moldLiability",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "10000",
-            "displayText": "Mold Property",
-            "name": "moldProperty",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Other",
-            "displayText": "Opening Protection",
-            "name": "openingProtection",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "25",
-            "displayText": "Ordinance or Law",
-            "name": "ordinanceOrLaw",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "7180",
-            "displayText": "Other Structures Limit",
-            "name": "otherStructuresAmount",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "300000",
-            "displayText": "Personal Liability",
-            "name": "personalLiability",
-            "required": true
-          },
-          {
-            "dataType": "number",
-            "defaultValue": "89750",
-            "displayText": "Personal Property Limit",
-            "name": "personalPropertyAmount",
-            "required": true
-          },
-          {
-            "dataType": "boolean",
-            "defaultValue": "true",
-            "displayText": "Personal Property Replacement Cost",
-            "name": "personalPropertyReplacementCostCoverage",
-            "required": true
-          },
-          {
-            "dataType": "boolean",
-            "defaultValue": "false",
-            "displayText": "Property Incidental Occupancies Main Dwelling",
-            "name": "propertyIncidentalOccupanciesMainDwelling",
-            "required": true
-          },
-          {
-            "dataType": "boolean",
-            "defaultValue": "false",
-            "displayText": "Property Incidental Occupancies Other Dwelling",
-            "name": "propertyIncidentalOccupanciesOtherStructures",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Other",
-            "displayText": "Roof Covering",
-            "name": "roofCovering",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Other",
-            "displayText": "Roof Deck Attachment",
-            "name": "roofDeckAttachment",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Other",
-            "displayText": "Roof Geometry",
-            "name": "roofGeometry",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Other",
-            "displayText": "Roof To Wall Connection",
-            "name": "roofToWallConnection",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Other",
-            "displayText": "Secondary Water Resistance",
-            "name": "secondaryWaterResistance",
-            "required": true
-          },
-          {
-            "dataType": "boolean",
-            "defaultValue": "true",
-            "displayText": "Sinkhold Peril Coverage",
-            "name": "sinkholePerilCoverage",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "N",
-            "displayText": "Sprinkler",
-            "name": "sprinkler",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "B",
-            "displayText": "Terrain",
-            "name": "terrain",
-            "required": true
-          },
-          {
-            "dataType": "string",
-            "defaultValue": "Yes",
-            "displayText": "Wind Borne Debris Region",
-            "name": "windBorneDebrisRegion",
-            "required": true
-          }
-        ],
+          "dataType": "string",
+          "defaultValue": "Yes",
+          "name": "shouldCustomizeQuote",
+          "required": true
+        }],
         "taskType": "userTask"
       },
-      "name": "customizeDefaultQuote"
+      "name": "askToCustomizeDefaultQuote"
     },
     "previousTask": {
-      "name": "askToCustomizeDefaultQuote",
+      "name": "updateQuoteWithUWDecision3",
       "value": {
-        "shouldCustomizeQuote": "Yes"
+        "message": "success",
+        "result": {
+          "__v": 0,
+          "_id": "5c925e7ad9fac4000ee9361c",
+          "additionalInterests": [
+
+          ],
+          "agencyCode": 20000,
+          "agentCode": 60000,
+          "billToId": "",
+          "billToType": "Policyholder",
+          "companyCode": "TTIC",
+          "cost": {
+            "totalCost": 125,
+            "worksheet": {
+              "calculatedFields": {
+                "adminExp": 125,
+                "catExp": 0,
+                "coverageAFactor": 1.05,
+                "hurricaneTEFactor": 411,
+                "nonCatExp": 0,
+                "retentionExp": 0
+              },
+              "inputFields": {
+                "aopDeductible": 1000,
+                "companyCode": "TTIC",
+                "constructionType": "M",
+                "coverageA": 300000,
+                "coverageB": 6000,
+                "coverageC": 75000,
+                "coverageD": 30000,
+                "currentYear": "2018",
+                "hurricaneDeductible": 2,
+                "openingProtection": "C",
+                "product": "HO3",
+                "replacementCost": true,
+                "roofGeometry": "Other",
+                "sinkholeDeductible": 10,
+                "state": "FL",
+                "version": "201801",
+                "yearBuilt": 1998,
+                "zip": "00001"
+              },
+              "lookupFields": {
+                "baseCost": 125,
+                "baseCoverageA": 250000,
+                "claimCost": 1500,
+                "hurricaneConstructionTypeFactor": 1,
+                "hurricaneDeductibleFactor": 1,
+                "hurricaneOpeningProtectionFactor": 1,
+                "hurricaneRetentionMult": 1.463338,
+                "hurricaneRoofShapeFactor": 1,
+                "hurricaneYearBuiltFactor": 0.516541,
+                "maxCoverageA": 750000,
+                "minCoverageA": 150000,
+                "nonCatConstructionLossCost": 0
+              }
+            }
+          },
+          "coverageLimits": {
+            "_id": "5c9262b2d9fac4000ee94293",
+            "dwelling": {
+              "_id": "5c9262b2d9fac4000ee94294",
+              "amount": 300000,
+              "displayText": "Dwelling",
+              "format": "Currency",
+              "letterDesignation": "A",
+              "maxAmount": 408000,
+              "minAmount": 283000
+            },
+            "lossOfUse": {
+              "_id": "5c9262b2d9fac4000ee94295",
+              "amount": 30000,
+              "displayText": "Loss of Use",
+              "format": "Currency",
+              "letterDesignation": "D"
+            },
+            "medicalPayments": {
+              "_id": "5c9262b2d9fac4000ee94296",
+              "amount": 2000,
+              "displayText": "Medical Payments",
+              "format": "Currency",
+              "letterDesignation": "F"
+            },
+            "moldLiability": {
+              "_id": "5c9262b2d9fac4000ee94297",
+              "amount": 50000,
+              "displayText": "Mold Liability",
+              "format": "Currency"
+            },
+            "moldProperty": {
+              "_id": "5c9262b2d9fac4000ee94298",
+              "amount": 10000,
+              "displayText": "Mold Property",
+              "format": "Currency"
+            },
+            "ordinanceOrLaw": {
+              "_id": "5c9262b2d9fac4000ee94299",
+              "amount": 25,
+              "displayText": "Ordinance or Law",
+              "format": "Percentage",
+              "ofCoverageLimit": "dwelling"
+            },
+            "otherStructures": {
+              "_id": "5c9262b2d9fac4000ee9429a",
+              "amount": 6000,
+              "displayText": "Other Structures",
+              "format": "Currency",
+              "letterDesignation": "B"
+            },
+            "personalLiability": {
+              "_id": "5c9262b2d9fac4000ee9429b",
+              "amount": 300000,
+              "displayText": "Personal Liability",
+              "format": "Currency",
+              "letterDesignation": "E"
+            },
+            "personalProperty": {
+              "_id": "5c9262b2d9fac4000ee9429c",
+              "amount": 75000,
+              "displayText": "Personal Property",
+              "format": "Currency",
+              "letterDesignation": "C"
+            }
+          },
+          "coverageOptions": {
+            "liabilityIncidentalOccupancies": {
+              "answer": false,
+              "displayText": "Liability Permitted Incidental Occupancies"
+            },
+            "personalPropertyReplacementCost": {
+              "answer": true,
+              "displayText": "Personal Property Replacement Cost"
+            },
+            "propertyIncidentalOccupanciesMainDwelling": {
+              "answer": false,
+              "displayText": "Property Permitted Incidental Occupancies Main Dwelling"
+            },
+            "propertyIncidentalOccupanciesOtherStructures": {
+              "answer": false,
+              "displayText": "Property Permitted Incidental Occupancies Other Structures"
+            },
+            "sinkholePerilCoverage": {
+              "answer": true,
+              "displayText": "Sinkhole Peril Coverage"
+            }
+          },
+          "createdAt": "2019-03-20T15:38:34.226Z",
+          "createdBy": {
+            "_id": "5c925e7ad9fac4000ee9361d",
+            "userId": "auth0|59419e3a43e76f16f68c3349",
+            "userName": "tticcsr"
+          },
+          "deductibles": {
+            "allOtherPerils": {
+              "amount": 1000,
+              "displayText": "All Other Perils",
+              "format": "Currency"
+            },
+            "hurricane": {
+              "amount": 2,
+              "calculatedAmount": 6000,
+              "displayText": "Hurricane",
+              "format": "Percentage",
+              "ofCoverageLimit": "dwelling"
+            },
+            "sinkhole": {
+              "amount": 10,
+              "calculatedAmount": 30000,
+              "displayText": "Sinkhole",
+              "format": "Percentage",
+              "ofCoverageLimit": "dwelling"
+            }
+          },
+          "effectiveDate": "2019-04-19T04:00:00.000Z",
+          "endDate": "2020-04-19T04:00:00.000Z",
+          "policyHolders": [{
+            "_id": "5c925e88d7bd33000ea033d9",
+            "electronicDelivery": false,
+            "emailAddress": "dan1@msn.com",
+            "entityType": "Person",
+            "firstName": "Dan ",
+            "lastName": "Fakenamington",
+            "order": 0,
+            "primaryPhoneNumber": "1111111111"
+          }],
+          "product": "HO3",
+          "property": {
+            "_id": "5c9262b2d9fac4000ee9429d",
+            "buildingCodeEffectivenessGrading": 3,
+            "burglarAlarm": true,
+            "constructionType": "MASONRY",
+            "distanceToFireHydrant": 264.052744,
+            "distanceToFireStation": 0.79,
+            "distanceToTidalWater": 17740.8,
+            "divingBoard": false,
+            "familyUnits": "1-2",
+            "fireAlarm": false,
+            "floodZone": "X",
+            "gatedCommunity": false,
+            "id": "12000000000000001",
+            "physicalAddress": {
+              "_id": "5c925e7ad9fac4000ee93620",
+              "address1": "4131 TEST ADDRESS",
+              "address2": "",
+              "city": "SARASOTA",
+              "county": "SARASOTA",
+              "latitude": 27.27967,
+              "longitude": -82.47786,
+              "state": "FL",
+              "zip": "00001"
+            },
+            "pool": false,
+            "poolSecured": false,
+            "protectionClass": 3,
+            "residenceType": "SINGLE FAMILY",
+            "source": "CasaClue",
+            "sprinkler": "N",
+            "squareFeet": 2640,
+            "territory": "715-51",
+            "townhouseRowhouse": false,
+            "trampoline": false,
+            "windMitigation": {
+              "_id": "5c9262b2d9fac4000ee9429f",
+              "floridaBuildingCodeWindSpeed": 130,
+              "floridaBuildingCodeWindSpeedDesign": 130,
+              "internalPressureDesign": "Other",
+              "openingProtection": "Other",
+              "roofCovering": "Other",
+              "roofDeckAttachment": "Other",
+              "roofGeometry": "Other",
+              "roofToWallConnection": "Other",
+              "secondaryWaterResistance": "Other",
+              "terrain": "B",
+              "windBorneDebrisRegion": "Yes"
+            },
+            "yearBuilt": 1998,
+            "yearOfRoof": null
+          },
+          "quoteNumber": "12-5160964-01",
+          "quoteState": "Quote Started",
+          "rating": {
+            "_id": "5c9262b3d7bd33000ea03e8b",
+            "engineCode": "HO3ByPeril",
+            "netPremium": 2463,
+            "rateCode": 201704,
+            "totalFees": 27,
+            "totalPremium": 2490,
+            "worksheet": {
+              "additionalCoverages": {
+                "increasedLiabilityMoldFungiLimit": 0,
+                "increasedPersonalLiabilityLimit": 22,
+                "increasedPropertyMoldFungiLimit": 0,
+                "liabilityIncidentalOccupancies": 0,
+                "otherStructIncLimits": 0,
+                "propertyIncidentalOccupancies": 0
+              },
+              "additionalCoveragesSum": 22,
+              "bcegAdjustment": -143,
+              "elements": {
+                "ageOfHomeByYearFactors": {
+                  "hurricane": 1.04,
+                  "otherWind": 1.04,
+                  "yearBuilt": 1998
+                },
+                "ageOfHomeFactors": {
+                  "ageOfHome": 21,
+                  "allOtherPerils": 2.496,
+                  "fire": 2.496,
+                  "liability": 2.496,
+                  "sinkhole": 2.496,
+                  "water": 2.496
+                },
+                "baseRates": {
+                  "allOtherPerils": 153.35,
+                  "fire": 309.05,
+                  "hurricane": 613.41,
+                  "liability": 56.96,
+                  "otherWind": 22.98,
+                  "sinkhole": 7.47,
+                  "water": 516.56
+                },
+                "bcegFactors": {
+                  "allOtherPerils": 1,
+                  "fire": 1,
+                  "grade": 3,
+                  "hurricane": 0.911,
+                  "liability": 1,
+                  "otherWind": 0.911,
+                  "sinkhole": 1,
+                  "territoryGroup": 3,
+                  "water": 1
+                },
+                "burglarAlarmFactors": {
+                  "allOtherPerils": 0.549,
+                  "burglarAlarm": true,
+                  "fire": 1,
+                  "hurricane": 1,
+                  "liability": 1,
+                  "otherWind": 1,
+                  "sinkhole": 1,
+                  "water": 1
+                },
+                "coverageAFactors": {
+                  "allOtherPerils": 2.231,
+                  "fire": 2.231,
+                  "hurricane": 2.231,
+                  "liability": 1,
+                  "otherWind": 2.231,
+                  "sinkhole": 2.231,
+                  "water": 2.231
+                },
+                "coverageBFactors": {
+                  "allOtherPerils": 0.97,
+                  "fire": 0.97,
+                  "hurricane": 0.97,
+                  "liability": 1,
+                  "otherWind": 0.97,
+                  "sinkhole": 0.97,
+                  "water": 0.97
+                },
+                "coverageCFactors": {
+                  "allOtherPerils": 0.925,
+                  "fire": 0.925,
+                  "hurricane": 0.85,
+                  "liability": 1,
+                  "otherWind": 0.925,
+                  "sinkhole": 0.925,
+                  "water": 0.925
+                },
+                "deductibleFactors": {
+                  "allOtherPerils": 1,
+                  "allOtherPerilsDeductible": 1000,
+                  "exWind": false,
+                  "fire": 1,
+                  "hurricane": 1,
+                  "hurricaneDeductible": 2,
+                  "liability": 1,
+                  "otherWind": 1,
+                  "sinkhole": 1,
+                  "water": 1
+                },
+                "fireAlarmAndSprinklerFactors": {
+                  "allOtherPerils": 1,
+                  "fire": 1,
+                  "fireAlarm": false,
+                  "hurricane": 1,
+                  "liability": 1,
+                  "otherWind": 1,
+                  "sinkhole": 1,
+                  "sprinkler": "N",
+                  "water": 1
+                },
+                "noPriorInsuranceFactors": {
+                  "allOtherPerils": 1,
+                  "fire": 1,
+                  "hurricane": 1,
+                  "liability": 1,
+                  "noPriorInsurance": false,
+                  "otherWind": 1,
+                  "sinkhole": 1,
+                  "water": 1
+                },
+                "ordinanceOrLawFactors": {
+                  "allOtherPerils": 1,
+                  "fire": 1,
+                  "hurricane": 1,
+                  "liability": 1,
+                  "ordinanceOrLaw": false,
+                  "otherWind": 1,
+                  "sinkhole": 1,
+                  "water": 1
+                },
+                "protectionClassFactors": {
+                  "allOtherPerils": 0.852,
+                  "constructionCode": "M",
+                  "constructionType": "Masonry",
+                  "fire": 0.852,
+                  "hurricane": 0.817,
+                  "liability": 1,
+                  "otherWind": 0.817,
+                  "protectionClass": 3,
+                  "sinkhole": 0.852,
+                  "water": 0.852
+                },
+                "replacementCostFactors": {
+                  "allOtherPerils": 1.125,
+                  "fire": 1.125,
+                  "hurricane": 1.125,
+                  "liability": 1,
+                  "otherWind": 1.125,
+                  "replacementCost": true,
+                  "sinkhole": 1.125,
+                  "water": 1.125
+                },
+                "seasonalFactors": {
+                  "allOtherPerils": 1,
+                  "fire": 1,
+                  "hurricane": 1,
+                  "liability": 1,
+                  "otherWind": 1,
+                  "seasonal": false,
+                  "sinkhole": 1,
+                  "water": 1
+                },
+                "territoryFactors": {
+                  "allOtherPerils": 0.205,
+                  "code": "715-51",
+                  "fire": 0.205,
+                  "group": 3,
+                  "hurricane": 1.43,
+                  "liability": 0.203,
+                  "minPremium": 0.002,
+                  "name": "Sarasota,Remainder",
+                  "otherWind": 1.43,
+                  "sinkhole": 1.598,
+                  "water": 0.205
+                },
+                "townRowHouseFactors": {
+                  "allOtherPerils": 1,
+                  "fire": 1,
+                  "hurricane": 1,
+                  "liability": 1,
+                  "otherWind": 1,
+                  "protectionClass": 3,
+                  "sinkhole": 1,
+                  "units": "1-2",
+                  "water": 1
+                },
+                "windMitigationFactors": {
+                  "allOtherPerils": 1,
+                  "fire": 1,
+                  "hurricane": 1,
+                  "liability": 1,
+                  "otherWind": 1,
+                  "sinkhole": 1,
+                  "water": 1,
+                  "windMitigationDiscount": 0
+                }
+              },
+              "fees": {
+                "citizensFee": 0,
+                "empTrustFee": 2,
+                "fhcfFee": 0,
+                "figaFee": 0,
+                "mgaPolicyFee": 25
+              },
+              "minimumPremiumAdjustment": 0,
+              "netPremium": 2463,
+              "perilPremiums": {
+                "allOtherPerils": 83,
+                "fire": 303,
+                "hurricane": 1405,
+                "liability": 29,
+                "otherWind": 57,
+                "sinkhole": 57,
+                "water": 507
+              },
+              "perilPremiumsSum": 2441,
+              "subtotalPremium": 2463,
+              "totalFees": 27,
+              "totalPremium": 2490
+            }
+          },
+          "state": "FL",
+          "underwritingAnswers": {
+            "business": {
+              "answer": "No",
+              "question": "Is a business conducted on the property?",
+              "source": "Customer"
+            },
+            "floodCoverage": {
+              "answer": "Yes",
+              "question": "Does this property have a separate insurance policy covering flood losses?",
+              "source": "Default"
+            },
+            "fourPointUpdates": {
+              "answer": "Yes",
+              "question": "Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?",
+              "source": "Customer"
+            },
+            "monthsOccupied": {
+              "answer": "10+",
+              "question": "How many months a year does the owner live in the home?",
+              "source": "Customer"
+            },
+            "noPriorInsuranceSurcharge": {
+              "answer": "No",
+              "question": "If not new purchase, please provide proof of prior insurance.",
+              "source": "Default"
+            },
+            "previousClaims": {
+              "answer": "No claims ever filed",
+              "question": "How many claims in the past 5 years?",
+              "source": "Customer"
+            },
+            "rented": {
+              "answer": "Never",
+              "question": "Is the home or any structures on the property ever rented?",
+              "source": "Customer"
+            }
+          },
+          "underwritingExceptions": [{
+            "_id": "5c9262b3d7bd33000ea03ec0",
+            "action": "Missing Info",
+            "active": true,
+            "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
+            "canOverride": false,
+            "category": "Coverages & Deductibles",
+            "code": "003",
+            "displayText": "Missing Info - Mailing/Billing Info",
+            "fields": [
+
+            ],
+            "internalMessage": "Missing required information to complete quote -  Mailing/Billing Info",
+            "overridden": false,
+            "overriddenAt": null,
+            "overriddenBy": {
+              "_id": "5c9262b3d7bd33000ea03ec1",
+              "userId": null,
+              "userName": null
+            }
+          }],
+          "updatedAt": "2019-03-20T15:56:35.871Z",
+          "updatedBy": {
+            "_id": "5c9262b3d7bd33000ea03ec2",
+            "userId": "auth0|59419e3a43e76f16f68c3349",
+            "userName": "tticcsr"
+          }
+        },
+        "status": 200,
+        "timeTookByEndpoint": 40
       }
     },
     "tasks": {
@@ -365,233 +684,1379 @@
         "updateQuoteWithUWDecision5"
       ]
     },
-    "uiQuestions": [
+    "uiQuestions": [{
+        "_id": "5bbba314ec85020015b7dd34",
+        "__v": 0,
+        "order": 1,
+        "name": "coverageLimits",
+        "question": "Coverage Limits",
+        "answerType": "heading",
+        "answers": [
 
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd20",
+        "__v": 0,
+        "name": "dwellingAmount",
+        "question": "Dwelling Limit",
+        "order": 2,
+        "defaultValueLocation": "coverageLimits.dwelling.amount",
+        "answerType": "slider",
+        "conditional": {
+          "slider": {
+            "maxLocation": "coverageLimits.dwelling.maxAmount",
+            "minLocation": "coverageLimits.dwelling.minAmount"
+          }
+        },
+        "description": "This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  ",
+        "answers": [
+
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+          "dwellingRange"
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd29",
+        "__v": 0,
+        "name": "otherStructuresAmount",
+        "order": 3,
+        "question": "Other Structures Limit",
+        "answerFormat": "currency",
+        "defaultValueLocation": "coverageLimits.otherStructures.amount",
+        "answerType": "radio",
+        "conditional": {
+          "dependency": {
+            "parent": "dwellingAmount",
+            "type": "percent"
+          }
+        },
+        "description": "This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.",
+        "answers": [{
+            "label": "0%",
+            "answer": 0
+          },
+          {
+            "label": "2%",
+            "answer": 2
+          },
+          {
+            "label": "5%",
+            "answer": 5
+          },
+          {
+            "label": "10%",
+            "answer": 10
+          }
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd41",
+        "__v": 0,
+        "name": "personalPropertyAmount",
+        "defaultValueLocation": "coverageLimits.personalProperty.amount",
+        "question": "Personal Property Limit",
+        "order": 4,
+        "answerType": "radio",
+        "answerFormat": "currency",
+        "conditional": {
+          "dependency": {
+            "parent": "dwellingAmount",
+            "type": "percent"
+          }
+        },
+        "description": "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
+        "answers": [{
+            "label": "0%",
+            "answer": 0
+          },
+          {
+            "label": "25%",
+            "answer": 25
+          },
+          {
+            "label": "35%",
+            "answer": 35
+          },
+          {
+            "label": "50%",
+            "answer": 50
+          }
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd28",
+        "__v": 0,
+        "name": "personalPropertyReplacementCostCoverage",
+        "question": "Do you want Personal Property Replacement Cost Coverage?",
+        "order": 5,
+        "answerType": "bool",
+        "defaultValueLocation": "coverageOptions.personalPropertyReplacementCost.answer",
+        "conditional": {
+          "display": [{
+            "parent": "personalPropertyAmount",
+            "trigger": "0",
+            "operator": "greaterThan",
+            "type": "hidden"
+          }]
+        },
+        "description": "Replacement Cost Coverage replaces your damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, your loss for personal property will be paid out at Actual Cash Value.",
+        "answers": [
+
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd38",
+        "__v": 0,
+        "name": "lossOfUseAmount",
+        "question": "Loss of Use Limit",
+        "defaultValueLocation": "coverageLimits.lossOfUse.amount",
+        "order": 6,
+        "answerType": "display",
+        "conditional": {
+          "value": {
+            "value": 10,
+            "parent": "dwellingAmount",
+            "type": "percent"
+          }
+        },
+        "answers": [
+
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd4e",
+        "__v": 0,
+        "name": "personalLiability",
+        "question": "Personal Liability Limit",
+        "defaultValueLocation": "coverageLimits.personalLiability.amount",
+        "order": 7,
+        "answerType": "radio",
+        "answers": [{
+            "label": "$ 100,000",
+            "answer": 100000
+          },
+          {
+            "label": "$ 300,000",
+            "answer": 300000
+          }
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd36",
+        "__v": 0,
+        "name": "medicalPayments",
+        "defaultValueLocation": "coverageLimits.medicalPayments.amount",
+        "question": "Medical Payments to Others",
+        "answerType": "display",
+        "order": 8,
+        "answers": [
+
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd4b",
+        "__v": 0,
+        "name": "moldProperty",
+        "question": "Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property",
+        "order": 9,
+        "defaultValueLocation": "coverageLimits.moldProperty.amount",
+        "answerType": "radio",
+        "answers": [{
+            "label": "$ 10,000",
+            "answer": 10000
+          },
+          {
+            "label": "$ 25,000",
+            "answer": 25000
+          },
+          {
+            "label": "$ 50,000",
+            "answer": 50000
+          }
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd31",
+        "__v": 0,
+        "question": "Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability",
+        "name": "moldLiability",
+        "defaultValueLocation": "coverageLimits.moldLiability.amount",
+        "answerType": "radio",
+        "order": 10,
+        "answers": [{
+            "label": "$ 50,000",
+            "answer": 50000
+          },
+          {
+            "label": "$ 100,000",
+            "answer": 100000
+          }
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd3e",
+        "__v": 0,
+        "name": "ordinanceOrLaw",
+        "question": "Ordinance or Law Coverage Limit",
+        "defaultValueLocation": "coverageLimits.ordinanceOrLaw.amount",
+        "order": 11,
+        "answerType": "radio",
+        "answers": [{
+            "label": "25% of Dwelling Limit",
+            "answer": 25
+          },
+          {
+            "label": "50% of Dwelling Limit",
+            "answer": 50
+          }
+        ],
+        "group": [
+          "coverageLimits"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd2e",
+        "__v": 0,
+        "order": 12,
+        "name": "coverageOptions",
+        "question": "Coverage Options",
+        "answerType": "heading",
+        "answers": [
+
+        ],
+        "group": [
+          "coverageOptions"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd4f",
+        "__v": 0,
+        "name": "propertyIncidentalOccupancies",
+        "question": "Property Permitted Incidental Occupancies",
+        "order": 13,
+        "hidden": true,
+        "defaultAnswer": "None",
+        "answerType": "radio",
+        "answers": [{
+            "answer": "Main Dwelling"
+          },
+          {
+            "answer": "Other Structures"
+          },
+          {
+            "answer": "None"
+          }
+        ],
+        "group": [
+          "coverageOptions"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd26",
+        "__v": 0,
+        "name": "sinkholePerilCoverage",
+        "defaultValueLocation": "coverageOptions.sinkholePerilCoverage.answer",
+        "question": "Do you want Sinkhole Loss Coverage?",
+        "order": 14,
+        "answerType": "bool",
+        "answers": [
+
+        ],
+        "group": [
+          "coverageOptions"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd23",
+        "__v": 0,
+        "order": 15,
+        "name": "deductibles",
+        "question": "Deductibles",
+        "answerType": "heading",
+        "answers": [
+
+        ],
+        "group": [
+          "deductibles"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd3b",
+        "__v": 0,
+        "name": "allOtherPerils",
+        "question": "All Other Perils Deductible",
+        "defaultValueLocation": "deductibles.allOtherPerils.amount",
+        "order": 16,
+        "answerType": "radio",
+        "answers": [{
+            "label": "$ 500",
+            "answer": 500
+          },
+          {
+            "label": "$ 1,000",
+            "answer": 1000
+          },
+          {
+            "label": "$ 2,500",
+            "answer": 2500
+          }
+        ],
+        "group": [
+          "deductibles"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd2d",
+        "__v": 0,
+        "name": "hurricane",
+        "question": "Hurricane Deductible",
+        "order": 17,
+        "defaultValueLocation": "deductibles.hurricane.amount",
+        "answerType": "radio",
+        "answerFormat": "currency",
+        "conditional": {
+          "dependency": {
+            "parent": "dwellingAmount",
+            "type": "percent"
+          }
+        },
+        "answers": [{
+            "label": "2% of Dwelling Limit",
+            "answer": 2
+          },
+          {
+            "label": "5% of Dwelling Limit",
+            "answer": 5
+          },
+          {
+            "label": "10% of Dwelling Limit",
+            "answer": 10
+          }
+        ],
+        "group": [
+          "deductibles"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd3d",
+        "__v": 0,
+        "name": "sinkhole",
+        "question": "Sinkhole Deductible",
+        "order": 18,
+        "defaultAnswer": "10",
+        "answerType": "radio",
+        "answerFormat": "currency",
+        "conditional": {
+          "display": [{
+            "parent": "sinkholePerilCoverage",
+            "trigger": true,
+            "operator": "equal",
+            "type": "hidden"
+          }],
+          "dependency": {
+            "parent": "dwellingAmount",
+            "type": "percent"
+          }
+        },
+        "answers": [{
+          "answer": 10,
+          "label": "10% of Dwelling Limit"
+        }],
+        "group": [
+          "deductibles"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd47",
+        "__v": 0,
+        "name": "windMitigation",
+        "question": "Wind Mitigation",
+        "answerType": "heading",
+        "order": 30,
+        "answers": [
+
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd1d",
+        "__v": 0,
+        "name": "roofCovering",
+        "question": "Roof Covering:",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.roofCovering",
+        "order": 31,
+        "answers": [{
+            "answer": "Non-FBC"
+          },
+          {
+            "answer": "FBC"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd40",
+        "__v": 0,
+        "name": "roofDeckAttachment",
+        "question": "Roof Deck Attachment:",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.roofDeckAttachment",
+        "order": 32,
+        "answers": [{
+            "answer": "A"
+          },
+          {
+            "answer": "B"
+          },
+          {
+            "answer": "C"
+          },
+          {
+            "answer": "D"
+          },
+          {
+            "answer": "Concrete"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd24",
+        "__v": 0,
+        "name": "roofToWallConnection",
+        "question": "Roof to Wall Attachment:",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.roofToWallConnection",
+        "order": 33,
+        "answers": [{
+            "answer": "Toe Nails"
+          },
+          {
+            "answer": "Clips"
+          },
+          {
+            "answer": "Single Wraps"
+          },
+          {
+            "answer": "Double Wraps"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd27",
+        "__v": 0,
+        "name": "roofGeometry",
+        "question": "Roof Geometry:",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.roofGeometry",
+        "order": 34,
+        "answers": [{
+            "answer": "Flat"
+          },
+          {
+            "answer": "Gable"
+          },
+          {
+            "answer": "Hip"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd4c",
+        "__v": 0,
+        "name": "secondaryWaterResistance",
+        "question": "Secondary Water Resistance (SWR):",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.secondaryWaterResistance",
+        "order": 35,
+        "answers": [{
+            "answer": "Yes"
+          },
+          {
+            "answer": "No"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd2a",
+        "__v": 0,
+        "name": "openingProtection",
+        "question": "Opening Protection:",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.openingProtection",
+        "order": 36,
+        "answers": [{
+            "answer": "None"
+          },
+          {
+            "answer": "Basic"
+          },
+          {
+            "answer": "Hurricane"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd19",
+        "__v": 0,
+        "name": "floridaBuildingCodeWindSpeed",
+        "question": "What is the FBC wind speed for this property?",
+        "answerType": "number",
+        "defaultValueLocation": "property.windMitigation.floridaBuildingCodeWindSpeed",
+        "order": 37,
+        "hidden": true,
+        "answers": [
+
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd37",
+        "__v": 0,
+        "name": "floridaBuildingCodeWindSpeedDesign",
+        "question": "What is the FBC wind speed design for this property?",
+        "answerType": "number",
+        "defaultValueLocation": "property.windMitigation.floridaBuildingCodeWindSpeedDesign",
+        "order": 38,
+        "hidden": true,
+        "answers": [
+
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd50",
+        "__v": 0,
+        "name": "windBorneDebrisRegion",
+        "question": "Is the property in the wind borne debris region?",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.windBorneDebrisRegion",
+        "order": 39,
+        "hidden": true,
+        "answers": [{
+            "answer": "Yes"
+          },
+          {
+            "answer": "No"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd2c",
+        "__v": 0,
+        "name": "internalPressureDesign",
+        "question": "Internal Pressure Design",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.internalPressureDesign",
+        "order": 40,
+        "hidden": true,
+        "answers": [{
+            "answer": "Enclosed"
+          },
+          {
+            "answer": "Partial"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd39",
+        "__v": 0,
+        "name": "terrain",
+        "question": "What terrain is the property located in?",
+        "answerType": "radio",
+        "defaultValueLocation": "property.windMitigation.terrain",
+        "order": 41,
+        "hidden": true,
+        "answers": [{
+            "answer": "B"
+          },
+          {
+            "answer": "C"
+          },
+          {
+            "answer": "HVHZ"
+          },
+          {
+            "answer": "Other"
+          }
+        ],
+        "group": [
+          "windMitigation"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd3f",
+        "__v": 0,
+        "name": "discounts",
+        "question": "Discounts",
+        "answerType": "heading",
+        "order": 50,
+        "answers": [
+
+        ],
+        "group": [
+          "discounts"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd42",
+        "__v": 0,
+        "name": "burglarAlarm",
+        "question": "Does the property have a burglar alarm?",
+        "answerType": "bool",
+        "defaultValueLocation": "property.burglarAlarm",
+        "order": 51,
+        "answers": [
+
+        ],
+        "group": [
+          "discounts"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba314ec85020015b7dd43",
+        "__v": 0,
+        "name": "fireAlarm",
+        "question": "Does the property have a fire alarm?",
+        "answerType": "bool",
+        "defaultValueLocation": "property.fireAlarm",
+        "order": 52,
+        "answers": [
+
+        ],
+        "group": [
+          "discounts"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      },
+      {
+        "_id": "5bbba313ec85020015b7dd18",
+        "__v": 0,
+        "name": "sprinkler",
+        "question": "Sprinkler",
+        "answerType": "radio",
+        "defaultValueLocation": "property.sprinkler",
+        "order": 53,
+        "answers": [{
+            "answer": "N"
+          },
+          {
+            "answer": "A"
+          },
+          {
+            "answer": "B"
+          }
+        ],
+        "group": [
+          "discounts"
+        ],
+        "models": [
+          "quote"
+        ],
+        "product": [
+          "HO3"
+        ],
+        "state": [
+          "FL"
+        ],
+        "companyId": [
+          "TTIC"
+        ],
+        "steps": [
+          "askToCustomizeDefaultQuote"
+        ],
+        "validations": [
+
+        ]
+      }
     ],
     "model": {
       "activeTask": {
         "metaInfo": {
           "expectedInputs": [{
-              "dataType": "number",
-              "defaultValue": "1000",
-              "displayText": "All Other Perils",
-              "name": "allOtherPerils",
-              "required": true
-            },
-            {
-              "dataType": "boolean",
-              "defaultValue": "false",
-              "displayText": "Burglar Alarm",
-              "name": "burglarAlarm",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "6000",
-              "displayText": "Calculated Hurricane",
-              "name": "calculatedHurricane",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "300000",
-              "displayText": "Dwelling Limit",
-              "name": "dwellingAmount",
-              "required": true
-            },
-            {
-              "dataType": "boolean",
-              "defaultValue": "false",
-              "displayText": "Fire Alarm",
-              "name": "fireAlarm",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "130",
-              "displayText": "Florida Building Code Wind Speed",
-              "name": "floridaBuildingCodeWindSpeed",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "130",
-              "displayText": "Florida Building Code Wind Speed Design",
-              "name": "floridaBuildingCodeWindSpeedDesign",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "2",
-              "displayText": "Hurricane",
-              "name": "hurricane",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Other",
-              "displayText": "Internal Pressure Design",
-              "name": "internalPressureDesign",
-              "required": true
-            },
-            {
-              "dataType": "boolean",
-              "defaultValue": "false",
-              "displayText": "Liability Incidental Occupancies",
-              "name": "liabilityIncidentalOccupancies",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "30000",
-              "displayText": "Loss Of Use",
-              "name": "lossOfUse",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "2000",
-              "displayText": "Medical Payments",
-              "name": "medicalPayments",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "50000",
-              "displayText": "Mold Liability",
-              "name": "moldLiability",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "10000",
-              "displayText": "Mold Property",
-              "name": "moldProperty",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Other",
-              "displayText": "Opening Protection",
-              "name": "openingProtection",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "25",
-              "displayText": "Ordinance or Law",
-              "name": "ordinanceOrLaw",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "6000",
-              "displayText": "Other Structures Limit",
-              "name": "otherStructuresAmount",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "300000",
-              "displayText": "Personal Liability",
-              "name": "personalLiability",
-              "required": true
-            },
-            {
-              "dataType": "number",
-              "defaultValue": "75000",
-              "displayText": "Personal Property Limit",
-              "name": "personalPropertyAmount",
-              "required": true
-            },
-            {
-              "dataType": "boolean",
-              "defaultValue": "true",
-              "displayText": "Personal Property Replacement Cost",
-              "name": "personalPropertyReplacementCostCoverage",
-              "required": true
-            },
-            {
-              "dataType": "boolean",
-              "defaultValue": "false",
-              "displayText": "Property Incidental Occupancies Main Dwelling",
-              "name": "propertyIncidentalOccupanciesMainDwelling",
-              "required": true
-            },
-            {
-              "dataType": "boolean",
-              "defaultValue": "false",
-              "displayText": "Property Incidental Occupancies Other Dwelling",
-              "name": "propertyIncidentalOccupanciesOtherStructures",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Other",
-              "displayText": "Roof Covering",
-              "name": "roofCovering",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Other",
-              "displayText": "Roof Deck Attachment",
-              "name": "roofDeckAttachment",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Other",
-              "displayText": "Roof Geometry",
-              "name": "roofGeometry",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Other",
-              "displayText": "Roof To Wall Connection",
-              "name": "roofToWallConnection",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Other",
-              "displayText": "Secondary Water Resistance",
-              "name": "secondaryWaterResistance",
-              "required": true
-            },
-            {
-              "dataType": "boolean",
-              "defaultValue": "true",
-              "displayText": "Sinkhold Peril Coverage",
-              "name": "sinkholePerilCoverage",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "N",
-              "displayText": "Sprinkler",
-              "name": "sprinkler",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "B",
-              "displayText": "Terrain",
-              "name": "terrain",
-              "required": true
-            },
-            {
-              "dataType": "string",
-              "defaultValue": "Yes",
-              "displayText": "Wind Borne Debris Region",
-              "name": "windBorneDebrisRegion",
-              "required": true
-            }
-          ],
+            "dataType": "string",
+            "defaultValue": "Yes",
+            "name": "shouldCustomizeQuote",
+            "required": true
+          }],
           "taskType": "userTask"
         },
-        "name": "customizeDefaultQuote"
+        "name": "askToCustomizeDefaultQuote"
       },
       "completedTasks": [
         "uiTasks",
@@ -647,11 +2112,42 @@
         "mergeQuoteforUWD3",
         "UWDecision3",
         "updateQuoteWithUWDecision3",
-        "askToCustomizeDefaultQuote"
+        "askToCustomizeDefaultQuote",
+        "customizeDefaultQuote",
+        "buildDeductibles",
+        "filterDeductibles",
+        "updateQuoteWithCustomizedInfo",
+        "getQuoteBeforeRate",
+        "mergeQuoteforUWD2",
+        "UWDecision2",
+        "updateQuoteWithUWDecision2",
+        "getRate",
+        "getCost",
+        "updateQuoteWithRatesAndCost",
+        "getQuote",
+        "mergeQuoteforUWD3",
+        "UWDecision3",
+        "updateQuoteWithUWDecision3",
+        "askToCustomizeDefaultQuote",
+        "customizeDefaultQuote",
+        "buildDeductibles",
+        "filterDeductibles",
+        "updateQuoteWithCustomizedInfo",
+        "getQuoteBeforeRate",
+        "mergeQuoteforUWD2",
+        "UWDecision2",
+        "updateQuoteWithUWDecision2",
+        "getRate",
+        "getCost",
+        "updateQuoteWithRatesAndCost",
+        "getQuote",
+        "mergeQuoteforUWD3",
+        "UWDecision3",
+        "updateQuoteWithUWDecision3"
       ],
       "globalVariables": [{
           "name": "currentActiveTask",
-          "value": "customizeDefaultQuote"
+          "value": "askToCustomizeDefaultQuote"
         },
         {
           "name": "modelName",
@@ -660,6 +2156,42 @@
         {
           "name": "completedTasks",
           "value": [
+            "_44",
+            "updateQuoteWithUWDecision3",
+            "UWDecision3",
+            "mergeQuoteforUWD3",
+            "getQuote",
+            "updateQuoteWithRatesAndCost",
+            "getCost",
+            "getRate",
+            "_36",
+            "updateQuoteWithUWDecision2",
+            "UWDecision2",
+            "mergeQuoteforUWD2",
+            "getQuoteBeforeRate",
+            "updateQuoteWithCustomizedInfo",
+            "filterDeductibles",
+            "buildDeductibles",
+            "customizeDefaultQuote",
+            "_46",
+            "askToCustomizeDefaultQuote",
+            "_44",
+            "updateQuoteWithUWDecision3",
+            "UWDecision3",
+            "mergeQuoteforUWD3",
+            "getQuote",
+            "updateQuoteWithRatesAndCost",
+            "getCost",
+            "getRate",
+            "_36",
+            "updateQuoteWithUWDecision2",
+            "UWDecision2",
+            "mergeQuoteforUWD2",
+            "getQuoteBeforeRate",
+            "updateQuoteWithCustomizedInfo",
+            "filterDeductibles",
+            "buildDeductibles",
+            "customizeDefaultQuote",
             "_46",
             "askToCustomizeDefaultQuote",
             "_44",
@@ -728,7 +2260,7 @@
         },
         {
           "name": "lastActiveTask",
-          "value": "askToCustomizeDefaultQuote"
+          "value": "updateQuoteWithUWDecision3"
         }
       ],
       "modelInstanceId": "3359699",
@@ -1617,7 +3149,7 @@
         {
           "name": "windMitigation",
           "value": {
-            "_id": "5c925e7ad9fac4000ee93621",
+            "_id": "5c925fb6d7bd33000ea0352f",
             "floridaBuildingCodeWindSpeed": 130,
             "floridaBuildingCodeWindSpeedDesign": 130,
             "internalPressureDesign": "Other",
@@ -2201,9 +3733,9 @@
                 }
               },
               "coverageLimits": {
-                "_id": "5c925ec7d9fac4000ee93726",
+                "_id": "5c9262b2d9fac4000ee94293",
                 "dwelling": {
-                  "_id": "5c925ec7d9fac4000ee93727",
+                  "_id": "5c9262b2d9fac4000ee94294",
                   "amount": 300000,
                   "displayText": "Dwelling",
                   "format": "Currency",
@@ -2212,54 +3744,54 @@
                   "minAmount": 283000
                 },
                 "lossOfUse": {
-                  "_id": "5c925ec7d9fac4000ee93728",
+                  "_id": "5c9262b2d9fac4000ee94295",
                   "amount": 30000,
                   "displayText": "Loss of Use",
                   "format": "Currency",
                   "letterDesignation": "D"
                 },
                 "medicalPayments": {
-                  "_id": "5c925ec7d9fac4000ee93729",
+                  "_id": "5c9262b2d9fac4000ee94296",
                   "amount": 2000,
                   "displayText": "Medical Payments",
                   "format": "Currency",
                   "letterDesignation": "F"
                 },
                 "moldLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372a",
+                  "_id": "5c9262b2d9fac4000ee94297",
                   "amount": 50000,
                   "displayText": "Mold Liability",
                   "format": "Currency"
                 },
                 "moldProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372b",
+                  "_id": "5c9262b2d9fac4000ee94298",
                   "amount": 10000,
                   "displayText": "Mold Property",
                   "format": "Currency"
                 },
                 "ordinanceOrLaw": {
-                  "_id": "5c925ec7d9fac4000ee9372c",
+                  "_id": "5c9262b2d9fac4000ee94299",
                   "amount": 25,
                   "displayText": "Ordinance or Law",
                   "format": "Percentage",
                   "ofCoverageLimit": "dwelling"
                 },
                 "otherStructures": {
-                  "_id": "5c925ec7d9fac4000ee9372d",
+                  "_id": "5c9262b2d9fac4000ee9429a",
                   "amount": 6000,
                   "displayText": "Other Structures",
                   "format": "Currency",
                   "letterDesignation": "B"
                 },
                 "personalLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372e",
+                  "_id": "5c9262b2d9fac4000ee9429b",
                   "amount": 300000,
                   "displayText": "Personal Liability",
                   "format": "Currency",
                   "letterDesignation": "E"
                 },
                 "personalProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372f",
+                  "_id": "5c9262b2d9fac4000ee9429c",
                   "amount": 75000,
                   "displayText": "Personal Property",
                   "format": "Currency",
@@ -2329,9 +3861,9 @@
               }],
               "product": "HO3",
               "property": {
-                "_id": "5c925ec7d9fac4000ee93730",
+                "_id": "5c9262b2d9fac4000ee9429d",
                 "buildingCodeEffectivenessGrading": 3,
-                "burglarAlarm": false,
+                "burglarAlarm": true,
                 "constructionType": "MASONRY",
                 "distanceToFireHydrant": 264.052744,
                 "distanceToFireStation": 0.79,
@@ -2364,7 +3896,7 @@
                 "townhouseRowhouse": false,
                 "trampoline": false,
                 "windMitigation": {
-                  "_id": "5c925ec7d9fac4000ee93732",
+                  "_id": "5c9262b2d9fac4000ee9429f",
                   "floridaBuildingCodeWindSpeed": 130,
                   "floridaBuildingCodeWindSpeedDesign": 130,
                   "internalPressureDesign": "Other",
@@ -2383,12 +3915,12 @@
               "quoteNumber": "12-5160964-01",
               "quoteState": "Quote Started",
               "rating": {
-                "_id": "5c925ec8d7bd33000ea03461",
+                "_id": "5c9262b3d7bd33000ea03e8b",
                 "engineCode": "HO3ByPeril",
-                "netPremium": 2531,
+                "netPremium": 2463,
                 "rateCode": 201704,
                 "totalFees": 27,
-                "totalPremium": 2558,
+                "totalPremium": 2490,
                 "worksheet": {
                   "additionalCoverages": {
                     "increasedLiabilityMoldFungiLimit": 0,
@@ -2435,8 +3967,8 @@
                       "water": 1
                     },
                     "burglarAlarmFactors": {
-                      "allOtherPerils": 1,
-                      "burglarAlarm": false,
+                      "allOtherPerils": 0.549,
+                      "burglarAlarm": true,
                       "fire": 1,
                       "hurricane": 1,
                       "liability": 1,
@@ -2589,9 +4121,9 @@
                     "mgaPolicyFee": 25
                   },
                   "minimumPremiumAdjustment": 0,
-                  "netPremium": 2531,
+                  "netPremium": 2463,
                   "perilPremiums": {
-                    "allOtherPerils": 151,
+                    "allOtherPerils": 83,
                     "fire": 303,
                     "hurricane": 1405,
                     "liability": 29,
@@ -2599,10 +4131,10 @@
                     "sinkhole": 57,
                     "water": 507
                   },
-                  "perilPremiumsSum": 2509,
-                  "subtotalPremium": 2531,
+                  "perilPremiumsSum": 2441,
+                  "subtotalPremium": 2463,
                   "totalFees": 27,
-                  "totalPremium": 2558
+                  "totalPremium": 2490
                 }
               },
               "state": "FL",
@@ -2644,7 +4176,7 @@
                 }
               },
               "underwritingExceptions": [{
-                "_id": "5c925ec8d7bd33000ea0342f",
+                "_id": "5c9262b3d9fac4000ee942c3",
                 "action": "Missing Info",
                 "active": true,
                 "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
@@ -2659,20 +4191,20 @@
                 "overridden": false,
                 "overriddenAt": null,
                 "overriddenBy": {
-                  "_id": "5c925ec8d7bd33000ea03430",
+                  "_id": "5c9262b3d9fac4000ee942c4",
                   "userId": null,
                   "userName": null
                 }
               }],
-              "updatedAt": "2019-03-20T15:39:52.213Z",
+              "updatedAt": "2019-03-20T15:56:35.571Z",
               "updatedBy": {
-                "_id": "5c925ec8d7bd33000ea03462",
+                "_id": "5c9262b3d7bd33000ea03e8c",
                 "userId": "auth0|59419e3a43e76f16f68c3349",
                 "userName": "tticcsr"
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 54
+            "timeTookByEndpoint": 120
           }
         },
         {
@@ -2899,7 +4431,7 @@
         },
         {
           "name": "burglarAlarm",
-          "value": false
+          "value": true
         },
         {
           "name": "getFirstZipCodeFromArray",
@@ -3027,7 +4559,7 @@
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 80
+            "timeTookByEndpoint": 53
           }
         },
         {
@@ -3097,9 +4629,9 @@
                 }
               },
               "coverageLimits": {
-                "_id": "5c925ec7d9fac4000ee93726",
+                "_id": "5c9262b2d9fac4000ee94293",
                 "dwelling": {
-                  "_id": "5c925ec7d9fac4000ee93727",
+                  "_id": "5c9262b2d9fac4000ee94294",
                   "amount": 300000,
                   "displayText": "Dwelling",
                   "format": "Currency",
@@ -3108,54 +4640,54 @@
                   "minAmount": 283000
                 },
                 "lossOfUse": {
-                  "_id": "5c925ec7d9fac4000ee93728",
+                  "_id": "5c9262b2d9fac4000ee94295",
                   "amount": 30000,
                   "displayText": "Loss of Use",
                   "format": "Currency",
                   "letterDesignation": "D"
                 },
                 "medicalPayments": {
-                  "_id": "5c925ec7d9fac4000ee93729",
+                  "_id": "5c9262b2d9fac4000ee94296",
                   "amount": 2000,
                   "displayText": "Medical Payments",
                   "format": "Currency",
                   "letterDesignation": "F"
                 },
                 "moldLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372a",
+                  "_id": "5c9262b2d9fac4000ee94297",
                   "amount": 50000,
                   "displayText": "Mold Liability",
                   "format": "Currency"
                 },
                 "moldProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372b",
+                  "_id": "5c9262b2d9fac4000ee94298",
                   "amount": 10000,
                   "displayText": "Mold Property",
                   "format": "Currency"
                 },
                 "ordinanceOrLaw": {
-                  "_id": "5c925ec7d9fac4000ee9372c",
+                  "_id": "5c9262b2d9fac4000ee94299",
                   "amount": 25,
                   "displayText": "Ordinance or Law",
                   "format": "Percentage",
                   "ofCoverageLimit": "dwelling"
                 },
                 "otherStructures": {
-                  "_id": "5c925ec7d9fac4000ee9372d",
+                  "_id": "5c9262b2d9fac4000ee9429a",
                   "amount": 6000,
                   "displayText": "Other Structures",
                   "format": "Currency",
                   "letterDesignation": "B"
                 },
                 "personalLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372e",
+                  "_id": "5c9262b2d9fac4000ee9429b",
                   "amount": 300000,
                   "displayText": "Personal Liability",
                   "format": "Currency",
                   "letterDesignation": "E"
                 },
                 "personalProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372f",
+                  "_id": "5c9262b2d9fac4000ee9429c",
                   "amount": 75000,
                   "displayText": "Personal Property",
                   "format": "Currency",
@@ -3225,9 +4757,9 @@
               }],
               "product": "HO3",
               "property": {
-                "_id": "5c925ec7d9fac4000ee93730",
+                "_id": "5c9262b2d9fac4000ee9429d",
                 "buildingCodeEffectivenessGrading": 3,
-                "burglarAlarm": false,
+                "burglarAlarm": true,
                 "constructionType": "MASONRY",
                 "distanceToFireHydrant": 264.052744,
                 "distanceToFireStation": 0.79,
@@ -3260,7 +4792,7 @@
                 "townhouseRowhouse": false,
                 "trampoline": false,
                 "windMitigation": {
-                  "_id": "5c925ec7d9fac4000ee93732",
+                  "_id": "5c9262b2d9fac4000ee9429f",
                   "floridaBuildingCodeWindSpeed": 130,
                   "floridaBuildingCodeWindSpeedDesign": 130,
                   "internalPressureDesign": "Other",
@@ -3279,12 +4811,12 @@
               "quoteNumber": "12-5160964-01",
               "quoteState": "Quote Started",
               "rating": {
-                "_id": "5c925ec8d7bd33000ea03461",
+                "_id": "5c9262b3d7bd33000ea03e8b",
                 "engineCode": "HO3ByPeril",
-                "netPremium": 2531,
+                "netPremium": 2463,
                 "rateCode": 201704,
                 "totalFees": 27,
-                "totalPremium": 2558,
+                "totalPremium": 2490,
                 "worksheet": {
                   "additionalCoverages": {
                     "increasedLiabilityMoldFungiLimit": 0,
@@ -3331,8 +4863,8 @@
                       "water": 1
                     },
                     "burglarAlarmFactors": {
-                      "allOtherPerils": 1,
-                      "burglarAlarm": false,
+                      "allOtherPerils": 0.549,
+                      "burglarAlarm": true,
                       "fire": 1,
                       "hurricane": 1,
                       "liability": 1,
@@ -3485,9 +5017,9 @@
                     "mgaPolicyFee": 25
                   },
                   "minimumPremiumAdjustment": 0,
-                  "netPremium": 2531,
+                  "netPremium": 2463,
                   "perilPremiums": {
-                    "allOtherPerils": 151,
+                    "allOtherPerils": 83,
                     "fire": 303,
                     "hurricane": 1405,
                     "liability": 29,
@@ -3495,10 +5027,10 @@
                     "sinkhole": 57,
                     "water": 507
                   },
-                  "perilPremiumsSum": 2509,
-                  "subtotalPremium": 2531,
+                  "perilPremiumsSum": 2441,
+                  "subtotalPremium": 2463,
                   "totalFees": 27,
-                  "totalPremium": 2558
+                  "totalPremium": 2490
                 }
               },
               "state": "FL",
@@ -3540,7 +5072,7 @@
                 }
               },
               "underwritingExceptions": [{
-                "_id": "5c925ec8d7bd33000ea03496",
+                "_id": "5c9262b3d7bd33000ea03ec0",
                 "action": "Missing Info",
                 "active": true,
                 "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
@@ -3555,20 +5087,20 @@
                 "overridden": false,
                 "overriddenAt": null,
                 "overriddenBy": {
-                  "_id": "5c925ec8d7bd33000ea03497",
+                  "_id": "5c9262b3d7bd33000ea03ec1",
                   "userId": null,
                   "userName": null
                 }
               }],
-              "updatedAt": "2019-03-20T15:39:52.489Z",
+              "updatedAt": "2019-03-20T15:56:35.871Z",
               "updatedBy": {
-                "_id": "5c925ec8d7bd33000ea03498",
+                "_id": "5c9262b3d7bd33000ea03ec2",
                 "userId": "auth0|59419e3a43e76f16f68c3349",
                 "userName": "tticcsr"
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 24
+            "timeTookByEndpoint": 40
           }
         },
         {
@@ -3869,8 +5401,8 @@
                   "calculatedFields": {
                     "adminExp": 125,
                     "catExp": 0,
-                    "coverageAFactor": 1.064,
-                    "hurricaneTEFactor": 430.18,
+                    "coverageAFactor": 1.05,
+                    "hurricaneTEFactor": 411,
                     "nonCatExp": 0,
                     "retentionExp": 0
                   },
@@ -3878,10 +5410,10 @@
                     "aopDeductible": 1000,
                     "companyCode": "TTIC",
                     "constructionType": "M",
-                    "coverageA": 314000,
-                    "coverageB": 6280,
-                    "coverageC": 78500,
-                    "coverageD": 31400,
+                    "coverageA": 300000,
+                    "coverageB": 6000,
+                    "coverageC": 75000,
+                    "coverageD": 30000,
                     "currentYear": "2018",
                     "hurricaneDeductible": 2,
                     "openingProtection": "C",
@@ -3911,9 +5443,9 @@
                 }
               },
               "coverageLimits": {
-                "_id": "5c925ec7d9fac4000ee93726",
+                "_id": "5c9262b2d9fac4000ee94293",
                 "dwelling": {
-                  "_id": "5c925ec7d9fac4000ee93727",
+                  "_id": "5c9262b2d9fac4000ee94294",
                   "amount": 300000,
                   "displayText": "Dwelling",
                   "format": "Currency",
@@ -3922,54 +5454,54 @@
                   "minAmount": 283000
                 },
                 "lossOfUse": {
-                  "_id": "5c925ec7d9fac4000ee93728",
+                  "_id": "5c9262b2d9fac4000ee94295",
                   "amount": 30000,
                   "displayText": "Loss of Use",
                   "format": "Currency",
                   "letterDesignation": "D"
                 },
                 "medicalPayments": {
-                  "_id": "5c925ec7d9fac4000ee93729",
+                  "_id": "5c9262b2d9fac4000ee94296",
                   "amount": 2000,
                   "displayText": "Medical Payments",
                   "format": "Currency",
                   "letterDesignation": "F"
                 },
                 "moldLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372a",
+                  "_id": "5c9262b2d9fac4000ee94297",
                   "amount": 50000,
                   "displayText": "Mold Liability",
                   "format": "Currency"
                 },
                 "moldProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372b",
+                  "_id": "5c9262b2d9fac4000ee94298",
                   "amount": 10000,
                   "displayText": "Mold Property",
                   "format": "Currency"
                 },
                 "ordinanceOrLaw": {
-                  "_id": "5c925ec7d9fac4000ee9372c",
+                  "_id": "5c9262b2d9fac4000ee94299",
                   "amount": 25,
                   "displayText": "Ordinance or Law",
                   "format": "Percentage",
                   "ofCoverageLimit": "dwelling"
                 },
                 "otherStructures": {
-                  "_id": "5c925ec7d9fac4000ee9372d",
+                  "_id": "5c9262b2d9fac4000ee9429a",
                   "amount": 6000,
                   "displayText": "Other Structures",
                   "format": "Currency",
                   "letterDesignation": "B"
                 },
                 "personalLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372e",
+                  "_id": "5c9262b2d9fac4000ee9429b",
                   "amount": 300000,
                   "displayText": "Personal Liability",
                   "format": "Currency",
                   "letterDesignation": "E"
                 },
                 "personalProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372f",
+                  "_id": "5c9262b2d9fac4000ee9429c",
                   "amount": 75000,
                   "displayText": "Personal Property",
                   "format": "Currency",
@@ -4039,9 +5571,9 @@
               }],
               "product": "HO3",
               "property": {
-                "_id": "5c925ec7d9fac4000ee93730",
+                "_id": "5c9262b2d9fac4000ee9429d",
                 "buildingCodeEffectivenessGrading": 3,
-                "burglarAlarm": false,
+                "burglarAlarm": true,
                 "constructionType": "MASONRY",
                 "distanceToFireHydrant": 264.052744,
                 "distanceToFireStation": 0.79,
@@ -4074,7 +5606,7 @@
                 "townhouseRowhouse": false,
                 "trampoline": false,
                 "windMitigation": {
-                  "_id": "5c925ec7d9fac4000ee93732",
+                  "_id": "5c9262b2d9fac4000ee9429f",
                   "floridaBuildingCodeWindSpeed": 130,
                   "floridaBuildingCodeWindSpeedDesign": 130,
                   "internalPressureDesign": "Other",
@@ -4093,12 +5625,12 @@
               "quoteNumber": "12-5160964-01",
               "quoteState": "Quote Started",
               "rating": {
-                "_id": "5c925e8dd9fac4000ee936db",
+                "_id": "5c925fb7d9fac4000ee9382b",
                 "engineCode": "HO3ByPeril",
-                "netPremium": 2640,
+                "netPremium": 2531,
                 "rateCode": 201704,
                 "totalFees": 27,
-                "totalPremium": 2667,
+                "totalPremium": 2558,
                 "worksheet": {
                   "additionalCoverages": {
                     "increasedLiabilityMoldFungiLimit": 0,
@@ -4109,7 +5641,7 @@
                     "propertyIncidentalOccupancies": 0
                   },
                   "additionalCoveragesSum": 22,
-                  "bcegAdjustment": -149,
+                  "bcegAdjustment": -143,
                   "elements": {
                     "ageOfHomeByYearFactors": {
                       "hurricane": 1.04,
@@ -4155,13 +5687,13 @@
                       "water": 1
                     },
                     "coverageAFactors": {
-                      "allOtherPerils": 2.328,
-                      "fire": 2.328,
-                      "hurricane": 2.328,
+                      "allOtherPerils": 2.231,
+                      "fire": 2.231,
+                      "hurricane": 2.231,
                       "liability": 1,
-                      "otherWind": 2.328,
-                      "sinkhole": 2.328,
-                      "water": 2.328
+                      "otherWind": 2.231,
+                      "sinkhole": 2.231,
+                      "water": 2.231
                     },
                     "coverageBFactors": {
                       "allOtherPerils": 0.97,
@@ -4299,20 +5831,20 @@
                     "mgaPolicyFee": 25
                   },
                   "minimumPremiumAdjustment": 0,
-                  "netPremium": 2640,
+                  "netPremium": 2531,
                   "perilPremiums": {
-                    "allOtherPerils": 157,
-                    "fire": 317,
-                    "hurricane": 1466,
+                    "allOtherPerils": 151,
+                    "fire": 303,
+                    "hurricane": 1405,
                     "liability": 29,
-                    "otherWind": 60,
-                    "sinkhole": 60,
-                    "water": 529
+                    "otherWind": 57,
+                    "sinkhole": 57,
+                    "water": 507
                   },
-                  "perilPremiumsSum": 2618,
-                  "subtotalPremium": 2640,
+                  "perilPremiumsSum": 2509,
+                  "subtotalPremium": 2531,
                   "totalFees": 27,
-                  "totalPremium": 2667
+                  "totalPremium": 2558
                 }
               },
               "state": "FL",
@@ -4354,7 +5886,7 @@
                 }
               },
               "underwritingExceptions": [{
-                "_id": "5c925ec8d7bd33000ea0342f",
+                "_id": "5c9262b3d9fac4000ee942c3",
                 "action": "Missing Info",
                 "active": true,
                 "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
@@ -4369,20 +5901,20 @@
                 "overridden": false,
                 "overriddenAt": null,
                 "overriddenBy": {
-                  "_id": "5c925ec8d7bd33000ea03430",
+                  "_id": "5c9262b3d9fac4000ee942c4",
                   "userId": null,
                   "userName": null
                 }
               }],
-              "updatedAt": "2019-03-20T15:39:52.034Z",
+              "updatedAt": "2019-03-20T15:56:35.363Z",
               "updatedBy": {
-                "_id": "5c925ec8d7bd33000ea03431",
+                "_id": "5c9262b3d9fac4000ee942c5",
                 "userId": "auth0|59419e3a43e76f16f68c3349",
                 "userName": "tticcsr"
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 34
+            "timeTookByEndpoint": 46
           }
         },
         {
@@ -5374,10 +6906,10 @@
         {
           "name": "customizeDefaultQuote",
           "value": {
-            "_id": "5c925e7ad9fac4000ee9361f",
+            "_id": "5c925fb6d7bd33000ea0352d",
             "allOtherPerils": 1000,
             "buildingCodeEffectivenessGrading": 3,
-            "burglarAlarm": false,
+            "burglarAlarm": true,
             "calculatedHurricane": 6000,
             "constructionType": "MASONRY",
             "distanceToFireHydrant": 264.052744,
@@ -5442,7 +6974,7 @@
             "trampoline": false,
             "windBorneDebrisRegion": "Yes",
             "windMitigation": {
-              "_id": "5c925e7ad9fac4000ee93621",
+              "_id": "5c925fb6d7bd33000ea0352f",
               "floridaBuildingCodeWindSpeed": 130,
               "floridaBuildingCodeWindSpeedDesign": 130,
               "internalPressureDesign": "Other",
@@ -5520,9 +7052,9 @@
               }
             },
             "coverageLimits": {
-              "_id": "5c925ec7d9fac4000ee93726",
+              "_id": "5c9262b2d9fac4000ee94293",
               "dwelling": {
-                "_id": "5c925ec7d9fac4000ee93727",
+                "_id": "5c9262b2d9fac4000ee94294",
                 "amount": 300000,
                 "displayText": "Dwelling",
                 "format": "Currency",
@@ -5531,54 +7063,54 @@
                 "minAmount": 283000
               },
               "lossOfUse": {
-                "_id": "5c925ec7d9fac4000ee93728",
+                "_id": "5c9262b2d9fac4000ee94295",
                 "amount": 30000,
                 "displayText": "Loss of Use",
                 "format": "Currency",
                 "letterDesignation": "D"
               },
               "medicalPayments": {
-                "_id": "5c925ec7d9fac4000ee93729",
+                "_id": "5c9262b2d9fac4000ee94296",
                 "amount": 2000,
                 "displayText": "Medical Payments",
                 "format": "Currency",
                 "letterDesignation": "F"
               },
               "moldLiability": {
-                "_id": "5c925ec7d9fac4000ee9372a",
+                "_id": "5c9262b2d9fac4000ee94297",
                 "amount": 50000,
                 "displayText": "Mold Liability",
                 "format": "Currency"
               },
               "moldProperty": {
-                "_id": "5c925ec7d9fac4000ee9372b",
+                "_id": "5c9262b2d9fac4000ee94298",
                 "amount": 10000,
                 "displayText": "Mold Property",
                 "format": "Currency"
               },
               "ordinanceOrLaw": {
-                "_id": "5c925ec7d9fac4000ee9372c",
+                "_id": "5c9262b2d9fac4000ee94299",
                 "amount": 25,
                 "displayText": "Ordinance or Law",
                 "format": "Percentage",
                 "ofCoverageLimit": "dwelling"
               },
               "otherStructures": {
-                "_id": "5c925ec7d9fac4000ee9372d",
+                "_id": "5c9262b2d9fac4000ee9429a",
                 "amount": 6000,
                 "displayText": "Other Structures",
                 "format": "Currency",
                 "letterDesignation": "B"
               },
               "personalLiability": {
-                "_id": "5c925ec7d9fac4000ee9372e",
+                "_id": "5c9262b2d9fac4000ee9429b",
                 "amount": 300000,
                 "displayText": "Personal Liability",
                 "format": "Currency",
                 "letterDesignation": "E"
               },
               "personalProperty": {
-                "_id": "5c925ec7d9fac4000ee9372f",
+                "_id": "5c9262b2d9fac4000ee9429c",
                 "amount": 75000,
                 "displayText": "Personal Property",
                 "format": "Currency",
@@ -5648,9 +7180,9 @@
             }],
             "product": "HO3",
             "property": {
-              "_id": "5c925ec7d9fac4000ee93730",
+              "_id": "5c9262b2d9fac4000ee9429d",
               "buildingCodeEffectivenessGrading": 3,
-              "burglarAlarm": false,
+              "burglarAlarm": true,
               "constructionType": "MASONRY",
               "distanceToFireHydrant": 264.052744,
               "distanceToFireStation": 0.79,
@@ -5683,7 +7215,7 @@
               "townhouseRowhouse": false,
               "trampoline": false,
               "windMitigation": {
-                "_id": "5c925ec7d9fac4000ee93732",
+                "_id": "5c9262b2d9fac4000ee9429f",
                 "floridaBuildingCodeWindSpeed": 130,
                 "floridaBuildingCodeWindSpeedDesign": 130,
                 "internalPressureDesign": "Other",
@@ -5702,7 +7234,644 @@
             "quoteNumber": "12-5160964-01",
             "quoteState": "Quote Started",
             "rating": {
-              "_id": "5c925ec8d7bd33000ea03461",
+              "_id": "5c9262b3d7bd33000ea03e8b",
+              "engineCode": "HO3ByPeril",
+              "netPremium": 2463,
+              "rateCode": 201704,
+              "totalFees": 27,
+              "totalPremium": 2490,
+              "worksheet": {
+                "additionalCoverages": {
+                  "increasedLiabilityMoldFungiLimit": 0,
+                  "increasedPersonalLiabilityLimit": 22,
+                  "increasedPropertyMoldFungiLimit": 0,
+                  "liabilityIncidentalOccupancies": 0,
+                  "otherStructIncLimits": 0,
+                  "propertyIncidentalOccupancies": 0
+                },
+                "additionalCoveragesSum": 22,
+                "bcegAdjustment": -143,
+                "elements": {
+                  "ageOfHomeByYearFactors": {
+                    "hurricane": 1.04,
+                    "otherWind": 1.04,
+                    "yearBuilt": 1998
+                  },
+                  "ageOfHomeFactors": {
+                    "ageOfHome": 21,
+                    "allOtherPerils": 2.496,
+                    "fire": 2.496,
+                    "liability": 2.496,
+                    "sinkhole": 2.496,
+                    "water": 2.496
+                  },
+                  "baseRates": {
+                    "allOtherPerils": 153.35,
+                    "fire": 309.05,
+                    "hurricane": 613.41,
+                    "liability": 56.96,
+                    "otherWind": 22.98,
+                    "sinkhole": 7.47,
+                    "water": 516.56
+                  },
+                  "bcegFactors": {
+                    "allOtherPerils": 1,
+                    "fire": 1,
+                    "grade": 3,
+                    "hurricane": 0.911,
+                    "liability": 1,
+                    "otherWind": 0.911,
+                    "sinkhole": 1,
+                    "territoryGroup": 3,
+                    "water": 1
+                  },
+                  "burglarAlarmFactors": {
+                    "allOtherPerils": 0.549,
+                    "burglarAlarm": true,
+                    "fire": 1,
+                    "hurricane": 1,
+                    "liability": 1,
+                    "otherWind": 1,
+                    "sinkhole": 1,
+                    "water": 1
+                  },
+                  "coverageAFactors": {
+                    "allOtherPerils": 2.231,
+                    "fire": 2.231,
+                    "hurricane": 2.231,
+                    "liability": 1,
+                    "otherWind": 2.231,
+                    "sinkhole": 2.231,
+                    "water": 2.231
+                  },
+                  "coverageBFactors": {
+                    "allOtherPerils": 0.97,
+                    "fire": 0.97,
+                    "hurricane": 0.97,
+                    "liability": 1,
+                    "otherWind": 0.97,
+                    "sinkhole": 0.97,
+                    "water": 0.97
+                  },
+                  "coverageCFactors": {
+                    "allOtherPerils": 0.925,
+                    "fire": 0.925,
+                    "hurricane": 0.85,
+                    "liability": 1,
+                    "otherWind": 0.925,
+                    "sinkhole": 0.925,
+                    "water": 0.925
+                  },
+                  "deductibleFactors": {
+                    "allOtherPerils": 1,
+                    "allOtherPerilsDeductible": 1000,
+                    "exWind": false,
+                    "fire": 1,
+                    "hurricane": 1,
+                    "hurricaneDeductible": 2,
+                    "liability": 1,
+                    "otherWind": 1,
+                    "sinkhole": 1,
+                    "water": 1
+                  },
+                  "fireAlarmAndSprinklerFactors": {
+                    "allOtherPerils": 1,
+                    "fire": 1,
+                    "fireAlarm": false,
+                    "hurricane": 1,
+                    "liability": 1,
+                    "otherWind": 1,
+                    "sinkhole": 1,
+                    "sprinkler": "N",
+                    "water": 1
+                  },
+                  "noPriorInsuranceFactors": {
+                    "allOtherPerils": 1,
+                    "fire": 1,
+                    "hurricane": 1,
+                    "liability": 1,
+                    "noPriorInsurance": false,
+                    "otherWind": 1,
+                    "sinkhole": 1,
+                    "water": 1
+                  },
+                  "ordinanceOrLawFactors": {
+                    "allOtherPerils": 1,
+                    "fire": 1,
+                    "hurricane": 1,
+                    "liability": 1,
+                    "ordinanceOrLaw": false,
+                    "otherWind": 1,
+                    "sinkhole": 1,
+                    "water": 1
+                  },
+                  "protectionClassFactors": {
+                    "allOtherPerils": 0.852,
+                    "constructionCode": "M",
+                    "constructionType": "Masonry",
+                    "fire": 0.852,
+                    "hurricane": 0.817,
+                    "liability": 1,
+                    "otherWind": 0.817,
+                    "protectionClass": 3,
+                    "sinkhole": 0.852,
+                    "water": 0.852
+                  },
+                  "replacementCostFactors": {
+                    "allOtherPerils": 1.125,
+                    "fire": 1.125,
+                    "hurricane": 1.125,
+                    "liability": 1,
+                    "otherWind": 1.125,
+                    "replacementCost": true,
+                    "sinkhole": 1.125,
+                    "water": 1.125
+                  },
+                  "seasonalFactors": {
+                    "allOtherPerils": 1,
+                    "fire": 1,
+                    "hurricane": 1,
+                    "liability": 1,
+                    "otherWind": 1,
+                    "seasonal": false,
+                    "sinkhole": 1,
+                    "water": 1
+                  },
+                  "territoryFactors": {
+                    "allOtherPerils": 0.205,
+                    "code": "715-51",
+                    "fire": 0.205,
+                    "group": 3,
+                    "hurricane": 1.43,
+                    "liability": 0.203,
+                    "minPremium": 0.002,
+                    "name": "Sarasota,Remainder",
+                    "otherWind": 1.43,
+                    "sinkhole": 1.598,
+                    "water": 0.205
+                  },
+                  "townRowHouseFactors": {
+                    "allOtherPerils": 1,
+                    "fire": 1,
+                    "hurricane": 1,
+                    "liability": 1,
+                    "otherWind": 1,
+                    "protectionClass": 3,
+                    "sinkhole": 1,
+                    "units": "1-2",
+                    "water": 1
+                  },
+                  "windMitigationFactors": {
+                    "allOtherPerils": 1,
+                    "fire": 1,
+                    "hurricane": 1,
+                    "liability": 1,
+                    "otherWind": 1,
+                    "sinkhole": 1,
+                    "water": 1,
+                    "windMitigationDiscount": 0
+                  }
+                },
+                "fees": {
+                  "citizensFee": 0,
+                  "empTrustFee": 2,
+                  "fhcfFee": 0,
+                  "figaFee": 0,
+                  "mgaPolicyFee": 25
+                },
+                "minimumPremiumAdjustment": 0,
+                "netPremium": 2463,
+                "perilPremiums": {
+                  "allOtherPerils": 83,
+                  "fire": 303,
+                  "hurricane": 1405,
+                  "liability": 29,
+                  "otherWind": 57,
+                  "sinkhole": 57,
+                  "water": 507
+                },
+                "perilPremiumsSum": 2441,
+                "subtotalPremium": 2463,
+                "totalFees": 27,
+                "totalPremium": 2490
+              }
+            },
+            "state": "FL",
+            "transactionSpec": {
+              "groups": {
+                "coverage": {
+                  "label": "Coverage Info"
+                },
+                "mailingbilling": {
+                  "label": "Mailing/Billing Info"
+                },
+                "underwriting": {
+                  "label": "Underwriting Info"
+                }
+              },
+              "properties": {
+                "_id": {
+                  "group": "coverage"
+                },
+                "agencyCode": {
+                  "group": "coverage"
+                },
+                "agentCode": {
+                  "group": "coverage"
+                },
+                "billPlan": {
+                  "group": "mailingbilling"
+                },
+                "billToId": {
+                  "group": "mailingbilling"
+                },
+                "billToType": {
+                  "group": "mailingbilling"
+                },
+                "companyCode": {
+                  "group": "coverage"
+                },
+                "coverageLimits": {
+                  "group": "coverage",
+                  "minProperties": 1
+                },
+                "coverageOptions": {
+                  "group": "coverage",
+                  "minProperties": 1
+                },
+                "deductibles": {
+                  "group": "coverage",
+                  "minProperties": 1
+                },
+                "effectiveDate": {
+                  "group": "coverage"
+                },
+                "endDate": {
+                  "group": "coverage"
+                },
+                "policyHolderMailingAddress": {
+                  "group": "mailingbilling",
+                  "minProperties": 1
+                },
+                "policyHolders": {
+                  "group": "coverage",
+                  "minItems": 1
+                },
+                "product": {
+                  "group": "coverage"
+                },
+                "property": {
+                  "group": "coverage",
+                  "minProperties": 1
+                },
+                "quoteNumber": {
+                  "group": "coverage"
+                },
+                "rating": {
+                  "group": "underwriting",
+                  "minProperties": 1
+                },
+                "state": {
+                  "group": "coverage"
+                },
+                "underwritingAnswers": {
+                  "group": "underwriting",
+                  "minProperties": 1
+                }
+              },
+              "required": [
+                "underwritingAnswers",
+                "billPlan",
+                "billToId",
+                "quoteNumber",
+                "policyHolders",
+                "endDate",
+                "state",
+                "_id",
+                "agencyCode",
+                "coverageLimits",
+                "companyCode",
+                "policyHolderMailingAddress",
+                "coverageOptions",
+                "deductibles",
+                "rating",
+                "effectiveDate",
+                "property",
+                "agentCode",
+                "product"
+              ],
+              "type": "object"
+            },
+            "underwritingAnswers": {
+              "business": {
+                "answer": "No",
+                "question": "Is a business conducted on the property?",
+                "source": "Customer"
+              },
+              "floodCoverage": {
+                "answer": "Yes",
+                "question": "Does this property have a separate insurance policy covering flood losses?",
+                "source": "Default"
+              },
+              "fourPointUpdates": {
+                "answer": "Yes",
+                "question": "Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?",
+                "source": "Customer"
+              },
+              "monthsOccupied": {
+                "answer": "10+",
+                "question": "How many months a year does the owner live in the home?",
+                "source": "Customer"
+              },
+              "noPriorInsuranceSurcharge": {
+                "answer": "No",
+                "question": "If not new purchase, please provide proof of prior insurance.",
+                "source": "Default"
+              },
+              "previousClaims": {
+                "answer": "No claims ever filed",
+                "question": "How many claims in the past 5 years?",
+                "source": "Customer"
+              },
+              "rented": {
+                "answer": "Never",
+                "question": "Is the home or any structures on the property ever rented?",
+                "source": "Customer"
+              }
+            },
+            "underwritingExceptions": [{
+              "_id": "5c9262b3d9fac4000ee942c3",
+              "action": "Missing Info",
+              "active": true,
+              "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
+              "canOverride": false,
+              "category": "Coverages & Deductibles",
+              "code": "003",
+              "displayText": "Missing Info - Mailing/Billing Info",
+              "fields": [
+
+              ],
+              "internalMessage": "Missing required information to complete quote -  Mailing/Billing Info",
+              "overridden": false,
+              "overriddenAt": null,
+              "overriddenBy": {
+                "_id": "5c9262b3d9fac4000ee942c4",
+                "userId": null,
+                "userName": null
+              }
+            }],
+            "updatedAt": "2019-03-20T15:56:35.571Z",
+            "updatedBy": {
+              "_id": "5c9262b3d7bd33000ea03e8c",
+              "userId": "auth0|59419e3a43e76f16f68c3349",
+              "userName": "tticcsr"
+            }
+          }
+        },
+        {
+          "name": "mergeQuoteforUWD2",
+          "value": {
+            "__v": 0,
+            "_id": "5c925e7ad9fac4000ee9361c",
+            "additionalInterests": [
+
+            ],
+            "agencyCode": 20000,
+            "agentCode": 60000,
+            "billToId": "",
+            "billToType": "Policyholder",
+            "companyCode": "TTIC",
+            "cost": {
+              "totalCost": 125,
+              "worksheet": {
+                "calculatedFields": {
+                  "adminExp": 125,
+                  "catExp": 0,
+                  "coverageAFactor": 1.05,
+                  "hurricaneTEFactor": 411,
+                  "nonCatExp": 0,
+                  "retentionExp": 0
+                },
+                "inputFields": {
+                  "aopDeductible": 1000,
+                  "companyCode": "TTIC",
+                  "constructionType": "M",
+                  "coverageA": 300000,
+                  "coverageB": 6000,
+                  "coverageC": 75000,
+                  "coverageD": 30000,
+                  "currentYear": "2018",
+                  "hurricaneDeductible": 2,
+                  "openingProtection": "C",
+                  "product": "HO3",
+                  "replacementCost": true,
+                  "roofGeometry": "Other",
+                  "sinkholeDeductible": 10,
+                  "state": "FL",
+                  "version": "201801",
+                  "yearBuilt": 1998,
+                  "zip": "00001"
+                },
+                "lookupFields": {
+                  "baseCost": 125,
+                  "baseCoverageA": 250000,
+                  "claimCost": 1500,
+                  "hurricaneConstructionTypeFactor": 1,
+                  "hurricaneDeductibleFactor": 1,
+                  "hurricaneOpeningProtectionFactor": 1,
+                  "hurricaneRetentionMult": 1.463338,
+                  "hurricaneRoofShapeFactor": 1,
+                  "hurricaneYearBuiltFactor": 0.516541,
+                  "maxCoverageA": 750000,
+                  "minCoverageA": 150000,
+                  "nonCatConstructionLossCost": 0
+                }
+              }
+            },
+            "coverageLimits": {
+              "_id": "5c9262b2d9fac4000ee94293",
+              "dwelling": {
+                "_id": "5c9262b2d9fac4000ee94294",
+                "amount": 300000,
+                "displayText": "Dwelling",
+                "format": "Currency",
+                "letterDesignation": "A",
+                "maxAmount": 408000,
+                "minAmount": 283000
+              },
+              "lossOfUse": {
+                "_id": "5c9262b2d9fac4000ee94295",
+                "amount": 30000,
+                "displayText": "Loss of Use",
+                "format": "Currency",
+                "letterDesignation": "D"
+              },
+              "medicalPayments": {
+                "_id": "5c9262b2d9fac4000ee94296",
+                "amount": 2000,
+                "displayText": "Medical Payments",
+                "format": "Currency",
+                "letterDesignation": "F"
+              },
+              "moldLiability": {
+                "_id": "5c9262b2d9fac4000ee94297",
+                "amount": 50000,
+                "displayText": "Mold Liability",
+                "format": "Currency"
+              },
+              "moldProperty": {
+                "_id": "5c9262b2d9fac4000ee94298",
+                "amount": 10000,
+                "displayText": "Mold Property",
+                "format": "Currency"
+              },
+              "ordinanceOrLaw": {
+                "_id": "5c9262b2d9fac4000ee94299",
+                "amount": 25,
+                "displayText": "Ordinance or Law",
+                "format": "Percentage",
+                "ofCoverageLimit": "dwelling"
+              },
+              "otherStructures": {
+                "_id": "5c9262b2d9fac4000ee9429a",
+                "amount": 6000,
+                "displayText": "Other Structures",
+                "format": "Currency",
+                "letterDesignation": "B"
+              },
+              "personalLiability": {
+                "_id": "5c9262b2d9fac4000ee9429b",
+                "amount": 300000,
+                "displayText": "Personal Liability",
+                "format": "Currency",
+                "letterDesignation": "E"
+              },
+              "personalProperty": {
+                "_id": "5c9262b2d9fac4000ee9429c",
+                "amount": 75000,
+                "displayText": "Personal Property",
+                "format": "Currency",
+                "letterDesignation": "C"
+              }
+            },
+            "coverageOptions": {
+              "liabilityIncidentalOccupancies": {
+                "answer": false,
+                "displayText": "Liability Permitted Incidental Occupancies"
+              },
+              "personalPropertyReplacementCost": {
+                "answer": true,
+                "displayText": "Personal Property Replacement Cost"
+              },
+              "propertyIncidentalOccupanciesMainDwelling": {
+                "answer": false,
+                "displayText": "Property Permitted Incidental Occupancies Main Dwelling"
+              },
+              "propertyIncidentalOccupanciesOtherStructures": {
+                "answer": false,
+                "displayText": "Property Permitted Incidental Occupancies Other Structures"
+              },
+              "sinkholePerilCoverage": {
+                "answer": true,
+                "displayText": "Sinkhole Peril Coverage"
+              }
+            },
+            "createdAt": "2019-03-20T15:38:34.226Z",
+            "createdBy": {
+              "_id": "5c925e7ad9fac4000ee9361d",
+              "userId": "auth0|59419e3a43e76f16f68c3349",
+              "userName": "tticcsr"
+            },
+            "deductibles": {
+              "allOtherPerils": {
+                "amount": 1000,
+                "displayText": "All Other Perils",
+                "format": "Currency"
+              },
+              "hurricane": {
+                "amount": 2,
+                "calculatedAmount": 6000,
+                "displayText": "Hurricane",
+                "format": "Percentage",
+                "ofCoverageLimit": "dwelling"
+              },
+              "sinkhole": {
+                "amount": 10,
+                "calculatedAmount": 30000,
+                "displayText": "Sinkhole",
+                "format": "Percentage",
+                "ofCoverageLimit": "dwelling"
+              }
+            },
+            "effectiveDate": "2019-04-19T04:00:00.000Z",
+            "endDate": "2020-04-19T04:00:00.000Z",
+            "policyHolders": [{
+              "_id": "5c925e88d7bd33000ea033d9",
+              "electronicDelivery": false,
+              "emailAddress": "dan1@msn.com",
+              "entityType": "Person",
+              "firstName": "Dan ",
+              "lastName": "Fakenamington",
+              "order": 0,
+              "primaryPhoneNumber": "1111111111"
+            }],
+            "product": "HO3",
+            "property": {
+              "_id": "5c9262b2d9fac4000ee9429d",
+              "buildingCodeEffectivenessGrading": 3,
+              "burglarAlarm": true,
+              "constructionType": "MASONRY",
+              "distanceToFireHydrant": 264.052744,
+              "distanceToFireStation": 0.79,
+              "distanceToTidalWater": 17740.8,
+              "divingBoard": false,
+              "familyUnits": "1-2",
+              "fireAlarm": false,
+              "floodZone": "X",
+              "gatedCommunity": false,
+              "id": "12000000000000001",
+              "physicalAddress": {
+                "_id": "5c925e7ad9fac4000ee93620",
+                "address1": "4131 TEST ADDRESS",
+                "address2": "",
+                "city": "SARASOTA",
+                "county": "SARASOTA",
+                "latitude": 27.27967,
+                "longitude": -82.47786,
+                "state": "FL",
+                "zip": "00001"
+              },
+              "pool": false,
+              "poolSecured": false,
+              "protectionClass": 3,
+              "residenceType": "SINGLE FAMILY",
+              "source": "CasaClue",
+              "sprinkler": "N",
+              "squareFeet": 2640,
+              "territory": "715-51",
+              "townhouseRowhouse": false,
+              "trampoline": false,
+              "windMitigation": {
+                "_id": "5c9262b2d9fac4000ee9429f",
+                "floridaBuildingCodeWindSpeed": 130,
+                "floridaBuildingCodeWindSpeedDesign": 130,
+                "internalPressureDesign": "Other",
+                "openingProtection": "Other",
+                "roofCovering": "Other",
+                "roofDeckAttachment": "Other",
+                "roofGeometry": "Other",
+                "roofToWallConnection": "Other",
+                "secondaryWaterResistance": "Other",
+                "terrain": "B",
+                "windBorneDebrisRegion": "Yes"
+              },
+              "yearBuilt": 1998,
+              "yearOfRoof": null
+            },
+            "quoteNumber": "12-5160964-01",
+            "quoteState": "Quote Started",
+            "rating": {
+              "_id": "5c925fb7d9fac4000ee9382b",
               "engineCode": "HO3ByPeril",
               "netPremium": 2531,
               "rateCode": 201704,
@@ -6068,7 +8237,7 @@
               }
             },
             "underwritingExceptions": [{
-              "_id": "5c925ec8d7bd33000ea0342f",
+              "_id": "5c925fb7d9fac4000ee9384f",
               "action": "Missing Info",
               "active": true,
               "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
@@ -6083,651 +8252,14 @@
               "overridden": false,
               "overriddenAt": null,
               "overriddenBy": {
-                "_id": "5c925ec8d7bd33000ea03430",
+                "_id": "5c925fb7d9fac4000ee93850",
                 "userId": null,
                 "userName": null
               }
             }],
-            "updatedAt": "2019-03-20T15:39:52.213Z",
+            "updatedAt": "2019-03-20T15:56:34.845Z",
             "updatedBy": {
-              "_id": "5c925ec8d7bd33000ea03462",
-              "userId": "auth0|59419e3a43e76f16f68c3349",
-              "userName": "tticcsr"
-            }
-          }
-        },
-        {
-          "name": "mergeQuoteforUWD2",
-          "value": {
-            "__v": 0,
-            "_id": "5c925e7ad9fac4000ee9361c",
-            "additionalInterests": [
-
-            ],
-            "agencyCode": 20000,
-            "agentCode": 60000,
-            "billToId": "",
-            "billToType": "Policyholder",
-            "companyCode": "TTIC",
-            "cost": {
-              "totalCost": 125,
-              "worksheet": {
-                "calculatedFields": {
-                  "adminExp": 125,
-                  "catExp": 0,
-                  "coverageAFactor": 1.064,
-                  "hurricaneTEFactor": 430.18,
-                  "nonCatExp": 0,
-                  "retentionExp": 0
-                },
-                "inputFields": {
-                  "aopDeductible": 1000,
-                  "companyCode": "TTIC",
-                  "constructionType": "M",
-                  "coverageA": 314000,
-                  "coverageB": 6280,
-                  "coverageC": 78500,
-                  "coverageD": 31400,
-                  "currentYear": "2018",
-                  "hurricaneDeductible": 2,
-                  "openingProtection": "C",
-                  "product": "HO3",
-                  "replacementCost": true,
-                  "roofGeometry": "Other",
-                  "sinkholeDeductible": 10,
-                  "state": "FL",
-                  "version": "201801",
-                  "yearBuilt": 1998,
-                  "zip": "00001"
-                },
-                "lookupFields": {
-                  "baseCost": 125,
-                  "baseCoverageA": 250000,
-                  "claimCost": 1500,
-                  "hurricaneConstructionTypeFactor": 1,
-                  "hurricaneDeductibleFactor": 1,
-                  "hurricaneOpeningProtectionFactor": 1,
-                  "hurricaneRetentionMult": 1.463338,
-                  "hurricaneRoofShapeFactor": 1,
-                  "hurricaneYearBuiltFactor": 0.516541,
-                  "maxCoverageA": 750000,
-                  "minCoverageA": 150000,
-                  "nonCatConstructionLossCost": 0
-                }
-              }
-            },
-            "coverageLimits": {
-              "_id": "5c925ec7d9fac4000ee93726",
-              "dwelling": {
-                "_id": "5c925ec7d9fac4000ee93727",
-                "amount": 300000,
-                "displayText": "Dwelling",
-                "format": "Currency",
-                "letterDesignation": "A",
-                "maxAmount": 408000,
-                "minAmount": 283000
-              },
-              "lossOfUse": {
-                "_id": "5c925ec7d9fac4000ee93728",
-                "amount": 30000,
-                "displayText": "Loss of Use",
-                "format": "Currency",
-                "letterDesignation": "D"
-              },
-              "medicalPayments": {
-                "_id": "5c925ec7d9fac4000ee93729",
-                "amount": 2000,
-                "displayText": "Medical Payments",
-                "format": "Currency",
-                "letterDesignation": "F"
-              },
-              "moldLiability": {
-                "_id": "5c925ec7d9fac4000ee9372a",
-                "amount": 50000,
-                "displayText": "Mold Liability",
-                "format": "Currency"
-              },
-              "moldProperty": {
-                "_id": "5c925ec7d9fac4000ee9372b",
-                "amount": 10000,
-                "displayText": "Mold Property",
-                "format": "Currency"
-              },
-              "ordinanceOrLaw": {
-                "_id": "5c925ec7d9fac4000ee9372c",
-                "amount": 25,
-                "displayText": "Ordinance or Law",
-                "format": "Percentage",
-                "ofCoverageLimit": "dwelling"
-              },
-              "otherStructures": {
-                "_id": "5c925ec7d9fac4000ee9372d",
-                "amount": 6000,
-                "displayText": "Other Structures",
-                "format": "Currency",
-                "letterDesignation": "B"
-              },
-              "personalLiability": {
-                "_id": "5c925ec7d9fac4000ee9372e",
-                "amount": 300000,
-                "displayText": "Personal Liability",
-                "format": "Currency",
-                "letterDesignation": "E"
-              },
-              "personalProperty": {
-                "_id": "5c925ec7d9fac4000ee9372f",
-                "amount": 75000,
-                "displayText": "Personal Property",
-                "format": "Currency",
-                "letterDesignation": "C"
-              }
-            },
-            "coverageOptions": {
-              "liabilityIncidentalOccupancies": {
-                "answer": false,
-                "displayText": "Liability Permitted Incidental Occupancies"
-              },
-              "personalPropertyReplacementCost": {
-                "answer": true,
-                "displayText": "Personal Property Replacement Cost"
-              },
-              "propertyIncidentalOccupanciesMainDwelling": {
-                "answer": false,
-                "displayText": "Property Permitted Incidental Occupancies Main Dwelling"
-              },
-              "propertyIncidentalOccupanciesOtherStructures": {
-                "answer": false,
-                "displayText": "Property Permitted Incidental Occupancies Other Structures"
-              },
-              "sinkholePerilCoverage": {
-                "answer": true,
-                "displayText": "Sinkhole Peril Coverage"
-              }
-            },
-            "createdAt": "2019-03-20T15:38:34.226Z",
-            "createdBy": {
-              "_id": "5c925e7ad9fac4000ee9361d",
-              "userId": "auth0|59419e3a43e76f16f68c3349",
-              "userName": "tticcsr"
-            },
-            "deductibles": {
-              "allOtherPerils": {
-                "amount": 1000,
-                "displayText": "All Other Perils",
-                "format": "Currency"
-              },
-              "hurricane": {
-                "amount": 2,
-                "calculatedAmount": 6000,
-                "displayText": "Hurricane",
-                "format": "Percentage",
-                "ofCoverageLimit": "dwelling"
-              },
-              "sinkhole": {
-                "amount": 10,
-                "calculatedAmount": 30000,
-                "displayText": "Sinkhole",
-                "format": "Percentage",
-                "ofCoverageLimit": "dwelling"
-              }
-            },
-            "effectiveDate": "2019-04-19T04:00:00.000Z",
-            "endDate": "2020-04-19T04:00:00.000Z",
-            "policyHolders": [{
-              "_id": "5c925e88d7bd33000ea033d9",
-              "electronicDelivery": false,
-              "emailAddress": "dan1@msn.com",
-              "entityType": "Person",
-              "firstName": "Dan ",
-              "lastName": "Fakenamington",
-              "order": 0,
-              "primaryPhoneNumber": "1111111111"
-            }],
-            "product": "HO3",
-            "property": {
-              "_id": "5c925ec7d9fac4000ee93730",
-              "buildingCodeEffectivenessGrading": 3,
-              "burglarAlarm": false,
-              "constructionType": "MASONRY",
-              "distanceToFireHydrant": 264.052744,
-              "distanceToFireStation": 0.79,
-              "distanceToTidalWater": 17740.8,
-              "divingBoard": false,
-              "familyUnits": "1-2",
-              "fireAlarm": false,
-              "floodZone": "X",
-              "gatedCommunity": false,
-              "id": "12000000000000001",
-              "physicalAddress": {
-                "_id": "5c925e7ad9fac4000ee93620",
-                "address1": "4131 TEST ADDRESS",
-                "address2": "",
-                "city": "SARASOTA",
-                "county": "SARASOTA",
-                "latitude": 27.27967,
-                "longitude": -82.47786,
-                "state": "FL",
-                "zip": "00001"
-              },
-              "pool": false,
-              "poolSecured": false,
-              "protectionClass": 3,
-              "residenceType": "SINGLE FAMILY",
-              "source": "CasaClue",
-              "sprinkler": "N",
-              "squareFeet": 2640,
-              "territory": "715-51",
-              "townhouseRowhouse": false,
-              "trampoline": false,
-              "windMitigation": {
-                "_id": "5c925ec7d9fac4000ee93732",
-                "floridaBuildingCodeWindSpeed": 130,
-                "floridaBuildingCodeWindSpeedDesign": 130,
-                "internalPressureDesign": "Other",
-                "openingProtection": "Other",
-                "roofCovering": "Other",
-                "roofDeckAttachment": "Other",
-                "roofGeometry": "Other",
-                "roofToWallConnection": "Other",
-                "secondaryWaterResistance": "Other",
-                "terrain": "B",
-                "windBorneDebrisRegion": "Yes"
-              },
-              "yearBuilt": 1998,
-              "yearOfRoof": null
-            },
-            "quoteNumber": "12-5160964-01",
-            "quoteState": "Quote Started",
-            "rating": {
-              "_id": "5c925e8dd9fac4000ee936db",
-              "engineCode": "HO3ByPeril",
-              "netPremium": 2640,
-              "rateCode": 201704,
-              "totalFees": 27,
-              "totalPremium": 2667,
-              "worksheet": {
-                "additionalCoverages": {
-                  "increasedLiabilityMoldFungiLimit": 0,
-                  "increasedPersonalLiabilityLimit": 22,
-                  "increasedPropertyMoldFungiLimit": 0,
-                  "liabilityIncidentalOccupancies": 0,
-                  "otherStructIncLimits": 0,
-                  "propertyIncidentalOccupancies": 0
-                },
-                "additionalCoveragesSum": 22,
-                "bcegAdjustment": -149,
-                "elements": {
-                  "ageOfHomeByYearFactors": {
-                    "hurricane": 1.04,
-                    "otherWind": 1.04,
-                    "yearBuilt": 1998
-                  },
-                  "ageOfHomeFactors": {
-                    "ageOfHome": 21,
-                    "allOtherPerils": 2.496,
-                    "fire": 2.496,
-                    "liability": 2.496,
-                    "sinkhole": 2.496,
-                    "water": 2.496
-                  },
-                  "baseRates": {
-                    "allOtherPerils": 153.35,
-                    "fire": 309.05,
-                    "hurricane": 613.41,
-                    "liability": 56.96,
-                    "otherWind": 22.98,
-                    "sinkhole": 7.47,
-                    "water": 516.56
-                  },
-                  "bcegFactors": {
-                    "allOtherPerils": 1,
-                    "fire": 1,
-                    "grade": 3,
-                    "hurricane": 0.911,
-                    "liability": 1,
-                    "otherWind": 0.911,
-                    "sinkhole": 1,
-                    "territoryGroup": 3,
-                    "water": 1
-                  },
-                  "burglarAlarmFactors": {
-                    "allOtherPerils": 1,
-                    "burglarAlarm": false,
-                    "fire": 1,
-                    "hurricane": 1,
-                    "liability": 1,
-                    "otherWind": 1,
-                    "sinkhole": 1,
-                    "water": 1
-                  },
-                  "coverageAFactors": {
-                    "allOtherPerils": 2.328,
-                    "fire": 2.328,
-                    "hurricane": 2.328,
-                    "liability": 1,
-                    "otherWind": 2.328,
-                    "sinkhole": 2.328,
-                    "water": 2.328
-                  },
-                  "coverageBFactors": {
-                    "allOtherPerils": 0.97,
-                    "fire": 0.97,
-                    "hurricane": 0.97,
-                    "liability": 1,
-                    "otherWind": 0.97,
-                    "sinkhole": 0.97,
-                    "water": 0.97
-                  },
-                  "coverageCFactors": {
-                    "allOtherPerils": 0.925,
-                    "fire": 0.925,
-                    "hurricane": 0.85,
-                    "liability": 1,
-                    "otherWind": 0.925,
-                    "sinkhole": 0.925,
-                    "water": 0.925
-                  },
-                  "deductibleFactors": {
-                    "allOtherPerils": 1,
-                    "allOtherPerilsDeductible": 1000,
-                    "exWind": false,
-                    "fire": 1,
-                    "hurricane": 1,
-                    "hurricaneDeductible": 2,
-                    "liability": 1,
-                    "otherWind": 1,
-                    "sinkhole": 1,
-                    "water": 1
-                  },
-                  "fireAlarmAndSprinklerFactors": {
-                    "allOtherPerils": 1,
-                    "fire": 1,
-                    "fireAlarm": false,
-                    "hurricane": 1,
-                    "liability": 1,
-                    "otherWind": 1,
-                    "sinkhole": 1,
-                    "sprinkler": "N",
-                    "water": 1
-                  },
-                  "noPriorInsuranceFactors": {
-                    "allOtherPerils": 1,
-                    "fire": 1,
-                    "hurricane": 1,
-                    "liability": 1,
-                    "noPriorInsurance": false,
-                    "otherWind": 1,
-                    "sinkhole": 1,
-                    "water": 1
-                  },
-                  "ordinanceOrLawFactors": {
-                    "allOtherPerils": 1,
-                    "fire": 1,
-                    "hurricane": 1,
-                    "liability": 1,
-                    "ordinanceOrLaw": false,
-                    "otherWind": 1,
-                    "sinkhole": 1,
-                    "water": 1
-                  },
-                  "protectionClassFactors": {
-                    "allOtherPerils": 0.852,
-                    "constructionCode": "M",
-                    "constructionType": "Masonry",
-                    "fire": 0.852,
-                    "hurricane": 0.817,
-                    "liability": 1,
-                    "otherWind": 0.817,
-                    "protectionClass": 3,
-                    "sinkhole": 0.852,
-                    "water": 0.852
-                  },
-                  "replacementCostFactors": {
-                    "allOtherPerils": 1.125,
-                    "fire": 1.125,
-                    "hurricane": 1.125,
-                    "liability": 1,
-                    "otherWind": 1.125,
-                    "replacementCost": true,
-                    "sinkhole": 1.125,
-                    "water": 1.125
-                  },
-                  "seasonalFactors": {
-                    "allOtherPerils": 1,
-                    "fire": 1,
-                    "hurricane": 1,
-                    "liability": 1,
-                    "otherWind": 1,
-                    "seasonal": false,
-                    "sinkhole": 1,
-                    "water": 1
-                  },
-                  "territoryFactors": {
-                    "allOtherPerils": 0.205,
-                    "code": "715-51",
-                    "fire": 0.205,
-                    "group": 3,
-                    "hurricane": 1.43,
-                    "liability": 0.203,
-                    "minPremium": 0.002,
-                    "name": "Sarasota,Remainder",
-                    "otherWind": 1.43,
-                    "sinkhole": 1.598,
-                    "water": 0.205
-                  },
-                  "townRowHouseFactors": {
-                    "allOtherPerils": 1,
-                    "fire": 1,
-                    "hurricane": 1,
-                    "liability": 1,
-                    "otherWind": 1,
-                    "protectionClass": 3,
-                    "sinkhole": 1,
-                    "units": "1-2",
-                    "water": 1
-                  },
-                  "windMitigationFactors": {
-                    "allOtherPerils": 1,
-                    "fire": 1,
-                    "hurricane": 1,
-                    "liability": 1,
-                    "otherWind": 1,
-                    "sinkhole": 1,
-                    "water": 1,
-                    "windMitigationDiscount": 0
-                  }
-                },
-                "fees": {
-                  "citizensFee": 0,
-                  "empTrustFee": 2,
-                  "fhcfFee": 0,
-                  "figaFee": 0,
-                  "mgaPolicyFee": 25
-                },
-                "minimumPremiumAdjustment": 0,
-                "netPremium": 2640,
-                "perilPremiums": {
-                  "allOtherPerils": 157,
-                  "fire": 317,
-                  "hurricane": 1466,
-                  "liability": 29,
-                  "otherWind": 60,
-                  "sinkhole": 60,
-                  "water": 529
-                },
-                "perilPremiumsSum": 2618,
-                "subtotalPremium": 2640,
-                "totalFees": 27,
-                "totalPremium": 2667
-              }
-            },
-            "state": "FL",
-            "transactionSpec": {
-              "groups": {
-                "coverage": {
-                  "label": "Coverage Info"
-                },
-                "mailingbilling": {
-                  "label": "Mailing/Billing Info"
-                },
-                "underwriting": {
-                  "label": "Underwriting Info"
-                }
-              },
-              "properties": {
-                "_id": {
-                  "group": "coverage"
-                },
-                "agencyCode": {
-                  "group": "coverage"
-                },
-                "agentCode": {
-                  "group": "coverage"
-                },
-                "billPlan": {
-                  "group": "mailingbilling"
-                },
-                "billToId": {
-                  "group": "mailingbilling"
-                },
-                "billToType": {
-                  "group": "mailingbilling"
-                },
-                "companyCode": {
-                  "group": "coverage"
-                },
-                "coverageLimits": {
-                  "group": "coverage",
-                  "minProperties": 1
-                },
-                "coverageOptions": {
-                  "group": "coverage",
-                  "minProperties": 1
-                },
-                "deductibles": {
-                  "group": "coverage",
-                  "minProperties": 1
-                },
-                "effectiveDate": {
-                  "group": "coverage"
-                },
-                "endDate": {
-                  "group": "coverage"
-                },
-                "policyHolderMailingAddress": {
-                  "group": "mailingbilling",
-                  "minProperties": 1
-                },
-                "policyHolders": {
-                  "group": "coverage",
-                  "minItems": 1
-                },
-                "product": {
-                  "group": "coverage"
-                },
-                "property": {
-                  "group": "coverage",
-                  "minProperties": 1
-                },
-                "quoteNumber": {
-                  "group": "coverage"
-                },
-                "rating": {
-                  "group": "underwriting",
-                  "minProperties": 1
-                },
-                "state": {
-                  "group": "coverage"
-                },
-                "underwritingAnswers": {
-                  "group": "underwriting",
-                  "minProperties": 1
-                }
-              },
-              "required": [
-                "underwritingAnswers",
-                "billPlan",
-                "billToId",
-                "quoteNumber",
-                "policyHolders",
-                "endDate",
-                "state",
-                "_id",
-                "agencyCode",
-                "coverageLimits",
-                "companyCode",
-                "policyHolderMailingAddress",
-                "coverageOptions",
-                "deductibles",
-                "rating",
-                "effectiveDate",
-                "property",
-                "agentCode",
-                "product"
-              ],
-              "type": "object"
-            },
-            "underwritingAnswers": {
-              "business": {
-                "answer": "No",
-                "question": "Is a business conducted on the property?",
-                "source": "Customer"
-              },
-              "floodCoverage": {
-                "answer": "Yes",
-                "question": "Does this property have a separate insurance policy covering flood losses?",
-                "source": "Default"
-              },
-              "fourPointUpdates": {
-                "answer": "Yes",
-                "question": "Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?",
-                "source": "Customer"
-              },
-              "monthsOccupied": {
-                "answer": "10+",
-                "question": "How many months a year does the owner live in the home?",
-                "source": "Customer"
-              },
-              "noPriorInsuranceSurcharge": {
-                "answer": "No",
-                "question": "If not new purchase, please provide proof of prior insurance.",
-                "source": "Default"
-              },
-              "previousClaims": {
-                "answer": "No claims ever filed",
-                "question": "How many claims in the past 5 years?",
-                "source": "Customer"
-              },
-              "rented": {
-                "answer": "Never",
-                "question": "Is the home or any structures on the property ever rented?",
-                "source": "Customer"
-              }
-            },
-            "underwritingExceptions": [{
-              "_id": "5c925e8dd9fac4000ee93701",
-              "action": "Missing Info",
-              "active": true,
-              "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
-              "canOverride": false,
-              "category": "Coverages & Deductibles",
-              "code": "003",
-              "displayText": "Missing Info - Mailing/Billing Info",
-              "fields": [
-
-              ],
-              "internalMessage": "Missing required information to complete quote -  Mailing/Billing Info",
-              "overridden": false,
-              "overriddenAt": null,
-              "overriddenBy": {
-                "_id": "5c925e8dd9fac4000ee93702",
-                "userId": null,
-                "userName": null
-              }
-            }],
-            "updatedAt": "2019-03-20T15:39:51.575Z",
-            "updatedBy": {
-              "_id": "5c925ec7d9fac4000ee93733",
+              "_id": "5c9262b2d9fac4000ee942a0",
               "userId": "auth0|59419e3a43e76f16f68c3349",
               "userName": "tticcsr"
             }
@@ -7072,7 +8604,7 @@
         },
         {
           "name": "_id",
-          "value": "5c925e7ad9fac4000ee9361f"
+          "value": "5c925fb6d7bd33000ea0352d"
         },
         {
           "name": "LastName",
@@ -7103,8 +8635,8 @@
                   "calculatedFields": {
                     "adminExp": 125,
                     "catExp": 0,
-                    "coverageAFactor": 1.064,
-                    "hurricaneTEFactor": 430.18,
+                    "coverageAFactor": 1.05,
+                    "hurricaneTEFactor": 411,
                     "nonCatExp": 0,
                     "retentionExp": 0
                   },
@@ -7112,10 +8644,10 @@
                     "aopDeductible": 1000,
                     "companyCode": "TTIC",
                     "constructionType": "M",
-                    "coverageA": 314000,
-                    "coverageB": 6280,
-                    "coverageC": 78500,
-                    "coverageD": 31400,
+                    "coverageA": 300000,
+                    "coverageB": 6000,
+                    "coverageC": 75000,
+                    "coverageD": 30000,
                     "currentYear": "2018",
                     "hurricaneDeductible": 2,
                     "openingProtection": "C",
@@ -7145,9 +8677,9 @@
                 }
               },
               "coverageLimits": {
-                "_id": "5c925ec7d9fac4000ee93726",
+                "_id": "5c9262b2d9fac4000ee94293",
                 "dwelling": {
-                  "_id": "5c925ec7d9fac4000ee93727",
+                  "_id": "5c9262b2d9fac4000ee94294",
                   "amount": 300000,
                   "displayText": "Dwelling",
                   "format": "Currency",
@@ -7156,54 +8688,54 @@
                   "minAmount": 283000
                 },
                 "lossOfUse": {
-                  "_id": "5c925ec7d9fac4000ee93728",
+                  "_id": "5c9262b2d9fac4000ee94295",
                   "amount": 30000,
                   "displayText": "Loss of Use",
                   "format": "Currency",
                   "letterDesignation": "D"
                 },
                 "medicalPayments": {
-                  "_id": "5c925ec7d9fac4000ee93729",
+                  "_id": "5c9262b2d9fac4000ee94296",
                   "amount": 2000,
                   "displayText": "Medical Payments",
                   "format": "Currency",
                   "letterDesignation": "F"
                 },
                 "moldLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372a",
+                  "_id": "5c9262b2d9fac4000ee94297",
                   "amount": 50000,
                   "displayText": "Mold Liability",
                   "format": "Currency"
                 },
                 "moldProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372b",
+                  "_id": "5c9262b2d9fac4000ee94298",
                   "amount": 10000,
                   "displayText": "Mold Property",
                   "format": "Currency"
                 },
                 "ordinanceOrLaw": {
-                  "_id": "5c925ec7d9fac4000ee9372c",
+                  "_id": "5c9262b2d9fac4000ee94299",
                   "amount": 25,
                   "displayText": "Ordinance or Law",
                   "format": "Percentage",
                   "ofCoverageLimit": "dwelling"
                 },
                 "otherStructures": {
-                  "_id": "5c925ec7d9fac4000ee9372d",
+                  "_id": "5c9262b2d9fac4000ee9429a",
                   "amount": 6000,
                   "displayText": "Other Structures",
                   "format": "Currency",
                   "letterDesignation": "B"
                 },
                 "personalLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372e",
+                  "_id": "5c9262b2d9fac4000ee9429b",
                   "amount": 300000,
                   "displayText": "Personal Liability",
                   "format": "Currency",
                   "letterDesignation": "E"
                 },
                 "personalProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372f",
+                  "_id": "5c9262b2d9fac4000ee9429c",
                   "amount": 75000,
                   "displayText": "Personal Property",
                   "format": "Currency",
@@ -7273,9 +8805,9 @@
               }],
               "product": "HO3",
               "property": {
-                "_id": "5c925ec7d9fac4000ee93730",
+                "_id": "5c9262b2d9fac4000ee9429d",
                 "buildingCodeEffectivenessGrading": 3,
-                "burglarAlarm": false,
+                "burglarAlarm": true,
                 "constructionType": "MASONRY",
                 "distanceToFireHydrant": 264.052744,
                 "distanceToFireStation": 0.79,
@@ -7308,7 +8840,7 @@
                 "townhouseRowhouse": false,
                 "trampoline": false,
                 "windMitigation": {
-                  "_id": "5c925ec7d9fac4000ee93732",
+                  "_id": "5c9262b2d9fac4000ee9429f",
                   "floridaBuildingCodeWindSpeed": 130,
                   "floridaBuildingCodeWindSpeedDesign": 130,
                   "internalPressureDesign": "Other",
@@ -7327,12 +8859,12 @@
               "quoteNumber": "12-5160964-01",
               "quoteState": "Quote Started",
               "rating": {
-                "_id": "5c925e8dd9fac4000ee936db",
+                "_id": "5c925fb7d9fac4000ee9382b",
                 "engineCode": "HO3ByPeril",
-                "netPremium": 2640,
+                "netPremium": 2531,
                 "rateCode": 201704,
                 "totalFees": 27,
-                "totalPremium": 2667,
+                "totalPremium": 2558,
                 "worksheet": {
                   "additionalCoverages": {
                     "increasedLiabilityMoldFungiLimit": 0,
@@ -7343,7 +8875,7 @@
                     "propertyIncidentalOccupancies": 0
                   },
                   "additionalCoveragesSum": 22,
-                  "bcegAdjustment": -149,
+                  "bcegAdjustment": -143,
                   "elements": {
                     "ageOfHomeByYearFactors": {
                       "hurricane": 1.04,
@@ -7389,13 +8921,13 @@
                       "water": 1
                     },
                     "coverageAFactors": {
-                      "allOtherPerils": 2.328,
-                      "fire": 2.328,
-                      "hurricane": 2.328,
+                      "allOtherPerils": 2.231,
+                      "fire": 2.231,
+                      "hurricane": 2.231,
                       "liability": 1,
-                      "otherWind": 2.328,
-                      "sinkhole": 2.328,
-                      "water": 2.328
+                      "otherWind": 2.231,
+                      "sinkhole": 2.231,
+                      "water": 2.231
                     },
                     "coverageBFactors": {
                       "allOtherPerils": 0.97,
@@ -7533,20 +9065,20 @@
                     "mgaPolicyFee": 25
                   },
                   "minimumPremiumAdjustment": 0,
-                  "netPremium": 2640,
+                  "netPremium": 2531,
                   "perilPremiums": {
-                    "allOtherPerils": 157,
-                    "fire": 317,
-                    "hurricane": 1466,
+                    "allOtherPerils": 151,
+                    "fire": 303,
+                    "hurricane": 1405,
                     "liability": 29,
-                    "otherWind": 60,
-                    "sinkhole": 60,
-                    "water": 529
+                    "otherWind": 57,
+                    "sinkhole": 57,
+                    "water": 507
                   },
-                  "perilPremiumsSum": 2618,
-                  "subtotalPremium": 2640,
+                  "perilPremiumsSum": 2509,
+                  "subtotalPremium": 2531,
                   "totalFees": 27,
-                  "totalPremium": 2667
+                  "totalPremium": 2558
                 }
               },
               "state": "FL",
@@ -7588,7 +9120,7 @@
                 }
               },
               "underwritingExceptions": [{
-                "_id": "5c925e8dd9fac4000ee93701",
+                "_id": "5c925fb7d9fac4000ee9384f",
                 "action": "Missing Info",
                 "active": true,
                 "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
@@ -7603,20 +9135,20 @@
                 "overridden": false,
                 "overriddenAt": null,
                 "overriddenBy": {
-                  "_id": "5c925e8dd9fac4000ee93702",
+                  "_id": "5c925fb7d9fac4000ee93850",
                   "userId": null,
                   "userName": null
                 }
               }],
-              "updatedAt": "2019-03-20T15:39:51.575Z",
+              "updatedAt": "2019-03-20T15:56:34.845Z",
               "updatedBy": {
-                "_id": "5c925ec7d9fac4000ee93733",
+                "_id": "5c9262b2d9fac4000ee942a0",
                 "userId": "auth0|59419e3a43e76f16f68c3349",
                 "userName": "tticcsr"
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 49
+            "timeTookByEndpoint": 76
           }
         },
         {
@@ -7669,8 +9201,8 @@
                   "calculatedFields": {
                     "adminExp": 125,
                     "catExp": 0,
-                    "coverageAFactor": 1.064,
-                    "hurricaneTEFactor": 430.18,
+                    "coverageAFactor": 1.05,
+                    "hurricaneTEFactor": 411,
                     "nonCatExp": 0,
                     "retentionExp": 0
                   },
@@ -7678,10 +9210,10 @@
                     "aopDeductible": 1000,
                     "companyCode": "TTIC",
                     "constructionType": "M",
-                    "coverageA": 314000,
-                    "coverageB": 6280,
-                    "coverageC": 78500,
-                    "coverageD": 31400,
+                    "coverageA": 300000,
+                    "coverageB": 6000,
+                    "coverageC": 75000,
+                    "coverageD": 30000,
                     "currentYear": "2018",
                     "hurricaneDeductible": 2,
                     "openingProtection": "C",
@@ -7711,9 +9243,9 @@
                 }
               },
               "coverageLimits": {
-                "_id": "5c925ec7d9fac4000ee93726",
+                "_id": "5c9262b2d9fac4000ee94293",
                 "dwelling": {
-                  "_id": "5c925ec7d9fac4000ee93727",
+                  "_id": "5c9262b2d9fac4000ee94294",
                   "amount": 300000,
                   "displayText": "Dwelling",
                   "format": "Currency",
@@ -7722,54 +9254,54 @@
                   "minAmount": 283000
                 },
                 "lossOfUse": {
-                  "_id": "5c925ec7d9fac4000ee93728",
+                  "_id": "5c9262b2d9fac4000ee94295",
                   "amount": 30000,
                   "displayText": "Loss of Use",
                   "format": "Currency",
                   "letterDesignation": "D"
                 },
                 "medicalPayments": {
-                  "_id": "5c925ec7d9fac4000ee93729",
+                  "_id": "5c9262b2d9fac4000ee94296",
                   "amount": 2000,
                   "displayText": "Medical Payments",
                   "format": "Currency",
                   "letterDesignation": "F"
                 },
                 "moldLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372a",
+                  "_id": "5c9262b2d9fac4000ee94297",
                   "amount": 50000,
                   "displayText": "Mold Liability",
                   "format": "Currency"
                 },
                 "moldProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372b",
+                  "_id": "5c9262b2d9fac4000ee94298",
                   "amount": 10000,
                   "displayText": "Mold Property",
                   "format": "Currency"
                 },
                 "ordinanceOrLaw": {
-                  "_id": "5c925ec7d9fac4000ee9372c",
+                  "_id": "5c9262b2d9fac4000ee94299",
                   "amount": 25,
                   "displayText": "Ordinance or Law",
                   "format": "Percentage",
                   "ofCoverageLimit": "dwelling"
                 },
                 "otherStructures": {
-                  "_id": "5c925ec7d9fac4000ee9372d",
+                  "_id": "5c9262b2d9fac4000ee9429a",
                   "amount": 6000,
                   "displayText": "Other Structures",
                   "format": "Currency",
                   "letterDesignation": "B"
                 },
                 "personalLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372e",
+                  "_id": "5c9262b2d9fac4000ee9429b",
                   "amount": 300000,
                   "displayText": "Personal Liability",
                   "format": "Currency",
                   "letterDesignation": "E"
                 },
                 "personalProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372f",
+                  "_id": "5c9262b2d9fac4000ee9429c",
                   "amount": 75000,
                   "displayText": "Personal Property",
                   "format": "Currency",
@@ -7839,9 +9371,9 @@
               }],
               "product": "HO3",
               "property": {
-                "_id": "5c925ec7d9fac4000ee93730",
+                "_id": "5c9262b2d9fac4000ee9429d",
                 "buildingCodeEffectivenessGrading": 3,
-                "burglarAlarm": false,
+                "burglarAlarm": true,
                 "constructionType": "MASONRY",
                 "distanceToFireHydrant": 264.052744,
                 "distanceToFireStation": 0.79,
@@ -7874,7 +9406,7 @@
                 "townhouseRowhouse": false,
                 "trampoline": false,
                 "windMitigation": {
-                  "_id": "5c925ec7d9fac4000ee93732",
+                  "_id": "5c9262b2d9fac4000ee9429f",
                   "floridaBuildingCodeWindSpeed": 130,
                   "floridaBuildingCodeWindSpeedDesign": 130,
                   "internalPressureDesign": "Other",
@@ -7893,12 +9425,12 @@
               "quoteNumber": "12-5160964-01",
               "quoteState": "Quote Started",
               "rating": {
-                "_id": "5c925e8dd9fac4000ee936db",
+                "_id": "5c925fb7d9fac4000ee9382b",
                 "engineCode": "HO3ByPeril",
-                "netPremium": 2640,
+                "netPremium": 2531,
                 "rateCode": 201704,
                 "totalFees": 27,
-                "totalPremium": 2667,
+                "totalPremium": 2558,
                 "worksheet": {
                   "additionalCoverages": {
                     "increasedLiabilityMoldFungiLimit": 0,
@@ -7909,7 +9441,7 @@
                     "propertyIncidentalOccupancies": 0
                   },
                   "additionalCoveragesSum": 22,
-                  "bcegAdjustment": -149,
+                  "bcegAdjustment": -143,
                   "elements": {
                     "ageOfHomeByYearFactors": {
                       "hurricane": 1.04,
@@ -7955,13 +9487,13 @@
                       "water": 1
                     },
                     "coverageAFactors": {
-                      "allOtherPerils": 2.328,
-                      "fire": 2.328,
-                      "hurricane": 2.328,
+                      "allOtherPerils": 2.231,
+                      "fire": 2.231,
+                      "hurricane": 2.231,
                       "liability": 1,
-                      "otherWind": 2.328,
-                      "sinkhole": 2.328,
-                      "water": 2.328
+                      "otherWind": 2.231,
+                      "sinkhole": 2.231,
+                      "water": 2.231
                     },
                     "coverageBFactors": {
                       "allOtherPerils": 0.97,
@@ -8099,20 +9631,20 @@
                     "mgaPolicyFee": 25
                   },
                   "minimumPremiumAdjustment": 0,
-                  "netPremium": 2640,
+                  "netPremium": 2531,
                   "perilPremiums": {
-                    "allOtherPerils": 157,
-                    "fire": 317,
-                    "hurricane": 1466,
+                    "allOtherPerils": 151,
+                    "fire": 303,
+                    "hurricane": 1405,
                     "liability": 29,
-                    "otherWind": 60,
-                    "sinkhole": 60,
-                    "water": 529
+                    "otherWind": 57,
+                    "sinkhole": 57,
+                    "water": 507
                   },
-                  "perilPremiumsSum": 2618,
-                  "subtotalPremium": 2640,
+                  "perilPremiumsSum": 2509,
+                  "subtotalPremium": 2531,
                   "totalFees": 27,
-                  "totalPremium": 2667
+                  "totalPremium": 2558
                 }
               },
               "state": "FL",
@@ -8154,7 +9686,7 @@
                 }
               },
               "underwritingExceptions": [{
-                "_id": "5c925e8dd9fac4000ee93701",
+                "_id": "5c925fb7d9fac4000ee9384f",
                 "action": "Missing Info",
                 "active": true,
                 "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
@@ -8169,20 +9701,20 @@
                 "overridden": false,
                 "overriddenAt": null,
                 "overriddenBy": {
-                  "_id": "5c925e8dd9fac4000ee93702",
+                  "_id": "5c925fb7d9fac4000ee93850",
                   "userId": null,
                   "userName": null
                 }
               }],
-              "updatedAt": "2019-03-20T15:39:51.575Z",
+              "updatedAt": "2019-03-20T15:56:34.845Z",
               "updatedBy": {
-                "_id": "5c925ec7d9fac4000ee93733",
+                "_id": "5c9262b2d9fac4000ee942a0",
                 "userId": "auth0|59419e3a43e76f16f68c3349",
                 "userName": "tticcsr"
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 43
+            "timeTookByEndpoint": 56
           }
         },
         {
@@ -8256,9 +9788,9 @@
                 }
               },
               "coverageLimits": {
-                "_id": "5c925ec7d9fac4000ee93726",
+                "_id": "5c9262b2d9fac4000ee94293",
                 "dwelling": {
-                  "_id": "5c925ec7d9fac4000ee93727",
+                  "_id": "5c9262b2d9fac4000ee94294",
                   "amount": 300000,
                   "displayText": "Dwelling",
                   "format": "Currency",
@@ -8267,54 +9799,54 @@
                   "minAmount": 283000
                 },
                 "lossOfUse": {
-                  "_id": "5c925ec7d9fac4000ee93728",
+                  "_id": "5c9262b2d9fac4000ee94295",
                   "amount": 30000,
                   "displayText": "Loss of Use",
                   "format": "Currency",
                   "letterDesignation": "D"
                 },
                 "medicalPayments": {
-                  "_id": "5c925ec7d9fac4000ee93729",
+                  "_id": "5c9262b2d9fac4000ee94296",
                   "amount": 2000,
                   "displayText": "Medical Payments",
                   "format": "Currency",
                   "letterDesignation": "F"
                 },
                 "moldLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372a",
+                  "_id": "5c9262b2d9fac4000ee94297",
                   "amount": 50000,
                   "displayText": "Mold Liability",
                   "format": "Currency"
                 },
                 "moldProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372b",
+                  "_id": "5c9262b2d9fac4000ee94298",
                   "amount": 10000,
                   "displayText": "Mold Property",
                   "format": "Currency"
                 },
                 "ordinanceOrLaw": {
-                  "_id": "5c925ec7d9fac4000ee9372c",
+                  "_id": "5c9262b2d9fac4000ee94299",
                   "amount": 25,
                   "displayText": "Ordinance or Law",
                   "format": "Percentage",
                   "ofCoverageLimit": "dwelling"
                 },
                 "otherStructures": {
-                  "_id": "5c925ec7d9fac4000ee9372d",
+                  "_id": "5c9262b2d9fac4000ee9429a",
                   "amount": 6000,
                   "displayText": "Other Structures",
                   "format": "Currency",
                   "letterDesignation": "B"
                 },
                 "personalLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372e",
+                  "_id": "5c9262b2d9fac4000ee9429b",
                   "amount": 300000,
                   "displayText": "Personal Liability",
                   "format": "Currency",
                   "letterDesignation": "E"
                 },
                 "personalProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372f",
+                  "_id": "5c9262b2d9fac4000ee9429c",
                   "amount": 75000,
                   "displayText": "Personal Property",
                   "format": "Currency",
@@ -8384,9 +9916,9 @@
               }],
               "product": "HO3",
               "property": {
-                "_id": "5c925ec7d9fac4000ee93730",
+                "_id": "5c9262b2d9fac4000ee9429d",
                 "buildingCodeEffectivenessGrading": 3,
-                "burglarAlarm": false,
+                "burglarAlarm": true,
                 "constructionType": "MASONRY",
                 "distanceToFireHydrant": 264.052744,
                 "distanceToFireStation": 0.79,
@@ -8419,7 +9951,7 @@
                 "townhouseRowhouse": false,
                 "trampoline": false,
                 "windMitigation": {
-                  "_id": "5c925ec7d9fac4000ee93732",
+                  "_id": "5c9262b2d9fac4000ee9429f",
                   "floridaBuildingCodeWindSpeed": 130,
                   "floridaBuildingCodeWindSpeedDesign": 130,
                   "internalPressureDesign": "Other",
@@ -8438,12 +9970,12 @@
               "quoteNumber": "12-5160964-01",
               "quoteState": "Quote Started",
               "rating": {
-                "_id": "5c925ec8d7bd33000ea03461",
+                "_id": "5c9262b3d7bd33000ea03e8b",
                 "engineCode": "HO3ByPeril",
-                "netPremium": 2531,
+                "netPremium": 2463,
                 "rateCode": 201704,
                 "totalFees": 27,
-                "totalPremium": 2558,
+                "totalPremium": 2490,
                 "worksheet": {
                   "additionalCoverages": {
                     "increasedLiabilityMoldFungiLimit": 0,
@@ -8490,8 +10022,8 @@
                       "water": 1
                     },
                     "burglarAlarmFactors": {
-                      "allOtherPerils": 1,
-                      "burglarAlarm": false,
+                      "allOtherPerils": 0.549,
+                      "burglarAlarm": true,
                       "fire": 1,
                       "hurricane": 1,
                       "liability": 1,
@@ -8644,9 +10176,9 @@
                     "mgaPolicyFee": 25
                   },
                   "minimumPremiumAdjustment": 0,
-                  "netPremium": 2531,
+                  "netPremium": 2463,
                   "perilPremiums": {
-                    "allOtherPerils": 151,
+                    "allOtherPerils": 83,
                     "fire": 303,
                     "hurricane": 1405,
                     "liability": 29,
@@ -8654,10 +10186,10 @@
                     "sinkhole": 57,
                     "water": 507
                   },
-                  "perilPremiumsSum": 2509,
-                  "subtotalPremium": 2531,
+                  "perilPremiumsSum": 2441,
+                  "subtotalPremium": 2463,
                   "totalFees": 27,
-                  "totalPremium": 2558
+                  "totalPremium": 2490
                 }
               },
               "state": "FL",
@@ -8699,7 +10231,7 @@
                 }
               },
               "underwritingExceptions": [{
-                "_id": "5c925ec8d7bd33000ea0342f",
+                "_id": "5c9262b3d9fac4000ee942c3",
                 "action": "Missing Info",
                 "active": true,
                 "agentMessage": "Missing required information to complete quote -  Mailing/Billing Info",
@@ -8714,20 +10246,20 @@
                 "overridden": false,
                 "overriddenAt": null,
                 "overriddenBy": {
-                  "_id": "5c925ec8d7bd33000ea03430",
+                  "_id": "5c9262b3d9fac4000ee942c4",
                   "userId": null,
                   "userName": null
                 }
               }],
-              "updatedAt": "2019-03-20T15:39:52.213Z",
+              "updatedAt": "2019-03-20T15:56:35.571Z",
               "updatedBy": {
-                "_id": "5c925ec8d7bd33000ea03462",
+                "_id": "5c9262b3d7bd33000ea03e8c",
                 "userId": "auth0|59419e3a43e76f16f68c3349",
                 "userName": "tticcsr"
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 18
+            "timeTookByEndpoint": 32
           }
         },
         {
@@ -8741,9 +10273,9 @@
             "result": {
               "companyCode": "TTIC",
               "coverageLimits": {
-                "_id": "5c925ec7d9fac4000ee93726",
+                "_id": "5c9262b2d9fac4000ee94293",
                 "dwelling": {
-                  "_id": "5c925ec7d9fac4000ee93727",
+                  "_id": "5c9262b2d9fac4000ee94294",
                   "amount": 300000,
                   "displayText": "Dwelling",
                   "format": "Currency",
@@ -8752,54 +10284,54 @@
                   "minAmount": 283000
                 },
                 "lossOfUse": {
-                  "_id": "5c925ec7d9fac4000ee93728",
+                  "_id": "5c9262b2d9fac4000ee94295",
                   "amount": 30000,
                   "displayText": "Loss of Use",
                   "format": "Currency",
                   "letterDesignation": "D"
                 },
                 "medicalPayments": {
-                  "_id": "5c925ec7d9fac4000ee93729",
+                  "_id": "5c9262b2d9fac4000ee94296",
                   "amount": 2000,
                   "displayText": "Medical Payments",
                   "format": "Currency",
                   "letterDesignation": "F"
                 },
                 "moldLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372a",
+                  "_id": "5c9262b2d9fac4000ee94297",
                   "amount": 50000,
                   "displayText": "Mold Liability",
                   "format": "Currency"
                 },
                 "moldProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372b",
+                  "_id": "5c9262b2d9fac4000ee94298",
                   "amount": 10000,
                   "displayText": "Mold Property",
                   "format": "Currency"
                 },
                 "ordinanceOrLaw": {
-                  "_id": "5c925ec7d9fac4000ee9372c",
+                  "_id": "5c9262b2d9fac4000ee94299",
                   "amount": 25,
                   "displayText": "Ordinance or Law",
                   "format": "Percentage",
                   "ofCoverageLimit": "dwelling"
                 },
                 "otherStructures": {
-                  "_id": "5c925ec7d9fac4000ee9372d",
+                  "_id": "5c9262b2d9fac4000ee9429a",
                   "amount": 6000,
                   "displayText": "Other Structures",
                   "format": "Currency",
                   "letterDesignation": "B"
                 },
                 "personalLiability": {
-                  "_id": "5c925ec7d9fac4000ee9372e",
+                  "_id": "5c9262b2d9fac4000ee9429b",
                   "amount": 300000,
                   "displayText": "Personal Liability",
                   "format": "Currency",
                   "letterDesignation": "E"
                 },
                 "personalProperty": {
-                  "_id": "5c925ec7d9fac4000ee9372f",
+                  "_id": "5c9262b2d9fac4000ee9429c",
                   "amount": 75000,
                   "displayText": "Personal Property",
                   "format": "Currency",
@@ -8853,9 +10385,9 @@
               "endDate": "2020-04-19T04:00:00.000Z",
               "product": "HO3",
               "property": {
-                "_id": "5c925ec7d9fac4000ee93730",
+                "_id": "5c9262b2d9fac4000ee9429d",
                 "buildingCodeEffectivenessGrading": 3,
-                "burglarAlarm": false,
+                "burglarAlarm": true,
                 "constructionType": "MASONRY",
                 "distanceToFireHydrant": 264.052744,
                 "distanceToFireStation": 0.79,
@@ -8888,7 +10420,7 @@
                 "townhouseRowhouse": false,
                 "trampoline": false,
                 "windMitigation": {
-                  "_id": "5c925ec7d9fac4000ee93732",
+                  "_id": "5c9262b2d9fac4000ee9429f",
                   "floridaBuildingCodeWindSpeed": 130,
                   "floridaBuildingCodeWindSpeedDesign": 130,
                   "internalPressureDesign": "Other",
@@ -8906,10 +10438,10 @@
               },
               "rating": {
                 "engineCode": "HO3ByPeril",
-                "netPremium": 2531,
+                "netPremium": 2463,
                 "rateCode": 201704,
                 "totalFees": 27,
-                "totalPremium": 2558,
+                "totalPremium": 2490,
                 "worksheet": {
                   "additionalCoverages": {
                     "increasedLiabilityMoldFungiLimit": 0,
@@ -8956,8 +10488,8 @@
                       "water": 1
                     },
                     "burglarAlarmFactors": {
-                      "allOtherPerils": 1,
-                      "burglarAlarm": false,
+                      "allOtherPerils": 0.549,
+                      "burglarAlarm": true,
                       "fire": 1,
                       "hurricane": 1,
                       "liability": 1,
@@ -9110,9 +10642,9 @@
                     "mgaPolicyFee": 25
                   },
                   "minimumPremiumAdjustment": 0,
-                  "netPremium": 2531,
+                  "netPremium": 2463,
                   "perilPremiums": {
-                    "allOtherPerils": 151,
+                    "allOtherPerils": 83,
                     "fire": 303,
                     "hurricane": 1405,
                     "liability": 29,
@@ -9120,10 +10652,10 @@
                     "sinkhole": 57,
                     "water": 507
                   },
-                  "perilPremiumsSum": 2509,
-                  "subtotalPremium": 2531,
+                  "perilPremiumsSum": 2441,
+                  "subtotalPremium": 2463,
                   "totalFees": 27,
-                  "totalPremium": 2558
+                  "totalPremium": 2490
                 }
               },
               "state": "FL",
@@ -9166,7 +10698,7 @@
               }
             },
             "status": 200,
-            "timeTookByEndpoint": 50
+            "timeTookByEndpoint": 65
           }
         },
         {
@@ -9250,7 +10782,7 @@
               }]
             },
             "status": 200,
-            "timeTookByEndpoint": 342
+            "timeTookByEndpoint": 362
           }
         },
         {
@@ -9281,7 +10813,7 @@
               }]
             },
             "status": 200,
-            "timeTookByEndpoint": 180
+            "timeTookByEndpoint": 157
           }
         },
         {

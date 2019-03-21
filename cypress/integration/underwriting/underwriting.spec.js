@@ -59,11 +59,11 @@ describe('Underwriting Testing', () => {
   );
 
   it('POS:Check All Questions Text / Radio', () =>
-    cy.wrap(fields).each(({ name, label, values }) =>
+    cy.wrap(fields).each(field =>
       cy.reload().then(() =>
-        cy.checkLabel(name, label)
-          .checkRadios(name, values)
-          .clickEachRadio(name)
+        cy.checkLabel(field.name, field.label)
+          .checkRadios(field)
+          .clickEachRadio(field)
       )
     )
   );

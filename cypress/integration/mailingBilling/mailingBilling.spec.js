@@ -85,8 +85,8 @@ describe('Mailing/Billing Testing', () => {
   );
 
   it('POS:Mailing / Billing Input 2', () =>
-    cy.findDataTag('billToId').find('select[aria-activedescendant*="5c6"]').should('exist')
-      .wrap(radioFields).each(({ name }) => cy.clickEachRadio(name))
+    cy.findDataTag('billToId_wrapper').find('option[value*="5c6"]').should('exist')
+      .wrap(radioFields).each(field => cy.clickEachRadio(field))
   );
 
   it('POS:Mailing / Billing Installment', () =>
