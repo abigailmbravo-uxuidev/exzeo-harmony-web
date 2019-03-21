@@ -1,3 +1,4 @@
+/* eslint-disable import/first */
 // import 'custom-event-polyfill';
 import 'react-app-polyfill/ie11';
 import 'core-js/fn/array/find';
