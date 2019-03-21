@@ -7,9 +7,11 @@ import {
   navigateThroughCustomize,
   navigateThroughShare
 } from '../../helpers';
+import fields from './shareFields';
 
 describe('Share Testing', () => {
   const sections = ['section-1', 'section-2', 'section-3'];
+  const submitOptions = { form: '#SendEmail', checkForSnackbar: false, button: 'modal-submit' };
 
   const toggleModal = (dir = 'on') => {
     cy.get('div.scroll.survey-wrapper').then($wrap => {
@@ -45,20 +47,20 @@ describe('Share Testing', () => {
 
   it('NEG:All Inputs Empty Value', () => {
     toggleModal();
-    cy.findDataTag('modal-submit').click().checkError('name_wrapper').checkError('emailAddr_wrapper');
+    cy.submitAndCheckValidation(fields, submitOptions);
   });
 
   it('NEG:Input Empty Value', () => {
     toggleModal();
 
-    cy.verifyForm(['name_wrapper', 'emailAddr_wrapper'], ['name_wrapper'], { emailAddr_wrapper: "Batman@gmail.com" }, { form: '#SendEmail', checkForSnackbar: false, button: 'modal-submit' })
-      .verifyForm(['name_wrapper', 'emailAddr_wrapper'], ['emailAddr_wrapper'], { name_wrapper: 'Bruce Wayne' }, { errors: ['Field Required'], form: '#SendEmail', checkForSnackbar: false, button: 'modal-submit' });
+    cy.wrap(fields).each(fieldToLeaveBlank => cy.verifyForm(fields, [fieldToLeaveBlank], undefined, submitOptions));
   });
 
   it('NEG:Input Invalid Character', () => {
     toggleModal();
+    const email = fields.find(({ name }) => name === 'emailAddr_wrapper');
 
-    cy.verifyForm(['emailAddr_wrapper'], undefined, { emailAddr_wrapper: 'å∫∂®ƒ©˙ˆ∆¬µ˜øπœ®ß†¨√' }, { form: '#SendEmail', checkForSnackbar: false, button: 'modal-submit', errors: ['Not a valid email address'] });
+    cy.verifyForm([{ ...email, error: 'Not a valid email address' }], undefined, { emailAddr_wrapper: 'å∫∂®ƒ©' }, submitOptions);
   });
 
   it('POS:Share Workflow', () =>
@@ -71,12 +73,11 @@ describe('Share Testing', () => {
       .checkWorkflowSection('tab-nav-editVerify')
   );
 
-  it('POS:Share Header Text', () =>
-    sections.forEach(tag => cy.findDataTag(tag).find('div.title').should('exist').find('i.fa').should('exist'))
-  );
-
-  it('POS:Share Text', () =>
-    sections.forEach(tag => cy.findDataTag(tag).find('p').should('contain', 'quote'))
+  it('POS:Share Header / Text', () =>
+    sections.forEach(tag => 
+      cy.findDataTag(tag).find('div.title').should('exist').find('i.fa').should('exist')
+        .findDataTag(tag).find('p').should('contain', 'quote')
+    )
   );
 
   it('POS:Share Button', () =>
@@ -94,10 +95,7 @@ describe('Share Testing', () => {
 
   it('POS:Share Modal', () =>
     cy.reload().findDataTag('share').click().then(() =>
-      cy.checkLabel('name_wrapper', 'Name')
-        .checkLabel('emailAddr_wrapper', 'Email Address')
-        .checkText('name_wrapper', 'John Doe')
-        .checkText('emailAddr_wrapper', 'John.Doe@gmail.com')
+      cy.wrap(fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
         .findDataTag('modal-submit').should('exist')
     )
   );

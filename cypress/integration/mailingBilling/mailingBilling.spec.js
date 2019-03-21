@@ -78,7 +78,7 @@ describe('Mailing/Billing Testing', () => {
   );
 
   it('POS:Mailing / Billing Input', () =>
-    cy.wrap(reqTextFields).each(({ name }) => cy.checkText(name))
+    cy.wrap(textFields).each(({ name, data }) => cy.checkText(name, data))
   );
 
   it('POS:Mailing / Billing Toggle', () =>
