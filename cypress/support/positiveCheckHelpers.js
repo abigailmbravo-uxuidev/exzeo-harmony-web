@@ -16,7 +16,7 @@ Cypress.Commands.add('checkLabel', (tag, text) =>
  * @param {string} tag - String name of data-test tag.
  * @param {string} text - Check this text is now in value of input
  */
-Cypress.Commands.add('checkText', (tag, text = 'ZZ') =>
+Cypress.Commands.add('checkText', (tag, text = '(99') =>
   cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`, { force: true }).should('have.attr', 'value', text));
 
 /**
