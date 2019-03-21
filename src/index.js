@@ -4,6 +4,7 @@ import 'core-js/fn/array/filter';
 import 'core-js/fn/array/includes';
 import 'core-js/fn/object/keys';
 import 'core-js/fn/number/is-nan';
+import 'custom-event-polyfill';
 
 import React from 'react';
 import { render } from 'react-dom';
