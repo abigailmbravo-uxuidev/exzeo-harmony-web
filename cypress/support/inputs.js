@@ -32,7 +32,7 @@ Cypress.Commands.add('submitAndCheckValidation', (fields = [], options = {}) => 
  */
 Cypress.Commands.add('clearAllText', fields =>
   cy.wrap(fields).each(({ name }) => {
-    cy.findDataTag(`${name}`).find('input').then($input => {
+    cy.findDataTag(name).find('input').then($input => {
       if ($input.val()) cy.wrap($input).type('{selectall}{backspace}');
     });
   })
