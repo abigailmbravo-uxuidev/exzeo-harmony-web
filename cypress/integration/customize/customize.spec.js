@@ -35,17 +35,17 @@ describe('Customize Testing', () => {
     });
   };
 
-  // it('NEG:Dwelling Limit', () => {
-  //   type('0');
-  //   cy.checkError('coverageLimits.dwelling.amount_wrapper', 'Not a valid range.');
+  it('NEG:Dwelling Limit', () => {
+    type('0');
+    cy.checkError({ name: 'dwellingAmount', error: 'Not a valid range.' });
 
-  //   type('124000');
-  //   cy.checkError('dwellingAmount', 'Not a valid range.');
+    type('124000');
+    cy.checkError({ name: 'dwellingAmount', error: 'Not a valid range.' });
 
-  //   type('2100000');
-  //   cy.checkError('dwellingAmount', 'Not a valid range.')
-  //     .reload();
-  // });
+    type('2100000');
+    cy.checkError({ name: 'dwellingAmount', error: 'Not a valid range.' })
+      .reload();
+  });
 
   it('POS:Customize Detail Header', () => {
     cy.findDataTag('tab-nav-askUWAnswers').click();

@@ -9,9 +9,10 @@ import {
   navigateThroughAssumptions,
   navigateThroughAdditionalInterests
 } from '../../helpers';
+import fields from './mailingBillingFields';
 
 describe('Mailing/Billing Testing', () => {
-  const fields = ['policyHolderMailingAddress.address1_wrapper', 'policyHolderMailingAddress.city_wrapper', 'policyHolderMailingAddress.state_wrapper', 'policyHolderMailingAddress.zip_wrapper'];
+  // const fields = ['address1', 'city', 'state', 'zip'];
 
   before(() => {
     stubAllRoutes();
@@ -26,26 +27,27 @@ describe('Mailing/Billing Testing', () => {
     navigateThroughAdditionalInterests();
   });
 
-  it('NEG:All Mailing Address Inputs Empty Value', () => {
-    cy.clearAllText(fields);
+  const required = fields.filter(({ required }) => required !== false);
+  const textFields = fields.filter(field => !field.type || field.type === 'text');
+  const reqTextFields = textFields.filter(({ required }) => required !== false);
 
-    cy.submitAndCheckValidation(fields);
-  });
+  it('NEG:All Mailing Address Inputs Empty Value', () =>
+    cy.clearAllText(textFields).submitAndCheckValidation(reqTextFields)
+  );
 
   it('NEG:Mailing Address Empty Value', () => {
     cy.fixture('stockData/mailing').then(mailing => {
-      cy.clearAllText(fields);
-
-      fields.forEach(leaveBlank => cy.verifyForm(fields, [leaveBlank], mailing));
+      cy.clearAllText(textFields)
+        .wrap(reqTextFields).each(fieldToLeaveBlank => cy.verifyForm(reqTextFields, [fieldToLeaveBlank], mailing));
     });
   });
 
   it('NEG:Mailing Address Invalid Input Value', () => {
-    cy.clearAllText(fields);
-
-    cy.verifyForm(['policyHolderMailingAddress.state_wrapper'], undefined, { 'policyHolderMailingAddress.state_wrapper': 'foo ' }, { errors: ['Only 2 letters allowed'] });
-
-    cy.verifyForm(['policyHolderMailingAddress.zip_wrapper'], undefined, { 'policyHolderMailingAddress.zip_wrapper': '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+    const state = fields.find(({ name }) => name === 'state');
+    const zip = fields.find(({ name }) => name === 'zip');
+    cy.clearAllText(textFields)
+      .verifyForm([{ ...state, error: 'Only 2 letters allowed' }], undefined, { state: 'foo' })
+      .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed' }], undefined, { zip: '123456789' });
   });
 
   it('POS:Mailing / Billing Workflow', () =>
