@@ -18,7 +18,7 @@ describe('Back Button Testing', () => {
 
     cy.findDataTag('quote-details').find('> dl > div > dd.fade').then($quote => {
       cy.go('back')
-        .url().should('eql', `${Cypress.config('baseUrl')}/`)
+        .get('div.dashboard-message').should('exist')
         .get('.btn[href="/search/retrieve"]').click()
         .findDataTag('quoteNumber').find('input').type($quote.text())
         .clickSubmit('#SearchBar')
@@ -37,18 +37,18 @@ describe('Back Button Testing', () => {
 
   it('Browser Back Button (Part 1)', () => {
     cy.go('back')
-      .url().should('eql', `${Cypress.config('baseUrl')}/`);
+      .get('div.dashboard-message').should('exist');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
     cy.wait('@getZipcodeSettings').go('back')
-      .url().should('eql', `${Cypress.config('baseUrl')}/`);
+      .get('div.dashboard-message').should('exist');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     cy.go('back')
-      .url().should('eql', `${Cypress.config('baseUrl')}/`);
+      .get('div.dashboard-message').should('exist');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -129,6 +129,6 @@ describe('Back Button Testing', () => {
     navigateThroughVerify();
     navigateThroughScheduleDate();
     cy.go('back')
-      .url().should('eql', `${Cypress.config('baseUrl')}/`);
+      .get('div.dashboard-message').should('exist');
   });
 });

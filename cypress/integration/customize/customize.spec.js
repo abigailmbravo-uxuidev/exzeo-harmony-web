@@ -162,9 +162,9 @@ describe('Customize Testing', () => {
   );
 
   it('POS:Hurricane Deductible', () => {
-    cy.checkLabel('deductibles.hurricane.value_wrapper', 'Hurricane Deductible')
-      .clickEachRadio('deductibles.hurricane.value_wrapper');
-    checkValueAsPercentOfDwelling('deductibles.hurricane.value_wrapper', 0.1);
+    cy.checkLabel('deductibles.hurricane.amount_wrapper', 'Hurricane Deductible')
+      .clickEachRadio('deductibles.hurricane.amount_wrapper');
+    checkValueAsPercentOfDwelling('deductibles.hurricane.amount_wrapper', 0.1);
   });
 
   it('POS:Sinkhole Deductible', () => {
