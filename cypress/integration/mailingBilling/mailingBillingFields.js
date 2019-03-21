@@ -1,4 +1,4 @@
-export default [
+export const fields = [
   {
     name: 'address1',
     error: 'Field Required',
@@ -68,3 +68,35 @@ export default [
     required: false
   }
 ];
+
+export const workflowSections = [
+  {
+    name: 'tab-nav-askAdditionalCustomerData',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askUWAnswers',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askToCustomizeDefaultQuote',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-sendEmailOrContinue',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-addAdditionalAIs',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askAdditionalQuestions',
+    status: 'active'
+  },
+  {
+    name: 'tab-nav-editVerify',
+    status: 'disabled'
+  }
+];
+

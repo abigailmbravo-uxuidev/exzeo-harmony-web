@@ -1,4 +1,4 @@
-export default [
+export const fields = [
   {
     name: 'rented',
     required: true,
@@ -35,3 +35,35 @@ export default [
     values: ['Yes', 'No']
   }
 ];
+
+export const workflowSections = [
+  {
+    name: 'tab-nav-askAdditionalCustomerData',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askUWAnswers',
+    status: 'active'
+  },
+  {
+    name: 'tab-nav-askToCustomizeDefaultQuote',
+    status: 'disabled'
+  },
+  {
+    name: 'tab-nav-sendEmailOrContinue',
+    status: 'disabled'
+  },
+  {
+    name: 'tab-nav-addAdditionalAIs',
+    status: 'disabled'
+  },
+  {
+    name: 'tab-nav-askAdditionalQuestions',
+    status: 'disabled'
+  },
+  {
+    name: 'tab-nav-editVerify',
+    status: 'disabled'
+  }
+];
+

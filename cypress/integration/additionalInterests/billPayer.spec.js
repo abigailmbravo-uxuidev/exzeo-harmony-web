@@ -10,7 +10,7 @@ import {
   navigateThroughAssumptions
 } from '../../helpers';
 import user from '../../fixtures/stockData/additionalUser.json';
-import fields from './basicInputs';
+import { fields } from './basicInputs';
 
 describe('Premium Finance Testing', () => {
   const toggleModalOn = () => cy.findDataTag('bill-payer-add').click();

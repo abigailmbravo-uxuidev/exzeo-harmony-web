@@ -67,3 +67,35 @@ export const pH2Fields = [
     data: 'Batman@gmail.com'
   }
 ];
+
+export const workflowSections = [
+  {
+    name: 'tab-nav-askAdditionalCustomerData',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askUWAnswers',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askToCustomizeDefaultQuote',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-sendEmailOrContinue',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-addAdditionalAIs',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askAdditionalQuestions',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-editVerify',
+    status: 'active'
+  }
+];
+

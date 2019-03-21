@@ -1,23 +1,4 @@
-export const fields = [
-  {
-    name: 'name_wrapper',
-    error: 'Field Required',
-    label: 'Name',
-    type: 'text',
-    required: true,
-    data: 'Bruce Wayne'
-  },
-  {
-    name: 'emailAddr_wrapper',
-    error: 'Field Required',
-    label: 'Email Address',
-    type: 'text',
-    required: true,
-    data: 'Batman@gmail.com'
-  }
-];
-
-export const workflowSections = [
+export default [
   {
     name: 'tab-nav-askAdditionalCustomerData',
     status: 'selected'
@@ -28,11 +9,11 @@ export const workflowSections = [
   },
   {
     name: 'tab-nav-askToCustomizeDefaultQuote',
-    status: 'selected'
+    status: 'active'
   },
   {
     name: 'tab-nav-sendEmailOrContinue',
-    status: 'active'
+    status: 'disabled'
   },
   {
     name: 'tab-nav-addAdditionalAIs',
@@ -47,4 +28,3 @@ export const workflowSections = [
     status: 'disabled'
   }
 ];
-

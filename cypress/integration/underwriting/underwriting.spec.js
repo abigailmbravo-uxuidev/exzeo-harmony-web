@@ -4,8 +4,7 @@ import {
   navigateThroughSearchAddress,
   navigateThroughPolicyholder
 } from '../../helpers';
-import uwData from '../../fixtures/stockData/underwriting.json';
-import uwFields from './underwritingFields';
+import { fields, workflowSections } from './underwritingFields';
 
 describe('Underwriting Testing', () => {
   const data = {
@@ -43,11 +42,11 @@ describe('Underwriting Testing', () => {
   });
 
   it('NEG:All Inputs Empty Value', () =>
-    cy.submitAndCheckValidation(uwFields)
+    cy.submitAndCheckValidation(fields)
   );
 
   it('NEG:"All questions empty value', () =>
-    cy.wrap(uwFields).each(field =>
+    cy.wrap(fields).each(field =>
       cy.reload().then(() => {
         toggleExcept([`${field.name.split('_')[0]}`], data);
         cy.submitAndCheckValidation([field]);
@@ -56,17 +55,11 @@ describe('Underwriting Testing', () => {
   );
 
   it('POS:Underwriting Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'active')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-      .checkWorkflowSection('tab-nav-editVerify')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Check All Questions Text / Radio', () =>
-    cy.wrap(uwFields).each(({ name, label, values }) =>
+    cy.wrap(fields).each(({ name, label, values }) =>
       cy.reload().then(() =>
         cy.checkLabel(name, label)
           .checkRadios(name, values)

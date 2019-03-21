@@ -7,7 +7,7 @@ import {
   navigateThroughCustomize,
   navigateThroughShare
 } from '../../helpers';
-import fields from './shareFields';
+import { fields, workflowSections } from './shareFields';
 
 describe('Share Testing', () => {
   const sections = ['section-1', 'section-2', 'section-3'];
@@ -64,13 +64,7 @@ describe('Share Testing', () => {
   });
 
   it('POS:Share Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'selected')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue', 'active')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-      .checkWorkflowSection('tab-nav-editVerify')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Share Header / Text', () =>

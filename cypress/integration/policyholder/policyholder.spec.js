@@ -3,9 +3,7 @@ import {
   navigateThroughLanding,
   navigateThroughSearchAddress
 } from '../../helpers';
-import user from '../../fixtures/stockData/user.json';
-import secondUser from '../../fixtures/stockData/secondUser.json';
-import { ph1Fields, ph2Fields, policyDetailsFields } from './policyholderFields';
+import { ph1Fields, ph2Fields, policyDetailsFields, workflowSections } from './policyholderFields';
 
 describe('Policyholder Testing', () => {
   // const primaryPolicyFields = ['FirstName', 'LastName', 'EmailAddress', 'phoneNumber'];
@@ -110,13 +108,7 @@ describe('Policyholder Testing', () => {
   });
 
   it('POS:Policyholder Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'active')
-      .checkWorkflowSection('tab-nav-askUWAnswers')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-      .checkWorkflowSection('tab-nav-editVerify')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Primary Policyholder Label / Text', () =>

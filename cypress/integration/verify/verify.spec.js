@@ -10,7 +10,7 @@ import {
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling
 } from '../../helpers';
-import { pH1Fields, pH2Fields } from './verifyInputs';
+import { pH1Fields, pH2Fields, workflowSections } from './verifyInputs';
 
 describe('Verify testing', () => {
   const switchTags = ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'];
@@ -134,13 +134,7 @@ describe('Verify testing', () => {
   });
 
   it('POS:Verify Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'selected')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue', 'selected')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs', 'selected')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions', 'selected')
-      .checkWorkflowSection('tab-nav-editVerify', 'active')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Verify Header Text', () => {

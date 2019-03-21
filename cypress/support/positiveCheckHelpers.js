@@ -2,8 +2,8 @@
  * @param {string} tag - String name of data-test tag.
  * @param {string} className - Classname to verify in workflow
  */
-Cypress.Commands.add('checkWorkflowSection', (tag, className = 'disabled') =>
-  cy.findDataTag(tag).find('a').should('have.attr', 'class', className));
+Cypress.Commands.add('checkWorkflowSection', ({ name, status = 'disabled' }) =>
+  cy.findDataTag(name).find('a').should('have.attr', 'class', status));
 
 /**
  * @param {string} tag - String name of data-test tag.

@@ -5,6 +5,7 @@ import {
   navigateThroughPolicyholder,
   navigateThroughUnderwriting
 } from '../../helpers';
+import workflowSections from './customizeFields';
 
 describe('Customize Testing', () => {
   before('Go to customize page', () => {
@@ -65,13 +66,7 @@ describe('Customize Testing', () => {
   });
 
   it('POS:Customize Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'active')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-      .checkWorkflowSection('tab-nav-editVerify')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Customize Header Text', () => {

@@ -1,4 +1,4 @@
-export default [
+export const fields = [
   {
     name: 'name1',
     error: 'Field Required',
@@ -43,5 +43,36 @@ export default [
     name: 'referenceNumber',
     label: 'Reference Number',
     required: false
+  }
+];
+
+export const workflowSections = [
+  {
+    name: 'tab-nav-askAdditionalCustomerData',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askUWAnswers',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-askToCustomizeDefaultQuote',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-sendEmailOrContinue',
+    status: 'selected'
+  },
+  {
+    name: 'tab-nav-addAdditionalAIs',
+    status: 'active'
+  },
+  {
+    name: 'tab-nav-askAdditionalQuestions',
+    status: 'disabled'
+  },
+  {
+    name: 'tab-nav-editVerify',
+    status: 'disabled'
   }
 ];

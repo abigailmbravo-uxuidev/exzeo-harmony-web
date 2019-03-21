@@ -9,7 +9,7 @@ import {
   navigateThroughAssumptions,
   navigateThroughAdditionalInterests
 } from '../../helpers';
-import fields from './mailingBillingFields';
+import { fields, workflowSections } from './mailingBillingFields';
 
 describe('Mailing/Billing Testing', () => {
   before(() => {
@@ -49,13 +49,7 @@ describe('Mailing/Billing Testing', () => {
   });
 
   it('POS:Mailing / Billing Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'selected')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue', 'selected')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs', 'selected')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions', 'active')
-      .checkWorkflowSection('tab-nav-editVerify')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Mailing / Billing Header Text', () =>
