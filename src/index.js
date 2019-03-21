@@ -1,10 +1,26 @@
-import 'custom-event-polyfill';
+// import 'custom-event-polyfill';
 import 'react-app-polyfill/ie11';
 import 'core-js/fn/array/find';
 import 'core-js/fn/array/filter';
 import 'core-js/fn/array/includes';
 import 'core-js/fn/object/keys';
 import 'core-js/fn/number/is-nan';
+
+(function () {
+
+  if ( typeof window.CustomEvent === "function" ) return false;
+
+  function CustomEvent ( event, params ) {
+    params = params || { bubbles: false, cancelable: false, detail: null };
+    var evt = document.createEvent( 'CustomEvent' );
+    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    return evt;
+  }
+
+  CustomEvent.prototype = window.Event.prototype;
+
+  window.CustomEvent = CustomEvent;
+})();
 
 import React from 'react';
 import { render } from 'react-dom';
