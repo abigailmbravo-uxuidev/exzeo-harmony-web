@@ -64,12 +64,13 @@ export function getQuote(quoteNumber, quoteId) {
 export function updateQuote({
   data = {},
   quoteNumber,
-  stepName
+  stepName,
+  options
 }) {
   return async (dispatch, getState) => {
     try {
       dispatch(toggleLoading(true));
-      const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState });
+      const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState , options});
       dispatch(setQuote(quote, state));
       return quote;
     } catch (error) {

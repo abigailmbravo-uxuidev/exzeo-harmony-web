@@ -9,14 +9,15 @@ select,
 textarea {
   // // Make inputs at least the height of their button counterpart (base line-height + padding + border)
   padding: $input-padding-y $input-padding-x;
-  color: $input-color;
   border: $input-btn-border-width solid $input-border-color;
   background-color: $input-bg;
   // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214.
   background-image: none;
   background-clip: padding-box;
+  color: $input-color;
   font-size: $font-size-base;
   line-height: $input-line-height;
+
   @include box-shadow($input-box-shadow);
   @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
   // Customize the `:focus` state to imitate native WebKit styles.
@@ -63,10 +64,10 @@ textarea {
   }
   // Placeholder
   &::placeholder {
-    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
-    opacity: 1;
     color: $input-color-placeholder;
     font-style: italic;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
   }
   // Disabled and read-only inputs
   //
@@ -76,9 +77,9 @@ textarea {
   &:disabled,
   &[disabled="disabled"],
   &[readonly] {
+    background-color: $input-bg-disabled;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
-    background-color: $input-bg-disabled;
   }
 
   &:disabled,
@@ -88,9 +89,10 @@ textarea {
 }
 
 input,
-textarea {
-  width: 100%;
+textarea,
+output {
   padding: $padding;
+  width: 100%;
   border-width: 0;
   border-bottom: 2px solid $cool-gray-03;
   border-radius: 0;
@@ -105,17 +107,18 @@ select {
   &:not([size]):not([multiple]) {
     width: 100%;
     height: calc(#{$input-height} - #{$select-border-width});
+
     $select-border-width: ($border-width * 2);
   }
 
   &:focus::-ms-value {
+    background-color: $input-bg;
     // Suppress the nested default white text on blue background highlight given to
     // the selected option text when the (still closed) <select> receives focus
     // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
     // match the appearance of the native widget.
     // See https://github.com/twbs/bootstrap/issues/19398.
     color: $input-color;
-    background-color: $input-bg;
   }
 }
 //
@@ -155,9 +158,9 @@ label {
 .form-group {
   display: flex;
   flex-direction: column;
-  width: 100%;
   margin-bottom: $form-group-margin-bottom;
   padding: 0 $padding/2;
+  width: 100%;
 
   .h1,
   .h2,
@@ -195,14 +198,20 @@ label {
         margin: 0 ($margin/2);
     }
 
+    .secondary-label {
+      margin-left: $padding;
+      font-weight: $font-weight-normal;
+      font-size: $font-size-sm;
+    }
+    // TODO: remove when all inputs are updated with secondary label
     &.date-label-wrapper {
         display: flex;
         align-items: baseline;
 
         .date-min-max {
             margin-left: $padding;
-            font-size: $font-size-sm;
             font-weight: $font-weight-normal;
+            font-size: $font-size-sm;
         }
     }
   }
@@ -216,6 +225,7 @@ label {
 
   input[type="date"] {
     padding: ($padding*.65) $padding;
+
     @include for-phone-only {
       width: 100%;
     }
@@ -228,7 +238,10 @@ label {
       &.label-segmented {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+
+        span {
+          margin-left: $padding;
+        }
 
         > input[type="text"] {
           flex-basis: 6.5rem;
@@ -239,6 +252,7 @@ label {
     .segmented-answer-wrapper {
       display: flex;
       flex-direction: row;
+
       @include for-phone-only {
         flex-direction: column;
       }
@@ -246,27 +260,9 @@ label {
       div {
         display: flex;
         flex-direction: column;
-        width: auto;
         flex-grow: 1;
         flex-shrink: 0;
-
-        &.radio-column-1 {}
-
-        &.radio-column-2 {
-          //width: 50%;
-        }
-
-        &.radio-column-3 {
-          //width: 33.33%;
-        }
-
-        &.radio-column-4 {
-          //width: 25%;
-        }
-
-        &.radio-column-5 {
-          //width: 20%;
-        }
+        width: auto;
 
         &:hover {
           cursor: pointer;
@@ -277,12 +273,14 @@ label {
           flex-basis: 100px;
           flex-grow: 0;
           flex-shrink: 0;
+
           @include for-phone-only {
-            height: 70px;
             flex-basis: 50px;
-            @include transition(all .2s ease-in-out);
+            height: 70px;
             -webkit-filter: drop-shadow(0 0 4px rgba($green, 0));
             filter: drop-shadow(0 0 4px rgba($green, 0));
+
+            @include transition(all .2s ease-in-out);
           }
         }
 
@@ -296,24 +294,25 @@ label {
         .label-segmented {
           display: flex;
           flex-direction: column;
-          border-right: 2px solid $white;
           flex-grow: 1;
           flex-shrink: 0;
+          border-right: 2px solid $white;
 
           span {
             display: flex;
-            width: 100%;
-            cursor: pointer;
-            user-select: none;
-            text-align: center;
-            vertical-align: middle;
-            white-space: initial;
-            border: $input-btn-border-width solid transparent;
-            font-weight: $btn-font-weight;
-            line-height: $btn-line-height;
+            align-items: center;
             flex-grow: 1;
             justify-content: center;
-            align-items: center;
+            width: 100%;
+            border: $input-btn-border-width solid transparent;
+            vertical-align: middle;
+            text-align: center;
+            white-space: initial;
+            font-weight: $btn-font-weight;
+            line-height: $btn-line-height;
+            cursor: pointer;
+
+            user-select: none;
             @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, 0);
             @include transition(all .2s ease-in-out);
             @include button-variant($warm-gray-08, $warm-gray-02, $warm-gray-02);
@@ -336,8 +335,8 @@ label {
 
             &:checked {
               + span {
-                color: $white;
                 background: $bright-blue-darken-04;
+                color: $white;
               }
             }
           }
@@ -347,6 +346,7 @@ label {
       div:first-child {
         span {
           border-radius: $border-radius 0 0 $border-radius;
+
           @include for-phone-only {
             border-radius: $border-radius;
           }
@@ -360,6 +360,7 @@ label {
 
         span {
           border-radius: 0 $border-radius $border-radius 0;
+
           @include for-phone-only {
             border-radius: $border-radius;
           }
@@ -370,8 +371,8 @@ label {
         div {
           .label-segmented {
             span {
-              color: $red-lighten-01;
               border-color: $red-lighten-01;
+              color: $red-lighten-01;
             }
           }
         }
@@ -389,11 +390,12 @@ label {
           cursor: not-allowed;
 
           .label-segmented {
-            cursor: not-allowed;
             border-right: 1px solid $warm-gray-01;
+            cursor: not-allowed;
 
             span {
               cursor: not-allowed;
+
               @include button-variant($warm-gray-04, $warm-gray-01, $warm-gray-01);
             }
 
@@ -402,9 +404,9 @@ label {
                 cursor: not-allowed;
 
                 + span {
-                  cursor: not-allowed;
-                  color: $warm-gray-05;
                   background: $warm-gray-03;
+                  color: $warm-gray-05;
+                  cursor: not-allowed;
                 }
               }
             }
@@ -413,8 +415,8 @@ label {
       }
 
       span {
-        cursor: not-allowed;
         border-color: $warm-gray-02;
+        cursor: not-allowed;
       }
 
       label {
@@ -424,8 +426,8 @@ label {
           cursor: not-allowed;
 
           span {
-            cursor: not-allowed;
             color: $warm-gray-03;
+            cursor: not-allowed;
           }
         }
       }
@@ -437,9 +439,9 @@ label {
           cursor: not-allowed;
 
           + span {
-            cursor: not-allowed;
-            color: $warm-gray-03;
             background: $warm-gray-01;
+            color: $warm-gray-03;
+            cursor: not-allowed;
           }
         }
       }
@@ -452,12 +454,12 @@ label {
 
     label {
       display: flex;
-      flex-direction: row;
-      width: 100%;
-      margin-bottom: 0;
-      line-height: 1.45;
-      justify-content: space-between;
       align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 0;
+      width: 100%;
+      line-height: 1.45;
 
       span {
         flex-grow: 1;
@@ -472,18 +474,18 @@ label {
             background-color: $bright-blue-darken-04;
 
             &:before {
+              border-color: $cool-gray-01;
+              background-color: lighten($cool-gray-00, 10%);
               -webkit-transform: translateX(2rem);
               -ms-transform: translateX(2rem);
               transform: translateX(2rem);
-              border-color: $cool-gray-01;
-              background-color: lighten($cool-gray-00, 10%);
             }
 
             &:after {
               top: 0.25rem;
               left: 0.5rem;
-              content: "Yes";
               color: $white;
+              content: "Yes";
             }
 
             &.disabled {
@@ -499,42 +501,42 @@ label {
 
       div.switch-div {
         position: relative;
-        width: 3.5rem;
-        height: 1.5rem;
-        margin: 0.225rem 0;
-        cursor: pointer;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-        color: $warm-gray-08;
-        border-radius: 0.75rem;
-        background: $warm-gray-03;
         flex-basis: 3.5rem;
         flex-grow: 0;
         flex-shrink: 0;
+        margin: 0.225rem 0;
+        width: 3.5rem;
+        height: 1.5rem;
+        border-radius: 0.75rem;
+        background: $warm-gray-03;
+        color: $warm-gray-08;
+        cursor: pointer;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
 
         &:before {
           position: absolute;
           z-index: 2;
           width: 1.5rem;
           height: 1.5rem;
-          content: "";
-          -webkit-transition: 0.4s;
-          transition: 0.4s;
           border: 1px solid $cool-gray-01;
           border-radius: 50%;
           background-color: lighten($cool-gray-00, 10%);
           box-shadow: $input-box-shadow;
+          content: "";
           line-height: 1;
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
         }
 
         &:after {
           position: absolute;
-          z-index: 1;
           top: 0.25rem;
           left: 2rem;
+          z-index: 1;
           content: "No";
-          font-size: 0.7rem;
           font-weight: $font-weight-bold;
+          font-size: 0.7rem;
         }
       }
     }
@@ -544,23 +546,23 @@ label {
       cursor: not-allowed;
 
       label {
-        cursor: not-allowed;
         color: $text-muted;
+        cursor: not-allowed;
       }
 
       div {
-        cursor: not-allowed;
         background-color: $warm-gray-01;
+        cursor: not-allowed;
 
         &:after {
-          cursor: not-allowed;
           color: $warm-gray-03;
+          cursor: not-allowed;
         }
 
         &:before {
-          cursor: not-allowed;
           border-color: $warm-gray-02;
           background-color: $warm-gray-01;
+          cursor: not-allowed;
         }
       }
 
@@ -620,25 +622,26 @@ label {
 
       label {
         flex-direction: row-reverse;
-        margin-right: 2rem;
         justify-content: flex-start;
+        margin-right: 2rem;
 
         &:before {
           position: absolute;
           top: 0.25rem;
           left: -.25rem;
           display: block;
-          width: calc(100% - 12rem);
-          min-width: 9rem;
           padding: 0.25rem;
-          content: 'VERIFY HERE';
-          text-align: center;
-          color: $red-darken-02;
+          min-width: 9rem;
+          width: calc(100% - 12rem);
           border-top-left-radius: 0.125rem;
           border-bottom-left-radius: 0.125rem;
           background: $orange-lighten-01;
+          color: $red-darken-02;
+          content: 'VERIFY HERE';
+          text-align: center;
           font: normal normal normal 1rem $font-family-sans-serif;
           line-height: 1;
+
           @include for-phone-only {
             left: -.75rem;
             width: 8rem;
@@ -652,10 +655,11 @@ label {
           left: calc(100% - 12.25rem);
           width: 0;
           height: 0;
-          content: '';
           border-top: 0.75rem solid transparent;
           border-bottom: 0.75rem solid transparent;
           border-left: 1rem solid $orange-lighten-01;
+          content: '';
+
           @include for-phone-only {
             left: 8.25rem;
             border-top: 0.6875rem solid transparent;
@@ -669,25 +673,25 @@ label {
 
         span {
           position: relative;
-          height: 1px;
-          margin-right: 0.5rem;
-          cursor: pointer;
-          background: $warm-gray-02;
           flex-grow: 1;
+          margin-right: 0.5rem;
+          height: 1px;
+          background: $warm-gray-02;
+          cursor: pointer;
 
           &:before {
             position: absolute;
             top: -.75rem;
             left: -.75rem;
             display: block;
-            width: 1.5rem;
             padding: 0.25rem;
-            content: '\f14a';
-            text-align: center;
-            color: $yellow-lighten-05;
+            width: 1.5rem;
             border-top-left-radius: 0.125rem;
             border-bottom-left-radius: 0.125rem;
             background: $yellow;
+            color: $yellow-lighten-05;
+            content: '\f14a';
+            text-align: center;
             font: normal normal normal 1rem $font-family-icon;
           }
 
@@ -697,10 +701,10 @@ label {
             left: 0.75rem;
             width: 0;
             height: 0;
-            content: '';
             border-top: 0.75rem solid transparent;
             border-bottom: 0.75rem solid transparent;
             border-left: 1rem solid $yellow;
+            content: '';
           }
         }
 
@@ -708,9 +712,9 @@ label {
           &:checked {
             ~ span {
               &:before {
+                background: $warm-gray-02;
                 //content: '\f14a';
                 color: $green;
-                background: $warm-gray-02;
               }
 
               &:after {
@@ -728,25 +732,26 @@ label {
 
       label {
         flex-direction: row-reverse;
-        margin-right: 2rem;
         justify-content: flex-start;
+        margin-right: 2rem;
 
         &:before {
           position: absolute;
           top: 0.25rem;
           left: -.25rem;
           display: block;
-          width: calc(100% - 12rem);
-          min-width: 9rem;
           padding: 0.25rem;
-          content: 'CONFIRM HERE';
-          text-align: center;
-          color: $red-darken-02;
+          min-width: 9rem;
+          width: calc(100% - 12rem);
           border-top-left-radius: 0.125rem;
           border-bottom-left-radius: 0.125rem;
           background: $orange-lighten-01;
+          color: $red-darken-02;
+          content: 'CONFIRM HERE';
+          text-align: center;
           font: normal normal normal 1rem $font-family-sans-serif;
           line-height: 1;
+
           @include for-phone-only {
             left: -.75rem;
             width: 8rem;
@@ -760,10 +765,11 @@ label {
           left: calc(100% - 12.25rem);
           width: 0;
           height: 0;
-          content: '';
           border-top: 0.75rem solid transparent;
           border-bottom: 0.75rem solid transparent;
           border-left: 1rem solid $orange-lighten-01;
+          content: '';
+
           @include for-phone-only {
             left: 8.25rem;
             border-top: 0.6875rem solid transparent;
@@ -777,25 +783,25 @@ label {
 
         span {
           position: relative;
-          height: 1px;
-          margin-right: 0.5rem;
-          cursor: pointer;
-          background: $warm-gray-02;
           flex-grow: 1;
+          margin-right: 0.5rem;
+          height: 1px;
+          background: $warm-gray-02;
+          cursor: pointer;
 
           &:before {
             position: absolute;
             top: -.75rem;
             left: -.75rem;
             display: block;
-            width: 1.5rem;
             padding: 0.25rem;
-            content: '\f14a';
-            text-align: center;
-            color: $yellow-lighten-05;
+            width: 1.5rem;
             border-top-left-radius: 0.125rem;
             border-bottom-left-radius: 0.125rem;
             background: $yellow;
+            color: $yellow-lighten-05;
+            content: '\f14a';
+            text-align: center;
             font: normal normal normal 1rem $font-family-icon;
           }
 
@@ -805,10 +811,10 @@ label {
             left: 0.75rem;
             width: 0;
             height: 0;
-            content: '';
             border-top: 0.75rem solid transparent;
             border-bottom: 0.75rem solid transparent;
             border-left: 1rem solid $yellow;
+            content: '';
           }
         }
 
@@ -816,9 +822,9 @@ label {
           &:checked {
             ~ span {
               &:before {
+                background: $warm-gray-02;
                 //content: '\f14a';
                 color: $green;
-                background: $warm-gray-02;
               }
 
               &:after {
@@ -855,8 +861,8 @@ label {
 .submit-button-group {
   display: flex;
   flex-direction: row;
-  width: 100%;
   justify-content: flex-end;
+  width: 100%;
 
   button[type="submit"] {
     margin-left: 1rem;
@@ -888,15 +894,16 @@ ul.results {
     li {
       z-index: 1;
       display: flex;
+      align-items: flex-start;
       flex-direction: row;
-      width: 100%;
       padding: $padding $padding*1.5;
-      text-decoration: none;
+      width: 100%;
       border: $card-border-width solid $card-border-color;
       border-top-width: 0;
       border-radius: 0;
       box-shadow: $card-box-shadow;
-      align-items: flex-start;
+      text-decoration: none;
+
       @include transition(all .2s ease-in-out);
 
       &:first-child {
@@ -926,11 +933,11 @@ ul.results {
       }
 
       ul.list {
-        width: 12rem;
-        border-right: 1px solid $border-color;
         flex-basis: 12rem;
         flex-grow: 0;
         flex-shrink: 0;
+        width: 12rem;
+        border-right: 1px solid $border-color;
 
         li {
           border-width: 0;
@@ -945,15 +952,16 @@ ul.results {
       i {
         &.fa-trash {
           display: flex;
-          width: 2rem;
-          height: 2.4rem;
-          margin: 0;
-          cursor: pointer;
-          font-size: $font-size-h4;
+          align-items: center;
           flex-basis: 2rem;
           flex-shrink: 0;
-          align-items: center;
           justify-content: flex-end;
+          margin: 0;
+          width: 2rem;
+          height: 2.4rem;
+          font-size: $font-size-h4;
+          cursor: pointer;
+
           @include transition(all .2s ease-in-out);
 
           &:hover {
@@ -975,17 +983,18 @@ ul.results {
       > a {
         z-index: 1;
         display: flex;
+        align-items: center;
+        flex-basis: auto;
         flex-direction: row;
         flex-grow: 0;
         flex-shrink: 0;
-        flex-basis: auto;
-        width: 100%;
         padding: $padding $padding*1.5;
-        text-decoration: none;
+        width: 100%;
         border: $card-border-width solid $card-border-color;
         border-radius: $card-border-radius;
         box-shadow: $card-box-shadow;
-        align-items: center;
+        text-decoration: none;
+
         @include transition(all .2s ease-in-out);
 
         section {
@@ -995,30 +1004,31 @@ ul.results {
           h3,
           h4,
           h5 {
-            margin: 0;
+            flex-basis: auto;
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: auto;
+            margin: 0;
           }
 
           p {
-            margin: 0;
+            flex-basis: auto;
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: auto;
+            margin: 0;
           }
         }
 
         i {
           display: flex;
+          align-items: center;
           flex-direction: row;
           flex-grow: 0;
           flex-shrink: 0;
+          justify-content: center;
           width: 2rem;
           height: 2rem;
           font-size: $font-size-h2;
-          align-items: center;
-          justify-content: center;
+
           @include transition(all .2s ease-in-out);
         }
       }
@@ -1026,16 +1036,16 @@ ul.results {
       > a {
         &:hover {
           z-index: 2;
-          transform: scale(1.004);
           box-shadow: $card-box-shadow-hover;
+          transform: scale(1.004);
 
           h2,
           h3,
           h4,
           h5 {
+            flex-basis: auto;
             flex-grow: 0;
             flex-shrink: 0;
-            flex-basis: auto;
           }
         }
       }

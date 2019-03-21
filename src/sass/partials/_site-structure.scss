@@ -1,55 +1,56 @@
 html {
-  height: 100%;
   margin: 0;
   padding: 0;
+  height: 100%;
   //site body
   body {
-    width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
   }
   //site background
   div#root {
-    height: 100%;
     margin: 0;
     padding: 0;
+    height: 100%;
     background: $white;
 
     .app-wrapper {
       display: flex;
+      align-items: center;
       flex-direction: column;
-      width: 100%;
-      min-height: 100vh;
+      flex-shrink: 0;
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      width: 100%;
       background: $warm-gray-10;
-      align-items: center;
-      flex-shrink: 0;
 
       main[role="document"] {
         position: relative;
         display: flex;
-        overflow-y: hidden;
         overflow-x: hidden;
+        overflow-y: hidden;
+        align-items: flex-start;
         flex-direction: row;
-        width: 100%;
-        height: calc(100vh - 3.75rem);
-        min-height: calc(100vh - 3.75rem);
-        background: $white;
         flex-grow: 1;
         flex-shrink: 0;
-        align-items: flex-start;
+        min-height: calc(100vh - 3.75rem);
+        width: 100%;
+        height: calc(100vh - 3.75rem);
+        background: $white;
 
         .content-wrapper {
           display: flex;
-          overflow-y: hidden;
           overflow-x: hidden;
+          overflow-y: hidden;
+          align-self: stretch;
           flex-direction: column;
-          width: 100%;
           flex-grow: 1;
           flex-wrap: wrap;
-          align-self: stretch;
+          width: 100%;
+
           @include for-phone-only {
             padding: 0;
           }
@@ -62,9 +63,9 @@ html {
 
           > div {
             overflow: hidden;
+            flex-grow: 1;
             width: 100%;
             height: auto;
-            flex-grow: 1;
           }
 
           .workflow {
@@ -78,8 +79,8 @@ html {
               height: auto;
 
               &.search, &.chooseAddress, &.chooseQuote {
-                  align-items: stretch;
                   overflow: hidden;
+                  align-items: stretch;
 
                   >.flex.grow {
                       overflow: hidden;
@@ -100,7 +101,7 @@ html {
                       height: 4.625rem;
                   }
 
-                  &.policy-header {}
+                  
               }
               .workflow-header {
                   display: flex;
@@ -108,15 +109,12 @@ html {
                   @include for-phone-only {
                       min-height: 2.25rem;
                   }
-
                   @include for-tablet-portrait-up {
                      min-height: 4.25rem;
                   }
-
                   @include for-tablet-landscape-up {
                      min-height: 4.6875rem;
                   }
-
                   @include for-desktop-up {
                       min-height: 4.6875rem;
                   }
@@ -127,17 +125,17 @@ html {
                 display: flex;
                 overflow: hidden;
                 flex-direction: column;
+                flex-grow: 1;
                 width: 100%;
                 height: auto;
-                flex-grow: 1;
 
                 .main,
                 form {
                   display: flex;
                   overflow: hidden;
                   flex-direction: column;
-                  width: 100%;
                   flex-grow: 1;
+                  width: 100%;
 
                   .scroll {
                     width: 100%;
@@ -151,19 +149,19 @@ html {
 
               .search {
                 form {
-                  flex-shrink: 0;
                   flex-grow: 0;
+                  flex-shrink: 0;
                 }
               }
 
               .scroll {
                 display: flex;
-                overflow-y: auto;
                 overflow-x: hidden;
+                overflow-y: auto;
                 flex-direction: column;
-                width: 100%;
-                flex-wrap: nowrap;
                 flex-grow: 1;
+                flex-wrap: nowrap;
+                width: 100%;
 
                 ul {
                   flex-grow: 1;

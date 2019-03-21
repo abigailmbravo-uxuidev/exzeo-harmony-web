@@ -33,7 +33,6 @@ export const NoResults = (props) => {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   results: state.search.results,
   hasSearched: state.search.hasSearched,

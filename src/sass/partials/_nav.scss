@@ -1,5 +1,4 @@
 //vertical tabs
-
 .content-panel-left {
   display: flex;
   align-self: stretch;
@@ -7,39 +6,48 @@
   flex-grow: 0;
   flex-shrink: 0;
   width: auto;
-  color: $warm-gray-12;
   background: $warm-gray-02;
+  color: $warm-gray-12;
+
   @include transition(all 0.2s ease-in-out);
+
   @include for-phone-only {
     position: fixed;
-    z-index: 100;
     top: 3.375rem;
     bottom: 0;
     left: -15rem;
+    z-index: 100;
   }
+
   @include for-tablet-portrait-up {
     position: absolute;
-    z-index: 30;
     top: 0;
     bottom: 0;
+    z-index: 30;
     width: 4.75rem;
+
     @include transition(all 0.1s ease-in-out);
   }
+
   @include for-tablet-landscape-up {
     position: relative;
     width: auto;
   }
 
   .site-nav {
-    width: auto;
     padding: $padding*2;
+    width: auto;
+
     @include transition(all 0.05s ease-in-out);
+
     @include for-phone-only {
       width: 14rem;
     }
+
     @include for-tablet-landscape-up {
       width: 12rem;
     }
+
     //main left navigation
     ul {
       margin: 0;
@@ -56,37 +64,52 @@
           flex-grow: 1;
           margin: 0 (-$padding*2) 0 (-$padding);
           padding: ($padding*1.5) 0;
-          cursor: pointer;
-          text-decoration: none;
-          color: $white;
           border-left: ($padding/2) solid rgba($white, 0);
+          color: $white;
+          text-decoration: none;
+          cursor: pointer;
+
+          &:hover {
+            border-left: ($padding/2) solid rgba($bright-blue, .2);
+            background-color: rgba($white, .1);
+            text-decoration: none;
+            cursor: pointer;
+
+            span {
+              color: $white;
+              text-decoration: none;
+            }
+          }
 
           &.active {
-            cursor: default;
-            text-decoration: none;
             border-left: ($padding/2) solid $bright-blue-darken-04;
             background-color: $white;
+            text-decoration: none;
             font-weight: $font-weight-bold;
+            cursor: default;
+
             @include transition(all 0.05s ease-in-out);
 
             i {
               width: 3rem - ($padding/2);
-              text-decoration: none;
               color: $bright-blue-darken-04;
+              text-decoration: none;
+
               @include transition(all 0.05s ease-in-out);
             }
 
             span {
-              text-decoration: none;
               color: $bright-blue-darken-04;
+              text-decoration: none;
+
               @include transition(all 0.05s ease-in-out);
             }
 
             &:hover {
-              cursor: default;
-              text-decoration: none;
               border-left: ($padding/2) solid $bright-blue;
               background-color: $white;
+              text-decoration: none;
+              cursor: default;
 
               i {
                 width: 3rem - ($padding/2);
@@ -94,21 +117,9 @@
               }
 
               span {
+                color: $bright-blue-darken-04;
                 text-decoration: none;
-                color: $body-color;
               }
-            }
-          }
-
-          &:hover {
-            cursor: pointer;
-            text-decoration: none;
-            border-left: ($padding/2) solid rgba($bright-blue, .2);
-            background-color: rgba($white, .1);
-
-            span {
-              text-decoration: none;
-              color: $white;
             }
           }
 
@@ -116,7 +127,9 @@
             width: 3rem;
             text-align: center;
             text-decoration: none;
+
             @include transition(all 0.1s 0.2s ease-in-out);
+
             @include for-phone-only {
               width: 3.5rem;
               text-decoration: none;
@@ -150,6 +163,7 @@
               position: relative;
               border-left: ($padding/2) solid rgba($bright-blue-darken-03, .4);
               background-color: rgba($black, .1);
+
               @include for-tablet-portrait-up {
                 &:after {
                   position: absolute;
@@ -159,14 +173,15 @@
                   display: flex;
                   align-items: center;
                   padding: 0 0 0 ($padding/2);
-                  content: '\f053';
-                  color: $black;
                   border-left: ($padding/2) solid $bright-blue;
                   background: $white;
-                  font-family: $font-family-icon;
+                  color: $black;
+                  content: '\f053';
                   font-size: $font-size-xs;
+                  font-family: $font-family-icon;
                 }
               }
+
               @include for-tablet-landscape-up {
                 &:after {
                   display: none;
@@ -188,11 +203,12 @@
                   display: flex;
                   align-items: center;
                   padding: $padding;
-                  content: '\f053';
-                  color: $black;
                   border-left: ($padding/2) solid $bright-blue;
                   background: $white;
+                  color: $black;
+                  content: '\f053';
                   font-family: $font-family-icon;
+
                   @include for-phone-only {
                     display: none;
                   }
@@ -200,9 +216,9 @@
               }
 
               &:hover {
-                cursor: pointer;
                 border-left: ($padding/2) solid rgba($bright-blue, .2);
                 background-color: rgba($white, .1);
+                cursor: pointer;
               }
             }
           }
@@ -224,13 +240,16 @@
           }
 
           span {
-            text-decoration: none;
             color: rgba($white, 1);
+            text-decoration: none;
             font-weight: $font-weight-bold;
+
             @include transition(all 0.1s 0.2s ease-in-out);
+
             @include for-tablet-portrait-up {
               display: none;
             }
+
             @include for-tablet-landscape-up {
               display: flex;
             }
@@ -241,15 +260,18 @@
   }
 
   .user {
-    width: auto;
-    min-height: 4.75rem;
     padding: ($padding/2) ($padding) ($padding/2) ($padding*2);
+    min-height: 4.75rem;
+    width: auto;
     border-bottom: 2px solid $white;
     background-color: $warm-gray-08;
+
     @include transition(all 0.2s ease-in-out);
+
     @include for-tablet-portrait-up {
       //display: none;
     }
+
     @include for-tablet-landscape-up {
       display: flex;
       flex-direction: column;
@@ -260,9 +282,11 @@
       margin: 0;
       color: $white;
       font-size: $font-size-sm;
+
       @include for-tablet-portrait-up {
         display: none;
       }
+
       @include for-tablet-landscape-up {
         display: flex;
       }
@@ -277,12 +301,15 @@
       margin: 0;
       color: $white;
       font-weight: $font-weight-normal;
+
       @include for-phone-only {
         max-width: 11rem;
       }
+
       @include for-tablet-portrait-up {
         display: none;
       }
+
       @include for-tablet-landscape-up {
         display: flex;
       }
@@ -300,24 +327,26 @@
   }
 
   .btn.logout.btn-action {
-    width: 3rem;
-    height: 3rem;
     margin: 0.875rem;
     padding: ($padding) 0;
-    text-align: center;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
+    text-align: center;
+
     @include for-tablet-landscape-up {
-      width: auto;
-      height: auto;
       margin: 0 ($padding);
       padding: ($padding) 0;
+      width: auto;
+      height: auto;
       border-radius: $btn-border-radius;
     }
+
     @include for-phone-only {
-      width: auto;
-      height: auto;
       margin: 0 ($padding);
       padding: ($padding) 0;
+      width: auto;
+      height: auto;
       border-radius: $btn-border-radius;
     }
 
@@ -327,9 +356,11 @@
       i {
         display: inline-block;
         margin-right: 0;
+
         @include for-tablet-landscape-up {
           margin-right: $padding;
         }
+
         @include for-phone-only {
           margin-right: $padding;
         }
@@ -337,9 +368,11 @@
 
       span {
         display: none;
+
         @include for-tablet-landscape-up {
           display: inline-block;
         }
+
         @include for-phone-only {
           display: inline-block;
         }
@@ -350,28 +383,30 @@
 
 .nav-tabs {
   position: sticky;
-  z-index: 9;
   top: 0;
+  z-index: 9;
   display: flex;
   flex-grow: 1;
   flex-shrink: 1;
-  width: 100%;
   margin-bottom: $padding*2;
+  width: 100%;
   background: $cool-gray-01;
 
   .btn {
     &.btn-tab {
       display: flex;
       flex-direction: column;
-      text-transform: none;
       border-bottom: ($padding/2) solid rgba($bright-blue, 0);
       border-radius: 0;
       box-shadow: none;
-      font-size: $font-size-sm;
+      text-transform: none;
       font-weight: $font-weight-bold;
+      font-size: $font-size-sm;
+
       @include button-variant($cool-gray-07, $btn-link-bg, $btn-link-border);
+
       @include for-phone-only {
-        > span {
+        >span {
           display: none;
         }
       }
@@ -379,17 +414,18 @@
       i {
         flex-grow: 0;
         flex-shrink: 0;
-        width: 100%;
         margin: 0;
-        text-align: center;
+        width: 100%;
         color: $cool-gray-04;
+        text-align: center;
         font-size: $font-size-h3;
+
         @include transition(all 0.2s ease-in-out);
       }
 
       &:hover {
-        color: $cool-gray-08;
         border-bottom: ($padding/2) solid rgba($bright-blue, 0.5);
+        color: $cool-gray-08;
 
         i {
           color: $bright-blue;
@@ -398,9 +434,9 @@
 
       &.active {
         margin-bottom: 0;
-        color: $cool-gray-14;
         border-bottom: ($padding/2) solid $bright-blue;
         box-shadow: none;
+        color: $cool-gray-14;
 
         i {
           color: $green;
@@ -408,9 +444,9 @@
 
         &:hover {
           margin-bottom: 0;
-          color: $cool-gray-14;
           border-bottom: ($padding/2) solid $bright-blue;
           box-shadow: none;
+          color: $cool-gray-14;
         }
       }
     }
@@ -424,8 +460,10 @@
         left: 0;
         box-shadow: $card-box-shadow-alt;
       }
+
       @include for-tablet-portrait-up {
         width: 12rem;
+
         .site-nav {
           ul {
             li {
@@ -437,6 +475,7 @@
             }
           }
         }
+
         .user {
           display: block;
 
@@ -448,12 +487,13 @@
             display: block;
           }
         }
+
         .btn.logout.btn-action {
           display: block;
-          width: auto;
-          height: auto;
           margin: 0.875rem;
           padding: ($padding) 0;
+          width: auto;
+          height: auto;
           border-radius: $btn-border-radius;
 
           div {
@@ -469,15 +509,18 @@
           }
         }
       }
+
       @include for-tablet-landscape-up {
         position: relative;
         width: auto;
       }
 
       .site-nav {
-        width: auto;
         padding: $padding*2;
+        width: auto;
+
         @include transition(all 0.05s ease-in-out);
+
         @include for-phone-only {
           width: 14rem;
         }
@@ -491,31 +534,34 @@
           li {
             a {
               &.active {
-                cursor: default;
-                text-decoration: none;
                 border-left: ($padding/2) solid $bright-blue-darken-04;
                 background-color: $white;
+                text-decoration: none;
                 font-weight: $font-weight-bold;
+                cursor: default;
+
                 @include transition(all 0.05s ease-in-out);
 
                 i {
                   width: 3rem - ($padding/2);
-                  text-decoration: none;
                   color: $bright-blue-darken-04;
+                  text-decoration: none;
+
                   @include transition(all 0.05s ease-in-out);
                 }
 
                 span {
-                  text-decoration: none;
                   color: $bright-blue-darken-04;
+                  text-decoration: none;
+
                   @include transition(all 0.05s ease-in-out);
                 }
 
                 &:hover {
-                  cursor: default;
-                  text-decoration: none;
                   border-left: ($padding/2) solid $bright-blue;
                   background-color: $white;
+                  text-decoration: none;
+                  cursor: default;
 
                   i {
                     width: 3rem - ($padding/2);
@@ -523,8 +569,8 @@
                   }
 
                   span {
-                    text-decoration: none;
                     color: $body-color;
+                    text-decoration: none;
                   }
                 }
               }
@@ -534,20 +580,17 @@
       }
     }
 
-    + main[role="document"] {
-      .content-wrapper {
-        filter: blur(5px);
-        @include for-tablet-landscape-up {
-          filter: blur(0);
-        }
-      }
-    }
-
     .content-wrapper {
+      z-index: 10;
       filter: blur(5px);
+
       @include for-tablet-landscape-up {
         filter: blur(0);
       }
     }
+  }
+
+  .content-wrapper {
+    z-index: 30;
   }
 }

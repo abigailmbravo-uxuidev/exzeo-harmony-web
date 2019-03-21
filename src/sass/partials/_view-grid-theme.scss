@@ -1,0 +1,218 @@
+.survey-wrapper, .detail-wrapper {
+  .form-group {
+    padding-bottom: $padding*3;
+  }
+}
+
+.view-grid {
+  .btn-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: $padding*1.5;
+
+    button {
+      margin-left: $padding;
+    }
+  }
+  section {
+    margin-bottom: $padding*2;
+    padding-bottom: $padding*2;
+    border-bottom: 1px dashed $cool-gray-02;
+
+    p {
+      margin: 0;
+    }
+
+    ul {
+      margin: 0 0 0 $padding;
+      padding: 0 0 0 ($padding*2);
+    }
+
+    &.billing-plan-wrapper {
+      h4 {
+        margin-bottom: 0;
+      }
+      dl {
+        dd {
+          margin: 0 (-$padding);
+          padding: ($padding/2);
+
+          &:nth-of-type(odd) {
+            background: $cool-gray-00;
+          }
+        }
+      }
+    }
+  }
+  .workflow-steps {
+    margin-top: $padding*1.5;
+    padding: $padding 0;
+  }
+  .form-group {
+    padding-bottom: $padding*3;
+
+    @include for-phone-only {
+      padding-bottom: $padding*3;
+    }
+    &.switch {
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      label {
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-bottom: 0;
+        width: calc(100vw - 12.25rem);
+
+        @include for-phone-only {
+          width: calc(100vw - 5.5rem);
+        }
+        @include for-tablet-landscape-up {
+          flex-grow: 1;
+          flex-shrink: 1;
+          width: auto;
+        }
+        span {
+          margin: 0 $padding;
+        }
+      }
+      span[data-name="error-field"] {
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 100%;
+      }
+      .switch-div {
+        position: relative;
+        flex-basis: 3.5rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin: 0.225rem 0;
+        width: 3.5rem;
+        height: 1.5rem;
+        border-radius: 0.75rem;
+        background: $cool-gray-04;
+        color: $cool-gray-08;
+        cursor: pointer;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        &:before {
+          position: absolute;
+          z-index: 2;
+          width: 1.5rem;
+          height: 1.5rem;
+          border: 2px solid $cool-gray-01;
+          border-radius: 50%;
+          background-color: lighten($cool-gray-00, 10%);
+          box-shadow: $input-box-shadow;
+          content: "";
+          line-height: 1;
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
+        }
+        &:after {
+          position: absolute;
+          top: 0.25rem;
+          left: 2rem;
+          z-index: 1;
+          color: $white;
+          content: "No";
+          font-weight: $font-weight-bold;
+          font-size: 0.7rem;
+        }
+        &.active {
+          background: $bright-blue-lighten-02;
+          &:before {
+            border-color: $cool-gray-01;
+            background-color: lighten($cool-gray-00, 10%);
+            -webkit-transform: translateX(2rem);
+            -ms-transform: translateX(2rem);
+            transform: translateX(2rem);
+          }
+          &:after {
+            top: 0.25rem;
+            left: 0.5rem;
+            color: $white;
+            content: "Yes";
+          }
+          &.disabled {
+            background-color: $cool-gray-00;
+            &:after {
+              color: $cool-gray-01;
+            }
+          }
+        }
+      }
+
+      &.confirm {
+        label {
+          &:before {
+            position: absolute;
+            top: 0.5rem;
+            left: -.25rem;
+            display: block;
+            padding: 0.25rem;
+            min-width: 9rem;
+            width: calc(100% - 14rem);
+            border-top-left-radius: 0.125rem;
+            border-bottom-left-radius: 0.125rem;
+            background: $orange-lighten-01;
+            color: $red-darken-01;
+            content: 'CONFIRM HERE';
+            text-align: center;
+            font: normal normal normal 1rem Roboto, "Roboto", Arial, sans-serif;
+            line-height: 1;
+          }
+
+          &:after {
+            position: absolute;
+            top: 0.5rem;
+            left: calc(100% - 14.25rem);
+            width: 0;
+            height: 0;
+            border-top: 0.75rem solid transparent;
+            border-bottom: 0.75rem solid transparent;
+            border-left: 1rem solid $orange-lighten-01;
+            content: '';
+          }
+        }
+      }
+    }
+    &.display {
+      position: relative;
+      flex-direction: row;
+      label {
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin-bottom: 0;
+        width: auto;
+        &.disabled {
+          color: $warm-gray-14;
+          span {
+            margin-left: $padding;
+          }
+        }
+      }
+      output {
+        position: absolute;
+        top: -($padding/2);
+        right: $padding;
+        flex-grow: 0;
+        flex-shrink: 0;
+        max-width: 6.5rem;
+        width: 6.5rem;
+        ;
+      }
+    }
+    &.radio {
+      &.segmented {
+        output {
+          position: absolute;
+          top: -($padding/2);
+          right: $padding;
+          max-width: 6.5rem;
+        }
+      }
+    }
+  }
+}

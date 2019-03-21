@@ -14,8 +14,8 @@ export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, ag
   Object.entries(customerInfo).forEach(([field, value]) => {
     cy.findDataTag(`${field}`).find('input').type(value);
   });
-  cy.findDataTag('agentCode').find('select').select(agentCode)
-    .clickSubmit('#CustomerInfo')
+  cy.findDataTag('agentCode').select(agentCode)
+    .clickSubmit('#QuoteWorkflow')
     .wait('@getQuoteServiceRequest');
 };
 
@@ -30,19 +30,19 @@ export const navigateThroughUnderwriting = (data = underwriting, updates, useCon
 
   cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig);
   Object.entries(data).forEach(([name, value]) => {
-    cy.get(`input[name="${name}"][value="${value}"] + span`).click();
+    cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click();
   });
-  cy.clickSubmit('#Underwriting').wait('@getQuoteServiceRequest');
+  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughCustomize = () => cy.clickSubmit('#Customize').wait('@getQuoteServiceRequest');
+export const navigateThroughCustomize = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
-export const navigateThroughShare = () => cy.clickSubmit('#SharePage').wait('@getQuoteServiceRequest');
+export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
 export const navigateThroughAssumptions = (updates, useConfig) => {
   if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
-  cy.findDataTag('confirmAssumptions').find('.switch-div').click()
-    .clickSubmit('#Assumptions').wait('@getQuoteServiceRequest');
+  cy.findDataTag('confirm-assumptions').click()
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
 export const navigateThroughAdditionalInterests = () =>
@@ -50,17 +50,17 @@ export const navigateThroughAdditionalInterests = () =>
 
 export const navigateThroughMailingBilling = (updates, useConfig) => {
   if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
-  cy.findDataTag('sameAsProperty').find('input')
+  cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
-    .then($input => {
-      if ($input.val() === 'false') {
-        cy.findDataTag('sameAsProperty').find('.switch-div').click();
+    .then($div => {
+      if (!$div.attr('data-value') || $div.attr('data-value') === 'false') {
+        cy.findDataTag('sameAsPropertyAddress').click();
       };
     })
     // Get first non-disabled option and select that value
     .get('select[name="billToId"] > option:not([disabled])').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
-    .clickSubmit('#Billing').wait('@getQuoteServiceRequest');
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
 export const navigateThroughVerify = () =>
@@ -70,7 +70,7 @@ export const navigateThroughVerify = () =>
     .findDataTag('confirmAdditionalInterestsDetails').find('.switch-div').click()
     .clickSubmit('#Verify');
 
-export const navigateThroughScheduleDate = () => cy.clickSubmit('.modal').wait('@getQuoteServiceRequest');
+export const navigateThroughScheduleDate = () => cy.clickSubmit('.schedule-date-modal').wait('@getQuoteServiceRequest');
 
 export const navigateThroughThankYou = () =>
   cy.get('#thanks a[href="/"]').click()

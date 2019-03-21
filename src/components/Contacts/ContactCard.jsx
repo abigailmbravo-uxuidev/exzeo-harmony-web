@@ -7,7 +7,7 @@ const ContactCard = ({ icon, name, title, phone, cell, extension, email, address
   return (
     <div className="card contact-card">
       <div className="card-header">
-        <div className={`${icon || 'fa fa-address-card'}`} />
+        <div className={icon ||'fa fa-address-card'} />
       </div>
       <div className="card-body">
         {name && <h4 className="contact-name">{name} {title && <span className="contact-title"> | {title}</span>}</h4>}

@@ -1,4 +1,3 @@
-
 import Auth from './Auth';
 
 describe('Auth', () => {
@@ -13,8 +12,9 @@ describe('Auth', () => {
       process.env.REACT_APP_AUTH0_CLIENT_ID = 'clientID';
 
       const auth = new Auth();
-      auth.getProfile((error, profile) => {
-        expect(profile).toEqual({
+      const profile = auth.getProfile();
+      expect(profile)
+        .toEqual({
           sub: '1234567890',
           name: 'John Doe',
           groups: [],
@@ -23,7 +23,6 @@ describe('Auth', () => {
           appMetadata: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' },
           agency: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' }
         });
-      });
     });
 
     it('should still get agency info from groups', () => {
@@ -35,8 +34,9 @@ describe('Auth', () => {
       process.env.REACT_APP_AUTH0_CLIENT_ID = 'clientID';
 
       const auth = new Auth();
-      auth.getProfile((error, profile) => {
-        expect(profile).toEqual({
+      const profile = auth.getProfile();
+      expect(profile)
+        .toEqual({
           sub: '1234567890',
           name: 'John Doe',
           groups: [
@@ -67,7 +67,6 @@ describe('Auth', () => {
           appMetadata: undefined,
           agency: { agencyCode: 1234, companyCode: 'ABCD', state: 'FL' }
         });
-      });
     });
 
     it('should login', () => {
@@ -80,8 +79,9 @@ describe('Auth', () => {
       process.env.REACT_APP_AUTH0_CLIENT_ID = 'clientID';
 
       const auth = new Auth();
-      auth.getProfile((error, profile) => {
-        expect(profile).toEqual({
+      const profile = auth.getProfile();
+      expect(profile)
+        .toEqual({
           sub: '1234567890',
           name: 'John Doe',
           groups: [],
@@ -90,7 +90,6 @@ describe('Auth', () => {
           appMetadata: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' },
           agency: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' }
         });
-      });
       auth.checkAuth();
 
       auth.handleAuthentication();
@@ -101,8 +100,10 @@ describe('Auth', () => {
       const accessToken = auth.getAccessToken();
 
 
-      expect(idToken).toEqual('3324');
-      expect(accessToken).toEqual('3454');
+      expect(idToken)
+        .toEqual('3324');
+      expect(accessToken)
+        .toEqual('3454');
     });
   });
 });

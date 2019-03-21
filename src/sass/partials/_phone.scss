@@ -7,8 +7,8 @@
                     margin-bottom: 0;
                 }
                 .form-group {
-                    padding-bottom: $padding;
-                    margin-bottom: $padding;
+                    //margin-bottom: 0;
+                    //padding-bottom: $padding;
                 }
             }
             .loader.modal {
@@ -19,21 +19,21 @@
             }
             .app-wrapper {
                 header {
-                    height: auto;
-                    overflow: visible;
                     position: fixed;
                     z-index: 100;
+                    overflow: visible;
+                    height: auto;
                 }
                 main[role="document"] {
                     top: 3.375rem;
-                    height: auto;
                     overflow: visible;
+                    height: auto;
                     .content-wrapper {
-                        height: auto;
                         overflow: visible;
+                        height: auto;
                         .workflow {
-                            height: auto;
                             overflow: visible;
+                            height: auto;
                             .route {
                                 .detailHeader {
                                     min-height: 3.5rem;

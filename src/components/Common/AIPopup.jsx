@@ -38,7 +38,6 @@ AdditionalInterestPopup.propTypes = {
 // redux mapping
 // ------------------------------------------------
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState
 });
 

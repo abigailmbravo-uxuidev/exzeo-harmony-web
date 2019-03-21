@@ -1,7 +1,6 @@
 /*BASE LAYOUT & STYLES*/
 /*###################################################*/
-@import "partials/_mixins";
-@import "partials/_variables";
+@import "partials/_mixins"; //@import "partials/_variables";
 @import "partials/utilities/_flex";
 @import "partials/mixins/_hover";
 @import "partials/mixins/_flexbox";
@@ -90,11 +89,15 @@
 /*------------------------------------------------------------------------------------*/
 @import "partials/_policy-details"; //Policy Details Page
 /*------------------------------------------------------------------------------------*/
+@import "partials/_view-grid"; //grid/Gandalf
+/*------------------------------------------------------------------------------------*/
+@import "partials/_view-grid-theme"; //grid/Gandalf
+/*------------------------------------------------------------------------------------*/
 hr {
   &.section-divider {
-    height: 1px;
     margin: 0 $padding $form-group-margin-bottom;
     padding: 0 $padding/2;
+    height: 1px;
     border: 0;
     border-bottom: 1px dashed $cool-gray-02;
   }
@@ -113,13 +116,32 @@ hr {
 
     .card-footer {
       .btn-block {
-        width: 100%;
         margin-bottom: $padding;
+        width: 100%;
+
         @include for-tablet-landscape-up {
-          width: auto;
           margin-bottom: 0;
+          width: auto;
         }
       }
     }
   }
+}
+
+.nav-and-header-wrapper {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.scroll.survey-wrapper {
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  @include for-phone-only {
+    padding: 0;
+  }
+}
+
+.active .workflow .detailHeader section.premium {
+  top: 0;
 }

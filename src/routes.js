@@ -73,7 +73,7 @@ class Routes extends Component {
     const { error } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <Modal
           isOpen={(error && !!error.message)}
           contentLabel="Error Modal"
@@ -88,7 +88,7 @@ class Routes extends Component {
         </Modal>
 
         <Router>
-          <div>
+          <React.Fragment>
             <Helmet><title>Harmony Web - Agent HO3 Quote</title></Helmet>
             <Switch>
               <Route exact path="/" render={props => <Splash auth={auth} {...props} />} />
@@ -121,9 +121,9 @@ class Routes extends Component {
 
               <Route path="*" render={props => <NotFound auth={auth} {...props} />} />
             </Switch>
-          </div>
+          </React.Fragment>
         </Router>
-      </div>
+      </React.Fragment>
     );
   }
 }

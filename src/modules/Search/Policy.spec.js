@@ -6,7 +6,7 @@ import ConnectedApp, { PolicySearch } from './Policy';
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
-describe('Testing Quote component', () => {
+describe('Testing PolicySearch component', () => {
   it('should test connected app', () => {
     const initialState = {
       actions: {

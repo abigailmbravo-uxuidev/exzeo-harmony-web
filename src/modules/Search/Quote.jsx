@@ -7,7 +7,7 @@ import App from '../../components/AppWrapper';
 import Search from '../../components/Search/Search';
 
 
-class QuoteSearch extends Component {
+export class QuoteSearch extends Component {
   render() {
     const { auth, isLoading, match } = this.props;
 

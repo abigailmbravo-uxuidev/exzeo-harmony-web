@@ -3,8 +3,8 @@ ul.list-cards {
   li {
     margin-bottom: $padding/2;
 
-     > a,
-    > div {
+    >a,
+    >div {
       align-items: center;
       padding: $padding $padding*1.5;
       border: $card-border-width solid $card-border-color;
@@ -38,11 +38,12 @@ ul.list-cards {
       }
     }
 
-    > a {
+    >a {
       &:hover {
         cursor: pointer;
 
         section {
+
           h2,
           h3,
           h4,
@@ -63,38 +64,50 @@ ul.list-cards {
   }
 }
 
-.quote-list {
+.quote-list,
+.policy-list {
   flex-grow: 1;
   margin-bottom: $padding/2;
   padding: $padding*2;
 
   .card {
     display: flex;
+    flex-direction: column;
     margin: 0 0 ($padding/2);
     padding: $padding $padding*1.5;
-    @include for-phone-only {
-      flex-direction: column;
-    }
-    @include for-tablet-portrait-up {
-      flex-direction: column;
-    }
-    @include for-desktop-up {
-      flex-direction: row;
+
+    @include transition(all .2s ease-in-out);
+
+    &:hover {
+      z-index: 2;
+      box-shadow: $card-box-shadow-hover;
+      cursor: pointer;
+      transform: scale(1.004);
+
+      section {
+        ul {
+          li {
+            @include for-phone-only {
+              color: $bright-blue;
+            }
+            @include for-tablet-portrait-up {
+              color: $bright-blue;
+            }
+            @include for-tablet-landscape-up {
+              background: rgba($bright-blue, .2);
+              color: $bright-blue-darken-04;
+            }
+          }
+        }
+      }
     }
 
     .icon-name {
       display: flex;
-      flex-basis: auto;
       flex-grow: 1;
       flex-shrink: 1;
+      margin-bottom: $padding;
       width: auto;
-      cursor: default;
-      @include for-desktop-up {
-        flex-basis: 14rem;
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: 14rem;
-      }
 
       i {
         display: flex;
@@ -113,16 +126,11 @@ ul.list-cards {
         flex-basis: auto;
         flex-grow: 1;
         flex-shrink: 1;
+        margin: 0;
+        padding: 0 0 0 $padding;
         width: auto;
-        padding-left: $padding;
         text-overflow: ellipsis;
         line-height: 2rem;
-        @include for-desktop-up {
-          flex-basis: 12rem;
-          flex-grow: 0;
-          flex-shrink: 0;
-          width: 12rem;
-        }
       }
     }
 
@@ -130,7 +138,7 @@ ul.list-cards {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-      flex-shrink: 0;
+      flex-shrink: 1;
 
       ul {
         margin: 0;
@@ -142,8 +150,12 @@ ul.list-cards {
           flex-grow: 1;
           flex-shrink: 0;
           justify-content: space-between;
+          color: $warm-gray-14;
           font-size: $font-size-sm;
+
+          @include transition(all .2s ease-in-out);
           @include for-phone-only {
+            flex-direction: column;
             padding-top: $padding;
             border-top: 1px dashed $cool-gray-01;
 
@@ -153,6 +165,7 @@ ul.list-cards {
             }
           }
           @include for-tablet-portrait-up {
+            flex-direction: column;
             padding-top: $padding;
             border-top: 1px dashed $cool-gray-01;
 
@@ -161,8 +174,64 @@ ul.list-cards {
             }
           }
           @include for-tablet-landscape-up {
+            flex-direction: row;
+            padding: ($padding/4)($padding);
             padding-top: 0;
             border-top-width: 0;
+          }
+
+          .quote-no,
+          .policy-no {
+            flex-grow: 0;
+            flex-shrink: 0;
+            width: 5.75rem;
+
+            @include for-phone-only {
+              width: auto;
+            }
+          }
+
+          .property-address {
+            flex-grow: 1;
+            flex-shrink: 1;
+
+            @include for-phone-only {
+              padding-bottom: $padding;
+              font-size: $font-size-h5;
+            }
+            @include for-tablet-portrait-up {
+              font-size: $font-size-h5;
+            }
+            @include for-tablet-landscape-up {
+              font-size: $font-size-sm;
+            }
+          }
+
+          .card-detail-wrapper {
+            display: flex;
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            @include for-phone-only {
+              align-items: flex-end;
+              justify-content: space-between;
+              width: 100%;
+            }
+            @include for-tablet-portrait-up {
+              justify-content: space-between;
+              width: 100%;
+            }
+            @include for-tablet-landscape-up {
+              justify-content: flex-start;
+
+              &.quote {
+                width: 23rem;
+              }
+
+              &.policy {
+                width: 14rem;
+              }
+            }
           }
 
           &.header {
@@ -174,7 +243,6 @@ ul.list-cards {
             }
             @include for-tablet-landscape-up {
               display: flex;
-              padding: ($padding/4)($padding);
               background: $cool-gray-01;
               font-size: $font-size-xs;
             }
@@ -190,95 +258,31 @@ ul.list-cards {
             }
           }
 
-          a {
-            display: flex;
-            width: 100%;
-            border-width: 0;
-            border-radius: 0;
-            @include for-phone-only {
-              flex-direction: column;
-              padding: 0;
-            }
-            @include for-tablet-portrait-up {
-              flex-direction: column;
-              padding: 0;
-            }
-            @include for-tablet-landscape-up {
-              flex-direction: row;
-              padding: ($padding/4)($padding);
-            }
-
-            &:hover {
-              color: $bright-blue-darken-04;
-              background: rgba($bright-blue, .2);
-            }
-          }
-
-          .quote-no, .policy-no {
+          .quote-state,
+          .policy-status {
             flex-grow: 0;
             flex-shrink: 0;
-            width: 5.75rem;
-            @include for-phone-only {
-              flex-basis: 0;
-            }
-          }
 
-          .property-address {
-            flex-grow: 1;
-            flex-shrink: 1;
             @include for-phone-only {
-              font-size: $font-size-h5;
+              width: auto;
             }
             @include for-tablet-portrait-up {
-              font-size: $font-size-h5;
+              width: auto;
             }
             @include for-tablet-landscape-up {
-              font-size: $font-size-sm;
-            }
-          }
-
-          .quote-detail-wrapper {
-            display: flex;
-            flex-grow: 0;
-            flex-shrink: 0;
-            @include for-phone-only {
-              align-items: flex-end;
-              justify-content: space-between;
-              width: 100%;
-            }
-            @include for-tablet-portrait-up {
-              justify-content: space-between;
-              width: 100%;
-            }
-            @include for-tablet-landscape-up {
-              flex-basis: 23rem;
-              justify-content: flex-start;
-            }
-          }
-
-          .quote-state, .policy-status {
-            flex-grow: 0;
-            flex-shrink: 0;
-            @include for-phone-only {
-              flex-basis: auto;
-            }
-            @include for-tablet-portrait-up {
-              flex-basis: auto;
-            }
-            @include for-tablet-landscape-up {
-              flex-basis: 9rem;
+              width: 9rem;
             }
           }
 
           .effective-date {
             flex-grow: 0;
             flex-shrink: 0;
-            width: 5rem;
+
             @include for-phone-only {
               display: flex;
               align-items: flex-start;
-              flex-basis: auto;
               flex-direction: column;
+              width: auto;
 
               &:before {
                 margin-right: $padding/2;
@@ -289,7 +293,7 @@ ul.list-cards {
             @include for-tablet-portrait-up {
               display: flex;
               align-items: center;
-              flex-basis: auto;
+              width: auto;
 
               &:before {
                 margin-right: $padding/2;
@@ -299,7 +303,7 @@ ul.list-cards {
             }
             @include for-tablet-landscape-up {
               display: block;
-              flex-basis: 5rem;
+              width: 5rem;
 
               &:before {
                 margin-right: 0;
@@ -309,9 +313,10 @@ ul.list-cards {
           }
 
           .started-on {
-            flex-basis: 5rem;
             flex-grow: 0;
             flex-shrink: 0;
+            width: 5rem;
+
             @include for-phone-only {
               display: none;
             }
@@ -327,94 +332,18 @@ ul.list-cards {
             flex-grow: 0;
             flex-shrink: 0;
             font-weight: $font-weight-bold;
+
             @include for-phone-only {
-              flex-basis: auto;
+              width: auto;
             }
             @include for-tablet-portrait-up {
-              flex-basis: auto;
+              width: auto;
             }
             @include for-tablet-landscape-up {
-              flex-basis: 4rem;
+              width: 4rem;
             }
           }
         }
-      }
-    }
-  }
-
-  a {
-    align-items: center;
-    align-items: flex-start;
-    padding: $padding $padding*1.5;
-    border: $card-border-width solid $card-border-color;
-    border-radius: $card-border-radius;
-    background: $white;
-
-    section {
-      display: flex;
-      flex-direction: row;
-      flex-grow: 1;
-
-      h2,
-      h3,
-      h4,
-      h5 {
-        display: flex;
-        flex-basis: 20%;
-        flex-grow: 0;
-        flex-shrink: 0;
-        width: 20%;
-        margin: 0;
-      }
-
-      p {
-        margin: 0;
-      }
-
-      ul {
-        display: flex;
-        flex-basis: 80%;
-        flex-direction: column;
-        width: 80%;
-        margin: 0;
-        padding: 0;
-      }
-    }
-
-    i {
-      display: flex;
-      justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      font-size: $font-size-h2;
-
-      &.card-icon {
-        margin-right: $padding;
-      }
-
-      &.fa-map-marker {
-        justify-content: flex-start;
-      }
-    }
-
-    &:hover {
-      cursor: pointer;
-
-      section {
-        h2,
-        h3,
-        h4,
-        h5 {
-          color: $bright-blue-darken-02;
-        }
-
-        p {
-          color: $bright-blue-darken-02;
-        }
-      }
-
-      i {
-        color: $bright-blue-darken-02;
       }
     }
   }

@@ -1,36 +1,32 @@
 footer {
   display: flex;
-  flex-direction: column;
-  width: 100%;
   align-items: center;
+  flex-direction: column;
   flex-shrink: 0;
+  width: 100%;
 
   div[role="banner"] {
     display: flex; 
-    width: 100%;
     margin-bottom: 0;
-    padding: $padding ($padding*2);
+    padding: $padding ($padding*2); width: 100%;
     border-top: $border-width dotted $border-color;
     background: $white;
+ 
+    @include for-phone-only {
+      small {
+        font-size: $font-size-xs;
 
+        &.copyright { 
+          flex-grow: 1;  flex-shrink: 1; 
+          }
+      }
+    }
     small { 
       line-height: 1; 
 
       &.copyright { 
-        flex-grow: 1; 
-        flex-shrink: 1; 
-      } 
-    } 
-    
-    @include for-phone-only {
-      small {
-        font-size: $xsmall-font-size;
-
-        &.copyright { 
-          flex-grow: 1; 
-          flex-shrink: 1; 
-        }
-      }
+        flex-grow: 1;  flex-shrink: 1; 
+        } 
     }
   }
 }

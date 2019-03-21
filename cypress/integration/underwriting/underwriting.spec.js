@@ -4,15 +4,19 @@ import {
   navigateThroughSearchAddress,
   navigateThroughPolicyholder
 } from '../../helpers';
-import uwData from '../../fixtures/stockData/underwriting.json';
 
 describe('Underwriting Testing', () => {
-  const fields = ['rented', 'previousClaims', 'monthsOccupied', 'business'];
+  const data = {
+    "underwritingAnswers.rented.answer": "Never",
+    "underwritingAnswers.previousClaims.answer": "No claims ever filed",
+    "underwritingAnswers.monthsOccupied.answer": "10+",
+    "underwritingAnswers.business.answer": "No"
+  };
 
   const toggleExcept = (except = [], values) => {
     Object.entries(values).forEach(([key, value]) => {
       if (!except.includes(key)) {
-        cy.findDataTag(`${key}`).find(`input[value="${value}"] + span`).click();
+        cy.findDataTag(`${key}_${value}`).click();
       };
     });
   };
@@ -36,31 +40,32 @@ describe('Underwriting Testing', () => {
   });
 
   it('NEG:All Inputs Empty Value', () => {
+    const fields = ["underwritingAnswers.rented.answer_wrapper", "underwritingAnswers.previousClaims.answer_wrapper", "underwritingAnswers.monthsOccupied.answer_wrapper", "underwritingAnswers.business.answer_wrapper"];
     cy.submitAndCheckValidation(fields);
   });
 
   it('NEG:"Is the home or any structure on the property ever rented?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['rented'], uwData);
-    cy.submitAndCheckValidation(['rented']);
+    toggleExcept(['underwritingAnswers.rented.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.rented.answer_wrapper']);
   });
 
   it('NEG:"When was the last claim filed?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['previousClaims'], uwData);
-    cy.submitAndCheckValidation(['previousClaims']);
+    toggleExcept(['underwritingAnswers.previousClaims.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.previousClaims.answer_wrapper']);
   });
 
   it('NEG:"How many months a year does the owner live in the home?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['monthsOccupied'], uwData);
-    cy.submitAndCheckValidation(['monthsOccupied']);
+    toggleExcept(['underwritingAnswers.monthsOccupied.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.monthsOccupied.answer_wrapper']);
   });
 
   it('NEG:"Is a business conducted on the property?" Empty Value', () => {
     cy.reload();
-    toggleExcept(['business'], uwData);
-    cy.submitAndCheckValidation(['business']);
+    toggleExcept(['underwritingAnswers.business.answer'], data);
+    cy.submitAndCheckValidation(['underwritingAnswers.business.answer_wrapper']);
   });
 
   it('POS:Underwriting Workflow', () =>
@@ -74,34 +79,33 @@ describe('Underwriting Testing', () => {
   );
 
   it('POS:Property Ever Rented Text / Input', () =>
-    cy.reload().checkLabel('rented', 'Is the home or any structures on the property ever rented?')
-      .checkRadios('rented', ['Yes', 'Occasionally', 'Never'])
-      .clickEachRadio('rented')
+    cy.reload().checkLabel('underwritingAnswers.rented.answer_wrapper', 'Is the home or any structures on the property ever rented?')
+      .checkRadios('underwritingAnswers.rented.answer_wrapper', ['Yes', 'Occasionally', 'Never'])
+      .clickEachRadio('underwritingAnswers.rented.answer_wrapper')
   );
 
   it('POS:Last Claim Filed Text / Input', () =>
-    cy.reload().checkLabel('previousClaims', 'When was the last claim filed?')
-      .checkRadios('previousClaims', ['No claims ever filed', 'Less than 3 Years', '3-5 Years', 'Over 5 Years', 'Unknown'])
-      .clickEachRadio('previousClaims')
+    cy.reload().checkLabel('underwritingAnswers.previousClaims.answer_wrapper', 'When was the last claim filed?')
+      .checkRadios('underwritingAnswers.previousClaims.answer_wrapper', ['No claims ever filed', 'Less than 3 Years', '3-5 Years', 'Over 5 Years', 'Unknown'])
+      .clickEachRadio('underwritingAnswers.previousClaims.answer_wrapper')
   );
 
-
   it('POS:Owner Lives Text / Input', () =>
-    cy.reload().checkLabel('monthsOccupied', 'How many months a year does the owner live in the home?')
-      .checkRadios('monthsOccupied', ['0-3', '4-6', '7-9', '10+'])
-      .clickEachRadio('monthsOccupied')
+    cy.reload().checkLabel('underwritingAnswers.monthsOccupied.answer_wrapper', 'How many months a year does the owner live in the home?')
+      .checkRadios('underwritingAnswers.monthsOccupied.answer_wrapper', ['0-3', '4-6', '7-9', '10+'])
+      .clickEachRadio('underwritingAnswers.monthsOccupied.answer_wrapper')
   );
 
   it('POS:Wiring, Plumbing, and HVAC Text / Input', () =>
-    cy.reload().checkLabel('fourPointUpdates', 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?')
-      .checkRadios('fourPointUpdates', ['Yes', 'No', 'Unknown'])
-      .clickEachRadio('fourPointUpdates')
+    cy.reload().checkLabel('underwritingAnswers.fourPointUpdates.answer_wrapper', 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?')
+      .checkRadios('underwritingAnswers.fourPointUpdates.answer_wrapper', ['Yes', 'No', 'Unknown'])
+      .clickEachRadio('underwritingAnswers.fourPointUpdates.answer_wrapper')
   );
 
   it('POS:Business Conducted Text / Input', () =>
-    cy.reload().checkLabel('business', 'Is a business conducted on the property?')
-      .checkRadios('business', ['Yes', 'No'])
-      .clickEachRadio('business')
+    cy.reload().checkLabel('underwritingAnswers.business.answer_wrapper', 'Is a business conducted on the property?')
+      .checkRadios('underwritingAnswers.business.answer_wrapper', ['Yes', 'No'])
+      .clickEachRadio('underwritingAnswers.business.answer_wrapper')
   );
 
   it('POS:Underwriting Next Button', () => cy.checkSubmitButton());

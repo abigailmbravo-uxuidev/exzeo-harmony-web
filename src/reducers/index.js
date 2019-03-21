@@ -11,6 +11,9 @@ import policy from './policyStateReducer';
 import quoteState from './quoteState.reducer';
 import agencyState from './agency.reducer';
 
+// New stuff
+import list from '../state/reducers/list.reducer';
+
 const rootReducer = combineReducers({
   form: formReducer,
   policy,
@@ -21,7 +24,8 @@ const rootReducer = combineReducers({
   completedTasks,
   search,
   quoteState,
-  agencyState
+  agencyState,
+  list,
 });
 
 export default rootReducer;

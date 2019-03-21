@@ -25,11 +25,11 @@ export class WorkflowNavigation extends Component {
   };
 
   render() {
-    const { isLoading, isRecalc, quote, workflowState, handleRecalc, goToStep } = this.props;
+    const { quote, workflowState, handleRecalc, goToStep, isRecalc, isLoading, showNavigationTabs } = this.props;
     if (!quote || !quote.quoteNumber) return null;
 
     return (
-      <div>
+      <div className="nav-and-header-wrapper">
         <DetailHeader
           activeTask={workflowState.activeTask}
           handleRecalc={handleRecalc}
@@ -38,7 +38,7 @@ export class WorkflowNavigation extends Component {
           quote={quote}
         />
 
-        {!workflowState.isHardStop &&
+        {showNavigationTabs &&
           <TabNavigation
             navLinks={getNavLinks({
               goToStep,

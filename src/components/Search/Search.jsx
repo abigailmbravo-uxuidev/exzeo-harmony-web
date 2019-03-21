@@ -17,7 +17,8 @@ export class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showQuoteErrors: false
+      showQuoteErrors: false,
+      error: '',
     };
   }
 
@@ -35,7 +36,12 @@ export class Search extends React.Component {
     const { history } = this.props;
     const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
 
-    if (quote && VALID_QUOTE_STATES.includes(quote.quoteState)) {
+    if (!quote) {
+      this.setState({ showQuoteErrors: true, error: 'No quote data available' });
+      return;
+    }
+
+    if (VALID_QUOTE_STATES.includes(quote.quoteState)) {
       history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
     } else {
       this.setState({ showQuoteErrors: true });
@@ -67,6 +73,7 @@ export class Search extends React.Component {
         {this.state.showQuoteErrors &&
           <QuoteError
             quote={this.props.quote || {}}
+            noQuoteError={this.state.error}
             closeButtonHandler={() => this.closeQuoteError()}
           />
         }
@@ -80,7 +87,6 @@ Search.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  tasks: state.cg,
   appState: state.appState,
   quote: state.quoteState.quote
 });

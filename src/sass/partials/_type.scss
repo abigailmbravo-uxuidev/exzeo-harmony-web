@@ -1,10 +1,10 @@
 @import "_variables"; //harmonic rule set at 1.250 - major third
 
 body {
-  color: $default-font-color;
   background-color: $white;
-  font-family: $font-family-base;
+  color: $default-font-color;
   font-weight: $font-weight-normal;
+  font-family: $font-family-base;
   line-height: $line-height-base;
 }
 
@@ -74,7 +74,7 @@ h6 {
 
 .font-small,
 small {
-  font-size: $small-font-size;
+  font-size: $font-size-xs;
 
   p {
     margin-bottom: $paragraph-margin-bottom/2;
