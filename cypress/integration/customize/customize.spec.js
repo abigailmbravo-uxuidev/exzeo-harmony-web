@@ -99,7 +99,7 @@ describe('Customize Testing', () => {
       'coverageLimits.otherStructures.value_wrapper',
       'coverageLimits.personalProperty.value_wrapper',
       'coverageLimits.lossOfUse.value_wrapper',
-      'deductibles.hurricane.value_wrapper',
+      'deductibles.hurricane.amount_wrapper',
       'deductibles.sinkhole.amount_wrapper'
     ];
 

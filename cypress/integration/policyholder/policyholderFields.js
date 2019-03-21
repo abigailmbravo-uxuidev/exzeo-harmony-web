@@ -1,6 +1,6 @@
 export const ph1Fields = [
   {
-    name: 'FirstName',
+    name: 'policyHolders[0].firstName_wrapper',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -8,7 +8,7 @@ export const ph1Fields = [
     data: 'Bruce'
   },
   {
-    name: 'LastName',
+    name: 'policyHolders[0].lastName_wrapper',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -16,26 +16,26 @@ export const ph1Fields = [
     data: 'Wayne'
   },
   {
-    name: 'EmailAddress',
-    error: 'Not a valid email address',
+    name: 'policyHolders[0].emailAddress_wrapper',
+    error: 'Field Required',
     label: 'Email Address',
     type: 'text',
     required: true,
     data: 'Batman@gmail.com'
   },
   {
-    name: 'phoneNumber',
+    name: 'policyHolders[0].primaryPhoneNumber_wrapper',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'text',
     required: true,
-    data: '123 456 7890'
+    data: '(123) 456-7890'
   }
 ];
 
 export const ph2Fields = [
   {
-    name: 'FirstName2',
+    name: 'policyHolders[1].firstName_wrapper',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -43,7 +43,7 @@ export const ph2Fields = [
     data: 'Dick'
   },
   {
-    name: 'LastName2',
+    name: 'policyHolders[1].lastName_wrapper',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -51,33 +51,33 @@ export const ph2Fields = [
     data: 'Grayson'
   },
   {
-    name: 'EmailAddress2',
-    error: 'Not a valid email address',
+    name: 'policyHolders[1].emailAddress_wrapper',
+    error: 'Field Required',
     label: 'Email Address',
     type: 'text',
     required: true,
     data: 'Robin@hotmail.com'
   },
   {
-    name: 'phoneNumber2',
+    name: 'policyHolders[1].primaryPhoneNumber_wrapper',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'text',
     required: true,
-    data: '135 792 4680'
+    data: '(123) 456-7890'
   }
 ];
 
 export const policyDetailsFields = [
   {
-    name: 'effectiveDate',
-    error: 'Not a valid date',
+    name: 'effectiveDate_wrapper',
+    error: 'Field Required',
     label: 'Effective Date',
     type: 'text',
     required: true
   },
   {
-    name: 'agentCode',
+    name: 'agentCode_wrapper',
     error: '',
     label: 'Agent',
     type: 'select',

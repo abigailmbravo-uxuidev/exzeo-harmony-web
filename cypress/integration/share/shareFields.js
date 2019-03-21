@@ -1,4 +1,4 @@
-export const fields = [
+export const modalFields = [
   {
     name: 'name_wrapper',
     error: 'Field Required',
@@ -14,6 +14,15 @@ export const fields = [
     type: 'text',
     required: true,
     data: 'Batman@gmail.com'
+  }
+];
+
+export const fields = [
+  {
+    name: 'confirm-assumptions_wrapper',
+    type: 'switch',
+    label: 'Confirmed',
+    defaultValue: false
   }
 ];
 

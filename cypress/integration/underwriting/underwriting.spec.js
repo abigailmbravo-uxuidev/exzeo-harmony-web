@@ -38,6 +38,7 @@ describe('Underwriting Testing', () => {
 
   beforeEach('Establish fixtures', () => {
     stubAllRoutes();
+    cy.setFx('stubs/complete/askAdditionalCustomerData', ['data.model.variables[0].value.result[2].hidden', false]);
     stubWithBlankAnswers();
   });
 
@@ -46,12 +47,13 @@ describe('Underwriting Testing', () => {
   );
 
   it('NEG:"All questions empty value', () =>
-    cy.wrap(fields).each(field =>
-      cy.reload().then(() => {
-        toggleExcept([`${field.name.split('_')[0]}`], data);
-        cy.submitAndCheckValidation([field]);
-      })
-    )
+    cy.wrap(fields).each(field => {
+      toggleExcept([`${field.name.split('_')[0]}`], data);
+      cy.submitAndCheckValidation([field])
+      .findDataTag('tab-nav-askAdditionalCustomerData').click()
+      .findDataTag('Primary Policyholder')
+      .clickSubmit()
+    })
   );
 
   it('POS:Underwriting Workflow', () =>
@@ -60,11 +62,9 @@ describe('Underwriting Testing', () => {
 
   it('POS:Check All Questions Text / Radio', () =>
     cy.wrap(fields).each(field =>
-      cy.reload().then(() =>
-        cy.checkLabel(field.name, field.label)
-          .checkRadios(field)
-          .clickEachRadio(field)
-      )
+      cy.checkLabel(field.name, field.label)
+        .checkRadios(field)
+        .clickEachRadio(field)
     )
   );
 

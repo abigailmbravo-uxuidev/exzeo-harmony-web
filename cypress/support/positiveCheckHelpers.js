@@ -57,7 +57,7 @@ Cypress.Commands.add('clickEachRadio', ({ name }) =>
 Cypress.Commands.add('checkSwitch', ({ name, defaultValue }) =>
   cy.findDataTag(name).find('.switch-div').should('have.attr', 'data-value', `${defaultValue}`)
     .click().should('have.attr', 'data-value', `${!defaultValue}`)
-    .click().should('have.attr', 'data-value', `${defaultValue}`));
+    .click().should('have.attr', 'data-value', `${!!defaultValue}`));
 
 /**
  * Confirms the submit button exists in the form

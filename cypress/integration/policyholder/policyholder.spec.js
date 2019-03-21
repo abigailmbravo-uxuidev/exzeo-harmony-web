@@ -7,21 +7,21 @@ import { ph1Fields, ph2Fields, policyDetailsFields, workflowSections, pageHeader
 
 describe('Policyholder Testing', () => {
   const toggleSecondUser = (dir = 'on') =>
-    cy.get('#isAdditional').then($el => {
-      if (($el.hasClass('active') && dir === 'off') || ($el.hasClass('inactive') && dir === 'on')) {
-        cy.wrap($el).find('input[name = "isAdditional"] + .switch-div').click();
+    cy.findDataTag('additionalPolicyholder').then($el => {
+      if (($el.hasClass('active') && dir === 'off') || (!$el.hasClass('active') && dir === 'on')) {
+        cy.wrap($el).click();
       };
     });
 
-  const firstName = ph1Fields.find(({ name }) => name === 'FirstName');
-  const lastName = ph1Fields.find(({ name }) => name === 'LastName');
-  const email = ph1Fields.find(({ name }) => name === 'EmailAddress');
-  const phone = ph1Fields.find(({ name }) => name === 'phoneNumber');
-  const firstName2 = ph2Fields.find(({ name }) => name === 'FirstName2');
-  const lastName2 = ph2Fields.find(({ name }) => name === 'LastName2');
-  const email2 = ph2Fields.find(({ name }) => name === 'EmailAddress2');
-  const phone2 = ph2Fields.find(({ name }) => name === 'phoneNumber2');
-  const effectiveDate = policyDetailsFields.find(({ name }) => name === 'effectiveDate');
+  const firstName = ph1Fields.find(({ name }) => name === 'policyHolders[0].firstName_wrapper');
+  const lastName = ph1Fields.find(({ name }) => name === 'policyHolders[0].lastName_wrapper');
+  const email = ph1Fields.find(({ name }) => name === 'policyHolders[0].emailAddress_wrapper');
+  const phone = ph1Fields.find(({ name }) => name === 'policyHolders[0].primaryPhoneNumber_wrapper');
+  const firstName2 = ph2Fields.find(({ name }) => name === 'policyHolders[1].firstName_wrapper');
+  const lastName2 = ph2Fields.find(({ name }) => name === 'policyHolders[1].lastName_wrapper');
+  const email2 = ph2Fields.find(({ name }) => name === 'policyHolders[1].emailAddress_wrapper');
+  const phone2 = ph2Fields.find(({ name }) => name === 'policyHolders[1].primaryPhoneNumber_wrapper');
+  const effectiveDate = policyDetailsFields.find(({ name }) => name === 'effectiveDate_wrapper');
 
   before('Go to Policyholder page', () => {
     stubAllRoutes();
@@ -53,7 +53,7 @@ describe('Policyholder Testing', () => {
   it('NEG:Primary Policyholder Invalid Character', () =>
     cy.clearAllText(ph1Fields)
       .verifyForm([
-        { ...firstName , error: 'Invalid characters', data: '∞' },
+        { ...firstName, error: 'Invalid characters', data: '∞' },
         { ...lastName, error: 'Invalid characters', data: '∞' },
         { ...email, error: 'Not a valid email address', data: '∞' }
       ])
@@ -65,7 +65,7 @@ describe('Policyholder Testing', () => {
       .verifyForm([
         { ...firstName2, error: 'Invalid characters', data: '∞' },
         { ...lastName2, error: 'Invalid characters', data: '∞' },
-        { ...email2, error: 'Not a valid email address', data: '∞'}
+        { ...email2, error: 'Not a valid email address', data: '∞' }
       ]);
   });
 
@@ -85,7 +85,7 @@ describe('Policyholder Testing', () => {
   });
 
   it('NEG:Invalid Effective Date', () =>
-    cy.findDataTag('effectiveDate').find('input').clear()
+    cy.findDataTag('effectiveDate_wrapper').find('input').clear()
       .submitAndCheckValidation([effectiveDate])
       .verifyForm([
         { ...effectiveDate, error: 'Date must be at least 08/01/2017', data: '1900-01-01' }
@@ -96,12 +96,12 @@ describe('Policyholder Testing', () => {
     const checkHeaderSection = (tag, values = []) =>
       cy.findDataTag(tag).find('dl div').children().each(($el, index) => expect($el).to.contain(values[index]));
 
-      checkHeaderSection('quote-details', ['Quote Number', '-']);
-      checkHeaderSection('property-details', ['Address', '4131 TEST ADDRESS', '', 'SARASOTA']);
-      checkHeaderSection('year-built', ['Year Built', '1998']);
-      checkHeaderSection('construction-type', ['Construction Type', 'MASONRY']);
-      checkHeaderSection('coverage-details', ['Coverage A', '--']);
-      checkHeaderSection('premium', ['Premium', '']);
+    checkHeaderSection('quote-details', ['Quote Number', '-']);
+    checkHeaderSection('property-details', ['Address', '4131 TEST ADDRESS', '', 'SARASOTA']);
+    checkHeaderSection('year-built', ['Year Built', '1998']);
+    checkHeaderSection('construction-type', ['Construction Type', 'MASONRY']);
+    checkHeaderSection('coverage-details', ['Coverage A', '--']);
+    checkHeaderSection('premium', ['Premium', '']);
   });
 
   it('POS:Check Headers', () => {
@@ -114,12 +114,12 @@ describe('Policyholder Testing', () => {
   );
 
   it('POS:Primary Policyholder Label / Text', () =>
-    cy.wrap(ph1Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name))
+    cy.wrap(ph1Fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
   );
 
   it('POS:Secondary Policyholder Label / Text', () => {
     toggleSecondUser();
-    cy.wrap(ph2Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name));
+    cy.wrap(ph2Fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data));
   });
 
   it('POS:Policy Details Text', () =>
@@ -133,7 +133,5 @@ describe('Policyholder Testing', () => {
       .findDataTag('agentCode').find('option').first().should('contain', 'Please Select...').and('be.disabled')
   );
 
-  it('POS:Policyholder Next Button', () =>
-    cy.checkSubmitButton()
-  );
+  it('POS:Policyholder Next Button', () => cy.checkSubmitButton());
 });

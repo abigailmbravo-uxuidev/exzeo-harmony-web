@@ -1,91 +1,62 @@
 export const fields = [
   {
-    name: 'address1',
+    name: 'policyHolderMailingAddress.address1_wrapper',
     error: 'Field Required',
     label: 'Address 1',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    required: true
-=======
-=======
     type: 'text',
->>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: '123 test address'
->>>>>>> b336eef8... Add input struct to share
   },
   {
-    name: 'address2',
+    name: 'policyHolderMailingAddress.address2_wrapper',
     label: 'Address 2',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    required: false
-=======
-=======
     type: 'text',
->>>>>>> cfd76656... Add test data into input presets
     required: false,
     data: '123 test address'
->>>>>>> b336eef8... Add input struct to share
   },
   {
-    name: 'city',
+    name: 'policyHolderMailingAddress.city_wrapper',
     error: 'Field Required',
     label: 'City',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    required: true
-=======
-=======
     type: 'text',
->>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: 'tampa'
->>>>>>> b336eef8... Add input struct to share
   },
   {
-    name: 'state',
+    name: 'policyHolderMailingAddress.state_wrapper',
     error: 'Field Required',
     label: 'State',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    required: true
-=======
-=======
     type: 'text',
->>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: 'fl'
->>>>>>> b336eef8... Add input struct to share
   },
   {
-    name: 'zip',
+    name: 'policyHolderMailingAddress.zip_wrapper',
     error: 'Field Required',
     label: 'Zip',
-<<<<<<< HEAD
-<<<<<<< HEAD
-    required: true
-=======
-=======
     type: 'text',
->>>>>>> cfd76656... Add test data into input presets
     required: true,
     data: '00001'
->>>>>>> b336eef8... Add input struct to share
   },
   {
-    name: 'billToId',
+    name: 'billToId_wrapper',
     type: 'select',
     error: 'Field Required',
     label: 'Bill To',
     required: false
   },
   {
-    name: 'billPlan',
+    name: 'billPlan_wrapper',
     type: 'radio',
     error: 'Field Required',
     label: 'Bill Plan',
     required: false
+  },
+  {
+    name: 'sameAsPropertyAddress_wrapper',
+    type: 'switch',
+    label: 'Is the mailing address the same',
+    defaultValue: ''
   }
 ];
 

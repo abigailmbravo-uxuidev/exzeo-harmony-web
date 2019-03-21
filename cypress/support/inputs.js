@@ -21,8 +21,8 @@ Cypress.Commands.add('checkError', ({ name, error = 'Field Required' }) =>
  * @param {bool} options.checkForSnackbar - Whether or not the snackbar appears when the form has errors.
  */
 Cypress.Commands.add('submitAndCheckValidation', (fields = [], options = {}) => {
-  const { form = 'body', checkForSnackbar = false } = options;
-  cy.clickSubmit(form);
+  const { form = 'body', checkForSnackbar = false, button = 'submit' } = options;
+  cy.clickSubmit(form, button);
   checkForSnackbar && cy.get('.snackbar').should('be.visible');
   cy.wrap(fields).each(field => cy.checkError(field));
 });

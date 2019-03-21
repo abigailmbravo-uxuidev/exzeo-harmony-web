@@ -26,7 +26,6 @@ export const fields = [
     type: 'switch',
     label: 'Do you want Personal Property Replacement Cost Coverage?',
     tooltipText: 'Replacement Cost Coverage',
-    dependsOn: '',
     defaultValue: true
   },
   {
@@ -84,7 +83,7 @@ export const fields = [
     values: ['$ 500', '$ 1,000', '$ 2,500'],
   },
   {
-    name: 'deductibles.hurricane.value_wrapper',
+    name: 'deductibles.hurricane.amount_wrapper',
     required: true,
     type: 'radio',
     label: 'Hurricane Deductible',

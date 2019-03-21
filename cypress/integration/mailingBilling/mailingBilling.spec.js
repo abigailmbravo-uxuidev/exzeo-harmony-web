@@ -25,9 +25,10 @@ describe('Mailing/Billing Testing', () => {
     navigateThroughAdditionalInterests();
   });
 
-  const textFields = fields.filter(field => field.type === 'text');
+  const textFields = fields.filter(({ type }) => type === 'text');
   const reqTextFields = textFields.filter(({ required }) => required !== false);
-  const radioFields = fields.filter(field => field.type === 'radio');
+  const radioFields = fields.filter(({ type }) => type === 'radio');
+  const switchFields = fields.filter(({ type }) => type === 'switch');
 
   it('NEG:All Mailing Address Inputs Empty Value', () =>
     cy.clearAllText(textFields).submitAndCheckValidation(reqTextFields)
@@ -39,8 +40,8 @@ describe('Mailing/Billing Testing', () => {
   );
 
   it('NEG:Mailing Address Invalid Input Value', () => {
-    const state = fields.find(({ name }) => name === 'state');
-    const zip = fields.find(({ name }) => name === 'zip');
+    const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state_wrapper');
+    const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip_wrapper');
     cy.clearAllText(textFields)
       .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
       .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
@@ -55,15 +56,7 @@ describe('Mailing/Billing Testing', () => {
   );
 
   it('POS:Mailing / Billing Label Text', () =>
-    cy.checkLabel('sameAsProperty', 'Is the mailing address')
-      .wrap(fields).each(({ name, label }) => cy.checkLabel(name, label))
-      .checkLabel('address1', 'Address 1')
-      .checkLabel('address2', 'Address 2')
-      .checkLabel('city', 'City')
-      .checkLabel('state', 'State')
-      .checkLabel('zip', 'Zip')
-      .checkLabel('billToId', 'Bill To')
-      .checkLabel('billPlan', 'Bill Plan')
+    cy.wrap(fields).each(({ name, label }) => cy.checkLabel(name, label))
   );
 
   it('POS:Mailing / Billing Input', () =>
@@ -72,12 +65,9 @@ describe('Mailing/Billing Testing', () => {
 
   it('POS:Mailing / Billing Toggle', () =>
     cy.fixture('stubs/getQuoteServiceRequest').then(({ result: { policyHolderMailingAddress }}) =>
-      cy.findDataTag('sameAsProperty').find('label').should('contain', 'Is the mailing address the same')
-        .find('input[name="sameAsProperty"]').should('have.attr', 'value', 'false')
-        .get('.switch-div').click().get('input[name="sameAsProperty"]').should('have.attr', 'value', 'true')
-        .get('.switch-div').click().get('input[name="sameAsProperty"]').should('have.attr', 'value', 'false')
-        .get('.switch-div').click()
-        .wrap(reqTextFields).each(({ name }) => cy.findDataTag(name).find(`input[name="${name}"]`).should('have.attr', 'value', policyHolderMailingAddress[name]))
+      cy.wrap(switchFields).each(({ name, label, defaultValue }) => cy.checkLabel(name, label).checkSwitch({ name, defaultValue }))
+        .findDataTag('sameAsPropertyAddress').click().should('have.attr', 'data-value', 'true')
+        .wrap(reqTextFields).each(({ name }) => cy.findDataTag(name).find('input').should('have.attr', 'value', policyHolderMailingAddress[name.split('.')[1].split('_')[0]]))
     )
   );
 
