@@ -39,7 +39,7 @@ describe('Testing AppWrapper component', () => {
 
   it('should test props and render', () => {
     expect(wrapper.exists()).toBe(true);
-    expect(wrapper.find('main')).toHaveLength(1);
+    expect(wrapper.find('div[role="main"]')).toHaveLength(1);
     expect(wrapper.find('.content-wrapper')).toHaveLength(1);
     expect(wrapper.find('.site-nav')).toHaveLength(1)
   });

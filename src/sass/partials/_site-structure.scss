@@ -27,7 +27,7 @@ html {
       width: 100%;
       background: $warm-gray-10;
 
-      main[role="document"] {
+      div[role="main"] {
         position: relative;
         display: flex;
         overflow-x: hidden;
@@ -101,7 +101,7 @@ html {
                       height: 4.625rem;
                   }
 
-                  
+
               }
               .workflow-header {
                   display: flex;

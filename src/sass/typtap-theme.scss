@@ -852,7 +852,7 @@ header {
 
 //main/content - role "document"
 /*------------------------------------------------------------------------------------*/
-main[role="document"] {
+div[role="main"] {
   box-shadow: 0 0 15px 0 rgba($black, .5);
 
   @include for-tablet-landscape-up {

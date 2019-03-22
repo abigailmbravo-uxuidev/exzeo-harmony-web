@@ -38,7 +38,7 @@ class AppWrapper extends React.Component {
           toggleSideNav={this.toggleSideNav}
           active={this.state.active}
         />
-        <main role="document">
+        <div role="main">
           <aside className="content-panel-left">
             <div className="user" data-test="user-info">
               <label htmlFor="user">Agency</label>
@@ -73,7 +73,7 @@ class AppWrapper extends React.Component {
             {this.props.children || this.props.render()}
             </div>
           </div>
-        </main>
+        </div>
 
         <CheckError redirectUrl={errorRedirectUrl}/>
       </div>

@@ -87,10 +87,16 @@ export class QuoteWorkflow extends Component {
   };
 
   primaryClickHandler = () => {
-    // remote submit
-    document
-      .getElementById(FORM_ID)
-      .dispatchEvent(new Event('submit', { cancelable: true }));
+    // ie11 does not handle customEvents the same way as other browsers. So here we have to check before creating
+    // this custom submit event - this is being used to submit the form from outside of the form.
+    const form = document.getElementById(FORM_ID);
+    if (typeof(Event) === 'function') {
+      form.dispatchEvent(new Event('submit', { cancelable: true }));
+    } else {
+      const event = document.createEvent('Event');
+      event.initEvent('submit', true, true);
+      form.dispatchEvent(event);
+    }
   };
 
 
