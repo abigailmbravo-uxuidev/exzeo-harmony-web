@@ -22,6 +22,6 @@ describe('Login Testing', () => {
       .get('input[name="username"]').type(loginInfo.username, { force: true })
       .get('input[name="password"]').type(loginInfo.password, { force: true })
       .get('.auth0-label-submit').click({ force: true })
-      .url().should('contain', Cypress.config('baseUrl'));
+      .get('div.dashboard-message').should('exist');
   });
 });

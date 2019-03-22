@@ -74,4 +74,4 @@ export const navigateThroughScheduleDate = () => cy.clickSubmit('.schedule-date-
 
 export const navigateThroughThankYou = () =>
   cy.get('#thanks a[href="/"]').click()
-    .url().should('eq', `${Cypress.config().baseUrl}/`);
+    .get('div.dashboard-message').should('exist');

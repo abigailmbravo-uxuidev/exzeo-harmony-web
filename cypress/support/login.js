@@ -1,13 +1,7 @@
 import login from '../fixtures/stockData/login.json';
 
 Cypress.Commands.add('login', (loginInfo = login) => {
-  cy.visit('/logout')
-    .visit('/', {
-    onBeforeLoad: win => {
-      win.sessionStorage.clear();
-      win.localStorage.clear();
-    }
-  });
+  cy.visit('/logout');
 
   if (Cypress.env('USE_MOCK_AUTH0')) {
     cy.get('#submit')

@@ -71,6 +71,6 @@ describe('Congragulations Testing', () => {
 
       // Return to Dashboard Button testing
       .findDataTag('thanks').find('.workflow-steps a').should('contain', 'Return to Dashboard')
-      .and('have.attr', 'class', 'btn btn-primary').click().url().should('eq', `${Cypress.config().baseUrl}/`);
+      .and('have.attr', 'class', 'btn btn-primary').click().get('div.dashboard-message').should('exist');
   });
 });
