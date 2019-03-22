@@ -13,6 +13,8 @@ export const getQuoteSelector = createSelector(
       quoteData.coverageLimits.personalProperty.value = Math.ceil((quoteData.coverageLimits.personalProperty.amount * 100) / quoteData.coverageLimits.dwelling.amount);
       quoteData.coverageLimits.lossOfUse.value = Math.ceil(((quoteData.coverageLimits.lossOfUse.amount * 100) / quoteData.coverageLimits.dwelling.amount));
       quoteData.deductibles.hurricane.value = quoteData.deductibles.hurricane.amount;
+      quoteData.additionalPolicyholder = (quoteData.policyHolders.length > 1 && quoteData.policyHolders[1].firstName);
+      quoteData.sameAsPropertyAddress = ((quoteData.policyHolderMailingAddress || {}).address1 === (quoteData.property.physicalAddress || {}).address1);
       return quoteData;
     }
   );

@@ -84,7 +84,12 @@ function formatForCGStep(activeTask, data, options) {
       taskData.LastName2 = data.policyHolders[1].lastName;
       taskData.EmailAddress2 = data.policyHolders[1].emailAddress;
       taskData.phoneNumber2 = data.policyHolders[1].primaryPhoneNumber;
-
+    }
+    else { 
+      taskData.FirstName2 = '';
+      taskData.LastName2 = '';
+      taskData.EmailAddress2 = '';
+      taskData.phoneNumber2 = '';
     }
     return taskData;
   }
