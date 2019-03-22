@@ -35,11 +35,17 @@ function handleSetAgents(state, action) {
   };
 }
 
+function setDefaultBillToId(billingVar) {
+  const options = billingVar.value.result.options || [];
+  if (options.length > 1) return "";
+  return (options[0]|| {}).billToId;
+}
+
 function getBillingInfo(state) {
   const billingVar = state.variables.find(v => v.name === 'billingOptions');
   if (!billingVar) return undefined;
 
-  const defaultBillToId = (billingVar.value.result.options[0] || {}).billToId;
+  const defaultBillToId = setDefaultBillToId(billingVar);
   const billingOptions = [];
   const billToConfig = {};
   const paymentPlans = billingVar.value.result.paymentPlans;
