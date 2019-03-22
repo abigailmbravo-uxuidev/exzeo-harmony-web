@@ -118,10 +118,9 @@ export class QuoteWorkflow extends Component {
     }, {});
   };
 
-  handleDirtyForm = (isDirty) => {
-    const { workflowState } = this.props;
+  handleDirtyForm = (isDirty, currentPage) => {
     this.setState({
-      isRecalc: workflowState.activeTask === 'askToCustomizeDefaultQuote' && isDirty,
+      isRecalc: currentPage === 2 && isDirty,
     })
   };
 
