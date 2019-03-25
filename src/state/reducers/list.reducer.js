@@ -26,25 +26,35 @@ function handleSetAgents(state, action) {
       }))
 
     : [];
-
-
-
   return {
     ...state,
     agents,
   };
 }
 
-function getBillingInfo(state) {
+function getBillingInfo(state = {}, quote = {}) {
   const billingVar = state.variables.find(v => v.name === 'billingOptions');
   if (!billingVar) return undefined;
 
-  const defaultBillToId = (billingVar.value.result.options[0] || {}).billToId;
+  const { result = {} } = billingVar.value;
+  const { options = [], paymentPlans = {} } = result;
+  // check if the currently selected billToId is still an available option (should reset the value if not)
+  const billToIdIsValid = options.find(o => o.billToId === quote.billToId);
+
+  let defaultBillToId = '';
+  if (billToIdIsValid) {
+    defaultBillToId = quote.billToId;
+  }
+  // if there is only one option from the server, we want that option preselected on the page
+  else if (options.length === 1) {
+    // when 'Premium Finance' OR 'Bill Payer' OR 'Policyholder' is the only option
+    defaultBillToId = options[0].billToId
+  }
+
   const billingOptions = [];
   const billToConfig = {};
-  const paymentPlans = billingVar.value.result.paymentPlans;
 
-  billingVar.value.result.options.forEach(option => {
+  options.forEach(option => {
     billingOptions.push(({ label: option.displayText, answer: option.billToId }));
     billToConfig[`${option.billToId}`] = {
       billToType:option.billToType,
@@ -90,7 +100,7 @@ function handleSetQuote(state, action) {
     }
   }, {});
 
-  const billingData = getBillingInfo(action.state);
+  const billingData = getBillingInfo(action.state, action.quote);
 
   return {
     ...state,
