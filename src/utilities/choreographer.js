@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { callService, handleError } from './serviceRunner';
-import { formattedDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
+import { formattedDate, formatDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
 
 const HARD_STOP_STEPS = [
   'UWDecision1EndError',
@@ -83,7 +83,9 @@ function formatForCGStep(activeTask, data, options) {
     taskData.EmailAddress = data.policyHolders[0].emailAddress;
     taskData.phoneNumber = data.policyHolders[0].primaryPhoneNumber;
     taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false;
-    taskData.effectiveDate = formattedDate(data.effectiveDate, FORMATS.SECONDARY, timezone);
+
+    // date needs to be utc before it is used by the tz function in formattedDate
+    taskData.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.SECONDARY, timezone);
 
     if (data.additionalPolicyholder) {
       taskData.FirstName2 = data.policyHolders[1].firstName;
