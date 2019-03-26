@@ -7,7 +7,11 @@ export const getQuoteSelector = createSelector(
     [getQuote],
     (quoteData) => {
       if (!quoteData || !quoteData.quoteNumber) return {};
-      quoteData.effectiveDate = formatDate(quoteData.effectiveDate, FORMATS.SECONDARY);
+      if (window.harmony_web_use_fallback) {
+        quoteData.effectiveDate = formatDate(quoteData.effectiveDate, FORMATS.PRIMARY);
+      } else {
+        quoteData.effectiveDate = formatDate(quoteData.effectiveDate, FORMATS.SECONDARY);
+      }
       // do some kind of transformation then it all works form here. Just a thought
       quoteData.coverageLimits.otherStructures.value = Math.ceil((quoteData.coverageLimits.otherStructures.amount * 100) / quoteData.coverageLimits.dwelling.amount);
       quoteData.coverageLimits.personalProperty.value = Math.ceil((quoteData.coverageLimits.personalProperty.amount * 100) / quoteData.coverageLimits.dwelling.amount);

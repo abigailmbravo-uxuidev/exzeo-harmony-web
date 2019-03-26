@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { callService, handleError } from './serviceRunner';
-import { formattedDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
+import { formattedDate, formatDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
 
 const HARD_STOP_STEPS = [
   'UWDecision1EndError',
@@ -63,34 +63,42 @@ function setState({
   state.isHardStop = isHardStop;
 }
 
+/**
+ * Format form data dependent on current active CG step
+ * @param activeTask
+ * @param data
+ * @param [options]
+ * @returns {*}
+ */
 function formatForCGStep(activeTask, data, options) {
   if ((options || {}).cgEndpoint === 'moveToTask') return {};
 
   const taskData = {};
-  if(activeTask === 'askAdditionalCustomerData'){
+  if (activeTask === 'askAdditionalCustomerData') {
     const { timezone } = options;
 
     taskData.agentCode = String(data.agentCode);
-
     taskData.FirstName = data.policyHolders[0].firstName;
     taskData.LastName = data.policyHolders[0].lastName;
     taskData.EmailAddress = data.policyHolders[0].emailAddress;
     taskData.phoneNumber = data.policyHolders[0].primaryPhoneNumber;
     taskData.electronicDelivery = data.policyHolders[0].electronicDelivery || false;
-    taskData.effectiveDate = formattedDate(data.effectiveDate, FORMATS.SECONDARY, timezone);
+
+    // date needs to be utc before it is used by the tz function in formattedDate
+    taskData.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.SECONDARY, timezone);
 
     if (data.additionalPolicyholder) {
       taskData.FirstName2 = data.policyHolders[1].firstName;
       taskData.LastName2 = data.policyHolders[1].lastName;
       taskData.EmailAddress2 = data.policyHolders[1].emailAddress;
       taskData.phoneNumber2 = data.policyHolders[1].primaryPhoneNumber;
-    }
-    else { 
+    } else {
       taskData.FirstName2 = '';
       taskData.LastName2 = '';
       taskData.EmailAddress2 = '';
       taskData.phoneNumber2 = '';
     }
+
     return taskData;
   }
   else if (activeTask === 'askUWAnswers') {
@@ -101,21 +109,19 @@ function formatForCGStep(activeTask, data, options) {
     );
 
     Object.keys(data.underwritingAnswers).map(uw => {
-      if(data.underwritingAnswers[uw].answer){
+      if (data.underwritingAnswers[uw].answer) {
        taskData[uw] = data.underwritingAnswers[uw].answer;
       }
        return uw;
     });
-    return taskData;
 
+    return taskData;
   }
   else if (activeTask === 'customizeDefaultQuote') {
-    /* (data, quoteNumber, activeTask, options) */
-
-    /* const updatedQuote = convertQuoteStringsToNumber(data); */
-    //hidden fields on the form
+    /* hidden fields on the form */
     taskData.recalc = data.recalc;
     taskData.propertyIncidentalOccupancies = "None";
+    /*                           */
 
     taskData.dwellingAmount = Number(data.coverageLimits.dwelling.amount);
     taskData.otherStructuresAmount = Math.ceil(((data.coverageLimits.otherStructures.value / 100) * data.coverageLimits.dwelling.amount));
@@ -147,9 +153,6 @@ function formatForCGStep(activeTask, data, options) {
       ...data.property.windMitigation,
       ...data.property,
     }
-  }
-  else if (activeTask === 'showAssumptions') {
-    // do nothing I believe
   }
   else if (activeTask === 'askAdditionalQuestions') {
     taskData.billToId = data.billToId;
@@ -198,7 +201,6 @@ async function start(modelName, data) {
  * Complete cg step
  * @param stepName
  * @param data
- * @param cgEndpoint
  * @param [options]
  * @private
  * @returns {Promise<void>}
@@ -370,14 +372,18 @@ async function updateQuote({ data, quoteNumber, stepName, getReduxState, options
     }
   }
 
-  const quote = await getQuoteServiceRequest(quoteNumber);
+  let quote = {};
+  try {
+    quote = await getQuoteServiceRequest(quoteNumber);
+  } catch (err) {
+    throw new Error(err);
+  }
 
   return {
     quote,
     state: getState()
   };
 }
-
 
 export default {
   createQuote,
