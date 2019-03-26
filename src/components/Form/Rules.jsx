@@ -49,7 +49,7 @@ export function combineRules(validations, variables) {
     const checkFields = (value, allValues) => {
       if (value && value.length > 0) return undefined;
 
-      // old code, this was alway broken in IE. 
+      // old code, this was always broken in IE. 
       //This is fixed now but will replace this when the verify / AI's are replaced by Gandalf
       if(variables.dependsOn.some(field => allValues[field])) return 'Field Required';
 
