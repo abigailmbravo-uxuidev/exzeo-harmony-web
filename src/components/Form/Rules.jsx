@@ -44,7 +44,7 @@ export function combineRules(validations, variables) {
     }
   }
 
-  if (variables.dependsOn) {
+  if (Array.isArray(variables.dependsOn)) {
     
     const checkFields = (value, allValues) => {
       if (value && value.length > 0) return undefined;
