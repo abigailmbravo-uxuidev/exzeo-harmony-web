@@ -50,9 +50,9 @@ describe('Underwriting Testing', () => {
     cy.wrap(fields).each(field => {
       toggleExcept([`${field.name.split('_')[0]}`], data);
       cy.submitAndCheckValidation([field])
-      .findDataTag('tab-nav-askAdditionalCustomerData').click()
-      .findDataTag('Primary Policyholder')
-      .clickSubmit()
+        .findDataTag('tab-nav-askAdditionalCustomerData').click()
+        .findDataTag('Primary Policyholder')
+        .clickSubmit();
     })
   );
 

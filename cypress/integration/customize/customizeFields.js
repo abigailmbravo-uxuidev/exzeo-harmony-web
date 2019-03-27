@@ -196,22 +196,22 @@ export const pageHeaders = [
     text: 'Coverage Limits',
     icon: 'fa fa-line-chart'
   },
-  { 
+  {
     name: 'Coverage Options',
     text: 'Coverage Options',
     icon: 'fa fa-tasks'
   },
-  { 
+  {
     name: 'Deductibles',
     text: 'Deductibles',
     icon: 'fa fa-money'
   },
-  { 
+  {
     name: 'Wind Mitigation',
     text: 'Wind Mitigation',
     icon: 'fa fa-flag'
   },
-  { 
+  {
     name: 'Discounts',
     text: 'Discounts',
     icon: 'fa fa-scissors'

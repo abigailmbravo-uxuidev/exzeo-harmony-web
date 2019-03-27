@@ -14,18 +14,16 @@ import {
 } from '../../helpers';
 
 describe('Back Button Testing', () => {
-  const getAndSearchQuote = () => {
-
-    cy.findDataTag('quote-details').find('> dl > div > dd.fade').then($quote => {
+  const getAndSearchQuote = () =>
+    cy.findDataTag('quote-details').find('> dl > div > dd.fade').then($quote =>
       cy.go('back')
         .get('div.dashboard-message').should('exist')
         .get('.btn[href="/search/retrieve"]').click()
         .findDataTag('quoteNumber').find('input').type($quote.text())
         .clickSubmit('#SearchBar')
         .findDataTag('quote-list').should('not.be.empty')
-        .go('back');
-    });
-  };
+        .go('back')
+    );
 
   before(() => {
     stubAllRoutes();

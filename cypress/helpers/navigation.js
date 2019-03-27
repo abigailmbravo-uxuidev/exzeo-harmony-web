@@ -15,7 +15,8 @@ export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, ag
     cy.findDataTag(`${field}`).find('input').type(value);
   });
   cy.findDataTag('agentCode').select(agentCode)
-    .clickSubmit('#QuoteWorkflow');
+    .clickSubmit('#QuoteWorkflow')
+    .wait('@getQuoteServiceRequest');
 };
 
 export const navigateThroughUnderwriting = (data = underwriting, updates, useConfig) => {
@@ -31,21 +32,21 @@ export const navigateThroughUnderwriting = (data = underwriting, updates, useCon
   Object.entries(data).forEach(([name, value]) => {
     cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click();
   });
-  cy.clickSubmit('#QuoteWorkflow');
+  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughCustomize = () => cy.clickSubmit('#QuoteWorkflow');
+export const navigateThroughCustomize = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
-export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow');
+export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
 export const navigateThroughAssumptions = (updates, useConfig) => {
   if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
   cy.findDataTag('confirm-assumptions').click()
-    .clickSubmit('#QuoteWorkflow');
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
 export const navigateThroughAdditionalInterests = () =>
-  cy.clickSubmit('#AddAdditionalInterestPage');
+  cy.clickSubmit('#AddAdditionalInterestPage').wait('@getQuoteServiceRequest');
 
 export const navigateThroughMailingBilling = (updates, useConfig) => {
   if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
@@ -59,7 +60,7 @@ export const navigateThroughMailingBilling = (updates, useConfig) => {
     // Get first non-disabled option and select that value
     .get('select[name="billToId"] > option:not([disabled])').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
-    .clickSubmit('#QuoteWorkflow');
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
 export const navigateThroughVerify = () =>
