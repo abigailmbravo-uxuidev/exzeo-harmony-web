@@ -56,7 +56,7 @@ export const fields = [
     name: 'sameAsPropertyAddress_wrapper',
     type: 'switch',
     label: 'Is the mailing address the same',
-    defaultValue: ''
+    defaultValue: 'true'
   }
 ];
 

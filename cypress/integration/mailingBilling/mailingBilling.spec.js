@@ -66,7 +66,6 @@ describe('Mailing/Billing Testing', () => {
   it('POS:Mailing / Billing Toggle', () =>
     cy.fixture('stubs/getQuoteServiceRequest').then(({ result: { policyHolderMailingAddress }}) =>
       cy.wrap(switchFields).each(({ name, label, defaultValue }) => cy.checkLabel(name, label).checkSwitch({ name, defaultValue }))
-        .findDataTag('sameAsPropertyAddress').click().should('have.attr', 'data-value', 'true')
         .wrap(reqTextFields).each(({ name }) => cy.findDataTag(name).find('input').should('have.attr', 'value', policyHolderMailingAddress[name.split('.')[1].split('_')[0]]))
     )
   );
