@@ -4,6 +4,7 @@ import { stub } from '../helpers';
 export default (useConfig = false) => cy.server()
   .route('POST', '/svc?fetchAgency', useConfig ? stub('fx:stubs/fetchAgency') : 'fx:stubs/fetchAgency').as('fetchAgency')
   .route('POST', '/svc?fetchAddresses', useConfig ? stub('fx:stubs/fetchAddresses') : 'fx:stubs/fetchAddresses').as('fetchAddresses')
+  .route('POST', '/svc?fetchQuotes', useConfig ? stub('fx:stubs/fetchQuotes') : 'fx:stubs/fetchQuotes').as('fetchQuotes')
   .route('POST', '/cg/start?quoteModel', useConfig ? stub('fx:stubs/start/quoteModel') : 'fx:stubs/start/quoteModel')
   .route('POST', '/svc?getQuoteServiceRequest', useConfig ? stub('fx:stubs/getQuoteServiceRequest') : 'fx:stubs/getQuoteServiceRequest').as('getQuoteServiceRequest')
   .route('POST', '/cg/complete?search', useConfig ? stub('fx:stubs/complete/search') : 'fx:stubs/complete/search')
