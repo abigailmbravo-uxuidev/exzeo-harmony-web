@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import stubAllRoutes from "../../support/stubAllRoutes";
 import {
   navigateThroughLanding

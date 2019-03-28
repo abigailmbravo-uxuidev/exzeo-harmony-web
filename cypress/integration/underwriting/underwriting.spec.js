@@ -23,12 +23,12 @@ describe('Underwriting Testing', () => {
     });
   };
 
-  const stubWithBlankAnswers = () =>
+  const stubUnderwritingWithBlankAnswers = () =>
     cy.setFx('stubs/getQuoteServiceRequest', ['result.underwritingAnswers', {}]);
 
   before('Go to Underwriting page', () => {
     stubAllRoutes();
-    stubWithBlankAnswers();
+    stubUnderwritingWithBlankAnswers();
     cy.setFx('stubs/complete/askAdditionalCustomerData', ['data.model.variables[0].value.result[2].hidden', false]);
     cy.login();
     navigateThroughLanding();
@@ -39,7 +39,7 @@ describe('Underwriting Testing', () => {
   beforeEach('Establish fixtures', () => {
     stubAllRoutes();
     cy.setFx('stubs/complete/askAdditionalCustomerData', ['data.model.variables[0].value.result[2].hidden', false]);
-    stubWithBlankAnswers();
+    stubUnderwritingWithBlankAnswers();
   });
 
   it('NEG:All Inputs Empty Value', () =>
