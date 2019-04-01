@@ -1,6 +1,6 @@
 export const ph1Fields = [
   {
-    name: 'policyHolders[0].firstName_wrapper',
+    name: 'policyHolders[0].firstName',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -8,7 +8,7 @@ export const ph1Fields = [
     data: 'Bruce'
   },
   {
-    name: 'policyHolders[0].lastName_wrapper',
+    name: 'policyHolders[0].lastName',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -16,7 +16,7 @@ export const ph1Fields = [
     data: 'Wayne'
   },
   {
-    name: 'policyHolders[0].emailAddress_wrapper',
+    name: 'policyHolders[0].emailAddress',
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
@@ -24,7 +24,7 @@ export const ph1Fields = [
     data: 'Batman@gmail.com'
   },
   {
-    name: 'policyHolders[0].primaryPhoneNumber_wrapper',
+    name: 'policyHolders[0].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'text',
@@ -35,7 +35,7 @@ export const ph1Fields = [
 
 export const ph2Fields = [
   {
-    name: 'policyHolders[1].firstName_wrapper',
+    name: 'policyHolders[1].firstName',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -43,7 +43,7 @@ export const ph2Fields = [
     data: 'Dick'
   },
   {
-    name: 'policyHolders[1].lastName_wrapper',
+    name: 'policyHolders[1].lastName',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -51,7 +51,7 @@ export const ph2Fields = [
     data: 'Grayson'
   },
   {
-    name: 'policyHolders[1].emailAddress_wrapper',
+    name: 'policyHolders[1].emailAddress',
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
@@ -59,7 +59,7 @@ export const ph2Fields = [
     data: 'Robin@hotmail.com'
   },
   {
-    name: 'policyHolders[1].primaryPhoneNumber_wrapper',
+    name: 'policyHolders[1].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'text',
@@ -70,14 +70,14 @@ export const ph2Fields = [
 
 export const policyDetailsFields = [
   {
-    name: 'effectiveDate_wrapper',
+    name: 'effectiveDate',
     error: 'Field Required',
     label: 'Effective Date',
     type: 'text',
     required: true
   },
   {
-    name: 'agentCode_wrapper',
+    name: 'agentCode',
     error: '',
     label: 'Agent',
     type: 'select',
