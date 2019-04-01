@@ -33,7 +33,7 @@ const handleAuthentication = (nextState) => {
   if (/access_token|id_token|error/.test(nextState.location.hash)) {
     auth.handleAuthentication();
   }
-  else {
+  else if (auth.isAuthenticated()) {
     history.replace('/');
   }
 };
