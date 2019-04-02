@@ -1,47 +1,25 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import configureStore from 'redux-mock-store';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { render, fireEvent, cleanup, configure } from 'react-testing-library';
-import { ph1Fields, ph2Fields, policyDetailsFields, workflowSections, pageHeaders } from './policyholderFields';
+import { fireEvent } from 'react-testing-library';
+import { ph1Fields, ph2Fields, } from './policyholderFields';
+import { renderWithReduxAndRouter, defaultInitialState, defaultProps } from 'test-utils';
 
 import QuoteWorkflowTest from './QuoteWorkflow';
 import quoteState from './quoteworkflowStore';
 
-const mockStore = configureStore([]);
-
 describe('Testing Quote Component with react-testing-library', () => {
-  configure({ testIdAttribute: 'data-test' });
-  afterEach(cleanup);
-
   const initialState = {
-    agencyState: {},
-    authState: {},
-    service: {
-      zipCodeSettings: {}
-    },
-    appState: {},
-    error: {},
+    ...defaultInitialState,
     quoteState
   };
 
   const props = {
+    ...defaultProps,
     history: {},
     location: {
       pathname: ''
     },
-    auth: {
-      logout: x => x,
-    },
-    match: {
-      params: {}
-    },
     setPolicySearch() {}
-  };
-
-  const renderWithReduxAndRouter = (ui, { initialState, store = mockStore(initialState)} = {}) => {
-    return { ...render(<Router><Provider store={store}>{ui}</Provider></Router>), store };
   };
 
   const toggleSecondUser = (dir = 'on') => {
