@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-form';
 import _ from 'lodash';
-import Rules from '../Form/Rules';
 
+import Rules from '../Form/Rules';
 import { clearAppError } from '../../actions/errorActions';
 import { searchQuotes, setQuoteSearch, searchAddresses } from '../../actions/searchActions';
-
 import Pagination from '../Common/Pagination';
-import { generateField, getSearchType } from './searchUtils';
+import NewQuoteSearch from '../../modules/Search/Address';
+
+import { generateField, getSearchType, PRODUCTS_LIST } from './searchUtils';
 
 const handleInitialize = state => ({
+  productType: 'HO3',
   address: '',
   pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
   totalPages: _.get(state.search, 'state.search.totalPages') || 0
@@ -139,7 +141,8 @@ export class SearchForm extends Component {
 
   render() {
     const { handleSubmit, formErrors, searchType, fieldValues } = this.props;
-    const { searchResults } = this.props;
+    const { searchResults, userProfile } = this.props;
+    const { appMetadata: { beta }} = userProfile;
 
     if (searchType === 'quote') {
       return (
@@ -168,19 +171,15 @@ export class SearchForm extends Component {
     }
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
-        <div className="search-input-wrapper">
-          {generateField('address', 'Search for Property Address', 'Property Address', formErrors, '', true)}
-          <button
-            tabIndex="0"
-            className="btn btn-success multi-input"
-            type="submit"
-            form="SearchBar"
-            disabled={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
-            data-test="submit"
-          >
-            <i className="fa fa-search" /><span>Search</span>
-          </button>
-        </div>
+        { /* TODO: Put this in core-ui to and make reusable for CSR */ }
+        <NewQuoteSearch 
+          canFilter={beta}
+          filterTypeName="productType"
+          filterTypeOptions={PRODUCTS_LIST}
+          filterTypeLabel="Select Product"
+          groupClass="search-input-wrapper" 
+          disabledSubmit={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+        />
       </Form>
     );
   }
