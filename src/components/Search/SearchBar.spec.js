@@ -12,7 +12,7 @@ describe('Testing SearchBar component', () => {
   it('should test connected app', () => {
     const initialState = {
       search: {},
-      authState: {},
+      authState: { userProfile: { appMetaData: { beta: true}}},
       service: {
         policyResults: {}
       },
