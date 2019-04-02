@@ -41,6 +41,10 @@ describe('Testing SearchBar component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      userProfile: {
+        appMetadata: { beta: true},
+        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+      },
       actions: {
         searchActions: {
           searchQuotes() {},
@@ -77,6 +81,7 @@ describe('Testing SearchBar component', () => {
 
     const props = {
       userProfile: {
+        appMetadata: { beta: true},
         groups: [{ state: 'FL', companyCode: 'TTIC' }]
       },
       fieldValues: {
