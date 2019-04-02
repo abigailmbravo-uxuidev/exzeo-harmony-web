@@ -12,7 +12,8 @@ const NewQuoteSearch = ({
   filterTypeName,
   filterTypeOnChange,
   canFilter,
-  groupClass
+  groupClass,
+  disabledSubmit
 }) => (
   <React.Fragment>
     <div className={groupClass}>
@@ -41,7 +42,7 @@ const NewQuoteSearch = ({
       <Button
         customClass="multi-input"
         type="submit"
-        disabled={submitting}
+        disabled={disabledSubmit}
         dataTest="submit" >
         <i className="fa fa-search" />Search
       </Button>
@@ -50,14 +51,12 @@ const NewQuoteSearch = ({
 );
 
 NewQuoteSearch.propTypes = {
-  submitting: PropTypes.bool.isRequired,
   changeSearchType: PropTypes.func,
   searchTypeOptions: PropTypes.array
 };
 
 NewQuoteSearch.defaultProps = {
-  canFilter: false,
-  submitting: false
+  canFilter: false
 };
 
 export default NewQuoteSearch;
