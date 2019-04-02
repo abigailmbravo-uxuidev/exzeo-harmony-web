@@ -39,11 +39,11 @@ const NewQuoteSearch = ({
         errorHint />
 
       <Button
-        baseClass="success"
         customClass="multi-input"
         type="submit"
         disabled={submitting}
-        dataTest="submit" ><i className="fa fa-search" />Search
+        dataTest="submit" >
+        <i className="fa fa-search" />Search
       </Button>
     </div>
   </React.Fragment>
@@ -56,7 +56,8 @@ NewQuoteSearch.propTypes = {
 };
 
 NewQuoteSearch.defaultProps = {
-  canFilter: false
+  canFilter: false,
+  submitting: false
 };
 
 export default NewQuoteSearch;
