@@ -22,7 +22,9 @@ export const renderWithReduxAndRouter = (ui, { initialState = defaultInitialStat
 
 export const defaultProps = {
   auth: {
-    logout: x => x,
+    logout: jest.fn(),
+    isAuthenticated: jest.fn(),
+    login: jest.fn()
   },
   match: { params: {} }
 };
