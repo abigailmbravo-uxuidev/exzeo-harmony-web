@@ -174,7 +174,7 @@ export class SearchForm extends Component {
         { /* TODO: Put this in core-ui to and make reusable for CSR */ }
         <NewQuoteSearch 
           canFilter={beta}
-          filterTypeName="productType"
+          filterTypeName="product"
           filterTypeOptions={PRODUCTS_LIST}
           filterTypeLabel="Select Product"
           groupClass="search-input-wrapper" 
