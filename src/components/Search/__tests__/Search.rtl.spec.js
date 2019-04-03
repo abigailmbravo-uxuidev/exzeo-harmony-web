@@ -1,8 +1,8 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { renderWithReduxAndRouter, defaultInitialState, defaultProps } from 'test-utils';
+import { renderWithReduxAndRouter, defaultProps } from 'test-utils';
 
-import ConnectedSearch from './Search';
+import ConnectedSearch from '../Search';
 
 describe('Testing Search Component', () => {
   const props = {

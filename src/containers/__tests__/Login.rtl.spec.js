@@ -2,7 +2,7 @@ import React from 'react';
 import 'jest-dom/extend-expect';
 import { renderWithReduxAndRouter, defaultProps } from 'test-utils';
 
-import Login from './Login';
+import Login from '../Login';
 
 describe('Testing Login Component', () => {
   it('tests', () => {

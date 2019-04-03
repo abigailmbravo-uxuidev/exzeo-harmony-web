@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import ConnectedSearchBar, { SearchForm, handleSearchBarSubmit, validate, changePageQuote } from './SearchBar';
+import ConnectedSearchBar, { SearchForm, handleSearchBarSubmit, validate, changePageQuote } from '../SearchBar';
 
 describe('Testing SearchBar Component', () => {
 
