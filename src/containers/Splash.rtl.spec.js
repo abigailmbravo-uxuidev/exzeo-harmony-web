@@ -1,23 +1,10 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { renderWithReduxAndRouter, defaultInitialState, defaultProps } from 'test-utils';
+import { renderWithReduxAndRouter, defaultProps } from 'test-utils';
 
 import Splash from './Splash';
 
 describe('Testing Splash component', () => {
-  const initialState = {
-    ...defaultInitialState,
-    cg: {
-      bb: {
-        data: {
-          modelInstanceId: '123',
-          model: {},
-          uiQuestions: []
-        }
-      }
-    }
-  };
-
   const props = {
     ...defaultProps,
     fieldQuestions: [],
@@ -30,30 +17,30 @@ describe('Testing Splash component', () => {
   };
 
   it('POS:Dashboard Banner', () => {
-    const { getByAltText, getByText } = renderWithReduxAndRouter(<Splash {...props} />, { initialState });
+    const { getByAltText, getByText } = renderWithReduxAndRouter(<Splash {...props} />);
     expect(getByAltText('TypTap Insurance').parentNode).toHaveAttribute('href', '/');
     expect(getByText(/844-289-7968/)).toHaveAttribute('href', 'tel:844-289-7968');
   });
 
   it('POS:Dashboard Detail Header', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />, { initialState });
+    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />);
     expect(getByTestId('user-info').children.length).toEqual(2);
   });
 
   it('POS:Dashboard Side Navigation', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />, { initialState });
+    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />);
     ['nav-home', 'nav-searchAddress', 'nav-policy', 'nav-contacts', 'nav-training'].forEach(tag => {
       expect(getByTestId(tag).firstChild.children.length).toEqual(2);
     });
   });
 
   it('POS:Dashboard Footer', () => {
-    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />, { initialState });
+    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
     expect(getByText(/TypTap Management Company/).className).toEqual('copyright');
   });
 
   it('POS:Dashboard Text', () => {
-    const { getByText, container } = renderWithReduxAndRouter(<Splash {...props} />, { initialState });
+    const { getByText, container } = renderWithReduxAndRouter(<Splash {...props} />);
     expect(getByText('Agency App').className).toEqual('app-header');
     expect(getByText(/insurance for Florida properties/));
     expect(getByText(/Getting a quote is always quick and simple with/));

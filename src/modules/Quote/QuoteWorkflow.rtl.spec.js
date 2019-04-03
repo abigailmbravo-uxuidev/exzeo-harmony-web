@@ -19,7 +19,7 @@ describe('Testing Quote Component with react-testing-library', () => {
     location: {
       pathname: ''
     },
-    setPolicySearch() {}
+    setPolicySearch: () => {}
   };
 
   const toggleSecondUser = (dir = 'on') => {

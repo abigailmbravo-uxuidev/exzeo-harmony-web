@@ -1,22 +1,32 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk]);
 
 export const defaultInitialState = {
-  agencyState: {},
-  authState: {},
+  policy: {},
   service: {
-    zipCodeSettings: {}
+    zipCodeSettings: {},
+    policyResults: {}
   },
-  appState: {},
-  error: {}
+  appState: { isLoading: false },
+  authState: {},
+  error: {},
+  completedTasks: [],
+  search: {},
+  quoteState: {
+    quote: null,
+    state: {}
+  },
+  agencyState: {},
+  list: {}
 };
 
-export const renderWithReduxAndRouter = (ui, { initialState = defaultInitialState, store = mockStore(initialState) } = {}) => {
+export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) => {
   return { ...render(<Router><Provider store={store}>{ui}</Provider></Router>), store };
 };
 
