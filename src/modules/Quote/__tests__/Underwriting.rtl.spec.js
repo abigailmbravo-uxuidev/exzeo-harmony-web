@@ -1,8 +1,7 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
 import { fireEvent } from 'react-testing-library';
-import { defaultInitialState, renderWithReduxAndRouter, defaultProps, testHelpers } from 'test-utils';
-import { quoteWorkflowState, underwritingList as list } from '../../../test-utils/quoteWorkflowState';
+import { defaultInitialState, renderWithReduxAndRouter, defaultProps, testHelpers, quoteWorkflowState, underwriting as list } from '../../../test-utils';
 
 import QuoteWorkflowTest from '../QuoteWorkflow';
 
