@@ -50,47 +50,47 @@ describe('Policyholder Testing', () => {
   //     .wrap(ph2Fields).each(fieldToLeaveBlank => cy.verifyForm(ph2Fields, [fieldToLeaveBlank]));
   // });
 
-  it('NEG:Primary Policyholder Invalid Character', () =>
-    cy.clearAllText(ph1Fields)
-      .verifyForm([
-        { ...firstName, error: 'Invalid characters', data: '∞' },
-        { ...lastName, error: 'Invalid characters', data: '∞' },
-        { ...email, error: 'Not a valid email address', data: '∞' }
-      ])
-  );
+  // it('NEG:Primary Policyholder Invalid Character', () =>
+  //   cy.clearAllText(ph1Fields)
+  //     .verifyForm([
+  //       { ...firstName, error: 'Invalid characters', data: '∞' },
+  //       { ...lastName, error: 'Invalid characters', data: '∞' },
+  //       { ...email, error: 'Not a valid email address', data: '∞' }
+  //     ])
+  // );
 
-  it('NEG:Secondary Policyholder Invalid Character', () => {
-    toggleSecondUser();
-    cy.clearAllText(ph2Fields)
-      .verifyForm([
-        { ...firstName2, error: 'Invalid characters', data: '∞' },
-        { ...lastName2, error: 'Invalid characters', data: '∞' },
-        { ...email2, error: 'Not a valid email address', data: '∞' }
-      ]);
-  });
+  // it('NEG:Secondary Policyholder Invalid Character', () => {
+  //   toggleSecondUser();
+  //   cy.clearAllText(ph2Fields)
+  //     .verifyForm([
+  //       { ...firstName2, error: 'Invalid characters', data: '∞' },
+  //       { ...lastName2, error: 'Invalid characters', data: '∞' },
+  //       { ...email2, error: 'Not a valid email address', data: '∞' }
+  //     ]);
+  // });
 
-  it('NEG:Invalid Email Address', () => {
-    toggleSecondUser();
-    cy.clearAllText([...ph1Fields, ...ph2Fields])
-      .verifyForm(undefined, [email, email2]);
-  });
+  // it('NEG:Invalid Email Address', () => {
+  //   toggleSecondUser();
+  //   cy.clearAllText([...ph1Fields, ...ph2Fields])
+  //     .verifyForm(undefined, [email, email2]);
+  // });
 
-  it('NEG:Invalid Contact Phone', () => {
-    toggleSecondUser();
-    cy.clearAllText([...ph1Fields, ...ph2Fields])
-      .verifyForm([
-        { ...phone, error: 'Not a valid Phone Number', data: '123' },
-        { ...phone2, error: 'Not a valid Phone Number', data: '123' }
-      ]);
-  });
+  // it('NEG:Invalid Contact Phone', () => {
+  //   toggleSecondUser();
+  //   cy.clearAllText([...ph1Fields, ...ph2Fields])
+  //     .verifyForm([
+  //       { ...phone, error: 'Not a valid Phone Number', data: '123' },
+  //       { ...phone2, error: 'Not a valid Phone Number', data: '123' }
+  //     ]);
+  // });
 
-  it('NEG:Invalid Effective Date', () =>
-    cy.findDataTag('effectiveDate_wrapper').find('input').clear()
-      .submitAndCheckValidation([effectiveDate])
-      .verifyForm([
-        { ...effectiveDate, error: 'Date must be at least 08/01/2017', data: '1900-01-01' }
-      ])
-  );
+  // it('NEG:Invalid Effective Date', () =>
+  //   cy.findDataTag('effectiveDate_wrapper').find('input').clear()
+  //     .submitAndCheckValidation([effectiveDate])
+  //     .verifyForm([
+  //       { ...effectiveDate, error: 'Date must be at least 08/01/2017', data: '1900-01-01' }
+  //     ])
+  // );
 
   it('POS:Policyholder Detail Header', () => {
     const checkHeaderSection = (tag, values = []) =>

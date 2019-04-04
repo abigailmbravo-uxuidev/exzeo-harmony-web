@@ -92,7 +92,7 @@ export const policyDetailsFields = [
   }
 ];
 
-describe('Testing Quote Component with react-testing-library', () => {
+describe('Testing QuoteWorkflow Policyholder Page', () => {
   const props = {
     ...defaultProps,
     history: {},
@@ -112,7 +112,7 @@ describe('Testing Quote Component with react-testing-library', () => {
   it('NEG:All Inputs Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
     testHelpers.submitForm(getByTestId);
-    ph1Fields.forEach(({ name, error }) => testHelpers.checkError(getByTestId, { name, error }))
+    ph1Fields.forEach(({ name, error }) => testHelpers.checkError(getByTestId, { name, error }));
   });
 
   it('NEG:Primary Policyholder Empty Value', () => {
@@ -128,18 +128,49 @@ describe('Testing Quote Component with react-testing-library', () => {
     ph2Fields.forEach(fieldToLeaveBlank => testHelpers.verifyForm(getByTestId, ph2Fields, [fieldToLeaveBlank]));
   });
 
-  it('POS:Primary Policyholder Label / Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
-    ph1Fields.forEach(({ name, label, data }) => {
-      testHelpers.checkLabel(getByTestId, { name, label });
-      testHelpers.checkTextInput(getByTestId, { name, data });
-    });
-  });
-
-  it('POS:Secondary Policyholder Label / Text', () => {
+  it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
     toggleSecondUser();
-    ph2Fields.forEach(({ name, label, data }) => {
+    // For all fields except name, we fill out with invalid character data
+    // If that field is an email, it will throw a different error
+    [...ph1Fields, ...ph2Fields].filter(({ name }) => !name.includes('Phone'))
+      .forEach(({ name }) => testHelpers.verifyForm(getByTestId, [{
+        name, data: '∂',
+        error: name.includes('email') ? 'Not a valid email address' : 'Invalid characters'
+      }]));
+  });
+
+  it('NEG:Invalid Email Address', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
+    toggleSecondUser();
+    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
+      .forEach(({ name }) => testHelpers.verifyForm(getByTestId, [{
+        name, data: 'invalidemail', error: 'Not a valid email address'
+      }]));
+  });
+
+  it('NEG:Invalid Contact Phone', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
+    toggleSecondUser();
+    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('Phone'))
+      .forEach(({ name }) => testHelpers.verifyForm(getByTestId, [{
+        name, data: '123', error: 'Not a valid Phone Number'
+      }]));
+  });
+
+  it('NEG:Invalid Effective Date', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
+    testHelpers.submitForm(getByTestId);
+    testHelpers.checkError(getByTestId, { name: 'effectiveDate' });
+    testHelpers.verifyForm(getByTestId, [{
+      name: 'effectiveDate', data: '1900-01-01', error: 'Date must be at least 08/01/2017'
+    }]);
+  });
+
+  it('POS:Primary / Secondary Policyholder Label / Text', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
+    toggleSecondUser();
+    [...ph1Fields, ...ph2Fields].forEach(({ name, label, data }) => {
       testHelpers.checkLabel(getByTestId, { name, label });
       testHelpers.checkTextInput(getByTestId, { name, data });
     });

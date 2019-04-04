@@ -41,9 +41,9 @@ export const defaultProps = {
 
 export const testHelpers = {
   submitForm: (query, regex = /submit/) => fireEvent.click(query(regex)),
-  checkError: (query, { name, error = 'Field Required'} = {}) => {
+  checkError: (query, { name, error = 'Field Required' } = {}) =>
     expect(query(`${name}_error`)).toHaveTextContent(error)
-  },
+  ,
   checkLabel: (query, { name, label }) => expect(query(`${name}_wrapper`)).toHaveTextContent(label),
   checkTextInput: (query, { name, data }) => {
     fireEvent.change(query(name), { target: { value: data }});
@@ -58,6 +58,10 @@ export const testHelpers = {
     // Submit form
     fireEvent.click(query(/submit/));
     // Expect errors to exist on blank fields
-    fieldsLeftBlank.forEach(({ name }) => expect(query(`${name}_error`)));
+    // or if there are no blank fields, then we check for errors on base fields
+    // which will generally not be 'Field Required' errors
+    fieldsLeftBlank.length ?
+    fieldsLeftBlank.forEach(({ name, error = 'Field Required' }) => expect(query(`${name}_error`)).toHaveTextContent(error))
+    : baseFields.forEach(({ name, error = 'Field Required' }) => expect(query(`${name}_error`)).toHaveTextContent(error));
   }
 };
