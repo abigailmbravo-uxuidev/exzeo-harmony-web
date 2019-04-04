@@ -35,20 +35,20 @@ describe('Policyholder Testing', () => {
     toggleSecondUser('off');
   });
 
-  it('NEG:All Inputs Empty Value', () =>
-    cy.submitAndCheckValidation(ph1Fields)
-  );
+  // it('NEG:All Inputs Empty Value', () =>
+  //   cy.submitAndCheckValidation(ph1Fields)
+  // );
 
-  it('NEG:Primary Policyholder Empty Value', () =>
-    cy.wrap(ph1Fields).each(fieldToLeaveBlank => cy.verifyForm(ph1Fields, [fieldToLeaveBlank]))
-  );
+  // it('NEG:Primary Policyholder Empty Value', () =>
+  //   cy.wrap(ph1Fields).each(fieldToLeaveBlank => cy.verifyForm(ph1Fields, [fieldToLeaveBlank]))
+  // );
 
-  it('NEG:Secondary Policyholder Empty Value', () => {
-    toggleSecondUser();
-    cy.clearAllText(ph2Fields)
-      .submitAndCheckValidation(ph2Fields)
-      .wrap(ph2Fields).each(fieldToLeaveBlank => cy.verifyForm(ph2Fields, [fieldToLeaveBlank]));
-  });
+  // it('NEG:Secondary Policyholder Empty Value', () => {
+  //   toggleSecondUser();
+  //   cy.clearAllText(ph2Fields)
+  //     .submitAndCheckValidation(ph2Fields)
+  //     .wrap(ph2Fields).each(fieldToLeaveBlank => cy.verifyForm(ph2Fields, [fieldToLeaveBlank]));
+  // });
 
   it('NEG:Primary Policyholder Invalid Character', () =>
     cy.clearAllText(ph1Fields)
@@ -113,25 +113,25 @@ describe('Policyholder Testing', () => {
     cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
-  it('POS:Primary Policyholder Label / Text', () =>
-    cy.wrap(ph1Fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
-  );
+  // it('POS:Primary Policyholder Label / Text', () =>
+  //   cy.wrap(ph1Fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
+  // );
 
-  it('POS:Secondary Policyholder Label / Text', () => {
-    toggleSecondUser();
-    cy.wrap(ph2Fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data));
-  });
+  // it('POS:Secondary Policyholder Label / Text', () => {
+  //   toggleSecondUser();
+  //   cy.wrap(ph2Fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data));
+  // });
 
-  it('POS:Policy Details Text', () =>
-    cy.checkLabel('effectiveDate_wrapper', 'Effective Date')
-      .findDataTag('effectiveDate_wrapper').find('span.secondary-label').should('contain', '-')
-      .checkLabel('agentCode_wrapper', 'Agent')
-  );
+  // it('POS:Policy Details Text', () =>
+  //   cy.checkLabel('effectiveDate_wrapper', 'Effective Date')
+  //     .findDataTag('effectiveDate_wrapper').find('span.secondary-label').should('contain', '-')
+  //     .checkLabel('agentCode_wrapper', 'Agent')
+  // );
 
-  it('POS:Policy Details Input', () =>
-    cy.findDataTag('effectiveDate').should('have.attr', 'type', 'date')
-      .findDataTag('agentCode').find('option').first().should('contain', 'Please Select...').and('be.disabled')
-  );
+  // it('POS:Policy Details Input', () =>
+  //   cy.findDataTag('effectiveDate').should('have.attr', 'type', 'date')
+  //     .findDataTag('agentCode').find('option').first().should('contain', 'Please Select...').and('be.disabled')
+  // );
 
   it('POS:Policyholder Next Button', () => cy.checkSubmitButton());
 });
