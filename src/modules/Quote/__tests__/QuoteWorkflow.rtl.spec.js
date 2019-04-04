@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
 import { fireEvent } from 'react-testing-library';
-import { renderWithReduxAndRouter, defaultInitialState, defaultProps } from 'test-utils';
+import { renderWithReduxAndRouter, defaultProps, testHelpers } from 'test-utils';
 
 import QuoteWorkflowTest from '../QuoteWorkflow';
 
@@ -108,6 +108,17 @@ describe('Testing Quote Component with react-testing-library', () => {
       fireEvent.click(toggle);
     };
   };
+
+  it('NEG:All Inputs Empty Value', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
+    fireEvent.click(getByTestId(/submit/));
+    ph1Fields.forEach(({ name }) => expect(getByTestId(`${name}_error`)));
+  });
+
+  it('NEG:Primary Policyholder Empty Value', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
+    ph1Fields.forEach(fieldToLeaveBlank => testHelpers.verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
+  });
 
   it('POS:Primary Policyholder Label / Text', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
