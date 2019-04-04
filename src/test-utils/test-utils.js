@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-testing-library';
+import { render, fireEvent } from 'react-testing-library';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -37,4 +37,18 @@ export const defaultProps = {
     login: jest.fn()
   },
   match: { params: {} }
+};
+
+export const testHelpers = {
+  verifyForm: (query, baseFields = [], fieldsLeftBlank = []) => {
+    // Clears all text
+    baseFields.forEach(({ name }) => fireEvent.change(query(name), { target: { value: '' } }));
+    // Fills all fields out not in fieldsLeftBlank array based on 'data' key
+    baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
+      .forEach(({ name, data }) => fireEvent.change(query(name), { target: { value: data } }));
+    // Submit form
+    fireEvent.click(query(/submit/));
+    // Expect errors to exist on blank fields
+    fieldsLeftBlank.forEach(({ name }) => expect(query(`${name}_error`)));
+  }
 };
