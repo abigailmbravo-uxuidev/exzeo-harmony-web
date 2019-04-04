@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
 import { fireEvent } from 'react-testing-library';
-import { renderWithReduxAndRouter, defaultProps, testHelpers } from 'test-utils';
+import { renderWithReduxAndRouter, defaultProps, testHelpers } from '../../../test-utils';
 
 import QuoteWorkflowTest from '../QuoteWorkflow';
 

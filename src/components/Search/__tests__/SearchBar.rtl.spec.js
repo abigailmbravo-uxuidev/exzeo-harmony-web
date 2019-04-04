@@ -1,10 +1,8 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from 'test-utils';
+import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from '../../../test-utils';
 import { fireEvent } from 'react-testing-library';
 import { reduxForm } from 'redux-form';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 
 import ConnectedSearchBar, { SearchForm, handleSearchBarSubmit, validate, changePageQuote } from '../SearchBar';
 
