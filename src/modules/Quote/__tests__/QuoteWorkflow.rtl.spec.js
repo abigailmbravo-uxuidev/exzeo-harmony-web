@@ -111,8 +111,8 @@ describe('Testing Quote Component with react-testing-library', () => {
 
   it('NEG:All Inputs Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
-    fireEvent.click(getByTestId(/submit/));
-    ph1Fields.forEach(({ name }) => expect(getByTestId(`${name}_error`)));
+    testHelpers.submitForm(getByTestId);
+    ph1Fields.forEach(({ name, error }) => testHelpers.checkError(getByTestId, { name, error }))
   });
 
   it('NEG:Primary Policyholder Empty Value', () => {
@@ -120,22 +120,28 @@ describe('Testing Quote Component with react-testing-library', () => {
     ph1Fields.forEach(fieldToLeaveBlank => testHelpers.verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
   });
 
-  it('POS:Primary Policyholder Label / Text', () => {
+  it('NEG:Secondary Policyholder Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
-    ph1Fields.forEach(({ name, label, data }) => {
-      expect(getByTestId(`${name}_wrapper`)).toHaveTextContent(label);
-      fireEvent.change(getByTestId(name), { target: { value: data }});
-      expect(getByTestId(name).value).toBe(data);
-    });
+    toggleSecondUser();
+    testHelpers.submitForm(getByTestId);
+    ph2Fields.forEach(({ name, error }) => testHelpers.checkError(getByTestId, { name, error }));
+    ph2Fields.forEach(fieldToLeaveBlank => testHelpers.verifyForm(getByTestId, ph2Fields, [fieldToLeaveBlank]));
   });
 
   it('POS:Primary Policyholder Label / Text', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
+    ph1Fields.forEach(({ name, label, data }) => {
+      testHelpers.checkLabel(getByTestId, { name, label });
+      testHelpers.checkTextInput(getByTestId, { name, data });
+    });
+  });
+
+  it('POS:Secondary Policyholder Label / Text', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />);
     toggleSecondUser();
     ph2Fields.forEach(({ name, label, data }) => {
-      expect(getByTestId(`${name}_wrapper`)).toHaveTextContent(label);
-      fireEvent.change(getByTestId(name), { target: { value: data } });
-      expect(getByTestId(name).value).toBe(data);
+      testHelpers.checkLabel(getByTestId, { name, label });
+      testHelpers.checkTextInput(getByTestId, { name, data });
     });
   });
 
@@ -146,4 +152,3 @@ describe('Testing Quote Component with react-testing-library', () => {
     expect(getByTestId('agentCode_wrapper')).toHaveTextContent('Agent');
   });
 });
-
