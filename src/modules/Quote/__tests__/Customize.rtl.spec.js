@@ -9,7 +9,8 @@ import {
   quoteWorkflowState,
   customizeList as list,
   customizeUiQuestions as uiQuestions,
-  quote
+  quote,
+  setSliderValue
 } from '../../../test-utils';
 
 import QuoteWorkflowTest from '../QuoteWorkflow';
@@ -270,8 +271,24 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   });
 
   it('POS:Checks Output Values', () => {
-    const { getByTestId, getByText } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
-    // console.log(getByTestId(`coverageLimits.otherStructures.amount-input`).value);
-    expect(getByText('$ 6,280'));
+    const outputFields = [
+      'coverageLimits.otherStructures.value_wrapper',
+      'coverageLimits.personalProperty.value_wrapper',
+      'coverageLimits.lossOfUse.value_wrapper',
+      'deductibles.hurricane.amount_wrapper',
+      'deductibles.sinkhole.amount_wrapper'
+    ];
+    const setSliderAndCheckOutput = ({ slider, value }, { name, outputValue }) => {
+      setSliderValue(slider, value);
+      expect(document.querySelector(`[data-test="${name}"] output`)).toHaveTextContent(outputValue);
+    };
+
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
+    const slider = getByTestId('coverageLimits.dwelling.amount-slider');
+    setSliderAndCheckOutput({ slider, value: '350000' }, { name: outputFields[0], outputValue: '$ 7,000' });
+    setSliderAndCheckOutput({ slider, value: '380000' }, { name: outputFields[1], outputValue: '$ 95,000' });
+    setSliderAndCheckOutput({ slider, value: '303000' }, { name: outputFields[2], outputValue: '$ 30,300' });
+    setSliderAndCheckOutput({ slider, value: '295000' }, { name: outputFields[3], outputValue: '$ 5,900' });
+    setSliderAndCheckOutput({ slider, value: '403000' }, { name: outputFields[4], outputValue: '$ 40,300' });
   });
 });

@@ -31,6 +31,7 @@ describe('Customize Testing', () => {
 
   const setSliderAndCheckOutput = (tag, sliderValue, outputValue, selectValue) => {
     cy.findDataTag('coverageLimits.dwelling.amount-slider').then($slider => {
+      cy.log($slider);
       cy.nativeSetSliderValue($slider[0], sliderValue);
       if (selectValue) { cy.findDataTag(tag).find('span').contains(selectValue).click(); };
       cy.findDataTag(tag).find('output').should('contain', outputValue);
@@ -94,21 +95,21 @@ describe('Customize Testing', () => {
   //   });
   // });
 
-  it('POS:Check output values', () => {
-    const outputFields = [
-      'coverageLimits.otherStructures.value_wrapper',
-      'coverageLimits.personalProperty.value_wrapper',
-      'coverageLimits.lossOfUse.value_wrapper',
-      'deductibles.hurricane.amount_wrapper',
-      'deductibles.sinkhole.amount_wrapper'
-    ];
+  // it('POS:Check output values', () => {
+  //   const outputFields = [
+  //     'coverageLimits.otherStructures.value_wrapper',
+  //     'coverageLimits.personalProperty.value_wrapper',
+  //     'coverageLimits.lossOfUse.value_wrapper',
+  //     'deductibles.hurricane.amount_wrapper',
+  //     'deductibles.sinkhole.amount_wrapper'
+  //   ];
 
-    setSliderAndCheckOutput(outputFields[0], 350000, '$ 35,000', '10%');
-    setSliderAndCheckOutput(outputFields[1], 350000, '$ 122,500', '35%');
-    setSliderAndCheckOutput(outputFields[2], 399000, '$ 39,900');
-    setSliderAndCheckOutput(outputFields[3], 399000, '$ 19,950', '5% of Dwelling Limit');
-    setSliderAndCheckOutput(outputFields[4], 344000, '$ 34,400');
-  });
+  //   setSliderAndCheckOutput(outputFields[0], 350000, '$ 35,000', '10%');
+  //   setSliderAndCheckOutput(outputFields[1], 350000, '$ 122,500', '35%');
+  //   setSliderAndCheckOutput(outputFields[2], 399000, '$ 39,900');
+  //   setSliderAndCheckOutput(outputFields[3], 399000, '$ 19,950', '5% of Dwelling Limit');
+  //   setSliderAndCheckOutput(outputFields[4], 344000, '$ 34,400');
+  // });
 
   it('POS:Customize Button', () => {
     cy.route('POST', '/cg/complete?askToCustomizeDefaultQuote', 'fx:stubs/complete/recalculate-askToCustomizeDefaultQuote');
