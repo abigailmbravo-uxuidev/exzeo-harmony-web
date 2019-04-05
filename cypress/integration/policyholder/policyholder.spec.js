@@ -104,10 +104,10 @@ describe('Policyholder Testing', () => {
     checkHeaderSection('premium', ['Premium', '']);
   });
 
-  it('POS:Check Headers', () => {
-    toggleSecondUser();
-    cy.wrap(pageHeaders).each(header => cy.checkHeader(header));
-  });
+  // it('POS:Check Headers', () => {
+  //   toggleSecondUser();
+  //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header));
+  // });
 
   it('POS:Policyholder Workflow', () =>
     cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))

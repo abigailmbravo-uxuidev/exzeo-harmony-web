@@ -10,7 +10,7 @@ import {
   underwritingList as list
 } from '../../../test-utils';
 
-import QuoteWorkflowTest from '../QuoteWorkflow';
+import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -56,7 +56,10 @@ const fields = [
   }
 ];
 
+const { submitForm, checkError, checkRadio, checkLabel } = testHelpers;
+
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
+
   const props = {
     ...defaultProps,
     location: {
@@ -74,29 +77,29 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   };
 
   it('NEG:All Inputs Empty Value', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
-    testHelpers.submitForm(getByTestId);
-    fields.forEach(({ name }) => testHelpers.checkError(getByTestId, { name }));
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    submitForm(getByTestId);
+    fields.forEach(({ name }) => checkError(getByTestId, { name }));
   });
 
   describe('NEG:"All questions empty value', () => {
     for (let i = 0; i < fields.length; i++) {
       it(`Checks that field ${fields[i].name} errors on an empty value`, () => {
-        const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
+        const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
         // Select all fields except the one to leave blank
         fields.filter(({ name }) => name !== fields[i].name)
         .forEach(({ name, data }) => fireEvent.click(getByTestId(`${name}_${data}`)));
-        testHelpers.submitForm(getByTestId);
-        testHelpers.checkError(getByTestId, fields[i]);
+        submitForm(getByTestId);
+        checkError(getByTestId, fields[i]);
       });
     };
   });
   
   it('POS:Check All Questions Text / Radio', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fields.forEach(({ name, label, values }) => {
-      testHelpers.checkRadio(getByTestId, { name, values });
-      testHelpers.checkLabel(getByTestId, { name, label });
+      checkRadio(getByTestId, { name, values });
+      checkLabel(getByTestId, { name, label });
       values.forEach(value => expect(getByTestId(`${name}_${value}`)).toHaveTextContent(value))
     });
   });
