@@ -1,6 +1,7 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
 import { fireEvent } from 'react-testing-library';
+
 import {
   defaultInitialState,
   renderWithReduxAndRouter,
@@ -9,7 +10,6 @@ import {
   quoteWorkflowState,
   underwritingList as list
 } from '../../../test-utils';
-
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
@@ -94,13 +94,13 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
       });
     };
   });
-  
+
   it('POS:Check All Questions Text / Radio', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fields.forEach(({ name, label, values }) => {
       checkRadio(getByTestId, { name, values });
       checkLabel(getByTestId, { name, label });
-      values.forEach(value => expect(getByTestId(`${name}_${value}`)).toHaveTextContent(value))
+      values.forEach(value => expect(getByTestId(`${name}_${value}`)).toHaveTextContent(value));
     });
   });
 });

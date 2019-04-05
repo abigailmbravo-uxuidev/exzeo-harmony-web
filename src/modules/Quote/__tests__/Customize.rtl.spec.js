@@ -1,6 +1,7 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
 import { fireEvent } from 'react-testing-library';
+
 import {
   defaultInitialState,
   renderWithReduxAndRouter,
@@ -12,7 +13,6 @@ import {
   quote,
   setSliderValue
 } from '../../../test-utils';
-
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [

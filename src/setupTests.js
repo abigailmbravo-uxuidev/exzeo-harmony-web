@@ -23,4 +23,4 @@ const localStorageMock = {
 
 global.localStorage = localStorageMock;
 
-export default localStorageMock
+export default localStorageMock;

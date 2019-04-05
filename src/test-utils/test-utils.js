@@ -31,17 +31,18 @@ export const defaultInitialState = {
 export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) => {
   return {
     ...render(<Router><Provider store={store}>{ui}</Provider></Router>),
+    // Return our mock store, in case we want to do something with it in a test
     store,
-    // Provide a function to recreate the internal wrapping of the render function, to use in tests
-    // as the argument to rerender.
+    // Provide a function to recreate the internal wrapping of the render function
+    // This is useful if we need to rerender within a test
     wrapUi: ui => <Router><Provider store={store}>{ui}</Provider></Router>
   };
 };
 
 export const defaultProps = {
   auth: {
-    logout: jest.fn(),
-    isAuthenticated: jest.fn(),
+    logout: () => {},
+    isAuthenticated: () => {},
     login: jest.fn()
   },
   match: { params: {} }
@@ -70,6 +71,7 @@ export const testHelpers = {
     });
   },
   checkSwitch: (query, { name, defaultValue }) => {
+    // Toggle switch twice, check value each time
     expect(query(name).getAttribute('data-value')).toEqual(`${defaultValue}`);
     fireEvent.click(query(name));
     expect(query(name).getAttribute('data-value')).toEqual(`${!defaultValue}`);
@@ -77,6 +79,7 @@ export const testHelpers = {
     expect(query(name).getAttribute('data-value')).toEqual(`${!!defaultValue}`);
   },
   checkSlider: (query, { name }) => {
+    // We check slider min and max value
     const slider = query(`${name}-slider`);
     const min = slider.getAttribute('min');
     const max = slider.getAttribute('max');
@@ -87,6 +90,7 @@ export const testHelpers = {
     expect(slider.value).toEqual(max);
   },
   checkHeader: (query, { name, text, icon = false }) => {
+    // Check text content, and if an icon is present, we check that className
     expect(query(name)).toHaveTextContent(text);
     if (icon) expect(document.querySelector(`[data-test="${name}"] i`).className).toEqual(icon);
   },

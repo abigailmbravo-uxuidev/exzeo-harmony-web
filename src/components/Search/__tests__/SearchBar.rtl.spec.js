@@ -1,10 +1,12 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from '../../../test-utils';
 import { fireEvent } from 'react-testing-library';
 import { reduxForm } from 'redux-form';
 
-import ConnectedSearchBar, { SearchForm, handleSearchBarSubmit, validate, changePageQuote } from '../SearchBar';
+import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from '../../../test-utils';
+import ConnectedSearchBar, {
+  SearchForm, handleSearchBarSubmit, validate, changePageQuote
+} from '../SearchBar';
 
 describe('Testing SearchBar Component', () => {
 
@@ -71,7 +73,7 @@ describe('Testing SearchBar Component', () => {
     const { getByPlaceholderText } = renderWithReduxAndRouter(<SearchBarForm {...props} />);
     expect(getByPlaceholderText(/Search for Property Address/));
   });
-  
+
   it('Checks this out', () => {
     const { getByPlaceholderText, getByText, store } = renderWithReduxAndRouter(<ConnectedSearchBar {...defaultProps} />);
     const searchbar = getByPlaceholderText(/Search for Property Address/);

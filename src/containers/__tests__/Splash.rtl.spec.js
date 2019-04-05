@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { renderWithReduxAndRouter, defaultProps } from '../../test-utils';
 
+import { renderWithReduxAndRouter, defaultProps } from '../../test-utils';
 import Splash from '../Splash';
 
 describe('Testing Splash component', () => {
