@@ -5,6 +5,8 @@ import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import { setSliderValue } from '.';
+
 const mockStore = configureStore([thunk]);
 
 export const defaultInitialState = {
@@ -67,7 +69,14 @@ export const testHelpers = {
     expect(query(name).getAttribute('data-value')).toEqual(`${!defaultValue}`);
   },
   checkSlider: (query, { name }) => {
-    expect(query(`${name}-slider`));
+    const slider = query(`${name}-slider`);
+    const min = slider.getAttribute('min');
+    const max = slider.getAttribute('max');
+    expect(slider);
+    setSliderValue(slider, min);
+    expect(slider.value).toEqual(min);
+    setSliderValue(slider, max);
+    expect(slider.value).toEqual(max);
   },
   verifyForm: (query, baseFields = [], fieldsLeftBlank = []) => {
     // Clears all text
