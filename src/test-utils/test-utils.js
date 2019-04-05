@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent, queries } from 'react-testing-library';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -48,6 +48,26 @@ export const testHelpers = {
   checkTextInput: (query, { name, data }) => {
     fireEvent.change(query(name), { target: { value: data }});
     expect(query(name).value).toBe(data);
+  },
+  checkRadio: (query, { name, values }) => {
+    values.forEach(value => {
+      // Get the option to select and click it
+      const selectedOption = query(`${name}_${value}`);
+      fireEvent.click(selectedOption);
+      // Expect the parent wrapper to be selected
+      expect(selectedOption.parentNode.className).toEqual('label-segmented selected');
+      // Expect all other values' parents to be unchecked
+      values.filter(uncheckedValue => value !== uncheckedValue)
+        .forEach(uncheckedValue => expect(query(`${name}_${uncheckedValue}`).parentNode.className).toEqual('label-segmented'));
+    });
+  },
+  checkSwitch: (query, { name, defaultValue }) => {
+    expect(query(name).getAttribute('data-value')).toEqual(`${defaultValue}`);
+    fireEvent.click(query(name));
+    expect(query(name).getAttribute('data-value')).toEqual(`${!defaultValue}`);
+  },
+  checkSlider: (query, { name }) => {
+    expect(query(`${name}-slider`));
   },
   verifyForm: (query, baseFields = [], fieldsLeftBlank = []) => {
     // Clears all text

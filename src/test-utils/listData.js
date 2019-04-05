@@ -1,4 +1,4 @@
-export const underwriting = {
+export const underwritingList = {
   uiQuestions: {
     rented: [
       {
@@ -193,7 +193,7 @@ export const underwriting = {
   ],
 };
 
-export const customize = {
+export const customizeList = {
   uiQuestions: {
     coverageLimits: [],
     dwellingAmount: [],

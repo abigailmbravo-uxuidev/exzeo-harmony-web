@@ -37,16 +37,16 @@ describe('Customize Testing', () => {
     });
   };
 
-  it('NEG:Dwelling Limit', () => {
-    type('0');
-    cy.findDataTag('coverageLimits.dwelling.amount_error').should('contain', 'Not a valid range.');
+  // it('NEG:Dwelling Limit', () => {
+  //   type('0');
+  //   cy.findDataTag('coverageLimits.dwelling.amount_error').should('contain', 'Not a valid range.');
 
-    type('124000');
-    cy.findDataTag('coverageLimits.dwelling.amount_error').should('contain', 'Not a valid range.');
+  //   type('124000');
+  //   cy.findDataTag('coverageLimits.dwelling.amount_error').should('contain', 'Not a valid range.');
 
-    type('2100000');
-    cy.findDataTag('coverageLimits.dwelling.amount_error').should('contain', 'Not a valid range.');
-  });
+  //   type('2100000');
+  //   cy.findDataTag('coverageLimits.dwelling.amount_error').should('contain', 'Not a valid range.');
+  // });
 
   it('POS:Customize Detail Header', () => {
     cy.findDataTag('tab-nav-askUWAnswers').click();
@@ -69,30 +69,30 @@ describe('Customize Testing', () => {
     cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
-  it('POS:Customize Header Text', () =>
-    cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
-  );
+  // it('POS:Customize Header Text', () =>
+  //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
+  // );
 
-  it('POS:Checks all fields', () => {
-    cy.wrap(fields).each(field => {
-      cy.checkLabel(field.name, field.label);
+  // it('POS:Checks all fields', () => {
+  //   cy.wrap(fields).each(field => {
+  //     cy.checkLabel(field.name, field.label);
 
-      switch(field.type) {
-        case 'radio':
-          cy.checkRadios(field).clickEachRadio(field);
-          break;
-        case 'switch':
-          cy.checkSwitch(field);
-          break;
-        case 'slider':
-          cy.checkSlider(field.name);
-          break;
-        default:
-      }
+  //     switch(field.type) {
+  //       case 'radio':
+  //         cy.checkRadios(field).clickEachRadio(field);
+  //         break;
+  //       case 'switch':
+  //         cy.checkSwitch(field);
+  //         break;
+  //       case 'slider':
+  //         cy.checkSlider(field.name);
+  //         break;
+  //       default:
+  //     }
 
-      if (field.tooltip) { checkTooltip(field); };
-    });
-  });
+  //     if (field.tooltip) { checkTooltip(field); };
+  //   });
+  // });
 
   it('POS:Check output values', () => {
     const outputFields = [
