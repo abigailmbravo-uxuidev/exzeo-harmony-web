@@ -13,7 +13,7 @@ import {
   setSliderValue
 } from '../../../test-utils';
 
-import QuoteWorkflowTest from '../QuoteWorkflow';
+import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -208,6 +208,8 @@ const pageHeaders = [
   }
 ];
 
+const { checkRadio, checkSwitch, checkSlider, checkHeader } = testHelpers;
+
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
     ...defaultProps,
@@ -235,7 +237,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   };
 
   it('NEG:Dwelling Limit', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fields.filter(({ type }) => type === 'slider')
       .forEach(({ name }) => {
         const input = getByTestId(`${name}-input`);
@@ -252,22 +254,22 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   });
 
   it('POS:Checks all fields', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fields.filter(({ required }) => required)
       .forEach(field => {
         expect(getByTestId(`${field.name}_label`)).toHaveTextContent(field.label);
-        if (field.type === 'radio') testHelpers.checkRadio(getByTestId, field);
-        if (field.type === 'switch') testHelpers.checkSwitch(getByTestId, field);
+        if (field.type === 'radio') checkRadio(getByTestId, field);
+        if (field.type === 'switch') checkSwitch(getByTestId, field);
         if (field.type === 'slider') {
-          testHelpers.checkSlider(getByTestId, field);
+          checkSlider(getByTestId, field);
         }
         if (field.tooltipText) expect(getByTestId(`${field.name}_tooltip`));
       });
   });
 
   it('POS:Checks Header Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
-    pageHeaders.forEach(({ name, text }) => expect(getByTestId(name)).toHaveTextContent(text));
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    pageHeaders.forEach(field => checkHeader(getByTestId, field));
   });
 
   it('POS:Checks Output Values', () => {
@@ -283,7 +285,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       expect(document.querySelector(`[data-test="${name}"] output`)).toHaveTextContent(outputValue);
     };
 
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflowTest {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     const slider = getByTestId('coverageLimits.dwelling.amount-slider');
     setSliderAndCheckOutput({ slider, value: '350000' }, { name: outputFields[0], outputValue: '$ 7,000' });
     setSliderAndCheckOutput({ slider, value: '380000' }, { name: outputFields[1], outputValue: '$ 95,000' });

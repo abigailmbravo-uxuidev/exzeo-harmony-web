@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, queries } from 'react-testing-library';
+import { render, fireEvent } from 'react-testing-library';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -29,7 +29,13 @@ export const defaultInitialState = {
 };
 
 export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) => {
-  return { ...render(<Router><Provider store={store}>{ui}</Provider></Router>), store };
+  return {
+    ...render(<Router><Provider store={store}>{ui}</Provider></Router>),
+    store,
+    // Provide a function to recreate the internal wrapping of the render function, to use in tests
+    // as the argument to rerender.
+    wrapUi: ui => <Router><Provider store={store}>{ui}</Provider></Router>
+  };
 };
 
 export const defaultProps = {
@@ -67,6 +73,8 @@ export const testHelpers = {
     expect(query(name).getAttribute('data-value')).toEqual(`${defaultValue}`);
     fireEvent.click(query(name));
     expect(query(name).getAttribute('data-value')).toEqual(`${!defaultValue}`);
+    fireEvent.click(query(name));
+    expect(query(name).getAttribute('data-value')).toEqual(`${!!defaultValue}`);
   },
   checkSlider: (query, { name }) => {
     const slider = query(`${name}-slider`);
@@ -77,6 +85,10 @@ export const testHelpers = {
     expect(slider.value).toEqual(min);
     setSliderValue(slider, max);
     expect(slider.value).toEqual(max);
+  },
+  checkHeader: (query, { name, text, icon = false }) => {
+    expect(query(name)).toHaveTextContent(text);
+    if (icon) expect(document.querySelector(`[data-test="${name}"] i`).className).toEqual(icon);
   },
   verifyForm: (query, baseFields = [], fieldsLeftBlank = []) => {
     // Clears all text
