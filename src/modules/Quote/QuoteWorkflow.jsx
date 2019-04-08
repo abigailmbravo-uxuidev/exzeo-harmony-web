@@ -28,6 +28,7 @@ import ThankYou from '../../components/ThankYou/ThankYou';
 import Footer from '../../components/Common/Footer'
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
+import * as serviceRunner from '../../utilities/serviceRunner';
 
 import Assumptions from './Assumptions';
 import Share from './Share';
@@ -47,6 +48,7 @@ export class QuoteWorkflow extends Component {
     this.state = {
       isRecalc: false,
       showEmailPopup: false,
+      gandalfTemplate: null
     };
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
@@ -100,9 +102,18 @@ export class QuoteWorkflow extends Component {
   };
 
 
-  getConfigForJsonTransform() {
+  getConfigForJsonTransform = async () =>  {
     // template will come from state/props
-    return MOCK_TEMPLATE.pages.reduce((pageComponentsMap, page) => {
+      const transferConfig = {
+        exchangeName: 'harmony',
+        routingKey:  'harmony.policy.retrieveDocumentTemplate',
+        data: {}
+      };
+      
+    const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
+    this.setState(() => ({ gandalfTemplate: response.data.result }));
+
+    return response.data.result.pages.reduce((pageComponentsMap, page) => {
 
       const pageComponents = page.components.reduce((componentMap, component) => {
         if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
@@ -146,10 +157,10 @@ export class QuoteWorkflow extends Component {
       workflowState,
     } = this.props;
 
-    const { isRecalc, needsConfirmation } = this.state;
+    const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
     const currentPage = PAGE_ROUTING[currentStep];
-    const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
+    const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1 && gandalfTemplate;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const transformConfig = this.getConfigForJsonTransform();
     // TODO going to use Context to pass these directly to custom components,
@@ -189,7 +200,7 @@ export class QuoteWorkflow extends Component {
                   currentPage={currentPage}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
-                  template={MOCK_TEMPLATE}
+                  template={gandalfTemplate}
                   options={options}  // enums for select/radio fields
                   transformConfig={transformConfig}
                   path={location.pathname}
