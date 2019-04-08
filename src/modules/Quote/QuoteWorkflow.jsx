@@ -59,6 +59,27 @@ export class QuoteWorkflow extends Component {
       this.props.getAgentsByAgencyCode(quote.agencyCode);
       this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
     }
+    this.getTemplate();
+  }
+
+  getTemplate = async () => {
+    const { userProfile: { entity: { companyCode, state }} } = this.props;
+    
+    const transferConfig = {
+      exchangeName: 'harmony',
+      routingKey:  'harmony.policy.retrieveDocumentTemplate',
+      data: {
+        companyCode,
+        state,
+        product: 'HO3',
+        application: 'agency',
+        formName: 'quoteModel',
+        version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
+      }
+    };
+
+    const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
+    this.setState(() => ({ gandalfTemplate: response.data.result }));
   }
 
   getLocalState = () => {
@@ -100,30 +121,10 @@ export class QuoteWorkflow extends Component {
   };
 
 
-  getConfigForJsonTransform = async () =>  {
+  getConfigForJsonTransform(gandalfTemplate) {
+    if(!gandalfTemplate) return {};
 
-    const { userProfile: { entity: { companyCode, state }} } = this.props;
-    // template will come from state/props
-      const transferConfig = {
-        exchangeName: 'harmony',
-        routingKey:  'harmony.policy.retrieveDocumentTemplate',
-        data: {
-          companyCode,
-          state,
-          product: 'HO3',
-          application: 'agency',
-          formName: 'quoteModel',
-          version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
-        }
-      };
-      
-    const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
-
-    if(!response.data.result) return {};
-    
-    this.setState(() => ({ gandalfTemplate: response.data.result }));
-
-    return response.data.result.pages.reduce((pageComponentsMap, page) => {
+    return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
 
       const pageComponents = page.components.reduce((componentMap, component) => {
         if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
@@ -172,7 +173,7 @@ export class QuoteWorkflow extends Component {
     const currentPage = PAGE_ROUTING[currentStep];
     const shouldUseGandalf = gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
-    const transformConfig = this.getConfigForJsonTransform();
+    const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
     const customHandlers = {
