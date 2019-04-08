@@ -11,9 +11,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { Button, Loader } from '@exzeo/core-ui';
-
-import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
+import { Button, Loader, date } from '@exzeo/core-ui';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
@@ -103,11 +101,20 @@ export class QuoteWorkflow extends Component {
 
 
   getConfigForJsonTransform = async () =>  {
+
+    const { userProfile: { entity: { companyCode, state }} } = this.props;
     // template will come from state/props
       const transferConfig = {
         exchangeName: 'harmony',
         routingKey:  'harmony.policy.retrieveDocumentTemplate',
-        data: {}
+        data: {
+          companyCode,
+          state,
+          product: 'HO3',
+          application: 'Agency',
+          formName: 'quoteModel',
+          version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
+        }
       };
       
     const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
@@ -258,6 +265,7 @@ const mapStateToProps = (state) => {
     workflowState: state.quoteState.state || {},
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,
+    userProfile: state.authState.userProfile
   }
 };
 
