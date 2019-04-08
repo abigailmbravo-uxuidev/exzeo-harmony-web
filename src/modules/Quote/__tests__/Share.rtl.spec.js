@@ -1,5 +1,6 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
+import { fireEvent } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
@@ -45,7 +46,7 @@ const pageHeaders = [
   }
 ];
 
-const { checkHeader, checkLabel, checkTextInput } = testHelpers;
+const { checkHeader, checkLabel } = testHelpers;
 
 describe('Testing the Share Page', () => {
   const props = {
@@ -57,23 +58,13 @@ describe('Testing the Share Page', () => {
     }
   };
 
-  // it('NEG:All Inputs Empty Value', () => {
-  //   const { queryByTestId, getByTestId, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
-  //   expect(getByTestId('section-1'));
-  //   expect(getByTestId('emailAddr'))
-  //   fireEvent.click(getByTestId('modal-submit'));
-  //   expect(getByTestId('name_error'));
-  // });
-
-  it('POS:Share Header / Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
-  });
-
-  it('POS:Share Button / Share Modal', () => {
+  it('NEG:All Inputs Empty Value', () => {
     const { queryByTestId, getByTestId, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    // Confirm share button exists and the modal does not
+    // FIXME: This is an example of poorly-structured code causing tests to be overly complicated
     expect(getByTestId('share')).toHaveTextContent('share');
     expect(queryByTestId('Share Quote')).toBeNull();
+    fireEvent.click(getByTestId('share'));
     rerender(wrapUi(
       <ConnectedShare
         {...props}
@@ -82,6 +73,27 @@ describe('Testing the Share Page', () => {
         }}
       />
     ));
+    // Confirm modal fields
+    expect(getByTestId('name'));
+    expect(getByTestId('emailAddr'));
+    fireEvent.focus(getByTestId('modal-submit'));
+    fireEvent.blur(getByTestId('modal-submit'));
+  });
+
+  it('POS:Share Header / Text', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    pageHeaders.forEach(field => checkHeader(getByTestId, field));
+  });
+
+  it('POS:Share Button / Share Modal', () => {
+    const { queryByTestId, getByTestId } = renderWithReduxAndRouter(
+      <ConnectedShare
+        {...props}
+        customHandlers={{
+          ...props.customHandlers, getState: () => ({ showEmailPopup: true }),
+        }}
+      />
+    );
     expect(queryByTestId('Share Quote'));
     modalFields.forEach(field => checkLabel(getByTestId, field));
   });

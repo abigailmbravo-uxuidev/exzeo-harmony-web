@@ -6,7 +6,6 @@ import {
   renderWithReduxAndRouter,
   defaultProps,
   testHelpers,
-  quoteWorkflowState,
 } from '../../../test-utils';
 
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
@@ -32,11 +31,10 @@ describe('Testing Share Page 2', () => {
 
   const state = {
     ...defaultInitialState,
-    ...quoteWorkflowState,
     quoteState: {
-      ...quoteWorkflowState.quoteState,
+      ...defaultInitialState.quoteState,
       state: {
-        ...quoteWorkflowState.quoteState.state,
+        ...defaultInitialState.quoteState.state,
         activeTask: 'showAssumptions'
       }
     }

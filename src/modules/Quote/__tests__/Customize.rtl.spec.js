@@ -3,11 +3,10 @@ import 'jest-dom/extend-expect';
 import { fireEvent } from 'react-testing-library';
 
 import {
+  defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
-  defaultProps,
   testHelpers,
-  quoteWorkflowState,
   customizeList as list,
   customizeUiQuestions as uiQuestions,
   quote,
@@ -208,7 +207,7 @@ const pageHeaders = [
   }
 ];
 
-const { checkRadio, checkSwitch, checkSlider, checkHeader } = testHelpers;
+const { checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel } = testHelpers;
 
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
@@ -220,18 +219,17 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
 
   const state = {
     ...defaultInitialState,
-    ...quoteWorkflowState,
     quoteState: {
-      ...quoteWorkflowState.quoteState,
+      ...defaultInitialState.quoteState,
       quote,
       state: {
-        ...quoteWorkflowState.quoteState.state,
+        ...defaultInitialState.quoteState.state,
         uiQuestions,
         activeTask: 'askToCustomizeDefaultQuote'
       }
     },
     list: {
-      ...quoteWorkflowState.list,
+      ...defaultInitialState.list,
       ...list
     }
   };
@@ -257,12 +255,10 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fields.filter(({ required }) => required)
       .forEach(field => {
-        expect(getByTestId(`${field.name}_label`)).toHaveTextContent(field.label);
+        checkLabel(getByTestId, field);
         if (field.type === 'radio') checkRadio(getByTestId, field);
         if (field.type === 'switch') checkSwitch(getByTestId, field);
-        if (field.type === 'slider') {
-          checkSlider(getByTestId, field);
-        }
+        if (field.type === 'slider') checkSlider(getByTestId, field);
         if (field.tooltipText) expect(getByTestId(`${field.name}_tooltip`));
       });
   });
