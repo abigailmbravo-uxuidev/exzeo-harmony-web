@@ -8,9 +8,7 @@ import {
   navigateThroughAssumptions,
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
-  navigateThroughVerify,
-  navigateThroughScheduleDate,
-  navigateThroughThankYou
+  navigateThroughVerify
 } from '../../helpers';
 import stubAllRoutes from '../../support/stubAllRoutes';
 
@@ -29,7 +27,6 @@ describe('Congragulations Testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
-    // navigateThroughScheduleDate();
   });
 
   beforeEach(() => stubAllRoutes());

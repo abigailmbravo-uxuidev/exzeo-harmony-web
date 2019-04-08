@@ -70,7 +70,7 @@ export const navigateThroughVerify = () =>
     .findDataTag('confirmAdditionalInterestsDetails').find('.switch-div').click()
     .clickSubmit('#Verify');
 
-export const navigateThroughScheduleDate = () => cy.clickSubmit('.schedule-date-modal').wait('@getQuoteServiceRequest');
+export const navigateThroughScheduleDate = () => cy.clickSubmit('.schedule-date-modal');
 
 export const navigateThroughThankYou = () =>
   cy.get('#thanks a[href="/"]').click()

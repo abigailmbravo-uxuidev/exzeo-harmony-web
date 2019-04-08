@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import stubAllRoutes from "../../support/stubAllRoutes";
 import {
   navigateThroughLanding
@@ -26,8 +24,8 @@ describe('Property Address Search Testing', () => {
 
   beforeEach(() => stubAllRoutes());
 
+  const { address } = user;
   it('NEG:Property Address Search Bar Empty Value', () => {
-    const { address } = user;
 
     isButtonDisabled();
     fillAndCheckErrors('     ', false);
@@ -40,7 +38,7 @@ describe('Property Address Search Testing', () => {
   it('NEG:Test Invalid Addresses', () => {
     cy.setFx('stubs/fetchAddresses', ['result.IndexResult', []])
     .then(() => {
-      const { address } = user;
+      // const { address } = user;
       type('ADDRESS NOT FOUND');
       cy.clickSubmit()
         .findDataTag('no-results').find('.no-results .card-header > h4')
@@ -62,7 +60,7 @@ describe('Property Address Search Testing', () => {
   });
 
   it('POS:Property Search', () => {
-    const { address } = user;
+    // const { address } = user;
     cy.findDataTag('address').find('label').should('contain', 'Property Address')
       .findDataTag('search-results').find('div small p').each($el => expect($el).to.contain('If'))
       .findDataTag('address').find('input[name="address"]').should('have.attr', 'placeholder', 'Search for Property Address');

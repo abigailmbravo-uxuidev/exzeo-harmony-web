@@ -3,16 +3,15 @@
  * @param {Object} data - Data to fill out with keys corresponding to each entry in fields.
  */
 Cypress.Commands.add('fillFields', (fields = [], data) =>
-  fields.forEach(field => cy.findDataTag(`${field}`).find('input').type(data[field]))
+  cy.wrap(fields).each(field => cy.findDataTag(`${field.name}`).find('input').type(data ? data[field.name] : field.data))
 );
 
 /**
- * @param {string} field - Field name to find.
- * @param {string} message - Expected error message.
+ * @param {string} name - Field name to find.
+ * @param {string} error - Expected error message.
  */
-Cypress.Commands.add('checkError', (field, message = 'Field Required') =>
-  cy.findDataTag(field).find('> span').should('contain', message)
-);
+Cypress.Commands.add('checkError', ({ name, error = 'Field Required' }) =>
+  cy.findDataTag(name).find('> span').should('contain', error));
 
 /**
  * @param {array} fields - Fields to fill check that errors exist.
@@ -22,28 +21,22 @@ Cypress.Commands.add('checkError', (field, message = 'Field Required') =>
  * @param {bool} options.checkForSnackbar - Whether or not the snackbar appears when the form has errors.
  */
 Cypress.Commands.add('submitAndCheckValidation', (fields = [], options = {}) => {
-  const { errors = null, form = 'body', checkForSnackbar = false, button = 'submit' } = options;
+  const { form = 'body', checkForSnackbar = false, button = 'submit' } = options;
   cy.clickSubmit(form, button);
   checkForSnackbar && cy.get('.snackbar').should('be.visible');
-  fields.forEach((field, i) => {
-    if (errors && errors[i]) {
-      cy.checkError(field, errors[i]);
-    } else {
-      cy.checkError(field);
-    }
-  });
+  cy.wrap(fields).each(field => cy.checkError(field));
 });
 
 /**
- * @param {array} fields - Array of strings corresponding to data-test tags to clear.
+ * @param {array} fields - Array of field objects corresponding to data-test tags to clear.
  */
-Cypress.Commands.add('clearAllText', fields => {
-  fields.forEach(tag => {
-    cy.findDataTag(`${tag}`).find('input').then($input => {
-      if ($input.val()) { cy.wrap($input).type('{selectall}{backspace}'); }
+Cypress.Commands.add('clearAllText', fields =>
+  cy.wrap(fields).each(({ name }) => {
+    cy.findDataTag(name).find('input').then($input => {
+      if ($input.val()) cy.wrap($input).type('{selectall}{backspace}');
     });
-  });
-});
+  })
+);
 
 /**
  * Clear inputs, fill out inputs, and check validation on form
@@ -53,9 +46,9 @@ Cypress.Commands.add('clearAllText', fields => {
  * @param {Object} submitOptions - Options object used above in submitAndCheckValidation().
  */
 Cypress.Commands.add('verifyForm', ((baseFields = [], fieldsLeftBlank = [], data, submitOptions) => {
-  cy.clearAllText(baseFields);
-  cy.fillFields(baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1), data);
-  cy.submitAndCheckValidation(fieldsLeftBlank.length ? fieldsLeftBlank : baseFields, submitOptions);
+  cy.clearAllText(baseFields)
+    .fillFields(baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1), data)
+    .submitAndCheckValidation(fieldsLeftBlank.length ? fieldsLeftBlank : baseFields, submitOptions);
 }));
 
 /**

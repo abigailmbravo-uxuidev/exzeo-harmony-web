@@ -9,10 +9,9 @@ import {
   navigateThroughAssumptions,
   navigateThroughAdditionalInterests
 } from '../../helpers';
+import { fields, workflowSections, pageHeaders } from './mailingBillingFields';
 
 describe('Mailing/Billing Testing', () => {
-  const fields = ['policyHolderMailingAddress.address1_wrapper', 'policyHolderMailingAddress.city_wrapper', 'policyHolderMailingAddress.state_wrapper', 'policyHolderMailingAddress.zip_wrapper'];
-
   before(() => {
     stubAllRoutes();
     cy.login();
@@ -26,81 +25,54 @@ describe('Mailing/Billing Testing', () => {
     navigateThroughAdditionalInterests();
   });
 
-  it('NEG:All Mailing Address Inputs Empty Value', () => {
-    cy.clearAllText(fields);
+  const textFields = fields.filter(({ type }) => type === 'text');
+  const reqTextFields = textFields.filter(({ required }) => required !== false);
+  const radioFields = fields.filter(({ type }) => type === 'radio');
+  const switchFields = fields.filter(({ type }) => type === 'switch');
 
-    cy.submitAndCheckValidation(fields);
-  });
+  it('NEG:All Mailing Address Inputs Empty Value', () =>
+    cy.clearAllText(textFields).submitAndCheckValidation(reqTextFields)
+  );
 
-  it('NEG:Mailing Address Empty Value', () => {
-    cy.fixture('stockData/mailing').then(mailing => {
-      cy.clearAllText(fields);
-
-      fields.forEach(leaveBlank => cy.verifyForm(fields, [leaveBlank], mailing));
-    });
-  });
+  it('NEG:Mailing Address Empty Value', () =>
+    cy.clearAllText(textFields)
+      .wrap(reqTextFields).each(fieldToLeaveBlank => cy.verifyForm(reqTextFields, [fieldToLeaveBlank]))
+  );
 
   it('NEG:Mailing Address Invalid Input Value', () => {
-    cy.clearAllText(fields);
-
-    cy.verifyForm(['policyHolderMailingAddress.state_wrapper'], undefined, { 'policyHolderMailingAddress.state_wrapper': 'foo ' }, { errors: ['Only 2 letters allowed'] });
-
-    cy.verifyForm(['policyHolderMailingAddress.zip_wrapper'], undefined, { 'policyHolderMailingAddress.zip_wrapper': '123456789' }, { errors: ['Only 8 letters or numbers allowed'] });
+    const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state_wrapper');
+    const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip_wrapper');
+    cy.clearAllText(textFields)
+      .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
+      .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
   });
 
   it('POS:Mailing / Billing Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'selected')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue', 'selected')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs', 'selected')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions', 'active')
-      .checkWorkflowSection('tab-nav-editVerify')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Mailing / Billing Header Text', () =>
-    cy.get('div.title').first()
-      .should('contain', 'Mailing Address').find('i').should('have.attr', 'class', 'fa fa-envelope')
-      .get('div.title').last()
-      .should('contain', 'Billing Information').find('i').should('have.attr', 'class', 'fa fa-dollar')
+    cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
   );
 
   it('POS:Mailing / Billing Label Text', () =>
-    cy.checkLabel('sameAsPropertyAddress_wrapper', 'Is the mailing address')
-      .checkLabel('policyHolderMailingAddress.address1_wrapper', 'Address 1')
-      .checkLabel('policyHolderMailingAddress.address2_wrapper', 'Address 2')
-      .checkLabel('policyHolderMailingAddress.city_wrapper', 'City')
-      .checkLabel('policyHolderMailingAddress.state_wrapper', 'State')
-      .checkLabel('policyHolderMailingAddress.zip_wrapper', 'Zip')
-      .checkLabel('billToId_wrapper', 'Bill To')
-      .checkLabel('billPlan_wrapper', 'Bill Plan')
+    cy.wrap(fields).each(({ name, label }) => cy.checkLabel(name, label))
   );
 
   it('POS:Mailing / Billing Input', () =>
-    cy.checkText('policyHolderMailingAddress.address1_wrapper', '123 test address')
-      .checkText('policyHolderMailingAddress.address2_wrapper', '123 test address')
-      .checkText('policyHolderMailingAddress.city_wrapper', 'tampa')
-      .checkText('policyHolderMailingAddress.state_wrapper', 'fl')
-      .checkText('policyHolderMailingAddress.zip_wrapper', '00001')
+    cy.wrap(textFields).each(({ name, data }) => cy.checkText(name, data))
   );
 
   it('POS:Mailing / Billing Toggle', () =>
-    cy.fixture('stubs/getQuoteServiceRequest').then(({ result: { policyHolderMailingAddress: { city, state, zip, address1 }}}) =>
-      cy.checkLabel('sameAsPropertyAddress_wrapper', 'Is the mailing address the same')
-        .findDataTag('sameAsPropertyAddress').should('have.attr', 'data-value', '')
-        .click().should('have.attr', 'data-value', 'true')
-        .click().should('have.attr', 'data-value', 'false')
-        .click().should('have.attr', 'data-value', 'true')
-        .findDataTag('policyHolderMailingAddress.address1').should('have.attr', 'value', address1)
-        .findDataTag('policyHolderMailingAddress.city').should('have.attr', 'value', city)
-        .findDataTag('policyHolderMailingAddress.state').should('have.attr', 'value', state)
-        .findDataTag('policyHolderMailingAddress.zip').should('have.attr', 'value', zip)
+    cy.fixture('stubs/getQuoteServiceRequest').then(({ result: { policyHolderMailingAddress }}) =>
+      cy.wrap(switchFields).each(({ name, label, defaultValue }) => cy.checkLabel(name, label).checkSwitch({ name, defaultValue }))
+        .wrap(reqTextFields).each(({ name }) => cy.findDataTag(name).find('input').should('have.attr', 'value', policyHolderMailingAddress[name.split('.')[1].split('_')[0]]))
     )
   );
 
   it('POS:Mailing / Billing Input 2', () =>
-    cy.findDataTag('billToId_wrapper').find('select[data-selected*="5c6"]').should('exist')
-      .clickEachRadio('billPlan_wrapper')
+    cy.findDataTag('billToId_wrapper').find('option[value*="5c6"]').should('exist')
+      .wrap(radioFields).each(field => cy.clickEachRadio(field))
   );
 
   it('POS:Mailing / Billing Installment', () =>

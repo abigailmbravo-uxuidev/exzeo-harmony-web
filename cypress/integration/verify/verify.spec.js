@@ -10,14 +10,12 @@ import {
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling
 } from '../../helpers';
-import pH1 from '../../fixtures/stockData/pH1.json';
-import pH2 from '../../fixtures/stockData/pH2.json';
+import { pH1Fields, pH2Fields, workflowSections } from './verifyInputs';
 
 describe('Verify testing', () => {
-  const pH1Fields = ['pH1FirstName', 'pH1LastName', 'pH1phone', 'pH1email'];
-  const pH2Fields = ['pH2FirstName', 'pH2LastName', 'pH2phone', 'pH2email'];
   const switchTags = ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'];
-  const errors = Array(4).fill('Field Required');
+  const submitOptions = { form: '#UpdatePolicyholder' };
+
   const toggleModal = (dir = 'on') => {
     if (dir === 'on') {
       cy.findDataTag('edit-policyholder').click();
@@ -51,15 +49,10 @@ describe('Verify testing', () => {
 
   it('NEG:Primary / Secondary Policyholder Empty Value', () => {
     toggleModal();
-    cy.clearAllText(pH1Fields)
-      .submitAndCheckValidation(pH1Fields, { errors, form: '#UpdatePolicyholder' });
-
-    pH1Fields.forEach(leaveBlank => cy.verifyForm(pH1Fields, [leaveBlank], pH1, { errors, form: '#UpdatePolicyholder' }));
-
-    cy.clearAllText(pH2Fields)
-      .submitAndCheckValidation(pH2Fields, { errors, form: '#UpdatePolicyholder' });
-
-    pH2Fields.forEach(leaveBlank => cy.verifyForm(pH2Fields, [leaveBlank], pH2, { errors, form: '#UpdatePolicyholder' }));
+    cy.clearAllText(pH1Fields).submitAndCheckValidation(pH1Fields, submitOptions)
+      .wrap(pH1Fields).each(fieldToLeaveBlank => cy.verifyForm(pH1Fields, [fieldToLeaveBlank], undefined, submitOptions))
+      .clearAllText(pH2Fields).submitAndCheckValidation(pH2Fields, submitOptions)
+      .wrap(pH2Fields).each(fieldToLeaveBlank => cy.verifyForm(pH2Fields, [fieldToLeaveBlank], undefined, submitOptions));
     toggleModal('off');
   });
 
@@ -108,39 +101,40 @@ describe('Verify testing', () => {
   // END BUGFIX AWAIT
 
   it('NEG:Invalid Email Address / Contact Phone', () => {
+    const email1 = pH1Fields.find(({ name }) => name === 'pH1email');
+    const email2 = pH2Fields.find(({ name }) => name === 'pH2email');
+    const phone1 = pH1Fields.find(({ name }) => name === 'pH1phone');
+    const phone2 = pH2Fields.find(({ name }) => name === 'pH2phone');
     toggleModal();
 
-    cy.verifyForm(['pH1email'], undefined, { pH1email: 'batman' }, { form: '#UpdatePolicyholder', errors: ['Not a valid email address'] })
-      .verifyForm(['pH2email'], undefined, { pH2email: 'batman' }, { form: '#UpdatePolicyholder', errors: ['Not a valid email address'] })
-
-      .verifyForm(['pH1phone'], undefined, { pH1phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' })
-      .verifyForm(['pH2phone'], undefined, { pH2phone: '123' }, { errors: ['is not a valid Phone Number.'], form: '#UpdatePolicyholder' });
+    cy.verifyForm([{ ...email1, error: 'Not a valid email address', data: 'batman' }], undefined, undefined, submitOptions)
+      .verifyForm([{ ...email2, error: 'Not a valid email address', data: 'batman' }], undefined, undefined, submitOptions)
+      .verifyForm([{ ...phone1, error: 'is not a valid Phone Number.', data: '123' }], undefined, undefined, submitOptions)
+      .verifyForm([{ ...phone2, error: 'is not a valid Phone Number.', data: '123' }], undefined, undefined, submitOptions);
 
     toggleModal('off');
   });
 
   it('NEG:All "Verified" Values left at Default "No"', () => {
-    switchTags.forEach(tag => cy.findDataTag(tag).should('not.have.class', 'active'));
-    cy.findDataTag('submit').should('be.disabled');
+    cy.wrap(switchTags).each(tag => cy.findDataTag(tag).should('not.have.class', 'active'))
+      .findDataTag('submit').should('be.disabled');
   });
 
   it('NEG:Some "Verified Values left at Default "No"', () => {
+    // Subset of unselected switches grows
     for (let i = 0; i < switchTags.length - 1; i++) {
       const tagsToToggle = switchTags.slice(0, i + 1);
-      tagsToToggle.forEach(tag => cy.findDataTag(tag).find('.switch-div').click());
-      cy.findDataTag('submit').should('be.disabled');
-      tagsToToggle.forEach(tag => cy.findDataTag(tag).find('.switch-div').click());
+      // Toggle all tags except the subset
+      cy.wrap(tagsToToggle).each(tag => cy.findDataTag(tag).find('.switch-div').click())
+      // Cannot submit
+        .findDataTag('submit').should('be.disabled')
+      // Toggle the tags back off
+        .wrap(tagsToToggle).each(tag => cy.findDataTag(tag).find('.switch-div').click());
     }
   });
 
   it('POS:Verify Workflow', () =>
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'selected')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue', 'selected')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs', 'selected')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions', 'selected')
-      .checkWorkflowSection('tab-nav-editVerify', 'active')
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
   it('POS:Verify Header Text', () => {
@@ -220,8 +214,8 @@ describe('Verify testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     cy.url().should('include', 'verify');
-  }
-  );
+  });
+
   it('POS:Quote Details Edit Button', () => {
     cy.findDataTag('verify').find('.quote-details span.edit-btn').should('contain', 'Edit')
       .find('i').should('have.attr', 'class', 'fa fa-pencil').click()
@@ -237,7 +231,6 @@ describe('Verify testing', () => {
       .find('i').should('have.attr', 'class', 'fa fa-pencil').click()
       .get('.edit-policyholder-modal').should('exist').and('have.attr', 'class', 'edit-policyholder-modal modal active')
       .find('#UpdatePolicyholder').then($form =>
-
         cy.wrap($form).find('.card-header > h4').should('contain', 'Edit Policyholder(s)')
           .find('i').should('have.attr', 'class', 'fa fa-vcard')
           .wrap($form).find('#primaryPolicyholder').should('contain', 'Primary Policyholder')

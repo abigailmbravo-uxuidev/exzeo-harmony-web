@@ -8,6 +8,7 @@ import {
   navigateThroughShare,
   navigateThroughAssumptions
 } from '../../helpers';
+import { workflowSections } from './basicInputs';
 
 describe('Basic Additional Parties Testing', () => {
   before(() => {
@@ -22,18 +23,12 @@ describe('Basic Additional Parties Testing', () => {
     navigateThroughAssumptions();
   });
 
-  it('POS:Additional Parties', () => {
-    cy.checkWorkflowSection('tab-nav-askAdditionalCustomerData', 'selected')
-      .checkWorkflowSection('tab-nav-askUWAnswers', 'selected')
-      .checkWorkflowSection('tab-nav-askToCustomizeDefaultQuote', 'selected')
-      .checkWorkflowSection('tab-nav-sendEmailOrContinue', 'selected')
-      .checkWorkflowSection('tab-nav-addAdditionalAIs', 'active')
-      .checkWorkflowSection('tab-nav-askAdditionalQuestions')
-      .checkWorkflowSection('tab-nav-editVerify')
+  it('POS:Additional Parties', () =>
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
       .findDataTag('add-additional-interest').find('form .scroll .form-group p').should('contain', 'Please select the type of Additional Interest')
       .get('.button-group').children().each($el =>
         cy.wrap($el).should('have.attr', 'type', 'button')
           .find('div i').should('have.attr', 'class', 'fa fa-plus')
-      ).findDataTag('submit').should('contain', 'Not Applicable').and('have.attr', 'type', 'submit');
-  });
+      ).findDataTag('submit').should('contain', 'Not Applicable').and('have.attr', 'type', 'submit')
+  );
 });
