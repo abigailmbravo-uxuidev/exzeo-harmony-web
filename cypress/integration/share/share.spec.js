@@ -1,4 +1,5 @@
 import stubAllRoutes from "../../support/stubAllRoutes";
+
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
@@ -67,34 +68,34 @@ describe('Share Testing', () => {
     cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
   );
 
-  it('POS:Share Header / Text', () =>
-    cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
-      .wrap(sections).each(tag => cy.findDataTag(tag).find('p').should('contain', 'quote'))
-  );
+  // it('POS:Share Header / Text', () =>
+  //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
+  //     .wrap(sections).each(tag => cy.findDataTag(tag).find('p').should('contain', 'quote'))
+  // );
 
-  it('POS:Share Button', () =>
-    cy.findDataTag('share').should('exist').and('contain', 'share')
-      .click().then(() =>
-        cy.get('.card.card-email #SendEmail').should('exist')
-          .findDataTag('modal-cancel').should('exist').click().then(() =>
-            cy.get('.card.card-email').should('not.exist')
-              .findDataTag('share').click().then(() =>
-                cy.get('.card.card-email #SendEmail').should('exist')
-              )
-          )
-      )
-  );
+  // it('POS:Share Button', () =>
+  //   cy.findDataTag('share').should('exist').and('contain', 'share')
+  //     .click().then(() =>
+  //       cy.get('.card.card-email #SendEmail').should('exist')
+  //         .findDataTag('modal-cancel').should('exist').click().then(() =>
+  //           cy.get('.card.card-email').should('not.exist')
+  //             .findDataTag('share').click().then(() =>
+  //               cy.get('.card.card-email #SendEmail').should('exist')
+  //             )
+  //         )
+  //     )
+  // );
 
-  it('POS:Share Modal', () =>
-    cy.findDataTag('share').click().then(() =>
-      cy.wrap(modalFields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
-        .findDataTag('modal-submit').should('exist')
-    )
-  );
+  // it('POS:Share Modal', () =>
+  //   cy.findDataTag('share').click().then(() =>
+  //     cy.wrap(modalFields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
+  //       .findDataTag('modal-submit').should('exist')
+  //   )
+  // );
 
-  it('POS:Next Button', () =>
-    cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'button')
-  );
+  // it('POS:Next Button', () =>
+  //   cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'button')
+  // );
 
   it('POS:Share Page 2', () => {
     navigateThroughShare();

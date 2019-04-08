@@ -1,0 +1,93 @@
+import React from 'react';
+import 'jest-dom/extend-expect';
+
+import {
+  renderWithReduxAndRouter,
+  defaultProps,
+  testHelpers
+} from '../../../test-utils';
+import ConnectedShare from '../Share';
+
+const modalFields = [
+  {
+    name: 'name',
+    error: 'Field Required',
+    label: 'Name',
+    type: 'text',
+    required: true,
+    data: 'Bruce Wayne'
+  },
+  {
+    name: 'emailAddr',
+    error: 'Field Required',
+    label: 'Email Address',
+    type: 'text',
+    required: true,
+    data: 'Batman@gmail.com'
+  }
+];
+
+const pageHeaders = [
+  {
+    name: 'Share',
+    text: 'Share',
+    icon: 'fa fa-share-alt'
+  },
+  {
+    name: 'Continue',
+    text: 'Continue',
+    icon: 'fa fa-arrow-circle-right'
+  },
+  {
+    name: 'NewQuote',
+    text: 'New Quote',
+    icon: 'fa fa-quote-left'
+  }
+];
+
+const { checkHeader, checkLabel, checkTextInput } = testHelpers;
+
+describe('Testing the Share Page', () => {
+  const props = {
+    ...defaultProps,
+    customHandlers: {
+      getState: () => ({ showEmailPopup: false }),
+      setEmailPopup: bool => bool,
+      handleSubmit: jest.fn()
+    }
+  };
+
+  // it('NEG:All Inputs Empty Value', () => {
+  //   const { queryByTestId, getByTestId, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+  //   expect(getByTestId('section-1'));
+  //   expect(getByTestId('emailAddr'))
+  //   fireEvent.click(getByTestId('modal-submit'));
+  //   expect(getByTestId('name_error'));
+  // });
+
+  it('POS:Share Header / Text', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    pageHeaders.forEach(field => checkHeader(getByTestId, field));
+  });
+
+  it('POS:Share Button / Share Modal', () => {
+    const { queryByTestId, getByTestId, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    expect(getByTestId('share')).toHaveTextContent('share');
+    expect(queryByTestId('Share Quote')).toBeNull();
+    rerender(wrapUi(
+      <ConnectedShare
+        {...props}
+        customHandlers={{
+          ...props.customHandlers, getState: () => ({ showEmailPopup: true }),
+        }}
+      />
+    ));
+    expect(queryByTestId('Share Quote'));
+    modalFields.forEach(field => checkLabel(getByTestId, field));
+  });
+
+  it('POS:Next Button', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    expect(getByTestId('submit')).toHaveTextContent('next');
+  });
+});
