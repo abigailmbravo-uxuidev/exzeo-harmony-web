@@ -21,7 +21,7 @@ describe('Auth', () => {
           roles: [],
           username: 'jdoe',
           appMetadata: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' },
-          agency: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' }
+          entity: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' }
         });
     });
 
@@ -65,7 +65,7 @@ describe('Auth', () => {
           roles: [],
           username: 'jdoe',
           appMetadata: undefined,
-          agency: { agencyCode: 1234, companyCode: 'ABCD', state: 'FL' }
+          entity: { agencyCode: 1234, companyCode: 'ABCD', state: 'FL' }
         });
     });
 
@@ -88,7 +88,7 @@ describe('Auth', () => {
           roles: [],
           username: 'jdoe',
           appMetadata: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' },
-          agency: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' }
+          entity: { agencyCode: '1234', companyCode: 'ABCD', state: 'FL' }
         });
       auth.checkAuth();
 
