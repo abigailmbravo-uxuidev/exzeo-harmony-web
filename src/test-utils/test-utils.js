@@ -10,22 +10,46 @@ import { setSliderValue } from '.';
 const mockStore = configureStore([thunk]);
 
 export const defaultInitialState = {
-  policy: {},
+  search: {},
+  policy: {
+    policyNumber: null,
+    update: false
+  },
   service: {
     zipCodeSettings: {},
     policyResults: {}
   },
-  appState: { isLoading: false },
-  authState: {},
-  error: {},
   completedTasks: [],
-  search: {},
+  appState: { isLoading: false,
+    isRecalc: false
+  },
+  error: {},
+  authState: {
+    userProfile: undefined
+  },
   quoteState: {
     quote: null,
-    state: {}
+    state: {
+      completedTasks: []
+    }
   },
-  agencyState: {},
-  list: {}
+  agencyState: {
+    agencies: [],
+    agency: null,
+    agents: []
+  },
+  list: {
+    zipCodeSettings: {},
+    uiQuestions: {},
+    underwritingQuestions: [],
+    agents: [],
+    billingConfig: {
+      billToConfig: {},
+      billingOptions: [],
+      defaultBillToId: '',
+      paymentPlans: {},
+    }
+  }
 };
 
 export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) => {
@@ -51,9 +75,8 @@ export const defaultProps = {
 export const testHelpers = {
   submitForm: (query, regex = /submit/) => fireEvent.click(query(regex)),
   checkError: (query, { name, error = 'Field Required' } = {}) =>
-    expect(query(`${name}_error`)).toHaveTextContent(error)
-  ,
-  checkLabel: (query, { name, label }) => expect(query(`${name}_wrapper`)).toHaveTextContent(label),
+    expect(query(`${name}_error`)).toHaveTextContent(error),
+  checkLabel: (query, { name, label }) => expect(query(`${name}_label`)).toHaveTextContent(label),
   checkTextInput: (query, { name, data }) => {
     fireEvent.change(query(name), { target: { value: data }});
     expect(query(name).value).toBe(data);

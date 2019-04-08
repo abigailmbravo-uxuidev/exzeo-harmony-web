@@ -7,7 +7,6 @@ import {
   renderWithReduxAndRouter,
   defaultProps,
   testHelpers,
-  quoteWorkflowState,
   underwritingList as list
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
@@ -69,11 +68,10 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
 
   const state = {
     ...defaultInitialState,
-    ...quoteWorkflowState,
     quoteState: {
-      ...quoteWorkflowState.quoteState,
-      state: { ...quoteWorkflowState.quoteState.state, activeTask: 'askUWAnswers' }},
-    list: { ...quoteWorkflowState.list, ...list }
+      ...defaultInitialState.quoteState,
+      state: { ...defaultInitialState.quoteState.state, activeTask: 'askUWAnswers' }},
+    list: { ...defaultInitialState.list, ...list }
   };
 
   it('NEG:All Inputs Empty Value', () => {

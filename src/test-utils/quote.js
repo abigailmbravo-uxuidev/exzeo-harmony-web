@@ -1,31 +1,3 @@
-export const quoteWorkflowState = {
-  quoteState: {
-    quote: {},
-    state: {
-      activeTask: 'askAdditionalCustomerData',
-      variables: [],
-      workflowId: '4087132',
-      completedTasks: [],
-      underwritingExceptions: [],
-      uiQuestions: [],
-      underwritingQuestions: [],
-      isHardStop: false
-    }
-  },
-  agencyState: {
-    agencies: [],
-    agency: null,
-    agents: []
-  },
-  list: {
-    zipCodeSettings: {},
-    uiQuestions: {},
-    underwritingQuestions: {},
-    agents: [],
-    billingConfig: {}
-  }
-};
-
 export const quote = {
     _id: '5ca744928001ef001258b375',
     agencyCode: 20000,
