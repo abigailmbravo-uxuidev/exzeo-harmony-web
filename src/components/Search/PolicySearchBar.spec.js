@@ -16,7 +16,7 @@ describe('Testing PolicySearchBar component', () => {
         policyResults: {}
       },
       authState: {
-        userProfile: { groups: [{}] }
+        userProfile: { groups: [{}], entity: {} }
       },
       form: {
         PolicySearchBar: {
@@ -34,6 +34,7 @@ describe('Testing PolicySearchBar component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      userProfile: { entity: {}},
       actions: {},
       fieldValues: {
         searchType: 'address'
@@ -69,7 +70,7 @@ describe('Testing PolicySearchBar component', () => {
 
   it('should paging functions', () => {
     const props = {
-      userProfile: { groups: [{}] },
+      userProfile: { groups: [{}], entity: {} },
       fieldValues: {},
       actions: { searchActions: { setPolicySearch() {} },
         serviceActions: { searchPolicy() { return Promise.resolve(); } }
