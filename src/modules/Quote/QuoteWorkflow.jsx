@@ -111,13 +111,16 @@ export class QuoteWorkflow extends Component {
           companyCode,
           state,
           product: 'HO3',
-          application: 'Agency',
+          application: 'agency',
           formName: 'quoteModel',
           version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
         }
       };
       
     const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
+
+    if(!response.data.result) return {};
+    
     this.setState(() => ({ gandalfTemplate: response.data.result }));
 
     return response.data.result.pages.reduce((pageComponentsMap, page) => {
@@ -167,7 +170,7 @@ export class QuoteWorkflow extends Component {
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
     const currentPage = PAGE_ROUTING[currentStep];
-    const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1 && gandalfTemplate;
+    const shouldUseGandalf = gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const transformConfig = this.getConfigForJsonTransform();
     // TODO going to use Context to pass these directly to custom components,
