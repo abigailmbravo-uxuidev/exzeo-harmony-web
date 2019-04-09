@@ -140,8 +140,8 @@ export class SearchForm extends Component {
   }
 
   render() {
-    const { handleSubmit, formErrors, searchType, fieldValues } = this.props;
-    const { searchResults, userProfile: { appMetadata: { beta }} } = this.props;
+    const { handleSubmit, formErrors, searchType, fieldValues, searchResults, userProfile : { appMetadata: { beta }} } = this.props;
+
     if (searchType === 'quote') {
       return (
         <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
