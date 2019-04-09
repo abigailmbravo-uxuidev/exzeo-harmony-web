@@ -6,7 +6,6 @@ import { Input, Button, Select, validation } from '@exzeo/core-ui';
 const { isValidChar, isRequired } = validation;
 
 const NewQuoteSearch = ({
-  submitting,
   filterTypeOptions,
   filterTypeLabel,
   filterTypeName,
