@@ -29,8 +29,7 @@ const handleInitialize = (state) => {
 
 export const changePagePolicy = (props, isNext) => {
   const { fieldValues } = props;
-  const { agency = {} } = props.userProfile;
-  const { state, companyCode } = agency;
+  const { state, companyCode } = props.userProfile.entity;
   const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
@@ -59,8 +58,7 @@ export const changePagePolicy = (props, isNext) => {
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
-  const { agency = {} } = props.userProfile;
-  const { state, companyCode } = agency;
+  const { state, companyCode } = props.userProfile.entity;
   const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {

@@ -22,9 +22,7 @@ const handleInitialize = state => ({
 export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
   const searchType = 'quote';
-
-  const { agency = {} } = props.userProfile;
-  const { state, companyCode } = agency;
+  const { state, companyCode } = props.userProfile.entity;
 
   const taskData = {
     state,
@@ -52,8 +50,7 @@ export const changePageQuote = async (props, isNext) => {
 };
 
 export const handleSearchBarSubmit = async (data, dispatch, props) => {
-  const { agency = {} } = props.userProfile;
-  const { state, companyCode } = agency;
+  const { state, companyCode } = props.userProfile.entity;
 
   const taskData = {
     state,

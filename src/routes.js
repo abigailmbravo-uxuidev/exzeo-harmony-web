@@ -58,8 +58,8 @@ class Routes extends Component {
 
   componentDidMount() {
     const { agency, getAgency } = this.props;
-    if (!agency && this.profile && this.profile.agency) {
-      const { agency: { agencyCode } } = this.profile;
+    if (!agency && this.profile && this.profile.entity && this.profile.entity.agencyCode) {
+      const { entity: { agencyCode } } = this.profile;
       getAgency(agencyCode);
     }
   }

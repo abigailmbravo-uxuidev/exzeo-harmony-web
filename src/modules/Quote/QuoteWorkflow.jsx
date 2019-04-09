@@ -11,9 +11,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { Button, Loader } from '@exzeo/core-ui';
-
-import MOCK_TEMPLATE from '../../mock-data/mockConfigurationPayload';
+import { Button, Loader, date } from '@exzeo/core-ui';
 
 import { updateQuote } from '../../actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../actions/agency.actions';
@@ -28,6 +26,7 @@ import ThankYou from '../../components/ThankYou/ThankYou';
 import Footer from '../../components/Common/Footer'
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
+import * as serviceRunner from '../../utilities/serviceRunner';
 
 import Assumptions from './Assumptions';
 import Share from './Share';
@@ -47,6 +46,7 @@ export class QuoteWorkflow extends Component {
     this.state = {
       isRecalc: false,
       showEmailPopup: false,
+      gandalfTemplate: null
     };
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
@@ -59,6 +59,27 @@ export class QuoteWorkflow extends Component {
       this.props.getAgentsByAgencyCode(quote.agencyCode);
       this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
     }
+    this.getTemplate();
+  }
+
+  getTemplate = async () => {
+    const { userProfile: { entity: { companyCode, state }} } = this.props;
+    
+    const transferConfig = {
+      exchangeName: 'harmony',
+      routingKey:  'harmony.policy.retrieveDocumentTemplate',
+      data: {
+        companyCode,
+        state,
+        product: 'HO3',
+        application: 'agency',
+        formName: 'quoteModel',
+        version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
+      }
+    };
+
+    const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
+    this.setState(() => ({ gandalfTemplate: response.data.result }));
   }
 
   getLocalState = () => {
@@ -100,9 +121,10 @@ export class QuoteWorkflow extends Component {
   };
 
 
-  getConfigForJsonTransform() {
-    // template will come from state/props
-    return MOCK_TEMPLATE.pages.reduce((pageComponentsMap, page) => {
+  getConfigForJsonTransform(gandalfTemplate) {
+    if(!gandalfTemplate) return {};
+
+    return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
 
       const pageComponents = page.components.reduce((componentMap, component) => {
         if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
@@ -146,12 +168,12 @@ export class QuoteWorkflow extends Component {
       workflowState,
     } = this.props;
 
-    const { isRecalc, needsConfirmation } = this.state;
+    const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
     const currentPage = PAGE_ROUTING[currentStep];
-    const shouldUseGandalf = ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
+    const shouldUseGandalf = gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
-    const transformConfig = this.getConfigForJsonTransform();
+    const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
     const customHandlers = {
@@ -189,7 +211,7 @@ export class QuoteWorkflow extends Component {
                   currentPage={currentPage}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
-                  template={MOCK_TEMPLATE}
+                  template={gandalfTemplate}
                   options={options}  // enums for select/radio fields
                   transformConfig={transformConfig}
                   path={location.pathname}
@@ -247,6 +269,7 @@ const mapStateToProps = (state) => {
     workflowState: state.quoteState.state || {},
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,
+    userProfile: state.authState.userProfile
   }
 };
 

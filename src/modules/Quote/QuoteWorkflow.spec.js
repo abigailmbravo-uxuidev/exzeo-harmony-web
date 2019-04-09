@@ -9,6 +9,11 @@ const mockStore = configureStore([]);
 describe('Testing Quote component', () => {
   it('should test connected component', () => {
     const initialState = {
+      authState:{
+        userProfile: {
+          entity: {}
+        }
+      },
       service: {
         zipCodeSettings: {}
       },

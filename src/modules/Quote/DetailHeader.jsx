@@ -35,6 +35,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           </div>
         </dl>
       </section>
+      {quote.product === 'HO3' &&
       <section id="constructionType" className="constructionType" data-test="construction-type">
         <dl>
           <div>
@@ -43,6 +44,17 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           </div>
         </dl>
       </section>
+      }
+      {quote.product === 'AF3' &&
+      <section id="floodZone" className="floodZone" data-test="flood-zone">
+        <dl>
+          <div>
+            <dt className="fade">Flood Zone</dt>
+            <dd className="fade">{quote.property.floodZone}</dd>
+          </div>
+        </dl>
+      </section>
+      }
       <section id="coverageDetails" data-test="coverage-details">
         <dl>
           <div>
