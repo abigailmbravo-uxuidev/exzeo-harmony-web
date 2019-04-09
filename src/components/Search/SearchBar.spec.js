@@ -1,7 +1,8 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import ConnectedApp, { handleSearchBarSubmit, validate, changePageQuote } from './SearchBar';
 
@@ -12,18 +13,9 @@ describe('Testing SearchBar component', () => {
   it('should test connected app', () => {
     const initialState = {
       search: {},
-      authState: {},
+      authState: { userProfile: { appMetadata: { beta: true}}},
       service: {
         policyResults: {}
-      },
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
       },
       form: {
         SearchBar: {
@@ -41,6 +33,11 @@ describe('Testing SearchBar component', () => {
     };
     const store = mockStore(initialState);
     const props = {
+      handleSubmit: x => x,
+      userProfile: {
+        appMetadata: { beta: true},
+        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+      },
       actions: {
         searchActions: {
           searchQuotes() {},
@@ -58,10 +55,12 @@ describe('Testing SearchBar component', () => {
           submitting: false,
           searchType: 'address'
         }
-      },
-      ...propTypes
+      }
     };
-    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
+    const wrapper = mount(
+    <Provider store={store}>
+      <ConnectedApp store={store} {...props} />
+    </Provider>);
     expect(wrapper);
   });
   it('should test handleFormSubmit', () => {
@@ -77,6 +76,7 @@ describe('Testing SearchBar component', () => {
 
     const props = {
       userProfile: {
+        appMetadata: { beta: true},
         groups: [{ state: 'FL', companyCode: 'TTIC' }]
       },
       fieldValues: {

@@ -43,8 +43,14 @@ export const getSearchType = () => {
 
 export const VALID_QUOTE_STATES = ['Quote Started', 'Application Started', 'Quote Stopped'];
 
+export const PRODUCTS_LIST = [
+  { answer: 'HO3', label: 'Homeowners Insurance' },
+  { answer: 'AF3', label: 'Flood Insurance' }
+];
+
 export default {
   generateField,
   getSearchType,
-  getErrorToolTip
+  getErrorToolTip,
+  PRODUCTS_LIST
 };
