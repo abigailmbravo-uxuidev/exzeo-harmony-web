@@ -134,7 +134,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     toggleSecondUser();
-    // For all fields except name, we fill out with invalid character data
+    // For all fields except phone, we fill out with invalid character data
     // If that field is an email, it will throw a different error
     [...ph1Fields, ...ph2Fields].filter(({ name }) => !name.includes('Phone'))
       .forEach(({ name }) => verifyForm(getByTestId, [{

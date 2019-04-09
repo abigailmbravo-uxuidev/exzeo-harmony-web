@@ -20,7 +20,8 @@ export const defaultInitialState = {
     policyResults: {}
   },
   completedTasks: [],
-  appState: { isLoading: false,
+  appState: {
+    isLoading: false,
     isRecalc: false
   },
   error: {},
@@ -117,6 +118,7 @@ export const testHelpers = {
     expect(query(name)).toHaveTextContent(text);
     if (icon) expect(document.querySelector(`[data-test="${name}"] i`).className).toEqual(icon);
   },
+  // This function is used to verify specific submit errors for one field as well
   verifyForm: (query, baseFields = [], fieldsLeftBlank = []) => {
     // Clears all text
     baseFields.forEach(({ name }) => fireEvent.change(query(name), { target: { value: '' } }));

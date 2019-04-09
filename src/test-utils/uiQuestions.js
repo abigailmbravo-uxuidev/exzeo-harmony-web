@@ -1223,3 +1223,151 @@ export const customizeUiQuestions = [
     validations: []
   }
 ];
+
+export const mailingBillingUiQuestions = [
+  {
+    answerType: 'text',
+    question: 'Address 1',
+    styleName: 'address1',
+    name: 'address1',
+    physicalAddressLocation: 'property.physicalAddress.address1',
+    defaultValueLocation: 'policyHolderMailingAddress.address1',
+    order: 1,
+    answers: [],
+    group: [],
+    models: [
+      'quote'
+    ],
+    product: [
+      'HO3'
+    ],
+    state: [
+      'FL'
+    ],
+    companyId: [
+      'TTIC'
+    ],
+    steps: [
+      'askAdditionalQuestions'
+    ],
+    validations: [
+      'required'
+    ]
+  },
+  {
+    answerType: 'text',
+    question: 'Address 2',
+    styleName: 'address2',
+    name: 'address2',
+    physicalAddressLocation: 'property.physicalAddress.address2',
+    defaultValueLocation: 'policyHolderMailingAddress.address2',
+    order: 2,
+    answers: [],
+    group: [],
+    models: [
+      'quote'
+    ],
+    product: [
+      'HO3'
+    ],
+    state: [
+      'FL'
+    ],
+    companyId: [
+      'TTIC'
+    ],
+    steps: [
+      'askAdditionalQuestions'
+    ],
+    validations: []
+  },
+  {
+    answerType: 'text',
+    question: 'City',
+    styleName: 'city',
+    name: 'city',
+    physicalAddressLocation: 'property.physicalAddress.city',
+    defaultValueLocation: 'policyHolderMailingAddress.city',
+    order: 3,
+    answers: [],
+    group: [],
+    models: [
+      'quote'
+    ],
+    product: [
+      'HO3'
+    ],
+    state: [
+      'FL'
+    ],
+    companyId: [
+      'TTIC'
+    ],
+    steps: [
+      'askAdditionalQuestions'
+    ],
+    validations: [
+      'required'
+    ]
+  },
+  {
+    answerType: 'text',
+    question: 'State',
+    styleName: 'State',
+    name: 'state',
+    physicalAddressLocation: 'property.physicalAddress.state',
+    defaultValueLocation: 'policyHolderMailingAddress.state',
+    order: 4,
+    answers: [],
+    group: [],
+    models: [
+      'quote'
+    ],
+    product: [
+      'HO3'
+    ],
+    state: [
+      'FL'
+    ],
+    companyId: [
+      'TTIC'
+    ],
+    steps: [
+      'askAdditionalQuestions'
+    ],
+    validations: [
+      'required',
+      'maxLength2OnlyAlpha'
+    ]
+  },
+  {
+    answerType: 'text',
+    question: 'Zip',
+    styleName: 'zip',
+    name: 'zip',
+    physicalAddressLocation: 'property.physicalAddress.zip',
+    defaultValueLocation: 'policyHolderMailingAddress.zip',
+    order: 5,
+    answers: [],
+    group: [],
+    models: [
+      'quote'
+    ],
+    product: [
+      'HO3'
+    ],
+    state: [
+      'FL'
+    ],
+    companyId: [
+      'TTIC'
+    ],
+    steps: [
+      'askAdditionalQuestions'
+    ],
+    validations: [
+      'required',
+      'maxLength8AlphaNumeric'
+    ]
+  }
+];

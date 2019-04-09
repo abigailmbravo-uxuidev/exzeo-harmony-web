@@ -470,3 +470,54 @@ export const customizeList = {
     ]
   }
 };
+
+export const mailingBillingList = {
+  billingConfig: {
+    defaultBillToId: '5cab592e08bb5f0014863877',
+    billToConfig: {
+      '5cab592e08bb5f0014863877': {
+        billToType: 'Policyholder',
+        availablePlans: ['Annual', 'Semi-Annual', 'Quarterly'],
+        payPlanOptions: [
+          { label: 'Annual', answer: 'Annual' },
+          { label: 'Semi-Annual', answer: 'Semi-Annual' },
+          { label: 'Quarterly', answer: 'Quarterly' }
+        ]
+      }
+    },
+    paymentPlans: {
+      annual: {
+        amount: 2667,
+        dueDate: '2019-05-08T04:00:00.000Z'
+      },
+      quarterly: {
+        q1: {
+          amount: 1096,
+          dueDate: '2019-05-08T04:00:00.000Z'
+        },
+        q2: {
+          amount: 531,
+          dueDate: '2019-08-06T04:00:00.000Z'
+        },
+        q3: {
+          amount: 531,
+          dueDate: '2019-11-04T05:00:00.000Z'
+        },
+        q4: {
+          amount: 531,
+          dueDate: '2020-02-02T05:00:00.000Z'
+        }
+      },
+      semiAnnual: {
+        s1: {
+          amount: 1624,
+          dueDate: '2019-05-08T04:00:00.000Z'
+        },
+        s2: {
+          amount: 1059,
+          dueDate: '2019-11-04T05:00:00.000Z'
+        }
+      }
+    }
+  }
+};
