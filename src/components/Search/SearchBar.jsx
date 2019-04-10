@@ -73,9 +73,10 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
-  const { address } = data;
-  props.setQuoteSearch({ searchType: 'address', address });
-  props.searchAddresses(encodeURIComponent(address));
+  const { state, companyCode } = props.userProfile.entity;
+  const { address, product } = data;
+  props.setQuoteSearch({ searchType: 'address', address, product });
+  props.searchAddresses(encodeURIComponent(address), product, state, companyCode);
 };
 
 export const validate = (values) => {
@@ -167,13 +168,13 @@ export class SearchForm extends Component {
     return (
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
         { /* TODO: Put this in core-ui to and make reusable for CSR */ }
-        <NewQuoteSearch 
-          canFilter={beta}
+        <NewQuoteSearch
+          canFilter={true}
           filterTypeName="product"
           filterTypeOptions={PRODUCTS_LIST}
           filterTypeLabel="Select Product"
-          groupClass="search-input-wrapper" 
-          disabledSubmit={this.props.appState.isLoading || formErrors || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+          groupClass="search-input-wrapper"
+          disabledSubmit={this.props.appState.isLoading || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
         />
       </Form>
     );

@@ -12,7 +12,7 @@ export class WorkflowNavigation extends Component {
     const { activeTask, completedTasks } = this.props.workflowState;
     if (activeTask === stepName) return 'active';
 
-    return completedTasks.includes(stepName) ? 'selected' : 'disabled';
+    return (completedTasks || []).includes(stepName) ? 'selected' : 'disabled';
   };
 
   onKeyPress = (stepName, event) => {

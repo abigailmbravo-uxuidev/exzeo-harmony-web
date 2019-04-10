@@ -1,9 +1,10 @@
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import choreographer from '../utilities/choreographer';
+import * as serviceRunner from '../utilities/serviceRunner';
 import { toggleLoading } from './appStateActions';
 
-export const setQuote = (quote, state) => ({
+export const setQuote = (quote, state = {}) => ({
   type: types.SET_QUOTE,
   quote,
   state
@@ -16,18 +17,57 @@ export const setQuote = (quote, state) => ({
  * @param {string} stateCode
  * @returns {Function}
  */
-export function createQuote(address, igdID, stateCode) {
+export function createQuote(address, igdID, stateCode, companyCode, product) {
+  // if (product === 'AF3') {
+  //   config.exchangeName = 'harmony.crud';
+  //   config.routingKey = 'harmony.crud.quoteData.createQuote',
+  //     config.data = {
+  //       companyCode,
+  //       state,
+  //       product,
+  //
+  //     }
+
+
   return async (dispatch) => {
-    try {
-      dispatch(toggleLoading(true));
-      const { quote, state } = await choreographer.createQuote(address, igdID, stateCode);
-      dispatch(setQuote(quote, state));
-      return quote;
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
-      return null;
-    } finally {
-      dispatch(toggleLoading(false));
+    if (product === 'AF3') {
+      const config = {
+        exchangeName: 'harmony',
+        routingKey: 'harmony.quote.createQuote',
+        data: {
+          companyCode,
+          state: stateCode,
+          product,
+          propertyId: igdID,
+        }
+      };
+
+      try {
+        dispatch(toggleLoading(true));
+        const response = await serviceRunner.callService(config, 'quoteManager.createQuote');
+        const quote = response.data.result;
+        dispatch(setQuote(quote));
+        return quote;
+      } catch (error) {
+        dispatch(errorActions.setAppError(error));
+        return null;
+      } finally {
+        dispatch(toggleLoading(false));
+      }
+
+    } else {
+      try {
+        dispatch(toggleLoading(true));
+        const { quote, state } = await choreographer.createQuote(address, igdID, stateCode);
+        dispatch(setQuote(quote, state));
+        return quote;
+
+      } catch (error) {
+        dispatch(errorActions.setAppError(error));
+        return null;
+      } finally {
+        dispatch(toggleLoading(false));
+      }
     }
   };
 }

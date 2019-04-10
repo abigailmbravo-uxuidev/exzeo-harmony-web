@@ -49,8 +49,8 @@ export class Search extends React.Component {
   };
 
   handleSelectAddress = async (address) => {
-    const { history } = this.props;
-    const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state);
+    const { history, userProfile, search } = this.props;
+    const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state, userProfile.entity.companyCode, search.product );
 
     if (quote) {
       history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
@@ -88,7 +88,9 @@ Search.propTypes = {
 
 const mapStateToProps = state => ({
   appState: state.appState,
-  quote: state.quoteState.quote
+  quote: state.quoteState.quote,
+  search: state.search,
+  userProfile: state.authState.userProfile,
 });
 
 export default connect(mapStateToProps, { createQuote, clearQuote, getQuote, clearResults })(Search);
