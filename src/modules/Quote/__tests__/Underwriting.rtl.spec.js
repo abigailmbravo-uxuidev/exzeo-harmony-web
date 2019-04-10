@@ -55,7 +55,7 @@ const fields = [
   }
 ];
 
-const { submitForm, checkError, checkRadio, checkLabel } = testHelpers;
+const { submitForm, checkError, checkRadio, checkLabel, checkButton } = testHelpers;
 
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
 
@@ -100,5 +100,10 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
       checkLabel(getByTestId, { name, label });
       values.forEach(value => expect(getByTestId(`${name}_${value}`)).toHaveTextContent(value));
     });
+  });
+
+  it('POS:Checks Submit Button', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    checkButton(getByTestId('submit'))
   });
 });

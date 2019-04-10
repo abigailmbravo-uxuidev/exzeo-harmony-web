@@ -133,5 +133,5 @@ describe('Policyholder Testing', () => {
   //     .findDataTag('agentCode').find('option').first().should('contain', 'Please Select...').and('be.disabled')
   // );
 
-  it('POS:Policyholder Next Button', () => cy.checkSubmitButton());
+  // it('POS:Policyholder Next Button', () => cy.checkSubmitButton());
 });

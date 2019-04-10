@@ -78,6 +78,7 @@ describe('Testing the Share Page', () => {
     expect(getByTestId('emailAddr'));
     fireEvent.focus(getByTestId('modal-submit'));
     fireEvent.blur(getByTestId('modal-submit'));
+    // TODO: Once redux-form is out we need to test the validation for empty and invalid inputs
   });
 
   it('POS:Share Header / Text', () => {

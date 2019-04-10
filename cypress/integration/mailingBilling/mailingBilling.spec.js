@@ -87,7 +87,7 @@ describe('Mailing/Billing Testing', () => {
   //     .next().should('contain', '$ 531')
   // );
 
-  it('POS:Next Button', () =>
-    cy.checkSubmitButton()
-  );
+  // it('POS:Next Button', () =>
+  //   cy.checkSubmitButton()
+  // );
 });

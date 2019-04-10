@@ -97,7 +97,8 @@ const {
   checkLabel,
   checkTextInput,
   checkRadio,
-  checkSwitch
+  checkSwitch,
+  checkButton
 } = testHelpers;
 
 describe('Testing the Mailing/Billing Page', () => {
@@ -182,5 +183,10 @@ describe('Testing the Mailing/Billing Page', () => {
     expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,059');
     expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 1,096');
     expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 531');
+  });
+
+  it('POS:Checks Submit Button', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    checkButton(getByTestId('submit'))
   });
 });

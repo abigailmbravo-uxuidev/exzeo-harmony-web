@@ -57,17 +57,17 @@ describe('Property Address Search Testing', () => {
   //   });
   // });
 
-  it('POS:Property Search', () => {
-    cy.findDataTag('address').find('label').should('contain', 'Property Address')
-      .findDataTag('search-results').find('div small p').each($el => expect($el).to.contain('If'))
-      .findDataTag('address').find('input[name="address"]').should('have.attr', 'placeholder', 'Search for Property Address');
-    type(`{selectall}{backspace}${address}`);
-    cy.findDataTag('address').find('[name="address"]').should('have.attr', 'value', address)
-      .findDataTag('submit').should('exist').and('not.be.disabled')
-      .clickSubmit().then(() => hasSearchInput(address))
-      .findDataTag('search-results').find('li').first().find('a').children()
-      .first().should('have.attr', 'class', 'card-icon fa fa-map-marker')
-      .next().should('exist')
-      .next().should('have.attr', 'class', 'fa fa-chevron-circle-right');
-  });
+  // it('POS:Property Search', () => {
+  //   cy.findDataTag('address').find('label').should('contain', 'Property Address')
+  //     .findDataTag('search-results').find('div small p').each($el => expect($el).to.contain('If'))
+  //     .findDataTag('address').find('input[name="address"]').should('have.attr', 'placeholder', 'Search for Property Address');
+  //   type(`{selectall}{backspace}${address}`);
+  //   cy.findDataTag('address').find('[name="address"]').should('have.attr', 'value', address)
+  //     .findDataTag('submit').should('exist').and('not.be.disabled')
+  //     .clickSubmit().then(() => hasSearchInput(address))
+  //     .findDataTag('search-results').find('li').first().find('a').children()
+  //     .first().should('have.attr', 'class', 'card-icon fa fa-map-marker')
+  //     .next().should('exist')
+  //     .next().should('have.attr', 'class', 'fa fa-chevron-circle-right');
+  // });
 });

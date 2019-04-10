@@ -93,7 +93,7 @@ const pageHeaders = [
   }
 ];
 
-const { submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader } = testHelpers;
+const { submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton } = testHelpers;
 
 describe('Testing QuoteWorkflow Policyholder Page', () => {
   const props = {
@@ -190,5 +190,10 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     expect(getByTestId('effectiveDate_wrapper')).toHaveTextContent('Effective Date');
     expect(getByTestId('effectiveDate')).toHaveAttribute('type', 'date');
     expect(getByTestId('agentCode_wrapper')).toHaveTextContent('Agent');
+  });
+
+  it('POS:Checks Submit Button', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    checkButton(getByTestId('submit'))
   });
 });
