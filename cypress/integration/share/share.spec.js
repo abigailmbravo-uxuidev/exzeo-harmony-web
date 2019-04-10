@@ -46,23 +46,23 @@ describe('Share Testing', () => {
   //     .findDataTag('tab-nav-sendEmailOrContinue').click();
   // });
 
-  it('NEG:All Inputs Empty Value', () => {
-    toggleModal();
-    cy.submitAndCheckValidation(modalFields, submitOptions);
-  });
+  // it('NEG:All Inputs Empty Value', () => {
+  //   toggleModal();
+  //   cy.submitAndCheckValidation(modalFields, submitOptions);
+  // });
 
-  it('NEG:Input Empty Value', () => {
-    toggleModal();
+  // it('NEG:Input Empty Value', () => {
+  //   toggleModal();
 
-    cy.wrap(modalFields).each(fieldToLeaveBlank => cy.verifyForm(modalFields, [fieldToLeaveBlank], undefined, submitOptions));
-  });
+  //   cy.wrap(modalFields).each(fieldToLeaveBlank => cy.verifyForm(modalFields, [fieldToLeaveBlank], undefined, submitOptions));
+  // });
 
-  it('NEG:Input Invalid Character', () => {
-    toggleModal();
-    const email = modalFields.find(({ name }) => name === 'emailAddr_wrapper');
+  // it('NEG:Input Invalid Character', () => {
+  //   toggleModal();
+  //   const email = modalFields.find(({ name }) => name === 'emailAddr_wrapper');
 
-    cy.verifyForm([{ ...email, error: 'Not a valid email address', data: 'å∫∂®ƒ©' }], undefined, undefined, submitOptions);
-  });
+  //   cy.verifyForm([{ ...email, error: 'Not a valid email address', data: 'å∫∂®ƒ©' }], undefined, undefined, submitOptions);
+  // });
 
   // it('POS:Share Workflow', () =>
   //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))

@@ -36,70 +36,70 @@ describe('Additional Interest Testing', () => {
   const ai1Required = ai1Fields.filter(({ required }) => required !== false);
   const ai2Required = ai2Fields.filter(({ required }) => required !== false);
 
-  it('NEG:All Additional Interest 1 Inputs Empty Value', () =>
-    goBack().then(() => {
-      toggleModalOn();
-      cy.clearAllText(ai1Fields).submitAndCheckValidation(ai1Required);
-    })
-  );
+  // it('NEG:All Additional Interest 1 Inputs Empty Value', () =>
+  //   goBack().then(() => {
+  //     toggleModalOn();
+  //     cy.clearAllText(ai1Fields).submitAndCheckValidation(ai1Required);
+  //   })
+  // );
 
-  it('NEG:Additional Interest 1 Empty Value', () =>
-    goBack().then(() => {
-      toggleModalOn();
-      cy.clearAllText(ai1Fields)
-        .wrap(ai1Required).each(fieldToLeaveBlank => cy.verifyForm(ai1Required, [fieldToLeaveBlank]));
-    })
-  );
+  // it('NEG:Additional Interest 1 Empty Value', () =>
+  //   goBack().then(() => {
+  //     toggleModalOn();
+  //     cy.clearAllText(ai1Fields)
+  //       .wrap(ai1Required).each(fieldToLeaveBlank => cy.verifyForm(ai1Required, [fieldToLeaveBlank]));
+  //   })
+  // );
 
-  it('NEG:Additional Interest 1 Invalid Input Value', () =>
-    goBack().then(() => {
-      const state = ai1Fields.find(({ name }) => name === 'ai1State');
-      const zip = ai1Fields.find(({ name }) => name === 'ai1Zip');
-      toggleModalOn();
-      cy.clearAllText(ai1Fields)
-        .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
-        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
-    })
-  );
+  // it('NEG:Additional Interest 1 Invalid Input Value', () =>
+  //   goBack().then(() => {
+  //     const state = ai1Fields.find(({ name }) => name === 'ai1State');
+  //     const zip = ai1Fields.find(({ name }) => name === 'ai1Zip');
+  //     toggleModalOn();
+  //     cy.clearAllText(ai1Fields)
+  //       .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
+  //       .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
+  //   })
+  // );
 
-  it('NEG:All Additional Interest 2 Inputs Empty Value', () =>
-    goBack().then(() => {
-      toggleModalOn();
-      addAdditional();
-      cy.clearAllText(ai2Fields).submitAndCheckValidation(ai2Required);
-    })
-  );
+  // it('NEG:All Additional Interest 2 Inputs Empty Value', () =>
+  //   goBack().then(() => {
+  //     toggleModalOn();
+  //     addAdditional();
+  //     cy.clearAllText(ai2Fields).submitAndCheckValidation(ai2Required);
+  //   })
+  // );
 
-  it('NEG:Additional Interest 2 Empty Value', () =>
-    goBack().then(() => {
-      toggleModalOn();
-      addAdditional();
-      cy.clearAllText(ai2Fields)
-        .wrap(ai2Required).each(fieldToLeaveBlank => cy.verifyForm(ai2Required, [fieldToLeaveBlank]));
-    })
-  );
+  // it('NEG:Additional Interest 2 Empty Value', () =>
+  //   goBack().then(() => {
+  //     toggleModalOn();
+  //     addAdditional();
+  //     cy.clearAllText(ai2Fields)
+  //       .wrap(ai2Required).each(fieldToLeaveBlank => cy.verifyForm(ai2Required, [fieldToLeaveBlank]));
+  //   })
+  // );
 
-  it('NEG:Additional Interest 2 Invalid Input Value', () =>
-    goBack().then(() => {
-      const state = ai2Fields.find(({ name }) => name === 'ai2State');
-      const zip = ai2Fields.find(({ name }) => name === 'ai2Zip');
-      toggleModalOn();
-      addAdditional();
-      cy.clearAllText(ai2Fields)
-        .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
-        .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
-    })
-  );
+  // it('NEG:Additional Interest 2 Invalid Input Value', () =>
+  //   goBack().then(() => {
+  //     const state = ai2Fields.find(({ name }) => name === 'ai2State');
+  //     const zip = ai2Fields.find(({ name }) => name === 'ai2Zip');
+  //     toggleModalOn();
+  //     addAdditional();
+  //     cy.clearAllText(ai2Fields)
+  //       .verifyForm([{ ...state, error: 'Only 2 letters allowed', data: 'foo' }])
+  //       .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
+  //   })
+  // );
 
-  it('POS:Additonal Interest', () =>
-    goBack().then(() =>
-      cy.findDataTag('ai-add').should('have.attr', 'class', 'btn btn-secondary').click()
-        .get('#AdditionalInterest .survey-wrapper > h3.section-group-header').should('contain', 'Additional Interest').find('i').should('have.attr', 'class', 'fa fa-handshake-o')
-        .findDataTag('isAdditional').find('label').should('contain', 'Do you want to add an Additional Interest?')
-        .find('input[name="isAdditional"]').should('have.attr', 'value', 'true')
-        .next().click().findDataTag('ai1Name1').should('not.exist')
-        .findDataTag('isAdditional').find('label[for="isAdditional"] > .switch-div').click().findDataTag('ai1Name1').should('exist')
-        .wrap(ai1Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name))
-    )
-  );
+  // it('POS:Additonal Interest', () =>
+  //   goBack().then(() =>
+  //     cy.findDataTag('ai-add').should('have.attr', 'class', 'btn btn-secondary').click()
+  //       .get('#AdditionalInterest .survey-wrapper > h3.section-group-header').should('contain', 'Additional Interest').find('i').should('have.attr', 'class', 'fa fa-handshake-o')
+  //       .findDataTag('isAdditional').find('label').should('contain', 'Do you want to add an Additional Interest?')
+  //       .find('input[name="isAdditional"]').should('have.attr', 'value', 'true')
+  //       .next().click().findDataTag('ai1Name1').should('not.exist')
+  //       .findDataTag('isAdditional').find('label[for="isAdditional"] > .switch-div').click().findDataTag('ai1Name1').should('exist')
+  //       .wrap(ai1Fields).each(({ name, label }) => cy.checkLabel(name, label).checkText(name))
+  //   )
+  // );
 });

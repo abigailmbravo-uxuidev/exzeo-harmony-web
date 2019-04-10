@@ -111,15 +111,15 @@ describe('Customize Testing', () => {
   //   setSliderAndCheckOutput(outputFields[4], 344000, '$ 34,400');
   // });
 
-  it('POS:Customize Button', () => {
-    cy.route('POST', '/cg/complete?askToCustomizeDefaultQuote', 'fx:stubs/complete/recalculate-askToCustomizeDefaultQuote');
-    cy.setFx('stubs/getQuoteServiceRequest', ['result.rating.totalPremium', 2667]);
-    // We have to modify something to show recalculate/reset buttons
-    type(300000);
-    cy.findDataTag('submit').should('contain', 'recalculate').click()
-      .findDataTag('premium').find('dl > div > dd > span').should('contain', '$ 2,767');
-    type(300000);
-    cy.findDataTag('reset').should('contain', 'reset').click()
-      .findDataTag('submit').should('contain', 'next');
-  });
+  // it('POS:Customize Button', () => {
+  //   cy.route('POST', '/cg/complete?askToCustomizeDefaultQuote', 'fx:stubs/complete/recalculate-askToCustomizeDefaultQuote');
+  //   cy.setFx('stubs/getQuoteServiceRequest', ['result.rating.totalPremium', 2667]);
+  //   // We have to modify something to show recalculate/reset buttons
+  //   type(300000);
+  //   cy.findDataTag('submit').should('contain', 'recalculate').click()
+  //     .findDataTag('premium').find('dl > div > dd > span').should('contain', '$ 2,767');
+  //   type(300000);
+  //   cy.findDataTag('reset').should('contain', 'reset').click()
+  //     .findDataTag('submit').should('contain', 'next');
+  // });
 });
