@@ -15,21 +15,13 @@ export const setQuote = (quote, state = { activeTask: 'askAdditionalCustomerData
  * @param {string} address
  * @param {string} igdID
  * @param {string} stateCode
+ * @param {string} companyCode
+ * @param {string} product
  * @returns {Function}
  */
 export function createQuote(address, igdID, stateCode, companyCode, product) {
-  // if (product === 'AF3') {
-  //   config.exchangeName = 'harmony.crud';
-  //   config.routingKey = 'harmony.crud.quoteData.createQuote',
-  //     config.data = {
-  //       companyCode,
-  //       state,
-  //       product,
-  //
-  //     }
-
-
   return async (dispatch) => {
+    // FLOOD
     if (product === 'AF3') {
       const config = {
         exchangeName: 'harmony',
@@ -55,6 +47,7 @@ export function createQuote(address, igdID, stateCode, companyCode, product) {
         dispatch(toggleLoading(false));
       }
 
+      // HOMEOWNERS
     } else {
       try {
         dispatch(toggleLoading(true));
@@ -99,6 +92,7 @@ export function getQuote(quoteNumber, quoteId) {
  * @param data
  * @param quoteNumber
  * @param stepName
+ * @param [options]
  * @returns {Function}
  */
 export function updateQuote({
@@ -122,6 +116,10 @@ export function updateQuote({
   };
 }
 
+/**
+ *
+ * @returns {Function}
+ */
 export function clearQuote() {
   return async (dispatch) => {
     try {
