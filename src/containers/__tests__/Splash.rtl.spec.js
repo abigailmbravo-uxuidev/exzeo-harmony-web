@@ -16,6 +16,13 @@ describe('Testing Splash component', () => {
     }
   };
 
+  it('POS:Dashboard Button', () => {
+    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
+    expect(getByText('New Quote')).toHaveAttribute('href', '/search/address');
+    expect(getByText('Retrieve Quote')).toHaveAttribute('href', '/search/retrieve');
+    expect(getByText('Retrieve Policy')).toHaveAttribute('href', '/policy');
+  });
+
   it('POS:Dashboard Banner', () => {
     const { getByAltText, getByText } = renderWithReduxAndRouter(<Splash {...props} />);
     expect(getByAltText('TypTap Insurance').parentNode).toHaveAttribute('href', '/');
