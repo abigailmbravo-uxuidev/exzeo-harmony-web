@@ -187,6 +187,6 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks Submit Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    checkButton(getByTestId('submit'))
+    checkButton(getByTestId('submit'));
   });
 });

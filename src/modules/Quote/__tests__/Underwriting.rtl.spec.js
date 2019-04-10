@@ -80,7 +80,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     fields.forEach(({ name }) => checkError(getByTestId, { name }));
   });
 
-  describe('NEG:"All questions empty value', () => {
+  describe('NEG:All questions empty value', () => {
     for (let i = 0; i < fields.length; i++) {
       it(`Checks that field ${fields[i].name} errors on an empty value`, () => {
         const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
@@ -104,6 +104,6 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
 
   it('POS:Checks Submit Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    checkButton(getByTestId('submit'))
+    checkButton(getByTestId('submit'));
   });
 });

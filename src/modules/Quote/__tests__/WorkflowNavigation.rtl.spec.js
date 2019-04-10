@@ -5,8 +5,7 @@ import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
-  quote,
-  testHelpers
+  quote
 } from '../../../test-utils';
 import ConnectedWorkflowNavigation from '../WorkflowNavigation';
 
@@ -82,8 +81,8 @@ describe('Testing WorkflowNavigation Component', () => {
     expect(getByText('$ 314,000'));
     expect(getByText('Premium'));
     expect(getByText('$ 2,767'));
-  })
-  
+  });
+
   it('POS:Tests Workflow Section Classes', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedWorkflowNavigation {...props} />, { state });
     workflowSections.forEach(({ name, status }) => expect(getByTestId(name).firstChild).toHaveClass(status));

@@ -121,7 +121,7 @@ export const testHelpers = {
     if (icon) expect(document.querySelector(`[data-test="${name}"] i`).className).toEqual(icon);
   },
   checkButton: el => {
-    expect(el.getAttribute('type')).toEqual('button')
+    expect(el.getAttribute('type')).toEqual('button');
   },
   // This function is used to verify specific submit errors for one field as well
   verifyForm: (query, baseFields = [], fieldsLeftBlank = []) => {
