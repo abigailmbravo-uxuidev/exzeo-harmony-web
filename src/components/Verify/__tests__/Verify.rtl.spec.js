@@ -23,28 +23,69 @@ describe('Verify Testing', () => {
     ...defaultInitialState,
     quoteState: {
       ...defaultInitialState.quoteState,
-      quote
+      quote: {
+        ...quote,
+        policyHolderMailingAddress: {
+          address1: '4131 TEST ADDRESS',
+          address2: '',
+          city: 'SARASOTA',
+          country: {
+            code: 'USA',
+            displayText: 'United States of America'
+          },
+          zip: '00001',
+          state: 'FL'
+        }
+      }
     }
   };
 
-  it('should render', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedVerify {...props} />, { state });
-    expect(getByText('Property Details'));
+  const switchTags = ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'];
+
+  it('NEG:All "Verified" Values left at Default "NO"', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedVerify {...props} />, { state });
+    switchTags.forEach(tag =>
+      expect(getByTestId(tag).className.split(' ').includes('active')).toEqual(false)
+    );
   });
 
   it('POS:Property Details Text', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedVerify {...props} />, { state });
-    ['Quote Number', 'Property Address', 'Year Built', 'Effective Date',
-      '12-5162296-01', /4131 TEST ADDRESS/, '1998', '05/05/2019'
-    ].forEach(text => expect(getByText(text)));
+    const sectionData = [
+      { label: 'Quote Number', value: '12-5162296-01' },
+      { label: 'Property Address', value: '4131 TEST ADDRESS' },
+      { label: 'Year Built', value: '1998' },
+      { label: 'Effective Date', value: '05/05/2019' },
+      { label: 'Agent', value: '' }
+    ];
+    getByText('Property Details').nextSibling.childNodes.forEach((node, i) => {
+      expect(node).toHaveTextContent(sectionData[i].label);
+      expect(node).toHaveTextContent(sectionData[i].value);
+    });
   });
 
   it('POS:Quote Details', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedVerify {...props} />, { state });
-    [/Yearly Premium/, /Dwelling/, /Other Structures/, /Personal Property/, /Loss Of Use/, /Personal Liability/,
-      /Medical Payments/, /Personal Property Replacement Cost/, /Mold Property/, /Mold Liability/, /Ordinance or Law/,
-      /All Other Perils Deductible/, /Hurricane Deductible/, /Sinkhole Deductible/
-    ].forEach(text => expect(getByText(text)));
+    const sectionData = [
+      { label: 'Yearly Premium', value: '$' },
+      { label: 'A. Dwelling', value: '$' },
+      { label: 'B. Other Structures', value: '$' },
+      { label: 'C. Personal Property', value: '$' },
+      { label: 'D. Loss Of Use', value: '$' },
+      { label: 'E. Personal Liability', value: '$' },
+      { label: 'F. Medical Payments', value: '$' },
+      { label: 'Personal Property Replacement Cost', value: 'Yes' },
+      { label: 'Mold Property', value: '$' },
+      { label: 'Mold Liability', value: '$' },
+      { label: 'Ordinance or Law', value: '$' },
+      { label: 'All Other Perils Deductible', value: '$' },
+      { label: 'Hurricane Deductible', value: '$' },
+      { label: 'Sinkhole Deductible', value: '$' },
+    ];
+    getByText('Quote Details').nextSibling.childNodes.forEach((node, i) => {
+      expect(node).toHaveTextContent(sectionData[i].label);
+      expect(node).toHaveTextContent(sectionData[i].value);
+    });
   });
 
   it('POS:Policyholder Details Text', () => {
@@ -54,20 +95,35 @@ describe('Verify Testing', () => {
 
   it('POS:Policyholder Details Primary / Secondary Policyholder', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedVerify {...props} />, { state });
-    [/Name/, /Phone Number/, /Email/].forEach(text => expect(getByText(text)));
+    const sectionData = [
+      { label: 'Name',  value: 'Bruce Wayne' },
+      { label: 'Phone Number',  value: '(123) 123-1231' },
+      { label: 'Email', value: 'Batman@gmail.com' }
+    ];
+    getByText('Primary Policyholder').nextSibling.childNodes.forEach((node, i) => {
+      expect(node).toHaveTextContent(sectionData[i].label);
+      expect(node).toHaveTextContent(sectionData[i].value);
+    });
   });
 
   it('POS:Mailing Address Text', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedVerify {...props} />, { state });
-    [/Street Address/, /City\/State\/Zip/, /Country/].forEach(text => expect(getByText(text)));
+    const sectionData = [
+      { label: 'Street Address', value: '4131 TEST ADDRESS' },
+      { label: 'City/State/Zip', value: /SARASOTA/ },
+      { label: 'Country', value: 'United States of America' }
+    ];
+    getByText('Mailing Address').nextSibling.childNodes.forEach((node, i) => {
+      expect(node).toHaveTextContent(sectionData[i].label);
+      expect(node).toHaveTextContent(sectionData[i].value);
+    });
   });
 
   it('POS:Verify Toggle', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedVerify {...props} />, { state });
-    ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'
-    ].forEach(tag => {
+    switchTags.forEach(tag => {
       expect(getByTestId(tag)).toHaveTextContent('Verified');
-      // TODO: Update this with reusable test helpers once the Verified oage is uodated
+      // TODO: Update this with reusable test helpers once the Verified page is uodated
       expect(document.querySelector(`[data-test="${tag}"] div.switch-div`));
       expect(document.querySelector(`[data-test="${tag}"] input[name="${tag}"]`));
     });

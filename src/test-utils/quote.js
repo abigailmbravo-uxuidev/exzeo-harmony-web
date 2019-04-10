@@ -231,10 +231,10 @@ export const quote = {
       {
         electronicDelivery: false,
         _id: '5ca744a18001ef001258b3a3',
-        emailAddress: 'd@ex.com',
+        emailAddress: 'Batman@gmail.com',
         entityType: 'Person',
-        firstName: 'd',
-        lastName: 'd',
+        firstName: 'Bruce',
+        lastName: 'Wayne',
         order: 0,
         primaryPhoneNumber: '1231231231'
       }
