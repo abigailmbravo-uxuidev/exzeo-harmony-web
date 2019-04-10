@@ -24,15 +24,13 @@ describe('Testing Search Component', () => {
   const store = createStore(rootReducer, state, applyMiddleware(thunk));
 
   it('NEG:Property Address Search Bar Empty Value', () => {
-    const { getByText, getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
+    const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
     const typeAndCheckError = (value, errorExists = false) => {
       fireEvent.change(searchbar, { target: { value } });
       if (errorExists) expect(getByTestId('submit').disabled).toBeTruthy();
       expect(getByTestId('address').className.includes('error')).toBe(errorExists);
     };
     const searchbar = getByPlaceholderText(/Search for Property Address/);
-    // Check the basics
-    expect(getByText(/If you don't see your address/));
     expect(searchbar);
     // Search with one bad search and some good ones, to confirm spacing works
     typeAndCheckError('    ', true);
@@ -49,5 +47,12 @@ describe('Testing Search Component', () => {
     const errorIcon = document.querySelector('i[data-for="erroraddress"]');
     fireEvent.mouseOver(errorIcon);
     expect(document.querySelector('div[data-id="tooltip"]'));
+  });
+
+  it('POS:Property Search', () => {
+    const { getByText } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
+    expect(getByText(/If you don't see your address/));
+    expect(getByText(/If you still have problems finding an address/));
+    expect(getByText(/call us/).parentNode).toHaveAttribute('href', 'tel:844-289-7968');
   });
 });

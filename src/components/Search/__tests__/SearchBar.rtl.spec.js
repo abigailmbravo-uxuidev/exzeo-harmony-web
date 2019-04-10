@@ -10,9 +10,10 @@ import ConnectedSearchBar, {
 
 describe('Testing SearchBar Component', () => {
 
-  it('Should test connected searchbar', () => {
-    const { getByPlaceholderText } = renderWithReduxAndRouter(<ConnectedSearchBar {...defaultProps} />);
+  it('POS:Should test connected searchbar', () => {
+    const { getByPlaceholderText, getByText } = renderWithReduxAndRouter(<ConnectedSearchBar {...defaultProps} />);
     expect(getByPlaceholderText(/Search for Property Address/));
+    expect(getByText(/Property Address/));
   });
 
   it('Should test submit', () => {
@@ -45,7 +46,7 @@ describe('Testing SearchBar Component', () => {
     expect(errors.address).toEqual('Invalid characters');
   });
 
-  it('Should test changing page quote', () => {
+  it('POS:Should test changing page quote', () => {
     const { store } = renderWithReduxAndRouter(<ConnectedSearchBar {...defaultProps} />);
 
     const props = {
@@ -57,7 +58,7 @@ describe('Testing SearchBar Component', () => {
     changePageQuote(props, true);
   });
 
-  it('Should be able to be recreated', () => {
+  it('POS:Should be able to be recreated', () => {
     const props = {
       ...defaultProps,
       ...defaultInitialState,
@@ -74,7 +75,7 @@ describe('Testing SearchBar Component', () => {
     expect(getByPlaceholderText(/Search for Property Address/));
   });
 
-  it('Checks this out', () => {
+  it('POS:Expects Search action to fire', () => {
     const { getByPlaceholderText, getByText, store } = renderWithReduxAndRouter(<ConnectedSearchBar {...defaultProps} />);
     const searchbar = getByPlaceholderText(/Search for Property Address/);
     fireEvent.change(searchbar, { target: { value: 'foo' }});

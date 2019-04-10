@@ -68,5 +68,5 @@ describe('Underwriting Testing', () => {
   //   )
   // );
 
-  it('POS:Underwriting Next Button', () => cy.checkSubmitButton());
+  // it('POS:Underwriting Next Button', () => cy.checkSubmitButton());
 });
