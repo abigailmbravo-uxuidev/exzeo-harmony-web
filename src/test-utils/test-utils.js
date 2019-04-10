@@ -79,8 +79,9 @@ export const testHelpers = {
     expect(query(`${name}_error`)).toHaveTextContent(error),
   checkLabel: (query, { name, label }) => expect(query(`${name}_label`)).toHaveTextContent(label),
   checkTextInput: (query, { name, data }) => {
-    fireEvent.change(query(name), { target: { value: data }});
-    expect(query(name).value).toBe(data);
+    const el = query(name);
+    fireEvent.change(el, { target: { value: data }});
+    expect(el.value).toBe(data);
   },
   checkRadio: (query, { name, values }) => {
     values.forEach(value => {
@@ -95,12 +96,13 @@ export const testHelpers = {
     });
   },
   checkSwitch: (query, { name, defaultValue }) => {
+    const el = query(name);
     // Toggle switch twice, check value each time
-    expect(query(name).getAttribute('data-value')).toEqual(`${defaultValue}`);
-    fireEvent.click(query(name));
-    expect(query(name).getAttribute('data-value')).toEqual(`${!defaultValue}`);
-    fireEvent.click(query(name));
-    expect(query(name).getAttribute('data-value')).toEqual(`${!!defaultValue}`);
+    expect(el.getAttribute('data-value')).toEqual(`${defaultValue}`);
+    fireEvent.click(el);
+    expect(el.getAttribute('data-value')).toEqual(`${!defaultValue}`);
+    fireEvent.click(el);
+    expect(el.getAttribute('data-value')).toEqual(`${!!defaultValue}`);
   },
   checkSlider: (query, { name }) => {
     // We check slider min and max value

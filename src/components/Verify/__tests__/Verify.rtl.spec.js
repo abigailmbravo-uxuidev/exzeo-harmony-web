@@ -1,18 +1,14 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { fireEvent } from 'react-testing-library';
 
 import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
-  testHelpers,
   quote
 } from '../../../test-utils';
 
 import ConnectedVerify from '../Verify';
-
-const { checkButton } = testHelpers;
 
 // TODO: Return to this test once Verify has been updated to use reusable component structure
 describe('Verify Testing', () => {
@@ -71,7 +67,9 @@ describe('Verify Testing', () => {
     ['confirmProperyDetails', 'confirmQuoteDetails', 'confirmPolicyHolderDetails', 'confirmAdditionalInterestsDetails'
     ].forEach(tag => {
       expect(getByTestId(tag)).toHaveTextContent('Verified');
-      document.querySelector(`[data-test="${tag}"] div.switch-div`)
+      // TODO: Update this with reusable test helpers once the Verified oage is uodated
+      expect(document.querySelector(`[data-test="${tag}"] div.switch-div`));
+      expect(document.querySelector(`[data-test="${tag}"] input[name="${tag}"]`));
     });
   });
 
