@@ -68,7 +68,8 @@
       "!src/index.js",
       "!src/routes.js",
       "!src/setupTests.js",
-      "!src/utilities/choreographer.js"
+      "!src/utilities/choreographer.js",
+      "!src/mock-data/*"
     ],
     "coverageThreshold": {
       "global": {

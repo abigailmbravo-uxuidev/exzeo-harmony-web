@@ -64,7 +64,7 @@ export class QuoteWorkflow extends Component {
 
   getTemplate = async () => {
     const { userProfile: { entity: { companyCode, state }} } = this.props;
-    
+
     const transferConfig = {
       exchangeName: 'harmony',
       routingKey:  'harmony.policy.retrieveDocumentTemplate',
@@ -80,7 +80,7 @@ export class QuoteWorkflow extends Component {
 
     const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
     this.setState(() => ({ gandalfTemplate: response.data.result }));
-  }
+  };
 
   getLocalState = () => {
     return this.state;
@@ -92,7 +92,6 @@ export class QuoteWorkflow extends Component {
 
   goToStep = async (stepName) => {
     const { history, isLoading, quote, updateQuote, workflowState: { activeTask, completedTasks } } = this.props;
-
     if (isLoading || activeTask === stepName || !completedTasks.includes(stepName)) return;
 
     await updateQuote({ stepName, quoteNumber: quote.quoteNumber });
@@ -119,7 +118,6 @@ export class QuoteWorkflow extends Component {
       form.dispatchEvent(event);
     }
   };
-
 
   getConfigForJsonTransform(gandalfTemplate) {
     if(!gandalfTemplate) return {};
@@ -150,23 +148,13 @@ export class QuoteWorkflow extends Component {
   handleUpdateQuote = async ({ data, quoteNumber }) => {
     const { updateQuote } = this.props;
     const quote = await updateQuote({ data, quoteNumber });
-
     return quote;
   };
 
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const {
-      auth,
-      history,
-      isLoading,
-      location,
-      match,
-      options,
-      quote,
-      workflowState,
-    } = this.props;
+    const { auth, history, isLoading, location, match, options, quote, workflowState, } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
