@@ -77,7 +77,7 @@ describe('Service runner tests', () => {
       try {
         await callService(config);
       } catch (e) {
-        expect(e).toEqual({"message": "Whoops"});
+        expect(e).toEqual(new Error({"message": "Whoops"}));
       }
 
     })
