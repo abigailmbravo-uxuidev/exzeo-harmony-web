@@ -92,26 +92,26 @@ describe('Policyholder Testing', () => {
   //     ])
   // );
 
-  it('POS:Policyholder Detail Header', () => {
-    const checkHeaderSection = (tag, values = []) =>
-      cy.findDataTag(tag).find('dl div').children().each(($el, index) => expect($el).to.contain(values[index]));
+  // it('POS:Policyholder Detail Header', () => {
+  //   const checkHeaderSection = (tag, values = []) =>
+  //     cy.findDataTag(tag).find('dl div').children().each(($el, index) => expect($el).to.contain(values[index]));
 
-    checkHeaderSection('quote-details', ['Quote Number', '-']);
-    checkHeaderSection('property-details', ['Address', '4131 TEST ADDRESS', '', 'SARASOTA']);
-    checkHeaderSection('year-built', ['Year Built', '1998']);
-    checkHeaderSection('construction-type', ['Construction Type', 'MASONRY']);
-    checkHeaderSection('coverage-details', ['Coverage A', '--']);
-    checkHeaderSection('premium', ['Premium', '']);
-  });
+  //   checkHeaderSection('quote-details', ['Quote Number', '-']);
+  //   checkHeaderSection('property-details', ['Address', '4131 TEST ADDRESS', '', 'SARASOTA']);
+  //   checkHeaderSection('year-built', ['Year Built', '1998']);
+  //   checkHeaderSection('construction-type', ['Construction Type', 'MASONRY']);
+  //   checkHeaderSection('coverage-details', ['Coverage A', '--']);
+  //   checkHeaderSection('premium', ['Premium', '']);
+  // });
 
   // it('POS:Check Headers', () => {
   //   toggleSecondUser();
   //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header));
   // });
 
-  it('POS:Policyholder Workflow', () =>
-    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  );
+  // it('POS:Policyholder Workflow', () =>
+  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  // );
 
   // it('POS:Primary Policyholder Label / Text', () =>
   //   cy.wrap(ph1Fields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))

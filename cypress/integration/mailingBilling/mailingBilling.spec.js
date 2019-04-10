@@ -47,9 +47,9 @@ describe('Mailing/Billing Testing', () => {
   //     .verifyForm([{ ...zip, error: 'Only 8 letters or numbers allowed', data: '123456789' }]);
   // });
 
-  it('POS:Mailing / Billing Workflow', () =>
-    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  );
+  // it('POS:Mailing / Billing Workflow', () =>
+  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  // );
 
   // it('POS:Mailing / Billing Header Text', () =>
   //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header))

@@ -64,9 +64,9 @@ describe('Share Testing', () => {
     cy.verifyForm([{ ...email, error: 'Not a valid email address', data: 'å∫∂®ƒ©' }], undefined, undefined, submitOptions);
   });
 
-  it('POS:Share Workflow', () =>
-    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  );
+  // it('POS:Share Workflow', () =>
+  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  // );
 
   // it('POS:Share Header / Text', () =>
   //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
