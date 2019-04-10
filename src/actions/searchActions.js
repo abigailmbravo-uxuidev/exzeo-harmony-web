@@ -155,6 +155,10 @@ export function searchQuotes(quoteSearchData) {
   };
 }
 
+/**
+ *
+ * @returns {Function}
+ */
 export function clearResults() {
   return async (dispatch) => {
     try {

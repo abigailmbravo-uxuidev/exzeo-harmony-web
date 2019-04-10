@@ -2,7 +2,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow, mount } from 'enzyme';
 
-import QuoteWorkflowTest from './QuoteWorkflow';
+import QuoteWorkflowTest,{ QuoteWorkflow } from './QuoteWorkflow';
 
 const mockStore = configureStore([]);
 
@@ -34,35 +34,54 @@ describe('Testing Quote component', () => {
         logout: x => x,
       },
       match: {},
-      setPolicySearch() {}
+      setPolicySearch() {},
+      getAgentsByAgencyCode() {},
+      getZipcodeSettings() {},
     };
     const wrapper = shallow(<QuoteWorkflowTest store={store} {...props} />);
     expect(wrapper);
+
+    wrapper.instance().componentDidMount();
   });
 
-  // it('should test PolicySearch', () => {
-  //   const props = {
-  //     auth: {
-  //       logout: x => x,
-  //     },
-  //     history: {
-  //       replace: x => x,
-  //     },
-  //     location: {
-  //       pathname: '/',
-  //     },
-  //     match: {},
-  //     isLoading: false,
-  //     quote: {},
-  //     workflowState: { completedTasks: [] },
-  //     submitForm: x => x,
-  //     updateQuote: x => x,
-  //   };
-  //   const wrapper = shallow(<QuoteWorkflow {...props} />);
-  //   expect(wrapper);
-  //   wrapper.instance().setRecalc(true);
-  //   wrapper.instance().handlePremiumRecalc();
-  //   wrapper.instance().handleUpdateQuote();
-  //   wrapper.instance().goToStep('test');
-  // });
+  it('should test component', () => {
+    const initialState = {
+      authState:{
+        userProfile: {
+          entity: {}
+        }
+      },
+      service: {
+        zipCodeSettings: {}
+      },
+      appState: {},
+      quoteState: {
+        quote: {},
+        state: {
+          uiQuestions: []
+        },
+      },
+    };
+    const store = mockStore(initialState);
+    const props = {
+      workflowState: { isHardStop: false },
+      userProfile: { entity: {} },
+      location: {
+        pathname: ''
+      },
+      auth: {
+        logout: x => x,
+      },
+      match: {},
+      setPolicySearch() {},
+      getAgentsByAgencyCode() {},
+      getZipcodeSettings() {},
+      submitForm() {},
+    };
+
+    const wrapper = shallow(<QuoteWorkflow {...props} />);
+    expect(wrapper);
+
+    wrapper.instance().componentDidMount();
+  });
 });

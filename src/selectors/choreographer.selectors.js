@@ -12,6 +12,10 @@ export const getQuoteSelector = createSelector(
       } else {
         quoteData.effectiveDate = formatDate(quoteData.effectiveDate, FORMATS.SECONDARY);
       }
+
+      if (quoteData.product === 'AF3') {
+        return quoteData;
+      }
       // do some kind of transformation then it all works form here. Just a thought
       quoteData.coverageLimits.otherStructures.value = Math.ceil((quoteData.coverageLimits.otherStructures.amount * 100) / quoteData.coverageLimits.dwelling.amount);
       quoteData.coverageLimits.personalProperty.value = Math.ceil((quoteData.coverageLimits.personalProperty.amount * 100) / quoteData.coverageLimits.dwelling.amount);

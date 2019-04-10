@@ -29,7 +29,7 @@ export async function callService(data, customUrl = '') {
     const response = await axios(axiosConfig);
     return response;
   } catch (error) {
-    throw handleError(error);
+    throw new Error(handleError(error));
   }
 }
 

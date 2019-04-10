@@ -33,7 +33,7 @@ function handleSetAgents(state, action) {
 }
 
 function getBillingInfo(state = {}, quote = {}) {
-  const billingVar = state.variables.find(v => v.name === 'billingOptions');
+  const billingVar = (state.variables || []).find(v => v.name === 'billingOptions');
   if (!billingVar) return undefined;
 
   const { result = {} } = billingVar.value;
@@ -73,7 +73,7 @@ function getBillingInfo(state = {}, quote = {}) {
 
 function handleSetQuote(state, action) {
   // WE could put these in a selector but this doesn't get run often and will probably change a lot when 'workflow' is implemented
-  const underwritingQuestions = action.state.underwritingQuestions
+  const underwritingQuestions = (action.state.underwritingQuestions || [])
     .sort((a, b) => a.order - b.order)
     .map(question => {
       const defaultValue = (question.answers || []).find(answer => answer.default);
@@ -90,7 +90,7 @@ function handleSetQuote(state, action) {
       })
     });
 
-  const uiQuestionMap = action.state.uiQuestions.reduce((map, question) => {
+  const uiQuestionMap = (action.state.uiQuestions || []).reduce((map, question) => {
     return {
       ...map,
       [question.name]: (question.answers || []).map(answer => ({

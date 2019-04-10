@@ -20,6 +20,9 @@ describe('Testing Search component', () => {
       fieldQuestions: [],
       quote: {},
       dispatch: store.dispatch,
+      authState: {
+        userProfile: {}
+      },
       appState: {
         data: {
           submitting: false
@@ -51,6 +54,9 @@ describe('Testing Search component', () => {
       quoteState: {
         quote: {}
       },
+      authState: {
+        userProfile: {}
+      },
       appState: {
         modelName: 'bb'
       }
@@ -59,6 +65,9 @@ describe('Testing Search component', () => {
     const props = {
       quote: {
         quoteState: 'Quote Started'
+      },
+      authState: {
+        userProfile: {}
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
