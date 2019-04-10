@@ -133,16 +133,16 @@ describe('Verify testing', () => {
     }
   });
 
-  it('POS:Verify Workflow', () =>
-    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  );
+  // it('POS:Verify Workflow', () =>
+  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  // );
 
-  it('POS:Verify Header Text', () => {
-    const headerText = ['Property Details', 'Quote Details', 'Policyholder Details', 'Mailing Address', 'Additional Parties'];
+  // it('POS:Verify Header Text', () => {
+  //   const headerText = ['Property Details', 'Quote Details', 'Policyholder Details', 'Mailing Address', 'Additional Parties'];
 
-    cy.findDataTag('verify').find('h3.section-group-header').each(($h3, i) =>
-      cy.wrap($h3).should('contain', headerText[i]).find('i.fa').should('exist'));
-  });
+  //   cy.findDataTag('verify').find('h3.section-group-header').each(($h3, i) =>
+  //     cy.wrap($h3).should('contain', headerText[i]).find('i.fa').should('exist'));
+  // });
 
   it('POS:Property Details Text & Value', () => {
     const propertyDetails = [

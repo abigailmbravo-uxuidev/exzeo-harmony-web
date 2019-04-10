@@ -49,26 +49,26 @@ describe('Customize Testing', () => {
   //   cy.findDataTag('coverageLimits.dwelling.amount_error').should('contain', 'Not a valid range.');
   // });
 
-  it('POS:Customize Detail Header', () => {
-    cy.findDataTag('tab-nav-askUWAnswers').click();
-    navigateThroughUnderwriting();
-    const details = [
-      { dt: 'Quote Number', dd: '-' },
-      { dt: 'Coverage A', dd: '$ 314,000' },
-      { dt: 'Premium', dd: '$' }
-    ];
+  // it('POS:Customize Detail Header', () => {
+  //   cy.findDataTag('tab-nav-askUWAnswers').click();
+  //   navigateThroughUnderwriting();
+  //   const details = [
+  //     { dt: 'Quote Number', dd: '-' },
+  //     { dt: 'Coverage A', dd: '$ 314,000' },
+  //     { dt: 'Premium', dd: '$' }
+  //   ];
 
-    cy.findDataTag('quote-details').find('dl > div > dt').should('contain', details[0].dt)
-      .next().should('contain', details[0].dd)
-      .findDataTag('coverage-details').find('dl > div > dt').should('contain', details[1].dt)
-      .next().should('contain', details[1].dd)
-      .findDataTag('premium').find('dl > div > dt').should('contain', details[2].dt)
-      .next().should('contain', details[2].dd);
-  });
+  //   cy.findDataTag('quote-details').find('dl > div > dt').should('contain', details[0].dt)
+  //     .next().should('contain', details[0].dd)
+  //     .findDataTag('coverage-details').find('dl > div > dt').should('contain', details[1].dt)
+  //     .next().should('contain', details[1].dd)
+  //     .findDataTag('premium').find('dl > div > dt').should('contain', details[2].dt)
+  //     .next().should('contain', details[2].dd);
+  // });
 
-  it('POS:Customize Workflow', () =>
-    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  );
+  // it('POS:Customize Workflow', () =>
+  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  // );
 
   // it('POS:Customize Header Text', () =>
   //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header))

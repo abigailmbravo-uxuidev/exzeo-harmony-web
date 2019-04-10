@@ -56,9 +56,9 @@ describe('Underwriting Testing', () => {
   //   })
   // );
 
-  it('POS:Underwriting Workflow', () =>
-    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  );
+  // it('POS:Underwriting Workflow', () =>
+  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  // );
 
   // it('POS:Check All Questions Text / Radio', () =>
   //   cy.wrap(fields).each(field =>
