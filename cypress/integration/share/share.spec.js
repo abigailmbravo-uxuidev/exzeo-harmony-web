@@ -1,5 +1,4 @@
 import stubAllRoutes from "../../support/stubAllRoutes";
-
 import {
   navigateThroughLanding,
   navigateThroughSearchAddress,
@@ -39,12 +38,12 @@ describe('Share Testing', () => {
     toggleModal('off');
   });
 
-  // it('"Confirmed" Value left at Default "No"', () => {
-  //   cy.clickSubmit()
-  //     .findDataTag('confirm-assumptions').should('have.attr', 'data-value', 'false')
-  //     .findDataTag('submit').should('be.disabled')
-  //     .findDataTag('tab-nav-sendEmailOrContinue').click();
-  // });
+  it('"Confirmed" Value left at Default "No"', () => {
+    cy.clickSubmit()
+      .findDataTag('confirm-assumptions').should('have.attr', 'data-value', 'false')
+      .findDataTag('submit').should('be.disabled')
+      .findDataTag('tab-nav-sendEmailOrContinue').click();
+  });
 
   it('NEG:All Inputs Empty Value', () => {
     toggleModal();
@@ -64,52 +63,52 @@ describe('Share Testing', () => {
     cy.verifyForm([{ ...email, error: 'Not a valid email address', data: 'å∫∂®ƒ©' }], undefined, undefined, submitOptions);
   });
 
-  // it('POS:Share Workflow', () =>
-  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  // );
+  it('POS:Share Workflow', () =>
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  );
 
-  // it('POS:Share Header / Text', () =>
-  //   cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
-  //     .wrap(sections).each(tag => cy.findDataTag(tag).find('p').should('contain', 'quote'))
-  // );
+  it('POS:Share Header / Text', () =>
+    cy.wrap(pageHeaders).each(header => cy.checkHeader(header))
+      .wrap(sections).each(tag => cy.findDataTag(tag).find('p').should('contain', 'quote'))
+  );
 
-  // it('POS:Share Button', () =>
-  //   cy.findDataTag('share').should('exist').and('contain', 'share')
-  //     .click().then(() =>
-  //       cy.get('.card.card-email #SendEmail').should('exist')
-  //         .findDataTag('modal-cancel').should('exist').click().then(() =>
-  //           cy.get('.card.card-email').should('not.exist')
-  //             .findDataTag('share').click().then(() =>
-  //               cy.get('.card.card-email #SendEmail').should('exist')
-  //             )
-  //         )
-  //     )
-  // );
+  it('POS:Share Button', () =>
+    cy.findDataTag('share').should('exist').and('contain', 'share')
+      .click().then(() =>
+        cy.get('.card.card-email #SendEmail').should('exist')
+          .findDataTag('modal-cancel').should('exist').click().then(() =>
+            cy.get('.card.card-email').should('not.exist')
+              .findDataTag('share').click().then(() =>
+                cy.get('.card.card-email #SendEmail').should('exist')
+              )
+          )
+      )
+  );
 
-  // it('POS:Share Modal', () =>
-  //   cy.findDataTag('share').click().then(() =>
-  //     cy.wrap(modalFields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
-  //       .findDataTag('modal-submit').should('exist')
-  //   )
-  // );
+  it('POS:Share Modal', () =>
+    cy.findDataTag('share').click().then(() =>
+      cy.wrap(modalFields).each(({ name, label, data }) => cy.checkLabel(name, label).checkText(name, data))
+        .findDataTag('modal-submit').should('exist')
+    )
+  );
 
-  // it('POS:Next Button', () =>
-  //   cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'button')
-  // );
+  it('POS:Next Button', () =>
+    cy.findDataTag('submit').should('exist').and('have.attr', 'type', 'button')
+  );
 
-  // it('POS:Share Page 2', () => {
-  //   navigateThroughShare();
-  //   cy.get('form#QuoteWorkflow').children().first().should('contain', 'All properties will be inspected')
-  //     .next().should('contain', 'Please be aware')
-  //     .findDataTag('assumptions-list').find('li').first().should('contain', 'Properties with pools')
-  //     .next().should('contain', 'Special Flood Hazard Areas')
-  //     .next().should('contain', 'Property is not in state of disrepair')
-  //     .next().should('contain', 'Roof covering does not exceed')
-  //     .find('ul > li').first().should('contain', 'Roof cannot be over 20 years old')
-  //     .next().should('contain', 'Roof cannot be over 40 years old')
-  //     .wrap(fields).each(({ name, label, defaultValue }) => cy.checkLabel(name, label).checkSwitch({ name, defaultValue }))
-  //     .findDataTag('submit').should('be.disabled')
-  //     .findDataTag('confirm-assumptions').click().findDataTag('submit').should('not.be.disabled')
-  //     .checkSubmitButton();
-  // });
+  it('POS:Share Page 2', () => {
+    navigateThroughShare();
+    cy.get('form#QuoteWorkflow').children().first().should('contain', 'All properties will be inspected')
+      .next().should('contain', 'Please be aware')
+      .findDataTag('assumptions-list').find('li').first().should('contain', 'Properties with pools')
+      .next().should('contain', 'Special Flood Hazard Areas')
+      .next().should('contain', 'Property is not in state of disrepair')
+      .next().should('contain', 'Roof covering does not exceed')
+      .find('ul > li').first().should('contain', 'Roof cannot be over 20 years old')
+      .next().should('contain', 'Roof cannot be over 40 years old')
+      .wrap(fields).each(({ name, label, defaultValue }) => cy.checkLabel(name, label).checkSwitch({ name, defaultValue }))
+      .findDataTag('submit').should('be.disabled')
+      .findDataTag('confirm-assumptions').click().findDataTag('submit').should('not.be.disabled')
+      .checkSubmitButton();
+  });
 });

@@ -42,31 +42,31 @@ describe('Underwriting Testing', () => {
     stubUnderwritingWithBlankAnswers();
   });
 
-  // it('NEG:All Inputs Empty Value', () =>
-  //   cy.submitAndCheckValidation(fields)
-  // );
+  it('NEG:All Inputs Empty Value', () =>
+    cy.submitAndCheckValidation(fields)
+  );
 
-  // it('NEG:"All questions empty value', () =>
-  //   cy.wrap(fields).each(field => {
-  //     toggleExcept([`${field.name.split('_')[0]}`], data);
-  //     cy.submitAndCheckValidation([field])
-  //       .findDataTag('tab-nav-askAdditionalCustomerData').click()
-  //       .findDataTag('Primary Policyholder')
-  //       .clickSubmit();
-  //   })
-  // );
+  it('NEG:"All questions empty value', () =>
+    cy.wrap(fields).each(field => {
+      toggleExcept([`${field.name.split('_')[0]}`], data);
+      cy.submitAndCheckValidation([field])
+        .findDataTag('tab-nav-askAdditionalCustomerData').click()
+        .findDataTag('Primary Policyholder')
+        .clickSubmit();
+    })
+  );
 
-  // it('POS:Underwriting Workflow', () =>
-  //   cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
-  // );
+  it('POS:Underwriting Workflow', () =>
+    cy.wrap(workflowSections).each(section => cy.checkWorkflowSection(section))
+  );
 
-  // it('POS:Check All Questions Text / Radio', () =>
-  //   cy.wrap(fields).each(field =>
-  //     cy.checkLabel(field.name, field.label)
-  //       .checkRadios(field)
-  //       .clickEachRadio(field)
-  //   )
-  // );
+  it('POS:Check All Questions Text / Radio', () =>
+    cy.wrap(fields).each(field =>
+      cy.checkLabel(field.name, field.label)
+        .checkRadios(field)
+        .clickEachRadio(field)
+    )
+  );
 
-  // it('POS:Underwriting Next Button', () => cy.checkSubmitButton());
+  it('POS:Underwriting Next Button', () => cy.checkSubmitButton());
 });
