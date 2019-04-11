@@ -169,7 +169,7 @@ export class SearchForm extends Component {
       <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
         { /* TODO: Put this in core-ui to and make reusable for CSR */ }
         <NewQuoteSearch
-          canFilter={true}
+          canFilter={beta}
           filterTypeName="product"
           filterTypeOptions={PRODUCTS_LIST}
           filterTypeLabel="Select Product"
