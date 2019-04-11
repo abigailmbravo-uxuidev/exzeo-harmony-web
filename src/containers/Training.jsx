@@ -4,7 +4,7 @@ import FancyExternalLink from '../components/FancyExternalLink';
 import Footer from '../components/Common/Footer';
 import AppWrapper from '../components/AppWrapper';
 
-const externalLinks = [
+export const externalLinks = [
   {
     key: 1,
     productIcon: 'home',
