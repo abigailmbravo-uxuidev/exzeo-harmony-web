@@ -27,7 +27,6 @@ describe('Property Address Search Testing', () => {
   it('NEG:Test Invalid Addresses', () => {
     cy.setFx('stubs/fetchAddresses', ['result.IndexResult', []])
     .then(() => {
-      // const { address } = user;
       type('ADDRESS NOT FOUND');
       cy.clickSubmit()
         .findDataTag('no-results').find('.no-results .card-header > h4')
