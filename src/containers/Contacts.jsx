@@ -5,7 +5,7 @@ import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard'
 import Footer from '../components/Common/Footer';
 
-const territoryManagerContacts = [
+export const territoryManagerContacts = [
   {
     icon: 'image clark-ramos',
     name: 'Clark Ramos',
@@ -44,7 +44,7 @@ const territoryManagerContacts = [
   }
 ];
 
-const supportContacts = [
+export const supportContacts = [
   {
     icon: 'fa fa-building-o',
     name: 'Agency Support',

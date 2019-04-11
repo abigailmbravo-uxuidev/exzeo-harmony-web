@@ -78,6 +78,21 @@ export const defaultProps = {
   match: { params: {} }
 };
 
+const parseQueryType = (query, field) => {
+  // We determine which field value to use based on query name
+  const queryName = query.name.replace(/bound /g, '');
+  switch (queryName) {
+    case 'getByTestId':
+      return query(field.name);
+    case 'getByText':
+      return query(field.text);
+    case 'getByLabel':
+      return query(field.label);
+    default:
+      return query(field.name);
+  };
+};
+
 export const testHelpers = {
   submitForm: (query, regex = /submit/) => fireEvent.click(query(regex)),
   checkError: (query, { name, error = 'Field Required' } = {}) =>
@@ -120,10 +135,15 @@ export const testHelpers = {
     setSliderValue(slider, max);
     expect(slider.value).toEqual(max);
   },
-  checkHeader: (query, { name, text, icon = false }) => {
-    // Check text content, and if an icon is present, we check that className
-    expect(query(name)).toHaveTextContent(text);
-    if (icon) expect(document.querySelector(`[data-test="${name}"] i`).className).toEqual(icon);
+  checkHeader: (query, { name = '', text, label = '', icon = false }) => {
+    // const header = query(name || text);
+    const header = parseQueryType(query, { name, text, label });
+    expect(header).toHaveTextContent(text);
+    if (icon) {
+      // find the first icon element and check that it's classname is the icon value in the field
+      const iconElement = Object.values(header.childNodes).find(node => node.tagName === 'I');
+      expect(iconElement.className).toEqual(icon);
+    }
   },
   checkButton: el => {
     expect(el.getAttribute('type')).toEqual('button');
