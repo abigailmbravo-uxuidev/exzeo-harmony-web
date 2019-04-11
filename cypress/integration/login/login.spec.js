@@ -9,19 +9,27 @@ describe('Login Testing', () => {
   );
 
   it('POS:Login Input', () =>
-    cy.get('input[name="username"]').should('exist')
-      .get('input[name="password"]').should('exist')
+    cy.get('input[name="username"]')
+      .should('exist')
+      .get('input[name="password"]')
+      .should('exist')
   );
 
   it('POS:Login Text', () =>
-    cy.get('a.auth0-lock-alternative-link').should('exist')
+    cy.get('a.auth0-lock-alternative-link')
+      .should('exist')
   );
 
   it('POS:Login Button', () =>
-  cy.get('button.auth0-lock-submit[type="submit"]').should('exist')
-      .get('input[name="username"]').type(loginInfo.username, { force: true })
-      .get('input[name="password"]').type(loginInfo.password, { force: true })
-      .get('.auth0-label-submit').click({ force: true })
-      .get('div.dashboard-message').should('exist')
+    cy.get('button.auth0-lock-submit[type="submit"]')
+      .should('exist')
+      .get('input[name="username"]')
+      .type(loginInfo.username, { force: true })
+      .get('input[name="password"]')
+      .type(loginInfo.password, { force: true })
+      .get('.auth0-label-submit')
+      .click({ force: true })
+      .get('div.dashboard-message')
+      .should('exist')
   );
 });
