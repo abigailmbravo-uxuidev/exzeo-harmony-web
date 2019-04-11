@@ -192,7 +192,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('Primary Policyholder'));
     toggleSecondUser();
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
+    pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Primary / Secondary Policyholder Label / Text', async () => {
@@ -216,6 +216,6 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   it('POS:Checks Submit Button', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('Primary Policyholder'));
-    checkButton(getByTestId('submit'));
+    checkButton(getByTestId);
   });
 });

@@ -164,8 +164,12 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks all headers', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+<<<<<<< HEAD
     await waitForElement(() => getByTestId('Mailing Address'));
     pageHeaders.forEach(field => checkHeader(getByTestId, field));
+=======
+    pageHeaders.forEach(header => checkHeader(getByTestId, header));
+>>>>>>> a4a1b7a4... Update some naming
   });
 
   it('POS:Checks all labels', async () => {
@@ -204,6 +208,6 @@ describe('Testing the Mailing/Billing Page', () => {
   it('POS:Checks Submit Button', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     await waitForElement(() => getByTestId('Mailing Address'));
-    checkButton(getByTestId('submit'));
+    checkButton(getByTestId);
   });
 });

@@ -22,7 +22,7 @@ const { checkHeader } = testHelpers;
 describe('Testing the Contacts Page', () => {
   it('POS:Contacts Header Testing', () => {
     const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
-    pageHeaders.forEach(field => checkHeader(getByText, field));
+    pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Territory Managers Cards Testing', () => {

@@ -119,6 +119,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   it('POS:Checks Submit Button', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     await waitForElement(() => getByTestId(`${fields[0].name}_label`));
-    checkButton(getByTestId('submit'));
+
+    checkButton(getByTestId);
   });
 });

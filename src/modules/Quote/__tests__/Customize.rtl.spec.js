@@ -278,7 +278,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     await waitForElement(() => getByTestId('Coverage Limits'));
 
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
+    pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Checks Output Values', async () => {

@@ -82,6 +82,7 @@ describe('Testing Share Page 2', () => {
   it('POS:Checks Submit Button', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     await waitForElement(() => getByTestId('assumptions-title'))
-    checkButton(getByTestId('submit'));
+
+    checkButton(getByTestId);
   });
 });

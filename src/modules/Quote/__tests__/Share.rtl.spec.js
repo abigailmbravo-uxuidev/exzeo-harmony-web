@@ -97,7 +97,8 @@ describe('Testing the Share Page', () => {
   it('POS:Share Header / Text', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
     await waitForElement(() => getByTestId('Share'));
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
+
+    pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Share Button / Share Modal', async () => {
