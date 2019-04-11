@@ -4,7 +4,12 @@ import { fireEvent, waitForElement } from 'react-testing-library';
 
 import * as serviceRunner from '../../../utilities/serviceRunner';
 
-import { renderWithReduxAndRouter, defaultProps, customerInfoTemplate, testHelpers } from '../../../test-utils';
+import {
+  renderWithReduxAndRouter,
+  defaultProps,
+  customerInfoTemplate,
+  submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton
+} from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
 const ph1Fields = [
@@ -94,8 +99,6 @@ const pageHeaders = [
     icon: 'fa fa-file-text'
   }
 ];
-
-const { submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton } = testHelpers;
 
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({

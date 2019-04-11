@@ -8,7 +8,8 @@ import {
   renderWithReduxAndRouter,
   defaultProps,
   shareTemplate,
-  testHelpers
+  checkHeader,
+  checkLabel
 } from '../../../test-utils';
 import ConnectedShare from '../Share';
 
@@ -48,8 +49,6 @@ const pageHeaders = [
     icon: 'fa fa-quote-left'
   }
 ];
-
-const { checkHeader, checkLabel } = testHelpers;
 
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({

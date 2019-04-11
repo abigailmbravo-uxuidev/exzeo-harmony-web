@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
 
-import { renderWithReduxAndRouter, defaultProps, testHelpers } from '../../test-utils';
+import { renderWithReduxAndRouter, defaultProps, checkHeader } from '../../test-utils';
 import Training, { externalLinks } from '../Training';
 
 const pageHeaders = [
@@ -9,8 +9,6 @@ const pageHeaders = [
     text: 'Reference'
   }
 ];
-
-const { checkHeader } = testHelpers;
 
 describe('Testing the Helpful Info (Training) Page', () => {
   it('POS:Helpful Info Header Testing', () => {

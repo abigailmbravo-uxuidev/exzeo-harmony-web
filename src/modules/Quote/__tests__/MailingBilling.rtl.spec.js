@@ -8,7 +8,15 @@ import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
-  testHelpers,
+  submitForm,
+  checkError,
+  verifyForm,
+  checkHeader,
+  checkLabel,
+  checkTextInput,
+  checkRadio,
+  checkSwitch,
+  checkButton,
   quote,
   mailingBillingTemplate,
   mailingBillingUiQuestions as uiQuestions,
@@ -92,18 +100,6 @@ export const pageHeaders = [
   }
 ];
 
-const {
-  submitForm,
-  checkError,
-  verifyForm,
-  checkHeader,
-  checkLabel,
-  checkTextInput,
-  checkRadio,
-  checkSwitch,
-  checkButton
-} = testHelpers;
-
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
   pages: [{ components: [] }, { components: [] }, { components: [] }, { components: [] }, { components: [] }, { components: [] }, mailingBillingTemplate, { components: [] }]
@@ -164,12 +160,9 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks all headers', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-<<<<<<< HEAD
     await waitForElement(() => getByTestId('Mailing Address'));
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
-=======
+
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
->>>>>>> a4a1b7a4... Update some naming
   });
 
   it('POS:Checks all labels', async () => {

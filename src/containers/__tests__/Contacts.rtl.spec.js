@@ -3,7 +3,7 @@ import 'jest-dom/extend-expect';
 
 import { normalize } from '@exzeo/core-ui';
 
-import { renderWithReduxAndRouter, defaultProps, testHelpers } from '../../test-utils';
+import { renderWithReduxAndRouter, defaultProps, checkHeader } from '../../test-utils';
 import Contacts, { territoryManagerContacts, supportContacts } from '../Contacts';
 
 const pageHeaders = [
@@ -16,8 +16,6 @@ const pageHeaders = [
     icon: 'fa fa-address-book'
   }
 ];
-
-const { checkHeader } = testHelpers;
 
 describe('Testing the Contacts Page', () => {
   it('POS:Contacts Header Testing', () => {

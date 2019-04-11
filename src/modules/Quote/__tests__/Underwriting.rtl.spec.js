@@ -9,7 +9,7 @@ import {
   renderWithReduxAndRouter,
   defaultProps,
   underwritingTemplate,
-  testHelpers,
+  submitForm, checkError, checkRadio, checkLabel, checkButton,
   underwritingList as list
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
@@ -57,8 +57,6 @@ const fields = [
     data: 'No'
   }
 ];
-
-const { submitForm, checkError, checkRadio, checkLabel, checkButton } = testHelpers;
 
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({

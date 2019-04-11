@@ -8,8 +8,8 @@ import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
-  testHelpers,
   customizeTemplate,
+  checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
   customizeList as list,
   customizeUiQuestions as uiQuestions,
   quote,
@@ -209,8 +209,6 @@ const pageHeaders = [
     icon: 'fa fa-scissors'
   }
 ];
-
-const { checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel } = testHelpers;
 
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
