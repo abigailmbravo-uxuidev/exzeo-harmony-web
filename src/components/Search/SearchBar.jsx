@@ -13,7 +13,7 @@ import NewQuoteSearch from '../../modules/Search/Address';
 import { generateField, getSearchType, PRODUCTS_LIST } from './searchUtils';
 
 const handleInitialize = state => ({
-  productType: 'HO3',
+  product: 'HO3',
   address: '',
   pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
   totalPages: _.get(state.search, 'state.search.totalPages') || 0
