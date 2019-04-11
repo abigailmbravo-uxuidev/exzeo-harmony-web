@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
 import _ from 'lodash';
-import { updateQuote } from '../../actions/quoteState.actions';
+import { updateQuote } from '../../state/actions/quoteState.actions';
 
 
 const ScheduleDate = ({ isLoading, handleSubmit, verify, secondaryButtonHandler, quoteData, selectedAgent, redirectToHome }) => (

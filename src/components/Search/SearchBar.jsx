@@ -5,8 +5,8 @@ import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-for
 import _ from 'lodash';
 
 import Rules from '../Form/Rules';
-import { clearAppError } from '../../actions/errorActions';
-import { searchQuotes, setQuoteSearch, searchAddresses } from '../../actions/searchActions';
+import { clearAppError } from '../../state/actions/errorActions';
+import { searchQuotes, setQuoteSearch, searchAddresses } from '../../state/actions/searchActions';
 import Pagination from '../Common/Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
 

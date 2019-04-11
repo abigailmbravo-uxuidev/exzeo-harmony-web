@@ -1,5 +1,5 @@
 import * as persistTypes from 'redux-persist/constants';
-import * as types from './../actions/actionTypes';
+import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 import appStateReducer from './appStateReducer';
 
@@ -14,6 +14,7 @@ describe('App State Reducer', () => {
 
     expect(appStateReducer(state, action)).toEqual(inputProps);
   });
+
   it('should call appStateReducer APPSTATE_ERROR', () => {
     const state = initialState.appState;
     const inputProps = { isLoading: false, isRecalc: false };
@@ -24,6 +25,7 @@ describe('App State Reducer', () => {
 
     expect(appStateReducer(state, action)).toEqual(inputProps);
   });
+
   it('should call appStateReducer REHYDRATE', () => {
     const state = initialState.appState;
     const inputProps = { isLoading: false, isRecalc: false };

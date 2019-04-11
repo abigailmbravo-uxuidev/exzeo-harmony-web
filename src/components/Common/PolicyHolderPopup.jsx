@@ -10,7 +10,7 @@ import normalizePhone from '../Form/normalizePhone';
 import CheckField from '../Form/inputs/CheckField';
 import SnackBar from './SnackBar';
 import failedSubmission from './reduxFormFailSubmit';
-import { updateQuote } from '../../actions/quoteState.actions';
+import { updateQuote } from '../../state/actions/quoteState.actions';
 
 const handleQuoteData = state => state.quoteState.quote || {};
 const handleInitialize = (state) => {

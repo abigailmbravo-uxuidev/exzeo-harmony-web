@@ -12,7 +12,7 @@ import quoteState from './quoteState.reducer';
 import agencyState from './agency.reducer';
 
 // New stuff
-import list from '../state/reducers/list.reducer';
+import list from './list.reducer';
 
 const rootReducer = combineReducers({
   form: formReducer,

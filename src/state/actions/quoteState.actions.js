@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
-import choreographer from '../utilities/choreographer';
-import * as serviceRunner from '../utilities/serviceRunner';
+import choreographer from '../../utilities/choreographer';
+import * as serviceRunner from '../../utilities/serviceRunner';
 import { toggleLoading } from './appStateActions';
 
 export const setQuote = (quote, state = { activeTask: 'askAdditionalCustomerData'}) => ({

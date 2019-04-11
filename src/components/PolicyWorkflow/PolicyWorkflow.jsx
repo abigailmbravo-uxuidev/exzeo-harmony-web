@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Loader } from '@exzeo/core-ui';
-import { setAppModalError } from '../../actions/errorActions';
+import { setAppModalError } from '../../state/actions/errorActions';
 import {
   clearPolicyResults,
   getPolicyDocuments,
   getSummaryLedger,
   getLatestPolicy,
   clearPolicy
-} from '../../actions/serviceActions';
-import { getAgentsByAgencyCode } from '../../actions/agency.actions';
+} from '../../state/actions/serviceActions';
+import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
 import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';

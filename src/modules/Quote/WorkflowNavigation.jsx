@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TabNavigation } from '@exzeo/core-ui/src/@Harmony/Navigation';
 
-import { updateQuote } from '../../actions/quoteState.actions';
+import { updateQuote } from '../../state/actions/quoteState.actions';
 
 import { getNavLinks } from './constants/workflowNavigation';
 import DetailHeader from './DetailHeader';

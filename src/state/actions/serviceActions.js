@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from 'axios/index';
 import orderBy from 'lodash/orderBy';
-import { batchActions } from 'redux-batched-actions';
+import { batchActions } from 'redux-batched-actions/lib/index';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
-import * as listActions from '../state/actionTypes/list.actionTypes';
+import * as listActions from '../actionTypes/list.actionTypes';
 
 export const handleError = (error) => {
   const message = error.response && error.response.data && error.response.data.error

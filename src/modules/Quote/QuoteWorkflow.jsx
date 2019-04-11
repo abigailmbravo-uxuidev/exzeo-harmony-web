@@ -13,10 +13,10 @@ import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { Button, Loader, date } from '@exzeo/core-ui';
 
-import { updateQuote } from '../../actions/quoteState.actions';
-import { getAgentsByAgencyCode } from '../../actions/agency.actions';
-import { getZipcodeSettings } from '../../actions/serviceActions';
-import { getQuoteSelector } from '../../selectors/choreographer.selectors';
+import { updateQuote } from '../../state/actions/quoteState.actions';
+import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
+import { getZipcodeSettings } from '../../state/actions/serviceActions';
+import { getQuoteSelector } from '../../state/selectors/choreographer.selectors';
 
 import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
 import { ROUTE_TO_STEP_NAME } from './constants/choreographer';

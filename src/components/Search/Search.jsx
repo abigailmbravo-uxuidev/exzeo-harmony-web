@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
-import { clearResults } from '../../actions/searchActions';
+import { createQuote, getQuote, clearQuote } from '../../state/actions/quoteState.actions';
+import { clearResults } from '../../state/actions/searchActions';
 import QuoteError from '../Common/QuoteError';
 import Footer from '../Common/Footer';
 

@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
-import * as serviceRunner from '../utilities/serviceRunner';
+import * as serviceRunner from '../../utilities/serviceRunner';
 import * as agencyActions from './agency.actions';
 import * as types from './actionTypes';
 

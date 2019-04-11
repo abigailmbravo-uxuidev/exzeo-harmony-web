@@ -1,7 +1,7 @@
 import * as persistTypes from 'redux-persist/constants';
-import * as types from '../../actions/actionTypes';
+import * as types from '../actions/actionTypes';
 import * as listTypes from '../actionTypes/list.actionTypes';
-import initialState from '../../reducers/initialState';
+import initialState from './initialState';
 
 export default function listReducer(state = initialState.list, action) {
   switch (action.type) {

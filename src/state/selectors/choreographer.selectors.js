@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect/lib/index';
 import { formatDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';
 
 export const getQuote = state => state.quoteState.quote || {};

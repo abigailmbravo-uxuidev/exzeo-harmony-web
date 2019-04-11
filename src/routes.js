@@ -7,9 +7,9 @@ import { Helmet } from 'react-helmet';
 import Modal from 'react-modal';
 import axios from 'axios';
 
-import { setUserProfile } from './actions/authActions';
-import { clearAppError } from './actions/errorActions';
-import { getAgency } from './actions/agency.actions';
+import { setUserProfile } from './state/actions/authActions';
+import { clearAppError } from './state/actions/errorActions';
+import { getAgency } from './state/actions/agency.actions';
 
 import history from './history';
 import Auth from './Auth';
