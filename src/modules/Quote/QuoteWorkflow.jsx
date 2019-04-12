@@ -199,7 +199,6 @@ export class QuoteWorkflow extends Component {
                   currentPage={gandalfTemplate.pages[currentPageIndex]}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
-                  template={gandalfTemplate}
                   options={options}  // enums for select/radio fields
                   transformConfig={transformConfig}
                   path={location.pathname}
