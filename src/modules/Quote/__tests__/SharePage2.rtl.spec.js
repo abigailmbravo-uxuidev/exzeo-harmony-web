@@ -28,7 +28,7 @@ const { checkLabel, checkSwitch, checkButton } = testHelpers;
 serviceRunner.callService = jest.fn(() => Promise.resolve({
   data: {
     result: {
-      pages: [{}, {}, {}, {}, assumptionsTemplate]
+      pages: [{ components: [] }, { components: [] }, { components: [] }, { components: [] }, assumptionsTemplate]
     }
   }
 }));

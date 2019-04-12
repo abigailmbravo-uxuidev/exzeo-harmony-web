@@ -106,7 +106,7 @@ const {
 
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
-  pages: [{}, {}, {}, {}, {}, {}, mailingBillingTemplate, {}]
+  pages: [{ components: [] }, { components: [] }, { components: [] }, { components: [] }, { components: [] }, { components: [] }, mailingBillingTemplate, { components: [] }]
 }}}));
 
 describe('Testing the Mailing/Billing Page', () => {

@@ -123,7 +123,7 @@ export class QuoteWorkflow extends Component {
     if(!gandalfTemplate) return {};
 
     return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
-      if (!page.components) return pageComponentsMap;
+
       const pageComponents = page.components.reduce((componentMap, component) => {
         if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
           componentMap[component.path] = (component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target;
@@ -155,7 +155,7 @@ export class QuoteWorkflow extends Component {
 
   render() {
     const { auth, history, isLoading, location, match, options, quote, workflowState, } = this.props;
-    
+
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
     const currentPage = PAGE_ROUTING[currentStep];

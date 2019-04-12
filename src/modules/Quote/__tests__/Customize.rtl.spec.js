@@ -214,7 +214,7 @@ const { checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel } = testHe
 
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
-  pages: [{}, {}, customizeTemplate]
+  pages: [{ components: [] }, { components: [] }, customizeTemplate]
 }}}));
 
 describe('Testing the QuoteWorkflow Customize Page', () => {

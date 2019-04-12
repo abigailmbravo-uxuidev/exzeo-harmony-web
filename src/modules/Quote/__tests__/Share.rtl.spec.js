@@ -55,7 +55,7 @@ const { checkHeader, checkLabel } = testHelpers;
 serviceRunner.callService = jest.fn(() => Promise.resolve({
   data: {
     result: {
-      pages: [{}, {}, {}, shareTemplate]
+      pages: [{ components: [] }, { components: [] }, { components: [] }, shareTemplate]
     }
   }
 }));

@@ -64,7 +64,7 @@ const { submitForm, checkError, checkRadio, checkLabel, checkButton } = testHelp
 serviceRunner.callService = jest.fn(() => Promise.resolve({
   data: {
     result: {
-      pages: [{}, underwritingTemplate]
+      pages: [{ components: [] }, underwritingTemplate]
     }
   }
 }));
