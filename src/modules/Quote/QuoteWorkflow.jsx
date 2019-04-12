@@ -138,9 +138,9 @@ export class QuoteWorkflow extends Component {
     }, {});
   };
 
-  handleDirtyForm = (isDirty, currentPage) => {
+  handleDirtyForm = (isDirty, path) => {
     this.setState({
-      isRecalc: currentPage === 2 && isDirty,
+      isRecalc: path === 'customize' && isDirty,
     })
   };
 
@@ -158,7 +158,7 @@ export class QuoteWorkflow extends Component {
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
-    const currentPage = PAGE_ROUTING[currentStep];
+    const currentPageIndex = PAGE_ROUTING[currentStep];
     const shouldUseGandalf = gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
@@ -196,7 +196,7 @@ export class QuoteWorkflow extends Component {
                 <Gandalf
                   formId={FORM_ID}
                   className="survey-wrapper"
-                  currentPage={currentPage}
+                  currentPage={gandalfTemplate.pages[currentPageIndex]}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
                   template={gandalfTemplate}

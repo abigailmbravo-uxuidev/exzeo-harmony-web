@@ -1,12 +1,15 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, waitForElement } from 'react-testing-library';
+
+import * as serviceRunner from '../../../utilities/serviceRunner';
 
 import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
   testHelpers,
+  customizeTemplate,
   customizeList as list,
   customizeUiQuestions as uiQuestions,
   quote,
@@ -209,6 +212,11 @@ const pageHeaders = [
 
 const { checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel } = testHelpers;
 
+// Mock Gandalf's servicerunner call for templates
+const pages = Array(7).fill({ components: [] });
+pages.splice(2, 1, customizeTemplate);
+serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: { pages } } }));
+
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
     ...defaultProps,
@@ -234,8 +242,9 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     }
   };
 
-  it('NEG:Dwelling Limit', () => {
+  it('NEG:Dwelling Limit', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Coverage Limits'))
     fields.filter(({ type }) => type === 'slider')
       .forEach(({ name }) => {
         const input = getByTestId(`${name}-input`);
