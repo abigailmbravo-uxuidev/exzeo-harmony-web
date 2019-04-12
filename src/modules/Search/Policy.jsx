@@ -10,7 +10,7 @@ import Footer from '../../components/Common/Footer';
 
 export class PolicySearch extends Component {
   componentDidMount() {
-    this.props.setPolicySearch({ searchType: 'policy' });
+    this.props.setPolicySearch({ searchType: 'policy', address: '' });
   }
 
   componentWillUnmount() {
