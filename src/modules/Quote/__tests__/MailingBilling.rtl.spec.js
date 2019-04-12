@@ -1,6 +1,9 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, waitForElement } from 'react-testing-library';
+
+import * as serviceRunner from '../../../utilities/serviceRunner';
+import result from './mockedResult';
 
 import {
   defaultProps,
@@ -128,65 +131,69 @@ describe('Testing the Mailing/Billing Page', () => {
 
   const requiredFields = fields.filter(({ required }) => required);
 
-  it('NEG:Tests all empty values', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    submitForm(getByTestId);
-    requiredFields.forEach(field => checkError(getByTestId, field));
-  });
+  // it('NEG:Tests all empty values', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   submitForm(getByTestId);
+  //   requiredFields.forEach(field => checkError(getByTestId, field));
+  // });
 
-  it('NEG:Tests Mailing Address empty values', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
-  });
+  // it('NEG:Tests Mailing Address empty values', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
+  // });
 
-  it('NEG:Tests Invalid Input Values', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state');
-    const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip');
-    verifyForm(getByTestId, [{
-      ...state, data: 'foo', error: 'Only 2 letters allowed'
-    }]);
-    verifyForm(getByTestId, [{
-      ...zip, data: '123456789', error: 'Only 8 letters or numbers allowed'
-    }]);
-  });
+  // it('NEG:Tests Invalid Input Values', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state');
+  //   const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip');
+  //   verifyForm(getByTestId, [{
+  //     ...state, data: 'foo', error: 'Only 2 letters allowed'
+  //   }]);
+  //   verifyForm(getByTestId, [{
+  //     ...zip, data: '123456789', error: 'Only 8 letters or numbers allowed'
+  //   }]);
+  // });
 
-  it('POS:Checks all headers', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
-  });
+  // it('POS:Checks all headers', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   pageHeaders.forEach(field => checkHeader(getByTestId, field));
+  // });
 
-  it('POS:Checks all labels', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    fields.forEach(field => checkLabel(getByTestId, field));
-  });
+  // it('POS:Checks all labels', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   fields.forEach(field => checkLabel(getByTestId, field));
+  // });
 
-  it('POS:Checks all inputs', () => {
+  // it('POS:Checks all inputs', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+  //   fields.forEach(field => {
+  //     if (field.type === 'text') checkTextInput(getByTestId, field);
+  //     if (field.type === 'radio') checkRadio(getByTestId, field);
+  //     if (field.type === 'switch') checkSwitch(getByTestId, field);
+  //   });
+  // });
+
+  // it('POS:Checks toggle fills out data', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+  //   fireEvent.click(getByTestId('sameAsPropertyAddress'));
+  //   expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
+  // });
+
+  // it('POS:Checks installment text', () => {
+  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+  //   expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
+  //   expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,624');
+  //   expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,059');
+  //   expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 1,096');
+  //   expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 531');
+  // });
+
+  it('POS:Checks Submit Button', async () => {
+    serviceRunner.callService = jest.fn(() =>
+      Promise.resolve({ data: result }));
+
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    fields.forEach(field => {
-      if (field.type === 'text') checkTextInput(getByTestId, field);
-      if (field.type === 'radio') checkRadio(getByTestId, field);
-      if (field.type === 'switch') checkSwitch(getByTestId, field);
-    });
-  });
-
-  it('POS:Checks toggle fills out data', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    fireEvent.click(getByTestId('sameAsPropertyAddress'));
-    expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
-  });
-
-  it('POS:Checks installment text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
-    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,624');
-    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,059');
-    expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 1,096');
-    expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 531');
-  });
-
-  it('POS:Checks Submit Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('submit'))
     checkButton(getByTestId('submit'));
   });
 });

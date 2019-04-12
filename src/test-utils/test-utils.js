@@ -21,12 +21,16 @@ export const defaultInitialState = {
   },
   completedTasks: [],
   appState: {
-    isLoading: false,
-    isRecalc: false
+    isLoading: false
   },
   error: {},
   authState: {
-    userProfile: undefined
+    userProfile: {
+      entity: {
+        companyCode: 'TTIC',
+        state: 'FL'
+      }
+    }
   },
   quoteState: {
     quote: null,
