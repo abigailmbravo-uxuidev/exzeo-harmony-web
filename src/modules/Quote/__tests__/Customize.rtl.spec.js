@@ -213,9 +213,9 @@ const pageHeaders = [
 const { checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel } = testHelpers;
 
 // Mock Gandalf's servicerunner call for templates
-const pages = Array(7).fill({ components: [] });
-pages.splice(2, 1, customizeTemplate);
-serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: { pages } } }));
+serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
+  pages: [{}, {}, customizeTemplate]
+}}}));
 
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
@@ -244,7 +244,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
 
   it('NEG:Dwelling Limit', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('Coverage Limits'))
+    await waitForElement(() => getByTestId('Coverage Limits'));
     fields.filter(({ type }) => type === 'slider')
       .forEach(({ name }) => {
         const input = getByTestId(`${name}-input`);
@@ -260,8 +260,10 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       });
   });
 
-  it('POS:Checks all fields', () => {
+  it('POS:Checks all fields', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Coverage Limits'));
+
     fields.filter(({ required }) => required)
       .forEach(field => {
         checkLabel(getByTestId, field);
@@ -272,12 +274,14 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       });
   });
 
-  it('POS:Checks Header Text', () => {
+  it('POS:Checks Header Text', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Coverage Limits'));
+
     pageHeaders.forEach(field => checkHeader(getByTestId, field));
   });
 
-  it('POS:Checks Output Values', () => {
+  it('POS:Checks Output Values', async () => {
     const outputFields = [
       'coverageLimits.otherStructures.value_wrapper',
       'coverageLimits.personalProperty.value_wrapper',
@@ -291,6 +295,8 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     };
 
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Coverage Limits'));
+
     const slider = getByTestId('coverageLimits.dwelling.amount-slider');
     setSliderAndCheckOutput({ slider, value: '350000' }, { name: outputFields[0], outputValue: '$ 7,000' });
     setSliderAndCheckOutput({ slider, value: '380000' }, { name: outputFields[1], outputValue: '$ 95,000' });

@@ -105,12 +105,9 @@ const {
 } = testHelpers;
 
 // Mock Gandalf's servicerunner call for templates
-const pages = [
-  { components: [] }, { components: [] }, { components: [] }, { components: [] }, { components: [] }, { components: [] },
-  mailingBillingTemplate
-];
-
-serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: { pages }}}));
+serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
+  pages: [{}, {}, {}, {}, {}, {}, mailingBillingTemplate, {}]
+}}}));
 
 describe('Testing the Mailing/Billing Page', () => {
   const props = {
@@ -139,31 +136,31 @@ describe('Testing the Mailing/Billing Page', () => {
 
   const requiredFields = fields.filter(({ required }) => required);
 
-  // it('NEG:Tests all empty values', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   submitForm(getByTestId);
-  //   requiredFields.forEach(field => checkError(getByTestId, field));
-  // });
+  it('NEG:Tests all empty values', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('Mailing Address'));
+    submitForm(getByTestId);
+    requiredFields.forEach(field => checkError(getByTestId, field));
+  });
 
-  // it('NEG:Tests Mailing Address empty values', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
-  // });
+  it('NEG:Tests Mailing Address empty values', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('Mailing Address'));
+    requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
+  });
 
-  // it('NEG:Tests Invalid Input Values', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state');
-  //   const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip');
-  //   verifyForm(getByTestId, [{
-  //     ...state, data: 'foo', error: 'Only 2 letters allowed'
-  //   }]);
-  //   verifyForm(getByTestId, [{
-  //     ...zip, data: '123456789', error: 'Only 8 letters or numbers allowed'
-  //   }]);
-  // });
+  it('NEG:Tests Invalid Input Values', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('Mailing Address'));
+    const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state');
+    const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip');
+    verifyForm(getByTestId, [{
+      ...state, data: 'foo', error: 'Only 2 letters allowed'
+    }]);
+    verifyForm(getByTestId, [{
+      ...zip, data: '123456789', error: 'Only 8 letters or numbers allowed'
+    }]);
+  });
 
   it('POS:Checks all headers', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
@@ -171,42 +168,42 @@ describe('Testing the Mailing/Billing Page', () => {
     pageHeaders.forEach(field => checkHeader(getByTestId, field));
   });
 
-  // it('POS:Checks all labels', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   fields.forEach(field => checkLabel(getByTestId, field));
-  // });
+  it('POS:Checks all labels', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('Mailing Address'));
+    fields.forEach(field => checkLabel(getByTestId, field));
+  });
 
-  // it('POS:Checks all inputs', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   fields.forEach(field => {
-  //     if (field.type === 'text') checkTextInput(getByTestId, field);
-  //     if (field.type === 'radio') checkRadio(getByTestId, field);
-  //     if (field.type === 'switch') checkSwitch(getByTestId, field);
-  //   });
-  // });
+  it('POS:Checks all inputs', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Mailing Address'));
+    fields.forEach(field => {
+      if (field.type === 'text') checkTextInput(getByTestId, field);
+      if (field.type === 'radio') checkRadio(getByTestId, field);
+      if (field.type === 'switch') checkSwitch(getByTestId, field);
+    });
+  });
 
-  // it('POS:Checks toggle fills out data', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   fireEvent.click(getByTestId('sameAsPropertyAddress'));
-  //   expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
-  // });
+  it('POS:Checks toggle fills out data', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Mailing Address'));
+    fireEvent.click(getByTestId('sameAsPropertyAddress'));
+    expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
+  });
 
-  // it('POS:Checks installment text', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
-  //   expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,624');
-  //   expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,059');
-  //   expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 1,096');
-  //   expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 531');
-  // });
+  it('POS:Checks installment text', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Mailing Address'));
+    expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
+    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,624');
+    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,059');
+    expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 1,096');
+    expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 531');
+  });
 
-  // it('POS:Checks Submit Button', async () => {
-  //   const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-  //   await waitForElement(() => getByTestId('Mailing Address'));
-  //   checkButton(getByTestId('submit'));
-  // });
+  it('POS:Checks Submit Button', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('Mailing Address'));
+    checkButton(getByTestId('submit'));
+  });
 });

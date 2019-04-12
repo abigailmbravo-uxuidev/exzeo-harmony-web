@@ -16,7 +16,7 @@ describe('Testing SearchBar Component', () => {
     expect(getByText(/Property Address/));
   });
 
-  it('Should test submit', () => {
+  it('POS:Should test submit', () => {
     const { store } = renderWithReduxAndRouter(<ConnectedSearchBar {...defaultProps} />);
 
     handleSearchBarSubmit({
@@ -63,7 +63,8 @@ describe('Testing SearchBar Component', () => {
       ...defaultProps,
       ...defaultInitialState,
       handleSubmit: () => () => {},
-      fieldValues: {}
+      fieldValues: {},
+      userProfile: { appMetadata: { beta: false }}
     };
 
     const SearchBarForm = reduxForm({

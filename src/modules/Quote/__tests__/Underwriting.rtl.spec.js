@@ -1,11 +1,14 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, waitForElement } from 'react-testing-library';
+
+import * as serviceRunner from '../../../utilities/serviceRunner';
 
 import {
   defaultInitialState,
   renderWithReduxAndRouter,
   defaultProps,
+  underwritingTemplate,
   testHelpers,
   underwritingList as list
 } from '../../../test-utils';
@@ -57,8 +60,16 @@ const fields = [
 
 const { submitForm, checkError, checkRadio, checkLabel, checkButton } = testHelpers;
 
-describe('Testing the QuoteWorkflow Underwriting Page', () => {
+// Mock Gandalf's servicerunner call for templates
+serviceRunner.callService = jest.fn(() => Promise.resolve({
+  data: {
+    result: {
+      pages: [{}, underwritingTemplate]
+    }
+  }
+}));
 
+describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {
     ...defaultProps,
     location: {
@@ -74,16 +85,18 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     list: { ...defaultInitialState.list, ...list }
   };
 
-  it('NEG:All Inputs Empty Value', () => {
+  it('NEG:All Inputs Empty Value', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId(`${fields[0].name}_label`));
     submitForm(getByTestId);
     fields.forEach(({ name }) => checkError(getByTestId, { name }));
   });
 
   describe('NEG:All questions empty value', () => {
     for (let i = 0; i < fields.length; i++) {
-      it(`Checks that field ${fields[i].name} errors on an empty value`, () => {
+      it(`Checks that field ${fields[i].name} errors on an empty value`, async () => {
         const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+        await waitForElement(() => getByTestId(`${fields[0].name}_label`));
         // Select all fields except the one to leave blank
         fields.filter(({ name }) => name !== fields[i].name)
         .forEach(({ name, data }) => fireEvent.click(getByTestId(`${name}_${data}`)));
@@ -93,8 +106,9 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     };
   });
 
-  it('POS:Check All Questions Text / Radio', () => {
+  it('POS:Check All Questions Text / Radio', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId(`${fields[0].name}_label`));
     fields.forEach(({ name, label, values }) => {
       checkRadio(getByTestId, { name, values });
       checkLabel(getByTestId, { name, label });
@@ -102,8 +116,9 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     });
   });
 
-  it('POS:Checks Submit Button', () => {
+  it('POS:Checks Submit Button', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId(`${fields[0].name}_label`));
     checkButton(getByTestId('submit'));
   });
 });

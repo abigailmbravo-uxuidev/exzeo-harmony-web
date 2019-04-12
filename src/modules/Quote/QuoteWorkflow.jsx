@@ -123,7 +123,7 @@ export class QuoteWorkflow extends Component {
     if(!gandalfTemplate) return {};
 
     return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
-
+      if (!page.components) return pageComponentsMap;
       const pageComponents = page.components.reduce((componentMap, component) => {
         if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
           componentMap[component.path] = (component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target;
@@ -138,9 +138,9 @@ export class QuoteWorkflow extends Component {
     }, {});
   };
 
-  handleDirtyForm = (isDirty, path) => {
+  handleDirtyForm = (isDirty, currentPage) => {
     this.setState({
-      isRecalc: path === 'customize' && isDirty,
+      isRecalc: currentPage === 2 && isDirty,
     })
   };
 
@@ -155,10 +155,10 @@ export class QuoteWorkflow extends Component {
 
   render() {
     const { auth, history, isLoading, location, match, options, quote, workflowState, } = this.props;
-
+    
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
-    const currentPageIndex = PAGE_ROUTING[currentStep];
+    const currentPage = PAGE_ROUTING[currentStep];
     const shouldUseGandalf = gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
@@ -196,9 +196,10 @@ export class QuoteWorkflow extends Component {
                 <Gandalf
                   formId={FORM_ID}
                   className="survey-wrapper"
-                  currentPage={gandalfTemplate.pages[currentPageIndex]}
+                  currentPage={currentPage}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
+                  template={gandalfTemplate}
                   options={options}  // enums for select/radio fields
                   transformConfig={transformConfig}
                   path={location.pathname}

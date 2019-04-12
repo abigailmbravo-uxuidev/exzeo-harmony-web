@@ -1,10 +1,13 @@
 import React from 'react';
 import 'jest-dom/extend-expect';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, waitForElement } from 'react-testing-library';
+
+import * as serviceRunner from '../../../utilities/serviceRunner';
 
 import {
   renderWithReduxAndRouter,
   defaultProps,
+  shareTemplate,
   testHelpers
 } from '../../../test-utils';
 import ConnectedShare from '../Share';
@@ -48,6 +51,15 @@ const pageHeaders = [
 
 const { checkHeader, checkLabel } = testHelpers;
 
+// Mock Gandalf's servicerunner call for templates
+serviceRunner.callService = jest.fn(() => Promise.resolve({
+  data: {
+    result: {
+      pages: [{}, {}, {}, shareTemplate]
+    }
+  }
+}));
+
 describe('Testing the Share Page', () => {
   const props = {
     ...defaultProps,
@@ -58,8 +70,9 @@ describe('Testing the Share Page', () => {
     }
   };
 
-  it('NEG:All Inputs Empty Value', () => {
+  it('NEG:All Inputs Empty Value', async () => {
     const { queryByTestId, getByTestId, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    await waitForElement(() => getByTestId('Share'));
     // Confirm share button exists and the modal does not
     // FIXME: This is an example of poorly-structured code causing tests to be overly complicated
     expect(getByTestId('share')).toHaveTextContent('share');
@@ -81,12 +94,13 @@ describe('Testing the Share Page', () => {
     // TODO: Once redux-form is out we need to test the validation for empty and invalid inputs
   });
 
-  it('POS:Share Header / Text', () => {
+  it('POS:Share Header / Text', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    await waitForElement(() => getByTestId('Share'));
     pageHeaders.forEach(field => checkHeader(getByTestId, field));
   });
 
-  it('POS:Share Button / Share Modal', () => {
+  it('POS:Share Button / Share Modal', async () => {
     const { queryByTestId, getByTestId } = renderWithReduxAndRouter(
       <ConnectedShare
         {...props}
@@ -95,12 +109,14 @@ describe('Testing the Share Page', () => {
         }}
       />
     );
+    await waitForElement(() => getByTestId('Share'));
     expect(queryByTestId('Share Quote'));
     modalFields.forEach(field => checkLabel(getByTestId, field));
   });
 
-  it('POS:Next Button', () => {
+  it('POS:Next Button', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    await waitForElement(() => getByTestId('Share'));
     expect(getByTestId('submit')).toHaveTextContent('next');
   });
 });

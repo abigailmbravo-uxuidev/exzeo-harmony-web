@@ -29,7 +29,8 @@ export const defaultInitialState = {
       entity: {
         companyCode: 'TTIC',
         state: 'FL'
-      }
+      },
+      appMetadata: { beta: false }
     }
   },
   quoteState: {

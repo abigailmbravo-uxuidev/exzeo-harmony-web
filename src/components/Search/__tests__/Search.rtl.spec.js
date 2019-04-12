@@ -27,9 +27,11 @@ describe('Testing Search Component', () => {
     const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
     const typeAndCheckError = (value, errorExists = false) => {
       fireEvent.change(searchbar, { target: { value } });
+      fireEvent.blur(searchbar);
       if (errorExists) expect(getByTestId('submit').disabled).toBeTruthy();
-      expect(getByTestId('address').className.includes('error')).toBe(errorExists);
+      expect(getByTestId('address_wrapper').className.includes('error')).toBe(errorExists);
     };
+
     const searchbar = getByPlaceholderText(/Search for Property Address/);
     expect(searchbar);
     // Search with one bad search and some good ones, to confirm spacing works
@@ -42,8 +44,9 @@ describe('Testing Search Component', () => {
     const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
     const searchbar = getByPlaceholderText(/Search for Property Address/);
     fireEvent.change(searchbar, { target: { value: '4131 TEST ADDRESS ≈ˆÎÍÒÍ' }});
+    fireEvent.blur(searchbar);
     // Expect to get the error when we search with invalid characters
-    expect(getByTestId('address').className.includes('error')).toBe(true);
+    expect(getByTestId('address_wrapper').className.includes('error')).toBe(true);
     const errorIcon = document.querySelector('i[data-for="erroraddress"]');
     fireEvent.mouseOver(errorIcon);
     expect(document.querySelector('div[data-id="tooltip"]'));
