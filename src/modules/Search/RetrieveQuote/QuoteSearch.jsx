@@ -59,7 +59,8 @@ const QuoteSearch = ({ disabledSubmit }) => {
         className={Button.constants.classNames.success}
         customClass="multi-input"
         type="submit"
-        form="searchBar"
+        form="SearchBar"
+        data-test="submit"
         disabled={disabledSubmit}
       ><i className="fa fa-search" /><span>Search</span></Button>
 

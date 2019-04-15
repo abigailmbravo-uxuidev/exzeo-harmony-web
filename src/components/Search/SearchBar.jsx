@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, change } from 'redux-form';
-import _ from 'lodash';
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
 
 import { clearAppError } from '../../state/actions/errorActions';
 import { searchQuotes, setQuoteSearch, searchAddresses } from '../../state/actions/searchActions';
@@ -15,8 +16,8 @@ import QuoteSearch from '../../modules/Search/RetrieveQuote';
 const handleInitialize = state => ({
   product: 'HO3',
   address: '',
-  pageNumber: _.get(state.search, 'state.search.pageNumber') || 1,
-  totalPages: _.get(state.search, 'state.search.totalPages') || 0
+  pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
+  totalPages: _get(state.search, 'state.search.totalPages') || 0
 });
 
 export const changePageQuote = async (props, isNext) => {
@@ -79,16 +80,16 @@ export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
 };
 
 export class SearchBar extends Component {
-  componentWillReceiveProps(nextProps) {
-    const { dispatch } = nextProps;
-    const { totalRecords, pageSize, currentPage } = nextProps.search;
+  componentDidUpdate(prevProps) {
+    const { dispatch, searchType, searchResults, search, setQuoteSearch } = this.props;
+    const { totalRecords, pageSize, currentPage, hasSearched } = this.props.search;
 
-    if (nextProps.searchType === 'quote' && nextProps.search.hasSearched && !_.isEqual(this.props.searchResults, nextProps.searchResults)) {
+    if (searchType === 'quote' && hasSearched && !_isEqual(prevProps.searchResults, searchResults)) {
       const totalPages = Math.ceil(totalRecords / pageSize); // Math.ceil(quoteSearchResponse.totalNumberOfRecords / quoteSearchResponse.pageSize);
       const pageNumber = currentPage; // quoteSearchResponse.currentPage;
       dispatch(change('SearchBar', 'pageNumber', pageNumber));
       dispatch(change('SearchBar', 'totalPages', totalPages));
-      nextProps.setQuoteSearch({ ...nextProps.search, totalPages, pageNumber });
+      setQuoteSearch({ ...search, totalPages, pageNumber });
     }
   }
 
@@ -99,10 +100,16 @@ export class SearchBar extends Component {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} >
           <div className="search-input-wrapper retrieve-quote-wrapper">
-            <QuoteSearch disabledSubmit={this.props.appState.isLoading} />
+            <QuoteSearch
+              disabledSubmit={this.props.appState.isLoading}
+            />
           </div>
           {(searchResults || []).length > 0 && fieldValues.totalPages > 1 &&
-            <Pagination changePageForward={() => changePageQuote(this.props, true)} changePageBack={() => changePageQuote(this.props, false)} fieldValues={fieldValues} />
+            <Pagination
+              changePageForward={() => changePageQuote(this.props, true)}
+              changePageBack={() => changePageQuote(this.props, false)}
+              fieldValues={fieldValues}
+            />
           }
         </form>
       );
@@ -137,7 +144,7 @@ SearchBar.propTypes = {
 
 const mapStateToProps = state => ({
   appState: state.appState,
-  fieldValues: _.get(state.form, 'SearchBar.values', { address: '', sortBy: 'policyNumber' }),
+  fieldValues: _get(state.form, 'SearchBar.values', { address: '', sortBy: 'policyNumber' }),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
   search: state.search,
