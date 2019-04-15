@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-form';
+import { reduxForm, getFormSyncErrors, change } from 'redux-form';
 import _ from 'lodash';
 
 import Rules from '../Form/Rules';
@@ -10,7 +10,8 @@ import { searchQuotes, setQuoteSearch, searchAddresses } from '../../state/actio
 import Pagination from '../Common/Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
 
-import { generateField, getSearchType, PRODUCTS_LIST } from './searchUtils';
+import { generateField, PRODUCTS_LIST } from './searchUtils';
+import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({
   product: 'HO3',
@@ -122,8 +123,7 @@ export const validate = (values) => {
   return errors;
 };
 
-
-export class SearchForm extends Component {
+export class SearchBar extends Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
     const { totalRecords, pageSize, currentPage } = nextProps.search;
@@ -142,31 +142,18 @@ export class SearchForm extends Component {
 
     if (searchType === 'quote') {
       return (
-        <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} noValidate>
+        <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} >
           <div className="search-input-wrapper retrieve-quote-wrapper">
-            {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
-            {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
-            {generateField('address', 'Property Street Address Search', 'Property Street Address', formErrors, 'property-search', false)}
-            {generateField('quoteNumber', 'Quote No Search', 'Quote Number', formErrors, 'quote-no-search', false)}
-            <button
-              tabIndex="0"
-              className="btn btn-success multi-input"
-              type="submit"
-              form="SearchBar"
-              disabled={this.props.appState.isLoading || formErrors}
-              data-test="submit"
-            >
-              <i className="fa fa-search" /><span>Search</span>
-            </button>
+            <QuoteSearch disabledSubmit={this.props.appState.isLoading} />
           </div>
           { searchResults && searchResults.length > 0 && fieldValues.totalPages > 1 &&
             <Pagination changePageForward={() => changePageQuote(this.props, true)} changePageBack={() => changePageQuote(this.props, false)} fieldValues={fieldValues} />
           }
-        </Form>
+        </form>
       );
     }
     return (
-      <Form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} noValidate>
+      <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} >
         { /* TODO: Put this in core-ui to and make reusable for CSR */ }
         <NewQuoteSearch
           canFilter={beta}
@@ -176,15 +163,12 @@ export class SearchForm extends Component {
           groupClass="search-input-wrapper"
           disabledSubmit={this.props.appState.isLoading || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
         />
-      </Form>
+      </form>
     );
   }
 }
 
-const SearchBar = props => new SearchForm(props);
-
 SearchBar.propTypes = {
-  ...propTypes,
   handleSubmit: PropTypes.func,
   appState: PropTypes.shape({
     modelName: PropTypes.string,
@@ -195,15 +179,10 @@ SearchBar.propTypes = {
   })
 };
 
-SearchForm.propTypes = {
-  ...propTypes
-};
-
 const mapStateToProps = state => ({
   appState: state.appState,
   fieldValues: _.get(state.form, 'SearchBar.values', { address: '', sortBy: 'policyNumber' }),
   formErrors: getFormSyncErrors('SearchBar')(state),
-  searchType: getSearchType(),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
   search: state.search,
@@ -211,15 +190,13 @@ const mapStateToProps = state => ({
   searchResults: state.search.results
 });
 
-const searchBarForm = reduxForm({
-  form: 'SearchBar',
-  enableReinitialize: true,
-  validate
-})(SearchBar);
-
 export default connect(mapStateToProps, {
   clearAppError,
   searchQuotes,
   setQuoteSearch,
   searchAddresses
-})(searchBarForm);
+})(reduxForm({
+  form: 'SearchBar',
+  enableReinitialize: true,
+  validate
+})(SearchBar));

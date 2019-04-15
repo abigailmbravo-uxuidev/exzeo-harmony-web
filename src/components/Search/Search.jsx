@@ -12,7 +12,6 @@ import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import { VALID_QUOTE_STATES } from './searchUtils';
 
-
 export class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -58,10 +57,11 @@ export class Search extends React.Component {
   };
 
   render() {
+    const { searchType } = this.props;
     return (
       <div className="flex grow">
         <div className="search route-content">
-          <SearchBar />
+          <SearchBar searchType={searchType} />
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
@@ -93,4 +93,9 @@ const mapStateToProps = state => ({
   userProfile: state.authState.userProfile,
 });
 
-export default connect(mapStateToProps, { createQuote, clearQuote, getQuote, clearResults })(Search);
+export default connect(mapStateToProps, {
+  createQuote,
+  clearQuote,
+  getQuote,
+  clearResults
+})(Search);

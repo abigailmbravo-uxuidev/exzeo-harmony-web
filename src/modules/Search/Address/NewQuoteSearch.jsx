@@ -16,18 +16,19 @@ const NewQuoteSearch = ({
 }) => (
   <React.Fragment>
     <div className={groupClass}>
-      { canFilter && <Field
-        name={filterTypeName}
-        dataTest={filterTypeName}
-        label={filterTypeLabel}
-        component={Select}
-        id={filterTypeName}
-        validate={isRequired}
-        onChange={filterTypeOnChange}
-        answers={filterTypeOptions}
-        showPlaceholder={false}
-        styleName="property-search"
-        errorHint />
+      {canFilter &&
+        <Field
+          name={filterTypeName}
+          dataTest={filterTypeName}
+          label={filterTypeLabel}
+          component={Select}
+          id={filterTypeName}
+          validate={isRequired}
+          onChange={filterTypeOnChange}
+          answers={filterTypeOptions}
+          showPlaceholder={false}
+          styleName="property-search"
+          errorHint />
       }
       <Field
         name="address"
