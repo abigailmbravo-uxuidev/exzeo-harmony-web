@@ -1,37 +1,34 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { TabNavigation } from '@exzeo/core-ui/src/@Harmony/Navigation';
-
-import { updateQuote } from '../../state/actions/quoteState.actions';
 
 import { getNavLinks } from './constants/workflowNavigation';
 import DetailHeader from './DetailHeader';
 
 export class WorkflowNavigation extends Component {
-  getClassForStep = (stepName) => {
-    const { activeTask, completedTasks } = this.props.workflowState;
-    if (activeTask === stepName) return 'active';
+  getClassForStep = (step) => {
+    const { currentStep, availableSteps } = this.props;
+    if (currentStep === step) return 'active';
 
-    return (completedTasks || []).includes(stepName) ? 'selected' : 'disabled';
+    return (availableSteps.indexOf(step) !== 1) ? 'selected' : 'disabled';
   };
 
-  onKeyPress = (stepName, event) => {
+  onKeyPress = (step, event) => {
     const { goToStep } = this.props;
 
     if (event && event.preventDefault) event.preventDefault();
     if (event && event.charCode === 13) {
-      goToStep(stepName);
+      goToStep(step);
     }
   };
 
   render() {
-    const { quote, workflowState, handleRecalc, goToStep, isRecalc, isLoading, showNavigationTabs } = this.props;
+    const { quote, currentStep, handleRecalc, goToStep, isRecalc, isLoading, showNavigationTabs } = this.props;
     if (!quote || !quote.quoteNumber) return null;
 
     return (
       <div className="nav-and-header-wrapper">
         <DetailHeader
-          activeTask={workflowState.activeTask}
+          currentStep={currentStep}
           handleRecalc={handleRecalc}
           isLoading={isLoading}
           isRecalc={isRecalc}
@@ -51,11 +48,4 @@ export class WorkflowNavigation extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  quote: state.quoteState.quote,
-  workflowState: state.quoteState.state,
-});
-
-export default connect(mapStateToProps, {
-  updateQuote
-})(WorkflowNavigation);
+export default WorkflowNavigation;

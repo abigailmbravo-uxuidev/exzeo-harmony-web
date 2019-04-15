@@ -1,23 +1,12 @@
 export const STEP_NAMES = {
-  askAdditionalCustomerData: 'askAdditionalCustomerData',
-  askUWAnswers: 'askUWAnswers',
-  askToCustomizeDefaultQuote: 'askToCustomizeDefaultQuote',
-  sendEmailOrContinue: 'sendEmailOrContinue',
-  addAdditionalAIs: 'addAdditionalAIs',
-  askAdditionalQuestions: 'askAdditionalQuestions',
-  editVerify: 'editVerify',
-};
-
-/*
-  TODO: This group of constants is meant to disappear as development of Gandalf continues
- */
-export const NEXT_PAGE_ROUTING = {
-  customerInfo: 'underwriting',
-  underwriting: 'customize',
-  customize: 'share',
-  share: 'assumptions',
-  assumptions: 'additionalInterests',
-  mailingBilling: 'verify',
+  askAdditionalCustomerData: 0,
+  askUWAnswers: 1,
+  askToCustomizeDefaultQuote: 2,
+  sendEmailOrContinue: 3,
+  // assumptions is technically 4 but is hidden. For simplicity we will just not use 4.
+  addAdditionalAIs: 5,
+  askAdditionalQuestions: 6,
+  editVerify: 7,
 };
 
 export const PAGE_ROUTING = {
@@ -30,6 +19,18 @@ export const PAGE_ROUTING = {
   'mailingBilling': 6,
   'verify': 7,
   'thankYou': 8,
+};
+
+/*
+  TODO: This group of constants is meant to disappear as development of Gandalf continues
+ */
+export const NEXT_PAGE_ROUTING = {
+  customerInfo: 'underwriting',
+  underwriting: 'customize',
+  customize: 'share',
+  share: 'assumptions',
+  assumptions: 'additionalInterests',
+  mailingBilling: 'verify',
 };
 
 export const ROUTES_NOT_HANDLED_BY_GANDALF = [

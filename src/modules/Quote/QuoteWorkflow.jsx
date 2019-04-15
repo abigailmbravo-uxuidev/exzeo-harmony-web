@@ -32,6 +32,7 @@ import Assumptions from './Assumptions';
 import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
 
+import AF3 from '../../mock-data/mockAF3';
 const FORM_ID = 'QuoteWorkflow';
 
 export class QuoteWorkflow extends Component {
@@ -46,7 +47,9 @@ export class QuoteWorkflow extends Component {
     this.state = {
       isRecalc: false,
       showEmailPopup: false,
-      gandalfTemplate: null
+      gandalfTemplate: AF3,
+      currentStep: 0,
+      availableSteps: [],
     };
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
@@ -62,8 +65,31 @@ export class QuoteWorkflow extends Component {
     this.getTemplate();
   }
 
+  getConfigForJsonTransform(gandalfTemplate) {
+    if(!gandalfTemplate) return {};
+
+    return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
+
+      const pageComponents = page.components.reduce((componentMap, component) => {
+        if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
+          componentMap[component.path] = (component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target;
+        }
+        return componentMap;
+      }, {});
+
+      return {
+        ...pageComponentsMap,
+        ...pageComponents
+      }
+    }, {});
+  };
+
+  getLocalState = () => {
+    return this.state;
+  };
+
   getTemplate = async () => {
-    const { userProfile: { entity: { companyCode, state }} } = this.props;
+    const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
 
     const transferConfig = {
       exchangeName: 'harmony',
@@ -71,23 +97,16 @@ export class QuoteWorkflow extends Component {
       data: {
         companyCode,
         state,
-        product: 'HO3',
+        product: quote.product,
         application: 'agency',
         formName: 'quoteModel',
         version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
       }
     };
 
-    const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
-    this.setState(() => ({ gandalfTemplate: response.data.result }));
-  };
-
-  getLocalState = () => {
-    return this.state;
-  };
-
-  setShowEmailPopup = (showEmailPopup) => {
-    this.setState(() => ({ showEmailPopup }));
+    return transferConfig;
+    // const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
+    // this.setState(() => ({ gandalfTemplate: response.data.result }));
   };
 
   goToStep = async (stepName) => {
@@ -96,6 +115,12 @@ export class QuoteWorkflow extends Component {
 
     await updateQuote({ stepName, quoteNumber: quote.quoteNumber });
     history.replace(ROUTE_TO_STEP_NAME[stepName]);
+  };
+
+  handleDirtyForm = (isDirty, currentPage) => {
+    this.setState({
+      isRecalc: currentPage === 2 && isDirty,
+    })
   };
 
   handleGandalfSubmit = async ({ shouldNav, ...values}) => {
@@ -119,29 +144,12 @@ export class QuoteWorkflow extends Component {
     }
   };
 
-  getConfigForJsonTransform(gandalfTemplate) {
-    if(!gandalfTemplate) return {};
+  setCurrentStep = () => {
 
-    return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
-
-      const pageComponents = page.components.reduce((componentMap, component) => {
-        if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
-          componentMap[component.path] = (component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target;
-        }
-        return componentMap;
-      }, {});
-
-      return {
-        ...pageComponentsMap,
-        ...pageComponents
-      }
-    }, {});
   };
 
-  handleDirtyForm = (isDirty, currentPage) => {
-    this.setState({
-      isRecalc: currentPage === 2 && isDirty,
-    })
+  setShowEmailPopup = (showEmailPopup) => {
+    this.setState(() => ({ showEmailPopup }));
   };
 
   // ============= v NOT used by Gandalf v ============= //
@@ -154,7 +162,7 @@ export class QuoteWorkflow extends Component {
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const { auth, history, isLoading, location, match, options, quote, workflowState, } = this.props;
+    const { auth, history, isLoading, location, match, options, quote, quoteData, workflowState, } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
@@ -189,6 +197,9 @@ export class QuoteWorkflow extends Component {
               goToStep={this.goToStep}
               isLoading={isLoading}
               showNavigationTabs={!workflowState.isHardStop && (currentStep !== 'thankYou')}
+              currentStep={this.state.currentStep}
+              availableSteps={this.state.availableSteps}
+              quote={quoteData}
             />
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             {shouldUseGandalf &&
@@ -253,7 +264,10 @@ export class QuoteWorkflow extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoading: state.appState.isLoading,
+    // duplication for now because we are transforming some of the quote values ahead of time to make CG happy.
     quote: getQuoteSelector(state),
+    // actual quote values
+    quoteData: state.quoteState.quote,
     workflowState: state.quoteState.state || {},
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,

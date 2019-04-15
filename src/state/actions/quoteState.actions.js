@@ -1,14 +1,16 @@
-import * as types from './actionTypes';
-import * as errorActions from './errorActions';
 import choreographer from '../../utilities/choreographer';
 import * as serviceRunner from '../../utilities/serviceRunner';
+
+import * as types from './actionTypes';
+import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
 
-export const setQuote = (quote, state = { activeTask: 'askAdditionalCustomerData'}) => ({
-  type: types.SET_QUOTE,
-  quote,
-  state
-});
+export function setQuote(quote) {
+  return{
+    type: types.SET_QUOTE,
+    quote
+  }
+}
 
 /**
  * Create a quote
@@ -21,48 +23,38 @@ export const setQuote = (quote, state = { activeTask: 'askAdditionalCustomerData
  */
 export function createQuote(address, igdID, stateCode, companyCode, product) {
   return async (dispatch) => {
-    // FLOOD
-    if (product === 'AF3') {
-      const config = {
-        exchangeName: 'harmony',
-        routingKey: 'harmony.quote.createQuote',
-        data: {
-          companyCode,
-          state: stateCode,
-          product,
-          propertyId: igdID,
-        }
-      };
-
-      try {
-        dispatch(toggleLoading(true));
-        const response = await serviceRunner.callService(config, 'quoteManager.createQuote');
-        const quote = response.data.result;
-        dispatch(setQuote(quote));
-        return quote;
-      } catch (error) {
-        dispatch(errorActions.setAppError(error));
-        return null;
-      } finally {
-        dispatch(toggleLoading(false));
+    const config = {
+      exchangeName: 'harmony',
+      routingKey: 'harmony.quote.createQuote',
+      data: {
+        companyCode,
+        state: stateCode,
+        product,
+        propertyId: igdID,
       }
+    };
 
-      // HOMEOWNERS
-    } else {
-      try {
-        dispatch(toggleLoading(true));
-        const { quote, state } = await choreographer.createQuote(address, igdID, stateCode);
-        dispatch(setQuote(quote, state));
-        return quote;
-
-      } catch (error) {
-        dispatch(errorActions.setAppError(error));
-        return null;
-      } finally {
-        dispatch(toggleLoading(false));
-      }
+    try {
+      dispatch(toggleLoading(true));
+      const response = await serviceRunner.callService(config, 'quoteManager.createQuote');
+      const quote = response.data.result;
+      dispatch(setQuote(quote));
+      return quote;
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+      return null;
+    } finally {
+      dispatch(toggleLoading(false));
     }
   };
+}
+
+export function retrieveQuote() {
+  return async (dispatch) => {
+    //...
+    //...
+    //...
+  }
 }
 
 /**

@@ -1,8 +1,9 @@
 import React from 'react';
 import ShowPremium from './ShowPremium';
+import { STEP_NAMES } from './constants/workflowNavigation';
 
 const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) => {
-  const useAnimationForPremium = activeTask === 'askToCustomizeDefaultQuote';
+  const useAnimationForPremium = activeTask === STEP_NAMES.askToCustomizeDefaultQuote;
   return (
     <div className="detailHeader">
       <section id="quoteDetails" data-test="quote-details">

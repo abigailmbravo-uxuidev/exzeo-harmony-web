@@ -41,7 +41,7 @@ export class Search extends React.Component {
     }
 
     if (VALID_QUOTE_STATES.includes(quote.quoteState)) {
-      history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, { product: quote.product });
     } else {
       this.setState({ showQuoteErrors: true });
     }
@@ -52,7 +52,7 @@ export class Search extends React.Component {
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state, userProfile.entity.companyCode, search.product );
 
     if (quote) {
-      history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, { product: quote.product });
     }
   };
 
@@ -65,7 +65,11 @@ export class Search extends React.Component {
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
-              <SearchResults handleSelectAddress={this.handleSelectAddress} handleSelectQuote={this.handleSelectQuote} {...this.props} />
+              <SearchResults
+                handleSelectAddress={this.handleSelectAddress}
+                handleSelectQuote={this.handleSelectQuote}
+                {...this.props}
+              />
             </div>
             <Footer />
           </div>
