@@ -3,7 +3,11 @@ import { Field } from 'redux-form';
 import { Input, Button, validation } from '@exzeo/core-ui';
 
 const isRequired = (value) => {
-  return validation.isRequired(String(value).trim()) ? 'Field Required' : undefined;
+  if (value) {
+    return validation.isRequired(String(value)
+      .trim()) ? 'Field Required' : undefined;
+  }
+  return undefined;
 };
 
 const QuoteSearch = ({ disabledSubmit }) => {

@@ -11,11 +11,10 @@ const NewQuoteSearch = ({
   filterTypeName,
   filterTypeOnChange,
   canFilter,
-  groupClass,
   disabledSubmit
 }) => (
   <React.Fragment>
-    <div className={groupClass}>
+
       {canFilter &&
         <Field
           name={filterTypeName}
@@ -47,7 +46,6 @@ const NewQuoteSearch = ({
         dataTest="submit" >
         <i className="fa fa-search" />Search
       </Button>
-    </div>
   </React.Fragment>
 );
 

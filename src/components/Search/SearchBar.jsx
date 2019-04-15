@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, getFormSyncErrors, change } from 'redux-form';
+import { reduxForm, change } from 'redux-form';
 import _ from 'lodash';
 
-import Rules from '../Form/Rules';
 import { clearAppError } from '../../state/actions/errorActions';
 import { searchQuotes, setQuoteSearch, searchAddresses } from '../../state/actions/searchActions';
 import Pagination from '../Common/Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
 
-import { generateField, PRODUCTS_LIST } from './searchUtils';
+import { PRODUCTS_LIST } from './searchUtils';
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({
@@ -40,7 +39,6 @@ export const changePageQuote = async (props, isNext) => {
     sort: 'quoteNumber',
     sortDirection: 'desc'
   };
-
 
   taskData.pageNumber = isNext ? String(Number(fieldValues.pageNumber) + 1) : String(Number(fieldValues.pageNumber) - 1);
 
@@ -80,49 +78,6 @@ export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
   props.searchAddresses(encodeURIComponent(address), product, state, companyCode);
 };
 
-export const validate = (values) => {
-  const errors = {};
-  if (values.firstName) {
-    const onlyAlphaNumeric = Rules.onlyAlphaNumeric(values.firstName);
-    if (onlyAlphaNumeric) {
-      errors.firstName = onlyAlphaNumeric;
-    }
-  }
-
-  if (values.lastName) {
-    const lastNameVal = values.lastName.trim() ? values.lastName.replace(/ /g, '') : values.lastName;
-    const onlyAlphaNumeric = Rules.onlyAlphaNumeric(lastNameVal);
-    if (onlyAlphaNumeric) {
-      errors.lastName = onlyAlphaNumeric;
-    }
-  }
-
-  if (values.quoteNumber) {
-    const numberDashesOnly = Rules.numberDashesOnly(values.quoteNumber);
-    if (numberDashesOnly) {
-      errors.quoteNumber = numberDashesOnly;
-    }
-  }
-
-  if (values.zip) {
-    const onlyAlphaNumeric = Rules.onlyAlphaNumeric(values.zip);
-    if (onlyAlphaNumeric) {
-      errors.zip = onlyAlphaNumeric;
-    }
-  }
-  if (values.address) {
-    const required = Rules.required(String(values.address).trim());
-    const invalidCharacters = Rules.invalidCharacters(values.address);
-    if (required) {
-      errors.address = required;
-    } else if (invalidCharacters) {
-      errors.address = invalidCharacters;
-    }
-  }
-
-  return errors;
-};
-
 export class SearchBar extends Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
@@ -138,7 +93,7 @@ export class SearchBar extends Component {
   }
 
   render() {
-    const { handleSubmit, formErrors, searchType, fieldValues, searchResults, userProfile : { appMetadata: { beta }} } = this.props;
+    const { handleSubmit, searchType, fieldValues, searchResults, userProfile : { appMetadata: { beta }} } = this.props;
 
     if (searchType === 'quote') {
       return (
@@ -146,7 +101,7 @@ export class SearchBar extends Component {
           <div className="search-input-wrapper retrieve-quote-wrapper">
             <QuoteSearch disabledSubmit={this.props.appState.isLoading} />
           </div>
-          { searchResults && searchResults.length > 0 && fieldValues.totalPages > 1 &&
+          {(searchResults || []).length > 0 && fieldValues.totalPages > 1 &&
             <Pagination changePageForward={() => changePageQuote(this.props, true)} changePageBack={() => changePageQuote(this.props, false)} fieldValues={fieldValues} />
           }
         </form>
@@ -155,14 +110,15 @@ export class SearchBar extends Component {
     return (
       <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} >
         { /* TODO: Put this in core-ui to and make reusable for CSR */ }
-        <NewQuoteSearch
-          canFilter={beta}
-          filterTypeName="product"
-          filterTypeOptions={PRODUCTS_LIST}
-          filterTypeLabel="Select Product"
-          groupClass="search-input-wrapper"
-          disabledSubmit={this.props.appState.isLoading || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
-        />
+        <div className="search-input-wrapper">
+          <NewQuoteSearch
+            canFilter={beta}
+            filterTypeName="product"
+            filterTypeOptions={PRODUCTS_LIST}
+            filterTypeLabel="Select Product"
+            disabledSubmit={this.props.appState.isLoading || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+          />
+        </div>
       </form>
     );
   }
@@ -182,7 +138,6 @@ SearchBar.propTypes = {
 const mapStateToProps = state => ({
   appState: state.appState,
   fieldValues: _.get(state.form, 'SearchBar.values', { address: '', sortBy: 'policyNumber' }),
-  formErrors: getFormSyncErrors('SearchBar')(state),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
   search: state.search,
@@ -198,5 +153,4 @@ export default connect(mapStateToProps, {
 })(reduxForm({
   form: 'SearchBar',
   enableReinitialize: true,
-  validate
 })(SearchBar));
