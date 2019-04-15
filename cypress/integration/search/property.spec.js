@@ -1,5 +1,4 @@
-import stubAllRoutes from "../../support/stubAllRoutes";
-import { navigateThroughLanding } from '../../helpers';
+import { setRouteAliases, navigateThroughLanding } from '../../helpers';
 import user from '../../fixtures/stockData/user.json';
 
 describe('Property Address Search Testing', () => {
@@ -10,18 +9,16 @@ describe('Property Address Search Testing', () => {
   const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
 
   before('Go to the search page', () => {
-    stubAllRoutes();
+    setRouteAliases();
     cy.login();
     navigateThroughLanding();
   });
 
-  beforeEach(() => stubAllRoutes());
+  beforeEach(() => setRouteAliases());
 
   const { address } = user;
 
   it('NEG:Test Invalid Addresses', () => {
-    cy.setFx('stubs/fetchAddresses', ['result.IndexResult', []])
-    .then(() => {
       type('ADDRESS NOT FOUND');
       cy.clickSubmit()
         .findDataTag('no-results').find('.no-results .card-header > h4')
@@ -40,7 +37,6 @@ describe('Property Address Search Testing', () => {
         // workaround for visibility testing in Cypress Chrome 67
         .should('have.css', 'visibility', 'visible')
         .and('contain', 'Invalid characters');
-    });
   });
 
   it('POS:Property Search', () => {

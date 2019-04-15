@@ -84,20 +84,6 @@ the harmony-web code itself. **When adding data-test tags, use dashes.**
 When creating a test, place any reusable functions at the top, inside the describe.
 For example, if you are always typing on the same inputs, this is a good place
 to create a reusable call.
-
-When using fixtures, if they are used more than once in the suite, alias them in the
-`beforeEach()` call using `cy.fixture().as()`. If you do, your `it()` statements
-which utilize these fixtures must use the `function()` notation rather than arrow 
-notation. In all other cases  - including `before` and `beforeEach`, even when aliasing 
-- use arrow notation.
-
-If you want to update a fixture, most of the time you will use the cy.setFx()
-function detailed in `support/stubbing.js`. After using this function you will need to wrap
-the remainder of your test in a `then()` call like so:
-```js
-cy.setFx('/stubs/foo/bar', ['res.keyToChange', 'newValueString']).then(() =>
-  cy.findDataTag('foo') //etc etc
-);
 ```
 
 Favor dot notation over callback notation. Only use `then` calls if necessary. A good

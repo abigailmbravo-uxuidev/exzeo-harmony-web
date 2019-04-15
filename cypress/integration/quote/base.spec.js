@@ -1,6 +1,7 @@
 import user from '../../fixtures/stockData/user.json';
 import underwriting from '../../fixtures/stockData/underwriting.json';
 import {
+  setRouteAliases,
   navigateThroughLanding,
   navigateThroughSearchAddress,
   navigateThroughPolicyholder,
@@ -14,23 +15,22 @@ import {
   navigateThroughScheduleDate,
   navigateThroughThankYou
 } from '../../helpers';
-import stubAllRoutes from '../../support/stubAllRoutes';
 
 describe('Agency Happy Path', () => {
   const { address, customerInfo, agentCode } = user;
 
   before('gets fixtures', () => {
-    stubAllRoutes(true);
+    setRouteAliases();
     cy.login();
   });
 
-  beforeEach(() => stubAllRoutes(true));
+  beforeEach(() => setRouteAliases());
 
   it('Navigates through the quote workflow', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress(address);
     navigateThroughPolicyholder(customerInfo, agentCode);
-    navigateThroughUnderwriting(underwriting, undefined, true);
+    navigateThroughUnderwriting(underwriting);
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
