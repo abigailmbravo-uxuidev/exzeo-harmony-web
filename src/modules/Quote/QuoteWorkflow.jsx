@@ -124,11 +124,18 @@ export class QuoteWorkflow extends Component {
   };
 
   handleGandalfSubmit = async ({ shouldNav, ...values}) => {
-    const { zipCodeSettings, quote, history, updateQuote, location, workflowState, options } = this.props;
+    const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
     const { isRecalc } = this.state;
-    await updateQuote({ data: { ...values, recalc: isRecalc }, quoteNumber: quote.quoteNumber, options: { underwritingQuestions: options.underwritingQuestions, timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' } });
+    await updateQuote({
+      data: { ...values, recalc: isRecalc },
+      quoteNumber: quote.quoteNumber,
+      options: { underwritingQuestions: options.underwritingQuestions, timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' }
+    });
+
         // TODO: Figure out a routing solution
-    if(!(isRecalc || workflowState.isHardStop || shouldNav === 'false')) history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+    if(!(isRecalc || shouldNav === 'false')) {
+      history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+    }
   };
 
   primaryClickHandler = () => {

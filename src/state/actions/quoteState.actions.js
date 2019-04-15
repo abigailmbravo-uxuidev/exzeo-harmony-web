@@ -8,7 +8,7 @@ import { toggleLoading } from './appStateActions';
 export function setQuote(quote) {
   return{
     type: types.SET_QUOTE,
-    quote
+    quote,
   }
 }
 
@@ -83,21 +83,29 @@ export function getQuote(quoteNumber, quoteId) {
  *
  * @param data
  * @param quoteNumber
- * @param stepName
+ * @param step
  * @param [options]
  * @returns {Function}
  */
 export function updateQuote({
   data = {},
   quoteNumber,
-  stepName,
+  step,
   options
 }) {
   return async (dispatch, getState) => {
+    const config = {
+      exchangeName: 'harmony',
+      routingKey: 'harmony.quote.updateQuote',
+      data
+    };
+
     try {
       dispatch(toggleLoading(true));
-      const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState , options});
-      dispatch(setQuote(quote, state));
+      const response = await serviceRunner.callService(config, 'quoteManager.updateQuote');
+      const quote = response.data.result;
+      // const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState , options});
+      dispatch(setQuote(quote));
       return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));

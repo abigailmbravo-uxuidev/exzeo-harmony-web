@@ -7,8 +7,8 @@ export default function listReducer(state = initialState.list, action) {
   switch (action.type) {
     case types.SET_AGENTS:
       return handleSetAgents(state, action);
-    case types.SET_QUOTE:
-      return handleSetQuote(state, action);
+    // case types.SET_QUOTE:
+    //   return handleSetQuote(state, action);
     case listTypes.SET_ZIP_SETTINGS:
       return handleSetZipCodeSettings(state, action);
     case persistTypes.REHYDRATE:
