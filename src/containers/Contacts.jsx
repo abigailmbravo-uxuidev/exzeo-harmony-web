@@ -9,7 +9,7 @@ export const territoryManagerContacts = [
   {
     icon: 'image clark-ramos',
     name: 'Clark Ramos',
-    title: 'Southeast Florida Rep',
+    title: 'Southeast Florida Manager',
     phone: '7865171810',
     cell: '3053216071',
     email: 'cramos@hcpci.com'
@@ -17,21 +17,21 @@ export const territoryManagerContacts = [
   {
     icon: 'image edward-spegowski',
     name: 'Edward Spegowski',
-    title: 'Southwest Florida Rep',
+    title: 'Southwest Florida Manager',
     phone: '8134195243',
     email: 'espegowski@hcpci.com'
   },
   {
     icon: 'image jodi-kelley',
     name: 'Jodi Kelley',
-    title: 'Northeast Florida Rep',
+    title: 'Northeast Florida Manager',
     phone: '8134195220',
     email: 'jkelley@hcpci.com'
   },
   {
     icon: 'image victor-ferdinandi',
     name: 'Victor Ferdinandi',
-    title: 'West Central Florida Rep',
+    title: 'West Central Florida Manager',
     phone: '8134195245',
     email: 'vferdinandi@hcpci.com'
   },
