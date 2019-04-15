@@ -64,6 +64,17 @@
                   background-repeat: no-repeat;
                 }
 
+                .generic {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+                  margin-left: $padding;
+                  width: 4rem;
+                  background-image: url("../img/TypTap-ribbon.svg");
+                  background-position: center center;
+                  background-size: 75%;
+                  background-repeat: no-repeat;
+                }
+
                 .link-details {
                   flex-grow: 1;
                   flex-shrink: 1;

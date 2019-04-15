@@ -7,6 +7,14 @@ import AppWrapper from '../components/AppWrapper';
 export const externalLinks = [
   {
     key: 1,
+    productIcon: 'generic',
+    url: 'https://cdn.typtap.com/2019/03/TypTap-Commision-Schedule.pdf',
+    title: 'Commission Addendum',
+    description: 'Homeowners and flood insurance commission addendum.',
+    linkIcon: 'pdf'
+  },
+  {
+    key: 2,
     productIcon: 'home',
     url: 'https://cdn.typtap.com/2018/12/TT-Pilot-Agents-one-pager-112818.pdf',
     title: 'TypTap Homeowners Agent Program Guide',
@@ -14,7 +22,7 @@ export const externalLinks = [
     linkIcon: 'pdf'
   },
   {
-    key: 2,
+    key: 3,
     productIcon: 'home',
     url: 'https://cdn.typtap.com/2019/01/TT-HO3-Quick-Ref-Guide.pdf',
     title: 'TypTap Homeowners Quick Reference Guide',
@@ -22,11 +30,19 @@ export const externalLinks = [
     linkIcon: 'pdf'
   },
   {
-    key: 5,
-    url: 'https://cdn.typtap.com/2019/01/TT-HO3-County-Map-1218.pdf',
+    key: 4,
+    url: 'https://cdn.typtap.com/2019/03/TT-HO3-County-Map.pdf',
     productIcon: 'home',
-    title: 'TypTap Homeowners County Map (Updated December 2018)',
+    title: 'TypTap Homeowners County Map',
     description: 'Where TypTap HO3 product is currently available.',
+    linkIcon: 'pdf'
+  },
+  {
+    key: 5,
+    url: 'https://cdn.typtap.com/2019/03/TypTap-Underwriting-Exception-Req.pdf',
+    productIcon: 'home',
+    title: 'TypTap Underwriting Exception Requirements Document',
+    description: 'Information needed for underwriting exception review.',
     linkIcon: 'pdf'
   }
 ];
