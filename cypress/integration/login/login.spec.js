@@ -1,4 +1,4 @@
-import loginInfo from '../../fixtures/stockData/login.json';
+import loginInfo from '../../fixtures/HO3/login.json';
 
 describe('Login Testing', () => {
   before(() => cy.visit('/logout'));

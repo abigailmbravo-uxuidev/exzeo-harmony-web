@@ -1,4 +1,4 @@
-import login from '../fixtures/stockData/login.json';
+import login from '../fixtures/HO3/login.json';
 
 Cypress.Commands.add('login', (loginInfo = login) => {
   cy.visit('/logout');

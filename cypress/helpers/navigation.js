@@ -1,5 +1,5 @@
-import user from '../fixtures/stockData/user.json';
-import underwriting from '../fixtures/stockData/underwriting.json';
+import user from '../fixtures/HO3/user.json';
+import underwriting from '../fixtures/HO3/underwriting.json';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
@@ -38,7 +38,7 @@ export const navigateThroughAssumptions = () => {
 export const navigateThroughAdditionalInterests = () =>
   cy.clickSubmit('#AddAdditionalInterestPage').wait('@getQuoteServiceRequest');
 
-export const navigateThroughMailingBilling = () => {
+export const navigateThroughMailingBilling = () =>
   cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then($div => {
@@ -50,7 +50,6 @@ export const navigateThroughMailingBilling = () => {
     .get('select[name="billToId"] > option:not([disabled])').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
-};
 
 export const navigateThroughVerify = () =>
   cy.findDataTag('confirmProperyDetails').find('.switch-div').click()

@@ -1,5 +1,6 @@
-import user from '../../fixtures/stockData/user.json';
-import underwriting from '../../fixtures/stockData/underwriting.json';
+import user from '../../fixtures/HO3/user.json';
+import underwriting from '../../fixtures/HO3/underwriting.json';
+import af3Login from '../../fixtures/AF3/login.json';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -19,14 +20,14 @@ import {
 describe('Agency Happy Path', () => {
   const { address, customerInfo, agentCode } = user;
 
-  before('gets fixtures', () => {
+  before('Set Route Aliases', () => {
     setRouteAliases();
     cy.login();
   });
 
   beforeEach(() => setRouteAliases());
 
-  it('Navigates through the quote workflow', () => {
+  it('Navigates through the HO3 quote workflow', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress(address);
     navigateThroughPolicyholder(customerInfo, agentCode);
@@ -39,5 +40,19 @@ describe('Agency Happy Path', () => {
     navigateThroughVerify();
     navigateThroughScheduleDate();
     navigateThroughThankYou();
+  });
+});
+
+describe('AF3 Happy Path', () => {
+  before('Set Route Aliases', () => {
+    setRouteAliases();
+    cy.login(af3Login);
+  });
+
+  beforeEach(() => setRouteAliases());
+
+  it('Navigates through the AF3 quote workflow', () => {
+    navigateThroughLanding();
+    cy.findDataTag('product');
   });
 });

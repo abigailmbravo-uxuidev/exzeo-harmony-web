@@ -3,8 +3,7 @@
  * @param {Object} data - Data to fill out with keys corresponding to each entry in fields.
  */
 Cypress.Commands.add('fillFields', (fields = [], data) =>
-  cy.wrap(fields).each(field => cy.findDataTag(`${field.name}`).find('input').type(data ? data[field.name] : field.data))
-);
+  cy.wrap(fields).each(field => cy.findDataTag(`${field.name}`).find('input').type(data ? data[field.name] : field.data)));
 
 /**
  * @param {string} name - Field name to find.
@@ -39,17 +38,35 @@ Cypress.Commands.add('clearAllText', fields =>
 );
 
 /**
+ * This function is used for any non-standard inputs, ie not select > options.
+ * @param {string} tag - Name of the data test tag wrapping the select
+ * @param {number} option - Index of the option to select
+ */
+Cypress.Commands.add('chooseSelectOption', (tag, option = 0) =>
+  cy.findDataTag(tag).find('input')
+    .type(' ', { force: true })
+    .get('div.Select-menu div[role="option"]').then($arr => cy.wrap($arr[option]).click()));
+
+/**
+ * @param {string} tag - Name of the data test tag wrapping the select
+ * @param {string} placeholder - Placeholder text
+ */
+Cypress.Commands.add('resetSelectOption', (tag, placeholder = 'Select...') =>
+  cy.findDataTag(tag).find('span.Select-clear').click()
+    .findDataTag(tag).find('.Select-control .Select-placeholder').should('contain', placeholder));
+
+/**
  * Clear inputs, fill out inputs, and check validation on form
  * @param {array} baseFields - Fields to fill out in the form.
  * @param {array} fieldsLeftBlank - Fields to skip when filling out the form.
  * @param {Object} data - Data to use when filling out the form.
  * @param {Object} submitOptions - Options object used above in submitAndCheckValidation().
  */
-Cypress.Commands.add('verifyForm', ((baseFields = [], fieldsLeftBlank = [], data, submitOptions) => {
+Cypress.Commands.add('verifyForm', ((baseFields = [], fieldsLeftBlank = [], data, submitOptions) =>
   cy.clearAllText(baseFields)
     .fillFields(baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1), data)
-    .submitAndCheckValidation(fieldsLeftBlank.length ? fieldsLeftBlank : baseFields, submitOptions);
-}));
+    .submitAndCheckValidation(fieldsLeftBlank.length ? fieldsLeftBlank : baseFields, submitOptions)
+));
 
 /**
  * Uses the native slider setter, instead of React's

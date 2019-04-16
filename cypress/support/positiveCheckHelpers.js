@@ -67,23 +67,6 @@ Cypress.Commands.add('checkSubmitButton', ((form = 'body') =>
   cy.get(form).findDataTag('submit').should('exist').and('have.attr', 'type', 'button')));
 
 /**
- * @param {string} tag - Name of the data test tag wrapping the select
- * @param {number} option - Index of the option to select
- */
-Cypress.Commands.add('chooseSelectOption', (tag, option = 0) =>
-  cy.findDataTag(tag).find('input')
-    .type(' ', { force: true })
-    .get('div.Select-menu div[role="option"]').then($arr => cy.wrap($arr[option]).click()));
-
-/**
- * @param {string} tag - Name of the data test tag wrapping the select
- * @param {string} placeholder - Placeholder text
- */
-Cypress.Commands.add('resetSelectOption', (tag, placeholder = 'Select...') =>
-  cy.findDataTag(tag).find('span.Select-clear').click()
-    .findDataTag(tag).find('.Select-control .Select-placeholder').should('contain', placeholder));
-
-/**
  * Checks the values in a slider
  * @param {Object} field - An input switch field
  * @param {string} field.name - Name of the wrapping data-test tag
