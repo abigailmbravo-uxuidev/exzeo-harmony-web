@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import userHO3 from '../fixtures/HO3/user.json';
 import underwritingHO3 from '../fixtures/HO3/underwriting.json';
 import customizeHO3 from '../fixtures/HO3/customizeFields';
+=======
+import user from '../fixtures/HO3/user.json';
+import underwriting from '../fixtures/HO3/underwriting.json';
+>>>>>>> 08de77fd... Add new AF3 login and use for base
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
@@ -64,7 +69,11 @@ export const navigateThroughMailingBilling = () =>
     // Get first non-disabled option and select that value
     .get('select[name="billToId"] > option:not([disabled])').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
+<<<<<<< HEAD
     .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
+=======
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+>>>>>>> 08de77fd... Add new AF3 login and use for base
 
 export const navigateThroughVerify = () =>
   cy.findDataTag('confirmProperty').click()
