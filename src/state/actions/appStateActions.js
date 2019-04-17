@@ -18,13 +18,3 @@ export const toggleSnackbar = showSnackBar => ({
   type: types.TOGGLE_SNACKBAR,
   showSnackBar
 });
-
-/**
- *
- * @param isRecalc
- * @returns {{type: string, isRecalc: boolean}}
- */
-export const setRecalc = isRecalc => ({
-  type: types.SET_RECALC,
-  isRecalc
-});

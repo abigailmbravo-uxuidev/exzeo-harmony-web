@@ -1,6 +1,3 @@
-export const INITIALIZELD = 'INITIALIZELD';
-export const TOGGLE_FEATURE = 'TOGGLE_FEATURE';
-
 /* AUTHENTICATION */
 export const AUTHENTICATING = 'AUTHENTICATING';
 export const AUTHENTICATED = 'AUTHENTICATED';
@@ -9,12 +6,11 @@ export const AUTHENTICATE_ERROR = 'AUTHENTICATE_ERROR';
 /* SERVICE */
 export const SERVICE_REQUEST = 'SERVICE_REQUEST';
 
-/* WORKFLOW DETAILS */
-export const DETAILS_SET = 'DETAILS_SET';
-export const DETAILS_GET = 'DETAILS_GET';
+// /* WORKFLOW DETAILS */
+// export const DETAILS_SET = 'DETAILS_SET';
+// export const DETAILS_GET = 'DETAILS_GET';
 
 /* APP STATE ACTIONS */
-export const SET_RECALC = 'SET_RECALC';
 export const TOGGLE_LOADING = 'TOGGLE_LOADING';
 export const TOGGLE_SNACKBAR = 'TOGGLE_SNACKBAR';
 export const APPSTATE_SET = 'APPSTATE_SET';
@@ -33,7 +29,6 @@ export const QUOTE_SEARCH = 'QUOTE_SEARCH';
 
 export const GET_POLICY = 'GET_POLICY';
 
-
 export const SEARCH = 'SEARCH';
 export const RESET_SEARCH = 'RESET_SEARCH';
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
@@ -43,3 +38,5 @@ export const SET_QUOTE = 'SET_QUOTE';
 export const SET_AGENCIES = 'SET_AGENCIES';
 export const SET_AGENTS = 'SET_AGENTS';
 export const SET_AGENCY = 'SET_AGENCY';
+
+export const SET_UW_QUESTIONS = 'list/set_uw_questions';
