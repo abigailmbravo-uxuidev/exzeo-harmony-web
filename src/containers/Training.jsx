@@ -10,7 +10,7 @@ export const externalLinks = [
     productIcon: 'generic',
     url: 'https://cdn.typtap.com/2019/03/TypTap-Commision-Schedule.pdf',
     title: 'Commission Addendum',
-    description: 'Homeowners and flood insurance commission addendum.',
+    description: 'Homeowners and Flood Insurance commission schedule.',
     linkIcon: 'pdf'
   },
   {
