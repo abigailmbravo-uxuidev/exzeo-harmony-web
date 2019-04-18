@@ -16,6 +16,7 @@ import { Button, Loader, date } from '@exzeo/core-ui';
 import { updateQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
+import { getEnumsForQuoteWorkflow } from '../../state/actions/list.actions';
 import { getQuoteSelector } from '../../state/selectors/choreographer.selectors';
 
 import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
@@ -61,6 +62,7 @@ export class QuoteWorkflow extends Component {
     if (quote && quote.property) {
       this.props.getAgentsByAgencyCode(quote.agencyCode);
       this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
+      this.props.getEnumsForQuoteWorkflow({ companyCode: quote.companyCode, state: quote.state, product: quote.product, property: quote.property})
     }
     this.getTemplate();
   }
@@ -286,5 +288,6 @@ export default connect(mapStateToProps, {
   submitForm: submit,
   updateQuote,
   getAgentsByAgencyCode,
-  getZipcodeSettings
+  getZipcodeSettings,
+  getEnumsForQuoteWorkflow,
 })(QuoteWorkflow);

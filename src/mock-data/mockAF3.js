@@ -2,118 +2,306 @@
 const mock = {
   pages: [
     {
-      name: 'quoteDetails',
+      name: 'customerInfo',
       step: {},
       components: [
         {
-          id: 1,
-          type: '$TITLE',
-          dependencies: [],
-          data: {
-            text: 'Primary Policyholder',
-            icon: 'fa fa-user-circle',
+          "id": 1,
+          "type": "$TITLE",
+          "dependencies": [],
+          "data": {
+            "text": "Primary Policyholder",
+            "icon": "fa fa-user-circle"
           },
-          formData: {},
-          children: [],
+          "formData": {},
+          "children": []
         },
         {
-          id: 3,
-          type: '$INPUT',
-          dependencies: [],
-          path: 'policyHolders[0].firstName',
-          data: {
-            component: 'text',
-            label: 'First Name',
-            size: '5',
-            validation: ['isValidNameFormat'],
+          "id": 3,
+          "type": "$INPUT",
+          "dependencies": [],
+          "path": "policyHolders[0].firstName",
+          "data": {
+            "component": "text",
+            "label": "First Name",
+            "size": "5",
+            "validation": [
+              "isValidNameFormat"
+            ]
           },
-          formData:  {
-            path: 'policyHolders.policyHolder.firstName',
-            type: 'string',
-            required: true,
-            metaData: { minLength: 1, maxLength: 255 },
+          "formData": {
+            "path": "policyHolders.policyHolder.firstName",
+            "type": "string",
+            "required": true,
+            "metaData": {
+              "minLength": 1,
+              "maxLength": 255
+            }
           },
-          children: [],
+          "children": []
         },
         {
-          id: 4,
-          type: '$INPUT',
-          path: 'policyHolders[0].lastName',
-          dependencies: [],
-          data: {
-            component: 'text',
-            label: 'Last Name',
-            size: '7',
-            validation: ['isValidNameFormat'],
+          "id": 4,
+          "type": "$INPUT",
+          "path": "policyHolders[0].lastName",
+          "dependencies": [],
+          "data": {
+            "component": "text",
+            "label": "Last Name",
+            "size": "7",
+            "validation": [
+              "isValidNameFormat"
+            ]
           },
-          formData:  {
-            path: 'policyHolders.policyHolder.lastName',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
+          "formData": {
+            "path": "policyHolders.policyHolder.lastName",
+            "type": "string",
+            "required": true,
+            "metaData": {
+              "minLength": 1,
+              "maxLength": 255
+            }
+          },
+          "children": []
+        },
+        {
+          "id": 5,
+          "type": "$INPUT",
+          "path": "policyHolders[0].emailAddress",
+          "dependencies": [],
+          "data": {
+            "component": "text",
+            "label": "Email Address",
+            "size": "8",
+            "validation": [
+              "isEmail"
+            ]
+          },
+          "formData": {
+            "path": "policyHolders.policyHolder.emailAddress",
+            "type": "string",
+            "required": true,
+            "metaData": {
+              "minLength": 1,
+              "maxLength": 255
+            }
+          },
+          "children": []
+        },
+        {
+          "id": 6,
+          "type": "$INPUT",
+          "path": "policyHolders[0].primaryPhoneNumber",
+          "dependencies": [],
+          "data": {
+            "component": "phone",
+            "label": "Contact Phone",
+            "size": "4",
+            "validation": [
+              "isPhone"
+            ]
+          },
+          "formData": {
+            "path": "policyHolders.policyHolder.primaryPhoneNumber",
+            "type": "string",
+            "required": true,
+            "metaData": {
+              "pattern": "^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$"
+            }
+          },
+          "children": []
+        },
+        {
+          "id": 8,
+          "type": "$INPUT",
+          "path": "additionalPolicyholder",
+          "dependencies": [],
+          "data": {
+            "component": "switch",
+            "label": "Do you want to add an additional Policyholder?"
+          },
+          "formData": {},
+          "children": []
+        },
+        {
+          "id": 3453,
+          "type": "$SECTION",
+          "dependencies": [
+            {
+              "path": "additionalPolicyholder",
+              "value": true
+            }
+          ],
+          "data": {},
+          "formData": {},
+          "children": [
+            {
+              "id": 7,
+              "type": "$TITLE",
+              "dependencies": [],
+              "data": {
+                "text": "Secondary Policyholder",
+                "icon": "fa fa-user-circle",
+                "children": []
+              },
+              "formData": {},
+              "children": []
             },
-          },
-          children: [],
-        },
-        {
-          id: 3453111,
-          type: '$TITLE',
-          dependencies: [],
-          data: {
-            text: 'Policy Details',
-            icon: 'fa fa-file-text',
-          },
-          formData: {},
-          children: [],
-
-        },
-        {
-          id: 15,
-          type: '$INPUT',
-          path: 'effectiveDate',
-          dependencies: [],
-          data: {
-            component: 'date',
-            label: 'Effective Date',
-            size: '6',
-            extendedProperties: {
-              min: 'zipCodeSettings.minEffectiveDate',
-              max: 'zipCodeSettings.maxEffectiveDate',
+            {
+              "id": 10,
+              "type": "$INPUT",
+              "path": "policyHolders[1].firstName",
+              "dependencies": [],
+              "data": {
+                "component": "text",
+                "label": "First Name",
+                "size": "5",
+                "validation": [
+                  "isValidNameFormat"
+                ]
+              },
+              "formData": {
+                "path": "policyHolders.policyHolder.firstName",
+                "type": "string",
+                "required": true,
+                "metaData": {
+                  "minLength": 1,
+                  "maxLength": 255
+                }
+              },
+              "children": []
             },
-            validation: ['minEffectiveDate', 'isValidDate'],
-          },
-          formData: {
-            path: 'effectiveDate',
-            type: 'string',
-            required: true,
-            metaData: {
-              format: 'date-time'
-              // also need min-date for underwriting
+            {
+              "id": 11,
+              "type": "$INPUT",
+              "path": "policyHolders[1].lastName",
+              "dependencies": [],
+              "data": {
+                "component": "text",
+                "label": "Last Name",
+                "size": "7",
+                "validation": [
+                  "isValidNameFormat"
+                ]
+              },
+              "formData": {
+                "path": "policyHolders.policyHolder.lastName",
+                "type": "string",
+                "required": true,
+                "metaData": {
+                  "minLength": 1,
+                  "maxLength": 255
+                }
+              },
+              "children": []
             },
-          },
-          children: [],
+            {
+              "id": 12,
+              "type": "$INPUT",
+              "path": "policyHolders[1].emailAddress",
+              "dependencies": [],
+              "data": {
+                "component": "text",
+                "label": "Email Address",
+                "size": "8",
+                "validation": [
+                  "isEmail"
+                ]
+              },
+              "formData": {
+                "path": "policyHolders.policyHolder.emailAddress",
+                "type": "string",
+                "required": true,
+                "metaData": {
+                  "minLength": 1,
+                  "maxLength": 255
+                }
+              },
+              "children": []
+            },
+            {
+              "id": 13,
+              "type": "$INPUT",
+              "path": "policyHolders[1].primaryPhoneNumber",
+              "dependencies": [],
+              "data": {
+                "component": "phone",
+                "label": "Contact Phone",
+                "size": "4",
+                "validation": [
+                  "isPhone"
+                ]
+              },
+              "formData": {
+                "path": "policyHolders.policyHolder.primaryPhoneNumber",
+                "type": "string",
+                "required": true,
+                "metaData": {
+                  "pattern": "^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$"
+                }
+              },
+              "children": []
+            }
+          ]
         },
         {
-          id: 16,
-          type: '$INPUT',
-          path: 'agentCode',
-          dependencies: [],
-          data: {
-            component: 'select',
-            label: 'Agent',
-            size: '6',
-            dataSource: 'agents'
+          "id": 3453111,
+          "type": "$TITLE",
+          "dependencies": [],
+          "data": {
+            "text": "Policy Details",
+            "icon": "fa fa-file-text"
           },
-          formData: {
-            path: 'agentCode',
-            type: 'integer',
-            required: true,
-            metaData: {},
-          },
-          children: [],
+          "formData": {},
+          "children": []
         },
+        {
+          "id": 15,
+          "type": "$INPUT",
+          "path": "effectiveDate",
+          "dependencies": [],
+          "data": {
+            "component": "date",
+            "label": "Effective Date",
+            "size": "6",
+            "extendedProperties": {
+              "min": "zipCodeSettings.minEffectiveDate",
+              "max": "zipCodeSettings.maxEffectiveDate"
+            },
+            "validation": [
+              "minEffectiveDate",
+              "isValidDate"
+            ]
+          },
+          "formData": {
+            "path": "effectiveDate",
+            "type": "string",
+            "required": true,
+            "metaData": {
+              "format": "date-time"
+            }
+          },
+          "children": []
+        },
+        {
+          "id": 16,
+          "type": "$INPUT",
+          "path": "agentCode",
+          "dependencies": [],
+          "data": {
+            "component": "select",
+            "label": "Agent",
+            "size": "6",
+            "dataSource": "agents"
+          },
+          "formData": {
+            "path": "agentCode",
+            "type": "integer",
+            "required": true,
+            "metaData": {}
+          },
+          "children": []
+        }
       ],
     },
     {

@@ -1,1 +1,2 @@
 export const SET_ZIP_SETTINGS = 'LIST/SET_ZIP_CODE_SETTINGS';
+export const SET_ENUMS = 'LIST/SET_ENUMS';

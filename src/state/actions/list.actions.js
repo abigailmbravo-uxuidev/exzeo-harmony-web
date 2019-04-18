@@ -1,11 +1,36 @@
 import * as serviceRunner from '../../utilities/serviceRunner';
 
 import * as types from './actionTypes';
+import * as listTypes from '../actionTypes/list.actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
 
-export function getUnderwritingQuestions(companyCode, state, product, property) {
+
+export function setEnums(enums) {
+  return {
+    type: listTypes.SET_ENUMS,
+    underwritingQuestions: enums.underwritingQuestions,
+  }
+}
+
+export function getEnumsForQuoteWorkflow({ companyCode, state, product, property }) {
   return async dispatch => {
+    try {
+
+      const uwQuestions = fetchUnderwritingQuestions(companyCode, state, product, property);
+
+      const uwResponse = await uwQuestions;
+
+      dispatch(setEnums({ underwritingQuestions: uwResponse.data.result }))
+
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+    }
+  }
+}
+
+
+export async function fetchUnderwritingQuestions(companyCode, state, product, property) {
     const config = {
       service: 'questions',
       method: 'POST',
@@ -22,11 +47,9 @@ export function getUnderwritingQuestions(companyCode, state, product, property) 
       }
     };
 
-    try {
-      const response = await serviceRunner.callService(config, 'UWQuestions');
+    const response = await serviceRunner.callService(config, 'UWQuestions');
 
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
-    }
-  }
+    return response;
 }
+
+

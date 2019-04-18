@@ -6,11 +6,13 @@ import initialState from './initialState';
 export default function listReducer(state = initialState.list, action) {
   switch (action.type) {
     case types.SET_AGENTS:
-      return handleSetAgents(state, action);
+      return setAgents(state, action);
     // case types.SET_QUOTE:
-    //   return handleSetQuote(state, action);
+    //   return setQuote(state, action);
     case listTypes.SET_ZIP_SETTINGS:
-      return handleSetZipCodeSettings(state, action);
+      return setZipCodeSettings(state, action);
+    case listTypes.SET_ENUMS:
+      return setEnums(state, action);
     case persistTypes.REHYDRATE:
       return (action.payload && action.payload.list) ? action.payload.list : initialState.list;
     default:
@@ -18,7 +20,7 @@ export default function listReducer(state = initialState.list, action) {
   }
 }
 
-function handleSetAgents(state, action) {
+function setAgents(state, action) {
   const agents = Array.isArray(action.agents)
     ? action.agents.map(o => ({
         label: `${o.firstName} ${o.lastName}`,
@@ -31,6 +33,38 @@ function handleSetAgents(state, action) {
     agents,
   };
 }
+
+function setEnums(state, action) {
+  const underwritingQuestions = (action.underwritingQuestions || [])
+    .sort((a, b) => a.order - b.order)
+    .map(question => {
+      const defaultValue = (question.answers || []).find(answer => answer.default);
+      return ({
+        name: question.name,
+        hidden: question.hidden,
+        label: question.question,
+        defaultValue: defaultValue ? defaultValue.answer : '',
+        validation: ['isRequired'],
+        options: (question.answers || []).map(answer => ({
+          answer: answer.answer,
+          label: answer.answer,
+        }))
+      })
+    });
+  return {
+    ...state,
+    underwritingQuestions,
+  }
+}
+
+function setZipCodeSettings(state, action) {
+  return {
+    ...state,
+    zipCodeSettings: action.zipCodeSettings,
+  }
+}
+
+
 
 function getBillingInfo(state = {}, quote = {}) {
   const billingVar = (state.variables || []).find(v => v.name === 'billingOptions');
@@ -71,7 +105,7 @@ function getBillingInfo(state = {}, quote = {}) {
   }
 }
 
-function handleSetQuote(state, action) {
+function setQuote(state, action) {
   // WE could put these in a selector but this doesn't get run often and will probably change a lot when 'workflow' is implemented
   const underwritingQuestions = (action.state.underwritingQuestions || [])
     .sort((a, b) => a.order - b.order)
@@ -107,13 +141,5 @@ function handleSetQuote(state, action) {
     underwritingQuestions: underwritingQuestions,
     uiQuestions: uiQuestionMap,
     billingConfig: billingData || initialState.list.billingConfig,
-  }
-}
-
-function handleSetZipCodeSettings(state, action) {
-
-  return {
-    ...state,
-    zipCodeSettings: action.zipCodeSettings,
   }
 }

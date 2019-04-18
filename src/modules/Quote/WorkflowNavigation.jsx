@@ -41,7 +41,6 @@ export class WorkflowNavigation extends Component {
               goToStep,
               getClassName: this.getClassForStep,
               onKeyPress: this.onKeyPress,
-              product: quote.product,
             })} />
         }
       </div>
