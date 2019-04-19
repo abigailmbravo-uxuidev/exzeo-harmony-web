@@ -8,8 +8,8 @@ import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
-  testHelpers,
   customizeTemplate,
+  checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
   customizeList as list,
   customizeUiQuestions as uiQuestions,
   quote,
@@ -210,8 +210,6 @@ const pageHeaders = [
   }
 ];
 
-const { checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel } = testHelpers;
-
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
   pages: [{ components: [] }, { components: [] }, customizeTemplate]
@@ -278,7 +276,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     await waitForElement(() => getByTestId('Coverage Limits'));
 
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
+    pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Checks Output Values', async () => {

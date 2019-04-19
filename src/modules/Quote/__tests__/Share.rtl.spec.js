@@ -8,7 +8,8 @@ import {
   renderWithReduxAndRouter,
   defaultProps,
   shareTemplate,
-  testHelpers
+  checkHeader,
+  checkLabel
 } from '../../../test-utils';
 import ConnectedShare from '../Share';
 
@@ -48,8 +49,6 @@ const pageHeaders = [
     icon: 'fa fa-quote-left'
   }
 ];
-
-const { checkHeader, checkLabel } = testHelpers;
 
 // Mock Gandalf's servicerunner call for templates
 serviceRunner.callService = jest.fn(() => Promise.resolve({
@@ -97,7 +96,8 @@ describe('Testing the Share Page', () => {
   it('POS:Share Header / Text', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
     await waitForElement(() => getByTestId('Share'));
-    pageHeaders.forEach(field => checkHeader(getByTestId, field));
+
+    pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Share Button / Share Modal', async () => {

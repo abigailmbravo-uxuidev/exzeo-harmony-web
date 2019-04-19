@@ -19,16 +19,7 @@ export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, ag
     .wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughUnderwriting = (data = underwriting, updates, useConfig) => {
-  if (!updates) {
-    updates = [
-      ['result.underwritingAnswers.business.answer', 'NO'],
-      ['result.rating.netPremium', 2640],
-      ['result.rating.totalPremium', 2667]
-    ];
-  };
-
-  cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig);
+export const navigateThroughUnderwriting = (data = underwriting) => {
   Object.entries(data).forEach(([name, value]) => {
     cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click();
   });
@@ -39,8 +30,7 @@ export const navigateThroughCustomize = () => cy.clickSubmit('#QuoteWorkflow').w
 
 export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
-export const navigateThroughAssumptions = (updates, useConfig) => {
-  if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
+export const navigateThroughAssumptions = () => {
   cy.findDataTag('confirm-assumptions').click()
     .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
@@ -48,8 +38,7 @@ export const navigateThroughAssumptions = (updates, useConfig) => {
 export const navigateThroughAdditionalInterests = () =>
   cy.clickSubmit('#AddAdditionalInterestPage').wait('@getQuoteServiceRequest');
 
-export const navigateThroughMailingBilling = (updates, useConfig) => {
-  if (updates) { cy.setFx('stubs/getQuoteServiceRequest', updates, useConfig); }
+export const navigateThroughMailingBilling = () => {
   cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then($div => {

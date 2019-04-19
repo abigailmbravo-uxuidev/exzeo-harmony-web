@@ -1,5 +1,5 @@
-import stubAllRoutes from "../../support/stubAllRoutes";
 import {
+  setRouteAliases,
   navigateThroughLanding,
   navigateThroughSearchAddress,
   navigateThroughPolicyholder,
@@ -26,12 +26,12 @@ describe('Back Button Testing', () => {
     );
 
   before(() => {
-    stubAllRoutes();
+    setRouteAliases();
     cy.login();
     navigateThroughLanding();
   });
 
-  beforeEach(() => stubAllRoutes());
+  beforeEach(() => setRouteAliases());
 
   it('Browser Back Button (Part 1)', () => {
     cy.go('back')

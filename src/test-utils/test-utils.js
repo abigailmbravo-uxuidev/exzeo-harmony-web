@@ -78,70 +78,97 @@ export const defaultProps = {
   match: { params: {} }
 };
 
-export const testHelpers = {
-  submitForm: (query, regex = /submit/) => fireEvent.click(query(regex)),
-  checkError: (query, { name, error = 'Field Required' } = {}) =>
-    expect(query(`${name}_error`)).toHaveTextContent(error),
-  checkLabel: (query, { name, label }) => expect(query(`${name}_label`)).toHaveTextContent(label),
-  checkTextInput: (query, { name, data }) => {
-    const el = query(name);
-    fireEvent.change(el, { target: { value: data }});
-    expect(el.value).toBe(data);
-  },
-  checkRadio: (query, { name, values }) => {
-    values.forEach(value => {
-      // Get the option to select and click it
-      const selectedOption = query(`${name}_${value}`);
-      fireEvent.click(selectedOption);
-      // Expect the parent wrapper to be selected
-      expect(selectedOption.parentNode.className).toEqual('label-segmented selected');
-      // Expect all other values' parents to be unchecked
-      values.filter(uncheckedValue => value !== uncheckedValue)
-        .forEach(uncheckedValue => expect(query(`${name}_${uncheckedValue}`).parentNode.className).toEqual('label-segmented'));
-    });
-  },
-  checkSwitch: (query, { name, defaultValue }) => {
-    const el = query(name);
-    // Toggle switch twice, check value each time
-    expect(el.getAttribute('data-value')).toEqual(`${defaultValue}`);
-    fireEvent.click(el);
-    expect(el.getAttribute('data-value')).toEqual(`${!defaultValue}`);
-    fireEvent.click(el);
-    expect(el.getAttribute('data-value')).toEqual(`${!!defaultValue}`);
-  },
-  checkSlider: (query, { name }) => {
-    // We check slider min and max value
-    const slider = query(`${name}-slider`);
-    const min = slider.getAttribute('min');
-    const max = slider.getAttribute('max');
-    expect(slider);
-    setSliderValue(slider, min);
-    expect(slider.value).toEqual(min);
-    setSliderValue(slider, max);
-    expect(slider.value).toEqual(max);
-  },
-  checkHeader: (query, { name, text, icon = false }) => {
-    // Check text content, and if an icon is present, we check that className
-    expect(query(name)).toHaveTextContent(text);
-    if (icon) expect(document.querySelector(`[data-test="${name}"] i`).className).toEqual(icon);
-  },
-  checkButton: el => {
-    expect(el.getAttribute('type')).toEqual('button');
-  },
-  // This function is used to verify specific submit errors for one field as well
-  verifyForm: (query, baseFields = [], fieldsLeftBlank = []) => {
-    // Clears all text
-    baseFields.forEach(({ name }) => fireEvent.change(query(name), { target: { value: '' } }));
-    // Fills all fields out not in fieldsLeftBlank array based on 'data' key
-    baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
-      .forEach(({ name, data }) => fireEvent.change(query(name), { target: { value: data } }));
-    // Submit form
-    fireEvent.click(query(/submit/));
-    // Expect errors to exist on blank fields
-    // or if there are no blank fields, then we check for errors on base fields
-    // which will generally not be 'Field Required' errors
-    fieldsLeftBlank.length ?
-    fieldsLeftBlank.forEach(({ name, error = 'Field Required' }) => expect(query(`${name}_error`)).toHaveTextContent(error))
-    : baseFields.forEach(({ name, error = 'Field Required' }) => expect(query(`${name}_error`)).toHaveTextContent(error));
+const parseQueryType = (query, field) => {
+  // We determine which field value to use based on query name
+  const queryName = query.name.replace(/bound /g, '');
+  switch (queryName) {
+    case 'getByTestId':
+      return query(field.name);
+    case 'getByText':
+      return query(field.text);
+    case 'getByLabel':
+      return query(field.label);
+    default:
+      return query(field.name);
+  };
+};
+
+export const submitForm = (query, regex = /submit/) => fireEvent.click(query(regex));
+
+export const checkError = (query, { name = '', text = '', label = '', error = 'Field Required' } = {}) =>
+  expect(parseQueryType(query, { name: `${name}_error`, text, label, error })).toHaveTextContent(error);
+
+export const checkLabel = (query, { name = '', text = '', label }) => expect(parseQueryType(query, { name: `${name}_label`, text, label })).toHaveTextContent(label);
+
+export const checkTextInput = (query, field) => {
+  const input = parseQueryType(query, field);
+  fireEvent.change(input, { target: { value: field.data } });
+  expect(input.value).toBe(field.data);
+};
+
+export const checkRadio = (query, { name = '', text = '', label = '', values }) => {
+  values.forEach(value => {
+    // Get the option to select and click it
+    const selectedOption = parseQueryType(query, { name: `${name}_${value}`, text, label });
+    fireEvent.click(selectedOption);
+    // Expect the parent wrapper to be selected
+    expect(selectedOption.parentNode.className).toEqual('label-segmented selected');
+    // Expect all other values' parents to be unchecked
+    values.filter(uncheckedValue => value !== uncheckedValue)
+      .forEach(uncheckedValue => expect(parseQueryType(query, { name: `${name}_${uncheckedValue}`, text, label }).parentNode.className).toEqual('label-segmented'));
+  });
+};
+
+export const checkSwitch = (query, field) => {
+  const switchDiv = parseQueryType(query, field);
+  // Toggle switch twice, check value each time
+  expect(switchDiv.getAttribute('data-value')).toEqual(`${field.defaultValue}`);
+  fireEvent.click(switchDiv);
+  expect(switchDiv.getAttribute('data-value')).toEqual(`${!field.defaultValue}`);
+  fireEvent.click(switchDiv);
+  expect(switchDiv.getAttribute('data-value')).toEqual(`${!!field.defaultValue}`);
+};
+
+export const checkSlider = (query, { name = '', text = '', label = '' }) => {
+  // We check slider min and max value
+  const slider = parseQueryType(query, { name: `${name}-slider`, text, label });
+  const min = slider.getAttribute('min');
+  const max = slider.getAttribute('max');
+  expect(slider);
+  setSliderValue(slider, min);
+  expect(slider.value).toEqual(min);
+  setSliderValue(slider, max);
+  expect(slider.value).toEqual(max);
+};
+
+export const checkHeader = (query, { name = '', text, label = '', icon = false }) => {
+  // const header = query(name || text);
+  const header = parseQueryType(query, { name, text, label });
+  expect(header).toHaveTextContent(text);
+  if (icon) {
+    // find the first icon element and check that it's classname is the icon value in the field
+    const iconElement = Object.values(header.childNodes).find(node => node.tagName === 'I');
+    expect(iconElement.className).toEqual(icon);
   }
+};
+
+export const checkButton = (query, field = { name: 'submit' }) => {
+  const button = parseQueryType(query, field);
+  expect(button.getAttribute('type')).toEqual('button');
+};
+
+// This function is used to verify specific submit errors for one field as well
+export const verifyForm = (query, baseFields = [], fieldsLeftBlank = []) => {
+  // Clears all text
+  baseFields.forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: '' } }));
+  // Fills all fields out not in fieldsLeftBlank array based on 'data' key
+  baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
+    .forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: field.data } }));
+  // Submit form
+  submitForm(query);
+  // Expect errors to exist on blank fields
+  // or if there are no blank fields, then we check for errors on base fields
+  // which will generally not be 'Field Required' errors
+  fieldsLeftBlank.length ?
+    fieldsLeftBlank.forEach(field => checkError(query, field)) : baseFields.forEach(field => checkError(query, field));
 };
