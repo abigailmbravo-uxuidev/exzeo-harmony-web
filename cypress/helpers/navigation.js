@@ -1,16 +1,16 @@
-import user from '../fixtures/HO3/user.json';
-import underwriting from '../fixtures/HO3/underwriting.json';
+import userHO3 from '../fixtures/HO3/user.json';
+import underwritingH03 from '../fixtures/HO3/underwriting.json';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
 
-export const navigateThroughSearchAddress = (address = user.address)  =>
+export const navigateThroughSearchAddress = ({ address = userHO3.address })  =>
   cy.get('input[name=address]').type(address)
     .clickSubmit('#SearchBar')
     .findDataTag('search-results').find('li[tabindex=0]').click()
     .wait('@fetchAddresses');
 
-export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, agentCode = user.agentCode) => {
+export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInfo, agentCode = userHO3.agentCode } = {}) => {
   Object.entries(customerInfo).forEach(([field, value]) => {
     cy.findDataTag(`${field}`).find('input').type(value);
   });
@@ -19,21 +19,25 @@ export const navigateThroughPolicyholder = (customerInfo = user.customerInfo, ag
     .wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughUnderwriting = (data = underwriting) => {
+export const navigateThroughUnderwriting = (data = underwritingH03) => {
   Object.entries(data).forEach(([name, value]) => {
     cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click();
   });
   cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughCustomize = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+export const navigateThroughCustomize = () => {
+  // TODO: RECALC + RESET
+  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+}
 
-export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+export const navigateThroughShare = () => {
+  // TODO: Fill out and share
+  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+}
 
-export const navigateThroughAssumptions = () => {
-  cy.findDataTag('confirm-assumptions').click()
+export const navigateThroughAssumptions = () => cy.findDataTag('confirm-assumptions').click()
     .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
-};
 
 export const navigateThroughAdditionalInterests = () =>
   cy.clickSubmit('#AddAdditionalInterestPage').wait('@getQuoteServiceRequest');
