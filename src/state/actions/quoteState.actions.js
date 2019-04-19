@@ -4,6 +4,7 @@ import * as serviceRunner from '../../utilities/serviceRunner';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
+import { PRODUCT_TYPES } from '../../modules/Quote/constants/quote';
 
 export function setQuote(quote) {
   return{
@@ -57,26 +58,26 @@ export function retrieveQuote() {
   }
 }
 
+/**
+ * Temp function for formatting quote data to send to quote-manager
+ * @param {object} data - quote data
+ */
 function formatQuoteForSubmit(data) {
   const quote = { ...data };
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
-  quote.policyHolders[0].order = 0;
-  quote.policyHolders[0].entityType = "Person";
+  quote.policyHolders[0].order = data.policyHolders[0].order || 0;
+  quote.policyHolders[0].entityType = data.policyHolders[0].entityType || "Person";
   if (data.policyHolders[1]) {
-    quote.policyHolders[1].order = 1;
-    quote.policyHolders[1].entityType = "Person";
+    quote.policyHolders[1].order = data.policyHolders[1].order || 1;
+    quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
   }
 
-  quote.deductibles.personalPropertyDeductible.value = 500;
-  quote.deductibles.buildingDeductible.value = 500;
-  // quote.coverageLimits.dwelling.value = 150000;
-  // quote.coverageLimits.building.value = 150000;
-  quote.coverageLimits.personalProperty.value = 100000;
-  quote.coverageLimits.lossOfUse.value = 5000;
-
-
-
-
+  if (data.product === PRODUCT_TYPES.flood) {
+    quote.deductibles.personalPropertyDeductible.value = data.deductibles.personalPropertyDeductible.value || 500;
+    quote.deductibles.buildingDeductible.value = data.deductibles.buildingDeductible.value || 500;
+    quote.coverageLimits.personalProperty.value = data.coverageLimits.personalProperty.value || 100000;
+    quote.coverageLimits.lossOfUse.value = data.coverageLimits.lossOfUse.value || 5000;
+  }
 
   return quote;
 }

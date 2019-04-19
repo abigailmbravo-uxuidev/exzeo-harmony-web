@@ -74,6 +74,15 @@ export class QuoteWorkflow extends Component {
     this.getTemplate();
   }
 
+  // Temp fix for quote not being in state when component mounts on refresh (mostly a development time problem)
+  componentDidUpdate(prevProps) {
+    const { quote } = this.props;
+    const { quote: prevQuote } = prevProps;
+    if ((quote || {}).product !== (prevQuote || {}).product) {
+      this.getTemplate();
+    }
+  }
+
   getConfigForJsonTransform(gandalfTemplate) {
     if(!gandalfTemplate) return {};
 

@@ -348,7 +348,24 @@ const mock = {
             label: 'Other Structures Limit',
             size: '12',
             hint : "This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.",
-            dataSource: 'uiQuestions.otherStructuresAmount',
+            dataSource: [
+              {
+                label: '0%',
+                answer: 0
+              },
+              {
+                label: '2%',
+                answer: 2
+              },
+              {
+                label: '5%',
+                answer: 5
+              },
+              {
+                label: '10%',
+                answer: 10
+              }
+            ],
             extendedProperties: {
                 output: 'currency',
             },
@@ -377,7 +394,24 @@ const mock = {
             extendedProperties: {
                 output: 'currency'
             },
-            dataSource: 'uiQuestions.personalPropertyAmount'
+            dataSource: [
+              {
+                label: '0%',
+                answer: 0
+              },
+              {
+                label: '25%',
+                answer: 25
+              },
+              {
+                label: '35%',
+                answer: 35
+              },
+              {
+                label: '50%',
+                answer: 50
+              }
+            ]
           },
           formData: {
             path: 'coverageLimits.personalProperty.value',
@@ -471,7 +505,6 @@ const mock = {
             extendedProperties: {
               output: 'currency',
             },
-            dataSource: []
           },
           formData: {
             path: 'coverageLimits.medicalPayments.value',
@@ -486,7 +519,7 @@ const mock = {
         {
           id: 10,
           type: '$INPUT',
-          path: 'coverageLimits.moldProperty.amount',
+          path: 'coverageLimits.moldProperty.value',
           dependencies: [],
           data: {
             component: 'radio',
@@ -520,7 +553,7 @@ const mock = {
         {
           id: 473292,
           type: '$INPUT',
-          path: 'coverageLimits.moldLiability.amount',
+          path: 'coverageLimits.moldLiability.value',
           dependencies: [],
           data: {
             component: 'radio',
@@ -550,7 +583,7 @@ const mock = {
         {
           id: 11,
           type: '$INPUT',
-          path: 'coverageLimits.ordinanceOrLaw.amount',
+          path: 'coverageLimits.ordinanceOrLaw.value',
           dependencies: [],
           data: {
             segmented: true,
@@ -588,31 +621,6 @@ const mock = {
           formData: {},
           children: [],
         },
-        // {
-        //   id: 13,
-        //   type: '$INPUT',
-        //   dependencies: [],
-        //   data: {
-        //     segmented: true,
-        //     component: 'radio',
-        //     label: 'Property Permitted Incidental Occupancies',
-        //     size: '12',
-        //     path: 'coverageOptions.propertyIncidentalOccupancies.answer',
-        //     validation: ['isRequired'],
-        //     dataSource: [
-        //       {
-        //         "answer" : "Main Dwelling",
-        //       },
-        //       {
-        //         "answer" : "Other Structures"
-        //       },
-        //       {
-        //         "answer" : "None"
-        //       }
-        //     ]
-        //   },
-        //   children: [],
-        // },
         {
           id: 14,
           type: '$INPUT',
@@ -646,14 +654,27 @@ const mock = {
         {
           id: 16,
           component: '$INPUT',
-          path: 'deductibles.allOtherPerils.amount',
+          path: 'deductibles.allOtherPerils.value',
           dependencies: [],
           data: {
             component: 'radio',
             label: 'All Other Perils Deductible',
             size: '12',
             segmented: true,
-            dataSource: 'uiQuestions.allOtherPerils'
+            dataSource: [
+              {
+                label: '$ 500',
+                answer: 500
+              },
+              {
+                label: '$ 1,000',
+                answer: 1000
+              },
+              {
+                label: '$ 2,500',
+                answer: 2500
+              }
+            ]
           },
           formData:  {
             path: 'deductibles.allOtherPerils.value',
@@ -666,14 +687,27 @@ const mock = {
         {
           id: 17,
           type: '$INPUT',
-          path: 'deductibles.hurricane.amount',
+          path: 'deductibles.hurricane.value',
           dependencies: [],
           data: {
             segmented: true,
             component: 'radio',
             label: 'Hurricane Deductible',
             size: '12',
-            dataSource: 'uiQuestions.hurricane',
+            dataSource: [
+              {
+                label: '2% of Dwelling Limit',
+                answer: 2
+              },
+              {
+                label: '5% of Dwelling Limit',
+                answer: 5
+              },
+              {
+                label: '10% of Dwelling Limit',
+                answer: 10
+              }
+            ],
             extendedProperties: {
               output: 'currency',
             },
@@ -683,7 +717,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.deductibles.hurricane.amount / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.amount))}',
             },
           },
           children: [],
