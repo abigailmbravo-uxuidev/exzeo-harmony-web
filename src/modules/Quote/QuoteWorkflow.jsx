@@ -34,6 +34,13 @@ import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
 
 import AF3 from '../../mock-data/mockAF3';
+import HO3 from '../../mock-data/mockHO3';
+
+const TEMPLATES = {
+  'AF3': AF3,
+  'HO3': HO3,
+};
+
 const FORM_ID = 'QuoteWorkflow';
 
 export class QuoteWorkflow extends Component {
@@ -48,7 +55,7 @@ export class QuoteWorkflow extends Component {
     this.state = {
       isRecalc: false,
       showEmailPopup: false,
-      gandalfTemplate: AF3,
+      gandalfTemplate: null,
       currentStep: 0,
       availableSteps: [],
     };
@@ -93,22 +100,23 @@ export class QuoteWorkflow extends Component {
   getTemplate = async () => {
     const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
 
-    const transferConfig = {
-      exchangeName: 'harmony',
-      routingKey:  'harmony.policy.retrieveDocumentTemplate',
-      data: {
-        companyCode,
-        state,
-        product: quote.product,
-        application: 'agency',
-        formName: 'quoteModel',
-        version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
-      }
-    };
+    // const transferConfig = {
+    //   exchangeName: 'harmony',
+    //   routingKey:  'harmony.policy.retrieveDocumentTemplate',
+    //   data: {
+    //     companyCode,
+    //     state,
+    //     product: quote.product,
+    //     application: 'agency',
+    //     formName: 'quoteModel',
+    //     version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
+    //   }
+    // };
 
-    return transferConfig;
+    // return transferConfig;
     // const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
-    // this.setState(() => ({ gandalfTemplate: response.data.result }));
+    const { product } = quote;
+    this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
   };
 
   goToStep = async (stepName) => {
@@ -176,7 +184,7 @@ export class QuoteWorkflow extends Component {
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
     const currentPage = PAGE_ROUTING[currentStep];
-    const shouldUseGandalf = gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1;
+    const shouldUseGandalf = (gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1);
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
     // TODO going to use Context to pass these directly to custom components,
