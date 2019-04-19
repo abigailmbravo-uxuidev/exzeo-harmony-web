@@ -6,10 +6,10 @@ import DetailHeader from './DetailHeader';
 
 export class WorkflowNavigation extends Component {
   getClassForStep = (step) => {
-    const { currentStep, availableSteps } = this.props;
+    const { currentStep} = this.props;
     if (currentStep === step) return 'active';
 
-    return (availableSteps.indexOf(step) !== 1) ? 'selected' : 'disabled';
+    return step < currentStep ? 'selected' : 'disabled';
   };
 
   onKeyPress = (step, event) => {

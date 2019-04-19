@@ -19,8 +19,14 @@ import { getZipcodeSettings } from '../../state/actions/serviceActions';
 import { getEnumsForQuoteWorkflow } from '../../state/actions/list.actions';
 import { getQuoteSelector } from '../../state/selectors/choreographer.selectors';
 
-import { NEXT_PAGE_ROUTING, PAGE_ROUTING, ROUTES_NOT_HANDLED_BY_GANDALF, ROUTES_NOT_USING_FOOTER } from './constants/workflowNavigation';
-import { ROUTE_TO_STEP_NAME } from './constants/choreographer';
+import {
+  NEXT_PAGE_ROUTING,
+  PAGE_ROUTING,
+  ROUTES_NOT_HANDLED_BY_GANDALF,
+  ROUTES_NOT_USING_FOOTER,
+  STEP_NAMES,
+  ROUTE_TO_STEP_NAME,
+} from './constants/workflowNavigation';
 
 import Verify from '../../components/Verify/Verify';
 import ThankYou from '../../components/ThankYou/ThankYou';
@@ -56,8 +62,7 @@ export class QuoteWorkflow extends Component {
       isRecalc: false,
       showEmailPopup: false,
       gandalfTemplate: null,
-      currentStep: 0,
-      availableSteps: [],
+      currentStep: STEP_NAMES.askAdditionalCustomerData,
     };
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
@@ -128,12 +133,13 @@ export class QuoteWorkflow extends Component {
     this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
   };
 
-  goToStep = async (stepName) => {
-    const { history, isLoading, quote, updateQuote, workflowState: { activeTask, completedTasks } } = this.props;
-    if (isLoading || activeTask === stepName || !completedTasks.includes(stepName)) return;
+  goToStep = (step) => {
+    const { history, isLoading } = this.props;
+    const { currentStep } = this.state;
+    if (isLoading || step >= currentStep) return;
 
-    await updateQuote({ stepName, quoteNumber: quote.quoteNumber });
-    history.replace(ROUTE_TO_STEP_NAME[stepName]);
+    history.replace(ROUTE_TO_STEP_NAME[step]);
+    this.setCurrentStep(true, step);
   };
 
   handleDirtyForm = (isDirty, currentPage) => {
@@ -154,7 +160,14 @@ export class QuoteWorkflow extends Component {
         // TODO: Figure out a routing solution
     if(!(isRecalc || shouldNav === 'false')) {
       history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+      this.setCurrentStep();
     }
+  };
+
+  setCurrentStep = (moveTo, step) => {
+    this.setState((prevState) => ({
+      currentStep: moveTo ? step : prevState.currentStep + 1,
+    }))
   };
 
   primaryClickHandler = () => {
@@ -168,10 +181,6 @@ export class QuoteWorkflow extends Component {
       event.initEvent('submit', true, true);
       form.dispatchEvent(event);
     }
-  };
-
-  setCurrentStep = () => {
-
   };
 
   setShowEmailPopup = (showEmailPopup) => {
@@ -224,7 +233,6 @@ export class QuoteWorkflow extends Component {
               isLoading={isLoading}
               showNavigationTabs={!workflowState.isHardStop && (currentStep !== 'thankYou')}
               currentStep={this.state.currentStep}
-              availableSteps={this.state.availableSteps}
               quote={quoteData}
             />
             {/*{ Gandalf will be replacing most/all of these routes }*/}

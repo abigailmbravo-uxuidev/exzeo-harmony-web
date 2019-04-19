@@ -9,6 +9,16 @@ export const STEP_NAMES = {
   editVerify: 7,
 };
 
+export const ROUTE_TO_STEP_NAME = {
+  [STEP_NAMES.askAdditionalCustomerData]: 'customerInfo',
+  [STEP_NAMES.askUWAnswers]: 'underwriting',
+  [STEP_NAMES.askToCustomizeDefaultQuote]: 'customize',
+  [STEP_NAMES.sendEmailOrContinue]: 'share',
+  [STEP_NAMES.addAdditionalAIs]: 'additionalInterests',
+  [STEP_NAMES.askAdditionalQuestions]: 'mailingBilling',
+  [STEP_NAMES.editVerify]: 'verify',
+};
+
 export const PAGE_ROUTING = {
   'customerInfo': 0,
   'underwriting': 1,
