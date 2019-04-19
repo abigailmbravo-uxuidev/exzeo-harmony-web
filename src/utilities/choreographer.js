@@ -385,9 +385,37 @@ async function updateQuote({ data, quoteNumber, stepName, getReduxState, options
   };
 }
 
+/**
+ *
+ * @param modelName
+ * @param data
+ * @returns {Promise<initialState.cg.bb.data.previousTask.value.result|{IndexResult}|props.tasks.bb.data.previousTask.value.result|initialState.cg.bb.data.previousTask.value.result|{quotes}|Array|*>}
+ */
+export const startWorkflow = async (modelName, data) => {
+  const axiosConfig = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: {
+      modelName,
+      data
+    },
+    url: `${process.env.REACT_APP_API_URL}/cg/start?${modelName}`
+  };
+
+  try {
+    const result = await axios(axiosConfig);
+    return result.data.data.previousTask.value.result;
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
 export default {
   createQuote,
   getQuote,
-  updateQuote
+  updateQuote,
+  startWorkflow,
 };
 

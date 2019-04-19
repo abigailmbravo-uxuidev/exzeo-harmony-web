@@ -150,11 +150,15 @@ export class QuoteWorkflow extends Component {
 
   handleGandalfSubmit = async ({ shouldNav, ...values}) => {
     const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
-    const { isRecalc } = this.state;
+    const { isRecalc, currentStep } = this.state;
     await updateQuote({
       data: { ...values, recalc: isRecalc },
       quoteNumber: quote.quoteNumber,
-      options: { underwritingQuestions: options.underwritingQuestions, timezone: (zipCodeSettings|| {}).timezone || 'America/New_York' }
+      options: {
+        step: currentStep,
+        underwritingQuestions: options.underwritingQuestions,
+        timezone: (zipCodeSettings|| {}).timezone || 'America/New_York'
+      }
     });
 
         // TODO: Figure out a routing solution

@@ -5,6 +5,9 @@ import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
 import { PRODUCT_TYPES } from '../../modules/Quote/constants/quote';
+import moment from 'moment-timezone';
+import { STEP_NAMES } from '../../modules/Quote/constants/workflowNavigation';
+import { formatDate, FORMATS, formattedDate } from '@exzeo/core-ui/src/Utilities/date';
 
 export function setQuote(quote) {
   return{
@@ -64,6 +67,8 @@ export function retrieveQuote() {
  */
 function formatQuoteForSubmit(data) {
   const quote = { ...data };
+  quote.effectiveDate = moment.tz(data.effectiveDate, data.property.timezone).utc();
+  // quote.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.PRIMARY_LOCALE, data.property.timezone);
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
   quote.policyHolders[0].order = data.policyHolders[0].order || 0;
   quote.policyHolders[0].entityType = data.policyHolders[0].entityType || "Person";
@@ -90,20 +95,22 @@ function formatQuoteForSubmit(data) {
  * @param [options]
  * @returns {Function}
  */
-export function updateQuote({
-  data = {},
-  quoteNumber,
-  step,
-  options
-}) {
-  return async (dispatch, getState) => {
-    const quote = formatQuoteForSubmit(data);
+export function updateQuote({ data = {}, quoteNumber, options }) {
+  return async function(dispatch) {
+    const updatedQuote = formatQuoteForSubmit(data);
 
     const config = {
       exchangeName: 'harmony',
       routingKey: 'harmony.quote.updateQuote',
-      data: quote,
+      data: updatedQuote,
     };
+
+
+    // if (updatedQuote.product === PRODUCT_TYPES.home) {
+    //   if (options.step === STEP_NAMES.askUWAnswers || options.step === STEP_NAMES.askToCustomizeDefaultQuote) {
+    //     await choreographer.startWorkflow('csrGetQuoteWithUnderwriting', { quoteId: updatedQuote.quoteNumber , currentPage: 'underwriting'});
+    //   }
+    // }
 
     try {
       dispatch(toggleLoading(true));
@@ -112,9 +119,11 @@ export function updateQuote({
       // const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState , options});
       dispatch(setQuote(quote));
       return quote;
+
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
+
     } finally {
       dispatch(toggleLoading(false));
     }
