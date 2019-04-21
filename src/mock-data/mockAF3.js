@@ -386,58 +386,6 @@ const mock = {
           children: [],
         },
         {
-          id: 3,
-          type: '$INPUT',
-          path: 'coverageLimits.otherStructures.value',
-          dependencies: [],
-          data: {
-            segmented: true,
-            component: 'radio',
-            label: 'Other Structures Limit',
-            size: '12',
-            hint : "This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.",
-            dataSource: 'uiQuestions.otherStructuresAmount',
-            extendedProperties: {
-              output: 'currency',
-            },
-          },
-          formData: {
-            path: 'coverageLimits.otherStructures.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target: '${Math.ceil(((it.coverageLimits.otherStructures.value / 100) * it.coverageLimits.dwelling.amount))}',
-            },
-          },
-          children: [],
-        },
-        {
-          id: 4,
-          type: '$INPUT',
-          path: 'coverageLimits.personalProperty.value',
-          dependencies: [],
-          data: {
-            segmented: true,
-            component: 'radio',
-            label: 'Personal Property Limit',
-            size: '12',
-            hint : "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
-            extendedProperties: {
-              output: 'currency'
-            },
-            dataSource: 'uiQuestions.personalPropertyAmount'
-          },
-          formData: {
-            path: 'coverageLimits.personalProperty.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target: '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.amount))}',
-            },
-          },
-          children: [],
-        },
-        {
           id: 6,
           type: '$INPUT',
           path: 'coverageOptions.personalPropertyReplacementCost.answer',
@@ -459,25 +407,46 @@ const mock = {
           children: [],
         },
         {
-          id: 7,
+          id: 4,
           type: '$INPUT',
-          path: 'coverageLimits.lossOfUse.value',
+          path: 'deductibles.buildingDeductible.value',
           dependencies: [],
           data: {
-            component: 'display',
-            label: 'Loss of Use Limit',
+            segmented: true,
+            component: 'radio',
+            label: 'Deductible',
             size: '12',
-            hint : "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
-            extendedProperties: {
-              output: 'currency'
-            },
+            hint : "Building deductible help text goes here.",
+            dataSource: [
+              {
+                answer: 500,
+                label: '$500'
+              },
+              {
+                answer: 1000,
+                label: '$1,000'
+              },
+              {
+                answer: 2000,
+                label: '$2,000'
+              },
+              {
+                answer: 5000,
+                label: '$5,000'
+              },
+              {
+                answer: 10000,
+                label: '$10,000'
+              },
+
+            ]
           },
           formData: {
-            path: 'coverageLimits.lossOfUse.value',
+            path: 'coverageLimits.personalProperty.value',
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.coverageLimits.lossOfUse.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.amount))}',
             },
           },
           children: [],
