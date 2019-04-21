@@ -77,6 +77,7 @@ export class QuoteWorkflow extends Component {
       this.props.getEnumsForQuoteWorkflow({ companyCode: quote.companyCode, state: quote.state, product: quote.product, property: quote.property})
     }
     this.getTemplate();
+    this.setStepBasedOnRoute();
   }
 
   // Temp fix for quote not being in state when component mounts on refresh (mostly a development time problem)
@@ -172,6 +173,12 @@ export class QuoteWorkflow extends Component {
     this.setState((prevState) => ({
       currentStep: moveTo ? step : prevState.currentStep + 1,
     }))
+  };
+
+  setStepBasedOnRoute = () => {
+    const currentStep = this.props.location.pathname.split('/')[3];
+    const currentPage = PAGE_ROUTING[currentStep];
+    this.setCurrentStep(true, currentPage);
   };
 
   primaryClickHandler = () => {
