@@ -67,7 +67,7 @@ export function retrieveQuote() {
  */
 function formatQuoteForSubmit(data) {
   const quote = { ...data };
-  quote.effectiveDate = moment.tz(data.effectiveDate, data.property.timezone).utc();
+  quote.effectiveDate = moment.tz(data.effectiveDate, data.property.timezone).utc().format();
   // quote.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.PRIMARY_LOCALE, data.property.timezone);
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
   quote.policyHolders[0].order = data.policyHolders[0].order || 0;
