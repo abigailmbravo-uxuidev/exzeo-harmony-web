@@ -186,15 +186,15 @@ async function start(modelName, data) {
     }
   };
 
-  const response = await axios(axiosConfig);
+  try {
 
-  const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
-  setState({
-    activeTask: activeTaskName,
-    workflowId: modelInstanceId,
-    variables,
-    completedTasks
-  });
+    const response = await axios(axiosConfig);
+    return response.data;
+
+  } catch (err) {
+    throw err
+  }
+
 }
 
 /**

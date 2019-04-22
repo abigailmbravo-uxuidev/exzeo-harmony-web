@@ -104,30 +104,35 @@ function formatQuoteForSubmit(data) {
  */
 export function updateQuote({ data = {}, quoteNumber, options }) {
   return async function(dispatch) {
+
+    dispatch(toggleLoading(true));
     try {
-      const updatedQuote = formatQuoteForSubmit(data);
+      // Using CG models for functionality that is missing in workflows
+      if (options.shouldSendEmail) {
+        const cgData = {
+          quoteId: data._id,
+          state: data.state,
+          zip: data.property.physicalAddress.zip,
+          emailAddress: options.customValues.email,
+          toName: options.customValues.name,
+        };
 
-      const config = {
-        exchangeName: 'harmony',
-        routingKey: 'harmony.quote.updateQuote',
-        data: updatedQuote,
-      };
+        await choreographer.startWorkflow('agencyEmailQuoteSummary', cgData);
 
+      } else {
+        const updatedQuote = formatQuoteForSubmit(data);
+        const config = {
+          exchangeName: 'harmony',
+          routingKey: 'harmony.quote.updateQuote',
+          data: updatedQuote,
+        };
 
-    // if (updatedQuote.product === PRODUCT_TYPES.home) {
-    //   if (options.step === STEP_NAMES.askUWAnswers || options.step === STEP_NAMES.askToCustomizeDefaultQuote) {
-    //     await choreographer.startWorkflow('csrGetQuoteWithUnderwriting', { quoteId: updatedQuote.quoteNumber , currentPage: 'underwriting'});
-    //   }
-    // }
-
-
-      dispatch(toggleLoading(true));
-      const response = await serviceRunner.callService(config, 'quoteManager.updateQuote');
-      const quote = response.data.result;
-      // const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState , options});
-      dispatch(setQuote(quote));
-      return quote;
-
+        const response = await serviceRunner.callService(config, 'quoteManager.updateQuote');
+        const quote = response.data.result;
+        // const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState , options});
+        dispatch(setQuote(quote));
+        return quote;
+      }
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       console.log(error);

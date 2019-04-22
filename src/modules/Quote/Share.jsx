@@ -8,12 +8,12 @@ import ErrorPopup from '../../components/Common/ErrorPopup';
 export class Share extends React.Component {
   noShareSubmit = async () => {
     const { customHandlers } = this.props;
-    customHandlers.handleSubmit({ shouldSendEmail: 'No' });
+    customHandlers.handleSubmit({ noSubmit: true });
   };
 
   shareQuoteSubmit = async (data) => {
     const { customHandlers } = this.props;
-    customHandlers.handleSubmit({ shouldNav: 'false', shouldSendEmail: 'Yes', ...data });
+    customHandlers.handleSubmit({ remainOnStep: true, shouldSendEmail: true, ...data });
     customHandlers.setEmailPopup(false);
   };
 

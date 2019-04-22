@@ -61,7 +61,7 @@ const DetailHeader = ({ activeTask, handleRecalc, isLoading, isRecalc, quote }) 
           <div>
             <dt className="fade">Coverage A</dt>
             <dd className="fade">
-              $ {(quote.coverageLimits && (activeTask !== 'askAdditionalCustomerData' && activeTask !== 'askUWAnswers'))
+              $ {(quote.coverageLimits && (activeTask !== STEP_NAMES.askToCustomizeDefaultQuote && activeTask !== STEP_NAMES.askUWAnswers))
                 ? quote.coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 : '--'
               }

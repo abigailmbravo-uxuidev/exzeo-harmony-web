@@ -28,7 +28,7 @@ export class WorkflowNavigation extends Component {
     return (
       <div className="nav-and-header-wrapper">
         <DetailHeader
-          currentStep={currentStep}
+          activeTask={currentStep}
           handleRecalc={handleRecalc}
           isLoading={isLoading}
           isRecalc={isRecalc}

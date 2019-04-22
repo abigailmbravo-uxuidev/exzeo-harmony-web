@@ -149,24 +149,34 @@ export class QuoteWorkflow extends Component {
     })
   };
 
-  handleGandalfSubmit = async ({ shouldNav, ...values}) => {
+  handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
     const { isRecalc, currentStep } = this.state;
-    await updateQuote({
-      data: { ...values, recalc: isRecalc },
-      quoteNumber: quote.quoteNumber,
-      options: {
-        step: currentStep,
-        underwritingQuestions: options.underwritingQuestions,
-        timezone: (zipCodeSettings|| {}).timezone || 'America/New_York'
+    try {
+      if (!noSubmit) {
+        const data = values.quoteNumber ? values : quote;
+        await updateQuote({
+          data,
+          quoteNumber: quote.quoteNumber,
+          options: {
+            shouldSendEmail,
+            customValues: values,
+            step: currentStep,
+            timezone: (zipCodeSettings || {}).timezone || 'America/New_York',
+            underwritingQuestions: options.underwritingQuestions,
+          }
+        });
       }
-    });
 
-        // TODO: Figure out a routing solution
-    if(!(isRecalc || shouldNav === 'false')) {
-      history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
-      this.setCurrentStep();
+      // TODO: Figure out a routing solution
+      if (!(isRecalc || remainOnStep)) {
+        history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+        this.setCurrentStep();
+      }
+    } catch (error) {
+      console.log(error);
     }
+
   };
 
   setCurrentStep = (moveTo, step) => {
