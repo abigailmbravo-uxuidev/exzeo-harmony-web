@@ -1,15 +1,25 @@
+import { date } from '@exzeo/core-ui';
 import * as serviceRunner from '../../utilities/serviceRunner';
 
 import * as types from './actionTypes';
 import * as listTypes from '../actionTypes/list.actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
+import { setAppError } from './errorActions';
 
 
 function setEnums(enums) {
   return {
     type: listTypes.SET_ENUMS,
     underwritingQuestions: enums.underwritingQuestions,
+  }
+}
+
+function setBillingOptions(billingOptions, quote) {
+  return {
+    type: listTypes.SET_BILLING_OPTIONS,
+    billingOptions,
+    quote
   }
 }
 
@@ -70,4 +80,33 @@ export async function fetchUnderwritingQuestions(companyCode, state, product, pr
     return response;
 }
 
+
+export function getBillingOptions(quote) {
+  return async dispatch => {
+
+    try {
+      const config = {
+        service: 'billing',
+        method: 'POST',
+        path: 'payment-options-for-quoting',
+        data: {
+          effectiveDate: date.formatToUTC(quote.effectiveDate, quote.property.timezone),
+          policyHolders: quote.policyHolders,
+          additionalInterests: quote.additionalInterests,
+          netPremium: quote.rating.netPremium,
+          totalPremium: quote.rating.totalPremium,
+          fees: {
+            empTrustFee: quote.rating.worksheet.fees.empTrustFee,
+            mgaPolicyFee: quote.rating.worksheet.fees.mgaPolicyFee
+          }
+        }
+      };
+
+      const response = await serviceRunner.callService(config, 'getBillingOptions');
+      dispatch(setBillingOptions(response.data.result, quote));
+    } catch (error) {
+      dispatch(setAppError(error));
+    }
+  };
+}
 

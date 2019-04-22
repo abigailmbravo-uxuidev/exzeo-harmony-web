@@ -18,7 +18,8 @@ export class AddAdditionalInterest extends React.Component {
 
   noAddAdditionalInterestSubmit = async () => {
     const taskData = { shouldUpdateAIs: 'No' };
-    await this.props.updateQuote({ data: taskData, quoteNumber: this.props.quote.quoteNumber });
+    // TODO: Temp noSubmit, will come back
+    await this.props.updateQuote({ noSubmit: true, data: taskData, quoteNumber: this.props.quote.quoteNumber });
     this.props.history.replace('mailingBilling');
   };
 

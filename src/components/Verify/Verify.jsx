@@ -217,7 +217,7 @@ export class Verify extends React.Component {
                     <dl>
                       <div>
                         <dt>Hurricane Deductible</dt>
-                        <dd>$ {deductibles.hurricane.calculatedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                        <dd>$ {deductibles.hurricane.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                       </div>
                     </dl>
                     {deductibles.sinkhole &&

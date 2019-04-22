@@ -7,8 +7,8 @@ export default function listReducer(state = initialState.list, action) {
   switch (action.type) {
     case types.SET_AGENTS:
       return setAgents(state, action);
-    // case types.SET_QUOTE:
-    //   return setQuote(state, action);
+    case listTypes.SET_BILLING_OPTIONS:
+      return setBillingOptions(state, action);
     case listTypes.SET_ZIP_SETTINGS:
       return setZipCodeSettings(state, action);
     case listTypes.SET_ENUMS:
@@ -64,14 +64,8 @@ function setZipCodeSettings(state, action) {
   }
 }
 
-
-
-function getBillingInfo(state = {}, quote = {}) {
-  const billingVar = (state.variables || []).find(v => v.name === 'billingOptions');
-  if (!billingVar) return undefined;
-
-  const { result = {} } = billingVar.value;
-  const { options = [], paymentPlans = {} } = result;
+function getBillingInfo(billingData = {}, quote = {}) {
+  const { options = [], paymentPlans = {} } = billingData;
   // check if the currently selected billToId is still an available option (should reset the value if not)
   const billToIdIsValid = options.find(o => o.billToId === quote.billToId);
 
@@ -105,41 +99,40 @@ function getBillingInfo(state = {}, quote = {}) {
   }
 }
 
-function setQuote(state, action) {
-  // WE could put these in a selector but this doesn't get run often and will probably change a lot when 'workflow' is implemented
-  const underwritingQuestions = (action.state.underwritingQuestions || [])
-    .sort((a, b) => a.order - b.order)
-    .map(question => {
-      const defaultValue = (question.answers || []).find(answer => answer.default);
-      return ({
-        name: question.name,
-        hidden: question.hidden,
-        label: question.question,
-        defaultValue: defaultValue ? defaultValue.answer : '',
-        validation: ['isRequired'],
-        options: (question.answers || []).map(answer => ({
-          answer: answer.answer,
-          label: answer.answer,
-        }))
-      })
-    });
-
-  const uiQuestionMap = (action.state.uiQuestions || []).reduce((map, question) => {
-    return {
-      ...map,
-      [question.name]: (question.answers || []).map(answer => ({
-        answer: answer.answer,
-        label: answer.label,
-      }))
-    }
-  }, {});
-
-  const billingData = getBillingInfo(action.state, action.quote);
+function setBillingOptions(state, action) {
+  // may move this out into a selector...
+  const billingData = getBillingInfo(action.billingOptions);
 
   return {
     ...state,
-    underwritingQuestions: underwritingQuestions,
-    uiQuestions: uiQuestionMap,
     billingConfig: billingData || initialState.list.billingConfig,
   }
 }
+
+// WE could put these in a selector but this doesn't get run often and will probably change a lot when 'workflow' is implemented
+// const underwritingQuestions = (action.state.underwritingQuestions || [])
+//   .sort((a, b) => a.order - b.order)
+//   .map(question => {
+//     const defaultValue = (question.answers || []).find(answer => answer.default);
+//     return ({
+//       name: question.name,
+//       hidden: question.hidden,
+//       label: question.question,
+//       defaultValue: defaultValue ? defaultValue.answer : '',
+//       validation: ['isRequired'],
+//       options: (question.answers || []).map(answer => ({
+//         answer: answer.answer,
+//         label: answer.answer,
+//       }))
+//     })
+//   });
+
+// const uiQuestionMap = (action.state.uiQuestions || []).reduce((map, question) => {
+//   return {
+//     ...map,
+//     [question.name]: (question.answers || []).map(answer => ({
+//       answer: answer.answer,
+//       label: answer.label,
+//     }))
+//   }
+// }, {});
