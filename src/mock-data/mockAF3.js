@@ -342,7 +342,13 @@ const mock = {
           data: {
             component: '$SLIDERGROUP',
             extendedProperties: {
-
+              watchField: 'coverageLimits.dwelling.amount',
+              watchFieldLabel: 'Building',
+              watchFieldMin: 'coverageLimits.dwelling.minAmount',
+              watchFieldMax: 'coverageLimits.dwelling.maxAmount',
+              secondaryField: 'coverageLimits.personalProperty.amount',
+              secondaryFieldLabel: 'Personal Property',
+              secondaryFieldMin: 0
             }
           },
           formData: {},
