@@ -119,6 +119,15 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
 
         await choreographer.startWorkflow('agencyEmailQuoteSummary', cgData);
 
+      }
+      else if (options.shouldSendApplication) {
+        const cgData = {
+          quoteId: data._id,
+          dsUrl: `${process.env.REACT_APP_API_URL}/ds`
+        };
+
+        await choreographer.startWorkflow('agencySubmitApplication', cgData);
+
       } else {
         const updatedQuote = formatQuoteForSubmit(data);
         const config = {
