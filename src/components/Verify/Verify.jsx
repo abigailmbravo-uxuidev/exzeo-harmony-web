@@ -205,7 +205,7 @@ export class Verify extends React.Component {
                     <dl>
                       <div>
                         <dt>Ordinance or Law</dt>
-                        <dd>$ {(coverageLimits.dwelling.amount * (coverageLimits.ordinanceOrLaw.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                        <dd>$ {coverageLimits.ordinanceOrLaw.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                       </div>
                     </dl>
                     <dl>
@@ -224,7 +224,7 @@ export class Verify extends React.Component {
                       <dl>
                         <div>
                           <dt>Sinkhole Deductible</dt>
-                          <dd>$ {(coverageLimits.dwelling.amount * (deductibles.sinkhole.amount / 100)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
+                          <dd>$ {deductibles.sinkhole.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</dd>
                         </div>
                       </dl>
                     }
