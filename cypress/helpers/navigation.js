@@ -4,7 +4,7 @@ import underwritingH03 from '../fixtures/HO3/underwriting.json';
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
 
-export const navigateThroughSearchAddress = ({ address = userHO3.address })  =>
+export const navigateThroughSearchAddress = ({ address = userHO3.address } = {})  =>
   cy.get('input[name=address]').type(address)
     .clickSubmit('#SearchBar')
     .findDataTag('search-results').find('li[tabindex=0]').click()
@@ -26,15 +26,22 @@ export const navigateThroughUnderwriting = (data = underwritingH03) => {
   cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 };
 
-export const navigateThroughCustomize = () => {
-  // TODO: RECALC + RESET
-  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
-}
+export const navigateThroughCustomize = () =>
+  // We alter the input, reset, then recalculate before submitting
+  cy.findDataTag('coverageLimits.dwelling.amount-input').type('{selectall}{backspace}300000')
+    .findDataTag('reset').should('contain', 'reset').click()
+    .findDataTag('coverageLimits.dwelling.amount-input').type('{selectall}{backspace}300000')
+    .findDataTag('submit').should('contain', 'recalculate').click()
+    .wait('@askToCustomizeDefaultQuote')
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
-export const navigateThroughShare = () => {
+export const navigateThroughShare = () =>
   // TODO: Fill out and share
-  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
-}
+  cy.findDataTag('share').click()
+    .findDataTag('name').type('Bruce')
+    .findDataTag('emailAddr').type('Batman@gmail.com')
+    .clickSubmit('#SendEmail', 'modal-submit').wait('@askEmail')
+    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
 export const navigateThroughAssumptions = () => cy.findDataTag('confirm-assumptions').click()
     .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
