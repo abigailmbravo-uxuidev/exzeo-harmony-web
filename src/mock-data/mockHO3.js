@@ -725,7 +725,7 @@ const mock = {
         {
           id: 19,
           type: '$INPUT',
-          path: 'deductibles.sinkhole.amount',
+          path: 'deductibles.sinkhole.value',
           dependencies: [
             { path: 'coverageOptions.sinkholePerilCoverage.answer', value: true }
           ],
@@ -749,7 +749,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.deductibles.sinkhole.amount / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.deductibles.sinkhole.value / 100) * it.coverageLimits.dwelling.amount))}',
             },
           },
           children: [],

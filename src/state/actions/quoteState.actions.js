@@ -1,3 +1,4 @@
+import { date } from '@exzeo/core-ui';
 import choreographer from '../../utilities/choreographer';
 import * as serviceRunner from '../../utilities/serviceRunner';
 
@@ -67,7 +68,7 @@ export function retrieveQuote() {
  */
 function formatQuoteForSubmit(data) {
   const quote = { ...data };
-  quote.effectiveDate = moment.tz(data.effectiveDate, data.property.timezone).utc().format();
+  quote.effectiveDate = date.formatToUTC(data.effectiveDate, data.property.timezone);
   // quote.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.PRIMARY_LOCALE, data.property.timezone);
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
   quote.policyHolders[0].order = data.policyHolders[0].order || 0;
@@ -76,6 +77,12 @@ function formatQuoteForSubmit(data) {
     quote.policyHolders[1].order = data.policyHolders[1].order || 1;
     quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
   }
+
+  // Ensure that all 'source' fields are set for underwriting questions
+  Object.keys(data.underwritingAnswers || {}).map((q) => {
+    quote.underwritingAnswers[q].source = 'Customer';
+  });
+
 
   if (data.product === PRODUCT_TYPES.flood) {
     quote.deductibles.personalPropertyDeductible.value = data.deductibles.personalPropertyDeductible.value || 500;
@@ -97,13 +104,14 @@ function formatQuoteForSubmit(data) {
  */
 export function updateQuote({ data = {}, quoteNumber, options }) {
   return async function(dispatch) {
-    const updatedQuote = formatQuoteForSubmit(data);
+    try {
+      const updatedQuote = formatQuoteForSubmit(data);
 
-    const config = {
-      exchangeName: 'harmony',
-      routingKey: 'harmony.quote.updateQuote',
-      data: updatedQuote,
-    };
+      const config = {
+        exchangeName: 'harmony',
+        routingKey: 'harmony.quote.updateQuote',
+        data: updatedQuote,
+      };
 
 
     // if (updatedQuote.product === PRODUCT_TYPES.home) {
@@ -112,7 +120,7 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
     //   }
     // }
 
-    try {
+
       dispatch(toggleLoading(true));
       const response = await serviceRunner.callService(config, 'quoteManager.updateQuote');
       const quote = response.data.result;
@@ -122,6 +130,7 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
 
     } catch (error) {
       dispatch(errorActions.setAppError(error));
+      console.log(error);
       return null;
 
     } finally {
