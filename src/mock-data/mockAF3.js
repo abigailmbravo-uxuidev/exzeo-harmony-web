@@ -342,6 +342,7 @@ const mock = {
           data: {
             component: '$SLIDERGROUP',
             extendedProperties: {
+              format: 'currency',
               watchField: 'coverageLimits.dwelling.value',
               watchFieldLabel: 'Building',
               watchFieldMin: 'coverageLimits.dwelling.minAmount',
