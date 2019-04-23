@@ -196,7 +196,7 @@ export function getQuote(quoteNumber, quoteId) {
 
 /**
  *
- * @param agencyCode
+ * @param quoteId
  * @returns {Promise<{}>}
  */
 export async function fetchQuoteData(quoteId) {
