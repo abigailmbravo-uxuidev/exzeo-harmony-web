@@ -77,6 +77,7 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
     } finally {
       dispatch(toggleLoading(false));
     }
+  }
 }
 
 /**
