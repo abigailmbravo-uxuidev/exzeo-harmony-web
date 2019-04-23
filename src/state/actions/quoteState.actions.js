@@ -103,6 +103,7 @@ function formatQuoteForSubmit(data) {
  * @returns {Function}
  */
 export function updateQuote({ data = {}, quoteNumber, options }) {
+
   return async function(dispatch) {
 
     dispatch(toggleLoading(true));

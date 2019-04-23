@@ -152,7 +152,7 @@ export class QuoteWorkflow extends Component {
     })
   };
 
-  handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail, noSubmit, ...values}) => {
+  handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, quoteData, history, updateQuote, location, options } = this.props;
     const { isRecalc, currentStep } = this.state;
     try {
@@ -163,6 +163,7 @@ export class QuoteWorkflow extends Component {
           quoteNumber: quote.quoteNumber,
           options: {
             shouldSendEmail,
+            shouldSendApplication,
             customValues: values,
             step: currentStep,
             timezone: (zipCodeSettings || {}).timezone || 'America/New_York',

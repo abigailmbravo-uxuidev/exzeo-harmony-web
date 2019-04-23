@@ -8,22 +8,28 @@ import ScheduleDate from './ScheduleDate';
 
 
 export class Verify extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      submitting: false,
+    };
+  }
 
   sendApplicationSubmit = async (data) => {
     const { customHandlers } = this.props;
-    customHandlers.handleSubmit({ shouldSendApplication: true, ...data });
-    customHandlers.setEmailPopup(false);
+    this.setState(() => ({ submitting: true }));
+    await customHandlers.handleSubmit({ shouldSendApplication: true, ...data });
+    customHandlers.setShowSendApplicationPopup(false);
     customHandlers.history.replace('thankYou');
-
   };
 
-  redirectToNewQuote = () => {
+  redirectToHome = () => {
     this.props.customHandlers.history.replace('/');
   };
 
   render() {
     const {
-      submitting,
       formValues,
       config,
       customHandlers: {
@@ -32,14 +38,11 @@ export class Verify extends React.Component {
       },
     } = this.props;
 
+    const { submitting } = this.state;
     const { showSendApplicationPopup } = getState();
-
     const {productDescription, companyName } = config.extendedProperties;
-
     const { property, coverageLimits, coverageOptions, deductibles, policyHolders, policyHolderMailingAddress, additionalInterests } = formValues;
-
     const { phone } = normalize;
-
     const selectedAgent = {};
 
     return (
@@ -290,16 +293,17 @@ export class Verify extends React.Component {
                 // disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
               // !fieldValues.confirmPolicyHolderDetails ||
               // !fieldValues.confirmAdditionalInterestsDetails || submitting}
-            data-test="submit"
+            data-test="next"
           >next</Button>
         </div>
          {showSendApplicationPopup &&
           <ScheduleDate
+            submitting={submitting}
             entity={formValues}
             productDescription={productDescription}
             companyName={companyName}
-            onSubmit={this.sendApplicationSubmit}
-            redirectToNewQuote={this.redirectToNewQuote}
+            handleSubmit={this.sendApplicationSubmit}
+            redirectToHome={this.redirectToHome}
             handleCancel={() => setShowSendApplicationPopup(false)}
           />
          }
