@@ -180,9 +180,10 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
 export function getQuote(quoteNumber, quoteId) {
   return async (dispatch) => {
     try {
+
       dispatch(toggleLoading(true));
-      const { quote, state } = await choreographer.getQuote(quoteNumber, quoteId);
-      dispatch(setQuote(quote, state));
+      const quote = await fetchQuoteData(quoteId);
+      dispatch(setQuote(quote));
       return quote;
     } catch (error) {
       dispatch(errorActions.setAppError(error));
@@ -192,6 +193,26 @@ export function getQuote(quoteNumber, quoteId) {
     }
   };
 }
+
+/**
+ *
+ * @param agencyCode
+ * @returns {Promise<{}>}
+ */
+export async function fetchQuoteData(quoteId) {
+  try {
+    const config = {
+      service: 'quote-data',
+      method: 'GET',
+      path: quoteId
+    };
+    const response = await serviceRunner.callService(config, 'getQuote');
+    return response.data && response.data.result ? response.data.result : {};
+  } catch (error) {
+    throw error;
+  }
+}
+
 
 /**
  *
