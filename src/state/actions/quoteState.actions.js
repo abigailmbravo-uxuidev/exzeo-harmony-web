@@ -54,12 +54,29 @@ export function createQuote(address, igdID, stateCode, companyCode, product) {
   };
 }
 
-export function retrieveQuote() {
+export function retrieveQuote({ quoteNumber, quoteId }) {
   return async (dispatch) => {
-    //...
-    //...
-    //...
-  }
+    const config = {
+      exchangeName: 'harmony',
+      routingKey: 'harmony.quote.retrieveQuote',
+      data: {
+        quoteId,
+        quoteNumber
+      }
+    };
+
+    try {
+      dispatch(toggleLoading(true));
+      const response = await serviceRunner.callService(config, 'quoteManager.retrieveQuote');
+      const quote = response.data.result;
+      dispatch(setQuote(quote));
+      return quote;
+    } catch (error) {
+      dispatch(errorActions.setAppError(error));
+      return null;
+    } finally {
+      dispatch(toggleLoading(false));
+    }
 }
 
 /**
@@ -103,8 +120,6 @@ function formatQuoteForSubmit(data) {
  * @returns {Function}
  */
 export function updateQuote({ data = {}, quoteNumber, options }) {
-
-  console.log(options)
   return async function(dispatch) {
 
     dispatch(toggleLoading(true));
