@@ -2,14 +2,10 @@ import React from 'react';
 import moment from 'moment';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { Button, normalize } from '@exzeo/core-ui';
-import Switch from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/Switch';
+import { Button, Switch, normalize, noop } from '@exzeo/core-ui';
 
 import ScheduleDate from './ScheduleDate';
-
-function timeout(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+import { STEP_NAMES } from './constants/workflowNavigation';
 
 export class Verify extends React.Component {
   constructor(props) {
@@ -17,6 +13,10 @@ export class Verify extends React.Component {
 
     this.state = {
       submitting: false,
+      confirmPropertyDetails: false,
+      confirmQuoteDetails: false,
+      confirmPolicyHolderDetails: false,
+      confirmAdditionalInterestsDetails: false
     };
   }
 
@@ -32,12 +32,45 @@ export class Verify extends React.Component {
     this.props.customHandlers.history.replace('/');
   };
 
+  setConfirmPropertyDetails = (value) => {
+    this.setState(() => ({ confirmPropertyDetails: value}))
+    return value;
+  }
+
+  setConfirmQuoteDetails = (value) => {
+    this.setState(() => ({ confirmQuoteDetails: value}))
+    return value;
+  }
+
+  setConfirmPolicyHolderDetails = (value) => {
+    this.setState(() => ({ confirmPolicyHolderDetails: value}))
+    return value;
+  }
+
+  setConfirmAdditionalInterestsDetails = (value) => {
+    this.setState(() => ({ confirmAdditionalInterestsDetails: value}))
+    return value;
+  }
+
+  closeScheduleDatePopup = () => {
+    const { customHandlers } = this.props;
+    customHandlers.setShowSendApplicationPopup(false);
+    this.setState(() => ({       
+      confirmPropertyDetails: false,
+      confirmQuoteDetails: false,
+      confirmPolicyHolderDetails: false,
+      confirmAdditionalInterestsDetails: false
+    }))
+
+  }
+
   render() {
     const {
       formValues,
       config,
       agents,
       customHandlers: {
+        goToStep,
         setShowSendApplicationPopup,
         getState,
       },
@@ -50,16 +83,15 @@ export class Verify extends React.Component {
     const { phone } = normalize;
 
     const selectedAgent = agents.find(agent => agent.agentCode === formValues.agentCode) || {};
-
     return (
       <React.Fragment>
         <div className="verify">
         <div className="detail-group property-details">
           <h3 className="section-group-header">
             <i className="fa fa-map-marker" /> Property Details
-            {/* <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep('askAdditionalCustomerData')}>
+            <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(STEP_NAMES.askAdditionalCustomerData)}>
               <i className="fa fa-pencil" /> Edit
-            </span> */}
+            </span>
           </h3>
           <section className="display-element">
             <dl className="quote-number">
@@ -96,14 +128,25 @@ export class Verify extends React.Component {
               </div>
             </dl>
           </section>
-          <Switch customClass="verification" name="confirmProperyDetails" label="Verified" />
+          <Switch 
+          input={{
+            name: 'confirmPropertyDetails',
+            value: this.state.confirmPropertyDetails,
+            onChange: (value) => this.setConfirmPropertyDetails(value),
+            onFocus: noop,
+            onBlur: noop,
+          }}
+          styleName="switch"
+          customClass="verification"
+          label="Verified" 
+            />
         </div>
         <div className="detail-group quote-details">
           <h3 className="section-group-header">
             <i className="fa fa-list" /> Quote Details
-            {/* <span className="edit-btn" onClick={() => goToStep('askToCustomizeDefaultQuote')}>
+            <span className="edit-btn" onClick={() => goToStep(STEP_NAMES.askToCustomizeDefaultQuote)}>
               <i className="fa fa-pencil" /> Edit
-            </span> */}
+            </span>
           </h3>
           <section className="display-element">
             <dl>
@@ -193,7 +236,18 @@ export class Verify extends React.Component {
               </dl>
             }
           </section>
-          <Switch customClass="verification" name="confirmQuoteDetails" label="Verified" />
+          <Switch 
+            input={{
+              name: 'confirmQuoteDetails',
+              value: this.state.confirmQuoteDetails,
+              onChange: (value) => this.setConfirmQuoteDetails(value),
+              onFocus: noop,
+              onBlur: noop,
+            }}
+            styleName="switch"
+            customClass="verification"
+            label="Verified"
+             />
         </div>
         <div className="detail-group policyholder-details">
           <h3 className="section-group-header">
@@ -232,9 +286,9 @@ export class Verify extends React.Component {
         <div className="detail-group mailing-address-details">
           <h3 className="section-group-header">
             <i className="fa fa-envelope" /> Mailing Address
-            {/* <span className="edit-btn" onClick={() => goToStep('askAdditionalQuestions')}>
+            <span className="edit-btn" onClick={() => goToStep(STEP_NAMES.askAdditionalQuestions)}>
               <i className="fa fa-pencil" /> Edit
-            </span> */}
+            </span>
           </h3>
           <section className="display-element">
             <dl>
@@ -253,14 +307,25 @@ export class Verify extends React.Component {
               </div>
             </dl>
           </section>
-          <Switch customClass="verification" name="confirmPolicyHolderDetails" label="Verified"  />
+          <Switch 
+            input={{
+              name: 'confirmPolicyHolderDetails',
+              value: this.state.confirmPolicyHolderDetails,
+              onChange: (value) => this.setConfirmPolicyHolderDetails(value),
+              onFocus: noop,
+              onBlur: noop,
+            }}
+            styleName="switch"
+            customClass="verification"
+            label="Verified"
+             />
         </div>
         <div className="detail-group additional-interests-details">
             <h3 className="section-group-header">
               <i className="fa fa-user-plus" /> Additional Parties
-              {/* <span className="edit-btn" onClick={() => goToStep('addAdditionalAIs')}>
+              <span className="edit-btn" onClick={() => goToStep(STEP_NAMES.addAdditionalAIs)}>
                 <i className="fa fa-pencil" /> Edit
-              </span> */}
+              </span>
             </h3>
             <section className="display-element additional-interests">
               {additionalInterests.map((additionalInterest, index) => (String(additionalInterest.name1).trim().length > 0 &&
@@ -289,16 +354,26 @@ export class Verify extends React.Component {
                 </div>
               ))}
             </section>
-            <Switch customClass={classNames('verification')} name="confirmAdditionalInterestsDetails" label="Verified"  />
+            <Switch 
+            input={{
+              name: 'confirmAdditionalInterestsDetails',
+              value: this.state.confirmAdditionalInterestsDetails,
+              onChange: (value) => this.setConfirmAdditionalInterestsDetails(value),
+              onFocus: noop,
+              onBlur: noop,
+            }}
+            styleName="switch"
+            customClass="verification"
+            label="Verified"
+             />
           </div>
         <div className="workflow-steps">
           <Button
             className={Button.constants.classNames.primary}
             onClick={setShowSendApplicationPopup}
-            disabled={submitting}
-                // disabled={!fieldValues.confirmProperyDetails || !fieldValues.confirmQuoteDetails ||
-              // !fieldValues.confirmPolicyHolderDetails ||
-              // !fieldValues.confirmAdditionalInterestsDetails || submitting}
+              disabled={!this.state.confirmPropertyDetails || !this.state.confirmQuoteDetails ||
+              !this.state.confirmPolicyHolderDetails ||
+              !this.state.confirmAdditionalInterestsDetails || submitting}
             data-test="next"
           >next</Button>
         </div>
@@ -311,7 +386,7 @@ export class Verify extends React.Component {
             companyName={companyName}
             handleSubmit={this.sendApplicationSubmit}
             redirectToHome={this.redirectToHome}
-            handleCancel={() => setShowSendApplicationPopup(false)}
+            handleCancel={this.closeScheduleDatePopup}
           />
          }
          </div>

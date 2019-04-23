@@ -140,6 +140,8 @@ export class QuoteWorkflow extends Component {
   goToStep = (step) => {
     const { history, isLoading } = this.props;
     const { currentStep } = this.state;
+    console.log(step, currentStep);
+
     if (isLoading || step >= currentStep) return;
 
     history.replace(ROUTE_TO_STEP_NAME[step]);
@@ -247,7 +249,8 @@ export class QuoteWorkflow extends Component {
       getState: this.getLocalState,
       handleSubmit: this.handleGandalfSubmit,
       history: history,
-      updateQuote: this.handleUpdateQuote
+      updateQuote: this.handleUpdateQuote,
+      goToStep: this.goToStep
     };
 
     return (
