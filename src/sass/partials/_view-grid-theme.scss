@@ -66,7 +66,7 @@
         width: calc(100vw - 12.25rem);
 
         @include for-phone-only {
-          width: calc(100vw - 5.5rem);
+          width: calc(100vw - 6.5rem);
         }
         @include for-tablet-landscape-up {
           flex-grow: 1;

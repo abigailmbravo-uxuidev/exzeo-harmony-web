@@ -1,16 +1,16 @@
-.verify {
-  overflow-y: auto;
-  width: 100%;
+.scroll {
+  .view-grid {
+    width: auto;
 
-  .scroll {
-    .detail-wrapper {
-      width: auto;
+    .verify {
+      padding: 0;
 
       .detail-group {
         .edit-btn {
           margin-left: $padding;
-          cursor: pointer;
           font-size: $font-size-h5;
+          cursor: pointer;
+
           @include for-phone-only {
             top: $padding*2;
           }
@@ -28,15 +28,22 @@
         &.property-details {
           .display-element {
             display: flex;
+            align-content: space-around;
             flex-wrap: wrap;
             padding: 0 $padding $padding;
+
             @include for-phone-only {
               flex-direction: column;
-            }
+            }  
 
             dl {
               flex-grow: 1;
-              flex-shrink: 0;
+              flex-shrink: 1;
+              width: auto;
+
+              @include for-phone-only {
+                width: 100%;
+              }
 
               div {
                 dd {
@@ -93,8 +100,8 @@
 
             > p {
               padding: $padding*2;
-              color: $red-darken-02;
               background: $orange-lighten-04;
+              color: $red-darken-02;
             }
 
             .contact-card-wrapper {
@@ -118,22 +125,27 @@
 
                 dl {
                   display: flex;
+
                   @include for-phone-only {
                     flex-direction: column;
                   }
 
                   .contact-name {
-                    flex-basis: auto;
                     flex-grow: 1;
                     flex-shrink: 1;
+
+                    @include for-phone-only {
+                      width: 100%;
+                    }
                   }
 
                   .contact-phone {
                     flex-basis: 30%;
                     flex-grow: 0;
-                    flex-shrink: 1;
+                    flex-shrink: 0;
+
                     @include for-phone-only {
-                      flex-basis: auto;
+                      width: 100%;
                     }
                   }
 
@@ -141,8 +153,9 @@
                     flex-basis: 35%;
                     flex-grow: 0;
                     flex-shrink: 0;
+
                     @include for-phone-only {
-                      flex-basis: auto;
+                      width: 100%;
                     }
                   }
                 }
@@ -155,13 +168,46 @@
           .display-element {
             display: flex;
             padding: 0 $padding $padding;
+
             @include for-phone-only {
               flex-direction: column;
             }
 
             dl {
-              flex-grow: 1;
-              flex-shrink: 0;
+              display: flex;
+
+              @include for-phone-only {
+                flex-direction: column;
+              }
+
+              .mailing-street-address {
+                flex-grow: 1;
+                flex-shrink: 1;
+
+                @include for-phone-only {
+                  width: 100%;
+                }
+              }
+
+              .mailing-zip-code {
+                flex-basis: 30%;
+                flex-grow: 0;
+                flex-shrink: 0;
+
+                @include for-phone-only {
+                  width: 100%;
+                }
+              }
+
+              .mailing-country {
+                flex-basis: 35%;
+                flex-grow: 0;
+                flex-shrink: 0;
+
+                @include for-phone-only {
+                  width: 100%;
+                }
+              }
             }
           }
         }
@@ -174,6 +220,7 @@
               flex-direction: row;
               margin: 0 0 $padding;
               padding: $padding ($padding*1.5);
+
               @include for-phone-only {
                 position: relative;
                 align-items: baseline;
@@ -187,9 +234,10 @@
                 flex-grow: 0;
                 flex-shrink: 0;
                 justify-content: center;
-                width: 5rem;
                 margin-right: $padding;
+                width: 5rem;
                 text-align: center;
+
                 @include for-phone-only {
                   align-items: center;
                   flex-basis: auto;
@@ -201,6 +249,7 @@
                 .fa {
                   color: $bright-blue-darken-04;
                   font-size: $font-size-h4;
+
                   @include for-phone-only {
                     display: flex;
                     align-items: center;
@@ -243,6 +292,7 @@
                 p {
                   margin-bottom: 0;
                   font-size: $font-size-xs;
+
                   @include for-phone-only {
                     margin: 0;
                     font-size: $font-size-sm;
@@ -274,6 +324,7 @@
                 flex-grow: 0;
                 flex-shrink: 0;
                 justify-content: center;
+
                 @include for-phone-only {
                   flex-basis: auto;
                   margin-top: $padding;
@@ -282,6 +333,7 @@
                 label {
                   margin-bottom: 0;
                   font-size: $font-size-xs;
+
                   @include for-phone-only {
                     flex-basis: auto;
                     margin-top: $padding;
