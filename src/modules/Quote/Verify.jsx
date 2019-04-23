@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { Button, normalize } from '@exzeo/core-ui';
 import Switch from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/Switch';
 
@@ -35,6 +36,7 @@ export class Verify extends React.Component {
     const {
       formValues,
       config,
+      agents,
       customHandlers: {
         setShowSendApplicationPopup,
         getState,
@@ -46,7 +48,8 @@ export class Verify extends React.Component {
     const {productDescription, companyName } = config.extendedProperties;
     const { property, coverageLimits, coverageOptions, deductibles, policyHolders, policyHolderMailingAddress, additionalInterests } = formValues;
     const { phone } = normalize;
-    const selectedAgent = {};
+
+    const selectedAgent = agents.find(agent => agent.agentCode === formValues.agentCode) || {};
 
     return (
       <React.Fragment>
@@ -301,6 +304,7 @@ export class Verify extends React.Component {
         </div>
          {showSendApplicationPopup &&
           <ScheduleDate
+            selectedAgent={selectedAgent}
             submitting={submitting}
             entity={formValues}
             productDescription={productDescription}
@@ -319,7 +323,12 @@ export class Verify extends React.Component {
 Verify.defaultProps = {
   submitting: false,
   quote: {},
-  customHandlers: {}
+  customHandlers: {},
+  agents: []
 };
 
-export default Verify;
+const mapStateToProps = state => ({
+  agents: state.agencyState.agents,
+});
+
+export default connect(mapStateToProps)(Verify);
