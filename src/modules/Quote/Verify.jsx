@@ -6,6 +6,9 @@ import Switch from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/Switch';
 
 import ScheduleDate from './ScheduleDate';
 
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export class Verify extends React.Component {
   constructor(props) {

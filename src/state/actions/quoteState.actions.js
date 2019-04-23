@@ -104,6 +104,7 @@ function formatQuoteForSubmit(data) {
  */
 export function updateQuote({ data = {}, quoteNumber, options }) {
 
+  console.log(options)
   return async function(dispatch) {
 
     dispatch(toggleLoading(true));
