@@ -61,6 +61,7 @@ export class QuoteWorkflow extends Component {
     this.state = {
       isRecalc: false,
       showEmailPopup: false,
+      showSendApplicationPopup: false,
       gandalfTemplate: null,
       currentStep: STEP_NAMES.askAdditionalCustomerData,
     };
@@ -212,6 +213,10 @@ export class QuoteWorkflow extends Component {
     this.setState(() => ({ showEmailPopup }));
   };
 
+  setShowSendApplicationPopup = (showSendApplicationPopup) => {
+    this.setState(() => ({ showSendApplicationPopup }));
+  };
+
   // ============= v NOT used by Gandalf v ============= //
   handleUpdateQuote = async ({ data, quoteNumber }) => {
     const { updateQuote } = this.props;
@@ -235,6 +240,7 @@ export class QuoteWorkflow extends Component {
     const customHandlers = {
       onDirtyCallback: this.handleDirtyForm,
       setEmailPopup: this.setShowEmailPopup,
+      setShowSendApplicationPopup: this.setShowSendApplicationPopup,
       getState: this.getLocalState,
       handleSubmit: this.handleGandalfSubmit,
       history: history,
@@ -311,7 +317,7 @@ export class QuoteWorkflow extends Component {
             {/*<Route exact path={`${match.url}/askAdditionalInsured`} render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/askPremiumFinance`} render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/askBillPayer`} render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
+            {/* <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} /> */}
             <Route exact path={`${match.url}/thankYou`} render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/error`} render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
           </div>

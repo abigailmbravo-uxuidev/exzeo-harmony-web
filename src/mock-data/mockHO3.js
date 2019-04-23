@@ -1236,7 +1236,11 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            component: '$VERIFY',
+            component: '$SUMMARY',
+            extendedProperties: {
+              productDescription: "Homeowners",
+              companyName: "TTIC"
+            }
           },
           formData: {},
           children: [],
