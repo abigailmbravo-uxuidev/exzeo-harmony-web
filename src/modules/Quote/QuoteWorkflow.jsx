@@ -28,7 +28,6 @@ import {
   ROUTE_TO_STEP_NAME,
 } from './constants/workflowNavigation';
 
-import Verify from '../../components/Verify/Verify';
 import ThankYou from '../../components/ThankYou/ThankYou';
 import Footer from '../../components/Common/Footer'
 import Error from '../../components/Error/Error';
@@ -38,6 +37,8 @@ import * as serviceRunner from '../../utilities/serviceRunner';
 import Assumptions from './Assumptions';
 import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
+import Verify from './Verify';
+
 
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
@@ -56,6 +57,7 @@ export class QuoteWorkflow extends Component {
     this.customComponents = {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
+      $VERIFY: Verify
     };
 
     this.state = {
