@@ -30,6 +30,9 @@
     }
 
     &.billing-plan-wrapper {
+      @include for-phone-only {
+        flex-direction: column;
+      }
       h4 {
         margin-bottom: 0;
       }
@@ -68,7 +71,7 @@
         @include for-phone-only {
           width: calc(100vw - 6.5rem);
         }
-        @include for-tablet-landscape-up {
+        @include for-tablet-portrait-up {
           flex-grow: 1;
           flex-shrink: 1;
           width: auto;
@@ -145,37 +148,7 @@
       }
 
       &.confirm {
-        label {
-          &:before {
-            position: absolute;
-            top: 0.5rem;
-            left: -.25rem;
-            display: block;
-            padding: 0.25rem;
-            min-width: 9rem;
-            width: calc(100% - 14rem);
-            border-top-left-radius: 0.125rem;
-            border-bottom-left-radius: 0.125rem;
-            background: $orange-lighten-01;
-            color: $red-darken-01;
-            content: 'CONFIRM HERE';
-            text-align: center;
-            font: normal normal normal 1rem Roboto, "Roboto", Arial, sans-serif;
-            line-height: 1;
-          }
-
-          &:after {
-            position: absolute;
-            top: 0.5rem;
-            left: calc(100% - 14.25rem);
-            width: 0;
-            height: 0;
-            border-top: 0.75rem solid transparent;
-            border-bottom: 0.75rem solid transparent;
-            border-left: 1rem solid $orange-lighten-01;
-            content: '';
-          }
-        }
+        padding: 0 0 1.5rem;
       }
     }
     &.display {
