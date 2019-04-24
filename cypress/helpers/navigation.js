@@ -32,15 +32,20 @@ export const navigateThroughCustomize = () =>
     .findDataTag('reset').should('contain', 'reset').click()
     .findDataTag('coverageLimits.dwelling.amount-input').type('{selectall}{backspace}300000')
     .findDataTag('submit').should('contain', 'recalculate').click()
+    // Wait for both sequential requests or you will submit before your request is done
+    // because our submit function force-clicks through the disabled ui
     .wait('@askToCustomizeDefaultQuote')
+    .wait('@getQuoteServiceRequest')
     .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
 export const navigateThroughShare = () =>
-  // TODO: Fill out and share
   cy.findDataTag('share').click()
     .findDataTag('name').type('Bruce')
     .findDataTag('emailAddr').type('Batman@gmail.com')
-    .clickSubmit('#SendEmail', 'modal-submit').wait('@askEmail')
+    .clickSubmit('#SendEmail', 'modal-submit')
+    // Wait for the sequential requests similar to how the UI would be managed
+    .wait('@askEmail')
+    .wait('@getQuoteServiceRequest')
     .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
 
 export const navigateThroughAssumptions = () => cy.findDataTag('confirm-assumptions').click()
