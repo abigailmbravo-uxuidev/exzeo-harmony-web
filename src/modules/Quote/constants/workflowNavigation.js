@@ -52,6 +52,7 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = [
   'askBillPayer',
   'error',
   'thankYou',
+  'verify'
 ];
 
 export const ROUTES_NOT_USING_FOOTER = [

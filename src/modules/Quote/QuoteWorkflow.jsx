@@ -30,7 +30,8 @@ import {
 } from './constants/workflowNavigation';
 
 import ThankYou from '../../components/ThankYou/ThankYou';
-import Footer from '../../components/Common/Footer'
+import Verify from '../../components/Verify/Verify';
+import Footer from '../../components/Common/Footer';
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
 import * as serviceRunner from '../../utilities/serviceRunner';
@@ -38,7 +39,7 @@ import * as serviceRunner from '../../utilities/serviceRunner';
 import Assumptions from './Assumptions';
 import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
-import Verify from './Verify';
+//import Verify from './Verify';
 
 
 import AF3 from '../../mock-data/mockAF3';
@@ -58,7 +59,7 @@ export class QuoteWorkflow extends Component {
     this.customComponents = {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
-      $VERIFY: Verify
+     // $VERIFY: Verify
     };
 
     this.state = {
@@ -327,7 +328,7 @@ export class QuoteWorkflow extends Component {
             {/*<Route exact path={`${match.url}/askAdditionalInsured`} render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/askPremiumFinance`} render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/askBillPayer`} render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/* <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} /> */}
+            <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} />
             <Route exact path={`${match.url}/thankYou`} render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/error`} render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
           </div>

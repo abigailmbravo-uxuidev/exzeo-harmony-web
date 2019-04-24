@@ -1238,26 +1238,26 @@ const mock = {
 
       ],
     },
-    {
-      name: 'verify',
-      step: {},
-      components: [
-        {
-          id: 673334,
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$VERIFY',
-            extendedProperties: {
-              productDescription: "Homeowners",
-              companyName: "TTIC"
-            }
-          },
-          formData: {},
-          children: [],
-        },
-      ],
-    },
+    // {
+    //   name: 'verify',
+    //   step: {},
+    //   components: [
+    //     {
+    //       id: 673334,
+    //       type: '$CUSTOM',
+    //       dependencies: [],
+    //       data: {
+    //         component: '$VERIFY',
+    //         extendedProperties: {
+    //           productDescription: "Homeowners",
+    //           companyName: "TTIC"
+    //         }
+    //       },
+    //       formData: {},
+    //       children: [],
+    //     },
+    //   ],
+    // },
   ]
 };
 

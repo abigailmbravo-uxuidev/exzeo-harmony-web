@@ -9,6 +9,7 @@ import Footer from '../Common/Footer';
 import PolicyHolderPopup from '../Common/PolicyHolderPopup';
 import { CheckField } from '../Form/inputs';
 import normalizePhone from '../Form/normalizePhone';
+import choreographer from '../../utilities/choreographer';
 
 const NO_AGENT_FOUND = { firstName: '', lastName: '' };
 
@@ -38,9 +39,15 @@ export class Verify extends React.Component {
   };
 
   handleFormSubmit = async (data) => {
-    const { quote, history } = this.props;
-    const taskData = { ...data, shouldEditVerify: 'false' };
-    await this.props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
+     const { quote, history } = this.props;
+    // const taskData = { ...data, shouldEditVerify: 'false' };
+    // await this.props.updateQuote({ data: taskData, quoteNumber: quote.quoteNumber });
+    const cgData = {
+      quoteId: quote._id,
+      dsUrl: `${process.env.REACT_APP_API_URL}/ds`
+    };
+
+    await choreographer.startWorkflow('agencySubmitApplication', cgData);
     history.replace('thankYou');
   };
 
