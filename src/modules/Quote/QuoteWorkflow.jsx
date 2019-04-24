@@ -118,7 +118,6 @@ export class QuoteWorkflow extends Component {
 
   getTemplate = async () => {
     const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
-
     // const transferConfig = {
     //   exchangeName: 'harmony',
     //   routingKey:  'harmony.policy.retrieveDocumentTemplate',
@@ -321,7 +320,7 @@ export class QuoteWorkflow extends Component {
               </React.Fragment>
             }
 
-            <Route exact path={`${match.url}/additionalInterests`} render={props => <AddAdditionalInterest {...props} updateQuote={this.handleGandalfSubmit} />} />
+            {/*<Route exact path={`${match.url}/additionalInterests`} render={props => <AddAdditionalInterest {...props} updateQuote={this.handleGandalfSubmit} />} />*/}
             {/*<Route exact path={`${match.url}/askMortgagee`} render={props => <Mortgagee {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />*/}
             {/*<Route exact path={`${match.url}/askAdditionalInsured`} render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />*/}

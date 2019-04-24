@@ -23,37 +23,32 @@ export class AddAdditionalInterest extends React.Component {
     this.props.history.replace('mailingBilling');
   };
 
-  AddMortgagee = async () => {
-    await this.props.updateQuote({ data: { shouldUpdateAIs: 'mortgagee' }, quoteNumber: this.props.quote.quoteNumber });
+  addMortgagee = () => {
     this.props.history.replace('askMortgagee');
   };
 
-  AddPremiumFinance = async (props) => {
-    await this.props.updateQuote({ data: { shouldUpdateAIs: 'premiumFinance' }, quoteNumber: this.props.quote.quoteNumber });
+  addPremiumFinance = (props) => {
     this.props.history.replace('askPremiumFinance');
   };
 
-  AddAdditionalInsured = async (props) => {
-    await this.props.updateQuote({ data: { shouldUpdateAIs: 'additionalInsured' }, quoteNumber: this.props.quote.quoteNumber });
+  addAdditionalInsured = () => {
     this.props.history.replace('askAdditionalInsured');
   };
 
-  AddInterest = async (props) => {
-    await this.props.updateQuote({ data: { shouldUpdateAIs: 'additionalInterest' }, quoteNumber: this.props.quote.quoteNumber });
+  addInterest = () => {
     this.props.history.replace('askAdditionalInterest');
   };
 
-  AddBillpayer = async (props) => {
-    await this.props.updateQuote({ data: { shouldUpdateAIs: 'billPayer' }, quoteNumber: this.props.quote.quoteNumber });
+  addBillpayer = () => {
     this.props.history.replace('askBillPayer');
   };
 
   goToStep = (type) => {
-    if (type === 'Mortgagee') this.AddMortgagee();
-    else if (type === 'Bill Payer') this.AddBillpayer();
-    else if (type === 'Premium Finance') this.AddPremiumFinance();
-    else if (type === 'Additional Interest') this.AddInterest();
-    else if (type === 'Additional Insured') this.AddAdditionalInsured();
+    if (type === 'Mortgagee') this.addMortgagee();
+    else if (type === 'Bill Payer') this.addBillpayer();
+    else if (type === 'Premium Finance') this.addPremiumFinance();
+    else if (type === 'Additional Interest') this.addInterest();
+    else if (type === 'Additional Insured') this.addAdditionalInsured();
   };
 
   returnTaskDataName = (type) => {
@@ -62,14 +57,6 @@ export class AddAdditionalInterest extends React.Component {
     else if (type === 'Premium Finance') return 'premiumFinance';
     else if (type === 'Additional Interest') return 'additionalInterest';
     else if (type === 'Additional Insured') return 'additionalInsured';
-  };
-
-  returnTaskName = (type) => {
-    if (type === 'Mortgagee') return 'askMortgagee';
-    else if (type === 'Bill Payer') return 'askBillPayer';
-    else if (type === 'Premium Finance') return 'askPremiumFinance';
-    else if (type === 'Additional Interest') return 'askAdditionalInterest';
-    else if (type === 'Additional Insured') return 'askAdditionalInsured';
   };
 
   openDeleteAdditionalInterest = (ai) => {
@@ -96,8 +83,9 @@ export class AddAdditionalInterest extends React.Component {
       order += 1;
     });
 
-    await this.props.updateQuote({ data: { shouldUpdateAIs: this.returnTaskDataName(selectedAdditionalInterest.type) }, quoteNumber: quote.quoteNumber });
-    await this.props.updateQuote({ data: { additionalInterests: modifiedAIs }, quoteNumber: quote.quoteNumber });
+    // TODO fix
+    // await this.props.updateQuote({ data: { shouldUpdateAIs: this.returnTaskDataName(selectedAdditionalInterest.type) }, quoteNumber: quote.quoteNumber });
+    // await this.props.updateQuote({ data: { additionalInterests: modifiedAIs }, quoteNumber: quote.quoteNumber });
 
     this.setState({ showAdditionalInterestModal: false });
   };
@@ -113,11 +101,11 @@ export class AddAdditionalInterest extends React.Component {
           <div className="form-group detail-wrapper">
             <p>Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)</p>
             <div className="button-group">
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddMortgagee()} data-test="mortgagee-add"><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddAdditionalInsured()} data-test="ains-add"><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
-              <button className="btn btn-secondary" type="button" onClick={() => this.AddInterest()} data-test="ai-add"><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
-              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddPremiumFinance()} data-test="premium-finance-add"><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
-              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => this.AddBillpayer()} data-test="bill-payer-add"><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.addMortgagee()} data-test="mortgagee-add"><div><i className="fa fa-plus" /><span>Mortgagee</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.addAdditionalInsured()} data-test="ains-add"><div><i className="fa fa-plus" /><span>Additional Insured</span></div></button>
+              <button className="btn btn-secondary" type="button" onClick={() => this.addInterest()} data-test="ai-add"><div><i className="fa fa-plus" /><span>Additional Interest</span></div></button>
+              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Bill Payer').length > 0} className="btn btn-secondary" type="button" onClick={() => this.addPremiumFinance()} data-test="premium-finance-add"><div><i className="fa fa-plus" /><span>Premium Finance</span></div></button>
+              <button disabled={_.filter(this.props.quote.additionalInterests, ai => ai.type === 'Premium Finance').length > 0} className="btn btn-secondary" type="button" onClick={() => this.addBillpayer()} data-test="bill-payer-add"><div><i className="fa fa-plus" /><span>Bill Payer</span></div></button>
             </div>
             {/* list of additional interests*/}
             <div className="results-wrapper">

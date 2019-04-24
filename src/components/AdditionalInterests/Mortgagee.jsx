@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { batchActions } from 'redux-batched-actions';
 import { reduxForm, Form, change } from 'redux-form';
 import _ from 'lodash';
-import { Loader } from '@exzeo/core-ui';
 
 import Footer from '../Common/Footer';
 import SnackBar from '../Common/SnackBar';

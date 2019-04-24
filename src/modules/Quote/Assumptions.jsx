@@ -29,7 +29,7 @@ export const Assumptions = ({ customHandlers }) => {
       <Button
         className={BUTTON_CLASS.primary}
         disabled={!confirmed}
-        onClick={() => customHandlers.handleSubmit({})}
+        onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
         label="next"
         data-test="submit"
       />

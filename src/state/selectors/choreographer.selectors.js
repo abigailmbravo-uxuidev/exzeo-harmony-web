@@ -13,6 +13,10 @@ export const getQuoteSelector = createSelector(
         quoteData.effectiveDate = formatDate(quoteData.effectiveDate, FORMATS.SECONDARY);
       }
 
+      // if ((quoteData.underwritingAnswers.fourPointUpdates || {}).source === 'Default') {
+      //
+      // }
+
       if (quoteData.product === 'AF3') {
         return quoteData;
       }
