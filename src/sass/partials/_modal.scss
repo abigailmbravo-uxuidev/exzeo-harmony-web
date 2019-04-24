@@ -7,6 +7,32 @@
   z-index: 10000;
   background: $modal-bg;
 
+  &.modal-sm, &.modal-md, &.modal-lg, &.modal-xl {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    > div {
+      >.card {
+        margin: 0;
+        width: 100%;
+
+        .card-footer {
+          .btn-group {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.modal-xl {
+    > div {
+      width: 80%;
+    }
+  }
+
   &.schedule-date-modal {
     display: flex;
     flex-direction: column;

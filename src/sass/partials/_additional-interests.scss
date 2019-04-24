@@ -11,30 +11,26 @@
       margin: 0 $padding $padding 0;
 
       @include for-phone-only {
-        width: 100%;
         margin: 0 0 0.5rem;
+        width: 100%;
       }
     }
   }
 
   .results-wrapper {
-    width: 100%;
     margin-bottom: $padding*2;
     padding-bottom: $paragraph-margin-bottom;
-
-    border-bottom: 1px dashed $cool-gray-02;
+    width: 100%;
 
     .result-cards {
       margin: 0;
       padding: 0;
-
       list-style: none;
 
       li {
         div {
           @include for-phone-only {
             position: relative;
-
             align-items: baseline;
             flex-direction: column;
           }
@@ -46,10 +42,8 @@
             flex-grow: 0;
             flex-shrink: 0;
             justify-content: center;
-
-            width: 5rem;
             margin-right: $padding;
-
+            width: 5rem;
             text-align: center;
 
             @include for-phone-only {
@@ -57,18 +51,15 @@
               flex-basis: auto;
               flex-direction: row;
               flex-grow: 1;
-
               width: auto;
             }
 
             label {
               text-align: center;
-
               font-size: $font-size-xs;
 
               @include for-phone-only {
                 margin: 0;
-
                 font-size: $font-size-sm;
               }
             }
@@ -82,7 +73,7 @@
                 }
               }
 
-              &.Finance {
+              &.PremiumFinance {
                 &:before {
                   content: "\F27E";
                 }
@@ -130,7 +121,7 @@
                 right: 3rem;
               }
 
-              ;
+            ;
 
               .fa-trash {
                 font-size: $font-size-h4;
@@ -146,13 +137,11 @@
 
             h4 {
               margin-bottom: 0;
-
               line-height: $line-height-sm;
             }
 
             p {
               margin-bottom: 0;
-
               line-height: $line-height-sm;
             }
           }
@@ -378,6 +367,40 @@
       .m3ReferenceNumber {
         order: 57;
       }
+    }
+  }
+}
+
+.fa {
+  font-size: $font-size-h4;
+
+  &.mortgagee {
+    &:before {
+      content: "\f19c";
+    }
+  }
+
+  &.premiumFinance {
+    &:before {
+      content: "\F27E";
+    }
+  }
+
+  &.additionalInterest {
+    &:before {
+      content: "\F2B5";
+    }
+  }
+
+  &.additionalInsured {
+    &:before {
+      content: "\F234";
+    }
+  }
+
+  &.billPayer {
+    &:before {
+      content: "\F0D6";
     }
   }
 }

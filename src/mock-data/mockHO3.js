@@ -1123,25 +1123,6 @@ const mock = {
           formData: {},
           children: [],
         },
-        // {
-        //   id: 6,
-        //   type: '$INPUT',
-        //   path: 'confirmAssumptions',
-        //   dependencies: [],
-        //   data: {
-        //     component: 'switch',
-        //     label: 'Confirmed',
-        //     size: '12',
-        //     customClass: 'confirm'
-        //   },
-        //   formData: {
-        //     path: 'coverageOptions.personalPropertyReplacementCost.answer',
-        //     type: 'boolean',
-        //     required: true,
-        //     metaData: {},
-        //   },
-        //   children: [],
-        // },
       ],
     },
     {
@@ -1154,6 +1135,17 @@ const mock = {
           dependencies: [],
           data: {
             component: '$ADDITIONAL_INTERESTS',
+            extendedProperties: {
+              text: 'Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)',
+              types: [
+                'mortgagee',
+                'additionalInsured',
+                'additionalInterest',
+                'premiumFinance',
+                'billPayer',
+              ],
+              subscribe: true,
+            }
           },
           formData: {},
           children: [],

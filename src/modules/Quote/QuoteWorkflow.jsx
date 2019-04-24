@@ -153,6 +153,10 @@ export class QuoteWorkflow extends Component {
     })
   };
 
+  handleAddAdditionalInterest = () => {
+
+  };
+
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, quoteData, history, updateQuote, location, options } = this.props;
     const { isRecalc, currentStep } = this.state;
@@ -249,7 +253,8 @@ export class QuoteWorkflow extends Component {
       handleSubmit: this.handleGandalfSubmit,
       history: history,
       updateQuote: this.handleUpdateQuote,
-      goToStep: this.goToStep
+      goToStep: this.goToStep,
+      addAdditionalInterest: this.handleAddAdditionalInterest,
     };
 
     return (
