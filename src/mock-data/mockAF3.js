@@ -1,5 +1,31 @@
 /* eslint-disable */
 const mock = {
+  "header": {
+    "hideDetailSummary": true,
+    "fields": [{
+        "value": "quoteNumber"
+      },
+      {
+        "value": "propertyAddress",
+        "component": "Section",
+        "label": "Address"
+      },
+      {
+        "value": "yearBuilt"
+      },
+      {
+        "value": "floodZone"
+      },
+      {
+        "value": "coverage",
+        "label": "Coverage A"
+      },
+      {
+        "value": "premium",
+        "component": "PremiumSection"
+      }
+    ]
+  },
   pages: [
     {
       name: 'customerInfo',

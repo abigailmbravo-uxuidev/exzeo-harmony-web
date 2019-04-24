@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { TabNavigation } from '@exzeo/core-ui/src/@Harmony/Navigation';
+import { DetailsHeader } from '@exzeo/core-ui';
 
-import { getNavLinks } from './constants/workflowNavigation';
+import { getNavLinks, STEP_NAMES } from './constants/workflowNavigation';
 import DetailHeader from './DetailHeader';
 
 export class WorkflowNavigation extends Component {
@@ -22,17 +23,30 @@ export class WorkflowNavigation extends Component {
   };
 
   render() {
-    const { quote, currentStep, handleRecalc, goToStep, isRecalc, isLoading, showNavigationTabs } = this.props;
+    const { 
+      quote,
+      header,
+      headerDetails,
+      currentStep,
+      handleRecalc,
+      goToStep,
+      isRecalc,
+      isLoading,
+      showNavigationTabs
+    } = this.props;
+
     if (!quote || !quote.quoteNumber) return null;
 
     return (
       <div className="nav-and-header-wrapper">
-        <DetailHeader
-          activeTask={currentStep}
+        <DetailsHeader 
+          context="quote"
           handleRecalc={handleRecalc}
+          detailsFields={header}
+          headerDetails={headerDetails}
           isLoading={isLoading}
           isRecalc={isRecalc}
-          quote={quote}
+          useAnimationForPremium={currentStep === STEP_NAMES.askToCustomizeDefaultQuote}
         />
 
         {showNavigationTabs &&

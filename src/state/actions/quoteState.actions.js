@@ -97,9 +97,7 @@ function formatQuoteForSubmit(data) {
   }
 
   // Ensure that all 'source' fields are set for underwriting questions
-  Object.keys(data.underwritingAnswers || {}).map((q) => {
-    quote.underwritingAnswers[q].source = 'Customer';
-  });
+  Object.keys(data.underwritingAnswers || {}).map(q => quote.underwritingAnswers[q].source = 'Customer');
 
 
   if (data.product === PRODUCT_TYPES.flood) {
@@ -162,7 +160,6 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
       }
     } catch (error) {
       dispatch(errorActions.setAppError(error));
-      console.log(error);
       return null;
 
     } finally {

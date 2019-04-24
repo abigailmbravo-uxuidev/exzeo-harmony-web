@@ -18,6 +18,7 @@ import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
 import { getEnumsForQuoteWorkflow, getBillingOptions } from '../../state/actions/list.actions';
 import { getQuoteSelector } from '../../state/selectors/choreographer.selectors';
+import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 
 import {
   NEXT_PAGE_ROUTING,
@@ -140,7 +141,6 @@ export class QuoteWorkflow extends Component {
   goToStep = (step) => {
     const { history, isLoading } = this.props;
     const { currentStep } = this.state;
-    console.log(step, currentStep);
 
     if (isLoading || step >= currentStep) return;
 
@@ -232,7 +232,7 @@ export class QuoteWorkflow extends Component {
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const { auth, history, isLoading, location, match, options, quote, quoteData, workflowState, } = this.props;
+    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, workflowState } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
@@ -262,16 +262,20 @@ export class QuoteWorkflow extends Component {
             {isLoading && <Loader />}
             {workflowState.isHardStop && <Redirect to={'error'} />}
 
-            <WorkflowNavigation
-              handleRecalc={this.primaryClickHandler}
-              isRecalc={isRecalc}
-              history={history}
-              goToStep={this.goToStep}
-              isLoading={isLoading}
-              showNavigationTabs={!workflowState.isHardStop && (currentStep !== 'thankYou')}
-              currentStep={this.state.currentStep}
-              quote={quoteData}
-            />
+            { gandalfTemplate && gandalfTemplate.header &&
+              <WorkflowNavigation
+                header={gandalfTemplate.header}
+                headerDetails={headerDetails}
+                handleRecalc={this.primaryClickHandler}
+                isRecalc={isRecalc}
+                history={history}
+                goToStep={this.goToStep}
+                isLoading={isLoading}
+                showNavigationTabs={!workflowState.isHardStop && (currentStep !== 'thankYou')}
+                currentStep={this.state.currentStep}
+                quote={quoteData}
+              />
+            }
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             {shouldUseGandalf &&
               <React.Fragment>
@@ -339,6 +343,7 @@ const mapStateToProps = (state) => {
     quote: getQuoteSelector(state),
     // actual quote values
     quoteData: state.quoteState.quote,
+    headerDetails: getQuoteDetails(state),
     workflowState: state.quoteState.state || {},
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,
