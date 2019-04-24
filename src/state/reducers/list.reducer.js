@@ -34,6 +34,18 @@ function setAgents(state, action) {
   };
 }
 
+function formatTopAnswers(answers) {
+  if (!answers) return [];
+
+  return answers.map(answer => ({
+    ...answer,
+    // api gives us the zip as a number, but requires zip to be a string when we post.
+    id: String(answer.ID),
+    // needed for the TypeAhead
+    label: `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`
+  }));
+}
+
 function setEnums(state, action) {
   const underwritingQuestions = (action.underwritingQuestions || [])
     .sort((a, b) => a.order - b.order)
@@ -51,9 +63,22 @@ function setEnums(state, action) {
         }))
       })
     });
+
+  const mortgageeAnswers = action.additionalInterestQuestions.find(q => q.name === 'mortgagee');
+  const mortgagee = formatTopAnswers(mortgageeAnswers.answers);
+
+  const premiumFinanaceAnswers = action.additionalInterestQuestions.find(q => q.name === 'premiumFinance');
+  const premiumFinance = formatTopAnswers(premiumFinanaceAnswers.answers);
+
+  const orderAnswers = action.additionalInterestQuestions.find(q => q.name === 'order');
+  const order = orderAnswers.answers;
+
   return {
     ...state,
     underwritingQuestions,
+    premiumFinance,
+    mortgagee,
+    order,
   }
 }
 

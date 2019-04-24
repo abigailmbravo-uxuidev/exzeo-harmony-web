@@ -12,6 +12,7 @@ function setEnums(enums) {
   return {
     type: listTypes.SET_ENUMS,
     underwritingQuestions: enums.underwritingQuestions,
+    ...enums,
   }
 }
 
@@ -38,10 +39,15 @@ export function getEnumsForQuoteWorkflow({ companyCode, state, product, property
       // fetch all enums/data needed for the quote workflow in here.
       // 1. assign async function(s) to variable(s) - calls the func
       const uwQuestions = fetchUnderwritingQuestions(companyCode, state, product, property);
+      const additionalInterestQuestions = fetchMortgagees();
       // 2. new variable awaits the previous.
       const uwResponse = await uwQuestions;
+      const additionalInterestResponse = await additionalInterestQuestions;
 
-      dispatch(setEnums({ underwritingQuestions: uwResponse.data.result }))
+      dispatch(setEnums({
+        underwritingQuestions: uwResponse.data.result,
+        additionalInterestQuestions: additionalInterestResponse.data.data,
+      }))
 
     } catch (error) {
       dispatch(errorActions.setAppError(error));
@@ -76,6 +82,15 @@ export async function fetchUnderwritingQuestions(companyCode, state, product, pr
 
     const response = await serviceRunner.callService(config, 'UWQuestions');
     return response;
+}
+
+export async function fetchMortgagees() {
+  const data = {
+    step: 'additionalInterestsCSR',
+  };
+
+  const response = await serviceRunner.callQuestions(data);
+  return response;
 }
 
 /**

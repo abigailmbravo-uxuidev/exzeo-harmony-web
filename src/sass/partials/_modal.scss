@@ -7,6 +7,10 @@
   z-index: 10000;
   background: $modal-bg;
 
+  &.loader {
+    z-index: 10001;
+  }
+
   &.modal-sm, &.modal-md, &.modal-lg, &.modal-xl {
     display: flex;
     align-items: center;
@@ -14,9 +18,13 @@
     justify-content: center;
 
     > div {
-      >.card {
+      .card {
         margin: 0;
         width: 100%;
+
+        .card-block {
+          max-height: 80vh;
+        }
 
         .card-footer {
           .btn-group {
