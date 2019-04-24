@@ -40,6 +40,7 @@ export const NEXT_PAGE_ROUTING = {
   customize: 'share',
   share: 'assumptions',
   assumptions: 'additionalInterests',
+  additionalInterests: 'mailingBilling',
   mailingBilling: 'verify',
 };
 
