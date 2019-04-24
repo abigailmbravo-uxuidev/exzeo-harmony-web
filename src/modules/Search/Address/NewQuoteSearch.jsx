@@ -26,7 +26,7 @@ const NewQuoteSearch = ({
           onChange={filterTypeOnChange}
           answers={filterTypeOptions}
           showPlaceholder={false}
-          styleName="property-search"
+          styleName="property-search products"
           errorHint />
       }
       <Field

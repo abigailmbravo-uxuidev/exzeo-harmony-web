@@ -96,6 +96,10 @@
             flex-shrink: 1;
           }
 
+          &.products {
+            max-width: 14rem;
+          }
+
           >input {
             overflow: hidden;
             text-overflow: ellipsis;
