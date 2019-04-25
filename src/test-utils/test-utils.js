@@ -34,14 +34,22 @@ export const defaultInitialState = {
     }
   },
   quoteState: {
-    quote: null,
+    quote: {
+      coverageLimits: {},
+      quoteNumber: '1',
+      effectiveDate: '2019-05-25',
+      product: 'HO3',
+      property: {
+        physicalAddress: {}
+      }
+    },
     state: {
       completedTasks: []
     }
   },
   agencyState: {
     agencies: [],
-    agency: null,
+    agency: {},
     agents: []
   },
   list: {
@@ -104,6 +112,12 @@ export const checkTextInput = (query, field) => {
   const input = parseQueryType(query, field);
   fireEvent.change(input, { target: { value: field.data } });
   expect(input.value).toBe(field.data);
+};
+
+export const checkPhoneInput = (query, field) => {
+  const input = parseQueryType(query, field);
+  fireEvent.change(input, { target: { value: field.data } });
+  expect(input.value).toMatch(new RegExp(field.data.slice(0, 2)));
 };
 
 export const checkRadio = (query, { name = '', text = '', label = '', values }) => {

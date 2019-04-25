@@ -1,8 +1,5 @@
 import React from 'react';
-import 'jest-dom/extend-expect';
-import { fireEvent, waitForElement } from 'react-testing-library';
-
-import * as serviceRunner from '../../../utilities/serviceRunner';
+import { fireEvent, cleanup } from 'react-testing-library';
 
 import {
   defaultProps,
@@ -70,21 +67,21 @@ const fields = [
     label: 'Medical Payments to Others'
   },
   {
-    name: 'coverageLimits.moldProperty.amount',
+    name: 'coverageLimits.moldProperty.value',
     required: true,
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
     values: ['10000', '25000', '50000'],
   },
   {
-    name: 'coverageLimits.moldLiability.amount',
+    name: 'coverageLimits.moldLiability.value',
     required: true,
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
     values: ['50000', '100000']
   },
   {
-    name: 'coverageLimits.ordinanceOrLaw.amount',
+    name: 'coverageLimits.ordinanceOrLaw.value',
     required: true,
     type: 'radio',
     label: 'Ordinance or Law Coverage Limit',
@@ -98,21 +95,21 @@ const fields = [
     defaultValue: true
   },
   {
-    name: 'deductibles.allOtherPerils.amount',
+    name: 'deductibles.allOtherPerils.value',
     required: true,
     type: 'radio',
     label: 'All Other Perils Deductible',
     values: ['500', '1000', '2500'],
   },
   {
-    name: 'deductibles.hurricane.amount',
+    name: 'deductibles.hurricane.value',
     required: true,
     type: 'radio',
     label: 'Hurricane Deductible',
     values: ['2', '5', '10']
   },
   {
-    name: 'deductibles.sinkhole.amount',
+    name: 'deductibles.sinkhole.value',
     type: 'radio',
     label: 'Sinkhole Deductible',
     values: ['10']
@@ -210,10 +207,7 @@ const pageHeaders = [
   }
 ];
 
-// Mock Gandalf's servicerunner call for templates
-serviceRunner.callService = jest.fn(() => Promise.resolve({ data: { result: {
-  pages: [{ components: [] }, { components: [] }, customizeTemplate]
-}}}));
+afterEach(cleanup);
 
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
@@ -240,9 +234,9 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     }
   };
 
-  it('NEG:Dwelling Limit', async () => {
+  it('NEG:Dwelling Limit', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('Coverage Limits'));
+    
     fields.filter(({ type }) => type === 'slider')
       .forEach(({ name }) => {
         const input = getByTestId(`${name}-input`);
@@ -258,9 +252,8 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       });
   });
 
-  it('POS:Checks all fields', async () => {
+  it('POS:Checks all fields', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('Coverage Limits'));
 
     fields.filter(({ required }) => required)
       .forEach(field => {
@@ -272,20 +265,18 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       });
   });
 
-  it('POS:Checks Header Text', async () => {
+  it('POS:Checks Header Text', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('Coverage Limits'));
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
-  it('POS:Checks Output Values', async () => {
+  it('POS:Checks Output Values', () => {
     const outputFields = [
       'coverageLimits.otherStructures.value_wrapper',
       'coverageLimits.personalProperty.value_wrapper',
       'coverageLimits.lossOfUse.value_wrapper',
-      'deductibles.hurricane.amount_wrapper',
-      'deductibles.sinkhole.amount_wrapper'
+      'deductibles.hurricane.value_wrapper'
     ];
     const setSliderAndCheckOutput = ({ slider, value }, { name, outputValue }) => {
       setSliderValue(slider, value);
@@ -293,13 +284,11 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     };
 
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('Coverage Limits'));
 
     const slider = getByTestId('coverageLimits.dwelling.amount-slider');
     setSliderAndCheckOutput({ slider, value: '350000' }, { name: outputFields[0], outputValue: '$ 7,000' });
     setSliderAndCheckOutput({ slider, value: '380000' }, { name: outputFields[1], outputValue: '$ 95,000' });
     setSliderAndCheckOutput({ slider, value: '303000' }, { name: outputFields[2], outputValue: '$ 30,300' });
     setSliderAndCheckOutput({ slider, value: '295000' }, { name: outputFields[3], outputValue: '$ 5,900' });
-    setSliderAndCheckOutput({ slider, value: '403000' }, { name: outputFields[4], outputValue: '$ 40,300' });
   });
 });

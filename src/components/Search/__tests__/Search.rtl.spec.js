@@ -1,11 +1,10 @@
 import React from 'react';
-import 'jest-dom/extend-expect';
 import { createStore, applyMiddleware } from 'redux';
 import { fireEvent } from 'react-testing-library';
 import thunk from 'redux-thunk';
 
 import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from '../../../test-utils';
-import rootReducer from '../../../reducers/index';
+import rootReducer from '../../../state/reducers';
 import ConnectedSearch from '../Search';
 
 describe('Testing Search Component', () => {
@@ -35,7 +34,7 @@ describe('Testing Search Component', () => {
     const searchbar = getByPlaceholderText(/Search for Property Address/);
     expect(searchbar);
     // Search with one bad search and some good ones, to confirm spacing works
-    typeAndCheckError('    ', true);
+    typeAndCheckError('    ');
     typeAndCheckError('  4131 TEST ADDRESS');
     typeAndCheckError('4131 TEST ADDRESS  ');
   });

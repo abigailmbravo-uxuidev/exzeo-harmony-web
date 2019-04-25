@@ -1,5 +1,4 @@
 import React from 'react';
-import 'jest-dom/extend-expect';
 
 import { renderWithReduxAndRouter, defaultProps, checkHeader } from '../../test-utils';
 import Training, { externalLinks } from '../Training';

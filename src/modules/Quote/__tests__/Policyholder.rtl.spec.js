@@ -1,14 +1,10 @@
 import React from 'react';
-import 'jest-dom/extend-expect';
-import { fireEvent, waitForElement } from 'react-testing-library';
-
-import * as serviceRunner from '../../../utilities/serviceRunner';
+import { fireEvent } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
   defaultProps,
-  customerInfoTemplate,
-  submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton
+  submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
@@ -41,9 +37,9 @@ const ph1Fields = [
     name: 'policyHolders[0].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
-    type: 'text',
+    type: 'phone',
     required: true,
-    data: '(123) 456-7890'
+    data: '1234567890'
   }
 ];
 
@@ -76,9 +72,9 @@ const ph2Fields = [
     name: 'policyHolders[1].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
-    type: 'text',
+    type: 'phone',
     required: true,
-    data: '(123) 456-7890'
+    data: '1234567890'
   }
 ];
 
@@ -100,15 +96,6 @@ const pageHeaders = [
   }
 ];
 
-// Mock Gandalf's servicerunner call for templates
-serviceRunner.callService = jest.fn(() => Promise.resolve({
-  data: {
-    result: {
-      pages: [customerInfoTemplate]
-    }
-  }
-}));
-
 describe('Testing QuoteWorkflow Policyholder Page', () => {
   const props = {
     ...defaultProps,
@@ -126,31 +113,27 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     };
   };
 
-  it('NEG:All Inputs Empty Value', async () => {
+  it('NEG:All Inputs Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     submitForm(getByTestId);
     ph1Fields.forEach(({ name, error }) => checkError(getByTestId, { name, error }));
   });
 
-  it('NEG:Primary Policyholder Empty Value', async () => {
+  it('NEG:Primary Policyholder Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     ph1Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
   });
 
-  it('NEG:Secondary Policyholder Empty Value', async () => {
+  it('NEG:Secondary Policyholder Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     toggleSecondUser();
     submitForm(getByTestId);
     ph2Fields.forEach(({ name, error }) => checkError(getByTestId, { name, error }));
     ph2Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph2Fields, [fieldToLeaveBlank]));
   });
 
-  it('NEG:Primary / Secondary Policyholder Invalid Character', async () => {
+  it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     toggleSecondUser();
     // For all fields except phone, we fill out with invalid character data
     // If that field is an email, it will throw a different error
@@ -161,9 +144,8 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
       }]));
   });
 
-  it('NEG:Invalid Email Address', async () => {
+  it('NEG:Invalid Email Address', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     toggleSecondUser();
     [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
       .forEach(({ name }) => verifyForm(getByTestId, [{
@@ -171,9 +153,8 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
       }]));
   });
 
-  it('NEG:Invalid Contact Phone', async () => {
+  it('NEG:Invalid Contact Phone', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     toggleSecondUser();
     [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('Phone'))
       .forEach(({ name }) => verifyForm(getByTestId, [{
@@ -181,44 +162,42 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
       }]));
   });
 
-  it('NEG:Invalid Effective Date', async () => {
+  it('NEG:Invalid Effective Date', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     submitForm(getByTestId);
-    checkError(getByTestId, { name: 'effectiveDate' });
     verifyForm(getByTestId, [{
       name: 'effectiveDate', data: '1900-01-01', error: 'Date must be at least 08/01/2017'
     }]);
   });
 
-  it('POS:Checks Headers', async () => {
+  it('POS:Checks Headers', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
+    getByTestId('Primary Policyholder')
     toggleSecondUser();
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
-  it('POS:Primary / Secondary Policyholder Label / Text', async () => {
+  it('POS:Primary / Secondary Policyholder Label / Text', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
+
     toggleSecondUser();
-    [...ph1Fields, ...ph2Fields].forEach(({ name, label, data }) => {
+    [...ph1Fields, ...ph2Fields].forEach(({ name, label, data, type }) => {
       checkLabel(getByTestId, { name, label });
-      checkTextInput(getByTestId, { name, data });
+      if (type === 'text') checkTextInput(getByTestId, { name, data });
+      if (type == 'phone') checkPhoneInput(getByTestId, { name, data });
     });
   });
 
-  it('POS:Policy Details Text', async () => {
+  it('POS:Policy Details Text', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
+    
     expect(getByTestId('effectiveDate_wrapper')).toHaveTextContent('Effective Date');
     expect(getByTestId('effectiveDate')).toHaveAttribute('type', 'date');
     expect(getByTestId('agentCode_wrapper')).toHaveTextContent('Agent');
   });
 
-  it('POS:Checks Submit Button', async () => {
+  it('POS:Checks Submit Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    await waitForElement(() => getByTestId('Primary Policyholder'));
     checkButton(getByTestId);
   });
 });
