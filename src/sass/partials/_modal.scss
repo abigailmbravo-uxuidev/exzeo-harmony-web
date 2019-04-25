@@ -11,7 +11,7 @@
     z-index: 10001;
   }
 
-  &.modal-sm, &.modal-md, &.modal-lg, &.modal-xl {
+  &.modal-sm, &.modal-md, &.modal-lg, &.modal-xl, &.modal-alert {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -95,6 +95,12 @@
         z-index: 1000;
         width: 100%;
       }
+    }
+  }
+
+  &.modal-alert {
+    .card {
+      max-width: 20rem;
     }
   }
 
