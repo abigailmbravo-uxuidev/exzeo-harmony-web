@@ -1240,7 +1240,7 @@ const mock = {
           data: {
             component: '$VERIFY',
             extendedProperties: {
-              quoteDetails: [
+              details: [
                 { format: 'currency', path: 'rating.totalPremium', label: 'Yearly Premium'},
                 { format: 'currency', path: 'coverageLimits.dwelling.amount', label: 'A. Dwelling'},
                 { format: 'currency', path: 'coverageLimits.otherStructures.amount', label: 'B. Other Structures'},
@@ -1255,7 +1255,6 @@ const mock = {
                 { format: 'currency', path: 'deductibles.allOtherPerils.amount', label: 'All Other Perils Deductible'},
                 { format: 'currency', path: 'deductibles.hurricane.amount', label: 'Hurricane Deductible'},
                 { format: 'currency', path: 'deductibles.sinkhole.amount', label: 'Sinkhole Deductible', hideNoValue: true}
-
               ],
               productDescription: "Homeowners",
               companyName: "TTIC"

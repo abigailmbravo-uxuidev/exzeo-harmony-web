@@ -3,7 +3,7 @@ import React from 'react';
 import _get from 'lodash/get';
 import { toCurrency, boolToYesNo } from '@exzeo/core-ui/src/InputLifecycle';
 
-export const QuoteDetails = ({ quoteDetails, formValues }) => {
+export const QuoteDetails = ({ details, formValues }) => {
 
   function formatDetailValue(detail, value) {
     const { format } = detail;
@@ -24,7 +24,7 @@ export const QuoteDetails = ({ quoteDetails, formValues }) => {
 
   return (
   <section className="display-element">
-    {quoteDetails.map(detail => {
+    {details.map(detail => {
       const value = getValue(detail);
       if(!value && detail.hideNoValue) return null;
       return (
@@ -40,7 +40,7 @@ export const QuoteDetails = ({ quoteDetails, formValues }) => {
 };
 
 QuoteDetails.defaultProps = {
-  quoteDetails: []
+  details: []
 }
 
 export default QuoteDetails;

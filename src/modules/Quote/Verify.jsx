@@ -12,6 +12,7 @@ import { STEP_NAMES } from './constants/workflowNavigation';
 import PolicyHolderDetails from './PolicyHolderDetails';
 import AddressDetails from './AddressDetails';
 import AdditionalInterestDetails from './AdditionalInterestDetails';
+import PolicyHolderPopup from './PolicyHolderPopup';
 
 export class Verify extends React.Component {
   constructor(props) {
@@ -22,7 +23,8 @@ export class Verify extends React.Component {
       confirmPropertyDetails: false,
       confirmQuoteDetails: false,
       confirmPolicyHolderDetails: false,
-      confirmAdditionalInterestsDetails: false
+      confirmAdditionalInterestsDetails: false,
+      showPolicyHolderEditPopup: false
     };
   }
 
@@ -32,6 +34,18 @@ export class Verify extends React.Component {
     await customHandlers.handleSubmit({ shouldSendApplication: true, ...data });
     customHandlers.setShowSendApplicationPopup(false);
     customHandlers.history.replace('thankYou');
+  };
+
+  handlePolicyHolderSubmit = async () => {
+    const { formValues } = this.props;
+    const { customHandlers } = this.props;
+    this.setState(() => ({ submitting: true }));
+    if(formValues.removeSecondary && formValues.policyHolders.length > 1){
+      formValues.policyHolders.pop();
+    }
+    await customHandlers.handleSubmit({ remainOnStep: true, ...formValues });
+    this.setState(() => ({ submitting: false }));
+    this.setPolicyHolderEditPopup(false);
   };
 
   redirectToHome = () => {
@@ -58,6 +72,12 @@ export class Verify extends React.Component {
     return value;
   }
 
+  setPolicyHolderEditPopup = (value) => {
+    this.setState(() => ({ showPolicyHolderEditPopup: value}))
+    return value;
+  }
+  
+
   closeScheduleDatePopup = () => {
     const { customHandlers } = this.props;
     customHandlers.setShowSendApplicationPopup(false);
@@ -72,7 +92,8 @@ export class Verify extends React.Component {
 
   render() {
     const {
-      formValues,
+      quote,
+      initialValues,
       config,
       agents,
       customHandlers: {
@@ -82,11 +103,11 @@ export class Verify extends React.Component {
       },
     } = this.props;
 
-    const { submitting } = this.state;
+    const { submitting, showPolicyHolderEditPopup} = this.state;
     const { showSendApplicationPopup } = getState();
     const {productDescription, companyName, quoteDetails } = config.extendedProperties;
-    const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = formValues;
-    const selectedAgent = agents.find(agent => agent.agentCode === formValues.agentCode) || {};
+    const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = quote;
+    const selectedAgent = agents.find(agent => agent.agentCode === quote.agentCode) || {};
     return (
       <React.Fragment>
         <div className="verify">
@@ -97,7 +118,7 @@ export class Verify extends React.Component {
               <i className="fa fa-pencil" /> Edit
             </span>
           </h3>
-          <PropertyDetails quoteNumber={formValues.quoteNumber} effectiveDate={formValues.effectiveDate} property={property} selectedAgent={selectedAgent} />
+          <PropertyDetails quoteNumber={quote.quoteNumber} effectiveDate={quote.effectiveDate} property={property} selectedAgent={selectedAgent} />
           <Switch 
           input={{
             name: 'confirmPropertyDetails',
@@ -118,7 +139,7 @@ export class Verify extends React.Component {
               <i className="fa fa-pencil" /> Edit
             </span>
           </h3>
-          <QuoteDetails quoteDetails={quoteDetails} formValues={formValues} />
+          <QuoteDetails quoteDetails={quoteDetails} formValues={quote} />
           <Switch 
             input={{
               name: 'confirmQuoteDetails',
@@ -135,7 +156,7 @@ export class Verify extends React.Component {
         <div className="detail-group policyholder-details">
           <h3 className="section-group-header">
             <i className="fa fa-vcard-o" /> Policyholder Details
-            <span className="edit-btn" onClick={() => goToStep(STEP_NAMES.askAdditionalCustomerData)} data-test="edit-policyholder">
+            <span className="edit-btn" onClick={() => this.setPolicyHolderEditPopup(true)} data-test="edit-policyholder">
               <i className="fa fa-pencil" /> Edit
             </span>
           </h3>
@@ -197,12 +218,21 @@ export class Verify extends React.Component {
           <ScheduleDate
             selectedAgent={selectedAgent}
             submitting={submitting}
-            entity={formValues}
+            entity={quote}
             productDescription={productDescription}
             companyName={companyName}
             handleSubmit={this.sendApplicationSubmit}
             redirectToHome={this.redirectToHome}
             handleCancel={this.closeScheduleDatePopup}
+          />
+         }
+         {showPolicyHolderEditPopup &&
+          <PolicyHolderPopup
+            submitting={submitting}
+            handleSubmit={this.handlePolicyHolderSubmit}
+            handleCancel={() => this.setPolicyHolderEditPopup(false)}
+            config={config}
+            initialValues={initialValues}
           />
          }
          </div>
@@ -220,6 +250,7 @@ Verify.defaultProps = {
 
 const mapStateToProps = state => ({
   agents: state.agencyState.agents,
+  quote: state.quoteState.quote
 });
 
 export default connect(mapStateToProps)(Verify);

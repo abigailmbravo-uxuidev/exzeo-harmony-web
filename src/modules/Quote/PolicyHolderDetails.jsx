@@ -16,7 +16,7 @@ export const PolicyHolderDetails = ({ policyHolders }) => {
           <dl>
             <div className="contact-name">
               <dt>Name</dt>
-              <dd>{`${policyHolder.firstName} ${policyHolder.lastName}`}</dd>
+              <dd>{`${policyHolder.firstName || ''} ${policyHolder.lastName || ''}`}</dd>
             </div>
             <div className="contact-phone">
               <dt>Phone Number</dt>
