@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
-const { isValidChar, isRequired } = validation;
+const { isValidAddressFormat, isRequired } = validation;
 
 const NewQuoteSearch = ({
   filterTypeOptions,
@@ -36,7 +36,7 @@ const NewQuoteSearch = ({
         placeholder="Search for Property Address"
         component={Input}
         styleName="property-search"
-        validate={[isValidChar, isRequired]}
+        validate={[isValidAddressFormat, isRequired]}
         errorHint />
 
       <Button
