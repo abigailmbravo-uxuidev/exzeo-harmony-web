@@ -146,7 +146,7 @@ export class Verify extends React.Component {
         </DetailGroup>
         <DetailGroup
           header="Additional Parties"
-          detailClass=" additional-interests-details"
+          detailClass="additional-interests-details"
           switchName="confirmPropertyDetails"
           switchValue={this.state.confirmAdditionalInterestsDetails}
           switchOnChange={this.setConfirmAdditionalInterestsDetails}
