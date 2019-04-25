@@ -21,6 +21,14 @@
 
   @include for-phone-only {
     font-size: $font-size-h3;
+
+    .fa {
+      font-size: $font-size-h3;
+    }
+  }
+
+  .fa {
+    font-size: $font-size-h2;
   }
 }
 // SECTION componet

@@ -98,12 +98,12 @@ export class Verify extends React.Component {
             <div className="scroll">
               <div className="detail-wrapper">
                 <div className="detail-group property-details">
-                  <h3 className="section-group-header">
+                  <div className="section-group-header title">
                     <i className="fa fa-map-marker" /> Property Details
                     <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep('askAdditionalCustomerData')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
-                  </h3>
+                  </div>
                   <section className="display-element">
                     <dl className="quote-number">
                       <div>
@@ -142,12 +142,12 @@ export class Verify extends React.Component {
                   <CheckField styleName="verification" name="confirmProperyDetails" label="Verified" isSwitch />
                 </div>
                 <div className="detail-group quote-details">
-                  <h3 className="section-group-header">
+                  <div className="section-group-header title">
                     <i className="fa fa-list" /> Quote Details
                     <span className="edit-btn" onClick={() => goToStep('askToCustomizeDefaultQuote')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
-                  </h3>
+                  </div>
                   <section className="display-element">
                     <dl>
                       <div>
@@ -239,12 +239,12 @@ export class Verify extends React.Component {
                   <CheckField styleName="verification" name="confirmQuoteDetails" label="Verified" isSwitch />
                 </div>
                 <div className="detail-group policyholder-details">
-                  <h3 className="section-group-header">
+                  <div className="section-group-header title">
                     <i className="fa fa-vcard-o" /> Policyholder Details
                     <span className="edit-btn" onClick={() => this.showPolicyHolderModal()} data-test="edit-policyholder">
                       <i className="fa fa-pencil" /> Edit
                     </span>
-                  </h3>
+                  </div>
                   <section className="display-element">
                     <p>Please be sure the information below is up to date and accurate. The final application will be sent to the e-mail addresses of the policyholder(s) provided, to obtain their
                       electronic signature required to bind the policy. Policyholder contact information will also be used to schedule the required property inspection. Failure to schedule property
@@ -274,12 +274,12 @@ export class Verify extends React.Component {
                 </div>
                 <hr className="section-divider" />
                 <div className="detail-group mailing-address-details">
-                  <h3 className="section-group-header">
+                  <div className="section-group-header title">
                     <i className="fa fa-envelope" /> Mailing Address
                     <span className="edit-btn" onClick={() => goToStep('askAdditionalQuestions')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
-                  </h3>
+                  </div>
                   <section className="display-element">
                     <dl>
                       <div>
@@ -304,12 +304,12 @@ export class Verify extends React.Component {
                   <CheckField styleName="verification" name="confirmPolicyHolderDetails" label="Verified" isSwitch />
                 </div>
                 <div className="detail-group additional-interests-details">
-                  <h3 className="section-group-header">
+                  <div className="section-group-header title">
                     <i className="fa fa-user-plus" /> Additional Parties
                     <span className="edit-btn" onClick={() => goToStep('addAdditionalAIs')}>
                       <i className="fa fa-pencil" /> Edit
                     </span>
-                  </h3>
+                  </div>
                   <section className="display-element additional-interests">
                     {additionalInterests.map((additionalInterest, index) => (_.trim(additionalInterest.name1).length > 0 &&
                       <div className="card" key={`ph${index}`}>
