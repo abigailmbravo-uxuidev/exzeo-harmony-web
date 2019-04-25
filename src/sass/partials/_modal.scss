@@ -17,26 +17,35 @@
     flex-direction: column;
     justify-content: center;
 
-    > div {
-      .card {
-        margin: 0;
-        width: 100%;
+    .card {
+      margin: 0;
+      width: 100%;
 
-        .card-block {
-          max-height: 80vh;
-        }
+      .card-block {
+        max-height: 80vh;
 
-        .card-footer {
-          .btn-group {
-            margin-bottom: 0;
+        .flex-form {
+          display: flex;
+          width: 100%;
+
+          .form-group {
+            flex-grow: 1;
+            flex-shrink: 1;
           }
         }
       }
+
+      .card-footer {
+        .btn-group {
+          margin-bottom: 0;
+        }
+      }
     }
+
   }
 
   &.modal-xl {
-    > div {
+    .card {
       width: 80%;
     }
   }
