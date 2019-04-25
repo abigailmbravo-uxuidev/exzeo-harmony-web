@@ -64,7 +64,7 @@
                   flex-grow: 1;
                   width: auto;
                 }
-    
+
                 label {
                   text-align: center;
                   font-size: $font-size-xs;
@@ -74,34 +74,34 @@
                     font-size: $font-size-sm;
                   }
                 }
-    
+
                 .fa {
                   font-size: $font-size-h3;
-    
+
                   &.Mortgagee {
                     &:before {
                       content: "\f19c";
                     }
                   }
-    
+
                   &.PremiumFinance {
                     &:before {
                       content: "\F27E";
                     }
                   }
-    
+
                   &.Interest {
                     &:before {
                       content: "\F2B5";
                     }
                   }
-    
+
                   &.Insured {
                     &:before {
                       content: "\F234";
                     }
                   }
-    
+
                   &.Bill {
                     &:before {
                       content: "\F0D6";
@@ -112,7 +112,7 @@
             }
           }
 
-          
+
 
           a {
             &.edit {
@@ -389,31 +389,31 @@
 .fa {
   font-size: $font-size-h4;
 
-  &.Mortgagee {
+  &.mortgagee {
     &:before {
       content: "\f19c";
     }
   }
 
-  &.Finance {
+  &.premiumFinance {
     &:before {
       content: "\F27E";
     }
   }
 
-  &.Interest {
+  &.additionalInterest {
     &:before {
       content: "\F2B5";
     }
   }
 
-  &.Insured {
+  &.additionalInsured {
     &:before {
       content: "\F234";
     }
   }
 
-  &.Payer {
+  &.billPayer {
     &:before {
       content: "\F0D6";
     }

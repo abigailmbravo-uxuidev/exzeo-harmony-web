@@ -845,11 +845,11 @@ const mock = {
             extendedProperties: {
               text: 'Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)',
               types: [
-                'Mortgagee',
-                'Additional Insured',
-                'Additional Interest',
-                'Premium Finance',
-                'Bill Payer',
+                'mortgagee',
+                'additionalInsured',
+                'additionalInterest',
+                'premiumFinance',
+                'billPayer',
               ],
               subscribe: true,
             }
