@@ -28,9 +28,23 @@
           display: flex;
           width: 100%;
 
+          &:last-of-type {
+            
+          }
+
           .form-group {
             flex-grow: 1;
             flex-shrink: 1;
+
+            &.state {
+              width: 8rem;
+            }
+            &.zip {
+              width: 16rem;
+            }
+            &.phone {
+              width: 20rem;
+            }
           }
         }
       }
@@ -47,6 +61,11 @@
   &.modal-xl {
     .card {
       width: 80%;
+
+      @include for-phone-only {
+        z-index: 1000;
+        width: 100%;
+      }
     }
   }
 
