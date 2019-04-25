@@ -1,7 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-import ConnectedApp, { QuoteSearch } from './RetrieveQuote';
+import ConnectedApp, { QuoteSearch } from './Quote';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);

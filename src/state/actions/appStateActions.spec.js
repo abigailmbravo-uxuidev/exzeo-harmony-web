@@ -31,18 +31,4 @@ describe('App State Actions', () => {
 
     expect(store.getActions()).toEqual(stateObj);
   });
-
-  it('should call setRecalc', () => {
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    const stateObj = [{
-      type: types.SET_RECALC,
-      isRecalc: true
-    }];
-
-    store.dispatch(appStateActions.setRecalc(true));
-
-    expect(store.getActions()).toEqual(stateObj);
-  });
 });
