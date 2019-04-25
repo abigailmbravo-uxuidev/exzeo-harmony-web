@@ -106,7 +106,7 @@ export class Verify extends React.Component {
 
     const { submitting, showPolicyHolderEditPopup} = this.state;
     const { showSendApplicationPopup } = getState();
-    const {productDescription, companyName, quoteDetails } = config.extendedProperties;
+    const {productDescription, companyName, details } = config.extendedProperties;
     const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = quote;
     const selectedAgent = agents.find(agent => agent.agentCode === quote.agentCode) || {};
     return (
@@ -140,7 +140,7 @@ export class Verify extends React.Component {
               <i className="fa fa-pencil" /> Edit
             </span>
           </h3>
-          <QuoteDetails quoteDetails={quoteDetails} formValues={quote} />
+          <QuoteDetails details={details} formValues={quote} />
           <Switch 
             input={{
               name: 'confirmQuoteDetails',

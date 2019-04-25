@@ -1,14 +1,16 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import { mount } from 'enzyme';
 
-import Verify from './index';
+import { shallow } from 'enzyme';
+import { Verify } from './index';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe('Testing Verify component', () => {
   const baseProps = {
+    formValues: {},
+    initialValues: {},
     config:{
       extendedProperties: {
         productDescription: '',
@@ -47,13 +49,24 @@ describe('Testing Verify component', () => {
     handlePolicyHolderSubmit() {},
   };
   it('should render', () => {
-
-    const wrapper = mount(<Verify {...baseProps} />);
-    expect(wrapper);
+    const initialState = {
+      quoteState: {
+        quote: {},
+        state: {}
+      },
+      agencyState:{
+        agents: []
+      },
+      appState: {
+        isLoading: false,
+      }
+    };
+    const store = mockStore(initialState);
+    const wrapper = shallow(<Verify store={store} {...baseProps} />);
+    expect(wrapper.exists()).toBeTruthy();
     const wrapperInstance = wrapper.instance();
     wrapperInstance.handlePolicyHolderSubmit({});
     wrapperInstance.sendApplicationSubmit({});
-    wrapperInstance.refreshUWReviewError();
     wrapperInstance.redirectToHome();
 
     wrapperInstance.setConfirmPropertyDetails(false);
@@ -77,7 +90,7 @@ describe('Testing Verify component', () => {
       }
     };
     const store = mockStore(initialState);
-    const wrapper = mount(<Verify store={store} {...baseProps} />);
-    expect(wrapper);
+    const wrapper = shallow(<Verify store={store} {...baseProps} />);
+    expect(wrapper.exists()).toBeTruthy();
   });
 });
