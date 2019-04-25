@@ -3,6 +3,7 @@ import React from 'react';
 import _get from 'lodash/get';
 import { toCurrency, boolToYesNo } from '@exzeo/core-ui/src/InputLifecycle';
 
+// TODO: Move to core-ui
 export const QuoteDetails = ({ details, formValues }) => {
 
   function formatDetailValue(detail, value) {

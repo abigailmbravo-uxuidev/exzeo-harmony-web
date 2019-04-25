@@ -2,7 +2,7 @@ import React from 'react';
 import PolicyHolder from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/PolicyHolder';
 import { Button } from '@exzeo/core-ui';
 
-const PolicyHolderPopup = ({ config, initialValues, handleSubmit, handleCancel, submitting }) => (
+const PolicyHolderPopup = ({ initialValues, handleSubmit, handleCancel, submitting }) => (
   <div className="edit-policyholder-modal modal active" role="article">
     <div className="survey-wrapper">
       <div className="contact-message">

@@ -4,15 +4,16 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Button, Switch, normalize, noop } from '@exzeo/core-ui';
 
-import ScheduleDate from './ScheduleDate';
-import QuoteDetails from './QuoteDetails';
-import PropertyDetails from './PropertyDetails';
 
-import { STEP_NAMES } from './constants/workflowNavigation';
+import { STEP_NAMES } from '../constants/workflowNavigation';
+
 import PolicyHolderDetails from './PolicyHolderDetails';
 import AddressDetails from './AddressDetails';
 import AdditionalInterestDetails from './AdditionalInterestDetails';
 import PolicyHolderPopup from './PolicyHolderPopup';
+import ScheduleDate from './ScheduleDate';
+import QuoteDetails from './QuoteDetails';
+import PropertyDetails from './PropertyDetails';
 
 export class Verify extends React.Component {
   constructor(props) {
