@@ -28,26 +28,51 @@
           display: flex;
           width: 100%;
 
+          @include for-phone-only {
+            flex-direction: column;
+          }
+
           &:last-of-type {
             .form-group {
               margin-bottom: 0;
               border-bottom-width: 0;
+
+              @include for-phone-only {
+                margin-bottom: $padding*2;
+                border-bottom: 1px dashed $cool-gray-02;
+
+                &:last-of-type {
+                  border-bottom-width: 0;
+                }
+              }
             }
           }
 
           .form-group {
             flex-grow: 1;
             flex-shrink: 1;
-            border-bottom: 1px dashed $cool-gray-02;
+            border-bottom: 1px dashed $cool-gray-02;            
 
             &.state {
               width: 8rem;
+
+              @include for-phone-only {
+                width: 100%;
+              }
             }
             &.zip {
               width: 16rem;
+
+              @include for-phone-only {
+                width: 100%;
+              }
             }
             &.phone {
               width: 20rem;
+
+              @include for-phone-only {
+                width: 100%;
+              }
             }
           }
         }

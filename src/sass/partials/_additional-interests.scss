@@ -78,31 +78,31 @@
                 .fa {
                   font-size: $font-size-h3;
 
-                  &.Mortgagee {
+                  &.Mortgagee, &.mortgagee  {
                     &:before {
                       content: "\f19c";
                     }
                   }
 
-                  &.PremiumFinance {
+                  &.PremiumFinance, &.premiumFinance {
                     &:before {
                       content: "\F27E";
                     }
                   }
 
-                  &.Interest {
+                  &.Interest, &.additionalInterest {
                     &:before {
                       content: "\F2B5";
                     }
                   }
 
-                  &.Insured {
+                  &.Insured, &.additionalInsured {
                     &:before {
                       content: "\F234";
                     }
                   }
 
-                  &.Bill {
+                  &.Bill, &.billPayer {
                     &:before {
                       content: "\F0D6";
                     }
@@ -391,30 +391,35 @@
 
   &.Mortgagee, &.mortgagee {
     &:before {
+      color: $green;
       content: "\f19c";
     }
   }
 
   &.Finance, &.premiumFinance {
     &:before {
+      color: $green;
       content: "\F27E";
     }
   }
 
   &.Interest, &.additionalInterest {
     &:before {
+      color: $green;
       content: "\F2B5";
     }
   }
 
   &.Insured, &.additionalInsured {
     &:before {
+      color: $green;
       content: "\F234";
     }
   }
 
   &.Payer, &.billPayer {
     &:before {
+      color: $green;
       content: "\F0D6";
     }
   }
