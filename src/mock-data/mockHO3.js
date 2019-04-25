@@ -1229,26 +1229,43 @@ const mock = {
 
       ],
     },
-    // {
-    //   name: 'verify',
-    //   step: {},
-    //   components: [
-    //     {
-    //       id: 673334,
-    //       type: '$CUSTOM',
-    //       dependencies: [],
-    //       data: {
-    //         component: '$VERIFY',
-    //         extendedProperties: {
-    //           productDescription: "Homeowners",
-    //           companyName: "TTIC"
-    //         }
-    //       },
-    //       formData: {},
-    //       children: [],
-    //     },
-    //   ],
-    // },
+    {
+      name: 'verify',
+      step: {},
+      components: [
+        {
+          id: 673334,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            component: '$VERIFY',
+            extendedProperties: {
+              quoteDetails: [
+                { format: 'currency', path: 'rating.totalPremium', label: 'Yearly Premium'},
+                { format: 'currency', path: 'coverageLimits.dwelling.amount', label: 'A. Dwelling'},
+                { format: 'currency', path: 'coverageLimits.otherStructures.amount', label: 'B. Other Structures'},
+                { format: 'currency', path: 'coverageLimits.personalProperty.amount', label: 'C. Personal Property'},
+                { format: 'currency', path: 'coverageLimits.lossOfUse.amount', label: 'D. Loss Of Use'},
+                { format: 'currency', path: 'coverageLimits.personalLiability.amount', label: 'E. Personal Liability'},
+                { format: 'currency', path: 'coverageLimits.medicalPayments.amount', label: 'F. Medical Payments'},
+                { format: 'bool', path: 'coverageOptions.personalPropertyReplacementCost.answer', label: 'Personal Property Replacement Cost'},
+                { format: 'currency', path: 'coverageLimits.moldProperty.amount', label: 'Mold Property'},
+                { format: 'currency', path: 'coverageLimits.moldLiability.amount', label: 'Mold Liability'},
+                { format: 'currency', path: 'coverageLimits.ordinanceOrLaw.amount', label: 'Ordinance or Law'},
+                { format: 'currency', path: 'deductibles.allOtherPerils.amount', label: 'All Other Perils Deductible'},
+                { format: 'currency', path: 'deductibles.hurricane.amount', label: 'Hurricane Deductible'},
+                { format: 'currency', path: 'deductibles.sinkhole.amount', label: 'Sinkhole Deductible', hideNoValue: true}
+
+              ],
+              productDescription: "Homeowners",
+              companyName: "TTIC"
+            }
+          },
+          formData: {},
+          children: [],
+        },
+      ],
+    },
   ]
 };
 

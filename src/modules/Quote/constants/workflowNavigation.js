@@ -51,7 +51,7 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = [
   // 'askAdditionalInsured',
   // 'askPremiumFinance',
   // 'askBillPayer',
-  'verify',
+  // 'verify',
   'error',
   'thankYou',
 ];
