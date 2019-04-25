@@ -1,8 +1,6 @@
 import React from 'react';
-import moment from 'moment';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { Button, Switch, normalize, noop } from '@exzeo/core-ui';
+import { Button, Switch, noop } from '@exzeo/core-ui';
 
 
 import { STEP_NAMES } from '../constants/workflowNavigation';

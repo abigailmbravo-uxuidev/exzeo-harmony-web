@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { normalize } from '@exzeo/core-ui';
 
 export const AdditionalInterestDetails = ({ additionalInterests }) => {
   function handlePrimarySecondaryTitles(type, order){ 
