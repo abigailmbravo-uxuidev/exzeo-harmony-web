@@ -89,6 +89,7 @@
 
   &.modal-xl {
     .card {
+      max-width: 80rem;
       width: 80%;
 
       @include for-phone-only {
