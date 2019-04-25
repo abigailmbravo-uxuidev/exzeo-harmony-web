@@ -12,6 +12,7 @@ import PolicyHolderPopup from './PolicyHolderPopup';
 import ScheduleDate from './ScheduleDate';
 import QuoteDetails from './QuoteDetails';
 import PropertyDetails from './PropertyDetails';
+import DetailGroup from './DetailGroup';
 
 export class Verify extends React.Component {
   constructor(props) {
@@ -110,99 +111,48 @@ export class Verify extends React.Component {
     return (
       <React.Fragment>
         <div className="verify">
-        <div className="detail-group property-details">
-          <h3 className="section-group-header">
-            <i className="fa fa-map-marker" /> Property Details
-            <span id="askAdditionalCustomerData" className="edit-btn" onClick={() => goToStep(STEP_NAMES.askAdditionalCustomerData)}>
-              <i className="fa fa-pencil" /> Edit
-            </span>
-          </h3>
+        <DetailGroup
+          header="Property Details"
+          detailClass="property-details"
+          switchName="confirmPropertyDetails"
+          switchValue={this.state.confirmPropertyDetails}
+          switchOnChange={this.setConfirmPropertyDetails}
+          handleEditClick={() => goToStep(STEP_NAMES.askAdditionalCustomerData)} >
           <PropertyDetails quoteNumber={quote.quoteNumber} effectiveDate={quote.effectiveDate} property={property} selectedAgent={selectedAgent} />
-          <Switch 
-          input={{
-            name: 'confirmPropertyDetails',
-            value: this.state.confirmPropertyDetails,
-            onChange: (value) => this.setConfirmPropertyDetails(value),
-            onFocus: noop,
-            onBlur: noop,
-          }}
-          styleName="switch"
-          customClass="verification"
-          label="Verified" 
-            />
-        </div>
-        <div className="detail-group quote-details">
-          <h3 className="section-group-header">
-            <i className="fa fa-list" /> Quote Details
-            <span className="edit-btn" onClick={() => goToStep(STEP_NAMES.askToCustomizeDefaultQuote)}>
-              <i className="fa fa-pencil" /> Edit
-            </span>
-          </h3>
+        </DetailGroup>
+        <DetailGroup
+          header="Quote Details"
+          detailClass="quote-details"
+          switchName="confirmPropertyDetails"
+          switchValue={this.state.confirmQuoteDetails}
+          switchOnChange={this.setConfirmQuoteDetails}
+          handleEditClick={() => goToStep(STEP_NAMES.askToCustomizeDefaultQuote)} >
           <QuoteDetails details={details} formValues={quote} />
-          <Switch 
-            input={{
-              name: 'confirmQuoteDetails',
-              value: this.state.confirmQuoteDetails,
-              onChange: (value) => this.setConfirmQuoteDetails(value),
-              onFocus: noop,
-              onBlur: noop,
-            }}
-            styleName="switch"
-            customClass="verification"
-            label="Verified"
-             />
-        </div>
-        <div className="detail-group policyholder-details">
-          <h3 className="section-group-header">
-            <i className="fa fa-vcard-o" /> Policyholder Details
-            <span className="edit-btn" onClick={() => this.setPolicyHolderEditPopup(true)} data-test="edit-policyholder">
-              <i className="fa fa-pencil" /> Edit
-            </span>
-          </h3>
+        </DetailGroup>
+        <DetailGroup
+          header="Policyholder Details"
+          detailClass="policyholder-details"
+          switchName="confirmPolicyHolderDetails"
+          switchValue={this.state.confirmPolicyHolderDetails}
+          switchOnChange={this.setConfirmPolicyHolderDetails}
+          handleEditClick={() => this.setPolicyHolderEditPopup(true)} >
           <PolicyHolderDetails policyHolders={policyHolders} />
-        </div>
-        <div className="detail-group mailing-address-details">
-          <h3 className="section-group-header">
-            <i className="fa fa-envelope" /> Mailing Address
-            <span className="edit-btn" onClick={() => goToStep(STEP_NAMES.askAdditionalQuestions)}>
-              <i className="fa fa-pencil" /> Edit
-            </span>
-          </h3>
+        </DetailGroup>
+        <DetailGroup
+          header="Mailing Address"
+          detailClass="mailing-address-details"
+          handleEditClick={() => goToStep(STEP_NAMES.askAdditionalQuestions)} >
           <AddressDetails address={policyHolderMailingAddress} />
-          <Switch 
-            input={{
-              name: 'confirmPolicyHolderDetails',
-              value: this.state.confirmPolicyHolderDetails,
-              onChange: (value) => this.setConfirmPolicyHolderDetails(value),
-              onFocus: noop,
-              onBlur: noop,
-            }}
-            styleName="switch"
-            customClass="verification"
-            label="Verified"
-             />
-        </div>
-        <div className="detail-group additional-interests-details">
-            <h3 className="section-group-header">
-              <i className="fa fa-user-plus" /> Additional Parties
-              <span className="edit-btn" onClick={() => goToStep(STEP_NAMES.addAdditionalAIs)}>
-                <i className="fa fa-pencil" /> Edit
-              </span>
-            </h3>
+        </DetailGroup>
+        <DetailGroup
+          header="Additional Parties"
+          detailClass=" additional-interests-details"
+          switchName="confirmPropertyDetails"
+          switchValue={this.state.confirmAdditionalInterestsDetails}
+          switchOnChange={this.setConfirmAdditionalInterestsDetails}
+          handleEditClick={() => goToStep(STEP_NAMES.addAdditionalAIs)} >
             <AdditionalInterestDetails additionalInterests={additionalInterests} />
-            <Switch 
-            input={{
-              name: 'confirmAdditionalInterestsDetails',
-              value: this.state.confirmAdditionalInterestsDetails,
-              onChange: (value) => this.setConfirmAdditionalInterestsDetails(value),
-              onFocus: noop,
-              onBlur: noop,
-            }}
-            styleName="switch"
-            customClass="verification"
-            label="Verified"
-             />
-          </div>
+        </DetailGroup>
         <div className="workflow-steps">
           <Button
             className={Button.constants.classNames.primary}
