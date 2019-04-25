@@ -23,7 +23,7 @@
     width: 100%;
 
     .result-cards {
-      margin: 0;
+      margin: 0 $padding;
       padding: 0;
       list-style: none;
 
@@ -389,31 +389,31 @@
 .fa {
   font-size: $font-size-h4;
 
-  &.Mortgagee {
+  &.Mortgagee, &.mortgagee {
     &:before {
       content: "\f19c";
     }
   }
 
-  &.Finance {
+  &.Finance, &.premiumFinance {
     &:before {
       content: "\F27E";
     }
   }
 
-  &.Interest {
+  &.Interest, &.additionalInterest {
     &:before {
       content: "\F2B5";
     }
   }
 
-  &.Insured {
+  &.Insured, &.additionalInsured {
     &:before {
       content: "\F234";
     }
   }
 
-  &.Payer {
+  &.Payer, &.billPayer {
     &:before {
       content: "\F0D6";
     }
