@@ -389,31 +389,31 @@
 .fa {
   font-size: $font-size-h4;
 
-  &.mortgagee {
+  &.Mortgagee {
     &:before {
       content: "\f19c";
     }
   }
 
-  &.premiumFinance {
+  &.Finance {
     &:before {
       content: "\F27E";
     }
   }
 
-  &.additionalInterest {
+  &.Interest {
     &:before {
       content: "\F2B5";
     }
   }
 
-  &.additionalInsured {
+  &.Insured {
     &:before {
       content: "\F234";
     }
   }
 
-  &.billPayer {
+  &.Payer {
     &:before {
       content: "\F0D6";
     }
