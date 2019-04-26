@@ -1,10 +1,3 @@
-import AddAdditionalInterest from '../../components/AdditionalInterests/AddAdditionalInterest';
-import Mortgagee from '../../components/AdditionalInterests/Mortgagee';
-import AdditionalInterest from '../../components/AdditionalInterests/AdditionalInterest';
-import AdditionalInsured from '../../components/AdditionalInterests/AdditionalInsured';
-import PremiumFinance from '../../components/AdditionalInterests/PremiumFinance';
-import BillPayer from '../../components/AdditionalInterests/BillPayer';
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
@@ -325,13 +318,6 @@ export class QuoteWorkflow extends Component {
               </React.Fragment>
             }
 
-            {/*<Route exact path={`${match.url}/additionalInterests`} render={props => <AddAdditionalInterest {...props} updateQuote={this.handleGandalfSubmit} />} />*/}
-            {/*<Route exact path={`${match.url}/askMortgagee`} render={props => <Mortgagee {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/*<Route exact path={`${match.url}/askAdditionalInterest`} render={props => <AdditionalInterest {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/*<Route exact path={`${match.url}/askAdditionalInsured`} render={props => <AdditionalInsured {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/*<Route exact path={`${match.url}/askPremiumFinance`} render={props => <PremiumFinance {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/*<Route exact path={`${match.url}/askBillPayer`} render={props => <BillPayer {...props} updateQuote={this.handleUpdateQuote} />} />*/}
-            {/* <Route exact path={`${match.url}/verify`} render={props => <Verify {...props} updateQuote={this.handleUpdateQuote} goToStep={this.goToStep} />} /> */}
             <Route exact path={`${match.url}/thankYou`} render={props => <ThankYou {...props} updateQuote={this.handleUpdateQuote} />} />
             <Route exact path={`${match.url}/error`} render={props => <Error {...props} updateQuote={this.handleUpdateQuote} />} />
           </div>
