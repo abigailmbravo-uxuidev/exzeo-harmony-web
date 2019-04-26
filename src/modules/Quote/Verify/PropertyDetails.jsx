@@ -34,7 +34,7 @@ export const PropertyDetails = ({ quoteNumber, effectiveDate, property, selected
       <dl className="agent">
         <div>
           <dt>Agent</dt>
-          <dd>{`${selectedAgent.firstName} ${selectedAgent.lastName}`}</dd>
+          <dd>{`${selectedAgent.label}`}</dd>
         </div>
       </dl>
     </section>);

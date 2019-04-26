@@ -42,6 +42,7 @@ export const NEXT_PAGE_ROUTING = {
   assumptions: 'additionalInterests',
   additionalInterests: 'mailingBilling',
   mailingBilling: 'verify',
+  verify: 'thankYou',
 };
 
 export const ROUTES_NOT_HANDLED_BY_GANDALF = [

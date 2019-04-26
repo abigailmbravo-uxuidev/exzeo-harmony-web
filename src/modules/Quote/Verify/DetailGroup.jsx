@@ -12,17 +12,19 @@ export const DetailGroup = ({ children, header, detailClass, switchName, switchV
       </span>
       </h3>
       {children}
-      {switchName && <Switch
+      {switchName &&
+      <Switch
         input={{
           name: switchName,
           value: switchValue,
-          onChange: (value) => switchOnChange(value),
+          onChange: switchOnChange,
           onFocus: noop,
           onBlur: noop
         }}
         styleName="switch"
         customClass="verification"
         label="Verified"
+        dataTest={switchName}
       />
       }
     </div>

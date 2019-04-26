@@ -1,6 +1,8 @@
 import React from 'react';
 import _get from 'lodash/get';
-import { toCurrency, boolToYesNo } from '@exzeo/core-ui/src/InputLifecycle';
+import { format } from '@exzeo/core-ui';
+
+const { toCurrency, boolToYesNo } = format;
 
 function formatDetailValue(detail, value) {
   const { format } = detail;
@@ -15,11 +17,8 @@ function formatDetailValue(detail, value) {
 
 // TODO: Move to core-ui
 export const QuoteDetails = ({ details, formValues }) => {
-
-
   function getValue(detail) {
-    const { path } = detail;
-    return _get(formValues, path, '');
+    return _get(formValues, detail.path, '');
   }
 
   return (
@@ -28,7 +27,7 @@ export const QuoteDetails = ({ details, formValues }) => {
         const value = getValue(detail);
         if (!value && detail.hideNoValue) return null;
         return (
-          <dl>
+          <dl key={detail.label}>
             <div>
               <dt>{detail.label}</dt>
               <dd>{formatDetailValue(detail, value)}</dd>
