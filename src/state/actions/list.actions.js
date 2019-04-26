@@ -1,10 +1,8 @@
 import { date } from '@exzeo/core-ui';
 import * as serviceRunner from '../../utilities/serviceRunner';
 
-import * as types from './actionTypes';
 import * as listTypes from '../actionTypes/list.actionTypes';
 import * as errorActions from './errorActions';
-import { toggleLoading } from './appStateActions';
 import { setAppError } from './errorActions';
 
 
@@ -84,6 +82,10 @@ export async function fetchUnderwritingQuestions(companyCode, state, product, pr
     return response;
 }
 
+/**
+ *
+ * @returns {Promise<void>}
+ */
 export async function fetchMortgagees() {
   const data = {
     step: 'additionalInterestsCSR',

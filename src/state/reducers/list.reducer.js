@@ -133,31 +133,3 @@ function setBillingOptions(state, action) {
     billingConfig: billingData || initialState.list.billingConfig,
   }
 }
-
-// WE could put these in a selector but this doesn't get run often and will probably change a lot when 'workflow' is implemented
-// const underwritingQuestions = (action.state.underwritingQuestions || [])
-//   .sort((a, b) => a.order - b.order)
-//   .map(question => {
-//     const defaultValue = (question.answers || []).find(answer => answer.default);
-//     return ({
-//       name: question.name,
-//       hidden: question.hidden,
-//       label: question.question,
-//       defaultValue: defaultValue ? defaultValue.answer : '',
-//       validation: ['isRequired'],
-//       options: (question.answers || []).map(answer => ({
-//         answer: answer.answer,
-//         label: answer.answer,
-//       }))
-//     })
-//   });
-
-// const uiQuestionMap = (action.state.uiQuestions || []).reduce((map, question) => {
-//   return {
-//     ...map,
-//     [question.name]: (question.answers || []).map(answer => ({
-//       answer: answer.answer,
-//       label: answer.label,
-//     }))
-//   }
-// }, {});
