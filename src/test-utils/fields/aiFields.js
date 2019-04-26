@@ -18,7 +18,7 @@ export const baseAiFields = [
     data: 'test adress 1',
   },
   {
-    name: 'mailingAddress.address2',
+    name: 'address2',
     type: 'text',
     label: 'Address 2',
     data: 'test address 2',
