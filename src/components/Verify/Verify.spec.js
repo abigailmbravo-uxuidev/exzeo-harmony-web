@@ -334,6 +334,7 @@ describe('Testing Verify component', () => {
       quote: quoteData,
       fieldValues: {},
       fieldQuestions: [],
+      formInstance: { getState: x => {} },
       quoteData,
       goToStep: x => x,
       dispatch: store.dispatch,
@@ -375,6 +376,7 @@ describe('Testing Verify component', () => {
       fieldQuestions: [],
       quoteData: {},
       dispatch: store.dispatch,
+      formInstance: { getState: x => x },
       appState: {
         modelName: 'bb',
         data: {

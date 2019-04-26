@@ -1,16 +1,15 @@
 import React from 'react';
-import configureStore from 'redux-mock-store';
 
 import { shallow } from 'enzyme';
 import { Verify } from './index';
-
-const middlewares = [];
-const mockStore = configureStore(middlewares);
 
 describe('Testing Verify component', () => {
   const baseProps = {
     formValues: {},
     initialValues: {},
+    formInstance: {
+      getState: x => ({ submitting: false }),
+    },
     config:{
       extendedProperties: {
         productDescription: '',
@@ -33,7 +32,7 @@ describe('Testing Verify component', () => {
         ]
       }
     },
-    agents: [],
+    options: [],
     isLoading: false,
     quote: {},
     customHandlers: {
@@ -49,48 +48,13 @@ describe('Testing Verify component', () => {
     handlePolicyHolderSubmit() {},
   };
   it('should render', () => {
-    const initialState = {
-      quoteState: {
-        quote: {},
-        state: {}
-      },
-      agencyState:{
-        agents: []
-      },
-      appState: {
-        isLoading: false,
-      }
-    };
-    const store = mockStore(initialState);
-    const wrapper = shallow(<Verify store={store} {...baseProps} />);
+    const wrapper = shallow(<Verify {...baseProps} />);
     expect(wrapper.exists()).toBeTruthy();
     const wrapperInstance = wrapper.instance();
     wrapperInstance.handlePolicyHolderSubmit({});
     wrapperInstance.sendApplicationSubmit({});
     wrapperInstance.redirectToHome();
-
-    wrapperInstance.setConfirmPropertyDetails(false);
-    wrapperInstance.setConfirmQuoteDetails(false);
-    wrapperInstance.setConfirmPolicyHolderDetails(false);
-    wrapperInstance.setConfirmAdditionalInterestsDetails(false);
+    wrapperInstance.setConfirmation('test', false);
     wrapperInstance.setPolicyHolderEditPopup(false);
-  });
-
-  it('should test connected app', () => {
-    const initialState = {
-      quoteState: {
-        quote: {},
-        state: {}
-      },
-      agencyState:{
-        agents: []
-      },
-      appState: {
-        isLoading: false,
-      }
-    };
-    const store = mockStore(initialState);
-    const wrapper = shallow(<Verify store={store} {...baseProps} />);
-    expect(wrapper.exists()).toBeTruthy();
   });
 });
