@@ -277,7 +277,7 @@ const mock = {
           path: 'agentCode',
           dependencies: [],
           data: {
-            component: 'select',
+            component: 'selectInteger',
             label: 'Agent',
             size: '6',
             dataSource: 'agents'
