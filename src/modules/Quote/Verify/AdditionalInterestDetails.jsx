@@ -1,14 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
+import { defaultMemoize } from 'reselect';
+import { getSortedAdditionalInterests } from '@exzeo/core-ui/src/@Harmony/AdditionalInterests/utilities'
+
+const sortAdditionalInterests = defaultMemoize(getSortedAdditionalInterests);
 
 function handlePrimarySecondaryTitles(type, order) {
   return `${type} ${order + 1}`;
 }
 
 export const AdditionalInterestDetails = ({ additionalInterests }) => {
+  const sortedAdditionalInterests = sortAdditionalInterests(additionalInterests);
+
   return (
     <section className="display-element additional-interests">
-      {additionalInterests.map((additionalInterest) =>
+      {sortedAdditionalInterests.map((additionalInterest) =>
         <div className="card" key={additionalInterest._id}>
           <div className="icon-wrapper">
             <i className={classNames('fa', additionalInterest.type)}/>

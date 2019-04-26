@@ -1,7 +1,5 @@
 import React from 'react';
 import { Button } from '@exzeo/core-ui';
-
-
 import { STEP_NAMES } from '../constants/workflowNavigation';
 
 import PolicyHolderDetails from './PolicyHolderDetails';
