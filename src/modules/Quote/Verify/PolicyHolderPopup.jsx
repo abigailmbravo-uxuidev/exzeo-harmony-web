@@ -8,21 +8,23 @@ const PolicyHolderPopup = ({ initialValues, handleSubmit, handleCancel, submitti
       <div className="contact-message">
         <div className="card card-policyholder">
           <div className="card-block">
-              <PolicyHolder isPrimary fieldPrefix="policyHolders[0]" initialValues={initialValues} title="Primary Policyholder" />
-              <PolicyHolder fieldPrefix="policyHolders[1]" watchField="removeSecondary" initialValues={initialValues} title="Secondary Policyholder" />
+            <PolicyHolder isPrimary fieldPrefix="policyHolders[0]" initialValues={initialValues}
+                          title="Primary Policyholder"/>
+            <PolicyHolder fieldPrefix="policyHolders[1]" watchField="removeSecondary" initialValues={initialValues}
+                          title="Secondary Policyholder"/>
           </div>
           <div className="card-footer">
-                <Button
-                  className={Button.constants.classNames.secondary}
-                  onClick={handleCancel}
-                  data-test="modal-cancel"
-                >Cancel</Button>
-                <Button
-                  className={Button.constants.classNames.primary}
-                  onClick={handleSubmit}
-                  disabled={submitting}
-                  data-test="modal-submit"
-                >Save</Button>
+            <Button
+              className={Button.constants.classNames.secondary}
+              onClick={handleCancel}
+              data-test="modal-cancel"
+            >Cancel</Button>
+            <Button
+              className={Button.constants.classNames.primary}
+              onClick={handleSubmit}
+              disabled={submitting}
+              data-test="modal-submit"
+            >Save</Button>
           </div>
         </div>
       </div>
