@@ -13,7 +13,7 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
           <div className="card-block">
             <h4>The following underwriting error(s) have occurred with this quote:</h4>
             <ul className="error">
-              {_.filter(underwritingExceptions, { overridden: false }).map((exception, i) => {
+              {underwritingExceptions.map((exception, i) => {
                 if (exception.action === 'Underwriting Review') {
                   return (<li key={i}>{exception.agentMessage}</li>);
                 } return '';
@@ -68,5 +68,9 @@ ErrorPopup.propTypes = {
   refereshUWReviewError: PropTypes.func,
   redirectToNewQuote: PropTypes.func
 };
+
+ErrorPopup.defaultProps = {
+  underwritingExceptions: []
+}
 
 export default ErrorPopup;

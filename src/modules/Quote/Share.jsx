@@ -6,6 +6,7 @@ import EmailPopup from './EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
 
 import { STEP_NAMES } from './constants/workflowNavigation';
+import { UNDERWRITING_ERROR_STATUS } from './constants/quote';
 
 export class Share extends React.Component {
   noShareSubmit = async () => {
@@ -41,6 +42,8 @@ export class Share extends React.Component {
     const { showEmailPopup } = getState();
     const { submitting } = formInstance.getState();
     const { underwritingExceptions } = formValues;
+    const filteredUnderwritingExceptions = underwritingExceptions.filter(exception => UNDERWRITING_ERROR_STATUS.includes(exception.action) && !exception.overridden);
+
     return (
       <React.Fragment>
         <section className="section-instructions" data-test="section-1">
@@ -84,10 +87,10 @@ export class Share extends React.Component {
           />
         }
 
-        {(!submitting && underwritingExceptions.length > 0) &&
+        {(!submitting && filteredUnderwritingExceptions.length > 0) &&
           <ErrorPopup
             quote={formValues}
-            underwritingExceptions={underwritingExceptions}
+            underwritingExceptions={filteredUnderwritingExceptions}
             refereshUWReviewError={() => this.refreshUWReviewError()}
             redirectToNewQuote={() => this.redirectToNewQuote()}
           />
