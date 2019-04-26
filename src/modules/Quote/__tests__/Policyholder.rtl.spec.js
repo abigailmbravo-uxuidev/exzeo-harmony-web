@@ -184,7 +184,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     [...ph1Fields, ...ph2Fields].forEach(({ name, label, data, type }) => {
       checkLabel(getByTestId, { name, label });
       if (type === 'text') checkTextInput(getByTestId, { name, data });
-      if (type == 'phone') checkPhoneInput(getByTestId, { name, data });
+      if (type === 'phone') checkPhoneInput(getByTestId, { name, data });
     });
   });
 

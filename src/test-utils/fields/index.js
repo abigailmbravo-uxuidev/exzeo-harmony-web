@@ -1,0 +1,1 @@
+export { baseAiFields } from './aiFields';

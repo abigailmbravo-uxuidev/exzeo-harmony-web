@@ -166,10 +166,16 @@ export const checkHeader = (query, { name = '', text, label = '', icon = false }
   }
 };
 
-export const checkButton = (query, field = { name: 'submit' }) => {
-  const button = parseQueryType(query, field);
-  expect(button.getAttribute('type')).toEqual('button');
+export const checkSelect = (query, field, queryOptions) => {
+  const select = parseQueryType(query, field, queryOptions);
+  field.values && field.values.forEach(value => {
+    fireEvent.change(select, { target: { value } });
+    expect(select.getAttribute('data-selected')).toEqual(value);
+  });
 };
+
+export const checkButton = (query, field = { name: 'submit' }) =>
+  expect(parseQueryType(query, field).getAttribute('type')).toEqual('button');
 
 // This function is used to verify specific submit errors for one field as well
 export const verifyForm = (query, baseFields = [], fieldsLeftBlank = []) => {
