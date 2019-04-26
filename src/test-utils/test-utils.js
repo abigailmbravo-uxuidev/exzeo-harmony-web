@@ -160,6 +160,9 @@ export const checkSelect = (query, field, queryOptions) => {
   });
 };
 
+export const checkButton = (query, field = { name: 'submit' }) =>
+  expect(parseQueryType(query, field).getAttribute('type')).toEqual('button');
+
 // This function is used to verify specific submit errors for one field as well
 export const verifyForm = (query, baseFields = [], fieldsLeftBlank = []) => {
   // Clears all text
