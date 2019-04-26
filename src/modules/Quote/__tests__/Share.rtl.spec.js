@@ -53,9 +53,7 @@ describe('Testing the Share Page', () => {
       underwritingExceptions: []
     },
     formInstance: {
-      getState: () => {
-        return { submitting: false }
-      }
+      getState: () => ({ submitting: false })
     },
     customHandlers: {
       getState: () => ({ showEmailPopup: false }),

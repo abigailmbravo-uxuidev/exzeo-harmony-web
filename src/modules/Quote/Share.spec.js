@@ -17,9 +17,14 @@ describe('Testing Share component', () => {
       getState: () => ({ showEmailPopup: false }),
       updateQuote: x => x,
       handleSubmit: x => x,
+      goToStep: x => x,
       history: {
         replace: x => x,
       }
+    },
+    formValues: { underwritingExceptions: []},
+    formInstance: {
+      getState: () => ({ submitting: false })
     },
     updateQuote() {},
     handleSubmit() {},
