@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 function handlePrimarySecondaryTitles(type, order) {
   return `${type} ${order + 1}`;
@@ -7,24 +8,23 @@ function handlePrimarySecondaryTitles(type, order) {
 export const AdditionalInterestDetails = ({ additionalInterests }) => {
   return (
     <section className="display-element additional-interests">
-      {additionalInterests.map((additionalInterest, index) => (String(additionalInterest.name1)
-          .trim().length > 0 &&
-        <div className="card" key={`ph${index}`}>
+      {additionalInterests.map((additionalInterest) =>
+        <div className="card" key={additionalInterest._id}>
           <div className="icon-wrapper">
-            <i className={`fa ${additionalInterest.type}`}/>
+            <i className={classNames('fa', additionalInterest.type)}/>
             <p>{handlePrimarySecondaryTitles(additionalInterest.type, additionalInterest.order)}</p>
           </div>
           <section>
             <h4>{`${additionalInterest.name1}`}</h4>
             <h4>{`${additionalInterest.name2}`}</h4>
             <p>
-              {`${additionalInterest.policyHolderMailingAddress.address1}`}
-              {additionalInterest.policyHolderMailingAddress.address2 ? `, ${additionalInterest.policyHolderMailingAddress.address2}` : ''}
+              {`${additionalInterest.mailingAddress.address1}`}
+              {additionalInterest.mailingAddress.address2 ? `, ${additionalInterest.mailingAddress.address2}` : ''}
             </p>
             <p>
-              {`${additionalInterest.policyHolderMailingAddress.city}, `}
-              {`${additionalInterest.policyHolderMailingAddress.state} `}
-              {`${additionalInterest.policyHolderMailingAddress.zip}`}
+              {`${additionalInterest.mailingAddress.city}, `}
+              {`${additionalInterest.mailingAddress.state} `}
+              {`${additionalInterest.mailingAddress.zip}`}
             </p>
           </section>
           <div className="ref-number">
@@ -32,8 +32,9 @@ export const AdditionalInterestDetails = ({ additionalInterests }) => {
             <span>{`${additionalInterest.referenceNumber}`}</span>
           </div>
         </div>
-      ))}
-    </section>);
+      )}
+    </section>
+  );
 };
 
 AdditionalInterestDetails.defaultProps = {
