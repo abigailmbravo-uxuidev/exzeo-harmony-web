@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, cleanup } from 'react-testing-library';
+import { fireEvent } from 'react-testing-library';
 
 import {
   defaultProps,
@@ -15,7 +15,6 @@ import {
   checkSwitch,
   checkButton,
   quote,
-  mailingBillingTemplate,
   mailingBillingUiQuestions as uiQuestions,
   mailingBillingList as list,
 } from '../../../test-utils';
@@ -96,8 +95,6 @@ export const pageHeaders = [
     icon: 'fa fa-dollar'
   }
 ];
-
-afterEach(cleanup);
 
 describe('Testing the Mailing/Billing Page', () => {
   const props = {

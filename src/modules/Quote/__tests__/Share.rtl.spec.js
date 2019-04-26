@@ -4,7 +4,6 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultProps,
-  shareTemplate,
   checkHeader,
   checkLabel
 } from '../../../test-utils';

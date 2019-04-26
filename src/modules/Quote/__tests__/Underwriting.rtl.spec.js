@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { fireEvent, cleanup } from 'react-testing-library';
+import { fireEvent } from 'react-testing-library';
 
 import {
   defaultInitialState,
   renderWithReduxAndRouter,
   defaultProps,
-  underwritingTemplate,
   submitForm, checkError, checkRadio, checkLabel, checkButton,
   underwritingList as list
 } from '../../../test-utils';
@@ -55,8 +54,6 @@ const fields = [
     data: 'No'
   }
 ];
-
-afterEach(cleanup);
 
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {

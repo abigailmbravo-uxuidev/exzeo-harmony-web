@@ -1,11 +1,10 @@
 import React from 'react';
-import { fireEvent, cleanup } from 'react-testing-library';
+import { fireEvent } from 'react-testing-library';
 
 import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
-  customizeTemplate,
   checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
   customizeList as list,
   customizeUiQuestions as uiQuestions,
@@ -206,8 +205,6 @@ const pageHeaders = [
     icon: 'fa fa-scissors'
   }
 ];
-
-afterEach(cleanup);
 
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {

@@ -5,7 +5,6 @@ import {
   defaultInitialState,
   renderWithReduxAndRouter,
   defaultProps,
-  assumptionsTemplate,
   checkLabel, checkSwitch, checkButton
 } from '../../../test-utils';
 
