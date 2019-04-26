@@ -5,6 +5,8 @@ import { Button } from '@exzeo/core-ui';
 import EmailPopup from './EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
 
+import { STEP_NAMES } from './constants/workflowNavigation';
+
 export class Share extends React.Component {
   noShareSubmit = async () => {
     const { customHandlers } = this.props;
@@ -17,12 +19,9 @@ export class Share extends React.Component {
     customHandlers.setEmailPopup(false);
   };
 
-  refreshUWReviewError = async () => {
+  refreshUWReviewError = () => {
     const { customHandlers } = this.props;
-    const data = { refresh: 'Yes' };
-    await customHandlers.updateQuote({ data, quoteNumber: this.props.quote.quoteNumber });
-
-    customHandlers.history.replace('customerInfo');
+    customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData)
   };
 
   redirectToNewQuote = () => {
@@ -31,9 +30,8 @@ export class Share extends React.Component {
 
   render() {
     const {
-      underwritingExceptions,
-      isLoading,
-      quote,
+      formValues,
+      formInstance,
       customHandlers: {
         setEmailPopup,
         getState,
@@ -41,6 +39,8 @@ export class Share extends React.Component {
     } = this.props;
 
     const { showEmailPopup } = getState();
+    const { submitting } = formInstance.getState();
+    const { underwritingExceptions } = formValues;
     return (
       <React.Fragment>
         <section className="section-instructions" data-test="section-1">
@@ -65,13 +65,13 @@ export class Share extends React.Component {
           <Button
             className={Button.constants.classNames.secondary}
             onClick={() => setEmailPopup(true)}
-            disabled={isLoading}
+            disabled={submitting}
             data-test="share"
           >share</Button>
           <Button
             className={Button.constants.classNames.primary}
             onClick={this.noShareSubmit}
-            disabled={isLoading}
+            disabled={submitting}
             data-test="submit"
           >next</Button>
         </div>
@@ -84,9 +84,9 @@ export class Share extends React.Component {
           />
         }
 
-        {(!isLoading && underwritingExceptions.length > 0) &&
+        {(!submitting && underwritingExceptions.length > 0) &&
           <ErrorPopup
-            quote={quote}
+            quote={formValues}
             underwritingExceptions={underwritingExceptions}
             refereshUWReviewError={() => this.refreshUWReviewError()}
             redirectToNewQuote={() => this.redirectToNewQuote()}
@@ -99,15 +99,8 @@ export class Share extends React.Component {
 
 Share.defaultProps = {
   isLoading: false,
-  underwritingExceptions: [],
   quote: {},
   customHandlers: {}
 };
 
-const mapStateToProps = state => ({
-  isLoading: state.appState.isLoading,
-  underwritingExceptions: state.quoteState.state && state.quoteState.state.underwritingExceptions ? state.quoteState.state.underwritingExceptions : [],
-  quote: state.quoteState.quote,
-});
-
-export default connect(mapStateToProps)(Share);
+export default Share;
