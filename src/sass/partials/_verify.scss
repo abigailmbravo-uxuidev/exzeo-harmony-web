@@ -28,6 +28,10 @@
       .section-group-header {
         position: relative;
         padding-right: 3rem;
+
+        .edit-btn {
+          color: $bright-blue;
+        }
       }
 
       &.property-details {
@@ -310,14 +314,19 @@
               flex-direction: column;
               flex-grow: 1;
               flex-shrink: 1;
+              margin-bottom: 0;
+              padding-bottom: 0;
+              border-bottom-width: 0;
 
               h4 {
                 margin-bottom: 0;
+                padding: 0;
                 line-height: $line-height-sm;
               }
 
               p {
                 margin-bottom: 0;
+                padding: 0;
                 line-height: $line-height-sm;
               }
             }
