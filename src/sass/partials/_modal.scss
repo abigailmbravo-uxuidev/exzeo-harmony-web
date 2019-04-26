@@ -20,13 +20,36 @@
     .card {
       margin: 0;
       width: 100%;
+      height: auto;
+      flex-grow: 0;
+      flex-shrink: 0;
 
       .card-block {
         max-height: 80vh;
+        height: auto;
+        width: 100%;
+        flex-grow: 1;
+        flex-shrink: 1;
+
+        .form-group {
+          flex-grow: 1;
+          flex-shrink: 1;
+          height: auto;
+          width: auto;
+
+          label {
+            width: 100%;
+          }
+          input {
+            width: 100%;
+          }
+        }
 
         .flex-form {
           display: flex;
-          width: 100%;
+          width: auto;
+          flex-grow: 1;
+          flex-shrink: 1;
 
           @include for-phone-only {
             flex-direction: column;
@@ -55,6 +78,8 @@
 
             &.state {
               width: 8rem;
+              flex-shrink: 0;
+              flex-grow: 0;
 
               @include for-phone-only {
                 width: 100%;
@@ -62,6 +87,8 @@
             }
             &.zip {
               width: 16rem;
+              flex-shrink: 0;
+              flex-grow: 0;
 
               @include for-phone-only {
                 width: 100%;
@@ -69,18 +96,39 @@
             }
             &.phone {
               width: 20rem;
+              flex-shrink: 0;
+              flex-grow: 0;
 
               @include for-phone-only {
                 width: 100%;
               }
+            }
+
+            &.order {
+              width: 20rem;
+              flex-shrink: 0;
+              flex-grow: 0;
             }
           }
         }
       }
 
       .card-footer {
+        height: auto;
+        flex-shrink: 0;
+        flex-grow: 0;
+
         .btn-group {
           margin-bottom: 0;
+          height: auto;
+          flex-shrink: 0;
+          flex-grow: 0;
+
+          .btn {
+            height: auto;
+            flex-shrink: 0;
+            flex-grow: 0;
+          }
         }
       }
     }
