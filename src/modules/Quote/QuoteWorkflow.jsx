@@ -105,6 +105,10 @@ export class QuoteWorkflow extends Component {
     }, {});
   };
 
+  getBillingOptions = () => {
+    this.props.getBillingOptions(this.props.quoteData);
+  };
+
   getLocalState = () => {
     return this.state;
   };
@@ -146,10 +150,6 @@ export class QuoteWorkflow extends Component {
     })
   };
 
-  handleAddAdditionalInterest = () => {
-
-  };
-
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, quoteData, history, updateQuote, location, options } = this.props;
     const { isRecalc, currentStep } = this.state;
@@ -168,10 +168,6 @@ export class QuoteWorkflow extends Component {
             underwritingQuestions: options.underwritingQuestions,
           }
         });
-      }
-
-      if (currentStep === STEP_NAMES.addAdditionalAIs) {
-        this.props.getBillingOptions(quoteData);
       }
 
       // TODO: Figure out a routing solution
@@ -247,7 +243,7 @@ export class QuoteWorkflow extends Component {
       history: history,
       updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
-      addAdditionalInterest: this.handleAddAdditionalInterest,
+      getBillingOptions: this.getBillingOptions,
     };
 
     return (

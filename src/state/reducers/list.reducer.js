@@ -125,8 +125,8 @@ function getBillingInfo(billingData = {}, quote = {}) {
 }
 
 function setBillingOptions(state, action) {
-  // may move this out into a selector...
-  const billingData = getBillingInfo(action.billingOptions);
+  // may move this out into a selector... (maybe)
+  const billingData = getBillingInfo(action.billingOptions, action.quote);
 
   return {
     ...state,
