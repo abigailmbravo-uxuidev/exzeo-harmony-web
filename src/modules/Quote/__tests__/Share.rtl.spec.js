@@ -49,6 +49,14 @@ const pageHeaders = [
 describe('Testing the Share Page', () => {
   const props = {
     ...defaultProps,
+    formValues: {
+      underwritingExceptions: []
+    },
+    formInstance: {
+      getState: () => {
+        return { submitting: false }
+      }
+    },
     customHandlers: {
       getState: () => ({ showEmailPopup: false }),
       setEmailPopup: bool => bool,
