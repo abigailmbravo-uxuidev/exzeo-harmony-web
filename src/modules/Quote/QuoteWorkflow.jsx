@@ -106,7 +106,8 @@ export class QuoteWorkflow extends Component {
   };
 
   getBillingOptions = () => {
-    this.props.getBillingOptions(this.props.quoteData);
+    const { quoteData } = this.props;
+    this.props.getBillingOptions(quoteData);
   };
 
   getLocalState = () => {

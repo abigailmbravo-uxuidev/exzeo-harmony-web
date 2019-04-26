@@ -562,7 +562,7 @@ const mock = {
           children: [],
         },
         {
-          id: 473292,
+          id: 2342,
           type: '$INPUT',
           path: 'coverageLimits.moldLiability.value',
           dependencies: [],
@@ -1197,22 +1197,6 @@ const mock = {
           formData: {},
           children: [],
         },
-        // {
-        //   id: 345933,
-        //   type: '$INPUT',
-        //   path: 'billToId',
-        //   dependencies: [],
-        //   data: {
-        //     component: 'select',
-        //     label: 'Bill To',
-        //     dataSource: 'billingOptions',
-        //     extendedProperties: {}
-        //   },
-        //   formData: {
-        //     required: true,
-        //   },
-        //   children: [],
-        // },
         {
           id: 348833,
           type: '$CUSTOM',
@@ -1229,7 +1213,6 @@ const mock = {
           },
           children: [],
         },
-
       ],
     },
     {
