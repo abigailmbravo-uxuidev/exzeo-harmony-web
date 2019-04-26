@@ -114,6 +114,7 @@ export class Verify extends React.Component {
         </DetailGroup>
 
         <DetailGroup
+          icon="fa fa-list"
           header="Quote Details"
           detailClass="quote-details"
           switchName="confirmQuote"
@@ -127,6 +128,7 @@ export class Verify extends React.Component {
         </DetailGroup>
 
         <DetailGroup
+          icon="fa fa-vcard-o"
           header="Policyholder Details"
           detailClass="policyholder-details"
           switchName="confirmPolicy"
@@ -136,6 +138,7 @@ export class Verify extends React.Component {
           <PolicyHolderDetails policyHolders={policyHolders} />
         </DetailGroup>
         <DetailGroup
+          icon="fa fa-envelope"
           header="Mailing Address"
           detailClass="mailing-address-details"
           handleEditClick={() => goToStep(STEP_NAMES.askAdditionalQuestions)} >
@@ -143,6 +146,7 @@ export class Verify extends React.Component {
         </DetailGroup>
 
         <DetailGroup
+          icon="fa fa-user-plus"
           header="Additional Parties"
           detailClass="additional-interests-details"
           switchName="confirmAdditionalInterest"
