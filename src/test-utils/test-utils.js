@@ -57,6 +57,7 @@ export const defaultInitialState = {
     uiQuestions: {},
     underwritingQuestions: [],
     agents: [],
+    order: [],
     billingConfig: {
       billToConfig: {},
       billingOptions: [],
