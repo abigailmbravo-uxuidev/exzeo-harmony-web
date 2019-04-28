@@ -29,13 +29,13 @@ const ScheduleDate = ({ handleSubmit, handleCancel, submitting, entity, companyN
             className={Button.constants.classNames.secondary}
             onClick={handleCancel}
             disabled={submitting}
-            data-test="modal-submit">Edit Quote
+            data-test="modal-edit">Edit Quote
           </Button>
           <Button
             className={Button.constants.classNames.secondary}
             onClick={redirectToHome}
             disabled={submitting}
-            data-test="modal-submit">Save Quote, Continue Later
+            data-test="modal-save">Save Quote, Continue Later
           </Button>
           <Button
             className={Button.constants.classNames.primary}
