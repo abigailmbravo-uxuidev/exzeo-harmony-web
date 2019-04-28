@@ -43,6 +43,9 @@ export function createQuote(address, igdID, stateCode, companyCode, product) {
       dispatch(toggleLoading(true));
       const response = await serviceRunner.callService(config, 'quoteManager.createQuote');
       const quote = response.data.result;
+      // Ensure that all 'source' fields are set for underwriting questions
+      Object.keys(quote.underwritingAnswers || {}).map(q => quote.underwritingAnswers[q].source = 'Customer');
+
       dispatch(setQuote(quote));
       return quote;
     } catch (error) {
@@ -96,15 +99,23 @@ function formatQuoteForSubmit(data) {
     quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
   }
 
-  // Ensure that all 'source' fields are set for underwriting questions
-  Object.keys(data.underwritingAnswers || {}).map(q => quote.underwritingAnswers[q].source = 'Customer');
+  if (!data.coverageLimits.personalProperty.value) {
+    quote.coverageOptions.personalPropertyReplacementCost.answer = false
+  }
 
-
+  // AF3 specific rules
   if (data.product === PRODUCT_TYPES.flood) {
     quote.deductibles.personalPropertyDeductible.value = data.deductibles.personalPropertyDeductible.value || 500;
     quote.deductibles.buildingDeductible.value = data.deductibles.buildingDeductible.value || 500;
     quote.coverageLimits.personalProperty.value = data.coverageLimits.personalProperty.value || 100000;
     quote.coverageLimits.lossOfUse.value = data.coverageLimits.lossOfUse.value || 5000;
+  }
+
+  // HO3 specific rules
+  if (data.product === PRODUCT_TYPES.home) {
+    if (!data.coverageOptions.sinkholePerilCoverage.answer) {
+      quote.deductibles.sinkhole.value = 0;
+    }
   }
 
   return quote;
@@ -154,6 +165,9 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
 
         const response = await serviceRunner.callService(config, 'quoteManager.updateQuote');
         const quote = response.data.result;
+        if (!quote) {
+          dispatch(errorActions.setAppError(response.data));
+        }
         // const { quote, state } = await choreographer.updateQuote({ data, quoteNumber, stepName, getReduxState: getState , options});
         dispatch(setQuote(quote));
         return quote;
