@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+/**
+ * Format errors
+ * @param {object|string} err
+ * @returns {*|{message: (*|string)}|{message: string}}
+ */
 export function handleError(err) {
     // return default error message if non exists
   if (!err) return { message: 'An error occurred that was not handled properly.' };
@@ -14,7 +19,8 @@ export function handleError(err) {
 
 /**
  *
- * @param data
+ * @param {object} data
+ * @param {string} [customUrl]
  * @returns {Promise<void>}
  */
 export async function callService(data, customUrl = '') {
