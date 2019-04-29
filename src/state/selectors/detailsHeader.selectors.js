@@ -114,10 +114,9 @@ export const getQuoteDetails = createSelector(
     
     const pathname = window.location.pathname;
     const activeTask = pathname.slice(pathname.lastIndexOf('/') + 1);
-  
     
     const coverage = (coverageLimits.dwelling && coverageLimits.dwelling.amount)
-      && (activeTask !== ROUTE_TO_STEP_NAME.askAdditionalCustomerData && activeTask !== ROUTE_TO_STEP_NAME.askUWAnswers)
+      && (activeTask !== ROUTE_TO_STEP_NAME[0] && activeTask !== ROUTE_TO_STEP_NAME[1])
       ? `$ ${coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
       : '$ --';
 
