@@ -97,7 +97,6 @@ export const getQuoteDetails = createSelector(
     const {
       coverageLimits,
       product,
-      quoteNumber = '-',
       rating,
       policyHolders,
       property,
@@ -119,6 +118,8 @@ export const getQuoteDetails = createSelector(
       && (activeTask !== ROUTE_TO_STEP_NAME[0] && activeTask !== ROUTE_TO_STEP_NAME[1])
       ? `$ ${coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
       : '$ --';
+
+    const quoteNumber = rating ? quote.quoteNumber : '-';
 
     return {
       constructionType,
