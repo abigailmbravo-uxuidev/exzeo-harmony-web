@@ -129,9 +129,6 @@ export class Verify extends React.Component {
           icon="fa fa-vcard-o"
           header="Policyholder Details"
           detailClass="policyholder-details"
-          switchName="confirmPolicy"
-          switchValue={confirmPolicy}
-          switchOnChange={(value) => this.setConfirmation('confirmPolicy', value)}
           handleEditClick={() => this.setPolicyHolderEditPopup(true)} >
           <PolicyHolderDetails policyHolders={policyHolders} />
         </DetailGroup>
@@ -139,6 +136,9 @@ export class Verify extends React.Component {
           icon="fa fa-envelope"
           header="Mailing Address"
           detailClass="mailing-address-details"
+          switchName="confirmPolicy"
+          switchValue={confirmPolicy}
+          switchOnChange={(value) => this.setConfirmation('confirmPolicy', value)}
           handleEditClick={() => goToStep(STEP_NAMES.askAdditionalQuestions)} >
           <AddressDetails address={policyHolderMailingAddress} />
         </DetailGroup>
