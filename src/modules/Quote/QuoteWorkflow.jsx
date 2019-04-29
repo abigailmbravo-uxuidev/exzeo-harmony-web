@@ -323,14 +323,14 @@ export class QuoteWorkflow extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: state.appState.isLoading,
     // duplication for now because we are transforming some of the quote values ahead of time to make CG happy.
     quote: getQuoteSelector(state),
     // actual quote values
     quoteData: state.quoteState.quote,
-    headerDetails: getQuoteDetails(state),
+    headerDetails: getQuoteDetails(state, ownProps.location.pathname),
     workflowState: state.quoteState.state || {},
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,

@@ -6,6 +6,7 @@ import { ROUTE_TO_STEP_NAME } from '../../modules/Quote/constants/workflowNaviga
 
 const STANDARD_DATE_FORMAT = 'MM/DD/YYYY';
 const getCityStateZip = ({ city = '', state = '', zip = '' }) => `${city}, ${state} ${zip}`;
+const getLocation = (state, location) => location;
 const getPolicy = state => state.service.latestPolicy;
 const getSummaryLedger = state => state.service.getSummaryLedger;
 const getQuote = state => state.quoteState.quote || {};
@@ -90,8 +91,8 @@ export const getPolicyDetails = createSelector(
 );
 
 export const getQuoteDetails = createSelector(
-  [getQuote],
-  (quote) => {
+  [getLocation, getQuote],
+  (location, quote) => {
     if (!quote || !quote.quoteNumber) return defaultEntity;
 
     const {
@@ -111,8 +112,7 @@ export const getQuoteDetails = createSelector(
       yearBuilt
     } = property;
     
-    const pathname = window.location.pathname;
-    const activeTask = pathname.slice(pathname.lastIndexOf('/') + 1);
+    const activeTask = location.slice(location.lastIndexOf('/') + 1);
     
     const coverage = (coverageLimits.dwelling && coverageLimits.dwelling.amount)
       && (activeTask !== ROUTE_TO_STEP_NAME[0] && activeTask !== ROUTE_TO_STEP_NAME[1])
