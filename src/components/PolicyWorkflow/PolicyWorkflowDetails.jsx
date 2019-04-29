@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
+import { date } from '@exzeo/core-ui';
 
 import normalizePhone from '../Form/normalizePhone';
 import normalizeNumbers from '../Form/normalizeNumbers';
-import { formatDate } from '@exzeo/core-ui/src/Utilities/date';
 
 export class PolicyWorkflowDetails extends Component {
   render() {
@@ -62,7 +62,7 @@ export class PolicyWorkflowDetails extends Component {
           <dl>
             <div>
               <dt>Effective Date</dt>
-              <dd>{formatDate(policy.effectiveDate)}</dd>
+              <dd>{date.formatDate(policy.effectiveDate)}</dd>
             </div>
           </dl>
         </section>

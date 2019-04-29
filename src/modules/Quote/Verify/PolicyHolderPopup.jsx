@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Field, Button, Switch} from '@exzeo/core-ui';
-import PolicyHolder from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/PolicyHolder';
+import { PolicyHolder } from '@exzeo/core-ui/src/@Harmony';
 
 const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, submitting }) => {
   return (
@@ -8,9 +8,9 @@ const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, subm
         <Form
           onSubmit={handleFormSubmit}
           initialValues={initialValues}
-          render={({values, handleSubmit}) => (
+          render={({ values, handleSubmit }) => (
             <div className="card card-policyholder">
-              <form onSubmit={handleSubmit}>  
+              <form onSubmit={handleSubmit}>
                 <div className="card-header">
                   <h4>
                     <i className="fa fa-vcard-o" />
@@ -34,10 +34,12 @@ const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, subm
                       />
                     )}
                   </Field>
-                  {values.additionalPolicyholder && <PolicyHolder
-                    fieldPrefix="policyHolders[1]"
-                    title="Secondary Policyholder"
-                  />}
+                  {values.additionalPolicyholder &&
+                    <PolicyHolder
+                      fieldPrefix="policyHolders[1]"
+                      title="Secondary Policyholder"
+                    />
+                  }
                 </div>
                 <div className="card-footer">
                   <Button

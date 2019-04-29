@@ -6,9 +6,6 @@ import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
 import { PRODUCT_TYPES } from '../../modules/Quote/constants/quote';
-import moment from 'moment-timezone';
-import { STEP_NAMES } from '../../modules/Quote/constants/workflowNavigation';
-import { formatDate, FORMATS, formattedDate } from '@exzeo/core-ui/src/Utilities/date';
 
 export function setQuote(quote) {
   return{

@@ -181,9 +181,8 @@ export class Verify extends React.Component {
               submitting={submitting}
               handleFormSubmit={this.handlePolicyHolderSubmit}
               handleCancel={() => this.setPolicyHolderEditPopup(false)}
-              config={config}
               initialValues={{
-                ...initialValues,
+                policyHolders: initialValues.policyHolders,
                 additionalPolicyholder: initialValues.policyHolders.length > 1
               }}
             />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabNavigation } from '@exzeo/core-ui/src/@Harmony/Navigation';
+import { TabNavigation } from '@exzeo/core-ui/src/@Harmony';
 import { DetailsHeader } from '@exzeo/core-ui';
 
 import { getNavLinks, STEP_NAMES } from './constants/workflowNavigation';
@@ -23,7 +23,7 @@ export class WorkflowNavigation extends Component {
   };
 
   render() {
-    const { 
+    const {
       quote,
       header,
       headerDetails,
@@ -39,7 +39,7 @@ export class WorkflowNavigation extends Component {
 
     return (
       <div className="nav-and-header-wrapper">
-        <DetailsHeader 
+        <DetailsHeader
           context="quote"
           handleRecalc={handleRecalc}
           detailsFields={header}
