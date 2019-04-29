@@ -436,15 +436,18 @@ const mock = {
                 answer: 10000,
                 label: '$10,000'
               },
-
-            ]
+            ],
+            extendedProperties: {
+              output: 'currency',
+            }
           },
           formData: {
-            path: 'coverageLimits.personalProperty.value',
+            path: 'deductibles.buildingDeductible.value',
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${it.deductibles.buildingDeductible.value}',
+              format: 'currency',
             },
           },
           children: [],
