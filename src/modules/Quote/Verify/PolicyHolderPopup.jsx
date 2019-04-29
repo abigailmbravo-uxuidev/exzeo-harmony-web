@@ -1,20 +1,19 @@
 import React from 'react';
-import {Form} from '@exzeo/core-ui';
+import {Form, Field, Button, Switch} from '@exzeo/core-ui';
 import PolicyHolder from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/PolicyHolder';
-import {Button} from '@exzeo/core-ui';
 
-const PolicyHolderPopup = ({formValues, handleFormSubmit, handleCancel, submitting}) => {
+const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, submitting }) => {
   return (
     <div className="modal modal-xl" role="article">
         <Form
           onSubmit={handleFormSubmit}
-          initialValues={formValues}
+          initialValues={initialValues}
           render={({values, handleSubmit}) => (
             <div className="card card-policyholder">
               <form onSubmit={handleSubmit}>  
                 <div className="card-header">
                   <h4>
-                    <i className="fa fa-pencil" />
+                    <i className="fa fa-vcard-o" />
                     &nbsp;Edit Policyholder(s)
                   </h4>
                 </div>
@@ -22,15 +21,23 @@ const PolicyHolderPopup = ({formValues, handleFormSubmit, handleCancel, submitti
                   <PolicyHolder
                     isPrimary
                     fieldPrefix="policyHolders[0]"
-                    formValues={values}
                     title="Primary Policyholder"
                   />
-                  <PolicyHolder
+                  <Field name="additionalPolicyholder">
+                    {({ input, meta }) => (
+                      <Switch
+                        input={input}
+                        meta={meta}
+                        label="Do you want an additional Policyholder?"
+                        customClass="switch"
+                        dataTest="additionalPolicyholder"
+                      />
+                    )}
+                  </Field>
+                  {values.additionalPolicyholder && <PolicyHolder
                     fieldPrefix="policyHolders[1]"
-                    watchField="removeSecondary"
-                    formValues={values}
                     title="Secondary Policyholder"
-                  />
+                  />}
                 </div>
                 <div className="card-footer">
                   <Button

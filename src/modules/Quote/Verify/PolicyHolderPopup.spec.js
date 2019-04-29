@@ -6,7 +6,8 @@ describe('Test PolicyHolderPopup component', () => {
   it('should render PolicyHolderPopup', () => {
     const props = {
       handleSubmit() {},
-      handleCancel(){}, 
+      handleFormSubmit() {},
+      handleCancel(){},
       initialValues: {},
       submitting: false
     };

@@ -35,7 +35,7 @@ export const AdditionalInterestDetails = ({ additionalInterests }) => {
           </section>
           <div className="ref-number">
             <label htmlFor="ref-number">Reference Number</label>
-            <span>{`${additionalInterest.referenceNumber}`}</span>
+            <span>{`${additionalInterest.referenceNumber || ""}`}</span>
           </div>
         </div>
       )}

@@ -18,24 +18,24 @@
     justify-content: center;
 
     .card {
+      flex-grow: 0;
+      flex-shrink: 0;
       margin: 0;
       width: 100%;
       height: auto;
-      flex-grow: 0;
-      flex-shrink: 0;
 
       .card-block {
-        max-height: 80vh;
-        height: auto;
-        width: 100%;
         flex-grow: 1;
         flex-shrink: 1;
+        max-height: 80vh;
+        width: 100%;
+        height: auto;
 
         .form-group {
           flex-grow: 1;
           flex-shrink: 1;
-          height: auto;
           width: auto;
+          height: auto;
 
           label {
             width: 100%;
@@ -43,13 +43,19 @@
           input {
             width: 100%;
           }
+
+          &.switch {
+            label {
+              width: auto;
+            }
+          }
         }
 
         .flex-form {
           display: flex;
-          width: auto;
           flex-grow: 1;
           flex-shrink: 1;
+          width: auto;
 
           @include for-phone-only {
             flex-direction: column;
@@ -77,27 +83,27 @@
             border-bottom: 1px dashed $cool-gray-02;            
 
             &.state {
-              width: 8rem;
-              flex-shrink: 0;
               flex-grow: 0;
+              flex-shrink: 0;
+              width: 8rem;
 
               @include for-phone-only {
                 width: 100%;
               }
             }
             &.zip {
-              width: 16rem;
-              flex-shrink: 0;
               flex-grow: 0;
+              flex-shrink: 0;
+              width: 16rem;
 
               @include for-phone-only {
                 width: 100%;
               }
             }
             &.phone {
-              width: 20rem;
-              flex-shrink: 0;
               flex-grow: 0;
+              flex-shrink: 0;
+              width: 20rem;
 
               @include for-phone-only {
                 width: 100%;
@@ -105,29 +111,29 @@
             }
 
             &.order {
-              width: 20rem;
-              flex-shrink: 0;
               flex-grow: 0;
+              flex-shrink: 0;
+              width: 20rem;
             }
           }
         }
       }
 
       .card-footer {
-        height: auto;
-        flex-shrink: 0;
         flex-grow: 0;
+        flex-shrink: 0;
+        height: auto;
 
         .btn-group {
+          flex-grow: 0;
+          flex-shrink: 0;
           margin-bottom: 0;
           height: auto;
-          flex-shrink: 0;
-          flex-grow: 0;
 
           .btn {
-            height: auto;
-            flex-shrink: 0;
             flex-grow: 0;
+            flex-shrink: 0;
+            height: auto;
           }
         }
       }
