@@ -33,7 +33,7 @@ export class Verify extends React.Component {
   handlePolicyHolderSubmit = async (values) => {
     const { formValues, customHandlers } = this.props;
 
-    if (values.removeSecondary && values.policyHolders.length > 1) {
+    if (!values.additionalPolicyholder && values.policyHolders.length > 1) {
       values.policyHolders.pop();
     }
 
@@ -71,6 +71,7 @@ export class Verify extends React.Component {
   render() {
     const {
       formValues,
+      initialValues,
       formInstance,
       config,
       options,
@@ -182,6 +183,10 @@ export class Verify extends React.Component {
               handleCancel={() => this.setPolicyHolderEditPopup(false)}
               config={config}
               formValues={formValues}
+              initialValues={{
+                ...initialValues,
+                additionalPolicyholder: formValues.policyHolders.length > 1
+              }}
             />
            </Portal>
          }
