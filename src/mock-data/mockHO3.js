@@ -1243,7 +1243,7 @@ const mock = {
                 { format: 'currency', path: 'deductibles.sinkhole.amount', label: 'Sinkhole Deductible', hideNoValue: true}
               ],
               productDescription: "Homeowners",
-              companyName: "TTIC",
+              companyName: "TypTap",
               subscribe: true
             }
           },

@@ -24,7 +24,8 @@ function setAgents(state, action) {
   const agents = Array.isArray(action.agents)
     ? action.agents.map(o => ({
         label: `${o.firstName} ${o.lastName}`,
-        answer: o.agentCode
+        answer: o.agentCode,
+        emailAddress: o.emailAddress
       }))
 
     : [];
