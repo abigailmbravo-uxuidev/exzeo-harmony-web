@@ -2,12 +2,12 @@ import React from 'react';
 import {Form, Field, Button, Switch} from '@exzeo/core-ui';
 import PolicyHolder from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/PolicyHolder';
 
-const PolicyHolderPopup = ({formValues, handleFormSubmit, handleCancel, submitting}) => {
+const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, submitting }) => {
   return (
     <div className="modal modal-xl" role="article">
         <Form
           onSubmit={handleFormSubmit}
-          initialValues={formValues}
+          initialValues={initialValues}
           render={({values, handleSubmit}) => (
             <div className="card card-policyholder">
               <form onSubmit={handleSubmit}>  

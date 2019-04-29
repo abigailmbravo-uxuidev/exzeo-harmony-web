@@ -182,10 +182,9 @@ export class Verify extends React.Component {
               handleFormSubmit={this.handlePolicyHolderSubmit}
               handleCancel={() => this.setPolicyHolderEditPopup(false)}
               config={config}
-              formValues={formValues}
               initialValues={{
                 ...initialValues,
-                additionalPolicyholder: formValues.policyHolders.length > 1
+                additionalPolicyholder: initialValues.policyHolders.length > 1
               }}
             />
            </Portal>
