@@ -15,7 +15,7 @@ export const AddressDetails = ({ address }) => {
         </div>
         <div className="mailing-country">
           <dt>Country</dt>
-          <dd>{address && address.country ? address.country.displayText : 'USA'}</dd>
+          <dd>{address && address.country ? address.country.code : 'USA'}</dd>
         </div>
       </dl>
     </section>);
