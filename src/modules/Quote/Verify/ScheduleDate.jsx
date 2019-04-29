@@ -22,7 +22,7 @@ const ScheduleDate = ({ handleSubmit, handleCancel, submitting, entity, companyN
           <p>Once all electronic signatures have been received, the policy will automatically be bound and the policy
             documents will be emailed to you and to the policyholder.</p>
           <p>NOTE: All signatures must be completed within 10 days, or the application will expire.</p>
-          <p>Once you send, no changes can be made to this Quote.</p>
+          <p>Once you send, no changes can be made to this quote.</p>
         </div>
         <div className="card-footer">
           <Button
