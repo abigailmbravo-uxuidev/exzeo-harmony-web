@@ -41,7 +41,7 @@ const ScheduleDate = ({ handleSubmit, handleCancel, submitting, entity, companyN
             className={Button.constants.classNames.primary}
             onClick={handleSubmit}
             disabled={submitting}
-            data-test="modal-submit">Send Application
+            data-test="modal-submit">Send Application For Signature
           </Button>
         </div>
       </div>
