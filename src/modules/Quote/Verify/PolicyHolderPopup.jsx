@@ -28,7 +28,7 @@ const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, subm
                       <Switch
                         input={input}
                         meta={meta}
-                        label="Do you want an additional Policyholder?"
+                        label="Do you want to add an additional Policyholder?"
                         customClass="switch"
                         dataTest="additionalPolicyholder"
                       />
