@@ -482,7 +482,7 @@ const mock = {
         {
           id: 8,
           type: '$INPUT',
-          path: 'coverageLimits.personalLiability.amount',
+          path: 'coverageLimits.personalLiability.value',
           dependencies: [],
           data: {
             component: 'radio',
