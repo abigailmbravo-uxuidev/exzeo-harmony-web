@@ -506,7 +506,7 @@ const mock = {
         {
           id: 9,
           type: '$INPUT',
-          path: 'coverageLimits.medicalPayments.amount',
+          path: 'coverageLimits.medicalPayments.value',
           dependencies: [],
           data: {
             component: 'display',
