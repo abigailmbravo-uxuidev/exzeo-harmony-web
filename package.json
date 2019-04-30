@@ -40,7 +40,6 @@
     "react-number-format": "~3.0.3",
     "react-redux": "~5.0.6",
     "react-router-dom": "^5.0.0",
-    "react-select": "~1.1.0",
     "react-text-mask": "~5.0.2",
     "react-tooltip": "~3.4.0",
     "redux": "~3.7.2",
@@ -68,8 +67,11 @@
       "src/**/*.{js,jsx}",
       "!src/index.js",
       "!src/routes.js",
+      "!src/state/reducers/initialState.js",
       "!src/setupTests.js",
-      "!src/utilities/choreographer.js",
+      "!src/**/choreographer.js",
+      "!src/**/reduxFormFailSubmit.js",
+      "!src/test-utils/**/index.js",
       "!src/mock-data/*"
     ],
     "coverageThreshold": {
