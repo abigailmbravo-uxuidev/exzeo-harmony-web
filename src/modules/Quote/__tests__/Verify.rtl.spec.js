@@ -1,4 +1,5 @@
 import React from 'react';
+import { fireEvent } from 'react-testing-library';
 
 import {
   defaultProps,
@@ -104,6 +105,17 @@ describe('Verify Testing', () => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
     });
+  });
+
+  it('POS:Policyholder Modal', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    
+    fireEvent.click(getByTestId('policyholder-details'));
+    expect(getByText('Edit Policyholder(s)'));
+    expect(getByText('Do you want to add an additional Policyholder?'));
+    fireEvent.click(getByTestId('additionalPolicyholder'));
+    expect(getByText('Primary Policyholder'));
+    expect(getByText('Secondary Policyholder'));
   });
 
   it('POS:Mailing Address Text', () => {
