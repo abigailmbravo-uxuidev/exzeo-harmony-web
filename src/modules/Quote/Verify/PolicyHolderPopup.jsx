@@ -13,7 +13,7 @@ const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, subm
               <form onSubmit={handleSubmit}>
                 <div className="card-header">
                   <h4>
-                    <i className="fa fa-vcard-o" />
+                    <i className="fa fa-vcard" />
                     &nbsp;Edit Policyholder(s)
                   </h4>
                 </div>
