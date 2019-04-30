@@ -3,7 +3,6 @@ import { TabNavigation } from '@exzeo/core-ui/src/@Harmony';
 import { DetailsHeader } from '@exzeo/core-ui';
 
 import { getNavLinks, STEP_NAMES } from './constants/workflowNavigation';
-import DetailHeader from './DetailHeader';
 
 export class WorkflowNavigation extends Component {
   getClassForStep = (step) => {
