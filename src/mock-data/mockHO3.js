@@ -326,7 +326,7 @@ const mock = {
         {
           id: 2,
           type: '$INPUT',
-          path: 'coverageLimits.dwelling.amount',
+          path: 'coverageLimits.dwelling.value',
           dependencies: [],
           data: {
             component: 'slider',
@@ -386,7 +386,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.coverageLimits.otherStructures.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.coverageLimits.otherStructures.value / 100) * it.coverageLimits.dwelling.value))}',
             },
           },
           children: [],
@@ -429,7 +429,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.value))}',
             },
           },
           children: [],
@@ -474,7 +474,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.coverageLimits.lossOfUse.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.coverageLimits.lossOfUse.value / 100) * it.coverageLimits.dwelling.value))}',
             },
           },
           children: [],
@@ -728,7 +728,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.value))}',
             },
           },
           children: [],
@@ -760,7 +760,7 @@ const mock = {
             type: 'integer',
             required: true,
             metaData: {
-              target: '${Math.ceil(((it.deductibles.sinkhole.value / 100) * it.coverageLimits.dwelling.amount))}',
+              target: '${Math.ceil(((it.deductibles.sinkhole.value / 100) * it.coverageLimits.dwelling.value))}',
             },
           },
           children: [],
