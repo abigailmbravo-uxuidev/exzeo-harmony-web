@@ -5,12 +5,20 @@ import {
   defaultProps,
   defaultInitialState,
   renderWithReduxAndRouter,
+  clearText,
   checkLabel,
   checkButton,
-  quote
+  checkError,
+  submitForm,
+  verifyForm,
+  quote,
+  ph1Fields,
+  ph2Fields
 } from '../../../test-utils';
 
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
+
+const switchTags = ['confirmProperty', 'confirmQuote', 'confirmPolicy', 'confirmAdditionalInterest'];
 
 describe('Verify Testing', () => {
   const props = {
@@ -41,7 +49,60 @@ describe('Verify Testing', () => {
     }
   };
 
-  const switchTags = ['confirmProperty', 'confirmQuote', 'confirmPolicy', 'confirmAdditionalInterest'];
+  it('NEG:Primary Policyholder Empty Value', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const phFields = [...ph1Fields, ...ph2Fields];
+
+    fireEvent.click(getByTestId('policyholder-details'));
+    ph1Fields.forEach(field => clearText(getByTestId, field));
+    submitForm(getByText, 'Save');
+    ph1Fields.forEach(field => checkError(getByTestId, field));
+  });
+
+  it('NEG:Secondary Policyholder Empty Value', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
+    fireEvent.click(getByTestId('policyholder-details'));
+    fireEvent.click(getByTestId('additionalPolicyholder'));
+    submitForm(getByText, 'Save');
+    ph2Fields.forEach(field => checkError(getByTestId, field));
+  });
+
+  it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    fireEvent.click(getByTestId('policyholder-details'));
+    fireEvent.click(getByTestId('additionalPolicyholder'));
+
+    // For all fields except phone, we fill out with invalid character data
+    // If that field is an email, it will throw a different error
+    [...ph1Fields, ...ph2Fields].filter(({ name }) => !name.includes('Phone'))
+      .forEach(({ name }) => verifyForm(getByTestId, [{
+        name, data: '∂',
+        error: name.includes('email') ? 'Not a valid email address' : 'Invalid characters'
+      }]));
+  });
+
+  it('NEG:Invalid Email Address', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    fireEvent.click(getByTestId('policyholder-details'));
+    fireEvent.click(getByTestId('additionalPolicyholder'));
+
+    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
+      .forEach(({ name }) => verifyForm(getByTestId, [{
+        name, data: 'invalidemail', error: 'Not a valid email address'
+      }]));
+  });
+
+  it('NEG:Invalid Contact Phone', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    fireEvent.click(getByTestId('policyholder-details'));
+    fireEvent.click(getByTestId('additionalPolicyholder'));
+
+    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('Phone'))
+      .forEach(({ name }) => verifyForm(getByTestId, [{
+        name, data: '123', error: 'Not a valid Phone Number'
+      }]));
+  });
 
   it('NEG:All "Verified" Values left at Default "NO"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });

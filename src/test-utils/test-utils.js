@@ -102,7 +102,9 @@ const parseQueryType = (query, field) => {
   };
 };
 
-export const submitForm = (query, regex = /submit/) => fireEvent.click(query(regex));
+export const submitForm = (query, content = /submit/) => fireEvent.click(query(content));
+
+export const clearText = (query, field) => fireEvent.change(parseQueryType(query, field), { target: { value: '' } });
 
 export const checkError = (query, { name = '', text = '', label = '', error = 'Field Required' } = {}) =>
   expect(parseQueryType(query, { name: `${name}_error`, text, label, error })).toHaveTextContent(error);
@@ -181,7 +183,7 @@ export const checkButton = (query, field = { name: 'submit' }) =>
 // This function is used to verify specific submit errors for one field as well
 export const verifyForm = (query, baseFields = [], fieldsLeftBlank = []) => {
   // Clears all text
-  baseFields.forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: '' } }));
+  baseFields.forEach(field => clearText(query, field));
   // Fills all fields out not in fieldsLeftBlank array based on 'data' key
   baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
     .forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: field.data } }));

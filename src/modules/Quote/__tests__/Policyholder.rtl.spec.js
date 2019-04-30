@@ -4,79 +4,10 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultProps,
-  submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput
+  submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput,
+  ph1Fields, ph2Fields
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
-
-const ph1Fields = [
-  {
-    name: 'policyHolders[0].firstName',
-    error: 'Field Required',
-    label: 'First Name',
-    type: 'text',
-    required: true,
-    data: 'Bruce'
-  },
-  {
-    name: 'policyHolders[0].lastName',
-    error: 'Field Required',
-    label: 'Last Name',
-    type: 'text',
-    required: true,
-    data: 'Wayne'
-  },
-  {
-    name: 'policyHolders[0].emailAddress',
-    error: 'Field Required',
-    label: 'Email Address',
-    type: 'text',
-    required: true,
-    data: 'Batman@gmail.com'
-  },
-  {
-    name: 'policyHolders[0].primaryPhoneNumber',
-    error: 'Field Required',
-    label: 'Contact Phone',
-    type: 'phone',
-    required: true,
-    data: '1234567890'
-  }
-];
-
-const ph2Fields = [
-  {
-    name: 'policyHolders[1].firstName',
-    error: 'Field Required',
-    label: 'First Name',
-    type: 'text',
-    required: true,
-    data: 'Dick'
-  },
-  {
-    name: 'policyHolders[1].lastName',
-    error: 'Field Required',
-    label: 'Last Name',
-    type: 'text',
-    required: true,
-    data: 'Grayson'
-  },
-  {
-    name: 'policyHolders[1].emailAddress',
-    error: 'Field Required',
-    label: 'Email Address',
-    type: 'text',
-    required: true,
-    data: 'Robin@hotmail.com'
-  },
-  {
-    name: 'policyHolders[1].primaryPhoneNumber',
-    error: 'Field Required',
-    label: 'Contact Phone',
-    type: 'phone',
-    required: true,
-    data: '1234567890'
-  }
-];
 
 const pageHeaders = [
   {
@@ -116,7 +47,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   it('NEG:All Inputs Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     submitForm(getByTestId);
-    ph1Fields.forEach(({ name, error }) => checkError(getByTestId, { name, error }));
+    ph1Fields.forEach(field => checkError(getByTestId, field));
   });
 
   it('NEG:Primary Policyholder Empty Value', () => {
@@ -128,7 +59,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     toggleSecondUser();
     submitForm(getByTestId);
-    ph2Fields.forEach(({ name, error }) => checkError(getByTestId, { name, error }));
+    ph2Fields.forEach(field => checkError(getByTestId, field));
     ph2Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph2Fields, [fieldToLeaveBlank]));
   });
 
