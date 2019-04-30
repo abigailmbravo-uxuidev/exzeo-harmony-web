@@ -112,11 +112,11 @@ function formatQuoteForSubmit(data) {
   if (data.product === PRODUCT_TYPES.home) {
     if (!data.coverageOptions.sinkholePerilCoverage.answer) {
       // Set sinkhole deductible value to 0 (fails underwriting)
-      quote.deductibles.sinkhole.value = 0;
+      // quote.deductibles.sinkhole.value = 0;
 
       // Remove entire sinkhole object from deductibles (also fails underwriting)
-      // const { sinkhole, ...rest } = data.deductibles;
-      // quote.deductibles = {...rest}
+      const { sinkhole, ...rest } = data.deductibles;
+      quote.deductibles = {...rest}
     }
   }
 
