@@ -108,21 +108,6 @@ function formatQuoteForSubmit(data) {
     quote.coverageLimits.lossOfUse.value = data.coverageLimits.lossOfUse.value || 5000;
   }
 
-  // HO3 specific rules
-  if (data.product === PRODUCT_TYPES.home) {
-    if (!data.coverageOptions.sinkholePerilCoverage.answer) {
-      // Set sinkhole deductible value to 0 (fails underwriting)
-      // TODO we may not need to do this. The backend will be removing the sinkhole object from deductibles. If that is
-      // todo:  sufficient, we can just pass the quote as-is. Leaving this in for now...
-      quote.deductibles.sinkhole.value = 0;
-
-      // TODO determine which of these (if any) methods to handling sinkholePerilCoverage = false we should be using.
-      // // Remove entire sinkhole object from deductibles (also fails underwriting)
-      // const { sinkhole, ...rest } = data.deductibles;
-      // quote.deductibles = {...rest}
-    }
-  }
-
   return quote;
 }
 
