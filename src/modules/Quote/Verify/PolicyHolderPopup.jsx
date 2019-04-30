@@ -19,7 +19,6 @@ const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, subm
                 </div>
                 <div className="card-block">
                   <PolicyHolder
-                    isPrimary
                     fieldPrefix="policyHolders[0]"
                     title="Primary Policyholder"
                   />
