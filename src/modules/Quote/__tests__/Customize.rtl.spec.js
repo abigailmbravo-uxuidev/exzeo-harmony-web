@@ -53,14 +53,14 @@ const fields = [
     tooltipText: 'This is your personal belongings'
   },
   {
-    name: 'coverageLimits.personalLiability.amount',
+    name: 'coverageLimits.personalLiability.value',
     required: true,
     type: 'radio',
     label: 'Personal Liability Limit',
     values: ['100000', '300000'],
   },
   {
-    name: 'coverageLimits.medicalPayments.amount',
+    name: 'coverageLimits.medicalPayments.value',
     required: true,
     type: 'text',
     label: 'Medical Payments to Others'

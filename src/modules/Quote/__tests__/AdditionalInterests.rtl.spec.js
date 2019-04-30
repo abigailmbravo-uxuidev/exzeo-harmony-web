@@ -5,11 +5,11 @@ import {
   renderWithReduxAndRouter,
   defaultInitialState,
   defaultProps,
-  checkHeader,
   checkLabel,
   checkTextInput,
   checkSelect,
   baseAiFields,
+  personalFields,
   additionalInterest
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
@@ -22,10 +22,6 @@ describe('Testing Additional Interests', () => {
     }
   };
 
-  const state = {
-    ...defaultInitialState
-  };
-
   const openAndCloseModal = (getByText, modal) => {
     fireEvent.click(getByText(modal));
     expect(document.querySelector(`card.AdditionalInterestModal.${modal}`));
@@ -34,7 +30,7 @@ describe('Testing Additional Interests', () => {
   };
 
   it('POS:Checks Header and Buttons', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     const checkButtonTextIcon = text => expect(getByText(text).previousSibling.className).toEqual('fa fa-plus');
 
@@ -46,7 +42,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Mortgagee Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Mortgagee');
 
@@ -61,33 +57,33 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Additional Insured Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Additional Insured');
 
     fireEvent.click(getByText('Additional Insured'));
     expect(getAllByText('Additional Insured')[1].firstChild.className).toEqual('fa Additional Insured');
-    baseAiFields.forEach(field => {
+    personalFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
     });
   });
 
   it('POS:Additional Interest Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Additional Interest');
 
     fireEvent.click(getByText('Additional Interest'));
     expect(getAllByText('Additional Interest')[1].firstChild.className).toEqual('fa Additional Interest');
-    baseAiFields.forEach(field => {
+    personalFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
     });
   });
 
   it('POS:Premium Finance Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Premium Finance');
 
@@ -101,13 +97,13 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Bill Payer Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Bill Payer');
 
     fireEvent.click(getByText('Bill Payer'));
     expect(getAllByText('Bill Payer')[1].firstChild.className).toEqual('fa Bill Payer');
-    baseAiFields.forEach(field => {
+    personalFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
     });
@@ -115,10 +111,10 @@ describe('Testing Additional Interests', () => {
   
   it('POS:Confirm Additional Interests Show Up In Order and Disable Buttons [Premium Finance]', () => {
     const newState = {
-      ...state,
+      ...defaultInitialState,
       quoteState: {
         quote: {
-          ...state.quoteState.quote,
+          ...defaultInitialState.quoteState.quote,
           additionalInterests: [
             // Intentionally give a messed up order...
             { ...additionalInterest, order: 1, type: 'Additional Interest' },
@@ -156,10 +152,10 @@ describe('Testing Additional Interests', () => {
   // Identical test to the one above except with a Bill Payer
   it('POS:Confirm Additional Interests Show Up In Order and Disable Buttons [Bill Payer]', () => {
     const newState = {
-      ...state,
+      ...defaultInitialState,
       quoteState: {
         quote: {
-          ...state.quoteState.quote,
+          ...defaultInitialState.quoteState.quote,
           additionalInterests: [
             { ...additionalInterest, order: 1, type: 'Additional Interest' },
             { ...additionalInterest, order: 2, type: 'Mortgagee' },
