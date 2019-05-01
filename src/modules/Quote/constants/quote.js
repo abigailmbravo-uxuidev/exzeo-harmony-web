@@ -3,4 +3,7 @@ export const PRODUCT_TYPES = {
   flood: 'AF3',
 };
 
-export const UNDERWRITING_ERROR_STATUS = ['Fatal Error', 'Underwriting Review'];
+export const UNDERWRITING_ERROR_ACTIONS = {
+  FATAL_ERROR: 'Fatal Error',
+  UNDERWRITING_REVIEW: 'Underwriting Review'
+}
