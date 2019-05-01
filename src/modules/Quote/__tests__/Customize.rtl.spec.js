@@ -7,7 +7,6 @@ import {
   renderWithReduxAndRouter,
   checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
   customizeList as list,
-  customizeUiQuestions as uiQuestions,
   quote,
   setSliderValue
 } from '../../../test-utils';
@@ -15,7 +14,7 @@ import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
-    name: 'coverageLimits.dwelling.amount',
+    name: 'coverageLimits.dwelling.value',
     required: true,
     type: 'slider',
     label: 'Dwelling Limit',
@@ -219,16 +218,8 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     quoteState: {
       ...defaultInitialState.quoteState,
       quote,
-      state: {
-        ...defaultInitialState.quoteState.state,
-        uiQuestions,
-        activeTask: 'askToCustomizeDefaultQuote'
-      }
     },
-    list: {
-      ...defaultInitialState.list,
-      ...list
-    }
+    list: { ...defaultInitialState.list, ...list }
   };
 
   it('NEG:Dwelling Limit', () => {
@@ -275,17 +266,17 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       'coverageLimits.lossOfUse.value_wrapper',
       'deductibles.hurricane.value_wrapper'
     ];
-    const setSliderAndCheckOutput = ({ slider, value }, { name, outputValue }) => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const slider = getByTestId('coverageLimits.dwelling.value-slider');
+
+    const setSliderAndCheckOutput = (value, { name, outputValue }) => {
       setSliderValue(slider, value);
       expect(document.querySelector(`[data-test="${name}"] output`)).toHaveTextContent(outputValue);
     };
 
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-
-    const slider = getByTestId('coverageLimits.dwelling.amount-slider');
-    setSliderAndCheckOutput({ slider, value: '350000' }, { name: outputFields[0], outputValue: '$ 7,000' });
-    setSliderAndCheckOutput({ slider, value: '380000' }, { name: outputFields[1], outputValue: '$ 95,000' });
-    setSliderAndCheckOutput({ slider, value: '303000' }, { name: outputFields[2], outputValue: '$ 30,300' });
-    setSliderAndCheckOutput({ slider, value: '295000' }, { name: outputFields[3], outputValue: '$ 5,900' });
+    setSliderAndCheckOutput('350000', { name: outputFields[0], outputValue: '$ 7,000' });
+    setSliderAndCheckOutput('380000', { name: outputFields[1], outputValue: '$ 95,000' });
+    setSliderAndCheckOutput('303000', { name: outputFields[2], outputValue: '$ 30,300' });
+    setSliderAndCheckOutput('295000', { name: outputFields[3], outputValue: '$ 5,900' });
   });
 });
