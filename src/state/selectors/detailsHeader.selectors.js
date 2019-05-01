@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 import moment from 'moment-timezone';
 
 import * as detailUtils from '../../utilities/entityDetails';
-import { ROUTE_TO_STEP_NAME } from '../../modules/Quote/constants/workflowNavigation';
 
 const STANDARD_DATE_FORMAT = 'MM/DD/YYYY';
 const getCityStateZip = ({ city = '', state = '', zip = '' }) => `${city}, ${state} ${zip}`;
@@ -97,11 +96,8 @@ export const getQuoteDetails = createSelector(
 
     const {
       coverageLimits,
-      product,
       rating,
-      policyHolders,
       property,
-      effectiveDate
     } = quote;
 
     const {
@@ -111,7 +107,7 @@ export const getQuoteDetails = createSelector(
       territory,
       yearBuilt
     } = property;
-    
+
     const activeTask = location.slice(location.lastIndexOf('/') + 1);
     const quoteNumber = rating ? quote.quoteNumber : '-';
 
