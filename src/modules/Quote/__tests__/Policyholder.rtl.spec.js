@@ -95,7 +95,10 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
 
   it('NEG:Invalid Effective Date', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    submitForm(getByTestId);
+    // submitForm(getByTestId);
+    verifyForm(getByTestId, [{
+      name: 'effectiveDate', data: ''
+    }]);
     verifyForm(getByTestId, [{
       name: 'effectiveDate', data: '1900-01-01', error: 'Date must be at least 08/01/2017'
     }]);
