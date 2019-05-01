@@ -245,6 +245,13 @@ label {
           @include for-phone-only {
             margin-left: 0;
           }
+          i {
+            margin-left: 0;
+
+            @include for-phone-only {
+              margin-left: 0.5rem;
+            }
+         }
         }
 
         > input[type="text"] {

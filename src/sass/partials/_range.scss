@@ -31,7 +31,9 @@
 .slider {
   label {
     span {
-      margin-left: $padding;
+      i {
+        margin-left: $padding;
+      }
     }
   }
 

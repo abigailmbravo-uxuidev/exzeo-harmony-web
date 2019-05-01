@@ -6,8 +6,12 @@
 
 .view-grid {
   @include for-phone-only {
-    ul {
-      padding-left: 2rem;
+    > div {
+      padding: $padding*2;
+    }
+    
+    p {
+      padding: 1rem; 
     }
   }
 
@@ -33,6 +37,10 @@
     ul {
       margin: 0 0 0 $padding;
       padding: 0 0 0 ($padding*2);
+
+      @include for-phone-only {
+        padding: 0 0 0 ($padding*4);
+      }
     }
 
     &.billing-plan-wrapper {
@@ -92,7 +100,9 @@
           width: auto;
         }
         span {
-          margin: 0 $padding;
+          i {
+            margin: 0 $padding;
+          }
         }
       }
       span[data-name="error-field"] {
