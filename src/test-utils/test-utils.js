@@ -35,12 +35,18 @@ export const defaultInitialState = {
   },
   quoteState: {
     quote: {
-      coverageLimits: {},
+      coverageLimits: {
+        dwelling: { amount: 0 }
+      },
       quoteNumber: '1',
       effectiveDate: '2019-05-25',
       product: 'HO3',
       property: {
         physicalAddress: {}
+      },
+      rating: {
+        netPremium: 0,
+        worksheet: { fees: {}}
       }
     }
   },
