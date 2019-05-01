@@ -177,7 +177,7 @@ export class QuoteWorkflow extends Component {
         this.setCurrentStep();
       }
     } catch (error) {
-      console.log(error);
+      // TODO: handle error
     }
 
   };
