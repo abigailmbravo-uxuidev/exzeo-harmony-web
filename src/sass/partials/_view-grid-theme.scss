@@ -5,6 +5,12 @@
 }
 
 .view-grid {
+  @include for-phone-only {
+    ul {
+      padding-left: 2rem;
+    }
+  }
+
   .btn-group {
     display: flex;
     flex-direction: row;

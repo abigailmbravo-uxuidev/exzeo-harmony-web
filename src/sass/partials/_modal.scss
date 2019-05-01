@@ -142,13 +142,23 @@
   }
 
   &.modal-xl {
+    
     .card {
       max-width: 80rem;
       width: 80%;
 
       @include for-phone-only {
+        position: absolute;
+        top: 3.375rem;
+        bottom: 0;
         z-index: 1000;
         width: 100%;
+        border-radius: 0;
+
+        .card-block {
+          max-height: 100vh;
+          height: calc(100vh - 9.5625rem);
+        }
       }
     }
   }
