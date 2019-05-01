@@ -45,6 +45,7 @@ export class WorkflowNavigation extends Component {
           headerDetails={headerDetails}
           isLoading={isLoading}
           isRecalc={isRecalc}
+          currentStep={currentStep}
           useAnimationForPremium={currentStep === STEP_NAMES.askToCustomizeDefaultQuote}
         />
 

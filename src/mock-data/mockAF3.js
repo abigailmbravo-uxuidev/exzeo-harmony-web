@@ -17,8 +17,13 @@ const mock = {
         "value": "floodZone"
       },
       {
-        "value": "coverage",
-        "label": "Coverage A"
+        "value": "coverageLimits.building.amount",
+        "label": "Coverage A",
+        "format": "currency",
+        "alternateFormat": { 
+          "steps": [0, 1],
+          "display": "$ --"
+        }
       },
       {
         "value": "premium",

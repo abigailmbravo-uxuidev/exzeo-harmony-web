@@ -113,12 +113,6 @@ export const getQuoteDetails = createSelector(
     } = property;
     
     const activeTask = location.slice(location.lastIndexOf('/') + 1);
-    
-    const coverage = (coverageLimits.dwelling && coverageLimits.dwelling.amount)
-      && (activeTask !== ROUTE_TO_STEP_NAME[0] && activeTask !== ROUTE_TO_STEP_NAME[1])
-      ? `$ ${coverageLimits.dwelling.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
-      : '$ --';
-
     const quoteNumber = rating ? quote.quoteNumber : '-';
 
     return {
@@ -126,7 +120,7 @@ export const getQuoteDetails = createSelector(
       floodZone,
       territory,
       yearBuilt,
-      coverage,
+      coverageLimits,
       county: physicalAddress.county,
       quoteNumber,
       premium: rating ? rating.totalPremium : '',

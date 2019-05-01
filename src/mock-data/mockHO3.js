@@ -7,7 +7,15 @@ const mock = {
       { "value": "propertyAddress", "component": "Section", "label": "Address" },
       { "value": "yearBuilt" },
       { "value": "constructionType" },
-      { "value": "coverage", "label": "Coverage A" },
+      {
+        "value": "coverageLimits.dwelling.amount",
+        "label": "Coverage A",
+        "format": "currency",
+        "alternateFormat": { 
+          "steps": [0, 1],
+          "display": "$ --"
+        }
+      },
       { "value": "premium", "component": "PremiumSection"}
     ]
   },
