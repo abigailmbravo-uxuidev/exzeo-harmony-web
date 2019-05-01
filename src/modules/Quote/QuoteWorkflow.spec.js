@@ -19,10 +19,7 @@ describe('Testing Quote component', () => {
       },
       appState: {},
       quoteState: {
-        quote: {},
-        state: {
-          uiQuestions: []
-        },
+        quote: {}
       },
     };
     const store = mockStore(initialState);
@@ -45,24 +42,6 @@ describe('Testing Quote component', () => {
   });
 
   it('should test component', () => {
-    const initialState = {
-      authState:{
-        userProfile: {
-          entity: {}
-        }
-      },
-      service: {
-        zipCodeSettings: {}
-      },
-      appState: {},
-      quoteState: {
-        quote: {},
-        state: {
-          uiQuestions: []
-        },
-      },
-    };
-    const store = mockStore(initialState);
     const props = {
       workflowState: { isHardStop: false },
       userProfile: { entity: {} },
@@ -77,6 +56,7 @@ describe('Testing Quote component', () => {
       getAgentsByAgencyCode() {},
       getZipcodeSettings() {},
       submitForm() {},
+      quote: {}
     };
 
     const wrapper = shallow(<QuoteWorkflow {...props} />);

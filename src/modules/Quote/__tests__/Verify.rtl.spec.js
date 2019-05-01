@@ -51,7 +51,6 @@ describe('Verify Testing', () => {
 
   it('NEG:Primary Policyholder Empty Value', () => {
     const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    const phFields = [...ph1Fields, ...ph2Fields];
 
     fireEvent.click(getByTestId('policyholder-details'));
     ph1Fields.forEach(field => clearText(getByTestId, field));
