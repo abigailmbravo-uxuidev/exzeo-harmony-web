@@ -6,7 +6,6 @@ describe('Property Address Search Testing', () => {
   const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
   const hasSearchInput = address =>
     cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
-  const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
 
   before('Go to the search page', () => {
     setRouteAliases();
