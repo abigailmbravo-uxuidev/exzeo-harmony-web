@@ -9,7 +9,7 @@ const PolicyHolderPopup = ({ initialValues, handleFormSubmit, handleCancel, subm
           onSubmit={handleFormSubmit}
           initialValues={initialValues}
           render={({ values, handleSubmit }) => (
-            <div className="card card-policyholder">
+            <div className="card card-policyholder slide-in-bottom">
               <form onSubmit={handleSubmit}>
                 <div className="card-header">
                   <h4>
