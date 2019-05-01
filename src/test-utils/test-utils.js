@@ -105,7 +105,7 @@ const parseQueryType = (query, field) => {
   };
 };
 
-export const submitForm = (query, content = /submit/) => fireEvent.click(query(content));
+export const submitForm = (query, buttonContent = /submit/) => fireEvent.click(query(buttonContent));
 
 export const clearText = (query, field) => fireEvent.change(parseQueryType(query, field), { target: { value: '' } });
 

@@ -51,7 +51,7 @@ describe('Testing Share Page 2', () => {
   });
 
   it('POS:Share Page 2 Text Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     // If we alter this programatically we can use some data structure for these strings
     expect(getByText(/All properties/));
     expect(getByText(/Please be aware/));

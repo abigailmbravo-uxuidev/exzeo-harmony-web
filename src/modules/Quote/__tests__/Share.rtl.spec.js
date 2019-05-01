@@ -4,8 +4,12 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultProps,
+  submitForm,
+  checkError,
   checkHeader,
-  checkLabel
+  checkLabel,
+  checkTextInput,
+  verifyForm
 } from '../../../test-utils';
 import ConnectedShare from '../Share';
 
@@ -63,7 +67,7 @@ describe('Testing the Share Page', () => {
   };
 
   it('NEG:All Inputs Empty Value', () => {
-    const { queryByTestId, getByTestId, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    const { queryByTestId, getByTestId, getByText, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
     // Confirm share button exists and the modal does not
     // FIXME: This is an example of poorly-structured code causing tests to be overly complicated
     expect(getByTestId('share')).toHaveTextContent('share');
@@ -80,9 +84,12 @@ describe('Testing the Share Page', () => {
     // Confirm modal fields
     expect(getByTestId('name'));
     expect(getByTestId('email'));
-    fireEvent.focus(getByTestId('modal-submit'));
-    fireEvent.blur(getByTestId('modal-submit'));
+
     // TODO: Once redux-form is out we need to test the validation for empty and invalid inputs
+    // submitForm(getByText, 'Send Email');
+    // modalFields.forEach(field => checkError(getByTestId, field));
+    // verifyForm(getByTestId, [{...modalFields[0], data: '∂ƒ©ƒ', error: 'Invalid characters' }]);
+    // verifyForm(getByTestId, [{ ...modalFields[1], data: '∂ƒ©ƒ', error: 'Not a valid email address' }]);
   });
 
   it('POS:Share Header / Text', () => {
@@ -101,7 +108,11 @@ describe('Testing the Share Page', () => {
       />
     );
     expect(queryByTestId('Share Quote'));
-    modalFields.forEach(field => checkLabel(getByTestId, field));
+    modalFields.forEach(field => {
+      checkLabel(getByTestId, field);
+      // TODO: Once redux-form is out of here we have to check the text input value changes 
+      // checkTextInput(getByTestId, field);
+    });
   });
 
   it('POS:Next Button', () => {

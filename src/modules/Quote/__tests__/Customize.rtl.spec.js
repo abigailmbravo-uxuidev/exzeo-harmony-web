@@ -228,13 +228,20 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     fields.filter(({ type }) => type === 'slider')
       .forEach(({ name }) => {
         const input = getByTestId(`${name}-input`);
+
         fireEvent.change(input, { target: { value: '0' }});
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+
         fireEvent.change(input, { target: { value: '124000' } });
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+
         fireEvent.change(input, { target: { value: '2100000' } });
+        fireEvent.blur(input);
+        expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+
+        fireEvent.change(input, { target: { value: '999999999' } });
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
       });
