@@ -105,7 +105,7 @@ const parseQueryType = (query, field) => {
   };
 };
 
-export const submitForm = (query, buttonContent = /submit/) => fireEvent.click(query(buttonContent));
+export const submitForm = (query, button = /submit/) => fireEvent.click(query(button));
 
 export const clearText = (query, field) => fireEvent.change(parseQueryType(query, field), { target: { value: '' } });
 
@@ -184,14 +184,14 @@ export const checkButton = (query, field = { name: 'submit' }) =>
   expect(parseQueryType(query, field).getAttribute('type')).toEqual('button');
 
 // This function is used to verify specific submit errors for one field as well
-export const verifyForm = (query, baseFields = [], fieldsLeftBlank = []) => {
+export const verifyForm = (query, baseFields = [], fieldsLeftBlank = [], button) => {
   // Clears all text
-  baseFields.forEach(field => clearText(query, field));
+  [...baseFields, ...fieldsLeftBlank].forEach(field => clearText(query, field));
   // Fills all fields out not in fieldsLeftBlank array based on 'data' key
   baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
     .forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: field.data } }));
   // Submit form
-  submitForm(query);
+  submitForm(query, button);
   // Expect errors to exist on blank fields
   // or if there are no blank fields, then we check for errors on base fields
   // which will generally not be 'Field Required' errors

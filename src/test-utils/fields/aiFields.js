@@ -2,6 +2,7 @@ export const baseAiFields = [
   {
     name: 'name1',
     type: 'text',
+    required: true,
     label: 'Name 1',
     data: 'test last names',
   },
@@ -14,6 +15,7 @@ export const baseAiFields = [
   {
     name: 'address1',
     type: 'text',
+    required: true,
     label: 'Address 1',
     data: 'test adress 1',
   },
@@ -26,18 +28,21 @@ export const baseAiFields = [
   {
     name: 'city',
     type: 'text',
+    required: true,
     label: 'City',
     data: 'test city',
   },
   {
     name: 'state',
     type: 'text',
+    required: true,
     label: 'State',
     data: 'FL',
   },
   {
     name: 'zip',
     type: 'text',
+    required: true,
     label: 'Zip Code',
     data: 'test name 1',
   },
@@ -59,6 +64,7 @@ export const personalFields = [
   {
     name: 'name1',
     type: 'text',
+    required: true,
     label: 'First Name',
     data: 'test last names',
   },
@@ -71,6 +77,7 @@ export const personalFields = [
   {
     name: 'address1',
     type: 'text',
+    required: true,
     label: 'Address 1',
     data: 'test adress 1',
   },
@@ -83,18 +90,21 @@ export const personalFields = [
   {
     name: 'city',
     type: 'text',
+    required: true,
     label: 'City',
     data: 'test city',
   },
   {
     name: 'state',
     type: 'text',
+    required: true,
     label: 'State',
     data: 'FL',
   },
   {
     name: 'zip',
     type: 'text',
+    required: true,
     label: 'Zip Code',
     data: 'test name 1',
   },

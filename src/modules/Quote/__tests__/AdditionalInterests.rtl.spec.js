@@ -8,9 +8,12 @@ import {
   checkLabel,
   checkTextInput,
   checkSelect,
+  checkError,
+  submitForm,
   baseAiFields,
   personalFields,
-  additionalInterest
+  additionalInterest,
+  verifyForm
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
@@ -29,6 +32,9 @@ describe('Testing Additional Interests', () => {
     expect(document.querySelector('form#AdditionalInterestModal')).toBeNull();
   };
 
+  const baseRequiredFields = baseAiFields.filter(({ required }) => required);
+  const personalRequiredFields = personalFields.filter(({ required }) => required);
+
   it('POS:Checks Header and Buttons', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
@@ -40,6 +46,156 @@ describe('Testing Additional Interests', () => {
     checkButtonTextIcon('Premium Finance');
     checkButtonTextIcon('Bill Payer');
   });
+
+  it('NEG:All Empty Mortgagee Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Mortgagee'));
+
+    submitForm(getByTestId, 'ai-modal-submit');
+    baseRequiredFields.forEach(field => checkError(getByTestId, field));
+  });
+
+  it('NEG:Mortgagee Empty Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Mortgagee'));
+
+    baseRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, baseRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+  });
+
+  // it('NEG:Mortgagee Invalid Input Testing', () => {
+  //   const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   fireEvent.click(getByText('Mortgagee'));
+
+  //   const stateField = baseAiFields.find(({ name }) => name === 'state');
+  //   const zipField = baseAiFields.find(({ name }) => name === 'zip');
+
+  //   verifyForm(getByTestId, [{
+  //     ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+  //   }]);
+  //   verifyForm(getByTestId, [{
+  //     ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+  //   }]);
+  // });
+
+  it('NEG:All Empty Additional Insured Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Additional Insured'));
+
+    submitForm(getByTestId, 'ai-modal-submit');
+    personalRequiredFields.forEach(field => checkError(getByTestId, field));
+  });
+
+  it('NEG:Additional Insured Empty Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Additional Insured'));
+
+    personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+  });
+
+  // it('NEG:Additional Insured Invalid Input Testing', () => {
+  //   const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   fireEvent.click(getByText('Additional Insured'));
+
+  //   const stateField = personalRequiredFields.find(({ name }) => name === 'state');
+  //   const zipField = personalRequiredFields.find(({ name }) => name === 'zip');
+
+  //   verifyForm(getByTestId, [{
+  //     ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+  //   }]);
+  //   verifyForm(getByTestId, [{
+  //     ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+  //   }]);
+  // });
+
+  it('NEG:All Empty Additional Interest Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Additional Interest'));
+
+    submitForm(getByTestId, 'ai-modal-submit');
+    personalRequiredFields.forEach(field => checkError(getByTestId, field));
+  });
+
+  it('NEG:Additional Interest Empty Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Additional Interest'));
+
+    personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+  });
+
+  // it('NEG:Additional Interest Invalid Input Testing', () => {
+  //   const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   fireEvent.click(getByText('Additional Interest'));
+
+  //   const stateField = personalFields.find(({ name }) => name === 'state');
+  //   const zipField = personalFields.find(({ name }) => name === 'zip');
+
+  //   verifyForm(getByTestId, [{
+  //     ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+  //   }]);
+  //   verifyForm(getByTestId, [{
+  //     ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+  //   }]);
+  // });
+
+  it('NEG:All Empty Premium Finance Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Premium Finance'));
+
+    submitForm(getByTestId, 'ai-modal-submit');
+    baseRequiredFields.forEach(field => checkError(getByTestId, field));
+  });
+
+  it('NEG:Premium Finance Empty Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Premium Finance'));
+
+    baseRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, baseRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+  });
+
+  // it('NEG:Premium Finance Invalid Input Testing', () => {
+  //   const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   fireEvent.click(getByText('Premium Finance'));
+
+  //   const stateField = baseAiFields.find(({ name }) => name === 'state');
+  //   const zipField = baseAiFields.find(({ name }) => name === 'zip');
+
+  //   verifyForm(getByTestId, [{
+  //     ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+  //   }]);
+  //   verifyForm(getByTestId, [{
+  //     ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+  //   }]);
+  // });
+
+  it('NEG:All Empty Bill Payer Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Bill Payer'));
+
+    submitForm(getByTestId, 'ai-modal-submit');
+    personalRequiredFields.forEach(field => checkError(getByTestId, field));
+  });
+
+  it('NEG:Bill Payer Empty Testing', () => {
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    fireEvent.click(getByText('Bill Payer'));
+
+    personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+  });
+
+  // it('NEG:Bill Payer Invalid Input Testing', () => {
+  //   const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+  //   fireEvent.click(getByText('Bill Payer'));
+
+  //   const stateField = personalFields.find(({ name }) => name === 'state');
+  //   const zipField = personalFields.find(({ name }) => name === 'zip');
+
+  //   verifyForm(getByTestId, [{
+  //     ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+  //   }]);
+  //   verifyForm(getByTestId, [{
+  //     ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+  //   }]);
+  // });
 
   it('POS:Mortgagee Testing', () => {
     const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
