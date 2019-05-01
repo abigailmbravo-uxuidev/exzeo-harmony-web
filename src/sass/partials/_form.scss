@@ -241,6 +241,10 @@ label {
 
         span {
           margin-left: $padding;
+
+          @include for-phone-only {
+            margin-left: 0;
+          }
         }
 
         > input[type="text"] {
