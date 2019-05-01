@@ -103,11 +103,20 @@ describe('Verify Testing', () => {
       }]));
   });
 
-  it('NEG:All "Verified" Values left at Default "NO"', () => {
+  it('NEG:All "Verified" Values left at Default "No"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     switchTags.forEach(tag =>
       expect(getByTestId(tag).className.split(' ').includes('active')).toEqual(false)
     );
+  });
+
+  it('NEG:Some "Verified" Values left at Default "No"', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    switchTags.forEach(tag => {
+      fireEvent.click(getByTestId(tag));
+      expect(getByTestId('next')).toBeDisabled();
+      fireEvent.click(getByTestId(tag));
+    });
   });
 
   it('POS:Property Details Text', () => {
