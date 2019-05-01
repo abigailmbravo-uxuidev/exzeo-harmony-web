@@ -257,7 +257,7 @@ export class QuoteWorkflow extends Component {
         match={match} >
           <div className="route">
             {isLoading && <Loader />}
-            {(fatalError && !location.state.fatalError) &&
+            {(fatalError && !(location.state || {}).fatalError) &&
               <Redirect to={{ pathname: "error", state: { fatalError: true } }} />
             }
 
