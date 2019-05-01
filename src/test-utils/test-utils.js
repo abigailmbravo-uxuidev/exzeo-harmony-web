@@ -42,9 +42,6 @@ export const defaultInitialState = {
       property: {
         physicalAddress: {}
       }
-    },
-    state: {
-      completedTasks: []
     }
   },
   agencyState: {

@@ -67,9 +67,6 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
 
   const state = {
     ...defaultInitialState,
-    quoteState: {
-      ...defaultInitialState.quoteState,
-      state: { ...defaultInitialState.quoteState.state, activeTask: 'askUWAnswers' }},
     list: { ...defaultInitialState.list, ...list }
   };
 

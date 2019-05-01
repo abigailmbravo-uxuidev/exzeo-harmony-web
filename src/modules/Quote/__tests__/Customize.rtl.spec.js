@@ -7,7 +7,6 @@ import {
   renderWithReduxAndRouter,
   checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
   customizeList as list,
-  customizeUiQuestions as uiQuestions,
   quote,
   setSliderValue
 } from '../../../test-utils';
@@ -219,16 +218,8 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     quoteState: {
       ...defaultInitialState.quoteState,
       quote,
-      state: {
-        ...defaultInitialState.quoteState.state,
-        uiQuestions,
-        activeTask: 'askToCustomizeDefaultQuote'
-      }
     },
-    list: {
-      ...defaultInitialState.list,
-      ...list
-    }
+    list: { ...defaultInitialState.list, ...list }
   };
 
   it('NEG:Dwelling Limit', () => {

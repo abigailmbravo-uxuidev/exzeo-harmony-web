@@ -15,7 +15,6 @@ import {
   checkSwitch,
   checkButton,
   quote,
-  mailingBillingUiQuestions as uiQuestions,
   mailingBillingList as list,
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
@@ -108,12 +107,7 @@ describe('Testing the Mailing/Billing Page', () => {
     ...defaultInitialState,
     quoteState: {
       ...defaultInitialState.quoteState,
-      quote,
-      state: {
-        ...defaultInitialState.quoteState.state,
-        uiQuestions,
-        activeTask: 'askAdditionalQuestions'
-      }
+      quote
     },
     list: {
       ...defaultInitialState.list,
