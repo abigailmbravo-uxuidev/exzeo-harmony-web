@@ -107,7 +107,7 @@ export async function fetchQuotes({
   const config = {
     service: 'quote-data',
     method: 'GET',
-    path: `/quotes?companyCode=${companyCode}&state=${state}&product=${product}&quoteNumber=${quoteNumber}&lastName=${lastName}&firstName=${firstName}&propertyAddress=${address}&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=${sortDirection}`
+    path: `/quotes?companyCode=${companyCode}&state=${state}&quoteNumber=${quoteNumber}&lastName=${lastName}&firstName=${firstName}&propertyAddress=${address}&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=${sortDirection}`
   };
 
   try {
