@@ -248,9 +248,7 @@ export class QuoteWorkflow extends Component {
     };
 
     const { underwritingExceptions } = quote;
-    const fatalError = underwritingExceptions
-      ? underwritingExceptions.some(ex => ex.action === 'Fatal Error')
-      : false;
+    const fatalError = (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
 
     return (
       <App
@@ -259,7 +257,9 @@ export class QuoteWorkflow extends Component {
         match={match} >
           <div className="route">
             {isLoading && <Loader />}
-            {fatalError && <Redirect to={'error'} />}
+            {(fatalError && !location.state.fatalError) &&
+              <Redirect to={{ pathname: "error", state: { fatalError: true } }} />
+            }
 
             { gandalfTemplate && gandalfTemplate.header &&
               <WorkflowNavigation
