@@ -11,7 +11,7 @@ const mock = {
         "value": "coverageLimits.dwelling.amount",
         "label": "Coverage A",
         "format": "currency",
-        "alternateFormat": { 
+        "alternateFormat": {
           "steps": [0, 1],
           "display": "$ --"
         }
@@ -1245,10 +1245,10 @@ const mock = {
                 { format: 'bool', path: 'coverageOptions.personalPropertyReplacementCost.answer', label: 'Personal Property Replacement Cost'},
                 { format: 'currency', path: 'coverageLimits.moldProperty.amount', label: 'Mold Property'},
                 { format: 'currency', path: 'coverageLimits.moldLiability.amount', label: 'Mold Liability'},
-                { format: 'currency', path: 'coverageLimits.ordinanceOrLaw.amount', label: 'Ordinance or Law'},
+                { format: 'currency', path: 'coverageLimits.ordinanceOrLaw.calculatedAmount', label: 'Ordinance or Law'},
                 { format: 'currency', path: 'deductibles.allOtherPerils.amount', label: 'All Other Perils Deductible'},
-                { format: 'currency', path: 'deductibles.hurricane.amount', label: 'Hurricane Deductible'},
-                { format: 'currency', path: 'deductibles.sinkhole.amount', label: 'Sinkhole Deductible', hideNoValue: true}
+                { format: 'currency', path: 'deductibles.hurricane.calculatedAmount', label: 'Hurricane Deductible'},
+                { format: 'currency', path: 'deductibles.sinkhole.calculatedAmount', label: 'Sinkhole Deductible', hideNoValue: true}
               ],
               productDescription: "Homeowners",
               companyName: "TypTap",

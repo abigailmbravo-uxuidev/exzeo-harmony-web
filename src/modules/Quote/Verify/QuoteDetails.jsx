@@ -2,7 +2,7 @@ import React from 'react';
 import _get from 'lodash/get';
 import { format } from '@exzeo/core-ui';
 
-const { toCurrency, boolToYesNo } = format;
+const { toCurrency, boolToYesNo, toPercent } = format;
 
 function formatDetailValue(detail, value) {
   const { format } = detail;
@@ -11,6 +11,8 @@ function formatDetailValue(detail, value) {
     return toCurrency(value);
   } else if (format === 'bool') {
     return boolToYesNo(value);
+  } else if (format === 'percent') {
+    return toPercent(value);
   }
   return value;
 }
