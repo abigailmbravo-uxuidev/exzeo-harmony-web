@@ -17,7 +17,7 @@ function formatDetailValue(detail, value) {
   return value;
 }
 
-// TODO: Move to core-ui
+// TODO: Move to core-ui eventually
 export const QuoteDetails = ({ details, formValues }) => {
   function getValue(detail) {
     return _get(formValues, detail.path, '');
