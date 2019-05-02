@@ -147,7 +147,7 @@ describe('Verify Testing', () => {
       { label: 'Personal Property Replacement Cost', value: 'Yes' },
       { label: 'Mold Property', value: '$ 10,000' },
       { label: 'Mold Liability', value: '$ 50,000' },
-      { label: 'Ordinance or Law', value: '$' },
+      { label: 'Ordinance or Law', value: '$ 78,500' },
       { label: 'All Other Perils Deductible', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '$ 6,280' },
       { label: 'Sinkhole Deductible', value: '$ 31,400' },
