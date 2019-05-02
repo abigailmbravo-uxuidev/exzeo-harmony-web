@@ -2,14 +2,12 @@ import { setRouteAliases, navigateThroughLanding } from '../../helpers';
 import user from '../../fixtures/HO3/user.json';
 import af3Login from '../../fixtures/AF3/login.json';
 
-const type = text => cy.findDataTag('address').type(text);
-const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
-const hasSearchInput = address =>
-  cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
-const { address } = user;
-
 describe('Property Address Search Testing', () => {
-  const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
+  const type = text => cy.findDataTag('address').type(text);
+  const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
+  const hasSearchInput = address =>
+    cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
+  const { address } = user;
 
   before('H03: Property Search Testing', () => {
     setRouteAliases();
