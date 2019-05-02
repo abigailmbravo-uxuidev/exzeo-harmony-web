@@ -137,21 +137,22 @@ describe('Verify Testing', () => {
   it('POS:Quote Details', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     const sectionData = [
-      { label: 'Yearly Premium', value: '$' },
-      { label: 'A. Dwelling', value: '$' },
-      { label: 'B. Other Structures', value: '$' },
-      { label: 'C. Personal Property', value: '$' },
-      { label: 'D. Loss Of Use', value: '$' },
-      { label: 'E. Personal Liability', value: '$' },
-      { label: 'F. Medical Payments', value: '$' },
+      { label: 'Yearly Premium', value: '$ 2,667' },
+      { label: 'A. Dwelling', value: '$ 314,000' },
+      { label: 'B. Other Structures', value: '$ 6,280' },
+      { label: 'C. Personal Property', value: '$ 78,500' },
+      { label: 'D. Loss Of Use', value: '$ 31,400' },
+      { label: 'E. Personal Liability', value: '$ 300,000' },
+      { label: 'F. Medical Payments', value: '$ 2,000' },
       { label: 'Personal Property Replacement Cost', value: 'Yes' },
-      { label: 'Mold Property', value: '$' },
-      { label: 'Mold Liability', value: '$' },
+      { label: 'Mold Property', value: '$ 10,000' },
+      { label: 'Mold Liability', value: '$ 50,000' },
       { label: 'Ordinance or Law', value: '$' },
-      { label: 'All Other Perils Deductible', value: '$' },
-      { label: 'Hurricane Deductible', value: '$' },
-      { label: 'Sinkhole Deductible', value: '$' },
+      { label: 'All Other Perils Deductible', value: '$ 1,000' },
+      { label: 'Hurricane Deductible', value: '$ 6,280' },
+      { label: 'Sinkhole Deductible', value: '$ 31,400' },
     ];
+    // Check each field in order
     getByText('Quote Details').nextSibling.childNodes.forEach((node, i) => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
@@ -170,6 +171,7 @@ describe('Verify Testing', () => {
       { label: 'Phone Number', value: 'Phone Number(123) 123-1231' },
       { label: 'Email', value: 'Batman@gmail.com' }
     ];
+    // Check each field in order
     getByText('Primary Policyholder').nextSibling.childNodes.forEach((node, i) => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
@@ -194,6 +196,7 @@ describe('Verify Testing', () => {
       { label: 'City/State/Zip', value: /SARASOTA/ },
       { label: 'Country', value: 'United States of America' }
     ];
+    // Check each field in order
     getByText('Mailing Address').nextSibling.childNodes.forEach((node, i) => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
