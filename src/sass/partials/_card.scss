@@ -30,6 +30,10 @@
       margin: 0;
     }
 
+    .fa {
+      font-size: $font-size-h3;
+    }
+
     &:first-child {
       @include border-radius($card-border-radius-inner $card-border-radius-inner 0 0);
     }
@@ -77,6 +81,7 @@
     flex-grow: 1;
     flex-shrink: 1;
     padding: $card-spacer-x;
+
     @include for-phone-only {
       padding: ($card-spacer-x/2);
     }
@@ -119,6 +124,7 @@
     padding: $card-spacer-y $card-spacer-x;
     border-top: $card-border-width solid $card-border-color;
     background-color: $card-cap-bg;
+
     @include for-phone-only {
       padding: ($card-spacer-y/2) ($card-spacer-x/2);
     }

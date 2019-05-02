@@ -152,7 +152,7 @@ function formatForCGStep(activeTask, data, options) {
       ...taskData,
       ...data.property.windMitigation,
       ...data.property,
-    }
+    };
   }
   else if (activeTask === 'askAdditionalQuestions') {
     taskData.billToId = data.billToId;
@@ -162,7 +162,7 @@ function formatForCGStep(activeTask, data, options) {
     return {
       ...taskData,
       ...data.policyHolderMailingAddress,
-    }
+    };
   }
 
   return data;
@@ -186,15 +186,15 @@ async function start(modelName, data) {
     }
   };
 
-  const response = await axios(axiosConfig);
+  try {
 
-  const { data: { activeTask: { name: activeTaskName }, modelInstanceId, model: { variables, completedTasks } } } = response.data;
-  setState({
-    activeTask: activeTaskName,
-    workflowId: modelInstanceId,
-    variables,
-    completedTasks
-  });
+    const response = await axios(axiosConfig);
+    return response.data;
+
+  } catch (err) {
+    throw err;
+  }
+
 }
 
 /**
@@ -385,9 +385,37 @@ async function updateQuote({ data, quoteNumber, stepName, getReduxState, options
   };
 }
 
+/**
+ *
+ * @param modelName
+ * @param data
+ * @returns {Promise<initialState.cg.bb.data.previousTask.value.result|{IndexResult}|props.tasks.bb.data.previousTask.value.result|initialState.cg.bb.data.previousTask.value.result|{quotes}|Array|*>}
+ */
+export const startWorkflow = async (modelName, data) => {
+  const axiosConfig = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: {
+      modelName,
+      data
+    },
+    url: `${process.env.REACT_APP_API_URL}/cg/start?${modelName}`
+  };
+
+  try {
+    const result = await axios(axiosConfig);
+    return result.data.data.previousTask.value.result;
+  } catch (error) {
+    throw handleError(error);
+  }
+};
+
 export default {
   createQuote,
   getQuote,
-  updateQuote
+  updateQuote,
+  startWorkflow,
 };
 

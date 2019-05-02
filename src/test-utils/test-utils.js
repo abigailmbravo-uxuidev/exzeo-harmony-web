@@ -34,14 +34,25 @@ export const defaultInitialState = {
     }
   },
   quoteState: {
-    quote: null,
-    state: {
-      completedTasks: []
+    quote: {
+      coverageLimits: {
+        dwelling: { amount: 0 }
+      },
+      quoteNumber: '1',
+      effectiveDate: '2019-05-25',
+      product: 'HO3',
+      property: {
+        physicalAddress: {}
+      },
+      rating: {
+        netPremium: 0,
+        worksheet: { fees: {}}
+      }
     }
   },
   agencyState: {
     agencies: [],
-    agency: null,
+    agency: {},
     agents: []
   },
   list: {
@@ -49,6 +60,7 @@ export const defaultInitialState = {
     uiQuestions: {},
     underwritingQuestions: [],
     agents: [],
+    order: [],
     billingConfig: {
       billToConfig: {},
       billingOptions: [],
@@ -93,7 +105,9 @@ const parseQueryType = (query, field) => {
   }
 };
 
-export const submitForm = (query, regex = /submit/) => fireEvent.click(query(regex));
+export const submitForm = (query, button = /submit/) => fireEvent.click(query(button));
+
+export const clearText = (query, field) => fireEvent.change(parseQueryType(query, field), { target: { value: '' } });
 
 export const checkError = (query, { name = '', text = '', label = '', error = 'Field Required' } = {}) =>
   expect(parseQueryType(query, { name: `${name}_error`, text, label, error })).toHaveTextContent(error);
@@ -104,6 +118,12 @@ export const checkTextInput = (query, field) => {
   const input = parseQueryType(query, field);
   fireEvent.change(input, { target: { value: field.data } });
   expect(input.value).toBe(field.data);
+};
+
+export const checkPhoneInput = (query, field) => {
+  const input = parseQueryType(query, field);
+  fireEvent.change(input, { target: { value: field.data } });
+  expect(input.value).toMatch(new RegExp(field.data.slice(0, 2)));
 };
 
 export const checkRadio = (query, { name = '', text = '', label = '', values }) => {
@@ -164,14 +184,14 @@ export const checkButton = (query, field = { name: 'submit' }) =>
   expect(parseQueryType(query, field).getAttribute('type')).toEqual('button');
 
 // This function is used to verify specific submit errors for one field as well
-export const verifyForm = (query, baseFields = [], fieldsLeftBlank = []) => {
+export const verifyForm = (query, baseFields = [], fieldsLeftBlank = [], button) => {
   // Clears all text
-  baseFields.forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: '' } }));
+  [...baseFields, ...fieldsLeftBlank].forEach(field => clearText(query, field));
   // Fills all fields out not in fieldsLeftBlank array based on 'data' key
   baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
     .forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: field.data } }));
   // Submit form
-  submitForm(query);
+  submitForm(query, button);
   // Expect errors to exist on blank fields
   // or if there are no blank fields, then we check for errors on base fields
   // which will generally not be 'Field Required' errors

@@ -12,6 +12,14 @@ describe('Testing WorkflowNavigation component', () => {
       quoteState: {
         quote: {
           quoteNumber: '1',
+          coverageLimits: {},
+          property: {
+            physicalAddress: {
+              address1: '123 test',
+              address2: '',
+              county: 'Hillsborough'
+            }
+          }
         },
         state: {
           activeTask: 'test',
@@ -42,6 +50,14 @@ describe('Testing WorkflowNavigation component', () => {
       },
       quote: {
         quoteNumber: '1',
+        coverageLimits: {},
+        property: {
+          physicalAddress: {
+            address1: '123 test',
+            address2: '',
+            county: 'Hillsborough'
+          }
+        }
       },
       goToStep: x => x,
       handleRecalc: x => x,

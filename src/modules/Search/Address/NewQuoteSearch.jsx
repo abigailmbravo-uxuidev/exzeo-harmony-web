@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
-const { isValidChar, isRequired } = validation;
+const { isValidAddressFormat, isRequired } = validation;
 
 const NewQuoteSearch = ({
   filterTypeOptions,
@@ -11,23 +11,23 @@ const NewQuoteSearch = ({
   filterTypeName,
   filterTypeOnChange,
   canFilter,
-  groupClass,
   disabledSubmit
 }) => (
   <React.Fragment>
-    <div className={groupClass}>
-      { canFilter && <Field
-        name={filterTypeName}
-        dataTest={filterTypeName}
-        label={filterTypeLabel}
-        component={Select}
-        id={filterTypeName}
-        validate={isRequired}
-        onChange={filterTypeOnChange}
-        answers={filterTypeOptions}
-        showPlaceholder={false}
-        styleName="property-search"
-        errorHint />
+
+      {canFilter &&
+        <Field
+          name={filterTypeName}
+          dataTest={filterTypeName}
+          label={filterTypeLabel}
+          component={Select}
+          id={filterTypeName}
+          validate={isRequired}
+          onChange={filterTypeOnChange}
+          answers={filterTypeOptions}
+          showPlaceholder={false}
+          styleName="property-search products"
+          errorHint />
       }
       <Field
         name="address"
@@ -36,7 +36,7 @@ const NewQuoteSearch = ({
         placeholder="Search for Property Address"
         component={Input}
         styleName="property-search"
-        validate={[isValidChar, isRequired]}
+        validate={[isValidAddressFormat, isRequired]}
         errorHint />
 
       <Button
@@ -46,7 +46,6 @@ const NewQuoteSearch = ({
         dataTest="submit" >
         <i className="fa fa-search" />Search
       </Button>
-    </div>
   </React.Fragment>
 );
 

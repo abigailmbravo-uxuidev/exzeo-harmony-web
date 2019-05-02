@@ -26,9 +26,9 @@ describe('Testing AppWrapper component', () => {
       params: {}
     },
     children: <div />
-  }
+  };
 
-  window.persistor = { purge(){}}
+  window.persistor = { purge(){}};
 
   const wrapper = mount(
     <Provider store={store}>
@@ -41,13 +41,13 @@ describe('Testing AppWrapper component', () => {
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('div[role="main"]')).toHaveLength(1);
     expect(wrapper.find('.content-wrapper')).toHaveLength(1);
-    expect(wrapper.find('.site-nav')).toHaveLength(1)
+    expect(wrapper.find('.site-nav')).toHaveLength(1);
   });
 
 
   it('should test click events', () => {
-    wrapper.find(`Button[data-test="sidenav-logout"]`).simulate('click')
+    wrapper.find(`Button[data-test="sidenav-logout"]`).simulate('click');
     const header = wrapper.find(`Header`);
-    header.find('button').simulate('click')
+    header.find('button').simulate('click');
   });
 });

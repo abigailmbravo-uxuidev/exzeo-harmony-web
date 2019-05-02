@@ -30,12 +30,12 @@ const EmailPopup = ({
                 />
 
                 <Field
-                  name="emailAddr"
+                  name="email"
                   styleName="text"
                   component={Input}
                   label="Email Address"
                   validate={[validation.isRequired, validation.isEmail]}
-                  dataTest="emailAddr"
+                  dataTest="email"
                 />
 
               </div>

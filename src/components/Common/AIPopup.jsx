@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes } from 'redux-form';
-import * as appStateActions from '../../actions/appStateActions';
+import * as appStateActions from '../../state/actions/appStateActions';
 
 const AdditionalInterestPopup = ({ appState, handleSubmit, primaryButtonHandler, secondaryButtonHandler, selectedAI }) => (
   <div className="ai-modal modal active" role="article">

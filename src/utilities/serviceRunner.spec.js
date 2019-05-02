@@ -9,7 +9,7 @@ describe('Service runner tests', () => {
       const error = null;
 
       const result = handleError(error);
-      expect(result).toHaveProperty('message', 'An error occurred that was not handled properly.')
+      expect(result).toHaveProperty('message', 'An error occurred that was not handled properly.');
     });
 
     it('should return an error object with a message property', () => {
@@ -37,7 +37,7 @@ describe('Service runner tests', () => {
       const error = { foo: 'Whoops' };
 
       const result = handleError(error);
-      expect(result).toHaveProperty('message', 'There was an error.')
+      expect(result).toHaveProperty('message', 'There was an error.');
     });
   });
 
@@ -80,7 +80,7 @@ describe('Service runner tests', () => {
         expect(e).toEqual(new Error({"message": "Whoops"}));
       }
 
-    })
+    });
 
   });
 });

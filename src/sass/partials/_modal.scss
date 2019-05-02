@@ -7,6 +7,168 @@
   z-index: 10000;
   background: $modal-bg;
 
+  &.loader {
+    z-index: 10001;
+  }
+
+  &.modal-sm, &.modal-md, &.modal-lg, &.modal-xl, &.modal-alert {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    .card {
+      flex-grow: 0;
+      flex-shrink: 0;
+      margin: 0;
+      width: 100%;
+      height: auto;
+
+      .card-block {
+        flex-grow: 1;
+        flex-shrink: 1;
+        max-height: 80vh;
+        width: 100%;
+        height: auto;
+
+        .form-group {
+          flex-grow: 1;
+          flex-shrink: 1;
+          width: auto;
+          height: auto;
+
+          label {
+            width: 100%;
+          }
+          input {
+            width: 100%;
+          }
+
+          &.switch {
+            label {
+              width: auto;
+            }
+          }
+        }
+
+        .flex-form {
+          display: flex;
+          flex-grow: 1;
+          flex-shrink: 1;
+          width: auto;
+
+          @include for-phone-only {
+            flex-direction: column;
+          }
+
+          &:last-of-type {
+            .form-group {
+              margin-bottom: 0;
+              border-bottom-width: 0;
+
+              @include for-phone-only {
+                margin-bottom: $padding*2;
+                border-bottom: 1px dashed $cool-gray-02;
+
+                &:last-of-type {
+                  border-bottom-width: 0;
+                }
+              }
+            }
+          }
+
+          .form-group {
+            flex-grow: 1;
+            flex-shrink: 1;
+            border-bottom: 1px dashed $cool-gray-02;            
+
+            &.state {
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 8rem;
+
+              @include for-phone-only {
+                width: 100%;
+              }
+            }
+            &.zip {
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 16rem;
+
+              @include for-phone-only {
+                width: 100%;
+              }
+            }
+            &.phone {
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 20rem;
+
+              @include for-phone-only {
+                width: 100%;
+              }
+            }
+
+            &.order {
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 20rem;
+            }
+          }
+        }
+      }
+
+      .card-footer {
+        flex-grow: 0;
+        flex-shrink: 0;
+        height: auto;
+
+        .btn-group {
+          flex-grow: 0;
+          flex-shrink: 0;
+          margin-bottom: 0;
+          height: auto;
+
+          .btn {
+            flex-grow: 0;
+            flex-shrink: 0;
+            height: auto;
+          }
+        }
+      }
+    }
+
+  }
+
+  &.modal-xl {
+    
+    .card {
+      max-width: 80rem;
+      width: 80%;
+
+      @include for-phone-only {
+        position: absolute;
+        top: 3.375rem;
+        bottom: 0;
+        z-index: 1000;
+        width: 100%;
+        border-radius: 0;
+
+        .card-block {
+          max-height: 100vh;
+          height: calc(100vh - 9.5625rem);
+        }
+      }
+    }
+  }
+
+  &.modal-alert {
+    .card {
+      max-width: 20rem;
+    }
+  }
+
   &.schedule-date-modal {
     display: flex;
     flex-direction: column;

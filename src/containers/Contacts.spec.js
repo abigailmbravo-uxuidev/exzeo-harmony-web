@@ -11,5 +11,5 @@ describe('Test Contacts container component', () => {
 
     const component = shallow(<Contacts {...props} />);
     expect(component.exists()).toBeTruthy();
-  })
+  });
 });

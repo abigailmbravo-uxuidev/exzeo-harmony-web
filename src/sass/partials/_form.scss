@@ -241,6 +241,17 @@ label {
 
         span {
           margin-left: $padding;
+
+          @include for-phone-only {
+            margin-left: 0;
+          }
+          i {
+            margin-left: 0;
+
+            @include for-phone-only {
+              margin-left: 0.5rem;
+            }
+         }
         }
 
         > input[type="text"] {
@@ -456,6 +467,8 @@ label {
       display: flex;
       align-items: center;
       flex-direction: row;
+      flex-grow: 1;
+      flex-shrink: 1;
       justify-content: space-between;
       margin-bottom: 0;
       width: 100%;
@@ -541,6 +554,102 @@ label {
       }
     }
 
+    .switch-div {
+      position: relative;
+      flex-basis: 3.5rem;
+      flex-grow: 0;
+      flex-shrink: 0;
+      margin: 0.225rem 0;
+      width: 3.5rem;
+      height: 1.5rem;
+      border-radius: 0.75rem;
+      background: $cool-gray-04;
+      color: $cool-gray-08;
+      cursor: pointer;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+      &:before {
+        position: absolute;
+        z-index: 2;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 2px solid $cool-gray-01;
+        border-radius: 50%;
+        background-color: lighten($cool-gray-00, 10%);
+        box-shadow: $input-box-shadow;
+        content: "";
+        line-height: 1;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+      &:after {
+        position: absolute;
+        top: 0.25rem;
+        left: 2rem;
+        z-index: 1;
+        color: $white;
+        content: "No";
+        font-weight: $font-weight-bold;
+        font-size: 0.7rem;
+      }
+      &.active {
+        background: $bright-blue-lighten-02;
+        &:before {
+          border-color: $cool-gray-01;
+          background-color: lighten($cool-gray-00, 10%);
+          -webkit-transform: translateX(2rem);
+          -ms-transform: translateX(2rem);
+          transform: translateX(2rem);
+        }
+        &:after {
+          top: 0.25rem;
+          left: 0.5rem;
+          color: $white;
+          content: "Yes";
+        }
+        &.disabled {
+          background-color: $cool-gray-00;
+          &:after {
+            color: $cool-gray-01;
+          }
+        }
+      }
+    }
+
+    input[type="checkbox"],
+      input[type="radio"] {
+        display: none;
+
+        &:checked {
+          + div.switch-div {
+            background-color: $bright-blue-darken-04;
+
+            &:before {
+              border-color: $cool-gray-01;
+              background-color: lighten($cool-gray-00, 10%);
+              -webkit-transform: translateX(2rem);
+              -ms-transform: translateX(2rem);
+              transform: translateX(2rem);
+            }
+
+            &:after {
+              top: 0.25rem;
+              left: 0.5rem;
+              color: $white;
+              content: "Yes";
+            }
+
+            &.disabled {
+              background-color: $cool-gray-00;
+
+              &:after {
+                color: $cool-gray-01;
+              }
+            }
+          }
+        }
+      }
+
     &.disabled,
     &.disabled.invalid {
       cursor: not-allowed;
@@ -623,7 +732,7 @@ label {
       label {
         flex-direction: row-reverse;
         justify-content: flex-start;
-        margin-right: 2rem;
+        margin-right: 1rem;
 
         &:before {
           position: absolute;
@@ -733,7 +842,7 @@ label {
       label {
         flex-direction: row-reverse;
         justify-content: flex-start;
-        margin-right: 2rem;
+        margin-right: 1rem;
 
         &:before {
           position: absolute;

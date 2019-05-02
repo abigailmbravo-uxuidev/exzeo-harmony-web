@@ -21,7 +21,7 @@ class AppWrapper extends React.Component {
   };
 
   toggleSideNav = () => {
-    this.setState(state => ({ activeSideNav: !state.activeSideNav }))
+    this.setState(state => ({ activeSideNav: !state.activeSideNav }));
   };
 
   render() {
@@ -102,7 +102,7 @@ const mapStateToProps = state => {
   const userDisplayName = (state.agencyState.agency || {}).displayName || (state.authState.userProfile || {}).name;
   return {
     userDisplayName,
-  }
+  };
 };
 
 export default connect(mapStateToProps)(AppWrapper);

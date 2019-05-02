@@ -5156,7 +5156,7 @@ describe('Choreographer tests', () => {
   });
 
   afterEach(() => {
-    sandbox.restore()
+    sandbox.restore();
   });
 
   describe('test createQuote', () => {

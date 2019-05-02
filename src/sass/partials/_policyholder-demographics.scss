@@ -26,8 +26,8 @@
     .FirstName,
     .FirstName2 {
       @include for-tablet-portrait-up {
-        width: 40%;
         padding-right: $padding*2;
+        width: 40%;
       }
     }
 
@@ -41,8 +41,8 @@
     .EmailAddress,
     .EmailAddress2 {
       @include for-tablet-portrait-up {
-        width: 60%;
         padding-right: $padding*2;
+        width: 60%;
       }
     }
 
@@ -56,16 +56,63 @@
 
     .effectiveDate {
       @include for-tablet-portrait-up {
-        width: 50%;
         padding-right: $padding*2;
+        width: 50%;
       }
     }
 
     .agentID {
       width: 100%;
+
       @include for-tablet-portrait-up {
         width: 50%;
         //padding-right: $padding*2;
+      }
+    }
+  }
+}
+.modal.modal-xl {
+  .card {
+    &.card-policyholder {
+      .card-block {
+        @include for-phone-only {
+          flex-direction: column;
+          flex-wrap: nowrap;
+        }
+
+        .title {
+          padding: 0;
+          width: 100%;
+        }
+        
+        .first-name {
+          width: 50%;
+
+          @include for-phone-only {
+            width: 100%;
+          }
+        }
+        .last-name {
+          width: 50%;
+
+          @include for-phone-only {
+            width: 100%;
+          }
+        }
+        .phone {
+          width: 40%;
+
+          @include for-phone-only {
+            width: 100%;
+          }
+        }
+        .email {
+          width: 60%;
+
+          @include for-phone-only {
+            width: 100%;
+          }
+        }
       }
     }
   }
