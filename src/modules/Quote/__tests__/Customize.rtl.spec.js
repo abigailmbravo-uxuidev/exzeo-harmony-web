@@ -270,6 +270,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     const outputFields = [
       'coverageLimits.otherStructures.value_wrapper',
       'coverageLimits.personalProperty.value_wrapper',
+      'coverageLimits.medicalPayments.value_wrapper',
       'coverageLimits.lossOfUse.value_wrapper',
       'deductibles.hurricane.value_wrapper'
     ];
@@ -283,7 +284,8 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
 
     setSliderAndCheckOutput('350000', { name: outputFields[0], outputValue: '$ 7,000' });
     setSliderAndCheckOutput('380000', { name: outputFields[1], outputValue: '$ 95,000' });
-    setSliderAndCheckOutput('303000', { name: outputFields[2], outputValue: '$ 30,300' });
-    setSliderAndCheckOutput('295000', { name: outputFields[3], outputValue: '$ 5,900' });
+    setSliderAndCheckOutput('380000', { name: outputFields[2], outputValue: '$ 2,000' });
+    setSliderAndCheckOutput('303000', { name: outputFields[3], outputValue: '$ 30,300' });
+    setSliderAndCheckOutput('295000', { name: outputFields[4], outputValue: '$ 5,900' });
   });
 });
