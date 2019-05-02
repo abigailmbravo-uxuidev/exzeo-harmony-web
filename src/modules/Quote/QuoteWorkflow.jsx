@@ -177,7 +177,10 @@ export class QuoteWorkflow extends Component {
         this.setCurrentStep();
       }
     } catch (error) {
-      // TODO: handle error
+      // TODO figure out error handling here.
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('GANDALF SUBMIT ERROR: ', error);
+      }
     }
 
   };
