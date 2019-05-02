@@ -13,18 +13,13 @@ describe('Property Address Search Testing', () => {
   before('HO3: Property Search Testing', () => {
 =======
 
-const type = text => cy.findDataTag('address').type(text);
-const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
-const hasSearchInput = address =>
-  cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
-const { address } = user;
-
 describe('Property Address Search Testing', () => {
   const type = text => cy.findDataTag('address').type(text);
   const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
   const hasSearchInput = address =>
     cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
   const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
+  const { address } = user;
 
   before('H03: Property Search Testing', () => {
 >>>>>>> 08de77fd... Add new AF3 login and use for base
