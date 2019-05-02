@@ -100,11 +100,11 @@ export function getCancellationDate(summaryLedger, policyStatus, endDate, cancel
 
   if (isNonPaymentNotice(billingStatus, policyStatus)) {
     return equityDate ? moment.utc(equityDate).format(STANDARD_DATE_FORMAT) : '';
-  } 
+  }
 
   if (expirationPolicyStatuses.includes(policyStatus) && expirationBillingStatuses.includes(billingStatus)) {
     return endDate ? moment.utc(endDate).format(STANDARD_DATE_FORMAT) : '';
-  } 
+  }
 
   if (canceledPolicyStatuses.includes(policyStatus) && canceledBillingStatuses.includes(billingStatus)) {
     return cancelDate ? moment.utc(cancelDate).format(STANDARD_DATE_FORMAT) : '';
@@ -138,7 +138,7 @@ export function getEntityDetailsDateLabel(billingStatus, policyStatus) {
     return EXPIRATION_DATE;
   }
 
-  if ((canceledBillingStatuses.includes(billingStatus) && canceledPolicyStatuses.includes(policyStatus)) 
+  if ((canceledBillingStatuses.includes(billingStatus) && canceledPolicyStatuses.includes(policyStatus))
     || isNonPaymentNotice(billingStatus, policyStatus)) {
     return CANCELLATION_DATE;
   }

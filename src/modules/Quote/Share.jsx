@@ -22,7 +22,7 @@ export class Share extends React.Component {
 
   refreshUWReviewError = () => {
     const { customHandlers } = this.props;
-    customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData)
+    customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData);
   };
 
   redirectToNewQuote = () => {

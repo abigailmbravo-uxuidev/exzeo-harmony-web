@@ -11,7 +11,7 @@ export function setQuote(quote) {
   return{
     type: types.SET_QUOTE,
     quote,
-  }
+  };
 }
 
 /**
@@ -77,7 +77,7 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
     } finally {
       dispatch(toggleLoading(false));
     }
-  }
+  };
 }
 
 /**
@@ -97,7 +97,7 @@ function formatQuoteForSubmit(data) {
   }
 
   if (!data.coverageLimits.personalProperty.value) {
-    quote.coverageOptions.personalPropertyReplacementCost.answer = false
+    quote.coverageOptions.personalPropertyReplacementCost.answer = false;
   }
 
   // AF3 specific rules

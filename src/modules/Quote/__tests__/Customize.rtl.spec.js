@@ -224,7 +224,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
 
   it('NEG:Dwelling Limit', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    
+
     fields.filter(({ type }) => type === 'slider')
       .forEach(({ name }) => {
         const input = getByTestId(`${name}-input`);

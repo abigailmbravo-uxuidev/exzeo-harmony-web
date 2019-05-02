@@ -64,7 +64,7 @@ export class Verify extends React.Component {
       confirmQuote: false,
       confirmPolicy: false,
       confirmAdditionalInterest: false
-    }))
+    }));
 
   };
 

@@ -66,7 +66,7 @@ class Routes extends Component {
 
   clearError = () => {
     const { clearAppError } = this.props;
-    clearAppError()
+    clearAppError();
   };
 
   render() {
@@ -133,7 +133,7 @@ const mapStateToProps = state => {
     agency: state.agencyState.agency,
     authState: state.authState,
     error: state.error,
-  }
+  };
 };
 
 export default connect(mapStateToProps, {

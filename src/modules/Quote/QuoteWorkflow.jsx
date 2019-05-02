@@ -71,7 +71,7 @@ export class QuoteWorkflow extends Component {
     if (quote && quote.property) {
       this.props.getAgentsByAgencyCode(quote.agencyCode);
       this.props.getZipcodeSettings(quote.companyCode, quote.state, quote.product, quote.property.physicalAddress.zip);
-      this.props.getEnumsForQuoteWorkflow({ companyCode: quote.companyCode, state: quote.state, product: quote.product, property: quote.property})
+      this.props.getEnumsForQuoteWorkflow({ companyCode: quote.companyCode, state: quote.state, product: quote.product, property: quote.property});
     }
     this.getTemplate();
     this.setStepBasedOnRoute();
@@ -101,7 +101,7 @@ export class QuoteWorkflow extends Component {
       return {
         ...pageComponentsMap,
         ...pageComponents
-      }
+      };
     }, {});
   };
 
@@ -148,7 +148,7 @@ export class QuoteWorkflow extends Component {
   handleDirtyForm = (isDirty, currentPage) => {
     this.setState({
       isRecalc: currentPage === 2 && isDirty,
-    })
+    });
   };
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
@@ -188,7 +188,7 @@ export class QuoteWorkflow extends Component {
   setCurrentStep = (moveTo, step) => {
     this.setState((prevState) => ({
       currentStep: moveTo ? step : prevState.currentStep + 1,
-    }))
+    }));
   };
 
   setStepBasedOnRoute = () => {
@@ -343,7 +343,7 @@ const mapStateToProps = (state, ownProps) => {
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,
     userProfile: state.authState.userProfile
-  }
+  };
 };
 
 export default connect(mapStateToProps, {

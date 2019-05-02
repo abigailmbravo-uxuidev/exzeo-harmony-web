@@ -33,6 +33,6 @@ export const DetailGroup = ({ children, header, detailClass, switchName, switchV
 
 DetailGroup.defaultProps = {
   icon: 'fa fa-map-marker'
-}
+};
 
 export default DetailGroup;

@@ -6,7 +6,7 @@ describe('Test ScheduleDate component', () => {
   it('should render ScheduleDate', () => {
     const props = {
       handleSubmit() {},
-      handleCancel(){}, 
+      handleCancel(){},
       submitting: false,
       entity: { policyHolders: [{ firstName: 'dd', lastName: 'ff', primaryPhoneNumber: '123456789', emailAddress: 'm@m.com' }]},
       companyName: 'TTIC',

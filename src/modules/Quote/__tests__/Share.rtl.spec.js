@@ -110,7 +110,7 @@ describe('Testing the Share Page', () => {
     expect(queryByTestId('Share Quote'));
     modalFields.forEach(field => {
       checkLabel(getByTestId, field);
-      // TODO: Once redux-form is out of here we have to check the text input value changes 
+      // TODO: Once redux-form is out of here we have to check the text input value changes
       // checkTextInput(getByTestId, field);
     });
   });

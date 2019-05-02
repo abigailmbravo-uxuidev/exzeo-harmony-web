@@ -152,7 +152,7 @@ function formatForCGStep(activeTask, data, options) {
       ...taskData,
       ...data.property.windMitigation,
       ...data.property,
-    }
+    };
   }
   else if (activeTask === 'askAdditionalQuestions') {
     taskData.billToId = data.billToId;
@@ -162,7 +162,7 @@ function formatForCGStep(activeTask, data, options) {
     return {
       ...taskData,
       ...data.policyHolderMailingAddress,
-    }
+    };
   }
 
   return data;
@@ -192,7 +192,7 @@ async function start(modelName, data) {
     return response.data;
 
   } catch (err) {
-    throw err
+    throw err;
   }
 
 }

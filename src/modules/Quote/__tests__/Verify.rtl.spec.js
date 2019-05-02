@@ -180,7 +180,7 @@ describe('Verify Testing', () => {
 
   it('POS:Policyholder Modal', () => {
     const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    
+
     fireEvent.click(getByTestId('policyholder-details'));
     expect(getByText('Edit Policyholder(s)'));
     expect(getByText('Do you want to add an additional Policyholder?'));

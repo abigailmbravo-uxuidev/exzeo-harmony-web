@@ -11,7 +11,7 @@ function setEnums(enums) {
     type: listTypes.SET_ENUMS,
     underwritingQuestions: enums.underwritingQuestions,
     ...enums,
-  }
+  };
 }
 
 function setBillingOptions(billingOptions, quote) {
@@ -19,7 +19,7 @@ function setBillingOptions(billingOptions, quote) {
     type: listTypes.SET_BILLING_OPTIONS,
     billingOptions,
     quote
-  }
+  };
 }
 
 /**
@@ -45,12 +45,12 @@ export function getEnumsForQuoteWorkflow({ companyCode, state, product, property
       dispatch(setEnums({
         underwritingQuestions: uwResponse.data.result,
         additionalInterestQuestions: additionalInterestResponse.data.data,
-      }))
+      }));
 
     } catch (error) {
       dispatch(errorActions.setAppError(error));
     }
-  }
+  };
 }
 
 /**

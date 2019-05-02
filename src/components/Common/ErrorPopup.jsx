@@ -71,6 +71,6 @@ ErrorPopup.propTypes = {
 
 ErrorPopup.defaultProps = {
   underwritingExceptions: []
-}
+};
 
 export default ErrorPopup;

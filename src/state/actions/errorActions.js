@@ -8,7 +8,7 @@ export const setAppError = error => {
   return {
     type: types.APP_ERROR,
     error
-  }
+  };
 };
 
 export const setAppModalError = message => ({

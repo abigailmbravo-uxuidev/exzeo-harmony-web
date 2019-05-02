@@ -264,7 +264,7 @@ describe('Testing Additional Interests', () => {
       checkTextInput(getByTestId, field);
     });
   });
-  
+
   it('POS:Confirm Additional Interests Show Up In Order and Disable Buttons [Premium Finance]', () => {
     const newState = {
       ...defaultInitialState,

@@ -2,7 +2,7 @@ import React from 'react';
 import { shape, func } from 'prop-types';
 
 import AppWrapper from '../components/AppWrapper';
-import ContactCard from '../components/Contacts/ContactCard'
+import ContactCard from '../components/Contacts/ContactCard';
 import Footer from '../components/Common/Footer';
 
 export const territoryManagerContacts = [

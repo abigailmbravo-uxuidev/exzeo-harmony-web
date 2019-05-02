@@ -14,7 +14,7 @@ export class PolicySearch extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearPolicyResults()
+    this.props.clearPolicyResults();
   }
   render() {
     const {

@@ -27,7 +27,7 @@ const payments = [{
     "__v": 0,
     "updatedAt": "2018-10-09T17:36:37.740Z",
     "createdAt": "2018-10-09T17:36:37.740Z"
-  }]
+  }];
 
 describe('Test the PaymentHistoryTable Component', () => {
   it('Should Render PaymentHistoryTable', () => {

@@ -64,7 +64,7 @@ function setEnums(state, action) {
           answer: answer.answer,
           label: answer.answer,
         }))
-      })
+      });
     });
 
   const mortgageeAnswers = action.additionalInterestQuestions.find(q => q.name === 'mortgagee');
@@ -82,14 +82,14 @@ function setEnums(state, action) {
     premiumFinance,
     mortgagee,
     order,
-  }
+  };
 }
 
 function setZipCodeSettings(state, action) {
   return {
     ...state,
     zipCodeSettings: action.zipCodeSettings,
-  }
+  };
 }
 
 function getBillingInfo(billingData = {}, quote = {}) {
@@ -104,7 +104,7 @@ function getBillingInfo(billingData = {}, quote = {}) {
   // if there is only one option from the server, we want that option preselected on the page
   else if (options.length === 1) {
     // when 'Premium Finance' OR 'Bill Payer' OR 'Policyholder' is the only option
-    defaultBillToId = options[0].billToId
+    defaultBillToId = options[0].billToId;
   }
 
   const billingOptions = [];
@@ -116,7 +116,7 @@ function getBillingInfo(billingData = {}, quote = {}) {
       billToType:option.billToType,
       availablePlans: option.payPlans,
       payPlanOptions: option.payPlans.map(p => ({ label: p, answer: p })),
-    }
+    };
   });
 
   return {
@@ -124,7 +124,7 @@ function getBillingInfo(billingData = {}, quote = {}) {
     billToConfig,
     defaultBillToId,
     paymentPlans,
-  }
+  };
 }
 
 function setBillingOptions(state, action) {
@@ -134,5 +134,5 @@ function setBillingOptions(state, action) {
   return {
     ...state,
     billingConfig: billingData || initialState.list.billingConfig,
-  }
+  };
 }

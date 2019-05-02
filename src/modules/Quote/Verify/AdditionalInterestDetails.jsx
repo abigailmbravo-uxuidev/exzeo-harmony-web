@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { defaultMemoize } from 'reselect';
-import { getSortedAdditionalInterests } from '@exzeo/core-ui/src/@Harmony/AdditionalInterests/utilities'
+import { getSortedAdditionalInterests } from '@exzeo/core-ui/src/@Harmony/AdditionalInterests/utilities';
 
 const sortAdditionalInterests = defaultMemoize(getSortedAdditionalInterests);
 

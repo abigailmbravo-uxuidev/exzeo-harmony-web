@@ -94,7 +94,7 @@ export class PolicyWorkflow extends Component {
 
     return (
       <div className="route policy-detail">
-        <DetailsHeader 
+        <DetailsHeader
           context="policy"
           detailsFields={detailsFields[product]}
           headerDetails={details}

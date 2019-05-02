@@ -10,8 +10,8 @@ describe('Test DetailGroup component', () => {
       detailClass:'test',
       switchName:'testName',
       switchValue: false,
-      switchOnChange: x => x, 
-      handleEditClick: x => x, 
+      switchOnChange: x => x,
+      handleEditClick: x => x,
     };
     const wrapper = mount(<DetailGroup {...props} />);
     expect(wrapper.exists()).toBeTruthy();

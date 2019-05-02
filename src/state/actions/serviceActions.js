@@ -126,7 +126,7 @@ export const clearPolicy = () => {
       getSummaryLedger: {},
       policyDocuments: [],
     }
-  }
+  };
 };
 
 export const getSummaryLedger = policyNumber => async (dispatch) => {

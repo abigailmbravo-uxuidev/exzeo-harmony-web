@@ -106,7 +106,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
 
   it('POS:Checks Headers', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    getByTestId('Primary Policyholder')
+    getByTestId('Primary Policyholder');
     toggleSecondUser();
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
@@ -124,7 +124,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
 
   it('POS:Policy Details Text', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    
+
     expect(getByTestId('effectiveDate_wrapper')).toHaveTextContent('Effective Date');
     expect(getByTestId('effectiveDate')).toHaveAttribute('type', 'date');
     expect(getByTestId('agentCode_wrapper')).toHaveTextContent('Agent');

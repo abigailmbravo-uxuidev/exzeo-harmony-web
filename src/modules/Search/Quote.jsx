@@ -36,7 +36,7 @@ export class QuoteSearch extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoading: state.appState.isLoading
-  }
+  };
 };
 
 export default connect(mapStateToProps)(QuoteSearch);
