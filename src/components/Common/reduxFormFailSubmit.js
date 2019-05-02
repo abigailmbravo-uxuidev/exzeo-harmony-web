@@ -1,4 +1,4 @@
-import { toggleSnackbar } from '../../actions/appStateActions';
+import { toggleSnackbar } from '../../state/actions/appStateActions';
 
 const failedSubmission = (errors, dispatch) => {
   dispatch(toggleSnackbar(true));

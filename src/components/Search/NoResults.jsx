@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 
-import * as appStateActions from '../../actions/appStateActions';
+import * as appStateActions from '../../state/actions/appStateActions';
 
 import { getSearchType } from './searchUtils';
 

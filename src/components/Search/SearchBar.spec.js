@@ -128,23 +128,6 @@ describe('Testing SearchBar component', () => {
     }, store.dispatch, props);
   });
 
-  it('should test validate', () => {
-    const values = {
-      zip: '*^%$',
-      firstName: '*^%$',
-      lastName: '$#%$#%',
-      policyNumber: '%^%$^$%',
-      quoteNumber: '%^$%^$%^',
-      address: '/'
-    };
-    const errors = validate(values);
-    expect(errors.firstName).toEqual('Invalid characters');
-    expect(errors.lastName).toEqual('Invalid characters');
-    expect(errors.quoteNumber).toEqual('Only numbers and dashes allowed');
-    expect(errors.zip).toEqual('Invalid characters');
-    expect(errors.address).toEqual('Invalid characters');
-  });
-
   it('should paging functions', () => {
     const initialState = {
       appState: {

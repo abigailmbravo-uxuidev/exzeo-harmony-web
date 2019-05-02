@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createQuote, getQuote, clearQuote } from '../../actions/quoteState.actions';
-import { clearResults } from '../../actions/searchActions';
+import { createQuote, getQuote, clearQuote } from '../../state/actions/quoteState.actions';
+import { clearResults } from '../../state/actions/searchActions';
 import QuoteError from '../Common/QuoteError';
 import Footer from '../Common/Footer';
 
@@ -11,7 +11,6 @@ import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import NoResultsConnect from './NoResults';
 import { VALID_QUOTE_STATES } from './searchUtils';
-
 
 export class Search extends React.Component {
   constructor(props) {
@@ -42,7 +41,7 @@ export class Search extends React.Component {
     }
 
     if (VALID_QUOTE_STATES.includes(quote.quoteState)) {
-      history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, { product: quote.product });
     } else {
       this.setState({ showQuoteErrors: true });
     }
@@ -53,19 +52,24 @@ export class Search extends React.Component {
     const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state, userProfile.entity.companyCode, search.product );
 
     if (quote) {
-      history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, { product: quote.product });
     }
   };
 
   render() {
+    const { searchType } = this.props;
     return (
       <div className="flex grow">
         <div className="search route-content">
-          <SearchBar />
+          <SearchBar searchType={searchType} />
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
-              <SearchResults handleSelectAddress={this.handleSelectAddress} handleSelectQuote={this.handleSelectQuote} {...this.props} />
+              <SearchResults
+                handleSelectAddress={this.handleSelectAddress}
+                handleSelectQuote={this.handleSelectQuote}
+                {...this.props}
+              />
             </div>
             <Footer />
           </div>
@@ -93,4 +97,9 @@ const mapStateToProps = state => ({
   userProfile: state.authState.userProfile,
 });
 
-export default connect(mapStateToProps, { createQuote, clearQuote, getQuote, clearResults })(Search);
+export default connect(mapStateToProps, {
+  createQuote,
+  clearQuote,
+  getQuote,
+  clearResults
+})(Search);

@@ -6,10 +6,10 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Loader } from '@exzeo/core-ui';
 
-import * as appStateActions from '../../actions/appStateActions';
+import * as appStateActions from '../../state/actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
 import { getSearchType } from './searchUtils';
-import { createQuote } from '../../actions/quoteState.actions';
+import { createQuote } from '../../state/actions/quoteState.actions';
 
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {

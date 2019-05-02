@@ -21,6 +21,14 @@
 
   @include for-phone-only {
     font-size: $font-size-h3;
+
+    .fa {
+      font-size: $font-size-h3;
+    }
+  }
+
+  .fa {
+    font-size: $font-size-h2;
   }
 }
 // SECTION componet
@@ -134,7 +142,7 @@
       .view-col-7,
       .view-col-8,
       .view-col-9 {
-
+        width: 100%;
       }
     }
     .view-grid {
@@ -170,8 +178,5 @@
 
       }
     }
-  }
-  @include for-tablet-landscape-up {
-
   }
 }

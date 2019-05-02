@@ -11,102 +11,108 @@
       margin: 0 $padding $padding 0;
 
       @include for-phone-only {
-        width: 100%;
         margin: 0 0 0.5rem;
+        width: 100%;
       }
     }
   }
 
   .results-wrapper {
+    margin-bottom: 0;
+    padding: 0;
     width: 100%;
-    margin-bottom: $padding*2;
-    padding-bottom: $paragraph-margin-bottom;
-
-    border-bottom: 1px dashed $cool-gray-02;
 
     .result-cards {
-      margin: 0;
+      margin: 0 $padding;
       padding: 0;
-
       list-style: none;
 
       li {
         div {
           @include for-phone-only {
             position: relative;
-
             align-items: baseline;
             flex-direction: column;
           }
+          &.card {
+            margin: 0 0 ($padding/2);
+            padding: $padding;
 
-          .card-icon {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            flex-grow: 0;
-            flex-shrink: 0;
-            justify-content: center;
-
-            width: 5rem;
-            margin-right: $padding;
-
-            text-align: center;
-
-            @include for-phone-only {
-              align-items: center;
-              flex-basis: auto;
-              flex-direction: row;
+            >div {
               flex-grow: 1;
+              flex-shrink: 1;
 
-              width: auto;
-            }
-
-            label {
-              text-align: center;
-
-              font-size: $font-size-xs;
-
-              @include for-phone-only {
-                margin: 0;
-
-                font-size: $font-size-sm;
+              h4 {
+                margin-bottom: 0;
               }
-            }
 
-            .fa {
-              font-size: $font-size-h4;
+              &.card-icon {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                flex-grow: 0;
+                flex-shrink: 0;
+                justify-content: center;
+                margin-right: $padding;
+                width: 5rem;
+                text-align: center;
 
-              &.Mortgagee {
-                &:before {
-                  content: "\f19c";
+                @include for-phone-only {
+                  align-items: center;
+                  flex-basis: auto;
+                  flex-direction: row;
+                  flex-grow: 1;
+                  width: auto;
                 }
-              }
 
-              &.Finance {
-                &:before {
-                  content: "\F27E";
+                label {
+                  text-align: center;
+                  font-size: $font-size-xs;
+
+                  @include for-phone-only {
+                    margin: 0;
+                    font-size: $font-size-sm;
+                  }
                 }
-              }
 
-              &.Interest {
-                &:before {
-                  content: "\F2B5";
-                }
-              }
+                .fa {
+                  font-size: $font-size-h3;
 
-              &.Insured {
-                &:before {
-                  content: "\F234";
-                }
-              }
+                  &.Mortgagee, &.mortgagee  {
+                    &:before {
+                      content: "\f19c";
+                    }
+                  }
 
-              &.Bill {
-                &:before {
-                  content: "\F0D6";
+                  &.PremiumFinance, &.premiumFinance {
+                    &:before {
+                      content: "\F27E";
+                    }
+                  }
+
+                  &.Interest, &.additionalInterest {
+                    &:before {
+                      content: "\F2B5";
+                    }
+                  }
+
+                  &.Insured, &.additionalInsured {
+                    &:before {
+                      content: "\F234";
+                    }
+                  }
+
+                  &.Bill, &.billPayer {
+                    &:before {
+                      content: "\F0D6";
+                    }
+                  }
                 }
               }
             }
           }
+
+
 
           a {
             &.edit {
@@ -130,7 +136,7 @@
                 right: 3rem;
               }
 
-              ;
+            ;
 
               .fa-trash {
                 font-size: $font-size-h4;
@@ -146,13 +152,11 @@
 
             h4 {
               margin-bottom: 0;
-
               line-height: $line-height-sm;
             }
 
             p {
               margin-bottom: 0;
-
               line-height: $line-height-sm;
             }
           }
@@ -378,6 +382,45 @@
       .m3ReferenceNumber {
         order: 57;
       }
+    }
+  }
+}
+
+.fa {
+  font-size: $font-size-h4;
+
+  &.Mortgagee, &.mortgagee {
+    &:before {
+      color: $green;
+      content: "\f19c";
+    }
+  }
+
+  &.Finance, &.premiumFinance {
+    &:before {
+      color: $green;
+      content: "\F27E";
+    }
+  }
+
+  &.Interest, &.additionalInterest {
+    &:before {
+      color: $green;
+      content: "\F2B5";
+    }
+  }
+
+  &.Insured, &.additionalInsured {
+    &:before {
+      color: $green;
+      content: "\F234";
+    }
+  }
+
+  &.Payer, &.billPayer {
+    &:before {
+      color: $green;
+      content: "\F0D6";
     }
   }
 }

@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Loader } from '@exzeo/core-ui';
-import { setAppModalError } from '../../actions/errorActions';
+import { DetailsHeader, Loader } from '@exzeo/core-ui';
+
+import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
+import { setAppModalError } from '../../state/actions/errorActions';
 import {
   clearPolicyResults,
   getPolicyDocuments,
   getSummaryLedger,
   getLatestPolicy,
   clearPolicy
-} from '../../actions/serviceActions';
-import { getAgentsByAgencyCode } from '../../actions/agency.actions';
-import PolicyWorkFlowDetailsConnect from './PolicyWorkflowDetails';
+} from '../../state/actions/serviceActions';
+import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
 import PropertyView from '../Policy/Property';
@@ -43,6 +44,7 @@ export class PolicyWorkflow extends Component {
   render() {
     const {
       auth,
+      details,
       error,
       location,
       match: { params: { policyNumber }, url },
@@ -59,10 +61,44 @@ export class PolicyWorkflow extends Component {
 
     const pathnameSplit = location.pathname.split('/');
     const activeTab = pathnameSplit[pathnameSplit.length - 1];
+    const { product } = policy;
+
+    const detailsFields = {
+      HO3: {
+        hideDetailSummary: true,
+        showEffectiveDateButton: false,
+        showReinstateButton: false,
+        fields: [
+          { value: 'policyHolder', component: 'Section', label: 'Policyholder' },
+          { value: 'mailingAddress', component: 'Section' },
+          { value: 'propertyAddress', component: 'Section' },
+          { value: 'county', label: 'Property County' },
+          { value: 'policyNumber' },
+          { value: 'effectiveDate' },
+        ]
+      },
+      AF3: {
+        hideDetailSummary: true,
+        showEffectiveDateButton: false,
+        showReinstateButton: false,
+        fields: [
+          { value: 'policyHolder', component: 'Section', label: 'Policyholder' },
+          { value: 'mailingAddress', component: 'Section' },
+          { value: 'propertyAddress', component: 'Section' },
+          { value: 'county', label: 'Property County' },
+          { value: 'policyNumber' },
+          { value: 'effectiveDate' },
+        ]
+      }
+    };
 
     return (
       <div className="route policy-detail">
-        <PolicyWorkFlowDetailsConnect policyNumber={policyNumber} />
+        <DetailsHeader
+          context="policy"
+          detailsFields={detailsFields[product]}
+          headerDetails={details}
+        />
         <div className="route-content">
           <div className="scroll">
             <div className="detail-wrapper">
@@ -102,6 +138,7 @@ PolicyWorkflow.propTypes = {
 const mapStateToProps = state => ({
   billing: state.service.getSummaryLedger,
   policy: state.service.latestPolicy,
+  details: getPolicyDetails(state),
   agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
   error: state.error,

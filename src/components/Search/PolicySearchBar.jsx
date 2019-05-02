@@ -6,10 +6,10 @@ import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-for
 import _ from 'lodash';
 import Rules from '../Form/Rules';
 
-import * as appStateActions from '../../actions/appStateActions';
-import * as errorActions from '../../actions/errorActions';
-import * as serviceActions from '../../actions/serviceActions';
-import * as searchActions from '../../actions/searchActions';
+import * as appStateActions from '../../state/actions/appStateActions';
+import * as errorActions from '../../state/actions/errorActions';
+import * as serviceActions from '../../state/actions/serviceActions';
+import * as searchActions from '../../state/actions/searchActions';
 import SelectField from '../Form/inputs/SelectField';
 import Pagination from '../Common/Pagination';
 import { generateField } from './searchUtils';

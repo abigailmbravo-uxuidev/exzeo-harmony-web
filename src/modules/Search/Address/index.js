@@ -1,4 +1,4 @@
 
-import NewQuoteSearch from './NewQuoteSearch'
+import NewQuoteSearch from './NewQuoteSearch';
 
 export default NewQuoteSearch;

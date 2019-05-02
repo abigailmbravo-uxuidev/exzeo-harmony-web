@@ -17,7 +17,22 @@
 
     section {
       dt {
+        display: flex;
+        align-items: baseline;
         white-space: nowrap;
+
+        .btn {
+          margin-left: $padding;
+          padding: 0;
+          border: none;
+
+          i {
+            margin-right: $padding/2;
+            &.fa {
+              font-size: $font-size-xs;
+            }
+          }
+        }
       }
 
       dl {

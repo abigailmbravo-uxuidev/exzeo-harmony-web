@@ -7,13 +7,13 @@
   flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
-  width: 100%;
-  height: auto;
   margin-top: 0;
   margin-bottom: 0;
-  transition: margin 0.5s;
-  opacity: 1;
+  width: 100%;
+  height: auto;
   background: $white;
+  opacity: 1;
+  transition: margin 0.5s;
 
   form {
     width: 100%;
@@ -22,52 +22,134 @@
       display: flex;
       align-items: flex-end;
       flex-grow: 1;
-      min-height: 4.5rem;
       padding: $padding ($padding*2);
+      min-height: 4.5rem;
       background-color: $white;
+
+      .product-selector {
+        max-width: 14rem;
+      }
 
       .form-group {
         align-items: flex-start;
         margin-bottom: 0;
 
         &.first-name-search {
+          position: relative;
+
           @include for-tablet-landscape-up {
-            flex-basis: 10rem;
             flex-grow: 0;
             flex-shrink: 0;
+            width: 10rem;
           }
+
+          >input {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          &.error {
+            > input {
+              padding-right: 2.25rem;
+            }
+            > span {
+              position: absolute;
+              top: 1.625rem;
+              right: 1rem;
+            }
+          }     
         }
 
         &.last-name-search {
+          position: relative;
+
           @include for-tablet-landscape-up {
-            flex-basis: 10rem;
             flex-grow: 0;
             flex-shrink: 0;
+            width: 10rem;
+          }
+
+          >input {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          &.error {
+            > input {
+              padding-right: 2.25rem;
+            }
+            > span {
+              position: absolute;
+              top: 1.625rem;
+              right: 1rem;
+            }
           }
         }
 
         &.property-search {
+          position: relative;
+
           @include for-tablet-landscape-up {
-            flex-basis: auto;
             flex-grow: 1;
             flex-shrink: 1;
-            width: auto;
+          }
+
+          &.products {
+            max-width: 14rem;
+          }
+
+          >input {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          &.error {
+            > input {
+              padding-right: 2.25rem;
+            }
+            > span {
+              position: absolute;
+              top: 1.625rem;
+              right: 1rem;
+            }
           }
         }
 
         &.quote-no-search {
+          position: relative;
+
           @include for-tablet-landscape-up {
-            flex-basis: 10rem;
             flex-grow: 0;
             flex-shrink: 0;
+            width: 10rem;
+          }
+
+          >input {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          &.error {
+            > input {
+              padding-right: 2.25rem;
+            }
+            > span {
+              position: absolute;
+              top: 1.625rem;
+              right: 1rem;
+            }
           }
         }
 
         &.zip-search {
           @include for-tablet-landscape-up {
-            flex-basis: 7rem;
             flex-grow: 0;
             flex-shrink: 0;
+            width: 7rem;
           }
         }
 
@@ -87,33 +169,33 @@
         .form-group {
           &.search-context {
             @include for-tablet-landscape-up {
-              flex-basis: 6rem;
               flex-grow: 0;
               flex-shrink: 0;
+              width: 6rem;
             }
           }
 
           &.first-name-search {
             @include for-tablet-landscape-up {
-              flex-basis: 9rem;
               flex-grow: 0;
               flex-shrink: 0;
+              width: 9rem;
             }
           }
 
           &.last-name-search {
             @include for-tablet-landscape-up {
-              flex-basis: 9rem;
               flex-grow: 0;
               flex-shrink: 0;
+              width: 9rem;
             }
           }
 
           &.policy-no-search {
             @include for-tablet-landscape-up {
-              flex-basis: 9rem;
               flex-grow: 0;
               flex-shrink: 0;
+              width: 9rem;
             }
           }
         }
@@ -166,9 +248,9 @@
     flex-shrink: 1;
     flex-shrink: 1;
     flex-wrap: nowrap;
+    padding: 0;
     width: 100%;
     height: calc(100vh - 128px);
-    padding: 0;
 
     .results,
     .results-wrapper {

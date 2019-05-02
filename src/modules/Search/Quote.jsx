@@ -22,8 +22,8 @@ export class QuoteSearch extends Component {
             }
 
             {/*{ Search refactor will be replacing these routes }*/}
-            <Route exact path={`${match.url}/address`}  render={props => <Search {...props} />} />
-            <Route exact path={`${match.url}/retrieve`} render={props => <Search {...props} />} />
+            <Route exact path={`${match.url}/address`}  render={props => <Search {...props} searchType="address" />} />
+            <Route exact path={`${match.url}/retrieve`} render={props => <Search {...props} searchType="quote" />} />
             {/*{ ^^^ Search refactor will be replacing these routes ^^^ }*/}
 
           </div>
@@ -36,7 +36,7 @@ export class QuoteSearch extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoading: state.appState.isLoading
-  }
+  };
 };
 
 export default connect(mapStateToProps)(QuoteSearch);

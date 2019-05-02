@@ -1,14 +1,10 @@
 import React from 'react';
-import 'jest-dom/extend-expect';
-import { fireEvent, waitForElement } from 'react-testing-library';
-
-import * as serviceRunner from '../../../utilities/serviceRunner';
+import { fireEvent } from 'react-testing-library';
 
 import {
   defaultInitialState,
   renderWithReduxAndRouter,
   defaultProps,
-  assumptionsTemplate,
   checkLabel, checkSwitch, checkButton
 } from '../../../test-utils';
 
@@ -22,15 +18,6 @@ const fields = [
     defaultValue: false
   }
 ];
-
-// Mock Gandalf's servicerunner call for templates
-serviceRunner.callService = jest.fn(() => Promise.resolve({
-  data: {
-    result: {
-      pages: [{ components: [] }, { components: [] }, { components: [] }, { components: [] }, assumptionsTemplate]
-    }
-  }
-}));
 
 describe('Testing Share Page 2', () => {
   const props = {
@@ -51,9 +38,8 @@ describe('Testing Share Page 2', () => {
     }
   };
 
-  it('"Confirmed" Value Switch Defaults to "No"', async () => {
+  it('"Confirmed" Value Switch Defaults to "No"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('assumptions-title'))
     fields.forEach(field => {
       checkLabel(getByTestId, field);
       if (field.type === 'switch') checkSwitch(getByTestId, field);
@@ -64,9 +50,8 @@ describe('Testing Share Page 2', () => {
     expect(getByTestId('submit').disabled).toBe(false);
   });
 
-  it('POS:Share Page 2 Text Testing', async () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('assumptions-title'))
+  it('POS:Share Page 2 Text Testing', () => {
+    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     // If we alter this programatically we can use some data structure for these strings
     expect(getByText(/All properties/));
     expect(getByText(/Please be aware/));
@@ -78,9 +63,8 @@ describe('Testing Share Page 2', () => {
     expect(getByText(/Roof cannot be over 40 years old/));
   });
 
-  it('POS:Checks Submit Button', async () => {
+  it('POS:Checks Submit Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    await waitForElement(() => getByTestId('assumptions-title'))
 
     checkButton(getByTestId);
   });

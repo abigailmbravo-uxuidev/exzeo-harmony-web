@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { clearPolicyResults } from '../../actions/serviceActions';
-import { setPolicySearch } from '../../actions/searchActions';
+import { clearPolicyResults } from '../../state/actions/serviceActions';
+import { setPolicySearch } from '../../state/actions/searchActions';
 import AppWrapper from '../../components/AppWrapper';
 import PolicySearchBar from '../../components/Search/PolicySearchBar';
 import SearchResults from '../../components/Search/SearchResults';
@@ -14,7 +14,7 @@ export class PolicySearch extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearPolicyResults()
+    this.props.clearPolicyResults();
   }
   render() {
     const {

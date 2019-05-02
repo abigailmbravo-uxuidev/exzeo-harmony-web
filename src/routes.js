@@ -7,9 +7,9 @@ import { Helmet } from 'react-helmet';
 import Modal from 'react-modal';
 import axios from 'axios';
 
-import { setUserProfile } from './actions/authActions';
-import { clearAppError } from './actions/errorActions';
-import { getAgency } from './actions/agency.actions';
+import { setUserProfile } from './state/actions/authActions';
+import { clearAppError } from './state/actions/errorActions';
+import { getAgency } from './state/actions/agency.actions';
 
 import history from './history';
 import Auth from './Auth';
@@ -66,7 +66,7 @@ class Routes extends Component {
 
   clearError = () => {
     const { clearAppError } = this.props;
-    clearAppError()
+    clearAppError();
   };
 
   render() {
@@ -133,7 +133,7 @@ const mapStateToProps = state => {
     agency: state.agencyState.agency,
     authState: state.authState,
     error: state.error,
-  }
+  };
 };
 
 export default connect(mapStateToProps, {

@@ -1,41 +1,52 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { TabNavigation } from '@exzeo/core-ui/src/@Harmony/Navigation';
+import { TabNavigation } from '@exzeo/core-ui/src/@Harmony';
+import { DetailsHeader } from '@exzeo/core-ui';
 
-import { updateQuote } from '../../actions/quoteState.actions';
-
-import { getNavLinks } from './constants/workflowNavigation';
-import DetailHeader from './DetailHeader';
+import { getNavLinks, STEP_NAMES } from './constants/workflowNavigation';
 
 export class WorkflowNavigation extends Component {
-  getClassForStep = (stepName) => {
-    const { activeTask, completedTasks } = this.props.workflowState;
-    if (activeTask === stepName) return 'active';
+  getClassForStep = (step) => {
+    const { currentStep} = this.props;
+    if (currentStep === step) return 'active';
 
-    return (completedTasks || []).includes(stepName) ? 'selected' : 'disabled';
+    return step < currentStep ? 'selected' : 'disabled';
   };
 
-  onKeyPress = (stepName, event) => {
+  onKeyPress = (step, event) => {
     const { goToStep } = this.props;
 
     if (event && event.preventDefault) event.preventDefault();
     if (event && event.charCode === 13) {
-      goToStep(stepName);
+      goToStep(step);
     }
   };
 
   render() {
-    const { quote, workflowState, handleRecalc, goToStep, isRecalc, isLoading, showNavigationTabs } = this.props;
+    const {
+      quote,
+      header,
+      headerDetails,
+      currentStep,
+      handleRecalc,
+      goToStep,
+      isRecalc,
+      isLoading,
+      showNavigationTabs
+    } = this.props;
+
     if (!quote || !quote.quoteNumber) return null;
 
     return (
       <div className="nav-and-header-wrapper">
-        <DetailHeader
-          activeTask={workflowState.activeTask}
+        <DetailsHeader
+          context="quote"
           handleRecalc={handleRecalc}
+          detailsFields={header}
+          headerDetails={headerDetails}
           isLoading={isLoading}
           isRecalc={isRecalc}
-          quote={quote}
+          currentStep={currentStep}
+          useAnimationForPremium={currentStep === STEP_NAMES.askToCustomizeDefaultQuote}
         />
 
         {showNavigationTabs &&
@@ -51,11 +62,4 @@ export class WorkflowNavigation extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  quote: state.quoteState.quote,
-  workflowState: state.quoteState.state,
-});
-
-export default connect(mapStateToProps, {
-  updateQuote
-})(WorkflowNavigation);
+export default WorkflowNavigation;

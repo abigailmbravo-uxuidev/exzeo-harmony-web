@@ -5,15 +5,15 @@
   "scripts": {
     "server": "./replace-dotenv.sh && exframe-web",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage",
+    "test": "react-scripts test --coverage --watchAll=false",
     "test:watch": "react-scripts test",
     "lint": "eslint src --ext .jsx --ext .js",
     "start": "react-scripts start",
     "cypress": "react-scripts cypress"
   },
   "dependencies": {
-    "@exzeo/core-ui": "^0.5.5",
-    "@exzeo/react-scripts": "1.0.14",
+    "@exzeo/core-ui": "^0.6.1",
+    "@exzeo/react-scripts": "^2.0.3",
     "auth0-js": "~8.10.1",
     "axios": "~0.15.2",
     "classnames": "~2.2.5",
@@ -39,9 +39,7 @@
     "react-modal": "~3.1.7",
     "react-number-format": "~3.0.3",
     "react-redux": "~5.0.6",
-    "react-router": "~4.2.0",
-    "react-router-dom": "~4.2.2",
-    "react-select": "~1.1.0",
+    "react-router-dom": "^5.0.0",
     "react-text-mask": "~5.0.2",
     "react-tooltip": "~3.4.0",
     "redux": "~3.7.2",
@@ -69,8 +67,11 @@
       "src/**/*.{js,jsx}",
       "!src/index.js",
       "!src/routes.js",
+      "!src/state/reducers/initialState.js",
       "!src/setupTests.js",
-      "!src/utilities/choreographer.js",
+      "!src/**/choreographer.js",
+      "!src/**/reduxFormFailSubmit.js",
+      "!src/test-utils/**/index.js",
       "!src/mock-data/*"
     ],
     "coverageThreshold": {

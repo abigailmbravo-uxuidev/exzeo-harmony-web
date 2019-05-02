@@ -117,6 +117,7 @@ export const quote = {
       ordinanceOrLaw: {
         _id: '5ca744928001ef001258b382',
         amount: 25,
+        calculatedAmount: 78500,
         displayText: 'Ordinance or Law',
         format: 'Percentage',
         ofCoverageLimit: 'dwelling'
