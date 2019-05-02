@@ -40,9 +40,11 @@ function formatTopAnswers(answers) {
 
   return answers.map(answer => ({
     ...answer,
-    // api gives us the zip as a number, but requires zip to be a string when we post.
+    // api gives us the zip as a number, backend requires zip to be a string.
+    AIZip: String(answer.AIZip),
+    // api gives us the ID as a number, backend requires ID to be a string.
     id: String(answer.ID),
-    // needed for the TypeAhead
+    // format label for typeahead
     label: `${answer.AIName1}, ${answer.AIAddress1}, ${answer.AICity} ${answer.AIState}, ${answer.AIZip}`
   }));
 }
