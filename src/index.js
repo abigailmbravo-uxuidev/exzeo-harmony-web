@@ -17,6 +17,7 @@ import 'core-js/fn/object/entries';
 import 'core-js/fn/number/is-nan';
 import 'core-js/fn/object/values';
 import 'core-js/fn/string/repeat';
+import 'core-js/fn/string/includes';
 import "core-js/fn/symbol/iterator.js";
 
 
