@@ -56,12 +56,12 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
               <Button
                   className={Button.constants.classNames.secondary}
                   onClick={refereshUWReviewError}
-                  data-test="modal-cancel"
+                  data-test="modal-refresh"
                 >Refresh</Button>
                 <Button
                   className={Button.constants.classNames.primary}
                   onClick={redirectToNewQuote}
-                  data-test="modal-submit"
+                  data-test="modal-new-quote"
                 >New Quote</Button>
             </div>
           </div>
