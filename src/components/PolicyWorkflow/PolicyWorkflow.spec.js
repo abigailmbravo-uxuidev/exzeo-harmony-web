@@ -28,10 +28,7 @@ describe('Testing PolicyWorkflow component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      getPolicyDocumentsAction() {},
-      getSummaryLedgerAction() {},
-      getLatestPolicyAction() { return Promise.resolve({}); },
-      getAgentsByAgencyCode() {},
+      initializePolicyWorkflow: x => x,
       error: {},
       match: { params: {} }
     };
