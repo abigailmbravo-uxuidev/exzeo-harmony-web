@@ -151,7 +151,7 @@ export class QuoteWorkflow extends Component {
     });
   };
 
-  handleGandalfSubmit = async ({ remainOnStep, goToStepValue, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
+  handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, quoteData, history, updateQuote, location, options } = this.props;
     const { isRecalc, currentStep } = this.state;
     try {
@@ -171,10 +171,6 @@ export class QuoteWorkflow extends Component {
         });
       }
        // TODO: Figure out a routing solution
-      if(typeof goToStepValue === 'number'){
-        console.log(goToStepValue)
-        this.goToStep(goToStepValue)
-      }
       else if (!(isRecalc || remainOnStep)) {
         history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
         this.setCurrentStep();
