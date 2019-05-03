@@ -20,9 +20,11 @@ export class Share extends React.Component {
     customHandlers.setEmailPopup(false);
   };
 
-  refreshUWReviewError = () => {
-    const { customHandlers } = this.props;
+  refreshUWReviewError = async () => {
+    const { customHandlers, formValues } = this.props;
+    await customHandlers.getQuote(formValues.quoteNumber, formValues._id);
     customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData);
+
   };
 
   redirectToNewQuote = () => {
