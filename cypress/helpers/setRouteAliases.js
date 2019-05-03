@@ -1,7 +1,7 @@
 export const setRouteAliases = () => cy.server()
   .route('POST', '/svc?fetchAddresses').as('fetchAddresses')
-  .route('POST', '/svc?fetchQuotes').as('fetchQuotes')
-  .route('POST', '/svc?getQuoteServiceRequest').as('getQuoteServiceRequest')
   .route('POST', '/svc?getZipcodeSettings').as('getZipcodeSettings')
-  .route('POST', '/cg/complete?askToCustomizeDefaultQuote').as('askToCustomizeDefaultQuote')
-  .route('POST', '/cg/complete?askEmail').as('askEmail');
+  .route('POST', '/cg/start?agencyEmailQuoteSummary').as('agencyEmailQuoteSummary')
+  .route('POST', '/svc?quoteManager.updateQuote').as('updateQuote')
+  .route('POST', '/svc?getBillingOptions').as('getBillingOptions')
+  .route('POST', '/cg/start?agencySubmitApplication').as('agencySubmitApplication');

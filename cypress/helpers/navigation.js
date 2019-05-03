@@ -1,5 +1,6 @@
 import userHO3 from '../fixtures/HO3/user.json';
-import underwritingH03 from '../fixtures/HO3/underwriting.json';
+import underwritingHO3 from '../fixtures/HO3/underwriting.json';
+import customizeHO3 from '../fixtures/HO3/customizeFields.json';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
@@ -11,48 +12,51 @@ export const navigateThroughSearchAddress = ({ address = userHO3.address } = {})
     .wait('@fetchAddresses');
 
 export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInfo, agentCode = userHO3.agentCode } = {}) => {
-  Object.entries(customerInfo).forEach(([field, value]) => {
-    cy.findDataTag(`${field}`).find('input').type(value);
-  });
+  Object.entries(customerInfo).forEach(([field, value]) =>
+    cy.findDataTag(`${field}`).find('input').type(value)
+  );
   cy.findDataTag('agentCode').select(agentCode)
     .clickSubmit('#QuoteWorkflow')
-    .wait('@getQuoteServiceRequest');
+    .wait('@updateQuote');
 };
 
-export const navigateThroughUnderwriting = (data = underwritingH03) => {
-  Object.entries(data).forEach(([name, value]) => {
-    cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click();
-  });
-  cy.clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+export const navigateThroughUnderwriting = (data = underwritingHO3) => {
+  Object.entries(data).forEach(([name, value]) =>
+    cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
+  );
+  cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 };
 
-export const navigateThroughCustomize = () =>
-  // We alter the input, reset, then recalculate before submitting
-  cy.findDataTag('coverageLimits.dwelling.amount-input').type('{selectall}{backspace}300000')
-    .findDataTag('reset').should('contain', 'reset').click()
-    .findDataTag('coverageLimits.dwelling.amount-input').type('{selectall}{backspace}300000')
-    .findDataTag('submit').should('contain', 'recalculate').click()
-    // Wait for both sequential requests or you will submit before your request is done
-    // because our submit function force-clicks through the disabled ui
-    .wait('@askToCustomizeDefaultQuote')
-    .wait('@getQuoteServiceRequest')
-    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+export const navigateThroughCustomize = (data = customizeHO3) => {
+  // We alter each input, reset, then recalculate before submitting
+  Object.entries(data).forEach(([name, value]) =>
+    cy.findDataTag(`${name}-input`).type(`{selectall}{backspace}${value}`)
+      .findDataTag('reset').should('contain', 'reset').click()
+      .findDataTag(`${name}-input`).type(`{selectall}{backspace}${value}`)
+      .findDataTag('submit').should('contain', 'recalculate').click()
+      .wait('@updateQuote')
+  );
+  cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
+};
 
 export const navigateThroughShare = () =>
   cy.findDataTag('share').click()
     .findDataTag('name').type('Bruce')
-    .findDataTag('emailAddr').type('Batman@gmail.com')
+    .findDataTag('email').type('Batman@gmail.com')
+    
+    
+    // .findDataTag('modal-cancel').click()
+
+    // TODO: PUT THIS BACK IN WHEN EMAILS WORKING
     .clickSubmit('#SendEmail', 'modal-submit')
-    // Wait for the sequential requests similar to how the UI would be managed
-    .wait('@askEmail')
-    .wait('@getQuoteServiceRequest')
-    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+    .wait('@agencyEmailQuoteSummary')
+    .clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughAssumptions = () => cy.findDataTag('confirm-assumptions').click()
-    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+    .clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughAdditionalInterests = () =>
-  cy.clickSubmit('#AddAdditionalInterestPage').wait('@getQuoteServiceRequest');
+  cy.clickSubmit('#QuoteWorkflow').wait('@getBillingOptions');
 
 export const navigateThroughMailingBilling = () =>
   cy.findDataTag('sameAsPropertyAddress')
@@ -65,16 +69,16 @@ export const navigateThroughMailingBilling = () =>
     // Get first non-disabled option and select that value
     .get('select[name="billToId"] > option:not([disabled])').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
-    .clickSubmit('#QuoteWorkflow').wait('@getQuoteServiceRequest');
+    .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 
 export const navigateThroughVerify = () =>
-  cy.findDataTag('confirmProperyDetails').find('.switch-div').click()
-    .findDataTag('confirmQuoteDetails').find('.switch-div').click()
-    .findDataTag('confirmPolicyHolderDetails').find('.switch-div').click()
-    .findDataTag('confirmAdditionalInterestsDetails').find('.switch-div').click()
-    .clickSubmit('#Verify');
+  cy.findDataTag('confirmProperty').click()
+    .findDataTag('confirmQuote').click()
+    .findDataTag('confirmPolicy').click()
+    .findDataTag('confirmAdditionalInterest').click()
+    .clickSubmit('#QuoteWorkflow', 'next');
 
-export const navigateThroughScheduleDate = () => cy.clickSubmit('.schedule-date-modal');
+export const navigateThroughScheduleDate = () => cy.clickSubmit('[data-test="schedule-date-modal"]', 'modal-submit');
 
 export const navigateThroughThankYou = () =>
   cy.get('#thanks a[href="/"]').click()

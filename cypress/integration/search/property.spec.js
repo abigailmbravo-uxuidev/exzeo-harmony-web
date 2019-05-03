@@ -9,7 +9,7 @@ const hasSearchInput = address =>
 const { address } = user;
 
 describe('Property Address Search Testing', () => {
-  before('H03: Property Search Testing', () => {
+  before('HO3: Property Search Testing', () => {
     setRouteAliases();
     cy.login();
     navigateThroughLanding();
@@ -62,10 +62,8 @@ describe('AF3: Property Search Testing', () => {
 
   it('NEG:Test Invalid Address', () => {
     type('ADDRESS NOT FOUND');
-    // TODO: Move this to the navigateThroughLanding() once we have a better idea of user types and UI for dropdown
-    cy.findDataTag('product').select('AF3');
-    //
-    cy.clickSubmit()
+    cy.findDataTag('product').select('AF3')
+      .clickSubmit()
       .findDataTag('no-results').find('.no-results .card-header > h4')
       .should('contain', 'No Results Found')
       .findDataTag('no-results').find('.no-results .card-block > p')
@@ -89,10 +87,8 @@ describe('AF3: Property Search Testing', () => {
       .findDataTag('search-results').find('div small p').each($el => expect($el).to.contain('If'))
       .findDataTag('address').should('have.attr', 'placeholder', 'Search for Property Address');
     type(`{selectall}{backspace}${address}`);
-    // TODO: Move this to the navigateThroughLanding() once we have a better idea of user types and UI for dropdown
-    cy.findDataTag('product').select('AF3');
-    //
-    cy.findDataTag('address').should('have.attr', 'value', address)
+    cy.findDataTag('product').select('AF3')
+      .findDataTag('address').should('have.attr', 'value', address)
       .findDataTag('submit').should('exist').and('not.be.disabled')
       .clickSubmit().then(() => hasSearchInput(address))
       .findDataTag('search-results').find('li').first().find('a').children()
