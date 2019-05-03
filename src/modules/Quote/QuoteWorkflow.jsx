@@ -171,7 +171,7 @@ export class QuoteWorkflow extends Component {
         });
       }
        // TODO: Figure out a routing solution
-      else if (!(isRecalc || remainOnStep)) {
+      if (!(isRecalc || remainOnStep)) {
         history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
         this.setCurrentStep();
       }
