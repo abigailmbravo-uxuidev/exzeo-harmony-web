@@ -102,7 +102,7 @@ const parseQueryType = (query, field) => {
       return query(field.label);
     default:
       return query(field.name);
-  }
+  };
 };
 
 export const submitForm = (query, button = /submit/) => fireEvent.click(query(button));
