@@ -6,7 +6,7 @@ import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { Button, Loader } from '@exzeo/core-ui';
 
-import { updateQuote } from '../../state/actions/quoteState.actions';
+import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
 import { getEnumsForQuoteWorkflow, getBillingOptions } from '../../state/actions/list.actions';
@@ -151,7 +151,7 @@ export class QuoteWorkflow extends Component {
     });
   };
 
-  handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
+  handleGandalfSubmit = async ({ remainOnStep, goToStepValue, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, quoteData, history, updateQuote, location, options } = this.props;
     const { isRecalc, currentStep } = this.state;
     try {
@@ -170,9 +170,12 @@ export class QuoteWorkflow extends Component {
           }
         });
       }
-
-      // TODO: Figure out a routing solution
-      if (!(isRecalc || remainOnStep)) {
+       // TODO: Figure out a routing solution
+      if(typeof goToStepValue === 'number'){
+        console.log(goToStepValue)
+        this.goToStep(goToStepValue)
+      }
+      else if (!(isRecalc || remainOnStep)) {
         history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
         this.setCurrentStep();
       }
@@ -228,7 +231,7 @@ export class QuoteWorkflow extends Component {
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, workflowState } = this.props;
+    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, workflowState, getQuote } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
@@ -248,6 +251,7 @@ export class QuoteWorkflow extends Component {
       updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
       getBillingOptions: this.getBillingOptions,
+      getQuote
     };
 
     const { underwritingExceptions } = quote;
@@ -353,4 +357,5 @@ export default connect(mapStateToProps, {
   getZipcodeSettings,
   getEnumsForQuoteWorkflow,
   getBillingOptions,
+  getQuote
 })(QuoteWorkflow);
