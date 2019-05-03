@@ -8,12 +8,9 @@ import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors'
 import { setAppModalError } from '../../state/actions/errorActions';
 import {
   clearPolicyResults,
-  getPolicyDocuments,
-  getSummaryLedger,
-  getLatestPolicy,
-  clearPolicy
+  clearPolicy,
+  initializePolicyWorkflow,
 } from '../../state/actions/serviceActions';
-import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
 import PropertyView from '../Policy/Property';
@@ -24,17 +21,8 @@ import Footer from '../Common/Footer';
 
 export class PolicyWorkflow extends Component {
   componentDidMount() {
-    const { match: { params: { policyNumber } },
-      getPolicyDocumentsAction,
-      getSummaryLedgerAction,
-      getLatestPolicyAction,
-      getAgentsByAgencyCode,
-    } = this.props;
-    getPolicyDocumentsAction(policyNumber);
-    getSummaryLedgerAction(policyNumber);
-    getLatestPolicyAction(policyNumber).then((policy) => {
-      getAgentsByAgencyCode(policy.agencyCode);
-    });
+    const { match: { params: { policyNumber } }, initializePolicyWorkflow } = this.props;
+    initializePolicyWorkflow(policyNumber);
   }
 
   componentWillUnmount() {
@@ -146,9 +134,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   setAppModalErrorAction: setAppModalError,
   clearPolicyResultsAction: clearPolicyResults,
-  getPolicyDocumentsAction: getPolicyDocuments,
-  getSummaryLedgerAction: getSummaryLedger,
-  getLatestPolicyAction: getLatestPolicy,
+  initializePolicyWorkflow,
   clearPolicy,
-  getAgentsByAgencyCode,
   })(PolicyWorkflow);
