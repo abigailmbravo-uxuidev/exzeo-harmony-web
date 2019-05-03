@@ -47,7 +47,7 @@ describe('Service Actions', () => {
 
     return serviceActions.getQuote('1-234567890-12')(store.dispatch)
       .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
+        expect(store.getActions()[0].type).toEqual(types.SERVICE_REQUEST);
       });
   });
 
@@ -76,7 +76,7 @@ describe('Service Actions', () => {
 
     return serviceActions.getQuote(324324324)(store.dispatch)
       .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
+        expect(store.getActions()[0].type).toEqual(types.APP_ERROR);
       });
   });
 
@@ -110,7 +110,7 @@ describe('Service Actions', () => {
 
     return serviceActions.getQuote('599ed8b04efcdc001284f0cb')(store.dispatch)
       .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
+        expect(store.getActions()[0].type).toEqual(types.SERVICE_REQUEST);
       });
   });
 
@@ -139,7 +139,7 @@ describe('Service Actions', () => {
 
     return serviceActions.getQuote('1')(store.dispatch)
       .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
+        expect(store.getActions()[0].type).toEqual(types.APP_ERROR);
       });
   });
 
@@ -181,236 +181,8 @@ describe('Service Actions', () => {
 
     return serviceActions.searchPolicy(params)(store.dispatch)
       .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
-      });
-  });
-
-  it('should fail searchPolicy', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?searchPolicy`,
-      data: {
-        service: 'policy-data',
-        method: 'GET',
-        path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&active=true&page=1&pageSize=25&sort=policyNumber&sortDirection=asc'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    const params = {
-      policyNumber: '12-4001126-01',
-      firstName: 'Test',
-      lastName: 'Test',
-      address: '123',
-      page: '1',
-      pageSize: 25,
-      sort: 'policyNumber',
-      direction: 'desc',
-      companyCode: 'TTIC',
-      state: 'FL'
-    };
-    return serviceActions.searchPolicy(params)(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
-      });
-  });
-
-  it('should call getLatestPolicy', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?getLatestPolicy`,
-      data: {
-        service: 'policy-data',
-        method: 'GET',
-        path: 'transactions/12-4001126-01/latest'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    return serviceActions.getLatestPolicy('12-4001126-01')(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
-      });
-  });
-
-  it('should fail getLatestPolicy', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?getLatestPolicy`,
-      data: {
-        service: 'policy-data',
-        method: 'GET',
-        path: 'transactions/12-4001126-01/latest'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    return serviceActions.getLatestPolicy('3432424324')(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
-      });
-  });
-
-  it('should call getSummaryLedger', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const fetchBilling = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?fetchBilling`,
-      data: {
-        service: 'billing',
-        method: 'GET',
-        path: 'summary-ledgers/test01/latest'
-      }
-    };
-
-    const fetchPayments = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?fetchPayments`,
-      data: {
-        service: 'billing',
-        method: 'GET',
-        path: 'payment-history/test01'
-      }
-    };
-
-    mockAdapter
-      .onPost(fetchBilling.url).reply(200, { result: {} })
-      .onPost(fetchPayments.url).reply(200, { data: [] });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    return serviceActions.getSummaryLedger('test01')(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].data.getSummaryLedger).toEqual({ payments: [] });
-        expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
-      });
-  });
-
-  it('should fail getSummaryLedger', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?getSummaryLedger`,
-      data: {
-        service: 'billing',
-        method: 'GET',
-        path: 'summary-ledgers/12-4001126-01/latest'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    return serviceActions.getSummaryLedger('3432424324')(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
-      });
-  });
-
-  it('should call getPolicyDocuments', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?getPolicyDocuments`,
-      data: {
-        service: 'file-index',
-        method: 'GET',
-        path: 'v1/fileindex/12-4001126-01'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    return serviceActions.getPolicyDocuments('12-4001126-01')(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.SERVICE_REQUEST);
-      });
-  });
-
-  it('should fail getPolicyDocuments', () => {
-    const mockAdapter = new MockAdapter(axios);
-
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?getPolicyDocuments`,
-      data: {
-        service: 'file-index',
-        method: 'GET',
-        path: 'v1/fileindex/12-4001126-01'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    return serviceActions.getPolicyDocuments('3432424324')(store.dispatch)
-      .then(() => {
-        expect(store.getActions()[0].payload[0].type).toEqual(types.APP_ERROR);
+        const actions = store.getActions();
+        expect(actions[0].type).toEqual(types.SERVICE_REQUEST);
       });
   });
 });
