@@ -5,7 +5,7 @@ import customizeHO3 from '../fixtures/HO3/customizeFields.json';
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
 
-export const navigateThroughSearchAddress = ({ address = userHO3.address } = {})  =>
+export const navigateThroughSearchAddress = ({ address = userHO3.address } = {}) =>
   cy.get('input[name=address]').type(address)
     .clickSubmit('#SearchBar')
     .findDataTag('search-results').find('li[tabindex=0]').click()
@@ -43,11 +43,6 @@ export const navigateThroughShare = () =>
   cy.findDataTag('share').click()
     .findDataTag('name').type('Bruce')
     .findDataTag('email').type('Batman@gmail.com')
-    
-    
-    // .findDataTag('modal-cancel').click()
-
-    // TODO: PUT THIS BACK IN WHEN EMAILS WORKING
     .clickSubmit('#SendEmail', 'modal-submit')
     .wait('@agencyEmailQuoteSummary')
     .clickSubmit('#QuoteWorkflow');
