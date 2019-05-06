@@ -1,21 +1,22 @@
 import { setRouteAliases, navigateThroughLanding } from '../../helpers';
-import user from '../../fixtures/HO3/user.json';
-import af3Login from '../../fixtures/AF3/login.json';
+import { userHO3, loginAF3 } from '../../fixtures';
 
 const type = text => cy.findDataTag('address').type(text);
 const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
 const hasSearchInput = address =>
   cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
-const { address } = user;
+const { address } = userHO3;
 
 describe('Property Address Search Testing', () => {
+  const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
+  const hasSearchInput = address =>
+    cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
   const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
   const { address } = user;
 
+  before('H03: Property Search Testing', () => {
   before('HO3: Property Search Testing', () => {
-    setRouteAliases();
     cy.login();
-    navigateThroughLanding();
   });
 
   beforeEach(() => setRouteAliases());
@@ -57,7 +58,7 @@ describe('Property Address Search Testing', () => {
 describe('AF3: Property Search Testing', () => {
   before('AF3: Property Search Testing', () => {
     setRouteAliases();
-    cy.login(af3Login);
+    cy.login(loginAF3);
     navigateThroughLanding();
   });
 

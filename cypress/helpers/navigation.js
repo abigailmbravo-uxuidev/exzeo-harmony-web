@@ -1,7 +1,4 @@
-
-import userHO3 from '../fixtures/HO3/user.json';
-import underwritingHO3 from '../fixtures/HO3/underwriting.json';
-import customizeHO3 from '../fixtures/HO3/customizeFields';
+import { userHO3, underwritingHO3, customizeHO3 } from '../fixtures';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();

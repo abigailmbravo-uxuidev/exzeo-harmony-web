@@ -1,4 +1,4 @@
-import loginInfo from '../../fixtures/HO3/login.json';
+import { loginHO3 } from '../../fixtures';
 
 describe('Login Testing', () => {
   before(() => cy.visit('/logout'));
@@ -24,9 +24,9 @@ describe('Login Testing', () => {
     cy.get('button.auth0-lock-submit[type="submit"]')
       .should('exist')
       .get('input[name="username"]')
-      .type(loginInfo.username, { force: true })
+      .type(loginHO3.username, { force: true })
       .get('input[name="password"]')
-      .type(loginInfo.password, { force: true })
+      .type(loginHO3.password, { force: true })
       .get('.auth0-label-submit')
       .click({ force: true })
       .get('div.dashboard-message')
