@@ -240,27 +240,7 @@ export const quote = {
         primaryPhoneNumber: '1231231231'
       }
     ],
-    underwritingExceptions: [
-      {
-        fields: [],
-        _id: '5ca744a98001ef001258b41f',
-        action: 'Missing Info',
-        active: true,
-        agentMessage: 'Missing required information to complete quote -  Mailing/Billing Info',
-        canOverride: false,
-        category: 'Coverages & Deductibles',
-        code: '003',
-        displayText: 'Missing Info - Mailing/Billing Info',
-        internalMessage: 'Missing required information to complete quote -  Mailing/Billing Info',
-        overridden: false,
-        overriddenAt: null,
-        overriddenBy: {
-          _id: '5ca744a98001ef001258b420',
-          userId: null,
-          userName: null
-        }
-      }
-    ],
+    underwritingExceptions: [],
     __v: 0,
     cost: {
     totalCost: 125,
