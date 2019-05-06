@@ -60,7 +60,7 @@ export const navigateThroughMailingBilling = () =>
       };
     })
     // Get first non-disabled option and select that value
-    .get('select[name="billToId"] > option:not([disabled])').eq(0)
+    .get('select[name="billToId"] > option:not(.disabled)').eq(0)
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 

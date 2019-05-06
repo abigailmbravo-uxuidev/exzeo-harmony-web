@@ -1,7 +1,4 @@
-import userAF3 from '../../fixtures/AF3/user.json';
-import loginAF3 from '../../fixtures/AF3/login.json';
-import underwritingAF3 from '../../fixtures/AF3/underwriting.json';
-import customizeAF3 from '../../fixtures/AF3/customizeFields.json';
+import { userAF3, loginAF3, underwritingAF3, customizeAF3, customizeHO3 } from '../../fixtures';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -15,7 +12,8 @@ import {
   navigateThroughMailingBilling,
   navigateThroughVerify,
   navigateThroughScheduleDate,
-  navigateThroughThankYou
+  navigateThroughThankYou,
+  customizeTest
 } from '../../helpers';
 
 describe('Agency Happy Path', () => {
@@ -31,6 +29,7 @@ describe('Agency Happy Path', () => {
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
+    customizeTest(customizeHO3);
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
@@ -56,7 +55,8 @@ describe('AF3 Happy Path', () => {
     navigateThroughSearchAddress(userAF3);
     navigateThroughPolicyholder(userAF3);
     navigateThroughUnderwriting(underwritingAF3);
-    navigateThroughCustomize(customizeAF3);
+    customizeTest(customizeAF3);
+    navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
