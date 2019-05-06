@@ -42,7 +42,7 @@ describe('Testing Search Component', () => {
   it('NEG:Test Invalid Addresses', () => {
     const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
     const searchbar = getByPlaceholderText(/Search for Property Address/);
-    fireEvent.change(searchbar, { target: { value: '4131 TEST ADDRESS ≈ˆÎÍÒÍ' }});
+    fireEvent.change(searchbar, { target: { value: '4131 TEST ADDRESS ≈ˆÎÍÒÍ' } });
     fireEvent.blur(searchbar);
     // Expect to get the error when we search with invalid characters
     expect(getByTestId('address_wrapper').className.includes('error')).toBe(true);

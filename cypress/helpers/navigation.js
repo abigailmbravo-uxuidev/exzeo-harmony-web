@@ -37,13 +37,7 @@ export const navigateThroughCustomize = (data = customizeHO3) => {
   cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 };
 
-export const navigateThroughShare = () =>
-  cy.findDataTag('share').click()
-    .findDataTag('name').type('Bruce')
-    .findDataTag('email').type('Batman@gmail.com')
-    .clickSubmit('#SendEmail', 'modal-submit')
-    .wait('@agencyEmailQuoteSummary')
-    .clickSubmit('#QuoteWorkflow');
+export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughAssumptions = () => cy.findDataTag('confirm-assumptions').click()
     .clickSubmit('#QuoteWorkflow');
@@ -55,12 +49,10 @@ export const navigateThroughMailingBilling = () =>
   cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then($div => {
-      if (!$div.attr('data-value') || $div.attr('data-value') === 'false') {
-        cy.findDataTag('sameAsPropertyAddress').click();
-      };
+      if (!$div.attr('data-value') || $div.attr('data-value') === 'false') cy.findDataTag('sameAsPropertyAddress').click();
     })
     // Get first non-disabled option and select that value
-    .get('select[name="billToId"] > option:not(.disabled)').eq(0)
+    .get('select[name="billToId"] > option:not([disabled])').first()
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 

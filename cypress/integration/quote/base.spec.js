@@ -13,7 +13,8 @@ import {
   navigateThroughVerify,
   navigateThroughScheduleDate,
   navigateThroughThankYou,
-  customizeTest
+  customizeTest,
+  shareTest
 } from '../../helpers';
 
 describe('Agency Happy Path', () => {
@@ -31,6 +32,7 @@ describe('Agency Happy Path', () => {
     navigateThroughUnderwriting();
     customizeTest(customizeHO3);
     navigateThroughCustomize();
+    shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
@@ -57,6 +59,7 @@ describe('AF3 Happy Path', () => {
     navigateThroughUnderwriting(underwritingAF3);
     customizeTest(customizeAF3);
     navigateThroughCustomize();
+    shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
