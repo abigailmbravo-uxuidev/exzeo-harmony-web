@@ -43,7 +43,6 @@ const TEMPLATES = {
 };
 
 const FORM_ID = 'QuoteWorkflow';
-
 export class QuoteWorkflow extends Component {
   constructor(props) {
     super(props);
@@ -61,6 +60,8 @@ export class QuoteWorkflow extends Component {
       gandalfTemplate: null,
       currentStep: STEP_NAMES.askAdditionalCustomerData,
     };
+
+    this.formRef = React.createRef();
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
   }
@@ -141,6 +142,7 @@ export class QuoteWorkflow extends Component {
 
     if (isLoading || step >= currentStep) return;
 
+    this.formRef.current.form.reset();
     history.replace(ROUTE_TO_STEP_NAME[step]);
     this.setCurrentStep(true, step);
   };
@@ -282,6 +284,7 @@ export class QuoteWorkflow extends Component {
             {shouldUseGandalf &&
               <React.Fragment>
                 <Gandalf
+                  ref={this.formRef}
                   formId={FORM_ID}
                   className="survey-wrapper"
                   currentPage={currentPage}
