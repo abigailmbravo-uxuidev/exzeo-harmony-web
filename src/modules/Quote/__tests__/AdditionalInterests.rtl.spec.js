@@ -244,6 +244,47 @@ describe('Testing Additional Interests', () => {
     });
   });
 
+  it('POS:Additional Interest Details', () => {
+    const newState = {
+      ...defaultInitialState,
+      quoteState: {
+        quote: {
+          ...defaultInitialState.quoteState.quote,
+          additionalInterests: [{ ...additionalInterest, _id: '1234' }]
+        }
+      }
+    };
+    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+
+    expect(getByText(additionalInterest.name1));
+    expect(getByText(additionalInterest.name2));
+    expect(getByText(additionalInterest.mailingAddress.address1));
+    expect(getByText(`${additionalInterest.mailingAddress.city}, ${additionalInterest.mailingAddress.state} ${additionalInterest.mailingAddress.zip}`));
+    expect(getByText(`${additionalInterest.type} ${additionalInterest.order + 1}`));
+    expect(document.querySelector('i.fa.fa-circle.Mortgagee')).toBeInTheDocument();
+    expect(document.querySelector('a.remove i.fa.fa-trash')).toBeInTheDocument();
+    expect(document.querySelector('a.edit i.fa.fa-pencil')).toBeInTheDocument();
+  });
+
+  it('POS:Additional Interest Details Renders with bad data', () => {
+    const newState = {
+      ...defaultInitialState,
+      quoteState: {
+        quote: {
+          ...defaultInitialState.quoteState.quote,
+          additionalInterests: [{
+            // TODO: Remove this data and confirm that no undefined shows up
+            _id: '', name1: '', name2: '', mailingAddress: { address1: '', city: '', state: '', zip: '', country: {} }, order: 0, type: 'Mortgagee'
+          }]
+        }
+      }
+    };
+    const { getByText, queryAllByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+
+    expect(getByText('Mortgagee 1'));
+    expect(queryAllByText('undefined').length).toBe(0);
+  });
+
   it('POS:Confirm Additional Interests Show Up In Order and Disable Buttons [Premium Finance]', () => {
     const newState = {
       ...defaultInitialState,

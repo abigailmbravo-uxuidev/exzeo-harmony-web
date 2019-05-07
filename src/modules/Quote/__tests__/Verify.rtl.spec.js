@@ -12,6 +12,7 @@ import {
   submitForm,
   verifyForm,
   quote,
+  additionalInterest,
   ph1Fields,
   ph2Fields
 } from '../../../test-utils';
@@ -203,6 +204,68 @@ describe('Verify Testing', () => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
     });
+  });
+
+  it('POS:Verify Additional Interest Parties [Premium Finance]', () => {
+    const newState = {
+      ...defaultInitialState,
+      quoteState: {
+        quote: {
+          ...defaultInitialState.quoteState.quote,
+          additionalInterests: [
+            { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
+            { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
+            { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
+            { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
+            { ...additionalInterest, order: 0, type: 'Premium Finance', _id: '5' },
+            { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
+            { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
+            { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
+          ]
+        }
+      }
+    };
+    const expectedLabels = [
+      'Mortgagee 1', 'Mortgagee 2', 'Mortgagee 3',
+      'Additional Insured 1', 'Additional Insured 2',
+      'Additional Interest 1', 'Additional Interest 2',
+      'Premium Finance 1'
+    ];
+    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+
+    const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
+    labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
+  });
+
+  it('POS:Verify Additional Interest Parties [Bill Payer]', () => {
+    const newState = {
+      ...defaultInitialState,
+      quoteState: {
+        quote: {
+          ...defaultInitialState.quoteState.quote,
+          additionalInterests: [
+            { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
+            { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
+            { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
+            { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
+            { ...additionalInterest, order: 0, type: 'Bill Payer', _id: '5' },
+            { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
+            { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
+            { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
+          ]
+        }
+      }
+    };
+    const expectedLabels = [
+      'Mortgagee 1', 'Mortgagee 2', 'Mortgagee 3',
+      'Additional Insured 1', 'Additional Insured 2',
+      'Additional Interest 1', 'Additional Interest 2',
+      'Bill Payer 1'
+    ];
+    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+
+    const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
+    labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
   });
 
   it('POS:Verify Toggle Labels', () => {
