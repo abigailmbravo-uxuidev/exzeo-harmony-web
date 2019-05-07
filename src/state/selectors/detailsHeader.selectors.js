@@ -112,6 +112,7 @@ export const getQuoteDetails = createSelector(
     const fatalError = (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
     const activeTask = location.slice(location.lastIndexOf('/') + 1);
     const quoteNumber = rating && !fatalError ? quote.quoteNumber : '-';
+    const premium = rating && !fatalError ? rating.totalPremium : '';
 
     return {
       constructionType,
@@ -119,9 +120,9 @@ export const getQuoteDetails = createSelector(
       territory,
       yearBuilt,
       coverageLimits,
-      county: physicalAddress.county,
       quoteNumber,
-      premium: rating && !fatalError ? rating.totalPremium : '',
+      premium,
+      county: physicalAddress.county,
       status: quote,
       useAnimationForPremium: activeTask === 'askToCustomizeDefaultQuote',
       propertyAddress: {
