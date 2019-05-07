@@ -16,11 +16,11 @@ describe('Testing the Helpful Info (Training) Page', () => {
     const { getByText } = renderWithReduxAndRouter(<Training {...defaultProps} />);
 
     externalLinks.forEach(link => {
-      expect(document.querySelector(`div.${link.productIcon}`));
+      expect(document.querySelector(`div.${link.productIcon}`)).toBeInTheDocument();
       expect(getByText(link.title));
       expect(getByText(link.description));
-      expect(document.querySelector(`div.${link.linkIcon}`));
-      expect(document.querySelector(`a[href="${link.url}"]`));
+      expect(document.querySelector(`.${link.linkIcon}`)).toBeInTheDocument();
+      expect(document.querySelector(`a[href="${link.url}"]`)).toBeInTheDocument();
     });
   });
 });

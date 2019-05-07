@@ -27,7 +27,7 @@ describe('Testing the Contacts Page', () => {
     const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
 
     territoryManagerContacts.forEach(manager => {
-      expect(document.querySelector(`div.${manager.icon}`));
+      expect(document.querySelector(`div.${manager.icon.split(' ')[0]}`)).toBeInTheDocument();
       expect(getByText(manager.name));
       expect(getByText(`| ${manager.title}`));
       expect(getByText(normalize.phone(manager.phone)));
@@ -40,7 +40,7 @@ describe('Testing the Contacts Page', () => {
     const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
 
     supportContacts.forEach(support => {
-      expect(document.querySelector(`div.${support.icon}`));
+      expect(document.querySelector(`div.${support.icon.split(' ')[0]}`)).toBeInTheDocument();
       expect(getByText(support.name));
       expect(getByText(`${normalize.phone(support.phone)} ${support.extension}`));
       expect(getByText(support.email));

@@ -78,9 +78,9 @@ describe('Testing Search Component', () => {
     const result = newState.search.results[0];
     const card = document.querySelector(`li#${result.id} a`);
 
-    expect(card.querySelector('i.fa-map-marker'));
+    expect(card.querySelector('i.fa-map-marker')).toBeInTheDocument();
     expect(getByText(`${result.physicalAddress.address1}`));
     expect(getByText(`${result.physicalAddress.city}, ${result.physicalAddress.state} ${result.physicalAddress.zip}`));
-    expect(card.querySelector('i.fa-chevron-circle-right'));
+    expect(card.querySelector('i.fa-chevron-circle-right')).toBeInTheDocument();
   });
 });
