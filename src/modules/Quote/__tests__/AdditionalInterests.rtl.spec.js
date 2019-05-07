@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, wait } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
@@ -23,11 +23,11 @@ describe('Testing Additional Interests', () => {
     location: { pathname: '/quote/12-5162219-01/additionalInterests' }
   };
 
-  const openAndCloseModal = (getByText, modal) => {
+  const openAndCloseModal = async (getByText, modal) => {
     fireEvent.click(getByText(modal));
-    expect(document.querySelector(`card.AdditionalInterestModal.${modal}`));
+    await wait(() => document.querySelector(`card.AdditionalInterestModal.${modal}`).toBeInTheDocument());
     fireEvent.click(getByText('cancel'));
-    expect(document.querySelector('form#AdditionalInterestModal')).toBeNull();
+    await wait (() => expect(document.querySelector('form#AdditionalInterestModal')).toBeNull());
   };
 
   const baseRequiredFields = baseAiFields.filter(({ required }) => required);
@@ -270,7 +270,6 @@ describe('Testing Additional Interests', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Premium Finance 1'
     ];
-
     const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
     // ...so we know the UI will still organize and sort them correctly, in order
     const labelTexts = document.querySelectorAll('.results.result-cards li.card .card-icon label');
@@ -308,7 +307,6 @@ describe('Testing Additional Interests', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Bill Payer 1'
     ];
-
     const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
 
     const labelTexts = document.querySelectorAll('.results.result-cards li.card .card-icon label');

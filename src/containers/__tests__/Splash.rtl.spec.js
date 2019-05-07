@@ -15,14 +15,6 @@ describe('Testing Splash component', () => {
     }
   };
 
-  it('POS:Dashboard Button', () => {
-    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
-
-    expect(getByText('New Quote')).toHaveAttribute('href', '/search/address');
-    expect(getByText('Retrieve Quote')).toHaveAttribute('href', '/search/retrieve');
-    expect(getByText('Retrieve Policy')).toHaveAttribute('href', '/policy');
-  });
-
   it('POS:Dashboard Banner', () => {
     const { getByAltText, getByText } = renderWithReduxAndRouter(<Splash {...props} />);
 
@@ -58,6 +50,21 @@ describe('Testing Splash component', () => {
     expect(getByText(/Getting a quote is always quick and simple with/));
     expect(getByText(/Homeowners Insurance/).className).toEqual('product-name');
     expect(getByText(/TypTap currently offers/));
-    expect(container.querySelector('.card-header.image.card-header-image-home')).not.toBeNull();
+    expect(container.querySelector('.card-header.image.card-header-image-home')).toBeInTheDocument();
+  });
+
+  it('POS:Dashboard Image', () => {
+    const { container } = renderWithReduxAndRouter(<Splash {...props} />);
+
+    expect(container.querySelector('div.card-header-image-home')).toBeInTheDocument();
+    expect(container.querySelector('div.exzeo')).toBeInTheDocument();
+  });
+
+  it('POS:Dashboard Button', () => {
+    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
+
+    expect(getByText('New Quote')).toHaveAttribute('href', '/search/address');
+    expect(getByText('Retrieve Quote')).toHaveAttribute('href', '/search/retrieve');
+    expect(getByText('Retrieve Policy')).toHaveAttribute('href', '/policy');
   });
 });
