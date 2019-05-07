@@ -8,36 +8,31 @@ const hasSearchInput = address =>
 const { address } = userHO3;
 
 describe('Property Address Search Testing', () => {
-  const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
-  const hasSearchInput = address =>
-    cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
-  const isButtonDisabled = () => cy.findDataTag('submit').should('be.disabled');
-  const { address } = user;
-
-  before('H03: Property Search Testing', () => {
   before('HO3: Property Search Testing', () => {
+    setRouteAliases();
     cy.login();
+    navigateThroughLanding();
   });
 
   beforeEach(() => setRouteAliases());
 
   it('NEG:Test Invalid Addresses', () => {
-      type('ADDRESS NOT FOUND');
-      cy.clickSubmit()
-        .findDataTag('no-results').find('.no-results .card-header > h4')
-        .should('contain', 'No Results Found')
-        .findDataTag('no-results').find('.no-results .card-block > p')
-        .should('contain', 'We\'re sorry we couldn\'t');
-      clear();
+    type('ADDRESS NOT FOUND');
+    cy.clickSubmit()
+      .findDataTag('no-results').find('.no-results .card-header > h4')
+      .should('contain', 'No Results Found')
+      .findDataTag('no-results').find('.no-results .card-block > p')
+      .should('contain', 'We\'re sorry we couldn\'t');
+    clear();
 
-      type(`{selectall}{backspace}${address}π`);
-      cy.findDataTag('address_wrapper').find('span > i')
-        .should('exist')
-        .and('be.visible')
-        .trigger('mouseenter').get('[data-id="tooltip"]')
-        // workaround for visibility testing in Cypress Chrome 67
-        .should('have.css', 'visibility', 'visible')
-        .and('contain', 'Invalid characters');
+    type(`{selectall}{backspace}${address}Ï€`);
+    cy.findDataTag('address_wrapper').find('span > i')
+      .should('exist')
+      .and('be.visible')
+      .trigger('mouseenter').get('[data-id="tooltip"]')
+      // workaround for visibility testing in Cypress Chrome 67
+      .should('have.css', 'visibility', 'visible')
+      .and('contain', 'Invalid characters');
   });
 
   it('POS:Property Search', () => {
@@ -74,7 +69,7 @@ describe('AF3: Property Search Testing', () => {
       .should('contain', 'We\'re sorry we couldn\'t');
     clear();
 
-    type(`{selectall}{backspace}${address}π`);
+    type(`{selectall}{backspace}${address}Ï€`);
     cy.findDataTag('address_wrapper').find('span > i')
       .should('exist')
       .and('be.visible')
