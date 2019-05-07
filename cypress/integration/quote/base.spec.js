@@ -12,10 +12,9 @@ import {
   navigateThroughMailingBilling,
   navigateThroughVerify,
   navigateThroughScheduleDate,
-  navigateThroughThankYou,
-  customizeTest,
-  shareTest
+  navigateThroughThankYou
 } from '../../helpers';
+import { customizeTest, shareTest } from '../../pageTests';
 
 describe('Agency Happy Path', () => {
   before('Set Route Aliases', () => {
