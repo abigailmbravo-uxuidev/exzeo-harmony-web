@@ -23,9 +23,7 @@ const switchTags = ['confirmProperty', 'confirmQuote', 'confirmPolicy', 'confirm
 describe('Verify Testing', () => {
   const props = {
     ...defaultProps,
-    location: {
-      pathname: '/quote/1/verify'
-    }
+    location: { pathname: '/quote/1/verify' }
   };
 
   const state = {
@@ -88,7 +86,7 @@ describe('Verify Testing', () => {
 
     [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
       .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: 'invalidemail', error: 'Not a valid email address'
+        name, data: 'invalid testing email address', error: 'Not a valid email address'
       }]));
   });
 
@@ -105,6 +103,7 @@ describe('Verify Testing', () => {
 
   it('NEG:All "Verified" Values left at Default "No"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     switchTags.forEach(tag =>
       expect(getByTestId(tag).className.split(' ').includes('active')).toEqual(false)
     );
@@ -112,6 +111,7 @@ describe('Verify Testing', () => {
 
   it('NEG:Some "Verified" Values left at Default "No"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     switchTags.forEach(tag => {
       fireEvent.click(getByTestId(tag));
       expect(getByTestId('next')).toBeDisabled();
@@ -128,6 +128,7 @@ describe('Verify Testing', () => {
       { label: 'Effective Date', value: '05/05/2019' },
       { label: 'Agent', value: '' }
     ];
+
     getByText('Property Details').nextSibling.childNodes.forEach((node, i) => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
@@ -161,6 +162,7 @@ describe('Verify Testing', () => {
 
   it('POS:Policyholder Details Text', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     expect(getByText(/Please be sure the information below/));
   });
 
@@ -205,11 +207,13 @@ describe('Verify Testing', () => {
 
   it('POS:Verify Toggle Labels', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     switchTags.forEach(tag => checkLabel(getByTestId, { name: tag, label: 'Verified' }));
   });
 
   it('POS:Next Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     expect(getByTestId('next').getAttribute('type')).toEqual('button');
     checkButton(getByTestId, { name: 'next' });
   });

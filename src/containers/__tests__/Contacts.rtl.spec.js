@@ -19,11 +19,13 @@ const pageHeaders = [
 describe('Testing the Contacts Page', () => {
   it('POS:Contacts Header Testing', () => {
     const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
+
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Territory Managers Cards Testing', () => {
     const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
+
     territoryManagerContacts.forEach(manager => {
       expect(document.querySelector(`div.${manager.icon}`));
       expect(getByText(manager.name));
@@ -36,6 +38,7 @@ describe('Testing the Contacts Page', () => {
 
   it('POS:Support Cards Testing', () => {
     const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
+
     supportContacts.forEach(support => {
       expect(document.querySelector(`div.${support.icon}`));
       expect(getByText(support.name));

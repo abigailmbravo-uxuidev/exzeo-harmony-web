@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, waitForDomChange } from 'react-testing-library';
 
 import {
   defaultProps,
@@ -208,17 +208,12 @@ const pageHeaders = [
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
     ...defaultProps,
-    location: {
-      pathname: '/quote/12-5162219-01/customize'
-    }
+    location: { pathname: '/quote/12-5162219-01/customize' }
   };
 
   const state = {
     ...defaultInitialState,
-    quoteState: {
-      ...defaultInitialState.quoteState,
-      quote,
-    },
+    quoteState: { ...defaultInitialState.quoteState, quote },
     list: { ...defaultInitialState.list, ...list }
   };
 
@@ -241,6 +236,10 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
 
+        fireEvent.change(input, { target: { value: '3000000' } });
+        fireEvent.blur(input);
+        expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+
         fireEvent.change(input, { target: { value: '999999999' } });
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
@@ -248,15 +247,21 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   });
 
   it('POS:Checks all fields', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId, getByText, container } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
 
     fields.filter(({ required }) => required)
-      .forEach(field => {
+      .forEach(async field => {
         checkLabel(getByTestId, field);
         if (field.type === 'radio') checkRadio(getByTestId, field);
         if (field.type === 'switch') checkSwitch(getByTestId, field);
         if (field.type === 'slider') checkSlider(getByTestId, field);
-        if (field.tooltipText) expect(getByTestId(`${field.name}_tooltip`));
+        if (field.tooltipText) {
+          fireEvent.mouseOver(getByTestId(`${field.name}_tooltip`));
+          // wait for our mouseover to occur
+          await waitForDomChange({ container }).then(() =>
+            expect(document.getElementById(field.name).textContent).toMatch(field.tooltipText)
+          );
+        };
       });
   });
 
