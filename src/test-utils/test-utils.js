@@ -46,7 +46,8 @@ export const defaultInitialState = {
       },
       rating: {
         netPremium: 0,
-        worksheet: { fees: {}}
+        worksheet: { fees: {}
+        }
       }
     }
   },

@@ -92,20 +92,9 @@ function setZipCodeSettings(state, action) {
   };
 }
 
-function getBillingInfo(billingData = {}, quote = {}) {
+function getBillingInfo(billingData = {}) {
   const { options = [], paymentPlans = {} } = billingData;
-  // check if the currently selected billToId is still an available option (should reset the value if not)
-  const billToIdIsValid = options.find(o => o.billToId === quote.billToId);
 
-  let defaultBillToId = '';
-  if (billToIdIsValid) {
-    defaultBillToId = quote.billToId;
-  }
-  // if there is only one option from the server, we want that option preselected on the page
-  else if (options.length === 1) {
-    // when 'Premium Finance' OR 'Bill Payer' OR 'Policyholder' is the only option
-    defaultBillToId = options[0].billToId;
-  }
 
   const billingOptions = [];
   const billToConfig = {};
@@ -122,7 +111,6 @@ function getBillingInfo(billingData = {}, quote = {}) {
   return {
     billingOptions,
     billToConfig,
-    defaultBillToId,
     paymentPlans,
   };
 }

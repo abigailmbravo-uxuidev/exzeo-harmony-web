@@ -473,7 +473,6 @@ export const customizeList = {
 
 export const mailingBillingList = {
   billingConfig: {
-    defaultBillToId: '5cab592e08bb5f0014863877',
     billToConfig: {
       '5cab592e08bb5f0014863877': {
         billToType: 'Policyholder',
@@ -518,7 +517,11 @@ export const mailingBillingList = {
           dueDate: '2019-11-04T05:00:00.000Z'
         }
       }
-    }
+    },
+    billingOptions: [
+      { answer: "5cab592e08bb5f0014863877", label: "Policyholder" },
+      { answer: "not important", label: "Not used right now" }
+    ],
   },
   uiQuestions: {
     address1: [], address2: [], city: [], state: [], zip: []
