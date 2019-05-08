@@ -26,13 +26,11 @@ describe('Back Button Testing', () => {
         .go('back')
     );
 
-  before(() => {
-    setRouteAliases();
+  before('Login and go to search', () => {
     cy.login();
     navigateThroughLanding();
   });
-
-  beforeEach(() => setRouteAliases());
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('Browser Back Button (Part 1)', () => {
     cy.go('back')

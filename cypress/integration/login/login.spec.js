@@ -1,7 +1,7 @@
 import { loginHO3 } from '../../fixtures';
 
 describe('Login Testing', () => {
-  before(() => cy.visit('/logout'));
+  before('Logout', () => cy.visit('/logout'));
 
   it('POS:Login Image', () =>
     cy.get('img[src="https://s3.amazonaws.com/exzeo-typtap-wordpress/images/typtap.svg"]')

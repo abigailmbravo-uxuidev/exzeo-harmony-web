@@ -17,12 +17,8 @@ import {
 import { customizeTest, shareTest, aiTest } from '../../pageTests';
 
 describe('Agency Happy Path', () => {
-  before('Set Route Aliases', () => {
-    setRouteAliases();
-    cy.login();
-  });
-
-  beforeEach(() => setRouteAliases());
+  before('Login', () => cy.login());
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('Navigates through the HO3 quote workflow', () => {
     navigateThroughLanding();
@@ -44,12 +40,8 @@ describe('Agency Happy Path', () => {
 });
 
 describe('AF3 Happy Path', () => {
-  before('Set Route Aliases', () => {
-    setRouteAliases();
-    cy.login(loginAF3);
-  });
-
-  beforeEach(() => setRouteAliases());
+  before('Login', () => cy.login(loginAF3));
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('Navigates through the AF3 quote workflow', () => {
     navigateThroughLanding();

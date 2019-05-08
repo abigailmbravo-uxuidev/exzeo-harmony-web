@@ -7,14 +7,12 @@ const hasSearchInput = address =>
   cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
 const { address } = userHO3;
 
-describe('Property Address Search Testing', () => {
-  before('HO3: Property Search Testing', () => {
-    setRouteAliases();
+describe('HO3: Property Address Search Testing', () => {
+  before('Login and go to search', () => {
     cy.login();
     navigateThroughLanding();
   });
-
-  beforeEach(() => setRouteAliases());
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('NEG:Test Invalid Addresses', () => {
     type('ADDRESS NOT FOUND');
@@ -51,13 +49,11 @@ describe('Property Address Search Testing', () => {
 });
 
 describe('AF3: Property Search Testing', () => {
-  before('AF3: Property Search Testing', () => {
-    setRouteAliases();
+  before('Login and go to search', () => {
     cy.login(loginAF3);
     navigateThroughLanding();
   });
-
-  beforeEach(() => setRouteAliases());
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('NEG:Test Invalid Address', () => {
     type('ADDRESS NOT FOUND');

@@ -12,7 +12,7 @@ import {
 } from '../../helpers';
 
 describe('Workflow Testing', () => {
-  before('Set Route Aliases', () => {
+  before('Login and move to quote', () => {
     setRouteAliases();
     cy.login();
     navigateThroughLanding();
