@@ -64,6 +64,7 @@ export class QuoteWorkflow extends Component {
     this.formRef = React.createRef();
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
+    this.checkForFatalExceptions = defaultMemoize(this.checkForFatalExceptions.bind(this));
   }
 
   componentDidMount() {
@@ -85,6 +86,14 @@ export class QuoteWorkflow extends Component {
     if ((quote || {}).product !== (prevQuote || {}).product) {
       this.getTemplate();
     }
+  }
+
+  checkForFatalExceptions(underwritingExceptions, currentStep) {
+    if (currentStep === 'verify') {
+      return (underwritingExceptions || []).length > 0;
+    }
+
+    return (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
   }
 
   getConfigForJsonTransform(gandalfTemplate) {
@@ -253,7 +262,7 @@ export class QuoteWorkflow extends Component {
     };
 
     const { underwritingExceptions } = quote;
-    const fatalError = (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
+    const fatalError = this.checkForFatalExceptions(underwritingExceptions, currentStep);
 
     return (
       <App

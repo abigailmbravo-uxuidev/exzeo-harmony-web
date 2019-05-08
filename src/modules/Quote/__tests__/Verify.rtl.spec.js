@@ -34,6 +34,7 @@ describe('Verify Testing', () => {
       ...defaultInitialState.quoteState,
       quote: {
         ...quote,
+        underwritingExceptions: [],
         policyHolderMailingAddress: {
           address1: '4131 TEST ADDRESS',
           address2: '',
