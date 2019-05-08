@@ -11,7 +11,7 @@ export const AdditionalInterestDetails = ({ additionalInterests }) => {
     <section className="display-element additional-interests">
       <ul>
       {sortedAdditionalInterests.map((additionalInterest) =>
-        <AdditionalInterestCard ai={additionalInterest} />
+        <AdditionalInterestCard key={additionalInterest._id} ai={additionalInterest} />
       )}
       </ul>
     </section>
