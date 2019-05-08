@@ -24,14 +24,16 @@ describe('Additional Interest Details Card Testing', () => {
   it('Works even with bad data', () => {
     const props = {
       ...defaultProps,
-      // TODO: Remove this data and confirm that no undefined shows up
       additionalInterests: [{
-        _id: '', name1: '', name2: '', mailingAddress: { address1: '', city: '', state: '', zip: '', country: {}}, order: 0, type: 'Mortgagee'
+        _id: '', name1: '',
+        mailingAddress: { address1: '', city: '', state: '', zip: '' },
+        order: 0, type: 'Mortgagee'
       }]
     };
     const { getByText, queryAllByText } = render(<AdditionalInterestDetails {...props} />);
 
     expect(getByText('Mortgagee 1'));
-    expect(queryAllByText('undefined').length).toBe(0);
+    // Expect no text that says "undefined" in ui
+    expect(queryAllByText(/undefined/).length).toBe(0);
   });
 });

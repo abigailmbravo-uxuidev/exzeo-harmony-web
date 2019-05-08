@@ -273,8 +273,9 @@ describe('Testing Additional Interests', () => {
         quote: {
           ...defaultInitialState.quoteState.quote,
           additionalInterests: [{
-            // TODO: Remove this data and confirm that no undefined shows up
-            _id: '', name1: '', name2: '', mailingAddress: { address1: '', city: '', state: '', zip: '', country: {} }, order: 0, type: 'Mortgagee'
+            _id: '', name1: '',
+            mailingAddress: { address1: '', city: '', state: '', zip: '' },
+            order: 0, type: 'Mortgagee'
           }]
         }
       }
@@ -282,7 +283,8 @@ describe('Testing Additional Interests', () => {
     const { getByText, queryAllByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
 
     expect(getByText('Mortgagee 1'));
-    expect(queryAllByText('undefined').length).toBe(0);
+    // Expect no text that says "undefined" in ui
+    expect(queryAllByText(/undefined/).length).toBe(0);
   });
 
   it('POS:Confirm Additional Interests Show Up In Order and Disable Buttons [Premium Finance]', () => {

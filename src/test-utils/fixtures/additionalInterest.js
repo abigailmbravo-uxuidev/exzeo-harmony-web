@@ -3,7 +3,7 @@ export const additionalInterest = {
   name1: 'BANK OF AMERICA, NA',
   name2: 'ISAOA/ATIMA',
   mailingAddress: {
-    address1: 'PO BOX 961291',
+    address1: '1234 Main Street',
     city: 'FORT WORTH',
     state: 'TX',
     zip: '76161',
