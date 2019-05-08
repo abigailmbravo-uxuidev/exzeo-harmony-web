@@ -229,132 +229,113 @@
         .display-element {
           padding: 0 0 $padding;
 
-          .card {
-            flex-direction: row;
-            margin: 0 0 $padding;
-            padding: $padding ($padding*1.5);
-
-            @include for-phone-only {
-              position: relative;
-              align-items: baseline;
-              flex-direction: column;
-            }
-
-            .icon-wrapper {
-              display: flex;
-              align-items: center;
-              flex-direction: column;
-              flex-grow: 0;
-              flex-shrink: 0;
-              justify-content: center;
-              margin-right: $padding;
-              width: 5rem;
-              text-align: center;
-
-              @include for-phone-only {
-                align-items: center;
-                flex-basis: auto;
-                flex-direction: row;
-                flex-grow: 1;
-                width: auto;
-              }
-
-              .fa {
-                color: $green;
-                font-size: $font-size-h3;
-
+          ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            
+            li {
+              div {
                 @include for-phone-only {
-                  display: flex;
+                  position: relative;
+                  align-items: baseline;
+                  flex-direction: column;
+                }
+                &.card {
                   align-items: center;
-                  justify-content: center;
-                  width: 2rem;
-                  height: 2rem;
-                }
+                  flex-direction: row;
+                  margin: 0 0 ($padding/2);
+                  padding: $padding;
+      
+                  >div {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+      
+                    h4 {
+                      margin-bottom: 0;
+                    }
+      
+                    &.card-icon {
+                      display: flex;
+                      align-items: center;
+                      flex-direction: column;
+                      flex-grow: 0;
+                      flex-shrink: 0;
+                      justify-content: center;
+                      margin-right: $padding;
+                      width: 5rem;
+                      text-align: center;
 
-                &.Mortgagee {
-                  &:before {
-                    content: "\f19c";
+                      @include for-phone-only {
+                        align-items: center;
+                        flex-basis: auto;
+                        flex-direction: row;
+                        flex-grow: 1;
+                        width: auto;
+                      }
+      
+                      label {
+                        text-align: center;
+                        font-size: $font-size-xs;
+
+                        @include for-phone-only {
+                          margin: 0;
+                          font-size: $font-size-sm;
+                        }
+                      }
+      
+                      .fa {
+                        font-size: $font-size-h3;
+                      }
+                    }
+                  };
+                }
+      
+                a {
+                  &.edit {
+                    width: 2rem;
+
+                    @include for-phone-only {
+                      position: absolute;
+                      right: $padding;
+                    }
+      
+                    .fa-pencil {
+                      font-size: $font-size-h4;
+                    }
+                  }
+      
+                  &.remove {
+                    width: 2rem;
+
+                    @include for-phone-only {
+                      position: absolute;
+                      right: 3rem;
+                    }
+      
+                  ;
+      
+                    .fa-trash {
+                      font-size: $font-size-h4;
+                    }
                   }
                 }
-
-                &.PremiumFinance {
-                  &:before {
-                    content: "\F27E";
+      
+                section {
+                  display: flex;
+                  flex-direction: column;
+                  flex-grow: 1;
+                  flex-shrink: 1;
+      
+                  h4 {
+                    margin-bottom: 0;
+                    line-height: $line-height-sm;
                   }
-                }
-
-                &.Interest {
-                  &:before {
-                    content: "\F2B5";
+      
+                  p {
+                    margin-bottom: 0;
+                    line-height: $line-height-sm;
                   }
-                }
-
-                &.Insured {
-                  &:before {
-                    content: "\F234";
-                  }
-                }
-
-                &.Bill {
-                  &:before {
-                    content: "\F0D6";
-                  }
-                }
-              }
-
-              p {
-                margin-bottom: 0;
-                font-size: $font-size-xs;
-
-                @include for-phone-only {
-                  margin: 0;
-                  font-size: $font-size-sm;
-                }
-              }
-            }
-
-            section {
-              display: flex;
-              flex-direction: column;
-              flex-grow: 1;
-              flex-shrink: 1;
-              margin-bottom: 0;
-              padding-bottom: 0;
-              border-bottom-width: 0;
-
-              h4 {
-                margin-bottom: 0;
-                padding: 0;
-                line-height: $line-height-sm;
-              }
-
-              p {
-                margin-bottom: 0;
-                padding: 0;
-                line-height: $line-height-sm;
-              }
-            }
-
-            .ref-number {
-              display: flex;
-              flex-basis: 10rem;
-              flex-direction: column;
-              flex-grow: 0;
-              flex-shrink: 0;
-              justify-content: center;
-
-              @include for-phone-only {
-                flex-basis: auto;
-                margin-top: $padding;
-              }
-
-              label {
-                margin-bottom: 0;
-                font-size: $font-size-xs;
-
-                @include for-phone-only {
-                  flex-basis: auto;
-                  margin-top: $padding;
                 }
               }
             }
