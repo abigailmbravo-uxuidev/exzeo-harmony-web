@@ -7,4 +7,4 @@ export default () =>
     .get('ul.result-cards li').should('have.length', 1)
     .within(() => cy.get('a.remove').click())
     .findDataTag('modal-confirm').click()
-    .get('ul.result-cards li').should('have.length', 0)
+    .get('ul.result-cards li').should('have.length', 0);

@@ -56,7 +56,7 @@ describe('AF3 Happy Path', () => {
     navigateThroughAssumptions();
     aiTest();
     navigateThroughAdditionalInterests();
-    navigateThroughMailingBilling()
+    navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
     navigateThroughThankYou();

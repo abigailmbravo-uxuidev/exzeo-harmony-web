@@ -31,7 +31,7 @@ export default sliders =>
           .findDataTag('tab-nav-3').click()
           // and confirm the min and max haven't changed.
           .findDataTag(`${name}-slider-min`).then($newMinText => expect($newMinText.text()).to.eq(minText))
-          .findDataTag(`${name}-slider-max`).then($newMaxText => expect($newMaxText.text()).to.eq(maxText))
+          .findDataTag(`${name}-slider-max`).then($newMaxText => expect($newMaxText.text()).to.eq(maxText));
       });
     })
   );

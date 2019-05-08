@@ -8,7 +8,7 @@ const pageHeaders = [{ text: 'Reference' }];
 describe('Testing the Helpful Info (Training) Page', () => {
   it('POS:Helpful Info Header Testing', () => {
     const { getByText } = renderWithReduxAndRouter(<Training { ...defaultProps } />);
-  
+
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 

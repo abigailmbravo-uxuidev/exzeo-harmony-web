@@ -24,33 +24,33 @@ describe('Workflow Testing', () => {
     navigateThroughPolicyholder();
     cy.findDataTag('tab-nav-1').click()
       .findDataTag('Primary Policyholder').should('exist')
-      .clickSubmit()
+      .clickSubmit();
 
     navigateThroughUnderwriting();
     cy.findDataTag('tab-nav-2').click()
       .findDataTag('underwritingAnswers.rented.answer_wrapper').should('exist')
-      .clickSubmit()
+      .clickSubmit();
 
     navigateThroughCustomize();
     cy.findDataTag('tab-nav-3').click()
       .findDataTag('Coverage Limits').should('exist')
-      .clickSubmit()
+      .clickSubmit();
 
     navigateThroughShare();
     navigateThroughAssumptions();
     cy.findDataTag('tab-nav-4').click()
       .findDataTag('Share').should('exist')
-      .clickSubmit()
+      .clickSubmit();
     navigateThroughAssumptions();
 
     navigateThroughAdditionalInterests();
     cy.findDataTag('tab-nav-5').click()
       .get('p').contains('Please select the type of Additional Interest that you would like to add for this policy').should('exist')
-      .clickSubmit()
-    
+      .clickSubmit();
+
     navigateThroughMailingBilling();
     cy.findDataTag('tab-nav-6').click()
       .findDataTag('Mailing Address').should('exist')
-      .clickSubmit()
+      .clickSubmit();
   });
 });
