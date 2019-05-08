@@ -71,8 +71,6 @@ describe('AF3: Property Search Testing', () => {
     clear();
 
     type(`{selectall}{backspace}${address}π`);
-    // AWAITING BUGFIX
-    // isButtonDisabled();
     cy.findDataTag('address_wrapper').find('span > i')
       .should('exist')
       .and('be.visible')
