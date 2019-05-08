@@ -14,7 +14,7 @@ import {
   navigateThroughScheduleDate,
   navigateThroughThankYou
 } from '../../helpers';
-import { customizeTest, shareTest } from '../../pageTests';
+import { customizeTest, shareTest, aiTest } from '../../pageTests';
 
 describe('Agency Happy Path', () => {
   before('Set Route Aliases', () => {
@@ -34,6 +34,7 @@ describe('Agency Happy Path', () => {
     shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
+    aiTest();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
@@ -61,6 +62,7 @@ describe('AF3 Happy Path', () => {
     shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
+    aiTest();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling()
     navigateThroughVerify();
