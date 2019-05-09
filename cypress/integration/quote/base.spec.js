@@ -25,6 +25,8 @@ describe('Agency Happy Path', () => {
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    cy.findDataTag('tab-nav-3').click();
     customizeTest(customizeHO3);
     navigateThroughCustomize();
     shareTest();
@@ -49,6 +51,8 @@ describe('AF3 Happy Path', () => {
     navigateThroughSearchAddress(userAF3);
     navigateThroughPolicyholder(userAF3);
     navigateThroughUnderwriting(underwritingAF3);
+    navigateThroughCustomize();
+    cy.findDataTag('tab-nav-3').click();
     customizeTest(customizeAF3);
     navigateThroughCustomize();
     shareTest();

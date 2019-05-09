@@ -11,59 +11,39 @@ export default sliders =>
       // and confirm your text fields for min and max match the value.
       cy.findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
         .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))
-        // 
+        // Change vale
         .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
+        // and reset.
         .findDataTag('reset').should('contain', 'reset').click()
+        // Change again
         .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
+        // and recalculate.
         .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
+        // Confirm your min and max values still are the same
+        .findDataTag(`${path}-slider`).invoke('attr', 'min').should('eq', minValue)
+        .findDataTag(`${path}-slider`).invoke('attr', 'max').should('eq', maxValue)
+        // and those values are still reflected in the ui min/max labels.
         .findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
         .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))
+        // Get the first unselected answer and select it
         .get('.segmented-answer-wrapper').first().find('div label.label-segmented:not(.selected)').first().click()
+        // and recalculate,
         .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
+        // then confirm your min and max values still are the same
+        .findDataTag(`${path}-slider`).invoke('attr', 'min').should('eq', minValue)
+        .findDataTag(`${path}-slider`).invoke('attr', 'max').should('eq', maxValue)
+        // and those values are still reflected in the ui min/max labels.
         .findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
         .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))
+        // Submit the form,
         .clickSubmit('#QuoteWorkflow').wait('@updateQuote')
-        // and go back to customize page
+        // then go back to customize page.
         .findDataTag('tab-nav-3').click()
+        // Confirm your min and max values still are the same
+        .findDataTag(`${path}-slider`).invoke('attr', 'min').should('eq', minValue)
+        .findDataTag(`${path}-slider`).invoke('attr', 'max').should('eq', maxValue)
+        // and those values are still reflected in the ui min/max labels.
         .findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
         .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))
     })
-
-
-
-    // // grab the minimum value
-    // cy.findDataTag(`${path}-slider-min`).then($min => {
-    //   const minText = $min.text();
-    //   const minValue = cy.findDataTag(`${path}-slider`).invoke('attr', 'min').should('eq', ``)
-    //   cy.log(minValue)
-    //   // and maximum value
-    //   cy.findDataTag(`${path}-slider-max`).then($max => {
-    //     const maxText = $max.text();
-    //     // change value
-    //     cy.findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
-    //       // reset
-    //       .findDataTag('reset').should('contain', 'reset').click()
-    //       // change again
-    //       .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
-    //       // hit recalc
-    //       .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
-    //       // and confirm the min and max haven't changed.
-    //       .findDataTag(`${path}-slider-min`).then($newMinText => expect($newMinText.text()).to.eq(minText))
-    //       .findDataTag(`${path}-slider-max`).then($newMaxText => expect($newMaxText.text()).to.eq(maxText))
-    //       // Get the first unselected answer and select it
-    //       .get('.segmented-answer-wrapper').first().find('div label.label-segmented:not(.selected)').first().click()
-    //       // hit recalc
-    //       .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
-    //       // and confirm the min and max haven't changed.
-    //       .findDataTag(`${path}-slider-min`).then($newMinText => expect($newMinText.text()).to.eq(minText))
-    //       .findDataTag(`${path}-slider-max`).then($newMaxText => expect($newMaxText.text()).to.eq(maxText))
-    //       // Submit the form
-    //       .clickSubmit('#QuoteWorkflow').wait('@updateQuote')
-    //       // and go back to customize page
-    //       .findDataTag('tab-nav-3').click()
-    //       // and confirm the min and max haven't changed.
-    //       .findDataTag(`${path}-slider-min`).then($newMinText => expect($newMinText.text()).to.eq(minText))
-    //       .findDataTag(`${path}-slider-max`).then($newMaxText => expect($newMaxText.text()).to.eq(maxText));
-    //   });
-    // })
   );
