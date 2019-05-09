@@ -16,6 +16,8 @@ import {
   checkButton,
   quote,
   mailingBillingList as list,
+  rating,
+  cost,
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
@@ -78,7 +80,7 @@ const fields = [
     name: 'sameAsPropertyAddress',
     type: 'switch',
     label: 'Is the mailing address the same',
-    defaultValue: false
+    defaultValue: ''
   }
 ];
 
@@ -103,7 +105,10 @@ describe('Testing the Mailing/Billing Page', () => {
 
   const state = {
     ...defaultInitialState,
-    quoteState: { ...defaultInitialState.quoteState, quote },
+    quoteState: { ...defaultInitialState.quoteState, quote: {
+      ...quote,
+      rating: { worksheet: { fees: {}}}
+    }},
     list: { ...defaultInitialState.list, ...list }
   };
 

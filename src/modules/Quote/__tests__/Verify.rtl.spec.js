@@ -12,6 +12,8 @@ import {
   submitForm,
   verifyForm,
   quote,
+  rating,
+  policyholder,
   additionalInterest,
   ph1Fields,
   ph2Fields
@@ -33,6 +35,8 @@ describe('Verify Testing', () => {
       ...defaultInitialState.quoteState,
       quote: {
         ...quote,
+        policyHolders: [policyholder],
+        rating,
         policyHolderMailingAddress: {
           address1: '4131 TEST ADDRESS',
           address2: '',
