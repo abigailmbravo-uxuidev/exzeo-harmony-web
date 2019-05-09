@@ -90,7 +90,8 @@ export class QuoteWorkflow extends Component {
 
   checkForFatalExceptions(underwritingExceptions, currentStep) {
     if (currentStep === 'verify') {
-      return (underwritingExceptions || []).length > 0;
+      const currentExceptions = (underwritingExceptions || []).filter(ue => !ue.overridden);
+      return currentExceptions.length > 0;
     }
 
     return (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
@@ -262,7 +263,7 @@ export class QuoteWorkflow extends Component {
     };
 
     const { underwritingExceptions } = quote;
-    const fatalError = this.checkForFatalExceptions(underwritingExceptions, currentStep);
+    const quoteHasFatalError = this.checkForFatalExceptions(underwritingExceptions, currentStep);
 
     return (
       <App
@@ -271,11 +272,11 @@ export class QuoteWorkflow extends Component {
         match={match} >
           <div className="route">
             {isLoading && <Loader />}
-            {(fatalError && !(location.state || {}).fatalError) &&
+            {(quoteHasFatalError && !(location.state || {}).fatalError) &&
               <Redirect to={{ pathname: "error", state: { fatalError: true } }} />
             }
 
-            { gandalfTemplate && gandalfTemplate.header &&
+            {gandalfTemplate && gandalfTemplate.header &&
               <WorkflowNavigation
                 header={gandalfTemplate.header}
                 headerDetails={headerDetails}
@@ -284,7 +285,7 @@ export class QuoteWorkflow extends Component {
                 history={history}
                 goToStep={this.goToStep}
                 isLoading={isLoading}
-                showNavigationTabs={!fatalError && (currentStep !== 'thankYou')}
+                showNavigationTabs={!quoteHasFatalError && currentStep !== 'thankYou'}
                 currentStep={this.state.currentStep}
                 quote={quoteData}
               />
