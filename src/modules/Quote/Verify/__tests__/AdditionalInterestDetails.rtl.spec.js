@@ -8,15 +8,16 @@ describe('Additional Interest Details Card Testing', () => {
   it('Renders an ai card', () => {
     const props = {
       ...defaultProps,
-      additionalInterests: [{ ...additionalInterest, _id: '1234' }]
+      additionalInterests: [{ ...additionalInterest, _id: '1234', type: 'Mortgagee' }]
     };
+    const { additionalInterests } = props;
     const { getByText } = render(<AdditionalInterestDetails {...props} />);
 
-    expect(getByText(additionalInterest.name1));
-    expect(getByText(additionalInterest.name2));
-    expect(getByText(additionalInterest.mailingAddress.address1));
-    expect(getByText(`${additionalInterest.mailingAddress.city}, ${additionalInterest.mailingAddress.state} ${additionalInterest.mailingAddress.zip}`));
-    expect(getByText(`${additionalInterest.type} ${additionalInterest.order + 1}`));
+    expect(getByText(additionalInterests[0].name1));
+    expect(getByText(additionalInterests[0].name2));
+    expect(getByText(additionalInterests[0].mailingAddress.address1));
+    expect(getByText(`${additionalInterests[0].mailingAddress.city}, ${additionalInterests[0].mailingAddress.state} ${additionalInterests[0].mailingAddress.zip}`));
+    expect(getByText(`${additionalInterests[0].type} ${additionalInterests[0].order + 1}`));
     expect(getByText('Reference Number'));
     expect(document.querySelector('.icon-wrapper i.fa.Mortgagee')).toBeInTheDocument();
   });
@@ -30,9 +31,10 @@ describe('Additional Interest Details Card Testing', () => {
         order: 0, type: 'Mortgagee'
       }]
     };
+    const { additionalInterests } = props;
     const { getByText, queryAllByText } = render(<AdditionalInterestDetails {...props} />);
 
-    expect(getByText('Mortgagee 1'));
+    expect(getByText(`${additionalInterests[0].type} ${additionalInterests[0].order + 1}`));
     // Expect no text that says "undefined" in ui
     expect(queryAllByText(/undefined/).length).toBe(0);
   });

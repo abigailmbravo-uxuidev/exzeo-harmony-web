@@ -13,5 +13,5 @@ export const additionalInterest = {
     }
   },
   order: 0,
-  type: 'Mortgagee'
+  type: ''
 };
