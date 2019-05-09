@@ -1,6 +1,4 @@
-import customizeAF3 from './customizeFields.json';
-import loginAF3 from './login.json';
-import underwritingAF3 from './underwriting.json';
-import userAF3 from './user';
-
-export { customizeAF3, loginAF3, underwritingAF3, userAF3 };
+export { default as customizeAF3 } from './customizeFields';
+export { default as loginAF3 } from './login';
+export { default as underwritingAF3 } from './underwriting';
+export { default as userAF3 } from './user';

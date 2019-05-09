@@ -1,4 +1,4 @@
-import { userHO3, underwritingHO3, customizeHO3 } from '../fixtures';
+import { userHO3, underwritingHO3 } from '../fixtures';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
@@ -25,17 +25,8 @@ export const navigateThroughUnderwriting = (data = underwritingHO3) => {
   cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 };
 
-export const navigateThroughCustomize = (data = customizeHO3) => {
-  // We alter each input, reset, then recalculate before submitting
-  data.forEach(({ path, value }) =>
-    cy.findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
-      .findDataTag('reset').should('contain', 'reset').click()
-      .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
-      .findDataTag('submit').should('contain', 'recalculate').click()
-      .wait('@updateQuote')
-  );
+export const navigateThroughCustomize = () =>
   cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
-};
 
 export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow');
 

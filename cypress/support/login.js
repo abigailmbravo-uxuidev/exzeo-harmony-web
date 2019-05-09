@@ -1,6 +1,6 @@
-import login from '../fixtures/HO3/login.json';
+import { loginHO3 } from '../fixtures';
 
-Cypress.Commands.add('login', (loginInfo = login) => {
+Cypress.Commands.add('login', (loginInfo = loginHO3) => {
   cy.visit('/logout');
 
   if (Cypress.env('USE_MOCK_AUTH0')) {

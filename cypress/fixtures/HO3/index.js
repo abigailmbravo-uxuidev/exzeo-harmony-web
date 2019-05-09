@@ -1,6 +1,4 @@
-import customizeHO3 from './customizeFields.json';
-import loginHO3 from './login.json';
-import underwritingHO3 from './underwriting.json';
-import userHO3 from './user';
-
-export { customizeHO3, loginHO3, underwritingHO3, userHO3 };
+export { default as customizeHO3 } from './customizeFields';
+export { default as loginHO3 } from './login';
+export { default as underwritingHO3 } from './underwriting';
+export { default as userHO3 } from './user';
