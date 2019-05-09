@@ -1,6 +1,6 @@
 import userHO3 from '../fixtures/HO3/user.json';
 import underwritingHO3 from '../fixtures/HO3/underwriting.json';
-import customizeHO3 from '../fixtures/HO3/customizeFields.json';
+import customizeHO3 from '../fixtures/HO3/customizeFields';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
@@ -29,10 +29,10 @@ export const navigateThroughUnderwriting = (data = underwritingHO3) => {
 
 export const navigateThroughCustomize = (data = customizeHO3) => {
   // We alter each input, reset, then recalculate before submitting
-  Object.entries(data).forEach(([name, value]) =>
-    cy.findDataTag(`${name}-input`).type(`{selectall}{backspace}${value}`)
+  data.forEach(({ path, value }) =>
+    cy.findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
       .findDataTag('reset').should('contain', 'reset').click()
-      .findDataTag(`${name}-input`).type(`{selectall}{backspace}${value}`)
+      .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
       .findDataTag('submit').should('contain', 'recalculate').click()
       .wait('@updateQuote')
   );
