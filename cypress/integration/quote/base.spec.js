@@ -1,7 +1,7 @@
 import userAF3 from '../../fixtures/AF3/user.json';
 import loginAF3 from '../../fixtures/AF3/login.json';
 import underwritingAF3 from '../../fixtures/AF3/underwriting.json';
-import customizeAF3 from '../../fixtures/AF3/customizeFields.json';
+import customizeAF3 from '../../fixtures/AF3/customizeFields';
 import {
   setRouteAliases,
   navigateThroughLanding,
