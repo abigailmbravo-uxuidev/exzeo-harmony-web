@@ -31,9 +31,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   const props = {
     ...defaultProps,
     history: {},
-    location: {
-      pathname: ''
-    },
+    location: { pathname: '' },
     setPolicySearch: () => {}
   };
 

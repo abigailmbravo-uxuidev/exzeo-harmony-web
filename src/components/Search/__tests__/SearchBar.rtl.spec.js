@@ -45,7 +45,7 @@ describe('Testing SearchBar Component', () => {
       ...defaultInitialState,
       handleSubmit: () => () => {},
       fieldValues: {},
-      userProfile: { appMetadata: { beta: false }}
+      userProfile: { appMetadata: { beta: false } }
     };
 
     const SearchBarForm = reduxForm({

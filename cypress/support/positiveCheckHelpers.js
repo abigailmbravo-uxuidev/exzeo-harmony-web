@@ -26,7 +26,7 @@ Cypress.Commands.add('checkHeader', ({ name, text, icon }) =>
  * @param {string} text - Check this text is now in value of input
  */
 Cypress.Commands.add('checkText', (tag, text = '(99') =>
-  cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`, { force: true }).should('have.attr', 'value', text));
+  cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text));
 
 /**
  * Checks that every radio has values as described
@@ -65,23 +65,6 @@ Cypress.Commands.add('checkSwitch', ({ name, defaultValue }) =>
  */
 Cypress.Commands.add('checkSubmitButton', ((form = 'body') =>
   cy.get(form).findDataTag('submit').should('exist').and('have.attr', 'type', 'button')));
-
-/**
- * @param {string} tag - Name of the data test tag wrapping the select
- * @param {number} option - Index of the option to select
- */
-Cypress.Commands.add('chooseSelectOption', (tag, option = 0) =>
-  cy.findDataTag(tag).find('input')
-    .type(' ', { force: true })
-    .get('div.Select-menu div[role="option"]').then($arr => cy.wrap($arr[option]).click()));
-
-/**
- * @param {string} tag - Name of the data test tag wrapping the select
- * @param {string} placeholder - Placeholder text
- */
-Cypress.Commands.add('resetSelectOption', (tag, placeholder = 'Select...') =>
-  cy.findDataTag(tag).find('span.Select-clear').click()
-    .findDataTag(tag).find('.Select-control .Select-placeholder').should('contain', placeholder));
 
 /**
  * Checks the values in a slider

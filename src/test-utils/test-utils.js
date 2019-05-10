@@ -46,8 +46,7 @@ export const defaultInitialState = {
       },
       rating: {
         netPremium: 0,
-        worksheet: { fees: {}
-        }
+        worksheet: { fees: {} }
       }
     }
   },
@@ -71,16 +70,15 @@ export const defaultInitialState = {
   }
 };
 
-export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) => {
-  return {
+export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) =>
+  ({
     ...render(<Router><Provider store={store}>{ui}</Provider></Router>),
     // Return our mock store, in case we want to do something with it in a test
     store,
     // Provide a function to recreate the internal wrapping of the render function
     // This is useful if we need to rerender within a test
     wrapUi: ui => <Router><Provider store={store}>{ui}</Provider></Router>
-  };
-};
+  });
 
 export const defaultProps = {
   auth: {
@@ -99,7 +97,7 @@ const parseQueryType = (query, field) => {
       return query(field.name);
     case 'getByText':
       return query(field.text);
-    case 'getByLabel':
+    case 'getByLabelText':
       return query(field.label);
     default:
       return query(field.name);

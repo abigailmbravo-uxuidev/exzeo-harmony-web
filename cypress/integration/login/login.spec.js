@@ -1,7 +1,7 @@
-import loginInfo from '../../fixtures/stockData/login.json';
+import { loginHO3 } from '../../fixtures';
 
 describe('Login Testing', () => {
-  before(() => cy.visit('/logout'));
+  before('Logout', () => cy.visit('/logout'));
 
   it('POS:Login Image', () =>
     cy.get('img[src="https://s3.amazonaws.com/exzeo-typtap-wordpress/images/typtap.svg"]')
@@ -24,9 +24,9 @@ describe('Login Testing', () => {
     cy.get('button.auth0-lock-submit[type="submit"]')
       .should('exist')
       .get('input[name="username"]')
-      .type(loginInfo.username, { force: true })
+      .type(loginHO3.username, { force: true })
       .get('input[name="password"]')
-      .type(loginInfo.password, { force: true })
+      .type(loginHO3.password, { force: true })
       .get('.auth0-label-submit')
       .click({ force: true })
       .get('div.dashboard-message')

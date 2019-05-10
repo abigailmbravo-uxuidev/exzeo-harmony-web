@@ -71,7 +71,7 @@ describe('Testing the Share Page', () => {
     // Confirm share button exists and the modal does not
     // FIXME: This is an example of poorly-structured code causing tests to be overly complicated
     expect(getByTestId('share')).toHaveTextContent('share');
-    expect(queryByTestId('Share Quote')).toBeNull();
+    expect(queryByTestId('Share Quote')).not.toBeInTheDocument();
     fireEvent.click(getByTestId('share'));
     rerender(wrapUi(
       <ConnectedShare

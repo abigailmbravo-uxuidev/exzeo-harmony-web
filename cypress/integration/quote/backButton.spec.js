@@ -14,24 +14,23 @@ import {
 } from '../../helpers';
 
 describe('Back Button Testing', () => {
-  const getAndSearchQuote = () =>
-    cy.findDataTag('quote-details').find('> dl > div > dd.fade').then($quote =>
+  // Grab the quote number off the ui and retrieve it to confirm our quote is searchable with the quote number
+  const getQuoteNumberAndRetrieve = () =>
+    cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote =>
       cy.go('back')
         .get('div.dashboard-message').should('exist')
         .get('.btn[href="/search/retrieve"]').click()
-        .findDataTag('quoteNumber').find('input').type($quote.text())
+        .findDataTag('quoteNumber').type($quote.text())
         .clickSubmit('#SearchBar')
         .findDataTag('quote-list').should('not.be.empty')
         .go('back')
     );
 
-  before(() => {
-    setRouteAliases();
+  before('Login and go to search', () => {
     cy.login();
     navigateThroughLanding();
   });
-
-  beforeEach(() => setRouteAliases());
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('Browser Back Button (Part 1)', () => {
     cy.go('back')
@@ -52,14 +51,14 @@ describe('Back Button Testing', () => {
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    getAndSearchQuote();
+    getQuoteNumberAndRetrieve();
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
-    getAndSearchQuote();
+    getQuoteNumberAndRetrieve();
   });
 
   it('Browser Back Button (Part 2)', () => {
@@ -69,7 +68,7 @@ describe('Back Button Testing', () => {
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
-    getAndSearchQuote();
+    getQuoteNumberAndRetrieve();
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -78,7 +77,7 @@ describe('Back Button Testing', () => {
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
-    getAndSearchQuote();
+    getQuoteNumberAndRetrieve();
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -88,7 +87,7 @@ describe('Back Button Testing', () => {
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
-    getAndSearchQuote();
+    getQuoteNumberAndRetrieve();
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -99,7 +98,7 @@ describe('Back Button Testing', () => {
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
-    getAndSearchQuote();
+    getQuoteNumberAndRetrieve();
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -111,7 +110,7 @@ describe('Back Button Testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
-    getAndSearchQuote();
+    getQuoteNumberAndRetrieve();
   });
 
   it('Browser Back Button (Part 3)', () => {
@@ -126,7 +125,9 @@ describe('Back Button Testing', () => {
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    cy.wait('@getQuoteServiceRequest').go('back')
+    cy.wait('@agencySubmitApplication').go('back')
       .get('div.dashboard-message').should('exist');
   });
 });
+
+// TODO: CHECK TO RETRIEVE AF3 QUOTE
