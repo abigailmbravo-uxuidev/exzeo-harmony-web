@@ -17,9 +17,4 @@ const af3Headers = [
 ];
 
 export default (product = 'H03') =>
-  cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
-    .findDataTag('share').click()
-    .findDataTag('name').type('Bruce')
-    .findDataTag('email').type('Batman@gmail.com')
-    .clickSubmit('#SendEmail', 'modal-submit')
-    .wait('@agencyEmailQuoteSummary');
+  cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));

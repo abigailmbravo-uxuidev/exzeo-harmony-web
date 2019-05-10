@@ -67,6 +67,17 @@ Cypress.Commands.add('checkSubmitButton', ((form = 'body') =>
   cy.get(form).findDataTag('submit').should('exist').and('have.attr', 'type', 'button')));
 
 /**
+ * Checks a detail header section
+ * @param {object} header - The header object to check
+ * @param {string} header.name - Name of the wrapping data-test tag
+ * @param {string} header.label - Text content of label
+ * @param {array} header.values
+ */
+Cypress.Commands.add('checkDetailHeader', ({ name, label, value }) =>
+  cy.findDataTag(name).find('dt').should('contain', label)
+    .findDataTag(name).find('dd').eq(0).should('contain', value))
+
+/**
  * Checks the values in a slider
  * @param {Object} field - An input switch field
  * @param {string} field.name - Name of the wrapping data-test tag
