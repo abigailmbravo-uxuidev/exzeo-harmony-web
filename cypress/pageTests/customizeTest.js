@@ -8,6 +8,7 @@ export default sliders =>
       // get the min and max value attributes
       const minValue = $slider.attr('min');
       const maxValue = $slider.attr('max');
+      // TODO: CHECK RECAULCUALTE VALUE IS EQUAL
       // and confirm your text fields for min and max match the value.
       cy.findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
         .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))

@@ -15,9 +15,7 @@ import {
   checkSwitch,
   checkButton,
   quote,
-  mailingBillingList as list,
-  rating,
-  cost,
+  mailingBillingList as list
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 

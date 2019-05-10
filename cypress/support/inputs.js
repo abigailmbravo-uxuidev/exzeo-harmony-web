@@ -43,7 +43,7 @@ Cypress.Commands.add('clearAllText', fields =>
  * @param {number} option - Index of the option to select
  */
 Cypress.Commands.add('chooseReactSelectOption', (tag, searchTerm) =>
-  cy.findDataTag(tag).find('input#react-select-2-input')
+  cy.findDataTag(tag).find('input:not([type="hidden"])')
     .type(searchTerm, { force: true })
     .get('div.react-select__menu div[role="option"]').then($arr => cy.wrap($arr[0]).click()));
 

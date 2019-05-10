@@ -70,6 +70,9 @@ describe('Verify Testing', () => {
     ph2Fields.forEach(field => checkError(getByTestId, field));
   });
 
+  // TODO: Fill out everything except one for each of these fields
+
+  
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fireEvent.click(getByTestId('policyholder-details'));
@@ -186,13 +189,17 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Policyholder Modal', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getByTestId, queryByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
 
     fireEvent.click(getByTestId('policyholder-details'));
+    expect(document.querySelector('i.fa-vcard')).toBeInTheDocument();
     expect(getByText('Edit Policyholder(s)'));
+    // Secondary policyholder text should not exist
+    expect(queryByText('Secondary Policyholder')).not.toBeInTheDocument();
     expect(getByText('Do you want to add an additional Policyholder?'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
     expect(getByText('Primary Policyholder'));
+    // until after we've clicked on the toggle.
     expect(getByText('Secondary Policyholder'));
   });
 
@@ -235,7 +242,7 @@ describe('Verify Testing', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Premium Finance 1'
     ];
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
 
     const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
     labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
@@ -266,7 +273,7 @@ describe('Verify Testing', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Bill Payer 1'
     ];
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
 
     const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
     labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));

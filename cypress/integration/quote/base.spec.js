@@ -14,7 +14,7 @@ import {
   navigateThroughScheduleDate,
   navigateThroughThankYou
 } from '../../helpers';
-import { customizeTest, shareTest, aiTest } from '../../pageTests';
+import { customizeTest, shareTest, aiTest, mailingBillingTest } from '../../pageTests';
 
 describe('Agency Happy Path', () => {
   before('Login', () => cy.login());
@@ -34,6 +34,7 @@ describe('Agency Happy Path', () => {
     navigateThroughAssumptions();
     aiTest();
     navigateThroughAdditionalInterests();
+    mailingBillingTest();
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
@@ -60,6 +61,7 @@ describe('AF3 Happy Path', () => {
     navigateThroughAssumptions();
     aiTest();
     navigateThroughAdditionalInterests();
+    mailingBillingTest();
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
