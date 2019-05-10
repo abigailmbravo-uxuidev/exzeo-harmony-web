@@ -257,10 +257,8 @@ describe('Testing Additional Interests', () => {
     const { quoteState: { quote: { additionalInterests }}} = newState;
     const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
 
-    expect(getByText(additionalInterests[0].name1));
-    expect(getByText(additionalInterests[0].name2));
-    expect(getByText(additionalInterests[0].mailingAddress.address1));
-    expect(getByText(`${additionalInterests[0].mailingAddress.city}, ${additionalInterests[0].mailingAddress.state} ${additionalInterests[0].mailingAddress.zip}`));
+    expect(getByText(`${additionalInterests[0].name1} ${additionalInterests[0].name2}`));
+    expect(getByText(`${additionalInterests[0].mailingAddress.address1}, ${additionalInterests[0].mailingAddress.city}, ${additionalInterests[0].mailingAddress.state} ${additionalInterests[0].mailingAddress.zip}`));
     expect(getByText(`${additionalInterests[0].type} ${additionalInterests[0].order + 1}`));
     expect(document.querySelector('i.fa.fa-circle.Mortgagee')).toBeInTheDocument();
     expect(document.querySelector('a.remove i.fa.fa-trash')).toBeInTheDocument();

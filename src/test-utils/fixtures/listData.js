@@ -486,8 +486,7 @@ export const mailingBillingList = {
 			}
 		},
 		billingOptions: [
-			{ answer: "5cab592e08bb5f0014863877", label: "Policyholder" },
-			{ answer: "not important", label: "Not used right now" }
+			{ answer: "5cab592e08bb5f0014863877", label: "Policyholder" }
 		],
 		paymentPlans: {
 			annual: {
