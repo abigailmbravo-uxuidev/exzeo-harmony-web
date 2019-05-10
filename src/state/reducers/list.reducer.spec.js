@@ -39,7 +39,7 @@ describe('List Reducer', () => {
   });
 
   describe('list reducer SET_BILLING OPTIONS' , () => {
-    it('should set billToId when only one option is present', () => {
+    it('should format response from billing action', () => {
       const state = initialState.list;
       const billingOptions = {
         options: [{
@@ -57,14 +57,12 @@ describe('List Reducer', () => {
       const action = {
         type: listTypes.SET_BILLING_OPTIONS,
         billingOptions,
-        quote: {
-          billToId: ''
-        }
       };
 
       const result = {
         ...initialState.list,
         billingConfig: {
+          paymentPlans: billingOptions.paymentPlans,
           billingOptions: [{label: 'Policyholder', answer: '23412'}],
           billToConfig: {
             '23412': {
@@ -77,71 +75,6 @@ describe('List Reducer', () => {
               ]
             }
           },
-          defaultBillToId: billingOptions.options[0].billToId,
-          paymentPlans: billingOptions.paymentPlans,
-        },
-      };
-
-      expect(listReducer(state, action)).toEqual(result);
-    });
-
-    it('should set billToId when more than one option is present and there is no quote.billToId', () => {
-      const state = initialState.list;
-      const billingOptions = {
-        options: [
-          {
-            billToId: '23412',
-            billToType: 'Policyholder',
-            displayText: 'Policyholder',
-            payPlans: [
-              'Annual',
-              'Quarterly',
-              'Semi Annual'
-            ]
-          },
-          {
-            billToId: '3465234',
-            billToType: 'Mortgagee',
-            displayText: 'Mortgagee',
-            payPlans: [
-              'Annual',
-            ]
-          }
-          ],
-        paymentPlans: { name: 'Test' }
-      };
-      const action = {
-        type: listTypes.SET_BILLING_OPTIONS,
-        billingOptions,
-        quote: {
-          billToId: ''
-        }
-      };
-
-      const result = {
-        ...initialState.list,
-        billingConfig: {
-          billingOptions: [{label: 'Policyholder', answer: '23412'}, {label: 'Mortgagee', answer: '3465234'}],
-          billToConfig: {
-            '23412': {
-              billToType: billingOptions.options[0].billToType,
-              availablePlans: billingOptions.options[0].payPlans,
-              payPlanOptions: [
-                { label: 'Annual', answer: 'Annual' },
-                { label: 'Quarterly', answer: 'Quarterly' },
-                { label: 'Semi Annual', answer: 'Semi Annual' },
-              ]
-            },
-            '3465234': {
-              billToType: billingOptions.options[1].billToType,
-              availablePlans: billingOptions.options[1].payPlans,
-              payPlanOptions: [
-                { label: 'Annual', answer: 'Annual' },
-              ]
-            }
-          },
-          defaultBillToId: "",
-          paymentPlans: billingOptions.paymentPlans,
         },
       };
 
