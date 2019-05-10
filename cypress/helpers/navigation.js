@@ -1,6 +1,4 @@
-import userHO3 from '../fixtures/HO3/user.json';
-import underwritingHO3 from '../fixtures/HO3/underwriting.json';
-import customizeHO3 from '../fixtures/HO3/customizeFields';
+import { userHO3, underwritingHO3 } from '../fixtures';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () => cy.get('.btn[href="/search/address"]').click();
@@ -27,25 +25,10 @@ export const navigateThroughUnderwriting = (data = underwritingHO3) => {
   cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 };
 
-export const navigateThroughCustomize = (sliders = customizeHO3) => {
-  // We alter each input, reset, then recalculate before submitting
-  sliders.forEach(({ path, value }) =>
-    cy.findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
-      .findDataTag('reset').should('contain', 'reset').click()
-      .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
-      .findDataTag('submit').should('contain', 'recalculate').click()
-      .wait('@updateQuote')
-  );
+export const navigateThroughCustomize = () =>
   cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
-};
 
-export const navigateThroughShare = () =>
-  cy.findDataTag('share').click()
-    .findDataTag('name').type('Bruce')
-    .findDataTag('email').type('Batman@gmail.com')
-    .clickSubmit('#SendEmail', 'modal-submit')
-    .wait('@agencyEmailQuoteSummary')
-    .clickSubmit('#QuoteWorkflow');
+export const navigateThroughShare = () => cy.clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughAssumptions = () => cy.findDataTag('confirm-assumptions').click()
     .clickSubmit('#QuoteWorkflow');
@@ -57,12 +40,10 @@ export const navigateThroughMailingBilling = () =>
   cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then($div => {
-      if (!$div.attr('data-value') || $div.attr('data-value') === 'false') {
-        cy.findDataTag('sameAsPropertyAddress').click();
-      };
+      if (!$div.attr('data-value') || $div.attr('data-value') === 'false') cy.findDataTag('sameAsPropertyAddress').click();
     })
     // Get first non-disabled option and select that value
-    .get('select[name="billToId"] > option:not([disabled])').eq(0)
+    .get('select[name="billToId"] > option:not([disabled])').first()
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 

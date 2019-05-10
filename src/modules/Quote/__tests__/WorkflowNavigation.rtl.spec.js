@@ -49,10 +49,7 @@ describe('Testing WorkflowNavigation Component', () => {
       state: {
         ...defaultInitialState.quoteState.state,
         activeTask: 'askToCustomizeDefaultQuote',
-        completedTasks: [
-          'askAdditionalCustomerData',
-          'askUWAnswers'
-        ]
+        completedTasks: ['askAdditionalCustomerData', 'askUWAnswers']
       }
     }
   };
@@ -106,6 +103,7 @@ describe('Testing WorkflowNavigation Component', () => {
 
   it('POS:Tests Workflow Section Classes', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedWorkflowNavigation {...props} />);
+
     workflowSections.forEach(({ name, status }) => expect(getByTestId(name).firstChild).toHaveClass(status));
   });
 });

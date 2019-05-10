@@ -15,7 +15,7 @@ import {
   checkSwitch,
   checkButton,
   quote,
-  mailingBillingList as list,
+  mailingBillingList as list
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
@@ -78,7 +78,7 @@ const fields = [
     name: 'sameAsPropertyAddress',
     type: 'switch',
     label: 'Is the mailing address the same',
-    defaultValue: false
+    defaultValue: ''
   }
 ];
 
@@ -98,33 +98,30 @@ export const pageHeaders = [
 describe('Testing the Mailing/Billing Page', () => {
   const props = {
     ...defaultProps,
-    location: {
-      pathname: '/quote/12-5162219-01/mailingBilling'
-    }
+    location: { pathname: '/quote/12-5162219-01/mailingBilling' }
   };
 
   const state = {
     ...defaultInitialState,
-    quoteState: {
-      ...defaultInitialState.quoteState,
-      quote
-    },
-    list: {
-      ...defaultInitialState.list,
-      ...list
-    }
+    quoteState: { ...defaultInitialState.quoteState, quote: {
+      ...quote,
+      rating: { worksheet: { fees: {}}}
+    }},
+    list: { ...defaultInitialState.list, ...list }
   };
 
   const requiredFields = fields.filter(({ required }) => required);
 
   it('NEG:Tests all empty values',() => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+
     submitForm(getByTestId);
     requiredFields.forEach(field => checkError(getByTestId, field));
   });
 
   it('NEG:Tests Mailing Address empty values',() => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+
     requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
   });
 
@@ -132,6 +129,7 @@ describe('Testing the Mailing/Billing Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state');
     const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip');
+
     verifyForm(getByTestId, [{
       ...state, data: 'foo', error: 'Only 2 letters allowed'
     }]);
@@ -148,11 +146,13 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks all labels',() => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+
     fields.forEach(field => checkLabel(getByTestId, field));
   });
 
   it('POS:Checks all inputs',() => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     fields.forEach(field => {
       if (field.type === 'text') checkTextInput(getByTestId, field);
       if (field.type === 'radio') checkRadio(getByTestId, field);
@@ -163,11 +163,13 @@ describe('Testing the Mailing/Billing Page', () => {
   it('POS:Checks toggle fills out data',() => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fireEvent.click(getByTestId('sameAsPropertyAddress'));
+
     expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
   });
 
   it('POS:Checks installment text',() => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
     expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,624');
     expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,059');
@@ -177,6 +179,7 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks Submit Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     checkButton(getByTestId);
   });
 });

@@ -6,7 +6,7 @@ import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import { Button, Loader } from '@exzeo/core-ui';
 
-import { updateQuote } from '../../state/actions/quoteState.actions';
+import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
 import { getEnumsForQuoteWorkflow, getBillingOptions } from '../../state/actions/list.actions';
@@ -43,7 +43,6 @@ const TEMPLATES = {
 };
 
 const FORM_ID = 'QuoteWorkflow';
-
 export class QuoteWorkflow extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +61,10 @@ export class QuoteWorkflow extends Component {
       currentStep: STEP_NAMES.askAdditionalCustomerData,
     };
 
+    this.formRef = React.createRef();
+
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
+    this.checkForFatalExceptions = defaultMemoize(this.checkForFatalExceptions.bind(this));
   }
 
   componentDidMount() {
@@ -84,6 +86,15 @@ export class QuoteWorkflow extends Component {
     if ((quote || {}).product !== (prevQuote || {}).product) {
       this.getTemplate();
     }
+  }
+
+  checkForFatalExceptions(underwritingExceptions, currentStep) {
+    if (currentStep === 'verify') {
+      const currentExceptions = (underwritingExceptions || []).filter(ue => !ue.overridden);
+      return currentExceptions.length > 0;
+    }
+
+    return (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
   }
 
   getConfigForJsonTransform(gandalfTemplate) {
@@ -141,6 +152,7 @@ export class QuoteWorkflow extends Component {
 
     if (isLoading || step >= currentStep) return;
 
+    this.formRef.current.form.reset();
     history.replace(ROUTE_TO_STEP_NAME[step]);
     this.setCurrentStep(true, step);
   };
@@ -170,8 +182,7 @@ export class QuoteWorkflow extends Component {
           }
         });
       }
-
-      // TODO: Figure out a routing solution
+       // TODO: Figure out a routing solution
       if (!(isRecalc || remainOnStep)) {
         history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
         this.setCurrentStep();
@@ -228,7 +239,7 @@ export class QuoteWorkflow extends Component {
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, workflowState } = this.props;
+    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, workflowState, getQuote } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
     const currentStep = location.pathname.split('/')[3];
@@ -248,10 +259,11 @@ export class QuoteWorkflow extends Component {
       updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
       getBillingOptions: this.getBillingOptions,
+      getQuote
     };
 
     const { underwritingExceptions } = quote;
-    const fatalError = (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
+    const quoteHasFatalError = this.checkForFatalExceptions(underwritingExceptions, currentStep);
 
     return (
       <App
@@ -260,11 +272,11 @@ export class QuoteWorkflow extends Component {
         match={match} >
           <div className="route">
             {isLoading && <Loader />}
-            {(fatalError && !(location.state || {}).fatalError) &&
+            {(quoteHasFatalError && !(location.state || {}).fatalError) &&
               <Redirect to={{ pathname: "error", state: { fatalError: true } }} />
             }
 
-            { gandalfTemplate && gandalfTemplate.header &&
+            {gandalfTemplate && gandalfTemplate.header &&
               <WorkflowNavigation
                 header={gandalfTemplate.header}
                 headerDetails={headerDetails}
@@ -273,7 +285,7 @@ export class QuoteWorkflow extends Component {
                 history={history}
                 goToStep={this.goToStep}
                 isLoading={isLoading}
-                showNavigationTabs={!fatalError && (currentStep !== 'thankYou')}
+                showNavigationTabs={!quoteHasFatalError && currentStep !== 'thankYou'}
                 currentStep={this.state.currentStep}
                 quote={quoteData}
               />
@@ -282,6 +294,7 @@ export class QuoteWorkflow extends Component {
             {shouldUseGandalf &&
               <React.Fragment>
                 <Gandalf
+                  ref={this.formRef}
                   formId={FORM_ID}
                   className="survey-wrapper"
                   currentPage={currentPage}
@@ -353,4 +366,5 @@ export default connect(mapStateToProps, {
   getZipcodeSettings,
   getEnumsForQuoteWorkflow,
   getBillingOptions,
+  getQuote
 })(QuoteWorkflow);

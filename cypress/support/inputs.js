@@ -42,10 +42,10 @@ Cypress.Commands.add('clearAllText', fields =>
  * @param {string} tag - Name of the data test tag wrapping the select
  * @param {number} option - Index of the option to select
  */
-Cypress.Commands.add('chooseSelectOption', (tag, option = 0) =>
-  cy.findDataTag(tag).find('input')
-    .type(' ', { force: true })
-    .get('div.Select-menu div[role="option"]').then($arr => cy.wrap($arr[option]).click()));
+Cypress.Commands.add('chooseReactSelectOption', (tag, searchTerm) =>
+  cy.findDataTag(tag).find('input:not([type="hidden"])')
+    .type(searchTerm, { force: true })
+    .get('div.react-select__menu div[role="option"]').then($arr => cy.wrap($arr[0]).click()));
 
 /**
  * @param {string} tag - Name of the data test tag wrapping the select

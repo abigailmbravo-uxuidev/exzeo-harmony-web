@@ -1,7 +1,4 @@
-import userAF3 from '../../fixtures/AF3/user.json';
-import loginAF3 from '../../fixtures/AF3/login.json';
-import underwritingAF3 from '../../fixtures/AF3/underwriting.json';
-import customizeAF3 from '../../fixtures/AF3/customizeFields';
+import { userAF3, loginAF3, underwritingAF3, customizeAF3, customizeHO3 } from '../../fixtures';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -17,14 +14,11 @@ import {
   navigateThroughScheduleDate,
   navigateThroughThankYou
 } from '../../helpers';
+import { customizeTest, shareTest, aiTest, mailingBillingTest } from '../../pageTests';
 
 describe('Agency Happy Path', () => {
-  before('Set Route Aliases', () => {
-    setRouteAliases();
-    cy.login();
-  });
-
-  beforeEach(() => setRouteAliases());
+  before('Login', () => cy.login());
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('Navigates through the HO3 quote workflow', () => {
     navigateThroughLanding();
@@ -32,9 +26,15 @@ describe('Agency Happy Path', () => {
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
+    cy.findDataTag('tab-nav-3').click();
+    customizeTest(customizeHO3);
+    navigateThroughCustomize();
+    shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
+    aiTest();
     navigateThroughAdditionalInterests();
+    mailingBillingTest();
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
@@ -43,12 +43,8 @@ describe('Agency Happy Path', () => {
 });
 
 describe('AF3 Happy Path', () => {
-  before('Set Route Aliases', () => {
-    setRouteAliases();
-    cy.login(loginAF3);
-  });
-
-  beforeEach(() => setRouteAliases());
+  before('Login', () => cy.login(loginAF3));
+  beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('Navigates through the AF3 quote workflow', () => {
     navigateThroughLanding();
@@ -56,11 +52,17 @@ describe('AF3 Happy Path', () => {
     navigateThroughSearchAddress(userAF3);
     navigateThroughPolicyholder(userAF3);
     navigateThroughUnderwriting(underwritingAF3);
-    navigateThroughCustomize(customizeAF3);
+    navigateThroughCustomize();
+    cy.findDataTag('tab-nav-3').click();
+    customizeTest(customizeAF3);
+    navigateThroughCustomize();
+    shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
+    aiTest();
     navigateThroughAdditionalInterests();
-    navigateThroughMailingBilling()
+    mailingBillingTest();
+    navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
     navigateThroughThankYou();

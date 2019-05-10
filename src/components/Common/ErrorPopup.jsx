@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Button } from '@exzeo/core-ui';
 
 const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redirectToNewQuote }) => (
   <div className="error-content modal pop-up" role="article">
@@ -52,8 +53,16 @@ const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redi
             <small>A TypTap CSR may be able to correct your underwriting error(s) allowing you to refresh and continue.</small>
             <div className="btn-group">
               <a href="tel:8442897968" className="btn btn-secondary btn-round"><i className="fa fa-phone" /></a>
-              <button className="btn btn-secondary" onClick={refereshUWReviewError}>Refresh</button>
-              <button className="btn btn-primary" onClick={redirectToNewQuote}>New Quote</button>
+              <Button
+                  className={Button.constants.classNames.secondary}
+                  onClick={refereshUWReviewError}
+                  data-test="modal-refresh"
+                >Refresh</Button>
+                <Button
+                  className={Button.constants.classNames.primary}
+                  onClick={redirectToNewQuote}
+                  data-test="modal-new-quote"
+                >New Quote</Button>
             </div>
           </div>
         </div>

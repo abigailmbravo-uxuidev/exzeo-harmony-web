@@ -12,6 +12,9 @@ import {
   submitForm,
   verifyForm,
   quote,
+  rating,
+  policyholder,
+  additionalInterest,
   ph1Fields,
   ph2Fields
 } from '../../../test-utils';
@@ -23,9 +26,7 @@ const switchTags = ['confirmProperty', 'confirmQuote', 'confirmPolicy', 'confirm
 describe('Verify Testing', () => {
   const props = {
     ...defaultProps,
-    location: {
-      pathname: '/quote/1/verify'
-    }
+    location: { pathname: '/quote/1/verify' }
   };
 
   const state = {
@@ -34,6 +35,8 @@ describe('Verify Testing', () => {
       ...defaultInitialState.quoteState,
       quote: {
         ...quote,
+        policyHolders: [policyholder],
+        rating,
         policyHolderMailingAddress: {
           address1: '4131 TEST ADDRESS',
           address2: '',
@@ -67,6 +70,9 @@ describe('Verify Testing', () => {
     ph2Fields.forEach(field => checkError(getByTestId, field));
   });
 
+  // TODO: Fill out everything except one for each of these fields
+
+  
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fireEvent.click(getByTestId('policyholder-details'));
@@ -88,7 +94,7 @@ describe('Verify Testing', () => {
 
     [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
       .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: 'invalidemail', error: 'Not a valid email address'
+        name, data: 'invalid testing email address', error: 'Not a valid email address'
       }]));
   });
 
@@ -105,6 +111,7 @@ describe('Verify Testing', () => {
 
   it('NEG:All "Verified" Values left at Default "No"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     switchTags.forEach(tag =>
       expect(getByTestId(tag).className.split(' ').includes('active')).toEqual(false)
     );
@@ -112,6 +119,7 @@ describe('Verify Testing', () => {
 
   it('NEG:Some "Verified" Values left at Default "No"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     switchTags.forEach(tag => {
       fireEvent.click(getByTestId(tag));
       expect(getByTestId('next')).toBeDisabled();
@@ -128,6 +136,7 @@ describe('Verify Testing', () => {
       { label: 'Effective Date', value: '05/05/2019' },
       { label: 'Agent', value: '' }
     ];
+
     getByText('Property Details').nextSibling.childNodes.forEach((node, i) => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
@@ -161,6 +170,7 @@ describe('Verify Testing', () => {
 
   it('POS:Policyholder Details Text', () => {
     const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     expect(getByText(/Please be sure the information below/));
   });
 
@@ -179,13 +189,17 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Policyholder Modal', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getByTestId, queryByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
 
     fireEvent.click(getByTestId('policyholder-details'));
+    expect(document.querySelector('i.fa-vcard')).toBeInTheDocument();
     expect(getByText('Edit Policyholder(s)'));
+    // Secondary policyholder text should not exist
+    expect(queryByText('Secondary Policyholder')).not.toBeInTheDocument();
     expect(getByText('Do you want to add an additional Policyholder?'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
     expect(getByText('Primary Policyholder'));
+    // until after we've clicked on the toggle.
     expect(getByText('Secondary Policyholder'));
   });
 
@@ -203,13 +217,77 @@ describe('Verify Testing', () => {
     });
   });
 
+  it('POS:Verify Additional Interest Parties [Premium Finance]', () => {
+    const newState = {
+      ...defaultInitialState,
+      quoteState: {
+        quote: {
+          ...defaultInitialState.quoteState.quote,
+          additionalInterests: [
+            { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
+            { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
+            { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
+            { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
+            { ...additionalInterest, order: 0, type: 'Premium Finance', _id: '5' },
+            { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
+            { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
+            { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
+          ]
+        }
+      }
+    };
+    const expectedLabels = [
+      'Mortgagee 1', 'Mortgagee 2', 'Mortgagee 3',
+      'Additional Insured 1', 'Additional Insured 2',
+      'Additional Interest 1', 'Additional Interest 2',
+      'Premium Finance 1'
+    ];
+    renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+
+    const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
+    labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
+  });
+
+  it('POS:Verify Additional Interest Parties [Bill Payer]', () => {
+    const newState = {
+      ...defaultInitialState,
+      quoteState: {
+        quote: {
+          ...defaultInitialState.quoteState.quote,
+          additionalInterests: [
+            { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
+            { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
+            { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
+            { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
+            { ...additionalInterest, order: 0, type: 'Bill Payer', _id: '5' },
+            { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
+            { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
+            { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
+          ]
+        }
+      }
+    };
+    const expectedLabels = [
+      'Mortgagee 1', 'Mortgagee 2', 'Mortgagee 3',
+      'Additional Insured 1', 'Additional Insured 2',
+      'Additional Interest 1', 'Additional Interest 2',
+      'Bill Payer 1'
+    ];
+    renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+
+    const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
+    labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
+  });
+
   it('POS:Verify Toggle Labels', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     switchTags.forEach(tag => checkLabel(getByTestId, { name: tag, label: 'Verified' }));
   });
 
   it('POS:Next Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+
     expect(getByTestId('next').getAttribute('type')).toEqual('button');
     checkButton(getByTestId, { name: 'next' });
   });

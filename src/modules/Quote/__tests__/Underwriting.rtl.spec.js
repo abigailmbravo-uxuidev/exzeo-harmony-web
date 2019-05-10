@@ -57,12 +57,8 @@ const fields = [
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {
     ...defaultProps,
-    history: {
-      replace: x => x
-    },
-    location: {
-      pathname: '/quote/12-5162219-01/underwriting'
-    }
+    history: { replace: x => x },
+    location: { pathname: '/quote/12-5162219-01/underwriting' }
   };
 
   const state = {

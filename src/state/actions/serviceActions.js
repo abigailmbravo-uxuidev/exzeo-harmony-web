@@ -1,9 +1,11 @@
 import axios from 'axios/index';
 import orderBy from 'lodash/orderBy';
-import { batchActions } from 'redux-batched-actions/lib/index';
+
+import * as serviceRunner from '../../utilities/serviceRunner';
+import * as listActions from '../actionTypes/list.actionTypes';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
-import * as listActions from '../actionTypes/list.actionTypes';
+import { getAgentsByAgencyCode } from './agency.actions';
 
 export const handleError = (error) => {
   const message = error.response && error.response.data && error.response.data.error
@@ -11,11 +13,6 @@ export const handleError = (error) => {
     : 'An error happened';
   return (error.message) ? error.message : message;
 };
-
-export const serviceRequest = data => ({
-  type: types.SERVICE_REQUEST,
-  data
-});
 
 export const runnerSetup = (data, customUrl = '') => ({
   method: 'POST',
@@ -26,6 +23,25 @@ export const runnerSetup = (data, customUrl = '') => ({
   data
 });
 
+export const serviceRequest = data => {
+  return {
+    type: types.SERVICE_REQUEST,
+    data
+  };
+};
+
+export const clearPolicy = () => {
+  return {
+    type: types.SERVICE_REQUEST,
+    data: {
+      latestPolicy: {},
+      getSummaryLedger: {},
+      policyDocuments: [],
+    }
+  };
+};
+
+
 export const getQuote = quoteId => (dispatch) => {
   const axiosConfig = runnerSetup({
     service: 'quote-data',
@@ -35,15 +51,11 @@ export const getQuote = quoteId => (dispatch) => {
 
   return axios(axiosConfig).then((response) => {
     const data = { quote: response.data.result };
-    return dispatch(batchActions([
-      serviceRequest(data)
-    ]));
+    return dispatch(serviceRequest(data));
   })
     .catch((error) => {
       const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError({ message })
-      ]));
+      return dispatch(errorActions.setAppError({ message }));
     });
 };
 
@@ -68,17 +80,14 @@ export const searchPolicy = ({
     path: `/transactions?companyCode=${companyCode}&state=${state}&product=${product}&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(' ', '&#32;')}&page=${page}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
   }, 'searchPolicy');
 
-  return Promise.resolve(axios(axiosConfig)).then((response) => {
-    const data = { policyResults: response.data };
-    return dispatch(batchActions([
-      serviceRequest(data)
-    ]));
-  })
+  return Promise.resolve(axios(axiosConfig))
+    .then((response) => {
+      const data = { policyResults: response.data };
+      return dispatch(serviceRequest(data));
+    })
     .catch((error) => {
       const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError({ message })
-      ]));
+      return dispatch(errorActions.setAppError({ message }));
     });
 };
 
@@ -90,117 +99,87 @@ export const clearPolicyResults = () => (dispatch) => {
       currentPage: 1
     }
   };
-  return dispatch(batchActions([
-    serviceRequest(data)
-  ]));
+
+  return dispatch(serviceRequest(data));
 };
 
-export const getLatestPolicy = policyNumber => (dispatch) => {
-  const axiosConfig = runnerSetup({
-    service: 'policy-data',
-    method: 'GET',
-    path: `transactions/${policyNumber}/latest`
-  }, 'getLatestPolicy');
+// Temporary - serviceActions will all be removed in future.
+export const initializePolicyWorkflow = (policyNumber) => {
+  return async (dispatch) => {
+    const policyDocumentsConfig = {
+      service: 'file-index',
+      method: 'GET',
+      path: `v1/fileindex/${policyNumber}`
+    };
 
-  return Promise.resolve(axios(axiosConfig)).then((response) => {
-    const data = { latestPolicy: response ? response.data : {} };
-    dispatch(batchActions([
-      serviceRequest(data)
-    ]));
-    return data.latestPolicy;
-  })
-    .catch((error) => {
-      const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError({ message })
-      ]));
-    });
-};
+    const policyConfig = {
+      service: 'policy-data',
+      method: 'GET',
+      path: `transactions/${policyNumber}/latest`
+    };
 
-// Temporary to fix bug. serviceActions will all be removed in future.
-export const clearPolicy = () => {
-  return {
-    type: types.SERVICE_REQUEST,
-    data: {
-      latestPolicy: {},
-      getSummaryLedger: {},
-      policyDocuments: [],
+    const billingConfig = {
+      service: 'billing',
+      method: 'GET',
+      path: `summary-ledgers/${policyNumber}/latest`
+    };
+
+    const paymentsConfig = {
+      service: 'billing',
+      method: 'GET',
+      path: `payment-history/${policyNumber}`
+    };
+
+    try {
+      const [documentsResponse, billingResponse, paymentResponse, latestPolicyResponse] = await Promise.all([
+        serviceRunner.callService(policyDocumentsConfig, 'getPolicyDocuments'),
+        serviceRunner.callService(billingConfig, 'fetchBilling'),
+        serviceRunner.callService(paymentsConfig, 'fetchPayments'),
+        serviceRunner.callService(policyConfig, 'getLatestPolicy'),
+      ]);
+
+      const payments = orderBy(paymentResponse.data.result, ['date', 'createdAt'], ['desc', 'desc']);
+      const summaryLedger = { ...billingResponse.data.result, payments };
+      const policyDocuments = documentsResponse.data.result;
+      const latestPolicy = latestPolicyResponse.data;
+
+      dispatch(serviceRequest({
+        getSummaryLedger: summaryLedger,
+        latestPolicy,
+        policyDocuments,
+      }));
+
+      dispatch(getAgentsByAgencyCode(latestPolicy.agencyCode));
+
+      return latestPolicy;
+    } catch (error) {
+      errorActions.setAppError(error);
     }
-  };
-};
-
-export const getSummaryLedger = policyNumber => async (dispatch) => {
-  const fetchBilling = runnerSetup({
-    service: 'billing',
-    method: 'GET',
-    path: `summary-ledgers/${policyNumber}/latest`
-  }, 'fetchBilling');
-
-  const fetchPayments = runnerSetup({
-    service: 'billing',
-    method: 'GET',
-    path: `payment-history/${policyNumber}`
-  }, 'fetchPayments');
-
-  try {
-    const [billing, paymentHistory] = await Promise.all([axios(fetchBilling), axios(fetchPayments)]);
-    const payments = orderBy(paymentHistory.data.result, ['date', 'createdAt'], ['desc', 'desc']);
-    const getSummaryLedger = { ...billing.data.result, payments };
-    return dispatch(batchActions([
-      serviceRequest({ getSummaryLedger })
-    ]));
-  } catch (error) {
-    const message = handleError(error);
-    return dispatch(batchActions([
-      errorActions.setAppError({ message })
-    ]));
   }
 };
 
-export const getPolicyDocuments = policyNumber => (dispatch) => {
-  const axiosConfig = runnerSetup({
-    service: 'file-index',
-    method: 'GET',
-    path: `v1/fileindex/${policyNumber}`
-  }, 'getPolicyDocuments');
+export const getZipcodeSettings = (companyCode = 'TTIC', state = 'FL', product = 'HO3', zip) => {
+  return (dispatch) => {
+    const axiosConfig = runnerSetup({
+      service: 'underwriting',
+      method: 'GET',
+      path: `zip-code?companyCode=${companyCode}&state=${state}&product=${product}&zip=${zip}`
+    }, 'getZipcodeSettings');
 
-  return axios(axiosConfig).then((response) => {
-    const data = { policyDocuments: response.data.result };
-    return dispatch(batchActions([
-      serviceRequest(data)
-    ]));
-  })
-    .catch((error) => {
-      const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError({ message })
-      ]));
-    });
-};
-
-export const getZipcodeSettings = (companyCode = 'TTIC', state = 'FL', product = 'HO3', zip) => (dispatch) => {
-  const axiosConfig = runnerSetup({
-    service: 'underwriting',
-    method: 'GET',
-    path: `zip-code?companyCode=${companyCode}&state=${state}&product=${product}&zip=${zip}`
-  }, 'getZipcodeSettings');
-
-  return axios(axiosConfig).then((response) => {
-    const data = { zipCodeSettings: response.data && response.data.result ? response.data.result[0] : { timezone: '' } };
-    // ===== temporary until we remove this 'serviceActions' state slice
-    dispatch({
-      type: listActions.SET_ZIP_SETTINGS,
-      zipCodeSettings: data.zipCodeSettings || {},
-    });
-    // =====
-    return dispatch(batchActions([
-      serviceRequest(data)
-    ]));
-  })
-    .catch((error) => {
-      const message = handleError(error);
-      return dispatch(batchActions([
-        errorActions.setAppError(message)
-      ]));
-    });
+    return axios(axiosConfig)
+      .then((response) => {
+        const data = { zipCodeSettings: response.data && response.data.result ? response.data.result[0] : { timezone: '' } };
+        // ===== temporary until we remove this 'serviceActions' state slice
+        dispatch({
+          type: listActions.SET_ZIP_SETTINGS,
+          zipCodeSettings: data.zipCodeSettings || {},
+        });
+        // =====
+        return dispatch(serviceRequest(data));
+      })
+      .catch((error) => {
+        const message = handleError(error);
+        return dispatch(errorActions.setAppError(message));
+      });
+  };
 };

@@ -13,4 +13,4 @@ Cypress.Commands.add('findDataTag', (tag, { timeout = 15000, ...rest} = {}) =>
  * @returns {Object} DOM element(s) found.
  */
 Cypress.Commands.add('clickSubmit', (form = 'body', button = 'submit') =>
-  cy.get(form).within(() => cy.findDataTag(button).should('not.be.disabled').click({ force: true })));
+  cy.get(form).within(() => cy.findDataTag(button).should('not.be.disabled').click()));

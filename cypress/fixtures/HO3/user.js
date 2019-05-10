@@ -1,4 +1,4 @@
-{
+export default {
   "address": "4131 TEST ADDRESS",
   "customerInfo": {
     "policyHolders[0].firstName_wrapper": "Bruce",
