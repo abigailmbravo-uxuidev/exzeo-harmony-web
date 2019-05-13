@@ -86,7 +86,7 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
  */
 function formatQuoteForSubmit(data) {
   const quote = { ...data };
-  quote.effectiveDate = date.formatToUTC(data.effectiveDate, data.property.timezone);
+  quote.effectiveDate = date.formatToUTC(date.formatDate(data.effectiveDate, date.FORMATS.SECONDARY), data.property.timezone);
   // quote.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.PRIMARY_LOCALE, data.property.timezone);
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
   quote.policyHolders[0].order = data.policyHolders[0].order || 0;
