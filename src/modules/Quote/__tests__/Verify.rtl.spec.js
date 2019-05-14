@@ -59,6 +59,7 @@ describe('Verify Testing', () => {
     ph1Fields.forEach(field => clearText(getByTestId, field));
     submitForm(getByText, 'Save');
     ph1Fields.forEach(field => checkError(getByTestId, field));
+    ph1Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
   });
 
   it('NEG:Secondary Policyholder Empty Value', () => {
@@ -68,10 +69,8 @@ describe('Verify Testing', () => {
     fireEvent.click(getByTestId('additionalPolicyholder'));
     submitForm(getByText, 'Save');
     ph2Fields.forEach(field => checkError(getByTestId, field));
+    ph2Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
   });
-
-  // TODO: Fill out everything except one for each of these fields
-
   
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
