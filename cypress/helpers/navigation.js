@@ -9,21 +9,20 @@ export const navigateThroughSearchAddress = ({ address = userHO3.address } = {})
     .findDataTag('search-results').find('li[tabindex=0]').click()
     .wait('@fetchAddresses');
 
-export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInfo, agentCode = userHO3.agentCode } = {}) => {
-  Object.entries(customerInfo).forEach(([field, value]) =>
-    cy.findDataTag(`${field}`).find('input').type(value)
-  );
-  cy.findDataTag('agentCode').select(agentCode)
+export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInfo, secondCustomerInfo = userHO3.secondCustomerInfo, agentCode = userHO3.agentCode } = {}) =>
+  cy.wrap(Object.entries(customerInfo)).each(([field, value]) =>
+    cy.findDataTag(field).find('input').type(value))
+    // If the additional policyholder toggle is off, turn it on.
+    .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
+    .wrap(Object.entries(secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(value))
+    .findDataTag('agentCode').select(agentCode)
     .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote');
-};
+    .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length).to.equal(2));
 
-export const navigateThroughUnderwriting = (data = underwritingHO3) => {
-  Object.entries(data).forEach(([name, value]) =>
+export const navigateThroughUnderwriting = (data = underwritingHO3) =>
+  cy.wrap(Object.entries(data)).each(([name, value]) =>
     cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
-  );
-  cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
-};
+  ).clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 
 export const navigateThroughCustomize = () =>
   cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
@@ -39,9 +38,7 @@ export const navigateThroughAdditionalInterests = () =>
 export const navigateThroughMailingBilling = () =>
   cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
-    .then($div => {
-      if (!$div.attr('data-value') || $div.attr('data-value') === 'false') cy.findDataTag('sameAsPropertyAddress').click();
-    })
+    .then($div => ((!$div.attr('data-value') || $div.attr('data-value') === 'false')) && cy.findDataTag('sameAsPropertyAddress').click())
     // Get first non-disabled option and select that value
     .get('select[name="billToId"] > option:not([disabled])').first()
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))

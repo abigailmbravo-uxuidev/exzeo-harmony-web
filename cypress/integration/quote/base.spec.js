@@ -50,7 +50,14 @@ describe('Agency Happy Path', () => {
     verifyTest();
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    navigateThroughThankYou();
+    cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
+      navigateThroughThankYou();
+      cy.get('.btn[href="/search/retrieve"]').click()
+        .findDataTag('quoteNumber').type($quote.text())
+        .clickSubmit('#SearchBar')
+        .findDataTag('quote-list').should('not.be.empty')
+        .go('back');
+    });
   });
 });
 
@@ -81,6 +88,13 @@ describe('AF3 Happy Path', () => {
     verifyTest('AF3');
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    navigateThroughThankYou();
+    cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
+      navigateThroughThankYou();
+      cy.get('.btn[href="/search/retrieve"]').click()
+        .findDataTag('quoteNumber').type($quote.text())
+        .clickSubmit('#SearchBar')
+        .findDataTag('quote-list').should('not.be.empty')
+        .go('back');
+    });
   });
 });
