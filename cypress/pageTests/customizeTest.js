@@ -1,7 +1,5 @@
 import { slidersAF3, customizeRadiosAF3, slidersHO3, customizeRadiosHO3 } from '../fixtures';
-
-const toCurrency = value =>
-  `$ ${String(value).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
+import { toCurrency } from '../helpers';
 
 const headersHO3 = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
@@ -39,7 +37,7 @@ export default (product = 'HO3') => {
     // Check our radios and recalculate recalculation
     .wrap(radios).each(radio => checkRadioRecalcAndReset(radio))
     // For each slider
-    .wrap(sliders).each(({ path, value, defaultValue }) =>
+    .wrap(sliders).each(({ path, value, defaultValue, callback }) =>
       cy.findDataTag(`${path}-slider`).then($slider => {
         // get the min and max value attributes
         const minValue = $slider.attr('min');
@@ -74,8 +72,9 @@ export default (product = 'HO3') => {
           .findDataTag(`${path}-input`).type(`{selectall}{backspace}${defaultValue || '0'}`)
           .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote').then(({ response }) =>
             // Check that the coverage dwelling limits have been kept up to date with server responses in HO3.
-            product === 'HO3' && cy.findDataTag('coverageLimits.dwelling.amountDetail').should('contain', toCurrency(response.body.result.coverageLimits.dwelling.amount))
-              .findDataTag('coverageLimits.dwelling.value-input').invoke('attr', 'value').should('eq', toCurrency(response.body.result.coverageLimits.dwelling.amount))
+            callback && callback(response)
+            // product === 'HO3' && cy.findDataTag('coverageLimits.dwelling.amountDetail').should('contain', toCurrency(response.body.result.coverageLimits.dwelling.amount))
+            //   .findDataTag('coverageLimits.dwelling.value-input').invoke('attr', 'value').should('eq', toCurrency(response.body.result.coverageLimits.dwelling.amount))
           );
       })
     );
