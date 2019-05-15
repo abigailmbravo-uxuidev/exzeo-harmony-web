@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from 'react-testing-library';
+import { render } from 'react-testing-library';
 
 import {
   checkHeader, latestPolicy, agent
@@ -17,7 +17,7 @@ const pageHeaders = [
   }
 ];
 
-describe('Policy Workflow testing', () => {
+describe('Policy Policyholder Page testing', () => {
   const props = {
     policy: latestPolicy,
     agents: [agent]
@@ -65,8 +65,8 @@ describe('Policy Workflow testing', () => {
 
     const { getByText, getAllByText } = render(<PolicyHolder {...newProps} />);
     checkHeader(getByText, { text: 'Policyholder 2', icon: 'fa fa-vcard-o' });
-    
-    expect(getAllByText('Policyholder Name')[1].nextSibling).toHaveTextContent('Green Goblin')
+
+    expect(getAllByText('Policyholder Name')[1].nextSibling).toHaveTextContent('Green Goblin');
     expect(getAllByText('Phone')[1].nextSibling).toHaveTextContent('(975) 314-2864');
     expect(getAllByText('Email')[1].nextSibling).toHaveTextContent('Normanosborne@hotmail.com');
   });

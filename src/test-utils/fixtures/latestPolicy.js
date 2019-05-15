@@ -367,18 +367,18 @@ export default {
       _id: '5cd1905a03446a0010bab011',
       floridaBuildingCodeWindSpeed: 130,
       floridaBuildingCodeWindSpeedDesign: 130,
-      internalPressureDesign: 'Other',
-      openingProtection: 'Other',
-      roofCovering: 'Other',
-      roofDeckAttachment: 'Other',
-      roofGeometry: 'Other',
-      roofToWallConnection: 'Other',
-      secondaryWaterResistance: 'Other',
+      internalPressureDesign: 'test ipd',
+      openingProtection: 'test op',
+      roofCovering: 'test covering',
+      roofDeckAttachment: 'test roofdeckattachment',
+      roofGeometry: 'test geometry',
+      roofToWallConnection: 'test roof to wall value',
+      secondaryWaterResistance: 'test swr value',
       terrain: 'B',
       windBorneDebrisRegion: 'Yes'
     },
     yearBuilt: 1998,
-    yearOfRoof: null
+    yearOfRoof: 2001
   },
   rating: {
     windMitigationDiscount: 0,
