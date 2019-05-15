@@ -307,7 +307,7 @@ export default {
       emailAddress: 'MSARMIENTO@HCPCI.COM',
       entityType: 'Person',
       firstName: 'BATMAN',
-      lastName: 'ROBIN A001',
+      lastName: 'ROBIN',
       order: 0,
       primaryPhoneNumber: '7271231234'
     }
