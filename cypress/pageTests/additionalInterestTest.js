@@ -21,8 +21,8 @@ export default (product = 'H03') =>
   cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
   // Add and remove an additional interest
     .findDataTag('mortgagee').click()
-    .chooseReactSelectOption('mortgage_wrapper', 'america\'s servicing')
-    .findDataTag('name1').should('have.attr', 'value', 'AMERICA\'S SERVICING')
+    .chooseReactSelectOption('mortgage_wrapper', 'bank of america')
+    .findDataTag('name1').should('have.attr', 'value', 'BANK OF AMERICA, NA')
     .clickSubmit('div.Mortgagee', 'ai-modal-submit')
     .wait('@updateQuote')
     .get('ul.result-cards li').should('have.length', 1)

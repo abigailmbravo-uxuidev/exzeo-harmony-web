@@ -27,4 +27,4 @@ describe('Policy Workflow testing', () => {
     expect(document.querySelector(`a[href="${props.match.url}/policyHolder"]`)).toBeInTheDocument();
     expect(getByText('©2019 TypTap Management Company. All rights reserved.'));
   });
-})
+});
