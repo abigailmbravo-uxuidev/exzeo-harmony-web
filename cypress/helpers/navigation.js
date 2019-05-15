@@ -11,18 +11,20 @@ export const navigateThroughSearchAddress = ({ address = userHO3.address } = {})
 
 export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInfo, secondCustomerInfo = userHO3.secondCustomerInfo, agentCode = userHO3.agentCode } = {}) =>
   cy.wrap(Object.entries(customerInfo)).each(([field, value]) =>
-    cy.findDataTag(field).find('input').type(value))
-    // If the additional policyholder toggle is off, turn it on.
-    .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
-    .wrap(Object.entries(secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(value))
-    .findDataTag('agentCode').select(agentCode)
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length).to.equal(2));
+    cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`)
+  )
+  // If the additional policyholder toggle is off, turn it on.
+  .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
+  .wrap(Object.entries(secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
+  .findDataTag('agentCode').select(agentCode)
+  .clickSubmit('#QuoteWorkflow')
+  .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length).to.equal(2));
 
 export const navigateThroughUnderwriting = (data = underwritingHO3) =>
   cy.wrap(Object.entries(data)).each(([name, value]) =>
     cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
-  ).clickSubmit('#QuoteWorkflow').wait('@updateQuote');
+  )
+  .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 
 export const navigateThroughCustomize = () =>
   cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
