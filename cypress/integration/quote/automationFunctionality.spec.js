@@ -1,3 +1,4 @@
+import { userAF3, loginAF3, underwritingAF3 } from '../../fixtures';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -10,7 +11,8 @@ import {
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
   navigateThroughScheduleDate,
-  navigateThroughVerify
+  navigateThroughVerify,
+  navigateThroughThankYou
 } from '../../helpers';
 
 describe('Back Button Testing', () => {
@@ -129,5 +131,3 @@ describe('Back Button Testing', () => {
       .get('div.dashboard-message').should('exist');
   });
 });
-
-// TODO: CHECK TO RETRIEVE AF3 QUOTE

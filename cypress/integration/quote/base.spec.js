@@ -1,4 +1,4 @@
-import { userAF3, loginAF3, underwritingAF3, customizeAF3, customizeHO3 } from '../../fixtures';
+import { userAF3, loginAF3, underwritingAF3 } from '../../fixtures';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -14,7 +14,15 @@ import {
   navigateThroughScheduleDate,
   navigateThroughThankYou
 } from '../../helpers';
-import { customizeTest, shareTest, aiTest, mailingBillingTest } from '../../pageTests';
+import {
+  policyholderTest,
+  underwritingTest,
+  customizeTest,
+  shareTest,
+  aiTest,
+  mailingBillingTest,
+  verifyTest
+} from '../../pageTests';
 
 describe('Agency Happy Path', () => {
   before('Login', () => cy.login());
@@ -23,11 +31,14 @@ describe('Agency Happy Path', () => {
   it('Navigates through the HO3 quote workflow', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
+    policyholderTest();
     navigateThroughPolicyholder();
+    underwritingTest();
     navigateThroughUnderwriting();
+    customizeTest();
     navigateThroughCustomize();
     cy.findDataTag('tab-nav-3').click();
-    customizeTest(customizeHO3);
+    customizeTest();
     navigateThroughCustomize();
     shareTest();
     navigateThroughShare();
@@ -36,9 +47,17 @@ describe('Agency Happy Path', () => {
     navigateThroughAdditionalInterests();
     mailingBillingTest();
     navigateThroughMailingBilling();
+    verifyTest();
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    navigateThroughThankYou();
+    cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
+      navigateThroughThankYou();
+      cy.get('.btn[href="/search/retrieve"]').click()
+        .findDataTag('quoteNumber').type($quote.text())
+        .clickSubmit('#SearchBar')
+        .findDataTag('quote-list').should('not.be.empty')
+        .go('back');
+    });
   });
 });
 
@@ -50,21 +69,32 @@ describe('AF3 Happy Path', () => {
     navigateThroughLanding();
     cy.findDataTag('product').select('AF3');
     navigateThroughSearchAddress(userAF3);
+    policyholderTest('AF3');
     navigateThroughPolicyholder(userAF3);
+    underwritingTest('AF3');
     navigateThroughUnderwriting(underwritingAF3);
+    customizeTest('AF3');
     navigateThroughCustomize();
     cy.findDataTag('tab-nav-3').click();
-    customizeTest(customizeAF3);
+    customizeTest('AF3');
     navigateThroughCustomize();
-    shareTest();
+    shareTest('AF3');
     navigateThroughShare();
     navigateThroughAssumptions();
-    aiTest();
+    aiTest('AF3');
     navigateThroughAdditionalInterests();
-    mailingBillingTest();
+    mailingBillingTest('AF3');
     navigateThroughMailingBilling();
+    verifyTest('AF3');
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    navigateThroughThankYou();
+    cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
+      navigateThroughThankYou();
+      cy.get('.btn[href="/search/retrieve"]').click()
+        .findDataTag('quoteNumber').type($quote.text())
+        .clickSubmit('#SearchBar')
+        .findDataTag('quote-list').should('not.be.empty')
+        .go('back');
+    });
   });
 });

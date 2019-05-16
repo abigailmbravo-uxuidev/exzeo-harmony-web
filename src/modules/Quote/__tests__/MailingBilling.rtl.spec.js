@@ -103,10 +103,13 @@ describe('Testing the Mailing/Billing Page', () => {
 
   const state = {
     ...defaultInitialState,
-    quoteState: { ...defaultInitialState.quoteState, quote: {
-      ...quote,
-      rating: { worksheet: { fees: {}}}
-    }},
+    quoteState: {
+      ...defaultInitialState.quoteState,
+      quote: {
+        ...quote,
+        rating: { worksheet: { fees: {}}}
+      }
+    },
     list: { ...defaultInitialState.list, ...list }
   };
 
