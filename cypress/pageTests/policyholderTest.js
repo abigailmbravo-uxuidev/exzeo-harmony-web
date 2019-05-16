@@ -20,13 +20,18 @@ const af3Headers = [
 
 export default (product = 'H03') =>
   cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
-    .wrap(Object.entries(userHO3.customerInfo)).each(([field, value]) =>
-      cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`)
-    )
+    // Add all main ph fields 
+    .wrap(Object.entries(userHO3.customerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
+    // If the secondary ph is not toggled, toggle it
     .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
+    // Fill out secondary ph
     .wrap(Object.entries(userHO3.secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
+    // Select an agent
     .findDataTag('agentCode').select(userHO3.agentCode)
+    // Detoggle the second policyholder fields
     .findDataTag('additionalPolicyholder').click()
     .clickSubmit('#QuoteWorkflow')
+    // Expect that there is only one policyholder submitted
     .wait('@updateQuote').then(({ request }) => expect(request.body.data.policyHolders.length).to.equal(1))
+    // Navigate back to the page to leave app as close as we found it
     .findDataTag('tab-nav-1').click();
