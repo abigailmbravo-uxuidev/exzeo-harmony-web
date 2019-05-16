@@ -221,7 +221,7 @@ export default {
 			source: 'Customer'
 		}
 	},
-	underwritingExceptions: [], 
+	underwritingExceptions: [],
 	updatedAt: '2019-04-05T12:06:01.159Z',
 	updatedBy: {
 		_id: '5ca744a98001ef001258b421',
