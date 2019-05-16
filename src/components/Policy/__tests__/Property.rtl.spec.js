@@ -41,7 +41,7 @@ describe('Policy Property Page testing', () => {
       { label: 'Flood Zone', value: 'X' }
     ];
     sectionData.forEach(({ label, value }) =>
-      expect(getByText(label).nextSibling).toHaveTextContent(value)
+      expect(getByText(label).nextSibling.textContent).toEqual(value)
     );
   });
 
@@ -63,7 +63,7 @@ describe('Policy Property Page testing', () => {
     ];
 
     sectionData.forEach(({ label, value }) =>
-      expect(getByText(label).nextSibling).toHaveTextContent(value)
+      expect(getByText(label).nextSibling.textContent).toEqual(value)
     );
   });
 });
