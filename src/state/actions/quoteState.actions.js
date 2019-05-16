@@ -87,14 +87,22 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
 function formatQuoteForSubmit(data) {
   const quote = { ...data };
   quote.effectiveDate = date.formatToUTC(date.formatDate(data.effectiveDate, date.FORMATS.SECONDARY), data.property.timezone);
-  // quote.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.PRIMARY_LOCALE, data.property.timezone);
+
+  // PolicyHolder logic -------------------------------------------------------
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
   quote.policyHolders[0].order = data.policyHolders[0].order || 0;
   quote.policyHolders[0].entityType = data.policyHolders[0].entityType || "Person";
-  if (data.policyHolders[1]) {
-    quote.policyHolders[1].order = data.policyHolders[1].order || 1;
-    quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
+
+  if (quote.additionalPolicyholder) {
+    if (data.policyHolders[1]) {
+      quote.policyHolders[1].order = data.policyHolders[1].order || 1;
+      quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
+    }
+  } else {
+    // 'additionalPolicyholder toggle is not selected, ensure we only save the primary
+    quote.policyHolders = [quote.policyHolders[0]];
   }
+  // --------------------------------------------------------------------------
 
   if (!data.coverageLimits.personalProperty.value) {
     quote.coverageOptions.personalPropertyReplacementCost.answer = false;
