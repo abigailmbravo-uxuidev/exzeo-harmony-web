@@ -1,3 +1,5 @@
+import { userHO3 } from '../fixtures';
+
 const ho3Headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
   { name: 'propertyAddressDetail', label: 'Address', value: '4131 TEST ADDRESS' },
@@ -16,5 +18,16 @@ const af3Headers = [
   { name: 'premium', 'label': 'Premium', value: '$ 4,635' }
 ];
 
-export default (product = 'H03') =>
-  cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));
+export default (product = 'HO3') =>
+  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
+    .findDataTag('policyholder-details').click()
+    // If the secondary ph is not toggled, toggle it
+    .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
+    // Fill out secondary ph
+    .wrap(Object.entries(userHO3.secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
+    // Detoggle the second policyholder fields
+    .findDataTag('additionalPolicyholder').click()
+    .clickSubmit('.modal', 'modal-submit')
+    .wait('@updateQuote').then(({ request }) => expect(request.body.data.policyHolders.length).to.equal(1))
+    .get('.policyholder-details .contact-card-wrapper .contact-card').should('have.length', 1);
+

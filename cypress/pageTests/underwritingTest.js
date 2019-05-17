@@ -17,5 +17,5 @@ const af3Headers = [
   { name: 'premium', 'label': 'Premium', value: '$ --' }
 ];
 
-export default (product = 'H03') =>
-  cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));
+export default (product = 'HO3') =>
+  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));

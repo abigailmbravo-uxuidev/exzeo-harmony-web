@@ -15,7 +15,9 @@ export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInf
   .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
   // Add the secondary policyholder data.
   .wrap(Object.entries(secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
+  // Select agent.
   .findDataTag('agentCode').select(agentCode)
+  // Submit.
   .clickSubmit('#QuoteWorkflow')
   // We expect to have two policyholders in the response.
   .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length).to.equal(2));
