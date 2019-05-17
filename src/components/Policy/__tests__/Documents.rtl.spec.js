@@ -23,18 +23,18 @@ describe('Policy Document Page testing', () => {
       { date: '06/14/2018 12:00 AM EDT', type: 'FinalDoc' },
       { date: '05/25/2018 11:57 AM EDT', type: 'Invoice' }
     ];
+    const checkRows = () =>
+      document.querySelectorAll('tbody tr').forEach(($row, i) => {
+        const cols = $row.childNodes;
+        expect(cols[0].textContent).toEqual(documents[i].date);
+        expect(cols[1].textContent).toEqual(documents[i].type);
+      });
 
-    document.querySelectorAll('tbody tr').forEach(($row, i) => {
-      expect($row.firstChild.textContent).toEqual(documents[i].date);
-      expect($row.lastChild.textContent).toEqual(documents[i].type);
-    });
+    checkRows();
 
     fireEvent.click(getByText('Date'));
     // We reverse our array after sorting by reverse date
     documents.reverse();
-    document.querySelectorAll('tbody tr').forEach(($row, i) => {
-      expect($row.firstChild.textContent).toEqual(documents[i].date);
-      expect($row.lastChild.textContent).toEqual(documents[i].type);
-    });
+    checkRows();
   });
 });

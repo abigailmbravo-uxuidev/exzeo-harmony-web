@@ -42,7 +42,7 @@ describe('Policy Workflow testing', () => {
       // This text can be repeated so we have to confirm we're grabbing the last use of it on the page.
       const label = getAllByText(text).pop();
       expect(label.previousSibling.className).toEqual(icon);
-      expect(label.parentNode.className).toContain(status);
+      status.length && expect(label.parentNode.className).toContain(status);
     });
   });
 });

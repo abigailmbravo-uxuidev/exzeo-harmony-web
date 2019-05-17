@@ -46,7 +46,7 @@ export const defaultInitialState = {
       },
       rating: {
         netPremium: 0,
-        worksheet: { fees: {} }
+        worksheet: { fees: {}}
       }
     }
   },
@@ -86,7 +86,7 @@ export const defaultProps = {
     isAuthenticated: () => {},
     login: jest.fn()
   },
-  match: { params: {} }
+  match: { params: {}}
 };
 
 const parseQueryType = (query, field) => {
@@ -106,7 +106,7 @@ const parseQueryType = (query, field) => {
 
 export const submitForm = (query, button = /submit/) => fireEvent.click(query(button));
 
-export const clearText = (query, field) => fireEvent.change(parseQueryType(query, field), { target: { value: '' } });
+export const clearText = (query, field) => fireEvent.change(parseQueryType(query, field), { target: { value: '' }});
 
 export const checkError = (query, { name = '', text = '', label = '', error = 'Field Required' } = {}) =>
   expect(parseQueryType(query, { name: `${name}_error`, text, label, error })).toHaveTextContent(error);
@@ -121,7 +121,7 @@ export const checkTextInput = (query, field) => {
 
 export const checkPhoneInput = (query, field) => {
   const input = parseQueryType(query, field);
-  fireEvent.change(input, { target: { value: field.data } });
+  fireEvent.change(input, { target: { value: field.data }});
   expect(input.value).toMatch(new RegExp(field.data.slice(0, 2)));
 };
 
@@ -174,7 +174,7 @@ export const checkHeader = (query, { name = '', text, label = '', icon = false }
 export const checkSelect = (query, field, queryOptions) => {
   const select = parseQueryType(query, field, queryOptions);
   field.values && field.values.forEach(value => {
-    fireEvent.change(select, { target: { value } });
+    fireEvent.change(select, { target: { value }});
     expect(select.getAttribute('data-selected')).toEqual(value);
   });
 };
@@ -188,7 +188,7 @@ export const verifyForm = (query, baseFields = [], fieldsLeftBlank = [], button)
   [...baseFields, ...fieldsLeftBlank].forEach(field => clearText(query, field));
   // Fills all fields out not in fieldsLeftBlank array based on 'data' key
   baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
-    .forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: field.data } }));
+    .forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: field.data }}));
   // Submit form
   submitForm(query, button);
   // Expect errors to exist on blank fields
