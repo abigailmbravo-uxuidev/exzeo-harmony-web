@@ -18,8 +18,7 @@ RUN npm ci
 COPY . /app
 
 # cleanup
-RUN mv .default.env .env && \
- npm run build && \
+RUN rm .env && \
  npm cache clean --force && \
  rm -f .npmrc
 
