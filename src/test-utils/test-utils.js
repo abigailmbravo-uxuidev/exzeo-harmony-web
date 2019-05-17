@@ -70,12 +70,12 @@ export const defaultInitialState = {
   }
 };
 
-export /**
+/**
  * @param {Object} ui - React component to be Rendered
  * @param {Object} [{ state = defaultInitialState, store = mockStore(state) }={}] - The state and store, both optional, to be used.
  * If state is provided but store is not, store will be mocked from the given state.
  */
-const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) =>
+export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, store = mockStore(state) } = {}) =>
   ({
     ...render(<Router><Provider store={store}>{ui}</Provider></Router>),
     // Return our mock store, in case we want to do something with it in a test
