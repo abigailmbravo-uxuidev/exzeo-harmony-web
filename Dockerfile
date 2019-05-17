@@ -23,5 +23,5 @@ RUN mv .default.env .env && \
  npm cache clean --force && \
  rm -f .npmrc
 
-CMD ["npm", "run", "server"]
+CMD ["npm", "run", "start"]
 
