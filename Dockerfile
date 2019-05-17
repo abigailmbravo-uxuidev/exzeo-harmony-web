@@ -18,8 +18,7 @@ RUN npm ci
 COPY . /app
 
 # cleanup
-RUN rm .env && \
- npm cache clean --force && \
+RUN npm cache clean --force && \
  rm -f .npmrc
 
 CMD ["npm", "run", "start"]
