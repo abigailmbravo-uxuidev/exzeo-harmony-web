@@ -164,7 +164,7 @@ export class QuoteWorkflow extends Component {
   };
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
-    const { zipCodeSettings, quote, quoteData, history, updateQuote, location, options } = this.props;
+    const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
     const { isRecalc, currentStep } = this.state;
     try {
       if (!noSubmit) {

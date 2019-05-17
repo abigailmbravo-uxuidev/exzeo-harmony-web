@@ -81,26 +81,31 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
 }
 
 /**
- * Temp function for formatting quote data to send to quote-manager
- * @param {object} data - quote data
+ *
+ * @param data
+ * @param options
+ * @returns {{additionalPolicyholder}}
  */
-function formatQuoteForSubmit(data) {
+function formatQuoteForSubmit(data, options) {
   const quote = { ...data };
   quote.effectiveDate = date.formatToUTC(date.formatDate(data.effectiveDate, date.FORMATS.SECONDARY), data.property.timezone);
 
   // PolicyHolder logic -------------------------------------------------------
+  // TODO this logic can be moved to its own component which will handle adding/removing policyholder info based on the additionalPolicyholder toggle
+  if (options.step === 0 || options.step === 7) {
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
   quote.policyHolders[0].order = data.policyHolders[0].order || 0;
   quote.policyHolders[0].entityType = data.policyHolders[0].entityType || "Person";
 
-  if (quote.additionalPolicyholder) {
-    if (data.policyHolders[1]) {
-      quote.policyHolders[1].order = data.policyHolders[1].order || 1;
-      quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
+    if (quote.additionalPolicyholder) {
+      if (data.policyHolders[1]) {
+        quote.policyHolders[1].order = data.policyHolders[1].order || 1;
+        quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
+      }
+    } else {
+      // 'additionalPolicyholder toggle is not selected, ensure we only save the primary
+      quote.policyHolders = [quote.policyHolders[0]];
     }
-  } else {
-    // 'additionalPolicyholder toggle is not selected, ensure we only save the primary
-    quote.policyHolders = [quote.policyHolders[0]];
   }
   // --------------------------------------------------------------------------
 
@@ -154,7 +159,7 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
         await choreographer.startWorkflow('agencySubmitApplication', cgData);
 
       } else {
-        const updatedQuote = formatQuoteForSubmit(data);
+        const updatedQuote = formatQuoteForSubmit(data, options);
         const config = {
           exchangeName: 'harmony',
           routingKey: 'harmony.quote.updateQuote',
