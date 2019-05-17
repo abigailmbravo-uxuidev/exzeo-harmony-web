@@ -6,6 +6,7 @@ export { default as latestPolicy } from './latestPolicy';
 export { customizeList, mailingBillingList, underwritingList } from './listData';
 export { mailingBillingResult, underwritingResult } from './mockServiceRunnerResults';
 export { default as rating } from './rating';
+export { default as payment } from './payment';
 export { default as policyDocuments } from './policyDocuments';
 export { default as policyholder } from './policyholder';
 export { default as quote } from './quote';
