@@ -3,7 +3,12 @@
  * @param {Object} data - Data to fill out with keys corresponding to each entry in fields.
  */
 Cypress.Commands.add('fillFields', (fields = [], data) =>
-  cy.wrap(fields).each(field => cy.findDataTag(`${field.name}`).find('input').type(data ? data[field.name] : field.data)));
+  cy.wrap(fields).each(field => cy.findDataTag(`${field.name}`).then($el => {
+    // Sometimes the dom structure nests inputs
+    if ($el.find('input').length) cy.wrap($el).find('input').type(data ? data[field.name] : field.data);
+    else cy.wrap($el).type(data ? data[field.name] : field.data);
+  }))
+);
 
 /**
  * @param {string} name - Field name to find.
