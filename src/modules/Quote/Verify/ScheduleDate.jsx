@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@exzeo/core-ui';
 
 const ScheduleDate = ({ handleSubmit, handleCancel, submitting, entity, companyName, productDescription, redirectToHome, selectedAgent }) => (
-  <div className="modal schedule-date-modal" data-test="schedule-date-modal">
-    <div className="survey-wrapper">
+  <div className="modal-lg modal schedule-date-modal" data-test="schedule-date-modal">
       <div className="card card-schedule-date">
         <div className="card-header"><h4><i className="fa fa-envelope"/> Send Application</h4>
         </div>
@@ -45,7 +44,6 @@ const ScheduleDate = ({ handleSubmit, handleCancel, submitting, entity, companyN
           </Button>
         </div>
       </div>
-    </div>
   </div>
 );
 
