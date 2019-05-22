@@ -71,7 +71,7 @@ describe('Verify Testing', () => {
     ph2Fields.forEach(field => checkError(getByTestId, field));
     ph2Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
   });
-  
+
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     fireEvent.click(getByTestId('policyholder-details'));

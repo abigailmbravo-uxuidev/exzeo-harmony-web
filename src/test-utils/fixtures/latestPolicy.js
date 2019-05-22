@@ -303,11 +303,11 @@ export default {
   policyHolders: [
     {
       electronicDelivery: false,
-      _id: '5cd190769347ef0011911262',
+      _id: '5cd310b8c7ab5f0011400b5f',
       emailAddress: 'MSARMIENTO@HCPCI.COM',
       entityType: 'Person',
       firstName: 'BATMAN',
-      lastName: 'ROBIN A001',
+      lastName: 'ROBIN',
       order: 0,
       primaryPhoneNumber: '7271231234'
     }
@@ -367,18 +367,18 @@ export default {
       _id: '5cd1905a03446a0010bab011',
       floridaBuildingCodeWindSpeed: 130,
       floridaBuildingCodeWindSpeedDesign: 130,
-      internalPressureDesign: 'Other',
-      openingProtection: 'Other',
-      roofCovering: 'Other',
-      roofDeckAttachment: 'Other',
-      roofGeometry: 'Other',
-      roofToWallConnection: 'Other',
-      secondaryWaterResistance: 'Other',
+      internalPressureDesign: 'test ipd',
+      openingProtection: 'test op',
+      roofCovering: 'test covering',
+      roofDeckAttachment: 'test roofdeckattachment',
+      roofGeometry: 'test geometry',
+      roofToWallConnection: 'test roof to wall value',
+      secondaryWaterResistance: 'test swr value',
       terrain: 'B',
       windBorneDebrisRegion: 'Yes'
     },
     yearBuilt: 1998,
-    yearOfRoof: null
+    yearOfRoof: 2001
   },
   rating: {
     windMitigationDiscount: 0,
