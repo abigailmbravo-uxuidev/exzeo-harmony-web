@@ -26,7 +26,12 @@ Cypress.Commands.add('checkHeader', ({ name, text, icon }) =>
  * @param {string} text - Check this text is now in value of input
  */
 Cypress.Commands.add('checkText', (tag, text = '(99') =>
-  cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text));
+  cy.findDataTag(tag).then($el =>
+    $el.find('input').length ?
+      cy.wrap($el).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text) :
+    cy.wrap($el).type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text)
+  ))
+  // cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text));
 
 /**
  * Checks that every radio has values as described
