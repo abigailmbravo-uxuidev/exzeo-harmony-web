@@ -4,14 +4,13 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultProps,
-  submitForm,
   checkError,
   checkHeader,
   checkLabel,
   checkTextInput,
   verifyForm
 } from '../../../test-utils';
-import ConnectedShare from '../Share';
+import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
 const modalFields = [
   {
@@ -53,70 +52,48 @@ const pageHeaders = [
 describe('Testing the Share Page', () => {
   const props = {
     ...defaultProps,
-    formValues: {
-      underwritingExceptions: []
-    },
-    formInstance: {
-      getState: () => ({ submitting: false })
-    },
-    customHandlers: {
-      getState: () => ({ showEmailPopup: false }),
-      setEmailPopup: bool => bool,
-      handleSubmit: jest.fn()
-    }
+    location: { pathname: '/quote/12-5162219-01/share' }
   };
 
   it('NEG:All Inputs Empty Value', () => {
-    const { queryByTestId, getByTestId, getByText, rerender, wrapUi } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    const { queryByTestId, getByTestId, getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     // Confirm share button exists and the modal does not
-    // FIXME: This is an example of poorly-structured code causing tests to be overly complicated
     expect(getByTestId('share')).toHaveTextContent('share');
     expect(queryByTestId('Share Quote')).not.toBeInTheDocument();
+    // Click the modal
     fireEvent.click(getByTestId('share'));
-    rerender(wrapUi(
-      <ConnectedShare
-        {...props}
-        customHandlers={{
-          ...props.customHandlers, getState: () => ({ showEmailPopup: true }),
-        }}
-      />
-    ));
     // Confirm modal fields
     expect(getByTestId('name'));
     expect(getByTestId('email'));
-
-    // TODO: Once redux-form is out we need to test the validation for empty and invalid inputs
-    // submitForm(getByText, 'Send Email');
-    // modalFields.forEach(field => checkError(getByTestId, field));
-    // verifyForm(getByTestId, [{...modalFields[0], data: '∂ƒ©ƒ', error: 'Invalid characters' }]);
-    // verifyForm(getByTestId, [{ ...modalFields[1], data: '∂ƒ©ƒ', error: 'Not a valid email address' }]);
+    // Submit a blank form
+    fireEvent.click(getByText('Send Email'));
+    modalFields.forEach(field => checkError(getByTestId, field));
+    // Submit with one blank field
+    modalFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, modalFields, [fieldToLeaveBlank], 'modal-submit'));
+    // Invalid inputs
+    verifyForm(getByTestId, [{...modalFields[0], data: '∂ƒ©ƒ', error: 'Invalid characters' }], [], 'modal-submit');
+    verifyForm(getByTestId, [{ ...modalFields[1], data: '∂ƒ©ƒ', error: 'Not a valid email address' }], [], 'modal-submit');
   });
 
   it('POS:Share Header / Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Share Button / Share Modal', () => {
-    const { queryByTestId, getByTestId } = renderWithReduxAndRouter(
-      <ConnectedShare
-        {...props}
-        customHandlers={{
-          ...props.customHandlers, getState: () => ({ showEmailPopup: true }),
-        }}
-      />
-    );
+    const { queryByTestId, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+
     expect(queryByTestId('Share Quote'));
+    fireEvent.click(getByTestId('share'));
     modalFields.forEach(field => {
       checkLabel(getByTestId, field);
-      // TODO: Once redux-form is out of here we have to check the text input value changes
-      // checkTextInput(getByTestId, field);
+      checkTextInput(getByTestId, field);
     });
   });
 
   it('POS:Next Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedShare {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     expect(getByTestId('submit')).toHaveTextContent('next');
   });
 });

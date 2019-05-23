@@ -47,7 +47,8 @@ export const defaultInitialState = {
       rating: {
         netPremium: 0,
         worksheet: { fees: {}}
-      }
+      },
+      underwritingExceptions: []
     }
   },
   agencyState: {

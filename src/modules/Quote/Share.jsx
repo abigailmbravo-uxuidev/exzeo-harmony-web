@@ -8,6 +8,10 @@ import ErrorPopup from '../../components/Common/ErrorPopup';
 import { STEP_NAMES } from './constants/workflowNavigation';
 import { UNDERWRITING_ERROR_ACTIONS } from './constants/quote';
 
+// FIXME: Remove this once Portal is exported from core
+import Portal from '../../../node_modules/@exzeo/core-ui/src/@components/Portal';
+// FIXME DONE
+
 export class Share extends React.Component {
   noShareSubmit = async () => {
     const { customHandlers } = this.props;
@@ -83,10 +87,12 @@ export class Share extends React.Component {
 
 
         {showEmailPopup &&
-          <EmailPopup
-            onSubmit={this.shareQuoteSubmit}
-            handleCancel={() => setEmailPopup(false)}
-          />
+          <Portal>
+            <EmailPopup
+              onSubmit={this.shareQuoteSubmit}
+              handleCancel={() => setEmailPopup(false)}
+            />
+          </Portal>
         }
 
         {(!submitting && filteredUnderwritingExceptions.length > 0) &&
