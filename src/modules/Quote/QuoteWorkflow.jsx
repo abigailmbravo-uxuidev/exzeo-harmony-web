@@ -264,7 +264,6 @@ export class QuoteWorkflow extends Component {
       history: history,
       updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
-      getBillingOptions: this.getBillingOptions,
       getQuote
     };
 
@@ -348,7 +347,7 @@ export class QuoteWorkflow extends Component {
                         {({ dirty }) => {
                           if (currentPage === 2 && isRecalc !== dirty) {
                             this.setState({ isRecalc: dirty });
-                          } else if (isRecalc)
+                          } else if (currentPage !== 2 && isRecalc)
                             this.setState({ isRecalc: false});
                           return null;
                         }}

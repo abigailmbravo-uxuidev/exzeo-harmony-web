@@ -20,8 +20,8 @@ export class Share extends React.Component {
   };
 
   refreshUWReviewError = async () => {
-    const { customHandlers, formValues } = this.props;
-    await customHandlers.getQuote(formValues.quoteNumber, formValues._id);
+    const { customHandlers, initialValues } = this.props;
+    await customHandlers.getQuote(initialValues.quoteNumber, initialValues._id);
     customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData);
 
   };
@@ -32,7 +32,7 @@ export class Share extends React.Component {
 
   render() {
     const {
-      formValues,
+      initialValues,
       formInstance,
       customHandlers: {
         setEmailPopup,
@@ -42,7 +42,7 @@ export class Share extends React.Component {
 
     const { showEmailPopup } = getState();
     const { submitting } = formInstance.getState();
-    const { underwritingExceptions } = formValues;
+    const { underwritingExceptions } = initialValues;
     const filteredUnderwritingExceptions = underwritingExceptions.filter(exception => exception.action === UNDERWRITING_ERROR_ACTIONS.UNDERWRITING_REVIEW && !exception.overridden);
 
     return (
@@ -92,7 +92,7 @@ export class Share extends React.Component {
 
         {(!submitting && filteredUnderwritingExceptions.length > 0) &&
           <ErrorPopup
-            quote={formValues}
+            quote={initialValues}
             underwritingExceptions={filteredUnderwritingExceptions}
             refereshUWReviewError={() => this.refreshUWReviewError()}
             redirectToNewQuote={() => this.redirectToNewQuote()}

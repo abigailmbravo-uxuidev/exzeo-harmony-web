@@ -1110,9 +1110,6 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            extendedProperties:{
-              subscribe: true
-            },
             component: '$SHARE',
           },
           formData: {},
