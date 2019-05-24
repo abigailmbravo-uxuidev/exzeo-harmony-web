@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { TabNavigation } from '@exzeo/core-ui/src/@Harmony';
-import { DetailsHeader } from '@exzeo/core-ui';
+import { TabNavigation, DetailsHeader } from '@exzeo/core-ui/src/@Harmony';
 
 import { getNavLinks, STEP_NAMES } from './constants/workflowNavigation';
 

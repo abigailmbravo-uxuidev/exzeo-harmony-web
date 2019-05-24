@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@exzeo/core-ui';
+import { Button, ModalPortal } from '@exzeo/core-ui';
 import { STEP_NAMES } from '../constants/workflowNavigation';
 
 import PolicyHolderDetails from './PolicyHolderDetails';
@@ -10,7 +10,6 @@ import ScheduleDate from './ScheduleDate';
 import QuoteDetails from './QuoteDetails';
 import PropertyDetails from './PropertyDetails';
 import DetailGroup from './DetailGroup';
-import Portal from "@exzeo/core-ui/src/@components/Portal";
 
 export class Verify extends React.Component {
   state = {
@@ -175,7 +174,7 @@ export class Verify extends React.Component {
             />
          }
          {showPolicyHolderEditPopup &&
-           <Portal>
+           <ModalPortal>
             <PolicyHolderPopup
               submitting={submitting}
               handleFormSubmit={this.handlePolicyHolderSubmit}
@@ -185,7 +184,7 @@ export class Verify extends React.Component {
                 additionalPolicyholder: initialValues.policyHolders.length > 1
               }}
             />
-           </Portal>
+           </ModalPortal>
          }
        </div>
     );

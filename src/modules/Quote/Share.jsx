@@ -1,15 +1,11 @@
 import React from 'react';
-import { Button } from '@exzeo/core-ui';
+import { Button, ModalPortal } from '@exzeo/core-ui';
 
 import EmailPopup from './EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
 
 import { STEP_NAMES } from './constants/workflowNavigation';
 import { UNDERWRITING_ERROR_ACTIONS } from './constants/quote';
-
-// FIXME: Remove this once Portal is exported from core
-import Portal from '../../../node_modules/@exzeo/core-ui/src/@components/Portal';
-// FIXME DONE
 
 export class Share extends React.Component {
   noShareSubmit = async () => {
@@ -86,12 +82,12 @@ export class Share extends React.Component {
 
 
         {showEmailPopup &&
-          <Portal>
+          <ModalPortal>
             <EmailPopup
               onSubmit={this.shareQuoteSubmit}
               handleCancel={() => setEmailPopup(false)}
             />
-          </Portal>
+          </ModalPortal>
         }
 
         {(!submitting && filteredUnderwritingExceptions.length > 0) &&

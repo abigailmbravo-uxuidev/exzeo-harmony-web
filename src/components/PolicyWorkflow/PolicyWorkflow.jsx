@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { DetailsHeader, Loader } from '@exzeo/core-ui';
+import { Loader } from '@exzeo/core-ui';
+import { DetailsHeader } from '@exzeo/core-ui/src/@Harmony';
 
 import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
 import { setAppModalError } from '../../state/actions/errorActions';

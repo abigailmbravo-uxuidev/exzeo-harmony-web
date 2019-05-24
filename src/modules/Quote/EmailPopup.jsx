@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Input, Button, validation, Form, Field } from '@exzeo/core-ui';
-
-// FIXME: Remove this once composeValidators is exported from core
-import composeValidators from '../../../node_modules/@exzeo/core-ui/src/FormHelpers/composeValidators';
-// FIXME DONE
+import { Loader, Input, Button, validation, Form, Field, composeValidators } from '@exzeo/core-ui';
 
 const EmailPopup = ({
   onSubmit,
