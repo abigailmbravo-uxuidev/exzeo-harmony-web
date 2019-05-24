@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Button } from '@exzeo/core-ui';
 
 import EmailPopup from './EmailPopup';
