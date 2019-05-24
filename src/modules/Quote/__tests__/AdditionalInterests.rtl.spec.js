@@ -261,8 +261,8 @@ describe('Testing Additional Interests', () => {
     expect(getByText(`${additionalInterests[0].mailingAddress.address1}, ${additionalInterests[0].mailingAddress.city}, ${additionalInterests[0].mailingAddress.state} ${additionalInterests[0].mailingAddress.zip}`));
     expect(getByText(`${additionalInterests[0].type} ${additionalInterests[0].order + 1}`));
     expect(document.querySelector('i.fa.fa-circle.Mortgagee')).toBeInTheDocument();
-    expect(document.querySelector('a.remove i.fa.fa-trash')).toBeInTheDocument();
-    expect(document.querySelector('a.edit i.fa.fa-pencil')).toBeInTheDocument();
+    expect(document.querySelector('a.remove i.fa.delete')).toBeInTheDocument();
+    expect(document.querySelector('a.edit i.fa.fa.edit')).toBeInTheDocument();
   });
 
   it('POS:Additional Interest Details Renders with bad data', () => {
