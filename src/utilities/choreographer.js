@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { http as axios } from '@exzeo/core-ui';
 
 import { callService, handleError } from './serviceRunner';
 import { formattedDate, formatDate, FORMATS } from '@exzeo/core-ui/src/Utilities/date';

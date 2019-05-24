@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
+import { http as axios } from '@exzeo/core-ui';
 
 import choreographer from './choreographer';
 

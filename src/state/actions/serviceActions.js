@@ -1,4 +1,4 @@
-import axios from 'axios/index';
+import { http as axios } from '@exzeo/core-ui';
 import orderBy from 'lodash/orderBy';
 
 import * as serviceRunner from '../../utilities/serviceRunner';

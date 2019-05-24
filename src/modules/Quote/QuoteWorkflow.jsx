@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { Button, Loader } from '@exzeo/core-ui';
+import { Button, Loader, FormSpy } from '@exzeo/core-ui';
 
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
@@ -61,7 +61,7 @@ export class QuoteWorkflow extends Component {
       currentStep: STEP_NAMES.askAdditionalCustomerData,
     };
 
-    this.formRef = React.createRef();
+    this.formInstance = null;
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
     this.checkForFatalExceptions = defaultMemoize(this.checkForFatalExceptions.bind(this));
@@ -152,15 +152,18 @@ export class QuoteWorkflow extends Component {
 
     if (isLoading || step >= currentStep) return;
 
-    this.formRef.current.form.reset();
+    this.formInstance.reset();
     history.replace(ROUTE_TO_STEP_NAME[step]);
     this.setCurrentStep(true, step);
   };
 
   handleDirtyForm = (isDirty, currentPage) => {
-    this.setState({
-      isRecalc: currentPage === 2 && isDirty,
-    });
+    const { isRecalc } = this.state;
+    if (currentPage === 2 && isDirty !== isRecalc) {
+      this.setState({
+        isRecalc: isDirty,
+      });
+    }
   };
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
@@ -221,6 +224,10 @@ export class QuoteWorkflow extends Component {
     }
   };
 
+  setFormInstance = (formInstance) => {
+    this.formInstance = formInstance;
+  };
+
   setShowEmailPopup = (showEmailPopup) => {
     this.setState(() => ({ showEmailPopup }));
   };
@@ -250,7 +257,6 @@ export class QuoteWorkflow extends Component {
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
     const customHandlers = {
-      onDirtyCallback: this.handleDirtyForm,
       setEmailPopup: this.setShowEmailPopup,
       setShowSendApplicationPopup: this.setShowSendApplicationPopup,
       getState: this.getLocalState,
@@ -294,7 +300,6 @@ export class QuoteWorkflow extends Component {
             {shouldUseGandalf &&
               <React.Fragment>
                 <Gandalf
-                  ref={this.formRef}
                   formId={FORM_ID}
                   className="survey-wrapper"
                   currentPage={currentPage}
@@ -330,6 +335,26 @@ export class QuoteWorkflow extends Component {
                       }
                     </React.Fragment>
                   )}
+                  formListeners={() =>
+                    <React.Fragment>
+                      <FormSpy subscription={{}}>
+                        {({ form }) => {
+                          this.setFormInstance(form);
+                          return null;
+                        }}
+                      </FormSpy>
+
+                      <FormSpy subscription={{ dirty: true }}>
+                        {({ dirty }) => {
+                          if (currentPage === 2 && isRecalc !== dirty) {
+                            this.setState({ isRecalc: dirty });
+                          } else if (isRecalc)
+                            this.setState({ isRecalc: false});
+                          return null;
+                        }}
+                      </FormSpy>
+                    </React.Fragment>
+                  }
                 />
 
                 <Footer />

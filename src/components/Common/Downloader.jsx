@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import { http as axios } from '@exzeo/core-ui';
 import { format } from '@exzeo/core-ui';
 
 const { toFileName } = format;
