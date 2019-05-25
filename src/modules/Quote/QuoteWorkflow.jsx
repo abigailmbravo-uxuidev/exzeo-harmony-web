@@ -36,6 +36,7 @@ import Verify from './Verify';
 
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
+import TriggerRecalc from "./TriggerRecalc";
 
 const TEMPLATES = {
   'AF3': AF3,
@@ -157,13 +158,8 @@ export class QuoteWorkflow extends Component {
     this.setCurrentStep(true, step);
   };
 
-  handleDirtyForm = (isDirty, currentPage) => {
-    const { isRecalc } = this.state;
-    if (currentPage === 2 && isDirty !== isRecalc) {
-      this.setState({
-        isRecalc: isDirty,
-      });
-    }
+  setRecalc = (isRecalc) => {
+    this.setState({ isRecalc })
   };
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
@@ -344,13 +340,14 @@ export class QuoteWorkflow extends Component {
                       </FormSpy>
 
                       <FormSpy subscription={{ dirty: true }}>
-                        {({ dirty }) => {
-                          if (currentPage === 2 && isRecalc !== dirty) {
-                            this.setState({ isRecalc: dirty });
-                          } else if (currentPage !== 2 && isRecalc)
-                            this.setState({ isRecalc: false});
-                          return null;
-                        }}
+                        {({ dirty }) =>
+                          <TriggerRecalc
+                            dirty={dirty}
+                            isRecalc={isRecalc}
+                            currentPage={currentPage}
+                            setRecalc={this.setRecalc}
+                          />
+                        }
                       </FormSpy>
                     </React.Fragment>
                   }
