@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { Button, Loader, FormSpy } from '@exzeo/core-ui';
+import {Button, Loader, FormSpy, remoteSubmit} from '@exzeo/core-ui';
 
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
@@ -33,10 +33,20 @@ import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
 import Verify from './Verify';
 
-
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
 import TriggerRecalc from "./TriggerRecalc";
+
+const getCurrentStepAndPage = defaultMemoize((pathname) => {
+  const currentStep = pathname.split('/')[3];
+  return {
+    currentPage: PAGE_ROUTING[currentStep],
+    currentStep,
+  };
+});
+
+// Thin memoized wrapper around FormSpys to keep them from needlessly re-rendering.
+const MemoizedFormListeners = React.memo(({ children }) => <React.Fragment>{children}</React.Fragment>);
 
 const TEMPLATES = {
   'AF3': AF3,
@@ -163,7 +173,7 @@ export class QuoteWorkflow extends Component {
   };
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
-    const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
+    const { zipCodeSettings, quote, history, updateQuote, options } = this.props;
     const { isRecalc, currentStep } = this.state;
     try {
       if (!noSubmit) {
@@ -183,7 +193,7 @@ export class QuoteWorkflow extends Component {
       }
        // TODO: Figure out a routing solution
       if (!(isRecalc || remainOnStep)) {
-        history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+        history.replace(NEXT_PAGE_ROUTING[currentStep]);
         this.setCurrentStep();
       }
     } catch (error) {
@@ -202,22 +212,13 @@ export class QuoteWorkflow extends Component {
   };
 
   setStepBasedOnRoute = () => {
-    const currentStep = this.props.location.pathname.split('/')[3];
-    const currentPage = PAGE_ROUTING[currentStep];
+    const { location } = this.props;
+    const { currentPage } = getCurrentStepAndPage(location.pathname);
     this.setCurrentStep(true, currentPage);
   };
 
   primaryClickHandler = () => {
-    // ie11 does not handle customEvents the same way as other browsers. So here we have to check before creating
-    // this custom submit event - this is being used to submit the form from outside of the form.
-    const form = document.getElementById(FORM_ID);
-    if (typeof(Event) === 'function') {
-      form.dispatchEvent(new Event('submit', { cancelable: true }));
-    } else {
-      const event = document.createEvent('Event');
-      event.initEvent('submit', true, true);
-      form.dispatchEvent(event);
-    }
+    remoteSubmit(FORM_ID);
   };
 
   setFormInstance = (formInstance) => {
@@ -242,11 +243,10 @@ export class QuoteWorkflow extends Component {
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, workflowState, getQuote } = this.props;
+    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, getQuote } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
-    const currentStep = location.pathname.split('/')[3];
-    const currentPage = PAGE_ROUTING[currentStep];
+    const { currentStep, currentPage } = getCurrentStepAndPage(location.pathname);
     const shouldUseGandalf = (gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1);
     const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
@@ -298,14 +298,14 @@ export class QuoteWorkflow extends Component {
                   formId={FORM_ID}
                   className="survey-wrapper"
                   currentPage={currentPage}
+                  customComponents={this.customComponents}
+                  customHandlers={customHandlers}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
-                  template={gandalfTemplate}
                   options={options}  // enums for select/radio fields
-                  transformConfig={transformConfig}
                   path={location.pathname}
-                  customHandlers={customHandlers}
-                  customComponents={this.customComponents}
+                  template={gandalfTemplate}
+                  transformConfig={transformConfig}
                   renderFooter={({ submitting, form }) => (
                     <React.Fragment>
                       {shouldRenderFooter &&
@@ -331,7 +331,7 @@ export class QuoteWorkflow extends Component {
                     </React.Fragment>
                   )}
                   formListeners={() =>
-                    <React.Fragment>
+                    <MemoizedFormListeners>
                       <FormSpy subscription={{}}>
                         {({ form }) => {
                           this.setFormInstance(form);
@@ -349,7 +349,7 @@ export class QuoteWorkflow extends Component {
                           />
                         }
                       </FormSpy>
-                    </React.Fragment>
+                    </MemoizedFormListeners>
                   }
                 />
 
