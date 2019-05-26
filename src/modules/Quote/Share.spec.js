@@ -22,7 +22,7 @@ describe('Testing Share component', () => {
         replace: x => x,
       }
     },
-    formValues: { underwritingExceptions: []},
+    initialValues: { underwritingExceptions: []},
     formInstance: {
       getState: () => ({ submitting: false })
     },
