@@ -26,7 +26,7 @@ export default (product = 'HO3') =>
     .clickSubmit('div.Mortgagee', 'ai-modal-submit')
     .wait('@updateQuote')
     .get('ul.result-cards li').should('have.length', 1)
-    .within(() => cy.get('a.remove').click())
+    .within(() => cy.get('a.delete').click())
     .findDataTag('modal-confirm').click()
     .wait('@updateQuote')
     .get('ul.result-cards li').should('have.length', 0);
