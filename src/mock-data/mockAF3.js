@@ -20,7 +20,7 @@ const mock = {
         "value": "coverageLimits.building.amount",
         "label": "Coverage A",
         "format": "currency",
-        "alternateFormat": { 
+        "alternateFormat": {
           "steps": [0, 1],
           "display": "$ --"
         }
@@ -514,6 +514,7 @@ const mock = {
                 'billPayer',
               ],
               subscribe: true,
+              useOwnSubmit: true
             }
           },
           formData: {},

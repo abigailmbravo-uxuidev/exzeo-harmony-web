@@ -38,10 +38,10 @@ import HO3 from '../../mock-data/mockHO3';
 import TriggerRecalc from "./TriggerRecalc";
 
 const getCurrentStepAndPage = defaultMemoize((pathname) => {
-  const currentStep = pathname.split('/')[3];
+  const currentRouteName = pathname.split('/')[3];
   return {
-    currentPage: PAGE_ROUTING[currentStep],
-    currentStep,
+    currentStepNumber: PAGE_ROUTING[currentRouteName],
+    currentRouteName,
   };
 });
 
@@ -69,7 +69,7 @@ export class QuoteWorkflow extends Component {
       showEmailPopup: false,
       showSendApplicationPopup: false,
       gandalfTemplate: null,
-      currentStep: STEP_NAMES.askAdditionalCustomerData,
+      currentStepNumber: PAGE_ROUTING[getCurrentStepAndPage(props.location.pathname).currentRouteName],
     };
 
     this.formInstance = null;
@@ -87,7 +87,6 @@ export class QuoteWorkflow extends Component {
       this.props.getEnumsForQuoteWorkflow({ companyCode: quote.companyCode, state: quote.state, product: quote.product, property: quote.property});
     }
     this.getTemplate();
-    this.setStepBasedOnRoute();
   }
 
   // Temp fix for quote not being in state when component mounts on refresh (mostly a development time problem)
@@ -99,8 +98,8 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  checkForFatalExceptions(underwritingExceptions, currentStep) {
-    if (currentStep === 'verify') {
+  checkForFatalExceptions(underwritingExceptions, currentRouteName) {
+    if (currentRouteName === 'verify') {
       const currentExceptions = (underwritingExceptions || []).filter(ue => !ue.overridden);
       return currentExceptions.length > 0;
     }
@@ -159,9 +158,9 @@ export class QuoteWorkflow extends Component {
 
   goToStep = (step) => {
     const { history, isLoading } = this.props;
-    const { currentStep } = this.state;
+    const { currentStepNumber } = this.state;
 
-    if (isLoading || step >= currentStep) return;
+    if (isLoading || step >= currentStepNumber) return;
 
     this.formInstance.reset();
     history.replace(ROUTE_TO_STEP_NAME[step]);
@@ -173,8 +172,8 @@ export class QuoteWorkflow extends Component {
   };
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
-    const { zipCodeSettings, quote, history, updateQuote, options } = this.props;
-    const { isRecalc, currentStep } = this.state;
+    const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
+    const { isRecalc, currentStepNumber } = this.state;
     try {
       if (!noSubmit) {
         const data = values.quoteNumber ? values : quote;
@@ -185,7 +184,7 @@ export class QuoteWorkflow extends Component {
             shouldSendEmail,
             shouldSendApplication,
             customValues: values,
-            step: currentStep,
+            step: currentStepNumber,
             timezone: (zipCodeSettings || {}).timezone || 'America/New_York',
             underwritingQuestions: options.underwritingQuestions,
           }
@@ -193,7 +192,8 @@ export class QuoteWorkflow extends Component {
       }
        // TODO: Figure out a routing solution
       if (!(isRecalc || remainOnStep)) {
-        history.replace(NEXT_PAGE_ROUTING[currentStep]);
+        const { currentRouteName } = getCurrentStepAndPage(location.pathname);
+        history.replace(NEXT_PAGE_ROUTING[currentRouteName]);
         this.setCurrentStep();
       }
     } catch (error) {
@@ -207,14 +207,8 @@ export class QuoteWorkflow extends Component {
 
   setCurrentStep = (moveTo, step) => {
     this.setState((prevState) => ({
-      currentStep: moveTo ? step : prevState.currentStep + 1,
+      currentStepNumber: moveTo ? step : prevState.currentStepNumber + 1,
     }));
-  };
-
-  setStepBasedOnRoute = () => {
-    const { location } = this.props;
-    const { currentPage } = getCurrentStepAndPage(location.pathname);
-    this.setCurrentStep(true, currentPage);
   };
 
   primaryClickHandler = () => {
@@ -246,9 +240,9 @@ export class QuoteWorkflow extends Component {
     const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, getQuote } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
-    const { currentStep, currentPage } = getCurrentStepAndPage(location.pathname);
-    const shouldUseGandalf = (gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1);
-    const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
+    const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(location.pathname);
+    const shouldUseGandalf = (gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentRouteName) === -1);
+    const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentRouteName) === -1;
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
@@ -264,7 +258,7 @@ export class QuoteWorkflow extends Component {
     };
 
     const { underwritingExceptions } = quote;
-    const quoteHasFatalError = this.checkForFatalExceptions(underwritingExceptions, currentStep);
+    const quoteHasFatalError = this.checkForFatalExceptions(underwritingExceptions, currentRouteName);
 
     return (
       <App
@@ -286,8 +280,8 @@ export class QuoteWorkflow extends Component {
                 history={history}
                 goToStep={this.goToStep}
                 isLoading={isLoading}
-                showNavigationTabs={!quoteHasFatalError && currentStep !== 'thankYou'}
-                currentStep={this.state.currentStep}
+                showNavigationTabs={!quoteHasFatalError && currentRouteName !== 'thankYou'}
+                currentStep={this.state.currentStepNumber}
                 quote={quoteData}
               />
             }
@@ -297,7 +291,7 @@ export class QuoteWorkflow extends Component {
                 <Gandalf
                   formId={FORM_ID}
                   className="survey-wrapper"
-                  currentPage={currentPage}
+                  currentPage={currentStepNumber}
                   customComponents={this.customComponents}
                   customHandlers={customHandlers}
                   handleSubmit={this.handleGandalfSubmit}
@@ -344,7 +338,7 @@ export class QuoteWorkflow extends Component {
                           <TriggerRecalc
                             dirty={dirty}
                             isRecalc={isRecalc}
-                            currentPage={currentPage}
+                            currentPage={currentStepNumber}
                             setRecalc={this.setRecalc}
                           />
                         }

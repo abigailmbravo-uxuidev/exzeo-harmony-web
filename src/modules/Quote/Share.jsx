@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ModalPortal } from '@exzeo/core-ui';
+import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
 
 import EmailPopup from './EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
@@ -33,7 +33,6 @@ export class Share extends React.Component {
   render() {
     const {
       initialValues,
-      formInstance,
       customHandlers: {
         setEmailPopup,
         getState,
@@ -41,7 +40,6 @@ export class Share extends React.Component {
     } = this.props;
 
     const { showEmailPopup } = getState();
-    const { submitting } = formInstance.getState();
     const { underwritingExceptions } = initialValues;
     const filteredUnderwritingExceptions = underwritingExceptions.filter(exception => exception.action === UNDERWRITING_ERROR_ACTIONS.UNDERWRITING_REVIEW && !exception.overridden);
 
@@ -65,21 +63,35 @@ export class Share extends React.Component {
           <div className="title" data-test="NewQuote"><i className="fa fa-quote-left" /> New Quote</div>
           <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i className="fa fa-dashboard" /> <strong>DASHBOARD</strong> tab</p>
         </section>
-        <div className="btn-group">
-          <Button
-            className={Button.constants.classNames.secondary}
-            onClick={() => setEmailPopup(true)}
-            disabled={submitting}
-            data-test="share"
-          >share</Button>
-          <Button
-            className={Button.constants.classNames.primary}
-            onClick={this.noShareSubmit}
-            disabled={submitting}
-            data-test="submit"
-          >next</Button>
-        </div>
+        <FormSpy subscription={{ submitting: true }}>
+        {({ submitting}) =>
+          <React.Fragment>
+          <div className="btn-group">
+            <Button
+              className={Button.constants.classNames.secondary}
+              onClick={() => setEmailPopup(true)}
+              disabled={submitting}
+              data-test="share"
+            >share</Button>
+            <Button
+              className={Button.constants.classNames.primary}
+              onClick={this.noShareSubmit}
+              disabled={submitting}
+              data-test="submit"
+            >next</Button>
+          </div>
 
+          {(!submitting && filteredUnderwritingExceptions.length > 0) &&
+            <ErrorPopup
+            quote={initialValues}
+            underwritingExceptions={filteredUnderwritingExceptions}
+            refereshUWReviewError={() => this.refreshUWReviewError()}
+            redirectToNewQuote={() => this.redirectToNewQuote()}
+            />
+          }
+          </React.Fragment>
+        }
+        </FormSpy>
 
         {showEmailPopup &&
           <ModalPortal>
@@ -88,15 +100,6 @@ export class Share extends React.Component {
               handleCancel={() => setEmailPopup(false)}
             />
           </ModalPortal>
-        }
-
-        {(!submitting && filteredUnderwritingExceptions.length > 0) &&
-          <ErrorPopup
-            quote={initialValues}
-            underwritingExceptions={filteredUnderwritingExceptions}
-            refereshUWReviewError={() => this.refreshUWReviewError()}
-            redirectToNewQuote={() => this.redirectToNewQuote()}
-          />
         }
       </React.Fragment>
     );

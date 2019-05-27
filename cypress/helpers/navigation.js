@@ -23,7 +23,7 @@ export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInf
   .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length).to.equal(2));
 
 export const navigateThroughUnderwriting = (data = underwritingHO3) =>
-  cy.wrap(Object.entries(data)).each(([name, value]) => cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click())
+  cy.wait('@UWQuestions').wrap(Object.entries(data)).each(([name, value]) => cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click())
     .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
 
 export const navigateThroughCustomize = () =>
@@ -35,10 +35,11 @@ export const navigateThroughAssumptions = () => cy.findDataTag('confirm-assumpti
     .clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughAdditionalInterests = () =>
-  cy.clickSubmit('#QuoteWorkflow').wait('@getBillingOptions');
+  cy.clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughMailingBilling = () =>
-  cy.findDataTag('sameAsPropertyAddress')
+  cy.wait('@getBillingOptions')
+    .findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then($div => ((!$div.attr('data-value') || $div.attr('data-value') === 'false')) && cy.findDataTag('sameAsPropertyAddress').click())
     // Get first non-disabled option and select that value
