@@ -4,6 +4,7 @@ export { default as cost } from './cost';
 export { default as getSummaryLedger } from './getSummaryLedger';
 export { default as latestPolicy } from './latestPolicy';
 export { customizeList } from './listData';
+export { underwritingResult, mailingBillingResult } from './mockServiceRunnerResults';
 export { default as rating } from './rating';
 export { default as policyDocuments } from './policyDocuments';
 export { default as policyholder } from './policyholder';

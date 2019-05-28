@@ -1,11 +1,11 @@
 import React from 'react';
 import { fireEvent, waitForElement } from 'react-testing-library';
 
-import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
-
 import {
   defaultProps,
   defaultInitialState,
+  mockServiceRunner,
+  mailingBillingResult as result,
   renderWithReduxAndRouter,
   submitForm,
   checkError,
@@ -96,50 +96,7 @@ export const pageHeaders = [
   }
 ];
 
-serviceRunner.callService = jest.fn(() => Promise.resolve({
-  data: {
-    result: {
-      options: [{
-        billToType: 'Policyholder', billToId: '123', displayText: 'Policyholder: Batman Robin', payPlans: ['Annual', 'Semi-Annual', 'Quarterly'],
-        policyHolder: {}
-      }],
-      paymentPlans: {
-        annual: {
-          amount: 2667,
-          dueDate: '2019-05-08T04:00:00.000Z'
-        },
-        quarterly: {
-          q1: {
-            amount: 1096,
-            dueDate: '2019-05-08T04:00:00.000Z'
-          },
-          q2: {
-            amount: 531,
-            dueDate: '2019-08-06T04:00:00.000Z'
-          },
-          q3: {
-            amount: 531,
-            dueDate: '2019-11-04T05:00:00.000Z'
-          },
-          q4: {
-            amount: 531,
-            dueDate: '2020-02-02T05:00:00.000Z'
-          }
-        },
-        semiAnnual: {
-          s1: {
-            amount: 1624,
-            dueDate: '2019-05-08T04:00:00.000Z'
-          },
-          s2: {
-            amount: 1059,
-            dueDate: '2019-11-04T05:00:00.000Z'
-          }
-        }
-      }
-    }
-  }
-}));
+mockServiceRunner(result);
 
 describe('Testing the Mailing/Billing Page', () => {
   const props = {

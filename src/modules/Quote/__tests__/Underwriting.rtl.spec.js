@@ -1,11 +1,11 @@
 import React from 'react';
 import { fireEvent, waitForElement } from 'react-testing-library';
 
-import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
-
 import {
   renderWithReduxAndRouter,
   defaultProps,
+  mockServiceRunner,
+  underwritingResult as result,
   submitForm, checkError, checkRadio, checkLabel, checkButton
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
@@ -54,85 +54,7 @@ const fields = [
   }
 ];
 
-serviceRunner.callService = jest.fn(() => Promise.resolve({
-  data: {
-    result: [
-      {
-        active: true,
-        answers: [
-          { answer: 'Yes' },
-          { answer: 'Occasionally' },
-          { answer: 'Never' }
-        ],
-        hidden: false,
-        name: 'rented',
-        order: 1,
-        question: 'Is the home or any structures on the property ever rented?',
-        validations: ['required'],
-        visible: true
-      },
-      {
-        active: true,
-        answers: [
-          { answer: 'No claims ever filed' },
-          { answer: 'Less than 3 Years' },
-          { answer: '3-5 Years' },
-          { answer: 'Over 5 Years' },
-          { answer: 'Unknown' }
-        ],
-        hidden: false,
-        name: 'previousClaims',
-        order: 2,
-        question: 'When was the last claim filed?',
-        validations: ['required'],
-        visible: true
-      },
-      {
-        active: true,
-        answers: [
-          { answer: '0-3' },
-          { answer: '4-6' },
-          { answer: '7-9' },
-          { answer: '10+' }
-        ],
-        hidden: false,
-        name: 'monthsOccupied',
-        order: 3,
-        question: 'How many months a year does the owner live in the home?',
-        validations: ['required'],
-        visible: true
-      },
-      {
-        active: true,
-        ageOfHome: { max: 40 },
-        answers: [
-          { answer: 'Yes', default: true },
-          { answer: 'No' },
-          { answer: 'Unknown' }
-        ],
-        hidden: false,
-        name: 'fourPointUpdates',
-        order: 4,
-        question: 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
-        validations: ['required'],
-        visible: true
-      },
-      {
-        active: true,
-        answers: [
-          { answer: 'Yes' },
-          { answer: 'No' }
-        ],
-        hidden: false,
-        name: 'business',
-        order: 6,
-        question: 'Is  a business conducted on the property?',
-        validations: ['required'],
-        visible: true
-      }
-    ]
-  }
-}));
+mockServiceRunner(result);
 
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {
