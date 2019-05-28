@@ -97,7 +97,7 @@
     flex-grow: 1;
     flex-shrink: 1;
     padding: ($padding*2) ($padding*2) 0;
-    height: calc(100vh - 15.5rem);
+    height: calc(100vh - 14.25rem);
 
     @include for-phone-only {
       flex-grow: 0;
