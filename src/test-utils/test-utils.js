@@ -59,15 +59,8 @@ export const defaultInitialState = {
   list: {
     zipCodeSettings: {},
     uiQuestions: {},
-    underwritingQuestions: [],
     agents: [],
-    order: [],
-    billingConfig: {
-      billToConfig: {},
-      billingOptions: [],
-      defaultBillToId: '',
-      paymentPlans: {},
-    }
+    order: []
   }
 };
 

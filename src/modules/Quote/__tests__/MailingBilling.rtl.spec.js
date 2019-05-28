@@ -1,5 +1,7 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, waitForElement } from 'react-testing-library';
+
+import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 
 import {
   defaultProps,
@@ -14,8 +16,7 @@ import {
   checkRadio,
   checkSwitch,
   checkButton,
-  quote,
-  mailingBillingList as list
+  quote
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
@@ -95,6 +96,51 @@ export const pageHeaders = [
   }
 ];
 
+serviceRunner.callService = jest.fn(() => Promise.resolve({
+  data: {
+    result: {
+      options: [{
+        billToType: 'Policyholder', billToId: '123', displayText: 'Policyholder: Batman Robin', payPlans: ['Annual', 'Semi-Annual', 'Quarterly'],
+        policyHolder: {}
+      }],
+      paymentPlans: {
+        annual: {
+          amount: 2667,
+          dueDate: '2019-05-08T04:00:00.000Z'
+        },
+        quarterly: {
+          q1: {
+            amount: 1096,
+            dueDate: '2019-05-08T04:00:00.000Z'
+          },
+          q2: {
+            amount: 531,
+            dueDate: '2019-08-06T04:00:00.000Z'
+          },
+          q3: {
+            amount: 531,
+            dueDate: '2019-11-04T05:00:00.000Z'
+          },
+          q4: {
+            amount: 531,
+            dueDate: '2020-02-02T05:00:00.000Z'
+          }
+        },
+        semiAnnual: {
+          s1: {
+            amount: 1624,
+            dueDate: '2019-05-08T04:00:00.000Z'
+          },
+          s2: {
+            amount: 1059,
+            dueDate: '2019-11-04T05:00:00.000Z'
+          }
+        }
+      }
+    }
+  }
+}));
+
 describe('Testing the Mailing/Billing Page', () => {
   const props = {
     ...defaultProps,
@@ -109,29 +155,31 @@ describe('Testing the Mailing/Billing Page', () => {
         ...quote,
         rating: { worksheet: { fees: {}}}
       }
-    },
-    list: { ...defaultInitialState.list, ...list }
+    }
   };
 
   const requiredFields = fields.filter(({ required }) => required);
 
-  it('NEG:Tests all empty values',() => {
+  it('NEG:Tests all empty values', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('billPlan_label'));
 
     submitForm(getByTestId);
     requiredFields.forEach(field => checkError(getByTestId, field));
   });
 
-  it('NEG:Tests Mailing Address empty values',() => {
+  it('NEG:Tests Mailing Address empty values', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => expect(getByTestId('billPlan_Annual')));
 
     requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
   });
 
-  it('NEG:Tests Invalid Input Values',() => {
+  it('NEG:Tests Invalid Input Values', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
     const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state');
     const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip');
+    await waitForElement(() => getByTestId('billPlan_label'));
 
     verifyForm(getByTestId, [{
       ...state, data: 'foo', error: 'Only 2 letters allowed'
@@ -141,20 +189,22 @@ describe('Testing the Mailing/Billing Page', () => {
     }]);
   });
 
-  it('POS:Checks all headers',() => {
+  it('POS:Checks all headers', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
-  it('POS:Checks all labels',() => {
+  it('POS:Checks all labels', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => checkLabel(getByTestId, field));
   });
 
-  it('POS:Checks all inputs',() => {
+  it('POS:Checks all inputs', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => {
       if (field.type === 'text') checkTextInput(getByTestId, field);
@@ -163,15 +213,17 @@ describe('Testing the Mailing/Billing Page', () => {
     });
   });
 
-  it('POS:Checks toggle fills out data',() => {
+  it('POS:Checks toggle fills out data', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
-    fireEvent.click(getByTestId('sameAsPropertyAddress'));
+    await waitForElement(() => getByTestId('billPlan_label'));
 
+    fireEvent.click(getByTestId('sameAsPropertyAddress'));
     expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
   });
 
-  it('POS:Checks installment text',() => {
+  it('POS:Checks installment text', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('billPlan_label'));
 
     expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
     expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,624');
@@ -180,8 +232,9 @@ describe('Testing the Mailing/Billing Page', () => {
     expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 531');
   });
 
-  it('POS:Checks Submit Button', () => {
+  it('POS:Checks Submit Button', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    await waitForElement(() => getByTestId('billPlan_label'));
 
     checkButton(getByTestId);
   });

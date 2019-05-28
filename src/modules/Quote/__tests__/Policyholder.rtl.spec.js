@@ -93,7 +93,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
 
   it('NEG:Invalid Effective Date', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
-    // submitForm(getByTestId);
+    submitForm(getByTestId);
     verifyForm(getByTestId, [{
       name: 'effectiveDate', data: ''
     }]);
@@ -124,6 +124,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     expect(getByTestId('effectiveDate_wrapper')).toHaveTextContent('Effective Date');
+    expect(getByTestId('effectiveDate'));
     expect(getByTestId('agentCode_wrapper')).toHaveTextContent('Agent');
   });
 

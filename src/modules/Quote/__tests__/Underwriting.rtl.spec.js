@@ -1,12 +1,12 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, waitForElement } from 'react-testing-library';
+
+import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 
 import {
-  defaultInitialState,
   renderWithReduxAndRouter,
   defaultProps,
-  submitForm, checkError, checkRadio, checkLabel, checkButton,
-  underwritingList as list
+  submitForm, checkError, checkRadio, checkLabel, checkButton
 } from '../../../test-utils';
 import ConnectedQuoteWorkflow from '../QuoteWorkflow';
 
@@ -54,6 +54,86 @@ const fields = [
   }
 ];
 
+serviceRunner.callService = jest.fn(() => Promise.resolve({
+  data: {
+    result: [
+      {
+        active: true,
+        answers: [
+          { answer: 'Yes' },
+          { answer: 'Occasionally' },
+          { answer: 'Never' }
+        ],
+        hidden: false,
+        name: 'rented',
+        order: 1,
+        question: 'Is the home or any structures on the property ever rented?',
+        validations: ['required'],
+        visible: true
+      },
+      {
+        active: true,
+        answers: [
+          { answer: 'No claims ever filed' },
+          { answer: 'Less than 3 Years' },
+          { answer: '3-5 Years' },
+          { answer: 'Over 5 Years' },
+          { answer: 'Unknown' }
+        ],
+        hidden: false,
+        name: 'previousClaims',
+        order: 2,
+        question: 'When was the last claim filed?',
+        validations: ['required'],
+        visible: true
+      },
+      {
+        active: true,
+        answers: [
+          { answer: '0-3' },
+          { answer: '4-6' },
+          { answer: '7-9' },
+          { answer: '10+' }
+        ],
+        hidden: false,
+        name: 'monthsOccupied',
+        order: 3,
+        question: 'How many months a year does the owner live in the home?',
+        validations: ['required'],
+        visible: true
+      },
+      {
+        active: true,
+        ageOfHome: { max: 40 },
+        answers: [
+          { answer: 'Yes', default: true },
+          { answer: 'No' },
+          { answer: 'Unknown' }
+        ],
+        hidden: false,
+        name: 'fourPointUpdates',
+        order: 4,
+        question: 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
+        validations: ['required'],
+        visible: true
+      },
+      {
+        active: true,
+        answers: [
+          { answer: 'Yes' },
+          { answer: 'No' }
+        ],
+        hidden: false,
+        name: 'business',
+        order: 6,
+        question: 'Is  a business conducted on the property?',
+        validations: ['required'],
+        visible: true
+      }
+    ]
+  }
+}));
+
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {
     ...defaultProps,
@@ -61,21 +141,20 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     location: { pathname: '/quote/12-5162219-01/underwriting' }
   };
 
-  const state = {
-    ...defaultInitialState,
-    list: { ...defaultInitialState.list, ...list }
-  };
+  it('NEG:All Inputs Empty Value', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
-  it('NEG:All Inputs Empty Value', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
     submitForm(getByTestId);
     fields.forEach(({ name }) => checkError(getByTestId, { name }));
   });
 
   describe('NEG:All questions empty value', () => {
     for (let i = 0; i < fields.length; i++) {
-      it(`Checks that field ${fields[i].name} errors on an empty value`, () => {
-        const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+      it(`Checks that field ${fields[i].name} errors on an empty value`, async () => {
+        const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+        await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
+
         // Select all fields except the one to leave blank
         fields.filter(({ name }) => name !== fields[i].name)
           .forEach(({ name, data }) => fireEvent.click(getByTestId(`${name}_${data}`)));
@@ -85,8 +164,10 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     };
   });
 
-  it('POS:Check All Questions Text / Radio', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+  it('POS:Check All Questions Text / Radio', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
+
     fields.forEach(({ name, label, values }) => {
       checkRadio(getByTestId, { name, values });
       checkLabel(getByTestId, { name, label });
@@ -94,8 +175,9 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     });
   });
 
-  it('POS:Checks Submit Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+  it('POS:Checks Submit Button', async () => {
+    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
     checkButton(getByTestId);
   });
