@@ -25,9 +25,8 @@ export class Verify extends React.Component {
 
   sendApplicationSubmit = async () => {
     const { customHandlers } = this.props;
-    await customHandlers.handleSubmit({ shouldSendApplication: true });
     customHandlers.setShowSendApplicationPopup(false);
-    // customHandlers.history.replace('thankYou');
+    await customHandlers.handleSubmit({ shouldSendApplication: true });
   };
 
   handlePolicyHolderSubmit = async (values) => {

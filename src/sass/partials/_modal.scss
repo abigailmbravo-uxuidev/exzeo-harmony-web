@@ -163,6 +163,27 @@
     }
   }
 
+  &.modal-lg {
+    .card {
+      max-width: 60rem;
+      width: 60%;
+
+      @include for-phone-only {
+        position: absolute;
+        top: 3.375rem;
+        bottom: 0;
+        z-index: 1000;
+        width: 100%;
+        border-radius: 0;
+
+        .card-block {
+          max-height: 100vh;
+          height: calc(100vh - 9.5625rem);
+        }
+      }
+    }
+  }
+
   &.modal-alert {
     .card {
       max-width: 20rem;
@@ -171,7 +192,38 @@
 
   &.schedule-date-modal {
     display: flex;
-    flex-direction: column;
+    
+    .card-footer {
+
+      @include for-phone-only {
+        flex-direction: column;
+
+        .btn {
+          width: 100%;
+          margin-left: 0;
+          margin-bottom: $padding;
+        }
+      }
+
+      @include for-tablet-portrait-up {
+        flex-direction: column;
+
+        .btn {
+          width: 100%;
+          margin-left: 0;
+          margin-bottom: $padding;
+        }
+      }
+
+      @include for-desktop-up {
+        flex-direction: row;
+
+        .btn {
+          width: auto;
+          margin-left: $padding;
+        }
+      }
+    }
   }
 
   &.edit-policyholder-modal {
