@@ -138,7 +138,7 @@ export function updateQuote({ data = {}, quoteNumber, options }) {
           routingKey: 'harmony.quote.sendApplication',
           data: {
             quoteNumber: data.quoteNumber,
-            sendType: 'manual',
+            sendType: 'docusign',
           }
         };
 

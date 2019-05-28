@@ -514,7 +514,6 @@ const mock = {
                 'premiumFinance',
                 'billPayer',
               ],
-              subscribe: true,
               useOwnSubmit: true
             }
           },
