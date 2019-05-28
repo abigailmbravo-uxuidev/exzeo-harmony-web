@@ -4,11 +4,15 @@ import { fireEvent, waitForElement } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultProps,
+  quote,
+  zipCodeSettings,
+  underwritingList as list,
+  userProfile,
   mockServiceRunner,
   underwritingResult as result,
   submitForm, checkError, checkRadio, checkLabel, checkButton
 } from '../../../test-utils';
-import ConnectedQuoteWorkflow from '../QuoteWorkflow';
+import ConnectedQuoteWorkflow, { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -60,21 +64,39 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {
     ...defaultProps,
     history: { replace: x => x },
-    location: { pathname: '/quote/12-5162219-01/underwriting' }
+    location: { pathname: '/quote/12-5162219-01/underwriting' },
+    isLoading: false,
+    quote,
+    quoteData: quote,
+    headerDetails: {},
+    workflowState: {},
+    zipCodeSettings,
+    options: {
+      agents: [], mortgagee: [], uiQuestions: {}, zipCodeSettings
+    },
+    userProfile,
+    submitForm: () => { },
+    updateQuote: () => Promise.resolve({}),
+    getAgentsByAgencyCode: () => { },
+    getZipcodeSettings: () => { },
+    getEnumsForQuoteWorkflow: () => { },
+    getBillingOptions: () => { },
+    getQuote: () => { }
   };
 
   it('NEG:All Inputs Empty Value', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
     submitForm(getByTestId);
+    await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_error'));
     fields.forEach(({ name }) => checkError(getByTestId, { name }));
   });
 
   describe('NEG:All questions empty value', () => {
     for (let i = 0; i < fields.length; i++) {
       it(`Checks that field ${fields[i].name} errors on an empty value`, async () => {
-        const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+        const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
         await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
         // Select all fields except the one to leave blank
@@ -87,7 +109,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   });
 
   it('POS:Check All Questions Text / Radio', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
     fields.forEach(({ name, label, values }) => {
@@ -98,7 +120,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   });
 
   it('POS:Checks Submit Button', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
     checkButton(getByTestId);

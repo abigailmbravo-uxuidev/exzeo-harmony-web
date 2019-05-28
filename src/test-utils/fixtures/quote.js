@@ -186,37 +186,30 @@ export default {
 	state: 'FL',
 	underwritingAnswers: {
 		business: {
-			answer: 'No',
 			question: 'Is a business conducted on the property?',
 			source: 'Customer'
 		},
 		floodCoverage: {
-			answer: 'Yes',
 			question: 'Does this property have a separate insurance policy covering flood losses?',
 			source: 'Default'
 		},
 		fourPointUpdates: {
-			answer: 'Yes',
 			question: 'Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?',
 			source: 'Customer'
 		},
 		monthsOccupied: {
-			answer: '10+',
 			question: 'How many months a year does the owner live in the home?',
 			source: 'Customer'
 		},
 		noPriorInsuranceSurcharge: {
-			answer: 'No',
 			question: 'If not new purchase, please provide proof of prior insurance.',
 			source: 'Default'
 		},
 		previousClaims: {
-			answer: 'No claims ever filed',
 			question: 'How many claims in the past 5 years?',
 			source: 'Customer'
 		},
 		rented: {
-			answer: 'Never',
 			question: 'Is the home or any structures on the property ever rented?',
 			source: 'Customer'
 		}
