@@ -1,7 +1,7 @@
 import { http as axios } from '@exzeo/core-ui';
+import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import orderBy from 'lodash/orderBy';
 
-import * as serviceRunner from '../../utilities/serviceRunner';
 import * as listActions from '../actionTypes/list.actionTypes';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';

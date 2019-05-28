@@ -124,7 +124,6 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
 
     expect(getByTestId('effectiveDate_wrapper')).toHaveTextContent('Effective Date');
-    expect(getByTestId('effectiveDate')).toHaveAttribute('type', 'date');
     expect(getByTestId('agentCode_wrapper')).toHaveTextContent('Agent');
   });
 
