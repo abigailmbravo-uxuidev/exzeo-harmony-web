@@ -22,4 +22,4 @@ export default (product = 'HO3') =>
     .findDataTag('name').type('Bruce')
     .findDataTag('email').type('Batman@gmail.com')
     .clickSubmit('#SendEmail', 'modal-submit')
-    .wait('@agencyEmailQuoteSummary');
+    .wait('@sendQuoteSummary');

@@ -127,7 +127,7 @@ describe('Back Button Testing', () => {
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    cy.wait('@agencySubmitApplication').go('back')
+    cy.wait('@sendApplication').go('back')
       .get('div.dashboard-message').should('exist');
   });
 });
