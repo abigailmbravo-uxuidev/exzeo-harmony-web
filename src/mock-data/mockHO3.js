@@ -1250,7 +1250,6 @@ const mock = {
               ],
               productDescription: "Homeowners",
               companyName: "TypTap",
-              subscribe: true
             }
           },
           formData: {},

@@ -1,6 +1,5 @@
 import { date } from '@exzeo/core-ui';
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
-import choreographer from '../../utilities/choreographer';
 
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
@@ -134,29 +133,19 @@ function formatQuoteForSubmit(data, options) {
  */
 export function updateQuote({ data = {}, quoteNumber, options }) {
   return async function(dispatch) {
-
     dispatch(toggleLoading(true));
     try {
-      // Using CG models for functionality that is missing in workflows
-      if (options.shouldSendEmail) {
-        const cgData = {
-          quoteId: data._id,
-          state: data.state,
-          zip: data.property.physicalAddress.zip,
-          emailAddress: options.customValues.email,
-          toName: options.customValues.name,
+      if (options.shouldSendApplication) {
+        const config = {
+          exchangeName: 'harmony',
+          routingKey: 'harmony.quote.sendApplication',
+          data: {
+            quoteNumber: data.quoteNumber,
+            sendType: 'manual',
+          }
         };
 
-        await choreographer.startWorkflow('agencyEmailQuoteSummary', cgData);
-
-      }
-      else if (options.shouldSendApplication) {
-        const cgData = {
-          quoteId: data._id,
-          dsUrl: `${process.env.REACT_APP_API_URL}/ds`
-        };
-
-        await choreographer.startWorkflow('agencySubmitApplication', cgData);
+        await serviceRunner.callService(config, 'quoteManage.sendApplication');
 
       } else {
         const updatedQuote = formatQuoteForSubmit(data, options);

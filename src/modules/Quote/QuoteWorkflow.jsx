@@ -4,12 +4,12 @@ import { Route, Redirect } from 'react-router-dom';
 import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import {Button, Loader, FormSpy, remoteSubmit} from '@exzeo/core-ui';
+import {Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
 
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
-import { getEnumsForQuoteWorkflow, getBillingOptions } from '../../state/actions/list.actions';
+import { getEnumsForQuoteWorkflow } from '../../state/actions/list.actions';
 import { getQuoteSelector } from '../../state/selectors/choreographer.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 
@@ -18,12 +18,10 @@ import {
   PAGE_ROUTING,
   ROUTES_NOT_HANDLED_BY_GANDALF,
   ROUTES_NOT_USING_FOOTER,
-  STEP_NAMES,
   ROUTE_TO_STEP_NAME,
 } from './constants/workflowNavigation';
 
 import ThankYou from '../../components/ThankYou/ThankYou';
-//import Verify from '../../components/Verify/Verify';
 import Footer from '../../components/Common/Footer';
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
@@ -124,11 +122,6 @@ export class QuoteWorkflow extends Component {
         ...pageComponents
       };
     }, {});
-  };
-
-  getBillingOptions = () => {
-    const { quoteData } = this.props;
-    this.props.getBillingOptions(quoteData);
   };
 
   getLocalState = () => {
@@ -380,6 +373,5 @@ export default connect(mapStateToProps, {
   getAgentsByAgencyCode,
   getZipcodeSettings,
   getEnumsForQuoteWorkflow,
-  getBillingOptions,
   getQuote
 })(QuoteWorkflow);

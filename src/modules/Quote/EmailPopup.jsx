@@ -15,14 +15,16 @@ const EmailPopup = ({
           render={({ handleSubmit, submitting }) => (
             <form onSubmit={handleSubmit}>
               <div className="card card-email">
-                {submitting && <Loader />}
+                {submitting &&
+                  <Loader />
+                }
                 <div className="fade-in" id="SendEmail">
                   <div className="card-header" data-test="modal-header">
                     <h4><i className="fa fa-share-alt" /> Share Quote</h4>
                   </div>
                   <div className="card-block">
                     <Field
-                      name="name"
+                      name="toName"
                       styleName="text"
                       component={Input}
                       label="Name"
@@ -31,7 +33,7 @@ const EmailPopup = ({
                     />
 
                     <Field
-                      name="email"
+                      name="toEmail"
                       styleName="text"
                       component={Input}
                       label="Email Address"
