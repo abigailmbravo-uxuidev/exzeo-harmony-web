@@ -1,12 +1,11 @@
 import React from 'react';
 
 import {
-  defaultProps,
-  defaultInitialState,
   renderWithReduxAndRouter,
+  defaultProps,
   quote
 } from '../../../test-utils';
-import ConnectedWorkflowNavigation from '../WorkflowNavigation';
+import WorkflowNavigation from '../WorkflowNavigation';
 
 describe('Testing WorkflowNavigation Component', () => {
   const props = {
@@ -41,19 +40,6 @@ describe('Testing WorkflowNavigation Component', () => {
     showNavigationTabs: true,
   };
 
-  const state = {
-    ...defaultInitialState,
-    quoteState: {
-      ...defaultInitialState.quoteState,
-      quote,
-      state: {
-        ...defaultInitialState.quoteState.state,
-        activeTask: 'askToCustomizeDefaultQuote',
-        completedTasks: ['askAdditionalCustomerData', 'askUWAnswers']
-      }
-    }
-  };
-
   const workflowSections = [
     {
       name: 'tab-nav-1',
@@ -86,7 +72,7 @@ describe('Testing WorkflowNavigation Component', () => {
   ];
 
   it('POS:Tests Detail Header', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedWorkflowNavigation {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<WorkflowNavigation {...props} />);
     // All static data pulled off dummy quote used above
     expect(getByText('Quote Number'));
     expect(getByText('12-5162296-01'));
@@ -102,7 +88,7 @@ describe('Testing WorkflowNavigation Component', () => {
   });
 
   it('POS:Tests Workflow Section Classes', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedWorkflowNavigation {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<WorkflowNavigation {...props} />);
 
     workflowSections.forEach(({ name, status }) => expect(getByTestId(name).firstChild).toHaveClass(status));
   });

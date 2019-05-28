@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { setSliderValue } from '.';
+import { quote, userProfile, zipCodeSettings } from '../test-utils';
 
 const mockStore = configureStore([thunk]);
 
@@ -64,6 +65,45 @@ export const defaultInitialState = {
   }
 };
 
+export const defaultProps = {
+  auth: {
+    logout: () => { },
+    isAuthenticated: () => { },
+    login: jest.fn()
+  },
+  match: { params: {} }
+};
+
+
+export const defaultQuoteWorkflowProps = {
+  ...defaultProps,
+  history: { replace: x => x },
+  location: { pathname: '' },
+  isLoading: false,
+  quote: {
+    ...quote,
+    rating: { worksheet: { fees: {} } }
+  },
+  quoteData: {
+    ...quote,
+    rating: { worksheet: { fees: {} } }
+  },
+  headerDetails: {},
+  workflowState: {},
+  zipCodeSettings,
+  options: {
+    agents: [], mortgagee: [], uiQuestions: {}, zipCodeSettings
+  },
+  userProfile,
+  submitForm: () => { },
+  updateQuote: () => Promise.resolve({}),
+  getAgentsByAgencyCode: () => { },
+  getZipcodeSettings: () => { },
+  getEnumsForQuoteWorkflow: () => { },
+  getBillingOptions: () => { },
+  getQuote: () => { }
+};
+
 /**
  * @param {Object} ui - React component to be Rendered
  * @param {Object} [{ state = defaultInitialState, store = mockStore(state) }={}] - The state and store, both optional, to be used.
@@ -78,15 +118,6 @@ export const renderWithReduxAndRouter = (ui, { state = defaultInitialState, stor
     // This is useful if we need to rerender within a test
     wrapUi: ui => <Router><Provider store={store}>{ui}</Provider></Router>
   });
-
-export const defaultProps = {
-  auth: {
-    logout: () => {},
-    isAuthenticated: () => {},
-    login: jest.fn()
-  },
-  match: { params: {}}
-};
 
 /**
  * A function to handle your query and your field and find the correct DOM element.

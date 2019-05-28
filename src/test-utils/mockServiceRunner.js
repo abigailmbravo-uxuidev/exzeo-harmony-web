@@ -1,5 +1,3 @@
-// export default result => jest.fn(() => Promise.resolve({ data: { result }}));
-
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 
 const jestResolve = (result, error) => jest.fn(() => error ?

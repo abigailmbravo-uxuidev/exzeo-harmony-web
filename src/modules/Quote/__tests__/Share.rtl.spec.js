@@ -3,14 +3,14 @@ import { fireEvent } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
-  defaultProps,
+  defaultQuoteWorkflowProps,
   checkError,
   checkHeader,
   checkLabel,
   checkTextInput,
   verifyForm
 } from '../../../test-utils';
-import ConnectedQuoteWorkflow from '../QuoteWorkflow';
+import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const modalFields = [
   {
@@ -51,12 +51,12 @@ const pageHeaders = [
 
 describe('Testing the Share Page', () => {
   const props = {
-    ...defaultProps,
+    ...defaultQuoteWorkflowProps,
     location: { pathname: '/quote/12-5162219-01/share' }
   };
 
   it('NEG:All Inputs Empty Value', () => {
-    const { queryByTestId, getByTestId, getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { queryByTestId, getByTestId, getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     // Confirm share button exists and the modal does not
     expect(getByTestId('share')).toHaveTextContent('share');
     expect(queryByTestId('Share Quote')).not.toBeInTheDocument();
@@ -71,18 +71,18 @@ describe('Testing the Share Page', () => {
     // Submit with one blank field
     modalFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, modalFields, [fieldToLeaveBlank], 'modal-submit'));
     // Invalid inputs
-    verifyForm(getByTestId, [{...modalFields[0], data: '∂ƒ©ƒ', error: 'Invalid characters' }], [], 'modal-submit');
+    verifyForm(getByTestId, [{ ...modalFields[0], data: '∂ƒ©ƒ', error: 'Invalid characters' }], [], 'modal-submit');
     verifyForm(getByTestId, [{ ...modalFields[1], data: '∂ƒ©ƒ', error: 'Not a valid email address' }], [], 'modal-submit');
   });
 
   it('POS:Share Header / Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Share Button / Share Modal', () => {
-    const { queryByTestId, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { queryByTestId, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     expect(queryByTestId('Share Quote'));
     fireEvent.click(getByTestId('share'));
@@ -93,7 +93,7 @@ describe('Testing the Share Page', () => {
   });
 
   it('POS:Next Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     expect(getByTestId('submit')).toHaveTextContent('next');
   });
 });

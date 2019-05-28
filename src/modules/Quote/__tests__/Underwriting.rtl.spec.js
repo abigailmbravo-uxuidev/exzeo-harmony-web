@@ -3,11 +3,7 @@ import { fireEvent, waitForElement } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
-  defaultProps,
-  quote,
-  zipCodeSettings,
-  underwritingList as list,
-  userProfile,
+  defaultQuoteWorkflowProps,
   mockServiceRunner,
   underwritingResult as result,
   submitForm, checkError, checkRadio, checkLabel, checkButton
@@ -62,26 +58,8 @@ mockServiceRunner(result);
 
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {
-    ...defaultProps,
-    history: { replace: x => x },
-    location: { pathname: '/quote/12-5162219-01/underwriting' },
-    isLoading: false,
-    quote,
-    quoteData: quote,
-    headerDetails: {},
-    workflowState: {},
-    zipCodeSettings,
-    options: {
-      agents: [], mortgagee: [], uiQuestions: {}, zipCodeSettings
-    },
-    userProfile,
-    submitForm: () => { },
-    updateQuote: () => Promise.resolve({}),
-    getAgentsByAgencyCode: () => { },
-    getZipcodeSettings: () => { },
-    getEnumsForQuoteWorkflow: () => { },
-    getBillingOptions: () => { },
-    getQuote: () => { }
+    ...defaultQuoteWorkflowProps,
+    location: { pathname: '/quote/12-5162219-01/underwriting' }
   };
 
   it('NEG:All Inputs Empty Value', async () => {

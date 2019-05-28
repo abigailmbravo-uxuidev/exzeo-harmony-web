@@ -2,15 +2,12 @@ import React from 'react';
 import { fireEvent, waitForDomChange } from 'react-testing-library';
 
 import {
-  defaultProps,
-  defaultInitialState,
   renderWithReduxAndRouter,
+  defaultQuoteWorkflowProps,
   checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
-  customizeList as list,
-  quote,
   setSliderValue
 } from '../../../test-utils';
-import ConnectedQuoteWorkflow from '../QuoteWorkflow';
+import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -207,18 +204,12 @@ const pageHeaders = [
 
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
-    ...defaultProps,
+    ...defaultQuoteWorkflowProps,
     location: { pathname: '/quote/12-5162219-01/customize' }
   };
 
-  const state = {
-    ...defaultInitialState,
-    quoteState: { ...defaultInitialState.quoteState, quote },
-    list: { ...defaultInitialState.list, ...list }
-  };
-
   it('NEG:Dwelling Limit', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     fields.filter(({ type }) => type === 'slider')
       .forEach(({ name }) => {
@@ -228,26 +219,26 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
 
-        fireEvent.change(input, { target: { value: '124000' } });
+        fireEvent.change(input, { target: { value: '124000' }});
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
 
-        fireEvent.change(input, { target: { value: '2100000' } });
+        fireEvent.change(input, { target: { value: '2100000' }});
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
 
-        fireEvent.change(input, { target: { value: '3000000' } });
+        fireEvent.change(input, { target: { value: '3000000' }});
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
 
-        fireEvent.change(input, { target: { value: '999999999' } });
+        fireEvent.change(input, { target: { value: '999999999' }});
         fireEvent.blur(input);
         expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
       });
   });
 
   it('POS:Checks all fields', () => {
-    const { getByTestId, getByText, container } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId, getByText, container } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     fields.filter(({ required }) => required)
       .forEach(async field => {
@@ -266,7 +257,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   });
 
   it('POS:Checks Header Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
@@ -279,7 +270,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       'coverageLimits.lossOfUse.value_wrapper',
       'deductibles.hurricane.value_wrapper'
     ];
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const slider = getByTestId('coverageLimits.dwelling.value-slider');
 
     const setSliderAndCheckOutput = (value, { name, outputValue }) => {

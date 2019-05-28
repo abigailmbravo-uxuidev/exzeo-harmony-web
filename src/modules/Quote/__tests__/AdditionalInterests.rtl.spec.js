@@ -3,23 +3,144 @@ import { fireEvent, wait } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
-  defaultInitialState,
-  defaultProps,
+  defaultQuoteWorkflowProps,
+  additionalInterest,
   checkLabel,
   checkTextInput,
   checkSelect,
   checkError,
   submitForm,
-  baseAiFields,
-  personalFields,
-  additionalInterest,
   verifyForm
 } from '../../../test-utils';
-import ConnectedQuoteWorkflow from '../QuoteWorkflow';
+import { QuoteWorkflow } from '../QuoteWorkflow';
+
+const baseAiFields = [
+  {
+    name: 'name1',
+    type: 'text',
+    required: true,
+    label: 'Name 1',
+    data: 'test last names',
+  },
+  {
+    name: 'name2',
+    type: 'text',
+    label: 'Name 2',
+    data: 'test first name',
+  },
+  {
+    name: 'address1',
+    type: 'text',
+    required: true,
+    label: 'Address 1',
+    data: 'test adress 1',
+  },
+  {
+    name: 'address2',
+    type: 'text',
+    label: 'Address 2',
+    data: 'test address 2',
+  },
+  {
+    name: 'city',
+    type: 'text',
+    required: true,
+    label: 'City',
+    data: 'test city',
+  },
+  {
+    name: 'state',
+    type: 'text',
+    required: true,
+    label: 'State',
+    data: 'FL',
+  },
+  {
+    name: 'zip',
+    type: 'text',
+    required: true,
+    label: 'Zip Code',
+    data: 'test name 1',
+  },
+  {
+    name: 'phoneNumber',
+    type: 'text',
+    label: 'Phone Number',
+    data: '(123) 123-1231'
+  },
+  {
+    name: 'referenceNumber',
+    type: 'text',
+    label: 'Reference Number',
+    data: '1`23'
+  }
+];
+
+const personalFields = [
+  {
+    name: 'name1',
+    type: 'text',
+    required: true,
+    label: 'First Name',
+    data: 'test last names',
+  },
+  {
+    name: 'name2',
+    type: 'text',
+    label: 'Last Name',
+    data: 'test first name',
+  },
+  {
+    name: 'address1',
+    type: 'text',
+    required: true,
+    label: 'Address 1',
+    data: 'test adress 1',
+  },
+  {
+    name: 'address2',
+    type: 'text',
+    label: 'Address 2',
+    data: 'test address 2',
+  },
+  {
+    name: 'city',
+    type: 'text',
+    required: true,
+    label: 'City',
+    data: 'test city',
+  },
+  {
+    name: 'state',
+    type: 'text',
+    required: true,
+    label: 'State',
+    data: 'FL',
+  },
+  {
+    name: 'zip',
+    type: 'text',
+    required: true,
+    label: 'Zip Code',
+    data: 'test name 1',
+  },
+  {
+    name: 'phoneNumber',
+    type: 'text',
+    label: 'Phone Number',
+    data: '(123) 123-1231'
+  },
+  {
+    name: 'referenceNumber',
+    type: 'text',
+    label: 'Reference Number',
+    data: '1`23'
+  }
+];
 
 describe('Testing Additional Interests', () => {
   const props = {
-    ...defaultProps,
+    ...defaultQuoteWorkflowProps,
     location: { pathname: '/quote/12-5162219-01/additionalInterests' }
   };
 
@@ -36,7 +157,7 @@ describe('Testing Additional Interests', () => {
   const zipField = baseAiFields.find(({ name }) => name === 'zip');
 
   it('POS:Checks Header and Buttons', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const checkButtonTextIcon = text => expect(getByText(text).previousSibling.className).toEqual('fa fa-plus');
 
     checkButtonTextIcon('Mortgagee');
@@ -47,7 +168,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:All Empty Mortgagee Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Mortgagee'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -55,14 +176,14 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Mortgagee Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Mortgagee'));
 
     baseRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, baseRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
   });
 
   it('NEG:Mortgagee Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Mortgagee'));
 
     verifyForm(getByTestId, [{
@@ -74,7 +195,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:All Empty Additional Insured Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Additional Insured'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -82,14 +203,14 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Additional Insured Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Additional Insured'));
 
     personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
   });
 
   it('NEG:Additional Insured Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Additional Insured'));
 
     verifyForm(getByTestId, [{
@@ -101,7 +222,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:All Empty Additional Interest Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Additional Interest'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -109,14 +230,14 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Additional Interest Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Additional Interest'));
 
     personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
   });
 
   it('NEG:Additional Interest Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Additional Interest'));
 
     verifyForm(getByTestId, [{
@@ -128,7 +249,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:All Empty Premium Finance Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Premium Finance'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -136,14 +257,14 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Premium Finance Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Premium Finance'));
 
     baseRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, baseRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
   });
 
   it('NEG:Premium Finance Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Premium Finance'));
 
     verifyForm(getByTestId, [{
@@ -155,7 +276,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:All Empty Bill Payer Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Bill Payer'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -163,14 +284,14 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Bill Payer Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Bill Payer'));
 
     personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
   });
 
   it('NEG:Bill Payer Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText('Bill Payer'));
 
     verifyForm(getByTestId, [{
@@ -182,7 +303,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Mortgagee Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Mortgagee');
     fireEvent.click(getByText('Mortgagee'));
@@ -192,11 +313,11 @@ describe('Testing Additional Interests', () => {
       checkTextInput(getByTestId, field);
     });
     checkLabel(getByTestId, { name: 'mortgage', label: 'Top Mortgagees' });
-    checkSelect(getByTestId, { name: 'order', type: 'select', values: ['0'] });
+    checkSelect(getByTestId, { name: 'order', type: 'select', values: ['0']});
   });
 
   it('POS:Additional Insured Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Additional Insured');
     fireEvent.click(getByText('Additional Insured'));
@@ -208,7 +329,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Additional Interest Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Additional Interest');
     fireEvent.click(getByText('Additional Interest'));
@@ -220,7 +341,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Premium Finance Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Premium Finance');
     fireEvent.click(getByText('Premium Finance'));
@@ -233,7 +354,7 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Bill Payer Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     openAndCloseModal(getByText, 'Bill Payer');
     fireEvent.click(getByText('Bill Payer'));
@@ -245,17 +366,15 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Additional Interest Details', () => {
-    const newState = {
-      ...defaultInitialState,
-      quoteState: {
-        quote: {
-          ...defaultInitialState.quoteState.quote,
-          additionalInterests: [{ ...additionalInterest, _id: '1234', type: 'Mortgagee' }]
-        }
+    const newProps = {
+      ...props,
+      quote: {
+        ...props.quote,
+        additionalInterests: [{ ...additionalInterest, _id: '1234', type: 'Mortgagee' }]
       }
     };
-    const { quoteState: { quote: { additionalInterests }}} = newState;
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    const { quote: { additionalInterests }} = newProps;
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
 
     expect(getByText(`${additionalInterests[0].name1} ${additionalInterests[0].name2}`));
     expect(getByText(`${additionalInterests[0].mailingAddress.address1}, ${additionalInterests[0].mailingAddress.city}, ${additionalInterests[0].mailingAddress.state} ${additionalInterests[0].mailingAddress.zip}`));
@@ -266,44 +385,40 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Additional Interest Details Renders with bad data', () => {
-    const newState = {
-      ...defaultInitialState,
-      quoteState: {
-        quote: {
-          ...defaultInitialState.quoteState.quote,
-          additionalInterests: [{
-            _id: '', name1: '',
-            mailingAddress: { address1: '', city: '', state: '', zip: '' },
-            order: 0, type: 'Mortgagee'
-          }]
-        }
+    const newProps = {
+      ...props,
+      quote: {
+        ...props.quote,
+        additionalInterests: [{
+          _id: '', name1: '',
+          mailingAddress: { address1: '', city: '', state: '', zip: '' },
+          order: 0, type: 'Mortgagee'
+        }]
       }
     };
-    const { quoteState: { quote: { additionalInterests } } } = newState;
-    const { getByText, queryAllByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    const { quote: { additionalInterests }} = newProps;
+    const { getByText, queryAllByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
     expect(getByText(`${additionalInterests[0].type} ${additionalInterests[0].order + 1}`));
     // Expect no text that says "undefined" in ui
     expect(queryAllByText(/undefined/).length).toBe(0);
   });
 
   it('POS:Confirm Additional Interests Show Up In Order and Disable Buttons [Premium Finance]', () => {
-    const newState = {
-      ...defaultInitialState,
-      quoteState: {
-        quote: {
-          ...defaultInitialState.quoteState.quote,
-          additionalInterests: [
-            // Intentionally give a messed up order...
-            { ...additionalInterest, order: 1, type: 'Additional Interest' },
-            { ...additionalInterest, order: 2, type: 'Mortgagee' },
-            { ...additionalInterest, order: 1, type: 'Additional Insured' },
-            { ...additionalInterest, order: 0, type: 'Mortgagee' },
-            { ...additionalInterest, order: 1, type: 'Mortgagee' },
-            { ...additionalInterest, order: 0, type: 'Premium Finance' },
-            { ...additionalInterest, order: 0, type: 'Additional Interest' },
-            { ...additionalInterest, order: 0, type: 'Additional Insured' },
-          ]
-        }
+    const newProps = {
+      ...props,
+      quote: {
+        ...props.quote,
+        additionalInterests: [
+          // Intentionally give a messed up order...
+          { ...additionalInterest, order: 1, type: 'Additional Interest' },
+          { ...additionalInterest, order: 2, type: 'Mortgagee' },
+          { ...additionalInterest, order: 1, type: 'Additional Insured' },
+          { ...additionalInterest, order: 0, type: 'Mortgagee' },
+          { ...additionalInterest, order: 1, type: 'Mortgagee' },
+          { ...additionalInterest, order: 0, type: 'Premium Finance' },
+          { ...additionalInterest, order: 0, type: 'Additional Interest' },
+          { ...additionalInterest, order: 0, type: 'Additional Insured' },
+        ]
       }
     };
     const expectedLabels = [
@@ -312,7 +427,7 @@ describe('Testing Additional Interests', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Premium Finance 1'
     ];
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
     // ...so we know the UI will still organize and sort them correctly, in order
     const labelTexts = document.querySelectorAll('.results.result-cards li.card .card-icon label');
     labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
@@ -325,22 +440,21 @@ describe('Testing Additional Interests', () => {
 
   // Identical test to the one above except with a Bill Payer
   it('POS:Confirm Additional Interests Show Up In Order and Disable Buttons [Bill Payer]', () => {
-    const newState = {
-      ...defaultInitialState,
-      quoteState: {
-        quote: {
-          ...defaultInitialState.quoteState.quote,
-          additionalInterests: [
-            { ...additionalInterest, order: 1, type: 'Additional Interest' },
-            { ...additionalInterest, order: 2, type: 'Mortgagee' },
-            { ...additionalInterest, order: 1, type: 'Additional Insured' },
-            { ...additionalInterest, order: 0, type: 'Mortgagee' },
-            { ...additionalInterest, order: 1, type: 'Mortgagee' },
-            { ...additionalInterest, order: 0, type: 'Bill Payer' },
-            { ...additionalInterest, order: 0, type: 'Additional Interest' },
-            { ...additionalInterest, order: 0, type: 'Additional Insured' },
-          ]
-        }
+    const newProps = {
+      ...props,
+      quote: {
+        ...props.quote,
+        additionalInterests: [
+          // Intentionally give a messed up order...
+          { ...additionalInterest, order: 1, type: 'Additional Interest' },
+          { ...additionalInterest, order: 2, type: 'Mortgagee' },
+          { ...additionalInterest, order: 1, type: 'Additional Insured' },
+          { ...additionalInterest, order: 0, type: 'Mortgagee' },
+          { ...additionalInterest, order: 1, type: 'Mortgagee' },
+          { ...additionalInterest, order: 0, type: 'Premium Finance' },
+          { ...additionalInterest, order: 0, type: 'Additional Interest' },
+          { ...additionalInterest, order: 0, type: 'Additional Insured' },
+        ]
       }
     };
     const expectedLabels = [
@@ -349,7 +463,7 @@ describe('Testing Additional Interests', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Bill Payer 1'
     ];
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
 
     const labelTexts = document.querySelectorAll('.results.result-cards li.card .card-icon label');
     labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));

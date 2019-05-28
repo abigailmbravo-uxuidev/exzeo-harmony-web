@@ -6,12 +6,8 @@ import { Provider } from 'react-redux';
 
 import {
   renderWithReduxAndRouter,
-  defaultProps,
+  defaultQuoteWorkflowProps,
   defaultInitialState,
-  quote,
-  zipCodeSettings,
-  mailingBillingList as list,
-  userProfile,
   mockServiceRunner,
   mailingBillingResult as result,
   submitForm,
@@ -106,40 +102,8 @@ mockServiceRunner(result);
 
 describe('Testing the Mailing/Billing Page', () => {
   const props = {
-    ...defaultProps,
-    location: { pathname: '/quote/12-5162219-01/mailingBilling' },
-    isLoading: false,
-    quote: {
-      ...quote,
-      rating: { worksheet: { fees: {} } }
-    },
-    quoteData: {
-      ...quote,
-      rating: { worksheet: { fees: {} } }
-    },
-    headerDetails: {},
-    workflowState: {},
-    zipCodeSettings,
-    options: list,
-    userProfile,
-    submitForm: () => { },
-    updateQuote: () => { },
-    getAgentsByAgencyCode: () => { },
-    getZipcodeSettings: () => { },
-    getEnumsForQuoteWorkflow: () => { },
-    getBillingOptions: () => { },
-    getQuote: () => { }
-  };
-
-  const state = {
-    ...defaultInitialState,
-    quoteState: {
-      ...defaultInitialState.quoteState,
-      quote: {
-        ...quote,
-        rating: { worksheet: { fees: {}}}
-      }
-    }
+    ...defaultQuoteWorkflowProps,
+    location: { pathname: '/quote/12-5162219-01/mailingBilling' }
   };
 
   const requiredFields = fields.filter(({ required }) => required);
@@ -174,7 +138,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks all headers', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
@@ -187,7 +151,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks all inputs', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => {
@@ -198,7 +162,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks toggle fills out data', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fireEvent.click(getByTestId('sameAsPropertyAddress'));
@@ -206,7 +170,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks installment text', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
@@ -217,7 +181,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks Submit Button', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     checkButton(getByTestId);
