@@ -66,7 +66,7 @@ export class QuoteWorkflow extends Component {
       showEmailPopup: false,
       showSendApplicationPopup: false,
       gandalfTemplate: null,
-      currentStepNumber: PAGE_ROUTING[getCurrentStepAndPage(props.location.pathname).currentRouteName],
+      stepNumber: PAGE_ROUTING[getCurrentStepAndPage(props.location.pathname).currentRouteName],
     };
 
     this.formInstance = null;
@@ -150,9 +150,9 @@ export class QuoteWorkflow extends Component {
 
   goToStep = (step) => {
     const { history, isLoading } = this.props;
-    const { currentStepNumber } = this.state;
+    const { stepNumber } = this.state;
 
-    if (isLoading || step >= currentStepNumber) return;
+    if (isLoading || step >= stepNumber) return;
 
     this.formInstance.reset();
     history.replace(ROUTE_TO_STEP_NAME[step]);
@@ -165,7 +165,7 @@ export class QuoteWorkflow extends Component {
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
-    const { isRecalc, currentStepNumber } = this.state;
+    const { isRecalc, stepNumber } = this.state;
     try {
       if (!noSubmit) {
         const data = values.quoteNumber ? values : quote;
@@ -176,7 +176,7 @@ export class QuoteWorkflow extends Component {
             shouldSendEmail,
             shouldSendApplication,
             customValues: values,
-            step: currentStepNumber,
+            step: stepNumber,
             timezone: (zipCodeSettings || {}).timezone || 'America/New_York',
             underwritingQuestions: options.underwritingQuestions,
           }
@@ -199,7 +199,7 @@ export class QuoteWorkflow extends Component {
 
   setCurrentStep = (moveTo, step) => {
     this.setState((prevState) => ({
-      currentStepNumber: moveTo ? step : prevState.currentStepNumber + 1,
+      stepNumber: moveTo ? step : prevState.stepNumber + 1,
     }));
   };
 
