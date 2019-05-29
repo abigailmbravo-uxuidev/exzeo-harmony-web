@@ -32,6 +32,6 @@ export default (product = 'HO3') =>
     .findDataTag('additionalPolicyholder').click()
     .clickSubmit('#QuoteWorkflow')
     // Expect that there is only one policyholder submitted
-    .wait('@updateQuote').then(({ request }) => expect(request.body.data.policyHolders.length).to.equal(1))
+    .wait('@updateQuote').then(({ request }) => expect(request.body.data.policyHolders.length, 'Policyholders in request').to.equal(1))
     // Navigate back to the page to leave app as close as we found it
     .findDataTag('tab-nav-1').click();

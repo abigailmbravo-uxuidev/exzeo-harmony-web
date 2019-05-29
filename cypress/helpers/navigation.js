@@ -20,7 +20,7 @@ export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInf
   // Submit.
   .clickSubmit('#QuoteWorkflow')
   // We expect to have two policyholders in the response.
-  .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length).to.equal(2));
+  .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length, 'Policyholders in response').to.equal(2));
 
 export const navigateThroughUnderwriting = (data = underwritingHO3) =>
   cy.wait('@UWQuestions').wrap(Object.entries(data)).each(([name, value]) => cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click())

@@ -24,7 +24,7 @@ export default (product = 'HO3') => {
   goToAiPage();
   addMortgagee();
   navigateThroughAdditionalInterests();
-  checkBillingOption(2);
+  checkBillingOption(2, false);
   goToAiPage();
   addPremiumFinance();
   navigateThroughAdditionalInterests();
@@ -49,8 +49,8 @@ const addPremiumFinance = () =>
 
 const deleteAllAis = () =>
 // Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
-  cy.get('a.remove i.fa-trash')
-    .each(() => cy.get('a.remove i.fa-trash').eq(0).click().clickSubmit('.ai-modal', 'modal-confirm').wait('@updateQuote'));
+  cy.get('a.remove i.delete')
+    .each(() => cy.get('a.remove i.delete').eq(0).click().clickSubmit('.ai-modal', 'modal-confirm').wait('@updateQuote'));
 
 const checkBillingOption = (numOfOptions = 1, selected = true) =>
   cy.wait('@getBillingOptions')

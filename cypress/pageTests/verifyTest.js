@@ -28,6 +28,5 @@ export default (product = 'HO3') =>
     // Detoggle the second policyholder fields
     .findDataTag('additionalPolicyholder').click()
     .clickSubmit('.modal', 'modal-submit')
-    .wait('@updateQuote').then(({ request }) => expect(request.body.data.policyHolders.length).to.equal(1))
+    .wait('@updateQuote').then(({ request }) => expect(request.body.data.policyHolders.length, 'Policyholders in request').to.equal(1))
     .get('.policyholder-details .contact-card-wrapper .contact-card').should('have.length', 1);
-
