@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
 import {Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
@@ -368,7 +367,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
-  submitForm: submit,
   updateQuote,
   getAgentsByAgencyCode,
   getZipcodeSettings,
