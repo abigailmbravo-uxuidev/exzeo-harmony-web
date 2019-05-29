@@ -28,13 +28,9 @@ export class Verify extends React.Component {
   };
 
   handlePolicyHolderSubmit = async (values) => {
-    const { formValues, customHandlers } = this.props;
+    const { initialValues, customHandlers } = this.props;
 
-    if (!values.additionalPolicyholder && values.policyHolders.length > 1) {
-      values.policyHolders.pop();
-    }
-
-    const data = { ...formValues, policyHolders: [ ...values.policyHolders ] };
+    const data = { ...initialValues, policyHolders: [ ...values.policyHolders ] };
     await customHandlers.handleSubmit({ remainOnStep: true, ...data });
 
     this.setPolicyHolderEditPopup(false);

@@ -97,10 +97,8 @@ function formatQuoteForSubmit(data, options) {
   quote.policyHolders[0].entityType = data.policyHolders[0].entityType || "Person";
 
     if (quote.additionalPolicyholder) {
-      if (data.policyHolders[1]) {
-        quote.policyHolders[1].order = data.policyHolders[1].order || 1;
-        quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
-      }
+      quote.policyHolders[1].order = data.policyHolders[1].order || 1;
+      quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
     } else {
       // 'additionalPolicyholder toggle is not selected, ensure we only save the primary
       quote.policyHolders = [quote.policyHolders[0]];
