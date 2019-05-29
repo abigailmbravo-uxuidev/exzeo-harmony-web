@@ -94,7 +94,7 @@ const Contacts = ({ auth, match }) => (
     <div className="route">
       <div className="route-content">
         <div className="scroll">
-          <div className="survey-wrapper">
+          <div className="detail-wrapper">
             <section className="contacts">
               <h2 className="title"><i className="fa fa-map-marker" /> Territory Managers</h2>
               {territoryManagerContacts.map(contact => (
@@ -108,8 +108,8 @@ const Contacts = ({ auth, match }) => (
               ))}
             </section>
           </div>
-          <Footer />
         </div>
+        <Footer />
       </div>
     </div>
   </AppWrapper>
