@@ -73,8 +73,6 @@ export default (product = 'HO3') => {
           .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote').then(({ response }) =>
             // Check that the coverage dwelling limits have been kept up to date with server responses in HO3.
             callback && callback(response)
-            // product === 'HO3' && cy.findDataTag('coverageLimits.dwelling.amountDetail').should('contain', toCurrency(response.body.result.coverageLimits.dwelling.amount))
-            //   .findDataTag('coverageLimits.dwelling.value-input').invoke('attr', 'value').should('eq', toCurrency(response.body.result.coverageLimits.dwelling.amount))
           );
       })
     );

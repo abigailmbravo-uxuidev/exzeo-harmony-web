@@ -30,17 +30,17 @@ Cypress.Commands.add('submitAndCheckValidation', (fields = [], options = {}) => 
  * @param {array} fields - Array of field objects corresponding to data-test tags to clear.
  */
 Cypress.Commands.add('clearAllText', fields =>
-  cy.wrap(fields).each(({ name }) => {
+  cy.wrap(fields).each(({ name }) =>
     cy.findDataTag(name).find('input').then($input => {
       if ($input.val()) cy.wrap($input).type('{selectall}{backspace}');
-    });
-  })
+    })
+  )
 );
 
 /**
  * This function is used for any non-standard inputs, ie not select > options.
  * @param {string} tag - Name of the data test tag wrapping the select
- * @param {number} option - Index of the option to select
+ * @param {number} searchTerm - The term to search for.
  */
 Cypress.Commands.add('chooseReactSelectOption', (tag, searchTerm) =>
   cy.findDataTag(tag).find('input:not([type="hidden"])')
