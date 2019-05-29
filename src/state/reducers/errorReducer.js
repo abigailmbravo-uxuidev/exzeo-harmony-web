@@ -3,7 +3,6 @@ import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
 // we want this store to rehydrate so we add the rehydrate type to the reducer
-
 export default function userReducer(state = initialState.error, action) {
   let newState = {};
   switch (action.type) {
