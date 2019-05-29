@@ -1,4 +1,3 @@
-import { userAF3, loginAF3, underwritingAF3 } from '../../fixtures';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -11,8 +10,7 @@ import {
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
   navigateThroughScheduleDate,
-  navigateThroughVerify,
-  navigateThroughThankYou
+  navigateThroughVerify
 } from '../../helpers';
 
 describe('Back Button Testing', () => {
@@ -34,7 +32,7 @@ describe('Back Button Testing', () => {
   });
   beforeEach('Set Route Aliases', () => setRouteAliases());
 
-  it('Browser Back Button (Part 1)', () => {
+  it('Browser Back Button', () => {
     cy.go('back')
       .get('div.dashboard-message').should('exist');
 
@@ -61,35 +59,6 @@ describe('Back Button Testing', () => {
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     getQuoteNumberAndRetrieve();
-  });
-
-  it('Browser Back Button (Part 2)', () => {
-    navigateThroughLanding();
-    navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
-    navigateThroughUnderwriting();
-    navigateThroughCustomize();
-    navigateThroughShare();
-    getQuoteNumberAndRetrieve();
-
-    navigateThroughLanding();
-    navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
-    navigateThroughUnderwriting();
-    navigateThroughCustomize();
-    navigateThroughShare();
-    navigateThroughAssumptions();
-    getQuoteNumberAndRetrieve();
-
-    navigateThroughLanding();
-    navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
-    navigateThroughUnderwriting();
-    navigateThroughCustomize();
-    navigateThroughShare();
-    navigateThroughAssumptions();
-    navigateThroughAdditionalInterests();
-    getQuoteNumberAndRetrieve();
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -113,9 +82,7 @@ describe('Back Button Testing', () => {
     navigateThroughMailingBilling();
     navigateThroughVerify();
     getQuoteNumberAndRetrieve();
-  });
 
-  it('Browser Back Button (Part 3)', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
