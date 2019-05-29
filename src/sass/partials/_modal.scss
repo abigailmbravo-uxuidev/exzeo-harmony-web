@@ -137,6 +137,17 @@
           }
         }
       }
+
+      &.card-policyholder {
+        .card-block {
+          flex-direction: row;
+          flex-wrap: wrap;
+
+          .title-check-box-wrapper {
+            width: 100%;
+          }
+        }
+      }
     }
 
   }
