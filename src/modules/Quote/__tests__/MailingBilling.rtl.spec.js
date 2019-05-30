@@ -1,13 +1,9 @@
 import React from 'react';
-import { fireEvent, waitForElement, render } from 'react-testing-library';
-
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { fireEvent, waitForElement } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
-  defaultInitialState,
   mockServiceRunner,
   mailingBillingResult as result,
   submitForm,

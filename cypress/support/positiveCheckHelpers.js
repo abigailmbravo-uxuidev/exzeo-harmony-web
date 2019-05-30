@@ -80,7 +80,7 @@ Cypress.Commands.add('checkSubmitButton', ((form = 'body') =>
  */
 Cypress.Commands.add('checkDetailHeader', ({ name, label, value }) =>
   cy.findDataTag(name).find('dt').should('contain', label)
-    .findDataTag(name).find('dd').eq(0).should('contain', value))
+    .findDataTag(name).find('dd').eq(0).should('contain', value));
 
 /**
  * Checks the values in a slider
