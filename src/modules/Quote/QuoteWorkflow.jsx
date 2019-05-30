@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import {Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
+import { Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
 
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';

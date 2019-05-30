@@ -80,7 +80,7 @@
           .form-group {
             flex-grow: 1;
             flex-shrink: 1;
-            border-bottom: 1px dashed $cool-gray-02;            
+            border-bottom: 1px dashed $cool-gray-02;
 
             &.state {
               flex-grow: 0;
@@ -152,8 +152,52 @@
 
   }
 
+  &.modal-md {
+
+    .card {
+      max-width: 40rem;
+      width: 50%;
+
+      @include for-phone-only {
+        position: absolute;
+        top: 3.375rem;
+        bottom: 0;
+        z-index: 1000;
+        width: 100%;
+        border-radius: 0;
+
+        .card-block {
+          max-height: 100vh;
+          height: calc(100vh - 9.5625rem);
+        }
+      }
+    }
+  }
+
+  &.modal-lg {
+
+    .card {
+      max-width: 60rem;
+      width: 80%;
+
+      @include for-phone-only {
+        position: absolute;
+        top: 3.375rem;
+        bottom: 0;
+        z-index: 1000;
+        width: 100%;
+        border-radius: 0;
+
+        .card-block {
+          max-height: 100vh;
+          height: calc(100vh - 9.5625rem);
+        }
+      }
+    }
+  }
+
   &.modal-xl {
-    
+
     .card {
       max-width: 80rem;
       width: 80%;

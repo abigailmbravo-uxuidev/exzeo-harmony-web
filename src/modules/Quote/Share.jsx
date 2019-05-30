@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
+import { ShareModal } from '@exzeo/core-ui/src/@Harmony';
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import { defaultMemoize } from 'reselect';
 
-import EmailPopup from './EmailPopup';
+// import EmailPopup from './EmailPopup';
 import ErrorPopup from '../../components/Common/ErrorPopup';
 
 import { STEP_NAMES } from './constants/workflowNavigation';
@@ -15,33 +16,9 @@ const getFilteredUnderwritingExceptions = defaultMemoize((underwritingExceptions
   );
 });
 
-const Share = ({ customHandlers, initialValues }) => {
+const Share = ({ customHandlers, initialValues, formInstance }) => {
   const [showPopup, setPopup] = useState(false);
   const filteredUnderwritingExceptions = getFilteredUnderwritingExceptions(initialValues.underwritingExceptions);
-
-  async function noShareSubmit() {
-    customHandlers.handleSubmit({ noSubmit: true })
-  }
-
-  async function shareQuote(data) {
-    try {
-      const config = {
-        exchangeName: 'harmony',
-        routingKey: 'harmony.quote.sendQuoteSummary',
-        data: {
-          quoteNumber: initialValues.quoteNumber,
-          summaryType: 'agency',
-          toName: data.toName,
-          toEmail: data.toEmail,
-        }
-      };
-
-      await serviceRunner.callService(config, 'sendQuoteSummary');
-    } catch (error) {
-      console.error('Error sending quote summary!')
-    }
-    setPopup(false);
-  }
 
   async function refreshUWReviewError() {
     await customHandlers.getQuote(initialValues.quoteNumber, initialValues._id);
@@ -85,7 +62,7 @@ const Share = ({ customHandlers, initialValues }) => {
               >share</Button>
               <Button
                 className={Button.constants.classNames.primary}
-                onClick={noShareSubmit}
+                onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
                 disabled={submitting}
                 data-test="submit"
               >next</Button>
@@ -105,9 +82,10 @@ const Share = ({ customHandlers, initialValues }) => {
 
       {showPopup &&
       <ModalPortal>
-        <EmailPopup
-          onSubmit={shareQuote}
-          handleCancel={() => setPopup(false)}
+        <ShareModal
+          summaryType="agency"
+          parentFormInstance={formInstance}
+          closeModal={() => setPopup(false)}
         />
       </ModalPortal>
       }
