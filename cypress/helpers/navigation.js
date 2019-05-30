@@ -11,16 +11,16 @@ export const navigateThroughSearchAddress = ({ address = userHO3.address } = {})
 
 export const navigateThroughPolicyholder = ({ customerInfo = userHO3.customerInfo, secondCustomerInfo = userHO3.secondCustomerInfo, agentCode = userHO3.agentCode } = {}) =>
   cy.wrap(Object.entries(customerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
-  // If the additional policyholder toggle is off, turn it on.
-  .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
-  // Add the secondary policyholder data.
-  .wrap(Object.entries(secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
-  // Select agent.
-  .findDataTag('agentCode').select(agentCode)
-  // Submit.
-  .clickSubmit('#QuoteWorkflow')
-  // We expect to have two policyholders in the response.
-  .wait('@updateQuote').then(({ response }) => expect(response.body.result.policyHolders.length, 'Policyholders in response').to.equal(2));
+    // If the additional policyholder toggle is off, turn it on.
+    .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
+    // Add the secondary policyholder data.
+    .wrap(Object.entries(secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
+    // Select agent.
+    .findDataTag('agentCode').select(agentCode)
+    // Submit.
+    .clickSubmit('#QuoteWorkflow').wait('@updateQuote')
+    // We expect to have two policyholders in the response.
+    .then(({ response }) => expect(response.body.result.policyHolders.length, 'Policyholders in response').to.equal(2));
 
 export const navigateThroughUnderwriting = (data = underwritingHO3) =>
   cy.wait('@UWQuestions').wrap(Object.entries(data)).each(([name, value]) => cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click())
