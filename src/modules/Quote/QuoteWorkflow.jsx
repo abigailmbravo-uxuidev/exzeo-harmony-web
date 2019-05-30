@@ -273,7 +273,7 @@ export class QuoteWorkflow extends Component {
                 goToStep={this.goToStep}
                 isLoading={isLoading}
                 showNavigationTabs={!quoteHasFatalError && currentRouteName !== 'thankYou'}
-                currentStep={this.state.currentStepNumber}
+                currentStep={currentStepNumber}
                 quote={quoteData}
               />
             }
