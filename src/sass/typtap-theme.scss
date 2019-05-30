@@ -1747,33 +1747,7 @@ ul.result-cards {
 //loader
 /*------------------------------------------------------------------------------------*/
 .loader {
-  .card {
-    .card-block {
-      .ring-5 {
-        border: 1px solid $green;
-      }
-
-      .ring-4 {
-        border: 1px solid $gray;
-      }
-
-      .ring-3 {
-        border: 1px solid $bright-blue;
-      }
-
-      .ring-2 {
-        border: 1px solid $green;
-      }
-
-      .ring-1 {
-        border: 1px solid $gray;
-      }
-
-      div[class^="ring-"] {
-        border-bottom: 1px solid transparent;
-      }
-    }
-  }
+  //we are here
 }
 
 @import "partials/_phone";

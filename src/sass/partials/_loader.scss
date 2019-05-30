@@ -5,77 +5,39 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
-
-    .card {
-      box-shadow: 0 0 40px 10px rgba(0,0,0,.25);
-
-        .card-block {
-            display: flex;
-            overflow: hidden;
-            align-items: center;
-            flex-direction: column;
-
-            div {
-              padding: 3px;
-              -webkit-border-radius: 32px;
-              border-radius: 32px;
-              animation-name: spin-load;
-              -webkit-animation-timing-function: linear; /* Safari 4.0 - 8.0 */
-              animation-timing-function: linear;
-              animation-iteration-count: infinite;
-            }
-
-
-            .ring-5 {
-              border: 1px solid #AEAEAE;
-              border-bottom: 1px solid transparent;
-              animation-duration: 5s;
-              animation-direction: reverse;
-            }
-
-            .ring-4 {
-              border: 1px solid #999;
-              border-bottom: 1px solid transparent;
-              animation-duration: 3.75s;
-              animation-direction: normal;
-            }
-
-            .ring-3 {
-              border: 1px solid #AEAEAE;
-              border-bottom: 1px solid transparent;
-              animation-duration: 3s;
-              animation-direction: reverse;
-            }
-
-            .ring-2 {
-              border: 1px solid #999;
-              border-bottom: 1px solid transparent;
-              animation-duration: 1.75s;
-              animation-direction: normal;
-            }
-
-            .ring-1 {
-              padding: 0;
-              width: 20px;
-              height: 20px;
-              border: 1px solid #AEAEAE;
-              border-bottom: 1px solid transparent;
-              animation-duration: 1s;
-              animation-direction: reverse;
-            }
-
-            span {
-              display: block;
-              margin: 5px 0 0;
-              animation-name: text-flash;
-              animation-duration: 2s;
-              -webkit-animation-timing-function: ease; /* Safari 4.0 - 8.0 */
-              animation-timing-function: ease;
-              animation-iteration-count: infinite;
-              animation-direction: alternate;
-            }
-
-        }
+    background-color: rgba($white, .9);
+    
+    .message{
+      color: $green;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-h3;
+    }
+    
+    .spinner {
+      margin: 0 auto;
+      width: 90px;
+      text-align: center;
+    }
+    
+    .spinner > div {
+      display: inline-block;
+      margin: 0 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 100%;
+      background-color: rgba($green, .8);
+      -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+      animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    }
+    
+    .spinner .bounce1 {
+      -webkit-animation-delay: -0.32s;
+      animation-delay: -0.32s;
+    }
+    
+    .spinner .bounce2 {
+      -webkit-animation-delay: -0.16s;
+      animation-delay: -0.16s;
     }
 }
 
@@ -110,33 +72,7 @@
 
 
 .loader {
-  .card {
-    .card-block {
-      .ring-5 {
-        border: 1px solid #0281B7;
-      }
-
-      .ring-4 {
-        border: 1px solid #029CDE;
-      }
-
-      .ring-3 {
-        border: 1px solid #013951;
-      }
-
-      .ring-2 {
-        border: 1px solid #016691;
-      }
-
-      .ring-1 {
-        border: 1px solid #0293D1;
-      }
-
-      div[class^="ring-"] {
-        border-bottom: 1px solid transparent;
-      }
-    }
-  }
+  //here
 }
 
 
@@ -166,7 +102,7 @@
     width: 16px;
     height: 16px;
     border-radius: 100%;
-    background-color: rgba($green, .4);
+    background-color: rgba($cool-gray-01, 1);
     -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
     animation: sk-bouncedelay 1.4s infinite ease-in-out both;
   }
@@ -180,21 +116,20 @@
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
   }
-  
-  @-webkit-keyframes sk-bouncedelay {
-    0%, 80%, 100% { -webkit-transform: scale(0) }
-    40% { -webkit-transform: scale(1.0) }
-  }
-  
-  @keyframes sk-bouncedelay {
-    0%, 80%, 100% { 
-      -webkit-transform: scale(0);
-      transform: scale(0);
-    } 40% { 
-      -webkit-transform: scale(1.0);
-      transform: scale(1.0);
-    }
-  }
 
-  
+}
+ 
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
 }
