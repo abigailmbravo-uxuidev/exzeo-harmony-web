@@ -15,7 +15,7 @@ import {
 
 describe('Back Button Testing', () => {
   // Grab the quote number off the ui and retrieve it to confirm our quote is searchable with the quote number
-  const getQuoteNumberAndRetrieve = () =>
+  const getQuoteNumberAndRetrieve = status =>
     cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote =>
       cy.go('back')
         .get('div.dashboard-message').should('exist')
@@ -23,6 +23,7 @@ describe('Back Button Testing', () => {
         .findDataTag('quoteNumber').type($quote.text())
         .clickSubmit('#SearchBar')
         .findDataTag('quote-list').should('not.be.empty')
+        .find('li.card .quote-state').should('contain', status)
         .go('back')
     );
 
@@ -51,14 +52,14 @@ describe('Back Button Testing', () => {
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    getQuoteNumberAndRetrieve();
+    getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
-    getQuoteNumberAndRetrieve();
+    getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -69,7 +70,7 @@ describe('Back Button Testing', () => {
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
-    getQuoteNumberAndRetrieve();
+    getQuoteNumberAndRetrieve('Application Ready');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -81,7 +82,7 @@ describe('Back Button Testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
-    getQuoteNumberAndRetrieve();
+    getQuoteNumberAndRetrieve('Application Ready');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
