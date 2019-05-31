@@ -10,7 +10,7 @@ import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const ph1Fields = [
   {
-    name: 'policyHolders[0].firstName',
+    dataTest: 'policyHolders[0].firstName',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -18,7 +18,7 @@ const ph1Fields = [
     data: 'Bruce'
   },
   {
-    name: 'policyHolders[0].lastName',
+    dataTest: 'policyHolders[0].lastName',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -26,7 +26,7 @@ const ph1Fields = [
     data: 'Wayne'
   },
   {
-    name: 'policyHolders[0].emailAddress',
+    dataTest: 'policyHolders[0].emailAddress',
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
@@ -34,7 +34,7 @@ const ph1Fields = [
     data: 'Batman@gmail.com'
   },
   {
-    name: 'policyHolders[0].primaryPhoneNumber',
+    dataTest: 'policyHolders[0].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'phone',
@@ -45,7 +45,7 @@ const ph1Fields = [
 
 const ph2Fields = [
   {
-    name: 'policyHolders[1].firstName',
+    dataTest: 'policyHolders[1].firstName',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -53,7 +53,7 @@ const ph2Fields = [
     data: 'Dick'
   },
   {
-    name: 'policyHolders[1].lastName',
+    dataTest: 'policyHolders[1].lastName',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -61,7 +61,7 @@ const ph2Fields = [
     data: 'Grayson'
   },
   {
-    name: 'policyHolders[1].emailAddress',
+    dataTest: 'policyHolders[1].emailAddress',
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
@@ -69,7 +69,7 @@ const ph2Fields = [
     data: 'Robin@hotmail.com'
   },
   {
-    name: 'policyHolders[1].primaryPhoneNumber',
+    dataTest: 'policyHolders[1].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'phone',
@@ -80,17 +80,17 @@ const ph2Fields = [
 
 const pageHeaders = [
   {
-    name: 'Primary Policyholder',
+    dataTest: 'Primary Policyholder',
     text: 'Primary Policyholder',
     icon: 'fa fa-user-circle'
   },
   {
-    name: 'Secondary Policyholder',
+    dataTest: 'Secondary Policyholder',
     text: 'Secondary Policyholder',
     icon: 'fa fa-user-circle'
   },
   {
-    name: 'Policy Details',
+    dataTest: 'Policy Details',
     text: 'Policy Details',
     icon: 'fa fa-file-text'
   }
@@ -133,28 +133,28 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     toggleSecondUser();
     // For all fields except phone, we fill out with invalid character data
     // If that field is an email, it will throw a different error
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => !name.includes('Phone'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: '∂',
-        error: name.includes('email') ? 'Not a valid email address' : 'Invalid characters'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => !dataTest.includes('Phone'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: '∂',
+        error: dataTest.includes('email') ? 'Not a valid email address' : 'Invalid characters'
       }]));
   });
 
   it('NEG:Invalid Email Address', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     toggleSecondUser();
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: 'invalidemail', error: 'Not a valid email address'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('email'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: 'invalidemail', error: 'Not a valid email address'
       }]));
   });
 
   it('NEG:Invalid Contact Phone', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     toggleSecondUser();
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('Phone'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: '123', error: 'Not a valid Phone Number'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('Phone'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: '123', error: 'Not a valid Phone Number'
       }]));
   });
 
@@ -162,10 +162,10 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     submitForm(getByTestId);
     verifyForm(getByTestId, [{
-      name: 'effectiveDate', data: ''
+      dataTest: 'effectiveDate', data: ''
     }]);
     verifyForm(getByTestId, [{
-      name: 'effectiveDate', data: '1900-01-01', error: 'Date must be at least 08/01/2017'
+      dataTest: 'effectiveDate', data: '1900-01-01', error: 'Date must be at least 08/01/2017'
     }]);
   });
 
@@ -180,10 +180,10 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     toggleSecondUser();
-    [...ph1Fields, ...ph2Fields].forEach(({ name, label, data, type }) => {
-      checkLabel(getByTestId, { name, label });
-      if (type === 'text') checkTextInput(getByTestId, { name, data });
-      if (type === 'phone') checkPhoneInput(getByTestId, { name, data });
+    [...ph1Fields, ...ph2Fields].forEach(({ dataTest, label, data, type }) => {
+      checkLabel(getByTestId, { dataTest, label });
+      if (type === 'text') checkTextInput(getByTestId, { dataTest, data });
+      if (type === 'phone') checkPhoneInput(getByTestId, { dataTest, data });
     });
   });
 

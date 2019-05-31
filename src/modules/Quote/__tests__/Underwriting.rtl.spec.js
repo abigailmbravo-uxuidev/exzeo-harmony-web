@@ -12,7 +12,7 @@ import ConnectedQuoteWorkflow, { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
   {
-    name: 'underwritingAnswers.rented.answer',
+    dataTest: 'underwritingAnswers.rented.answer',
     required: true,
     type: 'radio',
     label: 'Is the home or any structures on the property ever rented?',
@@ -20,7 +20,7 @@ const fields = [
     data: 'Never'
   },
   {
-    name: 'underwritingAnswers.previousClaims.answer',
+    dataTest: 'underwritingAnswers.previousClaims.answer',
     required: true,
     type: 'radio',
     label: 'When was the last claim filed?',
@@ -28,7 +28,7 @@ const fields = [
     data: 'No claims ever filed'
   },
   {
-    name: 'underwritingAnswers.monthsOccupied.answer',
+    dataTest: 'underwritingAnswers.monthsOccupied.answer',
     required: true,
     type: 'radio',
     label: 'How many months a year does the owner live in the home?',
@@ -37,7 +37,7 @@ const fields = [
 
   },
   {
-    name: 'underwritingAnswers.fourPointUpdates.answer',
+    dataTest: 'underwritingAnswers.fourPointUpdates.answer',
     required: true,
     type: 'radio',
     label: 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
@@ -45,7 +45,7 @@ const fields = [
     data: 'Yes'
   },
   {
-    name: 'underwritingAnswers.business.answer',
+    dataTest: 'underwritingAnswers.business.answer',
     required: true,
     type: 'radio',
     label: 'Is a business conducted on the property?',
@@ -68,18 +68,18 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
 
     submitForm(getByTestId);
     await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_error'));
-    fields.forEach(({ name }) => checkError(getByTestId, { name }));
+    fields.forEach(({ dataTest }) => checkError(getByTestId, { dataTest }));
   });
 
   describe('NEG:All questions empty value', () => {
     for (let i = 0; i < fields.length; i++) {
-      it(`Checks that field ${fields[i].name} errors on an empty value`, async () => {
+      it(`Checks that field ${fields[i].dataTest} errors on an empty value`, async () => {
         const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
         await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
         // Select all fields except the one to leave blank
-        fields.filter(({ name }) => name !== fields[i].name)
-          .forEach(({ name, data }) => fireEvent.click(getByTestId(`${name}_${data}`)));
+        fields.filter(({ dataTest }) => dataTest !== fields[i].dataTest)
+          .forEach(({ dataTest, data }) => fireEvent.click(getByTestId(`${dataTest}_${data}`)));
         submitForm(getByTestId);
         checkError(getByTestId, fields[i]);
       });
@@ -90,10 +90,10 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('underwritingAnswers.rented.answer_label'));
 
-    fields.forEach(({ name, label, values }) => {
-      checkRadio(getByTestId, { name, values });
-      checkLabel(getByTestId, { name, label });
-      values.forEach(value => expect(getByTestId(`${name}_${value}`)).toHaveTextContent(value));
+    fields.forEach(({ dataTest, label, values }) => {
+      checkRadio(getByTestId, { dataTest, values });
+      checkLabel(getByTestId, { dataTest, label });
+      values.forEach(value => expect(getByTestId(`${dataTest}_${value}`)).toHaveTextContent(value));
     });
   });
 

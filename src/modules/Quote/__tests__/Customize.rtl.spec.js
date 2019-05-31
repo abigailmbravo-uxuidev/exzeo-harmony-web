@@ -11,14 +11,14 @@ import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
   {
-    name: 'coverageLimits.dwelling.value',
+    dataTest: 'coverageLimits.dwelling.value',
     required: true,
     type: 'slider',
     label: 'Dwelling Limit',
     tooltipText: 'structure of your home'
   },
   {
-    name: 'coverageLimits.otherStructures.value',
+    dataTest: 'coverageLimits.otherStructures.value',
     required: true,
     type: 'radio',
     label: 'Other Structures Limit',
@@ -26,7 +26,7 @@ const fields = [
     values: ['0', '2', '5', '10']
   },
   {
-    name: 'coverageLimits.personalProperty.value',
+    dataTest: 'coverageLimits.personalProperty.value',
     required: true,
     type: 'radio',
     label: 'Personal Property Limit',
@@ -34,7 +34,7 @@ const fields = [
     values: ['0', '25', '35', '50']
   },
   {
-    name: 'coverageOptions.personalPropertyReplacementCost.answer',
+    dataTest: 'coverageOptions.personalPropertyReplacementCost.answer',
     required: true,
     type: 'switch',
     label: 'Do you want Personal Property Replacement Cost Coverage?',
@@ -42,131 +42,131 @@ const fields = [
     defaultValue: true
   },
   {
-    name: 'coverageLimits.lossOfUse.value',
+    dataTest: 'coverageLimits.lossOfUse.value',
     required: true,
     type: 'text',
     label: 'Loss of Use Limit',
     tooltipText: 'This is your personal belongings'
   },
   {
-    name: 'coverageLimits.personalLiability.value',
+    dataTest: 'coverageLimits.personalLiability.value',
     required: true,
     type: 'radio',
     label: 'Personal Liability Limit',
     values: ['100000', '300000'],
   },
   {
-    name: 'coverageLimits.medicalPayments.value',
+    dataTest: 'coverageLimits.medicalPayments.value',
     required: true,
     type: 'text',
     label: 'Medical Payments to Others'
   },
   {
-    name: 'coverageLimits.moldProperty.value',
+    dataTest: 'coverageLimits.moldProperty.value',
     required: true,
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
     values: ['10000', '25000', '50000'],
   },
   {
-    name: 'coverageLimits.moldLiability.value',
+    dataTest: 'coverageLimits.moldLiability.value',
     required: true,
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
     values: ['50000', '100000']
   },
   {
-    name: 'coverageLimits.ordinanceOrLaw.value',
+    dataTest: 'coverageLimits.ordinanceOrLaw.value',
     required: true,
     type: 'radio',
     label: 'Ordinance or Law Coverage Limit',
     values: ['25', '50']
   },
   {
-    name: 'coverageOptions.sinkholePerilCoverage.answer',
+    dataTest: 'coverageOptions.sinkholePerilCoverage.answer',
     required: true,
     type: 'switch',
     label: 'Do you want Sinkhole Loss Coverage?',
     defaultValue: true
   },
   {
-    name: 'deductibles.allOtherPerils.value',
+    dataTest: 'deductibles.allOtherPerils.value',
     required: true,
     type: 'radio',
     label: 'All Other Perils Deductible',
     values: ['500', '1000', '2500'],
   },
   {
-    name: 'deductibles.hurricane.value',
+    dataTest: 'deductibles.hurricane.value',
     required: true,
     type: 'radio',
     label: 'Hurricane Deductible',
     values: ['2', '5', '10']
   },
   {
-    name: 'deductibles.sinkhole.value',
+    dataTest: 'deductibles.sinkhole.value',
     type: 'radio',
     label: 'Sinkhole Deductible',
     values: ['10']
   },
   {
-    name: 'property.windMitigation.roofCovering',
+    dataTest: 'property.windMitigation.roofCovering',
     required: true,
     type: 'radio',
     label: 'Roof Covering:',
     values: ['Non-FBC', 'FBC', 'Other']
   },
   {
-    name: 'property.windMitigation.roofDeckAttachment',
+    dataTest: 'property.windMitigation.roofDeckAttachment',
     required: true,
     type: 'radio',
     label: 'Roof Deck Attachment:',
     values: ['A', 'B', 'C', 'D', 'Concrete', 'Other']
   },
   {
-    name: 'property.windMitigation.roofToWallConnection',
+    dataTest: 'property.windMitigation.roofToWallConnection',
     required: true,
     type: 'radio',
     label: 'Roof to Wall Attachment:',
     values: ['Toe Nails', 'Clips', 'Single Wraps', 'Double Wraps', 'Other']
   },
   {
-    name: 'property.windMitigation.roofGeometry',
+    dataTest: 'property.windMitigation.roofGeometry',
     required: true,
     type: 'radio',
     label: 'Roof Geometry:',
     values: ['Flat', 'Gable', 'Hip', 'Other']
   },
   {
-    name: 'property.windMitigation.secondaryWaterResistance',
+    dataTest: 'property.windMitigation.secondaryWaterResistance',
     required: true,
     type: 'radio',
     label: 'Secondary Water Resistance (SWR):',
     values: ['Yes', 'No', 'Other']
   },
   {
-    name: 'property.windMitigation.openingProtection',
+    dataTest: 'property.windMitigation.openingProtection',
     required: true,
     type: 'radio',
     label: 'Opening Protection:',
     values: ['None', 'Basic', 'Hurricane', 'Other']
   },
   {
-    name: 'property.burglarAlarm',
+    dataTest: 'property.burglarAlarm',
     required: true,
     type: 'switch',
     label: 'Does the property have a burglar alarm?',
     defaultValue: false
   },
   {
-    name: 'property.fireAlarm',
+    dataTest: 'property.fireAlarm',
     required: true,
     type: 'switch',
     label: 'Does the property have a fire alarm?',
     defaultValue: false
   },
   {
-    name: 'property.sprinkler',
+    dataTest: 'property.sprinkler',
     required: true,
     type: 'radio',
     label: 'Sprinkler',
@@ -176,27 +176,27 @@ const fields = [
 
 const pageHeaders = [
   {
-    name: 'Coverage Limits',
+    dataTest: 'Coverage Limits',
     text: 'Coverage Limits',
     icon: 'fa fa-line-chart'
   },
   {
-    name: 'Coverage Options',
+    dataTest: 'Coverage Options',
     text: 'Coverage Options',
     icon: 'fa fa-tasks'
   },
   {
-    name: 'Deductibles',
+    dataTest: 'Deductibles',
     text: 'Deductibles',
     icon: 'fa fa-money'
   },
   {
-    name: 'Wind Mitigation',
+    dataTest: 'Wind Mitigation',
     text: 'Wind Mitigation',
     icon: 'fa fa-flag'
   },
   {
-    name: 'Discounts',
+    dataTest: 'Discounts',
     text: 'Discounts',
     icon: 'fa fa-scissors'
   }
@@ -212,28 +212,28 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     fields.filter(({ type }) => type === 'slider')
-      .forEach(({ name }) => {
-        const input = getByTestId(`${name}-input`);
+      .forEach(({ dataTest }) => {
+        const input = getByTestId(`${dataTest}-input`);
 
         fireEvent.change(input, { target: { value: '0' }});
         fireEvent.blur(input);
-        expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
 
         fireEvent.change(input, { target: { value: '124000' }});
         fireEvent.blur(input);
-        expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
 
         fireEvent.change(input, { target: { value: '2100000' }});
         fireEvent.blur(input);
-        expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
 
         fireEvent.change(input, { target: { value: '3000000' }});
         fireEvent.blur(input);
-        expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
 
         fireEvent.change(input, { target: { value: '999999999' }});
         fireEvent.blur(input);
-        expect(getByTestId(`${name}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
       });
   });
 
@@ -247,10 +247,10 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
         if (field.type === 'switch') checkSwitch(getByTestId, field);
         if (field.type === 'slider') checkSlider(getByTestId, field);
         if (field.tooltipText) {
-          fireEvent.mouseOver(getByTestId(`${field.name}_tooltip`));
+          fireEvent.mouseOver(getByTestId(`${field.dataTest}_tooltip`));
           // wait for our mouseover to occur
           await waitForDomChange({ container }).then(() =>
-            expect(document.getElementById(field.name).textContent).toMatch(field.tooltipText)
+            expect(document.getElementById(field.dataTest).textContent).toMatch(field.tooltipText)
           );
         };
       });
@@ -273,17 +273,17 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const slider = getByTestId('coverageLimits.dwelling.value-slider');
 
-    const setSliderAndCheckOutput = (value, { name, outputValue }) => {
+    const setSliderAndCheckOutput = (value, { dataTest, outputValue }) => {
       setSliderValue(slider, value);
       // expect(getByTestId('coverageLimits.dwelling.value-input')).toHaveTextContent('$ 380,000');
-      expect(document.querySelector(`[data-test="${name}"] output`)).toHaveTextContent(outputValue);
+      expect(document.querySelector(`[data-test="${dataTest}"] output`)).toHaveTextContent(outputValue);
     };
 
-    setSliderAndCheckOutput('350000', { name: outputFields[0], outputValue: '$ 7,000' });
+    setSliderAndCheckOutput('350000', { dataTest: outputFields[0], outputValue: '$ 7,000' });
     // TODO not sure why this one is broken
-    // setSliderAndCheckOutput('380000', { name: outputFields[1], outputValue: '$ 95,000' });
-    setSliderAndCheckOutput('380000', { name: outputFields[2], outputValue: '$ 2,000' });
-    setSliderAndCheckOutput('303000', { name: outputFields[3], outputValue: '$ 30,300' });
-    setSliderAndCheckOutput('295000', { name: outputFields[4], outputValue: '$ 5,900' });
+    // setSliderAndCheckOutput('380000', {dataTest: outputFields[1], outputValue: '$ 95,000' });
+    setSliderAndCheckOutput('380000', { dataTest: outputFields[2], outputValue: '$ 2,000' });
+    setSliderAndCheckOutput('303000', { dataTest: outputFields[3], outputValue: '$ 30,300' });
+    setSliderAndCheckOutput('295000', { dataTest: outputFields[4], outputValue: '$ 5,900' });
   });
 });

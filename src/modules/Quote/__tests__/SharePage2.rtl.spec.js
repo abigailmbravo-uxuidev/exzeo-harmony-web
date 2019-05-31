@@ -11,7 +11,7 @@ import QuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
-    name: 'confirm-assumptions',
+    dataTest: 'confirm-assumptions',
     type: 'switch',
     label: 'Confirmed',
     defaultValue: false

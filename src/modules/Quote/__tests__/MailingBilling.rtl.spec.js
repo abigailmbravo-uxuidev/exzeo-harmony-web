@@ -20,7 +20,7 @@ import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
   {
-    name: 'policyHolderMailingAddress.address1',
+    dataTest: 'policyHolderMailingAddress.address1',
     error: 'Field Required',
     label: 'Address 1',
     type: 'text',
@@ -28,14 +28,14 @@ const fields = [
     data: '123 test address'
   },
   {
-    name: 'policyHolderMailingAddress.address2',
+    dataTest: 'policyHolderMailingAddress.address2',
     label: 'Address 2',
     type: 'text',
     required: false,
     data: '123 test address'
   },
   {
-    name: 'policyHolderMailingAddress.city',
+    dataTest: 'policyHolderMailingAddress.city',
     error: 'Field Required',
     label: 'City',
     type: 'text',
@@ -43,7 +43,7 @@ const fields = [
     data: 'tampa'
   },
   {
-    name: 'policyHolderMailingAddress.state',
+    dataTest: 'policyHolderMailingAddress.state',
     error: 'Field Required',
     label: 'State',
     type: 'text',
@@ -51,7 +51,7 @@ const fields = [
     data: 'fl'
   },
   {
-    name: 'policyHolderMailingAddress.zip',
+    dataTest: 'policyHolderMailingAddress.zip',
     error: 'Field Required',
     label: 'Zip',
     type: 'text',
@@ -59,14 +59,14 @@ const fields = [
     data: '00001'
   },
   {
-    name: 'billToId',
+    dataTest: 'billToId',
     type: 'select',
     error: 'Field Required',
     label: 'Bill To',
     required: false
   },
   {
-    name: 'billPlan',
+    dataTest: 'billPlan',
     type: 'radio',
     error: 'Field Required',
     label: 'Bill Plan',
@@ -74,7 +74,7 @@ const fields = [
     values: ['Annual', 'Semi-Annual', 'Quarterly']
   },
   {
-    name: 'sameAsPropertyAddress',
+    dataTest: 'sameAsPropertyAddress',
     type: 'switch',
     label: 'Is the mailing address the same',
     defaultValue: ''
@@ -83,12 +83,12 @@ const fields = [
 
 export const pageHeaders = [
   {
-    name: 'Mailing Address',
+    dataTest: 'Mailing Address',
     text: 'Mailing Address',
     icon: 'fa fa-envelope'
   },
   {
-    name: 'Billing Information',
+    dataTest: 'Billing Information',
     text: 'Billing Information',
     icon: 'fa fa-dollar'
   }
@@ -121,8 +121,8 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('NEG:Tests Invalid Input Values', async () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-    const state = fields.find(({ name }) => name === 'policyHolderMailingAddress.state');
-    const zip = fields.find(({ name }) => name === 'policyHolderMailingAddress.zip');
+    const state = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.state');
+    const zip = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.zip');
     await waitForElement(() => getByTestId('billPlan_label'));
 
     verifyForm(getByTestId, [{

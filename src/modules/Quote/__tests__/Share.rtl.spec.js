@@ -14,8 +14,7 @@ import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const modalFields = [
   {
-    test: 'name',
-    name: 'toName',
+    dataTest: 'name',
     error: 'Field Required',
     label: 'Name',
     type: 'text',
@@ -23,8 +22,7 @@ const modalFields = [
     data: 'Bruce Wayne'
   },
   {
-    test: 'email',
-    name: 'toEmail',
+    dataTest: 'email',
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
@@ -35,17 +33,17 @@ const modalFields = [
 
 const pageHeaders = [
   {
-    name: 'Share',
+    dataTest: 'Share',
     text: 'Share',
     icon: 'fa fa-share-alt'
   },
   {
-    name: 'Continue',
+    dataTest: 'Continue',
     text: 'Continue',
     icon: 'fa fa-arrow-circle-right'
   },
   {
-    name: 'NewQuote',
+    dataTest: 'NewQuote',
     text: 'New Quote',
     icon: 'fa fa-quote-left'
   }

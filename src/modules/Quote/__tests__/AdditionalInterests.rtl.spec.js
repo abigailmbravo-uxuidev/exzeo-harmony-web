@@ -16,60 +16,60 @@ import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const baseAiFields = [
   {
-    name: 'name1',
+    dataTest: 'name1',
     type: 'text',
     required: true,
     label: 'Name 1',
     data: 'test last names',
   },
   {
-    name: 'name2',
+    dataTest: 'name2',
     type: 'text',
     label: 'Name 2',
     data: 'test first name',
   },
   {
-    name: 'address1',
+    dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
     data: 'test adress 1',
   },
   {
-    name: 'address2',
+    dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
     data: 'test address 2',
   },
   {
-    name: 'city',
+    dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
     data: 'test city',
   },
   {
-    name: 'state',
+    dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
     data: 'FL',
   },
   {
-    name: 'zip',
+    dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
     data: 'test name 1',
   },
   {
-    name: 'phoneNumber',
+    dataTest: 'phoneNumber',
     type: 'text',
     label: 'Phone Number',
     data: '(123) 123-1231'
   },
   {
-    name: 'referenceNumber',
+    dataTest: 'referenceNumber',
     type: 'text',
     label: 'Reference Number',
     data: '1`23'
@@ -78,63 +78,63 @@ const baseAiFields = [
 
 const personalFields = [
   {
-    name: 'name1',
+    dataTest: 'name1',
     type: 'text',
     required: true,
     label: 'First Name',
     data: 'test last names',
   },
   {
-    name: 'name2',
+    dataTest: 'name2',
     type: 'text',
     label: 'Last Name',
     data: 'test first name',
   },
   {
-    name: 'address1',
+    dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
     data: 'test adress 1',
   },
   {
-    name: 'address2',
+    dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
     data: 'test address 2',
   },
   {
-    name: 'city',
+    dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
     data: 'test city',
   },
   {
-    name: 'state',
+    dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
     data: 'FL',
   },
   {
-    name: 'zip',
+    dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
     data: 'test name 1',
   },
   {
-    name: 'phoneNumber',
+    dataTest: 'phoneNumber',
     type: 'text',
     label: 'Phone Number',
     data: '(123) 123-1231'
   },
   {
-    name: 'referenceNumber',
+    dataTest: 'referenceNumber',
     type: 'text',
     label: 'Reference Number',
-    data: '1`23'
+    data: '123'
   }
 ];
 
@@ -153,8 +153,8 @@ describe('Testing Additional Interests', () => {
 
   const baseRequiredFields = baseAiFields.filter(({ required }) => required);
   const personalRequiredFields = personalFields.filter(({ required }) => required);
-  const stateField = baseAiFields.find(({ name }) => name === 'state');
-  const zipField = baseAiFields.find(({ name }) => name === 'zip');
+  const stateField = baseAiFields.find(({ dataTest }) => dataTest === 'state');
+  const zipField = baseAiFields.find(({ dataTest }) => dataTest === 'zip');
 
   it('POS:Checks Header and Buttons', () => {
     const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
@@ -312,8 +312,8 @@ describe('Testing Additional Interests', () => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
     });
-    checkLabel(getByTestId, { name: 'mortgage', label: 'Top Mortgagees' });
-    checkSelect(getByTestId, { name: 'order', type: 'select', values: ['0']});
+    checkLabel(getByTestId, { dataTest: 'mortgage', label: 'Top Mortgagees' });
+    checkSelect(getByTestId, { dataTest: 'order', type: 'select', values: ['0']});
   });
 
   it('POS:Additional Insured Testing', () => {
@@ -350,7 +350,7 @@ describe('Testing Additional Interests', () => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
     });
-    checkLabel(getByTestId, { name: 'premiumFinance', label: 'Top Premium Finance' });
+    checkLabel(getByTestId, { dataTest: 'premiumFinance', label: 'Top Premium Finance' });
   });
 
   it('POS:Bill Payer Testing', () => {

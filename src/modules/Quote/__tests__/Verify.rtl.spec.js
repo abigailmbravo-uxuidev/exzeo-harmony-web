@@ -20,7 +20,7 @@ const switchTags = ['confirmProperty', 'confirmQuote', 'confirmPolicy', 'confirm
 
 const ph1Fields = [
   {
-    name: 'policyHolders[0].firstName',
+    dataTest: 'policyHolders[0].firstName',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -28,7 +28,7 @@ const ph1Fields = [
     data: 'Bruce'
   },
   {
-    name: 'policyHolders[0].lastName',
+    dataTest: 'policyHolders[0].lastName',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -36,7 +36,7 @@ const ph1Fields = [
     data: 'Wayne'
   },
   {
-    name: 'policyHolders[0].emailAddress',
+    dataTest: 'policyHolders[0].emailAddress',
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
@@ -44,7 +44,7 @@ const ph1Fields = [
     data: 'Batman@gmail.com'
   },
   {
-    name: 'policyHolders[0].primaryPhoneNumber',
+    dataTest: 'policyHolders[0].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'phone',
@@ -55,7 +55,7 @@ const ph1Fields = [
 
 const ph2Fields = [
   {
-    name: 'policyHolders[1].firstName',
+    dataTest: 'policyHolders[1].firstName',
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
@@ -63,7 +63,7 @@ const ph2Fields = [
     data: 'Dick'
   },
   {
-    name: 'policyHolders[1].lastName',
+    dataTest: 'policyHolders[1].lastName',
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
@@ -71,7 +71,7 @@ const ph2Fields = [
     data: 'Grayson'
   },
   {
-    name: 'policyHolders[1].emailAddress',
+    dataTest: 'policyHolders[1].emailAddress',
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
@@ -79,7 +79,7 @@ const ph2Fields = [
     data: 'Robin@hotmail.com'
   },
   {
-    name: 'policyHolders[1].primaryPhoneNumber',
+    dataTest: 'policyHolders[1].primaryPhoneNumber',
     error: 'Field Required',
     label: 'Contact Phone',
     type: 'phone',
@@ -138,10 +138,10 @@ describe('Verify Testing', () => {
 
     // For all fields except phone, we fill out with invalid character data
     // If that field is an email, it will throw a different error
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => !name.includes('Phone'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: '∂',
-        error: name.includes('email') ? 'Not a valid email address' : 'Invalid characters'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => !dataTest.includes('Phone'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: '∂',
+        error: dataTest.includes('email') ? 'Not a valid email address' : 'Invalid characters'
       }]));
   });
 
@@ -150,9 +150,9 @@ describe('Verify Testing', () => {
     fireEvent.click(getByTestId('policyholder-details'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
 
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: 'invalid testing email address', error: 'Not a valid email address'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('email'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: 'invalid testing email address', error: 'Not a valid email address'
       }]));
   });
 
@@ -161,9 +161,9 @@ describe('Verify Testing', () => {
     fireEvent.click(getByTestId('policyholder-details'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
 
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('Phone'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: '123', error: 'Not a valid Phone Number'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('Phone'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: '123', error: 'Not a valid Phone Number'
       }]));
   });
 
@@ -338,13 +338,13 @@ describe('Verify Testing', () => {
   it('POS:Verify Toggle Labels', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
-    switchTags.forEach(tag => checkLabel(getByTestId, { name: tag, label: 'Verified' }));
+    switchTags.forEach(tag => checkLabel(getByTestId, { dataTest: tag, label: 'Verified' }));
   });
 
   it('POS:Next Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     expect(getByTestId('next').getAttribute('type')).toEqual('button');
-    checkButton(getByTestId, { name: 'next' });
+    checkButton(getByTestId, { dataTest: 'next' });
   });
 });
