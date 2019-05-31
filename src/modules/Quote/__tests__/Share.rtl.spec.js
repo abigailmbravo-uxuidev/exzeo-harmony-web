@@ -14,6 +14,7 @@ import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const modalFields = [
   {
+    test: 'name',
     name: 'toName',
     error: 'Field Required',
     label: 'Name',
@@ -22,6 +23,7 @@ const modalFields = [
     data: 'Bruce Wayne'
   },
   {
+    test: 'email',
     name: 'toEmail',
     error: 'Field Required',
     label: 'Email Address',
@@ -63,8 +65,8 @@ describe('Testing the Share Page', () => {
     // Click the modal
     fireEvent.click(getByTestId('share'));
     // Confirm modal fields
-    expect(getByTestId('toName'));
-    expect(getByTestId('toEmail'));
+    expect(getByTestId('name'));
+    expect(getByTestId('email'));
     // Submit a blank form
     fireEvent.click(getByText('Send Email'));
     modalFields.forEach(field => checkError(getByTestId, field));

@@ -130,7 +130,7 @@ const parseQueryType = (query, field) => {
   // We determine which field value to use based on query name
   const queryName = query.name.replace(/bound /g, '');
 
-  if (queryName.includes('ByTestId')) return query(field.name);
+  if (queryName.includes('ByTestId')) return query(field.test || field.name);
   if (queryName.includes('ByText')) return query(field.text);
   if (queryName.includes('ByLabelText')) return query(field.label);
   else return query(field.name);
@@ -152,14 +152,14 @@ export const clearText = (query, field) => fireEvent.change(parseQueryType(query
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field [{ name = '', text = '', label = '', error = 'Field Required' }={}] - The field object to find and test.
  */
-export const checkError = (query, { name = '', text = '', label = '', error = 'Field Required' } = {}) =>
-  expect(parseQueryType(query, { name: `${name}_error`, text, label, error })).toHaveTextContent(error);
+export const checkError = (query, { test = '', name = '', text = '', label = '', error = 'Field Required' } = {}) =>
+  expect(parseQueryType(query, { name: `${test || name}_error`, text, label, error })).toHaveTextContent(error);
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { name = '', text = '', label } - The field object to find and test.
  */
-export const checkLabel = (query, { name = '', text = '', label }) => expect(parseQueryType(query, { name: `${name}_label`, text, label })).toHaveTextContent(label);
+export const checkLabel = (query, { test= '', name = '', text = '', label }) => expect(parseQueryType(query, { name: `${test || name}_label`, text, label })).toHaveTextContent(label);
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
@@ -266,7 +266,7 @@ export const checkButton = (query, field = { name: 'submit' }) =>
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Array} [baseFields=[]] - Array of field objects to fill out.
  * @param {Array} [fieldsLeftBlank=[]] - Array of field objects to leave blank.
- * @param {regex} button - The regex used to find the button.
+ * @param {regex|string} button - The regex/string used to find the button.
  */
 export const verifyForm = (query, baseFields = [], fieldsLeftBlank = [], button) => {
   // Clears all text
