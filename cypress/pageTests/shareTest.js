@@ -21,5 +21,5 @@ export default (product = 'HO3') =>
     .findDataTag('share').click()
     .findDataTag('name').type('Bruce')
     .findDataTag('email').type('Batman@gmail.com')
-    .clickSubmit('#SendEmail', 'modal-submit')
+    .clickSubmit('#sendQuoteSummary', 'modal-submit')
     .wait('@sendQuoteSummary');

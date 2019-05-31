@@ -8,35 +8,31 @@ import {
   navigateThroughShare,
   navigateThroughAssumptions,
   navigateThroughAdditionalInterests,
-  navigateThroughMailingBilling,
-  navigateThroughScheduleDate,
-  navigateThroughVerify
+  navigateThroughMailingBilling
 } from '../../helpers';
 import { underwritingHO3, updateQuote } from '../../fixtures';
 
 describe('Underwriting Error Testing', () => {
-  const underwritingData = {
-    ...underwritingHO3,
-    'previousClaims': '3-5 Years'
-  };
-
-  before('Login and go to search', () => {
+  before('Login and go to Underwriting', () => {
     cy.login();
     setRouteAliases();
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
   });
-  beforeEach('Set Route Aliases', () => setRouteAliases());
 
-  it('Underwriting Error Part 1', () => {
+  it('Underwriting Error', () => {
     // Give underwriting bad data.
-    navigateThroughUnderwriting(underwritingData);
+    navigateThroughUnderwriting({
+      ...underwritingHO3,
+      'previousClaims': '3-5 Years'
+    });
     navigateThroughCustomize();
     // We see a modal containing the uw error.
     cy.get('ul.error').should('contain', 'Due to previous claims history, underwriting review is required prior to binding.')
       .findDataTag('modal-refresh').should('contain', 'Refresh')
       .click().wait('@getQuote')
+      // Policyholder should be able to be navigated through without re-filling out the form.
       .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
     // Go back through with good data.
     navigateThroughUnderwriting();
@@ -44,8 +40,8 @@ describe('Underwriting Error Testing', () => {
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
-    // On mailing billing, we intercept the post request.
-    cy.server().route('POST', '/svc?quoteManager.updateQuote', {
+    // On mailing billing, we stub the post request.
+    cy.route('POST', '/svc?quoteManager.updateQuote', {
       ...updateQuote,
       result: {
         ...updateQuote.result,
@@ -61,8 +57,8 @@ describe('Underwriting Error Testing', () => {
           'overridden': false,
         }]
       }
-    }).as('updateQuote')
-    navigateThroughMailingBilling()
+    }).as('updateQuote');
+    navigateThroughMailingBilling();
     cy.get('div#Error').should('contain', 'Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.');
   });
 });
