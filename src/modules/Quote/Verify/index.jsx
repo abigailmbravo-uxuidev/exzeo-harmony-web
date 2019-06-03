@@ -65,19 +65,17 @@ export class Verify extends React.Component {
   render() {
     const {
       initialValues,
-      formValues,
       formInstance,
       config,
       options,
       customHandlers,
-      renderChildren
     } = this.props;
 
     const {
       // submitting,
       showPolicyHolderEditPopup,
       showSendApplicationPopup,
-     // confirmProperty,
+      confirmProperty,
       confirmQuote,
       confirmPolicy,
       confirmAdditionalInterest
@@ -86,30 +84,13 @@ export class Verify extends React.Component {
     const { productDescription, companyName, details } = config.extendedProperties;
     const { goToStep } = customHandlers;
     const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = initialValues;
-    const { confirmProperty } = formValues;
     const { submitting } = formInstance.getState();
     const submitDisabled = !(confirmProperty && confirmQuote && confirmPolicy && confirmAdditionalInterest && !submitting);
     const selectedAgent = (options.agents || []).find(agent => agent.answer === initialValues.agentCode) || {};
 
     return (
       <div className="verify">
-        {renderChildren()}
-          <Portal>
-            <Form onSubmit={x => x}>
-              {() => 
-              <form><div className="workflow-steps">
-                <Button
-                  className={Button.constants.classNames.primary}
-                  onClick={() => this.setState({ showSendApplicationPopup: true })}
-                  disabled={submitDisabled}
-                  data-test="next"
-                >next</Button>
-              </div>
-              </form>
-            }
-          </Form>
-        </Portal>
-        {/* <DetailGroup
+        <DetailGroup
           header="Property Details"
           detailClass="property-details"
           switchName="confirmProperty"
@@ -165,8 +146,16 @@ export class Verify extends React.Component {
           switchOnChange={(value) => this.setConfirmation('confirmAdditionalInterest', value)}
           handleEditClick={() => goToStep(STEP_NAMES.addAdditionalAIs)} >
             <AdditionalInterestDetails additionalInterests={additionalInterests} />
-        </DetailGroup> */}
+        </DetailGroup>
 
+        <div className="workflow-steps">
+          <Button
+            className={Button.constants.classNames.primary}
+            onClick={() => this.setState({ showSendApplicationPopup: true })}
+            disabled={submitDisabled}
+            data-test="next"
+          >next</Button>
+        </div>
          {showSendApplicationPopup &&
             <ScheduleDate
               selectedAgent={selectedAgent}

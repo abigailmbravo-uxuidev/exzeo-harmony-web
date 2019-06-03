@@ -1231,88 +1231,29 @@ const mock = {
           dependencies: [],
           data: {
             component: '$VERIFY',
-            extendedProperties:{
-              subscribe: true,
+            extendedProperties: {
+              details: [
+                { format: 'currency', path: 'rating.totalPremium', label: 'Yearly Premium'},
+                { format: 'currency', path: 'coverageLimits.dwelling.amount', label: 'A. Dwelling'},
+                { format: 'currency', path: 'coverageLimits.otherStructures.amount', label: 'B. Other Structures'},
+                { format: 'currency', path: 'coverageLimits.personalProperty.amount', label: 'C. Personal Property'},
+                { format: 'currency', path: 'coverageLimits.lossOfUse.amount', label: 'D. Loss Of Use'},
+                { format: 'currency', path: 'coverageLimits.personalLiability.amount', label: 'E. Personal Liability'},
+                { format: 'currency', path: 'coverageLimits.medicalPayments.amount', label: 'F. Medical Payments'},
+                { format: 'bool', path: 'coverageOptions.personalPropertyReplacementCost.answer', label: 'Personal Property Replacement Cost'},
+                { format: 'currency', path: 'coverageLimits.moldProperty.amount', label: 'Mold Property'},
+                { format: 'currency', path: 'coverageLimits.moldLiability.amount', label: 'Mold Liability'},
+                { format: 'currency', path: 'coverageLimits.ordinanceOrLaw.calculatedAmount', label: 'Ordinance or Law'},
+                { format: 'currency', path: 'deductibles.allOtherPerils.amount', label: 'All Other Perils Deductible'},
+                { format: 'currency', path: 'deductibles.hurricane.calculatedAmount', label: 'Hurricane Deductible'},
+                { format: 'currency', path: 'deductibles.sinkhole.calculatedAmount', label: 'Sinkhole Deductible', hideNoValue: true}
+              ],
               productDescription: "Homeowners",
               companyName: "TypTap",
-              verifiedFields: ["confirmProperty"]
             }
           },
           formData: {},
-          children: [
-                {
-                  id: 34535553,
-                  type: '$SECTION',
-                  dependencies: [],
-                  data: {},
-                  formData: {},
-                  children: [
-                {
-                  id: 555839506,
-                  type: '$TITLE',
-                  dependencies: [],
-                  data: {
-                    text: 'Property Details',
-                  },
-                  formData: {},
-                  children: [],
-                },
-                {
-                  id: 673334,
-                  type: '$ENTITY_GROUP',
-                  dependencies: [],
-                  formData: {},
-                  data:{},
-                  children: [
-                    {
-                      id: 102345224900,
-                      type: '$ENTITY_DETAILS',
-                      dependencies: [],
-                      data: {
-                        extendedProperties: {
-                          className: "row-items",
-                          details: [
-                            { label: 'Quote Number', items: [{ format: '', path: 'quoteNumber'}] },
-                            { label: 'Property Address', items: [
-                                { format: '', path: 'property.physicalAddress.address1'},
-                                { format: '', path: 'property.physicalAddress.address2'},
-                                { format: 'cityStateZip', path: 'property.physicalAddress'}
-                              ]
-                            },
-                            { label: 'Year Built', items: [{ format: '', path: 'property.yearBuilt'}] },
-                            { label: 'Effective Date', items: [{ format: 'date', path: 'effectiveDate'}] },
-                            { label: 'Agent', items: [{ format: '', optionKey: 'agents', compareField: 'answer', valuePath: 'agentCode', selectField: 'displayName'}] }
-                          ]
-                        }
-                      },
-                      formData: {},
-                      children: [],
-                    },
-                    {
-                      id: 26,
-                      type: '$INPUT',
-                      path: 'confirmProperty',
-                      dependencies: [],
-                      data: {
-                        styleName: 'switch',
-                        customClass: 'verification',
-                        component: 'switch',
-                        label: 'Verified',
-                        size: '12',
-                        segmented: true,
-                      },
-                      formData:  {
-                        path: 'confirmProperty',
-                        type: 'bool',
-                        required: true,
-                      },
-                      children: [],
-                    },
-                  ],
-                }
-              ],
-            }
-          ]
+          children: [],
         },
       ],
     },
