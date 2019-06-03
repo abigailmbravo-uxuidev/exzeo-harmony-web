@@ -67,6 +67,7 @@ export class Verify extends React.Component {
       config,
       options,
       customHandlers,
+      renderChildren
     } = this.props;
 
     const {
@@ -88,7 +89,8 @@ export class Verify extends React.Component {
 
     return (
       <div className="verify">
-        <DetailGroup
+        {renderChildren()}
+        {/* <DetailGroup
           header="Property Details"
           detailClass="property-details"
           switchName="confirmProperty"
@@ -144,7 +146,7 @@ export class Verify extends React.Component {
           switchOnChange={(value) => this.setConfirmation('confirmAdditionalInterest', value)}
           handleEditClick={() => goToStep(STEP_NAMES.addAdditionalAIs)} >
             <AdditionalInterestDetails additionalInterests={additionalInterests} />
-        </DetailGroup>
+        </DetailGroup> */}
 
         <div className="workflow-steps">
           <Button
