@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, ModalPortal } from '@exzeo/core-ui';
+import { Button, ModalPortal, Form, Field } from '@exzeo/core-ui';
+import Portal from '@exzeo/core-ui/src/@components/Portal';
+
 import { STEP_NAMES } from '../constants/workflowNavigation';
 
 import PolicyHolderDetails from './PolicyHolderDetails';
@@ -92,6 +94,21 @@ export class Verify extends React.Component {
     return (
       <div className="verify">
         {renderChildren()}
+          <Portal>
+            <Form onSubmit={x => x}>
+              {() => 
+              <form><div className="workflow-steps">
+                <Button
+                  className={Button.constants.classNames.primary}
+                  onClick={() => this.setState({ showSendApplicationPopup: true })}
+                  disabled={submitDisabled}
+                  data-test="next"
+                >next</Button>
+              </div>
+              </form>
+            }
+          </Form>
+        </Portal>
         {/* <DetailGroup
           header="Property Details"
           detailClass="property-details"
@@ -150,14 +167,6 @@ export class Verify extends React.Component {
             <AdditionalInterestDetails additionalInterests={additionalInterests} />
         </DetailGroup> */}
 
-        <div className="workflow-steps">
-          <Button
-            className={Button.constants.classNames.primary}
-            onClick={() => this.setState({ showSendApplicationPopup: true })}
-            disabled={submitDisabled}
-            data-test="next"
-          >next</Button>
-        </div>
          {showSendApplicationPopup &&
             <ScheduleDate
               selectedAgent={selectedAgent}
