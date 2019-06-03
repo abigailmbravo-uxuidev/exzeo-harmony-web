@@ -3,7 +3,7 @@
   "chromeWebSecurity": false,
   "testFiles": "**/**.spec.js",
   "videoUploadOnPasses": false,
-  "defaultCommandTimeout": 12000,
+  "defaultCommandTimeout": 20000,
   "requestTimeout": 120000,
   "responseTimeout": 180000,
   "pageLoadTimeout": 180000,
