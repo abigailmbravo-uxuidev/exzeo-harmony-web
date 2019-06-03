@@ -27,7 +27,7 @@ describe('Retrieve Policy', () => {
       .get('#PolicySearchBar button[type="submit"]').click()
       .wait('@searchPolicy').then(({ response }) =>
         // We check that the first last name starts with 'd', to confirm that they are sorted in order.
-        expect(response.body.policies[0].policyHolders[0].lastName.charAt).to.match(/d/i)
+        expect(response.body.policies[0].policyHolders[0].lastName.charAt(0)).to.match(/d/i)
       )
   );
 });
