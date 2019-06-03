@@ -63,6 +63,7 @@ export class Verify extends React.Component {
   render() {
     const {
       initialValues,
+      formValues,
       formInstance,
       config,
       options,
@@ -74,7 +75,7 @@ export class Verify extends React.Component {
       // submitting,
       showPolicyHolderEditPopup,
       showSendApplicationPopup,
-      confirmProperty,
+     // confirmProperty,
       confirmQuote,
       confirmPolicy,
       confirmAdditionalInterest
@@ -83,6 +84,7 @@ export class Verify extends React.Component {
     const { productDescription, companyName, details } = config.extendedProperties;
     const { goToStep } = customHandlers;
     const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = initialValues;
+    const { confirmProperty } = formValues;
     const { submitting } = formInstance.getState();
     const submitDisabled = !(confirmProperty && confirmQuote && confirmPolicy && confirmAdditionalInterest && !submitting);
     const selectedAgent = (options.agents || []).find(agent => agent.answer === initialValues.agentCode) || {};

@@ -1232,8 +1232,10 @@ const mock = {
           data: {
             component: '$VERIFY',
             extendedProperties:{
+              subscribe: true,
               productDescription: "Homeowners",
               companyName: "TypTap",
+              verifiedFields: ["confirmProperty"]
             }
           },
           formData: {},
