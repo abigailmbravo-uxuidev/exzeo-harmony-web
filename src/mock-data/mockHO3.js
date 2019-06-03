@@ -1286,6 +1286,26 @@ const mock = {
                       formData: {},
                       children: [],
                     },
+                    {
+                      id: 26,
+                      type: '$INPUT',
+                      path: 'confirmProperty',
+                      dependencies: [],
+                      data: {
+                        styleName: 'switch',
+                        customClass: 'verification',
+                        component: 'switch',
+                        label: 'Verified',
+                        size: '12',
+                        segmented: true,
+                      },
+                      formData:  {
+                        path: 'confirmProperty',
+                        type: 'bool',
+                        required: true,
+                      },
+                      children: [],
+                    },
                   ],
                 }
               ],
