@@ -73,7 +73,7 @@ describe('Back Button Testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     getQuoteNumberAndRetrieve('Application Ready');
-  })
+  });
 
   it('Browser back button pt 3', () => {
     navigateThroughLanding();
@@ -101,5 +101,5 @@ describe('Back Button Testing', () => {
     navigateThroughScheduleDate();
     cy.wait('@sendApplication').go('back')
       .get('div.dashboard-message').should('exist');
-  })
+  });
 });

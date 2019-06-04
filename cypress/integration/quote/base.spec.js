@@ -33,20 +33,32 @@ describe('Agency Happy Path', () => {
     navigateThroughSearchAddress();
     policyholderTest();
     navigateThroughPolicyholder();
+  });
+
+  it('Tests Underwriting and Customize', () => {
     underwritingTest();
     navigateThroughUnderwriting();
     customizeTest();
     navigateThroughCustomize();
+  });
+
+  it('Tests Share and AIs', () => {
     shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
     aiTest();
     navigateThroughAdditionalInterests();
+  });
+
+  it('Tests MailingBilling and Verify', () => {
     mailingBillingTest();
     navigateThroughMailingBilling();
     verifyTest();
     navigateThroughVerify();
     navigateThroughScheduleDate();
+  });
+
+  it('Tests that the quote exists at the end', () =>
     cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
       navigateThroughThankYou();
       cy.get('.btn[href="/search/retrieve"]').click()
@@ -56,8 +68,8 @@ describe('Agency Happy Path', () => {
         // TODO: Add this check back in once the back end works
         // .find('li.card .quote-state').should('contain', 'Application Sent DocuSign')
         .go('back');
-    });
-  });
+    })
+  );
 });
 
 // describe('AF3 Happy Path', () => {
@@ -72,7 +84,7 @@ describe('Agency Happy Path', () => {
 //     navigateThroughPolicyholder(userAF3);
 //     underwritingTest('AF3');
 //     navigateThroughUnderwriting(underwritingAF3);
-//     customizeTest('AF3');
+//     customizeTest('AF3');'
 //     navigateThroughCustomize();
 //     shareTest('AF3');
 //     navigateThroughShare();

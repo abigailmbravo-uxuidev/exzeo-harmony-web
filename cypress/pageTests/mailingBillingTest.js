@@ -18,6 +18,28 @@ const af3Headers = [
   { name: 'premium', 'label': 'Premium', value: '$ 4,635' }
 ];
 
+const addMortgagee = () =>
+  cy.findDataTag('mortgagee').click()
+    .chooseReactSelectOption('mortgage_wrapper', 'america\'s servicing')
+    .clickSubmit('div.Mortgagee', 'ai-modal-submit')
+    .wait('@updateQuote');
+
+const addPremiumFinance = () =>
+  cy.findDataTag('premiumFinance').click()
+    .chooseReactSelectOption('premiumFinance_wrapper', 'p1 finance company')
+    .clickSubmit('div.Premium.Finance', 'ai-modal-submit')
+    .wait('@updateQuote');
+
+const deleteAllAis = () =>
+  // Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
+  cy.get('a.remove i.delete')
+    .each(() => cy.get('a.remove i.delete').eq(0).click().clickSubmit('.ai-modal', 'modal-confirm').wait('@updateQuote'));
+
+const checkBillingOption = (numOfOptions = 1, selected = true) =>
+  cy.findDataTag('billToId').invoke('attr', 'data-selected').should(selected ? 'not.eq' : 'eq', '')
+    .findDataTag('billToId').find('option:not([disabled])').should('have.length', numOfOptions);
+
+const goToAiPage = () => cy.findDataTag('tab-nav-5').click();
 
 export default (product = 'HO3') => {
   cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));
@@ -34,27 +56,3 @@ export default (product = 'HO3') => {
   navigateThroughAdditionalInterests();
   checkBillingOption(1);
 };
-
-const addMortgagee = () =>
-  cy.findDataTag('mortgagee').click()
-    .chooseReactSelectOption('mortgage_wrapper', 'america\'s servicing')
-    .clickSubmit('div.Mortgagee', 'ai-modal-submit')
-    .wait('@updateQuote');
-
-const addPremiumFinance = () =>
-  cy.findDataTag('premiumFinance').click()
-    .chooseReactSelectOption('premiumFinance_wrapper', 'p1 finance company')
-    .clickSubmit('div.Premium.Finance', 'ai-modal-submit')
-    .wait('@updateQuote');
-
-const deleteAllAis = () =>
-// Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
-  cy.get('a.remove i.delete')
-    .each(() => cy.get('a.remove i.delete').eq(0).click().clickSubmit('.ai-modal', 'modal-confirm').wait('@updateQuote'));
-
-const checkBillingOption = (numOfOptions = 1, selected = true) =>
-  cy.wait('@getBillingOptions')
-    .findDataTag('billToId').invoke('attr', 'data-selected').should(selected ? 'not.eq' : 'eq', '')
-    .findDataTag('billToId').find('option:not([disabled])').should('have.length', numOfOptions);
-
-const goToAiPage = () => cy.findDataTag('tab-nav-5').click();
