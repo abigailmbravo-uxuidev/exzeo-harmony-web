@@ -10,6 +10,7 @@ const Pagination = ({ changePageBack, changePageForward, fieldValues }) => (
       className="btn multi-input"
       type="button"
       form="SearchBar"
+      data-test="page-back"
     >
       <span className="fa fa-chevron-circle-left" />
     </button>
@@ -25,6 +26,7 @@ const Pagination = ({ changePageBack, changePageForward, fieldValues }) => (
       className="btn multi-input"
       type="button"
       form="SearchBar"
+      data-test="page-forward"
     >
       <span className="fa fa-chevron-circle-right" />
     </button>
