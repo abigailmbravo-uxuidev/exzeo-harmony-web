@@ -58,7 +58,7 @@ describe('Agency Happy Path', () => {
         .clickSubmit('#SearchBar')
         .findDataTag('quote-list').should('not.be.empty')
         // TODO: Add this check back in once the back end works
-        // .find('li.card .quote-state').should('contain', 'Application Sent DocuSign')
+        // .find('.card .card-detail-wrapper .quote-state').should('contain', 'Application Sent DocuSign')
         .go('back');
     });
   });
