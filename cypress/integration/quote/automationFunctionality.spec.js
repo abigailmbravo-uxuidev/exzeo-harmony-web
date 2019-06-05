@@ -43,70 +43,56 @@ describe('Back Button Testing', () => {
       .get('div.dashboard-message').should('exist');
 
     navigateThroughLanding();
-    cy.task('log', 'Landing: logging to TC build server console');
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     cy.go('back')
       .get('div.dashboard-message').should('exist');
 
     navigateThroughLanding();
-    cy.task('log', 'Landing: logging to TC build server console');
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    cy.task('log', 'Underwriting: logging to TC build server console');
     getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
-    cy.task('log', 'Landing: logging to TC build server console');
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    cy.task('log', 'Underwriting: logging to TC build server console');
     navigateThroughCustomize();
     getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
-    cy.task('log', 'Landing: logging to TC build server console');
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    cy.task('log', 'Underwriting: logging to TC build server console');
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
-    cy.task('log', 'MailingBilling: logging to TC build server console');
     getQuoteNumberAndRetrieve('Application Ready');
 
     navigateThroughLanding();
-    cy.task('log', 'Landing: logging to TC build server console');
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    cy.task('log', 'Underwriting: logging to TC build server console');
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
-    cy.task('log', 'MailingBilling: logging to TC build server console');
     navigateThroughVerify();
     getQuoteNumberAndRetrieve('Application Ready');
 
     navigateThroughLanding();
-    cy.task('log', 'Landing: logging to TC build server console');
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    cy.task('log', 'Underwriting: logging to TC build server console');
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
-    cy.task('log', 'MailingBilling: logging to TC build server console');
     navigateThroughVerify();
     navigateThroughScheduleDate();
     cy.wait('@sendApplication').go('back')
