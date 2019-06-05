@@ -44,6 +44,7 @@ export const navigateThroughAdditionalInterests = () =>
 
 export const navigateThroughMailingBilling = () =>
   cy.task('log', 'Navigating through Mailing Billing')
+    .wait('@getBillingOptions')
     .findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then($div => ((!$div.attr('data-value') || $div.attr('data-value') === 'false')) && cy.findDataTag('sameAsPropertyAddress').click())
