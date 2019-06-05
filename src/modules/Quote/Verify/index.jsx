@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, ModalPortal, Form, Field } from '@exzeo/core-ui';
-import Portal from '@exzeo/core-ui/src/@components/Portal';
+import { Button, ModalPortal } from '@exzeo/core-ui';
 
 import { STEP_NAMES } from '../constants/workflowNavigation';
 
