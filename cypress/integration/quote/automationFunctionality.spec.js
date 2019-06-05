@@ -41,9 +41,9 @@ describe('Back Button Testing', () => {
     navigateThroughSearchAddress();
     cy.wait('@getZipcodeSettings').go('back')
       .get('div.dashboard-message').should('exist');
-  });
+  // });
   
-  it('Browser Back Button pt 2', () => {
+  // it('Browser Back Button pt 2', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
@@ -73,9 +73,9 @@ describe('Back Button Testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     getQuoteNumberAndRetrieve('Application Ready');
-  });
+  // });
 
-  it('Browser back button pt 3', () => {
+  // it('Browser back button pt 3', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
