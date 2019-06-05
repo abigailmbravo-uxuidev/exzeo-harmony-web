@@ -6,9 +6,9 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Common/Header';
 import Footer from '../components/Common/Footer';
 
-export const AppError = (props, context) => {
+export const AppError = (props) => {
   if (!props.error.message) {
-    return <Redirect to={{ pathname: context.router.route.location.state.redirectUrl }} />;
+    return <Redirect to={{ pathname: props.location.state.redirectUrl }} />;
   }
   return (
     <div className="app-wrapper error">
@@ -45,10 +45,6 @@ export const AppError = (props, context) => {
       </main>
     </div>
   );
-};
-
-AppError.contextTypes = {
-  router: PropTypes.object
 };
 
 AppError.propTypes = {
