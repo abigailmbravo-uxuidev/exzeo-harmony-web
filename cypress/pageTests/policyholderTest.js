@@ -2,7 +2,7 @@ import { userHO3 } from '../fixtures';
 
 const ho3Headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '-' },
-  { name: 'propertyAddressDetail', label: 'Address', value: '4131 TEST ADDRESS'},
+  { name: 'propertyAddressDetail', label: 'Address', value: '4131 TEST ADDRESS' },
   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
   { name: 'constructionTypeDetail', label: 'Construction Type', value: 'MASONRY' },
   { name: 'coverageLimits.dwelling.amountDetail', label: 'Coverage A', value: '$ --' },
@@ -20,7 +20,7 @@ const af3Headers = [
 
 export default (product = 'HO3') =>
   cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
-    // Add all main ph fields 
+    // Add all main ph fields
     .wrap(Object.entries(userHO3.customerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
     // If the secondary ph is not toggled, toggle it
     .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())

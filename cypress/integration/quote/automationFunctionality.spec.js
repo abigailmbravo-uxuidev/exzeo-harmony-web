@@ -42,7 +42,7 @@ describe('Back Button Testing', () => {
     cy.wait('@getZipcodeSettings').go('back')
       .get('div.dashboard-message').should('exist');
   });
-  
+
   it('Browser Back Button pt 2', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
