@@ -30,7 +30,7 @@ describe('Congragulations Schedule Date Modal testing', () => {
   it('Data test tags are different', () => {
     const props = {
       submitting: false,
-      entity: { policyHolders: [policyholder] },
+      entity: { policyHolders: [policyholder]},
       companyName: 'Mom Co.',
       productDescription: 'Robot'
     };

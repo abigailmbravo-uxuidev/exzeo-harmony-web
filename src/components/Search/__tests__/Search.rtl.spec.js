@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
-import { fireEvent, waitForDomChange, wait } from 'react-testing-library';
+import { fireEvent } from 'react-testing-library';
 import thunk from 'redux-thunk';
 
-import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from '../../../test-utils';
+import { renderWithReduxAndRouter, defaultProps, defaultInitialState, searchResult } from '../../../test-utils';
 import rootReducer from '../../../state/reducers';
 import ConnectedSearch from '../Search';
 
@@ -58,20 +58,7 @@ describe('Testing Search Component', () => {
     const newState = { ...state,
       search: {
         totalPages: 1, totalRecords: 1, noResults: false, hasSearched: true,
-        results: [{
-          id: 'id1',
-          source: 'casaclue',
-          physicalAddress: {
-            address1: '4131 TEST ADDRESS',
-            address2: '',
-            city: 'SARASOTA',
-            state: 'FL',
-            county: 'SARASOTA',
-            zip: '00001',
-            latitude: 27.27967,
-            longitude: -82.47786
-          }
-        }]
+        results: [searchResult]
       }
     };
     const { getByText } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { state: newState });

@@ -69,6 +69,10 @@
                                         .policy-no-search {
                                             width: calc(100% - 3.25rem);
                                         }
+
+                                        button.multi-input {
+                                          margin-left: $padding/2;
+                                        }
                                     }
 
                                     .survey-wrapper {

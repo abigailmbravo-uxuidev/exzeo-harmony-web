@@ -1,4 +1,3 @@
-import { userAF3, loginAF3, underwritingAF3 } from '../../fixtures';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -11,13 +10,12 @@ import {
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
   navigateThroughScheduleDate,
-  navigateThroughVerify,
-  navigateThroughThankYou
+  navigateThroughVerify
 } from '../../helpers';
 
 describe('Back Button Testing', () => {
   // Grab the quote number off the ui and retrieve it to confirm our quote is searchable with the quote number
-  const getQuoteNumberAndRetrieve = () =>
+  const getQuoteNumberAndRetrieve = status =>
     cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote =>
       cy.go('back')
         .get('div.dashboard-message').should('exist')
@@ -25,6 +23,7 @@ describe('Back Button Testing', () => {
         .findDataTag('quoteNumber').type($quote.text())
         .clickSubmit('#SearchBar')
         .findDataTag('quote-list').should('not.be.empty')
+        .find('li.card .quote-state').should('contain', status)
         .go('back')
     );
 
@@ -34,7 +33,7 @@ describe('Back Button Testing', () => {
   });
   beforeEach('Set Route Aliases', () => setRouteAliases());
 
-  it('Browser Back Button (Part 1)', () => {
+  it('Browser Back Button', () => {
     cy.go('back')
       .get('div.dashboard-message').should('exist');
 
@@ -42,7 +41,9 @@ describe('Back Button Testing', () => {
     navigateThroughSearchAddress();
     cy.wait('@getZipcodeSettings').go('back')
       .get('div.dashboard-message').should('exist');
+  });
 
+  it('Browser Back Button pt 2', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
@@ -53,43 +54,14 @@ describe('Back Button Testing', () => {
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
-    getQuoteNumberAndRetrieve();
+    getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
-    getQuoteNumberAndRetrieve();
-  });
-
-  it('Browser Back Button (Part 2)', () => {
-    navigateThroughLanding();
-    navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
-    navigateThroughUnderwriting();
-    navigateThroughCustomize();
-    navigateThroughShare();
-    getQuoteNumberAndRetrieve();
-
-    navigateThroughLanding();
-    navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
-    navigateThroughUnderwriting();
-    navigateThroughCustomize();
-    navigateThroughShare();
-    navigateThroughAssumptions();
-    getQuoteNumberAndRetrieve();
-
-    navigateThroughLanding();
-    navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
-    navigateThroughUnderwriting();
-    navigateThroughCustomize();
-    navigateThroughShare();
-    navigateThroughAssumptions();
-    navigateThroughAdditionalInterests();
-    getQuoteNumberAndRetrieve();
+    getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
@@ -100,8 +72,10 @@ describe('Back Button Testing', () => {
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
-    getQuoteNumberAndRetrieve();
+    getQuoteNumberAndRetrieve('Application Ready');
+  });
 
+  it('Browser back button pt 3', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
@@ -112,10 +86,8 @@ describe('Back Button Testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
-    getQuoteNumberAndRetrieve();
-  });
+    getQuoteNumberAndRetrieve('Application Ready');
 
-  it('Browser Back Button (Part 3)', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
     navigateThroughPolicyholder();
@@ -127,7 +99,7 @@ describe('Back Button Testing', () => {
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    cy.wait('@agencySubmitApplication').go('back')
+    cy.wait('@sendApplication').go('back')
       .get('div.dashboard-message').should('exist');
   });
 });

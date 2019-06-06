@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { submit } from 'redux-form';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { Button, Loader } from '@exzeo/core-ui';
+import { Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
 
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
-import { getEnumsForQuoteWorkflow, getBillingOptions } from '../../state/actions/list.actions';
+import { getEnumsForQuoteWorkflow } from '../../state/actions/list.actions';
 import { getQuoteSelector } from '../../state/selectors/choreographer.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 
@@ -18,12 +17,10 @@ import {
   PAGE_ROUTING,
   ROUTES_NOT_HANDLED_BY_GANDALF,
   ROUTES_NOT_USING_FOOTER,
-  STEP_NAMES,
   ROUTE_TO_STEP_NAME,
 } from './constants/workflowNavigation';
 
 import ThankYou from '../../components/ThankYou/ThankYou';
-//import Verify from '../../components/Verify/Verify';
 import Footer from '../../components/Common/Footer';
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
@@ -33,9 +30,20 @@ import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
 import Verify from './Verify';
 
-
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
+import TriggerRecalc from "./TriggerRecalc";
+
+const getCurrentStepAndPage = defaultMemoize((pathname) => {
+  const currentRouteName = pathname.split('/')[3];
+  return {
+    currentStepNumber: PAGE_ROUTING[currentRouteName],
+    currentRouteName,
+  };
+});
+
+// Thin memoized wrapper around FormSpys to keep them from needlessly re-rendering.
+const MemoizedFormListeners = React.memo(({ children }) => <React.Fragment>{children}</React.Fragment>);
 
 const TEMPLATES = {
   'AF3': AF3,
@@ -58,10 +66,10 @@ export class QuoteWorkflow extends Component {
       showEmailPopup: false,
       showSendApplicationPopup: false,
       gandalfTemplate: null,
-      currentStep: STEP_NAMES.askAdditionalCustomerData,
+      stepNumber: PAGE_ROUTING[getCurrentStepAndPage(props.location.pathname).currentRouteName],
     };
 
-    this.formRef = React.createRef();
+    this.formInstance = null;
 
     this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
     this.checkForFatalExceptions = defaultMemoize(this.checkForFatalExceptions.bind(this));
@@ -76,7 +84,6 @@ export class QuoteWorkflow extends Component {
       this.props.getEnumsForQuoteWorkflow({ companyCode: quote.companyCode, state: quote.state, product: quote.product, property: quote.property});
     }
     this.getTemplate();
-    this.setStepBasedOnRoute();
   }
 
   // Temp fix for quote not being in state when component mounts on refresh (mostly a development time problem)
@@ -88,8 +95,8 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  checkForFatalExceptions(underwritingExceptions, currentStep) {
-    if (currentStep === 'verify') {
+  checkForFatalExceptions(underwritingExceptions, currentRouteName) {
+    if (currentRouteName === 'verify') {
       const currentExceptions = (underwritingExceptions || []).filter(ue => !ue.overridden);
       return currentExceptions.length > 0;
     }
@@ -114,11 +121,6 @@ export class QuoteWorkflow extends Component {
         ...pageComponents
       };
     }, {});
-  };
-
-  getBillingOptions = () => {
-    const { quoteData } = this.props;
-    this.props.getBillingOptions(quoteData);
   };
 
   getLocalState = () => {
@@ -148,24 +150,22 @@ export class QuoteWorkflow extends Component {
 
   goToStep = (step) => {
     const { history, isLoading } = this.props;
-    const { currentStep } = this.state;
+    const { stepNumber } = this.state;
 
-    if (isLoading || step >= currentStep) return;
+    if (isLoading || step >= stepNumber) return;
 
-    this.formRef.current.form.reset();
+    this.formInstance.reset();
     history.replace(ROUTE_TO_STEP_NAME[step]);
     this.setCurrentStep(true, step);
   };
 
-  handleDirtyForm = (isDirty, currentPage) => {
-    this.setState({
-      isRecalc: currentPage === 2 && isDirty,
-    });
+  setRecalc = (isRecalc) => {
+    this.setState({ isRecalc })
   };
 
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
-    const { zipCodeSettings, quote, quoteData, history, updateQuote, location, options } = this.props;
-    const { isRecalc, currentStep } = this.state;
+    const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
+    const { isRecalc, stepNumber } = this.state;
     try {
       if (!noSubmit) {
         const data = values.quoteNumber ? values : quote;
@@ -176,7 +176,7 @@ export class QuoteWorkflow extends Component {
             shouldSendEmail,
             shouldSendApplication,
             customValues: values,
-            step: currentStep,
+            step: stepNumber,
             timezone: (zipCodeSettings || {}).timezone || 'America/New_York',
             underwritingQuestions: options.underwritingQuestions,
           }
@@ -184,7 +184,8 @@ export class QuoteWorkflow extends Component {
       }
        // TODO: Figure out a routing solution
       if (!(isRecalc || remainOnStep)) {
-        history.replace(NEXT_PAGE_ROUTING[location.pathname.split('/')[3]]);
+        const { currentRouteName } = getCurrentStepAndPage(location.pathname);
+        history.replace(NEXT_PAGE_ROUTING[currentRouteName]);
         this.setCurrentStep();
       }
     } catch (error) {
@@ -198,27 +199,16 @@ export class QuoteWorkflow extends Component {
 
   setCurrentStep = (moveTo, step) => {
     this.setState((prevState) => ({
-      currentStep: moveTo ? step : prevState.currentStep + 1,
+      stepNumber: moveTo ? step : prevState.stepNumber + 1,
     }));
   };
 
-  setStepBasedOnRoute = () => {
-    const currentStep = this.props.location.pathname.split('/')[3];
-    const currentPage = PAGE_ROUTING[currentStep];
-    this.setCurrentStep(true, currentPage);
+  primaryClickHandler = () => {
+    remoteSubmit(FORM_ID);
   };
 
-  primaryClickHandler = () => {
-    // ie11 does not handle customEvents the same way as other browsers. So here we have to check before creating
-    // this custom submit event - this is being used to submit the form from outside of the form.
-    const form = document.getElementById(FORM_ID);
-    if (typeof(Event) === 'function') {
-      form.dispatchEvent(new Event('submit', { cancelable: true }));
-    } else {
-      const event = document.createEvent('Event');
-      event.initEvent('submit', true, true);
-      form.dispatchEvent(event);
-    }
+  setFormInstance = (formInstance) => {
+    this.formInstance = formInstance;
   };
 
   setShowEmailPopup = (showEmailPopup) => {
@@ -239,18 +229,16 @@ export class QuoteWorkflow extends Component {
   // ============= ^ NOT used by Gandalf ^ ============= //
 
   render() {
-    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, workflowState, getQuote } = this.props;
+    const { auth, history, isLoading, location, match, options, quote, quoteData, headerDetails, getQuote } = this.props;
 
     const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
-    const currentStep = location.pathname.split('/')[3];
-    const currentPage = PAGE_ROUTING[currentStep];
-    const shouldUseGandalf = (gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentStep) === -1);
-    const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentStep) === -1;
+    const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(location.pathname);
+    const shouldUseGandalf = (gandalfTemplate && ROUTES_NOT_HANDLED_BY_GANDALF.indexOf(currentRouteName) === -1);
+    const shouldRenderFooter = ROUTES_NOT_USING_FOOTER.indexOf(currentRouteName) === -1;
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
     const customHandlers = {
-      onDirtyCallback: this.handleDirtyForm,
       setEmailPopup: this.setShowEmailPopup,
       setShowSendApplicationPopup: this.setShowSendApplicationPopup,
       getState: this.getLocalState,
@@ -258,12 +246,11 @@ export class QuoteWorkflow extends Component {
       history: history,
       updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
-      getBillingOptions: this.getBillingOptions,
       getQuote
     };
 
     const { underwritingExceptions } = quote;
-    const quoteHasFatalError = this.checkForFatalExceptions(underwritingExceptions, currentStep);
+    const quoteHasFatalError = this.checkForFatalExceptions(underwritingExceptions, currentRouteName);
 
     return (
       <App
@@ -285,8 +272,8 @@ export class QuoteWorkflow extends Component {
                 history={history}
                 goToStep={this.goToStep}
                 isLoading={isLoading}
-                showNavigationTabs={!quoteHasFatalError && currentStep !== 'thankYou'}
-                currentStep={this.state.currentStep}
+                showNavigationTabs={!quoteHasFatalError && currentRouteName !== 'thankYou'}
+                currentStep={currentStepNumber}
                 quote={quoteData}
               />
             }
@@ -294,18 +281,17 @@ export class QuoteWorkflow extends Component {
             {shouldUseGandalf &&
               <React.Fragment>
                 <Gandalf
-                  ref={this.formRef}
                   formId={FORM_ID}
                   className="survey-wrapper"
-                  currentPage={currentPage}
+                  currentPage={currentStepNumber}
+                  customComponents={this.customComponents}
+                  customHandlers={customHandlers}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
-                  template={gandalfTemplate}
                   options={options}  // enums for select/radio fields
-                  transformConfig={transformConfig}
                   path={location.pathname}
-                  customHandlers={customHandlers}
-                  customComponents={this.customComponents}
+                  template={gandalfTemplate}
+                  transformConfig={transformConfig}
                   renderFooter={({ submitting, form }) => (
                     <React.Fragment>
                       {shouldRenderFooter &&
@@ -330,6 +316,27 @@ export class QuoteWorkflow extends Component {
                       }
                     </React.Fragment>
                   )}
+                  formListeners={() =>
+                    <MemoizedFormListeners>
+                      <FormSpy subscription={{}}>
+                        {({ form }) => {
+                          this.setFormInstance(form);
+                          return null;
+                        }}
+                      </FormSpy>
+
+                      <FormSpy subscription={{ dirty: true }}>
+                        {({ dirty }) =>
+                          <TriggerRecalc
+                            dirty={dirty}
+                            isRecalc={isRecalc}
+                            currentPage={currentStepNumber}
+                            setRecalc={this.setRecalc}
+                          />
+                        }
+                      </FormSpy>
+                    </MemoizedFormListeners>
+                  }
                 />
 
                 <Footer />
@@ -360,11 +367,9 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
-  submitForm: submit,
   updateQuote,
   getAgentsByAgencyCode,
   getZipcodeSettings,
   getEnumsForQuoteWorkflow,
-  getBillingOptions,
   getQuote
 })(QuoteWorkflow);

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { Button } from '@exzeo/core-ui';
 
 const ErrorPopup = ({ quote, underwritingExceptions, refereshUWReviewError, redirectToNewQuote }) => (

@@ -18,23 +18,6 @@ const af3Headers = [
   { name: 'premium', 'label': 'Premium', value: '$ 4,635' }
 ];
 
-
-export default (product = 'H03') => {
-  cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));
-  goToAiPage();
-  addMortgagee();
-  navigateThroughAdditionalInterests();
-  checkBillingOption(2);
-  goToAiPage();
-  addPremiumFinance();
-  navigateThroughAdditionalInterests();
-  checkBillingOption(1);
-  goToAiPage();
-  deleteAllAis();
-  navigateThroughAdditionalInterests();
-  checkBillingOption(1);
-};
-
 const addMortgagee = () =>
   cy.findDataTag('mortgagee').click()
     .chooseReactSelectOption('mortgage_wrapper', 'america\'s servicing')
@@ -48,12 +31,28 @@ const addPremiumFinance = () =>
     .wait('@updateQuote');
 
 const deleteAllAis = () =>
-// Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
-  cy.get('a.remove i.fa-trash')
-    .each(() => cy.get('a.remove i.fa-trash').eq(0).click().clickSubmit('.ai-modal', 'modal-confirm').wait('@updateQuote'));
-    
+  // Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
+  cy.get('a.remove i.delete')
+    .each(() => cy.get('a.remove i.delete').eq(0).click().clickSubmit('.ai-modal', 'modal-confirm').wait('@updateQuote'));
+
 const checkBillingOption = (numOfOptions = 1, selected = true) =>
   cy.findDataTag('billToId').invoke('attr', 'data-selected').should(selected ? 'not.eq' : 'eq', '')
     .findDataTag('billToId').find('option:not([disabled])').should('have.length', numOfOptions);
 
 const goToAiPage = () => cy.findDataTag('tab-nav-5').click();
+
+export default (product = 'HO3') => {
+  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));
+  goToAiPage();
+  addMortgagee();
+  navigateThroughAdditionalInterests();
+  checkBillingOption(2, false);
+  goToAiPage();
+  addPremiumFinance();
+  navigateThroughAdditionalInterests();
+  checkBillingOption(1);
+  goToAiPage();
+  deleteAllAis();
+  navigateThroughAdditionalInterests();
+  checkBillingOption(1);
+};

@@ -1110,9 +1110,6 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            extendedProperties:{
-              subscribe: true
-            },
             component: '$SHARE',
           },
           formData: {},
@@ -1156,6 +1153,7 @@ const mock = {
                 'billPayer',
               ],
               subscribe: true,
+              useOwnSubmit: true
             }
           },
           formData: {},
@@ -1252,7 +1250,6 @@ const mock = {
               ],
               productDescription: "Homeowners",
               companyName: "TypTap",
-              subscribe: true
             }
           },
           formData: {},

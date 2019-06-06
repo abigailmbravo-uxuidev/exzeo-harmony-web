@@ -1,12 +1,5 @@
 .detail-wrapper,
 .survey-wrapper {
-  align-content: flex-start;
-  flex-direction: row;
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  padding: ($padding*2) ($padding*2) 0;
-  height: auto;
 
   .section-group-header {
     margin: (-$padding) (-$padding/2) ($padding*2);
@@ -86,5 +79,58 @@
 
   .section-group-header {
     flex-grow: 1;
+  }
+}
+
+.survey-wrapper {
+  overflow: hidden;
+  align-content: flex-start;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-wrap: wrap;
+  padding: 0;
+  height: auto;
+  .scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: ($padding*2) ($padding*2) 0;
+    height: calc(100vh - 14.25rem);
+
+    @include for-phone-only {
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: auto;
+    }
+
+    > form {
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: auto;
+    }
+  }
+}
+
+.detail-wrapper {
+  padding: ($padding*2) ($padding*2) 0;
+
+  @include for-phone-only {
+    
+  }
+}
+
+.scroll {
+  > .dashboard-message {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: ($padding*2) ($padding*2) 0;
+    height: auto;
+  }
+  > .survey-wrapper {
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: ($padding*2) ($padding*2) 0;
   }
 }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Modal from 'react-modal';
-import axios from 'axios';
+import { http as axios } from '@exzeo/core-ui';
 
 import { setUserProfile } from './state/actions/authActions';
 import { clearAppError } from './state/actions/errorActions';
@@ -97,7 +97,7 @@ class Routes extends Component {
               <Route exact path="/" render={props => <Splash auth={auth} {...props} />} />
               <Route exact path="/policy" render={props => <PolicySearch auth={auth} {...props} />} />
               <Route exact path="/login" render={props => <Login auth={auth} {...props} />} />
-              <Route exact path="/error" render={props => <AppError {...props} />} />
+              <Route exact path="/error" render={props => <AppError {...props} error={error} />} />
               <Route exact path="/accessDenied" render={props => <AccessDenied auth={auth} {...props} />} />
               <Route exact path="/training" render={props => <Training auth={auth} {...props} />} />
 

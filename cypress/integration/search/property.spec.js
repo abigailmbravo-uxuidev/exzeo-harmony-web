@@ -2,7 +2,6 @@ import { setRouteAliases, navigateThroughLanding } from '../../helpers';
 import { userHO3, loginAF3 } from '../../fixtures';
 
 const type = text => cy.findDataTag('address').type(text);
-const clear = () => cy.findDataTag('address').type('{selectall}{backspace}');
 const hasSearchInput = address =>
   cy.findDataTag('search-results').find('li a section h4').should('contain', address.toUpperCase());
 const { address } = userHO3;
@@ -20,8 +19,8 @@ describe('HO3: Property Address Search Testing', () => {
       .findDataTag('no-results').find('.no-results .card-header > h4')
       .should('contain', 'No Results Found')
       .findDataTag('no-results').find('.no-results .card-block > p')
-      .should('contain', 'We\'re sorry we couldn\'t');
-    clear();
+      .should('contain', 'We\'re sorry we couldn\'t')
+      .clearAllText([{ name: 'address' }]);
 
     type(`{selectall}{backspace}${address}Ï€`);
     cy.findDataTag('address_wrapper').find('span > i')
@@ -62,8 +61,8 @@ describe('AF3: Property Search Testing', () => {
       .findDataTag('no-results').find('.no-results .card-header > h4')
       .should('contain', 'No Results Found')
       .findDataTag('no-results').find('.no-results .card-block > p')
-      .should('contain', 'We\'re sorry we couldn\'t');
-    clear();
+      .should('contain', 'We\'re sorry we couldn\'t')
+      .clearAllText([{ name: 'address' }]);
 
     type(`{selectall}{backspace}${address}Ï€`);
     cy.findDataTag('address_wrapper').find('span > i')

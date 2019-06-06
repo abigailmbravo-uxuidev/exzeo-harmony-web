@@ -2,58 +2,117 @@ import React from 'react';
 import { fireEvent } from 'react-testing-library';
 
 import {
-  defaultProps,
-  defaultInitialState,
   renderWithReduxAndRouter,
+  defaultQuoteWorkflowProps,
+  additionalInterest,
+  policyholder,
+  rating,
   clearText,
   checkLabel,
   checkButton,
   checkError,
   submitForm,
-  verifyForm,
-  quote,
-  rating,
-  policyholder,
-  additionalInterest,
-  ph1Fields,
-  ph2Fields
+  verifyForm
 } from '../../../test-utils';
-
-import ConnectedQuoteWorkflow from '../QuoteWorkflow';
+import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const switchTags = ['confirmProperty', 'confirmQuote', 'confirmPolicy', 'confirmAdditionalInterest'];
 
+const ph1Fields = [
+  {
+    dataTest: 'policyHolders[0].firstName',
+    error: 'Field Required',
+    label: 'First Name',
+    type: 'text',
+    required: true,
+    data: 'Bruce'
+  },
+  {
+    dataTest: 'policyHolders[0].lastName',
+    error: 'Field Required',
+    label: 'Last Name',
+    type: 'text',
+    required: true,
+    data: 'Wayne'
+  },
+  {
+    dataTest: 'policyHolders[0].emailAddress',
+    error: 'Field Required',
+    label: 'Email Address',
+    type: 'text',
+    required: true,
+    data: 'Batman@gmail.com'
+  },
+  {
+    dataTest: 'policyHolders[0].primaryPhoneNumber',
+    error: 'Field Required',
+    label: 'Contact Phone',
+    type: 'phone',
+    required: true,
+    data: '1234567890'
+  }
+];
+
+const ph2Fields = [
+  {
+    dataTest: 'policyHolders[1].firstName',
+    error: 'Field Required',
+    label: 'First Name',
+    type: 'text',
+    required: true,
+    data: 'Dick'
+  },
+  {
+    dataTest: 'policyHolders[1].lastName',
+    error: 'Field Required',
+    label: 'Last Name',
+    type: 'text',
+    required: true,
+    data: 'Grayson'
+  },
+  {
+    dataTest: 'policyHolders[1].emailAddress',
+    error: 'Field Required',
+    label: 'Email Address',
+    type: 'text',
+    required: true,
+    data: 'Robin@hotmail.com'
+  },
+  {
+    dataTest: 'policyHolders[1].primaryPhoneNumber',
+    error: 'Field Required',
+    label: 'Contact Phone',
+    type: 'phone',
+    required: true,
+    data: '1234567890'
+  }
+];
+
+
 describe('Verify Testing', () => {
   const props = {
-    ...defaultProps,
+    ...defaultQuoteWorkflowProps,
+    quote: {
+      ...defaultQuoteWorkflowProps.quote,
+      policyHolders: [policyholder],
+      policyHolderMailingAddress: {
+        address1: '4131 TEST ADDRESS',
+        address2: '',
+        city: 'SARASOTA',
+        country: {
+          code: 'USA',
+          displayText: 'United States of America'
+        },
+        zip: '00001',
+        state: 'FL'
+      },
+      rating
+    },
     location: { pathname: '/quote/1/verify' }
   };
 
-  const state = {
-    ...defaultInitialState,
-    quoteState: {
-      ...defaultInitialState.quoteState,
-      quote: {
-        ...quote,
-        policyHolders: [policyholder],
-        rating,
-        policyHolderMailingAddress: {
-          address1: '4131 TEST ADDRESS',
-          address2: '',
-          city: 'SARASOTA',
-          country: {
-            code: 'USA',
-            displayText: 'United States of America'
-          },
-          zip: '00001',
-          state: 'FL'
-        }
-      }
-    }
-  };
-
   it('NEG:Primary Policyholder Empty Value', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     fireEvent.click(getByTestId('policyholder-details'));
     ph1Fields.forEach(field => clearText(getByTestId, field));
@@ -63,7 +122,7 @@ describe('Verify Testing', () => {
   });
 
   it('NEG:Secondary Policyholder Empty Value', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     fireEvent.click(getByTestId('policyholder-details'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
@@ -73,43 +132,43 @@ describe('Verify Testing', () => {
   });
 
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByTestId('policyholder-details'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
 
     // For all fields except phone, we fill out with invalid character data
     // If that field is an email, it will throw a different error
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => !name.includes('Phone'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: '∂',
-        error: name.includes('email') ? 'Not a valid email address' : 'Invalid characters'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => !dataTest.includes('Phone'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: '∂',
+        error: dataTest.includes('email') ? 'Not a valid email address' : 'Invalid characters'
       }]));
   });
 
   it('NEG:Invalid Email Address', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByTestId('policyholder-details'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
 
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('email'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: 'invalid testing email address', error: 'Not a valid email address'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('email'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: 'invalid testing email address', error: 'Not a valid email address'
       }]));
   });
 
   it('NEG:Invalid Contact Phone', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fireEvent.click(getByTestId('policyholder-details'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
 
-    [...ph1Fields, ...ph2Fields].filter(({ name }) => name.includes('Phone'))
-      .forEach(({ name }) => verifyForm(getByTestId, [{
-        name, data: '123', error: 'Not a valid Phone Number'
+    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('Phone'))
+      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
+        dataTest, data: '123', error: 'Not a valid Phone Number'
       }]));
   });
 
   it('NEG:All "Verified" Values left at Default "No"', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     switchTags.forEach(tag =>
       expect(getByTestId(tag).className.split(' ').includes('active')).toEqual(false)
@@ -117,7 +176,7 @@ describe('Verify Testing', () => {
   });
 
   it('NEG:Some "Verified" Values left at Default "No"', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     switchTags.forEach(tag => {
       fireEvent.click(getByTestId(tag));
@@ -127,7 +186,7 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Property Details Text', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const sectionData = [
       { label: 'Quote Number', value: 'Quote Number12-5162296-01' },
       { label: 'Property Address', value: '4131 TEST ADDRESS' },
@@ -143,7 +202,7 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Quote Details', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const sectionData = [
       { label: 'Yearly Premium', value: '$ 2,667' },
       { label: 'A. Dwelling', value: '$ 314,000' },
@@ -168,13 +227,13 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Policyholder Details Text', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     expect(getByText(/Please be sure the information below/));
   });
 
   it('POS:Policyholder Details Primary / Secondary Policyholder', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const sectionData = [
       { label: 'Name', value: 'Bruce Wayne' },
       { label: 'Phone Number', value: 'Phone Number(123) 123-1231' },
@@ -188,7 +247,7 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Policyholder Modal', () => {
-    const { getByText, getByTestId, queryByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText, getByTestId, queryByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     fireEvent.click(getByTestId('policyholder-details'));
     expect(document.querySelector('i.fa-vcard')).toBeInTheDocument();
@@ -203,7 +262,7 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Mailing Address Text', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const sectionData = [
       { label: 'Street Address', value: '4131 TEST ADDRESS' },
       { label: 'City/State/Zip', value: /SARASOTA/ },
@@ -217,22 +276,21 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Verify Additional Interest Parties [Premium Finance]', () => {
-    const newState = {
-      ...defaultInitialState,
-      quoteState: {
-        quote: {
-          ...defaultInitialState.quoteState.quote,
-          additionalInterests: [
-            { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
-            { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
-            { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
-            { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
-            { ...additionalInterest, order: 0, type: 'Premium Finance', _id: '5' },
-            { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
-            { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
-            { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
-          ]
-        }
+    const newProps = {
+      ...props,
+      quote: {
+        ...props.quote,
+        additionalInterests: [
+          // Intentionally give a messed up order...
+          { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
+          { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
+          { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
+          { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
+          { ...additionalInterest, order: 0, type: 'Premium Finance', _id: '5' },
+          { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
+          { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
+          { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
+        ]
       }
     };
     const expectedLabels = [
@@ -241,29 +299,28 @@ describe('Verify Testing', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Premium Finance 1'
     ];
-    renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
 
     const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
     labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
   });
 
   it('POS:Verify Additional Interest Parties [Bill Payer]', () => {
-    const newState = {
-      ...defaultInitialState,
-      quoteState: {
-        quote: {
-          ...defaultInitialState.quoteState.quote,
-          additionalInterests: [
-            { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
-            { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
-            { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
-            { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
-            { ...additionalInterest, order: 0, type: 'Bill Payer', _id: '5' },
-            { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
-            { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
-            { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
-          ]
-        }
+    const newProps = {
+      ...props,
+      quote: {
+        ...props.quote,
+        additionalInterests: [
+          // Intentionally give a messed up order...
+          { ...additionalInterest, order: 1, type: 'Additional Interest', _id: '1' },
+          { ...additionalInterest, order: 1, type: 'Mortgagee', _id: '2' },
+          { ...additionalInterest, order: 0, type: 'Additional Interest', _id: '3' },
+          { ...additionalInterest, order: 2, type: 'Mortgagee', _id: '4' },
+          { ...additionalInterest, order: 0, type: 'Premium Finance', _id: '5' },
+          { ...additionalInterest, order: 0, type: 'Additional Insured', _id: '6' },
+          { ...additionalInterest, order: 1, type: 'Additional Insured', _id: '7' },
+          { ...additionalInterest, order: 0, type: 'Mortgagee', _id: '8' },
+        ]
       }
     };
     const expectedLabels = [
@@ -272,22 +329,22 @@ describe('Verify Testing', () => {
       'Additional Interest 1', 'Additional Interest 2',
       'Bill Payer 1'
     ];
-    renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state: newState });
+    renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
 
     const labelTexts = document.querySelectorAll('section.additional-interests .card .icon-wrapper p');
     labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
   });
 
   it('POS:Verify Toggle Labels', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
-    switchTags.forEach(tag => checkLabel(getByTestId, { name: tag, label: 'Verified' }));
+    switchTags.forEach(tag => checkLabel(getByTestId, { dataTest: tag, label: 'Verified' }));
   });
 
   it('POS:Next Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     expect(getByTestId('next').getAttribute('type')).toEqual('button');
-    checkButton(getByTestId, { name: 'next' });
+    checkButton(getByTestId, { dataTest: 'next' });
   });
 });

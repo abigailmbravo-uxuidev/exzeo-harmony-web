@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { normalize } from '@exzeo/core-ui';
-import PolicyTabs from '../Common/PolicyTabs';
 
 const { numbers } = normalize;
 

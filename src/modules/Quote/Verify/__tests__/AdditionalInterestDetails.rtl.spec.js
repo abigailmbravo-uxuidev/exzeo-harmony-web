@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-testing-library';
-import AdditionalInterestDetails from '../AdditionalInterestDetails';
 
 import { defaultProps, additionalInterest } from '../../../../test-utils';
+import AdditionalInterestDetails from '../AdditionalInterestDetails';
 
 describe('Verify Page Additional Interest Details Card Testing', () => {
   it('Renders an ai card', () => {

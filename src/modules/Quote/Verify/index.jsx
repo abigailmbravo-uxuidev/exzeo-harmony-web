@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button } from '@exzeo/core-ui';
+import { Button, ModalPortal } from '@exzeo/core-ui';
+
 import { STEP_NAMES } from '../constants/workflowNavigation';
 
 import PolicyHolderDetails from './PolicyHolderDetails';
@@ -10,7 +11,6 @@ import ScheduleDate from './ScheduleDate';
 import QuoteDetails from './QuoteDetails';
 import PropertyDetails from './PropertyDetails';
 import DetailGroup from './DetailGroup';
-import Portal from "@exzeo/core-ui/src/@components/Portal";
 
 export class Verify extends React.Component {
   state = {
@@ -19,24 +19,19 @@ export class Verify extends React.Component {
     confirmQuote: false,
     confirmPolicy: false,
     confirmAdditionalInterest: false,
-    showPolicyHolderEditPopup: false
+    showPolicyHolderEditPopup: false,
+    showApplicationPopup: false,
   };
-
 
   sendApplicationSubmit = async () => {
     const { customHandlers } = this.props;
-    customHandlers.setShowSendApplicationPopup(false);
     await customHandlers.handleSubmit({ shouldSendApplication: true });
   };
 
-  handlePolicyHolderSubmit = async (values) => {
-    const { formValues, customHandlers } = this.props;
+  handlePolicyHolderSubmit = async (childFormValues) => {
+    const { initialValues, customHandlers } = this.props;
 
-    if (!values.additionalPolicyholder && values.policyHolders.length > 1) {
-      values.policyHolders.pop();
-    }
-
-    const data = { ...formValues, policyHolders: [ ...values.policyHolders ] };
+    const data = { ...initialValues, ...childFormValues };
     await customHandlers.handleSubmit({ remainOnStep: true, ...data });
 
     this.setPolicyHolderEditPopup(false);
@@ -56,20 +51,18 @@ export class Verify extends React.Component {
 
 
   closeScheduleDatePopup = () => {
-    const { customHandlers } = this.props;
-    customHandlers.setShowSendApplicationPopup(false);
     this.setState(() => ({
       confirmProperty: false,
       confirmQuote: false,
       confirmPolicy: false,
-      confirmAdditionalInterest: false
+      confirmAdditionalInterest: false,
+      showSendApplicationPopup: false,
     }));
 
   };
 
   render() {
     const {
-      formValues,
       initialValues,
       formInstance,
       config,
@@ -80,6 +73,7 @@ export class Verify extends React.Component {
     const {
       // submitting,
       showPolicyHolderEditPopup,
+      showSendApplicationPopup,
       confirmProperty,
       confirmQuote,
       confirmPolicy,
@@ -87,12 +81,11 @@ export class Verify extends React.Component {
     } = this.state;
 
     const { productDescription, companyName, details } = config.extendedProperties;
-    const { goToStep, setShowSendApplicationPopup, getState } = customHandlers;
-    const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = formValues;
-    const { showSendApplicationPopup } = getState();
+    const { goToStep } = customHandlers;
+    const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = initialValues;
     const { submitting } = formInstance.getState();
     const submitDisabled = !(confirmProperty && confirmQuote && confirmPolicy && confirmAdditionalInterest && !submitting);
-    const selectedAgent = (options.agents || []).find(agent => agent.answer === formValues.agentCode) || {};
+    const selectedAgent = (options.agents || []).find(agent => agent.answer === initialValues.agentCode) || {};
 
     return (
       <div className="verify">
@@ -104,8 +97,8 @@ export class Verify extends React.Component {
           switchOnChange={(value) => this.setConfirmation('confirmProperty', value)}
           handleEditClick={() => goToStep(STEP_NAMES.askAdditionalCustomerData)} >
           <PropertyDetails
-            quoteNumber={formValues.quoteNumber}
-            effectiveDate={formValues.effectiveDate}
+            quoteNumber={initialValues.quoteNumber}
+            effectiveDate={initialValues.effectiveDate}
             property={property}
             selectedAgent={selectedAgent}
           />
@@ -121,7 +114,7 @@ export class Verify extends React.Component {
           handleEditClick={() => goToStep(STEP_NAMES.askToCustomizeDefaultQuote)} >
           <QuoteDetails
             details={details}
-            formValues={formValues}
+            formValues={initialValues}
           />
         </DetailGroup>
 
@@ -157,7 +150,7 @@ export class Verify extends React.Component {
         <div className="workflow-steps">
           <Button
             className={Button.constants.classNames.primary}
-            onClick={setShowSendApplicationPopup}
+            onClick={() => this.setState({ showSendApplicationPopup: true })}
             disabled={submitDisabled}
             data-test="next"
           >next</Button>
@@ -166,7 +159,7 @@ export class Verify extends React.Component {
             <ScheduleDate
               selectedAgent={selectedAgent}
               submitting={submitting}
-              entity={formValues}
+              entity={initialValues}
               productDescription={productDescription}
               companyName={companyName}
               handleSubmit={this.sendApplicationSubmit}
@@ -175,7 +168,7 @@ export class Verify extends React.Component {
             />
          }
          {showPolicyHolderEditPopup &&
-           <Portal>
+           <ModalPortal>
             <PolicyHolderPopup
               submitting={submitting}
               handleFormSubmit={this.handlePolicyHolderSubmit}
@@ -185,7 +178,7 @@ export class Verify extends React.Component {
                 additionalPolicyholder: initialValues.policyHolders.length > 1
               }}
             />
-           </Portal>
+           </ModalPortal>
          }
        </div>
     );

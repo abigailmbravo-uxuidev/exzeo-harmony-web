@@ -1,6 +1,5 @@
 import { date } from '@exzeo/core-ui';
-import choreographer from '../../utilities/choreographer';
-import * as serviceRunner from '../../utilities/serviceRunner';
+import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
@@ -81,20 +80,31 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
 }
 
 /**
- * Temp function for formatting quote data to send to quote-manager
- * @param {object} data - quote data
+ *
+ * @param data
+ * @param options
+ * @returns {{additionalPolicyholder}}
  */
-function formatQuoteForSubmit(data) {
+function formatQuoteForSubmit(data, options) {
   const quote = { ...data };
   quote.effectiveDate = date.formatToUTC(date.formatDate(data.effectiveDate, date.FORMATS.SECONDARY), data.property.timezone);
-  // quote.effectiveDate = formattedDate(formatDate(data.effectiveDate, FORMATS.SECONDARY),FORMATS.PRIMARY_LOCALE, data.property.timezone);
+
+  // PolicyHolder logic -------------------------------------------------------
+  // TODO this logic can be moved to its own component which will handle adding/removing policyholder info based on the additionalPolicyholder toggle
+  if (options.step === 0 || options.step === 7) {
   quote.policyHolders[0].electronicDelivery = data.policyHolders[0].electronicDelivery || false;
   quote.policyHolders[0].order = data.policyHolders[0].order || 0;
   quote.policyHolders[0].entityType = data.policyHolders[0].entityType || "Person";
-  if (data.policyHolders[1]) {
-    quote.policyHolders[1].order = data.policyHolders[1].order || 1;
-    quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
+
+    if (quote.additionalPolicyholder) {
+      quote.policyHolders[1].order = data.policyHolders[1].order || 1;
+      quote.policyHolders[1].entityType = data.policyHolders[1].entityType || "Person";
+    } else {
+      // 'additionalPolicyholder toggle is not selected, ensure we only save the primary
+      quote.policyHolders = [quote.policyHolders[0]];
+    }
   }
+  // --------------------------------------------------------------------------
 
   if (!data.coverageLimits.personalProperty.value) {
     quote.coverageOptions.personalPropertyReplacementCost.answer = false;
@@ -102,10 +112,7 @@ function formatQuoteForSubmit(data) {
 
   // AF3 specific rules
   if (data.product === PRODUCT_TYPES.flood) {
-    quote.deductibles.personalPropertyDeductible.value = data.deductibles.personalPropertyDeductible.value || 500;
-    quote.deductibles.buildingDeductible.value = data.deductibles.buildingDeductible.value || 500;
-    quote.coverageLimits.personalProperty.value = data.coverageLimits.personalProperty.value || 100000;
-    quote.coverageLimits.lossOfUse.value = data.coverageLimits.lossOfUse.value || 5000;
+    // currently no defaults specific to flood that we know of.
   }
 
   return quote;
@@ -121,32 +128,22 @@ function formatQuoteForSubmit(data) {
  */
 export function updateQuote({ data = {}, quoteNumber, options }) {
   return async function(dispatch) {
-
     dispatch(toggleLoading(true));
     try {
-      // Using CG models for functionality that is missing in workflows
-      if (options.shouldSendEmail) {
-        const cgData = {
-          quoteId: data._id,
-          state: data.state,
-          zip: data.property.physicalAddress.zip,
-          emailAddress: options.customValues.email,
-          toName: options.customValues.name,
+      if (options.shouldSendApplication) {
+        const config = {
+          exchangeName: 'harmony',
+          routingKey: 'harmony.quote.sendApplication',
+          data: {
+            quoteNumber: data.quoteNumber,
+            sendType: 'docusign',
+          }
         };
 
-        await choreographer.startWorkflow('agencyEmailQuoteSummary', cgData);
-
-      }
-      else if (options.shouldSendApplication) {
-        const cgData = {
-          quoteId: data._id,
-          dsUrl: `${process.env.REACT_APP_API_URL}/ds`
-        };
-
-        await choreographer.startWorkflow('agencySubmitApplication', cgData);
+        await serviceRunner.callService(config, 'quoteManage.sendApplication');
 
       } else {
-        const updatedQuote = formatQuoteForSubmit(data);
+        const updatedQuote = formatQuoteForSubmit(data, options);
         const config = {
           exchangeName: 'harmony',
           routingKey: 'harmony.quote.updateQuote',

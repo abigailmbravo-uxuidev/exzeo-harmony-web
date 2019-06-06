@@ -56,7 +56,7 @@ const Training = ({ auth, match }) => (
       <div className="route">
         <div className="route-content">
           <div className="scroll">
-            <div className="survey-wrapper">
+            <div className="detail-wrapper">
               <section>
                 <h2>Reference</h2>
                 <ul className="link-list reference-links">
@@ -66,8 +66,8 @@ const Training = ({ auth, match }) => (
                 </ul>
               </section>
             </div>
-            <Footer />
           </div>
+          <Footer />
         </div>
       </div>
     )}

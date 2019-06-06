@@ -2,17 +2,16 @@ import React from 'react';
 import { fireEvent } from 'react-testing-library';
 
 import {
-  defaultInitialState,
   renderWithReduxAndRouter,
-  defaultProps,
+  defaultQuoteWorkflowProps,
   checkLabel, checkSwitch, checkButton
 } from '../../../test-utils';
 
-import ConnectedQuoteWorkflow from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
-    name: 'confirm-assumptions',
+    dataTest: 'confirm-assumptions',
     type: 'switch',
     label: 'Confirmed',
     defaultValue: false
@@ -21,25 +20,12 @@ const fields = [
 
 describe('Testing Share Page 2', () => {
   const props = {
-    ...defaultProps,
-    location: {
-      pathname: '/quote/12-5162219-01/assumptions'
-    }
-  };
-
-  const state = {
-    ...defaultInitialState,
-    quoteState: {
-      ...defaultInitialState.quoteState,
-      state: {
-        ...defaultInitialState.quoteState.state,
-        activeTask: 'showAssumptions'
-      }
-    }
+    ...defaultQuoteWorkflowProps,
+    location: { pathname: '/quote/12-5162219-01/assumptions' }
   };
 
   it('"Confirmed" Value Switch Defaults to "No"', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     fields.forEach(field => {
       checkLabel(getByTestId, field);
       if (field.type === 'switch') checkSwitch(getByTestId, field);
@@ -51,7 +37,7 @@ describe('Testing Share Page 2', () => {
   });
 
   it('POS:Share Page 2 Text Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     // If we alter this programatically we can use some data structure for these strings
     expect(getByText(/All properties/));
     expect(getByText(/Please be aware/));
@@ -64,7 +50,7 @@ describe('Testing Share Page 2', () => {
   });
 
   it('POS:Checks Submit Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<ConnectedQuoteWorkflow {...props} />, { state });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     checkButton(getByTestId);
   });

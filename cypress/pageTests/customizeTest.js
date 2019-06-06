@@ -27,7 +27,7 @@ const checkRadioRecalcAndReset = ({ name, testValue, defaultValue }) =>
   cy.findDataTag(`${name}_${testValue}`).click()
     .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
     .findDataTag(`${name}_${defaultValue}`).click()
-    .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
+    .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote');
 
 export default (product = 'HO3') => {
   const { headers, sliders, radios } = getFields(product);

@@ -16,9 +16,9 @@ const af3Headers = [
   { name: 'premium', 'label': 'Premium', value: '$ 4,635' }
 ];
 
-export default (product = 'H03') =>
+export default (product = 'HO3') =>
   // Check headers first
-  cy.wrap(product === 'H03' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
+  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
   // Add and remove an additional interest
     .findDataTag('mortgagee').click()
     .chooseReactSelectOption('mortgage_wrapper', 'bank of america')

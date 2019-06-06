@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Header from '../components/Common/Header';
 import Footer from '../components/Common/Footer';
 
-export const AppError = (props, context) => {
+export const AppError = (props) => {
   if (!props.error.message) {
-    return <Redirect to={{ pathname: context.router.route.location.state.redirectUrl }} />;
+    return <Redirect to={{ pathname: props.location.state.redirectUrl }} />;
   }
   return (
     <div className="app-wrapper error">
-      <Header />
+      <Header toggleSideNav={x => x}/>
       <main role="document">
         <div className="route">
           <div className="route-content">
@@ -39,16 +38,11 @@ export const AppError = (props, context) => {
               </div>
             </div>
             <Footer />
-
           </div>
         </div>
       </main>
     </div>
   );
-};
-
-AppError.contextTypes = {
-  router: PropTypes.object
 };
 
 AppError.propTypes = {
@@ -57,8 +51,4 @@ AppError.propTypes = {
   })
 };
 
-const mapStateToProps = state => ({
-  error: state.error
-});
-
-export default connect(mapStateToProps)(AppError);
+export default AppError;

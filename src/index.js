@@ -25,7 +25,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { asyncSessionStorage } from 'redux-persist/storages';
-import axios from 'axios';
+import { http as axios } from '@exzeo/core-ui';
 import { retry } from '@exzeo/core-ui';
 
 import configureStore from './store/configureStore';

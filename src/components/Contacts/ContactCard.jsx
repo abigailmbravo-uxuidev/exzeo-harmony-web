@@ -1,6 +1,6 @@
 import React from 'react';
-import { normalize } from '@exzeo/core-ui/';
-import PropTypes from 'prop-types';
+import { normalize } from '@exzeo/core-ui';
+
 
 
 const ContactCard = ({ icon, name, title, phone, cell, extension, email, address1, address2, city, state, zip, message, disclaimer }) => {
