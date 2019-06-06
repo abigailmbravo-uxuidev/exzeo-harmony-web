@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Header from '../components/Common/Header';
@@ -12,7 +11,7 @@ export const AppError = (props) => {
   }
   return (
     <div className="app-wrapper error">
-      <Header />
+      <Header toggleSideNav={x => x}/>
       <main role="document">
         <div className="route">
           <div className="route-content">
@@ -39,7 +38,6 @@ export const AppError = (props) => {
               </div>
             </div>
             <Footer />
-
           </div>
         </div>
       </main>
@@ -53,8 +51,4 @@ AppError.propTypes = {
   })
 };
 
-const mapStateToProps = state => ({
-  error: state.error
-});
-
-export default connect(mapStateToProps)(AppError);
+export default AppError;

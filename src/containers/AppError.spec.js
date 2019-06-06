@@ -1,42 +1,17 @@
 import React from 'react';
-import configureStore from 'redux-mock-store';
-import { propTypes } from 'redux-form';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
-import ConnectedApp from './AppError';
-
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+import AppError from './AppError';
 
 describe('Testing AppError component', () => {
-  it('should test connected app', () => {
-    const initialState = {
-      cg: {
-        bb: {
-          data: {
-            modelInstanceId: '123',
-            model: {},
-            uiQuestions: []
-          }
-        }
-      },
-      appState: {
-        modelName: 'bb'
-      }
-    };
-    const store = mockStore(initialState);
+  it('should render component', () => {
     const props = {
-      fieldQuestions: [],
-      quoteData: {},
-      dispatch: store.dispatch,
-      appState: {
-        data: {
-          submitting: false
-        }
-      },
-      ...propTypes
+      error: { message: 'Whoops!' },
+      history: {},
+      location: { state: {} },
+      match: {}
     };
-    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
+    const wrapper = mount(<AppError {...props} />);
     expect(wrapper);
   });
 });

@@ -97,7 +97,7 @@ class Routes extends Component {
               <Route exact path="/" render={props => <Splash auth={auth} {...props} />} />
               <Route exact path="/policy" render={props => <PolicySearch auth={auth} {...props} />} />
               <Route exact path="/login" render={props => <Login auth={auth} {...props} />} />
-              <Route exact path="/error" render={props => <AppError {...props} />} />
+              <Route exact path="/error" render={props => <AppError {...props} error={error} />} />
               <Route exact path="/accessDenied" render={props => <AccessDenied auth={auth} {...props} />} />
               <Route exact path="/training" render={props => <Training auth={auth} {...props} />} />
 
