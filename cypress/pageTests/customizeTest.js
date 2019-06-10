@@ -25,9 +25,9 @@ const getFields = product =>
 
 const checkRadioRecalcAndReset = ({ name, testValue, defaultValue }) =>
   cy.findDataTag(`${name}_${testValue}`).click()
-    .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
+    .findDataTag('submit').should('contain', 'recalculate').and('not.be.disabled').click().wait('@updateQuote')
     .findDataTag(`${name}_${defaultValue}`).click()
-    .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote');
+    .findDataTag('submit').should('contain', 'recalculate').and('not.be.disabled').click().wait('@updateQuote');
 
 export default (product = 'HO3') => {
   const { headers, sliders, radios } = getFields(product);
@@ -48,11 +48,11 @@ export default (product = 'HO3') => {
           // Change vale
           .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
           // and reset.
-          .findDataTag('reset').should('contain', 'reset').click()
+          .findDataTag('reset').should('contain', 'reset').and('not.be.disabled').click()
           // Change again
           .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
           // and recalculate.
-          .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote')
+          .findDataTag('submit').should('contain', 'recalculate').and('not.be.disabled').click().wait('@updateQuote')
           // Confirm your min and max values still are the same
           .findDataTag(`${path}-slider`).invoke('attr', 'min').should('eq', minValue)
           .findDataTag(`${path}-slider`).invoke('attr', 'max').should('eq', maxValue)
@@ -70,7 +70,7 @@ export default (product = 'HO3') => {
           .findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
           .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))
           .findDataTag(`${path}-input`).type(`{selectall}{backspace}${defaultValue || '0'}`)
-          .findDataTag('submit').should('contain', 'recalculate').click().wait('@updateQuote').then(({ response }) =>
+          .findDataTag('submit').should('contain', 'recalculate').and('not.be.disabled').click().wait('@updateQuote').then(({ response }) =>
             // Check that the coverage dwelling limits have been kept up to date with server responses in HO3.
             callback && callback(response)
           );
