@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { defaultMemoize } from 'reselect';
 import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
-import { Loader } from '@exzeo/core-ui';
+import { Loader, noop } from '@exzeo/core-ui';
 
 import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
 import { setAppModalError } from '../../state/actions/errorActions';
@@ -68,6 +68,7 @@ export class PolicyWorkflow extends Component {
 
   getConfigForJsonTransform(gandalfTemplate) {
     if(!gandalfTemplate) return {};
+    console.log(gandalfTemplate)
 
     return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
 
@@ -90,7 +91,8 @@ export class PolicyWorkflow extends Component {
   };
 
   getTemplate = async () => {
-    const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
+   // const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
+   const { policy } = this.props;
     // const transferConfig = {
     //   exchangeName: 'harmony',
     //   routingKey:  'harmony.policy.retrieveDocumentTemplate',
@@ -106,8 +108,10 @@ export class PolicyWorkflow extends Component {
 
     // return transferConfig;
     // const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
-    const { product } = quote;
+    const { product } = policy;
+    if(product){
     this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
+    }
   };
 
   render() {
@@ -129,30 +133,28 @@ export class PolicyWorkflow extends Component {
         logout={auth.logout}
         match={match} >
           <div className="route">
-            {isLoading && <Loader />}
+            {!gandalfTemplate && <Loader />}
             {gandalfTemplate && gandalfTemplate.header &&
               <PolicyNavigation activeTab={currentRouteName} policyNumber={policy.policyNumber} />
             }
             {/*{ Gandalf will be replacing most/all of these routes }*/}
-            <React.Fragment>
-                <Gandalf
+            {gandalfTemplate && <React.Fragment>
+                  <Gandalf
                   formId={FORM_ID}
                   className="survey-wrapper"
                   currentPage={currentStepNumber}
                   customComponents={this.customComponents}
                   customHandlers={customHandlers}
-                  handleSubmit={this.handleGandalfSubmit}
+                  handleSubmit={noop}
                   initialValues={policy}
                   options={options}  // enums for select/radio fields
                   path={location.pathname}
                   template={gandalfTemplate}
                   transformConfig={transformConfig}
-                  renderFooter={x => x}
-                  formListeners={x => x}
+                  renderFooter={noop}
                 />
-
                 <Footer />
-              </React.Fragment>
+              </React.Fragment>}
           </div>
       </App>
     );
@@ -175,7 +177,7 @@ PolicyWorkflow.propTypes = {
 
 const mapStateToProps = state => ({
   billing: state.service.getSummaryLedger,
-  policy: state.service.latestPolicy,
+  policy: state.service.latestPolicy || {},
   details: getPolicyDetails(state),
   agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
