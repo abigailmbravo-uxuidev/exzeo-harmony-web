@@ -1,19 +1,16 @@
 /* eslint-disable */
 const mock = {
   "header": {
-    "hideDetailSummary": true,
-    "fields": [
-      { "value": "quoteNumber" },
-      { "value": "propertyAddress", "component": "Section", "label": "Address" },
-      { "value": "yearBuilt" },
-      { "value": "constructionType" },
-      {
-        "value": "coverageLimits.dwelling.amount",
-        "label": "Coverage A",
-        "format": "currency",
-        "alternateFormat": {}
-      },
-      { "value": "premium", "component": "PremiumSection"}
+    hideDetailSummary: true,
+    showEffectiveDateButton: false,
+    showReinstateButton: false,
+    fields: [
+      { value: 'policyHolder', component: 'Section', label: 'Policyholder' },
+      { value: 'mailingAddress', component: 'Section' },
+      { value: 'propertyAddress', component: 'Section' },
+      { value: 'county', label: 'Property County' },
+      { value: 'policyNumber' },
+      { value: 'effectiveDate' },
     ]
   },
   pages: [

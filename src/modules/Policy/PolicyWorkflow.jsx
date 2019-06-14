@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { defaultMemoize } from 'reselect';
-import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
+import { Gandalf, DetailsHeader } from '@exzeo/core-ui/src/@Harmony';
 import { Loader, noop } from '@exzeo/core-ui';
 
 import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
@@ -115,7 +115,7 @@ export class PolicyWorkflow extends Component {
   };
 
   render() {
-    const { auth, history, isLoading, location, match, options, policy, agents } = this.props;
+    const { auth, history, isLoading, location, match, headerDetails, policy, agents } = this.props;
 
     const { gandalfTemplate } = this.state;
     const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(location.pathname);
@@ -135,7 +135,16 @@ export class PolicyWorkflow extends Component {
           <div className="route">
             {!gandalfTemplate && <Loader />}
             {gandalfTemplate && gandalfTemplate.header &&
+            <React.Fragment>
+                <DetailsHeader
+                  context="policy"
+                  detailsFields={gandalfTemplate.header}
+                  headerDetails={headerDetails}
+                  isLoading={isLoading}
+                  currentStep={currentStepNumber}
+                />
               <PolicyNavigation activeTab={currentRouteName} policyNumber={policy.policyNumber} />
+            </React.Fragment>
             }
             {/*{ Gandalf will be replacing most/all of these routes }*/}
             {gandalfTemplate && <React.Fragment>
@@ -178,7 +187,7 @@ PolicyWorkflow.propTypes = {
 const mapStateToProps = state => ({
   billing: state.service.getSummaryLedger,
   policy: state.service.latestPolicy || {},
-  details: getPolicyDetails(state),
+  headerDetails: getPolicyDetails(state),
   agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
   error: state.error,
