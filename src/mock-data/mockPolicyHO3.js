@@ -129,7 +129,7 @@ const mock = {
                 details: [
                   { label: 'Agent Name', items: [{ format: 'name', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode'}] },
                   { label: 'Phone', items: [{ format: 'phone', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'primaryPhoneNumber'}] },
-                  { label: 'Email', items: [{ format: 'phone', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'emailAddress'}] },
+                  { label: 'Email', items: [{ format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'emailAddress'}] },
                   { label: 'Mailing Address', items: [
                     { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address1'},
                     { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address2'},
