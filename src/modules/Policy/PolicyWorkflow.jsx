@@ -115,7 +115,7 @@ export class PolicyWorkflow extends Component {
   };
 
   render() {
-    const { auth, history, isLoading, location, match, options, policy } = this.props;
+    const { auth, history, isLoading, location, match, options, policy, agents } = this.props;
 
     const { gandalfTemplate } = this.state;
     const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(location.pathname);
@@ -147,7 +147,7 @@ export class PolicyWorkflow extends Component {
                   customHandlers={customHandlers}
                   handleSubmit={noop}
                   initialValues={policy}
-                  options={options}  // enums for select/radio fields
+                  options={{agents}}  // enums for select/radio fields
                   path={location.pathname}
                   template={gandalfTemplate}
                   transformConfig={transformConfig}

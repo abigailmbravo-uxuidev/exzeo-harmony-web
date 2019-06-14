@@ -34,7 +34,7 @@ const mock = {
             dependencies: [],
             data: {
               text: 'PolicyHolder 1',
-              icon: 'fa fa-user-circle'
+              icon: 'fa fa-vcard-o'
             },
             formData: {},
             children: [],
@@ -57,6 +57,38 @@ const mock = {
             children: [],
           },
           {
+            id: 1,
+            type: '$TITLE',
+            dependencies: [
+              { path: 'policyHolders[1]', value: true }
+            ],
+            data: {
+              text: 'PolicyHolder 2',
+              icon: 'fa fa-vcard-o'
+            },
+            formData: {},
+            children: [],
+          },
+          {
+            id: 2,
+            type: '$ENTITY_DETAILS',
+            dependencies: [
+              { path: 'policyHolders[1]', value: true }
+            ],
+            data: {
+              extendedProperties: {
+                className: "row-items",
+                details: [
+                  { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[1]'}] },
+                  { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[1].primaryPhoneNumber'}]},
+                  { label: 'Email', items: [{ format: '', path: 'policyHolders[1].emailAddress'}]},
+                ]
+              }
+            },
+            formData: {},
+            children: [],
+          },
+          {
             id: 3,
             type: '$ENTITY_DETAILS',
             dependencies: [],
@@ -67,11 +99,10 @@ const mock = {
                   { label: 'Mailing Address',
                   items: [
                     { format: '', path: 'policyHolderMailingAddress.address1'},
-                    { optional: true, format: '', path: 'policyHolderMailingAddress.address2'}
+                    { optional: true, format: '', path: 'policyHolderMailingAddress.address2'},
+                    { format: 'cityStateZip', path: 'policyHolderMailingAddress'}
                   ]
-                },
-                { label: 'City/State/Zip', items: [{ format: 'cityStateZip', path: 'policyHolderMailingAddress'}]}
-                ]
+                }]
               }
             },
             formData: {},
@@ -83,7 +114,7 @@ const mock = {
             dependencies: [],
             data: {
               text: 'Agent',
-              icon: 'fa fa-user-circle'
+              icon: 'fa fa-vcard-o'
             },
             formData: {},
             children: [],
@@ -96,7 +127,15 @@ const mock = {
               extendedProperties: {
                 className: "row-items",
                 details: [
-                  { label: 'Agent Name', items: [{ format: '', optionKey: 'agents', compareField: 'answer', valuePath: 'agentCode', selectField: 'label'}] }
+                  { label: 'Agent Name', items: [{ format: 'name', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode'}] },
+                  { label: 'Phone', items: [{ format: 'phone', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'primaryPhoneNumber'}] },
+                  { label: 'Email', items: [{ format: 'phone', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'emailAddress'}] },
+                  { label: 'Mailing Address', items: [
+                    { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address1'},
+                    { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address2'},
+                    { format: 'cityStateZip', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress'}
+
+                ] },
                 ]
               }
             },
