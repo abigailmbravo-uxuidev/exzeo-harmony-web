@@ -239,6 +239,138 @@ const mock = {
           ],
         }
       ]
+    },
+    {
+      name: 'coverage',
+      step: {},
+      components: [
+        {
+          id: 300000,
+          type: '$SECTION',
+          dependencies: [],
+          data: {},
+          formData: {},
+          children: [
+            {
+              id: 3000003,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Coverage Limits',
+                icon: 'fa fa-line-chart'
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 3000004,
+              type: '$ENTITY_DETAILS',
+              dependencies: [],
+              data: {
+                extendedProperties: {
+                  className: "coverage",
+                  details: [
+                    { label: 'A. Dwelling', items: [{ format: '', path: 'coverageLimits.dwelling.amount'}] },
+                    { label: 'B. Other Structures', items: [{ format: 'currency', path: 'coverageLimits.otherStructures.amount'}] },
+                    { label: 'C. Personal Property', items: [{ format: 'currency', path: 'coverageLimits.personalProperty.amount'}] },
+                    { label: 'D. Loss of Use', items: [{ format: 'currency', path: 'coverageLimits.lossOfUse.amount'}] },
+                    { label: 'E. Personal Liability', items: [{ format: 'currency', path: 'coverageLimits.personalLiability.amount'}] },
+                    { label: 'F. Medical Payments', items: [{ format: 'currency', path: 'coverageLimits.medicalPayments.amount'}] },
+                    { label: 'Personal Propery Replacement Cost', items: [{ format: 'bool', path: 'coverageLimits.personalPropertyReplacementCost.answer'}] },
+                    { label: 'Mold Property', items: [{ format: 'currency', path: 'coverageLimits.moldProperty.amount'}] },
+                    { label: 'Mold Liability', items: [{ format: 'currency', path: 'coverageLimits.moldLiability.amount'}] },
+                    { label: 'Ordinance or Law', items: [{ format: 'percent', path: 'coverageLimits.ordinanceOrLaw.amount'}] },
+                    { label: 'All other Perils Deductible', items: [{ format: 'currency', path: 'deductibles.allOtherPerils.amount'}] },
+                    { label: 'Hurricane Deductible', items: [{ format: 'currency', path: 'deductibles.hurricane.calculatedAmount'}] },
+                    { label: 'Sinkhole Deductible', items: [{ format: 'currency', path: 'deductibles.sinkhole.calculatedAmount'}] },
+                  ]
+                }
+              },
+              formData: {},
+              children: [],
+            }
+          ],
+        },
+        {
+          id: 300005,
+          type: '$SECTION',
+          dependencies: [],
+          data: {},
+          formData: {},
+          children: [
+            {
+              id: 3000006,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Discount / Surcharge',
+                icon: 'fa fa-shopping-cart'
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 3000007,
+              type: '$ENTITY_DETAILS',
+              dependencies: [],
+              data: {
+                extendedProperties: {
+                  className: "discount-surcharge",
+                  details: [
+                    { label: 'Townhouse/Rowhouse', items: [{ format: 'bool', path: 'property.townhouseRowhouse'}] },
+                    { label: 'Property Ever Rented', items: [{ format: '', path: 'underwritingAnswers.rented.answer'}] },
+                    { label: 'Seasonally Occupied', items: [{ format: '', path: 'underwritingAnswers.monthsOccupied.answer'}] },
+                    { label: 'No Prior Insurance', items: [{ format: '', path: 'underwritingAnswers.noPriorInsuranceSurcharge.answer'}] },
+                    { label: 'Burgular Alarm', items: [{ format: '', path: 'property.burgularAlarm'}] },
+                    { label: 'Fire Alarm', items: [{ format: '', path: 'property.fireAlarm'}] },
+                    { label: 'Sprinkler', items: [{ format: '', path: 'property.sprinkler'}] },
+                    { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
+                  ]
+                }
+              },
+              formData: {},
+              children: [],
+            }
+          ],
+        },
+        {
+          id: 300008,
+          type: '$SECTION',
+          dependencies: [],
+          data: {},
+          formData: {},
+          children: [
+            {
+              id: 3000009,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Deductible',
+                icon: 'fa fa-long-arrow-down'
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 3000010,
+              type: '$ENTITY_DETAILS',
+              dependencies: [],
+              data: {
+                extendedProperties: {
+                  className: "deductible",
+                  details: [
+                    { label: 'All other Perils', items: [{ format: 'currency', path: 'deductibles.allOtherPerils.amount'}] },
+                    { label: 'Hurricane Deductible', items: [{ format: 'percent', path: 'deductibles.hurricane.amount'}] },
+                    { label: 'Sinkhole Deductible', items: [{ format: 'percent', path: 'deductibles.sinkhole.amount'}] },
+                  ]
+                }
+              },
+              formData: {},
+              children: [],
+            }
+          ],
+        }
+      ]
     }
   ]
 };
