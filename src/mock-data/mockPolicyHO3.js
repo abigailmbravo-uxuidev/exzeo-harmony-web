@@ -321,8 +321,8 @@ const mock = {
                     { label: 'Property Ever Rented', items: [{ format: '', path: 'underwritingAnswers.rented.answer'}] },
                     { label: 'Seasonally Occupied', items: [{ format: '', path: 'underwritingAnswers.monthsOccupied.answer'}] },
                     { label: 'No Prior Insurance', items: [{ format: '', path: 'underwritingAnswers.noPriorInsuranceSurcharge.answer'}] },
-                    { label: 'Burgular Alarm', items: [{ format: '', path: 'property.burgularAlarm'}] },
-                    { label: 'Fire Alarm', items: [{ format: '', path: 'property.fireAlarm'}] },
+                    { label: 'Burgular Alarm', items: [{ format: 'bool', path: 'property.burgularAlarm'}] },
+                    { label: 'Fire Alarm', items: [{ format: 'bool', path: 'property.fireAlarm'}] },
                     { label: 'Sprinkler', items: [{ format: '', path: 'property.sprinkler'}] },
                     { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
                   ]
