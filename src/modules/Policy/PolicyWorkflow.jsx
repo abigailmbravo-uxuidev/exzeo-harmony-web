@@ -21,6 +21,7 @@ import PolicyNavigation from './PolicyNavigation';
 import {
   PAGE_ROUTING
 } from './constants/workflowNavigation';
+import Billing from './Billing';
 
 const getCurrentStepAndPage = defaultMemoize((pathname) => {
   const currentRouteName = pathname.split('/')[3];
@@ -39,7 +40,9 @@ export class PolicyWorkflow extends Component {
   constructor(props) {
     super(props);
 
-    this.customComponents = {};
+    this.customComponents = {
+      $POLICY_BILLING: Billing
+    };
 
     this.state = {
       gandalfTemplate: null,
@@ -115,7 +118,9 @@ export class PolicyWorkflow extends Component {
   };
 
   render() {
-    const { auth, history, isLoading, location, match, headerDetails, policy, agents } = this.props;
+    const { auth, history, isLoading, location, match, headerDetails, policy, agents, billing } = this.props;
+
+    console.log({ ...policy, billing })
 
     const { gandalfTemplate } = this.state;
     const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(location.pathname);
@@ -155,7 +160,7 @@ export class PolicyWorkflow extends Component {
                   customComponents={this.customComponents}
                   customHandlers={customHandlers}
                   handleSubmit={noop}
-                  initialValues={policy}
+                  initialValues={{ ...policy, billing }}
                   options={{agents}}  // enums for select/radio fields
                   path={location.pathname}
                   template={gandalfTemplate}

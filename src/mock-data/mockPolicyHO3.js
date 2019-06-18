@@ -371,6 +371,59 @@ const mock = {
           ],
         }
       ]
+    },
+    {
+      name: 'billing',
+      step: {},
+      components: [
+        {
+          id: 400000,
+          type: '$SECTION',
+          dependencies: [],
+          data: {},
+          formData: {},
+          children: [
+            {
+              id: 2000006,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Premium',
+                icon: 'fa fa-area-chart'
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 2000007,
+              type: '$ENTITY_DETAILS',
+              dependencies: [],
+              data: {
+                extendedProperties: {
+                  className: "home-and-location",
+                  details: [
+                    { label: 'Current Premium', items: [{ format: 'currency', path: 'billing.currentPremium'}] },
+                    { label: 'Initial Premium', items: [{ format: 'currency', path: 'billing.initialPremium'}] },
+                    { label: 'Balance Due', items: [{ format: 'currency', path: 'billing.balance.$numberDecimal'}] }
+                  ]
+                }
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 4000001,
+              type: '$CUSTOM',
+              dependencies: [],
+              data: {
+                component: '$POLICY_BILLING',
+              },
+              formData: {},
+              children: [],
+            },
+          ]
+        }
+      ]
     }
   ]
 };
