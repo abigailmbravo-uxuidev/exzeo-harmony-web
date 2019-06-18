@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createQuote, getQuote, clearQuote } from '../../state/actions/quoteState.actions';
+import { createQuote, reviewQuote, clearQuote } from '../../state/actions/quoteState.actions';
 import { clearResults } from '../../state/actions/searchActions';
 import QuoteError from '../Common/QuoteError';
 import Footer from '../Common/Footer';
@@ -33,7 +33,7 @@ export class Search extends React.Component {
 
   handleSelectQuote = async (quoteData) => {
     const { history } = this.props;
-    const quote = await this.props.getQuote(quoteData.quoteNumber, quoteData._id);
+    const quote = await this.props.reviewQuote({quoteNumber: quoteData.quoteNumber});
 
     if (!quote) {
       this.setState({ showQuoteErrors: true, error: 'No quote data available' });
@@ -100,6 +100,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   createQuote,
   clearQuote,
-  getQuote,
+  reviewQuote,
   clearResults
 })(Search);
