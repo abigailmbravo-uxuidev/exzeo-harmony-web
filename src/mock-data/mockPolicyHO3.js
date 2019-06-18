@@ -453,6 +453,31 @@ const mock = {
           ]
         },
       ]
+    },
+    {
+      name: 'documents',
+      step: {},
+      components: [
+        {
+          id: 500000,
+          type: '$SECTION',
+          dependencies: [],
+          data: {},
+          formData: {},
+          children: [
+            {
+              id: 5000001,
+              type: '$CUSTOM',
+              dependencies: [],
+              data: {
+                component: '$POLICY_DOCUMENTS',
+              },
+              formData: {},
+              children: [],
+            },
+          ]
+        },
+      ]
     }
   ]
 };

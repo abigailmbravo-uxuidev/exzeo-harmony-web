@@ -23,6 +23,7 @@ import {
 } from './constants/workflowNavigation';
 import Billing from './Billing';
 import Payments from './Payments';
+import Documents from './Documents';
 
 const getCurrentStepAndPage = defaultMemoize((pathname) => {
   const currentRouteName = pathname.split('/')[3];
@@ -43,7 +44,8 @@ export class PolicyWorkflow extends Component {
 
     this.customComponents = {
       $POLICY_BILLING: Billing,
-      $POLICY_PAYMENTS: Payments
+      $POLICY_PAYMENTS: Payments,
+      $POLICY_DOCUMENTS: Documents
     };
 
     this.state = {
@@ -73,7 +75,6 @@ export class PolicyWorkflow extends Component {
 
   getConfigForJsonTransform(gandalfTemplate) {
     if(!gandalfTemplate) return {};
-    console.log(gandalfTemplate)
 
     return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
 
@@ -120,9 +121,7 @@ export class PolicyWorkflow extends Component {
   };
 
   render() {
-    const { auth, history, isLoading, location, match, headerDetails, policy, agents, billing } = this.props;
-
-    console.log(billing)
+    const { auth, history, isLoading, location, match, headerDetails, policy, agents, billing, policyDocuments, setAppModalErrorAction } = this.props;
 
     const { gandalfTemplate } = this.state;
     const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(location.pathname);
@@ -131,7 +130,8 @@ export class PolicyWorkflow extends Component {
     //  so Gandalf does not need to know about these.
     const customHandlers = {
       handleSubmit: x => x,
-      history: history
+      history: history,
+      setAppModalError: setAppModalErrorAction
     };
 
     return (
@@ -163,7 +163,7 @@ export class PolicyWorkflow extends Component {
                   customHandlers={customHandlers}
                   handleSubmit={noop}
                   initialValues={{ ...policy, billing }}
-                  options={{agents}}  // enums for select/radio fields
+                  options={{agents, policyDocuments}}  // enums for select/radio fields
                   path={location.pathname}
                   template={gandalfTemplate}
                   transformConfig={transformConfig}
