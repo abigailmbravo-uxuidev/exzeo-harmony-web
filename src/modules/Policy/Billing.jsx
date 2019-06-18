@@ -31,7 +31,7 @@ const Billing = ({
   const { billToName, paymentDue, nextPayment } = formatBillingInformation(initialValues);
 
   return (
-    <section className={classNames('billing-info', size)} data-test="billing-info">
+    <React.Fragment>
       <Title config={{ icon: "fa fa-dollar", text: "Billing Information"}} />
       <dl>
         <div data-test="nextPayment">
@@ -57,7 +57,7 @@ const Billing = ({
           <dd>{billToName}</dd>
         </div>
       </dl>
-    </section>
+    </React.Fragment>
   );
 };
 

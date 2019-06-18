@@ -384,7 +384,7 @@ const mock = {
           formData: {},
           children: [
             {
-              id: 2000006,
+              id: 4000006,
               type: '$TITLE',
               dependencies: [],
               data: {
@@ -395,7 +395,7 @@ const mock = {
               children: [],
             },
             {
-              id: 2000007,
+              id: 4000007,
               type: '$ENTITY_DETAILS',
               dependencies: [],
               data: {
@@ -412,7 +412,7 @@ const mock = {
               children: [],
             },
             {
-              id: 4000001,
+              id: 4000008,
               type: '$CUSTOM',
               dependencies: [],
               data: {
@@ -422,7 +422,36 @@ const mock = {
               children: [],
             },
           ]
-        }
+        },
+        {
+          id: 400009,
+          type: '$SECTION',
+          dependencies: [],
+          data: {},
+          formData: {},
+          children: [
+            {
+              id: 4000010,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Payments',
+                icon: 'fa fa-credit-card'
+              },
+              formData: {},
+              children: [],
+            },{
+              id: 4000011,
+              type: '$CUSTOM',
+              dependencies: [],
+              data: {
+                component: '$POLICY_PAYMENTS',
+              },
+              formData: {},
+              children: [],
+            },
+          ]
+        },
       ]
     }
   ]
