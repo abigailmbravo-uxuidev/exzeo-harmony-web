@@ -171,17 +171,18 @@ const mock = {
       name: 'property',
       step: {},
       components: [
+
         {
-          id: 6556400,
+          id: 54353005,
           type: '$SECTION',
           dependencies: [],
           data: {
-            className: 'home-location',
+            className: 'home-location'
           },
           formData: {},
           children: [
             {
-              id: 765430003,
+              id: 7654300032323,
               type: '$TITLE',
               dependencies: [],
               data: {
@@ -192,42 +193,80 @@ const mock = {
               children: [],
             },
             {
-              id: 2000004,
-              type: '$ENTITY_DETAILS',
+              id: 655640034,
+              type: '$SECTION',
               dependencies: [],
               data: {
-                extendedProperties: {
-                  className: "home-and-location",
-                  details: [
-                    { label: 'Year Home Built', items: [{ format: '', path: 'property.yearBuilt'}] },
-                    { label: 'Protection Class', items: [{ format: '', path: 'property.protectionClass'}] },
-                    { label: 'Dist. to Tidal Waters', items: [{ format: '', path: 'property.distanceToTidalWater'}] },
-                    { label: 'Residence Type', items: [{ format: '', path: 'property.residenceType'}] },
-                    { label: 'Construction', items: [{ format: '', path: 'property.constructionType'}] },
-                    { label: 'BCEG', items: [{ format: '', path: 'property.buildingCodeEffectivenessGrading'}] },
-                    { label: 'Dist. to Fire Hydrant', items: [{ format: '', path: 'property.distanceToFireHydrant'}] },
-                    { label: 'Square Footage', items: [{ format: '', path: 'property.squareFeet'}] },
-                    { label: 'Year Roof Built', items: [{ format: '', path: 'property.yearOfRoof'}] },
-                    { label: 'Family Units', items: [{ format: '', path: 'property.familyUnits'}] },
-                    { label: 'Dist. to Fire Station', items: [{ format: '', path: 'property.distanceToFireStation'}] },
-                    { label: 'Flood Zone', items: [{ format: '', path: 'property.floodZone'}] }
-                  ]
-                }
+                className: 'home-location-left'
               },
               formData: {},
-              children: [],
-            }
-          ],
+              children: [
+                {
+                  id: 2000004434,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      className: "home-and-location",
+                      details: [
+                        { label: 'Year Home Built', items: [{ format: '', path: 'property.yearBuilt'}] },
+                        { label: 'Protection Class', items: [{ format: '', path: 'property.protectionClass'}] },
+                        { label: 'Dist. to Tidal Waters', items: [{ format: '', path: 'property.distanceToTidalWater'}] },
+                        { label: 'Residence Type', items: [{ format: '', path: 'property.residenceType'}] },
+                        { label: 'Construction', items: [{ format: '', path: 'property.constructionType'}] },
+                        { label: 'BCEG', items: [{ format: '', path: 'property.buildingCodeEffectivenessGrading'}] },
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ],
+            },
+            {
+              id: 655640022,
+              type: '$SECTION',
+              dependencies: [],
+              data: {
+                className: 'home-location-right'
+              },
+              formData: {},
+              children: [
+                {
+                  id: 2000004,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      className: "home-and-location",
+                      details: [
+                        { label: 'Dist. to Fire Hydrant', items: [{ format: '', path: 'property.distanceToFireHydrant'}] },
+                        { label: 'Square Footage', items: [{ format: '', path: 'property.squareFeet'}] },
+                        { label: 'Year Roof Built', items: [{ format: '', path: 'property.yearOfRoof'}] },
+                        { label: 'Family Units', items: [{ format: '', path: 'property.familyUnits'}] },
+                        { label: 'Dist. to Fire Station', items: [{ format: '', path: 'property.distanceToFireStation'}] },
+                        { label: 'Flood Zone', items: [{ format: '', path: 'property.floodZone'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ],
+            },
+          ]
         },
         {
-          id: 200005,
+          id: 765475505,
           type: '$SECTION',
           dependencies: [],
-          data: {},
+          data: {
+            className: 'wind-mitigation'
+          },
           formData: {},
-          children: [
+          children: [   
             {
-              id: 2000006,
+              id: 2000006232221,
               type: '$TITLE',
               dependencies: [],
               data: {
@@ -238,32 +277,69 @@ const mock = {
               children: [],
             },
             {
-              id: 2000007,
-              type: '$ENTITY_DETAILS',
+              id: 200005321111111,
+              type: '$SECTION',
               dependencies: [],
               data: {
-                extendedProperties: {
-                  className: "home-and-location",
-                  details: [
-                    { label: 'Roof Covering', items: [{ format: '', path: 'property.windMitigation.roofCovering'}] },
-                    { label: 'Roof Geometry', items: [{ format: '', path: 'property.windMitigation.roofGeometry'}] },
-                    { label: 'FBC Wind Speed', items: [{ format: '', path: 'property.windMitigation.floridaBuildingCodeWindSpeed'}] },
-                    { label: 'Internal Pressure Design', items: [{ format: '', path: 'property.windMitigation.internalPressureDesign'}] },
-                    { label: 'Roof Deck Attachment', items: [{ format: '', path: 'property.windMitigation.roofDeckAttachment'}] },
-                    { label: 'Secondary Water Resistance (SWR)', items: [{ format: '', path: 'property.windMitigation.secondaryWaterResistance'}] },
-                    { label: 'FBC Wind Speed Design', items: [{ format: '', path: 'property.windMitigation.floridaBuildingCodeWindSpeedDesign'}] },
-                    { label: 'Wind Borne Debris Region (WBDR)', items: [{ format: '', path: 'property.windMitigation.windBorneDebrisRegion'}] },
-                    { label: 'Roof to Wall Attachment', items: [{ format: '', path: 'property.windMitigation.roofToWallConnection'}] },
-                    { label: 'Opening Protection', items: [{ format: '', path: 'property.windMitigation.openingProtection'}] },
-                    { label: 'Terrain', items: [{ format: '', path: 'property.windMitigation.terrain'}] },
-                    { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
-                  ]
-                }
+                className: 'wind-mitigation-left'
               },
               formData: {},
-              children: [],
+              children: [
+                {
+                  id: 200000222222227,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      className: "home-and-location",
+                      details: [
+                        { label: 'Roof Covering', items: [{ format: '', path: 'property.windMitigation.roofCovering'}] },
+                        { label: 'Roof Geometry', items: [{ format: '', path: 'property.windMitigation.roofGeometry'}] },
+                        { label: 'FBC Wind Speed', items: [{ format: '', path: 'property.windMitigation.floridaBuildingCodeWindSpeed'}] },
+                        { label: 'Internal Pressure Design', items: [{ format: '', path: 'property.windMitigation.internalPressureDesign'}] },
+                        { label: 'Roof Deck Attachment', items: [{ format: '', path: 'property.windMitigation.roofDeckAttachment'}] },
+                        { label: 'Secondary Water Resistance (SWR)', items: [{ format: '', path: 'property.windMitigation.secondaryWaterResistance'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ],
+            },
+            {
+              id: 20004533205,
+              type: '$SECTION',
+              dependencies: [],
+              data: {
+                className: 'wind-mitigation-right'
+              },
+              formData: {},
+              children: [
+                
+                {
+                  id: 2003333330007,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      className: "home-and-location",
+                      details: [
+                        { label: 'FBC Wind Speed Design', items: [{ format: '', path: 'property.windMitigation.floridaBuildingCodeWindSpeedDesign'}] },
+                        { label: 'Wind Borne Debris Region (WBDR)', items: [{ format: '', path: 'property.windMitigation.windBorneDebrisRegion'}] },
+                        { label: 'Roof to Wall Attachment', items: [{ format: '', path: 'property.windMitigation.roofToWallConnection'}] },
+                        { label: 'Opening Protection', items: [{ format: '', path: 'property.windMitigation.openingProtection'}] },
+                        { label: 'Terrain', items: [{ format: '', path: 'property.windMitigation.terrain'}] },
+                        { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ],
             }
-          ],
+          ]
         }
       ]
     },
@@ -272,23 +348,23 @@ const mock = {
       step: {},
       components: [
         {
+          id: 3000003,
+          type: '$TITLE',
+          dependencies: [],
+          data: {
+            text: 'Coverage Limits',
+            icon: 'fa fa-line-chart'
+          },
+          formData: {},
+          children: [],
+        },
+        {
           id: 300000,
           type: '$SECTION',
           dependencies: [],
           data: {},
           formData: {},
           children: [
-            {
-              id: 3000003,
-              type: '$TITLE',
-              dependencies: [],
-              data: {
-                text: 'Coverage Limits',
-                icon: 'fa fa-line-chart'
-              },
-              formData: {},
-              children: [],
-            },
             {
               id: 3000004,
               type: '$ENTITY_DETAILS',

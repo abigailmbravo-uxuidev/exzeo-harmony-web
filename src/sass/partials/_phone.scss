@@ -3,13 +3,9 @@
         height: initial;
         div#root {
             .detail-wrapper, .survey-wrapper {
-                .section-group-header {
-                    margin-bottom: 0;
-                }
-                .form-group {
-                    //margin-bottom: 0;
-                    //padding-bottom: $padding;
-                }
+              .section-group-header {
+                  margin-bottom: 0;
+              }
             }
             .loader.modal {
                 position: fixed;

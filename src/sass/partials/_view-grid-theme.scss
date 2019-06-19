@@ -25,6 +25,78 @@
       margin-left: $padding;
     }
   }
+  &#PolicyWorkflow {
+    > section {
+      > section {
+        border-bottom-width: 0;
+      }
+      dl {
+        margin: 0;
+        width: auto;
+
+        dt {}
+        dd {
+          margin-bottom: 0;
+        }
+      }
+      
+      &:last-of-type {
+        margin: 0;
+        padding-bottom: 0;
+        border-bottom-width: 0;
+      }
+
+      &.policyholder-one-demographics, &.agent-demographics {
+        justify-content: space-between;
+        dl {
+          &:last-of-type {
+            width: 100%;
+          }
+        }
+      }
+
+      .home-location-left,
+      .home-location-right,
+      .wind-mitigation-left,
+      .wind-mitigation-right {
+        flex-direction: column;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        width: 50%;
+
+        dl {
+          padding: ($padding/2) $padding;
+          width: 100%;
+          height: auto;
+
+          &:nth-of-type(odd) {
+            background: $cool-gray-01;
+          }
+
+          > div {
+            display: flex;
+
+            dt {
+              flex-grow: 1;
+              flex-shrink: 1;
+            }
+            dd {
+              flex-grow: 0;
+              flex-shrink: 0;
+            }
+          }
+        } 
+      }
+
+      &.home-location-left {
+        padding-right: $padding;
+      }
+      &.home-location-right {
+        padding-left: $padding;
+      }
+    }
+  }
+
   section {
     margin-bottom: $padding*2;
     padding-bottom: $padding*2;
