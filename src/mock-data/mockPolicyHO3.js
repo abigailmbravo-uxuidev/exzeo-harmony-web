@@ -18,43 +18,76 @@ const mock = {
       name: 'policyHolder',
       step: {},
       components: [
+        {
+          id: 100000,
+          type: '$SECTION',
+          dependencies: [],
+          data: {
+            className:'test'
+          },
+          formData: {},
+          children: [
+            {
+              id: 1000001,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'PolicyHolder 1',
+                icon: 'fa fa-vcard-o'
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 1000002,
+              type: '$ENTITY_DETAILS',
+              dependencies: [],
+              data: {
+                extendedProperties: {
+                  className: "row-items",
+                  details: [
+                    { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[0]'}] },
+                    { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[0].primaryPhoneNumber'}]},
+                    { label: 'Email', items: [{ format: '', path: 'policyHolders[0].emailAddress'}]},
+                  ]
+                }
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 1000005,
+              type: '$ENTITY_DETAILS',
+              dependencies: [],
+              data: {
+                extendedProperties: {
+                  className: "row-items",
+                  details: [
+                    { label: 'Mailing Address',
+                    items: [
+                      { format: '', path: 'policyHolderMailingAddress.address1'},
+                      { optional: true, format: '', path: 'policyHolderMailingAddress.address2'},
+                      { format: 'cityStateZip', path: 'policyHolderMailingAddress'}
+                    ]
+                  }]
+                }
+              },
+              formData: {},
+              children: [],
+            }
+          ],
+        },
       {
-        id: 100000,
+        id: 44000,
         type: '$SECTION',
-        dependencies: [],
-        data: {},
+        dependencies: [{ path: 'policyHolders[1]', value: true }],
+        data: {
+          className:'test'
+        },
         formData: {},
         children: [
           {
-            id: 1000001,
-            type: '$TITLE',
-            dependencies: [],
-            data: {
-              text: 'PolicyHolder 1',
-              icon: 'fa fa-vcard-o'
-            },
-            formData: {},
-            children: [],
-          },
-          {
-            id: 1000002,
-            type: '$ENTITY_DETAILS',
-            dependencies: [],
-            data: {
-              extendedProperties: {
-                className: "row-items",
-                details: [
-                  { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[0]'}] },
-                  { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[0].primaryPhoneNumber'}]},
-                  { label: 'Email', items: [{ format: '', path: 'policyHolders[0].emailAddress'}]},
-                ]
-              }
-            },
-            formData: {},
-            children: [],
-          },
-          {
-            id: 1000003,
+            id: 440003,
             type: '$TITLE',
             dependencies: [
               { path: 'policyHolders[1]', value: true }
@@ -67,7 +100,7 @@ const mock = {
             children: [],
           },
           {
-            id: 1000004,
+            id: 440004,
             type: '$ENTITY_DETAILS',
             dependencies: [
               { path: 'policyHolders[1]', value: true }
@@ -84,29 +117,19 @@ const mock = {
             },
             formData: {},
             children: [],
-          },
+          }
+        ],
+      },{
+        id: 550000,
+        type: '$SECTION',
+        dependencies: [],
+        data: {
+          className:'test'
+        },
+        formData: {},
+        children: [
           {
-            id: 1000005,
-            type: '$ENTITY_DETAILS',
-            dependencies: [],
-            data: {
-              extendedProperties: {
-                className: "row-items",
-                details: [
-                  { label: 'Mailing Address',
-                  items: [
-                    { format: '', path: 'policyHolderMailingAddress.address1'},
-                    { optional: true, format: '', path: 'policyHolderMailingAddress.address2'},
-                    { format: 'cityStateZip', path: 'policyHolderMailingAddress'}
-                  ]
-                }]
-              }
-            },
-            formData: {},
-            children: [],
-          },
-          {
-            id: 1000006,
+            id: 5550006,
             type: '$TITLE',
             dependencies: [],
             data: {
@@ -117,7 +140,7 @@ const mock = {
             children: [],
           },
           {
-            id: 1000007,
+            id: 666654007,
             type: '$ENTITY_DETAILS',
             dependencies: [],
             data: {
@@ -147,14 +170,16 @@ const mock = {
       step: {},
       components: [
         {
-          id: 200000,
+          id: 6556400,
           type: '$SECTION',
           dependencies: [],
-          data: {},
+          data: {
+            className: 'home-location',
+          },
           formData: {},
           children: [
             {
-              id: 2000003,
+              id: 765430003,
               type: '$TITLE',
               dependencies: [],
               data: {
