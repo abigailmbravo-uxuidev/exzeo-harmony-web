@@ -394,7 +394,7 @@ const mock = {
           type: '$INPUT',
           path: 'coverageOptions.personalPropertyReplacementCost.answer',
           dependencies: [
-            { path: 'coverageLimits.personalProperty.value', value: true }
+            { 'coverageLimits.personalProperty.value': true }
           ],
           data: {
             component: 'switch',
