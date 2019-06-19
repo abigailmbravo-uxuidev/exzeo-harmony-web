@@ -264,7 +264,7 @@ const mock = {
             className: 'wind-mitigation'
           },
           formData: {},
-          children: [   
+          children: [
             {
               id: 2000006232221,
               type: '$TITLE',
@@ -348,26 +348,17 @@ const mock = {
       step: {},
       components: [
         {
-          id: 3000003,
-          type: '$TITLE',
-          dependencies: [],
-          data: {
-            text: 'Coverage Limits',
-            icon: 'fa fa-line-chart'
-          },
-          formData: {},
-          children: [],
-        },
-        {
-          id: 300000,
+          id: 300453322234005,
           type: '$SECTION',
           dependencies: [],
-          data: {},
+          data: {
+            className: 'coverage-limits'
+          },
           formData: {},
           children: [
             {
-              id: 3000004,
-              type: '$ENTITY_DETAILS',
+              id: 3000003,
+              type: '$TITLE',
               dependencies: [],
               data: {
                 extendedProperties: {
@@ -391,18 +382,83 @@ const mock = {
               },
               formData: {},
               children: [],
-            }
-          ],
+            },
+            {
+              id: 300000,
+              type: '$SECTION',
+              dependencies: [],
+              data: {
+                className: 'coverage-limits-left'
+              },
+              formData: {},
+              children: [
+                {
+                  id: 3000004,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      className: "coverage",
+                      details: [
+                        { label: 'A. Dwelling', items: [{ format: '', path: 'coverageLimits.dwelling.amount'}] },
+                        { label: 'B. Other Structures', items: [{ format: 'currency', path: 'coverageLimits.otherStructures.amount'}] },
+                        { label: 'C. Personal Property', items: [{ format: 'currency', path: 'coverageLimits.personalProperty.amount'}] },
+                        { label: 'D. Loss of Use', items: [{ format: 'currency', path: 'coverageLimits.lossOfUse.amount'}] },
+                        { label: 'E. Personal Liability', items: [{ format: 'currency', path: 'coverageLimits.personalLiability.amount'}] },
+                        { label: 'F. Medical Payments', items: [{ format: 'currency', path: 'coverageLimits.medicalPayments.amount'}] },
+                        { label: 'Personal Propery Replacement Cost', items: [{ format: 'bool', path: 'coverageLimits.personalPropertyReplacementCost.answer'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ],
+            },
+            {
+              id: 30004444444400,
+              type: '$SECTION',
+              dependencies: [],
+              data: {
+                className: 'coverage-limits-right'
+              },
+              formData: {},
+              children: [
+                {
+                  id: 3003232323232320004,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      className: "coverage",
+                      details: [
+                        { label: 'Mold Property', items: [{ format: 'currency', path: 'coverageLimits.moldProperty.amount'}] },
+                        { label: 'Mold Liability', items: [{ format: 'currency', path: 'coverageLimits.moldLiability.amount'}] },
+                        { label: 'Ordinance or Law', items: [{ format: 'percent', path: 'coverageLimits.ordinanceOrLaw.amount'}] },
+                        { label: 'All other Perils Deductible', items: [{ format: 'currency', path: 'deductibles.allOtherPerils.amount'}] },
+                        { label: 'Hurricane Deductible', items: [{ format: 'currency', path: 'deductibles.hurricane.calculatedAmount'}] },
+                        { label: 'Sinkhole Deductible', items: [{ format: 'currency', path: 'deductibles.sinkhole.calculatedAmount'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ],
+            },
+          ]
         },
         {
-          id: 300005,
+          id: 303434343445660005,
           type: '$SECTION',
           dependencies: [],
-          data: {},
+          data: {
+            className: "discount-surcharge"
+          },
           formData: {},
           children: [
             {
-              id: 3000006,
+              id: 30023232323233340006,
               type: '$TITLE',
               dependencies: [],
               data: {
@@ -413,26 +469,60 @@ const mock = {
               children: [],
             },
             {
-              id: 3000007,
-              type: '$ENTITY_DETAILS',
+              id: 300000,
+              type: '$SECTION',
               dependencies: [],
               data: {
-                extendedProperties: {
-                  className: "discount-surcharge",
-                  details: [
-                    { label: 'Townhouse/Rowhouse', items: [{ format: 'bool', path: 'property.townhouseRowhouse'}] },
-                    { label: 'Property Ever Rented', items: [{ format: '', path: 'underwritingAnswers.rented.answer'}] },
-                    { label: 'Seasonally Occupied', items: [{ format: '', path: 'underwritingAnswers.monthsOccupied.answer'}] },
-                    { label: 'No Prior Insurance', items: [{ format: '', path: 'underwritingAnswers.noPriorInsuranceSurcharge.answer'}] },
-                    { label: 'Burgular Alarm', items: [{ format: 'bool', path: 'property.burgularAlarm'}] },
-                    { label: 'Fire Alarm', items: [{ format: 'bool', path: 'property.fireAlarm'}] },
-                    { label: 'Sprinkler', items: [{ format: '', path: 'property.sprinkler'}] },
-                    { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
-                  ]
-                }
+                className: 'discount-surcharge-left'
               },
               formData: {},
-              children: [],
+              children: [
+                {
+                  id: 32232333000007,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      details: [
+                        { label: 'Townhouse/Rowhouse', items: [{ format: 'bool', path: 'property.townhouseRowhouse'}] },
+                        { label: 'Property Ever Rented', items: [{ format: '', path: 'underwritingAnswers.rented.answer'}] },
+                        { label: 'Seasonally Occupied', items: [{ format: '', path: 'underwritingAnswers.monthsOccupied.answer'}] },
+                        { label: 'No Prior Insurance', items: [{ format: '', path: 'underwritingAnswers.noPriorInsuranceSurcharge.answer'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ]
+            },
+            {
+              id: 300000,
+              type: '$SECTION',
+              dependencies: [],
+              data: {
+                className: 'discount-surcharge-right'
+              },
+              formData: {},
+              children: [
+                {
+                  id: 32232333000007,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      details: [
+                        { label: 'Burgular Alarm', items: [{ format: 'bool', path: 'property.burgularAlarm'}] },
+                        { label: 'Fire Alarm', items: [{ format: 'bool', path: 'property.fireAlarm'}] },
+                        { label: 'Sprinkler', items: [{ format: '', path: 'property.sprinkler'}] },
+                        { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+              ]
             }
           ],
         },
