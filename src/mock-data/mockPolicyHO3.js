@@ -373,7 +373,7 @@ const mock = {
                 extendedProperties: {
                   className: "coverage",
                   details: [
-                    { label: 'A. Dwelling', items: [{ format: '', path: 'coverageLimits.dwelling.amount'}] },
+                    { label: 'A. Dwelling', items: [{ format: 'currency', path: 'coverageLimits.dwelling.amount'}] },
                     { label: 'B. Other Structures', items: [{ format: 'currency', path: 'coverageLimits.otherStructures.amount'}] },
                     { label: 'C. Personal Property', items: [{ format: 'currency', path: 'coverageLimits.personalProperty.amount'}] },
                     { label: 'D. Loss of Use', items: [{ format: 'currency', path: 'coverageLimits.lossOfUse.amount'}] },
