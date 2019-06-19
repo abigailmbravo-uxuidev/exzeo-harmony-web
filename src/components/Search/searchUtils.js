@@ -41,7 +41,7 @@ export const getSearchType = () => {
   }
 };
 
-export const VALID_QUOTE_STATES = ['Quote Started', 'Application Started', 'Quote Stopped', 'Application Ready', 'Quote Qualified'];
+export const VALID_QUOTE_STATES = ['Quote Started', 'Application Started', 'Quote Stopped', 'Application Ready', 'Quote Qualified', 'Application Obstructed'];
 
 export const PRODUCTS_LIST = [
   { answer: 'HO3', label: 'Homeowners Insurance' },
