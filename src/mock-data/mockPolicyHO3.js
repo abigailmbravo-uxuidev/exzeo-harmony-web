@@ -357,28 +357,12 @@ const mock = {
           formData: {},
           children: [
             {
-              id: 3000003,
+              id: 2000006232221,
               type: '$TITLE',
               dependencies: [],
               data: {
-                extendedProperties: {
-                  className: "coverage",
-                  details: [
-                    { label: 'A. Dwelling', items: [{ format: 'currency', path: 'coverageLimits.dwelling.amount'}] },
-                    { label: 'B. Other Structures', items: [{ format: 'currency', path: 'coverageLimits.otherStructures.amount'}] },
-                    { label: 'C. Personal Property', items: [{ format: 'currency', path: 'coverageLimits.personalProperty.amount'}] },
-                    { label: 'D. Loss of Use', items: [{ format: 'currency', path: 'coverageLimits.lossOfUse.amount'}] },
-                    { label: 'E. Personal Liability', items: [{ format: 'currency', path: 'coverageLimits.personalLiability.amount'}] },
-                    { label: 'F. Medical Payments', items: [{ format: 'currency', path: 'coverageLimits.medicalPayments.amount'}] },
-                    { label: 'Personal Propery Replacement Cost', items: [{ format: 'bool', path: 'coverageLimits.personalPropertyReplacementCost.answer'}] },
-                    { label: 'Mold Property', items: [{ format: 'currency', path: 'coverageLimits.moldProperty.amount'}] },
-                    { label: 'Mold Liability', items: [{ format: 'currency', path: 'coverageLimits.moldLiability.amount'}] },
-                    { label: 'Ordinance or Law', items: [{ format: 'percent', path: 'coverageLimits.ordinanceOrLaw.amount'}] },
-                    { label: 'All other Perils Deductible', items: [{ format: 'currency', path: 'deductibles.allOtherPerils.amount'}] },
-                    { label: 'Hurricane Deductible', items: [{ format: 'currency', path: 'deductibles.hurricane.calculatedAmount'}] },
-                    { label: 'Sinkhole Deductible', items: [{ format: 'currency', path: 'deductibles.sinkhole.calculatedAmount'}] },
-                  ]
-                }
+                text: 'Coverage Limits',
+                icon: 'fa fa-line-chart'
               },
               formData: {},
               children: [],
