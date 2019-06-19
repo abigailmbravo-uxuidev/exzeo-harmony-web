@@ -135,7 +135,7 @@ const mock = {
           id: 3453,
           type: '$SECTION',
           dependencies: [
-            { path: 'additionalPolicyholder', value: true }
+            { 'additionalPolicyholder': true }
           ],
           data: {},
           formData: {},
@@ -447,7 +447,7 @@ const mock = {
           type: '$INPUT',
           path: 'coverageOptions.personalPropertyReplacementCost.answer',
           dependencies: [
-            { path: 'coverageLimits.personalProperty.value', value: true }
+            { 'coverageLimits.personalProperty.value':  true }
           ],
           data: {
             component: 'switch',
@@ -746,7 +746,7 @@ const mock = {
           type: '$INPUT',
           path: 'deductibles.sinkhole.value',
           dependencies: [
-            { path: 'coverageOptions.sinkholePerilCoverage.answer', value: true }
+            { 'coverageOptions.sinkholePerilCoverage.answer': true }
           ],
           data: {
             component: 'radio',
