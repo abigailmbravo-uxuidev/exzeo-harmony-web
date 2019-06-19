@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PolicyNavigation = ({ activeTab, policyNumber }) =>
-  <nav className="nav-tabs">
+  <nav className="nav-tabs policy-navigation">
     <Link to={`/policy/${policyNumber}/policyHolder`} className={`btn btn-tab ${activeTab === 'policyHolder' ? 'active' : ''}`}><i className="fa fa-vcard" /><span>Policyholder</span></Link>
     <Link to={`/policy/${policyNumber}/property`} className={`btn btn-tab ${activeTab === 'property' ? 'active' : ''}`}><i className="fa fa-map-marker" /><span>Property</span></Link>
     <Link to={`/policy/${policyNumber}/coverage`} className={`btn btn-tab ${activeTab === 'coverage' ? 'active' : ''}`}><i className="fa fa-sliders" /><span>Coverage</span></Link>

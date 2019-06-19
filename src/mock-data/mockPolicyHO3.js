@@ -23,7 +23,7 @@ const mock = {
           type: '$SECTION',
           dependencies: [],
           data: {
-            className:'test'
+            className:'policyholder-one-demographics'
           },
           formData: {},
           children: [
@@ -77,93 +77,95 @@ const mock = {
             }
           ],
         },
-      {
-        id: 44000,
-        type: '$SECTION',
-        dependencies: [{ path: 'policyHolders[1]', value: true }],
-        data: {
-          className:'test'
-        },
-        formData: {},
-        children: [
-          {
-            id: 440003,
-            type: '$TITLE',
-            dependencies: [
-              { path: 'policyHolders[1]', value: true }
-            ],
-            data: {
-              text: 'PolicyHolder 2',
-              icon: 'fa fa-vcard-o'
-            },
-            formData: {},
-            children: [],
+        {
+          id: 44000,
+          type: '$SECTION',
+          dependencies: [{ path: 'policyHolders[1]', value: true }],
+          data: {
+            className:'policyholder-two-demographics'
           },
-          {
-            id: 440004,
-            type: '$ENTITY_DETAILS',
-            dependencies: [
-              { path: 'policyHolders[1]', value: true }
-            ],
-            data: {
-              extendedProperties: {
-                className: "row-items",
-                details: [
-                  { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[1]'}] },
-                  { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[1].primaryPhoneNumber'}]},
-                  { label: 'Email', items: [{ format: '', path: 'policyHolders[1].emailAddress'}]},
-                ]
-              }
+          formData: {},
+          children: [
+            {
+              id: 440003,
+              type: '$TITLE',
+              dependencies: [
+                { path: 'policyHolders[1]', value: true }
+              ],
+              data: {
+                text: 'PolicyHolder 2',
+                icon: 'fa fa-vcard-o'
+              },
+              formData: {},
+              children: [],
             },
-            formData: {},
-            children: [],
-          }
-        ],
-      },{
-        id: 550000,
-        type: '$SECTION',
-        dependencies: [],
-        data: {
-          className:'test'
+            {
+              id: 440004,
+              type: '$ENTITY_DETAILS',
+              dependencies: [
+                { path: 'policyHolders[1]', value: true }
+              ],
+              data: {
+                extendedProperties: {
+                  className: "row-items",
+                  details: [
+                    { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[1]'}] },
+                    { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[1].primaryPhoneNumber'}]},
+                    { label: 'Email', items: [{ format: '', path: 'policyHolders[1].emailAddress'}]},
+                  ]
+                }
+              },
+              formData: {},
+              children: [],
+            }
+          ],
         },
-        formData: {},
-        children: [
-          {
-            id: 5550006,
-            type: '$TITLE',
-            dependencies: [],
-            data: {
-              text: 'Agent',
-              icon: 'fa fa-vcard-o'
-            },
-            formData: {},
-            children: [],
+        {
+          id: 550000,
+          type: '$SECTION',
+          dependencies: [],
+          data: {
+            className:'agent-demographics'
           },
-          {
-            id: 666654007,
-            type: '$ENTITY_DETAILS',
-            dependencies: [],
-            data: {
-              extendedProperties: {
-                className: "row-items",
-                details: [
-                  { label: 'Agent Name', items: [{ format: 'name', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode'}] },
-                  { label: 'Phone', items: [{ format: 'phone', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'primaryPhoneNumber'}] },
-                  { label: 'Email', items: [{ format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'emailAddress'}] },
-                  { label: 'Mailing Address', items: [
-                    { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address1'},
-                    { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address2'},
-                    { format: 'cityStateZip', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress'}
+          formData: {},
+          children: [
+            {
+              id: 5550006,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Agent',
+                icon: 'fa fa-vcard-o'
+              },
+              formData: {},
+              children: [],
+            },
+            {
+              id: 666654007,
+              type: '$ENTITY_DETAILS',
+              dependencies: [],
+              data: {
+                extendedProperties: {
+                  className: "row-items",
+                  details: [
+                    { label: 'Agent Name', items: [{ format: 'name', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode'}] },
+                    { label: 'Phone', items: [{ format: 'phone', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'primaryPhoneNumber'}] },
+                    { label: 'Email', items: [{ format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'emailAddress'}] },
+                    { label: 'Mailing Address', items: [
+                      { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address1'},
+                      { format: '', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress.address2'},
+                      { format: 'cityStateZip', optionKey: 'agents', compareField: 'agentCode', valuePath: 'agentCode', selectField: 'mailingAddress'}
 
-                ] },
-                ]
-              }
-            },
-            formData: {},
-            children: [],
-          }
-        ],
-      }]
+                  ] },
+                  ]
+                }
+              },
+              formData: {},
+              children: [],
+            }
+          ],
+        }
+      ]
     },
     {
       name: 'property',

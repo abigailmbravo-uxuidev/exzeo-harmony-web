@@ -13,6 +13,12 @@
     .attachments {}
   }
 }
-.nav-tabs {
-  
+.route {
+  &.policy {
+    .nav-tabs {
+      &.policy-navigation {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

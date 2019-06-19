@@ -139,7 +139,7 @@ export class PolicyWorkflow extends Component {
         errorRedirectUrl={location.pathname}
         logout={auth.logout}
         match={match} >
-          <div className="route">
+          <div className="route policy">
             {!gandalfTemplate && <Loader />}
             {gandalfTemplate && gandalfTemplate.header &&
             <React.Fragment>
