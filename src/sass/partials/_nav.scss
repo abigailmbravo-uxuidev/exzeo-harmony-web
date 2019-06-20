@@ -375,6 +375,15 @@
   width: 100%;
   background: $cool-gray-01;
 
+  &.policy-navigation {
+    @include for-tablet-landscape-up {
+      height: 3.5rem;
+    }
+    @include for-tablet-portrait-up {
+      height: 4.5rem;
+    }
+  }
+
   .btn {
     &.btn-tab {
       display: flex;
