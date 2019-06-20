@@ -209,7 +209,7 @@ const mock = {
                       details: [
                         { label: 'Year Home Built', items: [{ format: '', path: 'property.yearBuilt'}] },
                         { label: 'Protection Class', items: [{ format: '', path: 'property.protectionClass'}] },
-                        { label: 'Dist. to Tidal Waters', items: [{ format: '', path: 'property.distanceToTidalWater'}] },
+                        { label: 'Dist. to Tidal Waters', items: [{ format: 'feet', path: 'property.distanceToTidalWater'}] },
                         { label: 'Residence Type', items: [{ format: '', path: 'property.residenceType'}] },
                         { label: 'Construction', items: [{ format: '', path: 'property.constructionType'}] },
                         { label: 'BCEG', items: [{ format: '', path: 'property.buildingCodeEffectivenessGrading'}] },
@@ -238,11 +238,11 @@ const mock = {
                     extendedProperties: {
                       className: "home-and-location",
                       details: [
-                        { label: 'Dist. to Fire Hydrant', items: [{ format: '', path: 'property.distanceToFireHydrant'}] },
+                        { label: 'Dist. to Fire Hydrant', items: [{ format: 'feet', path: 'property.distanceToFireHydrant'}] },
                         { label: 'Square Footage', items: [{ format: '', path: 'property.squareFeet'}] },
                         { label: 'Year Roof Built', items: [{ format: '', path: 'property.yearOfRoof'}] },
                         { label: 'Family Units', items: [{ format: '', path: 'property.familyUnits'}] },
-                        { label: 'Dist. to Fire Station', items: [{ format: '', path: 'property.distanceToFireStation'}] },
+                        { label: 'Dist. to Fire Station', items: [{ format: 'miles', path: 'property.distanceToFireStation'}] },
                         { label: 'Flood Zone', items: [{ format: '', path: 'property.floodZone'}] }
                       ]
                     }
