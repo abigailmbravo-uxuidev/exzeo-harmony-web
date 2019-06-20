@@ -80,7 +80,7 @@ const mock = {
         {
           id: 44000,
           type: '$SECTION',
-          dependencies: [{ path: 'policyHolders[1]', value: true }],
+          dependencies: [{ 'policyHolders[1]': true }],
           data: {
             className:'policyholder-two-demographics'
           },
@@ -89,9 +89,7 @@ const mock = {
             {
               id: 440003,
               type: '$TITLE',
-              dependencies: [
-                { path: 'policyHolders[1]', value: true }
-              ],
+              dependencies: [],
               data: {
                 text: 'PolicyHolder 2',
                 icon: 'fa fa-vcard-o'
@@ -102,9 +100,7 @@ const mock = {
             {
               id: 440004,
               type: '$ENTITY_DETAILS',
-              dependencies: [
-                { path: 'policyHolders[1]', value: true }
-              ],
+              dependencies: [],
               data: {
                 extendedProperties: {
                   className: "row-items",
