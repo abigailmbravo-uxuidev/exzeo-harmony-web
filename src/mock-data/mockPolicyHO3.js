@@ -382,7 +382,7 @@ const mock = {
                     extendedProperties: {
                       className: "coverage",
                       details: [
-                        { label: 'A. Dwelling', items: [{ format: '', path: 'coverageLimits.dwelling.amount'}] },
+                        { label: 'A. Dwelling', items: [{ format: 'currency', path: 'coverageLimits.dwelling.amount'}] },
                         { label: 'B. Other Structures', items: [{ format: 'currency', path: 'coverageLimits.otherStructures.amount'}] },
                         { label: 'C. Personal Property', items: [{ format: 'currency', path: 'coverageLimits.personalProperty.amount'}] },
                         { label: 'D. Loss of Use', items: [{ format: 'currency', path: 'coverageLimits.lossOfUse.amount'}] },
@@ -468,7 +468,7 @@ const mock = {
                       details: [
                         { label: 'Townhouse/Rowhouse', items: [{ format: 'bool', path: 'property.townhouseRowhouse'}] },
                         { label: 'Property Ever Rented', items: [{ format: '', path: 'underwritingAnswers.rented.answer'}] },
-                        { label: 'Seasonally Occupied', items: [{ format: '', path: 'underwritingAnswers.monthsOccupied.answer'}] },
+                        { label: 'Seasonally Occupied', items: [{ format: 'conditionalBool', path: 'underwritingAnswers.monthsOccupied.answer', conditions: ['0-3', '4-6']}] },
                         { label: 'No Prior Insurance', items: [{ format: '', path: 'underwritingAnswers.noPriorInsuranceSurcharge.answer'}] }
                       ]
                     }
@@ -494,7 +494,7 @@ const mock = {
                   data: {
                     extendedProperties: {
                       details: [
-                        { label: 'Burgular Alarm', items: [{ format: 'bool', path: 'property.burgularAlarm'}] },
+                        { label: 'Burgular Alarm', items: [{ format: 'bool', path: 'property.burglarAlarm'}] },
                         { label: 'Fire Alarm', items: [{ format: 'bool', path: 'property.fireAlarm'}] },
                         { label: 'Sprinkler', items: [{ format: '', path: 'property.sprinkler'}] },
                         { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
