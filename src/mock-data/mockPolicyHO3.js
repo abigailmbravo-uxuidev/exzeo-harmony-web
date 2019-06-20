@@ -514,7 +514,9 @@ const mock = {
           id: 300008,
           type: '$SECTION',
           dependencies: [],
-          data: {},
+          data: {
+            className: "deductible"
+          },
           formData: {},
           children: [
             {
@@ -529,21 +531,33 @@ const mock = {
               children: [],
             },
             {
-              id: 3000010,
-              type: '$ENTITY_DETAILS',
+              id: 30023232323233340006,
+              type: '$SECTION',
               dependencies: [],
               data: {
-                extendedProperties: {
-                  className: "deductible",
-                  details: [
-                    { label: 'All other Perils', items: [{ format: 'currency', path: 'deductibles.allOtherPerils.amount'}] },
-                    { label: 'Hurricane Deductible', items: [{ format: 'percent', path: 'deductibles.hurricane.amount'}] },
-                    { label: 'Sinkhole Deductible', items: [{ format: 'percent', path: 'deductibles.sinkhole.amount'}] },
-                  ]
-                }
+                className: "deductible-left"
               },
               formData: {},
-              children: [],
+              children: [
+                {
+                  id: 3000010,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      className: "deductible",
+                      details: [
+                        { label: 'All other Perils', items: [{ format: 'currency', path: 'deductibles.allOtherPerils.amount'}] },
+                        { label: 'Hurricane Deductible', items: [{ format: 'percent', path: 'deductibles.hurricane.amount'}] },
+                        { label: 'Sinkhole Deductible', items: [{ format: 'percent', path: 'deductibles.sinkhole.amount'}] },
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                }
+
+              ]
             }
           ],
         }
