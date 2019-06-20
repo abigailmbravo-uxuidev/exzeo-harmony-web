@@ -48,6 +48,7 @@ const mock = {
                   details: [
                     { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[0]'}] },
                     { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[0].primaryPhoneNumber'}]},
+                    { optional: true, label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[0].secondaryPhoneNumber'}]},
                     { label: 'Email', items: [{ format: '', path: 'policyHolders[0].emailAddress'}]},
                   ]
                 }
@@ -107,6 +108,7 @@ const mock = {
                   details: [
                     { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[1]'}] },
                     { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[1].primaryPhoneNumber'}]},
+                    { optional: true, label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[1].secondaryPhoneNumber'}]},
                     { label: 'Email', items: [{ format: '', path: 'policyHolders[1].emailAddress'}]},
                   ]
                 }
