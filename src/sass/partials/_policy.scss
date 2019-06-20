@@ -1,21 +1,13 @@
-.policy-detail {
-  width: 100%;
-
-  .react-bs-table {
-    .created-date {
-      width: 7.5rem;
-    }
-
-    .file-name {
-      width: 10rem;
-    }
-  }
-}
-
 .route.policy {
   .policy-documents {
     .date {
       width: 15rem;
     }
+  }
+}
+.payments-received {
+  width: 100%;
+  h4 {
+    text-align: right;
   }
 }

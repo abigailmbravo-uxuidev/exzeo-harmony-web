@@ -27,9 +27,11 @@
   }
   &#PolicyWorkflow {
     > section {
+
       > section {
         border-bottom-width: 0;
       }
+
       dl {
         margin: 0;
         width: auto;
@@ -71,6 +73,11 @@
         padding-bottom: 0;
         width: 50%;
 
+        @include for-phone-only {
+          padding-top: 0;
+          width: 100%;
+        }
+
         dl {
           padding: ($padding/2) $padding;
           width: 100%;
@@ -92,7 +99,7 @@
               flex-shrink: 0;
             }
           }
-        } 
+        }
       }
 
       .premium, .billing-info {
@@ -105,12 +112,94 @@
       &.payments {
         .table-view {
           padding: 0 $padding;
+          width: 100%;
+
+          @include for-phone-only {
+            .table-header-wrapper {
+              display: none;
+            }
+
+            .react-bs-container-body {
+              overflow: hidden;
+              .table {
+                display: flex;
+                width: 100%;
+                tbody {
+                  display: flex;
+                  flex-direction: column;
+                  width: 100%;
+                  tr {
+                    z-index: 10;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    margin-bottom: $padding;
+                    width: 100%;
+                    border: $card-border-width solid $card-border-color;
+                    border-radius: $card-border-radius;
+                    background: $card-bg;
+                    box-shadow: $card-box-shadow;
+
+                    > td {
+                      background: $white;
+                    }
+
+                    .date {
+                      flex-grow: 0;
+                      flex-shrink: 0;
+                      padding-right: 0;
+                      padding-bottom: 0;
+                      width: 5rem;
+                      font-size: $font-size-sm;
+                    }
+
+                    .type {
+                      flex-grow: 1;
+                      flex-shrink: 1;
+                      padding-bottom: 0;
+                      width: calc(100% - 5rem);
+                      font-weight: $font-weight-bold;
+                      font-size: $font-size-sm;
+                    }
+
+                    .description {
+                      flex-grow: 1;
+                      flex-shrink: 1;
+                    }
+
+                    .amount {
+                      flex-grow: 0;
+                      flex-shrink: 0;
+                      font-weight: $font-weight-bold;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .policy-documents {
+        width: 100%;
+
+        @include for-phone-only {
+          tr {
+            flex-direction: row;
+
+            .date {
+              flex-grow: 0;
+              flex-shrink: 0;
+              width: 13.125rem;
+            }
+          }
         }
       }
 
       &.home-location-left {
         padding-right: $padding;
       }
+
       &.home-location-right {
         padding-left: $padding;
       }
