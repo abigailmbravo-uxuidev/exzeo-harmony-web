@@ -571,54 +571,79 @@ const mock = {
           id: 400000,
           type: '$SECTION',
           dependencies: [],
-          data: {},
+          data: {
+            className: "premium-billing-info"
+          },
           formData: {},
           children: [
             {
-              id: 4000006,
-              type: '$TITLE',
+              id: 40005555555555500,
+              type: '$SECTION',
               dependencies: [],
               data: {
-                text: 'Premium',
-                icon: 'fa fa-area-chart'
+                className: "premium"
               },
               formData: {},
-              children: [],
+              children: [
+                {
+                  id: 4000006,
+                  type: '$TITLE',
+                  dependencies: [],
+                  data: {
+                    text: 'Premium',
+                    icon: 'fa fa-area-chart'
+                  },
+                  formData: {},
+                  children: [],
+                },
+                {
+                  id: 4000007,
+                  type: '$ENTITY_DETAILS',
+                  dependencies: [],
+                  data: {
+                    extendedProperties: {
+                      details: [
+                        { label: 'Current Premium', items: [{ format: 'currency', path: 'billing.currentPremium'}] },
+                        { label: 'Initial Premium', items: [{ format: 'currency', path: 'billing.initialPremium'}] },
+                        { label: 'Balance Due', items: [{ format: 'currency', path: 'billing.balance.$numberDecimal'}] }
+                      ]
+                    }
+                  },
+                  formData: {},
+                  children: [],
+                },
+              ]
             },
             {
-              id: 4000007,
-              type: '$ENTITY_DETAILS',
+              id: 4044444444440000,
+              type: '$SECTION',
               dependencies: [],
               data: {
-                extendedProperties: {
-                  className: "home-and-location",
-                  details: [
-                    { label: 'Current Premium', items: [{ format: 'currency', path: 'billing.currentPremium'}] },
-                    { label: 'Initial Premium', items: [{ format: 'currency', path: 'billing.initialPremium'}] },
-                    { label: 'Balance Due', items: [{ format: 'currency', path: 'billing.balance.$numberDecimal'}] }
-                  ]
-                }
+                className: "billing-info"
               },
               formData: {},
-              children: [],
-            },
-            {
-              id: 4000008,
-              type: '$CUSTOM',
-              dependencies: [],
-              data: {
-                component: '$POLICY_BILLING',
-              },
-              formData: {},
-              children: [],
-            },
+              children: [
+                {
+                  id: 4000008,
+                  type: '$CUSTOM',
+                  dependencies: [],
+                  data: {
+                    component: '$POLICY_BILLING',
+                  },
+                  formData: {},
+                  children: [],
+                },
+              ]
+            }
           ]
         },
         {
           id: 400009,
           type: '$SECTION',
           dependencies: [],
-          data: {},
+          data: {
+            className: "payments"
+          },
           formData: {},
           children: [
             {
