@@ -1,17 +1,15 @@
 import React from 'react';
-import classNames from 'classnames';
 import { defaultMemoize } from 'reselect';
 import Title from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/Title';
 import { date } from '@exzeo/core-ui/src';
 
 const Billing = ({
-  initialValues,
-  size
+  initialValues
 }) => {
 
   const formatBillingInformation = defaultMemoize((initialValues) => {
     const { billing, additionalInterests, policyHolders } = initialValues;
-    let billToName;
+    let billToName = '';
 
       if (billing.billToType === 'Additional Interest') {
         const ai = additionalInterests.find(p => billing.billToId === p._id);
