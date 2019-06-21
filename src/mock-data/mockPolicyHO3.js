@@ -32,7 +32,7 @@ const mock = {
               type: '$TITLE',
               dependencies: [],
               data: {
-                text: 'PolicyHolder 1',
+                text: 'Policyholder 1',
                 icon: 'fa fa-vcard-o'
               },
               formData: {},
@@ -92,7 +92,7 @@ const mock = {
               type: '$TITLE',
               dependencies: [],
               data: {
-                text: 'PolicyHolder 2',
+                text: 'Policyholder 2',
                 icon: 'fa fa-vcard-o'
               },
               formData: {},
@@ -366,7 +366,7 @@ const mock = {
               children: [],
             },
             {
-              id: 300000,
+              id: 3000054354,
               type: '$SECTION',
               dependencies: [],
               data: {
@@ -375,7 +375,7 @@ const mock = {
               formData: {},
               children: [
                 {
-                  id: 3000004,
+                  id: 3056657004,
                   type: '$ENTITY_DETAILS',
                   dependencies: [],
                   data: {
@@ -451,7 +451,7 @@ const mock = {
               children: [],
             },
             {
-              id: 300000,
+              id: 30045022324,
               type: '$SECTION',
               dependencies: [],
               data: {
@@ -460,7 +460,7 @@ const mock = {
               formData: {},
               children: [
                 {
-                  id: 32232333000007,
+                  id: 32232333004407,
                   type: '$ENTITY_DETAILS',
                   dependencies: [],
                   data: {
@@ -479,7 +479,7 @@ const mock = {
               ]
             },
             {
-              id: 300000,
+              id: 307767500545,
               type: '$SECTION',
               dependencies: [],
               data: {
@@ -488,13 +488,13 @@ const mock = {
               formData: {},
               children: [
                 {
-                  id: 32232333000007,
+                  id: 32232336757877,
                   type: '$ENTITY_DETAILS',
                   dependencies: [],
                   data: {
                     extendedProperties: {
                       details: [
-                        { label: 'Burgular Alarm', items: [{ format: 'bool', path: 'property.burglarAlarm'}] },
+                        { label: 'Burglar Alarm', items: [{ format: 'bool', path: 'property.burglarAlarm'}] },
                         { label: 'Fire Alarm', items: [{ format: 'bool', path: 'property.fireAlarm'}] },
                         { label: 'Sprinkler', items: [{ format: '', path: 'property.sprinkler'}] },
                         { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
@@ -518,7 +518,7 @@ const mock = {
           formData: {},
           children: [
             {
-              id: 3000009,
+              id: 3005439,
               type: '$TITLE',
               dependencies: [],
               data: {
@@ -601,9 +601,9 @@ const mock = {
                   data: {
                     extendedProperties: {
                       details: [
-                        { label: 'Current Premium', items: [{ format: 'currency', path: 'billing.currentPremium'}] },
-                        { label: 'Initial Premium', items: [{ format: 'currency', path: 'billing.initialPremium'}] },
-                        { label: 'Balance Due', items: [{ format: 'currency', path: 'billing.balance.$numberDecimal'}] }
+                        { label: 'Current Premium', items: [{ format: 'currencyDecimals', path: 'billing.currentPremium'}] },
+                        { label: 'Initial Premium', items: [{ format: 'currencyDecimals', path: 'billing.initialPremium'}] },
+                        { label: 'Balance Due', items: [{ format: 'currencyDecimals', path: 'billing.balance.$numberDecimal'}] }
                       ]
                     }
                   },
