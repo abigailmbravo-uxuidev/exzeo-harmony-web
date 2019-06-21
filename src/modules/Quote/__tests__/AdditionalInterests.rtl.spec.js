@@ -141,7 +141,7 @@ const personalFields = [
 describe('Testing Additional Interests', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-5162219-01/additionalInterests' }
+    location: { pathname: '/quote/12-345-67/additionalInterests' }
   };
 
   const openAndCloseModal = async (getByText, modal) => {

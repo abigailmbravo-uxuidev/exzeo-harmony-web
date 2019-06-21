@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { setSliderValue } from '.';
-import { quote, userProfile, zipCodeSettings } from '../test-utils';
+import { quote, userProfile, latestPolicy, zipCodeSettings } from '../test-utils';
 
 const mockStore = configureStore([thunk]);
 
@@ -102,6 +102,23 @@ export const defaultQuoteWorkflowProps = {
   getEnumsForQuoteWorkflow: () => { },
   getBillingOptions: () => { },
   getQuote: () => { }
+};
+
+export const defaultPolicyWorkflowProps = {
+  ...defaultProps,
+  history: { replace: x => x },
+  location: { pathname: '/policy' },
+  getPolicyDocumentsAction: () => { },
+  getSummaryLedgerAction: () => { },
+  getLatestPolicyAction: () => { },
+  getAgentsByAgencyCode: () => { },
+  setAppModalErrorAction: () => { },
+  clearPolicy: () => { },
+  policy: latestPolicy,
+  agents: [],
+  policyDocuments: [],
+  headerDetails: {},
+  initializePolicyWorkflow: () => { }
 };
 
 /**

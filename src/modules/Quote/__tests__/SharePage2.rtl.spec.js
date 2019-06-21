@@ -21,7 +21,7 @@ const fields = [
 describe('Testing Share Page 2', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-5162219-01/assumptions' }
+    location: { pathname: '/quote/12-345-67/assumptions' }
   };
 
   it('"Confirmed" Value Switch Defaults to "No"', () => {

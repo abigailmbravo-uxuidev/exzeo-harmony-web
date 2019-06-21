@@ -52,7 +52,7 @@ const pageHeaders = [
 describe('Testing the Share Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-5162219-01/share' }
+    location: { pathname: '/quote/12-345-67/share' }
   };
 
   it('NEG:All Inputs Empty Value', () => {

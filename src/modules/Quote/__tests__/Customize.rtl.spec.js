@@ -205,7 +205,7 @@ const pageHeaders = [
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-5162219-01/customize' }
+    location: { pathname: '/quote/12-345-67/customize' }
   };
 
   it('NEG:Dwelling Limit', () => {

@@ -99,7 +99,7 @@ mockServiceRunner(result);
 describe('Testing the Mailing/Billing Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-5162219-01/mailingBilling' }
+    location: { pathname: '/quote/12-345-67/mailingBilling' }
   };
 
   const requiredFields = fields.filter(({ required }) => required);
