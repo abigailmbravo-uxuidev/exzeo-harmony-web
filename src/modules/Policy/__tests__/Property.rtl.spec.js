@@ -1,8 +1,11 @@
 import React from 'react';
-import { render } from 'react-testing-library';
 
-import { checkHeader, latestPolicy } from '../../../test-utils';
-import Property from '../Property';
+import {
+  renderWithReduxAndRouter,
+  defaultPolicyWorkflowProps,
+  checkHeader
+} from '../../../test-utils';
+import { PolicyWorkflow } from '../PolicyWorkflow';
 
 const pageHeaders = [
   {
@@ -16,16 +19,19 @@ const pageHeaders = [
 ];
 
 describe('Policy Property Page testing', () => {
-  const props = { policy: latestPolicy };
+  const props = {
+    ...defaultPolicyWorkflowProps,
+    location: { pathname: '/policy/12-345-67/property' }
+  };
 
   it('POS:Checks headers', () => {
-    const { getByText } = render(<Property {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
 
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Checks Home and Location', () => {
-    const { getByText } = render(<Property {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Year Home Built', value: '1998' },
       { label: 'Protection Class', value: '3' },
@@ -33,7 +39,7 @@ describe('Policy Property Page testing', () => {
       { label: 'Residence Type', value: 'SINGLE FAMILY' },
       { label: 'Construction', value: 'MASONRY' },
       { label: 'BCEG', value: '3' },
-      { label: 'Dist. to Fire Hydrant', value: '264.05 ft.' },
+      { label: 'Dist. to Fire Hydrant', value: '264.06 ft.' },
       { label: 'Square Footage', value: '2640' },
       { label: 'Year Roof Built', value: '2001' },
       { label: 'Family Units', value: '1-2' },
@@ -46,7 +52,7 @@ describe('Policy Property Page testing', () => {
   });
 
   it('POS:Checks Wind Mitigation', () => {
-    const { getByText } = render(<Property {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Roof Covering', value: 'test covering' },
       { label: 'Roof Geometry', value: 'test geometry' },

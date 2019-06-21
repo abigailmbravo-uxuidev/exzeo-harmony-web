@@ -1,8 +1,11 @@
 import React from 'react';
-import { render } from 'react-testing-library';
 
-import { checkHeader, latestPolicy } from '../../../test-utils';
-import Coverage from '../Coverage';
+import {
+  renderWithReduxAndRouter,
+  defaultPolicyWorkflowProps,
+  checkHeader
+} from '../../../test-utils';
+import { PolicyWorkflow } from '../PolicyWorkflow';
 
 const pageHeaders = [
   {
@@ -20,16 +23,19 @@ const pageHeaders = [
 ];
 
 describe('Policy Coverage Page testing', () => {
-  const props = { policy: latestPolicy };
+  const props = {
+    ...defaultPolicyWorkflowProps,
+    location: { pathname: '/policy/12-345-67/coverage' }
+  };
 
   it('POS:Checks headers', () => {
-    const { getByText } = render(<Coverage {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
 
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Coverage Limits Details', () => {
-    const { getByText } = render(<Coverage {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'A. Dwelling', value: '$ 314,000' },
       { label: 'B. Other Structures', value: '$ 6,280' },
@@ -52,7 +58,7 @@ describe('Policy Coverage Page testing', () => {
   });
 
   it('POS:Discount / Surcharge Details', () => {
-    const { getByText } = render(<Coverage {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Townhouse/Rowhouse', value: 'No' },
       { label: 'Property Ever Rented', value: 'Never' },
@@ -70,7 +76,7 @@ describe('Policy Coverage Page testing', () => {
   });
 
   it('POS:Deductible Details', () => {
-    const { getAllByText } = render(<Coverage {...props} />);
+    const { getAllByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'All other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },

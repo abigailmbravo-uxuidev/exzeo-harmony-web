@@ -4,8 +4,6 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultPolicyWorkflowProps,
-  policyDocuments,
-  latestPolicy,
   getSummaryLedger,
   payment,
   checkHeader

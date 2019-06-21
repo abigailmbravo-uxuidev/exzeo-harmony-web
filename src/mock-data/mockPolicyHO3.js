@@ -388,7 +388,7 @@ const mock = {
                         { label: 'D. Loss of Use', items: [{ format: 'currency', path: 'coverageLimits.lossOfUse.amount'}] },
                         { label: 'E. Personal Liability', items: [{ format: 'currency', path: 'coverageLimits.personalLiability.amount'}] },
                         { label: 'F. Medical Payments', items: [{ format: 'currency', path: 'coverageLimits.medicalPayments.amount'}] },
-                        { label: 'Personal Property Replacement Cost', items: [{ format: 'bool', path: 'coverageLimits.personalPropertyReplacementCost.answer'}] }
+                        { label: 'Personal Property Replacement Cost', items: [{ format: 'bool', path: 'coverageOptions.personalPropertyReplacementCost.answer'}] }
                       ]
                     }
                   },
