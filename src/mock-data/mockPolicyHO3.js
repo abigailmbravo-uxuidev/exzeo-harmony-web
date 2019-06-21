@@ -496,7 +496,7 @@ const mock = {
                       details: [
                         { label: 'Burglar Alarm', items: [{ format: 'bool', path: 'property.burglarAlarm'}] },
                         { label: 'Fire Alarm', items: [{ format: 'bool', path: 'property.fireAlarm'}] },
-                        { label: 'Sprinkler', items: [{ format: '', path: 'property.sprinkler'}] },
+                        { label: 'Sprinkler', items: [{ format: 'conditionalValue', path: 'property.sprinkler', conditions: ['N'], defaultValue: 'No' }] },
                         { label: 'Wind Mit Factor', items: [{ format: '', path: 'rating.worksheet.elements.windMitigationFactors.windMitigationDiscount'}] }
                       ]
                     }
