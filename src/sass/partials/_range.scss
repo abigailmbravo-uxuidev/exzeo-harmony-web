@@ -37,6 +37,30 @@
     }
   }
 
+  #ticks {
+    display: flex;
+    justify-content: space-between;
+    margin: -.25rem 7px 0 3px;
+    
+    option {
+      position: relative;
+      display: flex;
+      align-items:  center;
+      justify-content: center;
+      width: 2rem;
+      color: $warm-gray-05;
+      font-weight: $font-weight-normal;
+      font-size: $font-size-sm;
+
+      &:before {
+        position: absolute;
+        top: -.75rem;
+        content: "|";
+        font-size: $font-size-xs;
+      }
+    }
+  }
+
   .range-wrapper {
     display: flex;
     align-items: center;
