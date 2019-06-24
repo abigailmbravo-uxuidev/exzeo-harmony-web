@@ -373,17 +373,14 @@ const mock = {
           data: {
             component: '$SLIDERGROUP',
             extendedProperties: {
-              format: 'currency',
               watchField: 'coverageLimits.building.value',
               watchFieldLabel: 'Building',
               watchFieldMin: 'coverageLimits.dwelling.minAmount',
               watchFieldMax: 'coverageLimits.dwelling.maxAmount',
               watchFieldHint: "This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  ",
               secondaryField: 'coverageLimits.personalProperty.value',
+              secondarySliderField: 'personalPropertySlider', 
               secondaryFieldLabel: 'Personal Property',
-              secondaryFieldMin: 0,
-              secondaryFieldMinLabel: '0 %',
-              secondaryFieldMaxLabel: '50 %',
               secondaryFieldHint: "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
               subscribe: true,
             }
