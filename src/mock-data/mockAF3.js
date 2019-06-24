@@ -382,6 +382,8 @@ const mock = {
               secondaryField: 'coverageLimits.personalProperty.value',
               secondaryFieldLabel: 'Personal Property',
               secondaryFieldMin: 0,
+              secondaryFieldMinLabel: '0 %',
+              secondaryFieldMaxLabel: '50 %',
               secondaryFieldHint: "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.",
               subscribe: true,
             }
@@ -394,7 +396,7 @@ const mock = {
           type: '$INPUT',
           path: 'coverageOptions.personalPropertyReplacementCost.answer',
           dependencies: [
-            { path: 'coverageLimits.personalProperty.value', value: true }
+            { pprc: true }
           ],
           data: {
             component: 'switch',
