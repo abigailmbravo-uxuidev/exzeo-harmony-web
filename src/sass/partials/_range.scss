@@ -41,6 +41,14 @@
     display: flex;
     justify-content: space-between;
     margin: 0 7px 0 3px;
+
+    @include for-phone-only {
+      option {
+        &:nth-of-type(even) {
+          display: none;
+        }
+      }
+    }
     
     option {
       position: relative;
@@ -68,7 +76,8 @@
     .range-control-wrapper {
       position: relative;
       flex-grow: 1;
-      flex-shrink: 0;
+      flex-shrink: 1;
+      width: calc(100% - 128px);
 
       .range-limit {
         position: absolute;
