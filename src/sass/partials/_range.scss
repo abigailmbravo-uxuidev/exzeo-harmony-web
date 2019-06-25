@@ -40,7 +40,7 @@
   #ticks {
     display: flex;
     justify-content: space-between;
-    margin: -.25rem 7px 0 3px;
+    margin: 0 7px 0 3px;
     
     option {
       position: relative;
@@ -50,13 +50,13 @@
       width: 2rem;
       color: $warm-gray-05;
       font-weight: $font-weight-normal;
-      font-size: $font-size-sm;
+      font-size: $font-size-xs;
 
       &:before {
         position: absolute;
-        top: -.75rem;
+        bottom: -.5rem;
         content: "|";
-        font-size: $font-size-xs;
+        font-size: .25rem;
       }
     }
   }
@@ -85,7 +85,7 @@
       }
 
       [type=range] {
-        margin: $thumb-height / 2 0;
+        margin: .25rem 0 ($thumb-height / 2) 0;
         width: $track-width;
         background: transparent;
 
