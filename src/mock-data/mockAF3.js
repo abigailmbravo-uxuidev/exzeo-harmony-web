@@ -158,10 +158,7 @@ const mock = {
           "id": 3453,
           "type": "$SECTION",
           "dependencies": [
-            {
-              "path": "additionalPolicyholder",
-              "value": true
-            }
+            { "additionalPolicyholder": true }
           ],
           "data": {},
           "formData": {},
