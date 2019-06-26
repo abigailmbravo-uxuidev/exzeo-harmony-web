@@ -113,3 +113,10 @@ cy.get('button[type="submit"][form="SearchBar"]')
   .and('contain', 'Search')
   .click();
 ```
+
+Also to note is to never use the jQuery objects, but always use `cy.wrap()` around them. A common
+use case here is for things like `cy.get('something').each($el => {//do stuff})`, make sure to
+`cy.wrap($el)` and use cypress chainers. Aside from establishing better patterns, cypress will
+retry failing assertions whereas jQuery will not. So if you expect a DOM element to change after
+some action is fired, jQuery assertions may fail while the DOM updates, whereas cypress will retry
+those asserttions.
