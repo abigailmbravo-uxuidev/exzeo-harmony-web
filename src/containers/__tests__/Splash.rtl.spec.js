@@ -3,6 +3,14 @@ import React from 'react';
 import { renderWithReduxAndRouter, defaultProps } from '../../test-utils';
 import Splash from '../Splash';
 
+const sideNavLinks = [
+  { dataTest: 'nav-home', href: '/', text: 'DASHBOARD' },
+  { dataTest: 'nav-searchAddress', href: '/search/address', text: 'QUOTE' },
+  { dataTest: 'nav-policy', href: '/policy', text: 'POLICY' },
+  { dataTest: 'nav-contacts', href: '/contacts', text: 'CONTACTS' },
+  { dataTest: 'nav-training', href: '/training', text: 'HELPFUL INFO' }
+];
+
 describe('Testing Splash component', () => {
   const props = {
     ...defaultProps,
@@ -29,10 +37,13 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Side Navigation', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByTestId, getByText } = renderWithReduxAndRouter(<Splash {...props} />);
 
-    ['nav-home', 'nav-searchAddress', 'nav-policy', 'nav-contacts', 'nav-training'].forEach(tag => {
-      expect(getByTestId(tag).firstChild.children.length).toEqual(2);
+    sideNavLinks.forEach(({ dataTest, text, href }) => {
+      const link = getByTestId(dataTest).firstChild;
+      expect(link.children.length).toEqual(2);
+      expect(getByText(text));
+      expect(link).toHaveAttribute('href', href);
     });
   });
 
