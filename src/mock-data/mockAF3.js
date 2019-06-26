@@ -368,7 +368,7 @@ const mock = {
           type: '$CUSTOM',
           dependencies: [],
           data: {
-            component: '$SLIDERGROUP',
+            component: '$SLIDER_GROUP',
             extendedProperties: {
               watchField: 'coverageLimits.building.value',
               watchFieldLabel: 'Building',
