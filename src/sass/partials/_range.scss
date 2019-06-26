@@ -40,7 +40,7 @@
   #ticks {
     display: flex;
     justify-content: space-between;
-    margin: 0 7px 0 3px;
+    margin: 0 0px 0 6px;
 
     @include for-phone-only {
       option {
@@ -59,13 +59,6 @@
       color: $warm-gray-05;
       font-weight: $font-weight-normal;
       font-size: $font-size-xs;
-
-      &:before {
-        position: absolute;
-        bottom: -.5rem;
-        content: "|";
-        font-size: .25rem;
-      }
     }
   }
 
