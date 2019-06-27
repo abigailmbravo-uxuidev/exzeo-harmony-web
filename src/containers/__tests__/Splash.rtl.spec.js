@@ -4,32 +4,21 @@ import { renderWithReduxAndRouter, defaultProps } from '../../test-utils';
 import Splash from '../Splash';
 
 describe('Testing Splash component', () => {
-  const props = {
-    ...defaultProps,
-    fieldQuestions: [],
-    quoteData: {},
-    appState: {
-      data: {
-        submitting: false
-      }
-    }
-  };
-
   it('POS:Dashboard Banner', () => {
-    const { getByAltText, getByText } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByAltText, getByText } = renderWithReduxAndRouter(<Splash {...defaultProps} />);
 
     expect(getByAltText('TypTap Insurance').parentNode).toHaveAttribute('href', '/');
     expect(getByText(/844-289-7968/)).toHaveAttribute('href', 'tel:844-289-7968');
   });
 
   it('POS:Dashboard Detail Header', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<Splash {...defaultProps} />);
 
     expect(getByTestId('user-info').children.length).toEqual(2);
   });
 
   it('POS:Dashboard Side Navigation', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<Splash {...defaultProps} />);
 
     ['nav-home', 'nav-searchAddress', 'nav-policy', 'nav-contacts', 'nav-training'].forEach(tag => {
       expect(getByTestId(tag).firstChild.children.length).toEqual(2);
@@ -37,13 +26,13 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Footer', () => {
-    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<Splash {...defaultProps} />);
 
     expect(getByText(/TypTap Management Company/).className).toEqual('copyright');
   });
 
   it('POS:Dashboard Text', () => {
-    const { getByText, container } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByText, container } = renderWithReduxAndRouter(<Splash {...defaultProps} />);
 
     expect(getByText('Agency App').className).toEqual('app-header');
     expect(getByText(/insurance for Florida properties/));
@@ -54,14 +43,14 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Image', () => {
-    const { container } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { container } = renderWithReduxAndRouter(<Splash {...defaultProps} />);
 
     expect(container.querySelector('div.card-header-image-home')).toBeInTheDocument();
     expect(container.querySelector('div.exzeo')).toBeInTheDocument();
   });
 
   it('POS:Dashboard Button', () => {
-    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByText } = renderWithReduxAndRouter(<Splash {...defaultProps} />);
 
     expect(getByText('New Quote')).toHaveAttribute('href', '/search/address');
     expect(getByText('Retrieve Quote')).toHaveAttribute('href', '/search/retrieve');

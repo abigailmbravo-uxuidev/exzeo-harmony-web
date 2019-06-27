@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 
-import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from '../../../test-utils';
+import { renderWithReduxAndRouter, defaultProps } from '../../../test-utils';
 import ConnectedSearchBar, {
   SearchBar
 } from '../SearchBar';

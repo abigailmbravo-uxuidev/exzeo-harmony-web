@@ -297,7 +297,7 @@ const policyTestData = {
       primaryPhoneNumber: '813-555-3456'
     },
     {
-      id: 'DFBDFBDF2',
+      _id: 'DFBDFBDF2',
       order: 2,
       entityType: 'Person',
       firstName: 'Bryan2',
