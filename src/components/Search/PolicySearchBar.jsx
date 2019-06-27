@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-form';
-import _ from 'lodash';
+import _get from 'lodash/get'
+import _isEqual from 'lodash/isEqual'
 import Rules from '../Form/Rules';
 
 import * as appStateActions from '../../state/actions/appStateActions';
@@ -14,8 +15,8 @@ import SelectField from '../Form/inputs/SelectField';
 import Pagination from '../Common/Pagination';
 import { generateField } from './searchUtils';
 
-const handleInitialize = (state) => {
-  const values = {
+const handleInitialize = () => {
+  return {
     address: '',
     firstName: '',
     lastName: '',
@@ -24,7 +25,6 @@ const handleInitialize = (state) => {
     pageNumber: 1,
     totalPages: 1
   };
-  return values;
 };
 
 export const changePagePolicy = (props, isNext) => {
@@ -119,7 +119,7 @@ export const validate = (values) => {
 export class PolicySearchBar extends Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
-    if (!_.isEqual(this.props.policyResults, nextProps.policyResults)) {
+    if (!_isEqual(this.props.policyResults, nextProps.policyResults)) {
       const totalPages = Math.ceil(nextProps.policyResults.totalNumberOfRecords / nextProps.policyResults.pageSize);
       const pageNumber = nextProps.policyResults.currentPage;
       dispatch(change('PolicySearchBar', 'pageNumber', pageNumber));
@@ -189,7 +189,7 @@ PolicySearchBar.propTypes = {
 
 const mapStateToProps = state => ({
   appState: state.appState,
-  fieldValues: _.get(state.form, 'PolicySearchBar.values', { address: '', sortBy: 'policyNumber' }),
+  fieldValues: _get(state.form, 'PolicySearchBar.values', { address: '', sortBy: 'policyNumber' }),
   formErrors: getFormSyncErrors('PolicySearchBar')(state),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
