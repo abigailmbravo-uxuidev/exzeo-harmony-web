@@ -74,6 +74,10 @@
 
         &:focus {
           outline: none;
+
+          &::-webkit-slider-runnable-track {
+            background: $bright-blue !important;
+          }
         }
 
         &::-webkit-slider-runnable-track {
@@ -93,7 +97,7 @@
         }
 
         &:focus::-webkit-slider-runnable-track {
-          background: lighten($track-color, $contrast);
+          background: lighten($red, $contrast);
         }
 
         &::-moz-range-track {
