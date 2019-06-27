@@ -13,7 +13,7 @@ describe('Testing Search component', () => {
     const store = mockStore(initialState);
     const props = {
       getQuote() {},
-      createQuote() {},
+      createQuote: Promise.resolve({}),
       clearResults() {},
       clearQuote() {},
       handleSubmit() {},
@@ -71,6 +71,7 @@ describe('Testing Search component', () => {
       },
       fieldQuestions: [],
       dispatch: store.dispatch,
+      createQuote: Promise.resolve({}),
       handleSubmit() {},
       appState: {
         modelName: 'bb',
