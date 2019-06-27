@@ -63,8 +63,8 @@
       "!src/setupTests.js",
       "!src/**/choreographer.js",
       "!src/**/reduxFormFailSubmit.js",
-      "!src/test-utils/**/index.js",
-      "!src/mock-data/*"
+      "!src/test-utils/**/*",
+      "!src/mock-data/**/*"
     ],
     "coverageThreshold": {
       "global": {

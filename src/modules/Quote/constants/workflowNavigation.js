@@ -46,13 +46,6 @@ export const NEXT_PAGE_ROUTING = {
 };
 
 export const ROUTES_NOT_HANDLED_BY_GANDALF = [
-  // 'additionalInterests',
-  // 'askMortgagee',
-  // 'askAdditionalInterest',
-  // 'askAdditionalInsured',
-  // 'askPremiumFinance',
-  // 'askBillPayer',
-  // 'verify',
   'error',
   'thankYou',
 ];
