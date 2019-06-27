@@ -651,7 +651,7 @@ export default {
     userId: 'auth0|SYSTEMUSER|0',
     userName: 'SYSTEMUSER'
   },
-  policyNumber: '12-1016071-01',
+  policyNumber: '12-345-67',
   policyTerm: 1,
   policyVersion: 0,
   policyAccountCode: 10000,
