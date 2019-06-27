@@ -30,7 +30,7 @@ describe('Policy Property Page testing', () => {
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
-  it('POS:Checks Home and Location', () => {
+  it('POS:Home and Location testing', () => {
     const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Year Home Built', value: '1998' },
@@ -51,7 +51,7 @@ describe('Policy Property Page testing', () => {
     );
   });
 
-  it('POS:Checks Wind Mitigation', () => {
+  it('POS:Wind Mitigation testing', () => {
     const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Roof Covering', value: 'test covering' },

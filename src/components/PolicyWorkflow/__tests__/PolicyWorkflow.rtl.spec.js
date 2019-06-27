@@ -32,6 +32,10 @@ describe('Policy Workflow testing', () => {
     const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedPolicyWorkflow {...props} />, { state });
     expect(getByTestId('policyHolderDetail'));
     expect(document.querySelector(`a[href="${props.match.url}/policyHolder"]`)).toBeInTheDocument();
+    expect(document.querySelector(`a[href="${props.match.url}/property"]`)).toBeInTheDocument();
+    expect(document.querySelector(`a[href="${props.match.url}/coverage"]`)).toBeInTheDocument();
+    expect(document.querySelector(`a[href="${props.match.url}/billing"]`)).toBeInTheDocument();
+    expect(document.querySelector(`a[href="${props.match.url}/documents"]`)).toBeInTheDocument();
     expect(getByText('©2019 TypTap Management Company. All rights reserved.'));
   });
 
@@ -42,7 +46,7 @@ describe('Policy Workflow testing', () => {
       // This text can be repeated so we have to confirm we're grabbing the last use of it on the page.
       const label = getAllByText(text).pop();
       expect(label.previousSibling.className).toEqual(icon);
-      status.length && expect(label.parentNode.className).toContain(status);
+      expect(label.parentNode.className).toContain(status);
     });
   });
 });
