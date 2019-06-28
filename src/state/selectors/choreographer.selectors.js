@@ -18,6 +18,7 @@ export const getQuoteSelector = createSelector(
       // }
 
       if (quoteData.product === 'AF3') {
+        quoteData.personalPropertySlider =  Math.ceil((quoteData.coverageLimits.personalProperty.amount * 100) / quoteData.coverageLimits.building.amount)
         return quoteData;
       }
       // // do some kind of transformation then it all works form here. Just a thought

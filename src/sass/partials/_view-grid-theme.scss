@@ -30,6 +30,12 @@
     padding-bottom: $padding*2;
     border-bottom: 1px dashed $cool-gray-02;
 
+    &.slider-component {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom-width: 0;
+    }
+
     p {
       margin: 0;
     }
