@@ -309,7 +309,8 @@ export default {
       firstName: 'BATMAN',
       lastName: 'ROBIN',
       order: 0,
-      primaryPhoneNumber: '7271231234'
+      primaryPhoneNumber: '7271231234',
+      secondaryPhoneNumber: '9871234567'
     }
   ],
   product: 'HO3',

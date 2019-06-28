@@ -42,6 +42,7 @@ describe('Policy Policyholder Page testing', () => {
           firstName: 'Green',
           lastName: 'Goblin',
           primaryPhoneNumber: '9753142864',
+          secondaryPhoneNumber: null,
           emailAddress: 'Normanosborne@hotmail.com'
         }
       ]
@@ -64,15 +65,18 @@ describe('Policy Policyholder Page testing', () => {
     const { getByText, getAllByText } = renderWithReduxAndRouter(<PolicyWorkflow {...twoPhProps} />);
 
     expect(getByText('Policyholder Name').nextSibling).toHaveTextContent('BATMAN ROBIN');
-    expect(getAllByText('Phone')[0].nextSibling).toHaveTextContent('(727) 123-1234');
+    expect(getAllByText('Phone 1')[0].nextSibling).toHaveTextContent('(727) 123-1234');
+    // expect(getAllByText('Phone 2')[0].nextSibling).toHaveTextContent('(987) 123-4567');
     expect(getAllByText('Email')[0].nextSibling).toHaveTextContent('MSARMIENTO@HCPCI.COM');
     expect(getAllByText('Mailing Address')[0].nextSibling).toHaveTextContent('4131 TEST ADDRESS');
     expect(getByText('SARASOTA, FL 00001'));
+
     expect(getAllByText('Policyholder Name')[1].nextSibling).toHaveTextContent('Green Goblin');
-    expect(getAllByText('Phone')[1].nextSibling).toHaveTextContent('(975) 314-2864');
+    expect(getAllByText('Phone 1')[1].nextSibling).toHaveTextContent('(975) 314-2864');
     expect(getAllByText('Email')[1].nextSibling).toHaveTextContent('Normanosborne@hotmail.com');
+
     expect(getByText('Agent Name').nextSibling).toHaveTextContent('WALLY WAGONER');
-    expect(getAllByText('Phone')[2].nextSibling).toHaveTextContent('(352) 509-9008');
+    expect(getByText('Phone').nextSibling).toHaveTextContent('(352) 509-9008');
     expect(getAllByText('Email')[2].nextSibling).toHaveTextContent('test@typtap.com');
     expect(getAllByText('Mailing Address')[1].nextSibling).toHaveTextContent('3001 S.E. MARICAMP ROAD');
     expect(getByText('OCALA, FL 34471'));
