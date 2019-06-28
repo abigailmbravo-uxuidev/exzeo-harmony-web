@@ -11,8 +11,8 @@ const Documents = (props) => {
   
   const getPolicyDocuments = defaultMemoize((policyDocuments) => {
     return policyDocuments.map((doc) => {
-      doc.attachments = [];
-      doc.attachments.push(doc);
+      const { attachments, ...policyDoc } = doc;
+      doc.attachments = [policyDoc];
       return doc;
     });
   })
@@ -32,6 +32,8 @@ const Documents = (props) => {
   ));
 
   const policyDocs = getPolicyDocuments(options.policyDocuments);
+
+  console.log(policyDocs)
 
   return (
     <BootstrapTable className="table-responsive table-striped policy-documents" data={policyDocs} options={{ sortName: 'createdDate', sortOrder: 'desc' }}>
