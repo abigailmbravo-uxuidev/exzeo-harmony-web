@@ -41,5 +41,12 @@ describe('Policy Document Page testing', () => {
     fireEvent.click(getByText('Date'));
     documents.reverse();
     checkRows();
+
+    fireEvent.click(getByText('Document Type'));
+    documents.reverse();
+    checkRows();
+    fireEvent.click(getByText('Document Type'));
+    documents.reverse();
+    checkRows();
   });
 });

@@ -8,14 +8,12 @@ import Downloader from '../../components/Common/Downloader';
 
 const Documents = (props) => {
   const { options, customHandlers } = props;
-  
-  const getPolicyDocuments = defaultMemoize((policyDocuments) => {
-    return policyDocuments.map((doc) => {
-      const { attachments, ...policyDoc } = doc;
-      doc.attachments = [policyDoc];
-      return doc;
-    });
-  })
+
+  const getPolicyDocuments = defaultMemoize(policyDocuments =>
+    policyDocuments.map(({ attachments, ...rest }) => ({
+      ...rest,
+      attachments: [{ ...rest }]
+    })));
 
   const attachmentUrl = defaultMemoize(attachments => (
     <span>
@@ -33,12 +31,18 @@ const Documents = (props) => {
 
   const policyDocs = getPolicyDocuments(options.policyDocuments);
 
-  console.log(policyDocs)
+  const sortAttachments = (a, b, order) => {
+    const comparison = a.attachments[0].fileName > b.attachments[0].fileName;
+    if (order === 'desc') return comparison ? -1 : 1;
+    else return comparison ? 1 : -1;
+  };
 
   return (
-    <BootstrapTable className="table-responsive table-striped policy-documents" data={policyDocs} options={{ sortName: 'createdDate', sortOrder: 'desc' }}>
+    <BootstrapTable className="table-responsive table-striped policy-documents" data={policyDocs}
+    options={{ sortName: 'createdDate', sortOrder: 'desc' }} 
+    >
       <TableHeaderColumn className="date" columnClassName="date" headerAlign="left" dataAlign="left" dataField="createdDate" dataFormat={x => date.toLocaleDate(x)} dataSort >Date</TableHeaderColumn>
-      <TableHeaderColumn className="document-type" columnClassName="document-type" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} >Document Type</TableHeaderColumn>
+      <TableHeaderColumn className="document-type" columnClassName="document-type" headerAlign="left" dataAlign="left" dataField="attachments" isKey dataFormat={attachmentUrl} dataSort sortFunc={sortAttachments}>Document Type</TableHeaderColumn>
     </BootstrapTable>
   );
 };
