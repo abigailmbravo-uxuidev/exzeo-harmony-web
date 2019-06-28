@@ -220,5 +220,6 @@ export default {
     _id: '5ca744a98001ef001258b421',
     userId: 'auth0|59419e3a43e76f16f68c3349',
     userName: 'tticcsr'
-  }
+  },
+  rating: { worksheet: { fees: {}}}
 };

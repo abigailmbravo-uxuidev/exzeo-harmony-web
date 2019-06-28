@@ -80,14 +80,8 @@ export const defaultQuoteWorkflowProps = {
   history: { replace: x => x },
   location: { pathname: '' },
   isLoading: false,
-  quote: {
-    ...quote,
-    rating: { worksheet: { fees: {} } }
-  },
-  quoteData: {
-    ...quote,
-    rating: { worksheet: { fees: {} } }
-  },
+  quote,
+  quoteData: quote,
   headerDetails: {},
   workflowState: {},
   zipCodeSettings,
@@ -265,6 +259,7 @@ export const checkHeader = (query, { dataTest = '', text, label = '', icon = fal
  */
 export const checkSelect = (query, field) => {
   const select = parseQueryType(query, field);
+  field.defaultValue && expect(select.getAttribute('data-selected')).toEqual(field.defaultValue);
   field.values && field.values.forEach(value => {
     fireEvent.change(select, { target: { value }});
     expect(select.getAttribute('data-selected')).toEqual(value);
