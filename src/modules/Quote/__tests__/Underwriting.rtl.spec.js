@@ -8,7 +8,7 @@ import {
   underwritingResult as result,
   submitForm, checkError, checkRadio, checkLabel, checkButton
 } from '../../../test-utils';
-import ConnectedQuoteWorkflow, { QuoteWorkflow } from '../QuoteWorkflow';
+import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
   {
