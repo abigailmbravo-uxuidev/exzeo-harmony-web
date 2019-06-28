@@ -15,7 +15,7 @@ describe('Testing Search Component', () => {
     clearQuote: () => {}
   };
 
-  const state = { ...defaultInitialState, form: {} };
+  const state = { ...defaultInitialState, form: {}};
 
   // Create a real store with our actual reducers so we have the formReducer
   const store = createStore(rootReducer, state, applyMiddleware(thunk));
@@ -23,7 +23,7 @@ describe('Testing Search Component', () => {
   it('NEG:Property Address Search Bar Empty Value', () => {
     const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
     const typeAndCheckButton = (value, buttonDisabled = false) => {
-      fireEvent.change(searchbar, { target: { value } });
+      fireEvent.change(searchbar, { target: { value }});
       fireEvent.blur(searchbar);
       expect(getByTestId('submit').disabled).toBe(buttonDisabled);
     };
@@ -39,7 +39,7 @@ describe('Testing Search Component', () => {
   it('NEG:Test Invalid Addresses', () => {
     const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
     const searchbar = getByPlaceholderText(/Search for Property Address/);
-    fireEvent.change(searchbar, { target: { value: '4131 TEST ADDRESS ≈ˆÎÍÒÍ' } });
+    fireEvent.change(searchbar, { target: { value: '4131 TEST ADDRESS ≈ˆÎÍÒÍ' }});
     fireEvent.blur(searchbar);
     // Expect to get the error when we search with invalid characters
     expect(getByTestId('address_wrapper').className.includes('error')).toBe(true);

@@ -16,7 +16,7 @@ describe('Testing PolicySearchBar component', () => {
         policyResults: {}
       },
       authState: {
-        userProfile: { groups: [{}], entity: {} }
+        userProfile: { groups: [{}], entity: {}}
       },
       form: {
         PolicySearchBar: {
@@ -70,7 +70,7 @@ describe('Testing PolicySearchBar component', () => {
 
   it('should paging functions', () => {
     const props = {
-      userProfile: { groups: [{}], entity: {} },
+      userProfile: { groups: [{}], entity: {}},
       fieldValues: {},
       actions: { searchActions: { setPolicySearch() {} },
         serviceActions: { searchPolicy() { return Promise.resolve(); } }

@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { mount } from 'enzyme';
 
-import ConnectedApp, { handleSearchBarSubmit, validate, changePageQuote } from './SearchBar';
+import ConnectedApp, { handleSearchBarSubmit, changePageQuote } from './SearchBar';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -13,7 +13,7 @@ describe('Testing SearchBar component', () => {
   it('should test connected app', () => {
     const initialState = {
       search: {},
-      authState: { userProfile: { appMetadata: { beta: true}}},
+      authState: { userProfile: { appMetadata: { beta: true }}},
       service: {
         policyResults: {}
       },
@@ -35,8 +35,9 @@ describe('Testing SearchBar component', () => {
     const props = {
       handleSubmit: x => x,
       userProfile: {
-        appMetadata: { beta: true},
-        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+        appMetadata: { beta: true },
+        groups: [{ state: 'FL', companyCode: 'TTIC' }],
+        entity: { state: {}}
       },
       actions: {
         searchActions: {
@@ -58,9 +59,9 @@ describe('Testing SearchBar component', () => {
       }
     };
     const wrapper = mount(
-    <Provider store={store}>
-      <ConnectedApp store={store} {...props} />
-    </Provider>);
+      <Provider store={store}>
+        <ConnectedApp store={store} {...props} />
+      </Provider>);
     expect(wrapper);
   });
   it('should test handleFormSubmit', () => {
@@ -76,8 +77,9 @@ describe('Testing SearchBar component', () => {
 
     const props = {
       userProfile: {
-        appMetadata: { beta: true},
-        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+        appMetadata: { beta: true },
+        groups: [{ state: 'FL', companyCode: 'TTIC' }],
+        entity: { state: {}}
       },
       fieldValues: {
         searchType: 'address'
@@ -145,7 +147,8 @@ describe('Testing SearchBar component', () => {
       setQuoteSearch() {},
       searchAddresses() {},
       userProfile: {
-        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+        groups: [{ state: 'FL', companyCode: 'TTIC' }],
+        entity: { state: {}}
       },
       fieldValues: {
         searchType: 'address'

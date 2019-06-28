@@ -12,22 +12,22 @@ describe('Testing Search component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      getQuote() {},
-      createQuote: Promise.resolve({}),
+      getQuote: jest.fn(),
+      createQuote: jest.fn(),
+      history: { replace: jest.fn() },
       clearResults() {},
       clearQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
       quote: {},
       dispatch: store.dispatch,
-      authState: {
-        userProfile: {}
-      },
+      userProfile: { entity: {}},
       appState: {
         data: {
           submitting: false
         }
-      }
+      },
+      search: {}
     };
     const wrapper = shallow(<Search {...props} />);
     expect(wrapper);
@@ -66,19 +66,19 @@ describe('Testing Search component', () => {
       quote: {
         quoteState: 'Quote Started'
       },
-      authState: {
-        userProfile: {}
-      },
+      userProfile: {},
       fieldQuestions: [],
       dispatch: store.dispatch,
-      createQuote: Promise.resolve({}),
+      createQuote: jest.fn(),
       handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {
           submitting: false
         }
-      }
+      },
+      search: {},
+      history: { replace: jest.fn() }
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
