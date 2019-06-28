@@ -38,5 +38,8 @@ describe('Policy Document Page testing', () => {
     // We reverse our array after sorting by reverse date
     documents.reverse();
     checkRows();
+    fireEvent.click(getByText('Date'));
+    documents.reverse();
+    checkRows();
   });
 });

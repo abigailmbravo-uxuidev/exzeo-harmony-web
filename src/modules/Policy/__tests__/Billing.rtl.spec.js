@@ -88,7 +88,7 @@ describe('Policy Billing Page testing', () => {
       { date: '2019-05-15', type: 'Paper Deposit', description: 'Duplicate Payment Applied in Error', amount: '$ 100.00' },
       { date: '2019-06-01', type: 'AAA type', description: 'ZZZ description', amount: '$ 40.00' },
     ];
-    const checkRows = () => 
+    const checkRows = () =>
       document.querySelectorAll('tbody tr').forEach(($row, i) => {
         const cols = $row.childNodes;
         expect(cols[0].textContent).toEqual(payments[i].date);
@@ -97,25 +97,29 @@ describe('Policy Billing Page testing', () => {
         expect(cols[3].textContent).toEqual(payments[i].amount);
       });
 
-    checkRows();
-    
-    // In order to confirm that each sorter works, we have to reverse the sort each time
-    // -- otherwise, we might simply be not sorting anything and leaving everything in place.
-    fireEvent.click(getByText('Date'));
-    payments.reverse();
+    const flipAndCheckBothDirections = header => {
+      // Set the asc order on the header.
+      fireEvent.click(getByText(header));
+      // Data is structured so this will reverse whatever was previously here, to confirm the sorting actually works.
+      payments.reverse();
+      checkRows();
+      // Set desc order.
+      fireEvent.click(getByText(header));
+      // Reverse and check data again.
+      payments.reverse();
+      checkRows();
+      // Reverse the answers again due to data structure so that the next time we call this function
+      // we confirm that the sorting actually works.
+      payments.reverse();
+    };
+
+    // Check default ordering first.
     checkRows();
 
-    fireEvent.click(getByText('Type'));
-    payments.reverse();
-    checkRows();
-
-    fireEvent.click(getByText('Description'));
-    payments.reverse();
-    checkRows();
-
-    fireEvent.click(getByText('Amount'));
-    payments.reverse();
-    checkRows();
+    flipAndCheckBothDirections('Date');
+    flipAndCheckBothDirections('Type');
+    flipAndCheckBothDirections('Description');
+    flipAndCheckBothDirections('Amount');
 
     expect(getByText('Payments Received: $ 140.00'));
   });
@@ -130,8 +134,8 @@ describe('Policy Billing Page testing', () => {
     };
 
     const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...emptyBillingProps} />);
-    
+
     expect(getByText('There is no data to display'));
     expect(getByText('Payments Received: $ 0.00'));
-  })
+  });
 });
