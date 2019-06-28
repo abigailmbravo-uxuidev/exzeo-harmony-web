@@ -4,7 +4,8 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
-  submitForm, checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput
+  submitForm,
+  checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput, checkSelect
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
@@ -78,6 +79,23 @@ const ph2Fields = [
   }
 ];
 
+
+const detailsFields = [
+  {
+    dataTest: 'effectiveDate',
+    label: 'Effective Date',
+    type: 'text',
+    data: '2010-01-02'
+  },
+  {
+    dataTest: 'agentCode',
+    label: 'Agent',
+    type: 'select',
+    defaultValue: '60000',
+    values: ['60000', '1234']
+  }
+];
+
 const pageHeaders = [
   {
     dataTest: 'Primary Policyholder',
@@ -104,9 +122,8 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
 
   const toggleSecondUser = (dir = 'on') => {
     const toggle = document.querySelector('[data-test="additionalPolicyholder"]');
-    if ((!toggle.classList.contains('active') && dir === 'on') || (toggle.classList.contains('active') && dir === 'off')) {
-      fireEvent.click(toggle);
-    };
+    if ((!toggle.classList.contains('active') && dir === 'on') ||
+    (toggle.classList.contains('active') && dir === 'off')) fireEvent.click(toggle);
   };
 
   it('NEG:All Inputs Empty Value', () => {
@@ -188,11 +205,23 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   });
 
   it('POS:Policy Details Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const newProps = {
+      ...props,
+      options: {
+        ...props.options,
+        agents: [
+          { label: '', answer: '60000' },
+          { label: '', answer: '1234' }
+        ]
+      }
+    };
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
 
-    expect(getByTestId('effectiveDate_wrapper')).toHaveTextContent('Effective Date');
-    expect(getByTestId('effectiveDate'));
-    expect(getByTestId('agentCode_wrapper')).toHaveTextContent('Agent');
+    detailsFields.forEach(field => {
+      checkLabel(getByTestId, field);
+      if (field.type === 'text') checkTextInput(getByTestId, field);
+      if (field.type === 'select') checkSelect(getByTestId, field);
+    });
   });
 
   it('POS:Checks Submit Button', () => {
