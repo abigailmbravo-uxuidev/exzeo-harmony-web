@@ -47,8 +47,8 @@ const mock = {
                   className: "row-items",
                   details: [
                     { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[0]'}] },
-                    { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[0].primaryPhoneNumber'}]},
-                    { optional: true, label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[0].secondaryPhoneNumber'}]},
+                    { label: 'Phone 1', items: [{ format: 'phone', path: 'policyHolders[0].primaryPhoneNumber'}]},
+                    { label: 'Phone 2', optional: true, items: [{ format: 'phone', path: 'policyHolders[0].secondaryPhoneNumber'}]},
                     { label: 'Email', items: [{ format: '', path: 'policyHolders[0].emailAddress'}]},
                   ]
                 }
@@ -67,7 +67,7 @@ const mock = {
                     { label: 'Mailing Address',
                     items: [
                       { format: '', path: 'policyHolderMailingAddress.address1'},
-                      { optional: true, format: '', path: 'policyHolderMailingAddress.address2'},
+                      { format: '', path: 'policyHolderMailingAddress.address2'},
                       { format: 'cityStateZip', path: 'policyHolderMailingAddress'}
                     ]
                   }]
@@ -107,8 +107,8 @@ const mock = {
                   className: "row-items",
                   details: [
                     { label: 'Policyholder Name', items: [{ format: 'name', path: 'policyHolders[1]'}] },
-                    { label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[1].primaryPhoneNumber'}]},
-                    { optional: true, label: 'Phone', items: [{ format: 'phone', path: 'policyHolders[1].secondaryPhoneNumber'}]},
+                    { label: 'Phone 1', items: [{ format: 'phone', path: 'policyHolders[1].primaryPhoneNumber'}]},
+                    { label: 'Phone 2', optional: true, items: [{ format: 'phone', path: 'policyHolders[1].secondaryPhoneNumber'}]},
                     { label: 'Email', items: [{ format: '', path: 'policyHolders[1].emailAddress'}]},
                   ]
                 }
