@@ -187,6 +187,15 @@ export const checkTextInput = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field - The field object to find and test.
  */
+export const checkOutput = (query, { dataTest = '', value, ...rest} = {}) => {
+  const wrapper = parseQueryType(query, { ...rest, dataTest: `${dataTest}_wrapper` });
+  expect(wrapper.querySelector('output').textContent).toEqual(value);
+};
+
+/**
+ * @param {Object} query - The function from react-testing-library to be used.
+ * @param {Object} field - The field object to find and test.
+ */
 export const checkPhoneInput = (query, field) => {
   const input = parseQueryType(query, field);
   fireEvent.change(input, { target: { value: field.data }});
@@ -197,17 +206,22 @@ export const checkPhoneInput = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { dataTest = '', text = '', label = '', values } - The field object to find and test.
  */
-export const checkRadio = (query, { dataTest = '', text = '', label = '', values, defaultValue, format = x => x }) =>
-  values.forEach(value => {
+export const checkRadio = (query,
+  { dataTest = '', text = '', label = '', values, defaultValue, format = x => x, outputValues = [] }
+) =>
+  values.forEach((value, i) => {
     // Get the option to select and click it
     const selectedOption = parseQueryType(query, { dataTest: `${dataTest}_${value}`, text, label });
+    // Expect the value of the text is equal
     expect(selectedOption.textContent).toEqual(format(value));
     const unselectedClass = 'label-segmented';
     const selectedClass = 'label-segmented selected';
-    
-    if (value !== defaultValue) expect(selectedOption.parentNode.className).toMatch(unselectedClass);
-    else if (value === defaultValue) expect(selectedOption.parentNode.className).toMatch(selectedClass);
+
+    if (value !== defaultValue) expect(selectedOption.parentNode.className).toEqual(unselectedClass);
+    else if (value === defaultValue) expect(selectedOption.parentNode.className).toEqual(selectedClass);
     fireEvent.click(selectedOption);
+    // outputValues[i] && console.log(parseQueryType(query, { dataTest: `${dataTest}_wrapper` }))
+    outputValues[i] && expect(parseQueryType(query, { dataTest: `${dataTest}_wrapper`}).querySelector('output').textContent).toEqual(outputValues[i])
     // Expect the parent wrapper to be selected
     expect(selectedOption.parentNode.className).toEqual(selectedClass);
     // Expect all other values' parents to be unchecked

@@ -1,10 +1,10 @@
 import React from 'react';
-import { fireEvent, waitForDomChange } from 'react-testing-library';
+import { fireEvent, waitForDomChange, wait } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
-  checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
+  checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel, checkOutput,
   setSliderValue
 } from '../../../test-utils';
 import { format } from '@exzeo/core-ui';
@@ -15,25 +15,24 @@ const fields = [
     dataTest: 'coverageLimits.dwelling.value',
     required: true,
     type: 'slider',
-    label: 'Dwelling Limit',
-    tooltipText: 'structure of your home'
+    label: 'Dwelling Limit'
   },
   {
     dataTest: 'coverageLimits.otherStructures.value',
     required: true,
     type: 'radio',
     label: 'Other Structures Limit',
-    tooltipText: 'the other structures',
     values: ['0', '2', '5', '10'],
-    format: x => `${x}%`
+    format: x => `${x}%`,
+    outputValues: ['$ 0', '$ 8,160', '$ 20,400', '$ 40,800']
   },
   {
     dataTest: 'coverageLimits.personalProperty.value',
     required: true,
     type: 'radio',
     label: 'Personal Property Limit',
-    tooltipText: 'personal belongings',
     values: ['0', '25', '35', '50'],
+    outputValues: ['$ 0', '$ 102,000', '$ 142,800', '$ 204,000'],
     format: x => `${x}%`
   },
   {
@@ -41,15 +40,14 @@ const fields = [
     required: true,
     type: 'switch',
     label: 'Do you want Personal Property Replacement Cost Coverage?',
-    tooltipText: 'Replacement Cost Coverage',
     defaultValue: true
   },
   {
     dataTest: 'coverageLimits.lossOfUse.value',
     required: true,
-    type: 'text',
+    type: 'output',
     label: 'Loss of Use Limit',
-    tooltipText: 'This is your personal belongings'
+    value: '$ 40,800'
   },
   {
     dataTest: 'coverageLimits.personalLiability.value',
@@ -62,8 +60,9 @@ const fields = [
   {
     dataTest: 'coverageLimits.medicalPayments.value',
     required: true,
-    type: 'text',
-    label: 'Medical Payments to Others'
+    type: 'output',
+    label: 'Medical Payments to Others',
+    value: '$ 2,000'
   },
   {
     dataTest: 'coverageLimits.moldProperty.value',
@@ -71,6 +70,7 @@ const fields = [
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
     values: ['10000', '25000', '50000'],
+    defaultValue: '10000',
     format: format.toCurrency
   },
   {
@@ -79,6 +79,7 @@ const fields = [
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
     values: ['50000', '100000'],
+    defaultValue: '50000',
     format: format.toCurrency
   },
   {
@@ -87,6 +88,7 @@ const fields = [
     type: 'radio',
     label: 'Ordinance or Law Coverage Limit',
     values: ['25', '50'],
+    defaultValue: '25',
     format: x => `${x}% of Dwelling Limit`
   },
   {
@@ -110,14 +112,19 @@ const fields = [
     type: 'radio',
     label: 'Hurricane Deductible',
     values: ['2', '5', '10'],
-    format: x => `${x}% of Dwelling Limit`
+    defaultValue: '2',
+    format: x => `${x}% of Dwelling Limit`,
+    outputValues: ['$ 8,160', '$ 20,400', '$ 40,800'],
   },
   {
     dataTest: 'deductibles.sinkhole.value',
+    required: true,
     type: 'radio',
     label: 'Sinkhole Deductible',
     values: ['10'],
-    format: format.toCurrency
+    defaultValue: '10',
+    format: x => `${x}% of Dwelling Limit`,
+    outputValues: ['$ 40,800']
   },
   {
     dataTest: 'property.windMitigation.roofCovering',
@@ -180,6 +187,7 @@ const fields = [
     required: true,
     type: 'radio',
     label: 'Sprinkler',
+    defaultValue: 'N',
     values: ['N', 'A', 'B']
   }
 ];
@@ -248,21 +256,14 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   });
 
   it('POS:Checks all fields', () => {
-    const { getByTestId, container } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
-    fields.filter(({ required }) => required)
-      .forEach(async field => {
+    fields.forEach(field => {
         checkLabel(getByTestId, field);
         if (field.type === 'radio') checkRadio(getByTestId, field);
         if (field.type === 'switch') checkSwitch(getByTestId, field);
         if (field.type === 'slider') checkSlider(getByTestId, field);
-        if (field.tooltipText) {
-          fireEvent.mouseOver(getByTestId(`${field.dataTest}_tooltip`));
-          // wait for our mouseover to occur
-          await waitForDomChange({ container }).then(() =>
-            expect(document.getElementById(field.dataTest).textContent).toMatch(field.tooltipText)
-          );
-        };
+        if (field.type === 'output') checkOutput(getByTestId, field);
       });
   });
 
@@ -272,7 +273,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
-  it('POS:Checks Output Values', () => {
+  it('POS:Checks Output Values for Slider', () => {
     const outputFields = [
       'coverageLimits.otherStructures.value_wrapper',
       'coverageLimits.personalProperty.value_wrapper',
