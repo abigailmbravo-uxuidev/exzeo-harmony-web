@@ -293,10 +293,14 @@ export const checkSelect = (query, field) => {
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field [field={ dataTest: 'submit' }] - The field object to find and test.
+ * @param {Object} button { dataTest: 'submit', text, ...rest } = {} - The button object to find and test.
  */
-export const checkButton = (query, field = { dataTest: 'submit', text: 'Submit' }) =>
-  expect(parseQueryType(query, field).getAttribute('type')).toEqual('button');
+export const checkButton = (query, { dataTest = 'submit', text = 'next', ...rest } = {}) => {
+  const button = parseQueryType(query, { ...rest, dataTest, text });
+  expect(button.getAttribute('type')).toEqual('button');
+  expect(button.textContent).toEqual(text);
+};
+
 
 /**
  * This function is used to verify specific submit errors for one field as well
