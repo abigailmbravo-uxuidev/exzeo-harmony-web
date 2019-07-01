@@ -32,9 +32,10 @@ const Documents = (props) => {
   const policyDocs = getPolicyDocuments(options.policyDocuments);
 
   const sortAttachments = (a, b, order) => {
-    const comparison = a.attachments[0].fileName > b.attachments[0].fileName;
-    if (order === 'desc') return comparison ? -1 : 1;
-    else return comparison ? 1 : -1;
+    const aComesLater = a.attachments[0].fileName > b.attachments[0].fileName;
+    return order === 'desc' ?
+      (aComesLater ? -1 : 1) :
+      (aComesLater ? 1 : -1);
   };
 
   return (
