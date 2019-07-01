@@ -5,7 +5,7 @@ import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
   submitForm,
-  checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput, checkSelect
+  checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput, checkSelect, checkSwitch
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
@@ -136,6 +136,20 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     ph1Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
   });
+
+  it('POS:Secondary Policyholder toggle testing', () => {
+    const { getByTestId, queryByText, getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const secondaryToggle = {
+      dataTest: 'additionalPolicyholder',
+      label: 'Do you want to add an additional Policyholder?',
+      defaultValue: ''
+    };
+    checkSwitch(getByTestId, secondaryToggle);
+    checkLabel(getByTestId, secondaryToggle);
+    expect(queryByText('Secondary Policyholder')).not.toBeInTheDocument();
+    toggleSecondUser();
+    expect(getByText('Secondary Policyholder'));
+  })
 
   it('NEG:Secondary Policyholder Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
