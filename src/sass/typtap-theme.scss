@@ -500,8 +500,17 @@ output {
           border-bottom: 1.1875rem solid transparent;
           content: "";
         }
+      }
 
-        input {}
+      &.output-disabled {
+        .range-value {
+          &:before {
+            border-width: 0;
+          }
+          input {
+            color: $cool-gray-03;
+          }
+        }
       }
     }
 

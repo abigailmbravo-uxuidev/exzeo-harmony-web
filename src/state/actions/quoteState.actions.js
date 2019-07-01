@@ -112,7 +112,10 @@ function formatQuoteForSubmit(data, options) {
 
   // AF3 specific rules
   if (data.product === PRODUCT_TYPES.flood) {
-    // currently no defaults specific to flood that we know of.
+    // personal property replacement cost coverage
+    if (!(data.coverageLimits.personalProperty.value >= Math.ceil(data.coverageLimits.building.value / 4))) {
+      quote.coverageOptions.personalPropertyReplacementCost.answer = false;
+    }
   }
 
   return quote;

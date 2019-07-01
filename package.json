@@ -12,7 +12,7 @@
     "cypress": "react-scripts cypress"
   },
   "dependencies": {
-    "@exzeo/core-ui": "^0.8.4",
+    "@exzeo/core-ui": "^0.8.5",
     "@exzeo/react-scripts": "^2.0.3",
     "auth0-js": "~8.10.1",
     "classnames": "~2.2.5",
@@ -63,8 +63,9 @@
       "!src/setupTests.js",
       "!src/**/choreographer.js",
       "!src/**/reduxFormFailSubmit.js",
-      "!src/test-utils/**/index.js",
-      "!src/mock-data/*"
+      "!src/test-utils/fixtures/*",
+      "!src/test-utils/index.js",
+      "!src/mock-data/**/*"
     ],
     "coverageThreshold": {
       "global": {
