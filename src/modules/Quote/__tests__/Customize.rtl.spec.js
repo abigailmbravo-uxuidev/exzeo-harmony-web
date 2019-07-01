@@ -7,6 +7,7 @@ import {
   checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
   setSliderValue
 } from '../../../test-utils';
+import { format } from '@exzeo/core-ui';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
@@ -54,6 +55,7 @@ const fields = [
     type: 'radio',
     label: 'Personal Liability Limit',
     values: ['100000', '300000'],
+    format: format.toCurrency
   },
   {
     dataTest: 'coverageLimits.medicalPayments.value',
@@ -67,20 +69,23 @@ const fields = [
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
     values: ['10000', '25000', '50000'],
+    format: format.toCurrency
   },
   {
     dataTest: 'coverageLimits.moldLiability.value',
     required: true,
     type: 'radio',
     label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
-    values: ['50000', '100000']
+    values: ['50000', '100000'],
+    format: format.toCurrency
   },
   {
     dataTest: 'coverageLimits.ordinanceOrLaw.value',
     required: true,
     type: 'radio',
     label: 'Ordinance or Law Coverage Limit',
-    values: ['25', '50']
+    values: ['25', '50'],
+    format: x => `${x}% of Dwelling Limit`
   },
   {
     dataTest: 'coverageOptions.sinkholePerilCoverage.answer',
@@ -95,19 +100,22 @@ const fields = [
     type: 'radio',
     label: 'All Other Perils Deductible',
     values: ['500', '1000', '2500'],
+    format: format.toCurrency
   },
   {
     dataTest: 'deductibles.hurricane.value',
     required: true,
     type: 'radio',
     label: 'Hurricane Deductible',
-    values: ['2', '5', '10']
+    values: ['2', '5', '10'],
+    format: x => `${x}% of Dwelling Limit`
   },
   {
     dataTest: 'deductibles.sinkhole.value',
     type: 'radio',
     label: 'Sinkhole Deductible',
-    values: ['10']
+    values: ['10'],
+    format: format.toCurrency
   },
   {
     dataTest: 'property.windMitigation.roofCovering',

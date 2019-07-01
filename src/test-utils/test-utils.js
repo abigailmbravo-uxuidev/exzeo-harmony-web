@@ -197,10 +197,11 @@ export const checkPhoneInput = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { dataTest = '', text = '', label = '', values } - The field object to find and test.
  */
-export const checkRadio = (query, { dataTest = '', text = '', label = '', values, defaultValue }) =>
+export const checkRadio = (query, { dataTest = '', text = '', label = '', values, defaultValue, format = x => x }) =>
   values.forEach(value => {
     // Get the option to select and click it
     const selectedOption = parseQueryType(query, { dataTest: `${dataTest}_${value}`, text, label });
+    expect(selectedOption).toHaveTextContent(format(value));
     const unselectedClass = 'label-segmented';
     const selectedClass = 'label-segmented selected';
     
