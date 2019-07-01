@@ -162,16 +162,17 @@ export const clearText = (query, field) => fireEvent.change(parseQueryType(query
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field [{ dataTest = '', text = '', label = '', error = 'Field Required' }={}] - The field object to find and test.
+ * @param {Object} field [{ dataTest, error = 'Field Required', ...rest }] - The field object to find and test.
  */
-export const checkError = (query, { dataTest = '', text = '', label = '', error = 'Field Required' } = {}) =>
-  expect(parseQueryType(query, { dataTest: `${dataTest}_error`, text, label, error })).toHaveTextContent(error);
+export const checkError = (query, { dataTest, error = 'Field Required', ...rest } = {}) =>
+  expect(parseQueryType(query, { ...rest, dataTest: `${dataTest}_error`, error })).toHaveTextContent(error);
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field { dataTest = '', text = '', label } - The field object to find and test.
+ * @param {Object} field { dataTest, label, ...rest } - The field object to find and test.
  */
-export const checkLabel = (query, { dataTest = '', text = '', label }) => expect(parseQueryType(query, { dataTest: `${dataTest}_label`, text, label })).toHaveTextContent(label);
+export const checkLabel = (query, { dataTest, label, ...rest }) =>
+  expect(parseQueryType(query, { ...rest, dataTest: `${dataTest}_label`, label })).toHaveTextContent(label);
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
@@ -179,7 +180,7 @@ export const checkLabel = (query, { dataTest = '', text = '', label }) => expect
  */
 export const checkTextInput = (query, field) => {
   const input = parseQueryType(query, field);
-  fireEvent.change(input, { target: { value: field.data } });
+  fireEvent.change(input, { target: { value: field.data }});
   expect(input.value).toBe(field.data);
 };
 
@@ -187,7 +188,7 @@ export const checkTextInput = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field - The field object to find and test.
  */
-export const checkOutput = (query, { dataTest = '', value, ...rest} = {}) => {
+export const checkOutput = (query, { dataTest, value, ...rest }) => {
   const wrapper = parseQueryType(query, { ...rest, dataTest: `${dataTest}_wrapper` });
   expect(wrapper.querySelector('output').textContent).toEqual(value);
 };
@@ -207,26 +208,30 @@ export const checkPhoneInput = (query, field) => {
  * @param {Object} field { dataTest = '', text = '', label = '', values } - The field object to find and test.
  */
 export const checkRadio = (query,
-  { dataTest = '', text = '', label = '', values, defaultValue, format = x => x, outputValues = [] }
+  { dataTest, values, defaultValue, format = x => x, outputValues = [], ...rest }
 ) =>
   values.forEach((value, i) => {
-    // Get the option to select and click it
-    const selectedOption = parseQueryType(query, { dataTest: `${dataTest}_${value}`, text, label });
-    // Expect the value of the text is equal
-    expect(selectedOption.textContent).toEqual(format(value));
+    // Get the option to select
+    const selectedOption = parseQueryType(query, { ...rest, dataTest: `${dataTest}_${value}` });
     const unselectedClass = 'label-segmented';
     const selectedClass = 'label-segmented selected';
 
-    if (value !== defaultValue) expect(selectedOption.parentNode.className).toEqual(unselectedClass);
-    else if (value === defaultValue) expect(selectedOption.parentNode.className).toEqual(selectedClass);
+    // Expect the value of the text is equal to the formatted value
+    expect(selectedOption.textContent).toEqual(format(value));
+    // If this is the default value it should be checked already, otherwise it should not be
+    value === defaultValue ?
+      expect(selectedOption.parentNode.className).toEqual(selectedClass) :
+      expect(selectedOption.parentNode.className).toEqual(unselectedClass);
+
+    // Click the option
     fireEvent.click(selectedOption);
-    // outputValues[i] && console.log(parseQueryType(query, { dataTest: `${dataTest}_wrapper` }))
-    outputValues[i] && expect(parseQueryType(query, { dataTest: `${dataTest}_wrapper`}).querySelector('output').textContent).toEqual(outputValues[i])
+    // If there is an output field, check it now
+    outputValues[i] && expect(parseQueryType(query, { dataTest: `${dataTest}_wrapper` }).querySelector('output').textContent).toEqual(outputValues[i]);
     // Expect the parent wrapper to be selected
     expect(selectedOption.parentNode.className).toEqual(selectedClass);
     // Expect all other values' parents to be unchecked
     values.filter(uncheckedValue => value !== uncheckedValue)
-      .forEach(uncheckedValue => expect(parseQueryType(query, { dataTest: `${dataTest}_${uncheckedValue}`, text, label }).parentNode.className).toEqual(unselectedClass));
+      .forEach(uncheckedValue => expect(parseQueryType(query, { ...rest, dataTest: `${dataTest}_${uncheckedValue}` }).parentNode.className).toEqual(unselectedClass));
   });
 
 /**
@@ -245,11 +250,11 @@ export const checkSwitch = (query, field) => {
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field { dataTest = '', text = '', label = '' } - The field object to find and test.
+ * @param {Object} field { dataTest, ...rest } - The field object to find and test.
  */
-export const checkSlider = (query, { dataTest = '', text = '', label = '' }) => {
+export const checkSlider = (query, { dataTest, ...rest }) => {
   // We check slider min and max value
-  const slider = parseQueryType(query, { dataTest: `${dataTest}-slider`, text, label });
+  const slider = parseQueryType(query, { ...rest, dataTest: `${dataTest}-slider` });
   const min = slider.getAttribute('min');
   const max = slider.getAttribute('max');
   expect(slider);
@@ -261,10 +266,10 @@ export const checkSlider = (query, { dataTest = '', text = '', label = '' }) => 
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field { dataTest = '', text, label = '', icon = false } - The field object to find and test.
+ * @param {Object} field { dataTest, icon = false, text, ...rest } - The field object to find and test.
  */
-export const checkHeader = (query, { dataTest = '', text, label = '', icon = false }) => {
-  const header = parseQueryType(query, { dataTest, text, label });
+export const checkHeader = (query, { dataTest, icon = false, text, ...rest }) => {
+  const header = parseQueryType(query, { ...rest, dataTest, text });
   expect(header).toHaveTextContent(text);
   if (icon) {
     // find the first icon element and check that it's classname is the icon value in the field
