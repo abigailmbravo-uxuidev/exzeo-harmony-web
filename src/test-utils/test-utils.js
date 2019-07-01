@@ -197,16 +197,21 @@ export const checkPhoneInput = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { dataTest = '', text = '', label = '', values } - The field object to find and test.
  */
-export const checkRadio = (query, { dataTest = '', text = '', label = '', values }) =>
+export const checkRadio = (query, { dataTest = '', text = '', label = '', values, defaultValue }) =>
   values.forEach(value => {
     // Get the option to select and click it
     const selectedOption = parseQueryType(query, { dataTest: `${dataTest}_${value}`, text, label });
+    const unselectedClass = 'label-segmented';
+    const selectedClass = 'label-segmented selected';
+    
+    if (value !== defaultValue) expect(selectedOption.parentNode.className).toMatch(unselectedClass);
+    else if (value === defaultValue) expect(selectedOption.parentNode.className).toMatch(selectedClass);
     fireEvent.click(selectedOption);
     // Expect the parent wrapper to be selected
-    expect(selectedOption.parentNode.className).toEqual('label-segmented selected');
+    expect(selectedOption.parentNode.className).toEqual(selectedClass);
     // Expect all other values' parents to be unchecked
     values.filter(uncheckedValue => value !== uncheckedValue)
-      .forEach(uncheckedValue => expect(parseQueryType(query, { dataTest: `${dataTest}_${uncheckedValue}`, text, label }).parentNode.className).toEqual('label-segmented'));
+      .forEach(uncheckedValue => expect(parseQueryType(query, { dataTest: `${dataTest}_${uncheckedValue}`, text, label }).parentNode.className).toEqual(unselectedClass));
   });
 
 /**
@@ -270,7 +275,7 @@ export const checkSelect = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field [field={ dataTest: 'submit' }] - The field object to find and test.
  */
-export const checkButton = (query, field = { dataTest: 'submit' }) =>
+export const checkButton = (query, field = { dataTest: 'submit', text: 'Submit' }) =>
   expect(parseQueryType(query, field).getAttribute('type')).toEqual('button');
 
 /**

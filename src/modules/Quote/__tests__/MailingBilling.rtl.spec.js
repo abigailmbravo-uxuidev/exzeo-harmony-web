@@ -71,7 +71,8 @@ const fields = [
     error: 'Field Required',
     label: 'Bill Plan',
     required: false,
-    values: ['Annual', 'Semi-Annual', 'Quarterly']
+    values: ['Annual', 'Semi-Annual', 'Quarterly'],
+    defaultValue: 'Annual'
   },
   {
     dataTest: 'sameAsPropertyAddress',
