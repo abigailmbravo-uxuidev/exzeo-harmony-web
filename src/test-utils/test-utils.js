@@ -201,7 +201,7 @@ export const checkRadio = (query, { dataTest = '', text = '', label = '', values
   values.forEach(value => {
     // Get the option to select and click it
     const selectedOption = parseQueryType(query, { dataTest: `${dataTest}_${value}`, text, label });
-    expect(selectedOption).toHaveTextContent(format(value));
+    expect(selectedOption.textContent).toEqual(format(value));
     const unselectedClass = 'label-segmented';
     const selectedClass = 'label-segmented selected';
     

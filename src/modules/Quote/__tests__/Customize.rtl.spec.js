@@ -24,7 +24,8 @@ const fields = [
     type: 'radio',
     label: 'Other Structures Limit',
     tooltipText: 'the other structures',
-    values: ['0', '2', '5', '10']
+    values: ['0', '2', '5', '10'],
+    format: x => `${x}%`
   },
   {
     dataTest: 'coverageLimits.personalProperty.value',
@@ -32,7 +33,8 @@ const fields = [
     type: 'radio',
     label: 'Personal Property Limit',
     tooltipText: 'personal belongings',
-    values: ['0', '25', '35', '50']
+    values: ['0', '25', '35', '50'],
+    format: x => `${x}%`
   },
   {
     dataTest: 'coverageOptions.personalPropertyReplacementCost.answer',
