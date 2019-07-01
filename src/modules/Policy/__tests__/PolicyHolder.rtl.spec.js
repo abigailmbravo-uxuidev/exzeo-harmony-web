@@ -66,7 +66,7 @@ describe('Policy Policyholder Page testing', () => {
 
     expect(getByText('Policyholder Name').nextSibling).toHaveTextContent('BATMAN ROBIN');
     expect(getAllByText('Phone 1')[0].nextSibling).toHaveTextContent('(727) 123-1234');
-    // expect(getAllByText('Phone 2')[0].nextSibling).toHaveTextContent('(987) 123-4567');
+    expect(getAllByText('Phone 2')[0].nextSibling).toHaveTextContent('(987) 123-4567');
     expect(getAllByText('Email')[0].nextSibling).toHaveTextContent('MSARMIENTO@HCPCI.COM');
     expect(getAllByText('Mailing Address')[0].nextSibling).toHaveTextContent('4131 TEST ADDRESS');
     expect(getByText('SARASOTA, FL 00001'));
