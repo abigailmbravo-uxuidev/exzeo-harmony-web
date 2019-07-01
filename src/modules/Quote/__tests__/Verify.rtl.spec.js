@@ -7,12 +7,13 @@ import {
   additionalInterest,
   policyholder,
   rating,
+  checkHeader,
   clearText,
   checkLabel,
   checkButton,
   checkError,
   submitForm,
-  verifyForm
+  verifyForm,
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
@@ -46,7 +47,7 @@ const ph1Fields = [
   {
     dataTest: 'policyHolders[0].primaryPhoneNumber',
     error: 'Field Required',
-    label: 'Contact Phone',
+    label: 'Primary Phone',
     type: 'phone',
     required: true,
     data: '1234567890'
@@ -81,12 +82,35 @@ const ph2Fields = [
   {
     dataTest: 'policyHolders[1].primaryPhoneNumber',
     error: 'Field Required',
-    label: 'Contact Phone',
+    label: 'Primary Phone',
     type: 'phone',
     required: true,
     data: '1234567890'
   }
 ];
+
+const pageHeaders = [
+  {
+    text: 'Property Details',
+    icon: 'fa fa-map-marker'
+  },
+  {
+    text: 'Quote Details',
+    icon: 'fa fa-list'
+  },
+  {
+    text: 'Policyholder Details',
+    icon : 'fa fa-vcard-o'
+  },
+  {
+    text: 'Mailing Address',
+    icon: 'fa fa-envelope'
+  },
+  {
+    text: 'Additional Parties',
+    icon: 'fa fa-user-plus'
+  }
+]
 
 
 describe('Verify Testing', () => {
@@ -113,8 +137,10 @@ describe('Verify Testing', () => {
 
   it('NEG:Primary Policyholder Empty Value', () => {
     const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-
+    // Toggle the ph modal
     fireEvent.click(getByTestId('policyholder-details'));
+
+    ph1Fields.forEach(field => checkLabel(getByTestId, field));
     ph1Fields.forEach(field => clearText(getByTestId, field));
     submitForm(getByText, 'Save');
     ph1Fields.forEach(field => checkError(getByTestId, field));
@@ -123,9 +149,11 @@ describe('Verify Testing', () => {
 
   it('NEG:Secondary Policyholder Empty Value', () => {
     const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-
+    // Click the modal and add a second ph
     fireEvent.click(getByTestId('policyholder-details'));
     fireEvent.click(getByTestId('additionalPolicyholder'));
+
+    ph2Fields.forEach(field => checkLabel(getByTestId, field));
     submitForm(getByText, 'Save');
     ph2Fields.forEach(field => checkError(getByTestId, field));
     ph2Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
@@ -182,6 +210,16 @@ describe('Verify Testing', () => {
       fireEvent.click(getByTestId(tag));
       expect(getByTestId('next')).toBeDisabled();
       fireEvent.click(getByTestId(tag));
+    });
+  });
+
+  it('POS:Checks all headers', () => {
+    const { getAllByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    pageHeaders.forEach(({ text, icon }) => {
+      const header = getAllByText(text).pop();
+      expect(header).toHaveTextContent(text);
+      const iconElement = Object.values(header.childNodes).find(node => node.tagName === 'I');
+      expect(iconElement.className).toEqual(icon);
     });
   });
 
