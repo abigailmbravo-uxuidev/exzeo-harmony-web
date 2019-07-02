@@ -148,7 +148,7 @@ export default {
     physicalAddress: {
       _id: '5ca744928001ef001258b379',
       address1: '4131 TEST ADDRESS',
-      address2: '',
+      address2: 'TEST SECOND ADDRESS',
       city: 'SARASOTA',
       county: 'SARASOTA',
       latitude: 27.27967,

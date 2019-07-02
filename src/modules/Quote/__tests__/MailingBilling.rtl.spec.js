@@ -85,7 +85,7 @@ const fields = [
   {
     dataTest: 'sameAsPropertyAddress',
     type: 'switch',
-    label: 'Is the mailing address the same',
+    label: 'Is the mailing address the same as the property address?',
     defaultValue: ''
   }
 ];
@@ -205,6 +205,10 @@ describe('Testing the Mailing/Billing Page', () => {
 
     fireEvent.click(getByTestId('sameAsPropertyAddress'));
     expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
+    expect(getByTestId('policyHolderMailingAddress.address2').value).toEqual('TEST SECOND ADDRESS');
+    expect(getByTestId('policyHolderMailingAddress.city').value).toEqual('SARASOTA');
+    expect(getByTestId('policyHolderMailingAddress.state').value).toEqual('FL');
+    expect(getByTestId('policyHolderMailingAddress.zip').value).toEqual('00001');
   });
 
   it('POS:Checks installment text', async () => {
