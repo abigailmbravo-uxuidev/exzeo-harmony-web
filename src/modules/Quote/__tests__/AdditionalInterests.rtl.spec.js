@@ -10,7 +10,8 @@ import {
   checkSelect,
   checkError,
   submitForm,
-  verifyForm
+  verifyForm,
+  checkButton
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
@@ -482,5 +483,11 @@ describe('Testing Additional Interests', () => {
     expect(getByText('Additional Interest')).toBeDisabled();
     expect(getByText('Premium Finance')).toBeDisabled();
     expect(getByText('Bill Payer')).toBeDisabled();
+  });
+
+  it('POS:Checks Submit Button', () => {
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+
+    checkButton(getByTestId, { text: 'not applicable' });
   });
 });

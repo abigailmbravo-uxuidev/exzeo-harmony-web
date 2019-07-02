@@ -245,6 +245,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
 
   it('POS:Checks Submit Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+
     checkButton(getByTestId);
   });
 });
