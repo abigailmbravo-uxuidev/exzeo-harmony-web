@@ -16,10 +16,12 @@ describe('Retrieve Quote', () => {
   it('Quote 3-field search testing', () =>
     cy.fillFields(fields).clickSubmit('#SearchBar')
       .wait('@fetchQuotes').then(({ response }) => confirmPolicyOrQuote(response.body.result.quotes, fields))
-      // // Click the pagination button.
-      // // TODO: Fix this
-      // .get('[form="SearchBar"] .fa-chevron-circle-right').click({ force: true })
-      // .wait('@fetchQuotes').then(({ response }) => confirmPolicyOrQuote(response.body.result.quotes, fields))
-      // .get('input[name="pageNumber"]').should('have.value', '2')
+      // Click the pagination button
+      .get('[form="SearchBar"] .fa-chevron-circle-right').click({ force: true })
+      .wait('@fetchQuotes').then(({ response }) => confirmPolicyOrQuote(response.body.result.quotes, fields))
+      .get('input[name="pageNumber"]').should('have.value', '2')
+      .get('.quote-list li[tabindex=0] .quote-state').contains('Quote Qualified').click()
+      .wait('@getQuote')
+      .findDataTag('Primary Policyholder')
   );
 });
