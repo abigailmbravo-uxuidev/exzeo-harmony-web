@@ -181,7 +181,7 @@ export default {
     yearOfRoof: null
   },
   quoteInputState: 'Initial Data',
-  quoteNumber: '12-5162296-01',
+  quoteNumber: '12-345-67',
   quoteState: 'Quote Started',
   state: 'FL',
   underwritingAnswers: {

@@ -17,6 +17,7 @@ describe('Retrieve Quote', () => {
     cy.fillFields(fields).clickSubmit('#SearchBar')
       .wait('@fetchQuotes').then(({ response }) => confirmPolicyOrQuote(response.body.result.quotes, fields))
       // // Click the pagination button.
+      // // TODO: Fix this
       // .get('[form="SearchBar"] .fa-chevron-circle-right').click({ force: true })
       // .wait('@fetchQuotes').then(({ response }) => confirmPolicyOrQuote(response.body.result.quotes, fields))
       // .get('input[name="pageNumber"]').should('have.value', '2')

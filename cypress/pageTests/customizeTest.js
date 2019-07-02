@@ -45,7 +45,7 @@ export default (product = 'HO3') => {
         // and confirm your text fields for min and max match the value.
         cy.findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
           .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))
-          // Change vale
+          // Change value
           .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
           // and reset.
           .findDataTag('reset').should('contain', 'reset').and('not.be.disabled').click()

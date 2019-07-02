@@ -35,7 +35,7 @@ describe('Testing WorkflowNavigation Component', () => {
         address2: '',
         csz: 'SARASOTA, FL 00001'
       },
-      quoteNumber: '12-5162296-01',
+      quoteNumber: '12-345-67',
       yearBuilt: 1998,
       coverageLimits: { dwelling: { amount: 1999999 }}
     },
@@ -82,7 +82,7 @@ describe('Testing WorkflowNavigation Component', () => {
     const { getByText, queryByText } = renderWithReduxAndRouter(<WorkflowNavigation {...props} />);
     // All static data pulled off dummy quote used above
     expect(getByText('Quote Number'));
-    expect(getByText('12-5162296-01'));
+    expect(getByText('12-345-67'));
     expect(getByText('Address'));
     expect(getByText('4131 TEST ADDRESS'));
     expect(getByText('Year Built'));
