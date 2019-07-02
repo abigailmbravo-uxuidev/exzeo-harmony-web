@@ -6,6 +6,8 @@ import {
   defaultQuoteWorkflowProps,
   mockServiceRunner,
   mailingBillingResult as result,
+  additionalInterest,
+  policyHolder,
   submitForm,
   checkError,
   verifyForm,
@@ -14,7 +16,8 @@ import {
   checkTextInput,
   checkRadio,
   checkSwitch,
-  checkButton
+  checkButton,
+  checkSelect
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
@@ -63,6 +66,11 @@ const fields = [
     type: 'select',
     error: 'Field Required',
     label: 'Bill To',
+    defaultValue: { value: '', label: 'Please Select...' },
+    values: [
+      { value: '9876', label: 'Policyholder: Bruce Wayne' },
+      { value: '1234', label: 'BANK OF AMERICA, NA ISAOA/ATIMA' }
+    ],
     required: false
   },
   {
@@ -95,17 +103,21 @@ export const pageHeaders = [
   }
 ];
 
-mockServiceRunner(result);
-
 describe('Testing the Mailing/Billing Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
+    quote: {
+      ...defaultQuoteWorkflowProps.quote,
+      policyHolders: [policyHolder],
+      additionalInterests: [{ ...additionalInterest, _id: '1234', type: 'Mortgagee' }]
+    },
     location: { pathname: '/quote/12-345-67/mailingBilling' }
   };
 
   const requiredFields = fields.filter(({ required }) => required);
 
   it('NEG:Tests all empty values', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
@@ -114,6 +126,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('NEG:Tests Mailing Address empty values', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => expect(getByTestId('billPlan_Annual')));
 
@@ -121,6 +134,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('NEG:Tests Invalid Input Values', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const state = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.state');
     const zip = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.zip');
@@ -135,12 +149,14 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks all headers', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Checks all labels', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
@@ -148,6 +164,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks all inputs', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
@@ -158,7 +175,31 @@ describe('Testing the Mailing/Billing Page', () => {
     });
   });
 
+  it('POS:Checks Bill To Select', async () => {
+    mockServiceRunner({
+      ...result,
+      options: [
+        ...result.options,
+        {
+          additionalInterest: { ...additionalInterest, _id: '1234', type: 'Mortgagee' },
+          billToId: '1234',
+          billToType: 'Additional Interest',
+          displayText: 'BANK OF AMERICA, NA ISAOA/ATIMA',
+          payPlans: ['Annual']
+        }
+      ]
+    });
+    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    await waitForElement(() => getByTestId('billPlan_label'));
+    // Should be nothing inside of the bill plan tag since no option is selected by default
+    expect(document.getElementById('billPlan').innerHtml).toBeUndefined();
+
+    fields.filter(({ type }) => type === 'select')
+      .forEach(field => checkSelect(getByTestId, field));
+  });
+
   it('POS:Checks toggle fills out data', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
@@ -167,6 +208,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks installment text', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
@@ -178,6 +220,7 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks Submit Button', async () => {
+    mockServiceRunner(result);
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
