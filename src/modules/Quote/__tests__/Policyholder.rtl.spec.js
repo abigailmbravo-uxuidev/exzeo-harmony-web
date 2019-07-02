@@ -91,8 +91,11 @@ const detailsFields = [
     dataTest: 'agentCode',
     label: 'Agent',
     type: 'select',
-    defaultValue: '60000',
-    values: ['60000', '1234']
+    defaultValue: { value: '', label: 'Please Select...' },
+    values: [
+      { value: '60000', label: 'Geordi LaForge' },
+      { value: '1234', label: 'Commander Data' }
+    ]
   }
 ];
 
@@ -224,18 +227,19 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
       options: {
         ...props.options,
         agents: [
-          { label: '', answer: '60000' },
-          { label: '', answer: '1234' }
+          { label: 'Geordi LaForge', answer: '60000' },
+          { label: 'Commander Data', answer: '1234' }
         ]
       }
     };
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
+    const { getByTestId, getByText, container } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
 
     detailsFields.forEach(field => {
       checkLabel(getByTestId, field);
       if (field.type === 'text') checkTextInput(getByTestId, field);
       if (field.type === 'select') checkSelect(getByTestId, field);
     });
+    expect(getByText('05/28/2019 - 08/26/2019'));
   });
 
   it('POS:Checks Submit Button', () => {

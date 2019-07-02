@@ -280,14 +280,18 @@ export const checkHeader = (query, { dataTest, icon = false, text, ...rest }) =>
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field - The field object to find and test.
+ * @param {Object} field { defaultValue, values = [], ...rest } - The field object to find and test.
  */
-export const checkSelect = (query, field) => {
-  const select = parseQueryType(query, field);
-  field.defaultValue && expect(select.getAttribute('data-selected')).toEqual(field.defaultValue);
-  field.values && field.values.forEach(value => {
+export const checkSelect = (query, { defaultValue, values = [], ...rest }) => {
+  const select = parseQueryType(query, { ...rest });
+  if (defaultValue) {
+    expect(select.getAttribute('data-selected')).toEqual(defaultValue.value);
+    expect(select.querySelector(`option[value="${defaultValue.value}"]`).textContent).toEqual(defaultValue.label);
+  };
+  values.forEach(({ value, label }) => {
     fireEvent.change(select, { target: { value }});
     expect(select.getAttribute('data-selected')).toEqual(value);
+    expect(select.querySelector(`option[value="${value}"]`).textContent).toEqual(label);
   });
 };
 

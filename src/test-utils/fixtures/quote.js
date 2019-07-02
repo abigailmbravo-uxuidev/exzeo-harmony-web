@@ -3,7 +3,7 @@ export default {
   _id: '5ca744928001ef001258b375',
   additionalInterests:[],
   agencyCode: 20000,
-  agentCode: 60000,
+  agentCode: null,
   companyCode: 'TTIC',
   coverageLimits: {
     dwelling: {
