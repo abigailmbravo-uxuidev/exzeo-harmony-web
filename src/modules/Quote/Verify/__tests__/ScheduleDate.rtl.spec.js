@@ -2,13 +2,13 @@ import React from 'react';
 import { render } from 'react-testing-library';
 import ScheduleDate from '../ScheduleDate';
 
-import { policyholder } from '../../../../test-utils';
+import { policyHolder } from '../../../../test-utils';
 
 describe('Congragulations Schedule Date Modal testing', () => {
   it('Renders static stuff correctly', () => {
     const props = {
       submitting: false,
-      entity: { policyHolders: [policyholder]},
+      entity: { policyHolders: [policyHolder]},
       companyName: 'Mom Co.',
       productDescription: 'Robot',
       selectedAgent: { emailAddress: 'test@robot.co' }
@@ -31,7 +31,7 @@ describe('Congragulations Schedule Date Modal testing', () => {
   it('Data test tags are different', () => {
     const props = {
       submitting: false,
-      entity: { policyHolders: [policyholder]},
+      entity: { policyHolders: [policyHolder]},
       companyName: 'Mom Co.',
       productDescription: 'Robot'
     };

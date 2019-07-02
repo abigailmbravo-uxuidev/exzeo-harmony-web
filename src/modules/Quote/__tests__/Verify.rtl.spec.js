@@ -5,7 +5,7 @@ import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
   additionalInterest,
-  policyholder,
+  policyHolder,
   rating,
   checkHeader,
   clearText,
@@ -118,7 +118,7 @@ describe('Verify Testing', () => {
     ...defaultQuoteWorkflowProps,
     quote: {
       ...defaultQuoteWorkflowProps.quote,
-      policyHolders: [policyholder],
+      policyHolders: [policyHolder],
       policyHolderMailingAddress: {
         address1: '4131 TEST ADDRESS',
         address2: '',

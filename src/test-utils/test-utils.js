@@ -86,7 +86,7 @@ export const defaultQuoteWorkflowProps = {
   workflowState: {},
   zipCodeSettings,
   options: {
-    agents: [], mortgagee: [], uiQuestions: {}, zipCodeSettings
+    agents: [], mortgagee: [], order: [], uiQuestions: {}, zipCodeSettings
   },
   userProfile,
   submitForm: () => { },
