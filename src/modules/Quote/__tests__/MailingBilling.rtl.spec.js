@@ -28,14 +28,14 @@ const fields = [
     label: 'Address 1',
     type: 'text',
     required: true,
-    data: '123 test address'
+    value: '123 test address'
   },
   {
     dataTest: 'policyHolderMailingAddress.address2',
     label: 'Address 2',
     type: 'text',
     required: false,
-    data: '123 test address'
+    value: '123 test address'
   },
   {
     dataTest: 'policyHolderMailingAddress.city',
@@ -43,7 +43,7 @@ const fields = [
     label: 'City',
     type: 'text',
     required: true,
-    data: 'tampa'
+    value: 'tampa'
   },
   {
     dataTest: 'policyHolderMailingAddress.state',
@@ -51,7 +51,7 @@ const fields = [
     label: 'State',
     type: 'text',
     required: true,
-    data: 'fl'
+    value: 'fl'
   },
   {
     dataTest: 'policyHolderMailingAddress.zip',
@@ -59,7 +59,7 @@ const fields = [
     label: 'Zip',
     type: 'text',
     required: true,
-    data: '00001'
+    value: '00001'
   },
   {
     dataTest: 'billToId',
@@ -141,10 +141,10 @@ describe('Testing the Mailing/Billing Page', () => {
     await waitForElement(() => getByTestId('billPlan_label'));
 
     verifyForm(getByTestId, [{
-      ...state, data: 'foo', error: 'Only 2 letters allowed'
+      ...state, value: 'foo', error: 'Only 2 letters allowed'
     }]);
     verifyForm(getByTestId, [{
-      ...zip, data: '123456789', error: 'Only 8 letters or numbers allowed'
+      ...zip, value: '123456789', error: 'Only 8 letters or numbers allowed'
     }]);
   });
 

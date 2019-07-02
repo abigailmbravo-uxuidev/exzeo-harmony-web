@@ -176,12 +176,13 @@ export const checkLabel = (query, { dataTest, label, ...rest }) =>
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field - The field object to find and test.
+ * @param {Object} field { defaultValue, value, ...rest } - The field object to find and test.
  */
-export const checkTextInput = (query, field) => {
-  const input = parseQueryType(query, field);
-  fireEvent.change(input, { target: { value: field.data }});
-  expect(input.value).toBe(field.data);
+export const checkTextInput = (query, { defaultValue, value, ...rest }) => {
+  const input = parseQueryType(query, { ...rest });
+  defaultValue && expect(input.value).toBe(defaultValue);
+  fireEvent.change(input, { target: { value }});
+  expect(input.value).toBe(value);
 };
 
 /**
@@ -195,12 +196,12 @@ export const checkOutput = (query, { dataTest, value, ...rest }) => {
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} field - The field object to find and test.
+ * @param {Object} field { value, ...rest } - The field object to find and test.
  */
-export const checkPhoneInput = (query, field) => {
-  const input = parseQueryType(query, field);
-  fireEvent.change(input, { target: { value: field.data }});
-  expect(input.value).toMatch(new RegExp(field.data.slice(0, 2)));
+export const checkPhoneInput = (query, { value, ...rest }) => {
+  const input = parseQueryType(query, { ...rest });
+  fireEvent.change(input, { target: { value }});
+  expect(input.value).toMatch(new RegExp(value.slice(0, 2)));
 };
 
 /**
@@ -318,7 +319,7 @@ export const verifyForm = (query, baseFields = [], fieldsLeftBlank = [], button)
   [...baseFields, ...fieldsLeftBlank].forEach(field => clearText(query, field));
   // Fills all fields out not in fieldsLeftBlank array based on 'data' key
   baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1)
-    .forEach(field => fireEvent.change(parseQueryType(query, field), { target: { value: field.data }}));
+    .forEach(({ value, ...rest }) => fireEvent.change(parseQueryType(query, { ...rest }), { target: { value }}));
   // Submit form
   submitForm(query, button);
   // Expect errors to exist on blank fields

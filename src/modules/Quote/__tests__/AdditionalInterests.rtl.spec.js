@@ -20,59 +20,59 @@ const baseAiFields = [
     type: 'text',
     required: true,
     label: 'Name 1',
-    data: 'test last names',
+    value: 'test last names',
   },
   {
     dataTest: 'name2',
     type: 'text',
     label: 'Name 2',
-    data: 'test first name',
+    value: 'test first name',
   },
   {
     dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
-    data: 'test adress 1',
+    value: 'test adress 1',
   },
   {
     dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
-    data: 'test address 2',
+    value: 'test address 2',
   },
   {
     dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
-    data: 'test city',
+    value: 'test city',
   },
   {
     dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
-    data: 'FL',
+    value: 'FL',
   },
   {
     dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
-    data: 'test name 1',
+    value: 'test name 1',
   },
   {
     dataTest: 'phoneNumber',
     type: 'text',
     label: 'Phone Number',
-    data: '(123) 123-1231'
+    value: '(123) 123-1231'
   },
   {
     dataTest: 'referenceNumber',
     type: 'text',
     label: 'Reference Number',
-    data: '1`23'
+    value: '1`23'
   }
 ];
 
@@ -82,59 +82,59 @@ const personalFields = [
     type: 'text',
     required: true,
     label: 'First Name',
-    data: 'test last names',
+    value: 'test last names',
   },
   {
     dataTest: 'name2',
     type: 'text',
     label: 'Last Name',
-    data: 'test first name',
+    value: 'test first name',
   },
   {
     dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
-    data: 'test adress 1',
+    value: 'test adress 1',
   },
   {
     dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
-    data: 'test address 2',
+    value: 'test address 2',
   },
   {
     dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
-    data: 'test city',
+    value: 'test city',
   },
   {
     dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
-    data: 'FL',
+    value: 'FL',
   },
   {
     dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
-    data: 'test name 1',
+    value: 'test name 1',
   },
   {
     dataTest: 'phoneNumber',
     type: 'text',
     label: 'Phone Number',
-    data: '(123) 123-1231'
+    value: '(123) 123-1231'
   },
   {
     dataTest: 'referenceNumber',
     type: 'text',
     label: 'Reference Number',
-    data: '123'
+    value: '123'
   }
 ];
 
@@ -187,10 +187,10 @@ describe('Testing Additional Interests', () => {
     fireEvent.click(getByText('Mortgagee'));
 
     verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+      ...stateField, value: 'abc', error: 'Only 2 letters allowed'
     }], [], 'ai-modal-submit');
     verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+      ...zipField, value: '1234567890', error: 'Only 8 letters or numbers allowed'
     }], [], 'ai-modal-submit');
   });
 
@@ -214,10 +214,10 @@ describe('Testing Additional Interests', () => {
     fireEvent.click(getByText('Additional Insured'));
 
     verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+      ...stateField, value: 'abc', error: 'Only 2 letters allowed'
     }], [], 'ai-modal-submit');
     verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+      ...zipField, value: '1234567890', error: 'Only 8 letters or numbers allowed'
     }], [], 'ai-modal-submit');
   });
 
@@ -241,10 +241,10 @@ describe('Testing Additional Interests', () => {
     fireEvent.click(getByText('Additional Interest'));
 
     verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+      ...stateField, value: 'abc', error: 'Only 2 letters allowed'
     }], [], 'ai-modal-submit');
     verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+      ...zipField, value: '1234567890', error: 'Only 8 letters or numbers allowed'
     }], [], 'ai-modal-submit');
   });
 
@@ -268,10 +268,10 @@ describe('Testing Additional Interests', () => {
     fireEvent.click(getByText('Premium Finance'));
 
     verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+      ...stateField, value: 'abc', error: 'Only 2 letters allowed'
     }], [], 'ai-modal-submit');
     verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+      ...zipField, value: '1234567890', error: 'Only 8 letters or numbers allowed'
     }], [], 'ai-modal-submit');
   });
 
@@ -295,10 +295,10 @@ describe('Testing Additional Interests', () => {
     fireEvent.click(getByText('Bill Payer'));
 
     verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
+      ...stateField, value: 'abc', error: 'Only 2 letters allowed'
     }], [], 'ai-modal-submit');
     verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
+      ...zipField, value: '1234567890', error: 'Only 8 letters or numbers allowed'
     }], [], 'ai-modal-submit');
   });
 

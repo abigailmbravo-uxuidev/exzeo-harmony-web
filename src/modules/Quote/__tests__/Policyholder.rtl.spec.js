@@ -16,7 +16,7 @@ const ph1Fields = [
     label: 'First Name',
     type: 'text',
     required: true,
-    data: 'Bruce'
+    value: 'Bruce'
   },
   {
     dataTest: 'policyHolders[0].lastName',
@@ -24,7 +24,7 @@ const ph1Fields = [
     label: 'Last Name',
     type: 'text',
     required: true,
-    data: 'Wayne'
+    value: 'Wayne'
   },
   {
     dataTest: 'policyHolders[0].emailAddress',
@@ -32,7 +32,7 @@ const ph1Fields = [
     label: 'Email Address',
     type: 'text',
     required: true,
-    data: 'Batman@gmail.com'
+    value: 'Batman@gmail.com'
   },
   {
     dataTest: 'policyHolders[0].primaryPhoneNumber',
@@ -40,7 +40,7 @@ const ph1Fields = [
     label: 'Contact Phone',
     type: 'phone',
     required: true,
-    data: '1234567890'
+    value: '1234567890'
   }
 ];
 
@@ -51,7 +51,7 @@ const ph2Fields = [
     label: 'First Name',
     type: 'text',
     required: true,
-    data: 'Dick'
+    value: 'Dick'
   },
   {
     dataTest: 'policyHolders[1].lastName',
@@ -59,7 +59,7 @@ const ph2Fields = [
     label: 'Last Name',
     type: 'text',
     required: true,
-    data: 'Grayson'
+    value: 'Grayson'
   },
   {
     dataTest: 'policyHolders[1].emailAddress',
@@ -67,7 +67,7 @@ const ph2Fields = [
     label: 'Email Address',
     type: 'text',
     required: true,
-    data: 'Robin@hotmail.com'
+    value: 'Robin@hotmail.com'
   },
   {
     dataTest: 'policyHolders[1].primaryPhoneNumber',
@@ -75,17 +75,17 @@ const ph2Fields = [
     label: 'Contact Phone',
     type: 'phone',
     required: true,
-    data: '1234567890'
+    value: '1234567890'
   }
 ];
-
 
 const detailsFields = [
   {
     dataTest: 'effectiveDate',
     label: 'Effective Date',
     type: 'text',
-    data: '2010-01-02'
+    value: '2019-05-03',
+    defaultValue: '2019-05-05'
   },
   {
     dataTest: 'agentCode',
@@ -152,7 +152,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     expect(queryByText('Secondary Policyholder')).not.toBeInTheDocument();
     toggleSecondUser();
     expect(getByText('Secondary Policyholder'));
-  })
+  });
 
   it('NEG:Secondary Policyholder Empty Value', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
@@ -169,7 +169,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     // If that field is an email, it will throw a different error
     [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => !dataTest.includes('Phone'))
       .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, data: '∂',
+        dataTest, value: '∂',
         error: dataTest.includes('email') ? 'Not a valid email address' : 'Invalid characters'
       }]));
   });
@@ -179,7 +179,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     toggleSecondUser();
     [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('email'))
       .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, data: 'invalidemail', error: 'Not a valid email address'
+        dataTest, value: 'invalidemail', error: 'Not a valid email address'
       }]));
   });
 
@@ -188,7 +188,7 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     toggleSecondUser();
     [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('Phone'))
       .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, data: '123', error: 'Not a valid Phone Number'
+        dataTest, value: '123', error: 'Not a valid Phone Number'
       }]));
   });
 
@@ -196,10 +196,10 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     submitForm(getByTestId);
     verifyForm(getByTestId, [{
-      dataTest: 'effectiveDate', data: ''
+      dataTest: 'effectiveDate', value: ''
     }]);
     verifyForm(getByTestId, [{
-      dataTest: 'effectiveDate', data: '1900-01-01', error: 'Date must be at least 08/01/2017'
+      dataTest: 'effectiveDate', value: '1900-01-01', error: 'Date must be at least 08/01/2017'
     }]);
   });
 
@@ -214,10 +214,10 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
     toggleSecondUser();
-    [...ph1Fields, ...ph2Fields].forEach(({ dataTest, label, data, type }) => {
+    [...ph1Fields, ...ph2Fields].forEach(({ dataTest, label, value, type }) => {
       checkLabel(getByTestId, { dataTest, label });
-      if (type === 'text') checkTextInput(getByTestId, { dataTest, data });
-      if (type === 'phone') checkPhoneInput(getByTestId, { dataTest, data });
+      if (type === 'text') checkTextInput(getByTestId, { dataTest, value });
+      if (type === 'phone') checkPhoneInput(getByTestId, { dataTest, value });
     });
   });
 
@@ -232,14 +232,15 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
         ]
       }
     };
-    const { getByTestId, getByText, container } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
+    const { getByTestId, getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
+
 
     detailsFields.forEach(field => {
       checkLabel(getByTestId, field);
       if (field.type === 'text') checkTextInput(getByTestId, field);
       if (field.type === 'select') checkSelect(getByTestId, field);
     });
-    expect(getByText('05/28/2019 - 08/26/2019'));
+    expect(getByText('05/01/2019 - 08/01/2019'));
   });
 
   it('POS:Checks Submit Button', () => {

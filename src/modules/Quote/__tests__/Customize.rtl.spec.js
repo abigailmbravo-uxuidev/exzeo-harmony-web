@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, waitForDomChange, wait } from 'react-testing-library';
+import { fireEvent } from 'react-testing-library';
 
 import {
   renderWithReduxAndRouter,

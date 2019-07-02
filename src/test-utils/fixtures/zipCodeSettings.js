@@ -47,7 +47,7 @@ export default {
     '715-0',
     '715-51'
   ],
-  maxEffectiveDate: '2019-08-26T00:00:00-04:00',
-  minEffectiveDate: '2019-05-28T00:00:00-04:00',
+  maxEffectiveDate: '2019-08-01T00:00:00-04:00',
+  minEffectiveDate: '2019-05-01T00:00:00-04:00',
   id: '5aea142cdc0509268ca5ce7e'
 };

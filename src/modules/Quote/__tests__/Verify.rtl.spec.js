@@ -51,7 +51,7 @@ const ph1Fields = [
     label: 'First Name',
     type: 'text',
     required: true,
-    data: 'Bruce'
+    value: 'Bruce'
   },
   {
     dataTest: 'policyHolders[0].lastName',
@@ -59,7 +59,7 @@ const ph1Fields = [
     label: 'Last Name',
     type: 'text',
     required: true,
-    data: 'Wayne'
+    value: 'Wayne'
   },
   {
     dataTest: 'policyHolders[0].emailAddress',
@@ -67,7 +67,7 @@ const ph1Fields = [
     label: 'Email Address',
     type: 'text',
     required: true,
-    data: 'Batman@gmail.com'
+    value: 'Batman@gmail.com'
   },
   {
     dataTest: 'policyHolders[0].primaryPhoneNumber',
@@ -75,7 +75,7 @@ const ph1Fields = [
     label: 'Primary Phone',
     type: 'phone',
     required: true,
-    data: '1234567890'
+    value: '1234567890'
   }
 ];
 
@@ -86,7 +86,7 @@ const ph2Fields = [
     label: 'First Name',
     type: 'text',
     required: true,
-    data: 'Dick'
+    value: 'Dick'
   },
   {
     dataTest: 'policyHolders[1].lastName',
@@ -94,7 +94,7 @@ const ph2Fields = [
     label: 'Last Name',
     type: 'text',
     required: true,
-    data: 'Grayson'
+    value: 'Grayson'
   },
   {
     dataTest: 'policyHolders[1].emailAddress',
@@ -102,7 +102,7 @@ const ph2Fields = [
     label: 'Email Address',
     type: 'text',
     required: true,
-    data: 'Robin@hotmail.com'
+    value: 'Robin@hotmail.com'
   },
   {
     dataTest: 'policyHolders[1].primaryPhoneNumber',
@@ -110,7 +110,7 @@ const ph2Fields = [
     label: 'Primary Phone',
     type: 'phone',
     required: true,
-    data: '1234567890'
+    value: '1234567890'
   }
 ];
 
@@ -135,7 +135,7 @@ const pageHeaders = [
     text: 'Additional Parties',
     icon: 'fa fa-user-plus'
   }
-]
+];
 
 
 describe('Verify Testing', () => {
@@ -200,7 +200,7 @@ describe('Verify Testing', () => {
     // If that field is an email, it will throw a different error
     [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => !dataTest.includes('Phone'))
       .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, data: '∂',
+        dataTest, value: '∂',
         error: dataTest.includes('email') ? 'Not a valid email address' : 'Invalid characters'
       }]));
   });
@@ -212,7 +212,7 @@ describe('Verify Testing', () => {
 
     [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('email'))
       .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, data: 'invalid testing email address', error: 'Not a valid email address'
+        dataTest, value: 'invalid testing email address', error: 'Not a valid email address'
       }]));
   });
 
@@ -223,7 +223,7 @@ describe('Verify Testing', () => {
 
     [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('Phone'))
       .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, data: '123', error: 'Not a valid Phone Number'
+        dataTest, value: '123', error: 'Not a valid Phone Number'
       }]));
   });
 
