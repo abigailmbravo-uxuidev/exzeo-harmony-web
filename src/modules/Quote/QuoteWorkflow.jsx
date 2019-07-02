@@ -33,6 +33,7 @@ import Verify from './Verify';
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
 import TriggerRecalc from "./TriggerRecalc";
+import { UW_EXCEPTION_QUOTE_STATES } from './constants/quote';
 
 const getCurrentStepAndPage = defaultMemoize((pathname) => {
   const currentRouteName = pathname.split('/')[3];
@@ -95,7 +96,9 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  checkForFatalExceptions(underwritingExceptions, currentRouteName) {
+  checkForFatalExceptions(underwritingExceptions, currentRouteName, quoteState) {
+    if(!UW_EXCEPTION_QUOTE_STATES.includes(quoteState)) return false;
+
     if (currentRouteName === 'verify') {
       const currentExceptions = (underwritingExceptions || []).filter(ue => !ue.overridden);
       return currentExceptions.length > 0;
