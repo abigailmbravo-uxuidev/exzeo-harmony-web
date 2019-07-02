@@ -7,17 +7,42 @@ import {
   additionalInterest,
   policyHolder,
   rating,
-  checkHeader,
   clearText,
   checkLabel,
   checkButton,
   checkError,
   submitForm,
   verifyForm,
+  checkSwitch
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
-const switchTags = ['confirmProperty', 'confirmQuote', 'confirmPolicy', 'confirmAdditionalInterest'];
+const switchFields = [
+  {
+    dataTest: 'confirmProperty',
+    type: 'switch',
+    label: 'Verified',
+    defaultValue: false
+  },
+  {
+    dataTest: 'confirmQuote',
+    type: 'switch',
+    label: 'Verified',
+    defaultValue: false
+  },
+  {
+    dataTest: 'confirmPolicy',
+    type: 'switch',
+    label: 'Verified',
+    defaultValue: false
+  },
+  {
+    dataTest: 'confirmAdditionalInterest',
+    type: 'switch',
+    label: 'Verified',
+    defaultValue: false
+  }
+];
 
 const ph1Fields = [
   {
@@ -116,8 +141,15 @@ const pageHeaders = [
 describe('Verify Testing', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
+    options: {
+      ...defaultQuoteWorkflowProps.options,
+      agents: [
+        { label: 'WILLIAM RIKER', answer: 60000 }
+      ]
+    },
     quote: {
       ...defaultQuoteWorkflowProps.quote,
+      agentCode: 60000,
       policyHolders: [policyHolder],
       policyHolderMailingAddress: {
         address1: '4131 TEST ADDRESS',
@@ -195,21 +227,13 @@ describe('Verify Testing', () => {
       }]));
   });
 
-  it('NEG:All "Verified" Values left at Default "No"', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-
-    switchTags.forEach(tag =>
-      expect(getByTestId(tag).className.split(' ').includes('active')).toEqual(false)
-    );
-  });
-
   it('NEG:Some "Verified" Values left at Default "No"', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
-    switchTags.forEach(tag => {
-      fireEvent.click(getByTestId(tag));
+    switchFields.forEach(({ dataTest }) => {
+      fireEvent.click(getByTestId(dataTest));
       expect(getByTestId('next')).toBeDisabled();
-      fireEvent.click(getByTestId(tag));
+      fireEvent.click(getByTestId(dataTest));
     });
   });
 
@@ -220,17 +244,20 @@ describe('Verify Testing', () => {
       expect(header).toHaveTextContent(text);
       const iconElement = Object.values(header.childNodes).find(node => node.tagName === 'I');
       expect(iconElement.className).toEqual(icon);
+      const editButton = header.querySelector('span');
+      expect(editButton.textContent).toEqual(' Edit');
+      expect(editButton.querySelector('i').className).toEqual('fa fa-pencil');
     });
   });
 
   it('POS:Property Details Text', () => {
     const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const sectionData = [
-      { label: 'Quote Number', value: 'Quote Number12-5162296-01' },
+      { label: 'Quote Number', value: '12-345-67' },
       { label: 'Property Address', value: '4131 TEST ADDRESS' },
       { label: 'Year Built', value: '1998' },
       { label: 'Effective Date', value: '05/05/2019' },
-      { label: 'Agent', value: '' }
+      { label: 'Agent', value: 'WILLIAM RIKER' }
     ];
 
     getByText('Property Details').nextSibling.childNodes.forEach((node, i) => {
@@ -271,7 +298,14 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Policyholder Details Primary / Secondary Policyholder', () => {
-    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const newProps = {
+      ...props,
+      quote: {
+        ...props.quote,
+        policyHolders: [policyHolder, policyHolder]
+      }
+    };
+    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
     const sectionData = [
       { label: 'Name', value: 'Bruce Wayne' },
       { label: 'Phone Number', value: 'Phone Number(123) 123-1231' },
@@ -282,11 +316,20 @@ describe('Verify Testing', () => {
       expect(node).toHaveTextContent(sectionData[i].label);
       expect(node).toHaveTextContent(sectionData[i].value);
     });
+    getByText('Secondary Policyholder').nextSibling.childNodes.forEach((node, i) => {
+      expect(node).toHaveTextContent(sectionData[i].label);
+      expect(node).toHaveTextContent(sectionData[i].value);
+    });
   });
 
   it('POS:Policyholder Modal', () => {
     const { getByText, getByTestId, queryByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-
+    // Open modal
+    fireEvent.click(getByTestId('policyholder-details'));
+    // Close the modal and confirm
+    fireEvent.click(getByText('Cancel'));
+    expect(queryByText('Edit Policyholder(s)')).not.toBeInTheDocument();
+    // Open it back up
     fireEvent.click(getByTestId('policyholder-details'));
     expect(document.querySelector('i.fa-vcard')).toBeInTheDocument();
     expect(getByText('Edit Policyholder(s)'));
@@ -303,7 +346,7 @@ describe('Verify Testing', () => {
     const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
     const sectionData = [
       { label: 'Street Address', value: '4131 TEST ADDRESS' },
-      { label: 'City/State/Zip', value: /SARASOTA/ },
+      { label: 'City/State/Zip', value: 'City/State/ZipSARASOTA, FL 00001' },
       { label: 'Country', value: 'United States of America' }
     ];
     // Check each field in order
@@ -373,10 +416,13 @@ describe('Verify Testing', () => {
     labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
   });
 
-  it('POS:Verify Toggle Labels', () => {
+  it('POS:Verify Toggle Labels and Switch Fields', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
-    switchTags.forEach(tag => checkLabel(getByTestId, { dataTest: tag, label: 'Verified' }));
+    switchFields.forEach(field => {
+      checkLabel(getByTestId, field);
+      checkSwitch(getByTestId, field);
+    });
   });
 
   it('POS:Next Button', () => {
