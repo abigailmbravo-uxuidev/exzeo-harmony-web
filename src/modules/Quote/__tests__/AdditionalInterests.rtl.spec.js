@@ -303,7 +303,14 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Mortgagee Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const newProps = {
+      ...props,
+      options: {
+        ...props.options,
+        order: [{ answer: '0', label: 'First Mortgagee' }]
+      }
+    };
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
 
     openAndCloseModal(getByText, 'Mortgagee');
     fireEvent.click(getByText('Mortgagee'));
@@ -313,7 +320,10 @@ describe('Testing Additional Interests', () => {
       checkTextInput(getByTestId, field);
     });
     checkLabel(getByTestId, { dataTest: 'mortgage', label: 'Top Mortgagees' });
-    checkSelect(getByTestId, { dataTest: 'order', type: 'select', values: ['0']});
+    checkSelect(
+      getByTestId,
+      { dataTest: 'order', type: 'select', values: [{ value: '0', label: 'First Mortgagee' }]}
+    );
   });
 
   it('POS:Additional Insured Testing', () => {
