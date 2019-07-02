@@ -7,7 +7,7 @@ const fields = [
 ];
 
 describe('Retrieve Policy', () => {
-  before('Login and go to search', () => 
+  before('Login and go to search', () =>
     cy.login()
       .get('.card-footer a[href="/policy"]').click()
   );
@@ -15,6 +15,8 @@ describe('Retrieve Policy', () => {
 
   it('Policy 3-field search testing', () =>
     cy.fillFields(fields).get('#PolicySearchBar button[type="submit"]').click()
-      .wait('@searchPolicy').then(({ response }) => confirmPolicyOrQuote(response.body.policies, fields))
-  );
+      .wait('@searchPolicy').then(({ response }) =>
+        confirmPolicyOrQuote(response.body.policies, fields))
+      .get('.policy-list li[tabindex=0]').first().next().click()
+      .wait('@getLatestPolicy').findDataTag('Policyholder 1'));
 });
