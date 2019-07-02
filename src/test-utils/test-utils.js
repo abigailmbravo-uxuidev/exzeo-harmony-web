@@ -298,11 +298,11 @@ export const checkSelect = (query, { defaultValue, values = [], ...rest }) => {
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
- * @param {Object} button { dataTest: 'submit', text, ...rest } = {} - The button object to find and test.
+ * @param {Object} button { dataTest, text, type, ...rest } = {} - The button object to find and test.
  */
-export const checkButton = (query, { dataTest = 'submit', text = 'next', ...rest } = {}) => {
+export const checkButton = (query, { dataTest = 'submit', text = 'next', type = 'button', ...rest } = {}) => {
   const button = parseQueryType(query, { ...rest, dataTest, text });
-  expect(button.getAttribute('type')).toEqual('button');
+  expect(button.getAttribute('type')).toEqual(type);
   expect(button.textContent).toEqual(text);
 };
 
