@@ -19,7 +19,7 @@ import {
   underwritingTest,
   customizeTest,
   shareTest,
-  aiTest,
+  additionalInterestTest,
   mailingBillingTest,
   verifyTest
 } from '../../pageTests';
@@ -42,7 +42,7 @@ describe('Agency Happy Path', () => {
     shareTest();
     navigateThroughShare();
     navigateThroughAssumptions();
-    aiTest();
+    additionalInterestTest();
     navigateThroughAdditionalInterests();
 
     mailingBillingTest();
@@ -81,7 +81,7 @@ describe('Agency Happy Path', () => {
 //     shareTest('AF3');
 //     navigateThroughShare();
 //     navigateThroughAssumptions();
-//     aiTest('AF3');
+//     additionalInterestTest('AF3');
 //     navigateThroughAdditionalInterests();
 //     mailingBillingTest('AF3');
 //     navigateThroughMailingBilling();
