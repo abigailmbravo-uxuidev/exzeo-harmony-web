@@ -199,12 +199,19 @@ export function updateQuote({ data = {}, options }) {
         };
 
         const response = await serviceRunner.callService(config, 'quoteManager.updateQuote');
-        const quote = response.data.result;
-        if (!quote) {
-          dispatch(errorActions.setAppError(response.data));
+
+        if(options.shouldReviewQuote){
+          const quote = await dispatch(reviewQuote({ quoteNumber: data.quoteNumber }));
+          return quote;
         }
-        dispatch(setQuote(quote));
-        return quote;
+        else {
+          const quote = response.data.result;
+          if (!quote) {
+            dispatch(errorActions.setAppError(response.data));
+          }
+          dispatch(setQuote(quote));
+          return quote;
+        } 
       }
     } catch (error) {
       dispatch(errorActions.setAppError(error));

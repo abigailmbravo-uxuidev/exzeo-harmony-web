@@ -169,6 +169,8 @@ export class QuoteWorkflow extends Component {
   handleGandalfSubmit = async ({ remainOnStep, shouldSendEmail,shouldSendApplication, noSubmit, ...values}) => {
     const { zipCodeSettings, quote, history, updateQuote, location, options } = this.props;
     const { isRecalc, stepNumber } = this.state;
+    const { currentRouteName } = getCurrentStepAndPage(location.pathname);
+    
     try {
       if (!noSubmit) {
         const data = values.quoteNumber ? values : quote;
@@ -180,6 +182,7 @@ export class QuoteWorkflow extends Component {
             shouldSendApplication,
             customValues: values,
             step: stepNumber,
+            shouldReviewQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify',
             timezone: (zipCodeSettings || {}).timezone || 'America/New_York',
             underwritingQuestions: options.underwritingQuestions,
           }
@@ -187,7 +190,6 @@ export class QuoteWorkflow extends Component {
       }
        // TODO: Figure out a routing solution
       if (!(isRecalc || remainOnStep)) {
-        const { currentRouteName } = getCurrentStepAndPage(location.pathname);
         history.replace(NEXT_PAGE_ROUTING[currentRouteName]);
         this.setCurrentStep();
       }
