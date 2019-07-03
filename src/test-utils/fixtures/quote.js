@@ -1,7 +1,7 @@
 export default {
   __v: 0,
   _id: '5ca744928001ef001258b375',
-  additionalInterests:[],
+  additionalInterests: [],
   agencyCode: 20000,
   agentCode: 60000,
   companyCode: 'TTIC',
@@ -190,11 +190,13 @@ export default {
       source: 'Customer'
     },
     floodCoverage: {
-      question: 'Does this property have a separate insurance policy covering flood losses?',
+      question:
+        'Does this property have a separate insurance policy covering flood losses?',
       source: 'Default'
     },
     fourPointUpdates: {
-      question: 'Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?',
+      question:
+        'Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?',
       source: 'Customer'
     },
     monthsOccupied: {

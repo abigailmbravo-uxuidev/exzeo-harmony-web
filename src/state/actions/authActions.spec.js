@@ -9,12 +9,14 @@ describe('authActions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.AUTH,
-      authState: {
-        userProfile: {}
+    const stateObj = [
+      {
+        type: types.AUTH,
+        authState: {
+          userProfile: {}
+        }
       }
-    }];
+    ];
 
     store.dispatch(authActions.setUserProfile({}));
 
@@ -25,12 +27,14 @@ describe('authActions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.AUTH,
-      authState: {
-        userProfile: {}
+    const stateObj = [
+      {
+        type: types.AUTH,
+        authState: {
+          userProfile: {}
+        }
       }
-    }];
+    ];
 
     store.dispatch(authActions.setUserProfile({}));
 

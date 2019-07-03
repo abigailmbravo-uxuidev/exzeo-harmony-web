@@ -43,12 +43,14 @@ describe('Testing Error component', () => {
           data: {
             modelInstanceId: '123',
             model: {
-              variables: [{
-                name: 'quote',
-                value: {
-                  result: {}
+              variables: [
+                {
+                  name: 'quote',
+                  value: {
+                    result: {}
+                  }
                 }
-              }]
+              ]
             },
             uiQuestions: [],
             previousTask: {

@@ -7,8 +7,9 @@ export const downloadFile = (fileUrl, fileName, errorHandler) => {
   const proxyUrl = `${process.env.REACT_APP_API_URL}/download`;
   const params = { url: fileUrl };
 
-  return axios.get(proxyUrl, { responseType: 'blob', params })
-    .then((response) => {
+  return axios
+    .get(proxyUrl, { responseType: 'blob', params })
+    .then(response => {
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(response.data, fileName);
         return true;
@@ -25,10 +26,15 @@ export const downloadFile = (fileUrl, fileName, errorHandler) => {
     .catch(err => errorHandler({ message: err.response.statusText }));
 };
 
-const Downloader = (props) => {
+const Downloader = props => {
   const { fileName, fileUrl, errorHandler } = props;
   return (
-    <div className="btn btn-link" onClick={() => downloadFile(fileUrl, fileName, errorHandler)}>{ toFileName(fileName) }</div>
+    <div
+      className="btn btn-link"
+      onClick={() => downloadFile(fileUrl, fileName, errorHandler)}
+    >
+      {toFileName(fileName)}
+    </div>
   );
 };
 

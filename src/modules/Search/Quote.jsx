@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from "react-router-dom";
+import { Route } from 'react-router-dom';
 import { Loader } from '@exzeo/core-ui';
 
 import App from '../../components/AppWrapper';
 import Search from '../../components/Search/Search';
-
 
 export class QuoteSearch extends Component {
   render() {
@@ -17,15 +16,20 @@ export class QuoteSearch extends Component {
         match={match}
         render={() => (
           <div className="route">
-            {isLoading
-              && <Loader />
-            }
+            {isLoading && <Loader />}
 
             {/*{ Search refactor will be replacing these routes }*/}
-            <Route exact path={`${match.url}/address`}  render={props => <Search {...props} searchType="address" />} />
-            <Route exact path={`${match.url}/retrieve`} render={props => <Search {...props} searchType="quote" />} />
+            <Route
+              exact
+              path={`${match.url}/address`}
+              render={props => <Search {...props} searchType="address" />}
+            />
+            <Route
+              exact
+              path={`${match.url}/retrieve`}
+              render={props => <Search {...props} searchType="quote" />}
+            />
             {/*{ ^^^ Search refactor will be replacing these routes ^^^ }*/}
-
           </div>
         )}
       />
@@ -33,7 +37,7 @@ export class QuoteSearch extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     isLoading: state.appState.isLoading
   };

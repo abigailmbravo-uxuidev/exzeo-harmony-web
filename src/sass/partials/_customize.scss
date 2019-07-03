@@ -15,39 +15,39 @@
       &.Coverage {
         &.Limits {
           &:before {
-            content: "\f201";
+            content: '\f201';
           }
         }
 
         &.Options {
           &:before {
-            content: "\f0ae";
+            content: '\f0ae';
           }
         }
       }
 
       &.Deductibles {
         &:before {
-          content: "\f0d6";
+          content: '\f0d6';
         }
       }
 
       &.Mitigation {
         &:before {
-          content: "\f024";
+          content: '\f024';
         }
       }
 
       &.Discounts {
         &:before {
-          content: "\f0c4";
+          content: '\f0c4';
         }
       }
     }
   }
 
   .form-group.survey-wrapper {
-      width: auto;
+    width: auto;
 
     .form-group {
       align-items: center;
@@ -70,7 +70,7 @@
       }
 
       &.read-only {
-          justify-content: space-between;
+        justify-content: space-between;
       }
 
       &.lossOfUseAmount,

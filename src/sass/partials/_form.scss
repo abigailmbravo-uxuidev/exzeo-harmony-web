@@ -1,5 +1,5 @@
-@import "_variables";
-@import "utilities/_borders"; // scss-lint:disable QualifyingElement
+@import '_variables';
+@import 'utilities/_borders'; // scss-lint:disable QualifyingElement
 //
 // Textual form controls
 //
@@ -19,11 +19,14 @@ textarea {
   line-height: $input-line-height;
 
   @include box-shadow($input-box-shadow);
-  @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+  @include transition(
+    border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s
+  );
   // Customize the `:focus` state to imitate native WebKit styles.
   @include form-control-focus();
 
-  &[type="checkbox"] {
+  &[type='checkbox'] {
     position: relative;
     width: 1rem;
     height: 1rem;
@@ -31,12 +34,12 @@ textarea {
     line-height: 1;
   }
 
-  &[type="range"] {
+  &[type='range'] {
     border-width: 0;
     box-shadow: none;
   }
 
-  &[type="radio"] {
+  &[type='radio'] {
     position: relative;
     width: 1rem;
     height: 1rem;
@@ -44,7 +47,7 @@ textarea {
     line-height: 1;
   }
 
-  &[type="file"] {
+  &[type='file'] {
     width: 100%;
     //box-shadow: none;
   }
@@ -52,8 +55,7 @@ textarea {
   @if $enable-rounded {
     // Manually use the if/else instead of the mixin to account for iOS override
     border-radius: $input-border-radius;
-  }
-  @else {
+  } @else {
     // Otherwise undo the iOS default
     border-radius: 0;
   }
@@ -75,7 +77,7 @@ textarea {
   // disabled if the fieldset is disabled. Due to implementation difficulty, we
   // don't honor that edge case; we style them as disabled anyway.
   &:disabled,
-  &[disabled="disabled"],
+  &[disabled='disabled'],
   &[readonly] {
     background-color: $input-bg-disabled;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
@@ -83,7 +85,7 @@ textarea {
   }
 
   &:disabled,
-  &[disabled="disabled"] {
+  &[disabled='disabled'] {
     cursor: $cursor-disabled;
   }
 }
@@ -177,8 +179,8 @@ label {
     flex-basis: 100%;
   }
 
-  &.row[role="group"] {
-    margin: 0 -($padding/2);
+  &.row[role='group'] {
+    margin: 0 - ($padding/2);
   }
 
   &.row {
@@ -190,12 +192,12 @@ label {
   }
 
   label {
-    @include transition(all .2s ease-in-out);
+    @include transition(all 0.2s ease-in-out);
 
     .tooltip-wrapper {
-        flex-grow: 1;
-        flex-shrink: 0;
-        margin: 0 ($margin/2);
+      flex-grow: 1;
+      flex-shrink: 0;
+      margin: 0 ($margin/2);
     }
 
     .secondary-label {
@@ -205,14 +207,14 @@ label {
     }
     // TODO: remove when all inputs are updated with secondary label
     &.date-label-wrapper {
-        display: flex;
-        align-items: baseline;
+      display: flex;
+      align-items: baseline;
 
-        .date-min-max {
-            margin-left: $padding;
-            font-weight: $font-weight-normal;
-            font-size: $font-size-sm;
-        }
+      .date-min-max {
+        margin-left: $padding;
+        font-weight: $font-weight-normal;
+        font-size: $font-size-sm;
+      }
     }
   }
 
@@ -223,15 +225,16 @@ label {
     }
   }
 
-  input[type="date"] {
-    padding: ($padding*.65) $padding;
+  input[type='date'] {
+    padding: ($padding * 0.65) $padding;
 
     @include for-phone-only {
       width: 100%;
     }
   }
 
-  input[type="tel"] {}
+  input[type='tel'] {
+  }
 
   &.segmented {
     label {
@@ -251,10 +254,10 @@ label {
             @include for-phone-only {
               margin-left: 0.5rem;
             }
-         }
+          }
         }
 
-        > input[type="text"] {
+        > input[type='text'] {
           flex-basis: 6.5rem;
         }
       }
@@ -291,7 +294,7 @@ label {
             -webkit-filter: drop-shadow(0 0 4px rgba($green, 0));
             filter: drop-shadow(0 0 4px rgba($green, 0));
 
-            @include transition(all .2s ease-in-out);
+            @include transition(all 0.2s ease-in-out);
           }
         }
 
@@ -324,9 +327,18 @@ label {
             cursor: pointer;
 
             user-select: none;
-            @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, 0);
-            @include transition(all .2s ease-in-out);
-            @include button-variant($warm-gray-08, $warm-gray-02, $warm-gray-02);
+            @include button-size(
+              $btn-padding-y,
+              $btn-padding-x,
+              $font-size-base,
+              0
+            );
+            @include transition(all 0.2s ease-in-out);
+            @include button-variant(
+              $warm-gray-08,
+              $warm-gray-02,
+              $warm-gray-02
+            );
             @include for-phone-only {
               border-radius: $border-radius;
             }
@@ -341,7 +353,7 @@ label {
             }
           }
 
-          input[type=radio] {
+          input[type='radio'] {
             display: none;
 
             &:checked {
@@ -407,10 +419,14 @@ label {
             span {
               cursor: not-allowed;
 
-              @include button-variant($warm-gray-04, $warm-gray-01, $warm-gray-01);
+              @include button-variant(
+                $warm-gray-04,
+                $warm-gray-01,
+                $warm-gray-01
+              );
             }
 
-            input[type=radio] {
+            input[type='radio'] {
               &:checked {
                 cursor: not-allowed;
 
@@ -443,7 +459,7 @@ label {
         }
       }
 
-      input[type=radio] {
+      input[type='radio'] {
         cursor: not-allowed;
 
         &:checked {
@@ -478,8 +494,8 @@ label {
         flex-grow: 1;
       }
 
-      input[type="checkbox"],
-      input[type="radio"] {
+      input[type='checkbox'],
+      input[type='radio'] {
         display: none;
 
         &:checked {
@@ -498,7 +514,7 @@ label {
               top: 0.25rem;
               left: 0.5rem;
               color: $white;
-              content: "Yes";
+              content: 'Yes';
             }
 
             &.disabled {
@@ -536,7 +552,7 @@ label {
           border-radius: 50%;
           background-color: lighten($cool-gray-00, 10%);
           box-shadow: $input-box-shadow;
-          content: "";
+          content: '';
           line-height: 1;
           -webkit-transition: 0.4s;
           transition: 0.4s;
@@ -547,7 +563,7 @@ label {
           top: 0.25rem;
           left: 2rem;
           z-index: 1;
-          content: "No";
+          content: 'No';
           font-weight: $font-weight-bold;
           font-size: 0.7rem;
         }
@@ -577,7 +593,7 @@ label {
         border-radius: 50%;
         background-color: lighten($cool-gray-00, 10%);
         box-shadow: $input-box-shadow;
-        content: "";
+        content: '';
         line-height: 1;
         -webkit-transition: 0.4s;
         transition: 0.4s;
@@ -588,7 +604,7 @@ label {
         left: 2rem;
         z-index: 1;
         color: $white;
-        content: "No";
+        content: 'No';
         font-weight: $font-weight-bold;
         font-size: 0.7rem;
       }
@@ -605,7 +621,7 @@ label {
           top: 0.25rem;
           left: 0.5rem;
           color: $white;
-          content: "Yes";
+          content: 'Yes';
         }
         &.disabled {
           background-color: $cool-gray-00;
@@ -616,39 +632,39 @@ label {
       }
     }
 
-    input[type="checkbox"],
-      input[type="radio"] {
-        display: none;
+    input[type='checkbox'],
+    input[type='radio'] {
+      display: none;
 
-        &:checked {
-          + div.switch-div {
-            background-color: $bright-blue-darken-04;
+      &:checked {
+        + div.switch-div {
+          background-color: $bright-blue-darken-04;
 
-            &:before {
-              border-color: $cool-gray-01;
-              background-color: lighten($cool-gray-00, 10%);
-              -webkit-transform: translateX(2rem);
-              -ms-transform: translateX(2rem);
-              transform: translateX(2rem);
-            }
+          &:before {
+            border-color: $cool-gray-01;
+            background-color: lighten($cool-gray-00, 10%);
+            -webkit-transform: translateX(2rem);
+            -ms-transform: translateX(2rem);
+            transform: translateX(2rem);
+          }
+
+          &:after {
+            top: 0.25rem;
+            left: 0.5rem;
+            color: $white;
+            content: 'Yes';
+          }
+
+          &.disabled {
+            background-color: $cool-gray-00;
 
             &:after {
-              top: 0.25rem;
-              left: 0.5rem;
-              color: $white;
-              content: "Yes";
-            }
-
-            &.disabled {
-              background-color: $cool-gray-00;
-
-              &:after {
-                color: $cool-gray-01;
-              }
+              color: $cool-gray-01;
             }
           }
         }
       }
+    }
 
     &.disabled,
     &.disabled.invalid {
@@ -675,8 +691,8 @@ label {
         }
       }
 
-      input[type="checkbox"],
-      input[type="radio"] {
+      input[type='checkbox'],
+      input[type='radio'] {
         display: none;
 
         &:checked {
@@ -709,8 +725,8 @@ label {
         }
       }
 
-      input[type="checkbox"],
-      input[type="radio"] {
+      input[type='checkbox'],
+      input[type='radio'] {
         display: none;
 
         &:checked {
@@ -737,7 +753,7 @@ label {
         &:before {
           position: absolute;
           top: 0.25rem;
-          left: -.25rem;
+          left: -0.25rem;
           display: block;
           padding: 0.25rem;
           min-width: 9rem;
@@ -752,7 +768,7 @@ label {
           line-height: 1;
 
           @include for-phone-only {
-            left: -.75rem;
+            left: -0.75rem;
             width: 8rem;
             font-size: 0.875rem;
           }
@@ -790,8 +806,8 @@ label {
 
           &:before {
             position: absolute;
-            top: -.75rem;
-            left: -.75rem;
+            top: -0.75rem;
+            left: -0.75rem;
             display: block;
             padding: 0.25rem;
             width: 1.5rem;
@@ -806,7 +822,7 @@ label {
 
           &:after {
             position: absolute;
-            top: -.75rem;
+            top: -0.75rem;
             left: 0.75rem;
             width: 0;
             height: 0;
@@ -817,7 +833,7 @@ label {
           }
         }
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
           &:checked {
             ~ span {
               &:before {
@@ -847,7 +863,7 @@ label {
         &:before {
           position: absolute;
           top: 0.25rem;
-          left: -.25rem;
+          left: -0.25rem;
           display: block;
           padding: 0.25rem;
           min-width: 9rem;
@@ -862,7 +878,7 @@ label {
           line-height: 1;
 
           @include for-phone-only {
-            left: -.75rem;
+            left: -0.75rem;
             width: 8rem;
             font-size: 0.875rem;
           }
@@ -900,8 +916,8 @@ label {
 
           &:before {
             position: absolute;
-            top: -.75rem;
-            left: -.75rem;
+            top: -0.75rem;
+            left: -0.75rem;
             display: block;
             padding: 0.25rem;
             width: 1.5rem;
@@ -916,7 +932,7 @@ label {
 
           &:after {
             position: absolute;
-            top: -.75rem;
+            top: -0.75rem;
             left: 0.75rem;
             width: 0;
             height: 0;
@@ -927,7 +943,7 @@ label {
           }
         }
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
           &:checked {
             ~ span {
               &:before {
@@ -973,7 +989,7 @@ label {
   justify-content: flex-end;
   width: 100%;
 
-  button[type="submit"] {
+  button[type='submit'] {
     margin-left: 1rem;
   }
 }
@@ -1005,7 +1021,7 @@ ul.results {
       display: flex;
       align-items: flex-start;
       flex-direction: row;
-      padding: $padding $padding*1.5;
+      padding: $padding $padding * 1.5;
       width: 100%;
       border: $card-border-width solid $card-border-color;
       border-top-width: 0;
@@ -1013,7 +1029,7 @@ ul.results {
       box-shadow: $card-box-shadow;
       text-decoration: none;
 
-      @include transition(all .2s ease-in-out);
+      @include transition(all 0.2s ease-in-out);
 
       &:first-child {
         border-top-width: $card-border-width;
@@ -1071,7 +1087,7 @@ ul.results {
           font-size: $font-size-h4;
           cursor: pointer;
 
-          @include transition(all .2s ease-in-out);
+          @include transition(all 0.2s ease-in-out);
 
           &:hover {
             color: $red;
@@ -1088,7 +1104,7 @@ ul.results {
       margin-bottom: $padding/2;
       border-bottom: none;
 
-       > div,
+      > div,
       > a {
         z-index: 1;
         display: flex;
@@ -1097,14 +1113,14 @@ ul.results {
         flex-direction: row;
         flex-grow: 0;
         flex-shrink: 0;
-        padding: $padding $padding*1.5;
+        padding: $padding $padding * 1.5;
         width: 100%;
         border: $card-border-width solid $card-border-color;
         border-radius: $card-border-radius;
         box-shadow: $card-box-shadow;
         text-decoration: none;
 
-        @include transition(all .2s ease-in-out);
+        @include transition(all 0.2s ease-in-out);
 
         section {
           flex-grow: 1;
@@ -1138,7 +1154,7 @@ ul.results {
           height: 2rem;
           font-size: $font-size-h2;
 
-          @include transition(all .2s ease-in-out);
+          @include transition(all 0.2s ease-in-out);
         }
       }
 
@@ -1163,5 +1179,5 @@ ul.results {
 }
 
 form + form {
-  margin-top: $padding*2;
+  margin-top: $padding * 2;
 }

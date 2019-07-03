@@ -5,7 +5,9 @@ import Login from '../Login';
 
 describe('Testing Login Component', () => {
   it('Checks the Login Component', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<Login {...defaultProps} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <Login {...defaultProps} />
+    );
 
     expect(getByTestId('loader'));
     expect(defaultProps.auth.login).toHaveBeenCalled();

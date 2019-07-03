@@ -12,7 +12,7 @@ import CheckError from './Error/CheckError';
 
 class AppWrapper extends React.Component {
   state = {
-    activeSideNav: false,
+    activeSideNav: false
   };
 
   handleLogout = () => {
@@ -33,30 +33,36 @@ class AppWrapper extends React.Component {
     } = this.props;
 
     return (
-      <div className={classNames('app-wrapper', { 'active': this.state.activeSideNav })}>
-        <Header
-          toggleSideNav={this.toggleSideNav}
-          active={this.state.active}
-        />
+      <div
+        className={classNames('app-wrapper', {
+          active: this.state.activeSideNav
+        })}
+      >
+        <Header toggleSideNav={this.toggleSideNav} active={this.state.active} />
         <div role="main">
           <aside className="content-panel-left">
             <div className="user" data-test="user-info">
               <label htmlFor="user">Agency</label>
               <h5 className="user-name">
-                <span><div>{userDisplayName}</div></span>
+                <span>
+                  <div>{userDisplayName}</div>
+                </span>
                 <i className="fa fa-gear" />
               </h5>
             </div>
 
             <nav className="site-nav">
-              <SideNavigation navLinks={getNavLinks({ params: match.params })} />
+              <SideNavigation
+                navLinks={getNavLinks({ params: match.params })}
+              />
             </nav>
 
             <Button
               className={Button.constants.classNames.action}
               customClass="logout"
               onClick={this.handleLogout}
-              data-test="sidenav-logout">
+              data-test="sidenav-logout"
+            >
               <div>
                 <i className="fa fa-sign-out" />
                 <span>Logout</span>
@@ -64,18 +70,18 @@ class AppWrapper extends React.Component {
             </Button>
           </aside>
 
-          {this.state.activeSideNav &&
+          {this.state.activeSideNav && (
             <div className="aside-modal active" onClick={this.toggleSideNav} />
-          }
+          )}
 
           <div className="content-wrapper">
             <div className={classNames(routeClassName)} role="article">
-            {this.props.children || this.props.render()}
+              {this.props.children || this.props.render()}
             </div>
           </div>
         </div>
 
-        <CheckError redirectUrl={errorRedirectUrl}/>
+        <CheckError redirectUrl={errorRedirectUrl} />
       </div>
     );
   }
@@ -84,24 +90,26 @@ class AppWrapper extends React.Component {
 AppWrapper.propTypes = {
   logout: func.isRequired,
   match: shape({
-    params: shape({}),
+    params: shape({})
   }).isRequired,
   displayName: string,
   errorRedirectUrl: string,
   render: func,
-  routeClassName: string,
+  routeClassName: string
 };
 
 AppWrapper.defaultProps = {
   displayName: '',
   errorRedirectUrl: undefined,
-  routeClassName: 'workflow',
+  routeClassName: 'workflow'
 };
 
 const mapStateToProps = state => {
-  const userDisplayName = (state.agencyState.agency || {}).displayName || (state.authState.userProfile || {}).name;
+  const userDisplayName =
+    (state.agencyState.agency || {}).displayName ||
+    (state.authState.userProfile || {}).name;
   return {
-    userDisplayName,
+    userDisplayName
   };
 };
 

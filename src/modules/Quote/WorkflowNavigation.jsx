@@ -4,8 +4,8 @@ import { TabNavigation, DetailsHeader } from '@exzeo/core-ui/src/@Harmony';
 import { getNavLinks, STEP_NAMES } from './constants/workflowNavigation';
 
 export class WorkflowNavigation extends Component {
-  getClassForStep = (step) => {
-    const { currentStep} = this.props;
+  getClassForStep = step => {
+    const { currentStep } = this.props;
     if (currentStep === step) return 'active';
 
     return step < currentStep ? 'selected' : 'disabled';
@@ -45,17 +45,20 @@ export class WorkflowNavigation extends Component {
           isLoading={isLoading}
           isRecalc={isRecalc}
           currentStep={currentStep}
-          useAnimationForPremium={currentStep === STEP_NAMES.askToCustomizeDefaultQuote}
+          useAnimationForPremium={
+            currentStep === STEP_NAMES.askToCustomizeDefaultQuote
+          }
         />
 
-        {showNavigationTabs &&
+        {showNavigationTabs && (
           <TabNavigation
             navLinks={getNavLinks({
               goToStep,
               getClassName: this.getClassForStep,
-              onKeyPress: this.onKeyPress,
-            })} />
-        }
+              onKeyPress: this.onKeyPress
+            })}
+          />
+        )}
       </div>
     );
   }

@@ -7,17 +7,17 @@
         font-family: $font-family-icon;
 
         &.Policyholder {
-          &.Primary, &.Secondary {
+          &.Primary,
+          &.Secondary {
             &:before {
-              content: "\f2bd";
+              content: '\f2bd';
             }
           }
-
         }
 
         &.Policy.Details {
           &:before {
-            content: "\f15c";
+            content: '\f15c';
           }
         }
       }
@@ -26,7 +26,7 @@
     .FirstName,
     .FirstName2 {
       @include for-tablet-portrait-up {
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 40%;
       }
     }
@@ -41,7 +41,7 @@
     .EmailAddress,
     .EmailAddress2 {
       @include for-tablet-portrait-up {
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 60%;
       }
     }
@@ -56,7 +56,7 @@
 
     .effectiveDate {
       @include for-tablet-portrait-up {
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 50%;
       }
     }
@@ -84,7 +84,7 @@
           padding: 0;
           width: 100%;
         }
-        
+
         .first-name {
           width: 50%;
 

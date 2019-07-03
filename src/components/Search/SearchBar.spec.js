@@ -4,7 +4,11 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { mount } from 'enzyme';
 
-import ConnectedApp, { handleSearchBarSubmit, validate, changePageQuote } from './SearchBar';
+import ConnectedApp, {
+  handleSearchBarSubmit,
+  validate,
+  changePageQuote
+} from './SearchBar';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -13,7 +17,7 @@ describe('Testing SearchBar component', () => {
   it('should test connected app', () => {
     const initialState = {
       search: {},
-      authState: { userProfile: { appMetadata: { beta: true}}},
+      authState: { userProfile: { appMetadata: { beta: true } } },
       service: {
         policyResults: {}
       },
@@ -35,7 +39,7 @@ describe('Testing SearchBar component', () => {
     const props = {
       handleSubmit: x => x,
       userProfile: {
-        appMetadata: { beta: true},
+        appMetadata: { beta: true },
         groups: [{ state: 'FL', companyCode: 'TTIC' }]
       },
       actions: {
@@ -58,9 +62,10 @@ describe('Testing SearchBar component', () => {
       }
     };
     const wrapper = mount(
-    <Provider store={store}>
-      <ConnectedApp store={store} {...props} />
-    </Provider>);
+      <Provider store={store}>
+        <ConnectedApp store={store} {...props} />
+      </Provider>
+    );
     expect(wrapper);
   });
   it('should test handleFormSubmit', () => {
@@ -76,7 +81,7 @@ describe('Testing SearchBar component', () => {
 
     const props = {
       userProfile: {
-        appMetadata: { beta: true},
+        appMetadata: { beta: true },
         groups: [{ state: 'FL', companyCode: 'TTIC' }]
       },
       fieldValues: {
@@ -95,37 +100,43 @@ describe('Testing SearchBar component', () => {
         }
       },
       quoteData: {
-        AdditionalInterests: [{
-          id: '049a50b23c21c2ae3',
-          type: 'Mortgagee',
-          order: 1,
-          name1: 'BB&T Home Mortgage',
-          referenceNumber: '1234567',
-          mailingAddress: {
-            address1: '5115 Garden Vale Ave',
-            city: 'Tampa',
-            state: 'FL',
-            county: 'Hillsborough',
-            zip: '33624',
-            country: {
-              code: 'USA',
-              displayText: 'United States of America'
-            }
-          },
-          active: true
-        }]
+        AdditionalInterests: [
+          {
+            id: '049a50b23c21c2ae3',
+            type: 'Mortgagee',
+            order: 1,
+            name1: 'BB&T Home Mortgage',
+            referenceNumber: '1234567',
+            mailingAddress: {
+              address1: '5115 Garden Vale Ave',
+              city: 'Tampa',
+              state: 'FL',
+              county: 'Hillsborough',
+              zip: '33624',
+              country: {
+                code: 'USA',
+                displayText: 'United States of America'
+              }
+            },
+            active: true
+          }
+        ]
       },
       ...propTypes
     };
 
-    handleSearchBarSubmit({
-      firstName: '',
-      lastName: '',
-      address: '',
-      quoteNumber: '',
-      policyNumber: '',
-      zip: ''
-    }, store.dispatch, props);
+    handleSearchBarSubmit(
+      {
+        firstName: '',
+        lastName: '',
+        address: '',
+        quoteNumber: '',
+        policyNumber: '',
+        zip: ''
+      },
+      store.dispatch,
+      props
+    );
   });
 
   it('should paging functions', () => {
@@ -159,25 +170,27 @@ describe('Testing SearchBar component', () => {
         }
       },
       quoteData: {
-        AdditionalInterests: [{
-          id: '049a50b23c21c2ae3',
-          type: 'Mortgagee',
-          order: 1,
-          name1: 'BB&T Home Mortgage',
-          referenceNumber: '1234567',
-          mailingAddress: {
-            address1: '5115 Garden Vale Ave',
-            city: 'Tampa',
-            state: 'FL',
-            county: 'Hillsborough',
-            zip: '33624',
-            country: {
-              code: 'USA',
-              displayText: 'United States of America'
-            }
-          },
-          active: true
-        }]
+        AdditionalInterests: [
+          {
+            id: '049a50b23c21c2ae3',
+            type: 'Mortgagee',
+            order: 1,
+            name1: 'BB&T Home Mortgage',
+            referenceNumber: '1234567',
+            mailingAddress: {
+              address1: '5115 Garden Vale Ave',
+              city: 'Tampa',
+              state: 'FL',
+              county: 'Hillsborough',
+              zip: '33624',
+              country: {
+                code: 'USA',
+                displayText: 'United States of America'
+              }
+            },
+            active: true
+          }
+        ]
       },
       ...propTypes
     };

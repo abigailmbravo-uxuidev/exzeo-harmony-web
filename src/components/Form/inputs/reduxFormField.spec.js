@@ -8,7 +8,9 @@ describe('reduxFormField', () => {
     const props = {
       answers: []
     };
-    const wrapper = shallow(<reduxFormFieldConnect {...TextField} {...props} />);
+    const wrapper = shallow(
+      <reduxFormFieldConnect {...TextField} {...props} />
+    );
 
     expect(wrapper);
   });

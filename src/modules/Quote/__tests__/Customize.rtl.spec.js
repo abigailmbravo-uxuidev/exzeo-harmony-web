@@ -4,7 +4,11 @@ import { fireEvent, waitForDomChange } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
-  checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel,
+  checkRadio,
+  checkSwitch,
+  checkSlider,
+  checkHeader,
+  checkLabel,
   setSliderValue
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
@@ -53,7 +57,7 @@ const fields = [
     required: true,
     type: 'radio',
     label: 'Personal Liability Limit',
-    values: ['100000', '300000'],
+    values: ['100000', '300000']
   },
   {
     dataTest: 'coverageLimits.medicalPayments.value',
@@ -65,14 +69,16 @@ const fields = [
     dataTest: 'coverageLimits.moldProperty.value',
     required: true,
     type: 'radio',
-    label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
-    values: ['10000', '25000', '50000'],
+    label:
+      'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
+    values: ['10000', '25000', '50000']
   },
   {
     dataTest: 'coverageLimits.moldLiability.value',
     required: true,
     type: 'radio',
-    label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
+    label:
+      'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
     values: ['50000', '100000']
   },
   {
@@ -94,7 +100,7 @@ const fields = [
     required: true,
     type: 'radio',
     label: 'All Other Perils Deductible',
-    values: ['500', '1000', '2500'],
+    values: ['500', '1000', '2500']
   },
   {
     dataTest: 'deductibles.hurricane.value',
@@ -209,38 +215,54 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   };
 
   it('NEG:Dwelling Limit', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
-    fields.filter(({ type }) => type === 'slider')
+    fields
+      .filter(({ type }) => type === 'slider')
       .forEach(({ dataTest }) => {
         const input = getByTestId(`${dataTest}-input`);
 
-        fireEvent.change(input, { target: { value: '0' }});
+        fireEvent.change(input, { target: { value: '0' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '124000' }});
+        fireEvent.change(input, { target: { value: '124000' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '2100000' }});
+        fireEvent.change(input, { target: { value: '2100000' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '3000000' }});
+        fireEvent.change(input, { target: { value: '3000000' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '999999999' }});
+        fireEvent.change(input, { target: { value: '999999999' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
       });
   });
 
   it('POS:Checks all fields', () => {
-    const { getByTestId, getByText, container } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId, getByText, container } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
-    fields.filter(({ required }) => required)
+    fields
+      .filter(({ required }) => required)
       .forEach(async field => {
         checkLabel(getByTestId, field);
         if (field.type === 'radio') checkRadio(getByTestId, field);
@@ -250,14 +272,18 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
           fireEvent.mouseOver(getByTestId(`${field.dataTest}_tooltip`));
           // wait for our mouseover to occur
           await waitForDomChange({ container }).then(() =>
-            expect(document.getElementById(field.dataTest).textContent).toMatch(field.tooltipText)
+            expect(document.getElementById(field.dataTest).textContent).toMatch(
+              field.tooltipText
+            )
           );
-        };
+        }
       });
   });
 
   it('POS:Checks Header Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
@@ -270,20 +296,36 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       'coverageLimits.lossOfUse.value_wrapper',
       'deductibles.hurricane.value_wrapper'
     ];
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     const slider = getByTestId('coverageLimits.dwelling.value-slider');
 
     const setSliderAndCheckOutput = (value, { dataTest, outputValue }) => {
       setSliderValue(slider, value);
       // expect(getByTestId('coverageLimits.dwelling.value-input')).toHaveTextContent('$ 380,000');
-      expect(document.querySelector(`[data-test="${dataTest}"] output`)).toHaveTextContent(outputValue);
+      expect(
+        document.querySelector(`[data-test="${dataTest}"] output`)
+      ).toHaveTextContent(outputValue);
     };
 
-    setSliderAndCheckOutput('350000', { dataTest: outputFields[0], outputValue: '$ 7,000' });
+    setSliderAndCheckOutput('350000', {
+      dataTest: outputFields[0],
+      outputValue: '$ 7,000'
+    });
     // TODO not sure why this one is broken
     // setSliderAndCheckOutput('380000', {dataTest: outputFields[1], outputValue: '$ 95,000' });
-    setSliderAndCheckOutput('380000', { dataTest: outputFields[2], outputValue: '$ 2,000' });
-    setSliderAndCheckOutput('303000', { dataTest: outputFields[3], outputValue: '$ 30,300' });
-    setSliderAndCheckOutput('295000', { dataTest: outputFields[4], outputValue: '$ 5,900' });
+    setSliderAndCheckOutput('380000', {
+      dataTest: outputFields[2],
+      outputValue: '$ 2,000'
+    });
+    setSliderAndCheckOutput('303000', {
+      dataTest: outputFields[3],
+      outputValue: '$ 30,300'
+    });
+    setSliderAndCheckOutput('295000', {
+      dataTest: outputFields[4],
+      outputValue: '$ 5,900'
+    });
   });
 });

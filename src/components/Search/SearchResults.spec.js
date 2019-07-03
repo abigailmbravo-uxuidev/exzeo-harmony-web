@@ -17,7 +17,23 @@ it('should test props for SearchResults address', () => {
             name: 'searchAddress',
             value: {
               result: {
-                IndexResult: [{ id: '120955882646A1E36', source: 'casaclue', residenceType: 'N/A', physicalAddress: { city: 'ORLANDO', latitude: '28.614350', zip: '32810', state: 'FL', address2: '', longitude: '-81.393340', county: 'ORANGE', address1: '234 AMADOR CIR' } }]
+                IndexResult: [
+                  {
+                    id: '120955882646A1E36',
+                    source: 'casaclue',
+                    residenceType: 'N/A',
+                    physicalAddress: {
+                      city: 'ORLANDO',
+                      latitude: '28.614350',
+                      zip: '32810',
+                      state: 'FL',
+                      address2: '',
+                      longitude: '-81.393340',
+                      county: 'ORANGE',
+                      address1: '234 AMADOR CIR'
+                    }
+                  }
+                ]
               }
             }
           },
@@ -43,7 +59,23 @@ it('should test props for SearchResults address', () => {
             name: 'searchAddress',
             value: {
               result: {
-                IndexResult: [{ id: '120955882646A1E36', source: 'casaclue', residenceType: 'N/A', physicalAddress: { city: 'ORLANDO', latitude: '28.614350', zip: '32810', state: 'FL', address2: '', longitude: '-81.393340', county: 'ORANGE', address1: '234 AMADOR CIR' } }]
+                IndexResult: [
+                  {
+                    id: '120955882646A1E36',
+                    source: 'casaclue',
+                    residenceType: 'N/A',
+                    physicalAddress: {
+                      city: 'ORLANDO',
+                      latitude: '28.614350',
+                      zip: '32810',
+                      state: 'FL',
+                      address2: '',
+                      longitude: '-81.393340',
+                      county: 'ORANGE',
+                      address1: '234 AMADOR CIR'
+                    }
+                  }
+                ]
               }
             }
           },
@@ -76,31 +108,31 @@ it('should test props for SearchResults quote', () => {
             name: 'searchQuote',
             value: {
               result: {
-                quotes: [{
-                  property: {
-                    physicalAddress:
-                    {
-                      address1: '1000 Poplar Ave',
-                      address2: null,
-                      city: 'Tampa',
-                      state: 'FL',
-                      county: 'Hillsborough',
-                      zip: '33607',
-                      latitude: 28.0959571,
-                      longitude: -82.5380074
-                    }
-                  },
-                  _id: '',
-                  policyHolders: []
-                }]
+                quotes: [
+                  {
+                    property: {
+                      physicalAddress: {
+                        address1: '1000 Poplar Ave',
+                        address2: null,
+                        city: 'Tampa',
+                        state: 'FL',
+                        county: 'Hillsborough',
+                        zip: '33607',
+                        latitude: 28.0959571,
+                        longitude: -82.5380074
+                      }
+                    },
+                    _id: '',
+                    policyHolders: []
+                  }
+                ]
               }
             }
           },
           activeTask: {
             name: 'chooseQuote',
             value: {
-              result: {
-              }
+              result: {}
             }
           },
           modelInstanceId: '123',
@@ -115,7 +147,7 @@ it('should test props for SearchResults quote', () => {
   };
   const store = mockStore(initialState);
   const props = {
-    handleNewTab(address, prop) { },
+    handleNewTab(address, prop) {},
     tasks: { ...initialState.cg },
     fieldQuestions: [],
     quoteData: {},
@@ -131,7 +163,6 @@ it('should test props for SearchResults quote', () => {
   SearchResults(props);
 });
 
-
 it('should test props for SearchResults policy', () => {
   const initialState = {
     search: {
@@ -146,10 +177,17 @@ it('should test props for SearchResults policy', () => {
     search: {
       searchType: 'policy'
     },
-    handleNewTab(address, prop) { },
+    handleNewTab(address, prop) {},
     tasks: { ...initialState.cg },
     fieldQuestions: [],
-    policyResults: { policies: [{ property: { physicalAddress: {} }, policyHolders: [{ firstName: '', lastName: '' }] }] },
+    policyResults: {
+      policies: [
+        {
+          property: { physicalAddress: {} },
+          policyHolders: [{ firstName: '', lastName: '' }]
+        }
+      ]
+    },
     dispatch: store.dispatch,
     appState: {
       modelName: 'bb',

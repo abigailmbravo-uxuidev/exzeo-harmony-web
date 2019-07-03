@@ -35,7 +35,7 @@
   }
 
   .site-nav {
-    padding: $padding*2;
+    padding: $padding * 2;
     width: auto;
 
     @include transition(all 0.05s ease-in-out);
@@ -62,16 +62,16 @@
           display: flex;
           align-items: center;
           flex-grow: 1;
-          margin: 0 (-$padding*2) 0 (-$padding);
-          padding: ($padding*1.5) 0;
+          margin: 0 (-$padding * 2) 0 (-$padding);
+          padding: ($padding * 1.5) 0;
           border-left: ($padding/2) solid rgba($white, 0);
           color: $white;
           text-decoration: none;
           cursor: pointer;
 
           &:hover {
-            border-left: ($padding/2) solid rgba($bright-blue, .2);
-            background-color: rgba($white, .1);
+            border-left: ($padding/2) solid rgba($bright-blue, 0.2);
+            background-color: rgba($white, 0.1);
             text-decoration: none;
             cursor: pointer;
 
@@ -139,7 +139,7 @@
           &.agent-dashboard {
             i {
               &:before {
-                content: "\f0e4";
+                content: '\f0e4';
               }
             }
           }
@@ -147,7 +147,7 @@
           &.quote {
             i {
               &:before {
-                content: "\f10d";
+                content: '\f10d';
               }
             }
           }
@@ -155,20 +155,20 @@
           &.policy {
             i {
               &:before {
-                content: "\f15c";
+                content: '\f15c';
               }
             }
 
             &.policy-detail {
               position: relative;
-              border-left: ($padding/2) solid rgba($bright-blue-darken-03, .4);
-              background-color: rgba($black, .1);
+              border-left: ($padding/2) solid rgba($bright-blue-darken-03, 0.4);
+              background-color: rgba($black, 0.1);
 
               @include for-tablet-portrait-up {
                 &:after {
                   position: absolute;
                   top: 0;
-                  right: -.25rem;
+                  right: -0.25rem;
                   bottom: 0;
                   display: flex;
                   align-items: center;
@@ -216,8 +216,8 @@
               }
 
               &:hover {
-                border-left: ($padding/2) solid rgba($bright-blue, .2);
-                background-color: rgba($white, .1);
+                border-left: ($padding/2) solid rgba($bright-blue, 0.2);
+                background-color: rgba($white, 0.1);
                 cursor: pointer;
               }
             }
@@ -226,7 +226,7 @@
           &.training {
             i {
               &:before {
-                content: "\f05a";
+                content: '\f05a';
               }
             }
           }
@@ -234,7 +234,7 @@
           &.contacts {
             i {
               &:before {
-                content: "\f2bc";
+                content: '\f2bc';
               }
             }
           }
@@ -260,7 +260,7 @@
   }
 
   .user {
-    padding: ($padding/2) ($padding) ($padding/2) ($padding*2);
+    padding: ($padding/2) ($padding) ($padding/2) ($padding * 2);
     min-height: 4.75rem;
     width: auto;
     border-bottom: 2px solid $white;
@@ -388,7 +388,7 @@
   display: flex;
   flex-grow: 1;
   flex-shrink: 1;
-  margin-bottom: $padding*2;
+  margin-bottom: $padding * 2;
   width: 100%;
   background: $cool-gray-01;
 
@@ -406,7 +406,7 @@
       @include button-variant($cool-gray-07, $btn-link-bg, $btn-link-border);
 
       @include for-phone-only {
-        >span {
+        > span {
           display: none;
         }
       }
@@ -516,7 +516,7 @@
       }
 
       .site-nav {
-        padding: $padding*2;
+        padding: $padding * 2;
         width: auto;
 
         @include transition(all 0.05s ease-in-out);

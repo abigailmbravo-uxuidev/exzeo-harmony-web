@@ -12,11 +12,12 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-
-    const stateObj = [{
-      type: types.SERVICE_REQUEST,
-      undefined
-    }];
+    const stateObj = [
+      {
+        type: types.SERVICE_REQUEST,
+        undefined
+      }
+    ];
 
     store.dispatch(serviceActions.serviceRequest());
     expect(store.getActions()).toEqual(stateObj);
@@ -45,7 +46,8 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.getQuote('1-234567890-12')(store.dispatch)
+    return serviceActions
+      .getQuote('1-234567890-12')(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].type).toEqual(types.SERVICE_REQUEST);
       });
@@ -74,7 +76,8 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.getQuote(324324324)(store.dispatch)
+    return serviceActions
+      .getQuote(324324324)(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].type).toEqual(types.APP_ERROR);
       });
@@ -108,7 +111,8 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.getQuote('599ed8b04efcdc001284f0cb')(store.dispatch)
+    return serviceActions
+      .getQuote('599ed8b04efcdc001284f0cb')(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].type).toEqual(types.SERVICE_REQUEST);
       });
@@ -137,7 +141,8 @@ describe('Service Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    return serviceActions.getQuote('1')(store.dispatch)
+    return serviceActions
+      .getQuote('1')(store.dispatch)
       .then(() => {
         expect(store.getActions()[0].type).toEqual(types.APP_ERROR);
       });
@@ -155,7 +160,8 @@ describe('Service Actions', () => {
       data: {
         service: 'policy-data',
         method: 'GET',
-        path: '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&page=1&pageSize=25&sort=policyNumber&sortDirection=desc'
+        path:
+          '/transactions?companyCode=TTIC&state=FL&product=HO3&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&page=1&pageSize=25&sort=policyNumber&sortDirection=desc'
       }
     };
 
@@ -179,7 +185,8 @@ describe('Service Actions', () => {
       state: 'FL'
     };
 
-    return serviceActions.searchPolicy(params)(store.dispatch)
+    return serviceActions
+      .searchPolicy(params)(store.dispatch)
       .then(() => {
         const actions = store.getActions();
         expect(actions[0].type).toEqual(types.SERVICE_REQUEST);

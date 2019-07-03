@@ -18,7 +18,8 @@ export const externalLinks = [
     productIcon: 'home',
     url: 'https://cdn.typtap.com/2018/12/TT-Pilot-Agents-one-pager-112818.pdf',
     title: 'TypTap Homeowners Agent Program Guide',
-    description: 'Reference guide for payments, how to login, open counties, year built and agency support.',
+    description:
+      'Reference guide for payments, how to login, open counties, year built and agency support.',
     linkIcon: 'pdf'
   },
   {

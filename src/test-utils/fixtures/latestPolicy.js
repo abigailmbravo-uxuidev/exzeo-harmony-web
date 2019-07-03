@@ -1,4 +1,3 @@
-
 export default {
   issueDate: '2019-05-13T21:49:54.999Z',
   additionalInterests: [],
@@ -615,7 +614,8 @@ export default {
     },
     fourPointUpdates: {
       answer: 'Yes',
-      question: 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
+      question:
+        'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
       source: 'Customer'
     },
     monthsOccupied: {

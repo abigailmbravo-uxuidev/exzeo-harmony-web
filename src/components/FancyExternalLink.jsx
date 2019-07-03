@@ -1,7 +1,12 @@
 import React from 'react';
 
-
-const FancyExternalLink = ({ productIcon, url, title, description, linkIcon }) => (
+const FancyExternalLink = ({
+  productIcon,
+  url,
+  title,
+  description,
+  linkIcon
+}) => (
   <li>
     <a href={url} target="_blank" rel="noopener noreferrer">
       <div className={productIcon} />

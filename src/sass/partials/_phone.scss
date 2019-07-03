@@ -1,96 +1,98 @@
 @media (max-width: 599px) {
-    html {
-        height: initial;
-        div#root {
-            .detail-wrapper, .survey-wrapper {
-                .section-group-header {
-                    margin-bottom: 0;
-                }
-                .form-group {
-                    //margin-bottom: 0;
-                    //padding-bottom: $padding;
-                }
-            }
-            .loader.modal {
-                position: fixed;
-                top: 3.375rem;
-                bottom: 0;
-                z-index: 10;
-            }
-            .app-wrapper {
-                header {
-                    position: fixed;
-                    z-index: 100;
-                    overflow: visible;
-                    height: auto;
-                }
-                div[role="main"] {
-                    top: 3.375rem;
-                    overflow: visible;
-                    height: auto;
-                    .content-wrapper {
-                        overflow: visible;
-                        height: auto;
-                        .workflow {
-                            overflow: visible;
-                            height: auto;
-                            .route {
-                                .detailHeader {
-                                    min-height: 3.5rem;
-                                }
-
-                                .search {
-                                    min-height: calc(100vh - 3.375rem);
-
-                                    .retrieve-quote-wrapper {
-                                        flex-wrap: wrap;
-
-                                        .first-name-search, .last-name-search {
-                                            width: 50%;
-                                        }
-                                        .quote-no-search {
-                                            width: calc(100% - 3.3rem);
-                                        }
-                                    }
-
-                                    .search-policy-wrapper {
-                                        flex-wrap: wrap;
-
-                                        .search-context {
-                                            width: 5.75rem;
-                                        }
-
-                                        .first-name-search {
-                                            width: calc(55% - 5.75rem);
-                                        }
-                                        .last-name-search {
-                                            width: 45%;
-                                        }
-                                        .policy-no-search {
-                                            width: calc(100% - 3.25rem);
-                                        }
-
-                                        button.multi-input {
-                                          margin-left: $padding/2;
-                                        }
-                                    }
-
-                                    .survey-wrapper {
-                                        overflow: hidden;
-                                        height: auto;
-                                    }
-                                }
-
-                                .route {
-                                    .scroll {
-                                        overflow: visible;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+  html {
+    height: initial;
+    div#root {
+      .detail-wrapper,
+      .survey-wrapper {
+        .section-group-header {
+          margin-bottom: 0;
         }
+        .form-group {
+          //margin-bottom: 0;
+          //padding-bottom: $padding;
+        }
+      }
+      .loader.modal {
+        position: fixed;
+        top: 3.375rem;
+        bottom: 0;
+        z-index: 10;
+      }
+      .app-wrapper {
+        header {
+          position: fixed;
+          z-index: 100;
+          overflow: visible;
+          height: auto;
+        }
+        div[role='main'] {
+          top: 3.375rem;
+          overflow: visible;
+          height: auto;
+          .content-wrapper {
+            overflow: visible;
+            height: auto;
+            .workflow {
+              overflow: visible;
+              height: auto;
+              .route {
+                .detailHeader {
+                  min-height: 3.5rem;
+                }
+
+                .search {
+                  min-height: calc(100vh - 3.375rem);
+
+                  .retrieve-quote-wrapper {
+                    flex-wrap: wrap;
+
+                    .first-name-search,
+                    .last-name-search {
+                      width: 50%;
+                    }
+                    .quote-no-search {
+                      width: calc(100% - 3.3rem);
+                    }
+                  }
+
+                  .search-policy-wrapper {
+                    flex-wrap: wrap;
+
+                    .search-context {
+                      width: 5.75rem;
+                    }
+
+                    .first-name-search {
+                      width: calc(55% - 5.75rem);
+                    }
+                    .last-name-search {
+                      width: 45%;
+                    }
+                    .policy-no-search {
+                      width: calc(100% - 3.25rem);
+                    }
+
+                    button.multi-input {
+                      margin-left: $padding/2;
+                    }
+                  }
+
+                  .survey-wrapper {
+                    overflow: hidden;
+                    height: auto;
+                  }
+                }
+
+                .route {
+                  .scroll {
+                    overflow: visible;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }

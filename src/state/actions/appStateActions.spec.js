@@ -9,10 +9,12 @@ describe('App State Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.TOGGLE_LOADING,
-      isLoading: true
-    }];
+    const stateObj = [
+      {
+        type: types.TOGGLE_LOADING,
+        isLoading: true
+      }
+    ];
 
     store.dispatch(appStateActions.toggleLoading(true));
 
@@ -22,10 +24,12 @@ describe('App State Actions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.TOGGLE_SNACKBAR,
-      showSnackBar: true
-    }];
+    const stateObj = [
+      {
+        type: types.TOGGLE_SNACKBAR,
+        showSnackBar: true
+      }
+    ];
 
     store.dispatch(appStateActions.toggleSnackbar(true));
 

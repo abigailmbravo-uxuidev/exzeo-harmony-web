@@ -3,10 +3,10 @@ ul.list-cards {
   li {
     margin-bottom: $padding/2;
 
-    >a,
-    >div {
+    > a,
+    > div {
       align-items: center;
-      padding: $padding $padding*1.5;
+      padding: $padding $padding * 1.5;
       border: $card-border-width solid $card-border-color;
       border-radius: $card-border-radius;
       background: $white;
@@ -38,12 +38,11 @@ ul.list-cards {
       }
     }
 
-    >a {
+    > a {
       &:hover {
         cursor: pointer;
 
         section {
-
           h2,
           h3,
           h4,
@@ -68,15 +67,15 @@ ul.list-cards {
 .policy-list {
   flex-grow: 1;
   margin-bottom: $padding/2;
-  padding: $padding*2;
+  padding: $padding * 2;
 
   .card {
     display: flex;
     flex-direction: column;
     margin: 0 0 ($padding/2);
-    padding: $padding $padding*1.5;
+    padding: $padding $padding * 1.5;
 
-    @include transition(all .2s ease-in-out);
+    @include transition(all 0.2s ease-in-out);
 
     &:hover {
       z-index: 2;
@@ -94,7 +93,7 @@ ul.list-cards {
               color: $bright-blue;
             }
             @include for-tablet-landscape-up {
-              background: rgba($bright-blue, .2);
+              background: rgba($bright-blue, 0.2);
               color: $bright-blue-darken-04;
             }
           }
@@ -153,7 +152,7 @@ ul.list-cards {
           color: $warm-gray-14;
           font-size: $font-size-sm;
 
-          @include transition(all .2s ease-in-out);
+          @include transition(all 0.2s ease-in-out);
           @include for-phone-only {
             flex-direction: column;
             padding-top: $padding;
@@ -175,7 +174,7 @@ ul.list-cards {
           }
           @include for-tablet-landscape-up {
             flex-direction: row;
-            padding: ($padding/4)($padding);
+            padding: ($padding/4) ($padding);
             padding-top: 0;
             border-top-width: 0;
           }
@@ -286,7 +285,7 @@ ul.list-cards {
 
               &:before {
                 margin-right: $padding/2;
-                content: "Effective:";
+                content: 'Effective:';
                 font-size: $font-size-xs;
               }
             }
@@ -297,7 +296,7 @@ ul.list-cards {
 
               &:before {
                 margin-right: $padding/2;
-                content: "Effective:";
+                content: 'Effective:';
                 font-size: $font-size-xs;
               }
             }
@@ -307,7 +306,7 @@ ul.list-cards {
 
               &:before {
                 margin-right: 0;
-                content: "";
+                content: '';
               }
             }
           }

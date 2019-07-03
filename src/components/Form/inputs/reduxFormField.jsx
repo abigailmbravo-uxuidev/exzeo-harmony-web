@@ -6,7 +6,6 @@ import { combineRules } from '../Rules';
 export default function reduxFormField(fieldComponent) {
   return class FormField extends Component {
     static propTypes = {
-
       /**
        * Disabled prop for input
        */
@@ -60,14 +59,13 @@ export default function reduxFormField(fieldComponent) {
        * Validations array for redux field
        */
       validations: PropTypes.arrayOf(PropTypes.string)
-
-    }
+    };
     static defaultProps = {
       disabled: false,
       hint: '',
       styleName: '',
       type: 'text'
-    }
+    };
 
     render() {
       const {

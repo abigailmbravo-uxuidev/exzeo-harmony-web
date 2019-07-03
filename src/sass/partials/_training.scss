@@ -58,7 +58,7 @@
                   flex-shrink: 0;
                   margin-left: $padding;
                   width: 4rem;
-                  background-image: url("../img/TypTap-Home-Insurance-logo.svg");
+                  background-image: url('../img/TypTap-Home-Insurance-logo.svg');
                   background-position: center center;
                   background-size: 75%;
                   background-repeat: no-repeat;
@@ -69,7 +69,7 @@
                   flex-shrink: 0;
                   margin-left: $padding;
                   width: 4rem;
-                  background-image: url("../img/TypTap-ribbon.svg");
+                  background-image: url('../img/TypTap-ribbon.svg');
                   background-position: center center;
                   background-size: 75%;
                   background-repeat: no-repeat;
@@ -113,15 +113,15 @@
                     &.pdf {
                       &:before {
                         color: $red;
-                        content: "\f1c1";
+                        content: '\f1c1';
 
                         @include transition(all 0.2s ease-in-out);
                       }
 
                       &:after {
                         position: absolute;
-                        right: -.5rem;
-                        bottom: -.25rem;
+                        right: -0.5rem;
+                        bottom: -0.25rem;
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -141,7 +141,7 @@
                 }
 
                 &:hover {
-                  background: rgba($cool-gray-00, .75);
+                  background: rgba($cool-gray-00, 0.75);
 
                   .link-details {
                     h5 {
@@ -173,12 +173,12 @@
             }
 
             .card {
-              padding: ($padding)($padding*1.5);
+              padding: ($padding) ($padding * 1.5);
 
               &.contact-card {
                 align-items: center;
                 flex-direction: row;
-                margin: 0 0 ($padding*2);
+                margin: 0 0 ($padding * 2);
 
                 .card-header {
                   display: flex;
@@ -198,32 +198,32 @@
                     width: 3rem;
 
                     &.image {
-                        margin: -$padding;
-                        width: 4rem;
-                        height: 4rem;
-                        background-position: center center;
-                        background-size: cover;
-                        background-repeat: no-repeat;
+                      margin: -$padding;
+                      width: 4rem;
+                      height: 4rem;
+                      background-position: center center;
+                      background-size: cover;
+                      background-repeat: no-repeat;
 
-                        &.clark-ramos {
-                          background-image: url("../img/clark-ramos.png");
-                        }
+                      &.clark-ramos {
+                        background-image: url('../img/clark-ramos.png');
+                      }
 
-                        &.edward-spegowski {
-                          background-image: url("../img/edward-spegowski.png");
-                        }
+                      &.edward-spegowski {
+                        background-image: url('../img/edward-spegowski.png');
+                      }
 
-                        &.jodi-kelley {
-                          background-image: url("../img/jodi-kelley.png");
-                        }
+                      &.jodi-kelley {
+                        background-image: url('../img/jodi-kelley.png');
+                      }
 
-                        &.victor-ferdinandi {
-                          background-image: url("../img/victor-ferdinandi.png");
-                        }
+                      &.victor-ferdinandi {
+                        background-image: url('../img/victor-ferdinandi.png');
+                      }
 
-                        &.yanet-coursen {
-                          background-image: url("../img/yanet-coursen.png");
-                        }
+                      &.yanet-coursen {
+                        background-image: url('../img/yanet-coursen.png');
+                      }
                     }
                   }
                 }
@@ -240,62 +240,60 @@
                   }
 
                   .contact-details {
+                    .contact-phone {
+                      display: inline-flex;
+                      align-items: center;
+                      margin-right: $padding;
+                      line-height: 1;
 
-                      .contact-phone {
-                        display: inline-flex;
-                        align-items: center;
-                        margin-right: $padding;
-                        line-height: 1;
-
-                        i {
-                          color: $bright-blue-darken-04;
-                        }
-
-                        &.mobile {
-
-                            i {
-                                display: inline-flex;
-                                align-items: center;
-                                flex-grow: 0;
-                                flex-shrink: 0;
-                                justify-content: center;
-                                padding: $padding/2;
-                                width: auto;
-                                height: 1rem;
-                                border-radius: 3px;
-                                background: $bright-blue-darken-04;
-                                color: $white;
-                                font-size: $font-size-xs;
-
-                                span {
-                                    margin-left: $padding/2;
-                                    font-size: $font-size-xs;
-                                    line-height: 1;
-                                }
-                            }
-                        }
+                      i {
+                        color: $bright-blue-darken-04;
                       }
 
-                      .contact-email {
-                        display: inline-flex;
-                        align-items: center;
-                        margin-right: $padding;
-                        line-height: 1;
-
+                      &.mobile {
                         i {
-                          color: $bright-blue-darken-04;
+                          display: inline-flex;
+                          align-items: center;
+                          flex-grow: 0;
+                          flex-shrink: 0;
+                          justify-content: center;
+                          padding: $padding/2;
+                          width: auto;
+                          height: 1rem;
+                          border-radius: 3px;
+                          background: $bright-blue-darken-04;
+                          color: $white;
+                          font-size: $font-size-xs;
+
+                          span {
+                            margin-left: $padding/2;
+                            font-size: $font-size-xs;
+                            line-height: 1;
+                          }
                         }
                       }
+                    }
 
-                      .contact-address {
-                        display: inline-flex;
-                        align-items: center;
-                        margin-right: $padding;
+                    .contact-email {
+                      display: inline-flex;
+                      align-items: center;
+                      margin-right: $padding;
+                      line-height: 1;
 
-                        i {
-                          color: $bright-blue-darken-04;
-                        }
+                      i {
+                        color: $bright-blue-darken-04;
                       }
+                    }
+
+                    .contact-address {
+                      display: inline-flex;
+                      align-items: center;
+                      margin-right: $padding;
+
+                      i {
+                        color: $bright-blue-darken-04;
+                      }
+                    }
                   }
 
                   .contact-disclaimer {

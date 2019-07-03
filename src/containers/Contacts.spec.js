@@ -6,7 +6,7 @@ describe('Test Contacts container component', () => {
   it('should render', () => {
     const props = {
       auth: { logout: x => x },
-      match: { params: {} },
+      match: { params: {} }
     };
 
     const component = shallow(<Contacts {...props} />);

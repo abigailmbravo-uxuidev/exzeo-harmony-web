@@ -17,10 +17,7 @@ export class PolicySearch extends Component {
     this.props.clearPolicyResults();
   }
   render() {
-    const {
-      auth,
-      match,
-    } = this.props;
+    const { auth, match } = this.props;
     return (
       <AppWrapper
         logout={auth.logout}
@@ -40,12 +37,15 @@ export class PolicySearch extends Component {
             </div>
           </div>
         )}
-       />
+      />
     );
   }
 }
 
-export default connect(null, {
-  clearPolicyResults,
-  setPolicySearch,
-})(PolicySearch);
+export default connect(
+  null,
+  {
+    clearPolicyResults,
+    setPolicySearch
+  }
+)(PolicySearch);

@@ -1,8 +1,7 @@
 .detail-wrapper,
 .survey-wrapper {
-
   .section-group-header {
-    margin: (-$padding) (-$padding/2) ($padding*2);
+    margin: (-$padding) (-$padding/2) ($padding * 2);
     padding: ($padding);
     width: 100%;
     color: $bright-blue-darken-04;
@@ -56,11 +55,11 @@
   }
 
   ul {
-    padding-left: $padding*2;
+    padding-left: $padding * 2;
     list-style: disc;
 
     ul {
-      padding-left: $padding*2;
+      padding-left: $padding * 2;
       list-style: circle;
     }
   }
@@ -96,7 +95,7 @@
     overflow-y: auto;
     flex-grow: 1;
     flex-shrink: 1;
-    padding: ($padding*2) ($padding*2) 0;
+    padding: ($padding * 2) ($padding * 2) 0;
     height: calc(100vh - 14.25rem);
 
     @include for-phone-only {
@@ -114,10 +113,9 @@
 }
 
 .detail-wrapper {
-  padding: ($padding*2) ($padding*2) 0;
+  padding: ($padding * 2) ($padding * 2) 0;
 
   @include for-phone-only {
-    
   }
 }
 
@@ -125,12 +123,12 @@
   > .dashboard-message {
     flex-grow: 0;
     flex-shrink: 0;
-    padding: ($padding*2) ($padding*2) 0;
+    padding: ($padding * 2) ($padding * 2) 0;
     height: auto;
   }
   > .survey-wrapper {
     flex-grow: 1;
     flex-shrink: 1;
-    padding: ($padding*2) ($padding*2) 0;
+    padding: ($padding * 2) ($padding * 2) 0;
   }
 }

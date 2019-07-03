@@ -22,8 +22,8 @@
         }
 
         &.agent,
-        &.policy-holder, {
-          margin-bottom: $padding*2;
+        &.policy-holder {
+          margin-bottom: $padding * 2;
 
           dl {
             display: flex;
@@ -33,7 +33,7 @@
             > div {
               display: flex;
               flex-direction: column;
-              margin-right: $padding*4;
+              margin-right: $padding * 4;
             }
           }
         }
@@ -47,11 +47,11 @@
         &.wind-mit {
           display: flex;
           flex-wrap: wrap;
-          margin-bottom: $padding*2;
+          margin-bottom: $padding * 2;
 
           > div {
-            width: calc(50% - .5rem);
-            margin-bottom: $padding*2;
+            width: calc(50% - 0.5rem);
+            margin-bottom: $padding * 2;
 
             &.left {
               margin-right: $padding;
@@ -70,7 +70,7 @@
               }
 
               &.right {
-                margin-bottom: $padding*2;
+                margin-bottom: $padding * 2;
                 margin-left: 0;
 
                 &.re-stripe {
@@ -118,7 +118,6 @@
     flex-wrap: wrap;
 
     .display-element {
-
       &.payments {
         width: 100%;
 

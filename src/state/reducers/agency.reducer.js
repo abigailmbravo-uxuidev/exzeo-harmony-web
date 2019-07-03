@@ -5,7 +5,10 @@ import * as types from '../actions/actionTypes';
 
 import initialState from './initialState';
 
-export default function agencyReducer(state = initialState.agencyState, action) {
+export default function agencyReducer(
+  state = initialState.agencyState,
+  action
+) {
   switch (action.type) {
     case types.SET_AGENCIES:
       return setAgencies(state, action);
@@ -13,10 +16,15 @@ export default function agencyReducer(state = initialState.agencyState, action) 
       return setAgency(state, action);
     case types.SET_AGENTS:
       return setAgents(state, action);
-      case persistTypes.REHYDRATE: {
-        const quote = (action.agencyState) ? action.agencyState : null;
-        return quote || ((action.payload && action.payload.agencyState) ? action.payload.agencyState : state);
-      }
+    case persistTypes.REHYDRATE: {
+      const quote = action.agencyState ? action.agencyState : null;
+      return (
+        quote ||
+        (action.payload && action.payload.agencyState
+          ? action.payload.agencyState
+          : state)
+      );
+    }
     default:
       return state;
   }

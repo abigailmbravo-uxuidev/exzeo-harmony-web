@@ -1,19 +1,19 @@
 @mixin keyframes($animation-name) {
-    @-webkit-keyframes #{$animation-name} {
-        @content;
-    }
-    @-moz-keyframes #{$animation-name} {
-        @content;
-    }
-    @-ms-keyframes #{$animation-name} {
-        @content;
-    }
-    @-o-keyframes #{$animation-name} {
-        @content;
-    }
-    @keyframes #{$animation-name} {
-        @content;
-    }
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
 }
 
 @mixin animation($str) {
@@ -34,7 +34,7 @@
  * animation slide-in-bottom
  * ----------------------------------------
  */
- @keyframes slide-in-bottom {
+@keyframes slide-in-bottom {
   0% {
     opacity: 1;
     transform: translateY(1000px);
@@ -46,5 +46,5 @@
 }
 
 .slide-in-bottom {
-	animation: slide-in-bottom 0.35s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: slide-in-bottom 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }

@@ -18,24 +18,27 @@ describe('Test Agency Actions', () => {
   it('should call setAgencies', () => {
     const agencies = [{ id: '1234' }, { id: '4321' }];
 
-    const stateObj = [{
-      type: types.SET_AGENCIES,
-      agencies
-    }];
+    const stateObj = [
+      {
+        type: types.SET_AGENCIES,
+        agencies
+      }
+    ];
 
     store.dispatch(agencyActions.setAgencies(agencies));
 
     expect(store.getActions()).toEqual(stateObj);
   });
 
-
   it('should call set agents', () => {
     const agents = [{ id: '1234' }, { id: '4321' }];
 
-    const stateObj = [{
-      type: types.SET_AGENTS,
-      agents
-    }];
+    const stateObj = [
+      {
+        type: types.SET_AGENTS,
+        agents
+      }
+    ];
 
     store.dispatch(agencyActions.setAgents(agents));
 
@@ -51,12 +54,13 @@ describe('Test Agency Actions', () => {
     let store;
     let httpStub;
 
-
     beforeEach(() => {
       initialState = {};
       store = mockStore(initialState);
       httpStub = sinon.stub();
-      sandbox.stub(serviceRunner, 'callService').callsFake((...args) => httpStub(...args));
+      sandbox
+        .stub(serviceRunner, 'callService')
+        .callsFake((...args) => httpStub(...args));
     });
 
     afterEach(() => {
@@ -70,12 +74,16 @@ describe('Test Agency Actions', () => {
       const state = 'FL';
       const agencies = [{ id: '1234' }, { id: '4321' }];
 
-      const stateObj = [{
-        type: types.SET_AGENCIES,
-        agencies
-      }];
+      const stateObj = [
+        {
+          type: types.SET_AGENCIES,
+          agencies
+        }
+      ];
 
-      httpStub.onCall(0).returns(Promise.resolve({ data: { result: agencies } }));
+      httpStub
+        .onCall(0)
+        .returns(Promise.resolve({ data: { result: agencies } }));
 
       await store.dispatch(agencyActions.getAgencies(companyCode, state));
 
@@ -85,10 +93,12 @@ describe('Test Agency Actions', () => {
     it('Should call dispatch on getAgentsByAgencyCode', async () => {
       const agents = [{ agentCode: '1234' }];
 
-      const stateObj = [{
-        type: types.SET_AGENTS,
-        agents
-      }];
+      const stateObj = [
+        {
+          type: types.SET_AGENTS,
+          agents
+        }
+      ];
 
       httpStub.onCall(0).returns(Promise.resolve({ data: { result: agents } }));
       await store.dispatch(agencyActions.getAgentsByAgencyCode('1234'));
@@ -96,4 +106,3 @@ describe('Test Agency Actions', () => {
     });
   });
 });
-

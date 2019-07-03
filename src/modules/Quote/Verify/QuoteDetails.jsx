@@ -37,7 +37,8 @@ export const QuoteDetails = ({ details, formValues }) => {
           </dl>
         );
       })}
-    </section>);
+    </section>
+  );
 };
 
 QuoteDetails.defaultProps = {

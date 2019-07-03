@@ -59,7 +59,7 @@ describe('Policy Property Page testing', () => {
       { label: 'Roof to Wall Attachment', value: 'test roof to wall value' },
       { label: 'Opening Protection', value: 'test op' },
       { label: 'Terrain', value: 'B' },
-      { label: 'Wind Mit Factor', value: '0' },
+      { label: 'Wind Mit Factor', value: '0' }
     ];
 
     sectionData.forEach(({ label, value }) =>

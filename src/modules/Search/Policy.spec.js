@@ -18,7 +18,7 @@ describe('Testing PolicySearch component', () => {
     const store = mockStore(initialState);
     const props = {
       auth: {
-        logout: x => x,
+        logout: x => x
       },
       match: {},
       setPolicySearch() {}
@@ -35,7 +35,7 @@ describe('Testing PolicySearch component', () => {
     const store = mockStore(initialState);
     const props = {
       auth: {
-        logout: x => x,
+        logout: x => x
       },
       match: {},
       search: {},

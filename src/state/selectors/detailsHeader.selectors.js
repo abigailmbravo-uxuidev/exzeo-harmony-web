@@ -4,7 +4,8 @@ import moment from 'moment-timezone';
 import * as detailUtils from '../../utilities/entityDetails';
 
 const STANDARD_DATE_FORMAT = 'MM/DD/YYYY';
-const getCityStateZip = ({ city = '', state = '', zip = '' }) => `${city}, ${state} ${zip}`;
+const getCityStateZip = ({ city = '', state = '', zip = '' }) =>
+  `${city}, ${state} ${zip}`;
 const getLocation = (state, location) => location;
 const getPolicy = state => state.service.latestPolicy;
 const getSummaryLedger = state => state.service.getSummaryLedger;
@@ -45,16 +46,20 @@ export const getPolicyDetails = createSelector(
       status: { displayText, code }
     } = summaryLedger;
 
-    const {
-      constructionType,
-      physicalAddress,
-      territory
-    } = property;
+    const { constructionType, physicalAddress, territory } = property;
 
     const mapQuery = detailUtils.getMapQuery(physicalAddress);
-    const cancellationDate = detailUtils.getCancellationDate(summaryLedger, status, endDate, cancelDate);
+    const cancellationDate = detailUtils.getCancellationDate(
+      summaryLedger,
+      status,
+      endDate,
+      cancelDate
+    );
     const showReinstatement = detailUtils.shouldShowReinstatement(status, code);
-    const dateLabel = detailUtils.getEntityDetailsDateLabel(displayText, status);
+    const dateLabel = detailUtils.getEntityDetailsDateLabel(
+      displayText,
+      status
+    );
     const finalPayment = detailUtils.getFinalPaymentDate(summaryLedger, status);
 
     return {
@@ -94,12 +99,7 @@ export const getQuoteDetails = createSelector(
   (location, quote) => {
     if (!quote || !quote.quoteNumber) return defaultEntity;
 
-    const {
-      coverageLimits,
-      rating,
-      property,
-      underwritingExceptions,
-    } = quote;
+    const { coverageLimits, rating, property, underwritingExceptions } = quote;
 
     const {
       constructionType,
@@ -109,7 +109,9 @@ export const getQuoteDetails = createSelector(
       yearBuilt
     } = property;
 
-    const fatalError = (underwritingExceptions || []).some(ex => ex.action === 'Fatal Error');
+    const fatalError = (underwritingExceptions || []).some(
+      ex => ex.action === 'Fatal Error'
+    );
     const activeTask = location.slice(location.lastIndexOf('/') + 1);
     const quoteNumber = rating && !fatalError ? quote.quoteNumber : '-';
     const premium = rating && !fatalError ? rating.totalPremium : '';

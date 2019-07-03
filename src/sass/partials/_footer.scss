@@ -5,28 +5,31 @@ footer {
   flex-shrink: 0;
   width: 100%;
 
-  div[role="banner"] {
-    display: flex; 
+  div[role='banner'] {
+    display: flex;
     margin-bottom: 0;
-    padding: $padding ($padding*2); width: 100%;
+    padding: $padding ($padding * 2);
+    width: 100%;
     border-top: $border-width dotted $border-color;
     background: $white;
- 
+
     @include for-phone-only {
       small {
         font-size: $font-size-xs;
 
-        &.copyright { 
-          flex-grow: 1;  flex-shrink: 1; 
-          }
+        &.copyright {
+          flex-grow: 1;
+          flex-shrink: 1;
+        }
       }
     }
-    small { 
-      line-height: 1; 
+    small {
+      line-height: 1;
 
-      &.copyright { 
-        flex-grow: 1;  flex-shrink: 1; 
-        } 
+      &.copyright {
+        flex-grow: 1;
+        flex-shrink: 1;
+      }
     }
   }
 }

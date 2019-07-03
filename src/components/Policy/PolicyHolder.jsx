@@ -9,17 +9,27 @@ export const PolicyHolder = ({ policy, agents }) => {
     <div className="route-content verify">
       {/* Start Policyholders */}
       <div className="detail-group policyholder-details">
-        {policy.policyHolders && policy.policyHolders.map((policyHolder, index) => (
-          <PolicyHolderCard key={policyHolder._id} policyHolder={policyHolder} policyHolderMailingAddress={policyHolderMailingAddress} index={policyHolder._id} phIndex={index} />
-        ))}
+        {policy.policyHolders &&
+          policy.policyHolders.map((policyHolder, index) => (
+            <PolicyHolderCard
+              key={policyHolder._id}
+              policyHolder={policyHolder}
+              policyHolderMailingAddress={policyHolderMailingAddress}
+              index={policyHolder._id}
+              phIndex={index}
+            />
+          ))}
       </div>
       {/* End Policyholders */}
       {/* Start Agent */}
       <div className="detail-group agent-details">
-        <h3 data-test="agentHeader" className="section-group-header"><i className="fa fa-vcard-o" /> Agent</h3>
-        {(agents && agents.filter(a => a.agentCode === policy.agentCode).map(agent =>
-          <AgentCard agent={agent} key={agent.agentCode} />
-        ))}
+        <h3 data-test="agentHeader" className="section-group-header">
+          <i className="fa fa-vcard-o" /> Agent
+        </h3>
+        {agents &&
+          agents
+            .filter(a => a.agentCode === policy.agentCode)
+            .map(agent => <AgentCard agent={agent} key={agent.agentCode} />)}
       </div>
       {/* End Agent */}
     </div>
@@ -28,7 +38,7 @@ export const PolicyHolder = ({ policy, agents }) => {
 
 PolicyHolder.propTypes = {
   policy: PropTypes.shape(),
-  agents: PropTypes.array,
+  agents: PropTypes.array
 };
 
 export default PolicyHolder;

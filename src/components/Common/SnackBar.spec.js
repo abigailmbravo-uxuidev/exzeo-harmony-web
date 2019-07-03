@@ -7,9 +7,7 @@ const middlewares = [];
 const mockStore = configureStore(middlewares);
 it('renders without crashing', () => {
   const initialState = {
-    service: {
-
-    },
+    service: {},
     cg: {
       bb: {
         data: {

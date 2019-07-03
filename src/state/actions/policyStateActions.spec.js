@@ -9,13 +9,15 @@ describe('policyStateActions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.GET_POLICY,
-      policyState: {
-        policyNumber: '1',
-        update: false
+    const stateObj = [
+      {
+        type: types.GET_POLICY,
+        policyState: {
+          policyNumber: '1',
+          update: false
+        }
       }
-    }];
+    ];
 
     store.dispatch(policyStateActions.updatePolicy(false, '1'));
 
@@ -26,13 +28,15 @@ describe('policyStateActions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.GET_POLICY,
-      policyState: {
-        policyNumber: '1',
-        update: false
+    const stateObj = [
+      {
+        type: types.GET_POLICY,
+        policyState: {
+          policyNumber: '1',
+          update: false
+        }
       }
-    }];
+    ];
     store.dispatch(policyStateActions.updatePolicy(false, '1'));
     expect(store.getActions()).toEqual(stateObj);
   });

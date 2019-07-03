@@ -9,7 +9,7 @@ const Policy = ({ auth, location, match }) => (
     logout={auth.logout}
     match={match}
     render={() => (
-      <PolicyWorkflow auth={auth} match={match} location={location}/>
+      <PolicyWorkflow auth={auth} match={match} location={location} />
     )}
   />
 );

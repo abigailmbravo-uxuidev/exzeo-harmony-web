@@ -1,92 +1,94 @@
 .pagination-wrapper {
-    position: absolute;
-    bottom: .5rem;
-    z-index: 10;
-    left: 0;
-    right: 0;
+  position: absolute;
+  bottom: 0.5rem;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 $padding;
+  opacity: 0.7;
+  @include transition(all 0.2s ease-in-out);
+
+  &:hover {
+    opacity: 1;
+  }
+
+  button {
+    padding: ($padding/2) $padding;
+    height: 2rem;
+    @include button-variant($white, $cool-gray-04, $cool-gray-04);
+
+    &:first-child {
+      border-radius: 50% 0 0 50%;
+    }
+    &:last-child {
+      border-radius: 0 50% 50% 0;
+    }
+
+    &.action-btn {
+      padding: ($padding/2) $padding;
+    }
+  }
+  .pagination-count {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0 0 $padding;
-    opacity: .7;
-    @include transition(all .2s ease-in-out);
+    height: 2rem;
+    background: $white;
 
-    &:hover {
-        opacity: 1;
-    }
+    .pageNumber {
+      flex-direction: row;
+      margin-bottom: 0;
+      width: auto;
+      align-items: center;
+      padding: 0;
 
-    button {
-        padding: ($padding/2) $padding;
-        height: 2rem;
-        @include button-variant($white, $cool-gray-04, $cool-gray-04);
-
-        &:first-child {
-            border-radius: 50% 0 0 50%;
-        }
-        &:last-child {
-            border-radius: 0 50% 50% 0;
-        }
-
-        &.action-btn {
-            padding: ($padding/2) $padding;
-        }
-    }
-    .pagination-count {
-        display: flex;
-        align-items: center;
-        height: 2rem;
+      label {
+        margin-bottom: 0;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+        padding: 0 0 0 $padding;
+      }
+      input,
+      input[readonly] {
+        width: 3rem;
+        border-bottom-width: 0;
+        text-align: center;
+        padding: $padding/2;
         background: $white;
-
-        .pageNumber {
-            flex-direction: row;
-            margin-bottom: 0;
-            width: auto;
-            align-items: center;
-            padding: 0;
-
-            label {
-                margin-bottom: 0;
-                font-size: $font-size-sm;
-                font-weight: $font-weight-normal;
-                padding: 0 0 0 $padding;
-            }
-            input, input[readonly] {
-                width: 3rem;
-                border-bottom-width: 0;
-                text-align: center;
-                padding: $padding/2;
-                background: $white;
-                color: $cool-gray-14;
-                font-size: $font-size-sm;
-            }
-        }
-        .pagination-operand {
-            font-size: $font-size-sm;
-            font-weight: $font-weight-normal;
-            color: $cool-gray-14;
-        }
-        .totalPages {
-            flex-direction: row;
-            align-items: center;
-            margin-bottom: 0;
-            padding: 0 $padding 0 0;
-            width: auto;
-
-            label {
-                margin-bottom: 0;
-                font-size: $font-size-sm;
-                font-weight: $font-weight-normal;
-                padding: 0
-            }
-            input, input[readonly] {
-                width: 3.5rem;
-                border-bottom-width: 0;
-                text-align: center;
-                padding: $padding/2;
-                background: $white;
-                color: $cool-gray-14;
-                font-size: $font-size-sm;
-            }
-        }
+        color: $cool-gray-14;
+        font-size: $font-size-sm;
+      }
     }
+    .pagination-operand {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-normal;
+      color: $cool-gray-14;
+    }
+    .totalPages {
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 0;
+      padding: 0 $padding 0 0;
+      width: auto;
+
+      label {
+        margin-bottom: 0;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+        padding: 0;
+      }
+      input,
+      input[readonly] {
+        width: 3.5rem;
+        border-bottom-width: 0;
+        text-align: center;
+        padding: $padding/2;
+        background: $white;
+        color: $cool-gray-14;
+        font-size: $font-size-sm;
+      }
+    }
+  }
 }

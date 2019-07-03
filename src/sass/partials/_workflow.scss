@@ -40,7 +40,7 @@
         flex-direction: column;
         justify-content: flex-start;
         margin: 0;
-        padding: ($padding/2) ($padding*1.5);
+        padding: ($padding/2) ($padding * 1.5);
 
         @include for-phone-only {
           padding: 0 ($padding) ($padding/2);
@@ -89,7 +89,8 @@
       &.quoteDetails {
         flex-shrink: 0;
 
-        @include for-phone-only {}
+        @include for-phone-only {
+        }
       }
 
       &.propertyDetails {
@@ -131,7 +132,7 @@
           }
 
           dd {
-            margin-right: $padding*2;
+            margin-right: $padding * 2;
 
             + dd {
               font-size: $font-size-h5;
@@ -264,7 +265,7 @@
         }
 
         i {
-          padding: 0 $padding*2;
+          padding: 0 $padding * 2;
           background: $warm-gray-01;
 
           @include transition(all 0.2s ease-in-out);
@@ -289,43 +290,43 @@
 
           &.chooseAddress {
             &:before {
-              content: "\f041";
+              content: '\f041';
             }
           }
 
           &.askAdditionalCustomerData {
             &:before {
-              content: "\f007";
+              content: '\f007';
             }
           }
 
           &.askUWAnswers {
             &:before {
-              content: "\f0f6";
+              content: '\f0f6';
             }
           }
 
           &.customizeDefaultQuote {
             &:before {
-              content: "\f1de";
+              content: '\f1de';
             }
           }
 
           &.shareIt {
             &:before {
-              content: "\f1e0";
+              content: '\f1e0';
             }
           }
 
           &.billingInfo {
             &:before {
-              content: "\f155";
+              content: '\f155';
             }
           }
 
           &.verifyWrite {
             &:before {
-              content: "\f14a";
+              content: '\f14a';
             }
           }
         }
@@ -395,7 +396,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: flex-end;
-    padding: $padding ($padding*2) ($padding*2);
+    padding: $padding ($padding * 2) ($padding * 2);
 
     .button-label-wrap {
       display: flex;
