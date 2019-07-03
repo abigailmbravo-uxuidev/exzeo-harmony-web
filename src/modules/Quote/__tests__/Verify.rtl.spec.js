@@ -425,10 +425,20 @@ describe('Verify Testing', () => {
     });
   });
 
+  it('POS:Confirms Next Button and Edit Button', () => {
+    const { getByTestId, queryByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+
+    switchFields.forEach(({ dataTest }) => fireEvent.click(getByTestId(dataTest)));
+    expect(getByTestId('next')).not.toBeDisabled();
+    submitForm(getByTestId, 'next');
+    expect(getByTestId('schedule-date-modal')).toBeInTheDocument();
+    submitForm(getByTestId, 'modal-edit');
+    expect(queryByTestId('schedule-date-modal')).toBeNull();
+  });
+
   it('POS:Next Button', () => {
     const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
 
-    expect(getByTestId('next').getAttribute('type')).toEqual('button');
     checkButton(getByTestId, { dataTest: 'next' });
   });
 });
