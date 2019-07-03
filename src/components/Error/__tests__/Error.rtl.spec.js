@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ConnectedError from '../Error';
-import { renderWithReduxAndRouter, defaultInitialState, quote, underwritingException } from '../../../test-utils';
+import { renderWithReduxAndRouter, defaultInitialState, quote, fatalUnderwritingException } from '../../../test-utils';
 
 describe('Error testing', () => {
   it('Renders and has a fatal error', () => {
@@ -11,7 +11,7 @@ describe('Error testing', () => {
         ...defaultInitialState.quoteState,
         quote: {
           ...quote,
-          underwritingExceptions: [underwritingException]
+          underwritingExceptions: [fatalUnderwritingException]
         }
       }
     };
@@ -32,7 +32,7 @@ describe('Error testing', () => {
         ...defaultInitialState.quoteState,
         quote: {
           ...quote,
-          underwritingExceptions: [{...underwritingException, action: 'Underwriting Review'}]
+          underwritingExceptions: [{ ...fatalUnderwritingException, action: 'Underwriting Review'}]
         }
       }
     };
