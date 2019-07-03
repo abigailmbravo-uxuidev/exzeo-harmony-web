@@ -1,17 +1,18 @@
-.survey-wrapper, .detail-wrapper {
+.survey-wrapper,
+.detail-wrapper {
   .form-group {
-    padding-bottom: $padding*3;
+    padding-bottom: $padding * 3;
   }
 }
 
 .view-grid {
   @include for-phone-only {
     > div {
-      padding: $padding*2;
+      padding: $padding * 2;
     }
-    
+
     p {
-      padding: 1rem; 
+      padding: 1rem;
     }
   }
 
@@ -19,15 +20,15 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    margin-bottom: $padding*1.5;
+    margin-bottom: $padding * 1.5;
 
     button {
       margin-left: $padding;
     }
   }
   section {
-    margin-bottom: $padding*2;
-    padding-bottom: $padding*2;
+    margin-bottom: $padding * 2;
+    padding-bottom: $padding * 2;
     border-bottom: 1px dashed $cool-gray-02;
 
     &.slider-component {
@@ -42,10 +43,10 @@
 
     ul {
       margin: 0 0 0 $padding;
-      padding: 0 0 0 ($padding*2);
+      padding: 0 0 0 ($padding * 2);
 
       @include for-phone-only {
-        padding: 0 0 0 ($padding*4);
+        padding: 0 0 0 ($padding * 4);
       }
     }
 
@@ -78,14 +79,14 @@
     }
   }
   .workflow-steps {
-    margin-top: $padding*1.5;
+    margin-top: $padding * 1.5;
     padding: $padding 0;
   }
   .form-group {
-    padding-bottom: $padding*3;
+    padding-bottom: $padding * 3;
 
     @include for-phone-only {
-      padding-bottom: $padding*3;
+      padding-bottom: $padding * 3;
     }
     &.switch {
       align-items: center;
@@ -111,7 +112,7 @@
           }
         }
       }
-      span[data-name="error-field"] {
+      span[data-name='error-field'] {
         flex-grow: 0;
         flex-shrink: 0;
         width: 100%;
@@ -139,7 +140,7 @@
           border-radius: 50%;
           background-color: lighten($cool-gray-00, 10%);
           box-shadow: $input-box-shadow;
-          content: "";
+          content: '';
           line-height: 1;
           -webkit-transition: 0.4s;
           transition: 0.4s;
@@ -150,7 +151,7 @@
           left: 2rem;
           z-index: 1;
           color: $white;
-          content: "No";
+          content: 'No';
           font-weight: $font-weight-bold;
           font-size: 0.7rem;
         }
@@ -167,7 +168,7 @@
             top: 0.25rem;
             left: 0.5rem;
             color: $white;
-            content: "Yes";
+            content: 'Yes';
           }
           &.disabled {
             background-color: $cool-gray-00;
@@ -205,7 +206,6 @@
         flex-shrink: 0;
         max-width: 6.5rem;
         width: 6.5rem;
-        ;
       }
     }
     &.radio {

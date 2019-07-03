@@ -5,7 +5,7 @@
 a {
   text-decoration: none;
   color: $bright-blue-lighten-01;
-  @include transition(all .2s ease-in-out);
+  @include transition(all 0.2s ease-in-out);
 
   &:hover {
     text-decoration: none;
@@ -16,9 +16,9 @@ a {
 
 .btn,
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
   display: inline-block;
   cursor: pointer;
   user-select: none;
@@ -29,8 +29,13 @@ input[type="submit"] {
   border: $input-btn-border-width solid transparent;
   font-weight: $btn-font-weight;
   line-height: $btn-line-height;
-  @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
-  @include transition(all .2s ease-in-out);
+  @include button-size(
+    $btn-padding-y,
+    $btn-padding-x,
+    $font-size-base,
+    $btn-border-radius
+  );
+  @include transition(all 0.2s ease-in-out);
   @include hover-focus {
     text-decoration: none;
   }
@@ -84,22 +89,38 @@ input[type="submit"] {
 
 .btn-default,
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  @include button-variant(
+    $btn-default-color,
+    $btn-default-bg,
+    $btn-default-border
+  );
 }
 
 .btn-primary {
-  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant(
+    $btn-primary-color,
+    $btn-primary-bg,
+    $btn-primary-border
+  );
 }
 
 .btn-secondary {
-  @include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
+  @include button-variant(
+    $btn-secondary-color,
+    $btn-secondary-bg,
+    $btn-secondary-border
+  );
 }
 
 .btn-action {
-  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant(
+    $btn-primary-color,
+    $btn-primary-bg,
+    $btn-primary-border
+  );
 
   div {
     display: flex;
@@ -113,15 +134,27 @@ input[type="submit"] {
 }
 
 .btn-success {
-  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+  @include button-variant(
+    $btn-success-color,
+    $btn-success-bg,
+    $btn-success-border
+  );
 }
 
 .btn-warning {
-  @include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
+  @include button-variant(
+    $btn-warning-color,
+    $btn-warning-bg,
+    $btn-warning-border
+  );
 }
 
 .btn-danger {
-  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+  @include button-variant(
+    $btn-danger-color,
+    $btn-danger-bg,
+    $btn-danger-border
+  );
 }
 
 .btn-link {
@@ -130,7 +163,7 @@ input[type="submit"] {
   border-radius: 0;
   font-weight: normal;
   @include button-variant($btn-link-color, $btn-link-bg, $btn-link-border);
-  @include transition(all .2s ease-in-out);
+  @include transition(all 0.2s ease-in-out);
   @include hover {
     text-decoration: none;
     border-color: transparent;
@@ -223,17 +256,17 @@ input[type="submit"] {
   }
 }
 
-.btn-recalc {}
+.btn-recalc {
+}
 // Specificity overrides
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
   &.btn-block {
-
-      @include for-phone-only {
-        width: 100%;
-        margin-bottom: $padding;
+    @include for-phone-only {
+      width: 100%;
+      margin-bottom: $padding;
     }
   }
 }
@@ -255,13 +288,23 @@ input[type="submit"] {
     white-space: nowrap;
     border: $input-btn-border-width solid transparent;
     font-weight: $btn-font-weight;
-    line-height: ($btn-line-height*0.4333);
-    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-    @include button-size($btn-padding-y, ($btn-padding-x*.9), $font-size-base, $btn-border-radius);
-    @include transition(all .2s ease-in-out);
+    line-height: ($btn-line-height * 0.4333);
+    @include button-variant(
+      $btn-primary-color,
+      $btn-primary-bg,
+      $btn-primary-border
+    );
+    @include button-size(
+      $btn-padding-y,
+      ($btn-padding-x * 0.9),
+      $font-size-base,
+      $btn-border-radius
+    );
+    @include transition(all 0.2s ease-in-out);
   }
 
-  input[type="file"] {}
+  input[type='file'] {
+  }
 }
 
 .btn-icon {

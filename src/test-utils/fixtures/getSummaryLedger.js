@@ -1,4 +1,3 @@
-
 export default {
   status: {
     code: 6,

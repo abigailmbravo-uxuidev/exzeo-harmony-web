@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createQuote, reviewQuote, clearQuote } from '../../state/actions/quoteState.actions';
+import {
+  createQuote,
+  reviewQuote,
+  clearQuote
+} from '../../state/actions/quoteState.actions';
 import { clearResults } from '../../state/actions/searchActions';
 import QuoteError from '../Common/QuoteError';
 import Footer from '../Common/Footer';
@@ -17,7 +21,7 @@ export class Search extends React.Component {
     super(props);
     this.state = {
       showQuoteErrors: false,
-      error: '',
+      error: ''
     };
   }
 
@@ -31,28 +35,43 @@ export class Search extends React.Component {
     this.setState({ showQuoteErrors: false });
   };
 
-  handleSelectQuote = async (quoteData) => {
+  handleSelectQuote = async quoteData => {
     const { history } = this.props;
-    const quote = await this.props.reviewQuote({quoteNumber: quoteData.quoteNumber});
+    const quote = await this.props.reviewQuote({
+      quoteNumber: quoteData.quoteNumber
+    });
 
     if (!quote) {
-      this.setState({ showQuoteErrors: true, error: 'No quote data available' });
+      this.setState({
+        showQuoteErrors: true,
+        error: 'No quote data available'
+      });
       return;
     }
 
     if (VALID_QUOTE_STATES.includes(quote.quoteState)) {
-      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, { product: quote.product });
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, {
+        product: quote.product
+      });
     } else {
       this.setState({ showQuoteErrors: true });
     }
   };
 
-  handleSelectAddress = async (address) => {
+  handleSelectAddress = async address => {
     const { history, userProfile, search } = this.props;
-    const quote = await this.props.createQuote('0', address.id, address.physicalAddress.state, userProfile.entity.companyCode, search.product );
+    const quote = await this.props.createQuote(
+      '0',
+      address.id,
+      address.physicalAddress.state,
+      userProfile.entity.companyCode,
+      search.product
+    );
 
     if (quote) {
-      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, { product: quote.product });
+      history.replace(`/quote/${quote.quoteNumber}/customerInfo`, {
+        product: quote.product
+      });
     }
   };
 
@@ -74,13 +93,13 @@ export class Search extends React.Component {
             <Footer />
           </div>
         </div>
-        {this.state.showQuoteErrors &&
+        {this.state.showQuoteErrors && (
           <QuoteError
             quote={this.props.quote || {}}
             noQuoteError={this.state.error}
             closeButtonHandler={() => this.closeQuoteError()}
           />
-        }
+        )}
       </div>
     );
   }
@@ -94,12 +113,15 @@ const mapStateToProps = state => ({
   appState: state.appState,
   quote: state.quoteState.quote,
   search: state.search,
-  userProfile: state.authState.userProfile,
+  userProfile: state.authState.userProfile
 });
 
-export default connect(mapStateToProps, {
-  createQuote,
-  clearQuote,
-  reviewQuote,
-  clearResults
-})(Search);
+export default connect(
+  mapStateToProps,
+  {
+    createQuote,
+    clearQuote,
+    reviewQuote,
+    clearResults
+  }
+)(Search);

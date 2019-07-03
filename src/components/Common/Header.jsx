@@ -10,9 +10,7 @@ const LINKS = [
   }
 ];
 
-const Header = ({
-  toggleSideNav,
-}) => (
+const Header = ({ toggleSideNav }) => (
   <header>
     <div role="banner">
       <button className="btn-icon btn-bars" onClick={toggleSideNav}>
@@ -23,7 +21,9 @@ const Header = ({
       </a>
       <nav>
         {LINKS.map(link => (
-          <a key={link.label} className={link.className} href={link.to}>{link.label}</a>
+          <a key={link.label} className={link.className} href={link.to}>
+            {link.label}
+          </a>
         ))}
       </nav>
     </div>
@@ -31,7 +31,7 @@ const Header = ({
 );
 
 Header.propTypes = {
-  toggleSideNav: PropTypes.func.isRequired,
+  toggleSideNav: PropTypes.func.isRequired
 };
 
 export default Header;

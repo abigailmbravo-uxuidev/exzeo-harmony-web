@@ -1,4 +1,4 @@
-@import "_variables"; //harmonic rule set at 1.250 - major third
+@import '_variables'; //harmonic rule set at 1.250 - major third
 
 body {
   background-color: $white;
@@ -13,7 +13,8 @@ p {
 }
 
 dl {
-  dt {}
+  dt {
+  }
 
   dd {
     word-break: break-word;

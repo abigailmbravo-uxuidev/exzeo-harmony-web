@@ -14,8 +14,11 @@ describe('Testing WorkflowNavigation Component', () => {
     header: {
       hideDetailSummary: true,
       fields: [
-        { value: 'quoteNumber' }, { value: 'propertyAddress', component: 'Section', label: 'Address' },
-        { value: 'yearBuilt' }, { value: 'constructionType' }, { value: 'coverage', label: 'Coverage A' },
+        { value: 'quoteNumber' },
+        { value: 'propertyAddress', component: 'Section', label: 'Address' },
+        { value: 'yearBuilt' },
+        { value: 'constructionType' },
+        { value: 'coverage', label: 'Coverage A' },
         { value: 'premium', component: 'PremiumSection' }
       ]
     },
@@ -37,7 +40,7 @@ describe('Testing WorkflowNavigation Component', () => {
     goToStep: () => {},
     isRecalc: false,
     isLoading: false,
-    showNavigationTabs: true,
+    showNavigationTabs: true
   };
 
   const workflowSections = [
@@ -72,7 +75,9 @@ describe('Testing WorkflowNavigation Component', () => {
   ];
 
   it('POS:Tests Detail Header', () => {
-    const { getByText } = renderWithReduxAndRouter(<WorkflowNavigation {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <WorkflowNavigation {...props} />
+    );
     // All static data pulled off dummy quote used above
     expect(getByText('Quote Number'));
     expect(getByText('12-5162296-01'));
@@ -88,8 +93,12 @@ describe('Testing WorkflowNavigation Component', () => {
   });
 
   it('POS:Tests Workflow Section Classes', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<WorkflowNavigation {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <WorkflowNavigation {...props} />
+    );
 
-    workflowSections.forEach(({ name, status }) => expect(getByTestId(name).firstChild).toHaveClass(status));
+    workflowSections.forEach(({ name, status }) =>
+      expect(getByTestId(name).firstChild).toHaveClass(status)
+    );
   });
 });

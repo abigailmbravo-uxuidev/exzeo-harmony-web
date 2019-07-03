@@ -15,7 +15,7 @@
       flex-shrink: 0;
 
       .quote-number {
-        margin-right: $padding*2;
+        margin-right: $padding * 2;
       }
 
       dl {
@@ -156,7 +156,7 @@
             flex-shrink: 0;
 
             .quote-number {
-              margin-right: $padding*4;
+              margin-right: $padding * 4;
             }
 
             .property-information {
@@ -171,20 +171,20 @@
             align-items: center;
 
             a {
-              margin: $padding ($padding*2) ($padding*2) 0;
+              margin: $padding ($padding * 2) ($padding * 2) 0;
             }
           }
 
           .card-footer {
-              small {
-                  margin-bottom: $padding;
+            small {
+              margin-bottom: $padding;
+            }
+            .btn-group {
+              .btn-round {
+                height: 2rem;
+                padding: 0;
               }
-              .btn-group {
-                  .btn-round {
-                      height: 2rem;
-                      padding: 0;
-                  }
-              }
+            }
           }
         }
       }
@@ -245,7 +245,8 @@
           }
         }
 
-        footer {}
+        footer {
+        }
       }
     }
   }
@@ -259,7 +260,7 @@
 
     .error {
       max-width: 20rem;
-      border-color: rgba($black,.5);
+      border-color: rgba($black, 0.5);
 
       .card-header {
         display: flex;

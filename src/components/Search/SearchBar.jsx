@@ -6,7 +6,11 @@ import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 
 import { clearAppError } from '../../state/actions/errorActions';
-import { searchQuotes, setQuoteSearch, searchAddresses } from '../../state/actions/searchActions';
+import {
+  searchQuotes,
+  setQuoteSearch,
+  searchAddresses
+} from '../../state/actions/searchActions';
 import Pagination from '../Common/Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
 
@@ -28,11 +32,26 @@ export const changePageQuote = async (props, isNext) => {
   const taskData = {
     state,
     companyCode,
-    firstName: (encodeURIComponent(fieldValues.firstName) !== 'undefined' ? encodeURIComponent(fieldValues.firstName) : ''),
-    lastName: (encodeURIComponent(fieldValues.lastName) !== 'undefined' ? encodeURIComponent(fieldValues.lastName) : ''),
-    address: (encodeURIComponent(fieldValues.address) !== 'undefined' ? encodeURIComponent(String(fieldValues.address).trim()) : ''),
-    quoteNumber: (encodeURIComponent(fieldValues.policyNumber) !== 'undefined' ? encodeURIComponent(fieldValues.policyNumber) : ''),
-    quoteState: (encodeURIComponent(fieldValues.quoteState) !== 'undefined' ? encodeURIComponent(fieldValues.quoteState) : ''),
+    firstName:
+      encodeURIComponent(fieldValues.firstName) !== 'undefined'
+        ? encodeURIComponent(fieldValues.firstName)
+        : '',
+    lastName:
+      encodeURIComponent(fieldValues.lastName) !== 'undefined'
+        ? encodeURIComponent(fieldValues.lastName)
+        : '',
+    address:
+      encodeURIComponent(fieldValues.address) !== 'undefined'
+        ? encodeURIComponent(String(fieldValues.address).trim())
+        : '',
+    quoteNumber:
+      encodeURIComponent(fieldValues.policyNumber) !== 'undefined'
+        ? encodeURIComponent(fieldValues.policyNumber)
+        : '',
+    quoteState:
+      encodeURIComponent(fieldValues.quoteState) !== 'undefined'
+        ? encodeURIComponent(fieldValues.quoteState)
+        : '',
     searchType,
     hasSearched: true,
     resultStart: '60',
@@ -41,7 +60,9 @@ export const changePageQuote = async (props, isNext) => {
     sortDirection: 'desc'
   };
 
-  taskData.pageNumber = isNext ? String(Number(fieldValues.pageNumber) + 1) : String(Number(fieldValues.pageNumber) - 1);
+  taskData.pageNumber = isNext
+    ? String(Number(fieldValues.pageNumber) + 1)
+    : String(Number(fieldValues.pageNumber) - 1);
 
   props.setQuoteSearch(taskData);
   localStorage.setItem('lastSearchData', JSON.stringify(taskData));
@@ -55,11 +76,30 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
   const taskData = {
     state,
     companyCode,
-    firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
-    lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).replace(/\./g, '').trim()) : ''),
-    quoteNumber: (encodeURIComponent(data.quoteNumber) !== 'undefined' ? encodeURIComponent(data.quoteNumber) : ''),
-    zip: (encodeURIComponent(data.zip) !== 'undefined' ? encodeURIComponent(data.zip) : ''),
+    firstName:
+      encodeURIComponent(data.firstName) !== 'undefined'
+        ? encodeURIComponent(data.firstName)
+        : '',
+    lastName:
+      encodeURIComponent(data.lastName) !== 'undefined'
+        ? encodeURIComponent(data.lastName)
+        : '',
+    address:
+      encodeURIComponent(data.address) !== 'undefined'
+        ? encodeURIComponent(
+            String(data.address)
+              .replace(/\./g, '')
+              .trim()
+          )
+        : '',
+    quoteNumber:
+      encodeURIComponent(data.quoteNumber) !== 'undefined'
+        ? encodeURIComponent(data.quoteNumber)
+        : '',
+    zip:
+      encodeURIComponent(data.zip) !== 'undefined'
+        ? encodeURIComponent(data.zip)
+        : '',
     searchType: props.searchType,
     hasSearched: true,
     pageNumber: '1',
@@ -76,15 +116,35 @@ export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
   const { state, companyCode } = props.userProfile.entity;
   const { address, product } = data;
   props.setQuoteSearch({ searchType: 'address', address, product });
-  props.searchAddresses(encodeURIComponent(address), product, state, companyCode);
+  props.searchAddresses(
+    encodeURIComponent(address),
+    product,
+    state,
+    companyCode
+  );
 };
 
 export class SearchBar extends Component {
   componentDidUpdate(prevProps) {
-    const { dispatch, searchType, searchResults, search, setQuoteSearch } = this.props;
-    const { totalRecords, pageSize, currentPage, hasSearched } = this.props.search;
+    const {
+      dispatch,
+      searchType,
+      searchResults,
+      search,
+      setQuoteSearch
+    } = this.props;
+    const {
+      totalRecords,
+      pageSize,
+      currentPage,
+      hasSearched
+    } = this.props.search;
 
-    if (searchType === 'quote' && hasSearched && !_isEqual(prevProps.searchResults, searchResults)) {
+    if (
+      searchType === 'quote' &&
+      hasSearched &&
+      !_isEqual(prevProps.searchResults, searchResults)
+    ) {
       const totalPages = Math.ceil(totalRecords / pageSize); // Math.ceil(quoteSearchResponse.totalNumberOfRecords / quoteSearchResponse.pageSize);
       const pageNumber = currentPage; // quoteSearchResponse.currentPage;
       dispatch(change('SearchBar', 'pageNumber', pageNumber));
@@ -94,36 +154,51 @@ export class SearchBar extends Component {
   }
 
   render() {
-    const { handleSubmit, searchType, fieldValues, searchResults, userProfile : { appMetadata: { beta }} } = this.props;
+    const {
+      handleSubmit,
+      searchType,
+      fieldValues,
+      searchResults,
+      userProfile: {
+        appMetadata: { beta }
+      }
+    } = this.props;
 
     if (searchType === 'quote') {
       return (
-        <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)} >
+        <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
           <div className="search-input-wrapper retrieve-quote-wrapper">
-            <QuoteSearch
-              disabledSubmit={this.props.appState.isLoading}
-            />
+            <QuoteSearch disabledSubmit={this.props.appState.isLoading} />
           </div>
-          {(searchResults || []).length > 0 && fieldValues.totalPages > 1 &&
+          {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
             <Pagination
               changePageForward={() => changePageQuote(this.props, true)}
               changePageBack={() => changePageQuote(this.props, false)}
               fieldValues={fieldValues}
             />
-          }
+          )}
         </form>
       );
     }
     return (
-      <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarAddressSubmit)} >
-        { /* TODO: Put this in core-ui to and make reusable for CSR */ }
+      <form
+        id="SearchBar"
+        onSubmit={handleSubmit(handleSearchBarAddressSubmit)}
+      >
+        {/* TODO: Put this in core-ui to and make reusable for CSR */}
         <div className="search-input-wrapper">
           <NewQuoteSearch
             canFilter={beta}
             filterTypeName="product"
             filterTypeOptions={PRODUCTS_LIST}
             filterTypeLabel="Select Product"
-            disabledSubmit={this.props.appState.isLoading || !fieldValues.address || !String(fieldValues.address).replace(/\./g, '').trim()}
+            disabledSubmit={
+              this.props.appState.isLoading ||
+              !fieldValues.address ||
+              !String(fieldValues.address)
+                .replace(/\./g, '')
+                .trim()
+            }
           />
         </div>
       </form>
@@ -144,7 +219,10 @@ SearchBar.propTypes = {
 
 const mapStateToProps = state => ({
   appState: state.appState,
-  fieldValues: _get(state.form, 'SearchBar.values', { address: '', sortBy: 'policyNumber' }),
+  fieldValues: _get(state.form, 'SearchBar.values', {
+    address: '',
+    sortBy: 'policyNumber'
+  }),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
   search: state.search,
@@ -152,12 +230,17 @@ const mapStateToProps = state => ({
   searchResults: state.search.results
 });
 
-export default connect(mapStateToProps, {
-  clearAppError,
-  searchQuotes,
-  setQuoteSearch,
-  searchAddresses
-})(reduxForm({
-  form: 'SearchBar',
-  enableReinitialize: true,
-})(SearchBar));
+export default connect(
+  mapStateToProps,
+  {
+    clearAppError,
+    searchQuotes,
+    setQuoteSearch,
+    searchAddresses
+  }
+)(
+  reduxForm({
+    form: 'SearchBar',
+    enableReinitialize: true
+  })(SearchBar)
+);

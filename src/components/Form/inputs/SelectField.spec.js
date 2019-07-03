@@ -12,13 +12,17 @@ describe('SelectField', () => {
     const inputProps = {
       name: 'test',
       label: 'test',
-      answers: [{
-        answer: 'One'
-      }, {
-        answer: 'Two'
-      }, {
-        answer: 'Three'
-      }]
+      answers: [
+        {
+          answer: 'One'
+        },
+        {
+          answer: 'Two'
+        },
+        {
+          answer: 'Three'
+        }
+      ]
     };
 
     const wrapper = shallow(<SelectField {...inputProps} />);
@@ -26,18 +30,21 @@ describe('SelectField', () => {
     // Need to take into account blank option
   });
 
-
   it('should render SelectInput', () => {
     const inputProps = {
       name: 'test',
       label: 'test',
-      answers: [{
-        answer: 'One'
-      }, {
-        answer: 'Two'
-      }, {
-        answer: 'Three'
-      }]
+      answers: [
+        {
+          answer: 'One'
+        },
+        {
+          answer: 'Two'
+        },
+        {
+          answer: 'Three'
+        }
+      ]
     };
 
     const wrapper = shallow(<SelectInput {...inputProps} />);

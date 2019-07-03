@@ -15,13 +15,27 @@ const Pagination = ({ changePageBack, changePageForward, fieldValues }) => (
       <span className="fa fa-chevron-circle-left" />
     </button>
     <div className="pagination-count">
-      <TextField size="2" styleName="pageNumber" name="pageNumber" label="Page" disabled />
+      <TextField
+        size="2"
+        styleName="pageNumber"
+        name="pageNumber"
+        label="Page"
+        disabled
+      />
       <span className="pagination-operand">of</span>
-      <TextField size="2" styleName="totalPages" name="totalPages" label="" disabled />
+      <TextField
+        size="2"
+        styleName="totalPages"
+        name="totalPages"
+        label=""
+        disabled
+      />
     </div>
     <button
       onClick={changePageForward}
-      disabled={String(fieldValues.pageNumber) === String(fieldValues.totalPages)}
+      disabled={
+        String(fieldValues.pageNumber) === String(fieldValues.totalPages)
+      }
       tabIndex="0"
       className="btn multi-input"
       type="button"

@@ -23,13 +23,17 @@ describe('Testing Downloader component', () => {
     const proxyUrl = `${process.env.REACT_APP_API_URL}/download`;
     const params = { url: fileUrl };
     const errorHandler = err => null;
-    const mockImage = new Blob([JSON.stringify([{ result: 'test' }], null, 2)], { type: 'octet/stream' });
+    const mockImage = new Blob(
+      [JSON.stringify([{ result: 'test' }], null, 2)],
+      { type: 'octet/stream' }
+    );
 
     window.URL.createObjectURL = url => url;
-    mockAdapter.onGet(proxyUrl).reply(200, { data: mockImage, statusText: 'error' });
+    mockAdapter
+      .onGet(proxyUrl)
+      .reply(200, { data: mockImage, statusText: 'error' });
 
-    return downloadFile(fileUrl, fileName, errorHandler)
-    .then((result) => {
+    return downloadFile(fileUrl, fileName, errorHandler).then(result => {
       expect(result).toEqual(true);
     });
   });

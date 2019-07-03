@@ -14,7 +14,9 @@ export default function listReducer(state = initialState.list, action) {
     case listTypes.SET_ENUMS:
       return setEnums(state, action);
     case persistTypes.REHYDRATE:
-      return (action.payload && action.payload.list) ? action.payload.list : initialState.list;
+      return action.payload && action.payload.list
+        ? action.payload.list
+        : initialState.list;
     default:
       return state;
   }
@@ -27,11 +29,10 @@ function setAgents(state, action) {
         answer: o.agentCode,
         emailAddress: o.emailAddress
       }))
-
     : [];
   return {
     ...state,
-    agents,
+    agents
   };
 }
 
@@ -53,8 +54,10 @@ function setEnums(state, action) {
   const underwritingQuestions = (action.underwritingQuestions || [])
     .sort((a, b) => a.order - b.order)
     .map(question => {
-      const defaultValue = (question.answers || []).find(answer => answer.default);
-      return ({
+      const defaultValue = (question.answers || []).find(
+        answer => answer.default
+      );
+      return {
         name: question.name,
         hidden: question.hidden,
         label: question.question,
@@ -62,18 +65,24 @@ function setEnums(state, action) {
         validation: ['isRequired'],
         options: (question.answers || []).map(answer => ({
           answer: answer.answer,
-          label: answer.answer,
+          label: answer.answer
         }))
-      });
+      };
     });
 
-  const mortgageeAnswers = action.additionalInterestQuestions.find(q => q.name === 'mortgagee');
+  const mortgageeAnswers = action.additionalInterestQuestions.find(
+    q => q.name === 'mortgagee'
+  );
   const mortgagee = formatTopAnswers(mortgageeAnswers.answers);
 
-  const premiumFinanaceAnswers = action.additionalInterestQuestions.find(q => q.name === 'premiumFinance');
+  const premiumFinanaceAnswers = action.additionalInterestQuestions.find(
+    q => q.name === 'premiumFinance'
+  );
   const premiumFinance = formatTopAnswers(premiumFinanaceAnswers.answers);
 
-  const orderAnswers = action.additionalInterestQuestions.find(q => q.name === 'order');
+  const orderAnswers = action.additionalInterestQuestions.find(
+    q => q.name === 'order'
+  );
   const order = orderAnswers.answers;
 
   return {
@@ -81,37 +90,36 @@ function setEnums(state, action) {
     underwritingQuestions,
     premiumFinance,
     mortgagee,
-    order,
+    order
   };
 }
 
 function setZipCodeSettings(state, action) {
   return {
     ...state,
-    zipCodeSettings: action.zipCodeSettings,
+    zipCodeSettings: action.zipCodeSettings
   };
 }
 
 function getBillingInfo(billingData = {}) {
   const { options = [], paymentPlans = {} } = billingData;
 
-
   const billingOptions = [];
   const billToConfig = {};
 
   options.forEach(option => {
-    billingOptions.push(({ label: option.displayText, answer: option.billToId }));
+    billingOptions.push({ label: option.displayText, answer: option.billToId });
     billToConfig[`${option.billToId}`] = {
-      billToType:option.billToType,
+      billToType: option.billToType,
       availablePlans: option.payPlans,
-      payPlanOptions: option.payPlans.map(p => ({ label: p, answer: p })),
+      payPlanOptions: option.payPlans.map(p => ({ label: p, answer: p }))
     };
   });
 
   return {
     billingOptions,
     billToConfig,
-    paymentPlans,
+    paymentPlans
   };
 }
 
@@ -121,6 +129,6 @@ function setBillingOptions(state, action) {
 
   return {
     ...state,
-    billingConfig: billingData || initialState.list.billingConfig,
+    billingConfig: billingData || initialState.list.billingConfig
   };
 }

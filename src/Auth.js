@@ -33,7 +33,11 @@ export default class Auth {
   handleAuthentication = () => {
     this.auth0.parseHash(window.location.hash, (err, authResult) => {
       if (err) {
-        history.replace(`/accessDenied?error=${err.errorDescription ? err.errorDescription : 'Access Denied' }`);
+        history.replace(
+          `/accessDenied?error=${
+            err.errorDescription ? err.errorDescription : 'Access Denied'
+          }`
+        );
         return;
       }
 
@@ -44,8 +48,10 @@ export default class Auth {
     });
   };
 
-  setSession = (authResult) => {
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+  setSession = authResult => {
+    const expiresAt = JSON.stringify(
+      authResult.expiresIn * 1000 + new Date().getTime()
+    );
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -85,7 +91,7 @@ export default class Auth {
         companyCode: appMetadata.companyCode,
         state: appMetadata.state
       };
-    } else if (legacyAgency){
+    } else if (legacyAgency) {
       entity = {
         agencyCode: legacyAgency.agencyCode,
         companyCode: legacyAgency.companyCode,

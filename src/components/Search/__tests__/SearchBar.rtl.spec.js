@@ -1,15 +1,18 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 
-import { renderWithReduxAndRouter, defaultProps, defaultInitialState } from '../../../test-utils';
-import ConnectedSearchBar, {
-  SearchBar
-} from '../SearchBar';
+import {
+  renderWithReduxAndRouter,
+  defaultProps,
+  defaultInitialState
+} from '../../../test-utils';
+import ConnectedSearchBar, { SearchBar } from '../SearchBar';
 
 describe('Testing SearchBar Component', () => {
-
   it('POS:Should show basic connected searchbar', () => {
-    const { getByPlaceholderText, getByText } = renderWithReduxAndRouter(<ConnectedSearchBar {...defaultProps} />);
+    const { getByPlaceholderText, getByText } = renderWithReduxAndRouter(
+      <ConnectedSearchBar {...defaultProps} />
+    );
 
     expect(getByPlaceholderText('Search for Property Address'));
     expect(getByText('Property Address'));
@@ -26,9 +29,11 @@ describe('Testing SearchBar Component', () => {
 
     const SearchBarForm = reduxForm({
       form: 'SearchBar',
-      enableReinitialize: true,
+      enableReinitialize: true
     })(SearchBar);
-    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(<SearchBarForm {...props} />);
+    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
+      <SearchBarForm {...props} />
+    );
 
     expect(getByPlaceholderText('Search for Property Address'));
     expect(getByText('Property Address'));
@@ -39,7 +44,9 @@ describe('Testing SearchBar Component', () => {
       ...defaultProps,
       searchType: 'quote'
     };
-    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(<ConnectedSearchBar {...props} />)
+    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
+      <ConnectedSearchBar {...props} />
+    );
 
     expect(getByText('First Name'));
     expect(getByPlaceholderText('First Name Search'));
@@ -49,6 +56,8 @@ describe('Testing SearchBar Component', () => {
     expect(getByPlaceholderText('Property Street Address Search'));
     expect(getByText('Quote Number'));
     expect(getByPlaceholderText('Quote No Search'));
-    expect(getByText('Search').previousSibling.className).toEqual('fa fa-search');
+    expect(getByText('Search').previousSibling.className).toEqual(
+      'fa fa-search'
+    );
   });
 });

@@ -1,7 +1,12 @@
 import React from 'react';
 import { render, fireEvent } from 'react-testing-library';
 
-import { checkHeader, latestPolicy, getSummaryLedger, payment } from '../../../test-utils';
+import {
+  checkHeader,
+  latestPolicy,
+  getSummaryLedger,
+  payment
+} from '../../../test-utils';
 import Billing from '../Billing';
 
 const pageHeaders = [
@@ -78,10 +83,20 @@ describe('Policy Billing Page testing', () => {
 
     const { getByText } = render(<Billing {...newProps} />);
     const payments = [
-      { date: '2019-05-15', type: 'Paper Deposit', description: 'Duplicate Payment Applied in Error', amount: '$ 100.00' },
-      { date: '2019-06-01', type: 'AAA type', description: 'ZZZ description', amount: '$ 40.00' },
+      {
+        date: '2019-05-15',
+        type: 'Paper Deposit',
+        description: 'Duplicate Payment Applied in Error',
+        amount: '$ 100.00'
+      },
+      {
+        date: '2019-06-01',
+        type: 'AAA type',
+        description: 'ZZZ description',
+        amount: '$ 40.00'
+      }
     ];
-    const checkRows = () => 
+    const checkRows = () =>
       document.querySelectorAll('tbody tr').forEach(($row, i) => {
         const cols = $row.childNodes;
         expect(cols[0].textContent).toEqual(payments[i].date);
@@ -91,7 +106,7 @@ describe('Policy Billing Page testing', () => {
       });
 
     checkRows();
-    
+
     // In order to confirm that each sorter works, we have to reverse the sort each time
     // -- otherwise, we might simply be not sorting anything and leaving everything in place.
     fireEvent.click(getByText('Date'));

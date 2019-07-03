@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  renderWithReduxAndRouter,
-  latestPolicy
-} from '../../../test-utils';
+import { renderWithReduxAndRouter, latestPolicy } from '../../../test-utils';
 import ConnectedPolicyWorkflow from '../PolicyWorkflow';
 
 describe('Policy Workflow testing', () => {
@@ -29,14 +26,22 @@ describe('Policy Workflow testing', () => {
   ];
 
   it('POS:Has a detail header, tab navs, and footer', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<ConnectedPolicyWorkflow {...props} />, { state });
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <ConnectedPolicyWorkflow {...props} />,
+      { state }
+    );
     expect(getByTestId('policyHolderDetail'));
-    expect(document.querySelector(`a[href="${props.match.url}/policyHolder"]`)).toBeInTheDocument();
+    expect(
+      document.querySelector(`a[href="${props.match.url}/policyHolder"]`)
+    ).toBeInTheDocument();
     expect(getByText('©2019 TypTap Management Company. All rights reserved.'));
   });
 
   it('POS:Checks Policy Workflow Sections', () => {
-    const { getAllByText } = renderWithReduxAndRouter(<ConnectedPolicyWorkflow {...props} />, { state });
+    const { getAllByText } = renderWithReduxAndRouter(
+      <ConnectedPolicyWorkflow {...props} />,
+      { state }
+    );
 
     workflowSections.forEach(({ text, icon, status = '' }) => {
       // This text can be repeated so we have to confirm we're grabbing the last use of it on the page.

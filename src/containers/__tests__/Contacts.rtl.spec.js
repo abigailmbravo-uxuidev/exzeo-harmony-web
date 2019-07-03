@@ -2,8 +2,15 @@ import React from 'react';
 
 import { normalize } from '@exzeo/core-ui';
 
-import { renderWithReduxAndRouter, defaultProps, checkHeader } from '../../test-utils';
-import Contacts, { territoryManagerContacts, supportContacts } from '../Contacts';
+import {
+  renderWithReduxAndRouter,
+  defaultProps,
+  checkHeader
+} from '../../test-utils';
+import Contacts, {
+  territoryManagerContacts,
+  supportContacts
+} from '../Contacts';
 
 const pageHeaders = [
   {
@@ -18,16 +25,22 @@ const pageHeaders = [
 
 describe('Testing the Contacts Page', () => {
   it('POS:Contacts Header Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <Contacts {...defaultProps} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Territory Managers Cards Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <Contacts {...defaultProps} />
+    );
 
     territoryManagerContacts.forEach(manager => {
-      expect(document.querySelector(`div.${manager.icon.split(' ')[0]}`)).toBeInTheDocument();
+      expect(
+        document.querySelector(`div.${manager.icon.split(' ')[0]}`)
+      ).toBeInTheDocument();
       expect(getByText(manager.name));
       expect(getByText(`| ${manager.title}`));
       expect(getByText(normalize.phone(manager.phone)));
@@ -37,12 +50,18 @@ describe('Testing the Contacts Page', () => {
   });
 
   it('POS:Support Cards Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(<Contacts {...defaultProps} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <Contacts {...defaultProps} />
+    );
 
     supportContacts.forEach(support => {
-      expect(document.querySelector(`div.${support.icon.split(' ')[0]}`)).toBeInTheDocument();
+      expect(
+        document.querySelector(`div.${support.icon.split(' ')[0]}`)
+      ).toBeInTheDocument();
       expect(getByText(support.name));
-      expect(getByText(`${normalize.phone(support.phone)} ${support.extension}`));
+      expect(
+        getByText(`${normalize.phone(support.phone)} ${support.extension}`)
+      );
       expect(getByText(support.email));
       support.message && expect(getByText(support.message));
       support.disclaimer && expect(getByText(support.disclaimer));

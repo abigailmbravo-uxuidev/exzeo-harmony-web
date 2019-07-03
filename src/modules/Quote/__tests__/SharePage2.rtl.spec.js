@@ -4,7 +4,9 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
-  checkLabel, checkSwitch, checkButton
+  checkLabel,
+  checkSwitch,
+  checkButton
 } from '../../../test-utils';
 
 import QuoteWorkflow from '../QuoteWorkflow';
@@ -25,7 +27,9 @@ describe('Testing Share Page 2', () => {
   };
 
   it('"Confirmed" Value Switch Defaults to "No"', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fields.forEach(field => {
       checkLabel(getByTestId, field);
       if (field.type === 'switch') checkSwitch(getByTestId, field);
@@ -37,7 +41,9 @@ describe('Testing Share Page 2', () => {
   });
 
   it('POS:Share Page 2 Text Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     // If we alter this programatically we can use some data structure for these strings
     expect(getByText(/All properties/));
     expect(getByText(/Please be aware/));
@@ -50,7 +56,9 @@ describe('Testing Share Page 2', () => {
   });
 
   it('POS:Checks Submit Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     checkButton(getByTestId);
   });

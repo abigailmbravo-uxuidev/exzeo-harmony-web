@@ -3,10 +3,11 @@
 // Author: Darlan Rod https://github.com/darlanrod
 // Version 1.1.0
 // MIT License
-@import "_variables";
+@import '_variables';
 
 @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
-  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
+  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color,
+    0 0 $shadow-size lighten($shadow-color, 5%);
 }
 
 @mixin track() {
@@ -65,8 +66,8 @@
         }
       }
 
-      [type=range] {
-        margin: .25rem 0 ($thumb-height / 2) 0;
+      [type='range'] {
+        margin: 0.25rem 0 ($thumb-height / 2) 0;
         width: $track-width;
         background: transparent;
 
@@ -86,11 +87,16 @@
           background: $track-color;
 
           @include track();
-          @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+          @include shadow(
+            $track-shadow-size,
+            $track-shadow-blur,
+            $track-shadow-color
+          );
         }
 
         &::-webkit-slider-thumb {
-          margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+          margin-top: ((-$track-border-width * 2 + $track-height) / 2) -
+            ($thumb-height / 2);
 
           @include thumb();
           -webkit-appearance: none;
@@ -106,7 +112,11 @@
           background: $track-color;
 
           @include track();
-          @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+          @include shadow(
+            $track-shadow-size,
+            $track-shadow-blur,
+            $track-shadow-color
+          );
         }
 
         &::-moz-range-thumb {
@@ -127,7 +137,11 @@
           border-radius: $track-radius * 2;
           background: darken($track-color, $contrast);
 
-          @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+          @include shadow(
+            $track-shadow-size,
+            $track-shadow-blur,
+            $track-shadow-color
+          );
         }
 
         &::-ms-fill-upper {
@@ -135,7 +149,11 @@
           border-radius: $track-radius * 2;
           background: $track-color;
 
-          @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+          @include shadow(
+            $track-shadow-size,
+            $track-shadow-blur,
+            $track-shadow-color
+          );
         }
 
         &::-ms-thumb {

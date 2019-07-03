@@ -27,7 +27,7 @@ describe('Testing Splash component', () => {
     const store = mockStore(initialState);
     const props = {
       auth: {
-        logout: x => x,
+        logout: x => x
       },
       match: {},
       fieldQuestions: [],

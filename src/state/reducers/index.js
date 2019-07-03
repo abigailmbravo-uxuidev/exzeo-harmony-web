@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   search,
   quoteState,
   agencyState,
-  list,
+  list
 });
 
 export default rootReducer;

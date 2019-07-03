@@ -105,7 +105,9 @@ describe('Testing the Mailing/Billing Page', () => {
   const requiredFields = fields.filter(({ required }) => required);
 
   it('NEG:Tests all empty values', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     submitForm(getByTestId);
@@ -113,41 +115,65 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('NEG:Tests Mailing Address empty values', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => expect(getByTestId('billPlan_Annual')));
 
-    requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
+    requiredFields.forEach(fieldToLeaveBlank =>
+      verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank])
+    );
   });
 
   it('NEG:Tests Invalid Input Values', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-    const state = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.state');
-    const zip = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.zip');
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
+    const state = fields.find(
+      ({ dataTest }) => dataTest === 'policyHolderMailingAddress.state'
+    );
+    const zip = fields.find(
+      ({ dataTest }) => dataTest === 'policyHolderMailingAddress.zip'
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
-    verifyForm(getByTestId, [{
-      ...state, data: 'foo', error: 'Only 2 letters allowed'
-    }]);
-    verifyForm(getByTestId, [{
-      ...zip, data: '123456789', error: 'Only 8 letters or numbers allowed'
-    }]);
+    verifyForm(getByTestId, [
+      {
+        ...state,
+        data: 'foo',
+        error: 'Only 2 letters allowed'
+      }
+    ]);
+    verifyForm(getByTestId, [
+      {
+        ...zip,
+        data: '123456789',
+        error: 'Only 8 letters or numbers allowed'
+      }
+    ]);
   });
 
   it('POS:Checks all headers', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Checks all labels', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => checkLabel(getByTestId, field));
   });
 
   it('POS:Checks all inputs', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => {
@@ -158,15 +184,21 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks toggle fills out data', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fireEvent.click(getByTestId('sameAsPropertyAddress'));
-    expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
+    expect(getByTestId('policyHolderMailingAddress.address1').value).toBe(
+      '4131 TEST ADDRESS'
+    );
   });
 
   it('POS:Checks installment text', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
@@ -177,7 +209,9 @@ describe('Testing the Mailing/Billing Page', () => {
   });
 
   it('POS:Checks Submit Button', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     checkButton(getByTestId);

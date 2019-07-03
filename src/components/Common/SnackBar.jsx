@@ -28,7 +28,13 @@ export default class SnackBar extends Component {
     const { showSnackBar } = this.state;
 
     return (
-      <div className={showSnackBar ? 'snackbar bottom right active' : 'snackbar bottom right'}>
+      <div
+        className={
+          showSnackBar
+            ? 'snackbar bottom right active'
+            : 'snackbar bottom right'
+        }
+      >
         {this.props.children}
       </div>
     );
@@ -43,5 +49,8 @@ SnackBar.defaultProps = {
 SnackBar.propTypes = {
   show: PropTypes.bool.isRequired,
   timer: PropTypes.number,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };

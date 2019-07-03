@@ -35,7 +35,9 @@
     }
 
     &:first-child {
-      @include border-radius($card-border-radius-inner $card-border-radius-inner 0 0);
+      @include border-radius(
+        $card-border-radius-inner $card-border-radius-inner 0 0
+      );
     }
 
     &.image {
@@ -44,7 +46,7 @@
       justify-content: flex-end;
       height: 8rem;
       background-color: $warm-gray-13;
-      background-image: url("../img/background.png");
+      background-image: url('../img/background.png');
       background-size: cover;
 
       &.lg {
@@ -132,7 +134,7 @@
     a,
     button {
       align-self: center;
-      margin-left: $padding*2;
+      margin-left: $padding * 2;
     }
 
     a {
@@ -150,7 +152,9 @@
     }
 
     &:last-child {
-      @include border-radius(0 0 $card-border-radius-inner $card-border-radius-inner);
+      @include border-radius(
+        0 0 $card-border-radius-inner $card-border-radius-inner
+      );
     }
   }
 

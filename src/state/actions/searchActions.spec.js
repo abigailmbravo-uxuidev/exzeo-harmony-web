@@ -9,12 +9,12 @@ describe('policyStateActions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.POLICY_SEARCH,
-      search: {
-
+    const stateObj = [
+      {
+        type: types.POLICY_SEARCH,
+        search: {}
       }
-    }];
+    ];
 
     store.dispatch(searchActions.setPolicySearch({}));
 
@@ -25,12 +25,12 @@ describe('policyStateActions', () => {
     const initialState = {};
     const store = mockStore(initialState);
 
-    const stateObj = [{
-      type: types.QUOTE_SEARCH,
-      search: {
-
+    const stateObj = [
+      {
+        type: types.QUOTE_SEARCH,
+        search: {}
       }
-    }];
+    ];
 
     store.dispatch(searchActions.setQuoteSearch({}));
 

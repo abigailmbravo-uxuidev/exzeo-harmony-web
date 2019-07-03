@@ -28,14 +28,15 @@ describe('Testing AppWrapper component', () => {
     children: <div />
   };
 
-  window.persistor = { purge(){}};
+  window.persistor = { purge() {} };
 
   const wrapper = mount(
     <Provider store={store}>
       <Router>
         <AppWrapper {...props} />
       </Router>
-    </Provider>);
+    </Provider>
+  );
 
   it('should test props and render', () => {
     expect(wrapper.exists()).toBe(true);
@@ -43,7 +44,6 @@ describe('Testing AppWrapper component', () => {
     expect(wrapper.find('.content-wrapper')).toHaveLength(1);
     expect(wrapper.find('.site-nav')).toHaveLength(1);
   });
-
 
   it('should test click events', () => {
     wrapper.find(`Button[data-test="sidenav-logout"]`).simulate('click');

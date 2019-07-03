@@ -20,47 +20,47 @@ const baseAiFields = [
     type: 'text',
     required: true,
     label: 'Name 1',
-    data: 'test last names',
+    data: 'test last names'
   },
   {
     dataTest: 'name2',
     type: 'text',
     label: 'Name 2',
-    data: 'test first name',
+    data: 'test first name'
   },
   {
     dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
-    data: 'test adress 1',
+    data: 'test adress 1'
   },
   {
     dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
-    data: 'test address 2',
+    data: 'test address 2'
   },
   {
     dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
-    data: 'test city',
+    data: 'test city'
   },
   {
     dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
-    data: 'FL',
+    data: 'FL'
   },
   {
     dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
-    data: 'test name 1',
+    data: 'test name 1'
   },
   {
     dataTest: 'phoneNumber',
@@ -82,47 +82,47 @@ const personalFields = [
     type: 'text',
     required: true,
     label: 'First Name',
-    data: 'test last names',
+    data: 'test last names'
   },
   {
     dataTest: 'name2',
     type: 'text',
     label: 'Last Name',
-    data: 'test first name',
+    data: 'test first name'
   },
   {
     dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
-    data: 'test adress 1',
+    data: 'test adress 1'
   },
   {
     dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
-    data: 'test address 2',
+    data: 'test address 2'
   },
   {
     dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
-    data: 'test city',
+    data: 'test city'
   },
   {
     dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
-    data: 'FL',
+    data: 'FL'
   },
   {
     dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
-    data: 'test name 1',
+    data: 'test name 1'
   },
   {
     dataTest: 'phoneNumber',
@@ -146,19 +146,30 @@ describe('Testing Additional Interests', () => {
 
   const openAndCloseModal = async (getByText, modal) => {
     fireEvent.click(getByText(modal));
-    await wait(() => document.querySelector(`card.AdditionalInterestModal.${modal}`).toBeInTheDocument());
+    await wait(() =>
+      document
+        .querySelector(`card.AdditionalInterestModal.${modal}`)
+        .toBeInTheDocument()
+    );
     fireEvent.click(getByText('cancel'));
-    await wait (() => expect(document.querySelector('form#AdditionalInterestModal')).toBeNull());
+    await wait(() =>
+      expect(document.querySelector('form#AdditionalInterestModal')).toBeNull()
+    );
   };
 
   const baseRequiredFields = baseAiFields.filter(({ required }) => required);
-  const personalRequiredFields = personalFields.filter(({ required }) => required);
+  const personalRequiredFields = personalFields.filter(
+    ({ required }) => required
+  );
   const stateField = baseAiFields.find(({ dataTest }) => dataTest === 'state');
   const zipField = baseAiFields.find(({ dataTest }) => dataTest === 'zip');
 
   it('POS:Checks Header and Buttons', () => {
-    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-    const checkButtonTextIcon = text => expect(getByText(text).previousSibling.className).toEqual('fa fa-plus');
+    const { getByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
+    const checkButtonTextIcon = text =>
+      expect(getByText(text).previousSibling.className).toEqual('fa fa-plus');
 
     checkButtonTextIcon('Mortgagee');
     checkButtonTextIcon('Additional Insured');
@@ -168,7 +179,9 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:All Empty Mortgagee Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Mortgagee'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -176,26 +189,57 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Mortgagee Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Mortgagee'));
 
-    baseRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, baseRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+    baseRequiredFields.forEach(fieldToLeaveBlank =>
+      verifyForm(
+        getByTestId,
+        baseRequiredFields,
+        [fieldToLeaveBlank],
+        'ai-modal-submit'
+      )
+    );
   });
 
   it('NEG:Mortgagee Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Mortgagee'));
 
-    verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
-    }], [], 'ai-modal-submit');
-    verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
-    }], [], 'ai-modal-submit');
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...stateField,
+          data: 'abc',
+          error: 'Only 2 letters allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...zipField,
+          data: '1234567890',
+          error: 'Only 8 letters or numbers allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
   });
 
   it('NEG:All Empty Additional Insured Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Additional Insured'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -203,26 +247,57 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Additional Insured Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Additional Insured'));
 
-    personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+    personalRequiredFields.forEach(fieldToLeaveBlank =>
+      verifyForm(
+        getByTestId,
+        personalRequiredFields,
+        [fieldToLeaveBlank],
+        'ai-modal-submit'
+      )
+    );
   });
 
   it('NEG:Additional Insured Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Additional Insured'));
 
-    verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
-    }], [], 'ai-modal-submit');
-    verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
-    }], [], 'ai-modal-submit');
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...stateField,
+          data: 'abc',
+          error: 'Only 2 letters allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...zipField,
+          data: '1234567890',
+          error: 'Only 8 letters or numbers allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
   });
 
   it('NEG:All Empty Additional Interest Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Additional Interest'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -230,26 +305,57 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Additional Interest Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Additional Interest'));
 
-    personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+    personalRequiredFields.forEach(fieldToLeaveBlank =>
+      verifyForm(
+        getByTestId,
+        personalRequiredFields,
+        [fieldToLeaveBlank],
+        'ai-modal-submit'
+      )
+    );
   });
 
   it('NEG:Additional Interest Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Additional Interest'));
 
-    verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
-    }], [], 'ai-modal-submit');
-    verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
-    }], [], 'ai-modal-submit');
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...stateField,
+          data: 'abc',
+          error: 'Only 2 letters allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...zipField,
+          data: '1234567890',
+          error: 'Only 8 letters or numbers allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
   });
 
   it('NEG:All Empty Premium Finance Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Premium Finance'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -257,26 +363,57 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Premium Finance Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Premium Finance'));
 
-    baseRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, baseRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+    baseRequiredFields.forEach(fieldToLeaveBlank =>
+      verifyForm(
+        getByTestId,
+        baseRequiredFields,
+        [fieldToLeaveBlank],
+        'ai-modal-submit'
+      )
+    );
   });
 
   it('NEG:Premium Finance Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Premium Finance'));
 
-    verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
-    }], [], 'ai-modal-submit');
-    verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
-    }], [], 'ai-modal-submit');
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...stateField,
+          data: 'abc',
+          error: 'Only 2 letters allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...zipField,
+          data: '1234567890',
+          error: 'Only 8 letters or numbers allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
   });
 
   it('NEG:All Empty Bill Payer Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Bill Payer'));
 
     submitForm(getByTestId, 'ai-modal-submit');
@@ -284,44 +421,85 @@ describe('Testing Additional Interests', () => {
   });
 
   it('NEG:Bill Payer Empty Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Bill Payer'));
 
-    personalRequiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, personalRequiredFields, [fieldToLeaveBlank], 'ai-modal-submit'));
+    personalRequiredFields.forEach(fieldToLeaveBlank =>
+      verifyForm(
+        getByTestId,
+        personalRequiredFields,
+        [fieldToLeaveBlank],
+        'ai-modal-submit'
+      )
+    );
   });
 
   it('NEG:Bill Payer Invalid Input Testing', () => {
-    const { getByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     fireEvent.click(getByText('Bill Payer'));
 
-    verifyForm(getByTestId, [{
-      ...stateField, data: 'abc', error: 'Only 2 letters allowed'
-    }], [], 'ai-modal-submit');
-    verifyForm(getByTestId, [{
-      ...zipField, data: '1234567890', error: 'Only 8 letters or numbers allowed'
-    }], [], 'ai-modal-submit');
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...stateField,
+          data: 'abc',
+          error: 'Only 2 letters allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
+    verifyForm(
+      getByTestId,
+      [
+        {
+          ...zipField,
+          data: '1234567890',
+          error: 'Only 8 letters or numbers allowed'
+        }
+      ],
+      [],
+      'ai-modal-submit'
+    );
   });
 
   it('POS:Mortgagee Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     openAndCloseModal(getByText, 'Mortgagee');
     fireEvent.click(getByText('Mortgagee'));
-    expect(getAllByText('Mortgagee')[1].firstChild.className).toEqual('fa Mortgagee');
+    expect(getAllByText('Mortgagee')[1].firstChild.className).toEqual(
+      'fa Mortgagee'
+    );
     baseAiFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
     });
     checkLabel(getByTestId, { dataTest: 'mortgage', label: 'Top Mortgagees' });
-    checkSelect(getByTestId, { dataTest: 'order', type: 'select', values: ['0']});
+    checkSelect(getByTestId, {
+      dataTest: 'order',
+      type: 'select',
+      values: ['0']
+    });
   });
 
   it('POS:Additional Insured Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     openAndCloseModal(getByText, 'Additional Insured');
     fireEvent.click(getByText('Additional Insured'));
-    expect(getAllByText('Additional Insured')[1].firstChild.className).toEqual('fa Additional Insured');
+    expect(getAllByText('Additional Insured')[1].firstChild.className).toEqual(
+      'fa Additional Insured'
+    );
     personalFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
@@ -329,11 +507,15 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Additional Interest Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     openAndCloseModal(getByText, 'Additional Interest');
     fireEvent.click(getByText('Additional Interest'));
-    expect(getAllByText('Additional Interest')[1].firstChild.className).toEqual('fa Additional Interest');
+    expect(getAllByText('Additional Interest')[1].firstChild.className).toEqual(
+      'fa Additional Interest'
+    );
     personalFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
@@ -341,24 +523,35 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Premium Finance Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     openAndCloseModal(getByText, 'Premium Finance');
     fireEvent.click(getByText('Premium Finance'));
-    expect(getAllByText('Premium Finance')[1].firstChild.className).toEqual('fa Premium Finance');
+    expect(getAllByText('Premium Finance')[1].firstChild.className).toEqual(
+      'fa Premium Finance'
+    );
     baseAiFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
     });
-    checkLabel(getByTestId, { dataTest: 'premiumFinance', label: 'Top Premium Finance' });
+    checkLabel(getByTestId, {
+      dataTest: 'premiumFinance',
+      label: 'Top Premium Finance'
+    });
   });
 
   it('POS:Bill Payer Testing', () => {
-    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     openAndCloseModal(getByText, 'Bill Payer');
     fireEvent.click(getByText('Bill Payer'));
-    expect(getAllByText('Bill Payer')[1].firstChild.className).toEqual('fa Bill Payer');
+    expect(getAllByText('Bill Payer')[1].firstChild.className).toEqual(
+      'fa Bill Payer'
+    );
     personalFields.forEach(field => {
       checkLabel(getByTestId, field);
       checkTextInput(getByTestId, field);
@@ -370,16 +563,36 @@ describe('Testing Additional Interests', () => {
       ...props,
       quote: {
         ...props.quote,
-        additionalInterests: [{ ...additionalInterest, _id: '1234', type: 'Mortgagee' }]
+        additionalInterests: [
+          { ...additionalInterest, _id: '1234', type: 'Mortgagee' }
+        ]
       }
     };
-    const { quote: { additionalInterests }} = newProps;
-    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
+    const {
+      quote: { additionalInterests }
+    } = newProps;
+    const { getByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...newProps} />
+    );
 
-    expect(getByText(`${additionalInterests[0].name1} ${additionalInterests[0].name2}`));
-    expect(getByText(`${additionalInterests[0].mailingAddress.address1}, ${additionalInterests[0].mailingAddress.city}, ${additionalInterests[0].mailingAddress.state} ${additionalInterests[0].mailingAddress.zip}`));
-    expect(getByText(`${additionalInterests[0].type} ${additionalInterests[0].order + 1}`));
-    expect(document.querySelector('i.fa.fa-circle.Mortgagee')).toBeInTheDocument();
+    expect(
+      getByText(
+        `${additionalInterests[0].name1} ${additionalInterests[0].name2}`
+      )
+    );
+    expect(
+      getByText(
+        `${additionalInterests[0].mailingAddress.address1}, ${additionalInterests[0].mailingAddress.city}, ${additionalInterests[0].mailingAddress.state} ${additionalInterests[0].mailingAddress.zip}`
+      )
+    );
+    expect(
+      getByText(
+        `${additionalInterests[0].type} ${additionalInterests[0].order + 1}`
+      )
+    );
+    expect(
+      document.querySelector('i.fa.fa-circle.Mortgagee')
+    ).toBeInTheDocument();
     expect(document.querySelector('a.remove i.fa.delete')).toBeInTheDocument();
     expect(document.querySelector('a.edit i.fa.fa.edit')).toBeInTheDocument();
   });
@@ -389,16 +602,28 @@ describe('Testing Additional Interests', () => {
       ...props,
       quote: {
         ...props.quote,
-        additionalInterests: [{
-          _id: '', name1: '',
-          mailingAddress: { address1: '', city: '', state: '', zip: '' },
-          order: 0, type: 'Mortgagee'
-        }]
+        additionalInterests: [
+          {
+            _id: '',
+            name1: '',
+            mailingAddress: { address1: '', city: '', state: '', zip: '' },
+            order: 0,
+            type: 'Mortgagee'
+          }
+        ]
       }
     };
-    const { quote: { additionalInterests }} = newProps;
-    const { getByText, queryAllByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
-    expect(getByText(`${additionalInterests[0].type} ${additionalInterests[0].order + 1}`));
+    const {
+      quote: { additionalInterests }
+    } = newProps;
+    const { getByText, queryAllByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...newProps} />
+    );
+    expect(
+      getByText(
+        `${additionalInterests[0].type} ${additionalInterests[0].order + 1}`
+      )
+    );
     // Expect no text that says "undefined" in ui
     expect(queryAllByText(/undefined/).length).toBe(0);
   });
@@ -417,20 +642,30 @@ describe('Testing Additional Interests', () => {
           { ...additionalInterest, order: 1, type: 'Mortgagee' },
           { ...additionalInterest, order: 0, type: 'Premium Finance' },
           { ...additionalInterest, order: 0, type: 'Additional Interest' },
-          { ...additionalInterest, order: 0, type: 'Additional Insured' },
+          { ...additionalInterest, order: 0, type: 'Additional Insured' }
         ]
       }
     };
     const expectedLabels = [
-      'Mortgagee 1', 'Mortgagee 2', 'Mortgagee 3',
-      'Additional Insured 1', 'Additional Insured 2',
-      'Additional Interest 1', 'Additional Interest 2',
+      'Mortgagee 1',
+      'Mortgagee 2',
+      'Mortgagee 3',
+      'Additional Insured 1',
+      'Additional Insured 2',
+      'Additional Interest 1',
+      'Additional Interest 2',
       'Premium Finance 1'
     ];
-    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...newProps} />
+    );
     // ...so we know the UI will still organize and sort them correctly, in order
-    const labelTexts = document.querySelectorAll('.results.result-cards li.card .card-icon label');
-    labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
+    const labelTexts = document.querySelectorAll(
+      '.results.result-cards li.card .card-icon label'
+    );
+    labelTexts.forEach((label, i) =>
+      expect(label.textContent).toEqual(expectedLabels[i])
+    );
     expect(getByText('Mortgagee')).toBeDisabled();
     expect(getByText('Additional Insured')).toBeDisabled();
     expect(getByText('Additional Interest')).toBeDisabled();
@@ -453,20 +688,30 @@ describe('Testing Additional Interests', () => {
           { ...additionalInterest, order: 1, type: 'Mortgagee' },
           { ...additionalInterest, order: 0, type: 'Premium Finance' },
           { ...additionalInterest, order: 0, type: 'Additional Interest' },
-          { ...additionalInterest, order: 0, type: 'Additional Insured' },
+          { ...additionalInterest, order: 0, type: 'Additional Insured' }
         ]
       }
     };
     const expectedLabels = [
-      'Mortgagee 1', 'Mortgagee 2', 'Mortgagee 3',
-      'Additional Insured 1', 'Additional Insured 2',
-      'Additional Interest 1', 'Additional Interest 2',
+      'Mortgagee 1',
+      'Mortgagee 2',
+      'Mortgagee 3',
+      'Additional Insured 1',
+      'Additional Insured 2',
+      'Additional Interest 1',
+      'Additional Interest 2',
       'Bill Payer 1'
     ];
-    const { getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...newProps} />
+    );
 
-    const labelTexts = document.querySelectorAll('.results.result-cards li.card .card-icon label');
-    labelTexts.forEach((label, i) => expect(label.textContent).toEqual(expectedLabels[i]));
+    const labelTexts = document.querySelectorAll(
+      '.results.result-cards li.card .card-icon label'
+    );
+    labelTexts.forEach((label, i) =>
+      expect(label.textContent).toEqual(expectedLabels[i])
+    );
     expect(getByText('Mortgagee')).toBeDisabled();
     expect(getByText('Additional Insured')).toBeDisabled();
     expect(getByText('Additional Interest')).toBeDisabled();

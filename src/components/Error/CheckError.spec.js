@@ -15,7 +15,7 @@ describe('Testing CheckError component', () => {
       error: {
         message: 'something went wrong'
       },
-      dispatch: store.dispatch,
+      dispatch: store.dispatch
     };
     const wrapper = shallow(<CheckError {...props} />);
     expect(wrapper);
@@ -23,7 +23,7 @@ describe('Testing CheckError component', () => {
 
   it('should test connected app', () => {
     const initialState = {
-      error: {},
+      error: {}
     };
     const store = mockStore(initialState);
 
