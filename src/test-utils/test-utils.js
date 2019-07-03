@@ -289,7 +289,7 @@ export const checkSelect = (query, { defaultValue, values = [], ...rest }) => {
     expect(select.getAttribute('data-selected')).toEqual(defaultValue.value);
     expect(select.querySelector(`option[value="${defaultValue.value}"]`).textContent).toEqual(defaultValue.label);
   };
-  values.forEach(({ value, label }) => {
+  values.forEach(({ value, label = value }) => {
     fireEvent.change(select, { target: { value }});
     expect(select.getAttribute('data-selected')).toEqual(value);
     expect(select.querySelector(`option[value="${value}"]`).textContent).toEqual(label);
