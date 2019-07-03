@@ -12,7 +12,7 @@ describe('Testing Search component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      getQuote: jest.fn(),
+      reviewQuote: jest.fn(),
       createQuote: jest.fn(),
       history: { replace: jest.fn() },
       clearResults() {},
