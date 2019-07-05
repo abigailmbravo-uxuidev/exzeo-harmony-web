@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { defaultMemoize } from 'reselect';
-import { Gandalf, DetailsHeader } from '@exzeo/core-ui/src/@Harmony';
-import { Loader, noop } from '@exzeo/core-ui';
+import {
+  Gandalf,
+  DetailsHeader,
+  getConfigForJsonTransform
+} from '@exzeo/core-ui/src/@Harmony';
+import { Loader, emptyArray, emptyObject, noop } from '@exzeo/core-ui';
 
 import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
 import { setAppModalError } from '../../state/actions/errorActions';
-import {
-  clearPolicyResults,
-  clearPolicy,
-  initializePolicyWorkflow
-} from '../../state/actions/serviceActions';
+import { initializePolicyWorkflow } from '../../state/actions/serviceActions';
 
 import Footer from '../../components/Common/Footer';
 import App from '../../components/AppWrapper';
@@ -55,19 +55,13 @@ export class PolicyWorkflow extends Component {
     };
 
     this.formInstance = null;
-    this.getConfigForJsonTransform = defaultMemoize(
-      this.getConfigForJsonTransform.bind(this)
-    );
   }
 
+  getConfigForJsonTransform = defaultMemoize(getConfigForJsonTransform);
+
   componentDidMount() {
-    const {
-      match: {
-        params: { policyNumber }
-      },
-      initializePolicyWorkflow
-    } = this.props;
-    initializePolicyWorkflow(policyNumber);
+    const { match, initializePolicyWorkflow } = this.props;
+    initializePolicyWorkflow(match.params.policyNumber);
 
     this.getTemplate();
   }
@@ -79,32 +73,6 @@ export class PolicyWorkflow extends Component {
     if ((policy || {}).product !== (prevPolicy || {}).product) {
       this.getTemplate();
     }
-  }
-
-  getConfigForJsonTransform(gandalfTemplate) {
-    if (!gandalfTemplate) return {};
-
-    return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
-      const pageComponents = page.components.reduce(
-        (componentMap, component) => {
-          if (
-            (component.formData.metaData || {}).target ||
-            (component.data.extendedProperties || {}).target
-          ) {
-            componentMap[component.path] =
-              (component.formData.metaData || {}).target ||
-              (component.data.extendedProperties || {}).target;
-          }
-          return componentMap;
-        },
-        {}
-      );
-
-      return {
-        ...pageComponentsMap,
-        ...pageComponents
-      };
-    }, {});
   }
 
   getLocalState = () => {
@@ -147,7 +115,7 @@ export class PolicyWorkflow extends Component {
       agents,
       billing,
       policyDocuments,
-      setAppModalErrorAction
+      setAppModalError
     } = this.props;
 
     const { gandalfTemplate } = this.state;
@@ -160,7 +128,7 @@ export class PolicyWorkflow extends Component {
     const customHandlers = {
       handleSubmit: x => x,
       history: history,
-      setAppModalError: setAppModalErrorAction
+      setAppModalError: setAppModalError
     };
 
     return (
@@ -215,31 +183,28 @@ export class PolicyWorkflow extends Component {
 PolicyWorkflow.propTypes = {
   auth: PropTypes.shape(),
   match: PropTypes.shape(),
-  getPolicyDocumentsAction: PropTypes.func,
-  getSummaryLedgerAction: PropTypes.func,
-  getLatestPolicyAction: PropTypes.func,
-  getAgentsByAgencyCode: PropTypes.func,
-  setAppModalErrorAction: PropTypes.func,
-  clearPolicy: PropTypes.func,
+  setAppModalError: PropTypes.func,
+  initializePolicyWorkflow: PropTypes.func,
   policy: PropTypes.shape(),
   agents: PropTypes.array,
   policyDocuments: PropTypes.array
 };
 
-const mapStateToProps = state => ({
-  billing: state.service.getSummaryLedger,
-  policy: state.service.latestPolicy || {},
-  headerDetails: getPolicyDetails(state),
-  agents: state.agencyState.agents,
-  policyDocuments: state.service.policyDocuments || [],
-  error: state.error
-});
+const mapStateToProps = state => {
+  return {
+    agents: state.agencyState.agents,
+    billing: state.service.getSummaryLedger,
+    error: state.error,
+    headerDetails: getPolicyDetails(state),
+    policy: state.service.latestPolicy || emptyObject,
+    policyDocuments: state.service.policyDocuments || emptyArray
+  };
+};
+
 export default connect(
   mapStateToProps,
   {
-    setAppModalErrorAction: setAppModalError,
-    clearPolicyResultsAction: clearPolicyResults,
-    initializePolicyWorkflow,
-    clearPolicy
+    setAppModalError,
+    initializePolicyWorkflow
   }
 )(PolicyWorkflow);
