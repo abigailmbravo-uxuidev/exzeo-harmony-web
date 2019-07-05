@@ -1,7 +1,7 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import ConnectedApp from './AccessDenied';
 
@@ -36,7 +36,7 @@ describe('Testing AccessDenied component', () => {
       },
       ...propTypes
     };
-    const wrapper = shallow(<ConnectedApp store={store} {...props} />);
+    const wrapper = mount(<ConnectedApp store={store} {...props} />);
     expect(wrapper);
   });
 });
