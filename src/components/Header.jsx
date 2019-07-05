@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import logo from '../../img/TypTap.svg';
+import logo from '../img/TypTap.svg';
 
 const LINKS = [
   {

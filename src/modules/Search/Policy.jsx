@@ -6,7 +6,7 @@ import { setPolicySearch } from '../../state/actions/searchActions';
 import AppWrapper from '../../components/AppWrapper';
 import PolicySearchBar from '../../components/Search/PolicySearchBar';
 import SearchResults from '../../components/Search/SearchResults';
-import Footer from '../../components/Common/Footer';
+import Footer from '../../components/Footer';
 
 export class PolicySearch extends Component {
   componentDidMount() {

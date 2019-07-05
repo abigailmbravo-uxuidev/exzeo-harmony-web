@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Footer from '../Common/Footer';
+import Footer from '../Footer';
 
 const handleGetQuoteData = state => state.quoteState.quote || {};
 

@@ -4,7 +4,7 @@ import configureStore from 'redux-mock-store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import AppWrapper from './AppWrapper';
+import AppWrapper from '../AppWrapper';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);

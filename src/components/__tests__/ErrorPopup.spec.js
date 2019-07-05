@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ErrorPopup from './ErrorPopup';
+import ErrorPopup from '../ErrorPopup';
 
 it('renders without crashing', () => {
   const props = {

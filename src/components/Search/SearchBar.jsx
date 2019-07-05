@@ -11,7 +11,7 @@ import {
   setQuoteSearch,
   searchAddresses
 } from '../../state/actions/searchActions';
-import Pagination from '../Common/Pagination';
+import Pagination from './Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
 
 import { PRODUCTS_LIST } from './searchUtils';

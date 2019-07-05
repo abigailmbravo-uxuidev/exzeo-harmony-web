@@ -13,7 +13,7 @@ import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors'
 import { setAppModalError } from '../../state/actions/errorActions';
 import { initializePolicyWorkflow } from '../../state/actions/serviceActions';
 
-import Footer from '../../components/Common/Footer';
+import Footer from '../../components/Footer';
 import App from '../../components/AppWrapper';
 import HO3 from '../../mock-data/mockPolicyHO3';
 

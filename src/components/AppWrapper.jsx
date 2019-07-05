@@ -7,7 +7,7 @@ import { Button } from '@exzeo/core-ui';
 
 import { getNavLinks } from '../utilities/navigation';
 
-import Header from './Common/Header';
+import Header from './Header';
 import CheckError from './Error/CheckError';
 
 class AppWrapper extends React.Component {

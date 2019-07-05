@@ -24,7 +24,7 @@ import {
 } from './constants/workflowNavigation';
 
 import ThankYou from '../../components/ThankYou/ThankYou';
-import Footer from '../../components/Common/Footer';
+import Footer from '../../components/Footer';
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
 

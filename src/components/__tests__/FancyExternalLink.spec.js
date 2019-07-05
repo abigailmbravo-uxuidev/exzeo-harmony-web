@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import FancyExternalLink from './FancyExternalLink';
+import FancyExternalLink from '../FancyExternalLink';
 
 describe('Testing FancyExternalLink component', () => {
   const props = {

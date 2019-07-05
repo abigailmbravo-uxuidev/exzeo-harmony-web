@@ -3,7 +3,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { defaultMemoize } from 'reselect';
 import { date } from '@exzeo/core-ui';
 
-import Downloader from '../../components/Common/Downloader';
+import Downloader from '../../components/Downloader';
 
 const Documents = props => {
   const { options, customHandlers } = props;

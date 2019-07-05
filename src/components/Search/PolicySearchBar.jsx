@@ -18,7 +18,7 @@ import * as errorActions from '../../state/actions/errorActions';
 import * as serviceActions from '../../state/actions/serviceActions';
 import * as searchActions from '../../state/actions/searchActions';
 import SelectField from '../Form/inputs/SelectField';
-import Pagination from '../Common/Pagination';
+import Pagination from './Pagination';
 import { generateField } from './searchUtils';
 
 const handleInitialize = () => {
