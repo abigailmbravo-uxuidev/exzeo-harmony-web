@@ -3,7 +3,11 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { shallow } from 'enzyme';
 
-import ConnectedApp, { validate, changePagePolicy, handlePolicySearchSubmit } from './PolicySearchBar';
+import ConnectedApp, {
+  validate,
+  changePagePolicy,
+  handlePolicySearchSubmit
+} from './PolicySearchBar';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -16,7 +20,7 @@ describe('Testing PolicySearchBar component', () => {
         policyResults: {}
       },
       authState: {
-        userProfile: { groups: [{}], entity: {}}
+        userProfile: { groups: [{}], entity: {} }
       },
       form: {
         PolicySearchBar: {
@@ -34,7 +38,7 @@ describe('Testing PolicySearchBar component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      userProfile: { entity: {}},
+      userProfile: { entity: {} },
       actions: {},
       fieldValues: {
         searchType: 'address'
@@ -70,22 +74,32 @@ describe('Testing PolicySearchBar component', () => {
 
   it('should paging functions', () => {
     const props = {
-      userProfile: { groups: [{}], entity: {}},
+      userProfile: { groups: [{}], entity: {} },
       fieldValues: {},
-      actions: { searchActions: { setPolicySearch() {} },
-        serviceActions: { searchPolicy() { return Promise.resolve(); } }
+      actions: {
+        searchActions: { setPolicySearch() {} },
+        serviceActions: {
+          searchPolicy() {
+            return Promise.resolve();
+          }
+        }
       }
     };
     changePagePolicy(props, false);
     changePagePolicy(props, true);
-    handlePolicySearchSubmit({
-      firstName: '',
-      lastName: '',
-      address: '',
-      policyNumber: '',
-      searchType: 'policy',
-      isLoading: true,
-      hasSearched: true,
-      page: 1 }, props.dispatch, props);
+    handlePolicySearchSubmit(
+      {
+        firstName: '',
+        lastName: '',
+        address: '',
+        policyNumber: '',
+        searchType: 'policy',
+        isLoading: true,
+        hasSearched: true,
+        page: 1
+      },
+      props.dispatch,
+      props
+    );
   });
 });

@@ -22,7 +22,6 @@ describe('Testing PolicyDocuments component', () => {
         serviceActions: {
           getSummaryLedger() {},
           getLatestPolicy() {}
-
         }
       }
     };
@@ -38,15 +37,18 @@ describe('Testing PolicyDocuments component', () => {
     };
     const store = mockStore(initialState);
     const props = {
-      policyDocuments: [{
-        fileUrl: 'http://cfs/v1/5b619675b63d290021a9c751/AppPacket-12-5019632-01-20180801-071705-igDSfakl4.pdf',
-        version: '',
-        envelopeId: '39679404-6f5a-4bf8-9c49-55e4f6559c2c',
-        fileName: 'AppPacket-12-5019632-01-20180801-071705-igDSfakl4.pdf',
-        createdDate: 1533122321,
-        createdBy: 'auth0|SYSTEMUSER|0',
-        policyNumber: '12-1009404-01'
-      }],
+      policyDocuments: [
+        {
+          fileUrl:
+            'http://cfs/v1/5b619675b63d290021a9c751/AppPacket-12-5019632-01-20180801-071705-igDSfakl4.pdf',
+          version: '',
+          envelopeId: '39679404-6f5a-4bf8-9c49-55e4f6559c2c',
+          fileName: 'AppPacket-12-5019632-01-20180801-071705-igDSfakl4.pdf',
+          createdDate: 1533122321,
+          createdBy: 'auth0|SYSTEMUSER|0',
+          policyNumber: '12-1009404-01'
+        }
+      ],
       location: {
         state: {
           policyNumber: 123
@@ -55,7 +57,6 @@ describe('Testing PolicyDocuments component', () => {
       policy: {
         policyID: 12345,
         policyNumber: 123
-
       },
       actions: {
         policyStateActions: {
@@ -65,7 +66,6 @@ describe('Testing PolicyDocuments component', () => {
           getPolicyDocuments() {},
           getSummaryLedger() {},
           getLatestPolicy() {}
-
         }
       }
     };

@@ -25,7 +25,5 @@ describe('Testing FancyExternalLink component', () => {
     expect(wrapperProps.title).toEqual(props.title);
     expect(wrapperProps.description).toEqual(props.description);
     expect(wrapperProps.linkIcon).toEqual(props.linkIcon);
-
   });
-
 });

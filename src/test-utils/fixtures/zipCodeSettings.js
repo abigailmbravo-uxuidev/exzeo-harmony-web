@@ -43,10 +43,7 @@ export default {
       minReplacementCostRatio: 0.9
     }
   },
-  territories: [
-    '715-0',
-    '715-51'
-  ],
+  territories: ['715-0', '715-51'],
   maxEffectiveDate: '2019-08-01T00:00:00-04:00',
   minEffectiveDate: '2019-05-01T00:00:00-04:00',
   id: '5aea142cdc0509268ca5ce7e'

@@ -1,7 +1,11 @@
 import React from 'react';
 import { fireEvent } from 'react-testing-library';
 
-import { renderWithReduxAndRouter, defaultPolicyWorkflowProps, policyDocuments } from '../../../test-utils';
+import {
+  renderWithReduxAndRouter,
+  defaultPolicyWorkflowProps,
+  policyDocuments
+} from '../../../test-utils';
 import { PolicyWorkflow } from '../PolicyWorkflow';
 
 describe('Policy Document Page testing', () => {
@@ -12,7 +16,9 @@ describe('Policy Document Page testing', () => {
   };
 
   it('POS:Has a table', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     expect(getByText('Date'));
     expect(getByText('Document Type'));
 
@@ -20,7 +26,9 @@ describe('Policy Document Page testing', () => {
   });
 
   it('POS:Defaults to latest docs first and sorting can be altered', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const documents = [
       { date: '06/14/2018 12:00 AM EDT', type: 'FinalDoc' },
       { date: '05/25/2018 11:57 AM EDT', type: 'Invoice' }

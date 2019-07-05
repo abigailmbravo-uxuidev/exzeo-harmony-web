@@ -15,7 +15,7 @@ class Login extends Component {
     }
   }
   render() {
-    return (<Loader />);
+    return <Loader />;
   }
 }
 

@@ -2,17 +2,17 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 
 import { renderWithReduxAndRouter, defaultProps } from '../../../test-utils';
-import ConnectedSearchBar, {
-  SearchBar
-} from '../SearchBar';
+import ConnectedSearchBar, { SearchBar } from '../SearchBar';
 
 describe('Testing SearchBar Component', () => {
   const props = {
     ...defaultProps,
-    userProfile: { entity: { state: {}}}
+    userProfile: { entity: { state: {} } }
   };
   it('POS:Should show basic connected searchbar', () => {
-    const { getByPlaceholderText, getByText } = renderWithReduxAndRouter(<ConnectedSearchBar {...props} />);
+    const { getByPlaceholderText, getByText } = renderWithReduxAndRouter(
+      <ConnectedSearchBar {...props} />
+    );
     expect(getByPlaceholderText('Search for Property Address'));
     expect(getByText('Property Address'));
   });
@@ -21,16 +21,18 @@ describe('Testing SearchBar Component', () => {
     const newProps = {
       ...props,
       appState: { isLoading: false },
-      handleSubmit: () => { },
+      handleSubmit: () => {},
       fieldValues: {},
-      userProfile: { appMetadata: { beta: false }, entity: { state:{}}}
+      userProfile: { appMetadata: { beta: false }, entity: { state: {} } }
     };
 
     const SearchBarForm = reduxForm({
       form: 'SearchBar',
-      enableReinitialize: true,
+      enableReinitialize: true
     })(SearchBar);
-    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(<SearchBarForm {...newProps} />);
+    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
+      <SearchBarForm {...newProps} />
+    );
 
     expect(getByPlaceholderText('Search for Property Address'));
     expect(getByText('Property Address'));
@@ -41,7 +43,9 @@ describe('Testing SearchBar Component', () => {
       ...props,
       searchType: 'quote'
     };
-    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(<ConnectedSearchBar {...newProps} />);
+    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
+      <ConnectedSearchBar {...newProps} />
+    );
 
     expect(getByText('First Name'));
     expect(getByPlaceholderText('First Name Search'));
@@ -51,6 +55,8 @@ describe('Testing SearchBar Component', () => {
     expect(getByPlaceholderText('Property Street Address Search'));
     expect(getByText('Quote Number'));
     expect(getByPlaceholderText('Quote No Search'));
-    expect(getByText('Search').previousSibling.className).toEqual('fa fa-search');
+    expect(getByText('Search').previousSibling.className).toEqual(
+      'fa fa-search'
+    );
   });
 });

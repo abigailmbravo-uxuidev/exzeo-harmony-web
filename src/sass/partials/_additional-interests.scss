@@ -1,5 +1,4 @@
 #AddAdditionalInterestPage {
-
   .button-group {
     display: flex;
     flex-wrap: wrap;
@@ -91,7 +90,7 @@
                     font-size: $font-size-h4;
                   }
                 }
-    
+
                 &.remove {
                   width: 2rem;
 
@@ -132,54 +131,57 @@
 .fa {
   font-size: $font-size-h4;
 
-  &.Mortgagee, &.mortgagee {
+  &.Mortgagee,
+  &.mortgagee {
     &:before {
       color: $green;
-      content: "\f19c";
+      content: '\f19c';
     }
   }
 
-  &.Finance, &.premiumFinance {
+  &.Finance,
+  &.premiumFinance {
     &:before {
       color: $green;
-      content: "\F27E";
+      content: '\F27E';
     }
   }
 
-  &.Interest, &.additionalInterest {
+  &.Interest,
+  &.additionalInterest {
     &:before {
       color: $green;
-      content: "\F2B5";
+      content: '\F2B5';
     }
   }
 
-  &.Insured, &.additionalInsured {
+  &.Insured,
+  &.additionalInsured {
     &:before {
       color: $green;
-      content: "\F234";
+      content: '\F234';
     }
   }
 
-  &.Payer, &.billPayer {
+  &.Payer,
+  &.billPayer {
     &:before {
       color: $green;
-      content: "\F0D6";
+      content: '\F0D6';
     }
   }
 
   &.delete {
-
     &:before {
       color: $bright-blue;
-      content: "\f1f8";
+      content: '\f1f8';
     }
   }
 
   &.edit {
-
     &:before {
       color: $bright-blue;
-      content: "\f040";
+      content: '\f040';
     }
   }
 }

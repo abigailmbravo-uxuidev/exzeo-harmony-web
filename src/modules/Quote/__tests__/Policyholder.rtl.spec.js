@@ -5,7 +5,15 @@ import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
   submitForm,
-  checkError, verifyForm, checkLabel, checkTextInput, checkHeader, checkButton, checkPhoneInput, checkSelect, checkSwitch
+  checkError,
+  verifyForm,
+  checkLabel,
+  checkTextInput,
+  checkHeader,
+  checkButton,
+  checkPhoneInput,
+  checkSelect,
+  checkSwitch
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
@@ -124,24 +132,37 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   };
 
   const toggleSecondUser = (dir = 'on') => {
-    const toggle = document.querySelector('[data-test="additionalPolicyholder"]');
-    if ((!toggle.classList.contains('active') && dir === 'on') ||
-    (toggle.classList.contains('active') && dir === 'off')) fireEvent.click(toggle);
+    const toggle = document.querySelector(
+      '[data-test="additionalPolicyholder"]'
+    );
+    if (
+      (!toggle.classList.contains('active') && dir === 'on') ||
+      (toggle.classList.contains('active') && dir === 'off')
+    )
+      fireEvent.click(toggle);
   };
 
   it('NEG:All Inputs Empty Value', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     submitForm(getByTestId);
     ph1Fields.forEach(field => checkError(getByTestId, field));
   });
 
   it('NEG:Primary Policyholder Empty Value', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-    ph1Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank]));
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
+    ph1Fields.forEach(fieldToLeaveBlank =>
+      verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank])
+    );
   });
 
   it('POS:Secondary Policyholder toggle testing', () => {
-    const { getByTestId, queryByText, getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId, queryByText, getByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     const secondaryToggle = {
       dataTest: 'additionalPolicyholder',
       label: 'Do you want to add an additional Policyholder?',
@@ -155,63 +176,108 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   });
 
   it('NEG:Secondary Policyholder Empty Value', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     toggleSecondUser();
     submitForm(getByTestId);
     ph2Fields.forEach(field => checkError(getByTestId, field));
-    ph2Fields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, ph2Fields, [fieldToLeaveBlank]));
+    ph2Fields.forEach(fieldToLeaveBlank =>
+      verifyForm(getByTestId, ph2Fields, [fieldToLeaveBlank])
+    );
   });
 
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     toggleSecondUser();
     // For all fields except phone, we fill out with invalid character data
     // If that field is an email, it will throw a different error
-    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => !dataTest.includes('Phone'))
-      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, value: '∂',
-        error: dataTest.includes('email') ? 'Not a valid email address' : 'Invalid characters'
-      }]));
+    [...ph1Fields, ...ph2Fields]
+      .filter(({ dataTest }) => !dataTest.includes('Phone'))
+      .forEach(({ dataTest }) =>
+        verifyForm(getByTestId, [
+          {
+            dataTest,
+            value: '∂',
+            error: dataTest.includes('email')
+              ? 'Not a valid email address'
+              : 'Invalid characters'
+          }
+        ])
+      );
   });
 
   it('NEG:Invalid Email Address', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     toggleSecondUser();
-    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('email'))
-      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, value: 'invalidemail', error: 'Not a valid email address'
-      }]));
+    [...ph1Fields, ...ph2Fields]
+      .filter(({ dataTest }) => dataTest.includes('email'))
+      .forEach(({ dataTest }) =>
+        verifyForm(getByTestId, [
+          {
+            dataTest,
+            value: 'invalidemail',
+            error: 'Not a valid email address'
+          }
+        ])
+      );
   });
 
   it('NEG:Invalid Contact Phone', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     toggleSecondUser();
-    [...ph1Fields, ...ph2Fields].filter(({ dataTest }) => dataTest.includes('Phone'))
-      .forEach(({ dataTest }) => verifyForm(getByTestId, [{
-        dataTest, value: '123', error: 'Not a valid Phone Number'
-      }]));
+    [...ph1Fields, ...ph2Fields]
+      .filter(({ dataTest }) => dataTest.includes('Phone'))
+      .forEach(({ dataTest }) =>
+        verifyForm(getByTestId, [
+          {
+            dataTest,
+            value: '123',
+            error: 'Not a valid Phone Number'
+          }
+        ])
+      );
   });
 
   it('NEG:Invalid Effective Date', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     submitForm(getByTestId);
-    verifyForm(getByTestId, [{
-      dataTest: 'effectiveDate', value: ''
-    }]);
-    verifyForm(getByTestId, [{
-      dataTest: 'effectiveDate', value: '1900-01-01', error: 'Date must be at least 08/01/2017'
-    }]);
+    verifyForm(getByTestId, [
+      {
+        dataTest: 'effectiveDate',
+        value: ''
+      }
+    ]);
+    verifyForm(getByTestId, [
+      {
+        dataTest: 'effectiveDate',
+        value: '1900-01-01',
+        error: 'Date must be at least 08/01/2017'
+      }
+    ]);
   });
 
   it('POS:Checks Headers', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     getByTestId('Primary Policyholder');
     toggleSecondUser();
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Primary / Secondary Policyholder Label / Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     toggleSecondUser();
     [...ph1Fields, ...ph2Fields].forEach(({ dataTest, label, value, type }) => {
@@ -232,8 +298,9 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
         ]
       }
     };
-    const { getByTestId, getByText } = renderWithReduxAndRouter(<QuoteWorkflow {...newProps} />);
-
+    const { getByTestId, getByText } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...newProps} />
+    );
 
     detailsFields.forEach(field => {
       checkLabel(getByTestId, field);
@@ -244,7 +311,9 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
   });
 
   it('POS:Checks Submit Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     checkButton(getByTestId);
   });

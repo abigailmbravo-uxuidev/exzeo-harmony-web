@@ -1,7 +1,7 @@
-
-export default  [
+export default [
   {
-    fileUrl: 'http://cfs/v1/invoicePages/Invoice-12-1002566-01-20180525-115711-HkJDMnHJQ.pdf',
+    fileUrl:
+      'http://cfs/v1/invoicePages/Invoice-12-1002566-01-20180525-115711-HkJDMnHJQ.pdf',
     version: '',
     envelopeId: '61a882c4-3e6d-4d0b-ae15-92c011c0074a',
     fileName: 'Invoice-12-1002566-01-20180525-115711-HkJDMnHJQ.pdf',
@@ -10,7 +10,8 @@ export default  [
     policyNumber: '12-1002566-01'
   },
   {
-    fileUrl: 'http://cfs/v1/invoicePages/CancelAInt1Final-12-1002566-01-20180614-000051-SysudwyW7.pdf',
+    fileUrl:
+      'http://cfs/v1/invoicePages/CancelAInt1Final-12-1002566-01-20180614-000051-SysudwyW7.pdf',
     version: '',
     envelopeId: '',
     fileName: 'FinalDoc-12-1002566-01-20180614-000051-SysudwyW7.pdf',

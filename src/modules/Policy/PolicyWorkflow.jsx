@@ -10,7 +10,7 @@ import { setAppModalError } from '../../state/actions/errorActions';
 import {
   clearPolicyResults,
   clearPolicy,
-  initializePolicyWorkflow,
+  initializePolicyWorkflow
 } from '../../state/actions/serviceActions';
 
 import Footer from '../../components/Common/Footer';
@@ -18,23 +18,21 @@ import App from '../../components/AppWrapper';
 import HO3 from '../../mock-data/mockPolicyHO3';
 
 import PolicyNavigation from './PolicyNavigation';
-import {
-  PAGE_ROUTING
-} from './constants/workflowNavigation';
+import { PAGE_ROUTING } from './constants/workflowNavigation';
 import Billing from './Billing';
 import Payments from './Payments';
 import Documents from './Documents';
 
-const getCurrentStepAndPage = defaultMemoize((pathname) => {
+const getCurrentStepAndPage = defaultMemoize(pathname => {
   const currentRouteName = pathname.split('/')[3];
   return {
     currentStepNumber: PAGE_ROUTING[currentRouteName],
-    currentRouteName,
+    currentRouteName
   };
 });
 
 const TEMPLATES = {
-  'HO3': HO3,
+  HO3: HO3
 };
 
 const FORM_ID = 'PolicyWorkflow';
@@ -50,15 +48,25 @@ export class PolicyWorkflow extends Component {
 
     this.state = {
       gandalfTemplate: null,
-      stepNumber: PAGE_ROUTING[getCurrentStepAndPage(props.location.pathname).currentRouteName],
+      stepNumber:
+        PAGE_ROUTING[
+          getCurrentStepAndPage(props.location.pathname).currentRouteName
+        ]
     };
 
     this.formInstance = null;
-    this.getConfigForJsonTransform = defaultMemoize(this.getConfigForJsonTransform.bind(this));
+    this.getConfigForJsonTransform = defaultMemoize(
+      this.getConfigForJsonTransform.bind(this)
+    );
   }
 
   componentDidMount() {
-    const { match: { params: { policyNumber } }, initializePolicyWorkflow } = this.props;
+    const {
+      match: {
+        params: { policyNumber }
+      },
+      initializePolicyWorkflow
+    } = this.props;
     initializePolicyWorkflow(policyNumber);
 
     this.getTemplate();
@@ -74,31 +82,38 @@ export class PolicyWorkflow extends Component {
   }
 
   getConfigForJsonTransform(gandalfTemplate) {
-    if(!gandalfTemplate) return {};
+    if (!gandalfTemplate) return {};
 
     return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
-
-      const pageComponents = page.components.reduce((componentMap, component) => {
-        if ((component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target) {
-          componentMap[component.path] = (component.formData.metaData || {}).target || (component.data.extendedProperties || {}).target;
-        }
-        return componentMap;
-      }, {});
+      const pageComponents = page.components.reduce(
+        (componentMap, component) => {
+          if (
+            (component.formData.metaData || {}).target ||
+            (component.data.extendedProperties || {}).target
+          ) {
+            componentMap[component.path] =
+              (component.formData.metaData || {}).target ||
+              (component.data.extendedProperties || {}).target;
+          }
+          return componentMap;
+        },
+        {}
+      );
 
       return {
         ...pageComponentsMap,
         ...pageComponents
       };
     }, {});
-  };
+  }
 
   getLocalState = () => {
     return this.state;
   };
 
   getTemplate = async () => {
-   // const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
-   const { policy } = this.props;
+    // const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
+    const { policy } = this.props;
     // const transferConfig = {
     //   exchangeName: 'harmony',
     //   routingKey:  'harmony.policy.retrieveDocumentTemplate',
@@ -115,16 +130,30 @@ export class PolicyWorkflow extends Component {
     // return transferConfig;
     // const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
     const { product } = policy;
-    if(product){
-    this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
+    if (product) {
+      this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
     }
   };
 
   render() {
-    const { auth, history, isLoading, location, match, headerDetails, policy, agents, billing, policyDocuments, setAppModalErrorAction } = this.props;
+    const {
+      auth,
+      history,
+      isLoading,
+      location,
+      match,
+      headerDetails,
+      policy,
+      agents,
+      billing,
+      policyDocuments,
+      setAppModalErrorAction
+    } = this.props;
 
     const { gandalfTemplate } = this.state;
-    const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(location.pathname);
+    const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(
+      location.pathname
+    );
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
@@ -138,40 +167,46 @@ export class PolicyWorkflow extends Component {
       <App
         errorRedirectUrl={location.pathname}
         logout={auth.logout}
-        match={match} >
-          <div className="route policy">
-            {!gandalfTemplate && <Loader />}
-            {gandalfTemplate && gandalfTemplate.header &&
+        match={match}
+      >
+        <div className="route policy">
+          {!gandalfTemplate && <Loader />}
+          {gandalfTemplate && gandalfTemplate.header && (
             <React.Fragment>
-                <DetailsHeader
-                  context="policy"
-                  detailsFields={gandalfTemplate.header}
-                  headerDetails={headerDetails}
-                  isLoading={isLoading}
-                  currentStep={currentStepNumber}
-                />
-              <PolicyNavigation activeTab={currentRouteName} policyNumber={policy.policyNumber} />
+              <DetailsHeader
+                context="policy"
+                detailsFields={gandalfTemplate.header}
+                headerDetails={headerDetails}
+                isLoading={isLoading}
+                currentStep={currentStepNumber}
+              />
+              <PolicyNavigation
+                activeTab={currentRouteName}
+                policyNumber={policy.policyNumber}
+              />
             </React.Fragment>
-            }
-            {/*{ Gandalf will be replacing most/all of these routes }*/}
-            {gandalfTemplate && <React.Fragment>
-                  <Gandalf
-                  formId={FORM_ID}
-                  className="survey-wrapper"
-                  currentPage={currentStepNumber}
-                  customComponents={this.customComponents}
-                  customHandlers={customHandlers}
-                  handleSubmit={noop}
-                  initialValues={{ ...policy, billing }}
-                  options={{agents, policyDocuments}}  // enums for select/radio fields
-                  path={location.pathname}
-                  template={gandalfTemplate}
-                  transformConfig={transformConfig}
-                  renderFooter={noop}
-                />
-                <Footer />
-              </React.Fragment>}
-          </div>
+          )}
+          {/*{ Gandalf will be replacing most/all of these routes }*/}
+          {gandalfTemplate && (
+            <React.Fragment>
+              <Gandalf
+                formId={FORM_ID}
+                className="survey-wrapper"
+                currentPage={currentStepNumber}
+                customComponents={this.customComponents}
+                customHandlers={customHandlers}
+                handleSubmit={noop}
+                initialValues={{ ...policy, billing }}
+                options={{ agents, policyDocuments }} // enums for select/radio fields
+                path={location.pathname}
+                template={gandalfTemplate}
+                transformConfig={transformConfig}
+                renderFooter={noop}
+              />
+              <Footer />
+            </React.Fragment>
+          )}
+        </div>
       </App>
     );
   }
@@ -188,7 +223,7 @@ PolicyWorkflow.propTypes = {
   clearPolicy: PropTypes.func,
   policy: PropTypes.shape(),
   agents: PropTypes.array,
-  policyDocuments: PropTypes.array,
+  policyDocuments: PropTypes.array
 };
 
 const mapStateToProps = state => ({
@@ -197,11 +232,14 @@ const mapStateToProps = state => ({
   headerDetails: getPolicyDetails(state),
   agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
-  error: state.error,
+  error: state.error
 });
-export default connect(mapStateToProps, {
-  setAppModalErrorAction: setAppModalError,
-  clearPolicyResultsAction: clearPolicyResults,
-  initializePolicyWorkflow,
-  clearPolicy,
-  })(PolicyWorkflow);
+export default connect(
+  mapStateToProps,
+  {
+    setAppModalErrorAction: setAppModalError,
+    clearPolicyResultsAction: clearPolicyResults,
+    initializePolicyWorkflow,
+    clearPolicy
+  }
+)(PolicyWorkflow);

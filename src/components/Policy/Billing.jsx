@@ -9,40 +9,57 @@ export const Billing = ({ policy, policyNumber, billing }) => {
   let nextPayment;
   if (billing) {
     if (billing.billToType === 'Additional Interest') {
-      const ai = policy.additionalInterests.find(p => billing.billToId === p._id);
+      const ai = policy.additionalInterests.find(
+        p => billing.billToId === p._id
+      );
       billing.billToName = `${ai.type}: ${ai.name1} ${ai.name2}`;
     } else {
       const ph = policy.policyHolders.find(p => billing.billToId === p._id);
       billing.billToName = `Policyholder: ${ph.firstName} ${ph.lastName}`;
     }
 
-    paymentDue = (billing.invoiceDueDate)
+    paymentDue = billing.invoiceDueDate
       ? moment.utc(billing.invoiceDueDate).format('MM/DD/YYYY')
       : '-';
 
-    balanceDue = parseFloat(billing.balance.$numberDecimal)
-      .toLocaleString('en', { minimumFractionDigits: 2 });
-    nextPayment = parseFloat(billing.noticeAmountDue.$numberDecimal)
-      .toLocaleString('en', { minimumFractionDigits: 2 });
+    balanceDue = parseFloat(billing.balance.$numberDecimal).toLocaleString(
+      'en',
+      { minimumFractionDigits: 2 }
+    );
+    nextPayment = parseFloat(
+      billing.noticeAmountDue.$numberDecimal
+    ).toLocaleString('en', { minimumFractionDigits: 2 });
   }
 
   return (
     <React.Fragment>
-      {billing &&
+      {billing && (
         <div className="route-content">
           <div className="detail-group policy-details">
             <section className="display-element premium left">
-              <h3 className="section-group-header"><i className="fa fa-area-chart" /> Premium</h3>
+              <h3 className="section-group-header">
+                <i className="fa fa-area-chart" /> Premium
+              </h3>
               <dl>
                 <div data-test="currentPremium">
                   <dt>Current Premium</dt>
-                  <dd>$ {billing.currentPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
+                  <dd>
+                    ${' '}
+                    {billing.currentPremium.toLocaleString('en', {
+                      minimumFractionDigits: 2
+                    })}
+                  </dd>
                 </div>
               </dl>
               <dl>
                 <div data-test="initialPremium">
                   <dt>Initial Premium</dt>
-                  <dd>$ {billing.initialPremium.toLocaleString('en', { minimumFractionDigits: 2 })}</dd>
+                  <dd>
+                    ${' '}
+                    {billing.initialPremium.toLocaleString('en', {
+                      minimumFractionDigits: 2
+                    })}
+                  </dd>
                 </div>
               </dl>
               <dl>
@@ -53,7 +70,9 @@ export const Billing = ({ policy, policyNumber, billing }) => {
               </dl>
             </section>
             <section className="display-element billing-information right">
-              <h3 className="section-group-header"><i className="fa fa-dollar" /> Billing Information</h3>
+              <h3 className="section-group-header">
+                <i className="fa fa-dollar" /> Billing Information
+              </h3>
               <dl>
                 <div data-test="nextPayment">
                   <dt>Next Payment</dt>
@@ -80,24 +99,28 @@ export const Billing = ({ policy, policyNumber, billing }) => {
               </dl>
             </section>
             <section className="display-element payments">
-              <h3 className="section-group-header"><i className="fa fa-credit-card" /> Payments</h3>
+              <h3 className="section-group-header">
+                <i className="fa fa-credit-card" /> Payments
+              </h3>
               <div className="">
                 <PaymentHistoryTable paymentHistory={billing.payments} />
               </div>
               <div className="payments-received">
-                <h4>Payments Received: $ {billing.cashReceived.$numberDecimal}</h4>
+                <h4>
+                  Payments Received: $ {billing.cashReceived.$numberDecimal}
+                </h4>
               </div>
             </section>
           </div>
         </div>
-      }
+      )}
     </React.Fragment>
   );
 };
 
 Billing.propTypes = {
   billing: PropTypes.shape(),
-  policy: PropTypes.shape(),
+  policy: PropTypes.shape()
 };
 
 export default Billing;

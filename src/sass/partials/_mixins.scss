@@ -1,18 +1,13 @@
-
 // Toggles
 //
 // Used in conjunction with global variables to enable certain theme features.
 
 @mixin box-shadow($shadow...) {
-
-    box-shadow: $shadow;
-
+  box-shadow: $shadow;
 }
 
 @mixin transition($transition...) {
-
-    transition: $transition;
-
+  transition: $transition;
 }
 
 // Utilities
@@ -24,7 +19,7 @@
 //@import "mixins/resize";
 //@import "mixins/screen-reader";
 //@import "mixins/size";
-@import "mixins/_tab-focus";
+@import 'mixins/_tab-focus';
 //@import "mixins/reset-text";
 //@import "mixins/text-emphasis";
 //@import "mixins/text-hide";
@@ -38,13 +33,13 @@
 //@import "mixins/lists";
 //@import "mixins/list-group";
 //@import "mixins/nav-divider";
-@import "mixins/_forms";
+@import 'mixins/_forms';
 //@import "mixins/progress";
 //@import "mixins/table-row";
 
 // // Skins
 //@import "mixins/background-variant";
-@import "mixins/_border-radius";
+@import 'mixins/_border-radius';
 //@import "mixins/gradients";
 
 // // Layout

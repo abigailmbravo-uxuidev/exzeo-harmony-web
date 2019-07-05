@@ -4,7 +4,12 @@ import { fireEvent } from 'react-testing-library';
 import {
   renderWithReduxAndRouter,
   defaultQuoteWorkflowProps,
-  checkRadio, checkSwitch, checkSlider, checkHeader, checkLabel, checkOutput,
+  checkRadio,
+  checkSwitch,
+  checkSlider,
+  checkHeader,
+  checkLabel,
+  checkOutput,
   setSliderValue
 } from '../../../test-utils';
 import { format } from '@exzeo/core-ui';
@@ -68,7 +73,8 @@ const fields = [
     dataTest: 'coverageLimits.moldProperty.value',
     required: true,
     type: 'radio',
-    label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
+    label:
+      'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
     values: ['10000', '25000', '50000'],
     defaultValue: '10000',
     format: format.toCurrency
@@ -77,7 +83,8 @@ const fields = [
     dataTest: 'coverageLimits.moldLiability.value',
     required: true,
     type: 'radio',
-    label: 'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
+    label:
+      'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
     values: ['50000', '100000'],
     defaultValue: '50000',
     format: format.toCurrency
@@ -114,7 +121,7 @@ const fields = [
     values: ['2', '5', '10'],
     defaultValue: '2',
     format: x => `${x}% of Dwelling Limit`,
-    outputValues: ['$ 8,160', '$ 20,400', '$ 40,800'],
+    outputValues: ['$ 8,160', '$ 20,400', '$ 40,800']
   },
   {
     dataTest: 'deductibles.sinkhole.value',
@@ -227,48 +234,65 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   };
 
   it('NEG:Dwelling Limit', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
-    fields.filter(({ type }) => type === 'slider')
+    fields
+      .filter(({ type }) => type === 'slider')
       .forEach(({ dataTest }) => {
         const input = getByTestId(`${dataTest}-input`);
 
-        fireEvent.change(input, { target: { value: '0' }});
+        fireEvent.change(input, { target: { value: '0' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '124000' }});
+        fireEvent.change(input, { target: { value: '124000' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '2100000' }});
+        fireEvent.change(input, { target: { value: '2100000' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '3000000' }});
+        fireEvent.change(input, { target: { value: '3000000' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
 
-        fireEvent.change(input, { target: { value: '999999999' }});
+        fireEvent.change(input, { target: { value: '999999999' } });
         fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(/Not a valid range./);
+        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+          /Not a valid range./
+        );
       });
   });
 
   it('POS:Checks all fields', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     fields.forEach(field => {
-        checkLabel(getByTestId, field);
-        if (field.type === 'radio') checkRadio(getByTestId, field);
-        if (field.type === 'switch') checkSwitch(getByTestId, field);
-        if (field.type === 'slider') checkSlider(getByTestId, field);
-        if (field.type === 'output') checkOutput(getByTestId, field);
-      });
+      checkLabel(getByTestId, field);
+      if (field.type === 'radio') checkRadio(getByTestId, field);
+      if (field.type === 'switch') checkSwitch(getByTestId, field);
+      if (field.type === 'slider') checkSlider(getByTestId, field);
+      if (field.type === 'output') checkOutput(getByTestId, field);
+    });
   });
 
   it('POS:Checks Header Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
@@ -281,18 +305,37 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       'coverageLimits.lossOfUse.value_wrapper',
       'deductibles.hurricane.value_wrapper'
     ];
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     const slider = getByTestId('coverageLimits.dwelling.value-slider');
 
     const setSliderAndCheckOutput = (value, { dataTest, outputValue }) => {
       setSliderValue(slider, value);
-      expect(document.querySelector(`[data-test="${dataTest}"] output`)).toHaveTextContent(outputValue);
+      expect(
+        document.querySelector(`[data-test="${dataTest}"] output`)
+      ).toHaveTextContent(outputValue);
     };
 
-    setSliderAndCheckOutput('350000', { dataTest: outputFields[0], outputValue: '$ 7,000' });
-    setSliderAndCheckOutput('380000', { dataTest: outputFields[1], outputValue: '$ 87,500' });
-    setSliderAndCheckOutput('380000', { dataTest: outputFields[2], outputValue: '$ 2,000' });
-    setSliderAndCheckOutput('303000', { dataTest: outputFields[3], outputValue: '$ 30,300' });
-    setSliderAndCheckOutput('295000', { dataTest: outputFields[4], outputValue: '$ 5,900' });
+    setSliderAndCheckOutput('350000', {
+      dataTest: outputFields[0],
+      outputValue: '$ 7,000'
+    });
+    setSliderAndCheckOutput('380000', {
+      dataTest: outputFields[1],
+      outputValue: '$ 87,500'
+    });
+    setSliderAndCheckOutput('380000', {
+      dataTest: outputFields[2],
+      outputValue: '$ 2,000'
+    });
+    setSliderAndCheckOutput('303000', {
+      dataTest: outputFields[3],
+      outputValue: '$ 30,300'
+    });
+    setSliderAndCheckOutput('295000', {
+      dataTest: outputFields[4],
+      outputValue: '$ 5,900'
+    });
   });
 });

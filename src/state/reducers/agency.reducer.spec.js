@@ -1,4 +1,3 @@
-
 import * as types from '../actions/actionTypes';
 
 import initialState from './initialState';
@@ -13,7 +12,10 @@ describe('Agency State Reducer', () => {
       agencies: inputProps
     };
 
-    expect(agencyStateReducer(state, action)).toEqual({ ...initialState.agencyState, agencies: inputProps });
+    expect(agencyStateReducer(state, action)).toEqual({
+      ...initialState.agencyState,
+      agencies: inputProps
+    });
   });
 
   it('should call agencyStateReducer SET_AGENTS', () => {
@@ -24,6 +26,9 @@ describe('Agency State Reducer', () => {
       agents: inputProps
     };
 
-    expect(agencyStateReducer(state, action)).toEqual({ ...initialState.agencyState, agents: inputProps });
+    expect(agencyStateReducer(state, action)).toEqual({
+      ...initialState.agencyState,
+      agents: inputProps
+    });
   });
 });

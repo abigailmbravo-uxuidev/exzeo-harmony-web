@@ -21,7 +21,7 @@ describe('Testing Search component', () => {
       fieldQuestions: [],
       quote: {},
       dispatch: store.dispatch,
-      userProfile: { entity: {}},
+      userProfile: { entity: {} },
       appState: {
         data: {
           submitting: false
@@ -32,8 +32,7 @@ describe('Testing Search component', () => {
     const wrapper = shallow(<Search {...props} />);
     expect(wrapper);
     const address = {
-      physicalAddress:
-      {
+      physicalAddress: {
         address1: '1000 Poplar Ave',
         address2: null,
         city: 'Tampa',

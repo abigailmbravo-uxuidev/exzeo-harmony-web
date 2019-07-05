@@ -15,7 +15,10 @@ export default function userReducer(state = initialState.error, action) {
     case types.APP_ERROR_CLEAR:
       return {};
     case persistTypes.REHYDRATE:
-      newState = (action.payload && action.payload.error) ? action.payload.error : newState;
+      newState =
+        action.payload && action.payload.error
+          ? action.payload.error
+          : newState;
       return newState;
     default:
       return state;

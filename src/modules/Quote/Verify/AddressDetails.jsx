@@ -11,14 +11,19 @@ export const AddressDetails = ({ address }) => {
         </div>
         <div className="mailing-zip-code">
           <dt>City/State/Zip</dt>
-          <dd>{address.city}, {address.state} {address.zip}</dd>
+          <dd>
+            {address.city}, {address.state} {address.zip}
+          </dd>
         </div>
         <div className="mailing-country">
           <dt>Country</dt>
-          <dd>{address && address.country ? address.country.displayText : 'USA'}</dd>
+          <dd>
+            {address && address.country ? address.country.displayText : 'USA'}
+          </dd>
         </div>
       </dl>
-    </section>);
+    </section>
+  );
 };
 
 AddressDetails.defaultProps = {

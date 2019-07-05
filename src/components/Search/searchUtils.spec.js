@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { generateField, getErrorToolTip } from './searchUtils';
 
@@ -9,10 +8,16 @@ describe('Search Utils', () => {
   });
 
   it('tests generateField with errors', () => {
-    const field = generateField('test', 'place', 'label', { test: 'error' }, '', 'true');
+    const field = generateField(
+      'test',
+      'place',
+      'label',
+      { test: 'error' },
+      '',
+      'true'
+    );
     expect(field.props.className).toEqual('form-group error ');
   });
-
 
   it('tests getErrorToolTip no error', () => {
     const field = getErrorToolTip(null, 'test');

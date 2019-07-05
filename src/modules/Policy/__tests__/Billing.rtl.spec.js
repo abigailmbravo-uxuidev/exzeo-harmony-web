@@ -33,13 +33,17 @@ describe('Policy Billing Page testing', () => {
   };
 
   it('POS:Checks headers', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Premium Details Details', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const sectionData = [
       { label: 'Current Premium', value: '$ 2,667.00' },
       { label: 'Initial Premium', value: '$ 2,667.00' },
@@ -52,7 +56,9 @@ describe('Policy Billing Page testing', () => {
   });
 
   it('POS:Billing Information Details', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const sectionData = [
       { label: 'Next Payment', value: '$ 2,667.00' },
       { label: 'Payment Due', value: '06/07/2019' },
@@ -83,10 +89,22 @@ describe('Policy Billing Page testing', () => {
       }
     };
 
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...newProps} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...newProps} />
+    );
     const payments = [
-      { date: '2019-05-15', type: 'Paper Deposit', description: 'Duplicate Payment Applied in Error', amount: '$ 100.00' },
-      { date: '2019-06-01', type: 'AAA type', description: 'ZZZ description', amount: '$ 40.00' },
+      {
+        date: '2019-05-15',
+        type: 'Paper Deposit',
+        description: 'Duplicate Payment Applied in Error',
+        amount: '$ 100.00'
+      },
+      {
+        date: '2019-06-01',
+        type: 'AAA type',
+        description: 'ZZZ description',
+        amount: '$ 40.00'
+      }
     ];
     const checkRows = () =>
       document.querySelectorAll('tbody tr').forEach(($row, i) => {
@@ -133,7 +151,9 @@ describe('Policy Billing Page testing', () => {
       }
     };
 
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...emptyBillingProps} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...emptyBillingProps} />
+    );
 
     expect(getByText('There is no data to display'));
     expect(getByText('Payments Received: $ 0.00'));

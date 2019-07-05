@@ -29,13 +29,17 @@ describe('Policy Coverage Page testing', () => {
   };
 
   it('POS:Checks headers', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Coverage Limits Details', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const sectionData = [
       { label: 'A. Dwelling', value: '$ 314,000' },
       { label: 'B. Other Structures', value: '$ 6,280' },
@@ -49,7 +53,7 @@ describe('Policy Coverage Page testing', () => {
       { label: 'Ordinance or Law', value: '25%' },
       { label: 'All other Perils Deductible', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '$ 6,280' },
-      { label: 'Sinkhole Deductible', value: '$ 31,400' },
+      { label: 'Sinkhole Deductible', value: '$ 31,400' }
     ];
 
     sectionData.forEach(({ label, value }) =>
@@ -58,7 +62,9 @@ describe('Policy Coverage Page testing', () => {
   });
 
   it('POS:Discount / Surcharge Details', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const sectionData = [
       { label: 'Townhouse/Rowhouse', value: 'No' },
       { label: 'Property Ever Rented', value: 'Never' },
@@ -67,7 +73,7 @@ describe('Policy Coverage Page testing', () => {
       { label: 'Burglar Alarm', value: 'No' },
       { label: 'Fire Alarm', value: 'No' },
       { label: 'Sprinkler', value: 'No' },
-      { label: 'Wind Mit Factor', value: '0' },
+      { label: 'Wind Mit Factor', value: '0' }
     ];
 
     sectionData.forEach(({ label, value }) =>
@@ -76,7 +82,9 @@ describe('Policy Coverage Page testing', () => {
   });
 
   it('POS:Deductible Details', () => {
-    const { getAllByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getAllByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const sectionData = [
       { label: 'All other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
@@ -84,7 +92,7 @@ describe('Policy Coverage Page testing', () => {
     ];
 
     sectionData.forEach(({ label, value }) =>
-    // Since these labels can we repeat we have to confirm we're getting the last one on the page
+      // Since these labels can we repeat we have to confirm we're getting the last one on the page
       expect(getAllByText(label).pop().nextSibling.textContent).toEqual(value)
     );
   });

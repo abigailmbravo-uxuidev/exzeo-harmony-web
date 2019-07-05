@@ -66,7 +66,9 @@ export async function fetchAddresses(address) {
 
   try {
     const response = await serviceRunner.callService(config, 'fetchAddresses');
-    return response && response.data && response.data.result ? response.data.result : {};
+    return response && response.data && response.data.result
+      ? response.data.result
+      : {};
   } catch (error) {
     throw error;
   }
@@ -78,7 +80,7 @@ export async function fetchAddresses(address) {
  * @returns {Function}
  */
 export function searchAddresses(address) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch(toggleLoading(true));
       const results = await fetchAddresses(address);
@@ -102,7 +104,7 @@ export async function fetchQuotes({
   pageNumber,
   pageSize,
   sort,
-  sortDirection,
+  sortDirection
 }) {
   const config = {
     service: 'quote-data',
@@ -112,7 +114,9 @@ export async function fetchQuotes({
 
   try {
     const response = await serviceRunner.callService(config, 'fetchQuotes');
-    return response && response.data && response.data.result ? response.data.result : {};
+    return response && response.data && response.data.result
+      ? response.data.result
+      : {};
   } catch (error) {
     throw error;
   }
@@ -142,7 +146,7 @@ function formatQuoteResults(results) {
  * @returns {Function}
  */
 export function searchQuotes(quoteSearchData) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch(toggleLoading(true));
       const results = await fetchQuotes(quoteSearchData);
@@ -160,7 +164,7 @@ export function searchQuotes(quoteSearchData) {
  * @returns {Function}
  */
 export function clearResults() {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       dispatch(setSearchResults({}));
     } catch (error) {

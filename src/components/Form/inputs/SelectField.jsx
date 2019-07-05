@@ -16,15 +16,18 @@ export const SelectInput = ({
   const { onChange, name, value, disabled } = input;
   const { touched, error, warning } = meta;
 
-  const formGroupStyles = classNames('form-group select',
+  const formGroupStyles = classNames(
+    'form-group select',
     styleName,
     name,
     { valid: touched && !error },
     { error: touched && error }
   );
 
-  const Hint = hint && (<FieldHint name={name} hint={hint} />);
-  const Error = touched && (error || warning) && <span style={{ color: 'red' }}>{error || warning}</span>;
+  const Hint = hint && <FieldHint name={name} hint={hint} />;
+  const Error = touched && (error || warning) && (
+    <span style={{ color: 'red' }}>{error || warning}</span>
+  );
 
   return (
     <div className={`${formGroupStyles} ${value}`} id={name} data-test={name}>
@@ -41,34 +44,47 @@ export const SelectInput = ({
           onChange={onChange}
           aria-activedescendant={value}
         >
-          <option aria-label={'Please select...'} disabled value={''}>Please select...</option>
+          <option aria-label={'Please select...'} disabled value={''}>
+            Please select...
+          </option>
           {answers.map((answer, index) => (
             <option
               aria-label={answer.label || answer.answer}
-              value={answer.answer} key={index}
+              value={answer.answer}
+              key={index}
             >
               {answer.label || answer.answer}
             </option>
           ))}
         </select>
       ) : null}
-      { Error }
+      {Error}
     </div>
   );
 };
 
 SelectInput.propTypes = {
-  answers: PropTypes.arrayOf(PropTypes.shape({
-    answer: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string]),
-    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    image: PropTypes.string
-  })),
+  answers: PropTypes.arrayOf(
+    PropTypes.shape({
+      answer: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.number,
+        PropTypes.string
+      ]),
+      label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      image: PropTypes.string
+    })
+  ),
   hint: PropTypes.string,
   input: PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.string])
+    value: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.string
+    ])
   }),
   label: PropTypes.string,
   meta: PropTypes.shape({

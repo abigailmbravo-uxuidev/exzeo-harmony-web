@@ -25,13 +25,17 @@ describe('Policy Property Page testing', () => {
   };
 
   it('POS:Checks headers', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByText, header));
   });
 
   it('POS:Home and Location testing', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const sectionData = [
       { label: 'Year Home Built', value: '1998' },
       { label: 'Protection Class', value: '3' },
@@ -52,7 +56,9 @@ describe('Policy Property Page testing', () => {
   });
 
   it('POS:Wind Mitigation testing', () => {
-    const { getByText } = renderWithReduxAndRouter(<PolicyWorkflow {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...props} />
+    );
     const sectionData = [
       { label: 'Roof Covering', value: 'test covering' },
       { label: 'Roof Geometry', value: 'test geometry' },
@@ -65,7 +71,7 @@ describe('Policy Property Page testing', () => {
       { label: 'Roof to Wall Attachment', value: 'test roof to wall value' },
       { label: 'Opening Protection', value: 'test op' },
       { label: 'Terrain', value: 'B' },
-      { label: 'Wind Mit Factor', value: '0' },
+      { label: 'Wind Mit Factor', value: '0' }
     ];
 
     sectionData.forEach(({ label, value }) =>

@@ -109,7 +109,9 @@ describe('Testing the Mailing/Billing Page', () => {
     quote: {
       ...defaultQuoteWorkflowProps.quote,
       policyHolders: [policyHolder],
-      additionalInterests: [{ ...additionalInterest, _id: '1234', type: 'Mortgagee' }]
+      additionalInterests: [
+        { ...additionalInterest, _id: '1234', type: 'Mortgagee' }
+      ]
     },
     location: { pathname: '/quote/12-345-67/mailingBilling' }
   };
@@ -118,7 +120,9 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('NEG:Tests all empty values', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     submitForm(getByTestId);
@@ -127,37 +131,59 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('NEG:Tests Mailing Address empty values', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => expect(getByTestId('billPlan_Annual')));
 
-    requiredFields.forEach(fieldToLeaveBlank => verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank]));
+    requiredFields.forEach(fieldToLeaveBlank =>
+      verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank])
+    );
   });
 
   it('NEG:Tests Invalid Input Values', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
-    const state = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.state');
-    const zip = fields.find(({ dataTest }) => dataTest === 'policyHolderMailingAddress.zip');
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
+    const state = fields.find(
+      ({ dataTest }) => dataTest === 'policyHolderMailingAddress.state'
+    );
+    const zip = fields.find(
+      ({ dataTest }) => dataTest === 'policyHolderMailingAddress.zip'
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
-    verifyForm(getByTestId, [{
-      ...state, value: 'foo', error: 'Only 2 letters allowed'
-    }]);
-    verifyForm(getByTestId, [{
-      ...zip, value: '123456789', error: 'Only 8 letters or numbers allowed'
-    }]);
+    verifyForm(getByTestId, [
+      {
+        ...state,
+        value: 'foo',
+        error: 'Only 2 letters allowed'
+      }
+    ]);
+    verifyForm(getByTestId, [
+      {
+        ...zip,
+        value: '123456789',
+        error: 'Only 8 letters or numbers allowed'
+      }
+    ]);
   });
 
   it('POS:Checks all headers', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
 
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
   it('POS:Checks all labels', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => checkLabel(getByTestId, field));
@@ -165,7 +191,9 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks all inputs', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => {
@@ -181,7 +209,11 @@ describe('Testing the Mailing/Billing Page', () => {
       options: [
         ...result.options,
         {
-          additionalInterest: { ...additionalInterest, _id: '1234', type: 'Mortgagee' },
+          additionalInterest: {
+            ...additionalInterest,
+            _id: '1234',
+            type: 'Mortgagee'
+          },
           billToId: '1234',
           billToType: 'Additional Interest',
           displayText: 'BANK OF AMERICA, NA ISAOA/ATIMA',
@@ -189,31 +221,46 @@ describe('Testing the Mailing/Billing Page', () => {
         }
       ]
     });
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
     // Should be nothing inside of the bill plan tag since no option is selected by default
     expect(document.getElementById('billPlan').innerHtml).toBeUndefined();
 
-    fields.filter(({ type }) => type === 'select')
+    fields
+      .filter(({ type }) => type === 'select')
       .forEach(field => checkSelect(getByTestId, field));
   });
 
   it('POS:Checks toggle fills out data', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fireEvent.click(getByTestId('sameAsPropertyAddress'));
-    expect(getByTestId('policyHolderMailingAddress.address1').value).toBe('4131 TEST ADDRESS');
-    expect(getByTestId('policyHolderMailingAddress.address2').value).toEqual('TEST SECOND ADDRESS');
-    expect(getByTestId('policyHolderMailingAddress.city').value).toEqual('SARASOTA');
+    expect(getByTestId('policyHolderMailingAddress.address1').value).toBe(
+      '4131 TEST ADDRESS'
+    );
+    expect(getByTestId('policyHolderMailingAddress.address2').value).toEqual(
+      'TEST SECOND ADDRESS'
+    );
+    expect(getByTestId('policyHolderMailingAddress.city').value).toEqual(
+      'SARASOTA'
+    );
     expect(getByTestId('policyHolderMailingAddress.state').value).toEqual('FL');
-    expect(getByTestId('policyHolderMailingAddress.zip').value).toEqual('00001');
+    expect(getByTestId('policyHolderMailingAddress.zip').value).toEqual(
+      '00001'
+    );
   });
 
   it('POS:Checks installment text', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
@@ -225,7 +272,9 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks Submit Button', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(<QuoteWorkflow {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
     await waitForElement(() => getByTestId('billPlan_label'));
 
     checkButton(getByTestId);

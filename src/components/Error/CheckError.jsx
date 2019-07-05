@@ -6,16 +6,16 @@ import { Redirect } from 'react-router-dom';
 const ERROR_PATH = '/error';
 
 export const CheckError = ({ error, redirectUrl }) => {
-  return error && error.message
-    ? <Redirect to={{ pathname: ERROR_PATH, state: { redirectUrl } }} />
-    : null;
+  return error && error.message ? (
+    <Redirect to={{ pathname: ERROR_PATH, state: { redirectUrl } }} />
+  ) : null;
 };
 
 CheckError.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string
   }).isRequired,
-  redirectUrl: PropTypes.string,
+  redirectUrl: PropTypes.string
 };
 
 CheckError.defaultProps = {

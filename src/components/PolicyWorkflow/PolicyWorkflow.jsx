@@ -10,7 +10,7 @@ import { setAppModalError } from '../../state/actions/errorActions';
 import {
   clearPolicyResults,
   clearPolicy,
-  initializePolicyWorkflow,
+  initializePolicyWorkflow
 } from '../../state/actions/serviceActions';
 import DocumentsView from '../Policy/Documents';
 import PolicyHolderView from '../Policy/PolicyHolder';
@@ -22,7 +22,12 @@ import Footer from '../Common/Footer';
 
 export class PolicyWorkflow extends Component {
   componentDidMount() {
-    const { match: { params: { policyNumber } }, initializePolicyWorkflow } = this.props;
+    const {
+      match: {
+        params: { policyNumber }
+      },
+      initializePolicyWorkflow
+    } = this.props;
     initializePolicyWorkflow(policyNumber);
   }
 
@@ -36,7 +41,10 @@ export class PolicyWorkflow extends Component {
       details,
       error,
       location,
-      match: { params: { policyNumber }, url },
+      match: {
+        params: { policyNumber },
+        url
+      },
       billing,
       policy,
       agents,
@@ -58,12 +66,16 @@ export class PolicyWorkflow extends Component {
         showEffectiveDateButton: false,
         showReinstateButton: false,
         fields: [
-          { value: 'policyHolder', component: 'Section', label: 'Policyholder' },
+          {
+            value: 'policyHolder',
+            component: 'Section',
+            label: 'Policyholder'
+          },
           { value: 'mailingAddress', component: 'Section' },
           { value: 'propertyAddress', component: 'Section' },
           { value: 'county', label: 'Property County' },
           { value: 'policyNumber' },
-          { value: 'effectiveDate' },
+          { value: 'effectiveDate' }
         ]
       },
       AF3: {
@@ -71,12 +83,16 @@ export class PolicyWorkflow extends Component {
         showEffectiveDateButton: false,
         showReinstateButton: false,
         fields: [
-          { value: 'policyHolder', component: 'Section', label: 'Policyholder' },
+          {
+            value: 'policyHolder',
+            component: 'Section',
+            label: 'Policyholder'
+          },
           { value: 'mailingAddress', component: 'Section' },
           { value: 'propertyAddress', component: 'Section' },
           { value: 'county', label: 'Property County' },
           { value: 'policyNumber' },
-          { value: 'effectiveDate' },
+          { value: 'effectiveDate' }
         ]
       }
     };
@@ -92,11 +108,45 @@ export class PolicyWorkflow extends Component {
           <div className="scroll">
             <div className="detail-wrapper">
               <PolicyTabs activeTab={activeTab} policyNumber={policyNumber} />
-              <Route exact path={`${url}/policyHolder`} render={() => <PolicyHolderView auth={auth} policy={policy} agents={agents} />} />
-              <Route exact path={`${url}/property`} render={() => <PropertyView auth={auth} policy={policy} />} />
-              <Route exact path={`${url}/coverage`} render={() => <CoverageView auth={auth} policy={policy} />} />
-              <Route exact path={`${url}/billing`} render={() => <BillingView auth={auth} policy={policy} billing={billing} />} />
-              <Route exact path={`${url}/documents`} render={() => <DocumentsView auth={auth} policyDocuments={policyDocuments} setAppModalErrorAction={setAppModalErrorAction} />} />
+              <Route
+                exact
+                path={`${url}/policyHolder`}
+                render={() => (
+                  <PolicyHolderView
+                    auth={auth}
+                    policy={policy}
+                    agents={agents}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path={`${url}/property`}
+                render={() => <PropertyView auth={auth} policy={policy} />}
+              />
+              <Route
+                exact
+                path={`${url}/coverage`}
+                render={() => <CoverageView auth={auth} policy={policy} />}
+              />
+              <Route
+                exact
+                path={`${url}/billing`}
+                render={() => (
+                  <BillingView auth={auth} policy={policy} billing={billing} />
+                )}
+              />
+              <Route
+                exact
+                path={`${url}/documents`}
+                render={() => (
+                  <DocumentsView
+                    auth={auth}
+                    policyDocuments={policyDocuments}
+                    setAppModalErrorAction={setAppModalErrorAction}
+                  />
+                )}
+              />
             </div>
           </div>
         </div>
@@ -121,7 +171,7 @@ PolicyWorkflow.propTypes = {
   clearPolicy: PropTypes.func,
   policy: PropTypes.shape(),
   agents: PropTypes.array,
-  policyDocuments: PropTypes.array,
+  policyDocuments: PropTypes.array
 };
 
 const mapStateToProps = state => ({
@@ -130,11 +180,14 @@ const mapStateToProps = state => ({
   details: getPolicyDetails(state),
   agents: state.agencyState.agents,
   policyDocuments: state.service.policyDocuments || [],
-  error: state.error,
+  error: state.error
 });
-export default connect(mapStateToProps, {
-  setAppModalErrorAction: setAppModalError,
-  clearPolicyResultsAction: clearPolicyResults,
-  initializePolicyWorkflow,
-  clearPolicy,
-  })(PolicyWorkflow);
+export default connect(
+  mapStateToProps,
+  {
+    setAppModalErrorAction: setAppModalError,
+    clearPolicyResultsAction: clearPolicyResults,
+    initializePolicyWorkflow,
+    clearPolicy
+  }
+)(PolicyWorkflow);

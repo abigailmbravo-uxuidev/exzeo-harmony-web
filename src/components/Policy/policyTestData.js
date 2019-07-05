@@ -55,7 +55,9 @@ const policyTestData = {
     pool: false
   },
   rating: {
-    worksheet: { elements: { windMitigationFactors: { windMitigationDiscount: 0.5 } } },
+    worksheet: {
+      elements: { windMitigationFactors: { windMitigationDiscount: 0.5 } }
+    },
     engineCode: 'HO3ByPeril',
     rateCode: '0417',
     _id: '5866c036a46eb72908f3f548'
@@ -310,4 +312,3 @@ const policyTestData = {
 };
 
 export default policyTestData;
-

@@ -11,7 +11,9 @@ export const Property = ({ policy }) => {
       <div className="route-content">
         <div className="detail-group property-details">
           <section className="display-element home-and-location">
-            <h3 className="section-group-header"><i className="fa fa-map-marker" /> Home and Location</h3>
+            <h3 className="section-group-header">
+              <i className="fa fa-map-marker" /> Home and Location
+            </h3>
             <div className="left">
               <dl>
                 <div data-test="yearHomeBuilt">
@@ -54,11 +56,11 @@ export const Property = ({ policy }) => {
               <dl>
                 <div data-test="distToFireHydrant">
                   <dt>Dist. to Fire Hydrant</dt>
-                  <dd>{
-                    property.distanceToFireHydrant
+                  <dd>
+                    {property.distanceToFireHydrant
                       ? `${numbers(property.distanceToFireHydrant)} ft.`
-                      : '-'
-                  }</dd>
+                      : '-'}
+                  </dd>
                 </div>
               </dl>
               <dl>
@@ -82,8 +84,10 @@ export const Property = ({ policy }) => {
               <dl>
                 <div data-test="distToFireStation">
                   <dt>Dist. to Fire Station</dt>
-                  <dd>{property.distanceToFireStation}
-                  mi.</dd>
+                  <dd>
+                    {property.distanceToFireStation}
+                    mi.
+                  </dd>
                 </div>
               </dl>
               <dl>
@@ -95,7 +99,9 @@ export const Property = ({ policy }) => {
             </div>
           </section>
           <section className="display-element wind-mit">
-            <h3 className="section-group-header"><i className="fa fa-flag" /> Wind Mitigation</h3>
+            <h3 className="section-group-header">
+              <i className="fa fa-flag" /> Wind Mitigation
+            </h3>
             <div className="left">
               <dl>
                 <div data-test="roofCovering">
@@ -112,7 +118,9 @@ export const Property = ({ policy }) => {
               <dl>
                 <div data-test="windSpeed">
                   <dt>FBC Wind Speed</dt>
-                  <dd>{property.windMitigation.floridaBuildingCodeWindSpeed}</dd>
+                  <dd>
+                    {property.windMitigation.floridaBuildingCodeWindSpeed}
+                  </dd>
                 </div>
               </dl>
               <dl>
@@ -138,7 +146,9 @@ export const Property = ({ policy }) => {
               <dl>
                 <div data-test="windSpeedDesign">
                   <dt>FBC Wind Speed Design</dt>
-                  <dd>{property.windMitigation.floridaBuildingCodeWindSpeedDesign}</dd>
+                  <dd>
+                    {property.windMitigation.floridaBuildingCodeWindSpeedDesign}
+                  </dd>
                 </div>
               </dl>
               <dl>
@@ -168,7 +178,12 @@ export const Property = ({ policy }) => {
               <dl>
                 <div data-test="windMitFactor">
                   <dt>Wind Mit Factor</dt>
-                  <dd>{rating.worksheet.elements.windMitigationFactors.windMitigationDiscount}</dd>
+                  <dd>
+                    {
+                      rating.worksheet.elements.windMitigationFactors
+                        .windMitigationDiscount
+                    }
+                  </dd>
                 </div>
               </dl>
             </div>
