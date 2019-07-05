@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import { propTypes } from 'redux-form';
 import { mount } from 'enzyme';
 
-import ConnectedApp from './Callback';
+import ConnectedApp from '../Callback';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
