@@ -81,7 +81,7 @@ export const searchPolicy = ({
     {
       service: 'policy-data',
       method: 'GET',
-      path: `/transactions?companyCode=${companyCode}&state=${state}&product=${product}&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(
+      path: `/transactions?companyCode=${companyCode}&state=${state}&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(
         ' ',
         '&#32;'
       )}&page=${page}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`

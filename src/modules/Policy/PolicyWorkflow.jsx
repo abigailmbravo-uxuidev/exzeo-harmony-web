@@ -16,6 +16,7 @@ import { initializePolicyWorkflow } from '../../state/actions/serviceActions';
 import Footer from '../../components/Footer';
 import App from '../../components/AppWrapper';
 import HO3 from '../../mock-data/mockPolicyHO3';
+import AF3 from '../../mock-data/mockPolicyAF3';
 
 import PolicyNavigation from './PolicyNavigation';
 import { PAGE_ROUTING } from './constants/workflowNavigation';
@@ -32,7 +33,8 @@ const getCurrentStepAndPage = defaultMemoize(pathname => {
 });
 
 const TEMPLATES = {
-  HO3: HO3
+  HO3: HO3,
+  AF3: AF3
 };
 
 const FORM_ID = 'PolicyWorkflow';
