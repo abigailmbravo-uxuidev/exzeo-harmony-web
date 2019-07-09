@@ -1011,8 +1011,10 @@ const mock = {
                           label: 'Sinkhole Deductible',
                           items: [
                             {
-                              format: 'bool',
-                              path: 'deductibles.sinkhole.amount'
+                              format: 'conditionalPercent',
+                              path: 'deductibles.sinkhole.amount',
+                              conditions: [''],
+                              defaultValue: 'No'
                             }
                           ]
                         }

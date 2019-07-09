@@ -81,14 +81,37 @@ describe('Policy Coverage Page testing', () => {
     );
   });
 
-  it('POS:Deductible Details', () => {
+  it('POS:Deductible Details with sinkhole value', () => {
     const { getAllByText } = renderWithReduxAndRouter(
       <PolicyWorkflow {...props} />
     );
     const sectionData = [
       { label: 'All other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
-      { label: 'Sinkhole Deductible', value: 'Yes' }
+      { label: 'Sinkhole Deductible', value: '10%' }
+    ];
+
+    sectionData.forEach(({ label, value }) =>
+      // Since these labels can we repeat we have to confirm we're getting the last one on the page
+      expect(getAllByText(label).pop().nextSibling.textContent).toEqual(value)
+    );
+  });
+
+  it('POS:Deductible Details without sinkhole', () => {
+    const policyProps = {
+      ...defaultPolicyWorkflowProps,
+      location: { pathname: '/policy/12-345-67/coverage' }
+    };
+
+    delete policyProps.policy.deductibles.sinkhole;
+
+    const { getAllByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...policyProps} />
+    );
+    const sectionData = [
+      { label: 'All other Perils', value: '$ 1,000' },
+      { label: 'Hurricane Deductible', value: '2%' },
+      { label: 'Sinkhole Deductible', value: 'No' }
     ];
 
     sectionData.forEach(({ label, value }) =>
