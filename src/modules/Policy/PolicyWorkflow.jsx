@@ -140,8 +140,6 @@ export class PolicyWorkflow extends Component {
       setAppModalError: setAppModalError
     };
 
-    console.log(policy.policyNumber);
-
     return (
       <App
         errorRedirectUrl={location.pathname}
