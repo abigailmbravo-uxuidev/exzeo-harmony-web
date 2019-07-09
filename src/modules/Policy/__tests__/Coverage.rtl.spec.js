@@ -119,4 +119,17 @@ describe('Policy Coverage Page testing', () => {
       expect(getAllByText(label).pop().nextSibling.textContent).toEqual(value)
     );
   });
+
+  it('POS: Loader visible without policy', () => {
+    const policyProps = {
+      ...defaultPolicyWorkflowProps,
+      location: { pathname: '/policy/12-345-67/coverage' }
+    };
+
+    policyProps.policy = {};
+    const { getByTestId } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...policyProps} />
+    );
+    expect(getByTestId('loader')).toBeInTheDocument();
+  });
 });
