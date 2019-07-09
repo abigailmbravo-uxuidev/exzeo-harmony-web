@@ -49,6 +49,9 @@
         border-bottom-width: 0;
       }
 
+      &.policyholder-two-demographics {
+        justify-content: space-between;
+      }
       &.policyholder-one-demographics,
       &.agent-demographics {
         justify-content: space-between;
