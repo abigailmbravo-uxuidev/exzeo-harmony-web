@@ -49,6 +49,19 @@ describe('Policy Policyholder Page testing', () => {
     }
   };
 
+  it('Loader visible without policy', () => {
+    const policyProps = {
+      ...defaultPolicyWorkflowProps,
+      location: { pathname: '/policy/12-345-67/coverage' }
+    };
+
+    policyProps.policy = {};
+    const { getByTestId } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...policyProps} />
+    );
+    expect(getByTestId('loader')).toBeInTheDocument();
+  });
+
   it('Does not show 2nd ph when only one is present', () => {
     const { queryByText } = renderWithReduxAndRouter(
       <PolicyWorkflow {...props} />
