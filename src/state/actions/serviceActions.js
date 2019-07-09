@@ -140,6 +140,7 @@ export const initializePolicyWorkflow = policyNumber => {
     };
 
     try {
+      dispatch(clearPolicy());
       const [
         documentsResponse,
         billingResponse,

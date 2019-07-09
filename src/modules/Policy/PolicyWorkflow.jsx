@@ -11,7 +11,10 @@ import { Loader, emptyArray, emptyObject, noop } from '@exzeo/core-ui';
 
 import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
 import { setAppModalError } from '../../state/actions/errorActions';
-import { initializePolicyWorkflow } from '../../state/actions/serviceActions';
+import {
+  initializePolicyWorkflow,
+  clearPolicy
+} from '../../state/actions/serviceActions';
 
 import Footer from '../../components/Footer';
 import App from '../../components/AppWrapper';
@@ -66,6 +69,10 @@ export class PolicyWorkflow extends Component {
     initializePolicyWorkflow(match.params.policyNumber);
 
     this.getTemplate();
+  }
+
+  componentWillUnmount() {
+    this.props.clearPolicy();
   }
 
   // Temp fix for quote not being in state when component mounts on refresh (mostly a development time problem)
@@ -133,6 +140,8 @@ export class PolicyWorkflow extends Component {
       setAppModalError: setAppModalError
     };
 
+    console.log(policy.policyNumber);
+
     return (
       <App
         errorRedirectUrl={location.pathname}
@@ -140,7 +149,7 @@ export class PolicyWorkflow extends Component {
         match={match}
       >
         <div className="route policy">
-          {!gandalfTemplate && <Loader />}
+          {!gandalfTemplate || !policy.policyNumber ? <Loader /> : null}
           {gandalfTemplate && gandalfTemplate.header && (
             <React.Fragment>
               <DetailsHeader
@@ -207,6 +216,7 @@ export default connect(
   mapStateToProps,
   {
     setAppModalError,
-    initializePolicyWorkflow
+    initializePolicyWorkflow,
+    clearPolicy
   }
 )(PolicyWorkflow);
