@@ -659,11 +659,11 @@ const mock = {
                       className: 'coverage',
                       details: [
                         {
-                          label: 'A. Dwelling',
+                          label: 'A. Building',
                           items: [
                             {
                               format: 'currency',
-                              path: 'coverageLimits.dwelling.amount'
+                              path: 'coverageLimits.building.amount'
                             }
                           ]
                         },
@@ -695,109 +695,12 @@ const mock = {
                           ]
                         },
                         {
-                          label: 'E. Personal Liability',
-                          items: [
-                            {
-                              format: 'currency',
-                              path: 'coverageLimits.personalLiability.amount'
-                            }
-                          ]
-                        },
-                        {
-                          label: 'F. Medical Payments',
-                          items: [
-                            {
-                              format: 'currency',
-                              path: 'coverageLimits.medicalPayments.amount'
-                            }
-                          ]
-                        },
-                        {
                           label: 'Personal Property Replacement Cost',
                           items: [
                             {
                               format: 'bool',
                               path:
                                 'coverageOptions.personalPropertyReplacementCost.answer'
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  formData: {},
-                  children: []
-                }
-              ]
-            },
-            {
-              id: 30004444444400,
-              type: '$SECTION',
-              dependencies: [],
-              data: {
-                className: 'coverage-limits-right'
-              },
-              formData: {},
-              children: [
-                {
-                  id: 3003232323232320004,
-                  type: '$ENTITY_DETAILS',
-                  dependencies: [],
-                  data: {
-                    extendedProperties: {
-                      className: 'coverage',
-                      details: [
-                        {
-                          label: 'Mold Property',
-                          items: [
-                            {
-                              format: 'currency',
-                              path: 'coverageLimits.moldProperty.amount'
-                            }
-                          ]
-                        },
-                        {
-                          label: 'Mold Liability',
-                          items: [
-                            {
-                              format: 'currency',
-                              path: 'coverageLimits.moldLiability.amount'
-                            }
-                          ]
-                        },
-                        {
-                          label: 'Ordinance or Law',
-                          items: [
-                            {
-                              format: 'percent',
-                              path: 'coverageLimits.ordinanceOrLaw.amount'
-                            }
-                          ]
-                        },
-                        {
-                          label: 'All other Perils Deductible',
-                          items: [
-                            {
-                              format: 'currency',
-                              path: 'deductibles.allOtherPerils.amount'
-                            }
-                          ]
-                        },
-                        {
-                          label: 'Hurricane Deductible',
-                          items: [
-                            {
-                              format: 'currency',
-                              path: 'deductibles.hurricane.calculatedAmount'
-                            }
-                          ]
-                        },
-                        {
-                          label: 'Sinkhole Deductible',
-                          items: [
-                            {
-                              format: 'currency',
-                              path: 'deductibles.sinkhole.calculatedAmount'
                             }
                           ]
                         }
