@@ -88,7 +88,7 @@ describe('Policy Coverage Page testing', () => {
     const sectionData = [
       { label: 'All other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
-      { label: 'Sinkhole Deductible', value: '10%' }
+      { label: 'Sinkhole Deductible', value: 'Yes' }
     ];
 
     sectionData.forEach(({ label, value }) =>
