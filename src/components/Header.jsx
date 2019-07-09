@@ -16,7 +16,7 @@ const Header = ({ toggleSideNav }) => (
       <button className="btn-icon btn-bars" onClick={toggleSideNav}>
         <i className="fa fa-bars" />
       </button>
-      <a id="logo" className="logo" href="/">
+      <a id="logo" className="logo" href="/" data-test="logo">
         <img src={logo} alt="TypTap Insurance" />
       </a>
       <nav>

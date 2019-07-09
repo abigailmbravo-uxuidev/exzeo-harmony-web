@@ -21,6 +21,19 @@ describe('Retrieve Policy', () => {
       .wait('@searchPolicy').then(({ response }) => confirmPolicyOrQuote(response.body.policies, fields))
       .get('input[name="pageNumber"]').should('have.value', '2')
       .get('.policy-list li[tabindex=0] .policy-status').contains('Policy Issued').click()
+      // check for loader
+      .findDataTag('loader').should('exist')
       .wait('@getLatestPolicy').findDataTag('Policyholder 1')
+      // click home link in logo
+      .findDataTag('logo').click()
+      // // search policy again
+      .get('.card-footer a[href="/policy"]').click()
+      .get('#PolicySearchBar button[type="submit"]').click()
+      .wait('@searchPolicy')
+      .get('.policy-list .card').first().click()
+      // check for loader
+      .findDataTag('loader').should('exist')
+      .wait('@getLatestPolicy').findDataTag('Policyholder 1')
+      
   );
 });
