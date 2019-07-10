@@ -5,7 +5,7 @@ import {
   renderWithReduxAndRouter,
   defaultInitialState,
   quote,
-  underwritingException
+  fatalUnderwritingException
 } from '../../../test-utils';
 
 describe('Error testing', () => {
@@ -16,7 +16,7 @@ describe('Error testing', () => {
         ...defaultInitialState.quoteState,
         quote: {
           ...quote,
-          underwritingExceptions: [underwritingException]
+          underwritingExceptions: [fatalUnderwritingException]
         }
       }
     };
@@ -25,18 +25,28 @@ describe('Error testing', () => {
       <ConnectedError />,
       { state }
     );
+    expect(
+      getByText('Property does not qualify for automated quote').querySelector(
+        'i'
+      ).className
+    ).toEqual('fa fa-exclamation-triangle');
     expect(getByText('The following errors have occurred for this property:'));
-    expect(getByText('Property does not qualify for automated quote'));
+    expect(
+      getByText('Homes that are rented are not eligible for this program.')
+    );
     expect(
       queryByText(
         'Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.'
       )
     ).not.toBeInTheDocument();
-    expect(
-      getByText('Homes that are rented are not eligible for this program.')
+    expect(getByText('email us').parentNode).toHaveAttribute(
+      'href',
+      'mailto:customerservice@typtap.com'
     );
-    expect(getByText('email us'));
-    expect(getByText('(844) 289-7968'));
+    expect(getByText('(844) 289-7968').parentNode).toHaveAttribute(
+      'href',
+      'tel:8442897968'
+    );
   });
 
   it('Has an underwriting review error', () => {
@@ -47,7 +57,7 @@ describe('Error testing', () => {
         quote: {
           ...quote,
           underwritingExceptions: [
-            { ...underwritingException, action: 'Underwriting Review' }
+            { ...fatalUnderwritingException, action: 'Underwriting Review' }
           ]
         }
       }

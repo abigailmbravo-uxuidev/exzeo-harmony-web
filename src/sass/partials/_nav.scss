@@ -10,7 +10,6 @@
   color: $warm-gray-12;
 
   @include transition(all 0.2s ease-in-out);
-
   @include for-phone-only {
     position: fixed;
     top: 3.375rem;
@@ -18,7 +17,6 @@
     left: -15rem;
     z-index: 100;
   }
-
   @include for-tablet-portrait-up {
     position: absolute;
     top: 0;
@@ -28,7 +26,6 @@
 
     @include transition(all 0.1s ease-in-out);
   }
-
   @include for-tablet-landscape-up {
     position: relative;
     width: auto;
@@ -39,11 +36,9 @@
     width: auto;
 
     @include transition(all 0.05s ease-in-out);
-
     @include for-phone-only {
       width: 14rem;
     }
-
     @include for-tablet-landscape-up {
       width: 12rem;
     }
@@ -129,7 +124,6 @@
             text-decoration: none;
 
             @include transition(all 0.1s 0.2s ease-in-out);
-
             @include for-phone-only {
               width: 3.5rem;
               text-decoration: none;
@@ -181,7 +175,6 @@
                   font-family: $font-family-icon;
                 }
               }
-
               @include for-tablet-landscape-up {
                 &:after {
                   display: none;
@@ -245,11 +238,9 @@
             font-weight: $font-weight-bold;
 
             @include transition(all 0.1s 0.2s ease-in-out);
-
             @include for-tablet-portrait-up {
               display: none;
             }
-
             @include for-tablet-landscape-up {
               display: flex;
             }
@@ -267,11 +258,9 @@
     background-color: $warm-gray-08;
 
     @include transition(all 0.2s ease-in-out);
-
     @include for-tablet-portrait-up {
       //display: none;
     }
-
     @include for-tablet-landscape-up {
       display: flex;
       flex-direction: column;
@@ -286,7 +275,6 @@
       @include for-tablet-portrait-up {
         display: none;
       }
-
       @include for-tablet-landscape-up {
         display: flex;
       }
@@ -305,11 +293,9 @@
       @include for-phone-only {
         max-width: 11rem;
       }
-
       @include for-tablet-portrait-up {
         display: none;
       }
-
       @include for-tablet-landscape-up {
         display: flex;
       }
@@ -341,7 +327,6 @@
       height: auto;
       border-radius: $btn-border-radius;
     }
-
     @include for-phone-only {
       margin: 0 ($padding);
       padding: ($padding) 0;
@@ -360,7 +345,6 @@
         @include for-tablet-landscape-up {
           margin-right: $padding;
         }
-
         @include for-phone-only {
           margin-right: $padding;
         }
@@ -372,7 +356,6 @@
         @include for-tablet-landscape-up {
           display: inline-block;
         }
-
         @include for-phone-only {
           display: inline-block;
         }
@@ -382,15 +365,24 @@
 }
 
 .nav-tabs {
-  position: sticky;
-  top: 0;
   z-index: 9;
   display: flex;
-  flex-grow: 1;
-  flex-shrink: 1;
-  margin-bottom: $padding * 2;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: 0;
+  margin-bottom: 0;
+  padding: $padding $padding 0;
   width: 100%;
   background: $cool-gray-01;
+
+  &.policy-navigation {
+    @include for-tablet-landscape-up {
+      height: 3.5rem;
+    }
+    @include for-tablet-portrait-up {
+      height: 4.5rem;
+    }
+  }
 
   .btn {
     &.btn-tab {
@@ -404,7 +396,6 @@
       font-size: $font-size-sm;
 
       @include button-variant($cool-gray-07, $btn-link-bg, $btn-link-border);
-
       @include for-phone-only {
         > span {
           display: none;
@@ -433,8 +424,7 @@
       }
 
       &.active {
-        margin-bottom: 0;
-        border-bottom: ($padding/2) solid $bright-blue;
+        border-bottom: ($padding/2) solid $bright-blue !important;
         box-shadow: none;
         color: $cool-gray-14;
 
@@ -443,7 +433,6 @@
         }
 
         &:hover {
-          margin-bottom: 0;
           border-bottom: ($padding/2) solid $bright-blue;
           box-shadow: none;
           color: $cool-gray-14;
@@ -460,7 +449,6 @@
         left: 0;
         box-shadow: $card-box-shadow-alt;
       }
-
       @include for-tablet-portrait-up {
         width: 12rem;
 
@@ -509,7 +497,6 @@
           }
         }
       }
-
       @include for-tablet-landscape-up {
         position: relative;
         width: auto;
@@ -520,7 +507,6 @@
         width: auto;
 
         @include transition(all 0.05s ease-in-out);
-
         @include for-phone-only {
           width: 14rem;
         }

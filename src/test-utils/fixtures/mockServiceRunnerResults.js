@@ -1,3 +1,5 @@
+import policyHolder from './policyHolder';
+
 export const underwritingResult = [
   {
     active: true,
@@ -76,10 +78,10 @@ export const mailingBillingResult = {
   options: [
     {
       billToType: 'Policyholder',
-      billToId: '123',
-      displayText: 'Policyholder: Batman Robin',
+      billToId: '9876',
+      displayText: 'Policyholder: Bruce Wayne',
       payPlans: ['Annual', 'Semi-Annual', 'Quarterly'],
-      policyHolder: {}
+      policyHolder
     }
   ],
   paymentPlans: {

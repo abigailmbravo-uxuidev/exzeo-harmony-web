@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from '../Common/Footer';
+import Footer from '../Footer';
 
 const ThankYou = () => (
   <div className="route-content">

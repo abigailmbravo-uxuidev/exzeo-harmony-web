@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { defaultMemoize } from 'reselect';
-import { Gandalf } from '@exzeo/core-ui/src/@Harmony';
+import {
+  Gandalf,
+  getConfigForJsonTransform
+} from '@exzeo/core-ui/src/@Harmony';
 import { Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
 
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
@@ -21,7 +24,7 @@ import {
 } from './constants/workflowNavigation';
 
 import ThankYou from '../../components/ThankYou/ThankYou';
-import Footer from '../../components/Common/Footer';
+import Footer from '../../components/Footer';
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
 
@@ -76,13 +79,12 @@ export class QuoteWorkflow extends Component {
 
     this.formInstance = null;
 
-    this.getConfigForJsonTransform = defaultMemoize(
-      this.getConfigForJsonTransform.bind(this)
-    );
     this.checkForFatalExceptions = defaultMemoize(
       this.checkForFatalExceptions.bind(this)
     );
   }
+
+  getConfigForJsonTransform = defaultMemoize(getConfigForJsonTransform);
 
   componentDidMount() {
     const { quote } = this.props;
@@ -125,32 +127,6 @@ export class QuoteWorkflow extends Component {
     return (underwritingExceptions || []).some(
       ex => ex.action === 'Fatal Error'
     );
-  }
-
-  getConfigForJsonTransform(gandalfTemplate) {
-    if (!gandalfTemplate) return {};
-
-    return gandalfTemplate.pages.reduce((pageComponentsMap, page) => {
-      const pageComponents = page.components.reduce(
-        (componentMap, component) => {
-          if (
-            (component.formData.metaData || {}).target ||
-            (component.data.extendedProperties || {}).target
-          ) {
-            componentMap[component.path] =
-              (component.formData.metaData || {}).target ||
-              (component.data.extendedProperties || {}).target;
-          }
-          return componentMap;
-        },
-        {}
-      );
-
-      return {
-        ...pageComponentsMap,
-        ...pageComponents
-      };
-    }, {});
   }
 
   getLocalState = () => {

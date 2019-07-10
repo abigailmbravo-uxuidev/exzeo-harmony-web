@@ -7,16 +7,12 @@
         .section-group-header {
           margin-bottom: 0;
         }
-        .form-group {
-          //margin-bottom: 0;
-          //padding-bottom: $padding;
-        }
       }
       .loader.modal {
         position: fixed;
         top: 3.375rem;
         bottom: 0;
-        z-index: 10;
+        z-index: 10000;
       }
       .app-wrapper {
         header {

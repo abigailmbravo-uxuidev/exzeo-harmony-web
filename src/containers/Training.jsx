@@ -1,7 +1,7 @@
 import React from 'react';
 
 import FancyExternalLink from '../components/FancyExternalLink';
-import Footer from '../components/Common/Footer';
+import Footer from '../components/Footer';
 import AppWrapper from '../components/AppWrapper';
 
 export const externalLinks = [

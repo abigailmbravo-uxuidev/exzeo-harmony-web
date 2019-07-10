@@ -99,8 +99,8 @@ html {
               .detailHeader {
                 min-height: 4.625rem;
 
-                @include for-desktop-up {
-                  height: 4.625rem;
+                @include for-tablet-portrait-up {
+                  max-height: 4.625rem;
                 }
               }
               .workflow-header {

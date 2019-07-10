@@ -253,28 +253,26 @@
         flex-direction: column;
 
         .btn {
-          width: 100%;
-          margin-left: 0;
           margin-bottom: $padding;
+          margin-left: 0;
+          width: 100%;
         }
       }
-
       @include for-tablet-portrait-up {
         flex-direction: column;
 
         .btn {
-          width: 100%;
-          margin-left: 0;
           margin-bottom: $padding;
+          margin-left: 0;
+          width: 100%;
         }
       }
-
       @include for-desktop-up {
         flex-direction: row;
 
         .btn {
-          width: auto;
           margin-left: $padding;
+          width: auto;
         }
       }
     }

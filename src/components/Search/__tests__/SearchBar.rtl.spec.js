@@ -1,30 +1,29 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 
-import {
-  renderWithReduxAndRouter,
-  defaultProps,
-  defaultInitialState
-} from '../../../test-utils';
+import { renderWithReduxAndRouter, defaultProps } from '../../../test-utils';
 import ConnectedSearchBar, { SearchBar } from '../SearchBar';
 
 describe('Testing SearchBar Component', () => {
+  const props = {
+    ...defaultProps,
+    userProfile: { entity: { state: {} } }
+  };
   it('POS:Should show basic connected searchbar', () => {
     const { getByPlaceholderText, getByText } = renderWithReduxAndRouter(
-      <ConnectedSearchBar {...defaultProps} />
+      <ConnectedSearchBar {...props} />
     );
-
     expect(getByPlaceholderText('Search for Property Address'));
     expect(getByText('Property Address'));
   });
 
   it('POS:Should be able to be recreated', () => {
-    const props = {
-      ...defaultProps,
+    const newProps = {
+      ...props,
       appState: { isLoading: false },
-      handleSubmit: () => () => {},
+      handleSubmit: () => {},
       fieldValues: {},
-      userProfile: { appMetadata: { beta: false } }
+      userProfile: { appMetadata: { beta: false }, entity: { state: {} } }
     };
 
     const SearchBarForm = reduxForm({
@@ -32,7 +31,7 @@ describe('Testing SearchBar Component', () => {
       enableReinitialize: true
     })(SearchBar);
     const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
-      <SearchBarForm {...props} />
+      <SearchBarForm {...newProps} />
     );
 
     expect(getByPlaceholderText('Search for Property Address'));
@@ -40,12 +39,12 @@ describe('Testing SearchBar Component', () => {
   });
 
   it('POS:Retrieve Quote Searchbar unit tests', () => {
-    const props = {
-      ...defaultProps,
+    const newProps = {
+      ...props,
       searchType: 'quote'
     };
     const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
-      <ConnectedSearchBar {...props} />
+      <ConnectedSearchBar {...newProps} />
     );
 
     expect(getByText('First Name'));

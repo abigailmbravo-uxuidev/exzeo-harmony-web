@@ -10,7 +10,8 @@ import {
   checkSelect,
   checkError,
   submitForm,
-  verifyForm
+  verifyForm,
+  checkButton
 } from '../../../test-utils';
 import { QuoteWorkflow } from '../QuoteWorkflow';
 
@@ -20,59 +21,59 @@ const baseAiFields = [
     type: 'text',
     required: true,
     label: 'Name 1',
-    data: 'test last names'
+    value: 'test last names'
   },
   {
     dataTest: 'name2',
     type: 'text',
     label: 'Name 2',
-    data: 'test first name'
+    value: 'test first name'
   },
   {
     dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
-    data: 'test adress 1'
+    value: 'test adress 1'
   },
   {
     dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
-    data: 'test address 2'
+    value: 'test address 2'
   },
   {
     dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
-    data: 'test city'
+    value: 'test city'
   },
   {
     dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
-    data: 'FL'
+    value: 'FL'
   },
   {
     dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
-    data: 'test name 1'
+    value: 'test name 1'
   },
   {
     dataTest: 'phoneNumber',
     type: 'text',
     label: 'Phone Number',
-    data: '(123) 123-1231'
+    value: '(123) 123-1231'
   },
   {
     dataTest: 'referenceNumber',
     type: 'text',
     label: 'Reference Number',
-    data: '1`23'
+    value: '1`23'
   }
 ];
 
@@ -82,78 +83,81 @@ const personalFields = [
     type: 'text',
     required: true,
     label: 'First Name',
-    data: 'test last names'
+    value: 'test last names'
   },
   {
     dataTest: 'name2',
     type: 'text',
     label: 'Last Name',
-    data: 'test first name'
+    value: 'test first name'
   },
   {
     dataTest: 'address1',
     type: 'text',
     required: true,
     label: 'Address 1',
-    data: 'test adress 1'
+    value: 'test adress 1'
   },
   {
     dataTest: 'address2',
     type: 'text',
     label: 'Address 2',
-    data: 'test address 2'
+    value: 'test address 2'
   },
   {
     dataTest: 'city',
     type: 'text',
     required: true,
     label: 'City',
-    data: 'test city'
+    value: 'test city'
   },
   {
     dataTest: 'state',
     type: 'text',
     required: true,
     label: 'State',
-    data: 'FL'
+    value: 'FL'
   },
   {
     dataTest: 'zip',
     type: 'text',
     required: true,
     label: 'Zip Code',
-    data: 'test name 1'
+    value: 'test name 1'
   },
   {
     dataTest: 'phoneNumber',
     type: 'text',
     label: 'Phone Number',
-    data: '(123) 123-1231'
+    value: '(123) 123-1231'
   },
   {
     dataTest: 'referenceNumber',
     type: 'text',
     label: 'Reference Number',
-    data: '123'
+    value: '123'
   }
 ];
 
 describe('Testing Additional Interests', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-5162219-01/additionalInterests' }
+    location: { pathname: '/quote/12-345-67/additionalInterests' }
   };
 
   const openAndCloseModal = async (getByText, modal) => {
     fireEvent.click(getByText(modal));
-    await wait(() =>
-      document
-        .querySelector(`card.AdditionalInterestModal.${modal}`)
-        .toBeInTheDocument()
-    );
+    await wait(() => {
+      expect(document
+        .querySelector('modal')
+        .toBeInTheDocument());
+      expect(document
+        .querySelector(`card.AdditionalInterestModal.${modal}`))
+        .toBeInTheDocument();
+    });
     fireEvent.click(getByText('cancel'));
     await wait(() =>
-      expect(document.querySelector('form#AdditionalInterestModal')).toBeNull()
+      expect(document.querySelector('modal')).toBeNull()
     );
   };
 
@@ -215,7 +219,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...stateField,
-          data: 'abc',
+          value: 'abc',
           error: 'Only 2 letters allowed'
         }
       ],
@@ -227,7 +231,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...zipField,
-          data: '1234567890',
+          value: '1234567890',
           error: 'Only 8 letters or numbers allowed'
         }
       ],
@@ -273,7 +277,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...stateField,
-          data: 'abc',
+          value: 'abc',
           error: 'Only 2 letters allowed'
         }
       ],
@@ -285,7 +289,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...zipField,
-          data: '1234567890',
+          value: '1234567890',
           error: 'Only 8 letters or numbers allowed'
         }
       ],
@@ -331,7 +335,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...stateField,
-          data: 'abc',
+          value: 'abc',
           error: 'Only 2 letters allowed'
         }
       ],
@@ -343,7 +347,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...zipField,
-          data: '1234567890',
+          value: '1234567890',
           error: 'Only 8 letters or numbers allowed'
         }
       ],
@@ -389,7 +393,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...stateField,
-          data: 'abc',
+          value: 'abc',
           error: 'Only 2 letters allowed'
         }
       ],
@@ -401,7 +405,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...zipField,
-          data: '1234567890',
+          value: '1234567890',
           error: 'Only 8 letters or numbers allowed'
         }
       ],
@@ -447,7 +451,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...stateField,
-          data: 'abc',
+          value: 'abc',
           error: 'Only 2 letters allowed'
         }
       ],
@@ -459,7 +463,7 @@ describe('Testing Additional Interests', () => {
       [
         {
           ...zipField,
-          data: '1234567890',
+          value: '1234567890',
           error: 'Only 8 letters or numbers allowed'
         }
       ],
@@ -469,8 +473,15 @@ describe('Testing Additional Interests', () => {
   });
 
   it('POS:Mortgagee Testing', () => {
+    const newProps = {
+      ...props,
+      options: {
+        ...props.options,
+        order: [{ answer: '0', label: 'First Mortgagee' }]
+      }
+    };
     const { getByText, getAllByText, getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
+      <QuoteWorkflow {...newProps} />
     );
 
     openAndCloseModal(getByText, 'Mortgagee');
@@ -486,7 +497,7 @@ describe('Testing Additional Interests', () => {
     checkSelect(getByTestId, {
       dataTest: 'order',
       type: 'select',
-      values: ['0']
+      values: [{ value: '0', label: 'First Mortgagee' }]
     });
   });
 
@@ -717,5 +728,13 @@ describe('Testing Additional Interests', () => {
     expect(getByText('Additional Interest')).toBeDisabled();
     expect(getByText('Premium Finance')).toBeDisabled();
     expect(getByText('Bill Payer')).toBeDisabled();
+  });
+
+  it('POS:Checks Submit Button', () => {
+    const { getByTestId } = renderWithReduxAndRouter(
+      <QuoteWorkflow {...props} />
+    );
+
+    checkButton(getByTestId, { text: 'not applicable' });
   });
 });

@@ -24,6 +24,7 @@ export function setQuote(quote) {
  */
 export function createQuote(address, igdID, stateCode, companyCode, product) {
   return async dispatch => {
+    dispatch(toggleLoading(true));
     try {
       const config = {
         exchangeName: 'harmony',
@@ -36,7 +37,6 @@ export function createQuote(address, igdID, stateCode, companyCode, product) {
         }
       };
 
-      dispatch(toggleLoading(true));
       const response = await serviceRunner.callService(
         config,
         'quoteManager.createQuote'
@@ -69,6 +69,7 @@ export function createQuote(address, igdID, stateCode, companyCode, product) {
  */
 export function retrieveQuote({ quoteNumber, quoteId }) {
   return async dispatch => {
+    dispatch(toggleLoading(true));
     try {
       const config = {
         exchangeName: 'harmony',
@@ -79,7 +80,6 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
         }
       };
 
-      dispatch(toggleLoading(true));
       const response = await serviceRunner.callService(
         config,
         'quoteManager.retrieveQuote'
@@ -107,17 +107,17 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
  */
 export function reviewQuote({ quoteNumber, quoteId }) {
   return async dispatch => {
-    const config = {
-      exchangeName: 'harmony',
-      routingKey: 'harmony.quote.reviewQuote',
-      data: {
-        quoteId,
-        quoteNumber
-      }
-    };
-
+    dispatch(toggleLoading(true));
     try {
-      dispatch(toggleLoading(true));
+      const config = {
+        exchangeName: 'harmony',
+        routingKey: 'harmony.quote.reviewQuote',
+        data: {
+          quoteId,
+          quoteNumber
+        }
+      };
+
       const response = await serviceRunner.callService(
         config,
         'quoteManager.reviewQuote'
@@ -141,7 +141,7 @@ export function reviewQuote({ quoteNumber, quoteId }) {
  *
  * @param data
  * @param options
- * @returns {{additionalPolicyholder}}
+ * @returns {Object}
  */
 function formatQuoteForSubmit(data, options) {
   const quote = { ...data };
@@ -198,8 +198,8 @@ function formatQuoteForSubmit(data, options) {
  */
 export function updateQuote({ data = {}, options }) {
   return async function(dispatch) {
+    dispatch(toggleLoading(true));
     try {
-      dispatch(toggleLoading(true));
       if (options.shouldSendApplication) {
         const config = {
           exchangeName: 'harmony',
@@ -231,6 +231,9 @@ export function updateQuote({ data = {}, options }) {
         return quote;
       }
     } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Error updating quote: ', error);
+      }
       dispatch(errorActions.setAppError(error));
       return null;
     } finally {
@@ -274,8 +277,8 @@ export function getQuote(quoteNumber, quoteId) {
  */
 export function clearQuote() {
   return async dispatch => {
+    dispatch(toggleLoading(true));
     try {
-      dispatch(toggleLoading(true));
       dispatch(setQuote(null, {}));
     } catch (error) {
       dispatch(errorActions.setAppError(error));

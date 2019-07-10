@@ -12,20 +12,9 @@ const sideNavLinks = [
 ];
 
 describe('Testing Splash component', () => {
-  const props = {
-    ...defaultProps,
-    fieldQuestions: [],
-    quoteData: {},
-    appState: {
-      data: {
-        submitting: false
-      }
-    }
-  };
-
   it('POS:Dashboard Banner', () => {
     const { getByAltText, getByText } = renderWithReduxAndRouter(
-      <Splash {...props} />
+      <Splash {...defaultProps} />
     );
 
     expect(getByAltText('TypTap Insurance').parentNode).toHaveAttribute(
@@ -39,14 +28,16 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Detail Header', () => {
-    const { getByTestId } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByTestId } = renderWithReduxAndRouter(
+      <Splash {...defaultProps} />
+    );
 
     expect(getByTestId('user-info').children.length).toEqual(2);
   });
 
   it('POS:Dashboard Side Navigation', () => {
     const { getByTestId, getByText } = renderWithReduxAndRouter(
-      <Splash {...props} />
+      <Splash {...defaultProps} />
     );
 
     sideNavLinks.forEach(({ dataTest, text, href }) => {
@@ -58,7 +49,9 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Footer', () => {
-    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <Splash {...defaultProps} />
+    );
 
     expect(getByText(/TypTap Management Company/).className).toEqual(
       'copyright'
@@ -67,7 +60,7 @@ describe('Testing Splash component', () => {
 
   it('POS:Dashboard Text', () => {
     const { getByText, container } = renderWithReduxAndRouter(
-      <Splash {...props} />
+      <Splash {...defaultProps} />
     );
 
     expect(getByText('Agency App').className).toEqual('app-header');
@@ -81,7 +74,9 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Image', () => {
-    const { container } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { container } = renderWithReduxAndRouter(
+      <Splash {...defaultProps} />
+    );
 
     expect(
       container.querySelector('div.card-header-image-home')
@@ -90,7 +85,9 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Button', () => {
-    const { getByText } = renderWithReduxAndRouter(<Splash {...props} />);
+    const { getByText } = renderWithReduxAndRouter(
+      <Splash {...defaultProps} />
+    );
 
     expect(getByText('New Quote')).toHaveAttribute('href', '/search/address');
     expect(getByText('Retrieve Quote')).toHaveAttribute(

@@ -8,8 +8,8 @@ import {
   clearQuote
 } from '../../state/actions/quoteState.actions';
 import { clearResults } from '../../state/actions/searchActions';
-import QuoteError from '../Common/QuoteError';
-import Footer from '../Common/Footer';
+import QuoteError from '../QuoteError';
+import Footer from '../Footer';
 
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';

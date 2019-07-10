@@ -6,7 +6,6 @@ import { mount } from 'enzyme';
 
 import ConnectedApp, {
   handleSearchBarSubmit,
-  validate,
   changePageQuote
 } from './SearchBar';
 
@@ -40,7 +39,8 @@ describe('Testing SearchBar component', () => {
       handleSubmit: x => x,
       userProfile: {
         appMetadata: { beta: true },
-        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+        groups: [{ state: 'FL', companyCode: 'TTIC' }],
+        entity: { state: {} }
       },
       actions: {
         searchActions: {
@@ -82,7 +82,8 @@ describe('Testing SearchBar component', () => {
     const props = {
       userProfile: {
         appMetadata: { beta: true },
-        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+        groups: [{ state: 'FL', companyCode: 'TTIC' }],
+        entity: { state: {} }
       },
       fieldValues: {
         searchType: 'address'
@@ -156,7 +157,8 @@ describe('Testing SearchBar component', () => {
       setQuoteSearch() {},
       searchAddresses() {},
       userProfile: {
-        groups: [{ state: 'FL', companyCode: 'TTIC' }]
+        groups: [{ state: 'FL', companyCode: 'TTIC' }],
+        entity: { state: {} }
       },
       fieldValues: {
         searchType: 'address'

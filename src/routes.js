@@ -14,6 +14,7 @@ import { getAgency } from './state/actions/agency.actions';
 import history from './history';
 import Auth from './Auth';
 import QuoteModule from './modules/Quote';
+import PolicyModule from './modules/Policy';
 import QuoteSearch from './modules/Search/Quote';
 
 import Login from './containers/Login';
@@ -23,7 +24,6 @@ import AppError from './containers/AppError';
 import AccessDenied from './containers/AccessDenied';
 import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
-import Policy from './containers/Policy';
 import Training from './containers/Training';
 import Contacts from './containers/Contacts';
 
@@ -166,7 +166,7 @@ class Routes extends Component {
               />
               <Route
                 path="/policy/:policyNumber"
-                render={props => <Policy auth={auth} {...props} />}
+                render={props => <PolicyModule auth={auth} {...props} />}
               />
               <Route
                 exact

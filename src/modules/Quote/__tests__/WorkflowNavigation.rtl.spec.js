@@ -18,7 +18,12 @@ describe('Testing WorkflowNavigation Component', () => {
         { value: 'propertyAddress', component: 'Section', label: 'Address' },
         { value: 'yearBuilt' },
         { value: 'constructionType' },
-        { value: 'coverage', label: 'Coverage A' },
+        {
+          value: 'coverageLimits.dwelling.amount',
+          label: 'Coverage A',
+          format: 'currency',
+          alternateFormat: { steps: [0, 1], display: '$ --' }
+        },
         { value: 'premium', component: 'PremiumSection' }
       ]
     },
@@ -32,8 +37,9 @@ describe('Testing WorkflowNavigation Component', () => {
         address2: '',
         csz: 'SARASOTA, FL 00001'
       },
-      quoteNumber: '12-5162296-01',
-      yearBuilt: 1998
+      quoteNumber: '12-345-67',
+      yearBuilt: 1998,
+      coverageLimits: { dwelling: { amount: 1999999 } }
     },
     currentStep: 1,
     handleRecalc: () => {},
@@ -75,12 +81,12 @@ describe('Testing WorkflowNavigation Component', () => {
   ];
 
   it('POS:Tests Detail Header', () => {
-    const { getByText } = renderWithReduxAndRouter(
+    const { getByText, queryByText } = renderWithReduxAndRouter(
       <WorkflowNavigation {...props} />
     );
     // All static data pulled off dummy quote used above
     expect(getByText('Quote Number'));
-    expect(getByText('12-5162296-01'));
+    expect(getByText('12-345-67'));
     expect(getByText('Address'));
     expect(getByText('4131 TEST ADDRESS'));
     expect(getByText('Year Built'));
@@ -88,6 +94,8 @@ describe('Testing WorkflowNavigation Component', () => {
     expect(getByText('Construction Type'));
     expect(getByText('MASONRY'));
     expect(getByText('Coverage A'));
+    expect(queryByText('$ 1,999,999')).not.toBeInTheDocument();
+    expect(getByText('$ --'));
     expect(getByText('Premium'));
     expect(getByText('$ 2,767'));
   });
@@ -100,5 +108,17 @@ describe('Testing WorkflowNavigation Component', () => {
     workflowSections.forEach(({ name, status }) =>
       expect(getByTestId(name).firstChild).toHaveClass(status)
     );
+  });
+
+  it('POS:Shows updated Coverage A after going to Customize step', () => {
+    const newProps = {
+      ...props,
+      currentStep: 2
+    };
+
+    const { getByText } = renderWithReduxAndRouter(
+      <WorkflowNavigation {...newProps} />
+    );
+    expect(getByText('$ 1,999,999'));
   });
 });

@@ -77,8 +77,7 @@ export const VALID_QUOTE_STATES = [
   'Application Started',
   'Quote Stopped',
   'Application Ready',
-  'Quote Qualified',
-  'Application Obstructed'
+  'Quote Qualified'
 ];
 
 export const PRODUCTS_LIST = [

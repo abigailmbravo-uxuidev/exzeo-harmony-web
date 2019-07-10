@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ClearErrorConnect from '../components/Error/ClearError';
-import Footer from '../components/Common/Footer';
+import Footer from '../components/Footer';
 import AppWrapper from '../components/AppWrapper';
 
 const Splash = ({ auth, match }) => (

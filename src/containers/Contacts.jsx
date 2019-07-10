@@ -3,7 +3,7 @@ import { shape, func } from 'prop-types';
 
 import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard';
-import Footer from '../components/Common/Footer';
+import Footer from '../components/Footer';
 
 export const territoryManagerContacts = [
   {
