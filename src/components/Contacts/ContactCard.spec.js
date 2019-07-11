@@ -7,9 +7,7 @@ describe('Test ContactCard component', () => {
     const props = {};
 
     const component = mount(<ContactCard {...props} />);
-    expect(component.exists())
-      .toBeTruthy();
-
+    expect(component.exists()).toBeTruthy();
   });
 
   it('should render with complete props', () => {
@@ -27,7 +25,7 @@ describe('Test ContactCard component', () => {
       state: 'FL',
       zip: '33611',
       message: 'So many messages.',
-      disclaimer: 'Take it easy.',
+      disclaimer: 'Take it easy.'
     };
 
     const component = mount(<ContactCard {...props} />);

@@ -22,7 +22,7 @@
       display: flex;
       align-items: flex-end;
       flex-grow: 1;
-      padding: $padding ($padding*2);
+      padding: $padding ($padding * 2);
       min-height: 4.5rem;
       background-color: $white;
 
@@ -43,7 +43,7 @@
             width: 10rem;
           }
 
-          >input {
+          > input {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -58,7 +58,7 @@
               top: 1.625rem;
               right: 1rem;
             }
-          }     
+          }
         }
 
         &.last-name-search {
@@ -70,7 +70,7 @@
             width: 10rem;
           }
 
-          >input {
+          > input {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -100,7 +100,7 @@
             max-width: 14rem;
           }
 
-          >input {
+          > input {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -127,7 +127,7 @@
             width: 10rem;
           }
 
-          >input {
+          > input {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -258,7 +258,7 @@
       flex-shrink: 1;
 
       ul.results {
-        padding: $padding*2;
+        padding: $padding * 2;
       }
 
       .heading {

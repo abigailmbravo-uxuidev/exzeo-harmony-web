@@ -1,11 +1,11 @@
 .flex {
-    display: flex;
+  display: flex;
 
-     &.column {
-         flex-direction: column;
-     }
+  &.column {
+    flex-direction: column;
+  }
 
-     &.grow {
-         flex-grow: 1;
-     }
+  &.grow {
+    flex-grow: 1;
+  }
 }

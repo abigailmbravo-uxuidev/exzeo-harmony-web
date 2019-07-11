@@ -1,97 +1,95 @@
 /*BASE LAYOUT & STYLES*/
 /*###################################################*/
-@import "partials/_mixins"; //@import "partials/_variables";
-@import "partials/utilities/_flex";
-@import "partials/mixins/_hover";
-@import "partials/mixins/_flexbox";
-@import "partials/mixins/_tab-focus";
-@import "partials/mixins/_buttons";
-@import "partials/mixins/_forms";
+@import 'partials/_mixins'; //@import "partials/_variables";
+@import 'partials/utilities/_flex';
+@import 'partials/mixins/_hover';
+@import 'partials/mixins/_flexbox';
+@import 'partials/mixins/_tab-focus';
+@import 'partials/mixins/_buttons';
+@import 'partials/mixins/_forms';
 /*Correct and normalize browser rendering*/
-@import "partials/_normalize";
-@import "partials/_reset";
+@import 'partials/_normalize';
+@import 'partials/_reset';
 /*Set base typography*/
-@import "partials/_type";
+@import 'partials/_type';
 /*------------------------------------------------------------------------------------*/
-@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,500"); //base
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500'); //base
 //buttons & links
 /*------------------------------------------------------------------------------------*/
-@import "partials/_buttons"; //inputs & forms
+@import 'partials/_buttons'; //inputs & forms
 //inputs & forms
 /*------------------------------------------------------------------------------------*/
-@import "partials/_form"; //form partial
-@import "partials/_range"; //range / slider partial
-@import "partials/_date-picker"; //datepicker widget
+@import 'partials/_form'; //form partial
+@import 'partials/_range'; //range / slider partial
+@import 'partials/_date-picker'; //datepicker widget
 //vertical tabs
 /*------------------------------------------------------------------------------------*/
-@import "partials/_nav"; //vertical tab partial
+@import 'partials/_nav'; //vertical tab partial
 //details & surveys
 /*------------------------------------------------------------------------------------*/
-@import "partials/_wrapper"; //detail, survey
+@import 'partials/_wrapper'; //detail, survey
 //cards
 /*------------------------------------------------------------------------------------*/
-@import "partials/_card"; //card partial
+@import 'partials/_card'; //card partial
 //modal
 /*------------------------------------------------------------------------------------*/
-@import "partials/_modal"; //modal partial
+@import 'partials/_modal'; //modal partial
 //Loader
 /*------------------------------------------------------------------------------------*/
-@import "partials/_loader"; //loader
+@import 'partials/_loader'; //loader
 //APP SPECIFIC STYLES
 /*###################################################*/
 //main site structure
 /*------------------------------------------------------------------------------------*/
-@import "partials/_site-structure"; //header - includes logo and main navigation
+@import 'partials/_site-structure'; //header - includes logo and main navigation
 /*------------------------------------------------------------------------------------*/
-@import "partials/_header"; //search
+@import 'partials/_header'; //search
 /*------------------------------------------------------------------------------------*/
-@import "partials/_search"; //search partial
+@import 'partials/_search'; //search partial
 //search results
 /*------------------------------------------------------------------------------------*/
-@import "partials/_list-results"; //list results partial
+@import 'partials/_list-results'; //list results partial
 //workflow, workflow detail header & workflow stepper
 /*------------------------------------------------------------------------------------*/
-@import "partials/_workflow"; //footer
+@import 'partials/_workflow'; //footer
 /*------------------------------------------------------------------------------------*/
-@import "partials/_footer"; //Pagination
+@import 'partials/_footer'; //Pagination
 /*------------------------------------------------------------------------------------*/
-@import "partials/_pagination"; //Grid - react bootstrap table
+@import 'partials/_pagination'; //Grid - react bootstrap table
 /*------------------------------------------------------------------------------------*/
-@import "partials/_grid"; //Responsive styles for phone
+@import 'partials/_grid'; //Responsive styles for phone
 /*------------------------------------------------------------------------------------*/
-@import "partials/_snackbar"; //Snackbar
+@import 'partials/_snackbar'; //Snackbar
 /*------------------------------------------------------------------------------------*/
-@import "partials/_phone"; //ROUTE SPECIFIC STYLES
+@import 'partials/_phone'; //ROUTE SPECIFIC STYLES
 /*###################################################*/
 //Home Page
 /*------------------------------------------------------------------------------------*/
-@import "partials/_dashboard"; //Policyholder Demographics/Customer Info page
+@import 'partials/_dashboard'; //Policyholder Demographics/Customer Info page
 /*------------------------------------------------------------------------------------*/
-@import "partials/_policyholder-demographics";
+@import 'partials/_policyholder-demographics';
 /*------------------------------------------------------------------------------------*/
 //Customize Quote page
 /*------------------------------------------------------------------------------------*/
-@import "partials/_customize"; //Share
+@import 'partials/_customize'; //Share
 /*------------------------------------------------------------------------------------*/
-@import "partials/_share"; //Additional Interests
+@import 'partials/_share'; //Additional Interests
 /*------------------------------------------------------------------------------------*/
-@import "partials/_additional-interests"; //Mailing & Billing
+@import 'partials/_additional-interests'; //Mailing & Billing
 /*------------------------------------------------------------------------------------*/
-@import "partials/_mailing-billing"; //Quote verify & write policy
+@import 'partials/_mailing-billing'; //Quote verify & write policy
 /*------------------------------------------------------------------------------------*/
-@import "partials/_verify"; //Policy
+@import 'partials/_verify';
 /*------------------------------------------------------------------------------------*/
-@import "partials/_policy"; //General & Quote Error
+@import 'partials/_policy';
 /*------------------------------------------------------------------------------------*/
-@import "partials/_error"; //Thanks Page
+@import 'partials/_error';
 /*------------------------------------------------------------------------------------*/
-@import "partials/_training"; //Policy Details Page
+@import 'partials/_training';
 /*------------------------------------------------------------------------------------*/
-@import "partials/_policy-details"; //Policy Details Page
+@import 'partials/_view-grid'; //grid/Gandalf
 /*------------------------------------------------------------------------------------*/
-@import "partials/_view-grid"; //grid/Gandalf
-/*------------------------------------------------------------------------------------*/
-@import "partials/_view-grid-theme"; //grid/Gandalf
+@import 'partials/_view-grid-theme'; //grid/Gandalf
 /*------------------------------------------------------------------------------------*/
 hr {
   &.section-divider {

@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Form, propTypes, getFormSyncErrors, change } from 'redux-form';
-import _get from 'lodash/get'
-import _isEqual from 'lodash/isEqual'
+import {
+  reduxForm,
+  Form,
+  propTypes,
+  getFormSyncErrors,
+  change
+} from 'redux-form';
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
 import Rules from '../Form/Rules';
 
 import * as appStateActions from '../../state/actions/appStateActions';
@@ -12,7 +18,7 @@ import * as errorActions from '../../state/actions/errorActions';
 import * as serviceActions from '../../state/actions/serviceActions';
 import * as searchActions from '../../state/actions/searchActions';
 import SelectField from '../Form/inputs/SelectField';
-import Pagination from '../Common/Pagination';
+import Pagination from './Pagination';
 import { generateField } from './searchUtils';
 
 const handleInitialize = () => {
@@ -33,14 +39,28 @@ export const changePagePolicy = (props, isNext) => {
   const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
-    firstName: (encodeURIComponent(fieldValues.firstName) !== 'undefined' ? encodeURIComponent(fieldValues.firstName) : ''),
-    lastName: (encodeURIComponent(fieldValues.lastName) !== 'undefined' ? encodeURIComponent(fieldValues.lastName) : ''),
-    address: (encodeURIComponent(fieldValues.address) !== 'undefined' ? encodeURIComponent(String(fieldValues.address).trim()) : ''),
-    policyNumber: (encodeURIComponent(fieldValues.policyNumber) !== 'undefined' ? encodeURIComponent(fieldValues.policyNumber) : ''),
+    firstName:
+      encodeURIComponent(fieldValues.firstName) !== 'undefined'
+        ? encodeURIComponent(fieldValues.firstName)
+        : '',
+    lastName:
+      encodeURIComponent(fieldValues.lastName) !== 'undefined'
+        ? encodeURIComponent(fieldValues.lastName)
+        : '',
+    address:
+      encodeURIComponent(fieldValues.address) !== 'undefined'
+        ? encodeURIComponent(String(fieldValues.address).trim())
+        : '',
+    policyNumber:
+      encodeURIComponent(fieldValues.policyNumber) !== 'undefined'
+        ? encodeURIComponent(fieldValues.policyNumber)
+        : '',
     searchType: 'policy',
     isLoading: true,
     hasSearched: true,
-    page: isNext ? Number(fieldValues.pageNumber) + 1 : Number(fieldValues.pageNumber) - 1,
+    page: isNext
+      ? Number(fieldValues.pageNumber) + 1
+      : Number(fieldValues.pageNumber) - 1,
     pageSize: 25,
     sort: fieldValues.sortBy,
     direction,
@@ -62,10 +82,22 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
   const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
-    firstName: (encodeURIComponent(data.firstName) !== 'undefined' ? encodeURIComponent(data.firstName) : ''),
-    lastName: (encodeURIComponent(data.lastName) !== 'undefined' ? encodeURIComponent(data.lastName) : ''),
-    address: (encodeURIComponent(data.address) !== 'undefined' ? encodeURIComponent(String(data.address).trim()) : ''),
-    policyNumber: (encodeURIComponent(data.policyNumber) !== 'undefined' ? encodeURIComponent(data.policyNumber) : ''),
+    firstName:
+      encodeURIComponent(data.firstName) !== 'undefined'
+        ? encodeURIComponent(data.firstName)
+        : '',
+    lastName:
+      encodeURIComponent(data.lastName) !== 'undefined'
+        ? encodeURIComponent(data.lastName)
+        : '',
+    address:
+      encodeURIComponent(data.address) !== 'undefined'
+        ? encodeURIComponent(String(data.address).trim())
+        : '',
+    policyNumber:
+      encodeURIComponent(data.policyNumber) !== 'undefined'
+        ? encodeURIComponent(data.policyNumber)
+        : '',
     searchType: 'policy',
     isLoading: true,
     hasSearched: true,
@@ -86,7 +118,7 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
   });
 };
 
-export const validate = (values) => {
+export const validate = values => {
   const errors = {};
   if (values.firstName) {
     const onlyAlphaNumeric = Rules.onlyAlphaNumeric(values.firstName);
@@ -96,7 +128,9 @@ export const validate = (values) => {
   }
 
   if (values.lastName) {
-    const lastNameVal = values.lastName.trim() ? values.lastName.replace(/ /g, '') : values.lastName;
+    const lastNameVal = values.lastName.trim()
+      ? values.lastName.replace(/ /g, '')
+      : values.lastName;
     const onlyAlphaNumeric = Rules.onlyAlphaNumeric(lastNameVal);
     if (onlyAlphaNumeric) {
       errors.lastName = onlyAlphaNumeric;
@@ -120,23 +154,38 @@ export class PolicySearchBar extends Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = nextProps;
     if (!_isEqual(this.props.policyResults, nextProps.policyResults)) {
-      const totalPages = Math.ceil(nextProps.policyResults.totalNumberOfRecords / nextProps.policyResults.pageSize);
+      const totalPages = Math.ceil(
+        nextProps.policyResults.totalNumberOfRecords /
+          nextProps.policyResults.pageSize
+      );
       const pageNumber = nextProps.policyResults.currentPage;
       dispatch(change('PolicySearchBar', 'pageNumber', pageNumber));
       dispatch(change('PolicySearchBar', 'totalPages', totalPages));
-      nextProps.actions.searchActions.setPolicySearch({ ...nextProps.search, totalPages, pageNumber });
+      nextProps.actions.searchActions.setPolicySearch({
+        ...nextProps.search,
+        totalPages,
+        pageNumber
+      });
     }
   }
 
   render() {
     const { handleSubmit, formErrors, fieldValues } = this.props;
     return (
-      <Form id="PolicySearchBar" onSubmit={handleSubmit(handlePolicySearchSubmit)}>
+      <Form
+        id="PolicySearchBar"
+        onSubmit={handleSubmit(handlePolicySearchSubmit)}
+      >
         <div className="search-input-wrapper search-policy-wrapper">
-
           <SelectField
-            name="sortBy" component="select" styleName={'search-context'} label="Sort By" validations={['required']}
-            onChange={() => this.props.actions.serviceActions.clearPolicyResults()}
+            name="sortBy"
+            component="select"
+            styleName={'search-context'}
+            label="Sort By"
+            validations={['required']}
+            onChange={() =>
+              this.props.actions.serviceActions.clearPolicyResults()
+            }
             answers={[
               {
                 answer: 'policyNumber',
@@ -153,23 +202,61 @@ export class PolicySearchBar extends Component {
             ]}
           />
 
-          {generateField('firstName', 'First Name Search', 'First Name', formErrors, 'first-name-search', true)}
-          {generateField('lastName', 'Last Name Search', 'Last Name', formErrors, 'last-name-search', false)}
-          {generateField('address', 'Property Street Address Search', 'Property Street Address', formErrors, 'property-search', false)}
-          {generateField('policyNumber', 'Policy No Search', 'Policy Number', formErrors, 'policy-no-search', false)}
+          {generateField(
+            'firstName',
+            'First Name Search',
+            'First Name',
+            formErrors,
+            'first-name-search',
+            true
+          )}
+          {generateField(
+            'lastName',
+            'Last Name Search',
+            'Last Name',
+            formErrors,
+            'last-name-search',
+            false
+          )}
+          {generateField(
+            'address',
+            'Property Street Address Search',
+            'Property Street Address',
+            formErrors,
+            'property-search',
+            false
+          )}
+          {generateField(
+            'policyNumber',
+            'Policy No Search',
+            'Policy Number',
+            formErrors,
+            'policy-no-search',
+            false
+          )}
           <button
             tabIndex="0"
             className="btn btn-success multi-input"
             type="submit"
             form="PolicySearchBar"
-            disabled={(this.props.policyState && this.props.policyState.submitting) || formErrors}
+            disabled={
+              (this.props.policyState && this.props.policyState.submitting) ||
+              formErrors
+            }
           >
-            <i className="fa fa-search" /><span>Search</span>
+            <i className="fa fa-search" />
+            <span>Search</span>
           </button>
         </div>
-        { this.props.policyResults && this.props.policyResults.policies && this.props.policyResults.policies.length > 0 &&
-        <Pagination changePageForward={() => changePagePolicy(this.props, true)} changePageBack={() => changePagePolicy(this.props, false)} fieldValues={fieldValues} />
-        }
+        {this.props.policyResults &&
+          this.props.policyResults.policies &&
+          this.props.policyResults.policies.length > 0 && (
+            <Pagination
+              changePageForward={() => changePagePolicy(this.props, true)}
+              changePageBack={() => changePagePolicy(this.props, false)}
+              fieldValues={fieldValues}
+            />
+          )}
       </Form>
     );
   }
@@ -189,7 +276,10 @@ PolicySearchBar.propTypes = {
 
 const mapStateToProps = state => ({
   appState: state.appState,
-  fieldValues: _get(state.form, 'PolicySearchBar.values', { address: '', sortBy: 'policyNumber' }),
+  fieldValues: _get(state.form, 'PolicySearchBar.values', {
+    address: '',
+    sortBy: 'policyNumber'
+  }),
   formErrors: getFormSyncErrors('PolicySearchBar')(state),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
@@ -211,4 +301,7 @@ const searchBarForm = reduxForm({
   validate
 })(PolicySearchBar);
 
-export default connect(mapStateToProps, mapDispatchToProps)(searchBarForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(searchBarForm);

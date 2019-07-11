@@ -3,9 +3,17 @@
 // https://stackoverflow.com/questions/49328382/browser-detection-in-reactjs
 
 // Safari 3.0+ "[object HTMLElementConstructor]"
-const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof window['safari'] !== 'undefined' && window['safari'].pushNotification));
+const isSafari =
+  /constructor/i.test(window.HTMLElement) ||
+  (function(p) {
+    return p.toString() === '[object SafariRemoteNotification]';
+  })(
+    !window['safari'] ||
+      (typeof window['safari'] !== 'undefined' &&
+        window['safari'].pushNotification)
+  );
 // Internet Explorer 6-11
-const isIE = /*@cc_on!@*/false || !!document.documentMode;
+const isIE = /*@cc_on!@*/ false || !!document.documentMode;
 window.harmony_web_use_fallback = isIE || isSafari;
 
 import 'react-app-polyfill/ie11';
@@ -17,8 +25,7 @@ import 'core-js/fn/object/entries';
 import 'core-js/fn/number/is-nan';
 import 'core-js/fn/object/values';
 import 'core-js/fn/string/repeat';
-import "core-js/fn/symbol/iterator.js";
-
+import 'core-js/fn/symbol/iterator.js';
 
 import React from 'react';
 import { render } from 'react-dom';
@@ -41,6 +48,8 @@ window.persistor = persistor; // i hate this with my entire being...
 
 const target = document.getElementById('root');
 render(
-  <Provider store={store} persistor={persistor}><Routes store={store} /></Provider>,
+  <Provider store={store} persistor={persistor}>
+    <Routes store={store} />
+  </Provider>,
   target
 );

@@ -1,6 +1,6 @@
 export const PRODUCT_TYPES = {
   home: 'HO3',
-  flood: 'AF3',
+  flood: 'AF3'
 };
 
 export const UNDERWRITING_ERROR_ACTIONS = {
@@ -8,4 +8,7 @@ export const UNDERWRITING_ERROR_ACTIONS = {
   UNDERWRITING_REVIEW: 'Underwriting Review'
 };
 
-export const UW_EXCEPTION_QUOTE_STATES = ['Application Obstructed','Quote Stopped'];
+export const UW_EXCEPTION_QUOTE_STATES = [
+  'Application Obstructed',
+  'Quote Stopped'
+];

@@ -1,7 +1,12 @@
 import React from 'react';
 import { date } from '@exzeo/core-ui';
 
-export const PropertyDetails = ({ quoteNumber, effectiveDate, property, selectedAgent }) => {
+export const PropertyDetails = ({
+  quoteNumber,
+  effectiveDate,
+  property,
+  selectedAgent
+}) => {
   return (
     <section className="display-element">
       <dl className="quote-number">
@@ -15,8 +20,7 @@ export const PropertyDetails = ({ quoteNumber, effectiveDate, property, selected
           <dt>Property Address</dt>
           <dd>{property.physicalAddress.address1}</dd>
           <dd>{property.physicalAddress.address2}</dd>
-          <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${
-            property.physicalAddress.zip}`}</dd>
+          <dd>{`${property.physicalAddress.city}, ${property.physicalAddress.state} ${property.physicalAddress.zip}`}</dd>
         </div>
       </dl>
       <dl className="property-information">
@@ -37,7 +41,8 @@ export const PropertyDetails = ({ quoteNumber, effectiveDate, property, selected
           <dd>{`${selectedAgent.label}`}</dd>
         </div>
       </dl>
-    </section>);
+    </section>
+  );
 };
 
 PropertyDetails.defaultProps = {

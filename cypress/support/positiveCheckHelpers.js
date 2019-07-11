@@ -30,7 +30,7 @@ Cypress.Commands.add('checkText', (tag, text = '(99') =>
     $el.find('input').length ?
       cy.wrap($el).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text) :
     cy.wrap($el).type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text)
-  ))
+  ));
   // cy.findDataTag(tag).find('input').type(`{selectall}{backspace}${text}`).should('have.attr', 'value', text));
 
 /**

@@ -7,10 +7,10 @@ describe('Testing QuoteSearch component', () => {
   it('should test QuoteSearch', () => {
     const props = {
       auth: {
-        logout: x => x,
+        logout: x => x
       },
       match: {},
-      isLoading: false,
+      isLoading: false
     };
     const wrapper = shallow(<QuoteSearch {...props} />);
     expect(wrapper.exists()).toBeTruthy();

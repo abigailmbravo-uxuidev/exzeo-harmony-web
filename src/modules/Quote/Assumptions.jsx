@@ -8,9 +8,9 @@ export const Assumptions = ({ customHandlers }) => {
   const input = {
     name: 'confirmAssumptions',
     value: confirmed,
-    onChange: (value) => setConfirmed(value),
+    onChange: value => setConfirmed(value),
     onFocus: noop,
-    onBlur: noop,
+    onBlur: noop
   };
 
   return (
@@ -25,13 +25,13 @@ export const Assumptions = ({ customHandlers }) => {
         segmented
       />
       <div className="btn-group">
-      <Button
-        className={Button.constants.classNames.primary}
-        disabled={!confirmed}
-        onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
-        label="next"
-        data-test="submit"
-      />
+        <Button
+          className={Button.constants.classNames.primary}
+          disabled={!confirmed}
+          onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
+          label="next"
+          data-test="submit"
+        />
       </div>
     </React.Fragment>
   );

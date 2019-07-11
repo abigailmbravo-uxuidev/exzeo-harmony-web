@@ -3,20 +3,26 @@ import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
 import { ShareModal } from '@exzeo/core-ui/src/@Harmony';
 import { defaultMemoize } from 'reselect';
 
-import ErrorPopup from '../../components/Common/ErrorPopup';
+import ErrorPopup from '../../components/ErrorPopup';
 
 import { STEP_NAMES } from './constants/workflowNavigation';
 import { UNDERWRITING_ERROR_ACTIONS } from './constants/quote';
 
-const getFilteredUnderwritingExceptions = defaultMemoize((underwritingExceptions) => {
-  return underwritingExceptions.filter(exception =>
-    exception.action === UNDERWRITING_ERROR_ACTIONS.UNDERWRITING_REVIEW && !exception.overridden
-  );
-});
+const getFilteredUnderwritingExceptions = defaultMemoize(
+  underwritingExceptions => {
+    return underwritingExceptions.filter(
+      exception =>
+        exception.action === UNDERWRITING_ERROR_ACTIONS.UNDERWRITING_REVIEW &&
+        !exception.overridden
+    );
+  }
+);
 
 const Share = ({ customHandlers, initialValues, formInstance }) => {
   const [showPopup, setPopup] = useState(false);
-  const filteredUnderwritingExceptions = getFilteredUnderwritingExceptions(initialValues.underwritingExceptions);
+  const filteredUnderwritingExceptions = getFilteredUnderwritingExceptions(
+    initialValues.underwritingExceptions
+  );
 
   async function refreshUWReviewError() {
     await customHandlers.getQuote(initialValues.quoteNumber, initialValues._id);
@@ -30,26 +36,44 @@ const Share = ({ customHandlers, initialValues, formInstance }) => {
   return (
     <React.Fragment>
       <section className="section-instructions" data-test="section-1">
-        <div className="title" data-test="Share"><i className="fa fa-share-alt"/> Share</div>
-        <p>To SHARE this quote as a PDF via email, click the <strong>SHARE</strong> button</p>
+        <div className="title" data-test="Share">
+          <i className="fa fa-share-alt" /> Share
+        </div>
+        <p>
+          To SHARE this quote as a PDF via email, click the{' '}
+          <strong>SHARE</strong> button
+        </p>
       </section>
       <section className="section-instructions" data-test="section-2">
-        <div className="title" data-test="Continue"><i className="fa fa-arrow-circle-right"/> Continue</div>
+        <div className="title" data-test="Continue">
+          <i className="fa fa-arrow-circle-right" /> Continue
+        </div>
         <p>To CONTINUE the quote process, you will need the following</p>
         <ul>
           <li>Mortgage information</li>
           <li>Name and email address of additional owners</li>
-          <li>Name and address of any other additional insured to add to this policy</li>
+          <li>
+            Name and address of any other additional insured to add to this
+            policy
+          </li>
         </ul>
-        <p>When you are prepared to move forward, click the <strong>NEXT</strong> button</p>
+        <p>
+          When you are prepared to move forward, click the <strong>NEXT</strong>{' '}
+          button
+        </p>
       </section>
       <section className="section-instructions" data-test="section-3">
-        <div className="title" data-test="NewQuote"><i className="fa fa-quote-left"/> New Quote</div>
-        <p>Your current quote is saved and can be retrieved at any time. To begin a NEW QUOTE, click the <i
-          className="fa fa-dashboard"/> <strong>DASHBOARD</strong> tab</p>
+        <div className="title" data-test="NewQuote">
+          <i className="fa fa-quote-left" /> New Quote
+        </div>
+        <p>
+          Your current quote is saved and can be retrieved at any time. To begin
+          a NEW QUOTE, click the <i className="fa fa-dashboard" />{' '}
+          <strong>DASHBOARD</strong> tab
+        </p>
       </section>
       <FormSpy subscription={{ submitting: true }}>
-        {({ submitting }) =>
+        {({ submitting }) => (
           <React.Fragment>
             <div className="btn-group">
               <Button
@@ -57,36 +81,40 @@ const Share = ({ customHandlers, initialValues, formInstance }) => {
                 onClick={() => setPopup(true)}
                 disabled={submitting}
                 data-test="share"
-              >share</Button>
+              >
+                share
+              </Button>
               <Button
                 className={Button.constants.classNames.primary}
                 onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
                 disabled={submitting}
                 data-test="submit"
-              >next</Button>
+              >
+                next
+              </Button>
             </div>
 
-            {(!submitting && filteredUnderwritingExceptions.length > 0) &&
-            <ErrorPopup
-              quote={initialValues}
-              underwritingExceptions={filteredUnderwritingExceptions}
-              refereshUWReviewError={() => refreshUWReviewError()}
-              redirectToNewQuote={() => redirectToNewQuote()}
-            />
-            }
+            {!submitting && filteredUnderwritingExceptions.length > 0 && (
+              <ErrorPopup
+                quote={initialValues}
+                underwritingExceptions={filteredUnderwritingExceptions}
+                refereshUWReviewError={() => refreshUWReviewError()}
+                redirectToNewQuote={() => redirectToNewQuote()}
+              />
+            )}
           </React.Fragment>
-        }
+        )}
       </FormSpy>
 
-      {showPopup &&
-      <ModalPortal>
-        <ShareModal
-          summaryType="agency"
-          parentFormInstance={formInstance}
-          closeModal={() => setPopup(false)}
-        />
-      </ModalPortal>
-      }
+      {showPopup && (
+        <ModalPortal>
+          <ShareModal
+            summaryType="agency"
+            parentFormInstance={formInstance}
+            closeModal={() => setPopup(false)}
+          />
+        </ModalPortal>
+      )}
     </React.Fragment>
   );
 };

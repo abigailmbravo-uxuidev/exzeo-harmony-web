@@ -1,7 +1,7 @@
 /* autoprefixer grid: autoplace */
 
 /*BASE LAYOUT & STYLES*/
-@import "base.scss"; //base styles partial
+@import 'base.scss'; //base styles partial
 /*TYPTAP LAYOUT & STYLES*/
 //colors
 $body-color: $warm-gray-14; // default elements
@@ -94,7 +94,7 @@ textarea {
   //disabled & read-only text input-box-shadow
   &.disabled,
   &:disabled,
-  &[disabled="disabled"],
+  &[disabled='disabled'],
   &[readonly] {
     border-bottom-color: $cool-gray-00;
     background: lighten($cool-gray-00, 10%);
@@ -120,11 +120,11 @@ output {
     max-width: 24rem;
 
     @include for-phone-only {
-      right: $margin*2;
-      left: $margin*2 !important;
+      right: $margin * 2;
+      left: $margin * 2 !important;
       margin: 0;
       max-width: 100%;
-      width: calc(100% - (#{$margin}*4));
+      width: calc(100% - (#{$margin}* 4));
 
       &.place-left,
       &.place-right {
@@ -158,9 +158,9 @@ output {
             }
           }
 
-          input[type=radio] {
+          input[type='radio'] {
             &:checked {
-              +span {
+              + span {
                 border-color: $bright-blue-lighten-02;
                 background: $white;
                 box-shadow: 0 0 0 3px $bright-blue-lighten-02 inset;
@@ -185,19 +185,23 @@ output {
         div {
           img {
             -webkit-filter: grayscale(100%);
-            -webkit-filter: opacity(.5);
+            -webkit-filter: opacity(0.5);
             filter: grayscale(100%);
-            filter: opacity(.5);
+            filter: opacity(0.5);
           }
 
           .label-segmented {
             span {
-              @include button-variant($cool-gray-02, $cool-gray-00, $cool-gray-00);
+              @include button-variant(
+                $cool-gray-02,
+                $cool-gray-00,
+                $cool-gray-00
+              );
             }
 
-            input[type=radio] {
+            input[type='radio'] {
               &:checked {
-                +span {
+                + span {
                   border-color: $cool-gray-02;
                   background: $cool-gray-00;
                   box-shadow: 0 0 0 2px $cool-gray-02 inset;
@@ -215,9 +219,9 @@ output {
         div {
           img {
             -webkit-filter: grayscale(100%);
-            -webkit-filter: opacity(.5);
+            -webkit-filter: opacity(0.5);
             filter: grayscale(100%);
-            filter: opacity(.5);
+            filter: opacity(0.5);
           }
 
           .label-segmented {
@@ -227,9 +231,9 @@ output {
               color: $body-color;
             }
 
-            input[type=radio] {
+            input[type='radio'] {
               &:checked {
-                +span {
+                + span {
                   border-color: $red;
                   background: lighten($red-lighten-04, 20%);
                   box-shadow: 0 0 0 2px $red inset;
@@ -267,9 +271,9 @@ output {
         }
       }
 
-      input[type="checkbox"] {
+      input[type='checkbox'] {
         &:checked {
-          +div.switch-div {
+          + div.switch-div {
             background: $bright-blue-lighten-02;
 
             &:before {
@@ -304,12 +308,12 @@ output {
         }
       }
 
-      input[type="checkbox"],
-      input[type="radio"] {
+      input[type='checkbox'],
+      input[type='radio'] {
         display: none;
 
         &:checked {
-          +div.switch-div {
+          + div.switch-div {
             background-color: $cool-gray-00;
 
             &:after {
@@ -338,12 +342,12 @@ output {
         }
       }
 
-      input[type="checkbox"],
-      input[type="radio"] {
+      input[type='checkbox'],
+      input[type='radio'] {
         display: none;
 
         &:checked {
-          +div.switch-div {
+          + div.switch-div {
             background-color: $red-lighten-01;
 
             &:after {
@@ -358,40 +362,55 @@ output {
   //range input
   &.range-component,
   &.slider {
-
     .range-wrapper {
       display: flex;
 
       .range-control-wrapper {
-        [type="range"] {
+        [type='range'] {
           border-bottom-width: 0;
 
           &::-webkit-slider-runnable-track {
             border: $track-border-width solid $track-border-color;
             background: $cool-gray-03;
 
-            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            @include shadow(
+              $track-shadow-size,
+              $track-shadow-blur,
+              $track-shadow-color
+            );
           }
 
           &::-moz-range-track {
             border: $track-border-width solid $track-border-color;
             background: $cool-gray-03;
 
-            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            @include shadow(
+              $track-shadow-size,
+              $track-shadow-blur,
+              $track-shadow-color
+            );
           }
 
           &::-ms-fill-lower {
             border: $track-border-width solid $track-border-color;
             background: darken($cool-gray-03, $contrast);
 
-            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            @include shadow(
+              $track-shadow-size,
+              $track-shadow-blur,
+              $track-shadow-color
+            );
           }
 
           &::-ms-fill-upper {
             border: $track-border-width solid $track-border-color;
             background: $cool-gray-03;
 
-            @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+            @include shadow(
+              $track-shadow-size,
+              $track-shadow-blur,
+              $track-shadow-color
+            );
           }
 
           &:focus::-ms-fill-lower {
@@ -406,11 +425,16 @@ output {
             border: 2px solid $cool-gray-01;
             background: lighten($cool-gray-00, 10%);
 
-            @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+            @include shadow(
+              $thumb-shadow-size,
+              $thumb-shadow-blur,
+              $thumb-shadow-color
+            );
           }
 
           &::-webkit-slider-thumb {
-            margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+            margin-top: ((-$track-border-width * 2 + $track-height) / 2) -
+              ($thumb-height / 2);
 
             @include thumb();
             -webkit-appearance: none;
@@ -429,28 +453,44 @@ output {
               border: $track-border-width solid $cool-gray-02;
               background: $cool-gray-02;
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $cool-gray-02
+              );
             }
 
             &::-moz-range-track {
               border: $track-border-width solid $cool-gray-02;
               background: $cool-gray-02;
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $cool-gray-02
+              );
             }
 
             &::-ms-fill-lower {
               border: $track-border-width solid $cool-gray-02;
               background: darken($cool-gray-02, $contrast);
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $cool-gray-02
+              );
             }
 
             &::-ms-fill-upper {
               border: $track-border-width solid $cool-gray-02;
               background: $cool-gray-02;
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $cool-gray-02);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $cool-gray-02
+              );
             }
 
             &:focus::-ms-fill-lower {
@@ -465,11 +505,16 @@ output {
               border: 2px solid $green;
               background: $white;
 
-              @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+              @include shadow(
+                $thumb-shadow-size,
+                $thumb-shadow-blur,
+                $thumb-shadow-color
+              );
             }
 
             &::-webkit-slider-thumb {
-              margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+              margin-top: ((-$track-border-width * 2 + $track-height) / 2) -
+                ($thumb-height / 2);
 
               @include thumb();
               -webkit-appearance: none;
@@ -498,7 +543,7 @@ output {
           border-top: 1.1875rem solid transparent;
           border-right: 1.5rem solid lighten($cool-gray-00, 2.5%);
           border-bottom: 1.1875rem solid transparent;
-          content: "";
+          content: '';
         }
       }
 
@@ -517,33 +562,49 @@ output {
     &.error {
       .range-wrapper {
         .range-control-wrapper {
-          [type="range"] {
+          [type='range'] {
             &::-webkit-slider-runnable-track {
               border: $track-border-width solid $red;
               background: $red-lighten-04;
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $track-shadow-color
+              );
             }
 
             &::-moz-range-track {
               border: $track-border-width solid $red;
               background: $red-lighten-04;
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $track-shadow-color
+              );
             }
 
             &::-ms-fill-lower {
               border: $track-border-width solid $red;
               background: darken($red-lighten-04, $contrast);
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $track-shadow-color
+              );
             }
 
             &::-ms-fill-upper {
               border: $track-border-width solid $red;
               background: $red-lighten-04;
 
-              @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+              @include shadow(
+                $track-shadow-size,
+                $track-shadow-blur,
+                $track-shadow-color
+              );
             }
 
             &:focus::-ms-fill-lower {
@@ -562,7 +623,8 @@ output {
             }
 
             &::-webkit-slider-thumb {
-              margin-top: ((-$track-border-width * 2 + $track-height) / 2) - ($thumb-height / 2);
+              margin-top: ((-$track-border-width * 2 + $track-height) / 2) -
+                ($thumb-height / 2);
 
               @include thumb();
               -webkit-appearance: none;
@@ -588,13 +650,13 @@ output {
   &.disabled,
   &.disabled.error,
   &:disabled,
-  &[disabled="disabled"],
+  &[disabled='disabled'],
   &[readonly] {
     label {
       color: $cool-gray-04;
     }
 
-    input[type="text"],
+    input[type='text'],
     textarea {
       border-bottom-color: $cool-gray-01;
       background: lighten($cool-gray-00, 10%);
@@ -739,8 +801,8 @@ header {
     max-width: 84rem;
   }
 
-  div[role="banner"] {
-    >.logo {
+  div[role='banner'] {
+    > .logo {
       flex-basis: 7rem;
       width: 7rem;
 
@@ -749,7 +811,7 @@ header {
       }
     }
 
-    >nav {
+    > nav {
       @include for-phone-only {
         background: $white;
       }
@@ -861,8 +923,8 @@ header {
 
 //main/content - role "document"
 /*------------------------------------------------------------------------------------*/
-div[role="main"] {
-  box-shadow: 0 0 15px 0 rgba($black, .5);
+div[role='main'] {
+  box-shadow: 0 0 15px 0 rgba($black, 0.5);
 
   @include for-tablet-landscape-up {
     max-width: 64rem;
@@ -872,8 +934,8 @@ div[role="main"] {
   }
 
   .content-wrapper {
-    >div {
-      >div[role="article"] {
+    > div {
+      > div[role='article'] {
         background: $white;
 
         &.splash {
@@ -941,11 +1003,9 @@ div[role="main"] {
             }
 
             section {
-
               div.fade-in,
               form {
                 .survey-wrapper {
-
                   h1,
                   h2,
                   h3,
@@ -981,7 +1041,7 @@ div[role="main"] {
 /*------------------------------------------------------------------------------------*/
 .content-panel-left {
   background-color: $cool-gray-12;
-  background-image: url("../img/typtap-bg.png");
+  background-image: url('../img/typtap-bg.png');
   background-position-x: center;
   background-position-y: -3rem;
   background-size: cover;
@@ -1002,7 +1062,6 @@ div[role="main"] {
   }
 
   .site-nav {
-
     //main left navigation
     ul {
       li {
@@ -1052,8 +1111,8 @@ div[role="main"] {
     }
   }
 
-  >div {
-    >div {
+  > div {
+    > div {
       background: $white;
 
       .heading {
@@ -1084,7 +1143,6 @@ div[role="main"] {
 /*------------------------------------------------------------------------------------*/
 .workflow {
   .route {
-
     //workflow detail header
     .detailHeader {
       background-color: mix($cool-gray-12, $bright-blue, 70);
@@ -1194,7 +1252,7 @@ div[role="main"] {
 //footer
 /*------------------------------------------------------------------------------------*/
 footer {
-  div[role="banner"] {
+  div[role='banner'] {
     border-top: $border-width dotted $cool-gray-01;
     background: $cool-gray-00;
   }
@@ -1214,12 +1272,12 @@ footer {
       .product {
         .card-header {
           &.card-header-image-flood {
-            background-image: url("../img/flood.jpg");
+            background-image: url('../img/flood.jpg');
             background-position: right top;
           }
 
           &.card-header-image-home {
-            background-image: url("../img/home-owners.jpg");
+            background-image: url('../img/home-owners.jpg');
             background-position: center center;
           }
 
@@ -1229,9 +1287,9 @@ footer {
           h4,
           h5,
           h6 {
-            margin: (-$padding*1.75) (-$padding*2.5);
+            margin: (-$padding * 1.75) (-$padding * 2.5);
             padding: $padding;
-            background-color: rgba($cool-gray-10, .75);
+            background-color: rgba($cool-gray-10, 0.75);
           }
         }
 
@@ -1251,13 +1309,11 @@ footer {
 /*------------------------------------------------------------------------------------*/
 ul.result-cards {
   li {
-
-    >div,
-    >a {
+    > div,
+    > a {
       background: $white;
 
       section {
-
         h2,
         h3,
         h4,
@@ -1281,12 +1337,10 @@ ul.result-cards {
       }
     }
 
-    >a {
-
+    > a {
       &:focus,
       &:hover {
         section {
-
           h2,
           h3,
           h4,
@@ -1314,7 +1368,8 @@ ul.result-cards {
   }
 }
 
-.quote-list, .policy-list {
+.quote-list,
+.policy-list {
   .card {
     i {
       color: $green;
@@ -1328,7 +1383,7 @@ ul.result-cards {
   .form-group {
     .FirstName {
       @include for-tablet-portrait-up {
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 40%;
       }
     }
@@ -1342,7 +1397,7 @@ ul.result-cards {
     .EmailAddress {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 60%;
       }
     }
@@ -1358,7 +1413,7 @@ ul.result-cards {
     .effectiveDate {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 40%;
       }
     }
@@ -1393,7 +1448,8 @@ ul.result-cards {
 
 //Share
 /*------------------------------------------------------------------------------------*/
-.section-share {}
+.section-share {
+}
 
 .email-modal {
   position: fixed;
@@ -1407,7 +1463,7 @@ ul.result-cards {
 
   .survey-wrapper {
     .card-email {
-      box-shadow: 0 0 50px rgba($black, .4);
+      box-shadow: 0 0 50px rgba($black, 0.4);
     }
   }
 }
@@ -1417,7 +1473,7 @@ ul.result-cards {
 #AddAdditionalInterestPage {
   .result-cards {
     li {
-      >div {
+      > div {
         .card-icon {
           i {
             color: $green;
@@ -1434,7 +1490,6 @@ ul.result-cards {
 }
 
 .form-group {
-
   .ai1City,
   .ai2City,
   .ains1City,
@@ -1502,7 +1557,7 @@ ul.result-cards {
   .form-group {
     .firstName {
       @include for-tablet-portrait-up {
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 40%;
       }
     }
@@ -1516,7 +1571,7 @@ ul.result-cards {
     .emailAddress {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: $padding*2;
+        padding-right: $padding * 2;
         width: 60%;
       }
     }
@@ -1641,8 +1696,8 @@ ul.result-cards {
       }
 
       .image {
-        border: 8px solid rgba($cool-gray-07, .8);
-        background-image: url("../img/csr.jpg");
+        border: 8px solid rgba($cool-gray-07, 0.8);
+        background-image: url('../img/csr.jpg');
       }
     }
   }
@@ -1653,18 +1708,17 @@ ul.result-cards {
     .survey-wrapper {
       .contact-message {
         .card-csr {
-          box-shadow: 0 0 50px rgba($black, .4);
+          box-shadow: 0 0 50px rgba($black, 0.4);
 
           .card-header-image-csr {
-
             h1,
             h2,
             h3,
             h4,
             h5,
             h6 {
-              padding: $padding ($padding*2);
-              background: rgba($cool-gray-07, .9);
+              padding: $padding ($padding * 2);
+              background: rgba($cool-gray-07, 0.9);
             }
           }
         }
@@ -1679,16 +1733,16 @@ ul.result-cards {
   .card-thanks {
     margin-bottom: $padding;
     max-width: 36rem;
-    box-shadow: 0 0 50px rgba($black, .4);
+    box-shadow: 0 0 50px rgba($black, 0.4);
 
     @include for-phone-only {
-      margin: 0 0 ($padding*2);
+      margin: 0 0 ($padding * 2);
       max-width: 300px;
     }
 
     .card-header-image-thanks {
       height: 16rem;
-      background-image: url("https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif");
+      background-image: url('https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif');
       background-size: cover;
 
       @include for-phone-only {
@@ -1701,9 +1755,9 @@ ul.result-cards {
       h4,
       h5,
       h6 {
-        margin: (-$padding*1.75) (-$padding*2.5);
+        margin: (-$padding * 1.75) (-$padding * 2.5);
         padding: $padding;
-        background: rgba($green-darken-03, .9);
+        background: rgba($green-darken-03, 0.9);
         color: $white;
       }
     }
@@ -1740,13 +1794,14 @@ ul.result-cards {
                 .btn {
                   z-index: 4;
                   align-self: flex-end;
-                  margin-bottom: $padding*2;
+                  margin-bottom: $padding * 2;
                 }
               }
             }
           }
 
-          aside {}
+          aside {
+          }
         }
       }
     }
@@ -1759,4 +1814,4 @@ ul.result-cards {
   //we are here
 }
 
-@import "partials/_phone";
+@import 'partials/_phone';

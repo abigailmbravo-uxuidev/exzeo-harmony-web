@@ -12,28 +12,27 @@ describe('Testing Search component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      getQuote() {},
-      createQuote() {},
+      reviewQuote: jest.fn(),
+      createQuote: jest.fn(),
+      history: { replace: jest.fn() },
       clearResults() {},
       clearQuote() {},
       handleSubmit() {},
       fieldQuestions: [],
       quote: {},
       dispatch: store.dispatch,
-      authState: {
-        userProfile: {}
-      },
+      userProfile: { entity: {} },
       appState: {
         data: {
           submitting: false
         }
-      }
+      },
+      search: {}
     };
     const wrapper = shallow(<Search {...props} />);
     expect(wrapper);
     const address = {
-      physicalAddress:
-      {
+      physicalAddress: {
         address1: '1000 Poplar Ave',
         address2: null,
         city: 'Tampa',
@@ -66,18 +65,19 @@ describe('Testing Search component', () => {
       quote: {
         quoteState: 'Quote Started'
       },
-      authState: {
-        userProfile: {}
-      },
+      userProfile: {},
       fieldQuestions: [],
       dispatch: store.dispatch,
+      createQuote: jest.fn(),
       handleSubmit() {},
       appState: {
         modelName: 'bb',
         data: {
           submitting: false
         }
-      }
+      },
+      search: {},
+      history: { replace: jest.fn() }
     };
     const wrapper = shallow(<ConnectedApp store={store} {...props} />);
     expect(wrapper);

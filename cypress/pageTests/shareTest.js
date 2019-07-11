@@ -13,7 +13,7 @@ const af3Headers = [
   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
   { name: 'floodZoneDetail', label: 'Flood Zone', value: 'X' },
   { name: 'coverageLimits.building.amountDetail', label: 'Coverage A', value: '$ 314,000' },
-  { name: 'premium', 'label': 'Premium', value: '$ 4,635' }
+  { name: 'premium', 'label': 'Premium', value: '$ 657' }
 ];
 
 export default (product = 'HO3') =>

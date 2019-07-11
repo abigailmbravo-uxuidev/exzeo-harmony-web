@@ -20,7 +20,7 @@ export class Verify extends React.Component {
     confirmPolicy: false,
     confirmAdditionalInterest: false,
     showPolicyHolderEditPopup: false,
-    showApplicationPopup: false,
+    showApplicationPopup: false
   };
 
   sendApplicationSubmit = async () => {
@@ -28,7 +28,7 @@ export class Verify extends React.Component {
     await customHandlers.handleSubmit({ shouldSendApplication: true });
   };
 
-  handlePolicyHolderSubmit = async (childFormValues) => {
+  handlePolicyHolderSubmit = async childFormValues => {
     const { initialValues, customHandlers } = this.props;
 
     const data = { ...initialValues, ...childFormValues };
@@ -45,10 +45,9 @@ export class Verify extends React.Component {
     this.setState({ [name]: value });
   };
 
-  setPolicyHolderEditPopup = (value) => {
-    this.setState(() => ({ showPolicyHolderEditPopup: value}));
+  setPolicyHolderEditPopup = value => {
+    this.setState(() => ({ showPolicyHolderEditPopup: value }));
   };
-
 
   closeScheduleDatePopup = () => {
     this.setState(() => ({
@@ -56,9 +55,8 @@ export class Verify extends React.Component {
       confirmQuote: false,
       confirmPolicy: false,
       confirmAdditionalInterest: false,
-      showSendApplicationPopup: false,
+      showSendApplicationPopup: false
     }));
-
   };
 
   render() {
@@ -67,7 +65,7 @@ export class Verify extends React.Component {
       formInstance,
       config,
       options,
-      customHandlers,
+      customHandlers
     } = this.props;
 
     const {
@@ -80,12 +78,30 @@ export class Verify extends React.Component {
       confirmAdditionalInterest
     } = this.state;
 
-    const { productDescription, companyName, details } = config.extendedProperties;
+    const {
+      productDescription,
+      companyName,
+      details
+    } = config.extendedProperties;
     const { goToStep } = customHandlers;
-    const { property, policyHolders, policyHolderMailingAddress, additionalInterests } = initialValues;
+    const {
+      property,
+      policyHolders,
+      policyHolderMailingAddress,
+      additionalInterests
+    } = initialValues;
     const { submitting } = formInstance.getState();
-    const submitDisabled = !(confirmProperty && confirmQuote && confirmPolicy && confirmAdditionalInterest && !submitting);
-    const selectedAgent = (options.agents || []).find(agent => agent.answer === initialValues.agentCode) || {};
+    const submitDisabled = !(
+      confirmProperty &&
+      confirmQuote &&
+      confirmPolicy &&
+      confirmAdditionalInterest &&
+      !submitting
+    );
+    const selectedAgent =
+      (options.agents || []).find(
+        agent => agent.answer === initialValues.agentCode
+      ) || {};
 
     return (
       <div className="verify">
@@ -94,8 +110,11 @@ export class Verify extends React.Component {
           detailClass="property-details"
           switchName="confirmProperty"
           switchValue={confirmProperty}
-          switchOnChange={(value) => this.setConfirmation('confirmProperty', value)}
-          handleEditClick={() => goToStep(STEP_NAMES.askAdditionalCustomerData)} >
+          switchOnChange={value =>
+            this.setConfirmation('confirmProperty', value)
+          }
+          handleEditClick={() => goToStep(STEP_NAMES.askAdditionalCustomerData)}
+        >
           <PropertyDetails
             quoteNumber={initialValues.quoteNumber}
             effectiveDate={initialValues.effectiveDate}
@@ -110,19 +129,20 @@ export class Verify extends React.Component {
           detailClass="quote-details"
           switchName="confirmQuote"
           switchValue={confirmQuote}
-          switchOnChange={(value) => this.setConfirmation('confirmQuote', value)}
-          handleEditClick={() => goToStep(STEP_NAMES.askToCustomizeDefaultQuote)} >
-          <QuoteDetails
-            details={details}
-            formValues={initialValues}
-          />
+          switchOnChange={value => this.setConfirmation('confirmQuote', value)}
+          handleEditClick={() =>
+            goToStep(STEP_NAMES.askToCustomizeDefaultQuote)
+          }
+        >
+          <QuoteDetails details={details} formValues={initialValues} />
         </DetailGroup>
 
         <DetailGroup
           icon="fa fa-vcard-o"
           header="Policyholder Details"
           detailClass="policyholder-details"
-          handleEditClick={() => this.setPolicyHolderEditPopup(true)} >
+          handleEditClick={() => this.setPolicyHolderEditPopup(true)}
+        >
           <PolicyHolderDetails policyHolders={policyHolders} />
         </DetailGroup>
         <DetailGroup
@@ -131,8 +151,9 @@ export class Verify extends React.Component {
           detailClass="mailing-address-details"
           switchName="confirmPolicy"
           switchValue={confirmPolicy}
-          switchOnChange={(value) => this.setConfirmation('confirmPolicy', value)}
-          handleEditClick={() => goToStep(STEP_NAMES.askAdditionalQuestions)} >
+          switchOnChange={value => this.setConfirmation('confirmPolicy', value)}
+          handleEditClick={() => goToStep(STEP_NAMES.askAdditionalQuestions)}
+        >
           <AddressDetails address={policyHolderMailingAddress} />
         </DetailGroup>
 
@@ -142,9 +163,14 @@ export class Verify extends React.Component {
           detailClass="additional-interests-details"
           switchName="confirmAdditionalInterest"
           switchValue={confirmAdditionalInterest}
-          switchOnChange={(value) => this.setConfirmation('confirmAdditionalInterest', value)}
-          handleEditClick={() => goToStep(STEP_NAMES.addAdditionalAIs)} >
-            <AdditionalInterestDetails additionalInterests={additionalInterests} />
+          switchOnChange={value =>
+            this.setConfirmation('confirmAdditionalInterest', value)
+          }
+          handleEditClick={() => goToStep(STEP_NAMES.addAdditionalAIs)}
+        >
+          <AdditionalInterestDetails
+            additionalInterests={additionalInterests}
+          />
         </DetailGroup>
 
         <div className="workflow-steps">
@@ -153,22 +179,24 @@ export class Verify extends React.Component {
             onClick={() => this.setState({ showSendApplicationPopup: true })}
             disabled={submitDisabled}
             data-test="next"
-          >next</Button>
+          >
+            next
+          </Button>
         </div>
-         {showSendApplicationPopup &&
-            <ScheduleDate
-              selectedAgent={selectedAgent}
-              submitting={submitting}
-              entity={initialValues}
-              productDescription={productDescription}
-              companyName={companyName}
-              handleSubmit={this.sendApplicationSubmit}
-              redirectToHome={this.redirectToHome}
-              handleCancel={this.closeScheduleDatePopup}
-            />
-         }
-         {showPolicyHolderEditPopup &&
-           <ModalPortal>
+        {showSendApplicationPopup && (
+          <ScheduleDate
+            selectedAgent={selectedAgent}
+            submitting={submitting}
+            entity={initialValues}
+            productDescription={productDescription}
+            companyName={companyName}
+            handleSubmit={this.sendApplicationSubmit}
+            redirectToHome={this.redirectToHome}
+            handleCancel={this.closeScheduleDatePopup}
+          />
+        )}
+        {showPolicyHolderEditPopup && (
+          <ModalPortal>
             <PolicyHolderPopup
               submitting={submitting}
               handleFormSubmit={this.handlePolicyHolderSubmit}
@@ -178,9 +206,9 @@ export class Verify extends React.Component {
                 additionalPolicyholder: initialValues.policyHolders.length > 1
               }}
             />
-           </ModalPortal>
-         }
-       </div>
+          </ModalPortal>
+        )}
+      </div>
     );
   }
 }

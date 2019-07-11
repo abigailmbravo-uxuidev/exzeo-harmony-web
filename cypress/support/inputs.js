@@ -9,9 +9,7 @@ Cypress.Commands.add('fillFields', (fields = [], data) =>
       $el.find('input').length ?
         cy.wrap($el).find('input').type(data ? data[field.name] : field.data) :
         cy.wrap($el).type(data ? data[field.name] : field.data)
-    )
-  )
-);
+    )));
 
 /**
  * @param {string} name - Field name to find.
@@ -44,9 +42,7 @@ Cypress.Commands.add('clearAllText', fields =>
       $el.find('input').length ?
         cy.wrap($el).find('input').then($input => $input.val() && cy.wrap($input).type('{selectall}{backspace}')) :
         $el.val() && cy.wrap($el).type('{selectall}{backspace}')
-    )
-  )
-);
+    )));
 
 /**
  * This function is used for any non-standard inputs, ie not select > options.
@@ -76,8 +72,7 @@ Cypress.Commands.add('resetSelectOption', (tag, placeholder = 'Select...') =>
 Cypress.Commands.add('verifyForm', ((baseFields = [], fieldsLeftBlank = [], data, submitOptions) =>
   cy.clearAllText(baseFields)
     .fillFields(baseFields.filter(field => fieldsLeftBlank.indexOf(field) === -1), data)
-    .submitAndCheckValidation(fieldsLeftBlank.length ? fieldsLeftBlank : baseFields, submitOptions)
-));
+    .submitAndCheckValidation(fieldsLeftBlank.length ? fieldsLeftBlank : baseFields, submitOptions)));
 
 /**
  * Uses the native slider setter, instead of React's

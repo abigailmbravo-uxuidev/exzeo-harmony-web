@@ -32,7 +32,7 @@ export default {
       billToConfig: {},
       billingOptions: [],
       defaultBillToId: '',
-      paymentPlans: {},},
-
+      paymentPlans: {}
+    }
   }
 };

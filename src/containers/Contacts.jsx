@@ -3,7 +3,7 @@ import { shape, func } from 'prop-types';
 
 import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard';
-import Footer from '../components/Common/Footer';
+import Footer from '../components/Footer';
 
 export const territoryManagerContacts = [
   {
@@ -81,11 +81,13 @@ export const supportContacts = [
     icon: 'fa fa-credit-card',
     name: 'Payments',
     title: '',
-    message: 'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
+    message:
+      'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
     phone: '8442897968',
     extension: 'option 3',
     email: 'customerservice@typtap.com',
-    disclaimer: 'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
+    disclaimer:
+      'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
   }
 ];
 
@@ -96,13 +98,17 @@ const Contacts = ({ auth, match }) => (
         <div className="scroll">
           <div className="detail-wrapper">
             <section className="contacts">
-              <h2 className="title"><i className="fa fa-map-marker" /> Territory Managers</h2>
+              <h2 className="title">
+                <i className="fa fa-map-marker" /> Territory Managers
+              </h2>
               {territoryManagerContacts.map(contact => (
                 <ContactCard key={contact.name} {...contact} />
               ))}
             </section>
             <section className="contacts">
-              <h2 className="title"><i className="fa fa-address-book" /> Support</h2>
+              <h2 className="title">
+                <i className="fa fa-address-book" /> Support
+              </h2>
               {supportContacts.map(contact => (
                 <ContactCard key={contact.name} {...contact} />
               ))}
@@ -117,7 +123,7 @@ const Contacts = ({ auth, match }) => (
 
 Contacts.propTypes = {
   auth: shape({ logout: func }),
-  match: shape({ params: shape({}) }),
+  match: shape({ params: shape({}) })
 };
 
 export default Contacts;

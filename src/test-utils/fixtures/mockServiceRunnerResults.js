@@ -1,3 +1,5 @@
+import policyHolder from './policyHolder';
+
 export const underwritingResult = [
   {
     active: true,
@@ -55,16 +57,14 @@ export const underwritingResult = [
     hidden: false,
     name: 'fourPointUpdates',
     order: 4,
-    question: 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
+    question:
+      'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
     validations: ['required'],
     visible: true
   },
   {
     active: true,
-    answers: [
-      { answer: 'Yes' },
-      { answer: 'No' }
-    ],
+    answers: [{ answer: 'Yes' }, { answer: 'No' }],
     hidden: false,
     name: 'business',
     order: 6,
@@ -75,10 +75,15 @@ export const underwritingResult = [
 ];
 
 export const mailingBillingResult = {
-  options: [{
-    billToType: 'Policyholder', billToId: '123', displayText: 'Policyholder: Batman Robin', payPlans: ['Annual', 'Semi-Annual', 'Quarterly'],
-    policyHolder: {}
-  }],
+  options: [
+    {
+      billToType: 'Policyholder',
+      billToId: '9876',
+      displayText: 'Policyholder: Bruce Wayne',
+      payPlans: ['Annual', 'Semi-Annual', 'Quarterly'],
+      policyHolder
+    }
+  ],
   paymentPlans: {
     annual: {
       amount: 2667,

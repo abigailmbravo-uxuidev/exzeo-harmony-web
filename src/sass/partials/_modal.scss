@@ -11,7 +11,11 @@
     z-index: 10001;
   }
 
-  &.modal-sm, &.modal-md, &.modal-lg, &.modal-xl, &.modal-alert {
+  &.modal-sm,
+  &.modal-md,
+  &.modal-lg,
+  &.modal-xl,
+  &.modal-alert {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -67,7 +71,7 @@
               border-bottom-width: 0;
 
               @include for-phone-only {
-                margin-bottom: $padding*2;
+                margin-bottom: $padding * 2;
                 border-bottom: 1px dashed $cool-gray-02;
 
                 &:last-of-type {
@@ -149,11 +153,9 @@
         }
       }
     }
-
   }
 
   &.modal-md {
-
     .card {
       max-width: 40rem;
       width: 50%;
@@ -175,7 +177,6 @@
   }
 
   &.modal-lg {
-
     .card {
       max-width: 60rem;
       width: 80%;
@@ -197,7 +198,6 @@
   }
 
   &.modal-xl {
-
     .card {
       max-width: 80rem;
       width: 80%;
@@ -247,35 +247,32 @@
 
   &.schedule-date-modal {
     display: flex;
-    
-    .card-footer {
 
+    .card-footer {
       @include for-phone-only {
         flex-direction: column;
 
         .btn {
-          width: 100%;
-          margin-left: 0;
           margin-bottom: $padding;
+          margin-left: 0;
+          width: 100%;
         }
       }
-
       @include for-tablet-portrait-up {
         flex-direction: column;
 
         .btn {
-          width: 100%;
-          margin-left: 0;
           margin-bottom: $padding;
+          margin-left: 0;
+          width: 100%;
         }
       }
-
       @include for-desktop-up {
         flex-direction: row;
 
         .btn {
-          width: auto;
           margin-left: $padding;
+          width: auto;
         }
       }
     }
@@ -348,7 +345,7 @@
     flex-direction: column;
     flex-shrink: 1;
     justify-content: flex-start;
-    padding: $padding*2;
+    padding: $padding * 2;
     height: 100%;
 
     @include for-phone-only {

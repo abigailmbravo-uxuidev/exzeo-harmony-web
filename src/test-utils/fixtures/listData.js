@@ -291,7 +291,7 @@ export const mailingBillingList = {
       }
     },
     billingOptions: [
-      { answer: "5cab592e08bb5f0014863877", label: "Policyholder" }
+      { answer: '5cab592e08bb5f0014863877', label: 'Policyholder' }
     ],
     paymentPlans: {
       annual: {
@@ -329,7 +329,11 @@ export const mailingBillingList = {
     }
   },
   uiQuestions: {
-    address1: [], address2: [], city: [], state: [], zip: []
+    address1: [],
+    address2: [],
+    city: [],
+    state: [],
+    zip: []
   }
 };
 
@@ -407,9 +411,7 @@ export const underwritingList = {
       hidden: false,
       label: 'Is the home or any structures on the property ever rented?',
       defaultValue: '',
-      validation: [
-        'isRequired'
-      ],
+      validation: ['isRequired'],
       options: [
         {
           answer: 'Yes',
@@ -430,9 +432,7 @@ export const underwritingList = {
       hidden: false,
       label: 'When was the last claim filed?',
       defaultValue: '',
-      validation: [
-        'isRequired'
-      ],
+      validation: ['isRequired'],
       options: [
         {
           answer: 'No claims ever filed',
@@ -461,9 +461,7 @@ export const underwritingList = {
       hidden: false,
       label: 'How many months a year does the owner live in the home?',
       defaultValue: '',
-      validation: [
-        'isRequired'
-      ],
+      validation: ['isRequired'],
       options: [
         {
           answer: '0-3',
@@ -486,11 +484,10 @@ export const underwritingList = {
     {
       name: 'fourPointUpdates',
       hidden: false,
-      label: 'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
+      label:
+        'Have the wiring, plumbing, and HVAC been updated in the last 35 years?',
       defaultValue: 'Yes',
-      validation: [
-        'isRequired'
-      ],
+      validation: ['isRequired'],
       options: [
         {
           answer: 'Yes',
@@ -511,9 +508,7 @@ export const underwritingList = {
       hidden: false,
       label: 'Is a business conducted on the property?',
       defaultValue: '',
-      validation: [
-        'isRequired'
-      ],
+      validation: ['isRequired'],
       options: [
         {
           answer: 'Yes',
@@ -525,5 +520,5 @@ export const underwritingList = {
         }
       ]
     }
-  ],
+  ]
 };

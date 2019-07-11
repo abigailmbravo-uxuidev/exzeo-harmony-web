@@ -27,7 +27,7 @@ html {
       width: 100%;
       background: $warm-gray-10;
 
-      div[role="main"] {
+      div[role='main'] {
         position: relative;
         display: flex;
         overflow-x: hidden;
@@ -78,46 +78,46 @@ html {
               width: 100%;
               height: auto;
 
-              &.search, &.chooseAddress, &.chooseQuote {
+              &.search,
+              &.chooseAddress,
+              &.chooseQuote {
+                overflow: hidden;
+                align-items: stretch;
+
+                > .flex.grow {
                   overflow: hidden;
-                  align-items: stretch;
+                }
 
-                  >.flex.grow {
-                      overflow: hidden;
-                  }
-
-                  .detailHeader {
-                      display: none;
-                  }
-                  .workflow-header {
-                      display: none;
-                  }
+                .detailHeader {
+                  display: none;
+                }
+                .workflow-header {
+                  display: none;
+                }
               }
 
               .detailHeader {
-                  min-height: 4.625rem;
+                min-height: 4.625rem;
 
-                  @include for-desktop-up {
-                      height: 4.625rem;
-                  }
-
-
+                @include for-tablet-portrait-up {
+                  max-height: 4.625rem;
+                }
               }
               .workflow-header {
-                  display: flex;
+                display: flex;
 
-                  @include for-phone-only {
-                      min-height: 2.25rem;
-                  }
-                  @include for-tablet-portrait-up {
-                     min-height: 4.25rem;
-                  }
-                  @include for-tablet-landscape-up {
-                     min-height: 4.6875rem;
-                  }
-                  @include for-desktop-up {
-                      min-height: 4.6875rem;
-                  }
+                @include for-phone-only {
+                  min-height: 2.25rem;
+                }
+                @include for-tablet-portrait-up {
+                  min-height: 4.25rem;
+                }
+                @include for-tablet-landscape-up {
+                  min-height: 4.6875rem;
+                }
+                @include for-desktop-up {
+                  min-height: 4.6875rem;
+                }
               }
 
               .route-content {
@@ -141,7 +141,7 @@ html {
                     width: 100%;
 
                     > div {
-                        overflow: hidden;
+                      overflow: hidden;
                     }
                   }
                 }

@@ -1,9 +1,9 @@
 export default {
   __v: 0,
   _id: '5ca744928001ef001258b375',
-  additionalInterests:[],
+  additionalInterests: [],
   agencyCode: 20000,
-  agentCode: 60000,
+  agentCode: null,
   companyCode: 'TTIC',
   coverageLimits: {
     dwelling: {
@@ -148,7 +148,7 @@ export default {
     physicalAddress: {
       _id: '5ca744928001ef001258b379',
       address1: '4131 TEST ADDRESS',
-      address2: '',
+      address2: 'TEST SECOND ADDRESS',
       city: 'SARASOTA',
       county: 'SARASOTA',
       latitude: 27.27967,
@@ -181,7 +181,7 @@ export default {
     yearOfRoof: null
   },
   quoteInputState: 'Initial Data',
-  quoteNumber: '12-5162296-01',
+  quoteNumber: '12-345-67',
   quoteState: 'Quote Started',
   state: 'FL',
   underwritingAnswers: {
@@ -190,11 +190,13 @@ export default {
       source: 'Customer'
     },
     floodCoverage: {
-      question: 'Does this property have a separate insurance policy covering flood losses?',
+      question:
+        'Does this property have a separate insurance policy covering flood losses?',
       source: 'Default'
     },
     fourPointUpdates: {
-      question: 'Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?',
+      question:
+        'Has the wiring, plumbing, HVAC, and roof been updated in the last 35 years?',
       source: 'Customer'
     },
     monthsOccupied: {
@@ -220,5 +222,6 @@ export default {
     _id: '5ca744a98001ef001258b421',
     userId: 'auth0|59419e3a43e76f16f68c3349',
     userName: 'tticcsr'
-  }
+  },
+  rating: { worksheet: { fees: {} } }
 };

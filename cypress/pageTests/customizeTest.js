@@ -16,7 +16,7 @@ const headersAF3 = [
   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
   { name: 'floodZoneDetail', label: 'Flood Zone', value: 'X' },
   { name: 'coverageLimits.building.amountDetail', label: 'Coverage A', value: '$ 314,000' },
-  { name: 'premium', 'label': 'Premium', value: '$ 4,635' }
+  { name: 'premium', 'label': 'Premium', value: '$ 657' }
 ];
 
 const getFields = product =>
@@ -45,7 +45,7 @@ export default (product = 'HO3') => {
         // and confirm your text fields for min and max match the value.
         cy.findDataTag(`${path}-slider-min`).invoke('text').should('eq', toCurrency(minValue))
           .findDataTag(`${path}-slider-max`).invoke('text').should('eq', toCurrency(maxValue))
-          // Change vale
+          // Change value
           .findDataTag(`${path}-input`).type(`{selectall}{backspace}${value}`)
           // and reset.
           .findDataTag('reset').should('contain', 'reset').and('not.be.disabled').click()

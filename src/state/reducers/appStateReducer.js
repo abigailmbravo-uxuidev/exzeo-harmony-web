@@ -14,9 +14,10 @@ export default function appStateReducer(state = initialState.appState, action) {
     case types.TOGGLE_SNACKBAR:
       return { ...state, showSnackBar: action.showSnackBar };
     case persistTypes.REHYDRATE:
-      newState = (action.payload && action.payload.appState)
-        ? { ...action.payload.appState, isLoading: false }
-        : newState;
+      newState =
+        action.payload && action.payload.appState
+          ? { ...action.payload.appState, isLoading: false }
+          : newState;
       return newState;
     default:
       return state;

@@ -27,7 +27,6 @@ export function setAgency(agency) {
   };
 }
 
-
 /**
  *
  * @param agents
@@ -48,7 +47,7 @@ export function setAgents(agents) {
  * @returns {Function}
  */
 export function getAgencies(companyCode, state, agencyCode) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const agencies = await fetchAgencies(companyCode, state, agencyCode);
       dispatch(setAgencies(agencies));
@@ -64,7 +63,7 @@ export function getAgencies(companyCode, state, agencyCode) {
  * @returns {Function}
  */
 export function getAgency(agencyCode) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const agency = await fetchAgency(agencyCode);
       dispatch(setAgency(agency));
@@ -74,14 +73,13 @@ export function getAgency(agencyCode) {
   };
 }
 
-
 /**
  *
  * @param agencyCode
  * @returns {Function}
  */
 export function getAgentsByAgencyCode(agencyCode) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const agents = await fetchAgentsByAgencyCode(agencyCode);
       dispatch(setAgents(agents));
@@ -143,7 +141,10 @@ export async function fetchAgentsByAgencyCode(agencyCode) {
       method: 'GET',
       path: `agencies/${agencyCode}/agents`
     };
-    const response = await serviceRunner.callService(config, 'fetchAgentsByAgencyCode');
+    const response = await serviceRunner.callService(
+      config,
+      'fetchAgentsByAgencyCode'
+    );
     return response.data && response.data.result ? response.data.result : [];
   } catch (error) {
     throw error;
