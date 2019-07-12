@@ -399,7 +399,12 @@ const mock = {
                         },
                         {
                           label: 'Year Roof Built',
-                          items: [{ format: '', path: 'property.yearOfRoof' }]
+                          items: [
+                            {
+                              format: 'toValueOrDash',
+                              path: 'property.yearOfRoof'
+                            }
+                          ]
                         },
                         {
                           label: 'Family Units',
