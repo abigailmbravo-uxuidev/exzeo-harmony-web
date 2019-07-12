@@ -898,7 +898,7 @@ const mock = {
                       className: 'deductible',
                       details: [
                         {
-                          label: 'All other Perils',
+                          label: 'All Other Perils',
                           items: [
                             {
                               format: 'currency',
