@@ -181,12 +181,13 @@ function formatQuoteForSubmit(data, options) {
 
   // AF3 specific rules
   if (data.product === PRODUCT_TYPES.flood) {
+    // TODO setting personalPropertyDeductible to match buildingDeductible (ppd is not in UI) so we aren't 'watching' building to update it. Need to fix.
+    quote.deductibles.personalPropertyDeductible.value =
+      quote.deductibles.buildingDeductible.value;
     // personal property replacement cost coverage
     if (
-      !(
-        data.coverageLimits.personalProperty.value >=
-        Math.ceil(data.coverageLimits.building.value / 4)
-      )
+      data.coverageLimits.personalProperty.value <
+      Math.ceil(data.coverageLimits.building.value / 4)
     ) {
       quote.coverageOptions.personalPropertyReplacementCost.answer = false;
     }
