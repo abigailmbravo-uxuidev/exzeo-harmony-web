@@ -46,6 +46,7 @@ export const defaultInitialState = {
       },
       quoteNumber: '1',
       effectiveDate: '2019-05-25',
+      policyHolders: [],
       product: 'HO3',
       property: {
         physicalAddress: {}

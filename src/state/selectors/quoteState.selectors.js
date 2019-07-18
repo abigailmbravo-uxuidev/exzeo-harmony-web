@@ -19,7 +19,7 @@ export const getQuoteSelector = createSelector(
       );
     }
 
-    if (quoteData.policyHolders[1] && quoteData.policyHolder[1].firstName) {
+    if (quoteData.policyHolders[1] && quoteData.policyHolders[1].firstName) {
       quoteData.additionalPolicyholder = true;
     }
 
