@@ -148,17 +148,13 @@ describe('Testing Additional Interests', () => {
   const openAndCloseModal = async (getByText, modal) => {
     fireEvent.click(getByText(modal));
     await wait(() => {
-      expect(document
-        .querySelector('modal')
-        .toBeInTheDocument());
-      expect(document
-        .querySelector(`card.AdditionalInterestModal.${modal}`))
-        .toBeInTheDocument();
+      expect(document.querySelector('modal').toBeInTheDocument());
+      expect(
+        document.querySelector(`card.AdditionalInterestModal.${modal}`)
+      ).toBeInTheDocument();
     });
     fireEvent.click(getByText('cancel'));
-    await wait(() =>
-      expect(document.querySelector('modal')).toBeNull()
-    );
+    await wait(() => expect(document.querySelector('modal')).toBeNull());
   };
 
   const baseRequiredFields = baseAiFields.filter(({ required }) => required);
