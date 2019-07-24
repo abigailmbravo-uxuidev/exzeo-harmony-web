@@ -193,13 +193,9 @@ export class QuoteWorkflow extends Component {
           data,
           quoteNumber: quote.quoteNumber,
           options: {
-            shouldSendEmail,
-            shouldSendApplication,
             customValues: values,
             step: stepNumber,
-            shouldReviewQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify',
-            timezone: (zipCodeSettings || {}).timezone || 'America/New_York',
-            underwritingQuestions: options.underwritingQuestions
+            shouldReviewQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
           }
         });
       }
