@@ -144,7 +144,12 @@ export function reviewQuote({ quoteNumber, quoteId }) {
  * @returns {Object}
  */
 function formatQuoteForSubmit(data, options) {
-  const quote = { ...data };
+  const {
+    additionalPolicyholder,
+    shouldSendEmail,
+    shouldSendApplication,
+    ...quote
+  } = data;
   quote.effectiveDate = date.formatToUTC(
     date.formatDate(data.effectiveDate, date.FORMATS.SECONDARY),
     data.property.timezone
@@ -159,7 +164,7 @@ function formatQuoteForSubmit(data, options) {
     quote.policyHolders[0].entityType =
       data.policyHolders[0].entityType || 'Person';
 
-    if (quote.additionalPolicyholder) {
+    if (additionalPolicyholder) {
       quote.policyHolders[1].order = data.policyHolders[1].order || 1;
       quote.policyHolders[1].entityType =
         data.policyHolders[1].entityType || 'Person';
@@ -176,12 +181,13 @@ function formatQuoteForSubmit(data, options) {
 
   // AF3 specific rules
   if (data.product === PRODUCT_TYPES.flood) {
+    // TODO setting personalPropertyDeductible to match buildingDeductible (ppd is not in UI) so we aren't 'watching' building to update it. Need to fix.
+    quote.deductibles.personalPropertyDeductible.value =
+      quote.deductibles.buildingDeductible.value;
     // personal property replacement cost coverage
     if (
-      !(
-        data.coverageLimits.personalProperty.value >=
-        Math.ceil(data.coverageLimits.building.value / 4)
-      )
+      data.coverageLimits.personalProperty.value <
+      Math.ceil(data.coverageLimits.building.value / 4)
     ) {
       quote.coverageOptions.personalPropertyReplacementCost.answer = false;
     }
@@ -200,7 +206,7 @@ export function updateQuote({ data = {}, options }) {
   return async function(dispatch) {
     dispatch(toggleLoading(true));
     try {
-      if (options.shouldSendApplication) {
+      if (data.shouldSendApplication) {
         const config = {
           exchangeName: 'harmony',
           routingKey: 'harmony.quote.sendApplication',
