@@ -216,7 +216,7 @@ export function updateQuote({ data = {}, options }) {
           }
         };
 
-        await serviceRunner.callService(config, 'quoteManage.sendApplication');
+        await serviceRunner.callService(config, 'quoteManager.sendApplication');
       } else {
         const updatedQuote = formatQuoteForSubmit(data, options);
         const config = {

@@ -51,7 +51,7 @@ export const navigateThroughMailingBilling = () =>
     // Get first non-disabled option and select that value
     .get('select[name="billToId"] > option:not([disabled])').first()
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
-    .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
+    .clickSubmit('#QuoteWorkflow').wait('@updateQuote').wait('@reviewQuote');
 
 export const navigateThroughVerify = () =>
   cy.task('log', 'Navigating through Verify')
