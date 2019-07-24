@@ -36,6 +36,7 @@ import Verify from './Verify';
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
 import TriggerRecalc from './TriggerRecalc';
+import { UW_EXCEPTION_QUOTE_STATES } from './constants/quote';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
   const currentRouteName = pathname.split('/')[3];
@@ -116,7 +117,13 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  checkForFatalExceptions(underwritingExceptions, currentRouteName) {
+  checkForFatalExceptions(
+    underwritingExceptions,
+    currentRouteName,
+    quoteState
+  ) {
+    if (!UW_EXCEPTION_QUOTE_STATES.includes(quoteState)) return false;
+
     if (currentRouteName === 'verify') {
       const currentExceptions = (underwritingExceptions || []).filter(
         ue => !ue.overridden
@@ -177,6 +184,8 @@ export class QuoteWorkflow extends Component {
   handleGandalfSubmit = async ({ remainOnStep, noSubmit, ...values }) => {
     const { quote, history, updateQuote, location } = this.props;
     const { isRecalc, stepNumber } = this.state;
+    const { currentRouteName } = getCurrentStepAndPage(location.pathname);
+
     try {
       if (!noSubmit) {
         const data = values.quoteNumber ? values : quote;
@@ -184,13 +193,13 @@ export class QuoteWorkflow extends Component {
           data,
           quoteNumber: quote.quoteNumber,
           options: {
-            step: stepNumber
+            step: stepNumber,
+            shouldReviewQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
           }
         });
       }
       // TODO: Figure out a routing solution
       if (!(isRecalc || remainOnStep)) {
-        const { currentRouteName } = getCurrentStepAndPage(location.pathname);
         history.replace(NEXT_PAGE_ROUTING[currentRouteName]);
         this.setCurrentStep();
       }
