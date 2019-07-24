@@ -51,7 +51,7 @@ describe('Policy Coverage Page testing', () => {
       { label: 'Mold Property', value: '$ 10,000' },
       { label: 'Mold Liability', value: '$ 50,000' },
       { label: 'Ordinance or Law', value: '25%' },
-      { label: 'All other Perils Deductible', value: '$ 1,000' },
+      { label: 'All Other Perils Deductible', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '$ 6,280' },
       { label: 'Sinkhole Deductible', value: '$ 31,400' }
     ];
@@ -86,7 +86,7 @@ describe('Policy Coverage Page testing', () => {
       <PolicyWorkflow {...props} />
     );
     const sectionData = [
-      { label: 'All other Perils', value: '$ 1,000' },
+      { label: 'All Other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
       { label: 'Sinkhole Deductible', value: '10%' }
     ];
@@ -109,7 +109,7 @@ describe('Policy Coverage Page testing', () => {
       <PolicyWorkflow {...policyProps} />
     );
     const sectionData = [
-      { label: 'All other Perils', value: '$ 1,000' },
+      { label: 'All Other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
       { label: 'Sinkhole Deductible', value: 'No' }
     ];

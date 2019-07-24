@@ -399,7 +399,12 @@ const mock = {
                         },
                         {
                           label: 'Year Roof Built',
-                          items: [{ format: '', path: 'property.yearOfRoof' }]
+                          items: [
+                            {
+                              format: 'toValueOrDash',
+                              path: 'property.yearOfRoof'
+                            }
+                          ]
                         },
                         {
                           label: 'Family Units',
@@ -775,7 +780,7 @@ const mock = {
                           ]
                         },
                         {
-                          label: 'All other Perils Deductible',
+                          label: 'All Other Perils Deductible',
                           items: [
                             {
                               format: 'currency',
@@ -990,7 +995,7 @@ const mock = {
                       className: 'deductible',
                       details: [
                         {
-                          label: 'All other Perils',
+                          label: 'All Other Perils',
                           items: [
                             {
                               format: 'currency',
