@@ -193,7 +193,6 @@ export class QuoteWorkflow extends Component {
           data,
           quoteNumber: quote.quoteNumber,
           options: {
-            customValues: values,
             step: stepNumber,
             shouldReviewQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
           }
