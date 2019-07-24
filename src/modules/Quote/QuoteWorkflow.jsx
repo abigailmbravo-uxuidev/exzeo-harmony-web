@@ -12,7 +12,7 @@ import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
 import { getEnumsForQuoteWorkflow } from '../../state/actions/list.actions';
-import { getQuoteSelector } from '../../state/selectors/choreographer.selectors';
+import { getQuoteSelector } from '../../state/selectors/quoteState.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 
 import {
@@ -181,21 +181,8 @@ export class QuoteWorkflow extends Component {
     this.setState({ isRecalc });
   };
 
-  handleGandalfSubmit = async ({
-    remainOnStep,
-    shouldSendEmail,
-    shouldSendApplication,
-    noSubmit,
-    ...values
-  }) => {
-    const {
-      zipCodeSettings,
-      quote,
-      history,
-      updateQuote,
-      location,
-      options
-    } = this.props;
+  handleGandalfSubmit = async ({ remainOnStep, noSubmit, ...values }) => {
+    const { quote, history, updateQuote, location } = this.props;
     const { isRecalc, stepNumber } = this.state;
     const { currentRouteName } = getCurrentStepAndPage(location.pathname);
 
