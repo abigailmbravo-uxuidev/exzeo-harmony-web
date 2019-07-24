@@ -279,7 +279,7 @@ export class QuoteWorkflow extends Component {
       getQuote
     };
 
-    const { underwritingExceptions } = quoteData;
+    const { underwritingExceptions } = quote;
     const quoteState = quoteData ? quoteData.quoteState : '';
     const quoteHasFatalError = this.checkForFatalExceptions(
       underwritingExceptions,
