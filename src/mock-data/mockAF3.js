@@ -3,20 +3,10 @@ const mock = {
   header: {
     hideDetailSummary: true,
     fields: [
-      {
-        value: 'quoteNumber'
-      },
-      {
-        value: 'propertyAddress',
-        component: 'Section',
-        label: 'Address'
-      },
-      {
-        value: 'yearBuilt'
-      },
-      {
-        value: 'floodZone'
-      },
+      { value: 'quoteNumber' },
+      { value: 'propertyAddress', component: 'Section', label: 'Address' },
+      { value: 'yearBuilt' },
+      { value: 'floodZone' },
       {
         value: 'coverageLimits.building.amount',
         label: 'Coverage A',
@@ -26,10 +16,7 @@ const mock = {
           display: '$ --'
         }
       },
-      {
-        value: 'premium',
-        component: 'PremiumSection'
-      }
+      { value: 'premium', component: 'PremiumSection' }
     ]
   },
   pages: [
