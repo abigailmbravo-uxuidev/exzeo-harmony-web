@@ -58,7 +58,7 @@ describe('Underwriting Error Testing', () => {
           'overridden': false,
         }]
       }
-    }).as('updateQuote');
+    }).as('reviewQuote');
     navigateThroughMailingBilling();
     cy.get('div#Error').should('contain', 'Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.');
   });
