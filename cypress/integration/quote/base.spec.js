@@ -90,7 +90,8 @@ describe('AF3 Happy Path', () => {
     navigateThroughScheduleDate();
     cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
       navigateThroughThankYou();
-      cy.get('.btn[href="/search/retrieve"]').click()
+      cy.wait(15000)
+        .get('.btn[href="/search/retrieve"]').click()
         .findDataTag('quoteNumber').type($quote.text())
         .clickSubmit('#SearchBar')
         .findDataTag('quote-list').should('not.be.empty')

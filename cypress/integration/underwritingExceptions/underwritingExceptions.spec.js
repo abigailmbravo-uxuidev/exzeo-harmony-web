@@ -58,7 +58,7 @@ describe('Underwriting Error Testing', () => {
           'overridden': false,
         }]
       }
-    }).as('updateQuote');
+    }).as('reviewQuote');
     navigateThroughMailingBilling();
     cy.get('button.btn-primary').click();
     cy.get('div#Error').should('contain', "Sorry for the inconvenience, either the page you're looking for does not exist or we're experiencing an issue with our application at the moment.");
