@@ -15,6 +15,14 @@ export const externalLinks = [
   },
   {
     key: 2,
+    productIcon: 'generic',
+    url: 'https://cdn.typtap.com/2019/07/Who-Is-TypTap.pdf',
+    title: 'Who Is TypTap',
+    description: 'Brief summary of information about TypTap Insurance.',
+    linkIcon: 'pdf'
+  },
+  {
+    key: 3,
     productIcon: 'home',
     url: 'https://cdn.typtap.com/2018/12/TT-Pilot-Agents-one-pager-112818.pdf',
     title: 'TypTap Homeowners Agent Program Guide',
@@ -23,7 +31,7 @@ export const externalLinks = [
     linkIcon: 'pdf'
   },
   {
-    key: 3,
+    key: 4,
     productIcon: 'home',
     url: 'https://cdn.typtap.com/2019/01/TT-HO3-Quick-Ref-Guide.pdf',
     title: 'TypTap Homeowners Quick Reference Guide',
@@ -31,7 +39,7 @@ export const externalLinks = [
     linkIcon: 'pdf'
   },
   {
-    key: 4,
+    key: 5,
     url: 'https://cdn.typtap.com/2019/03/TT-HO3-County-Map.pdf',
     productIcon: 'home',
     title: 'TypTap Homeowners County Map',
@@ -39,7 +47,7 @@ export const externalLinks = [
     linkIcon: 'pdf'
   },
   {
-    key: 5,
+    key: 6,
     url: 'https://cdn.typtap.com/2019/03/TypTap-Underwriting-Exception-Req.pdf',
     productIcon: 'home',
     title: 'TypTap Underwriting Exception Requirements Document',
