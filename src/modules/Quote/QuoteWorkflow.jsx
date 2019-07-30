@@ -32,6 +32,7 @@ import Assumptions from './Assumptions';
 import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
 import Verify from './Verify';
+import Warning from './Warning';
 
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
@@ -64,7 +65,8 @@ export class QuoteWorkflow extends Component {
     this.customComponents = {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
-      $VERIFY: Verify
+      $VERIFY: Verify,
+      $WARNING: Warning
     };
 
     this.state = {
