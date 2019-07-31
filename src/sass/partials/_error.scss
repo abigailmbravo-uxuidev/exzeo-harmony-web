@@ -302,5 +302,9 @@
     color: $white;
     font-weight: $font-weight-bold;
     font-size: $font-size-h4;
+
+    @include for-phone-only {
+      font-size: $font-size-h5;
+    }
   }
 }
