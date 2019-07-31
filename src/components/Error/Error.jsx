@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Footer from '../Footer';
 
 const Error = ({ location: { state = {} }, history: { replace } }) => {
-  const { exceptions = [], quote } = state;
+  const { exceptions = [], quoteNumber, product } = state;
 
   const hasFatalError = exceptions.some(ex => ex.code.startsWith(1));
   const isIneligible = exceptions.some(ex => ex.code === 102);
@@ -47,7 +49,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
           'If you feel that you received this page in error and would like to edit the quote, please select Edit below.',
         buttons: [
           { text: 'Start New Quote', to: '/search/address' },
-          { text: 'Edit', to: `/quote/${quote.quoteNumber}/customerinfo` }
+          { text: 'Edit', to: `/quote/${quoteNumber}/customerinfo` }
         ]
       };
       break;
@@ -96,9 +98,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
                           : 'btn-secondary'
                       }`}
                       type="button"
-                      onClick={() =>
-                        replace(button.to, { product: quote.product })
-                      }
+                      onClick={() => replace(button.to, { product })}
                     >
                       {button.text}
                     </button>
@@ -126,6 +126,15 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
       <Footer />
     </div>
   );
+};
+
+Error.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.object
+  }),
+  history: PropTypes.shape({
+    replace: PropTypes.func
+  })
 };
 
 export default Error;
