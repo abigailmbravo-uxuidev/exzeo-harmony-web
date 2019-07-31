@@ -93,15 +93,6 @@ const Share = ({ customHandlers, initialValues, formInstance }) => {
                 next
               </Button>
             </div>
-
-            {!submitting && filteredUnderwritingExceptions.length > 0 && (
-              <ErrorPopup
-                quote={initialValues}
-                underwritingExceptions={filteredUnderwritingExceptions}
-                refereshUWReviewError={() => refreshUWReviewError()}
-                redirectToNewQuote={() => redirectToNewQuote()}
-              />
-            )}
           </React.Fragment>
         )}
       </FormSpy>
