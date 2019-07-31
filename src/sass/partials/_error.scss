@@ -1,13 +1,13 @@
 .error-content {
   display: flex;
   flex-direction: column;
-  height: 100%;
   flex-grow: 1;
+  height: 100%;
 
   .quote-details-error {
     display: flex;
-    min-height: 4.75rem;
     padding: $padding;
+    min-height: 4.75rem;
     background-color: $orange-lighten-03;
 
     .display-element {
@@ -39,10 +39,11 @@
   .error-wrapper {
     display: flex;
     overflow-y: auto;
+    flex-basis: 100%;
     flex-direction: row;
     flex-direction: row;
     flex-grow: 1;
-    flex-basis: 100%;
+
     @include for-phone-only {
       flex-direction: column-reverse;
       justify-content: center;
@@ -69,8 +70,8 @@
             &.error-list {
               margin: $padding;
               padding-left: $padding;
-              list-style: disc;
               color: $red;
+              list-style: disc;
 
               li {
                 &.warning-li {
@@ -85,33 +86,35 @@
 
     aside {
       display: flex;
+      align-items: center;
       flex-direction: column;
-      width: 12rem;
-      padding: $padding;
       flex-grow: 0;
       flex-shrink: 0;
-      align-items: center;
+      padding: $padding;
+      width: 12rem;
+
       @include for-phone-only {
         flex-direction: row;
         width: 100%;
       }
 
       .image {
+        flex-basis: 10rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-right: $padding;
         width: 10rem;
         height: 10rem;
-        margin-right: $padding;
         border: 5px solid $bright-blue-darken-01;
         border-radius: 50%;
         background-image: url('../img/csr.jpg');
         background-position: right center;
         background-size: cover;
-        flex-basis: 10rem;
-        flex-grow: 0;
-        flex-shrink: 0;
+
         @include for-phone-only {
+          flex-basis: 8rem;
           width: 8rem;
           height: 8rem;
-          flex-basis: 8rem;
         }
       }
 
@@ -123,6 +126,7 @@
         a {
           margin: $padding;
           font-size: $font-size-h4;
+
           @include for-phone-only {
             font-size: $font-size-h5;
           }
@@ -181,8 +185,8 @@
             }
             .btn-group {
               .btn-round {
-                height: 2rem;
                 padding: 0;
+                height: 2rem;
               }
             }
           }
@@ -196,14 +200,14 @@
   &.error {
     .route {
       display: flex;
+      align-self: stretch;
       flex-direction: column;
       width: 100%;
-      align-self: stretch;
 
       .route-content {
         display: flex;
-        flex-direction: column;
         align-self: stretch;
+        flex-direction: column;
         flex-grow: 1;
         flex-shrink: 0;
       }
@@ -233,15 +237,15 @@
 
               .detail-wrapper {
                 position: relative;
-                width: 100%;
                 padding-bottom: 0;
+                width: 100%;
               }
             }
           }
 
           aside {
-            flex-shrink: 0;
             flex-grow: 0;
+            flex-shrink: 0;
           }
         }
 
@@ -264,9 +268,9 @@
 
       .card-header {
         display: flex;
-        height: 6rem;
         align-items: center;
         justify-content: center;
+        height: 6rem;
 
         > img {
           height: 3rem;
@@ -285,5 +289,18 @@
         }
       }
     }
+  }
+}
+
+.view-grid {
+  > .uw-warning {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0 (-$padding * 2);
+    padding: ($padding * 2) ($padding * 3);
+    background: rgba($orange-darken-01, 0.8);
+    color: $white;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-h4;
   }
 }
