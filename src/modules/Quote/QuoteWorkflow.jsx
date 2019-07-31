@@ -306,8 +306,7 @@ export class QuoteWorkflow extends Component {
                   pathname: 'error',
                   state: {
                     fatalError: true,
-                    quoteNumber: quote.quoteNumber,
-                    product: quote.product,
+                    quote,
                     exceptions: underwritingExceptions
                   }
                 }}
