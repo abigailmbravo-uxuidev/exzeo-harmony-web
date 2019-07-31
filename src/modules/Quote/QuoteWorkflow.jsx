@@ -134,7 +134,7 @@ export class QuoteWorkflow extends Component {
     }
 
     return (underwritingExceptions || []).some(
-      ex => ex.action === 'Fatal Error'
+      ex => ex.action === 'Fatal Error' || ex.action === 'Underwriting Review'
     );
   }
 
@@ -297,9 +297,21 @@ export class QuoteWorkflow extends Component {
       >
         <div className="route">
           {isLoading && <Loader />}
-          {quoteHasFatalError && !(location.state || {}).fatalError && (
-            <Redirect to={{ pathname: 'error', state: { fatalError: true } }} />
-          )}
+          {quoteHasFatalError &&
+            !(location.state || {}).fatalError &&
+            !location.pathname.includes('customerInfo') &&
+            !location.pathname.includes('underwriting') && (
+              <Redirect
+                to={{
+                  pathname: 'error',
+                  state: {
+                    fatalError: true,
+                    quote,
+                    exceptions: underwritingExceptions
+                  }
+                }}
+              />
+            )}
 
           {gandalfTemplate && gandalfTemplate.header && (
             <WorkflowNavigation

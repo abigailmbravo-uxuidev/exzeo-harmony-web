@@ -1,16 +1,67 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Footer from '../Footer';
 
-const handleGetQuoteData = state => state.quoteState.quote || {};
+const Error = ({ location: { state = {} }, history: { replace } }) => {
+  const { exceptions = [], quote } = state;
 
-const handleGetExceptions = state => {
-  const quote = handleGetQuoteData(state);
-  return quote.underwritingExceptions || [];
-};
+  const hasFatalError = exceptions.some(ex => ex.code.startsWith(1));
+  const isIneligible = exceptions.some(ex => ex.code === 102);
 
-const Error = ({ exceptions }) => {
-  let hasFatalError;
+  // Possible error stauses: {'ineligible', 'fatal', 'editiable', 'misc'}
+  const status = isIneligible
+    ? 'ineligible'
+    : hasFatalError
+    ? 'fatal'
+    : exceptions.length > 0
+    ? 'editiable'
+    : 'misc';
+
+  let content = {};
+
+  switch (status) {
+    case 'ineligible':
+      content = {
+        icon: 'fa-exclamation-circle',
+        header: 'Property Not Eligible.',
+        intro: 'The following errors have occured for this property:',
+        outro: '',
+        buttons: [{ text: 'Start New Quote', to: '/search/address' }]
+      };
+      break;
+    case 'fatal':
+      content = {
+        icon: 'fa-exclamation-triangle',
+        header: 'Underwriting Error(s)',
+        intro: "Unfortunately, we've encountered an error with your quote:",
+        outro: '',
+        buttons: [{ text: 'Start New Quote', to: '/search/address' }]
+      };
+      break;
+    case 'editiable':
+      content = {
+        icon: 'fa-exclamation-triangle',
+        header: 'Underwriting Error(s)',
+        intro:
+          'The following underwriting error(s) have occured for this quote:',
+        outro:
+          'If you feel that you received this page in error and would like to edit the quote, please select Edit below.',
+        buttons: [
+          { text: 'Start New Quote', to: '/search/address' },
+          { text: 'Edit', to: `/quote/${quote.quoteNumber}/customerinfo` }
+        ]
+      };
+      break;
+    default:
+      content = {
+        icon: 'fa-exclamation-triangle',
+        header: 'Whoopsies! Something seems to have gone wrong.',
+        intro:
+          "Sorry for the inconveniene, We're experiencing and application issue at the moment. Try refreshing the page or returning to the home screen.",
+        outro: '',
+        buttons: [{ text: 'Home', to: '/' }]
+      };
+  }
+
   return (
     <div className="route-content">
       <div className="error-content" role="article">
@@ -18,34 +69,41 @@ const Error = ({ exceptions }) => {
         <div className="error-wrapper">
           <section>
             <div id="Error">
-              <div className="detail-wrapper">
-                <h3 className="section-group-header error">
-                  <i className="fa fa-exclamation-triangle" /> Property does not
-                  qualify for automated quote
-                </h3>
-                <h4>The following errors have occurred for this property:</h4>
-                <ul className="error-list">
-                  {exceptions.map((exception, key) => {
-                    if (exception.action === 'Fatal Error') {
-                      hasFatalError = true;
-                      return <li key={key}>{exception.agentMessage}</li>;
-                    } else if (exception.action === 'Underwriting Review') {
-                      return (
-                        <li className="warning-li" key={key}>
-                          {exception.agentMessage}
-                        </li>
-                      );
-                    }
-                    return '';
-                  })}
-                </ul>
-                {!hasFatalError && (
-                  <p>
-                    Please contact one of our representatives so they may
-                    further assist you in obtaining a HO3 insurance quote for
-                    this property.
-                  </p>
-                )}
+              <div className="error-header">
+                <i className={`fa ${content.icon}`} />
+                {content.header}
+              </div>
+              <ul className="error-list">
+                {exceptions.map((ex, key) => {
+                  const className = ex.code.startsWith(1)
+                    ? 'error-li'
+                    : 'warning-li';
+                  return (
+                    <li className={className} key={key}>
+                      {ex.agentMessage}
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="error-outro">{content.outro}</div>
+              <div className="error-footer">
+                {content.buttons.map((button, key) => (
+                  <React.Fragment key={key}>
+                    <button
+                      className={`btn ${
+                        content.buttons.length - 1 === key
+                          ? 'btn-primary'
+                          : 'btn-secondary'
+                      }`}
+                      type="button"
+                      onClick={() =>
+                        replace(button.to, { product: quote.product })
+                      }
+                    >
+                      {button.text}
+                    </button>
+                  </React.Fragment>
+                ))}
               </div>
             </div>
           </section>
@@ -70,10 +128,4 @@ const Error = ({ exceptions }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  appState: state.appState,
-  quote: handleGetQuoteData(state),
-  exceptions: handleGetExceptions(state)
-});
-
-export default connect(mapStateToProps)(Error);
+export default Error;
