@@ -132,6 +132,11 @@
         }
       }
     }
+
+    .workflow-header {
+      position: absolute;
+      z-index: -1;
+    }
   }
 
   &.modal {
