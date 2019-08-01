@@ -66,13 +66,61 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
     <div className="route-content">
       <div className="error-content" role="article">
         {/* HARD STOP WORKFLOW ERROR*/}
+        <header>
+          <div className="error-header">
+            <i className={`fa ${content.icon}`} />
+            {content.header}
+          </div>
+          <ul class="workflow-header">
+            <div class="rule"></div>
+            <li>
+              <a>
+                <i class="fa fa-vcard"></i>
+                <span>Policyholder</span>
+              </a>
+            </li>
+            <li>
+              <a class="disabled">
+                <i class="fa fa-list-ol"></i>
+                <span>Underwriting</span>
+              </a>
+            </li>
+            <li data-test="tab-nav-3">
+              <a class="disabled">
+                <i class="fa fa-sliders"></i>
+                <span>Customize</span>
+              </a>
+            </li>
+            <li data-test="tab-nav-4">
+              <a class="disabled">
+                <i class="fa fa-share-alt"></i>
+                <span>Share</span>
+              </a>
+            </li>
+            <li data-test="tab-nav-5">
+              <a class="disabled">
+                <i class="fa fa-user-plus"></i>
+                <span>Additional Parties</span>
+              </a>
+            </li>
+            <li data-test="tab-nav-6">
+              <a class="disabled">
+                <i class="fa fa-envelope"></i>
+                <span>Mailing / Billing</span>
+              </a>
+            </li>
+            <li data-test="tab-nav-7">
+              <a class="disabled">
+                <i class="fa fa-check-square"></i>
+                <span>Verify</span>
+              </a>
+            </li>
+          </ul>
+        </header>
+
         <div className="error-wrapper">
           <section>
             <div id="Error">
-              <div className="error-header">
-                <i className={`fa ${content.icon}`} />
-                {content.header}
-              </div>
               <ul className="error-list">
                 {exceptions.map((ex, key) => {
                   const className = ex.code.startsWith(1)
@@ -121,51 +169,6 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
               </a>
             </div>
           </aside>
-          <ul class="workflow-header">
-            <div class="rule"></div>
-            <li>
-              <a>
-                <i class="fa fa-vcard"></i>
-                <span>Policyholder</span>
-              </a>
-            </li>
-            <li>
-              <a class="disabled">
-                <i class="fa fa-list-ol"></i>
-                <span>Underwriting</span>
-              </a>
-            </li>
-            <li data-test="tab-nav-3">
-              <a class="disabled">
-                <i class="fa fa-sliders"></i>
-                <span>Customize</span>
-              </a>
-            </li>
-            <li data-test="tab-nav-4">
-              <a class="disabled">
-                <i class="fa fa-share-alt"></i>
-                <span>Share</span>
-              </a>
-            </li>
-            <li data-test="tab-nav-5">
-              <a class="disabled">
-                <i class="fa fa-user-plus"></i>
-                <span>Additional Parties</span>
-              </a>
-            </li>
-            <li data-test="tab-nav-6">
-              <a class="disabled">
-                <i class="fa fa-envelope"></i>
-                <span>Mailing / Billing</span>
-              </a>
-            </li>
-            <li data-test="tab-nav-7">
-              <a class="disabled">
-                <i class="fa fa-check-square"></i>
-                <span>Verify</span>
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
       <Footer />
