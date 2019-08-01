@@ -47,7 +47,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
           'If you feel that you received this page in error and would like to edit the quote, please select Edit below.',
         buttons: [
           { text: 'Start New Quote', to: '/search/address' },
-          { text: 'Edit', to: `/quote/${quote.quoteNumber}/customerinfo` }
+          { text: 'Edit', to: `/quote/${quote.quoteNumber}/customerInfo` }
         ]
       };
       break;
