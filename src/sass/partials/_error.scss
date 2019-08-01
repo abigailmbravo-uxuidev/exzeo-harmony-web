@@ -4,6 +4,35 @@
   flex-grow: 1;
   height: 100%;
 
+  header {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    border-bottom-width: 0;
+
+    .error-header {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: rgba($red-darken-01, 0.7);
+      color: $white;
+      font-weight: $font-weight-bold;
+
+      i {
+        margin: 0 $padding 0 ($padding * 2);
+        font-size: $font-size-h2;
+      }
+    }
+    .workflow-header {
+      z-index: 1;
+    }
+  }
+
   .quote-details-error {
     display: flex;
     padding: $padding;
@@ -132,11 +161,6 @@
         }
       }
     }
-
-    .workflow-header {
-      position: absolute;
-      z-index: -1;
-    }
   }
 
   &.modal {
@@ -200,6 +224,7 @@
   }
 }
 
+/*
 .app-wrapper {
   &.error {
     .route {
@@ -256,6 +281,8 @@
     }
   }
 }
+
+*/
 
 .access-denied {
   .modal {
