@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  flex-shrink: 1;
   height: 100%;
 
   header {
@@ -19,12 +20,13 @@
       display: flex;
       align-items: center;
       width: 100%;
-      background: rgba($red-darken-01, 0.7);
+      background: rgba($orange-darken-01, 0.75);
+      //background: rgba($red-darken-01, 0.7);
       color: $white;
       font-weight: $font-weight-bold;
 
       i {
-        margin: 0 $padding 0 ($padding * 2);
+        margin: 0 $padding 0 ($padding * 4);
         font-size: $font-size-h2;
       }
     }
@@ -81,33 +83,36 @@
       display: flex;
       overflow-y: auto;
       flex-grow: 1;
+      flex-shrink: 1;
 
       #Error {
-        width: auto;
-        height: 100%;
+        margin: ($padding * 2) 0;
+        padding: 0 0 0 ($padding * 2);
+        width: 100%;
+        border-right: 1px dotted $cool-gray-02;
 
-        .detail-wrapper {
-          position: relative;
-          width: 100%;
-
-          ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-
-            &.error-list {
-              margin: $padding;
-              padding-left: $padding;
-              color: $red;
-              list-style: disc;
-
-              li {
-                &.warning-li {
-                  color: $orange-darken-01;
-                }
-              }
+        .error-list {
+          padding: 1rem;
+          border-bottom: 1px dotted $cool-gray-02;
+          li {
+            &.warning-li {
+              margin-bottom: $padding/2;
+              color: $orange-darken-01;
+              font-weight: $font-weight-bold;
+            }
+            &.error-li {
+              margin-bottom: $padding/2;
+              color: $red-darken-02;
+              font-weight: $font-weight-bold;
             }
           }
+        }
+
+        .error-footer {
+          display: flex;
+          flex-direction: row-reverse;
+          padding: 0 ($padding * 2) ($padding * 2) 0;
+          border-bottom: 1px dotted $cool-gray-02;
         }
       }
     }
@@ -149,11 +154,11 @@
       .contact-info {
         display: flex;
         flex-direction: column;
-        margin-top: $padding;
+        margin-top: 2rem;
 
         a {
-          margin: $padding;
-          font-size: $font-size-h4;
+          margin: 0 $padding;
+          font-size: $font-size-h5;
 
           @include for-phone-only {
             font-size: $font-size-h5;
