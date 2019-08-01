@@ -82,8 +82,8 @@ export class QuoteWorkflow extends Component {
 
     this.formInstance = null;
 
-    this.checkForFatalExceptions = defaultMemoize(
-      this.checkForFatalExceptions.bind(this)
+    this.checkForExceptions = defaultMemoize(
+      this.checkForExceptions.bind(this)
     );
   }
 
@@ -119,21 +119,18 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  checkForFatalExceptions(
-    underwritingExceptions,
-    currentRouteName,
-    quoteState
-  ) {
+  checkForExceptions(exceptions, route, quoteState) {
     if (!UW_EXCEPTION_QUOTE_STATES.includes(quoteState)) return false;
 
-    if (currentRouteName === 'verify') {
-      const currentExceptions = (underwritingExceptions || []).filter(
-        ue => !ue.overridden
-      );
+    const editableRoutes = ['error', 'customerInfo', 'underwriting'];
+
+    if (editableRoutes.includes(route)) return false;
+    if (route === 'verify') {
+      const currentExceptions = (exceptions || []).filter(ue => !ue.overridden);
       return currentExceptions.length > 0;
     }
 
-    return (underwritingExceptions || []).some(
+    return (exceptions || []).some(
       ex => ex.action === 'Fatal Error' || ex.action === 'Underwriting Review'
     );
   }
@@ -283,7 +280,8 @@ export class QuoteWorkflow extends Component {
 
     const { underwritingExceptions } = quote;
     const quoteState = quote ? quote.quoteState : '';
-    const quoteHasFatalError = this.checkForFatalExceptions(
+
+    const quoteHasFatalError = this.checkForExceptions(
       underwritingExceptions,
       currentRouteName,
       quoteState
@@ -297,21 +295,18 @@ export class QuoteWorkflow extends Component {
       >
         <div className="route">
           {isLoading && <Loader />}
-          {quoteHasFatalError &&
-            !(location.state || {}).fatalError &&
-            !location.pathname.includes('customerInfo') &&
-            !location.pathname.includes('underwriting') && (
-              <Redirect
-                to={{
-                  pathname: 'error',
-                  state: {
-                    fatalError: true,
-                    quote,
-                    exceptions: underwritingExceptions
-                  }
-                }}
-              />
-            )}
+          {quoteHasFatalError && !(location.state || {}).fatalError && (
+            <Redirect
+              to={{
+                pathname: 'error',
+                state: {
+                  fatalError: true,
+                  quote,
+                  exceptions: underwritingExceptions
+                }
+              }}
+            />
+          )}
 
           {gandalfTemplate && gandalfTemplate.header && (
             <WorkflowNavigation

@@ -3,8 +3,6 @@ import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
 import { ShareModal } from '@exzeo/core-ui/src/@Harmony';
 import { defaultMemoize } from 'reselect';
 
-import ErrorPopup from '../../components/ErrorPopup';
-
 import { STEP_NAMES } from './constants/workflowNavigation';
 import { UNDERWRITING_ERROR_ACTIONS } from './constants/quote';
 
