@@ -66,7 +66,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
     <div className="route-content">
       <div className="error-content" role="article">
         {/* HARD STOP WORKFLOW ERROR*/}
-        <header>
+        <header className={status}>
           <div className="error-header">
             <i className={`fa ${content.icon}`} />
             <h4>{content.header}</h4>
