@@ -29,6 +29,11 @@
         margin: 0 $padding 0 ($padding * 4);
         font-size: $font-size-h2;
       }
+
+      h4 {
+        margin: 0;
+        color: $white;
+      }
     }
     .workflow-header {
       z-index: 1;
@@ -90,6 +95,10 @@
         padding: 0 0 0 ($padding * 2);
         width: 100%;
         border-right: 1px dotted $cool-gray-02;
+
+        h4 {
+          margin: 0;
+        }
 
         .error-list {
           padding: 1rem;

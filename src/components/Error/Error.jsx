@@ -69,7 +69,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
         <header>
           <div className="error-header">
             <i className={`fa ${content.icon}`} />
-            {content.header}
+            <h4>{content.header}</h4>
           </div>
           <ul class="workflow-header">
             <div class="rule"></div>
@@ -121,6 +121,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
         <div className="error-wrapper">
           <section>
             <div id="Error">
+              <h4 className="error-intro">{content.intro}</h4>
               <ul className="error-list">
                 {exceptions.map((ex, key) => {
                   const className = ex.code.startsWith(1)
