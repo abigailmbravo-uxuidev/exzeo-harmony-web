@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Loader } from '@exzeo/core-ui';
 
-import App from '../../components/AppWrapper';
+import AppWrapper from '../../components/AppWrapper';
 import Search from '../../components/Search/Search';
 
 export class QuoteSearch extends Component {
@@ -11,7 +11,7 @@ export class QuoteSearch extends Component {
     const { auth, isLoading, match } = this.props;
 
     return (
-      <App
+      <AppWrapper
         logout={auth.logout}
         match={match}
         render={() => (
