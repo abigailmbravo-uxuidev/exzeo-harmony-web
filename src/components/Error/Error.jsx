@@ -71,8 +71,8 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
             <i className={`fa ${content.icon}`} />
             <h4>{content.header}</h4>
           </div>
-          <ul class="workflow-header">
-            <div class="rule"></div>
+          <ul className="workflow-header">
+            <div className="rule"></div>
             <li>
               <a class="disabled">
                 <i class="fa fa-vcard"></i>
@@ -80,8 +80,8 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
               </a>
             </li>
             <li>
-              <a class="disabled">
-                <i class="fa fa-list-ol"></i>
+              <a className="disabled">
+                <i className="fa fa-list-ol"></i>
                 <span>Underwriting</span>
               </a>
             </li>

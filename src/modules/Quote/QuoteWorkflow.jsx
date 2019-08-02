@@ -124,7 +124,8 @@ export class QuoteWorkflow extends Component {
 
     const editableRoutes = ['error', 'customerInfo', 'underwriting'];
 
-    if (editableRoutes.includes(route)) return false;
+    if (editableRoutes.includes(route) || route === 'error') return false;
+
     if (route === 'verify') {
       const currentExceptions = (exceptions || []).filter(ue => !ue.overridden);
       return currentExceptions.length > 0;
@@ -295,7 +296,7 @@ export class QuoteWorkflow extends Component {
       >
         <div className="route">
           {isLoading && <Loader />}
-          {quoteHasFatalError && !(location.state || {}).fatalError && (
+          {quoteHasFatalError && (
             <Redirect
               to={{
                 pathname: 'error',

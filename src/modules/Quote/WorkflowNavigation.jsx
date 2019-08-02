@@ -49,16 +49,6 @@ export class WorkflowNavigation extends Component {
             currentStep === STEP_NAMES.askToCustomizeDefaultQuote
           }
         />
-
-        {showNavigationTabs && (
-          <TabNavigation
-            navLinks={getNavLinks({
-              goToStep,
-              getClassName: this.getClassForStep,
-              onKeyPress: this.onKeyPress
-            })}
-          />
-        )}
       </div>
     );
   }
