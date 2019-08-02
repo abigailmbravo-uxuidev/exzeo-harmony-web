@@ -74,8 +74,8 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
           <ul className="workflow-header">
             <div className="rule"></div>
             <li>
-              <a class="disabled">
-                <i class="fa fa-vcard"></i>
+              <a className="disabled">
+                <i className="fa fa-vcard"></i>
                 <span>Policyholder</span>
               </a>
             </li>
@@ -86,32 +86,32 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
               </a>
             </li>
             <li>
-              <a class="disabled">
-                <i class="fa fa-sliders"></i>
+              <a className="disabled">
+                <i className="fa fa-sliders"></i>
                 <span>Customize</span>
               </a>
             </li>
             <li>
-              <a class="disabled">
-                <i class="fa fa-share-alt"></i>
+              <a className="disabled">
+                <i className="fa fa-share-alt"></i>
                 <span>Share</span>
               </a>
             </li>
             <li>
-              <a class="disabled">
-                <i class="fa fa-user-plus"></i>
+              <a className="disabled">
+                <i className="fa fa-user-plus"></i>
                 <span>Additional Parties</span>
               </a>
             </li>
             <li>
-              <a class="disabled">
-                <i class="fa fa-envelope"></i>
+              <a className="disabled">
+                <i className="fa fa-envelope"></i>
                 <span>Mailing / Billing</span>
               </a>
             </li>
             <li>
-              <a class="disabled">
-                <i class="fa fa-check-square"></i>
+              <a className="disabled">
+                <i className="fa fa-check-square"></i>
                 <span>Verify</span>
               </a>
             </li>
