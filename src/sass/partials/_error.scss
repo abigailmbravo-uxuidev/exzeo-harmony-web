@@ -12,6 +12,10 @@
     height: auto;
     border-bottom-width: 0;
 
+    .workflow-header {
+      z-index: 1;
+    }
+
     .error-header {
       position: absolute;
       top: 0;
@@ -21,7 +25,6 @@
       align-items: center;
       width: 100%;
       background: rgba($orange-darken-01, 0.75);
-      //background: rgba($red-darken-01, 0.7);
       color: $white;
       font-weight: $font-weight-bold;
 
@@ -35,8 +38,12 @@
         color: $white;
       }
     }
-    .workflow-header {
-      z-index: 1;
+
+    &.fatal,
+    &.ineligible {
+      .error-header {
+        background: rgba($red-darken-01, 0.75);
+      }
     }
   }
 
