@@ -136,6 +136,14 @@
           display: flex;
           flex-direction: row-reverse;
           padding: 0 ($padding * 2) ($padding * 2) 0;
+
+          .btn {
+            margin-left: $padding;
+          }
+        }
+
+        .error-outro {
+          margin-bottom: $padding * 2;
         }
       }
     }
