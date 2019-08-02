@@ -1,3 +1,22 @@
+.not-found {
+  .route-content {
+    display: flex;
+    align-self: stretch;
+    flex-grow: 1;
+    flex-shrink: 1;
+    header {
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: 4.75rem;
+      background: $white;
+    }
+    .static-error-message {
+      margin-bottom: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px dotted $cool-gray-02;
+    }
+  }
+}
 .error-content {
   display: flex;
   flex-direction: column;
@@ -7,6 +26,10 @@
 
   header {
     position: relative;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
     margin: 0;
     padding: 0;
     height: auto;
@@ -112,7 +135,7 @@
         }
 
         h4 {
-          margin: 0;
+          margin: 0 $padding 0 0;
         }
 
         .error-list {
@@ -166,7 +189,7 @@
         flex-basis: 10rem;
         flex-grow: 0;
         flex-shrink: 0;
-        margin-right: $padding;
+        margin: ($padding * 2) $padding 0;
         width: 10rem;
         height: 10rem;
         border: 5px solid $bright-blue-darken-01;
@@ -188,7 +211,7 @@
         margin-top: 2rem;
 
         a {
-          margin: 0 $padding;
+          margin: 0 $padding $padding;
           font-size: $font-size-h5;
 
           @include for-phone-only {
@@ -260,66 +283,6 @@
   }
 }
 
-/*
-.app-wrapper {
-  &.error {
-    .route {
-      display: flex;
-      align-self: stretch;
-      flex-direction: column;
-      width: 100%;
-
-      .route-content {
-        display: flex;
-        align-self: stretch;
-        flex-direction: column;
-        flex-grow: 1;
-        flex-shrink: 0;
-      }
-    }
-  }
-}
-
-.error-wrapper {
-  .fade-in {
-    height: 100%;
-
-    .route {
-      height: 100%;
-
-      .error-content {
-        .fade-in {
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-
-          section {
-            flex-grow: 1;
-            flex-shrink: 0;
-
-            #Error.fade-in {
-              width: 100%;
-
-              .detail-wrapper {
-                position: relative;
-                padding-bottom: 0;
-                width: 100%;
-              }
-            }
-          }
-
-          aside {
-            flex-grow: 0;
-            flex-shrink: 0;
-          }
-        }
-      }
-    }
-  }
-}
-
-*/
-
 .access-denied {
   .modal {
     display: flex;
@@ -355,7 +318,6 @@
     }
   }
 }
-
 .view-grid {
   > .uw-warning {
     flex-grow: 1;
