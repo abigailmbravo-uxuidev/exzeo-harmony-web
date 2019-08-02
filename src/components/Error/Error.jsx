@@ -6,6 +6,16 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
 
   const hasFatalError = exceptions.some(ex => ex.code.startsWith(1));
   const isIneligible = exceptions.some(ex => ex.code === 102);
+  console.log();
+  const sortByCode = (a, b) => {
+    console.log(a.code);
+    const aCode = Number(a.code);
+    const bCode = Number(b.code);
+
+    aCode > bCode ? 1 : -1;
+  };
+
+  //exceptions.sort(sortByCode)
 
   // Possible error stauses: {'ineligible', 'fatal', 'editiable', 'misc'}
   const status = isIneligible
@@ -124,6 +134,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
               <h4 className="error-intro">{content.intro}</h4>
               <ul className="error-list">
                 {exceptions.map((ex, key) => {
+                  if (ex.code.startsWith('0')) return '';
                   const className = ex.code.startsWith(1)
                     ? 'error-li'
                     : 'warning-li';
