@@ -282,7 +282,7 @@ export class QuoteWorkflow extends Component {
     const { underwritingExceptions } = quote;
     const quoteState = quote ? quote.quoteState : '';
 
-    const quoteHasFatalError = this.checkForExceptions(
+    const quoteHasError = this.checkForExceptions(
       underwritingExceptions,
       currentRouteName,
       quoteState
@@ -296,7 +296,7 @@ export class QuoteWorkflow extends Component {
       >
         <div className="route">
           {isLoading && <Loader />}
-          {quoteHasFatalError && (
+          {quoteHasError && (
             <Redirect
               to={{
                 pathname: 'error',
@@ -319,7 +319,7 @@ export class QuoteWorkflow extends Component {
               goToStep={this.goToStep}
               isLoading={isLoading}
               showNavigationTabs={
-                !quoteHasFatalError && currentRouteName !== 'thankYou'
+                !['thankYou', 'error'].includes(currentRouteName)
               }
               currentStep={currentStepNumber}
               quote={quoteData}
