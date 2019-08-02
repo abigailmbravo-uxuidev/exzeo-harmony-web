@@ -332,6 +332,7 @@
         }
 
         span {
+          white-space: nowrap;
           font-weight: $font-weight-bold;
 
           @include for-phone-only {
