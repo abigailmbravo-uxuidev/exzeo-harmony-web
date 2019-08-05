@@ -225,6 +225,16 @@
       }
     }
   }
+  &#QuoteWorkflow {
+    .address-component {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom-width: 0;
+    }
+    .fade-in {
+      padding: 0;
+    }
+  }
 
   section {
     margin-bottom: $padding * 2;
