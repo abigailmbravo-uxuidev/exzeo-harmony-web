@@ -6,16 +6,6 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
 
   const hasFatalError = exceptions.some(ex => ex.code.startsWith(1));
   const isIneligible = exceptions.some(ex => ex.code === 102);
-  console.log();
-  const sortByCode = (a, b) => {
-    console.log(a.code);
-    const aCode = Number(a.code);
-    const bCode = Number(b.code);
-
-    aCode > bCode ? 1 : -1;
-  };
-
-  //exceptions.sort(sortByCode)
 
   // Possible error stauses: {'ineligible', 'fatal', 'editiable', 'misc'}
   const status = isIneligible
@@ -66,7 +56,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
         icon: 'fa-exclamation-triangle',
         header: 'Whoopsies! Something seems to have gone wrong.',
         intro:
-          "Sorry for the inconveniene, We're experiencing and application issue at the moment. Try refreshing the page or returning to the home screen.",
+          "Sorry for the inconvenience, We're experiencing and application issue at the moment. Try refreshing the page or returning to the home screen.",
         outro: '',
         buttons: [{ text: 'Home', to: '/' }]
       };
@@ -132,12 +122,11 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
           <section>
             <div id="Error">
               <h4 className="error-intro">{content.intro}</h4>
-              <ul className="error-list">
+              <ul className="error error-list">
                 {exceptions.map((ex, key) => {
-                  if (ex.code.startsWith('0')) return '';
-                  const className = ex.code.startsWith(1)
-                    ? 'error-li'
-                    : 'warning-li';
+                  if (ex.action === 'Missing Info') return '';
+                  const className =
+                    ex.action === 'Fatal Error' ? 'error-li' : 'warning-li';
                   return (
                     <li className={className} key={key}>
                       {ex.agentMessage}
@@ -156,6 +145,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
                           : 'btn-secondary'
                       }`}
                       type="button"
+                      data-test={button.text.toLowerCase().replace(/\s/g, '-')}
                       onClick={() =>
                         replace(button.to, { product: quote.product })
                       }

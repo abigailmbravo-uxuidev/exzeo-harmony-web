@@ -194,7 +194,7 @@ export class QuoteWorkflow extends Component {
           quoteNumber: quote.quoteNumber,
           options: {
             step: stepNumber,
-            shouldReviewQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
+            shouldVerifyQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
           }
         });
       }
@@ -301,7 +301,6 @@ export class QuoteWorkflow extends Component {
               to={{
                 pathname: 'error',
                 state: {
-                  fatalError: true,
                   quote,
                   exceptions: underwritingExceptions
                 }
