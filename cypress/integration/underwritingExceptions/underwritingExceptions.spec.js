@@ -27,11 +27,11 @@ describe('Underwriting Error Testing', () => {
       ...underwritingHO3,
       'previousClaims': '3-5 Years'
     });
-    navigateThroughCustomize();
-    // We see a modal containing the uw error.
+
+    // We go to the error page.
     cy.get('ul.error').should('contain', 'Due to previous claims history, underwriting review is required prior to binding.')
-      .findDataTag('modal-refresh').should('contain', 'Refresh')
-      .click().wait('@getQuote')
+      .findDataTag('edit').should('contain', 'Edit')
+      .click()
       // Policyholder should be able to be navigated through without re-filling out the form.
       .clickSubmit('#QuoteWorkflow').wait('@updateQuote');
     // Go back through with good data.
@@ -60,6 +60,6 @@ describe('Underwriting Error Testing', () => {
       }
     }).as('reviewQuote');
     navigateThroughMailingBilling();
-    cy.get('div#Error').should('contain', 'Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.');
+    cy.get('div#Error').should('contain', "Sorry for the inconvenience, We're experiencing and application issue at the moment. Try refreshing the page or returning to the home screen.");
   });
 });

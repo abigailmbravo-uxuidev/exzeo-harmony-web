@@ -105,13 +105,13 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
  * @param quoteId
  * @returns {Function}
  */
-export function reviewQuote({ quoteNumber, quoteId }) {
+export function verifyQuote({ quoteNumber, quoteId }) {
   return async dispatch => {
     dispatch(toggleLoading(true));
     try {
       const config = {
         exchangeName: 'harmony',
-        routingKey: 'harmony.quote.reviewQuote',
+        routingKey: 'harmony.quote.verifyQuote',
         data: {
           quoteId,
           quoteNumber
@@ -120,14 +120,14 @@ export function reviewQuote({ quoteNumber, quoteId }) {
 
       const response = await serviceRunner.callService(
         config,
-        'quoteManager.reviewQuote'
+        'quoteManager.verifyQuote'
       );
       const quote = response.data.result;
       dispatch(setQuote(quote));
       return quote;
     } catch (error) {
       if (process.env.NODE_ENV !== 'production') {
-        console.log('Error reviewing quote: ', error);
+        console.log('Error verifying quote: ', error);
       }
       dispatch(errorActions.setAppError(error));
       return null;
@@ -230,9 +230,9 @@ export function updateQuote({ data = {}, options }) {
           'quoteManager.updateQuote'
         );
 
-        if (options.shouldReviewQuote) {
+        if (options.shouldVerifyQuote) {
           const quote = await dispatch(
-            reviewQuote({ quoteNumber: data.quoteNumber })
+            verifyQuote({ quoteNumber: data.quoteNumber })
           );
           return quote;
         } else {
