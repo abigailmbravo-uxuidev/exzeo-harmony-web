@@ -60,6 +60,7 @@ describe('Underwriting Error Testing', () => {
       }
     }).as('reviewQuote');
     navigateThroughMailingBilling();
-    cy.get('div#Error').should('contain', "Sorry for the inconvenience, We're experiencing and application issue at the moment. Try refreshing the page or returning to the home screen.");
+    cy.get('button.btn-primary').click();
+    cy.get('div#Error').should('contain', "Sorry for the inconvenience, either the page you're looking for does not exist or we're experiencing an issue with our application at the moment.");
   });
 });
