@@ -122,6 +122,7 @@ export function verifyQuote({ quoteNumber, quoteId }) {
         'quoteManager.verifyQuote'
       );
       const quote = response.data.result;
+      console.log('verify: ', quote);
       dispatch(setQuote(quote));
       return quote;
     } catch (error) {
