@@ -53,7 +53,7 @@ describe('Agency Happy Path', () => {
 
     cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
       navigateThroughThankYou();
-      cy.wait(15000)
+      cy.wait(30000)
         .get('.btn[href="/search/retrieve"]').click()
         .findDataTag('quoteNumber').type($quote.text())
         .clickSubmit('#SearchBar')
