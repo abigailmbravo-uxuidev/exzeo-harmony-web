@@ -91,7 +91,6 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
       if (process.env.NODE_ENV !== 'production') {
         console.log('Error retrieving quote: ', error);
       }
-      dispatch(errorActions.setAppError(error));
       return null;
     } finally {
       dispatch(toggleLoading(false));
