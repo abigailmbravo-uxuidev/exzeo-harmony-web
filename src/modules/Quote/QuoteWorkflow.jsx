@@ -119,12 +119,18 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  checkForExceptions(exceptions, route, quoteState) {
+  checkForExceptions(exceptions = [], route, quoteState) {
+    const notEligible = exceptions.some(ex =>
+      ex.internalMessage.includes('not eligible')
+    );
+    const notEligibleRoutes = [];
+    const editableRoutes = ['customerInfo', 'underwriting'];
+
     if (!UW_EXCEPTION_QUOTE_STATES.includes(quoteState)) return false;
 
-    const editableRoutes = ['error', 'customerInfo', 'underwriting'];
+    if (notEligible && route !== 'customerInfo') return true;
 
-    if (editableRoutes.includes(route) || route === 'error') return false;
+    if (editableRoutes.includes(route)) return false;
 
     if (route === 'verify') {
       const currentExceptions = (exceptions || []).filter(ue => !ue.overridden);
@@ -296,7 +302,7 @@ export class QuoteWorkflow extends Component {
       >
         <div className="route">
           {isLoading && <Loader />}
-          {quoteHasError && (
+          {quoteHasError && currentRouteName !== 'error' && (
             <Redirect
               to={{
                 pathname: 'error',
