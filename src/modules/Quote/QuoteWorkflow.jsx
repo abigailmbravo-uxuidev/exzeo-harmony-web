@@ -124,7 +124,7 @@ export class QuoteWorkflow extends Component {
       ex.internalMessage.includes('not eligible')
     );
     const notEligibleRoutes = [];
-    const editableRoutes = ['customerInfo', 'underwriting'];
+    const editableRoutes = ['customerInfo', 'underwriting', 'customize'];
 
     if (!UW_EXCEPTION_QUOTE_STATES.includes(quoteState)) return false;
 
