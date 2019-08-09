@@ -63,6 +63,7 @@ export default (product = 'HO3') => {
           .clickSubmit('#QuoteWorkflow').wait('@updateQuote')
           // then go back to customize page.
           .findDataTag('tab-nav-3').click()
+          .wait(500)
           // Confirm your min and max values still are the same
           .findDataTag(`${path}-slider`).invoke('attr', 'min').should('eq', minValue)
           .findDataTag(`${path}-slider`).invoke('attr', 'max').should('eq', maxValue)

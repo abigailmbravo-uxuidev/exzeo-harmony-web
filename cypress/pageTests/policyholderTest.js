@@ -19,7 +19,8 @@ const af3Headers = [
 ];
 
 export default (product = 'HO3') =>
-  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
+  cy.wait(1000)
+    .wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
     // Add all main ph fields
     .wrap(Object.entries(userHO3.customerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
     // If the secondary ph is not toggled, toggle it
