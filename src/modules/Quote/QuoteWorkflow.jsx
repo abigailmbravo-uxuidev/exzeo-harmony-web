@@ -120,15 +120,12 @@ export class QuoteWorkflow extends Component {
   }
 
   checkForExceptions(exceptions = [], route, quoteState) {
-    const notEligible = exceptions.some(ex =>
-      ex.internalMessage.includes('not eligible')
-    );
-    const notEligibleRoutes = [];
+    const fatalError = exceptions.some(ex => ex.action === 'Fatal Error');
     const editableRoutes = ['customerInfo', 'underwriting', 'customize'];
 
     if (!UW_EXCEPTION_QUOTE_STATES.includes(quoteState)) return false;
 
-    if (notEligible && route !== 'customerInfo') return true;
+    if (fatalError && route !== 'customerInfo') return true;
 
     if (editableRoutes.includes(route)) return false;
 

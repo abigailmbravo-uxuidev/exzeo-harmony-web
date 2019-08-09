@@ -23,7 +23,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
       content = {
         icon: 'fa-exclamation-circle',
         header: 'Property Not Eligible.',
-        intro: 'The following errors have occured for this property:',
+        intro: 'The following errors have occurred for this property:',
         outro: '',
         buttons: [{ text: 'Start New Quote', to: '/search/address' }]
       };
@@ -42,7 +42,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
         icon: 'fa-exclamation-triangle',
         header: 'Underwriting Error(s)',
         intro:
-          'The following underwriting error(s) have occured for this quote:',
+          'The following underwriting error(s) have occurred for this quote:',
         outro:
           'If you feel that you received this page in error and would like to edit the quote, please select Edit below.',
         buttons: [
