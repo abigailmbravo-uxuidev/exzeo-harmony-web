@@ -403,9 +403,7 @@ export class QuoteWorkflow extends Component {
           <Route
             exact
             path={`${match.url}/error`}
-            render={props => (
-              <Error {...props} updateQuote={this.handleUpdateQuote} />
-            )}
+            render={props => <Error {...props} getQuote={getQuote} />}
           />
         </div>
       </App>
