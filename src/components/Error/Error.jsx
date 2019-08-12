@@ -1,7 +1,12 @@
 import React from 'react';
+
 import Footer from '../Footer';
 
-const Error = ({ location: { state = {} }, history: { replace } }) => {
+const Error = ({
+  getQuote,
+  location: { state = {} },
+  history: { replace }
+}) => {
   const { exceptions = [], quote } = state;
 
   const hasFatalError = exceptions.some(ex => ex.code.startsWith(1));
@@ -17,6 +22,11 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
     : 'misc';
 
   let content = {};
+
+  const buttonClick = async to => {
+    await getQuote(quote.quoteNumber, quote._id);
+    replace(to, { product: quote.product });
+  };
 
   switch (status) {
     case 'ineligible':
@@ -146,9 +156,7 @@ const Error = ({ location: { state = {} }, history: { replace } }) => {
                       }`}
                       type="button"
                       data-test={button.text.toLowerCase().replace(/\s/g, '-')}
-                      onClick={() =>
-                        replace(button.to, { product: quote.product })
-                      }
+                      onClick={() => buttonClick(button.to)}
                     >
                       {button.text}
                     </button>
