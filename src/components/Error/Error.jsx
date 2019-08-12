@@ -24,7 +24,9 @@ const Error = ({
   let content = {};
 
   const buttonClick = async to => {
-    await getQuote(quote.quoteNumber, quote._id);
+    if (to.includes('customerInfo')) {
+      await getQuote(quote.quoteNumber, quote._id);
+    }
     replace(to, { product: quote.product });
   };
 
