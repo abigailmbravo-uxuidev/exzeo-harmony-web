@@ -1,44 +1,41 @@
 import React from 'react';
+import { render, fireEvent } from 'react-testing-library';
 
-import ConnectedError from '../Error';
+import Error from '../Error';
 import {
-  renderWithReduxAndRouter,
   defaultInitialState,
   quote,
-  fatalUnderwritingException
+  fatalUnderwritingException,
+  reviewUnderwritingExcception
 } from '../../../test-utils';
 
 describe('Error testing', () => {
   it('Renders and has a fatal error', () => {
-    const state = {
-      ...defaultInitialState,
-      quoteState: {
-        ...defaultInitialState.quoteState,
-        quote: {
-          ...quote,
-          underwritingExceptions: [fatalUnderwritingException]
+    const props = {
+      getQuote: () => {},
+      location: {
+        state: {
+          quote,
+          exceptions: [fatalUnderwritingException]
         }
+      },
+      history: {
+        replace: () => {}
       }
     };
 
-    const { getByText, queryByText } = renderWithReduxAndRouter(
-      <ConnectedError />,
-      { state }
+    const { container, getByText, queryByText } = render(<Error {...props} />);
+
+    expect(container.querySelector('i').className).toEqual(
+      'fa fa-exclamation-triangle'
     );
+    expect(getByText('Underwriting Error(s)'));
     expect(
-      getByText('Property does not qualify for automated quote').querySelector(
-        'i'
-      ).className
-    ).toEqual('fa fa-exclamation-triangle');
-    expect(getByText('The following errors have occurred for this property:'));
+      getByText("Unfortunately, we've encountered an error with your quote:")
+    );
     expect(
       getByText('Homes that are rented are not eligible for this program.')
     );
-    expect(
-      queryByText(
-        'Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.'
-      )
-    ).not.toBeInTheDocument();
     expect(getByText('email us').parentNode).toHaveAttribute(
       'href',
       'mailto:customerservice@typtap.com'
@@ -50,30 +47,39 @@ describe('Error testing', () => {
   });
 
   it('Has an underwriting review error', () => {
-    const state = {
-      ...defaultInitialState,
-      quoteState: {
-        ...defaultInitialState.quoteState,
-        quote: {
-          ...quote,
-          underwritingExceptions: [
-            { ...fatalUnderwritingException, action: 'Underwriting Review' }
-          ]
+    const props = {
+      getQuote: () => {},
+      location: {
+        state: {
+          quote,
+          exceptions: [reviewUnderwritingExcception]
         }
+      },
+      history: {
+        replace: () => {}
       }
     };
 
-    const { getByText } = renderWithReduxAndRouter(<ConnectedError />, {
-      state
-    });
+    const { container, getByText, queryByText } = render(<Error {...props} />);
+
+    expect(container.querySelector('i').className).toEqual(
+      'fa fa-exclamation-triangle'
+    );
+    expect(getByText('Underwriting Error(s)'));
     expect(
       getByText(
-        'Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.'
+        'The following underwriting error(s) have occurred for this quote:'
       )
     );
     expect(
-      getByText('Homes that are rented are not eligible for this program.')
-        .className
-    ).toEqual('warning-li');
+      getByText(
+        'Due to previous claims history, underwriting review is required prior to binding.'
+      )
+    );
+    expect(
+      getByText(
+        'If you feel that you received this page in error and would like to edit the quote, please select Edit below.'
+      )
+    );
   });
 });
