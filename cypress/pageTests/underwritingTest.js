@@ -19,3 +19,4 @@ const af3Headers = [
 
 export default (product = 'HO3') =>
   cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header));
+

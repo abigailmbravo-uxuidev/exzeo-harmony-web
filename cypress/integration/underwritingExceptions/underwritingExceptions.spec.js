@@ -41,10 +41,11 @@ describe('Underwriting Error Testing', () => {
     navigateThroughAssumptions();
     navigateThroughAdditionalInterests();
     // On mailing billing, we stub the post request.
-    cy.route('POST', '/svc?quoteManager.updateQuote', {
+    cy.route('POST', '/svc?quoteManager.reviewQuote', {
       ...updateQuote,
       result: {
         ...updateQuote.result,
+        quoteState: 'Quote Stopped',
         underwritingExceptions: [{
           'code': '003',
           'displayText': 'Missing Info - Mailing/Billing Info',
@@ -57,7 +58,7 @@ describe('Underwriting Error Testing', () => {
           'overridden': false,
         }]
       }
-    }).as('updateQuote');
+    }).as('reviewQuote');
     navigateThroughMailingBilling();
     cy.get('div#Error').should('contain', 'Please contact one of our representatives so they may further assist you in obtaining a HO3 insurance quote for this property.');
   });

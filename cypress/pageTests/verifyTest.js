@@ -15,7 +15,7 @@ const af3Headers = [
   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
   { name: 'floodZoneDetail', label: 'Flood Zone', value: 'X' },
   { name: 'coverageLimits.building.amountDetail', label: 'Coverage A', value: '$ 314,000' },
-  { name: 'premium', 'label': 'Premium', value: '$ 657' }
+  { name: 'premium', 'label': 'Premium', value: '$ 312' }
 ];
 
 export default (product = 'HO3') =>
@@ -25,7 +25,7 @@ export default (product = 'HO3') =>
     .findDataTag('additionalPolicyholder').then($div => (!$div.attr('data-value') || $div.attr('data-value') === 'false') && cy.wrap($div).click())
     // Fill out secondary ph
     .wrap(Object.entries(userHO3.secondCustomerInfo)).each(([field, value]) => cy.findDataTag(field).find('input').type(`{selectall}{backspace}${value}`))
-    // Detoggle the second policyholder fields
+    // toggle the second policyholder fields
     .findDataTag('additionalPolicyholder').click()
     .clickSubmit('.modal', 'modal-submit')
     .wait('@updateQuote').then(({ request }) => expect(request.body.data.policyHolders.length, 'Policyholders in request').to.equal(1))

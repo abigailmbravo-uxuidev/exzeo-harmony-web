@@ -79,7 +79,7 @@ Cypress.Commands.add('checkSubmitButton', ((form = 'body') =>
  * @param {array} header.values
  */
 Cypress.Commands.add('checkDetailHeader', ({ name, label, value }) =>
-  cy.findDataTag(name).find('dt').should('contain', label)
+  cy.wait(1000).findDataTag(name).find('dt').should('contain', label)
     .findDataTag(name).find('dd').eq(0).should('contain', value));
 
 /**
