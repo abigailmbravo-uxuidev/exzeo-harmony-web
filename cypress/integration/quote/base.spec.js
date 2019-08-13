@@ -51,9 +51,9 @@ describe('Agency Happy Path', () => {
     navigateThroughVerify();
     navigateThroughScheduleDate();
 
-    // TODO until we can figure out why 'Application Sent DocuSign' never happens in CI, skipping.
-    if (Cypress.env('CI') === true) {
-      cy.task('log', 'CI is set to true - not retrieving HO3 quote to check \'quoteState\' === \'Application Sent DocuSign\'')
+    // TODO unwrap this test to run in CI when ready
+    if (Cypress.env('CI')) {
+      cy.task('log', 'CI === true: not retrieving HO3 quote to check \'quoteState\' === \'Application Sent DocuSign\'')
     } else {
       cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote => {
         navigateThroughThankYou();
@@ -95,6 +95,7 @@ describe('AF3 Happy Path', () => {
     navigateThroughScheduleDate();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // TODO unwrap this test to run in CI when ready
     if (Cypress.env('CI') === true) {
       cy.task(
@@ -120,6 +121,9 @@ describe('AF3 Happy Path', () => {
     if (Cypress.env('CI') === 'true') {
 =======
     // TODO until we can figure out why 'Application Sent DocuSign' never happens in CI, skipping.
+=======
+    // TODO unwrap this test to run in CI when ready
+>>>>>>> Check env for CI to exclude certain tests that don't work in CI environment at this time
     if (Cypress.env('CI') === true) {
 >>>>>>> Check CI for boolean true instead of string true
       cy.task('log', 'CI is set to true - not retrieving AF3 quote to check \'quoteState\' === \'Application Sent DocuSign\'')
