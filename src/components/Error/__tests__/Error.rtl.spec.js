@@ -24,11 +24,11 @@ describe('Error testing', () => {
       }
     };
 
-    const { container, getByText, queryByText } = render(<Error {...props} />);
+    const { getByText, queryByText } = render(<Error {...props} />);
 
-    expect(container.querySelector('i').className).toEqual(
-      'fa fa-exclamation-triangle'
-    );
+    expect(
+      getByText('Underwriting Error(s)').querySelector('i').className
+    ).toEqual('fa fa-exclamation-triangle');
     expect(getByText('Underwriting Error(s)'));
     expect(
       getByText("Unfortunately, we've encountered an error with your quote:")
@@ -44,6 +44,8 @@ describe('Error testing', () => {
       'href',
       'tel:8442897968'
     );
+    expect(queryByText('Edit', { exact: true })).toBeNull();
+    expect(getByText('Start New Quote', { exact: true }));
   });
 
   it('Has an underwriting review error', () => {
@@ -60,11 +62,11 @@ describe('Error testing', () => {
       }
     };
 
-    const { container, getByText, queryByText } = render(<Error {...props} />);
+    const { container, getByText } = render(<Error {...props} />);
 
-    expect(container.querySelector('i').className).toEqual(
-      'fa fa-exclamation-triangle'
-    );
+    expect(
+      getByText('Underwriting Error(s)').querySelector('i').className
+    ).toEqual('fa fa-exclamation-triangle');
     expect(getByText('Underwriting Error(s)'));
     expect(
       getByText(
@@ -81,5 +83,9 @@ describe('Error testing', () => {
         'If you feel that you received this page in error and would like to edit the quote, please select Edit below.'
       )
     );
+    expect(getByText('Edit', { exact: true }));
+    expect(getByText('Start New Quote', { exact: true }));
+
+    fireEvent.click(getByText('Edit', { exact: true }));
   });
 });

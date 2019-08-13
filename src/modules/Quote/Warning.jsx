@@ -15,7 +15,7 @@ const Warning = ({ config, initialValues: { underwritingExceptions } }) => {
             className={['uw-warning', className].join(' ')}
             key={item._id}
           >
-            {item.displayText}
+            {item.agentMessage}
           </Element>
         );
       })}

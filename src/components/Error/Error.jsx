@@ -80,8 +80,10 @@ const Error = ({
         {/* HARD STOP WORKFLOW ERROR*/}
         <header className={status}>
           <div className="error-header">
-            <i className={`fa ${content.icon}`} />
-            <h4>{content.header}</h4>
+            <h4>
+              <i className={`fa ${content.icon}`} />
+              {content.header}
+            </h4>
           </div>
           <ul className="workflow-header">
             <div className="rule"></div>
