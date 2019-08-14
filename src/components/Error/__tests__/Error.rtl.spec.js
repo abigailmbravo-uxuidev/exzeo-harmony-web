@@ -58,6 +58,7 @@ describe('Error testing', () => {
 
     await wait(() => fireEvent.click(getByText('Start New Quote')));
 
+    expect(props.getQuote).toHaveBeenCalledTimes(0);
     expect(props.history.replace).toHaveBeenCalledTimes(1);
   });
 
@@ -108,7 +109,6 @@ describe('Error testing', () => {
     await wait(() => fireEvent.click(getByText('Edit', { exact: true })));
 
     expect(props.getQuote).toHaveBeenCalledTimes(1);
-
     expect(props.history.replace).toHaveBeenCalledTimes(1);
   });
 });

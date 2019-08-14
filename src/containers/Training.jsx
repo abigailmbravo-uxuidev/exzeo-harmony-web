@@ -57,11 +57,11 @@ export const externalLinks = [
 ];
 
 const Training = ({ auth, match }) => (
-  <AppWrapper ogout={auth.logout} match={match} routeClassName="main training">
+  <AppWrapper logout={auth.logout} match={match} routeClassName="main training">
     <div className="scroll">
       <div className="detail-wrapper">
         <section className="reference">
-          <h2 class="title">
+          <h2 className="title">
             <i className="fa fa-book" />
             &nbsp;Reference
           </h2>
