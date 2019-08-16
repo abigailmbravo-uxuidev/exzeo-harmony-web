@@ -229,13 +229,17 @@ export function updateQuote({ data = {}, options }) {
           'quoteManager.updateQuote'
         );
 
-        if (options.shouldVerifyQuote) {
+        const quote =
+          response && response.data && response.data.result
+            ? response.data.result
+            : undefined;
+
+        if (options.shouldVerifyQuote && quote.quoteState !== 'Quote Stopped') {
           const quote = await dispatch(
             verifyQuote({ quoteNumber: data.quoteNumber })
           );
           return quote;
         } else {
-          const quote = response.data.result;
           if (!quote) {
             dispatch(errorActions.setAppError(response.data));
           }
