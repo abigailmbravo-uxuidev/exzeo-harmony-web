@@ -22,4 +22,4 @@ describe('Retrieve Quote', () => {
       .wait('@fetchQuotes').then(({ response }) => confirmPolicyOrQuote(response.body.result.quotes, fields))
       .get('input[name="pageNumber"]').should('have.value', '2')
   );
-});
+};
