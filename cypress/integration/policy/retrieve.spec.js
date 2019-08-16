@@ -52,9 +52,12 @@ describe('Retrieve Policy', () => {
         .click()
         // search policy again
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         .login()
 >>>>>>> Fix Cypress Policy Retrieve test.
+=======
+>>>>>>> Fix Cypress UW Exceptions test.
         .get('.card-footer a[href="/policy"]')
         .click()
         .get('#PolicySearchBar button[type="submit"]')
