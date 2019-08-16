@@ -27,7 +27,7 @@ describe('Underwriting Error Testing', () => {
       ...underwritingHO3,
       'previousClaims': '3-5 Years'
     });
-
+    navigateThroughCustomize();
     // We go to the error page.
     cy.get('ul.error').should('contain', 'Due to previous claims history, underwriting review is required prior to binding.')
       .findDataTag('edit').should('contain', 'Edit')
