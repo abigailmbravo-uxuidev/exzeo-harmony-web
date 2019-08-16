@@ -9,7 +9,7 @@ const Error = ({
 }) => {
   const { exceptions = [], quote } = state;
 
-  const hasFatalError = exceptions.some(ex => ex.code.startsWith(1));
+  const hasFatalError = exceptions.some(ex => ex.action === 'Fatal Error');
   const isIneligible = exceptions.some(ex => ex.code === 102);
 
   // Possible error stauses: {'ineligible', 'fatal', 'editiable', 'misc'}
