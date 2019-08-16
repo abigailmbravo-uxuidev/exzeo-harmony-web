@@ -51,7 +51,6 @@ describe('Retrieve Policy', () => {
         .findDataTag('logo')
         .click()
         // search policy again
-        .login()
         .get('.card-footer a[href="/policy"]')
         .click()
         .get('#PolicySearchBar button[type="submit"]')
