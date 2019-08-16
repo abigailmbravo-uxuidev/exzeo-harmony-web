@@ -8,7 +8,7 @@ export const externalLinks = [
   {
     key: 1,
     productIcon: 'generic',
-    url: `${process.env.REACT_APP_DOCUMENT_URL}marketing/generic/TypTap-Commision-Schedule.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/generic/TypTap-Commision-Schedule.pdf`,
     title: 'Commission Addendum',
     description: 'Homeowners and Flood Insurance commission schedule.',
     linkIcon: 'pdf'
