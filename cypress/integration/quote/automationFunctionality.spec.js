@@ -55,72 +55,66 @@ describe('Back Button Testing', () => {
       .should('exist');
   });
 
-  if (Cypress.env('CI')) {
-    it('Skip test due to environment', () => {
-      cy.task('log', 'CI === true: not running Quote/retrieve specs');
-    });
-  } else {
-    it('Browser Back Button pt 2', () => {
-      navigateThroughLanding();
-      navigateThroughSearchAddress();
-      navigateThroughPolicyholder();
-      cy.go('back')
-        .get('div.dashboard-message')
-        .should('exist');
+  it('Browser Back Button pt 2', () => {
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughPolicyholder();
+    cy.go('back')
+      .get('div.dashboard-message')
+      .should('exist');
 
-      navigateThroughLanding();
-      navigateThroughSearchAddress();
-      navigateThroughPolicyholder();
-      navigateThroughUnderwriting();
-      getQuoteNumberAndRetrieve('Quote Qualified');
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughPolicyholder();
+    navigateThroughUnderwriting();
+    getQuoteNumberAndRetrieve('Quote Qualified');
 
-      navigateThroughLanding();
-      navigateThroughSearchAddress();
-      navigateThroughPolicyholder();
-      navigateThroughUnderwriting();
-      navigateThroughCustomize();
-      getQuoteNumberAndRetrieve('Quote Qualified');
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughPolicyholder();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    getQuoteNumberAndRetrieve('Quote Qualified');
 
-      navigateThroughLanding();
-      navigateThroughSearchAddress();
-      navigateThroughPolicyholder();
-      navigateThroughUnderwriting();
-      navigateThroughCustomize();
-      navigateThroughShare();
-      navigateThroughAssumptions();
-      navigateThroughAdditionalInterests();
-      navigateThroughMailingBilling();
-      getQuoteNumberAndRetrieve('Application Ready');
-    });
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughPolicyholder();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
+    getQuoteNumberAndRetrieve('Application Ready');
+  });
 
-    it('Browser back button pt 3', () => {
-      navigateThroughLanding();
-      navigateThroughSearchAddress();
-      navigateThroughPolicyholder();
-      navigateThroughUnderwriting();
-      navigateThroughCustomize();
-      navigateThroughShare();
-      navigateThroughAssumptions();
-      navigateThroughAdditionalInterests();
-      navigateThroughMailingBilling();
-      navigateThroughVerify();
-      getQuoteNumberAndRetrieve('Application Ready');
+  it('Browser back button pt 3', () => {
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughPolicyholder();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
+    navigateThroughVerify();
+    getQuoteNumberAndRetrieve('Application Ready');
 
-      navigateThroughLanding();
-      navigateThroughSearchAddress();
-      navigateThroughPolicyholder();
-      navigateThroughUnderwriting();
-      navigateThroughCustomize();
-      navigateThroughShare();
-      navigateThroughAssumptions();
-      navigateThroughAdditionalInterests();
-      navigateThroughMailingBilling();
-      navigateThroughVerify();
-      navigateThroughScheduleDate();
-      cy.wait('@sendApplication')
-        .go('back')
-        .get('div.dashboard-message')
-        .should('exist');
-    });
-  }
+    navigateThroughLanding();
+    navigateThroughSearchAddress();
+    navigateThroughPolicyholder();
+    navigateThroughUnderwriting();
+    navigateThroughCustomize();
+    navigateThroughShare();
+    navigateThroughAssumptions();
+    navigateThroughAdditionalInterests();
+    navigateThroughMailingBilling();
+    navigateThroughVerify();
+    navigateThroughScheduleDate();
+    cy.wait('@sendApplication')
+      .go('back')
+      .get('div.dashboard-message')
+      .should('exist');
+  });
 });
