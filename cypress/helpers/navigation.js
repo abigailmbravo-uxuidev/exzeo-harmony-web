@@ -112,7 +112,7 @@ export const navigateThroughMailingBilling = () =>
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
-    .wait('@retrieveQuote');
+    .wait('@verifyQuote');
 
 export const navigateThroughVerify = () =>
   cy
