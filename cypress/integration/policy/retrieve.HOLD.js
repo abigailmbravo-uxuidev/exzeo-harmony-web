@@ -51,13 +51,6 @@ describe('Retrieve Policy', () => {
         .findDataTag('logo')
         .click()
         // search policy again
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        .login()
->>>>>>> Fix Cypress Policy Retrieve test.
-=======
->>>>>>> Fix Cypress UW Exceptions test.
         .get('.card-footer a[href="/policy"]')
         .click()
         .get('#PolicySearchBar button[type="submit"]')
@@ -70,11 +63,6 @@ describe('Retrieve Policy', () => {
         .findDataTag('loader')
         .should('exist')
         .wait('@getLatestPolicy')
-<<<<<<< HEAD
         .findDataTag('Policyholder 1'));
-=======
-        .findDataTag('Policyholder 1')
-    );
->>>>>>> Fix Cypress Policy Retrieve test.
   }
 });
