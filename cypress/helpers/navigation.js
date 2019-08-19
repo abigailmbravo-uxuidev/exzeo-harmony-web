@@ -111,8 +111,8 @@ export const navigateThroughMailingBilling = () =>
     .first()
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote')
-    .wait('@retrieveQuote');
+    .wait('@updateQuote');
+//.wait('@retrieveQuote');
 
 export const navigateThroughVerify = () =>
   cy
