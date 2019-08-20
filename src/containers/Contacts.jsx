@@ -92,32 +92,30 @@ export const supportContacts = [
 ];
 
 const Contacts = ({ auth, match }) => (
-  <AppWrapper logout={auth.logout} match={match} routeClassName="train">
-    <div className="route">
-      <div className="route-content">
-        <div className="scroll">
-          <div className="detail-wrapper">
-            <section className="contacts">
-              <h2 className="title">
-                <i className="fa fa-map-marker" /> Territory Managers
-              </h2>
-              {territoryManagerContacts.map(contact => (
-                <ContactCard key={contact.name} {...contact} />
-              ))}
-            </section>
-            <section className="contacts">
-              <h2 className="title">
-                <i className="fa fa-address-book" /> Support
-              </h2>
-              {supportContacts.map(contact => (
-                <ContactCard key={contact.name} {...contact} />
-              ))}
-            </section>
-          </div>
-        </div>
-        <Footer />
+  <AppWrapper logout={auth.logout} match={match} routeClassName="main contacts">
+    <div className="scroll">
+      <div className="detail-wrapper">
+        <section className="contacts">
+          <h2 className="title">
+            <i className="fa fa-map-marker" />
+            &nbsp;Territory Managers
+          </h2>
+          {territoryManagerContacts.map(contact => (
+            <ContactCard key={contact.name} {...contact} />
+          ))}
+        </section>
+        <section className="contacts">
+          <h2 className="title">
+            <i className="fa fa-address-book" />
+            &nbsp;Support
+          </h2>
+          {supportContacts.map(contact => (
+            <ContactCard key={contact.name} {...contact} />
+          ))}
+        </section>
       </div>
     </div>
+    <Footer />
   </AppWrapper>
 );
 

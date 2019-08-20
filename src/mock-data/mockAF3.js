@@ -331,6 +331,17 @@ const mock = {
           children: []
         },
         {
+          id: 133330,
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            component: '$WARNING',
+            as: 'div'
+          },
+          formData: {},
+          children: []
+        },
+        {
           id: 3456354,
           type: '$CUSTOM',
           dependencies: [],

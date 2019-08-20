@@ -32,6 +32,7 @@ import Assumptions from './Assumptions';
 import Share from './Share';
 import WorkflowNavigation from './WorkflowNavigation';
 import Verify from './Verify';
+import Warning from './Warning';
 
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
@@ -64,7 +65,8 @@ export class QuoteWorkflow extends Component {
     this.customComponents = {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
-      $VERIFY: Verify
+      $VERIFY: Verify,
+      $WARNING: Warning
     };
 
     this.state = {
@@ -80,8 +82,8 @@ export class QuoteWorkflow extends Component {
 
     this.formInstance = null;
 
-    this.checkForFatalExceptions = defaultMemoize(
-      this.checkForFatalExceptions.bind(this)
+    this.checkForExceptions = defaultMemoize(
+      this.checkForExceptions.bind(this)
     );
   }
 
@@ -117,22 +119,23 @@ export class QuoteWorkflow extends Component {
     }
   }
 
-  checkForFatalExceptions(
-    underwritingExceptions,
-    currentRouteName,
-    quoteState
-  ) {
+  checkForExceptions(exceptions = [], route, quoteState) {
+    const fatalError = exceptions.some(ex => ex.action === 'Fatal Error');
+    const editableRoutes = ['customerInfo', 'underwriting', 'customize'];
+
     if (!UW_EXCEPTION_QUOTE_STATES.includes(quoteState)) return false;
 
-    if (currentRouteName === 'verify') {
-      const currentExceptions = (underwritingExceptions || []).filter(
-        ue => !ue.overridden
-      );
+    if (fatalError && route !== 'customerInfo') return true;
+
+    if (editableRoutes.includes(route)) return false;
+
+    if (route === 'verify') {
+      const currentExceptions = (exceptions || []).filter(ue => !ue.overridden);
       return currentExceptions.length > 0;
     }
 
-    return (underwritingExceptions || []).some(
-      ex => ex.action === 'Fatal Error'
+    return (exceptions || []).some(
+      ex => ex.action === 'Fatal Error' || ex.action === 'Underwriting Review'
     );
   }
 
@@ -194,7 +197,7 @@ export class QuoteWorkflow extends Component {
           quoteNumber: quote.quoteNumber,
           options: {
             step: stepNumber,
-            shouldReviewQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
+            shouldVerifyQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
           }
         });
       }
@@ -281,7 +284,8 @@ export class QuoteWorkflow extends Component {
 
     const { underwritingExceptions } = quote;
     const quoteState = quote ? quote.quoteState : '';
-    const quoteHasFatalError = this.checkForFatalExceptions(
+
+    const quoteHasError = this.checkForExceptions(
       underwritingExceptions,
       currentRouteName,
       quoteState
@@ -295,8 +299,16 @@ export class QuoteWorkflow extends Component {
       >
         <div className="route">
           {isLoading && <Loader />}
-          {quoteHasFatalError && !(location.state || {}).fatalError && (
-            <Redirect to={{ pathname: 'error', state: { fatalError: true } }} />
+          {quoteHasError && currentRouteName !== 'error' && (
+            <Redirect
+              to={{
+                pathname: 'error',
+                state: {
+                  quote,
+                  exceptions: underwritingExceptions
+                }
+              }}
+            />
           )}
 
           {gandalfTemplate && gandalfTemplate.header && (
@@ -309,7 +321,7 @@ export class QuoteWorkflow extends Component {
               goToStep={this.goToStep}
               isLoading={isLoading}
               showNavigationTabs={
-                !quoteHasFatalError && currentRouteName !== 'thankYou'
+                !['thankYou', 'error'].includes(currentRouteName)
               }
               currentStep={currentStepNumber}
               quote={quoteData}
@@ -391,9 +403,7 @@ export class QuoteWorkflow extends Component {
           <Route
             exact
             path={`${match.url}/error`}
-            render={props => (
-              <Error {...props} updateQuote={this.handleUpdateQuote} />
-            )}
+            render={props => <Error {...props} getQuote={getQuote} />}
           />
         </div>
       </App>

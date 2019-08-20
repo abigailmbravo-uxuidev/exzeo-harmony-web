@@ -57,30 +57,24 @@ export const externalLinks = [
 ];
 
 const Training = ({ auth, match }) => (
-  <AppWrapper
-    logout={auth.logout}
-    match={match}
-    routeClassName="train"
-    render={() => (
-      <div className="route">
-        <div className="route-content">
-          <div className="scroll">
-            <div className="detail-wrapper">
-              <section>
-                <h2>Reference</h2>
-                <ul className="link-list reference-links">
-                  {externalLinks.map(link => (
-                    <FancyExternalLink key={link.key} {...link} />
-                  ))}
-                </ul>
-              </section>
-            </div>
-          </div>
-          <Footer />
-        </div>
+  <AppWrapper logout={auth.logout} match={match} routeClassName="main training">
+    <div className="scroll">
+      <div className="detail-wrapper">
+        <section className="reference">
+          <h2 className="title">
+            <i className="fa fa-book" />
+            &nbsp;Reference
+          </h2>
+          <ul className="link-list reference-links">
+            {externalLinks.map(link => (
+              <FancyExternalLink key={link.key} {...link} />
+            ))}
+          </ul>
+        </section>
       </div>
-    )}
-  />
+    </div>
+    <Footer />
+  </AppWrapper>
 );
 
 export default Training;

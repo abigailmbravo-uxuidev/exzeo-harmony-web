@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import {
   createQuote,
-  reviewQuote,
+  retrieveQuote,
   clearQuote
 } from '../../state/actions/quoteState.actions';
 import { clearResults } from '../../state/actions/searchActions';
@@ -37,7 +37,7 @@ export class Search extends React.Component {
 
   handleSelectQuote = async quoteData => {
     const { history } = this.props;
-    const quote = await this.props.reviewQuote({
+    const quote = await this.props.retrieveQuote({
       quoteNumber: quoteData.quoteNumber
     });
 
@@ -121,7 +121,7 @@ export default connect(
   {
     createQuote,
     clearQuote,
-    reviewQuote,
+    retrieveQuote,
     clearResults
   }
 )(Search);

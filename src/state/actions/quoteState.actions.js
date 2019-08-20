@@ -91,7 +91,6 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
       if (process.env.NODE_ENV !== 'production') {
         console.log('Error retrieving quote: ', error);
       }
-      dispatch(errorActions.setAppError(error));
       return null;
     } finally {
       dispatch(toggleLoading(false));
@@ -105,13 +104,13 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
  * @param quoteId
  * @returns {Function}
  */
-export function reviewQuote({ quoteNumber, quoteId }) {
+export function verifyQuote({ quoteNumber, quoteId }) {
   return async dispatch => {
     dispatch(toggleLoading(true));
     try {
       const config = {
         exchangeName: 'harmony',
-        routingKey: 'harmony.quote.reviewQuote',
+        routingKey: 'harmony.quote.verifyQuote',
         data: {
           quoteId,
           quoteNumber
@@ -120,14 +119,14 @@ export function reviewQuote({ quoteNumber, quoteId }) {
 
       const response = await serviceRunner.callService(
         config,
-        'quoteManager.reviewQuote'
+        'quoteManager.verifyQuote'
       );
       const quote = response.data.result;
       dispatch(setQuote(quote));
       return quote;
     } catch (error) {
       if (process.env.NODE_ENV !== 'production') {
-        console.log('Error reviewing quote: ', error);
+        console.log('Error verifying quote: ', error);
       }
       dispatch(errorActions.setAppError(error));
       return null;
@@ -230,13 +229,17 @@ export function updateQuote({ data = {}, options }) {
           'quoteManager.updateQuote'
         );
 
-        if (options.shouldReviewQuote) {
+        const quote =
+          response && response.data && response.data.result
+            ? response.data.result
+            : undefined;
+
+        if (options.shouldVerifyQuote && quote.quoteState !== 'Quote Stopped') {
           const quote = await dispatch(
-            reviewQuote({ quoteNumber: data.quoteNumber })
+            verifyQuote({ quoteNumber: data.quoteNumber })
           );
           return quote;
         } else {
-          const quote = response.data.result;
           if (!quote) {
             dispatch(errorActions.setAppError(response.data));
           }

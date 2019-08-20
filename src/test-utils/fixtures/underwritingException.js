@@ -14,8 +14,8 @@ export const reviewUnderwritingExcception = {
   category: 'Underwriting Answers',
   action: 'Underwriting Review',
   agentMessage:
-    'This quote sucks. Due to previous claims history, underwriting review is required prior to binding.',
+    'Due to previous claims history, underwriting review is required prior to binding.',
   internalMessage:
-    'This quote sucks. Due to previous claims history, underwriting review is required prior to binding.',
+    'Due to previous claims history, underwriting review is required prior to binding.',
   active: true
 };
