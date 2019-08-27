@@ -124,7 +124,7 @@
             margin: $padding 0;
             width: 100%;
             height: 250px;
-            background-image: url('../img/large-ad-who-is-typtap.jpg');
+            background-image: url('../img/large-ad-dorian.jpg');
             background-position: center center;
             background-size: contain;
             background-repeat: no-repeat;
@@ -137,7 +137,7 @@
             }
             @include for-phone-only {
               height: 250px;
-              background-image: url('../img/small-ad-who-is-typtap.jpg');
+              background-image: url('../img/small-ad-dorian.jpg');
             }
           }
         }
