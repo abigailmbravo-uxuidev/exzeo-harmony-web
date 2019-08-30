@@ -69,17 +69,16 @@ const Splash = ({ auth, match }) => (
                 </div>
                 <div className="typtap-lg">
                   <img
-                    src={`${process.env.REACT_APP_DOCUMENT_URL}/companyUpdates/notifications/notification-lg.jpg?${uniqueNum}`}
+                    src={`https://cdn.typtap.com/2019/08/notification-lg.jpg?${uniqueNum}`}
                     alt="TypTap notification"
                   />
                 </div>
                 <div className="typtap-sm">
                   <img
-                    src={`${process.env.REACT_APP_DOCUMENT_URL}/companyUpdates/notifications/notification-sm.jpg?${uniqueNum}`}
+                    src={`https://cdn.typtap.com/2019/08/notification-sm.jpg?${uniqueNum}`}
                     alt="TypTap notification"
                   />
                 </div>
-                {/*<div className="exzeo" />*/}
               </div>
               <Footer />
             </div>
