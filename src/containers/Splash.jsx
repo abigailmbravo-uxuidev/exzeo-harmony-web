@@ -5,6 +5,10 @@ import ClearErrorConnect from '../components/Error/ClearError';
 import Footer from '../components/Footer';
 import AppWrapper from '../components/AppWrapper';
 
+import { date } from '@exzeo/core-ui';
+
+const uniqueNum = date.formatToUTC();
+
 const Splash = ({ auth, match }) => (
   <AppWrapper
     logout={auth.logout}
@@ -63,7 +67,19 @@ const Splash = ({ auth, match }) => (
                     </div>
                   </div>
                 </div>
-                <div className="exzeo" />
+                <div className="typtap-lg">
+                  <img
+                    src={`${process.env.REACT_APP_DOCUMENT_URL}/companyUpdates/notifications/notification-lg.jpg?${uniqueNum}`}
+                    alt="TypTap notification"
+                  />
+                </div>
+                <div className="typtap-sm">
+                  <img
+                    src={`${process.env.REACT_APP_DOCUMENT_URL}/companyUpdates/notifications/notification-sm.jpg?${uniqueNum}`}
+                    alt="TypTap notification"
+                  />
+                </div>
+                {/*<div className="exzeo" />*/}
               </div>
               <Footer />
             </div>

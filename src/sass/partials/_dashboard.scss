@@ -119,25 +119,51 @@
             }
           }
 
-          .exzeo {
+          .typtap-lg {
             display: block;
             margin: $padding 0;
             width: 100%;
             height: 250px;
-            background-image: url('../img/large-ad-dorian.jpg');
-            background-position: center center;
-            background-size: contain;
-            background-repeat: no-repeat;
 
-            @include for-tablet-landscape-up {
-              height: 250px;
-            }
             @include for-tablet-portrait-up {
-              height: 170px;
+              img {
+                display: block;
+                margin: 0 auto;
+                width: 480px;
+              }
+            }
+            @include for-tablet-landscape-up {
+              img {
+                display: block;
+                margin: 0 auto;
+                width: 600px;
+              }
+            }
+            @include for-desktop-up {
+              img {
+                display: block;
+                margin: 0 auto;
+                width: 900px;
+              }
             }
             @include for-phone-only {
+              display: none;
+            }
+          }
+          .typtap-sm {
+            display: none;
+
+            @include for-phone-only {
+              display: block;
+              margin: $padding 0;
+              width: 100%;
               height: 250px;
-              background-image: url('../img/small-ad-dorian.jpg');
+
+              img {
+                display: block;
+                margin: 0 auto;
+                width: 250px;
+              }
             }
           }
         }
