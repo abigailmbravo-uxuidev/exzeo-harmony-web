@@ -29,6 +29,13 @@ export const territoryManagerContacts = [
     email: 'jkelley@hcpci.com'
   },
   {
+    icon: 'image user',
+    name: 'Nigel Cosey',
+    title: 'N',
+    phone: '7865171850',
+    email: 'NCosey@typtap.com'
+  },
+  {
     icon: 'image victor-ferdinandi',
     name: 'Victor Ferdinandi',
     title: 'West Central Florida Manager',

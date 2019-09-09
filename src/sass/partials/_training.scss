@@ -188,9 +188,11 @@
                 width: 3rem;
 
                 &.image {
+                  overflow: hidden;
                   margin: -$padding;
                   width: 4rem;
                   height: 4rem;
+                  border-radius: 50%;
                   background-position: center center;
                   background-size: cover;
                   background-repeat: no-repeat;
@@ -213,6 +215,9 @@
 
                   &.yanet-coursen {
                     background-image: url('../img/yanet-coursen.png');
+                  }
+                  &.user {
+                    background-image: url('../img/user.png');
                   }
                 }
               }
