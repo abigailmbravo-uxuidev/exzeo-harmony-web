@@ -148,6 +148,10 @@
             }
             @include for-phone-only {
               display: none;
+
+              img {
+                display: none;
+              }
             }
           }
           .typtap-sm {
@@ -164,6 +168,10 @@
                 margin: 0 auto;
                 width: 250px;
               }
+            }
+
+            img {
+              display: none;
             }
           }
         }
