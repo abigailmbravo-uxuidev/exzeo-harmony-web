@@ -81,7 +81,8 @@ describe('Testing Splash component', () => {
     expect(
       container.querySelector('div.card-header-image-home')
     ).toBeInTheDocument();
-    expect(container.querySelector('div.exzeo')).toBeInTheDocument();
+    expect(container.querySelector('div.typtap-lg')).toBeInTheDocument();
+    expect(container.querySelector('div.typtap-sm')).toBeInTheDocument();
   });
 
   it('POS:Dashboard Button', () => {

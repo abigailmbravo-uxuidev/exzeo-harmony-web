@@ -148,11 +148,21 @@
             }
             @include for-phone-only {
               display: none;
+
+              img {
+                display: none;
+              }
             }
           }
           .typtap-sm {
             display: none;
 
+            img {
+              display: none;
+            }
+          }
+
+          .typtap-sm {
             @include for-phone-only {
               display: block;
               margin: $padding 0;
