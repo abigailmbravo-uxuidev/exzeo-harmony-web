@@ -157,6 +157,12 @@
           .typtap-sm {
             display: none;
 
+            img {
+              display: none;
+            }
+          }
+
+          .typtap-sm {
             @include for-phone-only {
               display: block;
               margin: $padding 0;
@@ -168,10 +174,6 @@
                 margin: 0 auto;
                 width: 250px;
               }
-            }
-
-            img {
-              display: none;
             }
           }
         }

@@ -31,7 +31,7 @@ export const territoryManagerContacts = [
   {
     icon: 'image user',
     name: 'Nigel Cosey',
-    title: 'N',
+    title: 'Treasure Coast Florida Manager',
     phone: '7865171850',
     email: 'NCosey@typtap.com'
   },
