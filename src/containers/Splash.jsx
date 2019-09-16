@@ -52,9 +52,6 @@ const Splash = ({ auth, match, userDisplayName }) => (
                     Retrieve Policy
                   </Link>
                 </div>
-              </div>
-
-              <div className="survey-wrapper">
                 <div className="typtap-lg">
                   <img
                     src={`${process.env.REACT_APP_COMPANY_ASSETS_URL}/typtap/images/notification-lg.jpg?${uniqueNum}`}
