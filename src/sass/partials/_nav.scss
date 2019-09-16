@@ -32,7 +32,7 @@
   }
 
   .site-nav {
-    padding: $padding ($padding * 2) ($padding * 2);
+    padding: ($padding / 2) ($padding * 2) ($padding * 2);
     width: auto;
 
     @include transition(all 0.05s ease-in-out);
@@ -500,7 +500,7 @@
       }
 
       .site-nav {
-        padding: $padding * 2;
+        padding: ($padding / 2) ($padding * 2) ($padding * 2);
         width: auto;
 
         @include transition(all 0.05s ease-in-out);
