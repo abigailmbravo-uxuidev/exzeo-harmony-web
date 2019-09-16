@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   reduxForm,
+  Field,
   Form,
   propTypes,
   getFormSyncErrors,
@@ -11,8 +12,9 @@ import {
 } from 'redux-form';
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
-import Rules from '../Form/Rules';
+import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
+import Rules from '../Form/Rules';
 import * as appStateActions from '../../state/actions/appStateActions';
 import * as errorActions from '../../state/actions/errorActions';
 import * as serviceActions from '../../state/actions/serviceActions';
@@ -21,12 +23,14 @@ import SelectField from '../Form/inputs/SelectField';
 import Pagination from './Pagination';
 import { generateField } from './searchUtils';
 
+const stateAnswers = [{ answer: 'FL', label: 'FL' }];
+const productAnswers = [
+  { answer: 'HO3', label: 'HO3' },
+  { answer: 'AF3', label: 'AF3' }
+];
+
 const handleInitialize = () => {
   return {
-    address: '',
-    firstName: '',
-    lastName: '',
-    policyNumber: '',
     sortBy: 'policyNumber',
     pageNumber: 1,
     totalPages: 1
@@ -39,18 +43,8 @@ export const changePagePolicy = (props, isNext) => {
   const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
-    firstName:
-      encodeURIComponent(fieldValues.firstName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(fieldValues.lastName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.lastName)
-        : '',
-    address:
-      encodeURIComponent(fieldValues.address) !== 'undefined'
-        ? encodeURIComponent(String(fieldValues.address).trim())
-        : '',
+    ...props,
+    propertyAddress: String(fieldValues.address).trim(),
     policyNumber:
       encodeURIComponent(fieldValues.policyNumber) !== 'undefined'
         ? encodeURIComponent(fieldValues.policyNumber)
@@ -63,9 +57,7 @@ export const changePagePolicy = (props, isNext) => {
       : Number(fieldValues.pageNumber) - 1,
     pageSize: 25,
     sort: fieldValues.sortBy,
-    direction,
-    companyCode,
-    state
+    direction
   };
   props.actions.searchActions.setPolicySearch(taskData);
 
@@ -82,21 +74,12 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
   const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
-    firstName:
-      encodeURIComponent(data.firstName) !== 'undefined'
-        ? encodeURIComponent(data.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(data.lastName) !== 'undefined'
-        ? encodeURIComponent(data.lastName)
-        : '',
-    address:
-      encodeURIComponent(data.address) !== 'undefined'
-        ? encodeURIComponent(String(data.address).trim())
-        : '',
-    policyNumber:
-      encodeURIComponent(data.policyNumber) !== 'undefined'
-        ? encodeURIComponent(data.policyNumber)
+    ...data,
+    propertyAddress:
+      data.address && data.address !== 'undefined'
+        ? String(data.address)
+            .replace(/\./g, '')
+            .trim()
         : '',
     searchType: 'policy',
     isLoading: true,
@@ -226,6 +209,24 @@ export class PolicySearchBar extends Component {
             'property-search',
             false
           )}
+          <Field
+            name="state"
+            dataTest="state"
+            label="State"
+            component={Select}
+            answers={stateAnswers}
+            showPlaceholder={false}
+            styleName="state-search"
+          />
+          <Field
+            name="product"
+            dataTest="product"
+            label="Product"
+            component={Select}
+            answers={productAnswers}
+            placeholder="All"
+            styleName="product-search"
+          />
           {generateField(
             'policyNumber',
             'Policy No Search',

@@ -12,7 +12,14 @@ export const getNavLinks = ({ params }) => [
   {
     key: 'searchAddress',
     to: '/search/address',
-    label: 'QUOTE',
+    label: 'NEW QUOTE',
+    styleName: 'quote label',
+    hasIcon: true
+  },
+  {
+    key: 'searchQuotes',
+    to: '/search/retrieve',
+    label: 'QUOTES',
     styleName: 'quote label',
     hasIcon: true
   },
