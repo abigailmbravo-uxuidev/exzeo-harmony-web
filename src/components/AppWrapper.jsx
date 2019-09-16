@@ -41,7 +41,7 @@ class AppWrapper extends React.Component {
         <Header toggleSideNav={this.toggleSideNav} active={this.state.active} />
         <div role="main">
           <aside className="content-panel-left">
-            <div className="user" data-test="user-info">
+            <div className="date-wrapper" data-test="date-wrapper">
               <label htmlFor="date">Date</label>
               <h5 className="date">
                 <span>

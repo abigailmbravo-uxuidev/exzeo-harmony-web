@@ -32,7 +32,7 @@
   }
 
   .site-nav {
-    padding: $padding * 2;
+    padding: $padding ($padding * 2) ($padding * 2);
     width: auto;
 
     @include transition(all 0.05s ease-in-out);
@@ -250,12 +250,9 @@
     }
   }
 
-  .user {
+  .date-wrapper {
     padding: ($padding/2) ($padding) ($padding/2) ($padding * 2);
-    min-height: 4.75rem;
     width: auto;
-    border-bottom: 2px solid $white;
-    background-color: $warm-gray-08;
 
     @include transition(all 0.2s ease-in-out);
     @include for-tablet-portrait-up {
@@ -280,7 +277,7 @@
       }
     }
 
-    .user-name {
+    .date {
       display: flex;
       align-items: center;
       flex-basis: auto;
@@ -464,14 +461,14 @@
           }
         }
 
-        .user {
+        .date-wrapper {
           display: block;
 
           label {
             display: block;
           }
 
-          .user-name {
+          .date {
             display: block;
           }
         }
