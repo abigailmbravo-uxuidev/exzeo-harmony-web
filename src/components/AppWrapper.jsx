@@ -48,21 +48,12 @@ class AppWrapper extends React.Component {
                   <div>date</div>
                 </span>
               </h5>
-              <label htmlFor="user">Agency</label>
-              <h5 className="user-name">
-                <span>
-                  <div>{userDisplayName}</div>
-                </span>
-                <i className="fa fa-gear" />
-              </h5>
             </div>
-
             <nav className="site-nav">
               <SideNavigation
                 navLinks={getNavLinks({ params: match.params })}
               />
             </nav>
-
             <Button
               className={Button.constants.classNames.action}
               customClass="logout"
