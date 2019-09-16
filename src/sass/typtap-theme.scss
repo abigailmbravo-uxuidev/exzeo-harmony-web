@@ -1268,6 +1268,19 @@ footer {
       color: $bright-blue-darken-03;
     }
 
+    .welcome-banner {
+      display: flex;
+      height: 14rem;
+      background-image: url('../img/welcome-image.jpg');
+      background-position: center center;
+    }
+
+    .launch-buttons {
+      .btn {
+        width: 33.33%;
+      }
+    }
+
     .product-wrapper {
       .product {
         .card-header {

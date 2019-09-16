@@ -42,6 +42,12 @@ class AppWrapper extends React.Component {
         <div role="main">
           <aside className="content-panel-left">
             <div className="user" data-test="user-info">
+              <label htmlFor="date">Date</label>
+              <h5 className="date">
+                <span>
+                  <div>date</div>
+                </span>
+              </h5>
               <label htmlFor="user">Agency</label>
               <h5 className="user-name">
                 <span>
