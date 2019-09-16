@@ -39,6 +39,78 @@ export function setSearchResults({
     hasSearched
   };
 }
+
+/**
+ * Build query string and encodeURI
+ * @param firstName
+ * @param lastName
+ * @param address
+ * @param companyCode
+ * @param effectiveDate
+ * @param policyNumber
+ * @param policyStatus
+ * @param currentPage
+ * @param pageSize
+ * @param sortBy
+ * @param sortDirection
+ * @param agencyCode
+ * @param agentCode
+ * @param licenseNumber
+ * @param displayName
+ * @param taxIdNumber
+ * @param primaryPhoneNumber,
+ * @returns {string} querystring
+ */
+function buildQuerystring({
+  firstName,
+  lastName,
+  propertyAddress,
+  effectiveDate,
+  policyNumber,
+  policyStatus,
+  page,
+  pageSize,
+  sortBy,
+  sortDirection,
+  companyCode,
+  state,
+  product,
+  agencyCode,
+  agentCode,
+  licenseNumber,
+  displayName,
+  taxIdNumber,
+  primaryPhoneNumber
+}) {
+  const fields = {
+    ...(firstName && { firstName }),
+    ...(lastName && { lastName }),
+    ...(propertyAddress && { propertyAddress }),
+    ...(effectiveDate && { effectiveDate }),
+    ...(policyNumber && { policyNumber }),
+    ...(policyStatus && { policyStatus }),
+    ...(page && { page }),
+    ...(pageSize && { pageSize }),
+    ...(sortBy && { sortBy }),
+    ...(sortDirection && { sortDirection }),
+    ...(companyCode && { companyCode }),
+    ...(state && { state }),
+    ...(product && { product }),
+    ...(agencyCode && { agencyCode }),
+    ...(agentCode && { agentCode }),
+    ...(licenseNumber && { licenseNumber }),
+    ...(displayName && { displayName }),
+    ...(taxIdNumber && { taxIdNumber }),
+    ...(primaryPhoneNumber && { primaryPhoneNumber })
+  };
+
+  return encodeURI(
+    Object.keys(fields)
+      .map(key => `${key}=${fields[key]}`)
+      .join('&')
+  );
+}
+
 /**
  * Format results from address query for state
  * @param {object} results
@@ -93,23 +165,12 @@ export function searchAddresses(address) {
   };
 }
 
-export async function fetchQuotes({
-  firstName,
-  lastName,
-  address,
-  companyCode = 'TTIC',
-  quoteNumber,
-  product = 'HO3',
-  state = 'FL',
-  pageNumber,
-  pageSize,
-  sort,
-  sortDirection
-}) {
+export async function fetchQuotes(query) {
+  const querystring = buildQuerystring(query);
   const config = {
     service: 'quote-data',
     method: 'GET',
-    path: `/quotes?companyCode=${companyCode}&state=${state}&quoteNumber=${quoteNumber}&lastName=${lastName}&firstName=${firstName}&propertyAddress=${address}&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=${sortDirection}`
+    path: `/quotes?${querystring}`
   };
 
   try {

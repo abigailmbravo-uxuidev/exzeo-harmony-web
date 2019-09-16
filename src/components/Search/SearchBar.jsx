@@ -18,7 +18,6 @@ import { PRODUCTS_LIST } from './searchUtils';
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({
-  product: 'HO3',
   address: '',
   pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
   totalPages: _get(state.search, 'state.search.totalPages') || 0
@@ -30,28 +29,9 @@ export const changePageQuote = async (props, isNext) => {
   const { state, companyCode } = props.userProfile.entity;
 
   const taskData = {
+    ...fieldValues,
     state,
     companyCode,
-    firstName:
-      encodeURIComponent(fieldValues.firstName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(fieldValues.lastName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.lastName)
-        : '',
-    address:
-      encodeURIComponent(fieldValues.address) !== 'undefined'
-        ? encodeURIComponent(String(fieldValues.address).trim())
-        : '',
-    quoteNumber:
-      encodeURIComponent(fieldValues.policyNumber) !== 'undefined'
-        ? encodeURIComponent(fieldValues.policyNumber)
-        : '',
-    quoteState:
-      encodeURIComponent(fieldValues.quoteState) !== 'undefined'
-        ? encodeURIComponent(fieldValues.quoteState)
-        : '',
     searchType,
     hasSearched: true,
     resultStart: '60',
@@ -60,7 +40,7 @@ export const changePageQuote = async (props, isNext) => {
     sortDirection: 'desc'
   };
 
-  taskData.pageNumber = isNext
+  taskData.page = isNext
     ? String(Number(fieldValues.pageNumber) + 1)
     : String(Number(fieldValues.pageNumber) - 1);
 
@@ -74,35 +54,18 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
   const { state, companyCode } = props.userProfile.entity;
 
   const taskData = {
+    ...data,
     state,
     companyCode,
-    firstName:
-      encodeURIComponent(data.firstName) !== 'undefined'
-        ? encodeURIComponent(data.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(data.lastName) !== 'undefined'
-        ? encodeURIComponent(data.lastName)
-        : '',
-    address:
-      encodeURIComponent(data.address) !== 'undefined'
-        ? encodeURIComponent(
-            String(data.address)
-              .replace(/\./g, '')
-              .trim()
-          )
-        : '',
-    quoteNumber:
-      encodeURIComponent(data.quoteNumber) !== 'undefined'
-        ? encodeURIComponent(data.quoteNumber)
-        : '',
-    zip:
-      encodeURIComponent(data.zip) !== 'undefined'
-        ? encodeURIComponent(data.zip)
+    propertyAddress:
+      data.address && data.address !== 'undefined'
+        ? String(data.address)
+            .replace(/\./g, '')
+            .trim()
         : '',
     searchType: props.searchType,
     hasSearched: true,
-    pageNumber: '1',
+    page: '1',
     pageSize: '25',
     sort: 'quoteNumber',
     sortDirection: 'desc'
