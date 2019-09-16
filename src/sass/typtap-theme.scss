@@ -793,6 +793,7 @@ html {
 header {
   border-bottom: 2px solid $bright-blue;
   background-color: mix($cool-gray-14, $bright-blue, 70);
+  box-shadow: 0 -6px 15px 0 rgba($black, 0.5);
 
   @include for-tablet-landscape-up {
     max-width: 64rem;
@@ -1046,6 +1047,10 @@ div[role='main'] {
   background-position-y: -5rem;
   background-size: cover;
   background-repeat: no-repeat;
+
+  @include for-phone-only {
+    background-position-y: -6rem;
+  }
 
   .date-wrapper {
     label {
