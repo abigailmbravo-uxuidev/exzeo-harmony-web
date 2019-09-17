@@ -1,6 +1,5 @@
 import React from 'react';
 import { func, shape, string } from 'prop-types';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
 import { date, Button } from '@exzeo/core-ui';
@@ -25,12 +24,7 @@ class AppWrapper extends React.Component {
   };
 
   render() {
-    const {
-      errorRedirectUrl,
-      match,
-      routeClassName,
-      userDisplayName
-    } = this.props;
+    const { errorRedirectUrl, match, routeClassName } = this.props;
 
     return (
       <div
@@ -101,13 +95,4 @@ AppWrapper.defaultProps = {
   routeClassName: 'workflow'
 };
 
-const mapStateToProps = state => {
-  const userDisplayName =
-    (state.agencyState.agency || {}).displayName ||
-    (state.authState.userProfile || {}).name;
-  return {
-    userDisplayName
-  };
-};
-
-export default connect(mapStateToProps)(AppWrapper);
+export default AppWrapper;
