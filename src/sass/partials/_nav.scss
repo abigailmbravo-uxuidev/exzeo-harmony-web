@@ -138,6 +138,14 @@
             }
           }
 
+          &.new-quote {
+            i {
+              &:before {
+                content: '\f067';
+              }
+            }
+          }
+
           &.quote {
             i {
               &:before {
