@@ -93,7 +93,7 @@ class Routes extends Component {
   };
 
   render() {
-    const { error } = this.props;
+    const { agency, error } = this.props;
 
     return (
       <React.Fragment>
@@ -129,7 +129,9 @@ class Routes extends Component {
               <Route
                 exact
                 path="/"
-                render={props => <Splash auth={auth} {...props} />}
+                render={props => (
+                  <Splash auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 exact

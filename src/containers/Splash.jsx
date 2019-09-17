@@ -9,7 +9,7 @@ import { date } from '@exzeo/core-ui';
 
 const uniqueNum = date.formatToUTC();
 
-const Splash = ({ auth, match, userDisplayName }) => (
+const Splash = ({ agency, auth, match }) => (
   <AppWrapper
     logout={auth.logout}
     match={match}
@@ -23,7 +23,7 @@ const Splash = ({ auth, match, userDisplayName }) => (
               <div className="dashboard-message">
                 <div className="welcome-banner">
                   <h1>Hello &amp; Welcome</h1>
-                  <h2>Name Here</h2>
+                  <h2>{agency && agency.displayName}</h2>
                 </div>
                 <p>
                   Getting a quote is always quick and simple with
