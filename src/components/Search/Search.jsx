@@ -76,11 +76,11 @@ export class Search extends React.Component {
   };
 
   render() {
-    const { searchType } = this.props;
+    const { agency, searchType } = this.props;
     return (
       <div className="flex grow">
         <div className="search route-content">
-          <SearchBar searchType={searchType} />
+          <SearchBar searchType={searchType} agency={agency} />
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
@@ -113,7 +113,8 @@ const mapStateToProps = state => ({
   appState: state.appState,
   quote: state.quoteState.quote,
   search: state.search,
-  userProfile: state.authState.userProfile
+  userProfile: state.authState.userProfile,
+  agency: state.agencyState.agency
 });
 
 export default connect(

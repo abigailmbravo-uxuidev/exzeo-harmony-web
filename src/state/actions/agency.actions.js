@@ -41,6 +41,31 @@ export function setAgents(agents) {
 
 /**
  *
+ * @param contracts
+ * @returns {Function}
+ */
+function getSelectOptions(contracts) {
+  const stateAnswers = [];
+  const productAnswers = [];
+  const list = [];
+  contracts.forEach(contract => {
+    contract.stateProducts.forEach(stateProduct => {
+      const { state, product } = stateProduct;
+      if (!list.includes(state)) {
+        list.push(state);
+        stateAnswers.push({ answer: state, label: state });
+      }
+      if (!list.includes(product)) {
+        list.push(product);
+        productAnswers.push({ answer: product, label: product });
+      }
+    });
+  });
+  return { stateAnswers, productAnswers };
+}
+
+/**
+ *
  * @param companyCode
  * @param state
  * @param agencyCode
@@ -66,6 +91,8 @@ export function getAgency(agencyCode) {
   return async dispatch => {
     try {
       const agency = await fetchAgency(agencyCode);
+      const cspAnswers = getSelectOptions(agency.contracts);
+      agency.cspAnswers = cspAnswers;
       dispatch(setAgency(agency));
     } catch (error) {
       dispatch(errorActions.setAppError(error));

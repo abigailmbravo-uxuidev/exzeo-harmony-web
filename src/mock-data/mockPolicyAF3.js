@@ -408,7 +408,6 @@ const mock = {
                           label: 'C. Other Coverages',
                           items: [
                             {
-                              format: 'currency',
                               path: 'coverageLimits.otherCoverages.amount'
                             }
                           ]

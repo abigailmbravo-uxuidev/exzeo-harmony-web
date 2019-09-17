@@ -14,7 +14,6 @@ import {
 import Pagination from './Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
 
-import { PRODUCTS_LIST } from './searchUtils';
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({
@@ -118,20 +117,21 @@ export class SearchBar extends Component {
 
   render() {
     const {
+      agency,
       handleSubmit,
       searchType,
       fieldValues,
-      searchResults,
-      userProfile: {
-        appMetadata: { beta }
-      }
+      searchResults
     } = this.props;
 
-    if (searchType === 'quote') {
+    if (searchType === 'quote' && agency) {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
           <div className="search-input-wrapper retrieve-quote-wrapper">
-            <QuoteSearch disabledSubmit={this.props.appState.isLoading} />
+            <QuoteSearch
+              disabledSubmit={this.props.appState.isLoading}
+              answers={agency.cspAnswers}
+            />
           </div>
           {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
             <Pagination
@@ -150,19 +150,20 @@ export class SearchBar extends Component {
       >
         {/* TODO: Put this in core-ui to and make reusable for CSR */}
         <div className="search-input-wrapper">
-          <NewQuoteSearch
-            canFilter={beta}
-            filterTypeName="product"
-            filterTypeOptions={PRODUCTS_LIST}
-            filterTypeLabel="Select Product"
-            disabledSubmit={
-              this.props.appState.isLoading ||
-              !fieldValues.address ||
-              !String(fieldValues.address)
-                .replace(/\./g, '')
-                .trim()
-            }
-          />
+          {agency && (
+            <NewQuoteSearch
+              filterTypeName="product"
+              filterTypeLabel="Select Product"
+              answers={agency.cspAnswers}
+              disabledSubmit={
+                this.props.appState.isLoading ||
+                !fieldValues.address ||
+                !String(fieldValues.address)
+                  .replace(/\./g, '')
+                  .trim()
+              }
+            />
+          )}
         </div>
       </form>
     );
@@ -190,7 +191,8 @@ const mapStateToProps = state => ({
   policyResults: state.service.policyResults,
   search: state.search,
   userProfile: state.authState.userProfile,
-  searchResults: state.search.results
+  searchResults: state.search.results,
+  agency: state.agencyState.agency
 });
 
 export default connect(

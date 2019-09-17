@@ -10,7 +10,7 @@ const NewQuoteSearch = ({
   filterTypeLabel,
   filterTypeName,
   filterTypeOnChange,
-  canFilter,
+  answers,
   disabledSubmit
 }) => (
   <React.Fragment>
@@ -22,7 +22,7 @@ const NewQuoteSearch = ({
       id={filterTypeName}
       validate={isRequired}
       onChange={filterTypeOnChange}
-      answers={filterTypeOptions}
+      answers={answers.productAnswers}
       styleName="property-search products"
       segmented
       errorHint
