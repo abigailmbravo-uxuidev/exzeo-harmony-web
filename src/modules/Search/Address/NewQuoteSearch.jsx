@@ -22,7 +22,7 @@ const NewQuoteSearch = ({
       id={filterTypeName}
       validate={isRequired}
       onChange={filterTypeOnChange}
-      answers={answers.productAnswers}
+      answers={answers.products}
       styleName="property-search products"
       segmented
       errorHint

@@ -136,7 +136,9 @@ class Routes extends Component {
               <Route
                 exact
                 path="/policy"
-                render={props => <PolicySearch auth={auth} {...props} />}
+                render={props => (
+                  <PolicySearch auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 exact

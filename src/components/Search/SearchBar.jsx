@@ -124,13 +124,13 @@ export class SearchBar extends Component {
       searchResults
     } = this.props;
 
-    if (searchType === 'quote' && agency) {
+    if (searchType === 'quote') {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
           <div className="search-input-wrapper retrieve-quote-wrapper">
             <QuoteSearch
               disabledSubmit={this.props.appState.isLoading}
-              answers={agency.cspAnswers}
+              answers={(agency && agency.cspAnswers) || {}}
             />
           </div>
           {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
@@ -150,20 +150,18 @@ export class SearchBar extends Component {
       >
         {/* TODO: Put this in core-ui to and make reusable for CSR */}
         <div className="search-input-wrapper search-new-quote-wrapper">
-          {agency && (
-            <NewQuoteSearch
-              filterTypeName="product"
-              answers={agency.cspAnswers}
-              filterTypeLabel="Select Product"
-              disabledSubmit={
-                this.props.appState.isLoading ||
-                !fieldValues.address ||
-                !String(fieldValues.address)
-                  .replace(/\./g, '')
-                  .trim()
-              }
-            />
-          )}
+          <NewQuoteSearch
+            filterTypeName="product"
+            answers={(agency && agency.cspAnswers) || {}}
+            filterTypeLabel="Select Product"
+            disabledSubmit={
+              this.props.appState.isLoading ||
+              !fieldValues.address ||
+              !String(fieldValues.address)
+                .replace(/\./g, '')
+                .trim()
+            }
+          />
         </div>
       </form>
     );

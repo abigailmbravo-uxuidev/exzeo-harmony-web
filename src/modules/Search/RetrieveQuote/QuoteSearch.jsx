@@ -50,7 +50,7 @@ const QuoteSearch = ({ disabledSubmit, answers }) => {
         dataTest="state"
         label="State"
         component={Select}
-        answers={answers.stateAnswers}
+        answers={answers.states}
         showPlaceholder={false}
         styleName="state-search"
       />
@@ -59,7 +59,7 @@ const QuoteSearch = ({ disabledSubmit, answers }) => {
         dataTest="product"
         label="Product"
         component={Select}
-        answers={answers.productAnswers}
+        answers={answers.products}
         placeholder="All"
         styleName="product-search"
       />

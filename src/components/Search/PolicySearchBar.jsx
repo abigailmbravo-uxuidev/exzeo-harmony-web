@@ -23,12 +23,6 @@ import SelectField from '../Form/inputs/SelectField';
 import Pagination from './Pagination';
 import { generateField } from './searchUtils';
 
-const stateAnswers = [{ answer: 'FL', label: 'FL' }];
-const productAnswers = [
-  { answer: 'HO3', label: 'HO3' },
-  { answer: 'AF3', label: 'AF3' }
-];
-
 const handleInitialize = () => {
   return {
     sortBy: 'policyNumber',
@@ -153,7 +147,7 @@ export class PolicySearchBar extends Component {
   }
 
   render() {
-    const { handleSubmit, formErrors, fieldValues } = this.props;
+    const { answers, handleSubmit, formErrors, fieldValues } = this.props;
     return (
       <Form
         id="PolicySearchBar"
@@ -214,7 +208,7 @@ export class PolicySearchBar extends Component {
             dataTest="state"
             label="State"
             component={Select}
-            answers={stateAnswers}
+            answers={answers.states}
             showPlaceholder={false}
             styleName="state-search"
           />
@@ -223,7 +217,7 @@ export class PolicySearchBar extends Component {
             dataTest="product"
             label="Product"
             component={Select}
-            answers={productAnswers}
+            answers={answers.products}
             placeholder="All"
             styleName="product-search"
           />
