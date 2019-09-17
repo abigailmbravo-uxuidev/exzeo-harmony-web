@@ -13,7 +13,7 @@ export const getNavLinks = ({ params }) => [
     key: 'searchAddress',
     to: '/search/address',
     label: 'NEW QUOTE',
-    styleName: 'quote label',
+    styleName: 'new-quote label',
     hasIcon: true
   },
   {
