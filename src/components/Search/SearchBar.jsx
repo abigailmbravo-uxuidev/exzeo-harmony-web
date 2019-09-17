@@ -1,30 +1,30 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { reduxForm, change } from "redux-form";
-import _get from "lodash/get";
-import _isEqual from "lodash/isEqual";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { reduxForm, change } from 'redux-form';
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
 
-import { clearAppError } from "../../state/actions/errorActions";
+import { clearAppError } from '../../state/actions/errorActions';
 import {
   searchQuotes,
   setQuoteSearch,
   searchAddresses
-} from "../../state/actions/searchActions";
-import Pagination from "./Pagination";
-import NewQuoteSearch from "../../modules/Search/Address";
+} from '../../state/actions/searchActions';
+import Pagination from './Pagination';
+import NewQuoteSearch from '../../modules/Search/Address';
 
-import QuoteSearch from "../../modules/Search/RetrieveQuote";
+import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({
-  address: "",
-  pageNumber: _get(state.search, "state.search.pageNumber") || 1,
-  totalPages: _get(state.search, "state.search.totalPages") || 0
+  address: '',
+  pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
+  totalPages: _get(state.search, 'state.search.totalPages') || 0
 });
 
 export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
-  const searchType = "quote";
+  const searchType = 'quote';
   const { state, companyCode } = props.userProfile.entity;
 
   const taskData = {
@@ -33,10 +33,10 @@ export const changePageQuote = async (props, isNext) => {
     companyCode,
     searchType,
     hasSearched: true,
-    resultStart: "60",
-    pageSize: "25",
-    sort: "quoteNumber",
-    sortDirection: "desc"
+    resultStart: '60',
+    pageSize: '25',
+    sort: 'quoteNumber',
+    sortDirection: 'desc'
   };
 
   taskData.page = isNext
@@ -44,7 +44,7 @@ export const changePageQuote = async (props, isNext) => {
     : String(Number(fieldValues.pageNumber) - 1);
 
   props.setQuoteSearch(taskData);
-  localStorage.setItem("lastSearchData", JSON.stringify(taskData));
+  localStorage.setItem('lastSearchData', JSON.stringify(taskData));
   props.clearAppError();
   await props.searchQuotes(taskData);
 };
@@ -57,17 +57,17 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
     state,
     companyCode,
     propertyAddress:
-      data.address && data.address !== "undefined"
+      data.address && data.address !== 'undefined'
         ? String(data.address)
-            .replace(/\./g, "")
+            .replace(/\./g, '')
             .trim()
-        : "",
+        : '',
     searchType: props.searchType,
     hasSearched: true,
-    page: "1",
-    pageSize: "25",
-    sort: "quoteNumber",
-    sortDirection: "desc"
+    page: '1',
+    pageSize: '25',
+    sort: 'quoteNumber',
+    sortDirection: 'desc'
   };
 
   await props.searchQuotes(taskData);
@@ -77,7 +77,7 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
   const { state, companyCode } = props.userProfile.entity;
   const { address, product } = data;
-  props.setQuoteSearch({ searchType: "address", address, product });
+  props.setQuoteSearch({ searchType: 'address', address, product });
   props.searchAddresses(
     encodeURIComponent(address),
     product,
@@ -103,14 +103,14 @@ export class SearchBar extends Component {
     } = this.props.search;
 
     if (
-      searchType === "quote" &&
+      searchType === 'quote' &&
       hasSearched &&
       !_isEqual(prevProps.searchResults, searchResults)
     ) {
       const totalPages = Math.ceil(totalRecords / pageSize); // Math.ceil(quoteSearchResponse.totalNumberOfRecords / quoteSearchResponse.pageSize);
       const pageNumber = currentPage; // quoteSearchResponse.currentPage;
-      dispatch(change("SearchBar", "pageNumber", pageNumber));
-      dispatch(change("SearchBar", "totalPages", totalPages));
+      dispatch(change('SearchBar', 'pageNumber', pageNumber));
+      dispatch(change('SearchBar', 'totalPages', totalPages));
       setQuoteSearch({ ...search, totalPages, pageNumber });
     }
   }
@@ -124,7 +124,7 @@ export class SearchBar extends Component {
       searchResults
     } = this.props;
 
-    if (searchType === "quote" && agency) {
+    if (searchType === 'quote' && agency) {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
           <div className="search-input-wrapper retrieve-quote-wrapper">
@@ -146,22 +146,24 @@ export class SearchBar extends Component {
     return (
       <form
         id="SearchBar"
-        onSubmit={handleSubmit(handleSearchBarAddressSubmit)}>
+        onSubmit={handleSubmit(handleSearchBarAddressSubmit)}
+      >
         {/* TODO: Put this in core-ui to and make reusable for CSR */}
         <div className="search-input-wrapper search-new-quote-wrapper">
-          <NewQuoteSearch
-            canFilter={beta}
-            filterTypeName="product"
-            filterTypeOptions={PRODUCTS_LIST}
-            filterTypeLabel="Select Product"
-            disabledSubmit={
-              this.props.appState.isLoading ||
-              !fieldValues.address ||
-              !String(fieldValues.address)
-                .replace(/\./g, "")
-                .trim()
-            }
-          />
+          {agency && (
+            <NewQuoteSearch
+              filterTypeName="product"
+              answers={agency.cspAnswers}
+              filterTypeLabel="Select Product"
+              disabledSubmit={
+                this.props.appState.isLoading ||
+                !fieldValues.address ||
+                !String(fieldValues.address)
+                  .replace(/\./g, '')
+                  .trim()
+              }
+            />
+          )}
         </div>
       </form>
     );
@@ -181,9 +183,9 @@ SearchBar.propTypes = {
 
 const mapStateToProps = state => ({
   appState: state.appState,
-  fieldValues: _get(state.form, "SearchBar.values", {
-    address: "",
-    sortBy: "policyNumber"
+  fieldValues: _get(state.form, 'SearchBar.values', {
+    address: '',
+    sortBy: 'policyNumber'
   }),
   initialValues: handleInitialize(state),
   policyResults: state.service.policyResults,
@@ -203,7 +205,7 @@ export default connect(
   }
 )(
   reduxForm({
-    form: "SearchBar",
+    form: 'SearchBar',
     enableReinitialize: true
   })(SearchBar)
 );
