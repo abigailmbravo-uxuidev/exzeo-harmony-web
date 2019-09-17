@@ -101,6 +101,16 @@ ul.list-cards {
       }
     }
 
+    > a {
+      display: flex;
+      width: 100%;
+      color: $warm-gray-14;
+
+      &:hover {
+        color: $warm-gray-14;
+      }
+    }
+
     .icon {
       display: flex;
       align-items: center;
@@ -178,8 +188,9 @@ ul.list-cards {
         margin: 0;
         padding: 0;
         width: auto;
+        text-transform: uppercase;
         text-overflow: ellipsis;
-        line-height: 1.5;
+        line-height: 1.25;
       }
 
       ul {
