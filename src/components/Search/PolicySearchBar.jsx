@@ -34,11 +34,16 @@ const handleInitialize = () => {
 export const changePagePolicy = (props, isNext) => {
   const { fieldValues } = props;
   const { state, companyCode } = props.userProfile.entity;
-  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
+  const sortDirection = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
     ...props,
-    propertyAddress: String(fieldValues.address).trim(),
+    propertyAddress:
+      fieldValues.address && fieldValues.address !== 'undefined'
+        ? String(fieldValues.address)
+            .replace(/\./g, '')
+            .trim()
+        : '',
     searchType: 'policy',
     isLoading: true,
     hasSearched: true,
@@ -47,7 +52,7 @@ export const changePagePolicy = (props, isNext) => {
       : Number(fieldValues.pageNumber) - 1,
     pageSize: 25,
     sort: fieldValues.sortBy,
-    direction
+    sortDirection
   };
   props.actions.searchActions.setPolicySearch(taskData);
 
@@ -60,8 +65,8 @@ export const changePagePolicy = (props, isNext) => {
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
-  const { state, companyCode } = props.userProfile.entity;
-  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
+  const { companyCode } = props.userProfile.entity;
+  const sortDirection = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
     ...data,
@@ -77,9 +82,8 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     page: 1,
     pageSize: 25,
     sort: data.sortBy,
-    direction,
-    companyCode,
-    state
+    sortDirection,
+    companyCode
   };
 
   props.actions.searchActions.setPolicySearch(taskData);
