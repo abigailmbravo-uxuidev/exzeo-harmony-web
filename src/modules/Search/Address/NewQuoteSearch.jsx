@@ -27,7 +27,7 @@ const NewQuoteSearch = ({
       segmented
       errorHint
     />
-    <div>
+    <div className="property-search-wrappper">
       <Field
         name="address"
         dataTest="address"

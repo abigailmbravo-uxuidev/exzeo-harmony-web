@@ -26,6 +26,37 @@
       min-height: 4.5rem;
       background-color: $white;
 
+      &.search-new-quote-wrapper {
+        align-items: flex-start;
+        flex-direction: column;
+
+        .form-group {
+          &.property-search.products {
+            max-width: 100%;
+            width: 100%;
+
+            .segmented-answer-wrapper {
+              width: 100%;
+
+              .label-segmented {
+                span {
+                  margin-left: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .property-search-wrappper {
+        display: flex;
+        width: 100%;
+
+        button {
+          align-self: flex-end;
+        }
+      }
+
       .product-selector {
         max-width: 14rem;
       }
@@ -244,13 +275,10 @@
     overflow-y: auto;
     flex-direction: column;
     flex-grow: 1;
-    flex-grow: 1;
-    flex-shrink: 1;
     flex-shrink: 1;
     flex-wrap: nowrap;
     padding: 0;
     width: 100%;
-    height: calc(100vh - 128px);
 
     .results,
     .results-wrapper {

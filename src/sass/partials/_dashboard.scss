@@ -15,8 +15,9 @@
     .route-content {
       display: flex;
       overflow: hidden;
-      flex-grow: 1;
-      height: auto;
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: calc(100vh - 3.375rem);
 
       .scroll {
         display: flex;
@@ -24,6 +25,7 @@
         overflow-y: auto;
         flex-direction: column;
         flex-grow: 1;
+        flex-shrink: 1;
 
         .dashboard-message {
           flex-grow: 1;
