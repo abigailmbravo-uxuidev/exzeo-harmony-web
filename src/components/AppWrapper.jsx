@@ -3,7 +3,7 @@ import { func, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
-import { Button } from '@exzeo/core-ui';
+import { date, Button } from '@exzeo/core-ui';
 
 import { getNavLinks } from '../utilities/navigation';
 
@@ -45,7 +45,7 @@ class AppWrapper extends React.Component {
               <label htmlFor="date">Date</label>
               <h5 className="date">
                 <span>
-                  <div>date</div>
+                  <div>{date.currentDay('ddd MM/DD/YYYY')}</div>
                 </span>
               </h5>
             </div>
