@@ -45,23 +45,23 @@ export function setAgents(agents) {
  * @returns {Function}
  */
 function getSelectOptions(contracts) {
-  const stateAnswers = [];
-  const productAnswers = [];
+  const states = [];
+  const products = [];
   const list = [];
   contracts.forEach(contract => {
     contract.stateProducts.forEach(stateProduct => {
       const { state, product } = stateProduct;
       if (!list.includes(state)) {
         list.push(state);
-        stateAnswers.push({ answer: state, label: state });
+        states.push({ answer: state, label: state });
       }
       if (!list.includes(product)) {
         list.push(product);
-        productAnswers.push({ answer: product, label: product });
+        products.push({ answer: product, label: product });
       }
     });
   });
-  return { stateAnswers, productAnswers };
+  return { states, products };
 }
 
 /**

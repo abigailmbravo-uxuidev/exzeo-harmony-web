@@ -17,7 +17,7 @@ export class PolicySearch extends Component {
     this.props.clearPolicyResults();
   }
   render() {
-    const { auth, match } = this.props;
+    const { agency, auth, match } = this.props;
     return (
       <AppWrapper
         logout={auth.logout}
@@ -26,7 +26,9 @@ export class PolicySearch extends Component {
           <div className="route search">
             <div className="flex grow">
               <div className="search route-content">
-                <PolicySearchBar />
+                <PolicySearchBar
+                  answers={(agency && agency.cspAnswers) || {}}
+                />
                 <div className="survey-wrapper">
                   <div className="results-wrapper">
                     <SearchResults />
