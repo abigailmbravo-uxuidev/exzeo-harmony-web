@@ -82,6 +82,7 @@ class Routes extends Component {
       const {
         entity: { agencyCode }
       } = this.profile;
+
       getAgency(agencyCode);
     }
   }
