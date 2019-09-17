@@ -166,9 +166,14 @@ export const SearchResults = props => {
               className="card"
               onClick={() => props.handleSelectQuote(quote, props)}
             >
-              <div className="icon-name">
+              <div className="icon">
                 <i className="card-icon fa fa-user-circle" />
+                <span>{quote.product === 'AF3' ? 'Flood' : quote.product}</span>
+              </div>
+              <section>
+                <span className="quote-no">{quote.quoteNumber}</span>
                 <h4
+                  className="name"
                   title={
                     quote.policyHolders && quote.policyHolders.length > 0
                       ? `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`
@@ -177,38 +182,31 @@ export const SearchResults = props => {
                 >
                   {quote.policyHolders[0] &&
                     `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}
+                  <i className="fa fa-chevron-circle-right" />
                 </h4>
-              </div>
-              <section>
-                <ul>
-                  <li className="header">
-                    <span className="quote-no">Quote No.</span>
-                    <span className="property-address">Property Address</span>
-                    <span className="quote-state">Quote State</span>
-                    <span className="effective-date">Effective Date</span>
-                    <span className="started-on">Started On</span>
-                    <span className="premium">Premium</span>
-                  </li>
-                  <li>
-                    <span className="quote-no">{quote.quoteNumber}</span>
-                    <span className="property-address">{`${quote.property.physicalAddress.address1}
+                <span className="property-address">{`${quote.property.physicalAddress.address1}
                         ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
                         ${quote.property.physicalAddress.zip}
                         `}</span>
-                    <div className="quote card-detail-wrapper">
-                      <span className="quote-state">{quote.quoteState}</span>
-                      <span className="effective-date">
-                        {moment.utc(quote.effectiveDate).format('MM/DD/YYYY')}
-                      </span>
-                      <span className="started-on">
-                        {moment.utc(quote.createdAt).format('MM/DD/YYYY')}
-                      </span>
-                      <span className="premium">
+
+                <div className="quote card-detail-wrapper">
+                  <span className="quote-state">{quote.quoteState}</span>
+                  <div className="sub-detail-wrapper">
+                    <span className="effective-date">
+                      <label>Effective</label>
+                      {moment.utc(quote.effectiveDate).format('MM/DD/YYYY')}
+                    </span>
+                    <span className="started-on">
+                      <label>Started</label>
+                      {moment.utc(quote.createdAt).format('MM/DD/YYYY')}
+                    </span>
+                    <span className="premium">
+                      <strong>
                         $ {quote.rating ? quote.rating.totalPremium : '-'}
-                      </span>
-                    </div>
-                  </li>
-                </ul>
+                      </strong>
+                    </span>
+                  </div>
+                </div>
               </section>
             </li>
           ))}
