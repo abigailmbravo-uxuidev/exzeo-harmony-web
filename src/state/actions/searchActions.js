@@ -1,4 +1,5 @@
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
+
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
@@ -44,28 +45,22 @@ export function setSearchResults({
  * Build query string and encodeURI
  * @param firstName
  * @param lastName
- * @param address
- * @param companyCode
- * @param effectiveDate
+ * @param propertyAddress
  * @param policyNumber
  * @param policyStatus
- * @param currentPage
+ * @param page
  * @param pageSize
  * @param sortBy
  * @param sortDirection
- * @param agencyCode
- * @param agentCode
- * @param licenseNumber
- * @param displayName
- * @param taxIdNumber
- * @param primaryPhoneNumber,
+ * @param companyCode
+ * @param state
+ * @param product
  * @returns {string} querystring
  */
-function buildQuerystring({
+export function buildQuerystring({
   firstName,
   lastName,
   propertyAddress,
-  effectiveDate,
   policyNumber,
   policyStatus,
   page,
@@ -74,19 +69,12 @@ function buildQuerystring({
   sortDirection,
   companyCode,
   state,
-  product,
-  agencyCode,
-  agentCode,
-  licenseNumber,
-  displayName,
-  taxIdNumber,
-  primaryPhoneNumber
+  product
 }) {
   const fields = {
     ...(firstName && { firstName }),
     ...(lastName && { lastName }),
     ...(propertyAddress && { propertyAddress }),
-    ...(effectiveDate && { effectiveDate }),
     ...(policyNumber && { policyNumber }),
     ...(policyStatus && { policyStatus }),
     ...(page && { page }),
@@ -95,13 +83,7 @@ function buildQuerystring({
     ...(sortDirection && { sortDirection }),
     ...(companyCode && { companyCode }),
     ...(state && { state }),
-    ...(product && { product }),
-    ...(agencyCode && { agencyCode }),
-    ...(agentCode && { agentCode }),
-    ...(licenseNumber && { licenseNumber }),
-    ...(displayName && { displayName }),
-    ...(taxIdNumber && { taxIdNumber }),
-    ...(primaryPhoneNumber && { primaryPhoneNumber })
+    ...(product && { product })
   };
 
   return encodeURI(

@@ -2,6 +2,7 @@ import { http as axios } from '@exzeo/core-ui';
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import orderBy from 'lodash/orderBy';
 
+import { buildQuerystring } from './searchActions';
 import * as listActions from '../actionTypes/list.actionTypes';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
@@ -41,77 +42,6 @@ export const clearPolicy = () => {
     }
   };
 };
-
-/**
- * Build query string and encodeURI
- * @param firstName
- * @param lastName
- * @param address
- * @param companyCode
- * @param effectiveDate
- * @param policyNumber
- * @param policyStatus
- * @param currentPage
- * @param pageSize
- * @param sortBy
- * @param sortDirection
- * @param agencyCode
- * @param agentCode
- * @param licenseNumber
- * @param displayName
- * @param taxIdNumber
- * @param primaryPhoneNumber,
- * @returns {string} querystring
- */
-function buildQuerystring({
-  firstName,
-  lastName,
-  propertyAddress,
-  effectiveDate,
-  policyNumber,
-  policyStatus,
-  page,
-  pageSize,
-  sortBy,
-  sortDirection,
-  companyCode,
-  state,
-  product,
-  agencyCode,
-  agentCode,
-  licenseNumber,
-  displayName,
-  taxIdNumber,
-  primaryPhoneNumber
-}) {
-  const fields = {
-    ...(firstName && { firstName }),
-    ...(lastName && { lastName }),
-    ...(propertyAddress && { propertyAddress }),
-    ...(effectiveDate && { effectiveDate }),
-    ...(policyNumber && { policyNumber }),
-    ...(policyStatus && { policyStatus }),
-    ...(page && { page }),
-    ...(pageSize && { pageSize }),
-    ...(sortBy && { sortBy }),
-    ...(sortDirection && { sortDirection }),
-    ...(companyCode && { companyCode }),
-    ...(state && { state }),
-    ...(product && { product }),
-    ...(agencyCode && { agencyCode }),
-    ...(agentCode && { agentCode }),
-    ...(licenseNumber && { licenseNumber }),
-    ...(displayName && { displayName }),
-    ...(taxIdNumber && { taxIdNumber }),
-    ...(primaryPhoneNumber && { primaryPhoneNumber })
-  };
-
-  return encodeURI(
-    Object.keys(fields)
-      .map(key => `${key}=${fields[key]}`)
-      .join('&')
-  );
-}
 
 export const getQuote = quoteId => dispatch => {
   const axiosConfig = runnerSetup(
