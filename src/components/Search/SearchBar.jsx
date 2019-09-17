@@ -69,7 +69,7 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
     sort: 'quoteNumber',
     sortDirection: 'desc'
   };
-
+  console.log(taskData);
   await props.searchQuotes(taskData);
   props.setQuoteSearch(taskData);
 };

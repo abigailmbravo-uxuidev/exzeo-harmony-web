@@ -39,10 +39,6 @@ export const changePagePolicy = (props, isNext) => {
   const taskData = {
     ...props,
     propertyAddress: String(fieldValues.address).trim(),
-    policyNumber:
-      encodeURIComponent(fieldValues.policyNumber) !== 'undefined'
-        ? encodeURIComponent(fieldValues.policyNumber)
-        : '',
     searchType: 'policy',
     isLoading: true,
     hasSearched: true,

@@ -42,7 +42,7 @@ export function setAgents(agents) {
 /**
  *
  * @param contracts
- * @returns {Function}
+ * @returns {Array}
  */
 function getSelectOptions(contracts) {
   const states = [];
