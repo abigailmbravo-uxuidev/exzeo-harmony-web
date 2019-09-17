@@ -45,9 +45,16 @@ export const SearchResults = props => {
                 className={`${policy.policyNumber +
                   policy.property.physicalAddress.address1}`}
               >
-                <div className="icon-name">
+                <div className="icon">
                   <i className="card-icon fa fa-user-circle" />
+                  <span>
+                    {policy.product === 'AF3' ? 'Flood' : policy.product}
+                  </span>
+                </div>
+                <section>
+                  <span className="policy-no">{policy.policyNumber}</span>
                   <h4
+                    className="name"
                     title={
                       policy.policyHolders && policy.policyHolders.length > 0
                         ? `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`
@@ -56,34 +63,23 @@ export const SearchResults = props => {
                   >
                     {policy.policyHolders[0] &&
                       `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}
+                    <i className="fa fa-chevron-circle-right" />
                   </h4>
-                </div>
-                <section>
-                  <ul
-                    id="policy-search-results"
-                    className="policy-search-results"
-                  >
-                    <li className="header">
-                      <span className="policy-no">Policy No.</span>
-                      <span className="property-address">Property Address</span>
-                      <span className="policy-status">Policy Status</span>
-                      <span className="effective-date">Effective Date</span>
-                    </li>
-                    <li>
-                      <span className="policy-no">{policy.policyNumber}</span>
-                      <span className="property-address">{`${policy.property.physicalAddress.address1}
+
+                  <span className="property-address">
+                    {`${policy.property.physicalAddress.address1}
                       ${policy.property.physicalAddress.city}, ${policy.property.physicalAddress.state}
-                      ${policy.property.physicalAddress.zip}`}</span>
-                      <div className="policy card-detail-wrapper">
-                        <span className="policy-status">{policy.status}</span>
-                        <span className="effective-date">
-                          {moment
-                            .utc(policy.effectiveDate)
-                            .format('MM/DD/YYYY')}
-                        </span>
-                      </div>
-                    </li>
-                  </ul>
+                      ${policy.property.physicalAddress.zip}`}
+                  </span>
+                  <div className="policy card-detail-wrapper">
+                    <span className="policy-status">{policy.status}</span>
+                    <div className="sub-detail-wrapper">
+                      <span className="effective-date">
+                        <label>Effective</label>
+                        {moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}
+                      </span>
+                    </div>
+                  </div>
                 </section>
               </Link>
             </li>
