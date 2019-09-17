@@ -26,7 +26,7 @@ export const getNavLinks = ({ params }) => [
   {
     key: 'policy',
     to: '/policy',
-    label: 'POLICY',
+    label: 'POLICIES',
     styleName: classNames('policy label', {
       'policy-detail': params.policyNumber
     }),
