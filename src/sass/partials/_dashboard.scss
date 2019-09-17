@@ -56,8 +56,11 @@
             }
 
             .btn {
+              display: flex;
+              align-items: center;
               flex-grow: 1;
               flex-shrink: 1;
+              justify-content: center;
               margin: 1rem $padding;
               width: 33.33%;
 

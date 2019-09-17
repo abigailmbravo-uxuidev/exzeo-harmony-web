@@ -27,10 +27,10 @@ const Splash = ({ agency, auth, match }) => (
                 </div>
                 <p>
                   Getting a quote is always quick and simple with
-                  <strong> TypTap Insurance </strong>. Start a quote or find an
-                  existing quote using the <strong>START NEW QUOTE</strong> and
-                  <strong> RETRIEVE QUOTE </strong> buttons below. Find a policy
-                  using the <strong> RETRIEVE POLICY </strong> button below.
+                  <strong> TypTap Insurance</strong>. Start a quote or find an
+                  existing quote using the<strong> NEW QUOTE </strong>and
+                  <strong> QUOTES </strong> buttons. Find an existing policy
+                  using the<strong> POLICIES </strong>button.
                 </p>
                 <div className="launch-buttons">
                   <Link
@@ -44,12 +44,12 @@ const Splash = ({ agency, auth, match }) => (
                     to="/search/retrieve"
                     className="btn btn-primary btn-block"
                   >
-                    <i className="fa fa-history" />
-                    Retrieve Quote
+                    <i className="fa fa-quote-left" />
+                    Quotes
                   </Link>
                   <Link to="/policy" className="btn btn-action btn-block">
-                    <i className="fa fa-history" />
-                    Retrieve Policy
+                    <i className="fa fa-file-text" />
+                    Policies
                   </Link>
                 </div>
                 <div className="typtap-lg">
