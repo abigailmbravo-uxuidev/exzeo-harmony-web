@@ -57,7 +57,10 @@ function getSelectOptions(contracts) {
       }
       if (!list.includes(product)) {
         list.push(product);
-        products.push({ answer: product, label: product });
+        products.push({
+          answer: product,
+          label: product === 'AF3' ? 'Flood' : product
+        });
       }
     });
   });
