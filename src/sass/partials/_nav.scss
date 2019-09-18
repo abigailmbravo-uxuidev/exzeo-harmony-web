@@ -25,10 +25,17 @@
     width: 4.75rem;
 
     @include transition(all 0.1s ease-in-out);
+
+    .site-nav {
+      margin-top: 4rem;
+    }
   }
   @include for-tablet-landscape-up {
     position: relative;
     width: auto;
+    .site-nav {
+      margin-top: 0;
+    }
   }
 
   .site-nav {
