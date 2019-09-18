@@ -13,14 +13,18 @@ export const getNavLinks = (params, status) => [
     key: 'searchAddress',
     to: status === 'Active' ? '/search/address' : '#',
     label: 'NEW QUOTE',
-    styleName: 'new-quote label',
+    styleName:
+      status === 'Active' ? 'new-quote label' : 'new-quote label diabled',
     hasIcon: true
   },
   {
     key: 'searchQuotes',
     to: status === 'Active' || status === 'Pending' ? '/search/retrieve' : '#',
     label: 'QUOTES',
-    styleName: 'quote label',
+    styleName:
+      status === 'Active' || status === 'Pending'
+        ? 'quote label'
+        : 'quote label diabled',
     hasIcon: true
   },
   {
