@@ -123,38 +123,16 @@ export class SearchBar extends Component {
       fieldValues,
       searchResults
     } = this.props;
-    const status = 'Terminated'; //agency && agency.status ? agency.status : null;
-    console.log(status !== 'Active' && status !== 'Pending');
-    if (searchType === 'quote') {
+    const status = agency && agency.status ? agency.status : null;
+    const canQuote = status === 'Active' || status === 'Pending';
+
+    // Only Active agencies can start new quote
+    if (searchType === 'address' && status === 'Active') {
       return (
-        <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
-          <fieldset disabled={status !== 'Active' && status !== 'Pending'}>
-            <div className="search-input-wrapper retrieve-quote-wrapper">
-              <QuoteSearch
-                disabledSubmit={
-                  this.props.appState.isLoading ||
-                  (status !== 'Active' && status !== 'Pending')
-                }
-                answers={(agency && agency.cspAnswers) || {}}
-              />
-            </div>
-            {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
-              <Pagination
-                changePageForward={() => changePageQuote(this.props, true)}
-                changePageBack={() => changePageQuote(this.props, false)}
-                fieldValues={fieldValues}
-              />
-            )}
-          </fieldset>
-        </form>
-      );
-    }
-    return (
-      <form
-        id="SearchBar"
-        onSubmit={handleSubmit(handleSearchBarAddressSubmit)}
-      >
-        <fieldset disabled={status !== 'Active'}>
+        <form
+          id="SearchBar"
+          onSubmit={handleSubmit(handleSearchBarAddressSubmit)}
+        >
           <div className="search-input-wrapper search-new-quote-wrapper">
             <NewQuoteSearch
               filterTypeName="product"
@@ -169,8 +147,32 @@ export class SearchBar extends Component {
               }
             />
           </div>
-        </fieldset>
-      </form>
+        </form>
+      );
+    }
+    // Only Active and Pending agencies can retrieve quotes
+    if (searchType === 'quote' && canQuote) {
+      return (
+        <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
+          <div className="search-input-wrapper retrieve-quote-wrapper">
+            <QuoteSearch
+              disabledSubmit={this.props.appState.isLoading}
+              answers={(agency && agency.cspAnswers) || {}}
+            />
+          </div>
+          {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
+            <Pagination
+              changePageForward={() => changePageQuote(this.props, true)}
+              changePageBack={() => changePageQuote(this.props, false)}
+              fieldValues={fieldValues}
+            />
+          )}
+        </form>
+      );
+    }
+    // All others are not allowed
+    return (
+      <div>Whate ever you're looking for, don't come around here no more.</div>
     );
   }
 }

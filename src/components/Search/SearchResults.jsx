@@ -24,7 +24,7 @@ const onKeypressPolicy = (event, policy, props) => {
 };
 
 export const SearchResults = props => {
-  const { policyResults } = props;
+  const { policyResults, search } = props;
   if (props.search && props.search.searchType === 'policy') {
     return (
       <ul className="policy-list">
@@ -127,23 +127,25 @@ export const SearchResults = props => {
                 </li>
               ))
             : null}
-          <div>
-            <small>
-              <p>
-                If you don't see your address in the list provided, try entering
-                less address information to see if that improves your search
-                results. Please note, at this time we are only writing single
-                family dwellings in the state of Florida.
-              </p>
-              <p>
-                If you still have problems finding an address, please{' '}
-                <a href="tel:844-289-7968">
-                  <strong>call us</strong>
-                </a>{' '}
-                and one of our representatives will be glad to help you.
-              </p>
-            </small>
-          </div>
+          {search.hasSearched && (
+            <div>
+              <small>
+                <p>
+                  If you don't see your address in the list provided, try
+                  entering less address information to see if that improves your
+                  search results. Please note, at this time we are only writing
+                  single family dwellings in the state of Florida.
+                </p>
+                <p>
+                  If you still have problems finding an address, please{' '}
+                  <a href="tel:844-289-7968">
+                    <strong>call us</strong>
+                  </a>{' '}
+                  and one of our representatives will be glad to help you.
+                </p>
+              </small>
+            </div>
+          )}
         </ul>
       </div>
     );
