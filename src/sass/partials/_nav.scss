@@ -152,6 +152,68 @@
                 content: '\f10d';
               }
             }
+
+            &.quote-detail {
+              position: relative;
+              border-left: ($padding/2) solid rgba($bright-blue-darken-03, 0.4);
+              background-color: rgba($black, 0.1);
+
+              @include for-tablet-portrait-up {
+                &:after {
+                  position: absolute;
+                  top: 0;
+                  right: -0.25rem;
+                  bottom: 0;
+                  display: flex;
+                  align-items: center;
+                  padding: 0 0 0 ($padding/2);
+                  border-left: ($padding/2) solid $bright-blue;
+                  background: $white;
+                  color: $black;
+                  content: '\f053';
+                  font-size: $font-size-xs;
+                  font-family: $font-family-icon;
+                }
+              }
+              @include for-tablet-landscape-up {
+                &:after {
+                  display: none;
+                }
+              }
+
+              i {
+                color: $white;
+              }
+
+              span {
+                color: $white;
+
+                &:after {
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  display: flex;
+                  align-items: center;
+                  padding: $padding;
+                  border-left: ($padding/2) solid $bright-blue;
+                  background: $white;
+                  color: $black;
+                  content: '\f053';
+                  font-family: $font-family-icon;
+
+                  @include for-phone-only {
+                    display: none;
+                  }
+                }
+              }
+
+              &:hover {
+                border-left: ($padding/2) solid rgba($bright-blue, 0.2);
+                background-color: rgba($white, 0.1);
+                cursor: pointer;
+              }
+            }
           }
 
           &.policy {
