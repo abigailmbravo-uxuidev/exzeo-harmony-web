@@ -123,15 +123,18 @@ export class SearchBar extends Component {
       fieldValues,
       searchResults
     } = this.props;
-    const status = agency && agency.status ? agency.status : null;
-
+    const status = 'Terminated'; //agency && agency.status ? agency.status : null;
+    console.log(status !== 'Active' && status !== 'Pending');
     if (searchType === 'quote') {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
           <fieldset disabled={status !== 'Active' && status !== 'Pending'}>
             <div className="search-input-wrapper retrieve-quote-wrapper">
               <QuoteSearch
-                disabledSubmit={this.props.appState.isLoading}
+                disabledSubmit={
+                  this.props.appState.isLoading ||
+                  (status !== 'Active' && status !== 'Pending')
+                }
                 answers={(agency && agency.cspAnswers) || {}}
               />
             </div>
