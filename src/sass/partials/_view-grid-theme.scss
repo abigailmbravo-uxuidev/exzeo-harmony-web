@@ -299,7 +299,7 @@
         width: calc(100vw - 12.25rem);
 
         @include for-phone-only {
-          width: calc(100vw - 6.5rem);
+          width: calc(100vw - 8.5rem);
         }
         @include for-tablet-portrait-up {
           flex-grow: 1;
