@@ -123,23 +123,26 @@ export class SearchBar extends Component {
       fieldValues,
       searchResults
     } = this.props;
+    const status = agency && agency.status ? agency.status : null;
 
     if (searchType === 'quote') {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
-          <div className="search-input-wrapper retrieve-quote-wrapper">
-            <QuoteSearch
-              disabledSubmit={this.props.appState.isLoading}
-              answers={(agency && agency.cspAnswers) || {}}
-            />
-          </div>
-          {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
-            <Pagination
-              changePageForward={() => changePageQuote(this.props, true)}
-              changePageBack={() => changePageQuote(this.props, false)}
-              fieldValues={fieldValues}
-            />
-          )}
+          <fieldset disabled={status !== 'Active' && status !== 'Pending'}>
+            <div className="search-input-wrapper retrieve-quote-wrapper">
+              <QuoteSearch
+                disabledSubmit={this.props.appState.isLoading}
+                answers={(agency && agency.cspAnswers) || {}}
+              />
+            </div>
+            {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
+              <Pagination
+                changePageForward={() => changePageQuote(this.props, true)}
+                changePageBack={() => changePageQuote(this.props, false)}
+                fieldValues={fieldValues}
+              />
+            )}
+          </fieldset>
         </form>
       );
     }
@@ -148,21 +151,22 @@ export class SearchBar extends Component {
         id="SearchBar"
         onSubmit={handleSubmit(handleSearchBarAddressSubmit)}
       >
-        {/* TODO: Put this in core-ui to and make reusable for CSR */}
-        <div className="search-input-wrapper search-new-quote-wrapper">
-          <NewQuoteSearch
-            filterTypeName="product"
-            answers={(agency && agency.cspAnswers) || {}}
-            filterTypeLabel="Select Product"
-            disabledSubmit={
-              this.props.appState.isLoading ||
-              !fieldValues.address ||
-              !String(fieldValues.address)
-                .replace(/\./g, '')
-                .trim()
-            }
-          />
-        </div>
+        <fieldset disabled={status !== 'Active'}>
+          <div className="search-input-wrapper search-new-quote-wrapper">
+            <NewQuoteSearch
+              filterTypeName="product"
+              answers={(agency && agency.cspAnswers) || {}}
+              filterTypeLabel="Select Product"
+              disabledSubmit={
+                this.props.appState.isLoading ||
+                !fieldValues.address ||
+                !String(fieldValues.address)
+                  .replace(/\./g, '')
+                  .trim()
+              }
+            />
+          </div>
+        </fieldset>
       </form>
     );
   }

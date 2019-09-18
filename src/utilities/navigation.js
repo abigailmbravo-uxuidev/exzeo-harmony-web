@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-export const getNavLinks = ({ params }) => [
+export const getNavLinks = (params, status) => [
   {
     key: 'home',
     to: '/',
@@ -11,14 +11,14 @@ export const getNavLinks = ({ params }) => [
   },
   {
     key: 'searchAddress',
-    to: '/search/address',
+    to: status === 'Active' ? '/search/address' : '#',
     label: 'NEW QUOTE',
     styleName: 'new-quote label',
     hasIcon: true
   },
   {
     key: 'searchQuotes',
-    to: '/search/retrieve',
+    to: status === 'Active' || status === 'Pending' ? '/search/retrieve' : '#',
     label: 'QUOTES',
     styleName: 'quote label',
     hasIcon: true
