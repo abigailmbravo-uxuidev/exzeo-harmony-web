@@ -1090,6 +1090,17 @@ div[role='main'] {
 
           &.disabled {
             color: rgba($white, 0.2);
+            &:hover {
+              border-left-color: rgba($white, 0);
+              background-color: transparent;
+              cursor: not-allowed;
+            }
+            span {
+              color: rgba($white, 0.2);
+            }
+            i {
+              color: rgba($white, 0.2);
+            }
           }
         }
       }
