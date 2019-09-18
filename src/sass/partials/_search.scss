@@ -15,6 +15,20 @@
   opacity: 1;
   transition: margin 0.5s;
 
+  .disabled-message {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: rgba($warm-gray-10, 0.5);
+  }
+
   form {
     width: 100%;
 

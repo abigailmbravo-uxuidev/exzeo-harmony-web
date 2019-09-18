@@ -172,7 +172,10 @@ export class SearchBar extends Component {
     }
     // All others are not allowed
     return (
-      <div>Whate ever you're looking for, don't come around here no more.</div>
+      <div className="disabled-message">
+        <h3>Permission Denied</h3>
+        <p>this agency is no longer allowed to retrieve quotes</p>
+      </div>
     );
   }
 }
