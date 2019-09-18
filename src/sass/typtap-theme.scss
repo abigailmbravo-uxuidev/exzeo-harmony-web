@@ -1044,7 +1044,7 @@ div[role='main'] {
   background-color: $cool-gray-12;
   background-image: url('../img/typtap-bg.png');
   background-position-x: center;
-  background-position-y: -5rem;
+  background-position-y: -1.75rem;
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -1053,6 +1053,8 @@ div[role='main'] {
   }
 
   .date-wrapper {
+    background-color: mix($cool-gray-12, $bright-blue, 70);
+
     label {
       color: $green-lighten-02;
     }

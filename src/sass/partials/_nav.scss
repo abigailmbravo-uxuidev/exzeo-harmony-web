@@ -321,8 +321,9 @@
   }
 
   .date-wrapper {
-    padding: ($padding/2) ($padding) ($padding/2) ($padding * 2);
+    padding: ($padding/2) ($padding) ($padding * 2.5) ($padding * 2);
     width: auto;
+    background-color: rgba($bright-blue-darken-03, 0.4);
 
     @include transition(all 0.2s ease-in-out);
     @include for-tablet-portrait-up {
