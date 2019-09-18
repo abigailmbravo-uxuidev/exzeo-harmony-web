@@ -14,7 +14,7 @@ export const getNavLinks = (params, status) => [
     to: status === 'Active' ? '/search/address' : '#',
     label: 'NEW QUOTE',
     styleName:
-      status === 'Active' ? 'new-quote label' : 'new-quote label diabled',
+      status === 'Active' ? 'new-quote label' : 'new-quote label disabled',
     hasIcon: true
   },
   {
@@ -24,7 +24,7 @@ export const getNavLinks = (params, status) => [
     styleName:
       status === 'Active' || status === 'Pending'
         ? 'quote label'
-        : 'quote label diabled',
+        : 'quote label disabled',
     hasIcon: true
   },
   {

@@ -1087,6 +1087,10 @@ div[role='main'] {
               text-decoration: none;
             }
           }
+
+          &.disabled {
+            color: rgba($white, 0.2);
+          }
         }
       }
     }

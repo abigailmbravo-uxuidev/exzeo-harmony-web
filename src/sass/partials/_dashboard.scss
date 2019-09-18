@@ -67,6 +67,18 @@
                 padding: 1rem;
                 width: 100%;
               }
+
+              &.disabled {
+                @include button-variant(
+                  $cool-gray-03,
+                  $cool-gray-05,
+                  $cool-gray-05
+                );
+
+                &:hover {
+                  cursor: not-allowed;
+                }
+              }
             }
           }
 
