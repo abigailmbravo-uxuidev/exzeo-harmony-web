@@ -39,7 +39,11 @@ const Splash = ({ agency, auth, match }) => {
                   <div className="launch-buttons">
                     <Link
                       to={status === 'Active' ? '/search/address' : '#'}
-                      className="btn btn-secondary btn-block"
+                      className={
+                        status === 'Active'
+                          ? 'btn btn-secondary btn-block'
+                          : 'btn btn-secondary btn-block disabled'
+                      }
                     >
                       <i className="fa fa-plus" />
                       New Quote
@@ -50,7 +54,11 @@ const Splash = ({ agency, auth, match }) => {
                           ? '/search/retrieve'
                           : '#'
                       }
-                      className="btn btn-primary btn-block"
+                      className={
+                        status === 'Active' || status === 'Pending'
+                          ? 'btn btn-primary btn-block'
+                          : 'btn btn-primary btn-block disabled'
+                      }
                     >
                       <i className="fa fa-quote-left" />
                       Quotes
