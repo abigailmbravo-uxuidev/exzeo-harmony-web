@@ -61,9 +61,9 @@ export const SearchResults = props => {
                         : ''
                     }
                   >
+                    <i className="fa fa-chevron-circle-right" />
                     {policy.policyHolders[0] &&
                       `${policy.policyHolders[0].firstName} ${policy.policyHolders[0].lastName}`}
-                    <i className="fa fa-chevron-circle-right" />
                   </h4>
 
                   <span className="property-address">
@@ -178,9 +178,9 @@ export const SearchResults = props => {
                       : ''
                   }
                 >
+                  <i className="fa fa-chevron-circle-right" />
                   {quote.policyHolders[0] &&
                     `${quote.policyHolders[0].firstName} ${quote.policyHolders[0].lastName}`}
-                  <i className="fa fa-chevron-circle-right" />
                 </h4>
                 <span className="property-address">{`${quote.property.physicalAddress.address1}
                         ${quote.property.physicalAddress.city}, ${quote.property.physicalAddress.state}
