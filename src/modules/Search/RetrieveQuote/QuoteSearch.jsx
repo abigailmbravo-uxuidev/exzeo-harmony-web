@@ -12,6 +12,8 @@ const isRequired = value => {
 };
 
 const QuoteSearch = ({ disabledSubmit, answers }) => {
+  const productAnswers = [{ answer: '', label: 'All' }, ...answers.products];
+
   return (
     <React.Fragment>
       <Field
@@ -59,8 +61,8 @@ const QuoteSearch = ({ disabledSubmit, answers }) => {
         dataTest="product"
         label="Product"
         component={Select}
-        answers={answers.products}
-        placeholder="All"
+        answers={productAnswers}
+        showPlaceholder={false}
         styleName="product-search"
       />
       <Field
