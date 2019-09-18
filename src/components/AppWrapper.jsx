@@ -1,11 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { func, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
 import { date, Button } from '@exzeo/core-ui';
 
 import { getNavLinks } from '../utilities/navigation';
-
 import Header from './Header';
 import CheckError from './Error/CheckError';
 
@@ -24,7 +24,8 @@ class AppWrapper extends React.Component {
   };
 
   render() {
-    const { errorRedirectUrl, match, routeClassName } = this.props;
+    const { agency, errorRedirectUrl, match, routeClassName } = this.props;
+    const status = agency && agency.status ? agency.status : null;
 
     return (
       <div
@@ -44,9 +45,7 @@ class AppWrapper extends React.Component {
               </h5>
             </div>
             <nav className="site-nav">
-              <SideNavigation
-                navLinks={getNavLinks({ params: match.params })}
-              />
+              <SideNavigation navLinks={getNavLinks(match.params, status)} />
             </nav>
             <Button
               className={Button.constants.classNames.action}
@@ -95,4 +94,8 @@ AppWrapper.defaultProps = {
   routeClassName: 'workflow'
 };
 
-export default AppWrapper;
+const mapStateToProps = state => ({
+  agency: state.agencyState.agency
+});
+
+export default connect(mapStateToProps)(AppWrapper);
