@@ -47,17 +47,8 @@
           &.property-search.products {
             width: 10rem;
 
-            .segmented-answer-wrapper {
-              width: 100%;
-
-              .label-segmented {
-                span {
-                  margin-left: 0;
-                }
-              }
-
-              .product_error {
-              }
+            > span {
+              display: none;
             }
           }
         }
