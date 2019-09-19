@@ -46,7 +46,7 @@ const NewQuoteSearch = ({
         dataTest="submit"
       >
         <i className="fa fa-search" />
-        Search
+        <span>Search</span>
       </Button>
     </div>
   </React.Fragment>
