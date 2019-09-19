@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { Input, Button, Radio, Select, validation } from '@exzeo/core-ui';
+import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
 const { isValidAddressFormat, isRequired } = validation;
 
@@ -18,7 +18,7 @@ const NewQuoteSearch = ({
       name={filterTypeName}
       dataTest={filterTypeName}
       label={filterTypeLabel}
-      component={Radio}
+      component={Select}
       id={filterTypeName}
       validate={isRequired}
       onChange={filterTypeOnChange}
@@ -31,7 +31,7 @@ const NewQuoteSearch = ({
       <Field
         name="address"
         dataTest="address"
-        label="Property Address"
+        label="Property Street Address"
         placeholder="Search for Property Address"
         component={Input}
         styleName="property-search"
