@@ -24,7 +24,7 @@ const onKeypressPolicy = (event, policy, props) => {
 };
 
 export const SearchResults = props => {
-  const { policyResults, search } = props;
+  const { policyResults, search, searchType } = props;
   if (props.search && props.search.searchType === 'policy') {
     return (
       <ul className="policy-list">
@@ -92,7 +92,7 @@ export const SearchResults = props => {
       </ul>
     );
   }
-  if (props.searchType === 'address') {
+  if (searchType === 'address') {
     const addresses = props.results;
 
     const onKeyPress = (event, address) => {
@@ -127,7 +127,7 @@ export const SearchResults = props => {
                 </li>
               ))
             : null}
-          {search.hasSearched && (
+          {searchType === 'address' && (
             <div>
               <small>
                 <p>
