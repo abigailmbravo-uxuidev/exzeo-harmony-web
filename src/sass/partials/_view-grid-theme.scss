@@ -107,21 +107,6 @@
         }
       }
 
-      .home-location-left,
-      .wind-mitigation-left,
-      .coverage-limits-left,
-      .discount-surcharge-left {
-        dl {
-          &:nth-last-child(odd):nth-of-type(odd) {
-            background-color: $white;
-
-            & ~ :nth-of-type(even) {
-              background: $cool-gray-01;
-            }
-          }
-        }
-      }
-
       .premium,
       .billing-info {
         .title {
