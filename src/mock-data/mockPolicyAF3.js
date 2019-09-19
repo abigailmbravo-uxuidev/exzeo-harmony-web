@@ -47,11 +47,11 @@ const mock = {
                   className: 'row-items',
                   details: [
                     {
-                      label: 'Name',
+                      label: 'Policyholder Name',
                       items: [{ format: 'name', path: 'policyHolders[0]' }]
                     },
                     {
-                      label: 'Phone',
+                      label: 'Phone 1',
                       items: [
                         {
                           format: 'phone',
@@ -60,7 +60,7 @@ const mock = {
                       ]
                     },
                     {
-                      label: 'Phone',
+                      label: 'Phone 2',
                       optional: true,
                       items: [
                         {
@@ -143,11 +143,11 @@ const mock = {
                   className: 'row-items',
                   details: [
                     {
-                      label: 'Name',
+                      label: 'Policyholder Name',
                       items: [{ format: 'name', path: 'policyHolders[1]' }]
                     },
                     {
-                      label: 'Phone',
+                      label: 'Phone 1',
                       items: [
                         {
                           format: 'phone',
@@ -156,7 +156,7 @@ const mock = {
                       ]
                     },
                     {
-                      label: 'Phone',
+                      label: 'Phone 2',
                       optional: true,
                       items: [
                         {
