@@ -42,12 +42,10 @@
 
       &.search-new-quote-wrapper {
         align-items: flex-start;
-        flex-direction: column;
 
         .form-group {
           &.property-search.products {
-            max-width: 100%;
-            width: 100%;
+            width: 10rem;
 
             .segmented-answer-wrapper {
               width: 100%;
