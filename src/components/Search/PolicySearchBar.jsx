@@ -148,6 +148,10 @@ export class PolicySearchBar extends Component {
 
   render() {
     const { answers, handleSubmit, formErrors, fieldValues } = this.props;
+    const productAnswers = answers.products
+      ? [{ answer: '', label: 'All' }, ...answers.products]
+      : [];
+
     return (
       <Form
         id="PolicySearchBar"
@@ -217,8 +221,8 @@ export class PolicySearchBar extends Component {
             dataTest="product"
             label="Product"
             component={Select}
-            answers={answers.products}
-            placeholder="All"
+            answers={productAnswers}
+            showPlaceholder={false}
             styleName="product-search"
           />
           {generateField(

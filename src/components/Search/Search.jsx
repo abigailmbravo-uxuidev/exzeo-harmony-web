@@ -113,8 +113,7 @@ const mapStateToProps = state => ({
   appState: state.appState,
   quote: state.quoteState.quote,
   search: state.search,
-  userProfile: state.authState.userProfile,
-  agency: state.agencyState.agency
+  userProfile: state.authState.userProfile
 });
 
 export default connect(

@@ -60,7 +60,16 @@ export const defaultInitialState = {
   },
   agencyState: {
     agencies: [],
-    agency: {},
+    agency: {
+      status: 'Active',
+      cspAnswers: {
+        products: [
+          { answer: 'HO3', label: 'HO3' },
+          { answer: 'AF3', label: 'AF3' }
+        ],
+        states: [{ answer: 'FL', label: 'FL' }]
+      }
+    },
     agents: []
   },
   list: {

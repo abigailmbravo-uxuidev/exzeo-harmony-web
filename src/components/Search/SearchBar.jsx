@@ -140,6 +140,7 @@ export class SearchBar extends Component {
               filterTypeLabel="Select Product"
               disabledSubmit={
                 this.props.appState.isLoading ||
+                !fieldValues.product ||
                 !fieldValues.address ||
                 !String(fieldValues.address)
                   .replace(/\./g, '')
@@ -201,8 +202,7 @@ const mapStateToProps = state => ({
   policyResults: state.service.policyResults,
   search: state.search,
   userProfile: state.authState.userProfile,
-  searchResults: state.search.results,
-  agency: state.agencyState.agency
+  searchResults: state.search.results
 });
 
 export default connect(
