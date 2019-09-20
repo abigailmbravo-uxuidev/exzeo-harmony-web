@@ -323,7 +323,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     });
     setSliderAndCheckOutput('380000', {
       dataTest: outputFields[1],
-      outputValue: '$ 87,500'
+      outputValue: '$ 95,000'
     });
     setSliderAndCheckOutput('380000', {
       dataTest: outputFields[2],

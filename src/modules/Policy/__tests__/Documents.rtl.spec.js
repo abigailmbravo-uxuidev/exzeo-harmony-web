@@ -26,7 +26,7 @@ describe('Policy Document Page testing', () => {
   });
 
   it('POS:Defaults to latest docs first and sorting can be altered', () => {
-    const { getByText } = renderWithReduxAndRouter(
+    const { getByText, getAllByText } = renderWithReduxAndRouter(
       <PolicyWorkflow {...props} />
     );
     const documents = [
@@ -42,11 +42,12 @@ describe('Policy Document Page testing', () => {
 
     checkRows();
 
-    fireEvent.click(getByText('Date'));
+    fireEvent.click(getAllByText('Date')[1]);
     // We reverse our array after sorting by reverse date
     documents.reverse();
     checkRows();
-    fireEvent.click(getByText('Date'));
+
+    fireEvent.click(getAllByText('Date')[1]);
     documents.reverse();
     checkRows();
 

@@ -65,7 +65,6 @@ export const getQuote = quoteId => dispatch => {
 };
 
 export const searchPolicy = query => dispatch => {
-  //const formattedAddress = address.replace(' ', '&#32;');
   const queryString = buildQuerystring(query);
   const axiosConfig = runnerSetup(
     {

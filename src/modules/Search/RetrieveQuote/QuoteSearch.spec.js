@@ -10,7 +10,13 @@ describe('Testing QuoteSearch component', () => {
         logout: x => x
       },
       match: {},
-      isLoading: false
+      isLoading: false,
+      answers: {
+        products: [
+          { answer: 'HO3', label: 'HO3' },
+          { answer: 'AF3', label: 'AF3' }
+        ]
+      }
     };
     const wrapper = shallow(<QuoteSearch {...props} />);
     expect(wrapper.exists()).toBeTruthy();

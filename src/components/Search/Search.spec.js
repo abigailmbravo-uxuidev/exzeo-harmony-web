@@ -27,6 +27,9 @@ describe('Testing Search component', () => {
           submitting: false
         }
       },
+      agency: {
+        status: 'Active'
+      },
       search: {}
     };
     const wrapper = shallow(<Search {...props} />);
@@ -58,6 +61,9 @@ describe('Testing Search component', () => {
       },
       appState: {
         modelName: 'bb'
+      },
+      agencyState: {
+        agency: { status: 'Active' }
       }
     };
     const store = mockStore(initialState);
@@ -75,6 +81,9 @@ describe('Testing Search component', () => {
         data: {
           submitting: false
         }
+      },
+      agency: {
+        status: 'Active'
       },
       search: {},
       history: { replace: jest.fn() }

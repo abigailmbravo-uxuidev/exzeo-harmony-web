@@ -163,11 +163,15 @@ class Routes extends Component {
 
               <Route
                 path="/search"
-                render={props => <QuoteSearch auth={auth} {...props} />}
+                render={props => (
+                  <QuoteSearch auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 path="/quote/:quoteNumber"
-                render={props => <QuoteModule auth={auth} {...props} />}
+                render={props => (
+                  <QuoteModule auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 path="/policy/:policyNumber"
