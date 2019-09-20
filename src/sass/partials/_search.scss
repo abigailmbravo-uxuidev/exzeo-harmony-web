@@ -77,6 +77,11 @@
           @include for-tablet-landscape-up {
             flex-grow: 0;
             flex-shrink: 0;
+            width: 6rem;
+          }
+          @include for-desktop-up {
+            flex-grow: 0;
+            flex-shrink: 0;
             width: 10rem;
           }
 
@@ -102,6 +107,11 @@
           position: relative;
 
           @include for-tablet-landscape-up {
+            flex-grow: 0;
+            flex-shrink: 0;
+            width: 6rem;
+          }
+          @include for-desktop-up {
             flex-grow: 0;
             flex-shrink: 0;
             width: 10rem;
