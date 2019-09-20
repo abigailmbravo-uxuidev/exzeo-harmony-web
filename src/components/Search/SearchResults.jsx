@@ -24,7 +24,10 @@ const onKeypressPolicy = (event, policy, props) => {
 };
 
 export const SearchResults = props => {
-  const { policyResults, search, searchType } = props;
+  const { agency, policyResults, search, searchType } = props;
+  const status = agency ? agency.status : '';
+  const canQuote = status === 'Active' || status === 'Pending';
+
   if (props.search && props.search.searchType === 'policy') {
     return (
       <ul className="policy-list">
@@ -127,7 +130,7 @@ export const SearchResults = props => {
                 </li>
               ))
             : null}
-          {searchType === 'address' && (
+          {searchType === 'address' && canQuote && (
             <div>
               <small>
                 <p>
@@ -234,7 +237,8 @@ const mapStateToProps = state => ({
   search: state.search,
   policyResults: state.service.policyResults,
   searchType: getSearchType(),
-  results: state.search.results
+  results: state.search.results,
+  agency: state.agencyState.agency
 });
 
 const mapDispatchToProps = dispatch => ({
