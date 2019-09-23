@@ -93,7 +93,7 @@ export default class Auth {
       };
     } else if (legacyAgency) {
       entity = {
-        agencyCode: legacyAgency.agencyCode, //20000
+        agencyCode: 20000, //legacyAgency.agencyCode,
         companyCode: legacyAgency.companyCode,
         state: legacyAgency.state
       };
