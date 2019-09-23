@@ -123,7 +123,7 @@ class Routes extends Component {
         <Router>
           <React.Fragment>
             <Helmet>
-              <title>Harmony Web - Agent HO3 Quote</title>
+              <title>Harmony Web - Agency Quote</title>
             </Helmet>
             <Switch>
               <Route

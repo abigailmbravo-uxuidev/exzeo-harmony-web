@@ -16,7 +16,7 @@ describe('Retrieve Policy', () => {
     before('Login and go to search', () =>
       cy
         .login()
-        .get('.card-footer a[href="/policy"]')
+        .get('.launch-buttons a[href="/policy"]')
         .click()
     );
     beforeEach('Set Route Aliases', () => setRouteAliases());
