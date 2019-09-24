@@ -1,5 +1,6 @@
 export default {
   address: '4131 TEST ADDRESS',
+  product: 'AF3',
   customerInfo: {
     'policyHolders[0].firstName_wrapper': 'Bruce',
     'policyHolders[0].lastName_wrapper': 'Wayne',

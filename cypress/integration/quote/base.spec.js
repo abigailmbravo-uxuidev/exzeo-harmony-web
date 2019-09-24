@@ -84,7 +84,6 @@ describe('AF3 Happy Path', () => {
 
   it('Navigates through the AF3 quote workflow', () => {
     navigateThroughLanding();
-    cy.findDataTag('product').select('AF3');
     navigateThroughSearchAddress(userAF3);
     policyholderTest('AF3');
     navigateThroughPolicyholder(userAF3);
