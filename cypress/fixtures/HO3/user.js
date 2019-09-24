@@ -1,5 +1,6 @@
 export default {
   address: '4131 TEST ADDRESS',
+  product: 'HO3',
   customerInfo: {
     'policyHolders[0].firstName_wrapper': 'Bruce',
     'policyHolders[0].lastName_wrapper': 'Wayne',
@@ -13,4 +14,4 @@ export default {
     'policyHolders[1].primaryPhoneNumber_wrapper': '9876 543 211'
   },
   agentCode: '60000'
-}
+};
