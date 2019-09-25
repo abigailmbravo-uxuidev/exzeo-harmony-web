@@ -100,9 +100,6 @@ export default class Auth {
     }
 
     const { appMetadata, profile, userType } = userData;
-    const group =
-      profile.groups && profile.groups.isArray() ? profile.groups[0] : [];
-    const { extendedProperties = {} } = group;
 
     let entity = {};
 
@@ -113,11 +110,19 @@ export default class Auth {
         state: appMetadata.state
       };
     } else if (userType.toLowerCase() === 'internal') {
-      entity = {
-        agencyCode: extendedProperties.agencyCode,
-        companyCode: extendedProperties.companyCode,
-        state: extendedProperties.state
-      };
+      if (profile.groups) {
+        entity = {
+          agencyCode: profile.groups[0].extendedProperties.agencyCode,
+          companyCode: profile.groups[0].extendedProperties.companyCode,
+          state: profile.groups[0].extendedProperties.state
+        };
+      } else {
+        entity = {
+          agencyCode: profile.agencyCode,
+          companyCode: profile.companyCode,
+          state: profile.state
+        };
+      }
     }
 
     this.isInternal = userType.toLowerCase() === 'internal';
