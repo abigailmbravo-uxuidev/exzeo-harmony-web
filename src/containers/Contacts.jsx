@@ -99,7 +99,7 @@ export const supportContacts = [
 ];
 
 const Contacts = ({ auth, match }) => (
-  <AppWrapper logout={auth.logout} match={match} routeClassName="main contacts">
+  <AppWrapper auth={auth} match={match} routeClassName="main contacts">
     <div className="scroll">
       <div className="detail-wrapper">
         <section className="contacts">

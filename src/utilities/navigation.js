@@ -1,10 +1,7 @@
 import classNames from 'classnames';
 
-export const getNavLinks = (params, status) => {
-  const quoteClasses =
-    status === 'Active' || status === 'Pending'
-      ? 'quote label'
-      : 'quote label disabled';
+export const getNavLinks = (params, enableQuote, enableRetrieve) => {
+  const quoteClasses = enableRetrieve ? 'quote label' : 'quote label disabled';
 
   return [
     {
@@ -17,16 +14,14 @@ export const getNavLinks = (params, status) => {
     },
     {
       key: 'searchAddress',
-      to: status === 'Active' ? '/search/address' : '#',
+      to: enableQuote ? '/search/address' : '#',
       label: 'NEW QUOTE',
-      styleName:
-        status === 'Active' ? 'new-quote label' : 'new-quote label disabled',
+      styleName: enableQuote ? 'new-quote label' : 'new-quote label disabled',
       hasIcon: true
     },
     {
       key: 'searchQuotes',
-      to:
-        status === 'Active' || status === 'Pending' ? '/search/retrieve' : '#',
+      to: enableRetrieve ? '/search/retrieve' : '#',
       label: 'QUOTES',
       styleName: classNames(quoteClasses, {
         'quote-detail': params.quoteNumber

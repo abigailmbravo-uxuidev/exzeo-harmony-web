@@ -20,7 +20,7 @@ export class PolicySearch extends Component {
     const { agency, auth, match } = this.props;
     return (
       <AppWrapper
-        logout={auth.logout}
+        auth={auth}
         match={match}
         render={() => (
           <div className="route search">

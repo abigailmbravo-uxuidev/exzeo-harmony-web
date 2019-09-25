@@ -83,8 +83,9 @@ export default class Auth {
     const username = profile['https://heimdall.security/username'];
     const appMetadata = profile['https://heimdall.security/app_metadata'];
     const legacyAgency = groups ? groups[0] : {};
+    const isCSR = groups.some(group => group['isCSR']);
+    let entity = {};
 
-    let entity;
     if (appMetadata && appMetadata.agencyCode) {
       entity = {
         agencyCode: appMetadata.agencyCode,
@@ -93,18 +94,20 @@ export default class Auth {
       };
     } else if (legacyAgency) {
       entity = {
-        agencyCode: 20000, //legacyAgency.agencyCode,
+        agencyCode: legacyAgency.agencyCode,
         companyCode: legacyAgency.companyCode,
         state: legacyAgency.state
       };
     }
 
+    this.isCSR = isCSR;
     this.userProfile = {
       ...profile,
       groups,
       roles,
       username,
       appMetadata,
+      isCSR,
       entity
     };
 

@@ -76,11 +76,12 @@ export class Search extends React.Component {
   };
 
   render() {
-    const { agency, searchType } = this.props;
+    const { agency, auth, searchType } = this.props;
+
     return (
       <div className="flex grow">
         <div className="search route-content">
-          <SearchBar searchType={searchType} agency={agency} />
+          <SearchBar auth={auth} searchType={searchType} agency={agency} />
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
