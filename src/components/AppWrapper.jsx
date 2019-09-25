@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { func, shape, string } from 'prop-types';
+import { func, object, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
 import { date, Button } from '@exzeo/core-ui';
@@ -16,7 +16,7 @@ class AppWrapper extends React.Component {
 
   handleLogout = () => {
     window.persistor.purge();
-    this.props.logout();
+    this.props.auth.logout();
   };
 
   toggleSideNav = () => {
@@ -24,8 +24,18 @@ class AppWrapper extends React.Component {
   };
 
   render() {
-    const { agency, errorRedirectUrl, match, routeClassName } = this.props;
+    const {
+      auth,
+      agency,
+      errorRedirectUrl,
+      match,
+      routeClassName
+    } = this.props;
+
     const status = agency && agency.status ? agency.status : null;
+    const enableQuote = status === 'Active' || auth.isCSR;
+    const enableRetrieve =
+      status === 'Active' || status === 'Pending' || auth.isCSR;
 
     return (
       <div
@@ -45,7 +55,13 @@ class AppWrapper extends React.Component {
               </h5>
             </div>
             <nav className="site-nav">
-              <SideNavigation navLinks={getNavLinks(match.params, status)} />
+              <SideNavigation
+                navLinks={getNavLinks(
+                  match.params,
+                  enableQuote,
+                  enableRetrieve
+                )}
+              />
             </nav>
             <Button
               className={Button.constants.classNames.action}
@@ -78,7 +94,7 @@ class AppWrapper extends React.Component {
 }
 
 AppWrapper.propTypes = {
-  logout: func.isRequired,
+  auth: object.isRequired,
   match: shape({
     params: shape({})
   }).isRequired,

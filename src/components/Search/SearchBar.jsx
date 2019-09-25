@@ -5,6 +5,7 @@ import { reduxForm, change } from 'redux-form';
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 
+import { cspAnswers } from './constants';
 import { clearAppError } from '../../state/actions/errorActions';
 import {
   searchQuotes,
@@ -13,7 +14,6 @@ import {
 } from '../../state/actions/searchActions';
 import Pagination from './Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
-
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({
@@ -117,6 +117,7 @@ export class SearchBar extends Component {
 
   render() {
     const {
+      auth = {},
       agency,
       handleSubmit,
       searchType,
@@ -124,10 +125,18 @@ export class SearchBar extends Component {
       searchResults
     } = this.props;
     const status = agency && agency.status ? agency.status : null;
-    const canQuote = status === 'Active' || status === 'Pending';
+    const enableQuote = status === 'Active' || auth.isCSR;
+    const enableRetrieve =
+      status === 'Active' || status === 'Pending' || auth.isCSR;
+
+    const answers = auth.isCSR
+      ? cspAnswers
+      : agency && agency.cspAnswers
+      ? agency.cspAnswers
+      : [];
 
     // Only Active agencies can start new quote
-    if (searchType === 'address' && status === 'Active') {
+    if (searchType === 'address' && enableQuote) {
       return (
         <form
           id="SearchBar"
@@ -136,7 +145,7 @@ export class SearchBar extends Component {
           <div className="search-input-wrapper search-new-quote-wrapper">
             <NewQuoteSearch
               filterTypeName="product"
-              answers={(agency && agency.cspAnswers) || {}}
+              answers={answers}
               filterTypeLabel="Select Product"
               disabledSubmit={
                 this.props.appState.isLoading ||
@@ -152,13 +161,13 @@ export class SearchBar extends Component {
       );
     }
     // Only Active and Pending agencies can retrieve quotes
-    if (searchType === 'quote' && canQuote) {
+    if (searchType === 'quote' && enableRetrieve) {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
           <div className="search-input-wrapper retrieve-quote-wrapper">
             <QuoteSearch
               disabledSubmit={this.props.appState.isLoading}
-              answers={(agency && agency.cspAnswers) || {}}
+              answers={answers}
             />
           </div>
           {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (

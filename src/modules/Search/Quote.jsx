@@ -12,7 +12,7 @@ export class QuoteSearch extends Component {
 
     return (
       <AppWrapper
-        logout={auth.logout}
+        auth={auth}
         match={match}
         agency={agency}
         render={() => (
@@ -24,14 +24,24 @@ export class QuoteSearch extends Component {
               exact
               path={`${match.url}/address`}
               render={props => (
-                <Search {...props} agency={agency} searchType="address" />
+                <Search
+                  {...props}
+                  auth={auth}
+                  agency={agency}
+                  searchType="address"
+                />
               )}
             />
             <Route
               exact
               path={`${match.url}/retrieve`}
               render={props => (
-                <Search {...props} agency={agency} searchType="quote" />
+                <Search
+                  {...props}
+                  auth={auth}
+                  agency={agency}
+                  searchType="quote"
+                />
               )}
             />
             {/*{ ^^^ Search refactor will be replacing these routes ^^^ }*/}

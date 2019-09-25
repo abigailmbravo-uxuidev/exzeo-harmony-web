@@ -11,10 +11,13 @@ const uniqueNum = date.formatToUTC();
 
 const Splash = ({ agency, auth, match }) => {
   const status = agency && agency.status ? agency.status : null;
+  const enableQuote = status === 'Active' || auth.isCSR;
+  const enableRetrieve =
+    status === 'Active' || status === 'Pending' || auth.isCSR;
 
   return (
     <AppWrapper
-      logout={auth.logout}
+      auth={auth}
       match={match}
       status={status}
       routeClassName="dashboard"
@@ -38,9 +41,9 @@ const Splash = ({ agency, auth, match }) => {
                   </p>
                   <div className="launch-buttons">
                     <Link
-                      to={status === 'Active' ? '/search/address' : '#'}
+                      to={enableQuote ? '/search/address' : '#'}
                       className={
-                        status === 'Active'
+                        enableQuote
                           ? 'btn btn-secondary btn-block'
                           : 'btn btn-secondary btn-block disabled'
                       }
@@ -49,13 +52,9 @@ const Splash = ({ agency, auth, match }) => {
                       New Quote
                     </Link>
                     <Link
-                      to={
-                        status === 'Active' || status === 'Pending'
-                          ? '/search/retrieve'
-                          : '#'
-                      }
+                      to={enableRetrieve ? '/search/retrieve' : '#'}
                       className={
-                        status === 'Active' || status === 'Pending'
+                        enableRetrieve
                           ? 'btn btn-primary btn-block'
                           : 'btn btn-primary btn-block disabled'
                       }
