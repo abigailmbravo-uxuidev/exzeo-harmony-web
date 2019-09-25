@@ -35,7 +35,7 @@ const af3Headers = [
     label: 'Coverage A',
     value: '$ 314,000'
   },
-  { name: 'premium', label: 'Premium', value: '$ 275' }
+  { name: 'premium', label: 'Premium', value: '$ 312' }
 ];
 
 const addMortgagee = () =>

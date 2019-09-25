@@ -65,6 +65,7 @@ export default class Auth {
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
+    console.log(userProfile);
     localStorage.setItem('user_profile', JSON.stringify(userProfile));
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
@@ -88,10 +89,13 @@ export default class Auth {
   };
 
   getProfile = () => {
-    const idToken = localStorage.getItem('id_token');
-    const userData = JSON.parse(localStorage.getItem('user_profile'));
+    let userData = {};
 
-    if (!idToken) return null;
+    try {
+      userData = JSON.parse(localStorage.getItem('user_profile'));
+    } catch (error) {
+      return null;
+    }
 
     const { appMetadata, profile, userType } = userData;
     const [group] = profile.groups;
