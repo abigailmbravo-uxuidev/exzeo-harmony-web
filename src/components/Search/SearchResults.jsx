@@ -24,9 +24,9 @@ const onKeypressPolicy = (event, policy, props) => {
 };
 
 export const SearchResults = props => {
-  const { agency, policyResults, search, searchType } = props;
+  const { agency, auth, policyResults, search, searchType } = props;
   const status = agency ? agency.status : '';
-  const canQuote = status === 'Active' || status === 'Pending';
+  const canQuote = status === 'Active' || status === 'Pending' || auth.isCSR;
 
   if (props.search && props.search.searchType === 'policy') {
     return (
