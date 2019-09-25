@@ -1,6 +1,8 @@
 import React from 'react';
 import { shape, func } from 'prop-types';
 
+import teritoryMap from '../img/TypTap.svg';
+
 import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard';
 import Footer from '../components/Footer';
@@ -57,7 +59,6 @@ export const supportContacts = [
     name: 'Agency Support',
     title: '',
     phone: '8442897968',
-    extension: 'option 5',
     email: 'agencysupport@typtap.com'
   },
   {
@@ -107,9 +108,14 @@ const Contacts = ({ auth, match }) => (
             <i className="fa fa-map-marker" />
             &nbsp;Territory Managers
           </h2>
-          {territoryManagerContacts.map(contact => (
-            <ContactCard key={contact.name} {...contact} />
-          ))}
+          <div className="territoryManagers">
+            {territoryManagerContacts.map(contact => (
+              <ContactCard key={contact.name} {...contact} />
+            ))}
+          </div>
+          <div className="territoryMap">
+            <img src={teritoryMap} alt="Territory Map" />
+          </div>
         </section>
         <section className="contacts">
           <h2 className="title">
