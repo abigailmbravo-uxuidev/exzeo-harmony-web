@@ -19,7 +19,7 @@ export class PolicySearch extends Component {
   }
   render() {
     const { agency, auth, match } = this.props;
-    const answers = auth.isCSR
+    const answers = auth.isInternal
       ? cspAnswers
       : agency && agency.cspAnswers
       ? agency.cspAnswers
@@ -36,7 +36,7 @@ export class PolicySearch extends Component {
                 <PolicySearchBar answers={answers} />
                 <div className="survey-wrapper">
                   <div className="results-wrapper">
-                    <SearchResults />
+                    <SearchResults auth={auth} />
                   </div>
                   <Footer />
                 </div>

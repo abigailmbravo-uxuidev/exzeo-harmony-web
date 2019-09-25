@@ -46,7 +46,7 @@ describe('Auth', () => {
             agencyCode: 1234,
             companyCode: 'ABCD',
             state: 'FL',
-            isCSR: false,
+            isInternal: false,
             isAgency: true,
             extendedProperties: {
               harmonyGroup: true,
@@ -54,7 +54,7 @@ describe('Auth', () => {
               state: 'FL',
               agencyCode: 1234,
               agencyId: 1234,
-              isCSR: false,
+              isInternal: false,
               isAgency: true
             },
             __v: 0,

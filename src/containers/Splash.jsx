@@ -11,9 +11,9 @@ const uniqueNum = date.formatToUTC();
 
 const Splash = ({ agency, auth, match }) => {
   const status = agency && agency.status ? agency.status : null;
-  const enableQuote = status === 'Active' || auth.isCSR;
+  const enableQuote = status === 'Active' || auth.isInternal;
   const enableRetrieve =
-    status === 'Active' || status === 'Pending' || auth.isCSR;
+    status === 'Active' || status === 'Pending' || auth.isInternal;
 
   return (
     <AppWrapper
