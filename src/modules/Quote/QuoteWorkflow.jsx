@@ -292,11 +292,7 @@ export class QuoteWorkflow extends Component {
     );
 
     return (
-      <App
-        errorRedirectUrl={location.pathname}
-        logout={auth.logout}
-        match={match}
-      >
+      <App auth={auth} errorRedirectUrl={location.pathname} match={match}>
         <div className="route">
           {isLoading && <Loader />}
           {quoteHasError && currentRouteName !== 'error' && (

@@ -32,10 +32,11 @@ class AppWrapper extends React.Component {
       routeClassName
     } = this.props;
 
+    const isInternal = auth && auth.isCSR;
     const status = agency && agency.status ? agency.status : null;
-    const enableQuote = status === 'Active' || auth.isCSR;
+    const enableQuote = status === 'Active' || isInternal;
     const enableRetrieve =
-      status === 'Active' || status === 'Pending' || auth.isCSR;
+      status === 'Active' || status === 'Pending' || isInternal;
 
     return (
       <div
