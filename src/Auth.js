@@ -49,6 +49,7 @@ export default class Auth {
             headers: { authorization: `bearer ${authResult.idToken}` }
           })
           .then(profile => {
+            console.log(profile);
             this.setSession(authResult, profile.data);
             history.replace('/');
           })
@@ -65,7 +66,7 @@ export default class Auth {
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
-    console.log(userProfile);
+
     localStorage.setItem('user_profile', JSON.stringify(userProfile));
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
@@ -91,14 +92,17 @@ export default class Auth {
   getProfile = () => {
     let userData = {};
 
+    const storedProfile = localStorage.getItem('user_profile');
     try {
-      userData = JSON.parse(localStorage.getItem('user_profile'));
+      userData = JSON.parse(storedProfile);
     } catch (error) {
       return null;
     }
 
     const { appMetadata, profile, userType } = userData;
-    const [group] = profile.groups;
+    const group =
+      profile.groups && profile.groups.isArray() ? profile.groups[0] : [];
+    const { extendedProperties = {} } = group;
 
     let entity = {};
 
@@ -110,9 +114,9 @@ export default class Auth {
       };
     } else if (userType.toLowerCase() === 'internal') {
       entity = {
-        agencyCode: group.extendedProperties.agencyCode,
-        companyCode: group.extendedProperties.companyCode,
-        state: group.extendedProperties.state
+        agencyCode: extendedProperties.agencyCode,
+        companyCode: extendedProperties.companyCode,
+        state: extendedProperties.state
       };
     }
 
