@@ -88,6 +88,7 @@ export class Search extends React.Component {
               <SearchResults
                 handleSelectAddress={this.handleSelectAddress}
                 handleSelectQuote={this.handleSelectQuote}
+                auth={auth}
                 {...this.props}
               />
             </div>

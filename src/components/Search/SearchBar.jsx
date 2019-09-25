@@ -125,11 +125,11 @@ export class SearchBar extends Component {
       searchResults
     } = this.props;
     const status = agency && agency.status ? agency.status : null;
-    const enableQuote = status === 'Active' || auth.isCSR;
+    const enableQuote = status === 'Active' || auth.isInternal;
     const enableRetrieve =
-      status === 'Active' || status === 'Pending' || auth.isCSR;
+      status === 'Active' || status === 'Pending' || auth.isInternal;
 
-    const answers = auth.isCSR
+    const answers = auth.isInternal
       ? cspAnswers
       : agency && agency.cspAnswers
       ? agency.cspAnswers
