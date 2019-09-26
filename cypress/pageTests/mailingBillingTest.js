@@ -43,7 +43,7 @@ const addMortgagee = () =>
     .findDataTag('mortgagee')
     .click()
     .chooseReactSelectOption('mortgage_wrapper', "america's servicing")
-    .clickSubmit('div.Mortgagee', 'ai-modal-submit')
+    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
     .wait('@updateQuote');
 
 const addPremiumFinance = () =>
