@@ -26,7 +26,13 @@ const ContactCard = ({
       <div className="card-body">
         {name && (
           <h4 className="contact-name">
-            {name} {title && <span className="contact-title"> | {title}</span>}
+            {name}{' '}
+            {title && (
+              <span className="contact-title">
+                <span>&nbsp;|&nbsp;</span>
+                {title}
+              </span>
+            )}
           </h4>
         )}
         {message && <div className="contact-message">{message}</div>}
