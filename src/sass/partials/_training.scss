@@ -296,6 +296,134 @@
                 font-size: $font-size-sm;
               }
             }
+
+            &.Southeast,
+            &.Southwest,
+            &.Northeast,
+            &.Treasure,
+            &.West {
+              .card-body {
+                position: relative;
+
+                &:before {
+                  position: absolute;
+                  top: 0.375rem;
+                  display: flex;
+                  width: 0.75rem;
+                  height: 0.75rem;
+                  border-radius: 50%;
+                  background: $cool-gray-10;
+                  content: ' ';
+                }
+                .contact-name {
+                  margin-left: 1rem;
+                  .contact-title {
+                    font-weight: $font-weight-bold;
+                  }
+                }
+              }
+            }
+
+            &.Southeast {
+              .card-body {
+                &:before {
+                  background: #3142ea;
+                }
+                .contact-name {
+                  .contact-title {
+                    color: #3142ea;
+                  }
+                }
+              }
+            }
+
+            &.Southwest {
+              .card-body {
+                &:before {
+                  background: #e09724;
+                }
+                .contact-name {
+                  .contact-title {
+                    color: #e09724;
+                  }
+                }
+              }
+            }
+
+            &.Northeast {
+              .card-body {
+                &:before {
+                  background: #078c9c;
+                }
+                .contact-name {
+                  .contact-title {
+                    color: #078c9c;
+                  }
+                }
+              }
+            }
+
+            &.Treasure {
+              .card-body {
+                &:before {
+                  background: #dd6262;
+                }
+                .contact-name {
+                  .contact-title {
+                    color: #dd6262;
+                  }
+                }
+              }
+            }
+
+            &.West {
+              .card-body {
+                &:before {
+                  background: #55b948;
+                }
+                .contact-name {
+                  .contact-title {
+                    color: #55b948;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &.territory {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+
+          @include for-desktop-up {
+            flex-direction: row;
+          }
+
+          .territory-managers {
+            order: 3;
+            width: 100%;
+
+            @include for-desktop-up {
+              order: 2;
+              width: 55%;
+            }
+          }
+          .territory-map {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            order: 2;
+            width: 100%;
+
+            @include for-desktop-up {
+              order: 3;
+              width: 45%;
+            }
+
+            img {
+              width: 90%;
+            }
           }
         }
       }

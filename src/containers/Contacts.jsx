@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, func } from 'prop-types';
 
-import teritoryMap from '../img/TypTap.svg';
+import teritoryMap from '../img/territory-manager-map.png';
 
 import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard';
@@ -103,17 +103,17 @@ const Contacts = ({ auth, match }) => (
   <AppWrapper logout={auth.logout} match={match} routeClassName="main contacts">
     <div className="scroll">
       <div className="detail-wrapper">
-        <section className="contacts">
+        <section className="contacts territory">
           <h2 className="title">
             <i className="fa fa-map-marker" />
             &nbsp;Territory Managers
           </h2>
-          <div className="territoryManagers">
+          <div className="territory-managers">
             {territoryManagerContacts.map(contact => (
               <ContactCard key={contact.name} {...contact} />
             ))}
           </div>
-          <div className="territoryMap">
+          <div className="territory-map">
             <img src={teritoryMap} alt="Territory Map" />
           </div>
         </section>

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { normalize } from '@exzeo/core-ui';
 
 const ContactCard = ({
@@ -18,7 +19,7 @@ const ContactCard = ({
   disclaimer
 }) => {
   return (
-    <div className="card contact-card">
+    <div className={classNames('card contact-card', title)}>
       <div className="card-header">
         <div className={icon || 'fa fa-address-card'} />
       </div>
