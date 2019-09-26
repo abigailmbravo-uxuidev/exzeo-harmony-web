@@ -325,7 +325,9 @@ const mock = {
                         },
                         {
                           label: 'FEMA Flood Zone',
-                          items: [{ format: '', path: 'property.floodZone' }]
+                          items: [
+                            { format: '', path: 'property.FEMAfloodZone' }
+                          ]
                         },
                         {
                           label: 'Residence Type',

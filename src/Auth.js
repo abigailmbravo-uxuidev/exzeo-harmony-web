@@ -32,7 +32,7 @@ export default class Auth {
   };
 
   handleAuthentication = () => {
-    this.auth0.parseHash(window.location.hash, (err, authResult) => {
+    this.auth0.parseHash(window.location.hash, async (err, authResult) => {
       if (err) {
         history.replace(
           `/accessDenied?error=${
@@ -44,18 +44,16 @@ export default class Auth {
 
       if (authResult && authResult.accessToken && authResult.idToken) {
         const payload = jwtDecode(authResult.idToken);
-        return http
+        const profile = await http
           .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
             headers: { authorization: `bearer ${authResult.idToken}` }
-          })
-          .then(profile => {
-            console.log(profile);
-            this.setSession(authResult, profile.data);
-            history.replace('/');
           })
           .catch(error => {
             history.replace(`/accessDenied?error=${error}`);
           });
+
+        this.setSession(authResult, profile.data);
+        history.replace('/');
       } else {
         history.replace('/accessDenied?error=Not%20Authorized');
       }
