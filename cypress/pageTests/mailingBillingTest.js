@@ -51,7 +51,7 @@ const addPremiumFinance = () =>
     .findDataTag('premiumFinance')
     .click()
     .chooseReactSelectOption('premiumFinance_wrapper', 'p1 finance company')
-    .clickSubmit('div.Premium.Finance', 'ai-modal-submit')
+    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
     .wait('@updateQuote');
 
 const deleteAllAis = () =>
