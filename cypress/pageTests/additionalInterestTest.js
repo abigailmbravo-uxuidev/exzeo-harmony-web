@@ -47,7 +47,7 @@ export default (product = 'HO3') =>
     .chooseReactSelectOption('mortgage_wrapper', 'bank of america')
     .findDataTag('name1')
     .should('have.attr', 'value', 'BANK OF AMERICA, NA')
-    .clickSubmit('div.Mortgagee', 'ai-modal-submit')
+    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
     .wait('@updateQuote')
     .get('ul.result-cards li')
     .should('have.length', 1)
