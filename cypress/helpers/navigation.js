@@ -4,6 +4,7 @@ import { userHO3, underwritingHO3 } from '../fixtures';
 export const navigateThroughLanding = () =>
   cy
     .task('log', 'Navigating through Landing')
+    .wait(500)
     .get('.new-quote[href="/search/address"]')
     .click();
 
