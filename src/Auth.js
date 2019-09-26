@@ -91,6 +91,8 @@ export default class Auth {
     let userData = {};
 
     const storedProfile = localStorage.getItem('user_profile');
+    if (!storedProfile) history.replace(`/logout`);
+
     try {
       userData = JSON.parse(storedProfile);
     } catch (error) {
