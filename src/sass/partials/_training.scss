@@ -340,6 +340,8 @@
 
                     > span {
                       display: none;
+                      color: $cool-gray-10;
+                      font-weight: $font-weight-normal;
 
                       @include for-tablet-landscape-up {
                         display: inline-block;
@@ -358,11 +360,6 @@
                 .contact-name {
                   .contact-title {
                     color: #3142ea;
-
-                    span {
-                      color: $cool-gray-10;
-                      font-weight: $font-weight-normal;
-                    }
                   }
                 }
               }
@@ -376,11 +373,6 @@
                 .contact-name {
                   .contact-title {
                     color: #e09724;
-
-                    span {
-                      color: $cool-gray-10;
-                      font-weight: $font-weight-normal;
-                    }
                   }
                 }
               }
@@ -394,11 +386,6 @@
                 .contact-name {
                   .contact-title {
                     color: #078c9c;
-
-                    span {
-                      color: $cool-gray-10;
-                      font-weight: $font-weight-normal;
-                    }
                   }
                 }
               }
@@ -412,11 +399,6 @@
                 .contact-name {
                   .contact-title {
                     color: #dd6262;
-
-                    span {
-                      color: $cool-gray-10;
-                      font-weight: $font-weight-normal;
-                    }
                   }
                 }
               }
@@ -430,11 +412,6 @@
                 .contact-name {
                   .contact-title {
                     color: #55b948;
-
-                    span {
-                      color: $cool-gray-10;
-                      font-weight: $font-weight-normal;
-                    }
                   }
                 }
               }
