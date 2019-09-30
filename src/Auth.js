@@ -103,12 +103,20 @@ export default class Auth {
 
     let entity = {};
 
-    if (userType.toLowerCase() === 'agency') {
-      entity = {
-        agencyCode: appMetadata.agencyCode,
-        companyCode: appMetadata.companyCode,
-        state: appMetadata.state
-      };
+    if (userType.toLowerCase() === 'agent') {
+      if (appMetadata && appMetadata.agencyCode) {
+        entity = {
+          agencyCode: appMetadata.agencyCode,
+          companyCode: appMetadata.companyCode,
+          state: appMetadata.state
+        };
+      } else {
+        entity = {
+          agencyCode: profile.agencyCode,
+          companyCode: profile.companyCode,
+          state: profile.state
+        };
+      }
     } else if (userType.toLowerCase() === 'internal') {
       if (profile.groups) {
         entity = {
