@@ -37,7 +37,7 @@ export const changePagePolicy = (props, isNext) => {
   const sortDirection = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
-    ...props,
+    ...fieldValues,
     propertyAddress:
       fieldValues.address && fieldValues.address !== 'undefined'
         ? String(fieldValues.address)
@@ -52,7 +52,8 @@ export const changePagePolicy = (props, isNext) => {
       : Number(fieldValues.pageNumber) - 1,
     pageSize: 25,
     sort: fieldValues.sortBy,
-    sortDirection
+    sortDirection,
+    companyCode
   };
   props.actions.searchActions.setPolicySearch(taskData);
 

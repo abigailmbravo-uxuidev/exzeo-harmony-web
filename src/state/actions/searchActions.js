@@ -77,7 +77,6 @@ export function buildQuerystring({
     ...(lastName && { lastName }),
     ...(propertyAddress && { propertyAddress }),
     ...(quoteNumber && { quoteNumber }),
-    ...(policyStatus && { policyStatus }),
     ...(policyNumber && { policyNumber }),
     ...(policyStatus && { policyStatus }),
     ...(page && { page }),
