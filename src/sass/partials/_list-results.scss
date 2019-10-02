@@ -71,7 +71,7 @@ ul.list-cards {
 
   .card {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: 0 0 ($padding/2);
     padding: $padding $padding * 1.5;
 
@@ -101,12 +101,24 @@ ul.list-cards {
       }
     }
 
-    .icon-name {
+    > a {
       display: flex;
-      flex-grow: 1;
-      flex-shrink: 1;
-      margin-bottom: $padding;
-      width: auto;
+      width: 100%;
+      color: $warm-gray-14;
+
+      &:hover {
+        color: $warm-gray-14;
+      }
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      flex-grow: 0;
+      flex-shrink: 0;
+      justify-content: center;
+      padding: $padding;
 
       i {
         display: flex;
@@ -119,17 +131,8 @@ ul.list-cards {
         font-size: $font-size-h2;
       }
 
-      h4 {
-        display: inline-block;
-        overflow: hidden;
-        flex-basis: auto;
-        flex-grow: 1;
-        flex-shrink: 1;
-        margin: 0;
-        padding: 0 0 0 $padding;
-        width: auto;
-        text-overflow: ellipsis;
-        line-height: 2rem;
+      span {
+        font-size: $font-size-sm;
       }
     }
 
@@ -138,6 +141,58 @@ ul.list-cards {
       flex-direction: column;
       flex-grow: 1;
       flex-shrink: 1;
+      margin-left: $padding;
+
+      .quote-no {
+        font-size: $font-size-sm;
+      }
+
+      .name {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+
+        i {
+          color: $bright-blue;
+          font-size: 2rem;
+        }
+      }
+
+      .card-detail-wrapper {
+        display: flex;
+        font-size: $font-size-sm;
+
+        .sub-detail-wrapper {
+          display: flex;
+          flex-grow: 1;
+          flex-shrink: 1;
+          justify-content: flex-end;
+
+          span {
+            margin-left: 2rem;
+
+            label {
+              margin-right: $padding / 2;
+              font-size: $font-size-xs;
+            }
+          }
+        }
+      }
+
+      h4 {
+        display: inline-block;
+        overflow: hidden;
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        line-height: 1.25;
+      }
 
       ul {
         margin: 0;

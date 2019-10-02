@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { Input, Button, validation } from '@exzeo/core-ui';
+import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
 const isRequired = value => {
   if (value) {
@@ -11,7 +11,9 @@ const isRequired = value => {
   return undefined;
 };
 
-const QuoteSearch = ({ disabledSubmit }) => {
+const QuoteSearch = ({ disabledSubmit, answers }) => {
+  const productAnswers = [{ answer: '', label: 'All' }, ...answers.products];
+
   return (
     <React.Fragment>
       <Field
@@ -44,6 +46,24 @@ const QuoteSearch = ({ disabledSubmit }) => {
         label="Property Street Address"
         validate={[isRequired, validation.isValidChar]}
         errorHint
+      />
+      <Field
+        name="state"
+        dataTest="state"
+        label="State"
+        component={Select}
+        answers={answers.states}
+        showPlaceholder={false}
+        styleName="state-search"
+      />
+      <Field
+        name="product"
+        dataTest="product"
+        label="Product"
+        component={Select}
+        answers={productAnswers}
+        showPlaceholder={false}
+        styleName="product-search"
       />
       <Field
         name="quoteNumber"

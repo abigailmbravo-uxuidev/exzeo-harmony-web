@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   reduxForm,
+  Field,
   Form,
   propTypes,
   getFormSyncErrors,
@@ -11,8 +12,9 @@ import {
 } from 'redux-form';
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
-import Rules from '../Form/Rules';
+import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
+import Rules from '../Form/Rules';
 import * as appStateActions from '../../state/actions/appStateActions';
 import * as errorActions from '../../state/actions/errorActions';
 import * as serviceActions from '../../state/actions/serviceActions';
@@ -23,10 +25,6 @@ import { generateField } from './searchUtils';
 
 const handleInitialize = () => {
   return {
-    address: '',
-    firstName: '',
-    lastName: '',
-    policyNumber: '',
     sortBy: 'policyNumber',
     pageNumber: 1,
     totalPages: 1
@@ -36,24 +34,15 @@ const handleInitialize = () => {
 export const changePagePolicy = (props, isNext) => {
   const { fieldValues } = props;
   const { state, companyCode } = props.userProfile.entity;
-  const direction = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
+  const sortDirection = fieldValues.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
-    firstName:
-      encodeURIComponent(fieldValues.firstName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(fieldValues.lastName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.lastName)
-        : '',
-    address:
-      encodeURIComponent(fieldValues.address) !== 'undefined'
-        ? encodeURIComponent(String(fieldValues.address).trim())
-        : '',
-    policyNumber:
-      encodeURIComponent(fieldValues.policyNumber) !== 'undefined'
-        ? encodeURIComponent(fieldValues.policyNumber)
+    ...fieldValues,
+    propertyAddress:
+      fieldValues.address && fieldValues.address !== 'undefined'
+        ? String(fieldValues.address)
+            .replace(/\./g, '')
+            .trim()
         : '',
     searchType: 'policy',
     isLoading: true,
@@ -63,9 +52,8 @@ export const changePagePolicy = (props, isNext) => {
       : Number(fieldValues.pageNumber) - 1,
     pageSize: 25,
     sort: fieldValues.sortBy,
-    direction,
-    companyCode,
-    state
+    sortDirection,
+    companyCode
   };
   props.actions.searchActions.setPolicySearch(taskData);
 
@@ -78,25 +66,16 @@ export const changePagePolicy = (props, isNext) => {
 };
 
 export const handlePolicySearchSubmit = (data, dispatch, props) => {
-  const { state, companyCode } = props.userProfile.entity;
-  const direction = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
+  const { companyCode } = props.userProfile.entity;
+  const sortDirection = data.sortBy === 'policyNumber' ? 'desc' : 'asc';
 
   const taskData = {
-    firstName:
-      encodeURIComponent(data.firstName) !== 'undefined'
-        ? encodeURIComponent(data.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(data.lastName) !== 'undefined'
-        ? encodeURIComponent(data.lastName)
-        : '',
-    address:
-      encodeURIComponent(data.address) !== 'undefined'
-        ? encodeURIComponent(String(data.address).trim())
-        : '',
-    policyNumber:
-      encodeURIComponent(data.policyNumber) !== 'undefined'
-        ? encodeURIComponent(data.policyNumber)
+    ...data,
+    propertyAddress:
+      data.address && data.address !== 'undefined'
+        ? String(data.address)
+            .replace(/\./g, '')
+            .trim()
         : '',
     searchType: 'policy',
     isLoading: true,
@@ -104,9 +83,8 @@ export const handlePolicySearchSubmit = (data, dispatch, props) => {
     page: 1,
     pageSize: 25,
     sort: data.sortBy,
-    direction,
-    companyCode,
-    state
+    sortDirection,
+    companyCode
   };
 
   props.actions.searchActions.setPolicySearch(taskData);
@@ -170,7 +148,11 @@ export class PolicySearchBar extends Component {
   }
 
   render() {
-    const { handleSubmit, formErrors, fieldValues } = this.props;
+    const { answers, handleSubmit, formErrors, fieldValues } = this.props;
+    const productAnswers = answers.products
+      ? [{ answer: '', label: 'All' }, ...answers.products]
+      : [];
+
     return (
       <Form
         id="PolicySearchBar"
@@ -226,6 +208,24 @@ export class PolicySearchBar extends Component {
             'property-search',
             false
           )}
+          <Field
+            name="state"
+            dataTest="state"
+            label="State"
+            component={Select}
+            answers={answers.states}
+            showPlaceholder={false}
+            styleName="state-search"
+          />
+          <Field
+            name="product"
+            dataTest="product"
+            label="Product"
+            component={Select}
+            answers={productAnswers}
+            showPlaceholder={false}
+            styleName="product-search"
+          />
           {generateField(
             'policyNumber',
             'Policy No Search',

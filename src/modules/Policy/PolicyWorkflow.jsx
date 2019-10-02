@@ -141,11 +141,7 @@ export class PolicyWorkflow extends Component {
     };
 
     return (
-      <App
-        errorRedirectUrl={location.pathname}
-        logout={auth.logout}
-        match={match}
-      >
+      <App errorRedirectUrl={location.pathname} auth={auth} match={match}>
         <div className="route policy">
           {!gandalfTemplate || !policy.policyNumber ? <Loader /> : null}
           {gandalfTemplate && gandalfTemplate.header && (

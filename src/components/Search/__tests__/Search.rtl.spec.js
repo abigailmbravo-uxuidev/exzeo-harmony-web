@@ -16,6 +16,15 @@ describe('Testing Search Component', () => {
   const props = {
     ...defaultProps,
     searchType: 'address',
+    agency: {
+      status: 'Active',
+      cspAnswers: {
+        products: [
+          { answer: 'HO3', label: 'HO3' },
+          { answer: 'AF3', label: 'AF3' }
+        ]
+      }
+    },
     clearResults: () => {},
     clearQuote: () => {}
   };
@@ -25,23 +34,29 @@ describe('Testing Search Component', () => {
   // Create a real store with our actual reducers so we have the formReducer
   const store = createStore(rootReducer, state, applyMiddleware(thunk));
 
-  it('NEG:Property Address Search Bar Empty Value', () => {
-    const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(
-      <ConnectedSearch {...props} />,
-      { store }
-    );
-    const typeAndCheckButton = (value, buttonDisabled = false) => {
-      fireEvent.change(searchbar, { target: { value } });
-      fireEvent.blur(searchbar);
-      expect(getByTestId('submit').disabled).toBe(buttonDisabled);
-    };
+  it('NEG:Property Address Search Bar Empty Value', async () => {
+    const {
+      getByLabelText,
+      getByPlaceholderText,
+      getByTestId
+    } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
 
-    const searchbar = getByPlaceholderText(/Search for Property Address/);
-    expect(searchbar);
+    const productSelect = await getByLabelText('Select Product');
+    expect(productSelect);
+    const addressInput = getByPlaceholderText(/Search for Property Address/);
+    expect(addressInput);
+
+    expect(getByTestId('submit').disabled).toBe(true);
+    fireEvent.change(getByLabelText('Select Product'), {
+      target: { value: 'HO3' }
+    });
+
     // Search with one bad search and some good ones, to confirm spacing works
-    typeAndCheckButton('    ', true);
-    typeAndCheckButton('  4131 TEST ADDRESS');
-    typeAndCheckButton('4131 TEST ADDRESS  ');
+    fireEvent.change(addressInput, { target: { value: '     ' } });
+    expect(getByTestId('submit').disabled).toBe(true);
+
+    fireEvent.change(addressInput, { target: { value: '123 test address' } });
+    expect(getByTestId('submit').disabled).toBe(false);
   });
 
   it('NEG:Test Invalid Addresses', () => {

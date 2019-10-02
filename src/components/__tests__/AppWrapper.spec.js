@@ -21,7 +21,9 @@ describe('Testing AppWrapper component', () => {
   });
 
   const props = {
-    logout() {},
+    auth: {
+      logout() {}
+    },
     match: {
       params: {}
     },

@@ -1,12 +1,11 @@
 import React from 'react';
-import { func, shape, string } from 'prop-types';
 import { connect } from 'react-redux';
+import { func, object, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
-import { Button } from '@exzeo/core-ui';
+import { date, Button } from '@exzeo/core-ui';
 
 import { getNavLinks } from '../utilities/navigation';
-
 import Header from './Header';
 import CheckError from './Error/CheckError';
 
@@ -17,7 +16,7 @@ class AppWrapper extends React.Component {
 
   handleLogout = () => {
     window.persistor.purge();
-    this.props.logout();
+    this.props.auth.logout();
   };
 
   toggleSideNav = () => {
@@ -26,11 +25,18 @@ class AppWrapper extends React.Component {
 
   render() {
     const {
+      auth,
+      agency,
       errorRedirectUrl,
       match,
-      routeClassName,
-      userDisplayName
+      routeClassName
     } = this.props;
+
+    const isInternal = auth && auth.isInternal;
+    const status = agency && agency.status ? agency.status : null;
+    const enableQuote = status === 'Active' || isInternal;
+    const enableRetrieve =
+      status === 'Active' || status === 'Pending' || isInternal;
 
     return (
       <div
@@ -41,22 +47,23 @@ class AppWrapper extends React.Component {
         <Header toggleSideNav={this.toggleSideNav} active={this.state.active} />
         <div role="main">
           <aside className="content-panel-left">
-            <div className="user" data-test="user-info">
-              <label htmlFor="user">Agency</label>
-              <h5 className="user-name">
+            <div className="date-wrapper" data-test="date-wrapper">
+              <label htmlFor="date">Date</label>
+              <h5 className="date">
                 <span>
-                  <div>{userDisplayName}</div>
+                  <div>{date.currentDay('ddd MM/DD/YYYY')}</div>
                 </span>
-                <i className="fa fa-gear" />
               </h5>
             </div>
-
             <nav className="site-nav">
               <SideNavigation
-                navLinks={getNavLinks({ params: match.params })}
+                navLinks={getNavLinks(
+                  match.params,
+                  enableQuote,
+                  enableRetrieve
+                )}
               />
             </nav>
-
             <Button
               className={Button.constants.classNames.action}
               customClass="logout"
@@ -88,7 +95,7 @@ class AppWrapper extends React.Component {
 }
 
 AppWrapper.propTypes = {
-  logout: func.isRequired,
+  auth: object.isRequired,
   match: shape({
     params: shape({})
   }).isRequired,
@@ -104,13 +111,8 @@ AppWrapper.defaultProps = {
   routeClassName: 'workflow'
 };
 
-const mapStateToProps = state => {
-  const userDisplayName =
-    (state.agencyState.agency || {}).displayName ||
-    (state.authState.userProfile || {}).name;
-  return {
-    userDisplayName
-  };
-};
+const mapStateToProps = state => ({
+  agency: state.agencyState.agency
+});
 
 export default connect(mapStateToProps)(AppWrapper);

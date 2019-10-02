@@ -15,6 +15,7 @@
         z-index: 10000;
       }
       .app-wrapper {
+        overflow: hidden;
         header {
           position: fixed;
           z-index: 100;
@@ -23,15 +24,16 @@
         }
         div[role='main'] {
           top: 3.375rem;
-          overflow: visible;
+          overflow: hidden;
           height: auto;
           .content-wrapper {
-            overflow: visible;
+            overflow: hidden;
             height: auto;
             .workflow {
-              overflow: visible;
+              overflow: hidden;
               height: auto;
               .route {
+                overflow: hidden;
                 .detailHeader {
                   min-height: 3.5rem;
                 }
@@ -79,10 +81,33 @@
                   }
                 }
 
-                .route {
-                  .scroll {
-                    overflow: visible;
+                .flex.grow {
+                  overflow: hidden;
+
+                  .search {
+                    &.route-content {
+                      overflow-x: hidden;
+                      overflow-y: auto;
+                      height: calc(100vh - 3.375rem);
+
+                      .survey-wrapper {
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        height: auto;
+
+                        .results-wrapper {
+                          min-height: calc(100vh - 3.375rem);
+                        }
+                      }
+
+                      .pagination-wrapper {
+                        position: fixed;
+                      }
+                    }
                   }
+                }
+                .scroll {
+                  overflow: visible;
                 }
               }
             }

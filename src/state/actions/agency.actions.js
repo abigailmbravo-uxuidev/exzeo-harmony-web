@@ -41,6 +41,34 @@ export function setAgents(agents) {
 
 /**
  *
+ * @param contracts
+ * @returns {Array}
+ */
+function getSelectOptions(contracts) {
+  const states = [];
+  const products = [];
+  const list = [];
+  contracts.forEach(contract => {
+    contract.stateProducts.forEach(stateProduct => {
+      const { state, product } = stateProduct;
+      if (!list.includes(state)) {
+        list.push(state);
+        states.push({ answer: state, label: state });
+      }
+      if (!list.includes(product)) {
+        list.push(product);
+        products.push({
+          answer: product,
+          label: product === 'AF3' ? 'Flood' : product
+        });
+      }
+    });
+  });
+  return { states, products };
+}
+
+/**
+ *
  * @param companyCode
  * @param state
  * @param agencyCode
@@ -66,6 +94,8 @@ export function getAgency(agencyCode) {
   return async dispatch => {
     try {
       const agency = await fetchAgency(agencyCode);
+      const cspAnswers = getSelectOptions(agency.contracts);
+      agency.cspAnswers = cspAnswers;
       dispatch(setAgency(agency));
     } catch (error) {
       dispatch(errorActions.setAppError(error));

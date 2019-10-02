@@ -32,6 +32,11 @@ describe('Testing SearchBar component', () => {
           searchType: 'address'
         },
         modelName: 'bb'
+      },
+      agencyState: {
+        agency: {
+          status: 'Active'
+        }
       }
     };
     const store = mockStore(initialState);
@@ -59,6 +64,9 @@ describe('Testing SearchBar component', () => {
           submitting: false,
           searchType: 'address'
         }
+      },
+      agency: {
+        status: 'Active'
       }
     };
     const wrapper = mount(
@@ -122,6 +130,9 @@ describe('Testing SearchBar component', () => {
             active: true
           }
         ]
+      },
+      agency: {
+        status: 'Active'
       },
       ...propTypes
     };
@@ -193,6 +204,9 @@ describe('Testing SearchBar component', () => {
             active: true
           }
         ]
+      },
+      agency: {
+        status: 'Active'
       },
       ...propTypes
     };
