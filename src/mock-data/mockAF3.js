@@ -581,7 +581,7 @@ const mock = {
                 },
                 {
                   format: 'currency',
-                  path: 'coverageLimits.dwelling.amount',
+                  path: 'coverageLimits.building.amount',
                   label: 'A. Building'
                 },
                 {
