@@ -354,13 +354,13 @@ const mock = {
                 min: 'coverageLimits.building.minAmount',
                 max: 'coverageLimits.building.maxAmount',
                 hint:
-                  'This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  '
+                  'This Flood policy quote includes replacement cost coverage on the building, so this amount should represent the total cost to rebuild the home to its current state in the event of a loss. If you have a Declarations Page from the current flood policy it may be listed as Coverage A \n \n (Based on basic information we have for the home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information.)'
               },
               secondaryField: {
                 name: 'coverageLimits.personalProperty.value',
                 label: 'Personal Property',
                 hint:
-                  'This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.'
+                  'This is the personal belongings, or items located inside the home. This could include furniture, clothing, bedding, dishes, etc. To have replacement cost coverage on Personal Property, please select Personal Property limits at a minimum of 25% of the Building limit.'
               },
               subscribe: true
             }
@@ -378,7 +378,7 @@ const mock = {
             label: 'Do you want Personal Property Replacement Cost Coverage?',
             size: '12',
             hint:
-              "Replacement Cost Coverage replaces your damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, your loss for personal property will be paid out at Actual Cash Value."
+              "Replacement Cost Coverage replaces damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, loss for personal property will be paid out at Actual Cash Value."
           },
           formData: {
             path: 'coverageOptions.personalPropertyReplacementCost.answer',
@@ -398,7 +398,8 @@ const mock = {
             component: 'radio',
             label: 'Deductible',
             size: '12',
-            hint: 'Building deductible help text goes here.',
+            hint:
+              'Coverage A (Building) and Coverage B (Personal Property) have separate deductibles. However, these deductibles must be the same.',
             dataSource: [
               {
                 answer: 500,
