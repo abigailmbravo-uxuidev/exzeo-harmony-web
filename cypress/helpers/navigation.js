@@ -4,16 +4,20 @@ import { userHO3, underwritingHO3 } from '../fixtures';
 export const navigateThroughLanding = () =>
   cy
     .task('log', 'Navigating through Landing')
-    .get('.btn[href="/search/address"]')
+    .wait(500)
+    .get('.new-quote[href="/search/address"]')
     .click();
 
 export const navigateThroughSearchAddress = ({
-  address = userHO3.address
+  address = userHO3.address,
+  product = userHO3.product
 } = {}) =>
   cy
     .task('log', 'Navigating through Searching Address')
     .get('input[name=address]')
     .type(address)
+    .findDataTag('product')
+    .select(product)
     .clickSubmit('#SearchBar')
     .findDataTag('search-results')
     .find('li[tabindex=0]')

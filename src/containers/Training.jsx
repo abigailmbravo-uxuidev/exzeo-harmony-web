@@ -57,7 +57,7 @@ export const externalLinks = [
 ];
 
 const Training = ({ auth, match }) => (
-  <AppWrapper logout={auth.logout} match={match} routeClassName="main training">
+  <AppWrapper auth={auth} match={match} routeClassName="main training">
     <div className="scroll">
       <div className="detail-wrapper">
         <section className="reference">

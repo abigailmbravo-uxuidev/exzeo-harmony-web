@@ -89,7 +89,7 @@ describe('Policy Billing Page testing', () => {
       }
     };
 
-    const { getByText } = renderWithReduxAndRouter(
+    const { getByText, getAllByText } = renderWithReduxAndRouter(
       <PolicyWorkflow {...newProps} />
     );
     const payments = [
@@ -115,14 +115,21 @@ describe('Policy Billing Page testing', () => {
         expect(cols[3].textContent).toEqual(payments[i].amount);
       });
 
-    const flipAndCheckBothDirections = header => {
+    const flipAndCheckBothDirections = async header => {
       // Set the asc order on the header.
-      fireEvent.click(getByText(header));
+      if (header === 'Date') {
+        await fireEvent.click(getAllByText('Date')[1]);
+      } else {
+        await fireEvent.click(getByText(header));
+      }
       // Data is structured so this will reverse whatever was previously here, to confirm the sorting actually works.
-      payments.reverse();
       checkRows();
       // Set desc order.
-      fireEvent.click(getByText(header));
+      if (header === 'Date') {
+        await fireEvent.click(getAllByText('Date')[1]);
+      } else {
+        await fireEvent.click(getByText(header));
+      }
       // Reverse and check data again.
       payments.reverse();
       checkRows();

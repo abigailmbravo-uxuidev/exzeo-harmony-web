@@ -43,7 +43,7 @@ describe('Policy Property Page testing', () => {
       { label: 'Residence Type', value: 'SINGLE FAMILY' },
       { label: 'Construction', value: 'MASONRY' },
       { label: 'BCEG', value: '3' },
-      { label: 'Dist. to Fire Hydrant', value: '264.06 ft.' },
+      { label: 'Dist. to Fire Hydrant', value: '264.06ft.' },
       { label: 'Square Footage', value: '2640' },
       { label: 'Year Roof Built', value: '2001' },
       { label: 'Family Units', value: '1-2' },

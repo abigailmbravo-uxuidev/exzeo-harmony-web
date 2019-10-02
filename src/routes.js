@@ -82,6 +82,7 @@ class Routes extends Component {
       const {
         entity: { agencyCode }
       } = this.profile;
+
       getAgency(agencyCode);
     }
   }
@@ -92,7 +93,7 @@ class Routes extends Component {
   };
 
   render() {
-    const { error } = this.props;
+    const { agency, error } = this.props;
 
     return (
       <React.Fragment>
@@ -122,18 +123,22 @@ class Routes extends Component {
         <Router>
           <React.Fragment>
             <Helmet>
-              <title>Harmony Web - Agent HO3 Quote</title>
+              <title>Harmony Web - Agency Quote</title>
             </Helmet>
             <Switch>
               <Route
                 exact
                 path="/"
-                render={props => <Splash auth={auth} {...props} />}
+                render={props => (
+                  <Splash auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 exact
                 path="/policy"
-                render={props => <PolicySearch auth={auth} {...props} />}
+                render={props => (
+                  <PolicySearch auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 exact
@@ -158,11 +163,15 @@ class Routes extends Component {
 
               <Route
                 path="/search"
-                render={props => <QuoteSearch auth={auth} {...props} />}
+                render={props => (
+                  <QuoteSearch auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 path="/quote/:quoteNumber"
-                render={props => <QuoteModule auth={auth} {...props} />}
+                render={props => (
+                  <QuoteModule auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 path="/policy/:policyNumber"

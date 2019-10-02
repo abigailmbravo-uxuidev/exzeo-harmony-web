@@ -16,7 +16,7 @@ describe('Retrieve Quote', () => {
     before('Login and go to search', () =>
       cy
         .login()
-        .get('a[href="/search/retrieve"]')
+        .get('.btn[href="/search/retrieve"]')
         .click()
     );
     beforeEach('Set Route Aliases', () => setRouteAliases());

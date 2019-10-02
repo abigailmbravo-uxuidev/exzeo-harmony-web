@@ -1,7 +1,6 @@
 .dashboard {
   display: flex;
   overflow: hidden;
-  overflow: hidden;
   flex-direction: column;
   flex-grow: 1;
   height: auto;
@@ -16,7 +15,7 @@
       display: flex;
       overflow: hidden;
       flex-grow: 1;
-      height: auto;
+      flex-shrink: 01;
 
       .scroll {
         display: flex;
@@ -24,11 +23,12 @@
         overflow-y: auto;
         flex-direction: column;
         flex-grow: 1;
+        flex-shrink: 1;
 
         .dashboard-message {
-          flex-grow: 0;
-          flex-shrink: 0;
-          padding: ($padding * 2) ($padding * 2) 0;
+          flex-grow: 1;
+          flex-shrink: 1;
+          padding: $padding * 2;
 
           h1 {
             @include for-phone-only {
@@ -43,77 +43,40 @@
               display: none;
             }
           }
-        }
 
-        .survey-wrapper {
-          flex-grow: 1;
-          flex-shrink: 0;
-
-          .product-wrapper {
+          .launch-buttons {
             display: flex;
-            align-items: flex-start;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            overflow: hidden;
+            margin-bottom: 4rem;
 
             @include for-phone-only {
               flex-direction: column;
             }
 
-            .product {
-              align-self: stretch;
-              flex-basis: 0;
+            .btn {
+              display: flex;
+              align-items: center;
               flex-grow: 1;
-              flex-shrink: 0;
-              margin-bottom: $padding;
+              flex-shrink: 1;
+              justify-content: center;
+              margin: 1rem $padding;
+              width: 33.33%;
 
               @include for-phone-only {
-                flex-basis: auto;
-                flex-grow: 0;
-                margin: 0 0 2rem;
+                margin: $padding 0;
+                padding: 1rem;
+                width: 100%;
               }
 
-              .card-header {
-                @include for-phone-only {
-                  height: 2.5rem;
-                }
-              }
+              &.disabled {
+                @include button-variant(
+                  $cool-gray-03,
+                  $cool-gray-05,
+                  $cool-gray-05
+                );
 
-              .card-block {
-                @include for-phone-only {
-                  flex-grow: 0;
-                }
-              }
-
-              .card-footer {
-                justify-content: space-around;
-
-                .btn {
-                  flex-grow: 1;
-                  flex-shrink: 1;
-                  margin-right: $padding;
-                  margin-left: 0;
-                  padding: ($padding/2) $padding;
-                  font-size: $font-size-sm;
-
-                  @include for-tablet-landscape-up {
-                    padding: ($padding * 0.75) ($padding * 1.5);
-                    font-size: $font-size-h5;
-                  }
-                  @include for-phone-only {
-                    flex-basis: 100%;
-                    margin-right: 0;
-                    margin-bottom: $padding * 2;
-
-                    &:last-child {
-                      margin-bottom: 0;
-                    }
-                  }
-
-                  &:last-child {
-                    margin-right: 0;
-                  }
+                &:hover {
+                  cursor: not-allowed;
                 }
               }
             }

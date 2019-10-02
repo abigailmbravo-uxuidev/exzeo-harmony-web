@@ -5,6 +5,7 @@ import { reduxForm, change } from 'redux-form';
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 
+import { cspAnswers } from './constants';
 import { clearAppError } from '../../state/actions/errorActions';
 import {
   searchQuotes,
@@ -13,12 +14,9 @@ import {
 } from '../../state/actions/searchActions';
 import Pagination from './Pagination';
 import NewQuoteSearch from '../../modules/Search/Address';
-
-import { PRODUCTS_LIST } from './searchUtils';
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({
-  product: 'HO3',
   address: '',
   pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
   totalPages: _get(state.search, 'state.search.totalPages') || 0
@@ -30,28 +28,9 @@ export const changePageQuote = async (props, isNext) => {
   const { state, companyCode } = props.userProfile.entity;
 
   const taskData = {
+    ...fieldValues,
     state,
     companyCode,
-    firstName:
-      encodeURIComponent(fieldValues.firstName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(fieldValues.lastName) !== 'undefined'
-        ? encodeURIComponent(fieldValues.lastName)
-        : '',
-    address:
-      encodeURIComponent(fieldValues.address) !== 'undefined'
-        ? encodeURIComponent(String(fieldValues.address).trim())
-        : '',
-    quoteNumber:
-      encodeURIComponent(fieldValues.policyNumber) !== 'undefined'
-        ? encodeURIComponent(fieldValues.policyNumber)
-        : '',
-    quoteState:
-      encodeURIComponent(fieldValues.quoteState) !== 'undefined'
-        ? encodeURIComponent(fieldValues.quoteState)
-        : '',
     searchType,
     hasSearched: true,
     resultStart: '60',
@@ -60,7 +39,7 @@ export const changePageQuote = async (props, isNext) => {
     sortDirection: 'desc'
   };
 
-  taskData.pageNumber = isNext
+  taskData.page = isNext
     ? String(Number(fieldValues.pageNumber) + 1)
     : String(Number(fieldValues.pageNumber) - 1);
 
@@ -74,35 +53,18 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
   const { state, companyCode } = props.userProfile.entity;
 
   const taskData = {
+    ...data,
     state,
     companyCode,
-    firstName:
-      encodeURIComponent(data.firstName) !== 'undefined'
-        ? encodeURIComponent(data.firstName)
-        : '',
-    lastName:
-      encodeURIComponent(data.lastName) !== 'undefined'
-        ? encodeURIComponent(data.lastName)
-        : '',
-    address:
-      encodeURIComponent(data.address) !== 'undefined'
-        ? encodeURIComponent(
-            String(data.address)
-              .replace(/\./g, '')
-              .trim()
-          )
-        : '',
-    quoteNumber:
-      encodeURIComponent(data.quoteNumber) !== 'undefined'
-        ? encodeURIComponent(data.quoteNumber)
-        : '',
-    zip:
-      encodeURIComponent(data.zip) !== 'undefined'
-        ? encodeURIComponent(data.zip)
+    propertyAddress:
+      data.address && data.address !== 'undefined'
+        ? String(data.address)
+            .replace(/\./g, '')
+            .trim()
         : '',
     searchType: props.searchType,
     hasSearched: true,
-    pageNumber: '1',
+    page: '1',
     pageSize: '25',
     sort: 'quoteNumber',
     sortDirection: 'desc'
@@ -155,20 +117,58 @@ export class SearchBar extends Component {
 
   render() {
     const {
+      auth = {},
+      agency,
       handleSubmit,
       searchType,
       fieldValues,
-      searchResults,
-      userProfile: {
-        appMetadata: { beta }
-      }
+      searchResults
     } = this.props;
+    const status = agency && agency.status ? agency.status : null;
+    const enableQuote = status === 'Active' || auth.isInternal;
+    const enableRetrieve =
+      status === 'Active' || status === 'Pending' || auth.isInternal;
 
-    if (searchType === 'quote') {
+    const answers = auth.isInternal
+      ? cspAnswers
+      : agency && agency.cspAnswers
+      ? agency.cspAnswers
+      : [];
+
+    // Only Active agencies can start new quote
+    if (searchType === 'address' && enableQuote) {
+      return (
+        <form
+          id="SearchBar"
+          onSubmit={handleSubmit(handleSearchBarAddressSubmit)}
+        >
+          <div className="search-input-wrapper search-new-quote-wrapper">
+            <NewQuoteSearch
+              filterTypeName="product"
+              answers={answers}
+              filterTypeLabel="Select Product"
+              disabledSubmit={
+                this.props.appState.isLoading ||
+                !fieldValues.product ||
+                !fieldValues.address ||
+                !String(fieldValues.address)
+                  .replace(/\./g, '')
+                  .trim()
+              }
+            />
+          </div>
+        </form>
+      );
+    }
+    // Only Active and Pending agencies can retrieve quotes
+    if (searchType === 'quote' && enableRetrieve) {
       return (
         <form id="SearchBar" onSubmit={handleSubmit(handleSearchBarSubmit)}>
           <div className="search-input-wrapper retrieve-quote-wrapper">
-            <QuoteSearch disabledSubmit={this.props.appState.isLoading} />
+            <QuoteSearch
+              disabledSubmit={this.props.appState.isLoading}
+              answers={answers}
+            />
           </div>
           {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
             <Pagination
@@ -180,28 +180,12 @@ export class SearchBar extends Component {
         </form>
       );
     }
+    // All others are not allowed
     return (
-      <form
-        id="SearchBar"
-        onSubmit={handleSubmit(handleSearchBarAddressSubmit)}
-      >
-        {/* TODO: Put this in core-ui to and make reusable for CSR */}
-        <div className="search-input-wrapper">
-          <NewQuoteSearch
-            canFilter={beta}
-            filterTypeName="product"
-            filterTypeOptions={PRODUCTS_LIST}
-            filterTypeLabel="Select Product"
-            disabledSubmit={
-              this.props.appState.isLoading ||
-              !fieldValues.address ||
-              !String(fieldValues.address)
-                .replace(/\./g, '')
-                .trim()
-            }
-          />
-        </div>
-      </form>
+      <div className="disabled-message">
+        <h3>Permission Denied</h3>
+        <p>this agency is no longer allowed to retrieve quotes</p>
+      </div>
     );
   }
 }

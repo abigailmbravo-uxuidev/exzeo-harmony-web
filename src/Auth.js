@@ -1,5 +1,6 @@
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
+import { http } from '@exzeo/core-ui/src/Utilities';
 
 import history from './history';
 
@@ -31,7 +32,7 @@ export default class Auth {
   };
 
   handleAuthentication = () => {
-    this.auth0.parseHash(window.location.hash, (err, authResult) => {
+    this.auth0.parseHash(window.location.hash, async (err, authResult) => {
       if (err) {
         history.replace(
           `/accessDenied?error=${
@@ -42,16 +43,29 @@ export default class Auth {
       }
 
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
+        const payload = jwtDecode(authResult.idToken);
+        const profile = await http
+          .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
+            headers: { authorization: `bearer ${authResult.idToken}` }
+          })
+          .catch(error => {
+            history.replace(`/accessDenied?error=${error}`);
+          });
+
+        this.setSession(authResult, profile.data);
         history.replace('/');
+      } else {
+        history.replace('/accessDenied?error=Not%20Authorized');
       }
     });
   };
 
-  setSession = authResult => {
+  setSession = (authResult, userProfile) => {
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
+
+    localStorage.setItem('user_profile', JSON.stringify(userProfile));
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
@@ -74,44 +88,56 @@ export default class Auth {
   };
 
   getProfile = () => {
-    const idToken = localStorage.getItem('id_token');
-    if (!idToken) return null;
+    let userData = {};
 
-    const profile = jwtDecode(idToken);
-    const groups = profile['https://heimdall.security/groups'];
-    const roles = profile['https://heimdall.security/roles'];
-    const username = profile['https://heimdall.security/username'];
-    const appMetadata = profile['https://heimdall.security/app_metadata'];
-    const legacyAgency = groups ? groups[0] : {};
+    const storedProfile = localStorage.getItem('user_profile');
+    if (!storedProfile) history.replace(`/logout`);
 
-    let entity;
-    if (appMetadata && appMetadata.agencyCode) {
-      entity = {
-        agencyCode: appMetadata.agencyCode,
-        companyCode: appMetadata.companyCode,
-        state: appMetadata.state
-      };
-    } else if (legacyAgency) {
-      entity = {
-        agencyCode: legacyAgency.agencyCode,
-        companyCode: legacyAgency.companyCode,
-        state: legacyAgency.state
-      };
+    try {
+      userData = JSON.parse(storedProfile);
+    } catch (error) {
+      return null;
     }
 
+    const { appMetadata, profile, userType } = userData;
+
+    let entity = {};
+
+    if (userType.toLowerCase() === 'agent') {
+      if (appMetadata && appMetadata.agencyCode) {
+        entity = {
+          agencyCode: appMetadata.agencyCode,
+          companyCode: appMetadata.companyCode,
+          state: appMetadata.state
+        };
+      } else {
+        entity = {
+          agencyCode: profile.agencyCode,
+          companyCode: profile.companyCode,
+          state: profile.state
+        };
+      }
+    } else if (userType.toLowerCase() === 'internal') {
+      if (profile.groups) {
+        entity = {
+          agencyCode: profile.groups[0].extendedProperties.agencyCode,
+          companyCode: profile.groups[0].extendedProperties.companyCode,
+          state: profile.groups[0].extendedProperties.state
+        };
+      } else {
+        entity = {
+          agencyCode: profile.agencyCode,
+          companyCode: profile.companyCode,
+          state: profile.state
+        };
+      }
+    }
+
+    this.isInternal = userType.toLowerCase() === 'internal';
     this.userProfile = {
-      ...profile,
-      groups,
-      roles,
-      username,
-      appMetadata,
+      ...userData,
       entity
     };
-
-    delete this.userProfile['https://heimdall.security/groups'];
-    delete this.userProfile['https://heimdall.security/roles'];
-    delete this.userProfile['https://heimdall.security/username'];
-    delete this.userProfile['https://heimdall.security/app_metadata'];
 
     return this.userProfile;
   };

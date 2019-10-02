@@ -2,6 +2,7 @@ import { http as axios } from '@exzeo/core-ui';
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import orderBy from 'lodash/orderBy';
 
+import { buildQuerystring } from './searchActions';
 import * as listActions from '../actionTypes/list.actionTypes';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
@@ -63,28 +64,13 @@ export const getQuote = quoteId => dispatch => {
     });
 };
 
-export const searchPolicy = ({
-  policyNumber,
-  firstName,
-  lastName,
-  address,
-  page,
-  pageSize,
-  sort,
-  direction,
-  companyCode = 'TTIC',
-  state = 'FL',
-  product = 'HO3'
-}) => dispatch => {
-  const formattedAddress = address.replace(' ', '&#32;');
+export const searchPolicy = query => dispatch => {
+  const queryString = buildQuerystring(query);
   const axiosConfig = runnerSetup(
     {
       service: 'policy-data',
       method: 'GET',
-      path: `/transactions?companyCode=${companyCode}&state=${state}&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(
-        ' ',
-        '&#32;'
-      )}&page=${page}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
+      path: `/transactions?${queryString}`
     },
     'searchPolicy'
   );

@@ -1,4 +1,5 @@
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
+
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
@@ -39,6 +40,61 @@ export function setSearchResults({
     hasSearched
   };
 }
+
+/**
+ * Build query string and encodeURI
+ * @param firstName
+ * @param lastName
+ * @param propertyAddress
+ * @param policyNumber
+ * @param policyStatus
+ * @param page
+ * @param pageSize
+ * @param sortBy
+ * @param sortDirection
+ * @param companyCode
+ * @param state
+ * @param product
+ * @returns {string} querystring
+ */
+export function buildQuerystring({
+  firstName,
+  lastName,
+  propertyAddress,
+  quoteNumber,
+  policyNumber,
+  policyStatus,
+  page,
+  pageSize,
+  sort,
+  sortDirection,
+  companyCode,
+  state,
+  product
+}) {
+  const fields = {
+    ...(firstName && { firstName }),
+    ...(lastName && { lastName }),
+    ...(propertyAddress && { propertyAddress }),
+    ...(quoteNumber && { quoteNumber }),
+    ...(policyNumber && { policyNumber }),
+    ...(policyStatus && { policyStatus }),
+    ...(page && { page }),
+    ...(pageSize && { pageSize }),
+    ...(sort && { sort }),
+    ...(sortDirection && { sortDirection }),
+    ...(companyCode && { companyCode }),
+    ...(state && { state }),
+    ...(product && { product })
+  };
+
+  return encodeURI(
+    Object.keys(fields)
+      .map(key => `${key}=${fields[key]}`)
+      .join('&')
+  );
+}
+
 /**
  * Format results from address query for state
  * @param {object} results
@@ -93,23 +149,12 @@ export function searchAddresses(address) {
   };
 }
 
-export async function fetchQuotes({
-  firstName,
-  lastName,
-  address,
-  companyCode = 'TTIC',
-  quoteNumber,
-  product = 'HO3',
-  state = 'FL',
-  pageNumber,
-  pageSize,
-  sort,
-  sortDirection
-}) {
+export async function fetchQuotes(query) {
+  const querystring = buildQuerystring(query);
   const config = {
     service: 'quote-data',
     method: 'GET',
-    path: `/quotes?companyCode=${companyCode}&state=${state}&quoteNumber=${quoteNumber}&lastName=${lastName}&firstName=${firstName}&propertyAddress=${address}&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&sortDirection=${sortDirection}`
+    path: `/quotes?${querystring}`
   };
 
   try {

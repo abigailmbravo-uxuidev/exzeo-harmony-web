@@ -10,45 +10,45 @@ const NewQuoteSearch = ({
   filterTypeLabel,
   filterTypeName,
   filterTypeOnChange,
-  canFilter,
+  answers,
   disabledSubmit
 }) => (
   <React.Fragment>
-    {canFilter && (
-      <Field
-        name={filterTypeName}
-        dataTest={filterTypeName}
-        label={filterTypeLabel}
-        component={Select}
-        id={filterTypeName}
-        validate={isRequired}
-        onChange={filterTypeOnChange}
-        answers={filterTypeOptions}
-        showPlaceholder={false}
-        styleName="property-search products"
-        errorHint
-      />
-    )}
     <Field
-      name="address"
-      dataTest="address"
-      label="Property Address"
-      placeholder="Search for Property Address"
-      component={Input}
-      styleName="property-search"
-      validate={[isValidAddressFormat, isRequired]}
+      name={filterTypeName}
+      dataTest={filterTypeName}
+      label={filterTypeLabel}
+      component={Select}
+      id={filterTypeName}
+      validate={isRequired}
+      onChange={filterTypeOnChange}
+      answers={answers.products}
+      styleName="property-search products"
+      segmented
       errorHint
     />
+    <div className="property-search-wrappper">
+      <Field
+        name="address"
+        dataTest="address"
+        label="Property Street Address"
+        placeholder="Search for Property Address"
+        component={Input}
+        styleName="property-search"
+        validate={[isValidAddressFormat, isRequired]}
+        errorHint
+      />
 
-    <Button
-      customClass="multi-input"
-      type="submit"
-      disabled={disabledSubmit}
-      dataTest="submit"
-    >
-      <i className="fa fa-search" />
-      Search
-    </Button>
+      <Button
+        customClass="multi-input"
+        type="submit"
+        disabled={disabledSubmit}
+        dataTest="submit"
+      >
+        <i className="fa fa-search" />
+        <span>Search</span>
+      </Button>
+    </div>
   </React.Fragment>
 );
 
