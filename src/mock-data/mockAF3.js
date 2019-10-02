@@ -354,7 +354,7 @@ const mock = {
                 min: 'coverageLimits.building.minAmount',
                 max: 'coverageLimits.building.maxAmount',
                 hint:
-                  'This Flood policy quote includes replacement cost coverage on the building, so this amount should represent the total cost to rebuild the home to its current state in the event of a loss. If you have a Declarations Page from the current flood policy it may be listed as Coverage A \n \n (Based on basic information we have for the home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information.)'
+                  'This Flood policy quote includes replacement cost coverage on the building, so this amount should represent the total cost to rebuild the home to its current state in the event of a loss. If you have a Declarations Page from the current flood policy it may be listed as Coverage A \n \n Based on basic information we have for the home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information.'
               },
               secondaryField: {
                 name: 'coverageLimits.personalProperty.value',
