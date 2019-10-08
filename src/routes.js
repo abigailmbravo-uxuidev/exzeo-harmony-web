@@ -26,6 +26,21 @@ import Training from './containers/Training';
 import Contacts from './containers/Contacts';
 
 class Routes extends Component {
+  componentDidMount() {
+    const { agency, getAgency, userProfile } = this.props;
+    if (
+      !agency &&
+      userProfile &&
+      userProfile.entity &&
+      userProfile.entity.agencyCode
+    ) {
+      const {
+        entity: { agencyCode }
+      } = userProfile;
+      getAgency(agencyCode);
+    }
+  }
+
   clearError = () => {
     const { clearAppError } = this.props;
     clearAppError();
