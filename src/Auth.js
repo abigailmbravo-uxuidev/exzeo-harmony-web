@@ -31,76 +31,9 @@ export default class Auth {
     this.logout();
   };
 
-  handleAuthentication = () => {
-    this.auth0.parseHash(window.location.hash, async (err, authResult) => {
-      if (err) {
-        history.replace(
-          `/accessDenied?error=${
-            err.errorDescription ? err.errorDescription : 'Access Denied'
-          }`
-        );
-        return;
-      }
-
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        const payload = jwtDecode(authResult.idToken);
-        const profile = await http
-          .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
-            headers: { authorization: `bearer ${authResult.idToken}` }
-          })
-          .catch(error => {
-            history.replace(`/accessDenied?error=${error}`);
-          });
-
-        this.setSession(authResult, profile.data);
-        history.replace('/');
-      } else {
-        history.replace('/accessDenied?error=Not%20Authorized');
-      }
-    });
-  };
-
-  setSession = (authResult, userProfile) => {
-    const expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    );
-
-    localStorage.setItem('user_profile', JSON.stringify(userProfile));
-    localStorage.setItem('access_token', authResult.accessToken);
-    localStorage.setItem('id_token', authResult.idToken);
-    localStorage.setItem('expires_at', expiresAt);
-  };
-
-  getIdToken = () => {
-    const idToken = localStorage.getItem('id_token');
-    if (!idToken) {
-      throw new Error('No id token found');
-    }
-    return idToken;
-  };
-
-  getAccessToken = () => {
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
-      throw new Error('No access token found');
-    }
-    return accessToken;
-  };
-
-  getProfile = () => {
-    let userData = {};
-
-    const storedProfile = localStorage.getItem('user_profile');
-    if (!storedProfile) history.replace(`/logout`);
-
-    try {
-      userData = JSON.parse(storedProfile);
-    } catch (error) {
-      return null;
-    }
-
-    const { appMetadata, profile, userType } = userData;
-
+  getProfile = userData => {
+    if (!userData) history.replace(`/logout`);
+    const { appMetadata, profile, userType = 'agent' } = userData;
     let entity = {};
 
     if (userType.toLowerCase() === 'agent') {
@@ -133,13 +66,70 @@ export default class Auth {
       }
     }
 
-    this.isInternal = userType.toLowerCase() === 'internal';
     this.userProfile = {
       ...userData,
       entity
     };
 
     return this.userProfile;
+  };
+
+  handleAuthentication = () => {
+    this.auth0.parseHash(window.location.hash, async (err, authResult) => {
+      if (err) {
+        history.replace(
+          `/accessDenied?error=${
+            err.errorDescription ? err.errorDescription : 'Access Denied'
+          }`
+        );
+        return;
+      }
+
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        const payload = jwtDecode(authResult.idToken);
+        const profile = await http
+          .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
+            headers: { authorization: `bearer ${authResult.idToken}` }
+          })
+          .catch(error => {
+            history.replace(`/accessDenied?error=${error}`);
+          });
+
+        const userProfile = this.getProfile(profile.data);
+        this.setSession(authResult, userProfile);
+
+        history.replace('/');
+      } else {
+        history.replace('/accessDenied?error=Not%20Authorized');
+      }
+    });
+  };
+
+  setSession = (authResult, userProfile) => {
+    const expiresAt = JSON.stringify(
+      authResult.expiresIn * 1000 + new Date().getTime()
+    );
+
+    localStorage.setItem('user_profile', JSON.stringify(userProfile));
+    localStorage.setItem('access_token', authResult.accessToken);
+    localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('expires_at', expiresAt);
+  };
+
+  getIdToken = () => {
+    const idToken = localStorage.getItem('id_token');
+    if (!idToken) {
+      throw new Error('No id token found');
+    }
+    return idToken;
+  };
+
+  getAccessToken = () => {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('No access token found');
+    }
+    return accessToken;
   };
 
   logout = () => {
