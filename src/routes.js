@@ -33,7 +33,10 @@ class Routes extends Component {
 
   render() {
     const { auth, agency, error, userProfile } = this.props;
-    auth.isInternal = userProfile.userType.toLowerCase() === 'internal';
+    auth.isInternal =
+      userProfile && userProfile.userType
+        ? userProfile.userType.toLowerCase() === 'internal'
+        : false;
 
     return (
       <React.Fragment>
