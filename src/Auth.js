@@ -66,7 +66,6 @@ export default class Auth {
       }
     }
 
-    entity.isInternal = userType.toLowerCase() === 'internal';
     this.userProfile = {
       ...userData,
       entity

@@ -515,7 +515,7 @@ describe('Auth', () => {
       process.env.REACT_APP_AUTH0_CLIENT_ID = 'clientID';
 
       const auth = new Auth();
-      const profile = auth.getProfile();
+      const profile = auth.getProfile(userData);
       expect(profile.userType).toEqual('internal');
       expect(profile.entity).toEqual({
         agencyCode: '',
