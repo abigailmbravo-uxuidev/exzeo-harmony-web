@@ -6,7 +6,7 @@ const mock = {
       { value: 'quoteNumber' },
       { value: 'propertyAddress', component: 'Section', label: 'Address' },
       { value: 'yearBuilt' },
-      { value: 'floodZone' },
+      { value: 'FEMAfloodZone', label: 'FEMA Flood Zone' },
       {
         value: 'coverageLimits.building.amount',
         label: 'Coverage A',
