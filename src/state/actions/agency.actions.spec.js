@@ -69,27 +69,6 @@ describe('Test Agency Actions', () => {
       sandbox.reset();
     });
 
-    it('Should call dispatch on getAgencies', async () => {
-      const companyCode = 'HCI';
-      const state = 'FL';
-      const agencies = [{ id: '1234' }, { id: '4321' }];
-
-      const stateObj = [
-        {
-          type: types.SET_AGENCIES,
-          agencies
-        }
-      ];
-
-      httpStub
-        .onCall(0)
-        .returns(Promise.resolve({ data: { result: agencies } }));
-
-      await store.dispatch(agencyActions.getAgencies(companyCode, state));
-
-      expect(store.getActions()).toEqual(stateObj);
-    });
-
     it('Should call dispatch on getAgentsByAgencyCode', async () => {
       const agents = [{ agentCode: '1234' }];
 

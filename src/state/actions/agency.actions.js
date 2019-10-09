@@ -69,24 +69,6 @@ function getSelectOptions(contracts) {
 
 /**
  *
- * @param companyCode
- * @param state
- * @param agencyCode
- * @returns {Function}
- */
-export function getAgencies(companyCode, state, agencyCode) {
-  return async dispatch => {
-    try {
-      const agencies = await fetchAgencies(companyCode, state, agencyCode);
-      dispatch(setAgencies(agencies));
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
-    }
-  };
-}
-
-/**
- *
  * @param agencyCode
  * @returns {Function}
  */
@@ -139,28 +121,6 @@ export async function fetchAgency(agencyCode) {
 
 /**
  *
- * @param companyCode
- * @param state
- * @param agencyCode
- * @returns {Promise<Array>}
- */
-export async function fetchAgencies(companyCode, state, agencyCode = '') {
-  const config = {
-    service: 'agency',
-    method: 'GET',
-    path: `agencies?companyCode=${companyCode}&state=${state}?&pageSize=1000&sort=displayName&SortDirection=asc?agencyCode=${agencyCode}`
-  };
-
-  try {
-    const response = await serviceRunner.callService(config, 'fetchAgencies');
-    return response.data && response.data.result ? response.data.result : [];
-  } catch (error) {
-    throw error;
-  }
-}
-
-/**
- *
  * @param agencyCode
  * @returns {Promise<Array>}
  */
@@ -169,7 +129,7 @@ export async function fetchAgentsByAgencyCode(agencyCode) {
     const config = {
       service: 'agency',
       method: 'GET',
-      path: `agencies/${agencyCode}/agents`
+      path: `agencies/${agencyCode}/agents?status=Active&appointed=true`
     };
     const response = await serviceRunner.callService(
       config,
