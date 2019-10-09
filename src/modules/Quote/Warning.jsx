@@ -5,7 +5,9 @@ const Warning = ({ config, initialValues: { underwritingExceptions } }) => {
   if (!underwritingExceptions || underwritingExceptions.length < 1) return null;
   const { as, className } = config;
   const Element = as;
-  const warnings = underwritingExceptions.filter(ex => ex.code.startsWith(4));
+  const warnings = underwritingExceptions.filter(
+    ex => ex.action === 'Informational'
+  );
 
   return (
     <React.Fragment>
