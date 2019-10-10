@@ -93,7 +93,7 @@ export class QuoteWorkflow extends Component {
     const { quote } = this.props;
 
     if (quote && quote.property) {
-      this.props.getAgentsByAgencyCode(quote.agencyCode);
+      this.props.getAgentsByAgencyCode(quote.agencyCode, quote.state);
       this.props.getZipcodeSettings(
         quote.companyCode,
         quote.state,

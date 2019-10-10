@@ -138,7 +138,11 @@ const Error = ({
               <h4 className="error-intro">{content.intro}</h4>
               <ul className="error error-list">
                 {exceptions.map((ex, key) => {
-                  if (ex.action === 'Missing Info') return '';
+                  if (
+                    ex.action === 'Missing Info' ||
+                    ex.action === 'Informational'
+                  )
+                    return '';
                   const className =
                     ex.action === 'Fatal Error' ? 'error-li' : 'warning-li';
                   return (

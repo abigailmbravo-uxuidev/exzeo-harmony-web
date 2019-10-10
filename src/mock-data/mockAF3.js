@@ -6,7 +6,7 @@ const mock = {
       { value: 'quoteNumber' },
       { value: 'propertyAddress', component: 'Section', label: 'Address' },
       { value: 'yearBuilt' },
-      { value: 'floodZone' },
+      { value: 'FEMAfloodZone', label: 'FEMA Flood Zone' },
       {
         value: 'coverageLimits.building.amount',
         label: 'Coverage A',
@@ -582,12 +582,38 @@ const mock = {
                 {
                   format: 'currency',
                   path: 'coverageLimits.building.amount',
-                  label: 'A. Building'
+                  label: 'Building Limit'
+                },
+                {
+                  format: 'currency',
+                  path: 'deductibles.buildingDeductible.amount',
+                  label: 'Building Deductible'
                 },
                 {
                   format: 'currency',
                   path: 'coverageLimits.personalProperty.amount',
-                  label: 'C. Personal Property'
+                  label: 'Personal Property'
+                },
+                {
+                  format: 'currency',
+                  path: 'deductibles.personalPropertyDeductible.amount',
+                  label: 'Personal Property Deductible'
+                },
+                {
+                  format: 'bool',
+                  path:
+                    'coverageOptions.personalPropertyReplacementCost.answer',
+                  label: 'Personal Property Replacement Cost'
+                },
+                {
+                  format: 'currency',
+                  path: 'coverageLimits.increasedCompliance.amount',
+                  label: 'Increased Cost of Compliance'
+                },
+                {
+                  format: 'currency',
+                  path: 'coverageLimits.lossOfUse.amount',
+                  label: 'Loss of Use'
                 }
               ],
               productDescription: 'Flood',

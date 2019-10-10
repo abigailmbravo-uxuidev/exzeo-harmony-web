@@ -35,7 +35,7 @@ const headersAF3 = [
     value: '4131 TEST ADDRESS'
   },
   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
-  { name: 'floodZoneDetail', label: 'Flood Zone', value: 'X' },
+  { name: 'FEMAfloodZoneDetail', label: 'FEMA Flood Zone', value: 'X' },
   {
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
