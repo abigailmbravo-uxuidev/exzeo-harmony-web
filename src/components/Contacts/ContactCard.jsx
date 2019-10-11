@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { normalize } from '@exzeo/core-ui';
 
 const ContactCard = ({
@@ -18,14 +19,20 @@ const ContactCard = ({
   disclaimer
 }) => {
   return (
-    <div className="card contact-card">
+    <div className={classNames('card contact-card', title)}>
       <div className="card-header">
         <div className={icon || 'fa fa-address-card'} />
       </div>
       <div className="card-body">
         {name && (
           <h4 className="contact-name">
-            {name} {title && <span className="contact-title"> | {title}</span>}
+            {name}{' '}
+            {title && (
+              <span className="contact-title">
+                <span>&nbsp;|&nbsp;</span>
+                {title}
+              </span>
+            )}
           </h4>
         )}
         {message && <div className="contact-message">{message}</div>}

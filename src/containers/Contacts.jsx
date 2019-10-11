@@ -1,6 +1,8 @@
 import React from 'react';
 import { shape, func } from 'prop-types';
 
+import teritoryMap from '../img/territory-manager-map.png';
+
 import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard';
 import Footer from '../components/Footer';
@@ -57,7 +59,6 @@ export const supportContacts = [
     name: 'Agency Support',
     title: '',
     phone: '8442897968',
-    extension: 'option 5',
     email: 'agencysupport@typtap.com'
   },
   {
@@ -102,14 +103,19 @@ const Contacts = ({ auth, match }) => (
   <AppWrapper auth={auth} match={match} routeClassName="main contacts">
     <div className="scroll">
       <div className="detail-wrapper">
-        <section className="contacts">
+        <section className="contacts territory">
           <h2 className="title">
             <i className="fa fa-map-marker" />
             &nbsp;Territory Managers
           </h2>
-          {territoryManagerContacts.map(contact => (
-            <ContactCard key={contact.name} {...contact} />
-          ))}
+          <div className="territory-managers">
+            {territoryManagerContacts.map(contact => (
+              <ContactCard key={contact.name} {...contact} />
+            ))}
+          </div>
+          <div className="territory-map">
+            <img src={teritoryMap} alt="Territory Map" />
+          </div>
         </section>
         <section className="contacts">
           <h2 className="title">
