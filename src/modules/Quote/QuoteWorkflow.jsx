@@ -169,11 +169,11 @@ export class QuoteWorkflow extends Component {
     this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
   };
 
-  goToStep = step => {
+  goToStep = (step, override) => {
     const { history, isLoading } = this.props;
     const { stepNumber } = this.state;
 
-    if (isLoading || step >= stepNumber) return;
+    if ((isLoading || step >= stepNumber) && !override) return;
 
     this.formInstance.reset();
     history.replace(ROUTE_TO_STEP_NAME[step]);
@@ -184,7 +184,12 @@ export class QuoteWorkflow extends Component {
     this.setState({ isRecalc });
   };
 
-  handleGandalfSubmit = async ({ remainOnStep, noSubmit, ...values }) => {
+  handleGandalfSubmit = async ({
+    remainOnStep,
+    noSubmit,
+    skipStep,
+    ...values
+  }) => {
     const { quote, history, updateQuote, location } = this.props;
     const { isRecalc, stepNumber } = this.state;
     const { currentRouteName } = getCurrentStepAndPage(location.pathname);
@@ -202,6 +207,7 @@ export class QuoteWorkflow extends Component {
         });
       }
       // TODO: Figure out a routing solution
+
       if (!(isRecalc || remainOnStep)) {
         history.replace(NEXT_PAGE_ROUTING[currentRouteName]);
         this.setCurrentStep();

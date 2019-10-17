@@ -16,20 +16,31 @@ const getFilteredUnderwritingExceptions = defaultMemoize(
   }
 );
 
-const Share = ({ customHandlers, initialValues, formInstance }) => {
+const Share = ({
+  customHandlers,
+  initialValues,
+  formInstance,
+  config: { extendedProperties }
+}) => {
   const [showPopup, setPopup] = useState(false);
   const filteredUnderwritingExceptions = getFilteredUnderwritingExceptions(
     initialValues.underwritingExceptions
   );
-
+  const { getQuote, goToStep, history, handleSubmit } = customHandlers;
   async function refreshUWReviewError() {
-    await customHandlers.getQuote(initialValues.quoteNumber, initialValues._id);
+    await getQuote(initialValues.quoteNumber, initialValues._id);
     customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData);
   }
 
   function redirectToNewQuote() {
-    customHandlers.history.replace('/');
+    history.replace('/');
   }
+
+  const { skipNext } = extendedProperties;
+
+  const handleClick = skipNext
+    ? () => goToStep(STEP_NAMES.addAdditionalAIs, true)
+    : () => handleSubmit({ noSubmit: true });
 
   return (
     <React.Fragment>
@@ -84,7 +95,7 @@ const Share = ({ customHandlers, initialValues, formInstance }) => {
               </Button>
               <Button
                 className={Button.constants.classNames.primary}
-                onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
+                onClick={handleClick}
                 disabled={submitting}
                 data-test="submit"
               >

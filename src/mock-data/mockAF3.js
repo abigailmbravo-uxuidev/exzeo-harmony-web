@@ -449,7 +449,8 @@ const mock = {
           dependencies: [],
           data: {
             extendedProperties: {
-              subscribe: true
+              subscribe: true,
+              skipNext: true
             },
             component: '$SHARE'
           },
@@ -461,18 +462,7 @@ const mock = {
     {
       name: 'assumptions',
       step: {},
-      components: [
-        {
-          id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$ASSUMPTIONS'
-          },
-          formData: {},
-          children: []
-        }
-      ]
+      components: []
     },
     {
       name: 'additionalInterests',
