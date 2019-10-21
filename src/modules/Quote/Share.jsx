@@ -39,7 +39,7 @@ const Share = ({
   const { skipNext } = extendedProperties;
 
   const handleClick = skipNext
-    ? () => goToStep(STEP_NAMES.addAdditionalAIs, true)
+    ? () => goToStep(STEP_NAMES.policyholder, true)
     : () => handleSubmit({ noSubmit: true });
 
   return (

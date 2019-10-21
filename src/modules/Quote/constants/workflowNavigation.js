@@ -4,9 +4,10 @@ export const STEP_NAMES = {
   askToCustomizeDefaultQuote: 2,
   sendEmailOrContinue: 3,
   // assumptions is technically 4 but is hidden. For simplicity we will just not use 4.
-  addAdditionalAIs: 5,
-  askAdditionalQuestions: 6,
-  editVerify: 7
+  policyholder: 5,
+  addAdditionalAIs: 6,
+  askAdditionalQuestions: 7,
+  editVerify: 8
 };
 
 export const ROUTE_TO_STEP_NAME = {
@@ -14,6 +15,7 @@ export const ROUTE_TO_STEP_NAME = {
   [STEP_NAMES.askUWAnswers]: 'underwriting',
   [STEP_NAMES.askToCustomizeDefaultQuote]: 'customize',
   [STEP_NAMES.sendEmailOrContinue]: 'share',
+  [STEP_NAMES.policyholder]: 'policyholder',
   [STEP_NAMES.addAdditionalAIs]: 'additionalInterests',
   [STEP_NAMES.askAdditionalQuestions]: 'mailingBilling',
   [STEP_NAMES.editVerify]: 'verify'
@@ -25,10 +27,11 @@ export const PAGE_ROUTING = {
   customize: 2,
   share: 3,
   assumptions: 4,
-  additionalInterests: 5,
-  mailingBilling: 6,
-  verify: 7,
-  thankYou: 8
+  policyholder: 5,
+  additionalInterests: 6,
+  mailingBilling: 7,
+  verify: 8,
+  thankYou: 9
 };
 
 /*
@@ -39,7 +42,8 @@ export const NEXT_PAGE_ROUTING = {
   underwriting: 'customize',
   customize: 'share',
   share: 'assumptions',
-  assumptions: 'additionalInterests',
+  assumptions: 'policyholder',
+  policyholder: 'additionalInterests',
   additionalInterests: 'mailingBilling',
   mailingBilling: 'verify',
   verify: 'thankYou'
@@ -50,6 +54,7 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = ['error', 'thankYou'];
 export const ROUTES_NOT_USING_FOOTER = [
   'share',
   'assumptions',
+  'policyholder',
   'additionalInterests',
   'askMortgagee',
   'askAdditionalInterest',
@@ -100,6 +105,14 @@ export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   },
   {
     key: '5',
+    iconId: 'fa fa-share-alt',
+    label: 'Policyholder',
+    className: getClassName(STEP_NAMES.policyholder),
+    handleClick: () => goToStep(STEP_NAMES.policyholder),
+    onKeyPress: e => onKeyPress(STEP_NAMES.policyholder, e)
+  },
+  {
+    key: '6',
     iconId: 'fa fa-user-plus',
     label: 'Additional Parties',
     className: getClassName(STEP_NAMES.addAdditionalAIs),
@@ -107,7 +120,7 @@ export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
     onKeyPress: e => onKeyPress(STEP_NAMES.addAdditionalAIs, e)
   },
   {
-    key: '6',
+    key: '7',
     iconId: 'fa fa-envelope',
     label: 'Mailing / Billing',
     className: getClassName(STEP_NAMES.askAdditionalQuestions),
@@ -115,7 +128,7 @@ export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
     onKeyPress: e => onKeyPress(STEP_NAMES.askAdditionalQuestions, e)
   },
   {
-    key: '7',
+    key: '8',
     iconId: 'fa fa-check-square',
     label: 'Verify',
     className: getClassName(STEP_NAMES.editVerify),

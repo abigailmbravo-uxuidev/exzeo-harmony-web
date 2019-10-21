@@ -184,12 +184,7 @@ export class QuoteWorkflow extends Component {
     this.setState({ isRecalc });
   };
 
-  handleGandalfSubmit = async ({
-    remainOnStep,
-    noSubmit,
-    skipStep,
-    ...values
-  }) => {
+  handleGandalfSubmit = async ({ remainOnStep, noSubmit, ...values }) => {
     const { quote, history, updateQuote, location } = this.props;
     const { isRecalc, stepNumber } = this.state;
     const { currentRouteName } = getCurrentStepAndPage(location.pathname);
