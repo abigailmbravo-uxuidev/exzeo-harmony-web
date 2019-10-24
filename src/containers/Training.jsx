@@ -53,6 +53,24 @@ export const externalLinks = [
     title: 'TypTap Underwriting Exception Requirements Document',
     description: 'Information needed for underwriting exception review.',
     linkIcon: 'pdf'
+  },
+  {
+    key: 7,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-Opening-Protection.pdf`,
+    productIcon: 'home',
+    title: 'Wind Mitigation Opening Protection Assistance',
+    description:
+      'Assistance in determining the proper Opening Protection selection in Harmony based on the insured’s Wind Mitigation.',
+    linkIcon: 'pdf'
+  },
+  {
+    key: 8,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-Coverage-C-Exclusion-Doc.pdf`,
+    productIcon: 'home',
+    title: 'Coverage C Rejection Form',
+    description:
+      'Form required to reject Coverage C (0% Contents Coverage). All insured’s signatures required. ',
+    linkIcon: 'pdf'
   }
 ];
 
