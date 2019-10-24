@@ -20,7 +20,7 @@ const Share = ({
   customHandlers,
   initialValues,
   formInstance,
-  config: { extendedProperties }
+  config: { extendedProperties = {} }
 }) => {
   const [showPopup, setPopup] = useState(false);
   const filteredUnderwritingExceptions = getFilteredUnderwritingExceptions(
