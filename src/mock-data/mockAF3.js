@@ -29,7 +29,7 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            text: 'Primary Policyholder',
+            text: 'Quote Details',
             icon: 'fa fa-user-circle'
           },
           formData: {},

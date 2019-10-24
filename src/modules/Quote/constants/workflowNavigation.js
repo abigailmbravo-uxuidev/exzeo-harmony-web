@@ -73,7 +73,7 @@ export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   {
     key: '1',
     iconId: 'fa fa-vcard',
-    label: 'Policyholder',
+    label: 'Quote Details',
     className: getClassName(STEP_NAMES.askAdditionalCustomerData),
     handleClick: () => goToStep(STEP_NAMES.askAdditionalCustomerData),
     onKeyPress: e => onKeyPress(STEP_NAMES.askAdditionalCustomerData, e)

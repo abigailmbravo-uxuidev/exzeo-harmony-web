@@ -87,26 +87,6 @@ const ph2Fields = [
   }
 ];
 
-const detailsFields = [
-  {
-    dataTest: 'effectiveDate',
-    label: 'Effective Date',
-    type: 'text',
-    value: '2019-05-03',
-    defaultValue: '2019-05-05'
-  },
-  {
-    dataTest: 'agentCode',
-    label: 'Agent',
-    type: 'select',
-    defaultValue: { value: '', label: 'Please Select...' },
-    values: [
-      { value: '60000', label: 'Geordi LaForge' },
-      { value: '1234', label: 'Commander Data' }
-    ]
-  }
-];
-
 const pageHeaders = [
   {
     dataTest: 'Primary Policyholder',
@@ -117,11 +97,6 @@ const pageHeaders = [
     dataTest: 'Secondary Policyholder',
     text: 'Secondary Policyholder',
     icon: 'fa fa-user-circle'
-  },
-  {
-    dataTest: 'Policy Details',
-    text: 'Policy Details',
-    icon: 'fa fa-file-text'
   }
 ];
 
@@ -245,26 +220,6 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
       );
   });
 
-  it('NEG:Invalid Effective Date', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
-    submitForm(getByTestId);
-    verifyForm(getByTestId, [
-      {
-        dataTest: 'effectiveDate',
-        value: ''
-      }
-    ]);
-    verifyForm(getByTestId, [
-      {
-        dataTest: 'effectiveDate',
-        value: '1900-01-01',
-        error: 'Date must be at least 08/01/2017'
-      }
-    ]);
-  });
-
   it('POS:Checks Headers', () => {
     const { getByTestId } = renderWithReduxAndRouter(
       <QuoteWorkflow {...props} />
@@ -285,29 +240,6 @@ describe('Testing QuoteWorkflow Policyholder Page', () => {
       if (type === 'text') checkTextInput(getByTestId, { dataTest, value });
       if (type === 'phone') checkPhoneInput(getByTestId, { dataTest, value });
     });
-  });
-
-  it('POS:Policy Details Text', () => {
-    const newProps = {
-      ...props,
-      options: {
-        ...props.options,
-        agents: [
-          { label: 'Geordi LaForge', answer: '60000' },
-          { label: 'Commander Data', answer: '1234' }
-        ]
-      }
-    };
-    const { getByTestId, getByText } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...newProps} />
-    );
-
-    detailsFields.forEach(field => {
-      checkLabel(getByTestId, field);
-      if (field.type === 'text') checkTextInput(getByTestId, field);
-      if (field.type === 'select') checkSelect(getByTestId, field);
-    });
-    expect(getByText('05/01/2019 - 08/01/2019'));
   });
 
   it('POS:Checks Submit Button', () => {
