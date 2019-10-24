@@ -275,7 +275,8 @@ const mock = {
           dependencies: [],
           data: {
             extendedProperties: {
-              subscribe: true
+              subscribe: true,
+              skipNext: true
             },
             component: '$SHARE'
           },
@@ -294,7 +295,7 @@ const mock = {
       step: {},
       components: [
         {
-          id: 1222222,
+          id: 12222221111,
           type: '$TITLE',
           dependencies: [],
           data: {
@@ -510,61 +511,6 @@ const mock = {
               children: []
             }
           ]
-        },
-        {
-          id: 3453111,
-          type: '$TITLE',
-          dependencies: [],
-          data: {
-            text: 'Policy Details',
-            icon: 'fa fa-file-text'
-          },
-          formData: {},
-          children: []
-        },
-        {
-          id: 15,
-          type: '$INPUT',
-          path: 'effectiveDate',
-          dependencies: [],
-          data: {
-            component: 'date',
-            label: 'Effective Date',
-            size: '6',
-            extendedProperties: {
-              min: 'zipCodeSettings.minEffectiveDate',
-              max: 'zipCodeSettings.maxEffectiveDate'
-            },
-            validation: ['minEffectiveDate', 'isValidDate']
-          },
-          formData: {
-            path: 'effectiveDate',
-            type: 'string',
-            required: true,
-            metaData: {
-              format: 'date-time'
-            }
-          },
-          children: []
-        },
-        {
-          id: 16,
-          type: '$INPUT',
-          path: 'agentCode',
-          dependencies: [],
-          data: {
-            component: 'selectInteger',
-            label: 'Agent',
-            size: '6',
-            dataSource: 'agents'
-          },
-          formData: {
-            path: 'agentCode',
-            type: 'integer',
-            required: true,
-            metaData: {}
-          },
-          children: []
         }
       ]
     },

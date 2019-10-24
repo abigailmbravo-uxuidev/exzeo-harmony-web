@@ -54,7 +54,6 @@ export const ROUTES_NOT_HANDLED_BY_GANDALF = ['error', 'thankYou'];
 export const ROUTES_NOT_USING_FOOTER = [
   'share',
   'assumptions',
-  'policyholder',
   'additionalInterests',
   'askMortgagee',
   'askAdditionalInterest',

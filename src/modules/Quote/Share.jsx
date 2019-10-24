@@ -37,7 +37,7 @@ const Share = ({
   }
 
   const { skipNext } = extendedProperties;
-
+  console.log(skipNext);
   const handleClick = skipNext
     ? () => goToStep(STEP_NAMES.policyholder, true)
     : () => handleSubmit({ noSubmit: true });
