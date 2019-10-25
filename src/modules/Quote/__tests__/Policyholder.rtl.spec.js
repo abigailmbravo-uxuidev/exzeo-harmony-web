@@ -103,7 +103,7 @@ const pageHeaders = [
 describe('Testing QuoteWorkflow Policyholder Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    setPolicySearch: () => {}
+    location: { pathname: '/quote/12-345-67/policyholder' }
   };
 
   const toggleSecondUser = (dir = 'on') => {

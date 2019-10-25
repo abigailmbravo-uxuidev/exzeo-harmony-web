@@ -308,7 +308,7 @@ describe('Verify Testing', () => {
   });
 
   it('POS:Quote Details', () => {
-    const { getByText } = renderWithReduxAndRouter(
+    const { getByText, getAllByText } = renderWithReduxAndRouter(
       <QuoteWorkflow {...props} />
     );
     const sectionData = [
@@ -328,10 +328,12 @@ describe('Verify Testing', () => {
       { label: 'Sinkhole Deductible', value: '$ 31,400' }
     ];
     // Check each field in order
-    getByText('Quote Details').nextSibling.childNodes.forEach((node, i) => {
-      expect(node).toHaveTextContent(sectionData[i].label);
-      expect(node).toHaveTextContent(sectionData[i].value);
-    });
+    getAllByText('Quote Details')[1].nextSibling.childNodes.forEach(
+      (node, i) => {
+        expect(node).toHaveTextContent(sectionData[i].label);
+        expect(node).toHaveTextContent(sectionData[i].value);
+      }
+    );
   });
 
   it('POS:Policyholder Details Text', () => {

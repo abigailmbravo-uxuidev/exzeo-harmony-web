@@ -59,7 +59,7 @@ const detailsFields = [
 const pageHeaders = [
   {
     dataTest: 'Quote Details',
-    text: 'Primary Policyholder',
+    text: 'Quote Details',
     icon: 'fa fa-user-circle'
   }
 ];
@@ -132,7 +132,7 @@ describe('Testing QuoteWorkflow Quote Details Page', () => {
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
-  it('POS:Primary / Secondary Policyholder Label / Text', () => {
+  it('POS:Header Label / Text', () => {
     const { getByTestId } = renderWithReduxAndRouter(
       <QuoteWorkflow {...props} />
     );
