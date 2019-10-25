@@ -24,29 +24,13 @@ export const navigateThroughSearchAddress = ({
     .click()
     .wait('@fetchAddresses');
 
-export const navigateThroughPolicyholder = ({
+export const navigateThroughPolicyDetails = ({
   customerInfo = userHO3.customerInfo,
-  secondCustomerInfo = userHO3.secondCustomerInfo,
   agentCode = userHO3.agentCode
 } = {}) =>
   cy
-    .task('log', 'Navigating through Policyholder')
+    .task('log', 'Navigating through Policy Details')
     .wrap(Object.entries(customerInfo))
-    .each(([field, value]) =>
-      cy
-        .findDataTag(field)
-        .find('input')
-        .type(`{selectall}{backspace}${value}`)
-    )
-    // If the additional policyholder toggle is off, turn it on.
-    .findDataTag('additionalPolicyholder')
-    .then(
-      $div =>
-        (!$div.attr('data-value') || $div.attr('data-value') === 'false') &&
-        cy.wrap($div).click()
-    )
-    // Add the secondary policyholder data.
-    .wrap(Object.entries(secondCustomerInfo))
     .each(([field, value]) =>
       cy
         .findDataTag(field)
@@ -92,6 +76,49 @@ export const navigateThroughAssumptions = () =>
     .findDataTag('confirm-assumptions')
     .click()
     .clickSubmit('#QuoteWorkflow');
+
+export const navigateThroughPolicyholder = ({
+  customerInfo = userHO3.customerInfo,
+  secondCustomerInfo = userHO3.secondCustomerInfo,
+  agentCode = userHO3.agentCode
+} = {}) =>
+  cy
+    .task('log', 'Navigating through Policyholder')
+    .wrap(Object.entries(customerInfo))
+    .each(([field, value]) =>
+      cy
+        .findDataTag(field)
+        .find('input')
+        .type(`{selectall}{backspace}${value}`)
+    )
+    // If the additional policyholder toggle is off, turn it on.
+    .findDataTag('additionalPolicyholder')
+    .then(
+      $div =>
+        (!$div.attr('data-value') || $div.attr('data-value') === 'false') &&
+        cy.wrap($div).click()
+    )
+    // Add the secondary policyholder data.
+    .wrap(Object.entries(secondCustomerInfo))
+    .each(([field, value]) =>
+      cy
+        .findDataTag(field)
+        .find('input')
+        .type(`{selectall}{backspace}${value}`)
+    )
+    // Select agent.
+    .findDataTag('agentCode')
+    .select(agentCode)
+    // Submit.
+    .clickSubmit('#QuoteWorkflow')
+    .wait('@updateQuote')
+    // We expect to have two policyholders in the response.
+    .then(({ response }) =>
+      expect(
+        response.body.result.policyHolders.length,
+        'Policyholders in response'
+      ).to.equal(2)
+    );
 
 export const navigateThroughAdditionalInterests = () =>
   cy

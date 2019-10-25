@@ -2,11 +2,12 @@ import {
   setRouteAliases,
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughPolicyholder,
+  navigateThroughPolicyDetails,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
   navigateThroughAssumptions,
+  navigateThroughPolicyholder,
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
   navigateThroughScheduleDate,
@@ -58,31 +59,32 @@ describe('Back Button Testing', () => {
   it('Browser Back Button pt 2', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     cy.go('back')
       .get('div.dashboard-message')
       .should('exist');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     getQuoteNumberAndRetrieve('Application Ready');
@@ -91,11 +93,12 @@ describe('Back Button Testing', () => {
   it('Browser back button pt 3', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
@@ -103,11 +106,12 @@ describe('Back Button Testing', () => {
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();

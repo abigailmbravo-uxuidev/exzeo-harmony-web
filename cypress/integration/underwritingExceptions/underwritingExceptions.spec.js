@@ -2,11 +2,12 @@ import {
   setRouteAliases,
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughPolicyholder,
+  navigateThroughPolicyDetails,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
   navigateThroughAssumptions,
+  navigateThroughPolicyholder,
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling
 } from '../../helpers';
@@ -18,7 +19,7 @@ describe('Underwriting Error Testing', () => {
     setRouteAliases();
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
   });
 
   it('Underwriting Error', () => {
@@ -45,6 +46,7 @@ describe('Underwriting Error Testing', () => {
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     // On mailing billing, we stub the post request.
     cy.route('POST', '/svc?quoteManager.updateQuote', {
