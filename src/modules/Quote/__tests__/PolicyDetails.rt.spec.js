@@ -60,7 +60,7 @@ const pageHeaders = [
   {
     dataTest: 'Policy Details',
     text: 'Policy Details',
-    icon: 'fa fa-user-circle'
+    icon: 'fa fa-file-text'
   }
 ];
 
