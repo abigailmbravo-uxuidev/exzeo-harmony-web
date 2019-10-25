@@ -72,8 +72,8 @@ export const ROUTES_NOT_USING_FOOTER = [
 export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   {
     key: '1',
-    iconId: 'fa fa-vcard',
-    label: 'Quote Details',
+    iconId: 'fa fa-file-text',
+    label: 'Policy Details',
     className: getClassName(STEP_NAMES.askAdditionalCustomerData),
     handleClick: () => goToStep(STEP_NAMES.askAdditionalCustomerData),
     onKeyPress: e => onKeyPress(STEP_NAMES.askAdditionalCustomerData, e)
@@ -104,7 +104,7 @@ export const getNavLinks = ({ goToStep, getClassName, onKeyPress }) => [
   },
   {
     key: '5',
-    iconId: 'fa fa-share-alt',
+    iconId: 'fa fa-vcard',
     label: 'Policyholder',
     className: getClassName(STEP_NAMES.policyholder),
     handleClick: () => goToStep(STEP_NAMES.policyholder),

@@ -29,8 +29,8 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            text: 'Quote Details',
-            icon: 'fa fa-user-circle'
+            text: 'Policy Details',
+            icon: 'fa fa-file-text'
           },
           formData: {},
           children: []
