@@ -156,7 +156,7 @@ function formatQuoteForSubmit(data, options) {
 
   // PolicyHolder logic -------------------------------------------------------
   // TODO this logic can be moved to its own component which will handle adding/removing policyholder info based on the additionalPolicyholder toggle
-  if (options.step === 0 || options.step === 7) {
+  if (options.step === 0 || options.step === 5 || options.step === 7) {
     quote.policyHolders[0].electronicDelivery =
       data.policyHolders[0].electronicDelivery || false;
     quote.policyHolders[0].order = data.policyHolders[0].order || 0;

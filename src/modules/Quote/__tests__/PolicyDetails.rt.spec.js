@@ -58,13 +58,13 @@ const detailsFields = [
 
 const pageHeaders = [
   {
-    dataTest: 'Quote Details',
-    text: 'Quote Details',
+    dataTest: 'Policy Details',
+    text: 'Policy Details',
     icon: 'fa fa-user-circle'
   }
 ];
 
-describe('Testing QuoteWorkflow Quote Details Page', () => {
+describe('Testing QuoteWorkflow Policy Details Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
     setPolicySearch: () => {}
@@ -128,7 +128,7 @@ describe('Testing QuoteWorkflow Quote Details Page', () => {
     const { getByTestId } = renderWithReduxAndRouter(
       <QuoteWorkflow {...props} />
     );
-    getByTestId('Quote Details');
+    getByTestId('Policy Details');
     pageHeaders.forEach(header => checkHeader(getByTestId, header));
   });
 
@@ -143,7 +143,7 @@ describe('Testing QuoteWorkflow Quote Details Page', () => {
     });
   });
 
-  it('POS:Policy Details Text', () => {
+  it('POS:Details Text', () => {
     const newProps = {
       ...props,
       options: {
