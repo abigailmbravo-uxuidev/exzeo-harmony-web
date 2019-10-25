@@ -1,5 +1,6 @@
 export { default as additionalInterestTest } from './additionalInterestTest';
 export { default as customizeTest } from './customizeTest';
+export { default as policyDetailsTest } from './policyDetailsTest';
 export { default as policyholderTest } from './policyholderTest';
 export { default as mailingBillingTest } from './mailingBillingTest';
 export { default as shareTest } from './shareTest';

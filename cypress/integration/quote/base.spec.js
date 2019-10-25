@@ -16,6 +16,7 @@ import {
   navigateThroughThankYou
 } from '../../helpers';
 import {
+  policyDetailsTest,
   policyholderTest,
   underwritingTest,
   customizeTest,
@@ -32,7 +33,7 @@ describe('Agency Happy Path', () => {
   it('Navigates through the HO3 quote workflow', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    policyholderTest();
+    policyDetailsTest();
     navigateThroughPolicyDetails();
 
     underwritingTest();
@@ -42,8 +43,8 @@ describe('Agency Happy Path', () => {
 
     shareTest();
     navigateThroughShare();
-    navigateThroughPolicyholder();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     additionalInterestTest();
     navigateThroughAdditionalInterests();
 
@@ -87,7 +88,7 @@ describe('AF3 Happy Path', () => {
   it('Navigates through the AF3 quote workflow', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress(userAF3);
-    policyholderTest('AF3');
+    policyDetailsTest('AF3');
     navigateThroughPolicyDetails(userAF3);
     underwritingTest('AF3');
     navigateThroughUnderwriting(underwritingAF3);

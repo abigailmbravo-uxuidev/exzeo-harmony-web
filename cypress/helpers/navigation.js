@@ -25,12 +25,12 @@ export const navigateThroughSearchAddress = ({
     .wait('@fetchAddresses');
 
 export const navigateThroughPolicyDetails = ({
-  customerInfo = userHO3.customerInfo,
+  policyDetails = userHO3.policyDetails,
   agentCode = userHO3.agentCode
 } = {}) =>
   cy
     .task('log', 'Navigating through Policy Details')
-    .wrap(Object.entries(customerInfo))
+    .wrap(Object.entries(policyDetails))
     .each(([field, value]) =>
       cy
         .findDataTag(field)
@@ -48,7 +48,7 @@ export const navigateThroughPolicyDetails = ({
       expect(
         response.body.result.policyHolders.length,
         'Policyholders in response'
-      ).to.equal(2)
+      ).to.equal(1)
     );
 
 export const navigateThroughUnderwriting = (data = underwritingHO3) =>
@@ -79,8 +79,7 @@ export const navigateThroughAssumptions = () =>
 
 export const navigateThroughPolicyholder = ({
   customerInfo = userHO3.customerInfo,
-  secondCustomerInfo = userHO3.secondCustomerInfo,
-  agentCode = userHO3.agentCode
+  secondCustomerInfo = userHO3.secondCustomerInfo
 } = {}) =>
   cy
     .task('log', 'Navigating through Policyholder')
@@ -106,9 +105,6 @@ export const navigateThroughPolicyholder = ({
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     )
-    // Select agent.
-    .findDataTag('agentCode')
-    .select(agentCode)
     // Submit.
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')

@@ -25,7 +25,7 @@ describe('Workflow Testing', () => {
     navigateThroughPolicyDetails();
     cy.findDataTag('tab-nav-1')
       .click()
-      .findDataTag('Primary Policyholder')
+      .findDataTag('Policy Details')
       .should('exist')
       .clickSubmit();
 
@@ -53,14 +53,14 @@ describe('Workflow Testing', () => {
     navigateThroughAssumptions();
 
     navigateThroughPolicyholder();
-    cy.findDataTag('tab-nav-1')
+    cy.findDataTag('tab-nav-5')
       .click()
       .findDataTag('Primary Policyholder')
       .should('exist')
       .clickSubmit();
 
     navigateThroughAdditionalInterests();
-    cy.findDataTag('tab-nav-5')
+    cy.findDataTag('tab-nav-6')
       .click()
       .get('p')
       .contains(
@@ -70,7 +70,7 @@ describe('Workflow Testing', () => {
       .clickSubmit();
 
     navigateThroughMailingBilling();
-    cy.findDataTag('tab-nav-6')
+    cy.findDataTag('tab-nav-7')
       .click()
       .findDataTag('Mailing Address')
       .should('exist')
