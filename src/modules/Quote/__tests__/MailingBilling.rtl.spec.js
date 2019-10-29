@@ -51,7 +51,7 @@ const fields = [
     label: 'State',
     type: 'text',
     required: true,
-    value: 'fl'
+    value: 'FL'
   },
   {
     dataTest: 'policyHolderMailingAddress.zip',
@@ -165,7 +165,7 @@ describe('Testing the Mailing/Billing Page', () => {
       {
         ...zip,
         value: '123456789',
-        error: 'Only 8 letters or numbers allowed'
+        error: 'Only 5 numbers allowed'
       }
     ]);
   });
