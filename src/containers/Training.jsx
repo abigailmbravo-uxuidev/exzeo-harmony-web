@@ -69,7 +69,7 @@ export const externalLinks = [
     productIcon: 'home',
     title: 'Coverage C Rejection Form',
     description:
-      'Form required to reject Coverage C (0% Contents Coverage). All insured’s signatures required. ',
+      'Form required to reject Coverage C (0% Contents Coverage). All insured’s signatures required.',
     linkIcon: 'pdf'
   }
 ];
