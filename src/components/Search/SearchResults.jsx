@@ -199,7 +199,7 @@ export const SearchResults = props => {
                     </span>
                     <span className="started-on">
                       <label>Started</label>
-                      {date.formattedLocalDate(quote.createdAt)}
+                      {date.formattedLocalDate(quote.createdAt, 'MM/DD/YYYY')}
                     </span>
                     <span className="premium">
                       <strong>
