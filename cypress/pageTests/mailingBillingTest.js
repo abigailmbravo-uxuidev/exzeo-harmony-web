@@ -74,7 +74,7 @@ const checkBillingOption = (numOfOptions = 1, selected = true) =>
     .find('option:not([disabled])')
     .should('have.length', numOfOptions);
 
-const goToAiPage = () => cy.findDataTag('tab-nav-5').click();
+const goToAiPage = () => cy.findDataTag('tab-nav-6').click();
 
 export default (product = 'HO3') => {
   cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>

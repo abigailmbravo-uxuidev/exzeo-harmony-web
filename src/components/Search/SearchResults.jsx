@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { Loader } from '@exzeo/core-ui';
+import { date, Loader } from '@exzeo/core-ui';
 
 import * as appStateActions from '../../state/actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
@@ -80,7 +79,7 @@ export const SearchResults = props => {
                     <div className="sub-detail-wrapper">
                       <span className="effective-date">
                         <label>Effective</label>
-                        {moment.utc(policy.effectiveDate).format('MM/DD/YYYY')}
+                        {date.formatDate(policy.effectiveDate)}
                       </span>
                     </div>
                   </div>
@@ -196,11 +195,11 @@ export const SearchResults = props => {
                   <div className="sub-detail-wrapper">
                     <span className="effective-date">
                       <label>Effective</label>
-                      {moment.utc(quote.effectiveDate).format('MM/DD/YYYY')}
+                      {date.formatDate(quote.effectiveDate)}
                     </span>
                     <span className="started-on">
                       <label>Started</label>
-                      {moment.utc(quote.createdAt).format('MM/DD/YYYY')}
+                      {date.formattedLocalDate(quote.createdAt, 'MM/DD/YYYY')}
                     </span>
                     <span className="premium">
                       <strong>
