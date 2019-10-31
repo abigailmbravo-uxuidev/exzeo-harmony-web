@@ -490,11 +490,6 @@ describe('Testing Additional Interests', () => {
       checkTextInput(getByTestId, field);
     });
     checkLabel(getByTestId, { dataTest: 'mortgage', label: 'Top Mortgagees' });
-    checkSelect(getByTestId, {
-      dataTest: 'order',
-      type: 'select',
-      values: [{ value: '0', label: 'First Mortgagee' }]
-    });
   });
 
   it('POS:Additional Insured Testing', () => {

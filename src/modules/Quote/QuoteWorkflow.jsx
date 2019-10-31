@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { defaultMemoize } from 'reselect';
 import {
+  TriggerRecalc,
   Gandalf,
   getConfigForJsonTransform
 } from '@exzeo/core-ui/src/@Harmony';
@@ -36,7 +37,6 @@ import Warning from './Warning';
 
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
-import TriggerRecalc from './TriggerRecalc';
 import { UW_EXCEPTION_QUOTE_STATES } from './constants/quote';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
@@ -46,11 +46,6 @@ const getCurrentStepAndPage = defaultMemoize(pathname => {
     currentRouteName
   };
 });
-
-// Thin memoized wrapper around FormSpys to keep them from needlessly re-rendering.
-const MemoizedFormListeners = React.memo(({ children }) => (
-  <React.Fragment>{children}</React.Fragment>
-));
 
 const TEMPLATES = {
   AF3: AF3,
@@ -238,11 +233,11 @@ export class QuoteWorkflow extends Component {
   };
 
   // ============= v NOT used by Gandalf v ============= //
-  handleUpdateQuote = async ({ data, quoteNumber }) => {
-    const { updateQuote } = this.props;
-    const quote = await updateQuote({ data, quoteNumber });
-    return quote;
-  };
+  // handleUpdateQuote = async ({ data, quoteNumber }) => {
+  //   const { updateQuote } = this.props;
+  //   const quote = await updateQuote({ data, quoteNumber });
+  //   return quote;
+  // };
 
   // ============= ^ NOT used by Gandalf ^ ============= //
 
@@ -278,7 +273,7 @@ export class QuoteWorkflow extends Component {
       getState: this.getLocalState,
       handleSubmit: this.handleGandalfSubmit,
       history: history,
-      updateQuote: this.handleUpdateQuote,
+      // updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
       getQuote
     };
@@ -324,7 +319,7 @@ export class QuoteWorkflow extends Component {
               quote={quoteData}
             />
           )}
-          {/*{ Gandalf will be replacing most/all of these routes }*/}
+
           {shouldUseGandalf && (
             <React.Fragment>
               <Gandalf
@@ -339,32 +334,40 @@ export class QuoteWorkflow extends Component {
                 path={location.pathname}
                 template={gandalfTemplate}
                 transformConfig={transformConfig}
-                renderFooter={({ submitting, form }) => (
-                  <React.Fragment>
-                    {shouldRenderFooter && (
-                      <div className="btn-group">
-                        <Button
-                          data-test="submit"
-                          className={Button.constants.classNames.primary}
-                          onClick={this.primaryClickHandler}
-                          disabled={submitting || needsConfirmation}
-                          label={this.state.isRecalc ? 'recalculate' : 'next'}
-                        />
+                renderFooter={
+                  <FormSpy subscription={{ submitting: true }}>
+                    {({ submitting, form }) => (
+                      <React.Fragment>
+                        {shouldRenderFooter && (
+                          <div className="btn-group">
+                            <Button
+                              data-test="submit"
+                              className={Button.constants.classNames.primary}
+                              onClick={this.primaryClickHandler}
+                              disabled={submitting || needsConfirmation}
+                              label={
+                                this.state.isRecalc ? 'recalculate' : 'next'
+                              }
+                            />
 
-                        {this.state.isRecalc && (
-                          <Button
-                            data-test="reset"
-                            className={Button.constants.classNames.secondary}
-                            onClick={form.reset}
-                            label="reset"
-                          />
+                            {this.state.isRecalc && (
+                              <Button
+                                data-test="reset"
+                                className={
+                                  Button.constants.classNames.secondary
+                                }
+                                onClick={form.reset}
+                                label="reset"
+                              />
+                            )}
+                          </div>
                         )}
-                      </div>
+                      </React.Fragment>
                     )}
-                  </React.Fragment>
-                )}
-                formListeners={() => (
-                  <MemoizedFormListeners>
+                  </FormSpy>
+                }
+                formListeners={
+                  <React.Fragment>
                     <FormSpy subscription={{}}>
                       {({ form }) => {
                         this.setFormInstance(form);
@@ -377,13 +380,14 @@ export class QuoteWorkflow extends Component {
                         <TriggerRecalc
                           dirty={dirty}
                           isRecalc={isRecalc}
-                          currentPage={currentStepNumber}
+                          workflowPage={currentStepNumber}
+                          recalcPage={2}
                           setRecalc={this.setRecalc}
                         />
                       )}
                     </FormSpy>
-                  </MemoizedFormListeners>
-                )}
+                  </React.Fragment>
+                }
               />
 
               <Footer />
