@@ -44,7 +44,6 @@ export default (product = 'HO3') =>
     // Add and remove an additional interest
     .findDataTag('mortgagee')
     .click()
-    .wait(1000)
     .chooseReactSelectOption('mortgage_wrapper', 'bank of america')
     .findDataTag('name1')
     .should('have.attr', 'value', 'BANK OF AMERICA, NA')
