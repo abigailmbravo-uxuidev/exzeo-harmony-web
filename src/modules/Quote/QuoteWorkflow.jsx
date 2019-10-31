@@ -232,15 +232,6 @@ export class QuoteWorkflow extends Component {
     this.setState(() => ({ showSendApplicationPopup }));
   };
 
-  // ============= v NOT used by Gandalf v ============= //
-  // handleUpdateQuote = async ({ data, quoteNumber }) => {
-  //   const { updateQuote } = this.props;
-  //   const quote = await updateQuote({ data, quoteNumber });
-  //   return quote;
-  // };
-
-  // ============= ^ NOT used by Gandalf ^ ============= //
-
   render() {
     const {
       auth,
@@ -273,7 +264,6 @@ export class QuoteWorkflow extends Component {
       getState: this.getLocalState,
       handleSubmit: this.handleGandalfSubmit,
       history: history,
-      // updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
       getQuote
     };
