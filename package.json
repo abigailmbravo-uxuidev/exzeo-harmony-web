@@ -12,7 +12,7 @@
     "cypress": "react-scripts cypress"
   },
   "dependencies": {
-    "@exzeo/core-ui": "0.0.0-b7bc555",
+    "@exzeo/core-ui": "0.9.1-beta",
     "@exzeo/react-scripts": "2.3.0",
     "auth0-js": "~8.10.1",
     "classnames": "~2.2.5",
