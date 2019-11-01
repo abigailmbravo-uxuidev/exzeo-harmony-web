@@ -76,7 +76,7 @@ Cypress.Commands.add('clearAllText', fields =>
 Cypress.Commands.add('chooseReactSelectOption', (tag, searchTerm) =>
   cy
     .findDataTag(tag)
-    .find('input:not([type="hidden"])')
+    .find('input[type="text"]')
     .type(searchTerm, { force: true })
     .get('div.react-select__option')
     .then($arr => cy.wrap($arr[0]).click())
