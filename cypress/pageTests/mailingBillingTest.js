@@ -46,7 +46,7 @@ const addMortgagee = () =>
     .should('exist')
     .chooseReactSelectOption(
       'mortgage_wrapper',
-      "america's servicing",
+      'bank of america',
       'input#mortgagee-search'
     )
     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
@@ -98,18 +98,53 @@ export default (product = 'HO3') => {
     cy.checkDetailHeader(header)
   );
   goToAiPage().then(() => {
-    addMortgagee();
+    cy.findDataTag('mortgagee')
+      .click()
+      .findDataTag('modal')
+      .should('exist')
+      .chooseReactSelectOption(
+        'mortgage_wrapper',
+        'bank of america',
+        'input#mortgagee-search'
+      )
+      .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
+      .wait('@updateQuote')
+      .then(() => {
+        navigateThroughAdditionalInterests();
+        checkBillingOption(2, false);
+      });
   });
-  navigateThroughAdditionalInterests();
-  checkBillingOption(2, false);
+
   goToAiPage().then(() => {
-    addPremiumFinance();
+    cy.findDataTag('premiumFinance')
+      .click()
+      .findDataTag('modal')
+      .should('exist')
+      .chooseReactSelectOption(
+        'premiumFinance_wrapper',
+        'p1 finance company',
+        'input#premium-finance-search'
+      )
+      .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
+      .wait('@updateQuote')
+      .then(() => {
+        navigateThroughAdditionalInterests();
+        checkBillingOption(1);
+      });
   });
-  navigateThroughAdditionalInterests();
-  checkBillingOption(1);
+
   goToAiPage().then(() => {
-    deleteAllAis();
+    cy.get('a.remove i.delete').each(() =>
+      cy
+        .get('a.remove i.delete')
+        .eq(0)
+        .click()
+        .clickSubmit('.ai-modal', 'modal-confirm')
+        .wait('@updateQuote')
+        .then(() => {
+          navigateThroughAdditionalInterests();
+          checkBillingOption(1);
+        })
+    );
   });
-  navigateThroughAdditionalInterests();
-  checkBillingOption(1);
 };
