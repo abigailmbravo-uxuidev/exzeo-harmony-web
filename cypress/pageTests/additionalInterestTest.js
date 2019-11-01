@@ -44,6 +44,8 @@ export default (product = 'HO3') =>
     // Add and remove an additional interest
     .findDataTag('mortgagee')
     .click()
+    .findDataTag('modal')
+    .should('exist')
     .chooseReactSelectOption(
       'mortgage_wrapper',
       'bank of america',

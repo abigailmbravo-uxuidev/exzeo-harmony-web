@@ -79,8 +79,10 @@ Cypress.Commands.add(
     cy
       .findDataTag(tag)
       .find(`${selector || 'input[type="text"]'}`)
+      .should('exist')
       .type(searchTerm, { force: true })
       .get('div.react-select__option')
+      .should('exist')
       .then($arr => cy.wrap($arr[0]).click())
 );
 

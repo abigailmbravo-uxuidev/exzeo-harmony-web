@@ -42,6 +42,8 @@ const addMortgagee = () =>
   cy
     .findDataTag('mortgagee')
     .click()
+    .findDataTag('modal')
+    .should('exist')
     .chooseReactSelectOption(
       'mortgage_wrapper',
       "america's servicing",
@@ -54,6 +56,8 @@ const addPremiumFinance = () =>
   cy
     .findDataTag('premiumFinance')
     .click()
+    .findDataTag('modal')
+    .should('exist')
     .chooseReactSelectOption(
       'premiumFinance_wrapper',
       'p1 finance company',
@@ -82,22 +86,30 @@ const checkBillingOption = (numOfOptions = 1, selected = true) =>
     .find('option:not([disabled])')
     .should('have.length', numOfOptions);
 
-const goToAiPage = () => cy.findDataTag('tab-nav-6').click();
+const goToAiPage = () =>
+  cy
+    .findDataTag('tab-nav-6')
+    .click()
+    .get('#AddAdditionalInterestPage')
+    .should('exist');
 
 export default (product = 'HO3') => {
   cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
     cy.checkDetailHeader(header)
   );
-  goToAiPage();
-  addMortgagee();
+  goToAiPage().then(() => {
+    addMortgagee();
+  });
   navigateThroughAdditionalInterests();
   checkBillingOption(2, false);
-  goToAiPage();
-  addPremiumFinance();
+  goToAiPage().then(() => {
+    addPremiumFinance();
+  });
   navigateThroughAdditionalInterests();
   checkBillingOption(1);
-  goToAiPage();
-  deleteAllAis();
+  goToAiPage().then(() => {
+    deleteAllAis();
+  });
   navigateThroughAdditionalInterests();
   checkBillingOption(1);
 };

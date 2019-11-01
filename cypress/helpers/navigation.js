@@ -119,13 +119,13 @@ export const navigateThroughPolicyholder = ({
 export const navigateThroughAdditionalInterests = () =>
   cy
     .task('log', 'Navigating through Additional Interests')
+    .wait('@getQuestions')
     .clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughMailingBilling = () =>
   cy
     .task('log', 'Navigating through Mailing Billing')
     .wait('@getBillingOptions')
-    .wait(500)
     .findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then(
