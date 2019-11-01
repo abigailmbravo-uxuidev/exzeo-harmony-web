@@ -44,7 +44,11 @@ export default (product = 'HO3') =>
     // Add and remove an additional interest
     .findDataTag('mortgagee')
     .click()
-    .chooseReactSelectOption('mortgage_wrapper', 'bank of america')
+    .chooseReactSelectOption(
+      'mortgage_wrapper',
+      'bank of america',
+      'input#mortgagee-search'
+    )
     .findDataTag('name1')
     .should('have.attr', 'value', 'BANK OF AMERICA, NA')
     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')

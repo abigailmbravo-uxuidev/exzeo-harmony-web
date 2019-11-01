@@ -42,7 +42,11 @@ const addMortgagee = () =>
   cy
     .findDataTag('mortgagee')
     .click()
-    .chooseReactSelectOption('mortgage_wrapper', "america's servicing")
+    .chooseReactSelectOption(
+      'mortgage_wrapper',
+      "america's servicing",
+      'input#mortgagee-search'
+    )
     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
     .wait('@updateQuote');
 
@@ -50,7 +54,11 @@ const addPremiumFinance = () =>
   cy
     .findDataTag('premiumFinance')
     .click()
-    .chooseReactSelectOption('premiumFinance_wrapper', 'p1 finance company')
+    .chooseReactSelectOption(
+      'premiumFinance_wrapper',
+      'p1 finance company',
+      'input#premium-finance-search'
+    )
     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
     .wait('@updateQuote');
 

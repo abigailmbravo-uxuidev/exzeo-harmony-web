@@ -73,13 +73,15 @@ Cypress.Commands.add('clearAllText', fields =>
  * @param {string} tag - Name of the data test tag wrapping the select
  * @param {number} searchTerm - The term to search for.
  */
-Cypress.Commands.add('chooseReactSelectOption', (tag, searchTerm) =>
-  cy
-    .findDataTag(tag)
-    .find('input[type="text"]')
-    .type(searchTerm, { force: true })
-    .get('div.react-select__option')
-    .then($arr => cy.wrap($arr[0]).click())
+Cypress.Commands.add(
+  'chooseReactSelectOption',
+  (tag, searchTerm, selector = '') =>
+    cy
+      .findDataTag(tag)
+      .find(`${selector || 'input[type="text"]'}`)
+      .type(searchTerm, { force: true })
+      .get('div.react-select__option')
+      .then($arr => cy.wrap($arr[0]).click())
 );
 
 /**
