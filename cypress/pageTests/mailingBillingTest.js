@@ -38,44 +38,51 @@ const af3Headers = [
   { name: 'premium', label: 'Premium', value: '$ 312' }
 ];
 
-const addMortgagee = () =>
-  cy
-    .findDataTag('mortgagee')
-    .click()
-    .findDataTag('modal')
-    .should('exist')
-    .chooseReactSelectOption(
-      'mortgage_wrapper',
-      'bank of america',
-      'input#mortgagee-search'
-    )
-    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-    .wait('@updateQuote');
-
-const addPremiumFinance = () =>
-  cy
-    .findDataTag('premiumFinance')
-    .click()
-    .findDataTag('modal')
-    .should('exist')
-    .chooseReactSelectOption(
-      'premiumFinance_wrapper',
-      'p1 finance company',
-      'input#premium-finance-search'
-    )
-    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-    .wait('@updateQuote');
-
-const deleteAllAis = () =>
-  // Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
-  cy.get('a.remove i.delete').each(() =>
-    cy
-      .get('a.remove i.delete')
-      .eq(0)
-      .click()
-      .clickSubmit('.ai-modal', 'modal-confirm')
-      .wait('@updateQuote')
-  );
+// const goToAiPage = () =>
+//   cy
+//     .findDataTag('tab-nav-6')
+//     .click()
+//     .get('#AddAdditionalInterestPage')
+//     .should('exist');
+//
+// const addMortgagee = () =>
+//   cy
+//     .findDataTag('mortgagee')
+//     .click()
+//     .findDataTag('modal')
+//     .should('exist')
+//     .chooseReactSelectOption(
+//       'mortgage_wrapper',
+//       'bank of america',
+//       'input#mortgagee-search'
+//     )
+//     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
+//     .wait('@updateQuote');
+//
+// const addPremiumFinance = () =>
+//   cy
+//     .findDataTag('premiumFinance')
+//     .click()
+//     .findDataTag('modal')
+//     .should('exist')
+//     .chooseReactSelectOption(
+//       'premiumFinance_wrapper',
+//       'p1 finance company',
+//       'input#premium-finance-search'
+//     )
+//     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
+//     .wait('@updateQuote');
+//
+// const deleteAllAis = () =>
+//   // Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
+//   cy.get('a.remove i.delete').each(() =>
+//     cy
+//       .get('a.remove i.delete')
+//       .eq(0)
+//       .click()
+//       .clickSubmit('.ai-modal', 'modal-confirm')
+//       .wait('@updateQuote')
+//   );
 
 const checkBillingOption = (numOfOptions = 1, selected = true) =>
   cy
@@ -86,65 +93,64 @@ const checkBillingOption = (numOfOptions = 1, selected = true) =>
     .find('option:not([disabled])')
     .should('have.length', numOfOptions);
 
-const goToAiPage = () =>
-  cy
-    .findDataTag('tab-nav-6')
-    .click()
-    .get('#AddAdditionalInterestPage')
-    .should('exist');
-
 export default (product = 'HO3') => {
-  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
-    cy.checkDetailHeader(header)
-  );
-  goToAiPage().then(() => {
-    cy.findDataTag('mortgagee')
-      .click()
-      .findDataTag('modal')
-      .should('exist')
-      .chooseReactSelectOption(
-        'mortgage_wrapper',
-        'bank of america',
-        'input#mortgagee-search'
-      )
-      .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-      .wait('@updateQuote')
-      .then(() => {
-        navigateThroughAdditionalInterests();
-        checkBillingOption(2, false);
-      });
-  });
+  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers)
+    .each(header => cy.checkDetailHeader(header))
+    .findDataTag('billToId')
+    .invoke('attr', 'data-selected')
+    .should('not.eq', '')
+    .findDataTag('billToId')
+    .find('option:not([disabled])')
+    .should('have.length', 1);
+  // checkBillingOption(1);
+  // goToAiPage().then(() => {
+  //   cy.findDataTag('mortgagee')
+  //     .click()
+  //     .findDataTag('modal')
+  //     .should('exist')
+  //     .chooseReactSelectOption(
+  //       'mortgage_wrapper',
+  //       'bank of america',
+  //       'input#mortgagee-search'
+  //     )
+  //     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
+  //     .wait('@updateQuote')
+  //     .then(() => {
+  //       navigateThroughAdditionalInterests();
+  //       checkBillingOption(2, false);
+  //     });
+  // });
 
-  goToAiPage().then(() => {
-    cy.findDataTag('premiumFinance')
-      .click()
-      .findDataTag('modal')
-      .should('exist')
-      .chooseReactSelectOption(
-        'premiumFinance_wrapper',
-        'p1 finance company',
-        'input#premium-finance-search'
-      )
-      .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-      .wait('@updateQuote')
-      .then(() => {
-        navigateThroughAdditionalInterests();
-        checkBillingOption(1);
-      });
-  });
+  // goToAiPage().then(() => {
+  //   cy.findDataTag('premiumFinance')
+  //     .click()
+  //     .findDataTag('modal')
+  //     .should('exist')
+  //     .chooseReactSelectOption(
+  //       'premiumFinance_wrapper',
+  //       'p1 finance company',
+  //       'input#premium-finance-search'
+  //     )
+  //     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
+  //     .wait('@updateQuote')
+  //     .then(() => {
+  //       navigateThroughAdditionalInterests();
+  //       checkBillingOption(1);
+  //     });
+  // });
 
-  goToAiPage().then(() => {
-    cy.get('a.remove i.delete').each(() =>
-      cy
-        .get('a.remove i.delete')
-        .eq(0)
-        .click()
-        .clickSubmit('.ai-modal', 'modal-confirm')
-        .wait('@updateQuote')
-        .then(() => {
-          navigateThroughAdditionalInterests();
-          checkBillingOption(1);
-        })
-    );
-  });
+  // goToAiPage().then(() => {
+  //   cy.get('a.remove i.delete').each(() =>
+  //     cy
+  //       .get('a.remove i.delete')
+  //       .eq(0)
+  //       .click()
+  //       .clickSubmit('.ai-modal', 'modal-confirm')
+  //       .wait('@updateQuote')
+  //       .then(() => {
+  //         navigateThroughAdditionalInterests();
+  //         checkBillingOption(1);
+  //       })
+  //   );
+  // });
 };
