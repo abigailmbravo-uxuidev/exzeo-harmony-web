@@ -95,7 +95,8 @@ const checkBillingOption = (numOfOptions = 1, selected = true) =>
     .should('have.length', numOfOptions);
 
 export default (product = 'HO3') => {
-  cy.findDataTag('billToId')
+  cy.task('log', 'Test Mailing Billing Page')
+    .findDataTag('billToId')
     .invoke('attr', 'data-selected')
     .should('not.eq', '')
     .findDataTag('billToId')

@@ -38,6 +38,7 @@ const af3Headers = [
 
 export default (product = 'HO3') =>
   cy
+    .task('log', 'Test Additional Interest Page')
     // Add and remove an additional interest
     .findDataTag('mortgagee')
     .click()

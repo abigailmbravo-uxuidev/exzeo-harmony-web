@@ -120,7 +120,7 @@ export const navigateThroughAdditionalInterests = () =>
     .task('log', 'Navigating through Additional Interests')
     .wait('@getQuestions')
     .then(({ response }) => {
-      expect(response.body.data.length).to.equal(3);
+      expect(response.body.data.length, 'AI enums request').to.equal(3);
     })
     .clickSubmit('#QuoteWorkflow');
 
