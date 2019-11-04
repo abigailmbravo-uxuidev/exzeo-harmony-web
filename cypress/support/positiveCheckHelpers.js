@@ -134,18 +134,10 @@ Cypress.Commands.add('checkDetailHeader', ({ name, label, value }) =>
     .find('dt')
     .should('contain', label)
     .then(() => {
-      if (name === 'premium') {
-        cy.wait(3000)
-          .findDataTag(name)
-          .find('dd')
-          .eq(0)
-          .should('contain', value);
-      } else {
-        cy.findDataTag(name)
-          .find('dd')
-          .eq(0)
-          .should('contain', value);
-      }
+      cy.findDataTag(name)
+        .find('dd')
+        .eq(0)
+        .should('contain', value);
     })
 );
 

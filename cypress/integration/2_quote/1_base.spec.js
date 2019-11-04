@@ -1,4 +1,9 @@
-import { userAF3, loginAF3, underwritingAF3 } from '../../fixtures';
+import {
+  userAF3,
+  loginAF3,
+  underwritingAF3,
+  underwritingHO3
+} from '../../fixtures';
 import {
   setRouteAliases,
   navigateThroughLanding,
@@ -34,18 +39,18 @@ describe('Agency Happy Path', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
     policyDetailsTest();
-    navigateThroughPolicyDetails();
-
+    // navigateThroughPolicyDetails();
     underwritingTest();
-    navigateThroughUnderwriting();
+    // navigateThroughUnderwriting();
     customizeTest();
-    navigateThroughCustomize();
-
+    // navigateThroughCustomize();
     shareTest();
-    navigateThroughShare();
+    // navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughPolicyholder();
+
     additionalInterestTest();
+
     navigateThroughAdditionalInterests();
 
     mailingBillingTest();
@@ -89,16 +94,19 @@ describe('AF3 Happy Path', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress(userAF3);
     policyDetailsTest('AF3');
-    navigateThroughPolicyDetails(userAF3);
-    underwritingTest('AF3');
-    navigateThroughUnderwriting(underwritingAF3);
+    // navigateThroughPolicyDetails(userAF3);
+    underwritingTest('AF3', underwritingAF3);
+    // navigateThroughUnderwriting(underwritingAF3);
     // customizeTest('AF3');
     navigateThroughCustomize();
     shareTest('AF3');
-    navigateThroughShare();
+    // navigateThroughShare();
     navigateThroughPolicyholder(userAF3);
+
     additionalInterestTest('AF3');
+
     navigateThroughAdditionalInterests();
+
     mailingBillingTest('AF3');
     navigateThroughMailingBilling();
     verifyTest('AF3');

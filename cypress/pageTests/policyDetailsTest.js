@@ -40,8 +40,7 @@ const af3Headers = [
 
 export default (product = 'HO3') =>
   cy
-    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
-    .each(header => cy.checkDetailHeader(header))
+    .task('log', 'Test Policy Details Page')
     // Add all main ph fields
     .wrap(Object.entries(userHO3.policyDetails))
     .each(([field, value]) =>
@@ -53,15 +52,22 @@ export default (product = 'HO3') =>
     // Select an agent
     .findDataTag('agentCode')
     .select(userHO3.agentCode)
+    // check detail header before submit (this allows time for the 'premium' animation to finish)
+    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
+    .each(header => cy.checkDetailHeader(header))
     .clickSubmit('#QuoteWorkflow')
     // Expect that there is only one policyholder submitted
     .wait('@updateQuote')
-    .then(({ request }) =>
+    .then(({ request, response }) => {
       expect(
         request.body.data.policyHolders.length,
         'Policyholders in request'
-      ).to.equal(1)
-    )
-    // Navigate back to the page to leave app as close as we found it
-    .findDataTag('tab-nav-1')
-    .click();
+      ).to.equal(1);
+      expect(
+        response.body.result.quoteInputState,
+        'Quote Input State'
+      ).to.equal('Underwriting');
+    });
+// // Navigate back to the page to leave app as close as we found it
+// .findDataTag('tab-nav-1')
+// .click();

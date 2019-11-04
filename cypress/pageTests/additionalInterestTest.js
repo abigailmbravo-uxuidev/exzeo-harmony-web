@@ -37,10 +37,7 @@ const af3Headers = [
 ];
 
 export default (product = 'HO3') =>
-  // Check headers first
   cy
-    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
-    .each(header => cy.checkDetailHeader(header))
     // Add and remove an additional interest
     .findDataTag('mortgagee')
     .click()
@@ -53,13 +50,25 @@ export default (product = 'HO3') =>
     )
     .findDataTag('name1')
     .should('have.attr', 'value', 'BANK OF AMERICA, NA')
+    // Check header before submit
+    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
+    .each(header => cy.checkDetailHeader(header))
+
     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
     .wait('@updateQuote')
+    .then(({ request, response }) => {
+      expect(request.body.data.additionalInterests.length).to.equal(1);
+      expect(response.body.result.quoteInputState).to.equal('AppStarted');
+    })
     .get('ul.result-cards li')
     .should('have.length', 1)
     .within(() => cy.get('a.remove').click())
     .findDataTag('modal-confirm')
     .click()
     .wait('@updateQuote')
+    .then(({ request, response }) => {
+      expect(request.body.data.additionalInterests.length).to.equal(0);
+      expect(response.body.result.quoteInputState).to.equal('Qualified');
+    })
     .get('ul.result-cards li')
     .should('have.length', 0);

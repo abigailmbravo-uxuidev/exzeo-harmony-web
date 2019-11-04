@@ -172,6 +172,10 @@ function formatQuoteForSubmit(data, options) {
       quote.policyHolders = [quote.policyHolders[0]];
     }
   }
+
+  if (!(quote.policyHolderMailingAddress || {}).address1) {
+    quote.policyHolderMailingAddress = undefined;
+  }
   // --------------------------------------------------------------------------
 
   if (!data.coverageLimits.personalProperty.value) {

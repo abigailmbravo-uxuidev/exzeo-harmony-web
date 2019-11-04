@@ -43,7 +43,7 @@ export const navigateThroughPolicyDetails = ({
     // Submit.
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
-    // We expect to have two policyholders in the response.
+    // We expect to have 1 policyHolder in the response.
     .then(({ response }) =>
       expect(
         response.body.result.policyHolders.length,
@@ -105,7 +105,6 @@ export const navigateThroughPolicyholder = ({
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     )
-    // Submit.
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
     // We expect to have two policyholders in the response.
@@ -120,6 +119,9 @@ export const navigateThroughAdditionalInterests = () =>
   cy
     .task('log', 'Navigating through Additional Interests')
     .wait('@getQuestions')
+    .then(({ response }) => {
+      expect(response.body.data.length).to.equal(3);
+    })
     .clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughMailingBilling = () =>
@@ -139,6 +141,9 @@ export const navigateThroughMailingBilling = () =>
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
+    .then(({ request, response }) => {
+      expect(response.body.result.policyHolderMailingAddress.address1).to.exist;
+    })
     .wait('@verifyQuote');
 
 export const navigateThroughVerify = () =>

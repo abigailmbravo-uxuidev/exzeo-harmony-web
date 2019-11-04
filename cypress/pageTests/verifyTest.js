@@ -59,7 +59,7 @@ export default (product = 'HO3') =>
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     )
-    // toggle the second policyholder fields
+    // toggle the second policyholder fields to remove 2nd
     .findDataTag('additionalPolicyholder')
     .click()
     .clickSubmit('.modal', 'modal-submit')
