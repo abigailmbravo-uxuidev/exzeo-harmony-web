@@ -43,47 +43,11 @@ const goToAiPage = () =>
     .findDataTag('tab-nav-6')
     .click()
     .wait('@getQuestions')
+    .then(({ request }) => {
+      expect(request.body.step).to.equal('additionalInterestsCSR');
+    })
     .get('#AddAdditionalInterestPage')
     .should('exist');
-
-const addMortgagee = () =>
-  cy
-    .findDataTag('mortgagee')
-    .click()
-    .findDataTag('modal')
-    .should('exist')
-    .chooseReactSelectOption(
-      'mortgage_wrapper',
-      'bank of america',
-      'input#mortgagee-search'
-    )
-    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-    .wait('@updateQuote');
-
-const addPremiumFinance = () =>
-  cy
-    .findDataTag('premiumFinance')
-    .click()
-    .findDataTag('modal')
-    .should('exist')
-    .chooseReactSelectOption(
-      'premiumFinance_wrapper',
-      'p1 finance company',
-      'input#premium-finance-search'
-    )
-    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-    .wait('@updateQuote');
-
-const deleteAllAis = () =>
-  // Get all trash cans then use that length to click and remove the first ai each time to avoid getting detached DOM elements.
-  cy.get('a.remove i.delete').each(() =>
-    cy
-      .get('a.remove i.delete')
-      .eq(0)
-      .click()
-      .clickSubmit('.ai-modal', 'modal-confirm')
-      .wait('@updateQuote')
-  );
 
 const checkBillingOption = (numOfOptions = 1, selected = true) =>
   cy
@@ -96,6 +60,10 @@ const checkBillingOption = (numOfOptions = 1, selected = true) =>
 
 export default (product = 'HO3') => {
   cy.task('log', 'Test Mailing Billing Page')
+    .wait('@getBillingOptions')
+    .then(({ request }) => {
+      expect(request.body.data.additionalInterests.length).to.equal(0);
+    })
     .findDataTag('billToId')
     .invoke('attr', 'data-selected')
     .should('not.eq', '')
@@ -128,7 +96,10 @@ export default (product = 'HO3') => {
       );
     })
     .clickSubmit('#QuoteWorkflow')
-    .wait('@getBillingOptions');
+    .wait('@getBillingOptions')
+    .then(({ request }) => {
+      expect(request.body.data.additionalInterests.length).to.equal(1);
+    });
 
   checkBillingOption(2, false);
 
@@ -151,7 +122,10 @@ export default (product = 'HO3') => {
       );
     })
     .clickSubmit('#QuoteWorkflow')
-    .wait('@getBillingOptions');
+    .wait('@getBillingOptions')
+    .then(({ request }) => {
+      expect(request.body.data.additionalInterests.length).to.equal(2);
+    });
 
   checkBillingOption(1);
 

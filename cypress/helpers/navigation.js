@@ -119,8 +119,8 @@ export const navigateThroughAdditionalInterests = () =>
   cy
     .task('log', 'Navigating through Additional Interests')
     .wait('@getQuestions')
-    .then(({ response }) => {
-      expect(response.body.data.length, 'AI enums request').to.equal(3);
+    .then(({ request }) => {
+      expect(request.body.step).to.equal('additionalInterestsCSR');
     })
     .clickSubmit('#QuoteWorkflow');
 

@@ -58,7 +58,10 @@ export default (product = 'HO3') =>
     .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
     .wait('@updateQuote')
     .then(({ request, response }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(1);
+      expect(
+        request.body.data.additionalInterests.length,
+        'Additional Interests: '
+      ).to.equal(1);
       expect(response.body.result.quoteInputState).to.equal('AppStarted');
     })
     .get('ul.result-cards li')
@@ -68,7 +71,10 @@ export default (product = 'HO3') =>
     .click()
     .wait('@updateQuote')
     .then(({ request, response }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(0);
+      expect(
+        request.body.data.additionalInterests.length,
+        'Additional Interests: '
+      ).to.equal(0);
       expect(response.body.result.quoteInputState).to.equal('Qualified');
     })
     .get('ul.result-cards li')
