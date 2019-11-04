@@ -8,7 +8,6 @@ import { date, Loader } from '@exzeo/core-ui';
 import * as appStateActions from '../../state/actions/appStateActions';
 import NoPolicyResultsConnect from './NoPolicyResults';
 import { getSearchType } from './searchUtils';
-import { createQuote } from '../../state/actions/quoteState.actions';
 
 const onKeypressQuote = (event, quote, props) => {
   if (event.charCode === 13) {
@@ -242,7 +241,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createQuote: bindActionCreators(createQuote, dispatch),
   actions: {
     appStateActions: bindActionCreators(appStateActions, dispatch)
   }
