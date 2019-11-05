@@ -95,12 +95,13 @@ export class QuoteWorkflow extends Component {
         quote.product,
         quote.property.physicalAddress.zip
       );
-      this.props.getEnumsForQuoteWorkflow({
-        companyCode: quote.companyCode,
-        state: quote.state,
-        product: quote.product,
-        property: quote.property
-      });
+      // TODO No longer need this, remove once we pass in CI
+      // this.props.getEnumsForQuoteWorkflow({
+      //   companyCode: quote.companyCode,
+      //   state: quote.state,
+      //   product: quote.product,
+      //   property: quote.property
+      // });
     }
     this.getTemplate();
   }
@@ -410,7 +411,6 @@ const mapStateToProps = (state, ownProps) => {
     // actual quote values
     quoteData: state.quoteState.quote,
     headerDetails: getQuoteDetails(state, ownProps.location.pathname),
-    workflowState: state.quoteState.state || {},
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,
     userProfile: state.authState.userProfile
