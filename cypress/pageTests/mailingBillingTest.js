@@ -43,8 +43,9 @@ const goToAiPage = () =>
     .findDataTag('tab-nav-6')
     .click()
     .wait('@getQuestions')
-    .then(({ request }) => {
+    .then(({ request, response }) => {
       expect(request.body.step).to.equal('additionalInterestsCSR');
+      expect(response.body.data.length).to.equal(3);
     })
     .get('#AddAdditionalInterestPage')
     .should('exist');
@@ -86,20 +87,16 @@ export default (product = 'HO3') => {
       'mortgage_wrapper',
       'bank of america',
       'input#mortgagee-search'
-    )
-    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-    .wait('@updateQuote')
-    .then(({ request, response }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(1);
-      expect(request.body.data.additionalInterests[0].type).to.equal(
-        'Mortgagee'
-      );
-    })
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@getBillingOptions')
-    .then(({ request }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(1);
-    });
+    );
+  cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
+  cy.wait('@updateQuote').then(({ request, response }) => {
+    expect(request.body.data.additionalInterests.length).to.equal(1);
+    expect(request.body.data.additionalInterests[0].type).to.equal('Mortgagee');
+  });
+  cy.clickSubmit('#QuoteWorkflow');
+  cy.wait('@getBillingOptions').then(({ request }) => {
+    expect(request.body.data.additionalInterests.length).to.equal(1);
+  });
 
   checkBillingOption(2, false);
 
@@ -112,40 +109,35 @@ export default (product = 'HO3') => {
       'premiumFinance_wrapper',
       'p1 finance company',
       'input#premium-finance-search'
-    )
-    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-    .wait('@updateQuote')
-    .then(({ request, response }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(2);
-      expect(request.body.data.additionalInterests[1].type).to.equal(
-        'Premium Finance'
-      );
-    })
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@getBillingOptions')
-    .then(({ request }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(2);
-    });
+    );
+  cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
+  cy.wait('@updateQuote').then(({ request, response }) => {
+    expect(request.body.data.additionalInterests.length).to.equal(2);
+    expect(request.body.data.additionalInterests[1].type).to.equal(
+      'Premium Finance'
+    );
+  });
+  cy.clickSubmit('#QuoteWorkflow');
+  cy.wait('@getBillingOptions').then(({ request }) => {
+    expect(request.body.data.additionalInterests.length).to.equal(2);
+  });
 
   checkBillingOption(1);
 
   goToAiPage();
 
-  cy.get('a.remove i.delete')
-    .each((_, index) =>
-      cy
-        .get('a.remove i.delete')
-        .eq(0)
-        .click()
-        .clickSubmit('.ai-modal', 'modal-confirm')
-        .wait('@updateQuote')
-        .then(({ request }) => {
-          // In this test we know we have 2 AI to start with. The first time we delete, there should be 1 left in the request, the second time, 0
-          expect(request.body.data.additionalInterests.length).to.equal(
-            index === 0 ? 1 : 0
-          );
-        })
-    )
-    .clickSubmit('#QuoteWorkflow');
+  cy.get('a.remove i.delete').each((_, index) => {
+    cy.get('a.remove i.delete')
+      .eq(0)
+      .click()
+      .clickSubmit('.ai-modal', 'modal-confirm');
+    cy.wait('@updateQuote').then(({ request }) => {
+      // In this test we know we have 2 AI to start with. The first time we delete, there should be 1 left in the request, the second time, 0
+      expect(request.body.data.additionalInterests.length).to.equal(
+        index === 0 ? 1 : 0
+      );
+    });
+  });
+  cy.clickSubmit('#QuoteWorkflow');
   checkBillingOption(1);
 };

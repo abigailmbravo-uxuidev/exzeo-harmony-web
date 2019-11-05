@@ -36,11 +36,14 @@ const af3Headers = [
   { name: 'premium', label: 'Premium', value: '$ 312' }
 ];
 
-export default (product = 'HO3') =>
-  cy
-    .task('log', 'Test Additional Interest Page')
-    // Add and remove an additional interest
-    .findDataTag('mortgagee')
+export default (product = 'HO3') => {
+  cy.task('log', 'Test Additional Interest Page')
+    .wait('@getQuestions')
+    .then(({ request }) => {
+      expect(request.body.step).to.equal('additionalInterestsCSR');
+    });
+  // Add and remove an additional interest
+  cy.findDataTag('mortgagee')
     .click()
     .findDataTag('modal')
     .should('exist')
@@ -50,13 +53,14 @@ export default (product = 'HO3') =>
       'input#mortgagee-search'
     )
     .findDataTag('name1')
-    .should('have.attr', 'value', 'BANK OF AMERICA, NA')
-    // Check header before submit
-    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
-    .each(header => cy.checkDetailHeader(header))
+    .should('have.attr', 'value', 'BANK OF AMERICA, NA');
+  // Check header before submit
+  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
+    cy.checkDetailHeader(header)
+  );
 
-    .clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit')
-    .wait('@updateQuote')
+  cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
+  cy.wait('@updateQuote')
     .then(({ request, response }) => {
       expect(
         request.body.data.additionalInterests.length,
@@ -68,14 +72,18 @@ export default (product = 'HO3') =>
     .should('have.length', 1)
     .within(() => cy.get('a.remove').click())
     .findDataTag('modal-confirm')
-    .click()
-    .wait('@updateQuote')
+    .click();
+  cy.wait('@updateQuote')
     .then(({ request, response }) => {
       expect(
         request.body.data.additionalInterests.length,
         'Additional Interests: '
       ).to.equal(0);
-      expect(response.body.result.quoteInputState).to.equal('Qualified');
+      expect(
+        response.body.result.quoteInputState,
+        'Quote Input State: '
+      ).to.equal('Qualified');
     })
     .get('ul.result-cards li')
     .should('have.length', 0);
+};

@@ -51,7 +51,7 @@ describe('Agency Happy Path', () => {
 
     additionalInterestTest();
 
-    navigateThroughAdditionalInterests();
+    navigateThroughAdditionalInterests(false);
 
     mailingBillingTest();
     navigateThroughMailingBilling();
@@ -105,7 +105,7 @@ describe('AF3 Happy Path', () => {
 
     additionalInterestTest('AF3');
 
-    navigateThroughAdditionalInterests();
+    navigateThroughAdditionalInterests(false);
 
     mailingBillingTest('AF3');
     navigateThroughMailingBilling();

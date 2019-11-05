@@ -136,7 +136,7 @@ Cypress.Commands.add('checkDetailHeader', ({ name, label, value }) =>
     .then(() => {
       cy.findDataTag(name)
         .find('dd')
-        .eq(0)
+        .eq(0, { log: false })
         .should('contain', value);
     })
 );
