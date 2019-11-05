@@ -126,27 +126,41 @@ export const navigateThroughAdditionalInterests = (shouldWait = true) => {
   cy.clickSubmit('#QuoteWorkflow');
 };
 
-export const navigateThroughMailingBilling = () =>
-  cy
-    .task('log', 'Navigating through Mailing Billing')
+export const navigateThroughMailingBilling = () => {
+  cy.task('log', 'Navigating through Mailing Billing')
     .wait('@getBillingOptions')
-    .findDataTag('sameAsPropertyAddress')
+    .then(({ request }) => {
+      expect(request.body.data.additionalInterests.length).to.equal(0);
+    });
+  cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then(
       $div =>
         (!$div.attr('data-value') || $div.attr('data-value') === 'false') &&
         cy.findDataTag('sameAsPropertyAddress').click()
-    )
-    // Get first non-disabled option and select that value
-    .get('select[name="billToId"] > option:not([disabled])')
+    );
+  cy.findDataTag('sameAsPropertyAddress')
+    .then($div => {
+      expect($div.attr('data-value') === 'true');
+    })
+    .wait(500);
+  // Get first non-disabled option and select that value
+  cy.get('select[name="billToId"] > option:not([disabled])')
     .first()
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote')
-    .then(({ request, response }) => {
-      expect(response.body.result.policyHolderMailingAddress.address1).to.exist;
-    })
-    .wait('@verifyQuote');
+    .clickSubmit('#QuoteWorkflow');
+
+  cy.wait('@updateQuote').then(({ request }) => {
+    expect(request.body.data.policyHolderMailingAddress.address1).to.exist;
+    expect(request.body.data.billToId).to.exist;
+    expect(request.body.data.billToType).to.exist;
+    expect(request.body.data.billPlan).to.exist;
+  });
+
+  cy.wait('@verifyQuote').then(({ request }) => {
+    expect(request.body.exchangeName).to.equal('harmony');
+  });
+};
 
 export const navigateThroughVerify = () =>
   cy
