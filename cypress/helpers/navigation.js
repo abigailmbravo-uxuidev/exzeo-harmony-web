@@ -27,7 +27,7 @@ export const navigateThroughSearchAddress = ({
 export const navigateThroughPolicyDetails = ({
   policyDetails = userHO3.policyDetails,
   agentCode = userHO3.agentCode
-}) => {
+} = {}) => {
   cy.task('log', 'Navigating through Policy Details')
     .wrap(Object.entries(policyDetails))
     .each(([field, value]) =>
@@ -36,15 +36,15 @@ export const navigateThroughPolicyDetails = ({
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     );
-  cy.wait('@fetchAgentsByAgencyCode').then(({ request }) => {
+  cy.wait('@getAgents').then(({ request }) => {
     expect(request.body.service).to.equal('agency');
   });
   // Select agent.
   cy.findDataTag('agentCode')
     .select(agentCode)
     // Submit.
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote')
+    .clickSubmit('#QuoteWorkflow');
+  cy.wait('@updateQuote')
     // We expect to have 1 policyHolder in the response.
     .then(({ request, response }) => {
       expect(
