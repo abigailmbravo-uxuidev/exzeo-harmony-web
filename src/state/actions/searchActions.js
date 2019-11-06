@@ -18,6 +18,16 @@ export const setQuoteSearch = data => ({
   }
 });
 
+/**
+ *
+ * @returns {Function}
+ */
+export function clearResults() {
+  return dispatch => {
+    dispatch(setSearchResults({}));
+  };
+}
+
 export function setSearchResults({
   currentPage = 1,
   pageSize = 0,
@@ -200,20 +210,6 @@ export function searchQuotes(quoteSearchData) {
       dispatch(errorActions.setAppError(error));
     } finally {
       dispatch(toggleLoading(false));
-    }
-  };
-}
-
-/**
- *
- * @returns {Function}
- */
-export function clearResults() {
-  return async dispatch => {
-    try {
-      dispatch(setSearchResults({}));
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
     }
   };
 }

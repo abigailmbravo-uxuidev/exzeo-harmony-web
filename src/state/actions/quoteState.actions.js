@@ -7,6 +7,13 @@ import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
 import { PRODUCT_TYPES } from '../../modules/Quote/constants/quote';
 
+export function clearQuote() {
+  return {
+    type: types.SET_QUOTE,
+    quote: null
+  };
+}
+
 export function setQuote(quote) {
   return {
     type: types.SET_QUOTE,
@@ -69,7 +76,7 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
 
 /**
  *
- * @param data
+ * @param quote
  * @param options
  * @returns {Object}
  */
@@ -121,9 +128,7 @@ export function updateQuote({ data = {}, options }) {
         await quoteData.sendApplication(data.quoteNumber, 'docusign');
       } else {
         const formattedQuote = formatQuoteForSubmit(data, options);
-        const updatedQuote = await quoteData.updateQuote(formattedQuote, {
-          errorHandler: msg => dispatch(errorActions.setAppError(msg))
-        });
+        const updatedQuote = await quoteData.updateQuote(formattedQuote);
 
         let quote = {};
         if (options.shouldVerifyQuote && quote.quoteState !== 'Quote Stopped') {
@@ -132,11 +137,6 @@ export function updateQuote({ data = {}, options }) {
           });
         } else {
           quote = updatedQuote;
-          // TODO this logic is a little painful and unclear, we can drastically simplify this by using an ErrorBoundary and throwing.
-          // This means there was an error when updating quote. Since we passed in an error handler, no need to throw, just return undefined and move on.
-          if (!quote) {
-            return undefined;
-          }
         }
 
         dispatch(setQuote(quote));
@@ -174,23 +174,6 @@ export function getQuote(quoteNumber, quoteId) {
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
-    } finally {
-      dispatch(toggleLoading(false));
-    }
-  };
-}
-
-/**
- *
- * @returns {Function}
- */
-export function clearQuote() {
-  return async dispatch => {
-    dispatch(toggleLoading(true));
-    try {
-      dispatch(setQuote(null, {}));
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
     } finally {
       dispatch(toggleLoading(false));
     }

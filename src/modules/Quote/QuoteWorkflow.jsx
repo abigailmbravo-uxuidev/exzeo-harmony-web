@@ -12,7 +12,6 @@ import { Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
-import { getEnumsForQuoteWorkflow } from '../../state/actions/list.actions';
 import { getQuoteSelector } from '../../state/selectors/quoteState.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 
@@ -66,8 +65,6 @@ export class QuoteWorkflow extends Component {
 
     this.state = {
       isRecalc: false,
-      showEmailPopup: false,
-      showSendApplicationPopup: false,
       gandalfTemplate: null,
       stepNumber:
         PAGE_ROUTING[
@@ -95,13 +92,6 @@ export class QuoteWorkflow extends Component {
         quote.product,
         quote.property.physicalAddress.zip
       );
-      // TODO No longer need this, remove once we pass in CI
-      // this.props.getEnumsForQuoteWorkflow({
-      //   companyCode: quote.companyCode,
-      //   state: quote.state,
-      //   product: quote.product,
-      //   property: quote.property
-      // });
     }
     this.getTemplate();
   }
@@ -134,10 +124,6 @@ export class QuoteWorkflow extends Component {
       ex => ex.action === 'Fatal Error' || ex.action === 'Underwriting Review'
     );
   }
-
-  getLocalState = () => {
-    return this.state;
-  };
 
   getTemplate = async () => {
     const {
@@ -225,14 +211,6 @@ export class QuoteWorkflow extends Component {
     this.formInstance = formInstance;
   };
 
-  setShowEmailPopup = showEmailPopup => {
-    this.setState(() => ({ showEmailPopup }));
-  };
-
-  setShowSendApplicationPopup = showSendApplicationPopup => {
-    this.setState(() => ({ showSendApplicationPopup }));
-  };
-
   render() {
     const {
       auth,
@@ -242,7 +220,6 @@ export class QuoteWorkflow extends Component {
       match,
       options,
       quote,
-      quoteData,
       headerDetails,
       getQuote
     } = this.props;
@@ -260,9 +237,6 @@ export class QuoteWorkflow extends Component {
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
     const customHandlers = {
-      setEmailPopup: this.setShowEmailPopup,
-      setShowSendApplicationPopup: this.setShowSendApplicationPopup,
-      getState: this.getLocalState,
       handleSubmit: this.handleGandalfSubmit,
       history: history,
       goToStep: this.goToStep,
@@ -307,7 +281,7 @@ export class QuoteWorkflow extends Component {
                 !['thankYou', 'error'].includes(currentRouteName)
               }
               currentStep={currentStepNumber}
-              quote={quoteData}
+              quote={quote}
             />
           )}
 
@@ -388,9 +362,7 @@ export class QuoteWorkflow extends Component {
           <Route
             exact
             path={`${match.url}/thankYou`}
-            render={props => (
-              <ThankYou {...props} updateQuote={this.handleUpdateQuote} />
-            )}
+            render={props => <ThankYou {...props} />}
           />
           <Route
             exact
@@ -406,10 +378,7 @@ export class QuoteWorkflow extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: state.appState.isLoading,
-    // duplication for now because we are transforming some of the quote values ahead of time to make CG happy.
     quote: getQuoteSelector(state),
-    // actual quote values
-    quoteData: state.quoteState.quote,
     headerDetails: getQuoteDetails(state, ownProps.location.pathname),
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,
@@ -423,7 +392,6 @@ export default connect(
     updateQuote,
     getAgentsByAgencyCode,
     getZipcodeSettings,
-    getEnumsForQuoteWorkflow,
     getQuote
   }
 )(QuoteWorkflow);
