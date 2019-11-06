@@ -27,29 +27,36 @@ export const navigateThroughSearchAddress = ({
 export const navigateThroughPolicyDetails = ({
   policyDetails = userHO3.policyDetails,
   agentCode = userHO3.agentCode
-} = {}) =>
-  cy
-    .task('log', 'Navigating through Policy Details')
+}) => {
+  cy.task('log', 'Navigating through Policy Details')
     .wrap(Object.entries(policyDetails))
     .each(([field, value]) =>
       cy
         .findDataTag(field)
         .find('input')
         .type(`{selectall}{backspace}${value}`)
-    )
-    // Select agent.
-    .findDataTag('agentCode')
+    );
+  cy.wait('@fetchAgentsByAgencyCode').then(({ request }) => {
+    expect(request.body.service).to.equal('agency');
+  });
+  // Select agent.
+  cy.findDataTag('agentCode')
     .select(agentCode)
     // Submit.
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
     // We expect to have 1 policyHolder in the response.
-    .then(({ response }) =>
+    .then(({ request, response }) => {
+      expect(
+        request.body.data.policyHolders.length,
+        'Policyholders in request'
+      ).to.equal(1);
       expect(
         response.body.result.policyHolders.length,
         'Policyholders in response'
-      ).to.equal(1)
-    );
+      ).to.equal(1);
+    });
+};
 
 export const navigateThroughUnderwriting = (data = underwritingHO3) =>
   cy
@@ -108,12 +115,16 @@ export const navigateThroughPolicyholder = ({
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
     // We expect to have two policyholders in the response.
-    .then(({ response }) =>
+    .then(({ request, response }) => {
+      expect(
+        request.body.data.policyHolders.length,
+        'Policyholders in request'
+      ).to.equal(2);
       expect(
         response.body.result.policyHolders.length,
         'Policyholders in response'
-      ).to.equal(2)
-    );
+      ).to.equal(2);
+    });
 
 export const navigateThroughAdditionalInterests = () => {
   cy.task('log', 'Navigating through Additional Interests');
