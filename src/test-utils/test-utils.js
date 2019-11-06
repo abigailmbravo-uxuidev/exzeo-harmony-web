@@ -86,7 +86,10 @@ export const defaultProps = {
     isAuthenticated: () => {},
     login: jest.fn()
   },
-  match: { params: {} }
+  match: { params: {} },
+  history: {
+    replace: x => x
+  }
 };
 
 export const defaultQuoteWorkflowProps = {
