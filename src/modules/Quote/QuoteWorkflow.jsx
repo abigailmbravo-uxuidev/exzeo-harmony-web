@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { defaultMemoize } from 'reselect';
 import {
+  TriggerRecalc,
   Gandalf,
   getConfigForJsonTransform
 } from '@exzeo/core-ui/src/@Harmony';
@@ -11,7 +12,6 @@ import { Button, Loader, FormSpy, remoteSubmit } from '@exzeo/core-ui';
 import { updateQuote, getQuote } from '../../state/actions/quoteState.actions';
 import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
-import { getEnumsForQuoteWorkflow } from '../../state/actions/list.actions';
 import { getQuoteSelector } from '../../state/selectors/quoteState.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 
@@ -36,7 +36,6 @@ import Warning from './Warning';
 
 import AF3 from '../../mock-data/mockAF3';
 import HO3 from '../../mock-data/mockHO3';
-import TriggerRecalc from './TriggerRecalc';
 import { UW_EXCEPTION_QUOTE_STATES } from './constants/quote';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
@@ -46,11 +45,6 @@ const getCurrentStepAndPage = defaultMemoize(pathname => {
     currentRouteName
   };
 });
-
-// Thin memoized wrapper around FormSpys to keep them from needlessly re-rendering.
-const MemoizedFormListeners = React.memo(({ children }) => (
-  <React.Fragment>{children}</React.Fragment>
-));
 
 const TEMPLATES = {
   AF3: AF3,
@@ -71,8 +65,6 @@ export class QuoteWorkflow extends Component {
 
     this.state = {
       isRecalc: false,
-      showEmailPopup: false,
-      showSendApplicationPopup: false,
       gandalfTemplate: null,
       stepNumber:
         PAGE_ROUTING[
@@ -100,12 +92,6 @@ export class QuoteWorkflow extends Component {
         quote.product,
         quote.property.physicalAddress.zip
       );
-      this.props.getEnumsForQuoteWorkflow({
-        companyCode: quote.companyCode,
-        state: quote.state,
-        product: quote.product,
-        property: quote.property
-      });
     }
     this.getTemplate();
   }
@@ -138,10 +124,6 @@ export class QuoteWorkflow extends Component {
       ex => ex.action === 'Fatal Error' || ex.action === 'Underwriting Review'
     );
   }
-
-  getLocalState = () => {
-    return this.state;
-  };
 
   getTemplate = async () => {
     const {
@@ -229,23 +211,6 @@ export class QuoteWorkflow extends Component {
     this.formInstance = formInstance;
   };
 
-  setShowEmailPopup = showEmailPopup => {
-    this.setState(() => ({ showEmailPopup }));
-  };
-
-  setShowSendApplicationPopup = showSendApplicationPopup => {
-    this.setState(() => ({ showSendApplicationPopup }));
-  };
-
-  // ============= v NOT used by Gandalf v ============= //
-  handleUpdateQuote = async ({ data, quoteNumber }) => {
-    const { updateQuote } = this.props;
-    const quote = await updateQuote({ data, quoteNumber });
-    return quote;
-  };
-
-  // ============= ^ NOT used by Gandalf ^ ============= //
-
   render() {
     const {
       auth,
@@ -255,7 +220,6 @@ export class QuoteWorkflow extends Component {
       match,
       options,
       quote,
-      quoteData,
       headerDetails,
       getQuote
     } = this.props;
@@ -273,12 +237,8 @@ export class QuoteWorkflow extends Component {
     // TODO going to use Context to pass these directly to custom components,
     //  so Gandalf does not need to know about these.
     const customHandlers = {
-      setEmailPopup: this.setShowEmailPopup,
-      setShowSendApplicationPopup: this.setShowSendApplicationPopup,
-      getState: this.getLocalState,
       handleSubmit: this.handleGandalfSubmit,
       history: history,
-      updateQuote: this.handleUpdateQuote,
       goToStep: this.goToStep,
       getQuote
     };
@@ -321,10 +281,10 @@ export class QuoteWorkflow extends Component {
                 !['thankYou', 'error'].includes(currentRouteName)
               }
               currentStep={currentStepNumber}
-              quote={quoteData}
+              quote={quote}
             />
           )}
-          {/*{ Gandalf will be replacing most/all of these routes }*/}
+
           {shouldUseGandalf && (
             <React.Fragment>
               <Gandalf
@@ -339,32 +299,40 @@ export class QuoteWorkflow extends Component {
                 path={location.pathname}
                 template={gandalfTemplate}
                 transformConfig={transformConfig}
-                renderFooter={({ submitting, form }) => (
-                  <React.Fragment>
-                    {shouldRenderFooter && (
-                      <div className="btn-group">
-                        <Button
-                          data-test="submit"
-                          className={Button.constants.classNames.primary}
-                          onClick={this.primaryClickHandler}
-                          disabled={submitting || needsConfirmation}
-                          label={this.state.isRecalc ? 'recalculate' : 'next'}
-                        />
+                renderFooter={
+                  <FormSpy subscription={{ submitting: true }}>
+                    {({ submitting, form }) => (
+                      <React.Fragment>
+                        {shouldRenderFooter && (
+                          <div className="btn-group">
+                            <Button
+                              data-test="submit"
+                              className={Button.constants.classNames.primary}
+                              onClick={this.primaryClickHandler}
+                              disabled={submitting || needsConfirmation}
+                              label={
+                                this.state.isRecalc ? 'recalculate' : 'next'
+                              }
+                            />
 
-                        {this.state.isRecalc && (
-                          <Button
-                            data-test="reset"
-                            className={Button.constants.classNames.secondary}
-                            onClick={form.reset}
-                            label="reset"
-                          />
+                            {this.state.isRecalc && (
+                              <Button
+                                data-test="reset"
+                                className={
+                                  Button.constants.classNames.secondary
+                                }
+                                onClick={form.reset}
+                                label="reset"
+                              />
+                            )}
+                          </div>
                         )}
-                      </div>
+                      </React.Fragment>
                     )}
-                  </React.Fragment>
-                )}
-                formListeners={() => (
-                  <MemoizedFormListeners>
+                  </FormSpy>
+                }
+                formListeners={
+                  <React.Fragment>
                     <FormSpy subscription={{}}>
                       {({ form }) => {
                         this.setFormInstance(form);
@@ -377,13 +345,14 @@ export class QuoteWorkflow extends Component {
                         <TriggerRecalc
                           dirty={dirty}
                           isRecalc={isRecalc}
-                          currentPage={currentStepNumber}
+                          workflowPage={currentStepNumber}
+                          recalcPage={2}
                           setRecalc={this.setRecalc}
                         />
                       )}
                     </FormSpy>
-                  </MemoizedFormListeners>
-                )}
+                  </React.Fragment>
+                }
               />
 
               <Footer />
@@ -393,9 +362,7 @@ export class QuoteWorkflow extends Component {
           <Route
             exact
             path={`${match.url}/thankYou`}
-            render={props => (
-              <ThankYou {...props} updateQuote={this.handleUpdateQuote} />
-            )}
+            render={props => <ThankYou {...props} />}
           />
           <Route
             exact
@@ -411,12 +378,8 @@ export class QuoteWorkflow extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: state.appState.isLoading,
-    // duplication for now because we are transforming some of the quote values ahead of time to make CG happy.
     quote: getQuoteSelector(state),
-    // actual quote values
-    quoteData: state.quoteState.quote,
     headerDetails: getQuoteDetails(state, ownProps.location.pathname),
-    workflowState: state.quoteState.state || {},
     zipCodeSettings: state.service.zipCodeSettings,
     options: state.list,
     userProfile: state.authState.userProfile
@@ -429,7 +392,6 @@ export default connect(
     updateQuote,
     getAgentsByAgencyCode,
     getZipcodeSettings,
-    getEnumsForQuoteWorkflow,
     getQuote
   }
 )(QuoteWorkflow);

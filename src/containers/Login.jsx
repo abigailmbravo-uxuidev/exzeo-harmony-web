@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-import history from '../history';
 import { Loader } from '@exzeo/core-ui';
 
 class Login extends Component {
@@ -11,7 +9,7 @@ class Login extends Component {
     if (!isAuthenticated()) {
       props.auth.login();
     } else {
-      history.replace('/');
+      props.history.replace('/');
     }
   }
   render() {

@@ -38,13 +38,23 @@ const af3Headers = [
 
 export default (product = 'HO3') =>
   cy
-    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
-    .each(header => cy.checkDetailHeader(header))
+    .task('log', 'Test Share Page')
     .findDataTag('share')
     .click()
     .findDataTag('name')
     .type('Bruce')
     .findDataTag('email')
     .type('Batman@gmail.com')
+    // check detail header before submit (this allows time for the 'premium' animation to finish)
+    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
+    .each(header => cy.checkDetailHeader(header))
+
     .clickSubmit('#sendQuoteSummary', 'modal-submit')
-    .wait('@sendQuoteSummary');
+    .wait('@sendQuoteSummary')
+    .then(({ request }) => {
+      expect(request.body.data.toEmail).to.equal('Batman@gmail.com');
+    })
+    .clickSubmit('#QuoteWorkflow');
+// .wait('@updateQuote').then(({ response }) => {
+//   expect(response.body.result.quoteInputState).to.equal('Qualified');
+// });

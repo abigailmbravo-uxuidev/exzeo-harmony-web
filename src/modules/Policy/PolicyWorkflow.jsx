@@ -159,7 +159,6 @@ export class PolicyWorkflow extends Component {
               />
             </React.Fragment>
           )}
-          {/*{ Gandalf will be replacing most/all of these routes }*/}
           {gandalfTemplate && (
             <React.Fragment>
               <Gandalf
@@ -174,7 +173,6 @@ export class PolicyWorkflow extends Component {
                 path={location.pathname}
                 template={gandalfTemplate}
                 transformConfig={transformConfig}
-                renderFooter={noop}
               />
               <Footer />
             </React.Fragment>

@@ -1,42 +1,18 @@
 import React, { useState } from 'react';
 import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
 import { ShareModal } from '@exzeo/core-ui/src/@Harmony';
-import { defaultMemoize } from 'reselect';
 
 import { STEP_NAMES } from './constants/workflowNavigation';
-import { UNDERWRITING_ERROR_ACTIONS } from './constants/quote';
-
-const getFilteredUnderwritingExceptions = defaultMemoize(
-  underwritingExceptions => {
-    return underwritingExceptions.filter(
-      exception =>
-        exception.action === UNDERWRITING_ERROR_ACTIONS.UNDERWRITING_REVIEW &&
-        !exception.overridden
-    );
-  }
-);
 
 const Share = ({
   customHandlers,
-  initialValues,
   formInstance,
   config: { extendedProperties = {} }
 }) => {
   const [showPopup, setPopup] = useState(false);
-  const filteredUnderwritingExceptions = getFilteredUnderwritingExceptions(
-    initialValues.underwritingExceptions
-  );
-  const { getQuote, goToStep, history, handleSubmit } = customHandlers;
-  async function refreshUWReviewError() {
-    await getQuote(initialValues.quoteNumber, initialValues._id);
-    customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData);
-  }
-
-  function redirectToNewQuote() {
-    history.replace('/');
-  }
-
+  const { goToStep, handleSubmit } = customHandlers;
   const { skipNext } = extendedProperties;
+
   const handleClick = skipNext
     ? () => goToStep(STEP_NAMES.policyholder, true)
     : () => handleSubmit({ noSubmit: true });

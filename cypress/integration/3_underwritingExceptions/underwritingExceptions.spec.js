@@ -70,6 +70,7 @@ describe('Underwriting Error Testing', () => {
         ]
       }
     }).as('updateQuote');
+
     navigateThroughMailingBilling();
     cy.get('button.btn-primary').click();
     cy.get('div#Error').should(

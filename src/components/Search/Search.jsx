@@ -61,7 +61,6 @@ export class Search extends React.Component {
   handleSelectAddress = async address => {
     const { history, userProfile, search } = this.props;
     const quote = await this.props.createQuote(
-      '0',
       address.id,
       address.physicalAddress.state,
       userProfile.entity.companyCode,

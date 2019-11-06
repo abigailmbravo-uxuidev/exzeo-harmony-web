@@ -69,90 +69,115 @@ const checkRadioRecalcAndReset = ({ name, testValue, defaultValue }) =>
 export default (product = 'HO3') => {
   const { headers, sliders, radios } = getFields(product);
 
-  // Detail Headers get checked first.
-  cy.wrap(headers)
-    .each(header => cy.checkDetailHeader(header))
+  cy.task('log', 'Test Customize Page')
     // Check our radios and recalculate recalculation
     .wrap(radios)
     .each(radio => checkRadioRecalcAndReset(radio))
     // For each slider
     .wrap(sliders)
-    .each(({ path, value, defaultValue, callback }) =>
-      cy.findDataTag(`${path}-slider`).then($slider => {
-        // get the min and max value attributes
-        const minValue = $slider.attr('min');
-        const maxValue = $slider.attr('max');
-        // and confirm your text fields for min and max match the value.
-        cy.findDataTag(`${path}-slider-min`)
-          .invoke('text')
-          .should('eq', toCurrency(minValue))
-          .findDataTag(`${path}-slider-max`)
-          .invoke('text')
-          .should('eq', toCurrency(maxValue))
-          // Change value
-          .findDataTag(`${path}-input`)
-          .type(`{selectall}{backspace}${value}`)
-          // and reset.
-          .findDataTag('reset')
-          .should('contain', 'reset')
-          .and('not.be.disabled')
-          .click()
-          // Change again
-          .findDataTag(`${path}-input`)
-          .type(`{selectall}{backspace}${value}`)
-          // and recalculate.
-          .findDataTag('submit')
-          .should('contain', 'recalculate')
-          .and('not.be.disabled')
-          .click()
-          .wait('@updateQuote')
-          // Confirm your min and max values still are the same
-          .findDataTag(`${path}-slider`)
-          .invoke('attr', 'min')
-          .should('eq', minValue)
-          .findDataTag(`${path}-slider`)
-          .invoke('attr', 'max')
-          .should('eq', maxValue)
-          // and those values are still reflected in the ui min/max labels.
-          .findDataTag(`${path}-slider-min`)
-          .invoke('text')
-          .should('eq', toCurrency(minValue))
-          .findDataTag(`${path}-slider-max`)
-          .invoke('text')
-          .should('eq', toCurrency(maxValue))
-          // Submit the form,
-          .clickSubmit('#QuoteWorkflow')
-          .wait('@updateQuote')
-          // then go back to customize page.
-          .findDataTag('tab-nav-3')
-          .click()
-          .wait(500)
-          // Confirm your min and max values still are the same
-          .findDataTag(`${path}-slider`)
-          .invoke('attr', 'min')
-          .should('eq', minValue)
-          .findDataTag(`${path}-slider`)
-          .invoke('attr', 'max')
-          .should('eq', maxValue)
-          // and those values are still reflected in the ui min/max labels.
-          .findDataTag(`${path}-slider-min`)
-          .invoke('text')
-          .should('eq', toCurrency(minValue))
-          .findDataTag(`${path}-slider-max`)
-          .invoke('text')
-          .should('eq', toCurrency(maxValue))
-          .findDataTag(`${path}-input`)
-          .type(`{selectall}{backspace}${defaultValue || '0'}`)
-          .findDataTag('submit')
-          .should('contain', 'recalculate')
-          .and('not.be.disabled')
-          .click()
-          .wait('@updateQuote')
-          .then(
-            ({ response }) =>
-              // Check that the coverage dwelling limits have been kept up to date with server responses in HO3.
-              callback && callback(response)
-          );
-      })
+    .each(
+      ({ path, value, defaultValue }) =>
+        cy.findDataTag(`${path}-slider`).then($slider => {
+          // get the min and max value attributes
+          const minValue = $slider.attr('min');
+          const maxValue = $slider.attr('max');
+          // and confirm your text fields for min and max match the value.
+          cy.findDataTag(`${path}-slider-min`)
+            .invoke('text')
+            .should('eq', toCurrency(minValue))
+            .findDataTag(`${path}-slider-max`)
+            .invoke('text')
+            .should('eq', toCurrency(maxValue))
+            // Test headers before submit
+            .wrap(headers)
+            .each(header => cy.checkDetailHeader(header))
+            // ------------------------------------------
+            // Change value
+            .findDataTag(`${path}-input`)
+            .type(`{selectall}{backspace}${value}`)
+            // and reset.
+            .findDataTag('reset')
+            .should('contain', 'reset')
+            .and('not.be.disabled')
+            .click()
+            // Change again
+            .findDataTag(`${path}-input`)
+            .type(`{selectall}{backspace}${value}`)
+            // and recalculate.
+            .findDataTag('submit')
+            .should('contain', 'recalculate')
+            .and('not.be.disabled')
+            .click()
+            .wait('@updateQuote')
+            .then(({ response }) => {
+              expect(response.body.result.quoteInputState).to.equal(
+                'Qualified'
+              );
+            })
+            // Confirm your min and max values still are the same
+            .findDataTag(`${path}-slider`)
+            .invoke('attr', 'min')
+            .should('eq', minValue)
+            .findDataTag(`${path}-slider`)
+            .invoke('attr', 'max')
+            .should('eq', maxValue)
+            // and those values are still reflected in the ui min/max labels.
+            .findDataTag(`${path}-slider-min`)
+            .invoke('text')
+            .should('eq', toCurrency(minValue))
+            .findDataTag(`${path}-slider-max`)
+            .invoke('text')
+            .should('eq', toCurrency(maxValue))
+            // Submit the form,
+            .clickSubmit('#QuoteWorkflow')
+            .wait('@updateQuote')
+            .then(({ response }) => {
+              expect(response.body.result.quoteInputState).to.equal(
+                'Qualified'
+              );
+            })
+            // then go back to customize page.
+            .findDataTag('tab-nav-3')
+            .click()
+            .wait(500)
+            // Confirm your min and max values still are the same
+            .findDataTag(`${path}-slider`)
+            .invoke('attr', 'min')
+            .should('eq', minValue)
+            .findDataTag(`${path}-slider`)
+            .invoke('attr', 'max')
+            .should('eq', maxValue)
+            // and those values are still reflected in the ui min/max labels.
+            .findDataTag(`${path}-slider-min`)
+            .invoke('text')
+            .should('eq', toCurrency(minValue))
+            .findDataTag(`${path}-slider-max`)
+            .invoke('text')
+            .should('eq', toCurrency(maxValue))
+            .findDataTag(`${path}-input`)
+            .type(`{selectall}{backspace}${defaultValue || '0'}`)
+            .findDataTag('submit')
+            .should('contain', 'recalculate')
+            .and('not.be.disabled')
+            .click()
+            .wait('@updateQuote')
+            .then(({ response }) => {
+              expect(response.body.result.quoteInputState).to.equal(
+                'Qualified'
+              );
+            })
+            .clickSubmit('#QuoteWorkflow')
+            .wait('@updateQuote')
+            .then(({ response }) => {
+              expect(response.body.result.quoteInputState).to.equal(
+                'Qualified'
+              );
+            });
+        })
+      // .then(
+      //   ({ response }) =>
+      //     // Check that the coverage dwelling limits have been kept up to date with server responses in HO3.
+      //     callback && callback(response)
+      // );
     );
 };

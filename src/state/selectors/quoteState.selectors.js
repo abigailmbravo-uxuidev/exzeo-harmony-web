@@ -23,6 +23,12 @@ export const getQuoteSelector = createSelector(
       quoteData.additionalPolicyholder = true;
     }
 
+    quoteData.sameAsPropertyAddress =
+      quoteData.property.physicalAddress.address1 ===
+        (quoteData.policyHolderMailingAddress || {}).address1 &&
+      quoteData.property.physicalAddress.city ===
+        (quoteData.policyHolderMailingAddress || {}).city;
+
     if (quoteData.product === 'AF3') {
       quoteData.personalPropertySlider = Math.ceil(
         (quoteData.coverageLimits.personalProperty.amount * 100) /

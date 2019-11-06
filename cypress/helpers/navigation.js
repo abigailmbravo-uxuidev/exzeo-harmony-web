@@ -27,29 +27,36 @@ export const navigateThroughSearchAddress = ({
 export const navigateThroughPolicyDetails = ({
   policyDetails = userHO3.policyDetails,
   agentCode = userHO3.agentCode
-} = {}) =>
-  cy
-    .task('log', 'Navigating through Policy Details')
+} = {}) => {
+  cy.task('log', 'Navigating through Policy Details')
     .wrap(Object.entries(policyDetails))
     .each(([field, value]) =>
       cy
         .findDataTag(field)
         .find('input')
         .type(`{selectall}{backspace}${value}`)
-    )
-    // Select agent.
-    .findDataTag('agentCode')
+    );
+  cy.wait('@getAgents').then(({ request }) => {
+    expect(request.body.service).to.equal('agency');
+  });
+  // Select agent.
+  cy.findDataTag('agentCode')
     .select(agentCode)
     // Submit.
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote')
-    // We expect to have two policyholders in the response.
-    .then(({ response }) =>
+    .clickSubmit('#QuoteWorkflow');
+  cy.wait('@updateQuote')
+    // We expect to have 1 policyHolder in the response.
+    .then(({ request, response }) => {
+      expect(
+        request.body.data.policyHolders.length,
+        'Policyholders in request'
+      ).to.equal(1);
       expect(
         response.body.result.policyHolders.length,
         'Policyholders in response'
-      ).to.equal(1)
-    );
+      ).to.equal(1);
+    });
+};
 
 export const navigateThroughUnderwriting = (data = underwritingHO3) =>
   cy
@@ -105,41 +112,63 @@ export const navigateThroughPolicyholder = ({
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     )
-    // Submit.
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
     // We expect to have two policyholders in the response.
-    .then(({ response }) =>
+    .then(({ request, response }) => {
+      expect(
+        request.body.data.policyHolders.length,
+        'Policyholders in request'
+      ).to.equal(2);
       expect(
         response.body.result.policyHolders.length,
         'Policyholders in response'
-      ).to.equal(2)
-    );
+      ).to.equal(2);
+    });
 
-export const navigateThroughAdditionalInterests = () =>
-  cy
-    .task('log', 'Navigating through Additional Interests')
-    .clickSubmit('#QuoteWorkflow');
+export const navigateThroughAdditionalInterests = () => {
+  cy.task('log', 'Navigating through Additional Interests');
+  cy.wait('@getQuestions').then(({ request }) => {
+    expect(request.body.step).to.equal('additionalInterestsCSR');
+  });
+  cy.clickSubmit('#QuoteWorkflow');
+};
 
-export const navigateThroughMailingBilling = () =>
-  cy
-    .task('log', 'Navigating through Mailing Billing')
+export const navigateThroughMailingBilling = () => {
+  cy.task('log', 'Navigating through Mailing Billing')
     .wait('@getBillingOptions')
-    .wait(500)
-    .findDataTag('sameAsPropertyAddress')
+    .then(({ request }) => {
+      expect(request.body.data.additionalInterests.length).to.equal(0);
+    });
+  cy.findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then(
       $div =>
         (!$div.attr('data-value') || $div.attr('data-value') === 'false') &&
         cy.findDataTag('sameAsPropertyAddress').click()
-    )
-    // Get first non-disabled option and select that value
-    .get('select[name="billToId"] > option:not([disabled])')
+    );
+  cy.findDataTag('sameAsPropertyAddress')
+    .then($div => {
+      expect($div.attr('data-value') === 'true');
+    })
+    .wait(500);
+  // Get first non-disabled option and select that value
+  cy.get('select[name="billToId"] > option:not([disabled])')
     .first()
     .then($option => cy.get('select[name = "billToId"]').select($option.val()))
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote')
-    .wait('@verifyQuote');
+    .clickSubmit('#QuoteWorkflow');
+
+  cy.wait('@updateQuote').then(({ request }) => {
+    expect(request.body.data.policyHolderMailingAddress.address1).to.exist;
+    expect(request.body.data.billToId).to.exist;
+    expect(request.body.data.billToType).to.exist;
+    expect(request.body.data.billPlan).to.exist;
+  });
+
+  cy.wait('@verifyQuote').then(({ request }) => {
+    expect(request.body.exchangeName).to.equal('harmony');
+  });
+};
 
 export const navigateThroughVerify = () =>
   cy

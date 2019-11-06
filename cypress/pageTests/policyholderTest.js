@@ -65,9 +65,7 @@ export default (product = 'HO3') =>
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     )
-    // Select an agent
-    .findDataTag('agentCode')
-    .select(userHO3.agentCode)
+
     // Detoggle the second policyholder fields
     .findDataTag('additionalPolicyholder')
     .click()
