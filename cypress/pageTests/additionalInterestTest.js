@@ -60,30 +60,32 @@ export default (product = 'HO3') => {
   );
 
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
-  cy.wait('@updateQuote')
-    .then(({ request, response }) => {
-      expect(
-        request.body.data.additionalInterests.length,
-        'Additional Interests: '
-      ).to.equal(1);
-      expect(response.body.result.quoteInputState).to.equal('AppStarted');
-    })
-    .get('ul.result-cards li')
+  cy.wait('@updateQuote').then(({ request, response }) => {
+    expect(
+      request.body.data.additionalInterests.length,
+      'Additional Interests: '
+    ).to.equal(1);
+    expect(
+      response.body.result.quoteInputState,
+      'Quote Input State: '
+    ).to.equal('AppStarted');
+  });
+  cy.get('ul.result-cards li')
     .should('have.length', 1)
     .within(() => cy.get('a.remove').click())
     .findDataTag('modal-confirm')
     .click();
-  cy.wait('@updateQuote')
-    .then(({ request, response }) => {
-      expect(
-        request.body.data.additionalInterests.length,
-        'Additional Interests: '
-      ).to.equal(0);
-      expect(
-        response.body.result.quoteInputState,
-        'Quote Input State: '
-      ).to.equal('Qualified');
-    })
-    .get('ul.result-cards li')
-    .should('have.length', 0);
+  cy.wait('@updateQuote').then(({ request, response }) => {
+    expect(
+      request.body.data.additionalInterests.length,
+      'Additional Interests: '
+    ).to.equal(0);
+    expect(
+      response.body.result.quoteInputState,
+      'Quote Input State: '
+    ).to.equal('Qualified');
+  });
+  cy.get('ul.result-cards li').should('have.length', 0);
+  // move on to next page
+  cy.clickSubmit('#QuoteWorkflow');
 };

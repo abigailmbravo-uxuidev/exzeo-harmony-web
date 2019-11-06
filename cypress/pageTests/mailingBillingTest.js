@@ -1,5 +1,3 @@
-import { navigateThroughAdditionalInterests } from '../helpers';
-
 const ho3Headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
   {
@@ -38,17 +36,14 @@ const af3Headers = [
   { name: 'premium', label: 'Premium', value: '$ 312' }
 ];
 
-const goToAiPage = () =>
-  cy
-    .findDataTag('tab-nav-6')
-    .click()
-    .wait('@getQuestions')
-    .then(({ request, response }) => {
-      expect(request.body.step).to.equal('additionalInterestsCSR');
-      expect(response.body.data.length).to.equal(3);
-    })
-    .get('#AddAdditionalInterestPage')
-    .should('exist');
+const goToAiPage = () => {
+  cy.findDataTag('tab-nav-6').click();
+  cy.wait('@getQuestions').then(({ request, response }) => {
+    expect(request.body.step).to.equal('additionalInterestsCSR');
+    expect(response.body.data.length).to.equal(3);
+  });
+  cy.get('#AddAdditionalInterestPage').should('exist');
+};
 
 const checkBillingOption = (numOfOptions = 1, selected = true) =>
   cy
@@ -60,12 +55,11 @@ const checkBillingOption = (numOfOptions = 1, selected = true) =>
     .should('have.length', numOfOptions);
 
 export default (product = 'HO3') => {
-  cy.task('log', 'Test Mailing Billing Page')
-    .wait('@getBillingOptions')
-    .then(({ request }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(0);
-    })
-    .findDataTag('billToId')
+  cy.task('log', 'Test Mailing Billing Page');
+  cy.wait('@getBillingOptions').then(({ request }) => {
+    expect(request.body.data.additionalInterests.length).to.equal(0);
+  });
+  cy.findDataTag('billToId')
     .invoke('attr', 'data-selected')
     .should('not.eq', '')
     .findDataTag('billToId')
@@ -90,12 +84,21 @@ export default (product = 'HO3') => {
     );
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
-    expect(request.body.data.additionalInterests.length).to.equal(1);
-    expect(request.body.data.additionalInterests[0].type).to.equal('Mortgagee');
+    expect(
+      request.body.data.additionalInterests.length,
+      'Additional Interests: '
+    ).to.equal(1);
+    expect(
+      request.body.data.additionalInterests[0].type,
+      'Additional Interest Type: '
+    ).to.equal('Mortgagee');
   });
   cy.clickSubmit('#QuoteWorkflow');
   cy.wait('@getBillingOptions').then(({ request }) => {
-    expect(request.body.data.additionalInterests.length).to.equal(1);
+    expect(
+      request.body.data.additionalInterests.length,
+      'Additional Interests: '
+    ).to.equal(1);
   });
 
   checkBillingOption(2, false);
@@ -112,14 +115,21 @@ export default (product = 'HO3') => {
     );
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
-    expect(request.body.data.additionalInterests.length).to.equal(2);
-    expect(request.body.data.additionalInterests[1].type).to.equal(
-      'Premium Finance'
-    );
+    expect(
+      request.body.data.additionalInterests.length,
+      'Additional Interests: '
+    ).to.equal(2);
+    expect(
+      request.body.data.additionalInterests[1].type,
+      'Additional Interest Type: '
+    ).to.equal('Premium Finance');
   });
   cy.clickSubmit('#QuoteWorkflow');
   cy.wait('@getBillingOptions').then(({ request }) => {
-    expect(request.body.data.additionalInterests.length).to.equal(2);
+    expect(
+      request.body.data.additionalInterests.length,
+      'Additional Interests: '
+    ).to.equal(2);
   });
 
   checkBillingOption(1);
@@ -133,9 +143,10 @@ export default (product = 'HO3') => {
       .clickSubmit('.ai-modal', 'modal-confirm');
     cy.wait('@updateQuote').then(({ request }) => {
       // In this test we know we have 2 AI to start with. The first time we delete, there should be 1 left in the request, the second time, 0
-      expect(request.body.data.additionalInterests.length).to.equal(
-        index === 0 ? 1 : 0
-      );
+      expect(
+        request.body.data.additionalInterests.length,
+        'Additional Interests: '
+      ).to.equal(index === 0 ? 1 : 0);
     });
   });
   cy.clickSubmit('#QuoteWorkflow');

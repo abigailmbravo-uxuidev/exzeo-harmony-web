@@ -115,14 +115,11 @@ export const navigateThroughPolicyholder = ({
       ).to.equal(2)
     );
 
-export const navigateThroughAdditionalInterests = (shouldWait = true) => {
+export const navigateThroughAdditionalInterests = () => {
   cy.task('log', 'Navigating through Additional Interests');
-  // TODO testing this pattern out. Long term we need to come up with a better solution because 'shouldWait' is dependent on the previous test and whether or not that test already 'wait'ed for getQuestions.
-  if (shouldWait) {
-    cy.wait('@getQuestions').then(({ request }) => {
-      expect(request.body.step).to.equal('additionalInterestsCSR');
-    });
-  }
+  cy.wait('@getQuestions').then(({ request }) => {
+    expect(request.body.step).to.equal('additionalInterestsCSR');
+  });
   cy.clickSubmit('#QuoteWorkflow');
 };
 

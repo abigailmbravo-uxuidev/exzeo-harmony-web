@@ -8,13 +8,9 @@ import {
   setRouteAliases,
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughPolicyDetails,
-  navigateThroughUnderwriting,
   navigateThroughCustomize,
-  navigateThroughShare,
   navigateThroughAssumptions,
   navigateThroughPolicyholder,
-  navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
   navigateThroughVerify,
   navigateThroughScheduleDate,
@@ -22,7 +18,6 @@ import {
 } from '../../helpers';
 import {
   policyDetailsTest,
-  policyholderTest,
   underwritingTest,
   customizeTest,
   shareTest,
@@ -38,21 +33,13 @@ describe('Agency Happy Path', () => {
   it('Navigates through the HO3 quote workflow', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    policyDetailsTest();
-    // navigateThroughPolicyDetails();
-    underwritingTest();
-    // navigateThroughUnderwriting();
+    policyDetailsTest('HO3');
+    underwritingTest('HO3', underwritingHO3);
     customizeTest();
-    // navigateThroughCustomize();
     shareTest();
-    // navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughPolicyholder();
-
     additionalInterestTest();
-
-    navigateThroughAdditionalInterests(false);
-
     mailingBillingTest();
     navigateThroughMailingBilling();
     verifyTest();
@@ -94,19 +81,11 @@ describe('AF3 Happy Path', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress(userAF3);
     policyDetailsTest('AF3');
-    // navigateThroughPolicyDetails(userAF3);
     underwritingTest('AF3', underwritingAF3);
-    // navigateThroughUnderwriting(underwritingAF3);
-    // customizeTest('AF3');
     navigateThroughCustomize();
     shareTest('AF3');
-    // navigateThroughShare();
     navigateThroughPolicyholder(userAF3);
-
     additionalInterestTest('AF3');
-
-    navigateThroughAdditionalInterests(false);
-
     mailingBillingTest('AF3');
     navigateThroughMailingBilling();
     verifyTest('AF3');
