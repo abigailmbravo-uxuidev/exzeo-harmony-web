@@ -24,6 +24,7 @@ import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 import Training from './containers/Training';
 import Contacts from './containers/Contacts';
+import Reports from 'containers/Reports';
 
 class Routes extends Component {
   componentDidMount() {
@@ -139,6 +140,11 @@ class Routes extends Component {
                 exact
                 path="/contacts"
                 render={props => <Contacts auth={auth} {...props} />}
+              />
+              <Route
+                exact
+                path="/reports"
+                render={props => <Reports auth={auth} {...props} />}
               />
               <Route
                 exact
