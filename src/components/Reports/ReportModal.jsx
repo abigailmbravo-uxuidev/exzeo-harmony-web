@@ -9,6 +9,7 @@ import {
   Field,
   composeValidators
 } from '@exzeo/core-ui';
+import ReportTable from './ReportTable';
 
 const ReportModal = ({
   handleRefresh,
@@ -61,7 +62,9 @@ const ReportModal = ({
                       Refresh
                     </Button>
                   </div>
-                  <div className="card-block"></div>
+                  <div className="card-block">
+                      <ReportTable columns={report.columns} reportData={[]} />
+                  </div>
                   <div className="card-footer">
                     <Button
                       className={Button.constants.classNames.secondary}
