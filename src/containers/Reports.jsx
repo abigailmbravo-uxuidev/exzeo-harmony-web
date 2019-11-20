@@ -36,37 +36,39 @@ const Reports = ({ auth, match }) => {
   ];
 
   return (
-    <AppWrapper auth={auth} match={match} routeClassName="main reports">
+    <AppWrapper auth={auth} match={match} routeClassName="main training">
       <div className="scroll">
         <div className="detail-wrapper">
-          <section className="reports">
+          <section className="reference">
             <h2 className="title">
               <i className="fa fa-table" />
               &nbsp;Reports
             </h2>
             {/* TODO: Get reports from endpoint in the reports-service */}
-            <ReportCard
-              title="Agency Activity"
-              details="Report details..."
-              openModal={() =>
-                setReport({
-                  title: 'Agency Activity',
-                  columns: agencyActivityColumns
-                })
-              }
-              handleDownload={x => x}
-            />
-            <ReportCard
-              title="Book of Business"
-              details="Report details..."
-              openModal={() =>
-                setReport({
-                  title: 'Book of Business',
-                  columns: bookOfBusinessColumns
-                })
-              }
-              handleDownload={x => x}
-            />
+            <ul className="link-list reference-links">
+              <ReportCard
+                title="Agency Activity"
+                details="Report details..."
+                openModal={() =>
+                  setReport({
+                    title: 'Agency Activity',
+                    columns: agencyActivityColumns
+                  })
+                }
+                handleDownload={x => x}
+              />
+              <ReportCard
+                title="Book of Business"
+                details="Report details..."
+                openModal={() =>
+                  setReport({
+                    title: 'Book of Business',
+                    columns: bookOfBusinessColumns
+                  })
+                }
+                handleDownload={x => x}
+              />
+            </ul>
           </section>
         </div>
       </div>
