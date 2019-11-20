@@ -38,6 +38,13 @@ export const getNavLinks = (params, enableQuote, enableRetrieve) => {
       hasIcon: true
     },
     {
+      key: 'reports',
+      to: '/reports',
+      label: 'REPORTS',
+      styleName: 'reports label',
+      hasIcon: true
+    },
+    {
       key: 'contacts',
       to: '/contacts',
       label: 'CONTACTS',
