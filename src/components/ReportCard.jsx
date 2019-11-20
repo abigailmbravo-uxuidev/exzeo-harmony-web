@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Button } from '@exzeo/core-ui/src';
 
-const ReportCard = ({ title, details }) => {
+const ReportCard = ({ title, details, openModal, handleDownload }) => {
   return (
     <div className={classNames('card report-card', title)}>
       <div className="card-header">{title}</div>
@@ -11,14 +11,14 @@ const ReportCard = ({ title, details }) => {
         <div className="report-download">
           <Button
             className={Button.constants.classNames.secondary}
-            onClick={x => x}
+            onClick={openModal}
             data-test="run-report"
           >
             Run Report
           </Button>
           <Button
             className={Button.constants.classNames.primary}
-            onClick={x => x}
+            onClick={handleDownload}
             data-test="download-report"
           >
             <i className="fa fa-file-excel-o" />
