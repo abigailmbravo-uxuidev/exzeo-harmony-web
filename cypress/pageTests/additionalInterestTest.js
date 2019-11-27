@@ -62,7 +62,7 @@ export default (product = 'HO3') => {
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(1);
     expect(
@@ -77,7 +77,7 @@ export default (product = 'HO3') => {
     .click();
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(0);
     expect(

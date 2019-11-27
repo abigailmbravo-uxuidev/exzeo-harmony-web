@@ -85,18 +85,18 @@ export default (product = 'HO3') => {
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(1);
     expect(
-      request.body.data.additionalInterests[0].type,
+      request.body.data.quote.additionalInterests[0].type,
       'Additional Interest Type: '
     ).to.equal('Mortgagee');
   });
   cy.clickSubmit('#QuoteWorkflow');
   cy.wait('@getBillingOptions').then(({ request }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(1);
   });
@@ -116,11 +116,11 @@ export default (product = 'HO3') => {
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(2);
     expect(
-      request.body.data.additionalInterests[1].type,
+      request.body.data.quote.additionalInterests[1].type,
       'Additional Interest Type: '
     ).to.equal('Premium Finance');
   });
@@ -144,7 +144,7 @@ export default (product = 'HO3') => {
     cy.wait('@updateQuote').then(({ request }) => {
       // In this test we know we have 2 AI to start with. The first time we delete, there should be 1 left in the request, the second time, 0
       expect(
-        request.body.data.additionalInterests.length,
+        request.body.data.quote.additionalInterests.length,
         'Additional Interests: '
       ).to.equal(index === 0 ? 1 : 0);
     });

@@ -60,7 +60,7 @@ export default (product = 'HO3') =>
     .wait('@updateQuote')
     .then(({ request, response }) => {
       expect(
-        request.body.data.policyHolders.length,
+        request.body.data.quote.policyHolders.length,
         'Policyholders in request'
       ).to.equal(1);
       expect(
