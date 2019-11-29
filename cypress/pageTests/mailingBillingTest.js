@@ -96,7 +96,7 @@ export default (product = 'HO3') => {
   cy.clickSubmit('#QuoteWorkflow');
   cy.wait('@getBillingOptions').then(({ request }) => {
     expect(
-      request.body.data.quote.additionalInterests.length,
+      request.body.data.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(1);
   });
