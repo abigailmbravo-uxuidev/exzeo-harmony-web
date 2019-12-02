@@ -15,8 +15,7 @@ const ho3Headers = [
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 2,667' }
+  }
 ];
 
 const af3Headers = [
@@ -32,8 +31,7 @@ const af3Headers = [
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 312' }
+  }
 ];
 
 export default (product = 'HO3') => {
@@ -62,7 +60,7 @@ export default (product = 'HO3') => {
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(1);
     expect(
@@ -77,7 +75,7 @@ export default (product = 'HO3') => {
     .click();
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(0);
     expect(

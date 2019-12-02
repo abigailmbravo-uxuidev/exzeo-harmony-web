@@ -15,8 +15,7 @@ const ho3Headers = [
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 2,667' }
+  }
 ];
 
 const af3Headers = [
@@ -32,8 +31,7 @@ const af3Headers = [
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 312' }
+  }
 ];
 
 export default (product = 'HO3') =>
