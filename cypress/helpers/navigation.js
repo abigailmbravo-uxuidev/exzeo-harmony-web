@@ -40,7 +40,7 @@ export const navigateThroughPolicyDetails = ({
         .type(`{selectall}{backspace}${value}`)
     );
   cy.wait('@getAgents').then(({ response }) => {
-    expect(response.body.status).to.equal('200');
+    expect(response.body.status).to.equal(200);
   });
   // Select agent.
   cy.findDataTag('agentCode')
