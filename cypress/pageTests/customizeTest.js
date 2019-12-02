@@ -23,8 +23,7 @@ const headersHO3 = [
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 2,667' }
+  }
 ];
 
 const headersAF3 = [
@@ -40,8 +39,7 @@ const headersAF3 = [
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 312' }
+  }
 ];
 
 const getFields = product =>
