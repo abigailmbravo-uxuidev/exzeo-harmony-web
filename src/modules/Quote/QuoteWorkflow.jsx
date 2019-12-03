@@ -280,79 +280,80 @@ export class QuoteWorkflow extends Component {
             />
           )}
 
-          {shouldUseGandalf && (
-            <React.Fragment>
-              <Gandalf
-                formId={FORM_ID}
-                className="survey-wrapper"
-                currentPage={currentStepNumber}
-                customComponents={this.customComponents}
-                customHandlers={customHandlers}
-                handleSubmit={this.handleGandalfSubmit}
-                initialValues={quote}
-                options={options} // enums for select/radio fields
-                path={location.pathname}
-                template={gandalfTemplate}
-                transformConfig={transformConfig}
-                renderFooter={
-                  <FormSpy subscription={{ submitting: true }}>
-                    {({ submitting, form }) => (
-                      <React.Fragment>
-                        {shouldRenderFooter && (
-                          <div className="btn-group">
-                            <Button
-                              data-test="submit"
-                              className={Button.constants.classNames.primary}
-                              onClick={this.primaryClickHandler}
-                              disabled={submitting || needsConfirmation}
-                              label={
-                                this.state.isRecalc ? 'recalculate' : 'next'
-                              }
-                            />
-
-                            {this.state.isRecalc && (
+          <div className="survey-wrapper">
+            {shouldUseGandalf && (
+              <React.Fragment>
+                <Gandalf
+                  formId={FORM_ID}
+                  currentPage={currentStepNumber}
+                  customComponents={this.customComponents}
+                  customHandlers={customHandlers}
+                  handleSubmit={this.handleGandalfSubmit}
+                  initialValues={quote}
+                  options={options} // enums for select/radio fields
+                  path={location.pathname}
+                  template={gandalfTemplate}
+                  transformConfig={transformConfig}
+                  renderFooter={
+                    <FormSpy subscription={{ submitting: true }}>
+                      {({ submitting, form }) => (
+                        <React.Fragment>
+                          {shouldRenderFooter && (
+                            <div className="btn-group">
                               <Button
-                                data-test="reset"
-                                className={
-                                  Button.constants.classNames.secondary
+                                data-test="submit"
+                                className={Button.constants.classNames.primary}
+                                onClick={this.primaryClickHandler}
+                                disabled={submitting || needsConfirmation}
+                                label={
+                                  this.state.isRecalc ? 'recalculate' : 'next'
                                 }
-                                onClick={form.reset}
-                                label="reset"
                               />
-                            )}
-                          </div>
-                        )}
-                      </React.Fragment>
-                    )}
-                  </FormSpy>
-                }
-                formListeners={
-                  <React.Fragment>
-                    <FormSpy subscription={{}}>
-                      {({ form }) => {
-                        this.setFormInstance(form);
-                        return null;
-                      }}
-                    </FormSpy>
 
-                    <FormSpy subscription={{ dirty: true }}>
-                      {({ dirty }) => (
-                        <TriggerRecalc
-                          dirty={dirty}
-                          isRecalc={isRecalc}
-                          workflowPage={currentStepNumber}
-                          recalcPage={2}
-                          setRecalc={this.setRecalc}
-                        />
+                              {this.state.isRecalc && (
+                                <Button
+                                  data-test="reset"
+                                  className={
+                                    Button.constants.classNames.secondary
+                                  }
+                                  onClick={form.reset}
+                                  label="reset"
+                                />
+                              )}
+                            </div>
+                          )}
+                        </React.Fragment>
                       )}
                     </FormSpy>
-                  </React.Fragment>
-                }
-              />
+                  }
+                  formListeners={
+                    <React.Fragment>
+                      <FormSpy subscription={{}}>
+                        {({ form }) => {
+                          this.setFormInstance(form);
+                          return null;
+                        }}
+                      </FormSpy>
 
-              <Footer />
-            </React.Fragment>
-          )}
+                      <FormSpy subscription={{ dirty: true }}>
+                        {({ dirty }) => (
+                          <TriggerRecalc
+                            dirty={dirty}
+                            isRecalc={isRecalc}
+                            workflowPage={currentStepNumber}
+                            recalcPage={2}
+                            setRecalc={this.setRecalc}
+                          />
+                        )}
+                      </FormSpy>
+                    </React.Fragment>
+                  }
+                />
+
+                <Footer />
+              </React.Fragment>
+            )}
+          </div>
 
           <Route
             exact
