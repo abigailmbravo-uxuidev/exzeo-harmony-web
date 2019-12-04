@@ -165,41 +165,41 @@ export const initializePolicyWorkflow = policyNumber => {
   };
 };
 
-export const getZipcodeSettings = (
-  companyCode = 'TTIC',
-  state = 'FL',
-  product = 'HO3',
-  zip
-) => {
-  return dispatch => {
-    const axiosConfig = runnerSetup(
-      {
-        service: 'underwriting',
-        method: 'GET',
-        path: `zip-code?companyCode=${companyCode}&state=${state}&product=${product}&zip=${zip}`
-      },
-      'getZipcodeSettings'
-    );
+export const getZipcodeSettings = quote => {
+  return async dispatch => {
+    const data = {
+      companyCode: quote.companyCode,
+      state: quote.state,
+      product: quote.product,
+      propertyId: quote.property.id,
+      document: quote
+    };
 
-    return axios(axiosConfig)
-      .then(response => {
-        const data = {
-          zipCodeSettings:
-            response.data && response.data.result
-              ? response.data.result[0]
-              : { timezone: '' }
-        };
-        // ===== temporary until we remove this 'serviceActions' state slice
-        dispatch({
-          type: listActions.SET_ZIP_SETTINGS,
-          zipCodeSettings: data.zipCodeSettings || {}
-        });
-        // =====
-        return dispatch(serviceRequest(data));
-      })
+    const config = {
+      exchangeName: 'harmony.crud',
+      routingKey: 'harmony.crud.zipcode-data.getZipCode',
+      data
+    };
+
+    const response = await serviceRunner
+      .callService(config, 'getZipcodeSettings')
       .catch(error => {
         const message = handleError(error);
         return dispatch(errorActions.setAppError(message));
       });
+
+    const settings = {
+      zipCodeSettings:
+        response.data && response.data.result
+          ? response.data.result
+          : { timezone: '' }
+    };
+    // ===== temporary until we remove this 'serviceActions' state slice
+    dispatch({
+      type: listActions.SET_ZIP_SETTINGS,
+      zipCodeSettings: settings.zipCodeSettings || {}
+    });
+    // =====
+    return dispatch(serviceRequest(settings));
   };
 };

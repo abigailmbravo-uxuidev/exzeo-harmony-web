@@ -86,12 +86,7 @@ export class QuoteWorkflow extends Component {
 
     if (quote && quote.property) {
       this.props.getAgentsByAgencyCode(quote.agencyCode, quote.state);
-      this.props.getZipcodeSettings(
-        quote.companyCode,
-        quote.state,
-        quote.product,
-        quote.property.physicalAddress.zip
-      );
+      this.props.getZipcodeSettings(quote);
     }
     this.getTemplate();
   }

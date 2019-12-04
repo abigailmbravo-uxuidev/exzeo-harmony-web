@@ -300,7 +300,7 @@ const mock = {
             label: 'Loss of Use Limit',
             size: '12',
             hint:
-              'This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.',
+              'Loss of Use Coverage is for additional living expenses incurred while your home is being repaired or rebuilt.',
             extendedProperties: {
               output: 'currency'
             }
