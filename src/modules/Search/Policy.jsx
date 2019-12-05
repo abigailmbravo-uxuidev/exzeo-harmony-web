@@ -7,6 +7,7 @@ import AppWrapper from '../../components/AppWrapper';
 import PolicySearchBar from '../../components/Search/PolicySearchBar';
 import SearchResults from '../../components/Search/SearchResults';
 import Footer from '../../components/Footer';
+import { cspAnswers } from '../../components/Search/constants';
 
 export class PolicySearch extends Component {
   componentDidMount() {
@@ -17,19 +18,25 @@ export class PolicySearch extends Component {
     this.props.clearPolicyResults();
   }
   render() {
-    const { auth, match } = this.props;
+    const { agency, auth, match } = this.props;
+    const answers = auth.isInternal
+      ? cspAnswers
+      : agency && agency.cspAnswers
+      ? agency.cspAnswers
+      : [];
+
     return (
       <AppWrapper
-        logout={auth.logout}
+        auth={auth}
         match={match}
         render={() => (
           <div className="route search">
             <div className="flex grow">
               <div className="search route-content">
-                <PolicySearchBar />
+                <PolicySearchBar answers={answers} />
                 <div className="survey-wrapper">
                   <div className="results-wrapper">
-                    <SearchResults />
+                    <SearchResults auth={auth} />
                   </div>
                   <Footer />
                 </div>

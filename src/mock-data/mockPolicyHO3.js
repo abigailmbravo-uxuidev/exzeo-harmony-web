@@ -388,8 +388,10 @@ const mock = {
                           label: 'Dist. to Fire Hydrant',
                           items: [
                             {
-                              format: 'feet',
-                              path: 'property.distanceToFireHydrant'
+                              format: 'appendUnitMaxDigits',
+                              path: 'property.distanceToFireHydrant',
+                              unitOfMeasure: 'ft.',
+                              digits: '2'
                             }
                           ]
                         },

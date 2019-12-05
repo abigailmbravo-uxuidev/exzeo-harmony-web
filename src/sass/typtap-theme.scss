@@ -792,7 +792,8 @@ html {
 /*------------------------------------------------------------------------------------*/
 header {
   border-bottom: 2px solid $bright-blue;
-  background: $black;
+  background-color: mix($cool-gray-14, $bright-blue, 70);
+  box-shadow: 0 -6px 15px 0 rgba($black, 0.5);
 
   @include for-tablet-landscape-up {
     max-width: 64rem;
@@ -1043,19 +1044,22 @@ div[role='main'] {
   background-color: $cool-gray-12;
   background-image: url('../img/typtap-bg.png');
   background-position-x: center;
-  background-position-y: -3rem;
+  background-position-y: -1.75rem;
   background-size: cover;
   background-repeat: no-repeat;
 
-  .user {
-    border-bottom: 2px solid mix($cool-gray-12, $bright-blue, 40);
+  @include for-phone-only {
+    background-position-y: -6rem;
+  }
+
+  .date-wrapper {
     background-color: mix($cool-gray-12, $bright-blue, 70);
 
     label {
       color: $green-lighten-02;
     }
 
-    .user-name {
+    .date {
       align-items: center;
       color: $white;
     }
@@ -1083,6 +1087,21 @@ div[role='main'] {
 
             &:hover {
               text-decoration: none;
+            }
+          }
+
+          &.disabled {
+            color: rgba($white, 0.2);
+            &:hover {
+              border-left-color: rgba($white, 0);
+              background-color: transparent;
+              cursor: not-allowed;
+            }
+            span {
+              color: rgba($white, 0.2);
+            }
+            i {
+              color: rgba($white, 0.2);
             }
           }
         }
@@ -1268,36 +1287,35 @@ footer {
       color: $bright-blue-darken-03;
     }
 
-    .product-wrapper {
-      .product {
-        .card-header {
-          &.card-header-image-flood {
-            background-image: url('../img/flood.jpg');
-            background-position: right top;
-          }
+    .welcome-banner {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 1rem;
+      height: 18rem;
+      background-image: url('../img/welcome-image.jpg');
+      background-position: center center;
+      background-size: cover;
 
-          &.card-header-image-home {
-            background-image: url('../img/home-owners.jpg');
-            background-position: center center;
-          }
+      h1 {
+        width: 100%;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      h2 {
+        margin: 0;
+        width: 100%;
+        color: $white;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
 
-          h1,
-          h2,
-          h3,
-          h4,
-          h5,
-          h6 {
-            margin: (-$padding * 1.75) (-$padding * 2.5);
-            padding: $padding;
-            background-color: rgba($cool-gray-10, 0.75);
-          }
-        }
-
-        .card-footer {
-          .btn-secondary {
-            @include button-variant($white, $bright-blue, $bright-blue);
-          }
-        }
+    .launch-buttons {
+      .btn.btn-secondary {
+        @include button-variant($white, $bright-blue, $bright-blue);
       }
     }
   }

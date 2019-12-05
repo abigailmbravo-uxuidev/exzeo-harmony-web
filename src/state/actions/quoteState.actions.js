@@ -1,10 +1,18 @@
 import { date } from '@exzeo/core-ui';
+import { quoteData } from '@exzeo/core-ui/src/@Harmony';
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
 import { PRODUCT_TYPES } from '../../modules/Quote/constants/quote';
+
+export function clearQuote() {
+  return {
+    type: types.SET_QUOTE,
+    quote: null
+  };
+}
 
 export function setQuote(quote) {
   return {
@@ -15,44 +23,26 @@ export function setQuote(quote) {
 
 /**
  * Create a quote
- * @param {string} address
  * @param {string} igdID
  * @param {string} stateCode
  * @param {string} companyCode
  * @param {string} product
  * @returns {Function}
  */
-export function createQuote(address, igdID, stateCode, companyCode, product) {
+export function createQuote(igdID, stateCode, companyCode, product) {
   return async dispatch => {
     dispatch(toggleLoading(true));
     try {
-      const config = {
-        exchangeName: 'harmony',
-        routingKey: 'harmony.quote.createQuote',
-        data: {
-          companyCode,
-          state: stateCode,
-          product,
-          propertyId: igdID
-        }
-      };
-
-      const response = await serviceRunner.callService(
-        config,
-        'quoteManager.createQuote'
-      );
-      const quote = response.data.result;
-      // Ensure that all 'source' fields are set for underwriting questions
-      Object.keys(quote.underwritingAnswers || {}).map(
-        q => (quote.underwritingAnswers[q].source = 'Customer')
-      );
+      const quote = await quoteData.createQuote({
+        igdID,
+        companyCode,
+        stateCode,
+        product
+      });
 
       dispatch(setQuote(quote));
       return quote;
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Error creating quote: ', error);
-      }
       dispatch(errorActions.setAppError(error));
       return null;
     } finally {
@@ -71,26 +61,11 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
   return async dispatch => {
     dispatch(toggleLoading(true));
     try {
-      const config = {
-        exchangeName: 'harmony',
-        routingKey: 'harmony.quote.retrieveQuote',
-        data: {
-          quoteId,
-          quoteNumber
-        }
-      };
+      const quote = await quoteData.retrieveQuote({ quoteNumber, quoteId });
 
-      const response = await serviceRunner.callService(
-        config,
-        'quoteManager.retrieveQuote'
-      );
-      const quote = response.data.result;
       dispatch(setQuote(quote));
       return quote;
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Error retrieving quote: ', error);
-      }
       dispatch(errorActions.setAppError(error));
       return null;
     } finally {
@@ -101,97 +76,40 @@ export function retrieveQuote({ quoteNumber, quoteId }) {
 
 /**
  *
- * @param quoteNumber
- * @param quoteId
- * @returns {Function}
- */
-export function reviewQuote({ quoteNumber, quoteId }) {
-  return async dispatch => {
-    dispatch(toggleLoading(true));
-    try {
-      const config = {
-        exchangeName: 'harmony',
-        routingKey: 'harmony.quote.reviewQuote',
-        data: {
-          quoteId,
-          quoteNumber
-        }
-      };
-
-      const response = await serviceRunner.callService(
-        config,
-        'quoteManager.reviewQuote'
-      );
-      const quote = response.data.result;
-      dispatch(setQuote(quote));
-      return quote;
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Error reviewing quote: ', error);
-      }
-      dispatch(errorActions.setAppError(error));
-      return null;
-    } finally {
-      dispatch(toggleLoading(false));
-    }
-  };
-}
-
-/**
- *
- * @param data
+ * @param quote
  * @param options
  * @returns {Object}
  */
-function formatQuoteForSubmit(data, options) {
-  const {
-    additionalPolicyholder,
-    shouldSendEmail,
-    shouldSendApplication,
-    ...quote
-  } = data;
-  quote.effectiveDate = date.formatToUTC(
-    date.formatDate(data.effectiveDate, date.FORMATS.SECONDARY),
-    data.property.timezone
-  );
-
+function formatQuoteForSubmit(quote, options) {
   // PolicyHolder logic -------------------------------------------------------
   // TODO this logic can be moved to its own component which will handle adding/removing policyholder info based on the additionalPolicyholder toggle
-  if (options.step === 0 || options.step === 7) {
-    quote.policyHolders[0].electronicDelivery =
-      data.policyHolders[0].electronicDelivery || false;
-    quote.policyHolders[0].order = data.policyHolders[0].order || 0;
-    quote.policyHolders[0].entityType =
-      data.policyHolders[0].entityType || 'Person';
-
-    if (additionalPolicyholder) {
-      quote.policyHolders[1].order = data.policyHolders[1].order || 1;
-      quote.policyHolders[1].entityType =
-        data.policyHolders[1].entityType || 'Person';
-    } else {
+  if (options.step === 0 || options.step === 5 || options.step === 8) {
+    if (!quote.additionalPolicyholder) {
       // 'additionalPolicyholder toggle is not selected, ensure we only save the primary
       quote.policyHolders = [quote.policyHolders[0]];
     }
   }
   // --------------------------------------------------------------------------
 
-  if (!data.coverageLimits.personalProperty.value) {
+  // TODO PPRC logic: use a field watcher to set this value from the UI so we don't need to worry about it here.
+  if (!quote.coverageLimits.personalProperty.value) {
     quote.coverageOptions.personalPropertyReplacementCost.answer = false;
   }
 
-  // AF3 specific rules
-  if (data.product === PRODUCT_TYPES.flood) {
+  // AF3 specific rules -------------------------------------------------------
+  if (quote.product === PRODUCT_TYPES.flood) {
     // TODO setting personalPropertyDeductible to match buildingDeductible (ppd is not in UI) so we aren't 'watching' building to update it. Need to fix.
     quote.deductibles.personalPropertyDeductible.value =
       quote.deductibles.buildingDeductible.value;
     // personal property replacement cost coverage
     if (
-      data.coverageLimits.personalProperty.value <
-      Math.ceil(data.coverageLimits.building.value / 4)
+      quote.coverageLimits.personalProperty.value <
+      Math.ceil(quote.coverageLimits.building.value / 4)
     ) {
       quote.coverageOptions.personalPropertyReplacementCost.answer = false;
     }
   }
+  // --------------------------------------------------------------------------
 
   return quote;
 }
@@ -207,47 +125,24 @@ export function updateQuote({ data = {}, options }) {
     dispatch(toggleLoading(true));
     try {
       if (data.shouldSendApplication) {
-        const config = {
-          exchangeName: 'harmony',
-          routingKey: 'harmony.quote.sendApplication',
-          data: {
-            quoteNumber: data.quoteNumber,
-            sendType: 'docusign'
-          }
-        };
-
-        await serviceRunner.callService(config, 'quoteManager.sendApplication');
+        await quoteData.sendApplication(data.quoteNumber, 'docusign');
       } else {
-        const updatedQuote = formatQuoteForSubmit(data, options);
-        const config = {
-          exchangeName: 'harmony',
-          routingKey: 'harmony.quote.updateQuote',
-          data: updatedQuote
-        };
+        const formattedQuote = formatQuoteForSubmit(data, options);
+        const updatedQuote = await quoteData.updateQuote(formattedQuote);
 
-        const response = await serviceRunner.callService(
-          config,
-          'quoteManager.updateQuote'
-        );
-
-        if (options.shouldReviewQuote) {
-          const quote = await dispatch(
-            reviewQuote({ quoteNumber: data.quoteNumber })
-          );
-          return quote;
+        let quote = {};
+        if (options.shouldVerifyQuote && quote.quoteState !== 'Quote Stopped') {
+          quote = await quoteData.verifyQuote({
+            quoteNumber: data.quoteNumber
+          });
         } else {
-          const quote = response.data.result;
-          if (!quote) {
-            dispatch(errorActions.setAppError(response.data));
-          }
-          dispatch(setQuote(quote));
-          return quote;
+          quote = updatedQuote;
         }
+
+        dispatch(setQuote(quote));
+        return quote;
       }
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Error updating quote: ', error);
-      }
       dispatch(errorActions.setAppError(error));
       return null;
     } finally {
@@ -279,23 +174,6 @@ export function getQuote(quoteNumber, quoteId) {
     } catch (error) {
       dispatch(errorActions.setAppError(error));
       return null;
-    } finally {
-      dispatch(toggleLoading(false));
-    }
-  };
-}
-
-/**
- *
- * @returns {Function}
- */
-export function clearQuote() {
-  return async dispatch => {
-    dispatch(toggleLoading(true));
-    try {
-      dispatch(setQuote(null, {}));
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
     } finally {
       dispatch(toggleLoading(false));
     }

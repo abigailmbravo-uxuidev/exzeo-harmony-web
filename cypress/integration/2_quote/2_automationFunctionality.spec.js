@@ -2,11 +2,12 @@ import {
   setRouteAliases,
   navigateThroughLanding,
   navigateThroughSearchAddress,
-  navigateThroughPolicyholder,
+  navigateThroughPolicyDetails,
   navigateThroughUnderwriting,
   navigateThroughCustomize,
   navigateThroughShare,
   navigateThroughAssumptions,
+  navigateThroughPolicyholder,
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
   navigateThroughScheduleDate,
@@ -16,16 +17,25 @@ import {
 describe('Back Button Testing', () => {
   // Grab the quote number off the ui and retrieve it to confirm our quote is searchable with the quote number
   const getQuoteNumberAndRetrieve = status =>
-    cy.findDataTag('quoteNumberDetail').find('> dl > div > dd').then($quote =>
-      cy.go('back')
-        .get('div.dashboard-message').should('exist')
-        .get('.btn[href="/search/retrieve"]').click()
-        .findDataTag('quoteNumber').type($quote.text())
-        .clickSubmit('#SearchBar')
-        .findDataTag('quote-list').should('not.be.empty')
-        .find('li.card .quote-state').should('contain', status)
-        .go('back')
-    );
+    cy
+      .findDataTag('quoteNumberDetail')
+      .find('> dl > div > dd')
+      .then($quote =>
+        cy
+          .go('back')
+          .get('div.dashboard-message')
+          .should('exist')
+          .get('.btn[href="/search/retrieve"]')
+          .click()
+          .findDataTag('quoteNumber')
+          .type($quote.text())
+          .clickSubmit('#SearchBar')
+          .findDataTag('quote-list')
+          .should('not.be.empty')
+          .find('li.card .quote-state')
+          .should('contain', status)
+          .go('back')
+      );
 
   before('Login and go to search', () => {
     cy.login();
@@ -35,41 +45,46 @@ describe('Back Button Testing', () => {
 
   it('Browser Back Button', () => {
     cy.go('back')
-      .get('div.dashboard-message').should('exist');
+      .get('div.dashboard-message')
+      .should('exist');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    cy.wait('@getZipcodeSettings').go('back')
-      .get('div.dashboard-message').should('exist');
+    cy.wait('@getZipcodeSettings')
+      .go('back')
+      .get('div.dashboard-message')
+      .should('exist');
   });
 
   it('Browser Back Button pt 2', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     cy.go('back')
-      .get('div.dashboard-message').should('exist');
+      .get('div.dashboard-message')
+      .should('exist');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     getQuoteNumberAndRetrieve('Quote Qualified');
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     getQuoteNumberAndRetrieve('Application Ready');
@@ -78,11 +93,12 @@ describe('Back Button Testing', () => {
   it('Browser back button pt 3', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
@@ -90,16 +106,19 @@ describe('Back Button Testing', () => {
 
     navigateThroughLanding();
     navigateThroughSearchAddress();
-    navigateThroughPolicyholder();
+    navigateThroughPolicyDetails();
     navigateThroughUnderwriting();
     navigateThroughCustomize();
     navigateThroughShare();
     navigateThroughAssumptions();
+    navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
     navigateThroughScheduleDate();
-    cy.wait('@sendApplication').go('back')
-      .get('div.dashboard-message').should('exist');
+    cy.wait('@sendApplication')
+      .go('back')
+      .get('div.dashboard-message')
+      .should('exist');
   });
 });

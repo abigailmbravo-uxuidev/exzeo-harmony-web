@@ -8,7 +8,16 @@ import {
 import ConnectedPolicySearchBar from '../PolicySearchBar';
 
 describe('Testing Policy Searchbar component', () => {
-  const props = { handleSubmit: x => x };
+  const props = {
+    handleSubmit: x => x,
+    answers: {
+      products: [
+        { answer: 'HO3', label: 'HO3' },
+        { answer: 'AF3', label: 'AF3' }
+      ],
+      states: [{ answer: 'FL', label: 'FL' }]
+    }
+  };
 
   it('POS:Retrieve Policy Searchbar unit tests', () => {
     const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(

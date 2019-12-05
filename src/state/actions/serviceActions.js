@@ -2,6 +2,7 @@ import { http as axios } from '@exzeo/core-ui';
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import orderBy from 'lodash/orderBy';
 
+import { buildQuerystring } from './searchActions';
 import * as listActions from '../actionTypes/list.actionTypes';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
@@ -63,28 +64,13 @@ export const getQuote = quoteId => dispatch => {
     });
 };
 
-export const searchPolicy = ({
-  policyNumber,
-  firstName,
-  lastName,
-  address,
-  page,
-  pageSize,
-  sort,
-  direction,
-  companyCode = 'TTIC',
-  state = 'FL',
-  product = 'HO3'
-}) => dispatch => {
-  const formattedAddress = address.replace(' ', '&#32;');
+export const searchPolicy = query => dispatch => {
+  const queryString = buildQuerystring(query);
   const axiosConfig = runnerSetup(
     {
       service: 'policy-data',
       method: 'GET',
-      path: `/transactions?companyCode=${companyCode}&state=${state}&policyNumber=${policyNumber}&firstName=${firstName}&lastName=${lastName}&propertyAddress=${formattedAddress.replace(
-        ' ',
-        '&#32;'
-      )}&page=${page}&pageSize=${pageSize}&sort=${sort}&sortDirection=${direction}`
+      path: `/transactions?${queryString}`
     },
     'searchPolicy'
   );
@@ -179,41 +165,41 @@ export const initializePolicyWorkflow = policyNumber => {
   };
 };
 
-export const getZipcodeSettings = (
-  companyCode = 'TTIC',
-  state = 'FL',
-  product = 'HO3',
-  zip
-) => {
-  return dispatch => {
-    const axiosConfig = runnerSetup(
-      {
-        service: 'underwriting',
-        method: 'GET',
-        path: `zip-code?companyCode=${companyCode}&state=${state}&product=${product}&zip=${zip}`
-      },
-      'getZipcodeSettings'
-    );
+export const getZipcodeSettings = quote => {
+  return async dispatch => {
+    const data = {
+      companyCode: quote.companyCode,
+      state: quote.state,
+      product: quote.product,
+      propertyId: quote.property.id,
+      document: quote
+    };
 
-    return axios(axiosConfig)
-      .then(response => {
-        const data = {
-          zipCodeSettings:
-            response.data && response.data.result
-              ? response.data.result[0]
-              : { timezone: '' }
-        };
-        // ===== temporary until we remove this 'serviceActions' state slice
-        dispatch({
-          type: listActions.SET_ZIP_SETTINGS,
-          zipCodeSettings: data.zipCodeSettings || {}
-        });
-        // =====
-        return dispatch(serviceRequest(data));
-      })
+    const config = {
+      exchangeName: 'harmony.crud',
+      routingKey: 'harmony.crud.zipcode-data.getZipCode',
+      data
+    };
+
+    const response = await serviceRunner
+      .callService(config, 'getZipcodeSettings')
       .catch(error => {
         const message = handleError(error);
         return dispatch(errorActions.setAppError(message));
       });
+
+    const settings = {
+      zipCodeSettings:
+        response.data && response.data.result
+          ? response.data.result
+          : { timezone: '' }
+    };
+    // ===== temporary until we remove this 'serviceActions' state slice
+    dispatch({
+      type: listActions.SET_ZIP_SETTINGS,
+      zipCodeSettings: settings.zipCodeSettings || {}
+    });
+    // =====
+    return dispatch(serviceRequest(settings));
   };
 };

@@ -12,7 +12,7 @@ describe('Testing Search component', () => {
     const initialState = {};
     const store = mockStore(initialState);
     const props = {
-      reviewQuote: jest.fn(),
+      retrieveQuote: jest.fn(),
       createQuote: jest.fn(),
       history: { replace: jest.fn() },
       clearResults() {},
@@ -26,6 +26,9 @@ describe('Testing Search component', () => {
         data: {
           submitting: false
         }
+      },
+      agency: {
+        status: 'Active'
       },
       search: {}
     };
@@ -58,6 +61,9 @@ describe('Testing Search component', () => {
       },
       appState: {
         modelName: 'bb'
+      },
+      agencyState: {
+        agency: { status: 'Active' }
       }
     };
     const store = mockStore(initialState);
@@ -75,6 +81,9 @@ describe('Testing Search component', () => {
         data: {
           submitting: false
         }
+      },
+      agency: {
+        status: 'Active'
       },
       search: {},
       history: { replace: jest.fn() }

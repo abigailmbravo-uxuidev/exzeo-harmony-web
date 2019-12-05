@@ -111,7 +111,7 @@ describe('Testing the Share Page', () => {
     checkButton(getByTestId, {
       dataTest: 'modal-submit',
       text: 'Send Email',
-      type: 'submit'
+      type: 'button'
     });
 
     fireEvent.click(getByTestId('modal-cancel'));

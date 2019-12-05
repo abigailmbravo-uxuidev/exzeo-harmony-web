@@ -45,8 +45,11 @@ export class WorkflowNavigation extends Component {
           isLoading={isLoading}
           isRecalc={isRecalc}
           currentStep={currentStep}
-          useAnimationForPremium={
+          duration={
+            process.env.NODE_ENV === 'production' &&
             currentStep === STEP_NAMES.askToCustomizeDefaultQuote
+              ? 1.5
+              : 0.25
           }
         />
 

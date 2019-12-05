@@ -1,25 +1,58 @@
 const ho3Headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
-  { name: 'propertyAddressDetail', label: 'Address', value: '4131 TEST ADDRESS' },
+  {
+    name: 'propertyAddressDetail',
+    label: 'Address',
+    value: '4131 TEST ADDRESS'
+  },
   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
-  { name: 'constructionTypeDetail', label: 'Construction Type', value: 'MASONRY' },
-  { name: 'coverageLimits.dwelling.amountDetail', label: 'Coverage A', value: '$ 314,000' },
-  { name: 'premium', 'label': 'Premium', value: '$ 2,667' }
+  {
+    name: 'constructionTypeDetail',
+    label: 'Construction Type',
+    value: 'MASONRY'
+  },
+  {
+    name: 'coverageLimits.dwelling.amountDetail',
+    label: 'Coverage A',
+    value: '$ 314,000'
+  }
 ];
 
 const af3Headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
-  { name: 'propertyAddressDetail', label: 'Address', value: '4131 TEST ADDRESS' },
+  {
+    name: 'propertyAddressDetail',
+    label: 'Address',
+    value: '4131 TEST ADDRESS'
+  },
   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
-  { name: 'floodZoneDetail', label: 'Flood Zone', value: 'X' },
-  { name: 'coverageLimits.building.amountDetail', label: 'Coverage A', value: '$ 314,000' },
-  { name: 'premium', 'label': 'Premium', value: '$ 657' }
+  { name: 'FEMAfloodZoneDetail', label: 'FEMA Flood Zone', value: 'X' },
+  {
+    name: 'coverageLimits.building.amountDetail',
+    label: 'Coverage A',
+    value: '$ 314,000'
+  }
 ];
 
 export default (product = 'HO3') =>
-  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header => cy.checkDetailHeader(header))
-    .findDataTag('share').click()
-    .findDataTag('name').type('Bruce')
-    .findDataTag('email').type('Batman@gmail.com')
+  cy
+    .task('log', 'Test Share Page')
+    .findDataTag('share')
+    .click()
+    .findDataTag('name')
+    .type('Bruce')
+    .findDataTag('email')
+    .type('Batman@gmail.com')
+    // check detail header before submit (this allows time for the 'premium' animation to finish)
+    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
+    .each(header => cy.checkDetailHeader(header))
+
     .clickSubmit('#sendQuoteSummary', 'modal-submit')
-    .wait('@sendQuoteSummary');
+    .wait('@sendQuoteSummary')
+    .then(({ request }) => {
+      expect(request.body.data.toEmail).to.equal('Batman@gmail.com');
+    })
+    .clickSubmit('#QuoteWorkflow');
+// .wait('@updateQuote').then(({ response }) => {
+//   expect(response.body.result.quoteInputState).to.equal('Qualified');
+// });

@@ -29,8 +29,8 @@ const mock = {
           type: '$TITLE',
           dependencies: [],
           data: {
-            text: 'Primary Policyholder',
-            icon: 'fa fa-user-circle'
+            text: 'Policy Details',
+            icon: 'fa fa-file-text'
           },
           formData: {},
           children: []
@@ -74,180 +74,6 @@ const mock = {
               maxLength: 255
             }
           },
-          children: []
-        },
-        {
-          id: 5,
-          type: '$INPUT',
-          path: 'policyHolders[0].emailAddress',
-          dependencies: [],
-          data: {
-            component: 'text',
-            label: 'Email Address',
-            size: '8',
-            validation: ['isEmail']
-          },
-          formData: {
-            path: 'policyHolders.policyHolder.emailAddress',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
-          },
-          children: []
-        },
-        {
-          id: 6,
-          type: '$INPUT',
-          path: 'policyHolders[0].primaryPhoneNumber',
-          dependencies: [],
-          data: {
-            component: 'phone',
-            label: 'Contact Phone',
-            size: '4',
-            validation: ['isPhone']
-          },
-          formData: {
-            path: 'policyHolders.policyHolder.primaryPhoneNumber',
-            type: 'string',
-            required: true,
-            metaData: {
-              pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
-            }
-          },
-          children: []
-        },
-        {
-          id: 8,
-          type: '$INPUT',
-          path: 'additionalPolicyholder',
-          dependencies: [],
-          data: {
-            component: 'switch',
-            label: 'Do you want to add an additional Policyholder?'
-          },
-          formData: {},
-          children: []
-        },
-        {
-          id: 3453,
-          type: '$SECTION',
-          dependencies: [{ additionalPolicyholder: true }],
-          data: {},
-          formData: {},
-          children: [
-            {
-              id: 7,
-              type: '$TITLE',
-              dependencies: [],
-              data: {
-                text: 'Secondary Policyholder',
-                icon: 'fa fa-user-circle',
-                children: []
-              },
-              formData: {},
-              children: []
-            },
-            {
-              id: 10,
-              type: '$INPUT',
-              path: 'policyHolders[1].firstName',
-              dependencies: [],
-              data: {
-                component: 'text',
-                label: 'First Name',
-                size: '5',
-                validation: ['isValidNameFormat']
-              },
-              formData: {
-                path: 'policyHolders.policyHolder.firstName',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
-              },
-              children: []
-            },
-            {
-              id: 11,
-              type: '$INPUT',
-              path: 'policyHolders[1].lastName',
-              dependencies: [],
-              data: {
-                component: 'text',
-                label: 'Last Name',
-                size: '7',
-                validation: ['isValidNameFormat']
-              },
-              formData: {
-                path: 'policyHolders.policyHolder.lastName',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
-              },
-              children: []
-            },
-            {
-              id: 12,
-              type: '$INPUT',
-              path: 'policyHolders[1].emailAddress',
-              dependencies: [],
-              data: {
-                component: 'text',
-                label: 'Email Address',
-                size: '8',
-                validation: ['isEmail']
-              },
-              formData: {
-                path: 'policyHolders.policyHolder.emailAddress',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
-              },
-              children: []
-            },
-            {
-              id: 13,
-              type: '$INPUT',
-              path: 'policyHolders[1].primaryPhoneNumber',
-              dependencies: [],
-              data: {
-                component: 'phone',
-                label: 'Contact Phone',
-                size: '4',
-                validation: ['isPhone']
-              },
-              formData: {
-                path: 'policyHolders.policyHolder.primaryPhoneNumber',
-                type: 'string',
-                required: true,
-                metaData: {
-                  pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
-                }
-              },
-              children: []
-            }
-          ]
-        },
-        {
-          id: 3453111,
-          type: '$TITLE',
-          dependencies: [],
-          data: {
-            text: 'Policy Details',
-            icon: 'fa fa-file-text'
-          },
-          formData: {},
           children: []
         },
         {
@@ -474,7 +300,7 @@ const mock = {
             label: 'Loss of Use Limit',
             size: '12',
             hint:
-              'This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.',
+              'Loss of Use Coverage is for additional living expenses incurred while your home is being repaired or rebuilt.',
             extendedProperties: {
               output: 'currency'
             }
@@ -1137,6 +963,227 @@ const mock = {
           },
           formData: {},
           children: []
+        }
+      ]
+    },
+    {
+      name: 'policyholder',
+      step: {},
+      components: [
+        {
+          id: 1,
+          type: '$TITLE',
+          dependencies: [],
+          data: {
+            text: 'Primary Policyholder',
+            icon: 'fa fa-user-circle'
+          },
+          formData: {},
+          children: []
+        },
+        {
+          id: 3,
+          type: '$INPUT',
+          dependencies: [],
+          path: 'policyHolders[0].firstName',
+          data: {
+            component: 'text',
+            label: 'First Name',
+            size: '5',
+            validation: ['isValidNameFormat']
+          },
+          formData: {
+            path: 'policyHolders.policyHolder.firstName',
+            type: 'string',
+            required: true,
+            metaData: { minLength: 1, maxLength: 255 }
+          },
+          children: []
+        },
+        {
+          id: 4,
+          type: '$INPUT',
+          path: 'policyHolders[0].lastName',
+          dependencies: [],
+          data: {
+            component: 'text',
+            label: 'Last Name',
+            size: '7',
+            validation: ['isValidNameFormat']
+          },
+          formData: {
+            path: 'policyHolders.policyHolder.lastName',
+            type: 'string',
+            required: true,
+            metaData: {
+              minLength: 1,
+              maxLength: 255
+            }
+          },
+          children: []
+        },
+        {
+          id: 5,
+          type: '$INPUT',
+          path: 'policyHolders[0].emailAddress',
+          dependencies: [],
+          data: {
+            component: 'text',
+            label: 'Email Address',
+            size: '8',
+            validation: ['isEmail']
+          },
+          formData: {
+            path: 'policyHolders.policyHolder.emailAddress',
+            type: 'string',
+            required: true,
+            metaData: {
+              minLength: 1,
+              maxLength: 255
+            }
+          },
+          children: []
+        },
+        {
+          id: 6,
+          type: '$INPUT',
+          path: 'policyHolders[0].primaryPhoneNumber',
+          dependencies: [],
+          data: {
+            component: 'phone',
+            label: 'Contact Phone',
+            size: '4',
+            validation: ['isPhone']
+          },
+          formData: {
+            path: 'policyHolders.policyHolder.primaryPhoneNumber',
+            type: 'string',
+            required: true,
+            metaData: {
+              pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
+            }
+          },
+          children: []
+        },
+        {
+          id: 8,
+          type: '$INPUT',
+          path: 'additionalPolicyholder',
+          dependencies: [],
+          data: {
+            component: 'switch',
+            label: 'Do you want to add an additional Policyholder?'
+          },
+          formData: {},
+          children: []
+        },
+        {
+          id: 3453,
+          type: '$SECTION',
+          dependencies: [{ additionalPolicyholder: true }],
+          data: {},
+          formData: {},
+          children: [
+            {
+              id: 7,
+              type: '$TITLE',
+              dependencies: [],
+              data: {
+                text: 'Secondary Policyholder',
+                icon: 'fa fa-user-circle',
+                children: []
+              },
+              formData: {},
+              children: []
+            },
+            {
+              id: 10,
+              type: '$INPUT',
+              path: 'policyHolders[1].firstName',
+              dependencies: [],
+              data: {
+                component: 'text',
+                label: 'First Name',
+                size: '5',
+                validation: ['isValidNameFormat']
+              },
+              formData: {
+                path: 'policyHolders.policyHolder.firstName',
+                type: 'string',
+                required: true,
+                metaData: {
+                  minLength: 1,
+                  maxLength: 255
+                }
+              },
+              children: []
+            },
+            {
+              id: 11,
+              type: '$INPUT',
+              path: 'policyHolders[1].lastName',
+              dependencies: [],
+              data: {
+                component: 'text',
+                label: 'Last Name',
+                size: '7',
+                validation: ['isValidNameFormat']
+              },
+              formData: {
+                path: 'policyHolders.policyHolder.lastName',
+                type: 'string',
+                required: true,
+                metaData: {
+                  minLength: 1,
+                  maxLength: 255
+                }
+              },
+              children: []
+            },
+            {
+              id: 12,
+              type: '$INPUT',
+              path: 'policyHolders[1].emailAddress',
+              dependencies: [],
+              data: {
+                component: 'text',
+                label: 'Email Address',
+                size: '8',
+                validation: ['isEmail']
+              },
+              formData: {
+                path: 'policyHolders.policyHolder.emailAddress',
+                type: 'string',
+                required: true,
+                metaData: {
+                  minLength: 1,
+                  maxLength: 255
+                }
+              },
+              children: []
+            },
+            {
+              id: 13,
+              type: '$INPUT',
+              path: 'policyHolders[1].primaryPhoneNumber',
+              dependencies: [],
+              data: {
+                component: 'phone',
+                label: 'Contact Phone',
+                size: '4',
+                validation: ['isPhone']
+              },
+              formData: {
+                path: 'policyHolders.policyHolder.primaryPhoneNumber',
+                type: 'string',
+                required: true,
+                metaData: {
+                  pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
+                }
+              },
+              children: []
+            }
+          ]
         }
       ]
     },

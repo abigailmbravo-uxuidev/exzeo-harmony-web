@@ -141,11 +141,7 @@ export class PolicyWorkflow extends Component {
     };
 
     return (
-      <App
-        errorRedirectUrl={location.pathname}
-        logout={auth.logout}
-        match={match}
-      >
+      <App errorRedirectUrl={location.pathname} auth={auth} match={match}>
         <div className="route policy">
           {!gandalfTemplate || !policy.policyNumber ? <Loader /> : null}
           {gandalfTemplate && gandalfTemplate.header && (
@@ -163,7 +159,6 @@ export class PolicyWorkflow extends Component {
               />
             </React.Fragment>
           )}
-          {/*{ Gandalf will be replacing most/all of these routes }*/}
           {gandalfTemplate && (
             <React.Fragment>
               <Gandalf
@@ -178,7 +173,6 @@ export class PolicyWorkflow extends Component {
                 path={location.pathname}
                 template={gandalfTemplate}
                 transformConfig={transformConfig}
-                renderFooter={noop}
               />
               <Footer />
             </React.Fragment>

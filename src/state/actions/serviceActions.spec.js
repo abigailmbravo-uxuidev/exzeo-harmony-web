@@ -161,7 +161,7 @@ describe('Service Actions', () => {
         service: 'policy-data',
         method: 'GET',
         path:
-          '/transactions?companyCode=TTIC&state=FL&policyNumber=12-4001126-01&firstName=Test&lastName=Test&propertyAddress=123&page=1&pageSize=25&sort=policyNumber&sortDirection=desc'
+          'firstName=Test&lastName=Test&policyNumber=12-4001126-01&page=1&pageSize=25&sort=policyNumber&companyCode=TTIC&state=FL'
       }
     };
 
@@ -190,6 +190,7 @@ describe('Service Actions', () => {
       .then(() => {
         const actions = store.getActions();
         expect(actions[0].type).toEqual(types.SERVICE_REQUEST);
-      });
+      })
+      .catch(err => console.log(err));
   });
 });

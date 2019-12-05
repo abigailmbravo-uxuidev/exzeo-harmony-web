@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import {
   createQuote,
-  reviewQuote,
+  retrieveQuote,
   clearQuote
 } from '../../state/actions/quoteState.actions';
 import { clearResults } from '../../state/actions/searchActions';
@@ -37,7 +37,7 @@ export class Search extends React.Component {
 
   handleSelectQuote = async quoteData => {
     const { history } = this.props;
-    const quote = await this.props.reviewQuote({
+    const quote = await this.props.retrieveQuote({
       quoteNumber: quoteData.quoteNumber
     });
 
@@ -61,7 +61,6 @@ export class Search extends React.Component {
   handleSelectAddress = async address => {
     const { history, userProfile, search } = this.props;
     const quote = await this.props.createQuote(
-      '0',
       address.id,
       address.physicalAddress.state,
       userProfile.entity.companyCode,
@@ -76,17 +75,19 @@ export class Search extends React.Component {
   };
 
   render() {
-    const { searchType } = this.props;
+    const { agency, auth, searchType } = this.props;
+
     return (
       <div className="flex grow">
         <div className="search route-content">
-          <SearchBar searchType={searchType} />
+          <SearchBar auth={auth} searchType={searchType} agency={agency} />
           <div className="survey-wrapper">
             <div className="results-wrapper">
               <NoResultsConnect />
               <SearchResults
                 handleSelectAddress={this.handleSelectAddress}
                 handleSelectQuote={this.handleSelectQuote}
+                auth={auth}
                 {...this.props}
               />
             </div>
@@ -121,7 +122,7 @@ export default connect(
   {
     createQuote,
     clearQuote,
-    reviewQuote,
+    retrieveQuote,
     clearResults
   }
 )(Search);

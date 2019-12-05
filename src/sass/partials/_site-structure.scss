@@ -122,12 +122,14 @@ html {
 
               .route-content {
                 position: relative;
+                z-index: 1;
                 display: flex;
                 overflow: hidden;
                 flex-direction: column;
-                flex-grow: 1;
+                flex-grow: 0;
+                flex-shrink: 0;
                 width: 100%;
-                height: auto;
+                height: calc(100vh - 3.375rem);
 
                 .main,
                 form {
@@ -160,6 +162,7 @@ html {
                 overflow-y: auto;
                 flex-direction: column;
                 flex-grow: 1;
+                flex-shrink: 1;
                 flex-wrap: nowrap;
                 width: 100%;
 

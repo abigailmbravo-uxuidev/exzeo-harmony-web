@@ -1,13 +1,83 @@
+.not-found {
+  .route-content {
+    display: flex;
+    align-self: stretch;
+    flex-grow: 1;
+    flex-shrink: 1;
+    header {
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: 4.75rem;
+      background: $white;
+    }
+    .static-error-message {
+      margin-bottom: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px dotted $cool-gray-02;
+    }
+  }
+}
 .error-content {
   display: flex;
   flex-direction: column;
-  height: 100%;
   flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+
+  header {
+    position: relative;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    border-bottom-width: 0;
+
+    @include for-phone-only {
+      position: relative !important;
+    }
+
+    .workflow-header {
+      z-index: 1;
+    }
+
+    .error-header {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: rgba($orange-darken-01, 0.75);
+      color: $white;
+      font-weight: $font-weight-bold;
+
+      i {
+        margin: 0 $padding 0 ($padding * 4);
+        font-size: $font-size-h2;
+      }
+
+      h4 {
+        margin: 0;
+        color: $white;
+      }
+    }
+
+    &.fatal,
+    &.ineligible {
+      .error-header {
+        background: rgba($red-darken-01, 0.75);
+      }
+    }
+  }
 
   .quote-details-error {
     display: flex;
-    min-height: 4.75rem;
     padding: $padding;
+    min-height: 4.75rem;
     background-color: $orange-lighten-03;
 
     .display-element {
@@ -39,10 +109,10 @@
   .error-wrapper {
     display: flex;
     overflow-y: auto;
-    flex-direction: row;
+    flex-basis: 100%;
     flex-direction: row;
     flex-grow: 1;
-    flex-basis: 100%;
+
     @include for-phone-only {
       flex-direction: column-reverse;
       justify-content: center;
@@ -52,77 +122,98 @@
       display: flex;
       overflow-y: auto;
       flex-grow: 1;
+      flex-shrink: 1;
 
       #Error {
-        width: auto;
-        height: 100%;
+        margin: ($padding * 2) 0;
+        padding: 0 0 0 ($padding * 2);
+        width: 100%;
+        border-right: 1px dotted $cool-gray-02;
 
-        .detail-wrapper {
-          position: relative;
-          width: 100%;
+        @include for-phone-only {
+          padding: 0 ($padding * 2);
+        }
 
-          ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        h4 {
+          margin: 0 $padding 0 0;
+        }
 
-            &.error-list {
-              margin: $padding;
-              padding-left: $padding;
-              list-style: disc;
-              color: $red;
-
-              li {
-                &.warning-li {
-                  color: $orange-darken-01;
-                }
-              }
+        .error-list {
+          padding: 1rem;
+          border-bottom: 1px dotted $cool-gray-02;
+          li {
+            &.warning-li {
+              margin-bottom: $padding/2;
+              color: $orange-darken-01;
+              font-weight: $font-weight-bold;
+            }
+            &.error-li {
+              margin-bottom: $padding/2;
+              color: $red-darken-02;
+              font-weight: $font-weight-bold;
             }
           }
+        }
+
+        .error-footer {
+          display: flex;
+          flex-direction: row-reverse;
+          padding: 0 ($padding * 2) ($padding * 2) 0;
+
+          .btn {
+            margin-left: $padding;
+          }
+        }
+
+        .error-outro {
+          margin-bottom: $padding * 2;
         }
       }
     }
 
     aside {
       display: flex;
+      align-items: center;
       flex-direction: column;
-      width: 12rem;
-      padding: $padding;
       flex-grow: 0;
       flex-shrink: 0;
-      align-items: center;
+      padding: $padding;
+      width: 12rem;
+
       @include for-phone-only {
         flex-direction: row;
         width: 100%;
       }
 
       .image {
-        width: 10rem;
-        height: 10rem;
-        margin-right: $padding;
-        border: 5px solid $bright-blue-darken-01;
-        border-radius: 50%;
-        background-image: url('../img/csr.jpg');
-        background-position: right center;
-        background-size: cover;
         flex-basis: 10rem;
         flex-grow: 0;
         flex-shrink: 0;
+        margin: ($padding * 2) $padding 0;
+        width: 10rem;
+        height: 10rem;
+        border: 5px solid $bright-blue-darken-01;
+        border-radius: 50%;
+        background-image: url('../../img/csr.jpg');
+        background-position: right center;
+        background-size: cover;
+
         @include for-phone-only {
+          flex-basis: 8rem;
           width: 8rem;
           height: 8rem;
-          flex-basis: 8rem;
         }
       }
 
       .contact-info {
         display: flex;
         flex-direction: column;
-        margin-top: $padding;
+        margin-top: 2rem;
 
         a {
-          margin: $padding;
-          font-size: $font-size-h4;
+          margin: 0 $padding $padding;
+          font-size: $font-size-h5;
+
           @include for-phone-only {
             font-size: $font-size-h5;
           }
@@ -181,71 +272,11 @@
             }
             .btn-group {
               .btn-round {
-                height: 2rem;
                 padding: 0;
+                height: 2rem;
               }
             }
           }
-        }
-      }
-    }
-  }
-}
-
-.app-wrapper {
-  &.error {
-    .route {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      align-self: stretch;
-
-      .route-content {
-        display: flex;
-        flex-direction: column;
-        align-self: stretch;
-        flex-grow: 1;
-        flex-shrink: 0;
-      }
-    }
-  }
-}
-
-.error-wrapper {
-  .fade-in {
-    height: 100%;
-
-    .route {
-      height: 100%;
-
-      .error-content {
-        .fade-in {
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-
-          section {
-            flex-grow: 1;
-            flex-shrink: 0;
-
-            #Error.fade-in {
-              width: 100%;
-
-              .detail-wrapper {
-                position: relative;
-                width: 100%;
-                padding-bottom: 0;
-              }
-            }
-          }
-
-          aside {
-            flex-shrink: 0;
-            flex-grow: 0;
-          }
-        }
-
-        footer {
         }
       }
     }
@@ -264,9 +295,9 @@
 
       .card-header {
         display: flex;
-        height: 6rem;
         align-items: center;
         justify-content: center;
+        height: 6rem;
 
         > img {
           height: 3rem;
@@ -284,6 +315,22 @@
           color: $red-darken-02;
         }
       }
+    }
+  }
+}
+.view-grid {
+  > .uw-warning {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0 (-$padding * 2);
+    padding: ($padding * 2) ($padding * 3);
+    background: rgba($orange-darken-01, 0.8);
+    color: $white;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-h4;
+
+    @include for-phone-only {
+      font-size: $font-size-h5;
     }
   }
 }

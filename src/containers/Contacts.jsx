@@ -1,6 +1,8 @@
 import React from 'react';
 import { shape, func } from 'prop-types';
 
+import teritoryMap from '../img/territory-manager-map.png';
+
 import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard';
 import Footer from '../components/Footer';
@@ -29,6 +31,13 @@ export const territoryManagerContacts = [
     email: 'jkelley@hcpci.com'
   },
   {
+    icon: 'image user',
+    name: 'Nigel Cosey',
+    title: 'Treasure Coast Florida Manager',
+    phone: '7865171850',
+    email: 'NCosey@typtap.com'
+  },
+  {
     icon: 'image victor-ferdinandi',
     name: 'Victor Ferdinandi',
     title: 'West Central Florida Manager',
@@ -50,7 +59,6 @@ export const supportContacts = [
     name: 'Agency Support',
     title: '',
     phone: '8442897968',
-    extension: 'option 5',
     email: 'agencysupport@typtap.com'
   },
   {
@@ -92,32 +100,35 @@ export const supportContacts = [
 ];
 
 const Contacts = ({ auth, match }) => (
-  <AppWrapper logout={auth.logout} match={match} routeClassName="train">
-    <div className="route">
-      <div className="route-content">
-        <div className="scroll">
-          <div className="detail-wrapper">
-            <section className="contacts">
-              <h2 className="title">
-                <i className="fa fa-map-marker" /> Territory Managers
-              </h2>
-              {territoryManagerContacts.map(contact => (
-                <ContactCard key={contact.name} {...contact} />
-              ))}
-            </section>
-            <section className="contacts">
-              <h2 className="title">
-                <i className="fa fa-address-book" /> Support
-              </h2>
-              {supportContacts.map(contact => (
-                <ContactCard key={contact.name} {...contact} />
-              ))}
-            </section>
+  <AppWrapper auth={auth} match={match} routeClassName="main contacts">
+    <div className="scroll">
+      <div className="detail-wrapper">
+        <section className="contacts territory">
+          <h2 className="title">
+            <i className="fa fa-map-marker" />
+            &nbsp;Territory Managers
+          </h2>
+          <div className="territory-managers">
+            {territoryManagerContacts.map(contact => (
+              <ContactCard key={contact.name} {...contact} />
+            ))}
           </div>
-        </div>
-        <Footer />
+          <div className="territory-map">
+            <img src={teritoryMap} alt="Territory Map" />
+          </div>
+        </section>
+        <section className="contacts">
+          <h2 className="title">
+            <i className="fa fa-address-book" />
+            &nbsp;Support
+          </h2>
+          {supportContacts.map(contact => (
+            <ContactCard key={contact.name} {...contact} />
+          ))}
+        </section>
       </div>
     </div>
+    <Footer />
   </AppWrapper>
 );
 

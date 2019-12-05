@@ -1,37 +1,21 @@
 import React, { useState } from 'react';
 import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
 import { ShareModal } from '@exzeo/core-ui/src/@Harmony';
-import { defaultMemoize } from 'reselect';
-
-import ErrorPopup from '../../components/ErrorPopup';
 
 import { STEP_NAMES } from './constants/workflowNavigation';
-import { UNDERWRITING_ERROR_ACTIONS } from './constants/quote';
 
-const getFilteredUnderwritingExceptions = defaultMemoize(
-  underwritingExceptions => {
-    return underwritingExceptions.filter(
-      exception =>
-        exception.action === UNDERWRITING_ERROR_ACTIONS.UNDERWRITING_REVIEW &&
-        !exception.overridden
-    );
-  }
-);
-
-const Share = ({ customHandlers, initialValues, formInstance }) => {
+const Share = ({
+  customHandlers,
+  formInstance,
+  config: { extendedProperties = {} }
+}) => {
   const [showPopup, setPopup] = useState(false);
-  const filteredUnderwritingExceptions = getFilteredUnderwritingExceptions(
-    initialValues.underwritingExceptions
-  );
+  const { goToStep, handleSubmit } = customHandlers;
+  const { skipNext } = extendedProperties;
 
-  async function refreshUWReviewError() {
-    await customHandlers.getQuote(initialValues.quoteNumber, initialValues._id);
-    customHandlers.goToStep(STEP_NAMES.askAdditionalCustomerData);
-  }
-
-  function redirectToNewQuote() {
-    customHandlers.history.replace('/');
-  }
+  const handleClick = skipNext
+    ? () => goToStep(STEP_NAMES.policyholder, true)
+    : () => handleSubmit({ noSubmit: true });
 
   return (
     <React.Fragment>
@@ -86,22 +70,13 @@ const Share = ({ customHandlers, initialValues, formInstance }) => {
               </Button>
               <Button
                 className={Button.constants.classNames.primary}
-                onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
+                onClick={handleClick}
                 disabled={submitting}
                 data-test="submit"
               >
                 next
               </Button>
             </div>
-
-            {!submitting && filteredUnderwritingExceptions.length > 0 && (
-              <ErrorPopup
-                quote={initialValues}
-                underwritingExceptions={filteredUnderwritingExceptions}
-                refereshUWReviewError={() => refreshUWReviewError()}
-                redirectToNewQuote={() => redirectToNewQuote()}
-              />
-            )}
           </React.Fragment>
         )}
       </FormSpy>

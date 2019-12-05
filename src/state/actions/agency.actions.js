@@ -41,20 +41,30 @@ export function setAgents(agents) {
 
 /**
  *
- * @param companyCode
- * @param state
- * @param agencyCode
- * @returns {Function}
+ * @param contracts
+ * @returns {Array}
  */
-export function getAgencies(companyCode, state, agencyCode) {
-  return async dispatch => {
-    try {
-      const agencies = await fetchAgencies(companyCode, state, agencyCode);
-      dispatch(setAgencies(agencies));
-    } catch (error) {
-      dispatch(errorActions.setAppError(error));
-    }
-  };
+function getSelectOptions(contracts) {
+  const states = [];
+  const products = [];
+  const list = [];
+  contracts.forEach(contract => {
+    contract.stateProducts.forEach(stateProduct => {
+      const { state, product } = stateProduct;
+      if (!list.includes(state)) {
+        list.push(state);
+        states.push({ answer: state, label: state });
+      }
+      if (!list.includes(product)) {
+        list.push(product);
+        products.push({
+          answer: product,
+          label: product === 'AF3' ? 'Flood' : product
+        });
+      }
+    });
+  });
+  return { states, products };
 }
 
 /**
@@ -66,6 +76,8 @@ export function getAgency(agencyCode) {
   return async dispatch => {
     try {
       const agency = await fetchAgency(agencyCode);
+      const cspAnswers = getSelectOptions(agency.contracts);
+      agency.cspAnswers = cspAnswers;
       dispatch(setAgency(agency));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
@@ -109,28 +121,6 @@ export async function fetchAgency(agencyCode) {
 
 /**
  *
- * @param companyCode
- * @param state
- * @param agencyCode
- * @returns {Promise<Array>}
- */
-export async function fetchAgencies(companyCode, state, agencyCode = '') {
-  const config = {
-    service: 'agency',
-    method: 'GET',
-    path: `agencies?companyCode=${companyCode}&state=${state}?&pageSize=1000&sort=displayName&SortDirection=asc?agencyCode=${agencyCode}`
-  };
-
-  try {
-    const response = await serviceRunner.callService(config, 'fetchAgencies');
-    return response.data && response.data.result ? response.data.result : [];
-  } catch (error) {
-    throw error;
-  }
-}
-
-/**
- *
  * @param agencyCode
  * @returns {Promise<Array>}
  */
@@ -139,7 +129,7 @@ export async function fetchAgentsByAgencyCode(agencyCode) {
     const config = {
       service: 'agency',
       method: 'GET',
-      path: `agencies/${agencyCode}/agents`
+      path: `agencies/${agencyCode}/agents?status=Active&appointed=true`
     };
     const response = await serviceRunner.callService(
       config,

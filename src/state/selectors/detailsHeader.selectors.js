@@ -103,7 +103,7 @@ export const getQuoteDetails = createSelector(
 
     const {
       constructionType,
-      floodZone,
+      FEMAfloodZone,
       physicalAddress,
       territory,
       yearBuilt
@@ -118,7 +118,7 @@ export const getQuoteDetails = createSelector(
 
     return {
       constructionType,
-      floodZone,
+      FEMAfloodZone,
       territory,
       yearBuilt,
       coverageLimits,

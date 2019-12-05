@@ -19,7 +19,7 @@ export default {
       agencyCode: null,
       companyCode: 'TTIC',
       state: 'FL',
-      isCSR: true,
+      isInternal: true,
       isAgency: false,
       extendedProperties: {
         harmonyGroup: true,
@@ -27,7 +27,7 @@ export default {
         state: 'FL',
         agencyCode: '',
         agencyId: '',
-        isCSR: true,
+        isInternal: true,
         isAgency: false
       }
     }

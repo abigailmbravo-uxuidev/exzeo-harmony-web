@@ -36,10 +36,24 @@ import { http as axios } from '@exzeo/core-ui';
 import { retry } from '@exzeo/core-ui';
 
 import configureStore from './store/configureStore';
+import Authentication from './components/Authentication';
 import Routes from './routes';
 
 import '../node_modules/font-awesome/scss/font-awesome.scss';
 import './sass/typtap-theme.scss';
+
+const AUTH_CONFIG = {
+  publicPaths: [
+    '/login',
+    '/logout',
+    '/accessDenied',
+    '/loggedOut',
+    '/callback'
+  ],
+  profileLocation: 'user_profile',
+  tokenLocation: 'id_token',
+  unauthRedirect: '/login'
+};
 
 retry(axios);
 const store = configureStore();
@@ -48,8 +62,11 @@ window.persistor = persistor; // i hate this with my entire being...
 
 const target = document.getElementById('root');
 render(
-  <Provider store={store} persistor={persistor}>
-    <Routes store={store} />
+  <Provider store={store}>
+    <Authentication
+      config={AUTH_CONFIG}
+      render={({ auth }) => <Routes auth={auth} />}
+    />
   </Provider>,
   target
 );

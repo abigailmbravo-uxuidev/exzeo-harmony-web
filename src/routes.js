@@ -7,12 +7,10 @@ import { Helmet } from 'react-helmet';
 import Modal from 'react-modal';
 import { http as axios } from '@exzeo/core-ui';
 
-import { setUserProfile } from './state/actions/authActions';
 import { clearAppError } from './state/actions/errorActions';
 import { getAgency } from './state/actions/agency.actions';
 
 import history from './history';
-import Auth from './Auth';
 import QuoteModule from './modules/Quote';
 import PolicyModule from './modules/Policy';
 import QuoteSearch from './modules/Search/Quote';
@@ -27,61 +25,18 @@ import NotFound from './containers/NotFound';
 import Training from './containers/Training';
 import Contacts from './containers/Contacts';
 
-const auth = new Auth();
-
-const handleAuthentication = nextState => {
-  if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    auth.handleAuthentication();
-  } else if (auth.isAuthenticated()) {
-    history.replace('/');
-  }
-};
-
-const checkPublicPath = path => {
-  const publicPaths = [
-    '/login',
-    '/logout',
-    '/error',
-    '/accessDenied',
-    '/callback'
-  ];
-  return publicPaths.indexOf(path) === -1;
-};
-
 class Routes extends Component {
-  profile = null;
-
-  componentWillMount() {
-    const { isAuthenticated, userProfile, getProfile } = auth;
-    if (
-      isAuthenticated() &&
-      !userProfile &&
-      checkPublicPath(window.location.pathname)
-    ) {
-      const idToken = localStorage.getItem('id_token');
-      axios.defaults.headers.common['authorization'] = `bearer ${idToken}`; // eslint-disable-line
-      this.profile = getProfile();
-      this.props.setUserProfile(this.profile);
-    } else if (
-      !isAuthenticated() &&
-      checkPublicPath(window.location.pathname)
-    ) {
-      history.replace('/login');
-      axios.defaults.headers.common['authorization'] = undefined; // eslint-disable-line
-    }
-  }
-
   componentDidMount() {
-    const { agency, getAgency } = this.props;
+    const { agency, getAgency, userProfile } = this.props;
     if (
       !agency &&
-      this.profile &&
-      this.profile.entity &&
-      this.profile.entity.agencyCode
+      userProfile &&
+      userProfile.entity &&
+      userProfile.entity.agencyCode
     ) {
       const {
         entity: { agencyCode }
-      } = this.profile;
+      } = userProfile;
       getAgency(agencyCode);
     }
   }
@@ -92,7 +47,11 @@ class Routes extends Component {
   };
 
   render() {
-    const { error } = this.props;
+    const { auth, agency, error, userProfile } = this.props;
+    auth.isInternal =
+      userProfile && userProfile.userType
+        ? userProfile.userType.toLowerCase() === 'internal'
+        : false;
 
     return (
       <React.Fragment>
@@ -122,18 +81,22 @@ class Routes extends Component {
         <Router>
           <React.Fragment>
             <Helmet>
-              <title>Harmony Web - Agent HO3 Quote</title>
+              <title>Harmony Web - Agency Quote</title>
             </Helmet>
             <Switch>
               <Route
                 exact
                 path="/"
-                render={props => <Splash auth={auth} {...props} />}
+                render={props => (
+                  <Splash auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 exact
                 path="/policy"
-                render={props => <PolicySearch auth={auth} {...props} />}
+                render={props => (
+                  <PolicySearch auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 exact
@@ -158,11 +121,15 @@ class Routes extends Component {
 
               <Route
                 path="/search"
-                render={props => <QuoteSearch auth={auth} {...props} />}
+                render={props => (
+                  <QuoteSearch auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 path="/quote/:quoteNumber"
-                render={props => <QuoteModule auth={auth} {...props} />}
+                render={props => (
+                  <QuoteModule auth={auth} agency={agency} {...props} />
+                )}
               />
               <Route
                 path="/policy/:policyNumber"
@@ -181,14 +148,7 @@ class Routes extends Component {
                   return <span />;
                 }}
               />
-              <Route
-                exact
-                path="/callback"
-                render={props => {
-                  handleAuthentication(props);
-                  return <Callback {...props} />;
-                }}
-              />
+              <Route exact path="/callback" render={() => <Callback />} />
 
               <Route
                 path="*"
@@ -205,7 +165,7 @@ class Routes extends Component {
 const mapStateToProps = state => {
   return {
     agency: state.agencyState.agency,
-    authState: state.authState,
+    userProfile: state.authState.userProfile,
     error: state.error
   };
 };
@@ -214,7 +174,6 @@ export default connect(
   mapStateToProps,
   {
     clearAppError,
-    getAgency,
-    setUserProfile
+    getAgency
   }
 )(Routes);
