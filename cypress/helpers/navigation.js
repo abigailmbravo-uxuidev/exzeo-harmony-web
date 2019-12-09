@@ -22,7 +22,10 @@ export const navigateThroughSearchAddress = ({
     .findDataTag('search-results')
     .find('li[tabindex=0]')
     .click()
-    .wait('@fetchAddresses');
+    .wait('@fetchAddresses')
+    .then(({ response }) => {
+      expect(response.body.status).to.equal(200);
+    });
 
 export const navigateThroughPolicyDetails = ({
   policyDetails = userHO3.policyDetails,
@@ -36,8 +39,8 @@ export const navigateThroughPolicyDetails = ({
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     );
-  cy.wait('@getAgents').then(({ request }) => {
-    expect(request.body.service).to.equal('agency');
+  cy.wait('@getAgents').then(({ response }) => {
+    expect(response.body.status).to.equal(200);
   });
   // Select agent.
   cy.findDataTag('agentCode')
@@ -48,7 +51,7 @@ export const navigateThroughPolicyDetails = ({
     // We expect to have 1 policyHolder in the response.
     .then(({ request, response }) => {
       expect(
-        request.body.data.policyHolders.length,
+        request.body.data.quote.policyHolders.length,
         'Policyholders in request'
       ).to.equal(1);
       expect(
@@ -117,7 +120,7 @@ export const navigateThroughPolicyholder = ({
     // We expect to have two policyholders in the response.
     .then(({ request, response }) => {
       expect(
-        request.body.data.policyHolders.length,
+        request.body.data.quote.policyHolders.length,
         'Policyholders in request'
       ).to.equal(2);
       expect(
@@ -159,10 +162,11 @@ export const navigateThroughMailingBilling = () => {
     .clickSubmit('#QuoteWorkflow');
 
   cy.wait('@updateQuote').then(({ request }) => {
-    expect(request.body.data.policyHolderMailingAddress.address1).to.exist;
-    expect(request.body.data.billToId).to.exist;
-    expect(request.body.data.billToType).to.exist;
-    expect(request.body.data.billPlan).to.exist;
+    expect(request.body.data.quote.policyHolderMailingAddress.address1).to
+      .exist;
+    expect(request.body.data.quote.billToId).to.exist;
+    expect(request.body.data.quote.billToType).to.exist;
+    expect(request.body.data.quote.billPlan).to.exist;
   });
 
   cy.wait('@verifyQuote').then(({ request }) => {

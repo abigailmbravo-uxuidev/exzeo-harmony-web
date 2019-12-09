@@ -15,8 +15,7 @@ const ho3Headers = [
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 2,667' }
+  }
 ];
 
 const af3Headers = [
@@ -32,8 +31,7 @@ const af3Headers = [
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
     value: '$ 314,000'
-  },
-  { name: 'premium', label: 'Premium', value: '$ 312' }
+  }
 ];
 
 const goToAiPage = () => {
@@ -85,11 +83,11 @@ export default (product = 'HO3') => {
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(1);
     expect(
-      request.body.data.additionalInterests[0].type,
+      request.body.data.quote.additionalInterests[0].type,
       'Additional Interest Type: '
     ).to.equal('Mortgagee');
   });
@@ -116,11 +114,11 @@ export default (product = 'HO3') => {
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {
     expect(
-      request.body.data.additionalInterests.length,
+      request.body.data.quote.additionalInterests.length,
       'Additional Interests: '
     ).to.equal(2);
     expect(
-      request.body.data.additionalInterests[1].type,
+      request.body.data.quote.additionalInterests[1].type,
       'Additional Interest Type: '
     ).to.equal('Premium Finance');
   });
@@ -144,7 +142,7 @@ export default (product = 'HO3') => {
     cy.wait('@updateQuote').then(({ request }) => {
       // In this test we know we have 2 AI to start with. The first time we delete, there should be 1 left in the request, the second time, 0
       expect(
-        request.body.data.additionalInterests.length,
+        request.body.data.quote.additionalInterests.length,
         'Additional Interests: '
       ).to.equal(index === 0 ? 1 : 0);
     });
