@@ -23,8 +23,9 @@ describe('Testing the Reports Page', () => {
       ...defaultProps
     };
     const { getByText, getAllByText } = renderWithForm(<Reports {...props} />);
-    await waitForElement(() => getByText('Reports'));
-    const header = getAllByText('Reports').pop();
+    const header = getByText('Reports');
+
+    await waitForElement(() => header);
 
     const iconElement = Object.values(header.childNodes).find(
       node => node.tagName === 'I'

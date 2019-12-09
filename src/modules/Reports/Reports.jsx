@@ -17,8 +17,6 @@ const Reports = ({ auth, match }) => {
     Book_Of_Business: bookOfBusinessColumns
   };
 
-  console.log(auth, match);
-
   return (
     <AppWrapper auth={auth} match={match} routeClassName="main training">
       <div className="scroll">
