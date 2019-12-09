@@ -24,7 +24,7 @@ import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 import Training from './containers/Training';
 import Contacts from './containers/Contacts';
-import Reports from 'containers/Reports';
+import Reports from 'modules/Reports/Reports';
 
 class Routes extends Component {
   componentDidMount() {

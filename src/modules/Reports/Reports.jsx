@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { shape, func } from 'prop-types';
 
-import AppWrapper from '../components/AppWrapper';
-import ReportCard from 'components/Reports/ReportCard';
-import ReportModal from '../components/Reports/ReportModal';
+import AppWrapper from '../../components/AppWrapper';
+import ReportModal from './ReportModal';
+import ReportCard from './ReportCard';
+import { useFetchReports } from './hooks';
 
 const dateFormatter = cell => `${cell.substring(0, 10)}`;
 const amountFormatter = amt =>
@@ -11,6 +12,8 @@ const amountFormatter = amt =>
 3;
 const Reports = ({ auth, match }) => {
   const [report, setReport] = useState(null);
+
+  const { reports } = useFetchReports();
 
   const agencyActivityColumns = [
     { title: 'Agency Activity' },
