@@ -22,7 +22,7 @@ describe('Testing the Reports Page', () => {
     const props = {
       ...defaultProps
     };
-    const { getByText, getAllByText } = renderWithForm(<Reports {...props} />);
+    const { getByText } = renderWithForm(<Reports {...props} />);
     const header = getByText('Reports');
 
     await waitForElement(() => header);
