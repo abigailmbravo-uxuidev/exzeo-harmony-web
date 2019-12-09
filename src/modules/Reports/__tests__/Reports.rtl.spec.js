@@ -7,19 +7,28 @@ import Reports from '../Reports';
 
 mockServiceRunner([]);
 
+const defaultProps = {
+  auth: {},
+  match: {
+    isExact: true,
+    params: {},
+    path: '/reports',
+    url: '/reports'
+  }
+};
+
 describe('Testing the Reports Page', () => {
-  it('Reports Testing', async () => {
+  it('Reports Header Testing', async () => {
     const props = {
-      match: {
-        isExact: true,
-        params: {},
-        path: '/reports',
-        url: '/reports'
-      }
+      ...defaultProps
     };
-    const { getByText } = renderWithForm(<Reports {...props} />);
+    const { getByText, getAllByText } = renderWithForm(<Reports {...props} />);
     await waitForElement(() => getByText('Reports'));
-    await waitForElement(() => getByText('Agency Activity'));
-    await waitForElement(() => getByText('Book Of Business'));
+    const header = getAllByText('Reports').pop();
+
+    const iconElement = Object.values(header.childNodes).find(
+      node => node.tagName === 'I'
+    );
+    expect(iconElement.className).toEqual('fa fa-table');
   });
 });
