@@ -59,7 +59,7 @@ const Reports = ({ auth, match }) => {
                   <ReportCard
                     key={r.reportId}
                     title={r.name}
-                    details={r.details}
+                    details={r.details || 'Details Here...'}
                     openModal={() =>
                       setReport({
                         title: r.name,
