@@ -5,43 +5,19 @@ import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
+import { agencyActivityColumns, bookOfBusinessColumns } from './utilities';
 
-const dateFormatter = cell => `${cell.substring(0, 10)}`;
-const amountFormatter = amt =>
-  amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
-3;
 const Reports = ({ auth, match }) => {
   const [report, setReport] = useState(null);
 
   const { reports } = useFetchReports();
 
-  const agencyActivityColumns = [
-    { title: 'Agency Activity' },
-    { title: 'Policy Number', isKey: true },
-    { title: 'Product' },
-    { title: 'Created Date', format: dateFormatter },
-    { title: 'Effective Date', format: dateFormatter },
-    { title: 'PolicyHolder' },
-    { title: 'Address' }
-  ];
-  const bookOfBusinessColumns = [
-    { title: 'textbox10' },
-    { title: 'Policy Number', isKey: true },
-    { title: 'PolicyHolder' },
-    { title: 'Product' },
-    { title: 'Mailing Address' },
-    { title: 'Property Address' },
-    { title: 'Effective Date', format: dateFormatter },
-    { title: 'Cancel Date', format: dateFormatter },
-    { title: 'Total Premium', format: amountFormatter },
-    { title: 'Policy Status' },
-    { title: 'Billing Status' }
-  ];
-
   const REPORT_COLUMNS = {
     Agency_Activity: agencyActivityColumns,
     Book_Of_Business: bookOfBusinessColumns
   };
+
+  console.log(auth, match);
 
   return (
     <AppWrapper auth={auth} match={match} routeClassName="main training">

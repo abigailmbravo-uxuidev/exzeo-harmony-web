@@ -4,6 +4,9 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+
+import rootReducer from '../state/reducers';
 
 import { setSliderValue } from '.';
 import {
@@ -160,6 +163,15 @@ export const renderWithReduxAndRouter = (
     </Router>
   )
 });
+
+// This function creates a real store with a form for use with ReduxForm components
+export const renderWithForm = (
+  ui,
+  {
+    state = defaultInitialState,
+    store = createStore(rootReducer, state, applyMiddleware(thunk))
+  } = {}
+) => renderWithReduxAndRouter(ui, { state, store });
 
 /**
  * A function to handle your query and your field and find the correct DOM element.
