@@ -38,6 +38,11 @@ const Reports = ({ auth, match }) => {
     { title: 'Billing Status' }
   ];
 
+  const REPORT_COLUMNS = {
+    Agency_Activity: agencyActivityColumns,
+    Book_Of_Business: bookOfBusinessColumns
+  };
+
   return (
     <AppWrapper auth={auth} match={match} routeClassName="main training">
       <div className="scroll">
@@ -49,28 +54,21 @@ const Reports = ({ auth, match }) => {
             </h2>
             {/* TODO: Get reports from endpoint in the reports-service */}
             <ul className="link-list reference-links">
-              <ReportCard
-                title="Agency Activity"
-                details="Report details..."
-                openModal={() =>
-                  setReport({
-                    title: 'Agency Activity',
-                    columns: agencyActivityColumns
-                  })
-                }
-                handleDownload={x => x}
-              />
-              <ReportCard
-                title="Book of Business"
-                details="Report details..."
-                openModal={() =>
-                  setReport({
-                    title: 'Book of Business',
-                    columns: bookOfBusinessColumns
-                  })
-                }
-                handleDownload={x => x}
-              />
+              {reports &&
+                reports.map(r => (
+                  <ReportCard
+                    key={r.reportId}
+                    title={r.name}
+                    details={r.details}
+                    openModal={() =>
+                      setReport({
+                        title: r.name,
+                        columns: REPORT_COLUMNS[r.reportId]
+                      })
+                    }
+                    handleDownload={x => x}
+                  />
+                ))}
             </ul>
           </section>
         </div>
