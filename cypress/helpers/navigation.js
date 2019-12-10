@@ -6,7 +6,7 @@ export const navigateThroughLanding = () =>
     .task('log', 'Navigating through Landing')
     .wait(500)
     .get('.btn[href="/search/address"]')
-    .click();
+    .click({ force: true });
 
 export const navigateThroughSearchAddress = ({
   address = userHO3.address,
