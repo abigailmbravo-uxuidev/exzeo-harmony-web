@@ -52,7 +52,8 @@ class Routes extends Component {
       userProfile && userProfile.userType
         ? userProfile.userType.toLowerCase() === 'internal'
         : false;
-
+    const isAgency =
+      userProfile && userProfile.profile ? userProfile.profile.isAgency : false;
     return (
       <React.Fragment>
         <Modal
@@ -139,11 +140,13 @@ class Routes extends Component {
               path="/contacts"
               render={props => <Contacts auth={auth} {...props} />}
             />
-            <Route
-              exact
-              path="/reports"
-              render={props => <Reports auth={auth} {...props} />}
-            />
+            {isAgency && (
+              <Route
+                exact
+                path="/reports"
+                render={props => <Reports auth={auth} {...props} />}
+              />
+            )}
             <Route
               exact
               path="/logout"

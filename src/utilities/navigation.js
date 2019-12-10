@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 
-export const getNavLinks = (params, enableQuote, enableRetrieve) => {
+export const getNavLinks = (params, enableQuote, enableRetrieve, isAgency) => {
   const quoteClasses = enableRetrieve ? 'quote label' : 'quote label disabled';
 
-  return [
+  const links = [
     {
       key: 'home',
       to: '/',
@@ -59,4 +59,8 @@ export const getNavLinks = (params, enableQuote, enableRetrieve) => {
       hasIcon: true
     }
   ];
+
+  if (!isAgency) return links.filter(l => l.key !== 'reports');
+
+  return links;
 };
