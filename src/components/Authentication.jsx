@@ -12,12 +12,16 @@ const auth = new Auth();
 // TODO: this is the first pass at abstracting out Authentication into a reusable component. Will return
 export class Authentication extends Component {
   componentWillMount() {
-    const { config, userProfile, history } = this.props;
+    const { config, userProfile, history, setAppErrorAction } = this.props;
 
     const { isAuthenticated } = auth;
 
     if (isAuthenticated() && this.checkPublicPath(window.location.pathname)) {
-      this.idToken = localStorage.getItem(config.tokenLocation);
+      try {
+        this.idToken = localStorage.getItem(config.tokenLocation);
+      } catch (error) {
+        setAppErrorAction({ message: error });
+      }
       http.defaults.headers.common.authorization = `bearer ${this.idToken}`;
 
       if (!userProfile) {
@@ -36,12 +40,16 @@ export class Authentication extends Component {
 
   // TODO There is a timing issue in cWM so we do this check again. This is a band-aid until the auth0-spa-js lib can be incorporated.
   componentDidUpdate(prevProps) {
-    const { config, userProfile } = this.props;
+    const { config, userProfile, setAppErrorAction } = this.props;
 
     const { isAuthenticated } = auth;
 
     if (isAuthenticated() && this.checkPublicPath(window.location.pathname)) {
-      this.idToken = localStorage.getItem(config.tokenLocation);
+      try {
+        this.idToken = localStorage.getItem(config.tokenLocation);
+      } catch (error) {
+        setAppErrorAction({ message: error });
+      }
       http.defaults.headers.common.authorization = `bearer ${this.idToken}`;
 
       if (!userProfile) {
