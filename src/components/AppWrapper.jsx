@@ -33,8 +33,6 @@ class AppWrapper extends React.Component {
       userProfile
     } = this.props;
 
-    console.log(userProfile);
-
     const isInternal = auth && auth.isInternal;
     const status = agency && agency.status ? agency.status : null;
     const enableQuote = status === 'Active' || isInternal;
