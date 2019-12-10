@@ -31,6 +31,7 @@ const Reports = ({ auth, match }) => {
               {reports &&
                 reports.map(r => (
                   <ReportCard
+                    reportId={r.reportId}
                     key={r.reportId}
                     title={r.name}
                     details={r.details || 'Details Here...'}

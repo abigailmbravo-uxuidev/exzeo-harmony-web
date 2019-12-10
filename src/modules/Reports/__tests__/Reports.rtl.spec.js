@@ -1,5 +1,5 @@
 import React from 'react';
-import { waitForElement } from 'react-testing-library';
+import { waitForElement, getAllByTestId } from 'react-testing-library';
 
 import { renderWithForm, mockServiceRunner } from '../../../test-utils';
 
@@ -31,5 +31,19 @@ describe('Testing the Reports Page', () => {
       node => node.tagName === 'I'
     );
     expect(iconElement.className).toEqual('fa fa-table');
+  });
+
+  it('Reports Section 1 Testing', async () => {
+    const props = {
+      ...defaultProps
+    };
+    const { getByTestId } = renderWithForm(<Reports {...props} />);
+    expect(getByTestId('Agency_Activity_title')).toHaveTextContent(
+      /Agency Activity/
+    );
+    expect(getByTestId('Agency_Activity_details')).toHaveTextContent(/\w/);
+    expect(getByTestId('Agency_Activity_run_report')).toHaveTextContent(
+      /RUN REPORT/
+    );
   });
 });
