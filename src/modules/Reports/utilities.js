@@ -1,7 +1,6 @@
 const dateFormatter = cell => `${cell.substring(0, 10)}`;
 const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
-3;
 
 export const agencyActivityColumns = [
   { title: 'Agency Activity' },

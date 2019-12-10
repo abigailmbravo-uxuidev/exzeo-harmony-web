@@ -6,7 +6,7 @@ export const navigateThroughLanding = () =>
     .task('log', 'Navigating through Landing')
     .wait(500)
     .get('.new-quote[href="/search/address"]')
-    .click({ force: true });
+    .click();
 
 export const navigateThroughSearchAddress = ({
   address = userHO3.address,
@@ -15,13 +15,13 @@ export const navigateThroughSearchAddress = ({
   cy
     .task('log', 'Navigating through Searching Address')
     .get('input[name=address]')
-    .type(address, { force: true })
+    .type(address)
     .findDataTag('product')
-    .select(product, { force: true })
+    .select(product)
     .clickSubmit('#SearchBar')
     .findDataTag('search-results')
     .find('li[tabindex=0]')
-    .click({ force: true })
+    .click()
     .wait('@fetchAddresses')
     .then(({ response }) => {
       expect(response.body.status).to.equal(200);
