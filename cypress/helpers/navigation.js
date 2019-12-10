@@ -21,7 +21,7 @@ export const navigateThroughSearchAddress = ({
     .clickSubmit('#SearchBar')
     .findDataTag('search-results')
     .find('li[tabindex=0]')
-    .click()
+    .click({ force: true })
     .wait('@fetchAddresses')
     .then(({ response }) => {
       expect(response.body.status).to.equal(200);
