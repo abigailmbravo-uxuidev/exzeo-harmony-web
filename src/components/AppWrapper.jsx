@@ -38,7 +38,8 @@ class AppWrapper extends React.Component {
     const enableQuote = status === 'Active' || isInternal;
     const enableRetrieve =
       status === 'Active' || status === 'Pending' || isInternal;
-    const isAgency = userProfile.profile.isAgency;
+    const isAgency =
+      userProfile && userProfile.profile ? userProfile.profile.isAgency : false;
 
     return (
       <div
