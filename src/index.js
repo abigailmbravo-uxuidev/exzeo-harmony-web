@@ -31,9 +31,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { asyncSessionStorage } from 'redux-persist/storages';
-import { http as axios } from '@exzeo/core-ui';
-import { retry } from '@exzeo/core-ui';
+import { http as axios, retry } from '@exzeo/core-ui';
 
 import configureStore from './store/configureStore';
 import Authentication from './components/Authentication';
@@ -62,11 +62,13 @@ window.persistor = persistor; // i hate this with my entire being...
 
 const target = document.getElementById('root');
 render(
-  <Provider store={store}>
-    <Authentication
-      config={AUTH_CONFIG}
-      render={({ auth }) => <Routes auth={auth} />}
-    />
-  </Provider>,
+  <Router>
+    <Provider store={store}>
+      <Authentication
+        config={AUTH_CONFIG}
+        render={({ auth }) => <Routes auth={auth} />}
+      />
+    </Provider>
+  </Router>,
   target
 );

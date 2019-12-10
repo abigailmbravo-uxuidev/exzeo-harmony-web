@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import ClearErrorConnect from '../components/Error/ClearError';
 import Footer from '../components/Footer';
@@ -42,22 +43,18 @@ const Splash = ({ agency, auth, match }) => {
                   <div className="launch-buttons">
                     <Link
                       to={enableQuote ? '/search/address' : '#'}
-                      className={
-                        enableQuote
-                          ? 'btn btn-secondary btn-block'
-                          : 'btn btn-secondary btn-block disabled'
-                      }
+                      className={classNames('btn btn-secondary btn-block', {
+                        disabled: !enableQuote
+                      })}
                     >
                       <i className="fa fa-plus" />
                       New Quote
                     </Link>
                     <Link
                       to={enableRetrieve ? '/search/retrieve' : '#'}
-                      className={
-                        enableRetrieve
-                          ? 'btn btn-primary btn-block'
-                          : 'btn btn-primary btn-block disabled'
-                      }
+                      className={classNames('btn btn-primary btn-block', {
+                        disabled: !enableRetrieve
+                      })}
                     >
                       <i className="fa fa-quote-left" />
                       Quotes
