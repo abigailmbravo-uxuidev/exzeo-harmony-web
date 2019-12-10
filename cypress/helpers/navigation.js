@@ -15,9 +15,9 @@ export const navigateThroughSearchAddress = ({
   cy
     .task('log', 'Navigating through Searching Address')
     .get('input[name=address]')
-    .type(address)
+    .type(address, { force: true })
     .findDataTag('product')
-    .select(product)
+    .select(product, { force: true })
     .clickSubmit('#SearchBar')
     .findDataTag('search-results')
     .find('li[tabindex=0]')
