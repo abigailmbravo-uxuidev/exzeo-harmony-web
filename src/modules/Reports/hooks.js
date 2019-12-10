@@ -10,59 +10,14 @@ export const useFetchReports = () => {
     const getReports = async () => {
       setLoaded(false);
       try {
-        // const config = {
-        //   exchangeName: 'harmony',
-        //   routingKey: 'harmony.report.listReport',
-        //   data: {}
-        // };
+        const config = {
+          exchangeName: 'harmony',
+          routingKey: 'harmony.report.listReport',
+          data: {}
+        };
 
-        //  const response = await serviceRunner.callService(config, 'listReport');
-        //  console.log(response);
-        //  setReports(response.data);
-        setReports([
-          {
-            reportId: 'Agency_Activity',
-            updatedBy: { user: 'SYSTEM' },
-            updatedAt: '2019-03-01T12:05:36.408Z',
-            createdBy: { user: 'SYSTEM' },
-            createdAt: '2019-03-11T13:39:26.291Z',
-            metadata: {},
-            parameters: {
-              name: 'Exzeo',
-              parameterType: 'agency',
-              _id: '5d86650e2c691f40c4d3191d',
-              values: ['agency']
-            },
-            access: {
-              _id: '5d86650e2c691f40c4d3191c',
-              agency: true
-            },
-            reportType: 'test',
-            name: 'Agency Activity',
-            __v: 0
-          },
-          {
-            reportId: 'Book_Of_Business',
-            updatedBy: { user: 'SYSTEM' },
-            updatedAt: '2019-03-01T12:05:36.408Z',
-            createdBy: { user: 'SYSTEM' },
-            createdAt: '2019-03-11T13:39:26.291Z',
-            metadata: {},
-            parameters: {
-              name: 'Exzeo',
-              parameterType: 'agency',
-              _id: '5d86650e2c691f40c4d3191d',
-              values: ['agency']
-            },
-            access: {
-              _id: '5d86650e2c691f40c4d3191c',
-              agency: true
-            },
-            reportType: 'agency',
-            name: 'Book Of Business',
-            __v: 0
-          }
-        ]);
+        const response = await serviceRunner.callService(config, 'listReport');
+        setReports(response.data.result);
         return true;
       } catch (error) {
         console.error('Error fetching reports: ', error);

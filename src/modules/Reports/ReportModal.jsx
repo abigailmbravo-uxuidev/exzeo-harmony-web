@@ -28,9 +28,10 @@ const ReportModal = ({
               <div className="card">
                 {submitting && <Loader />}
                 <div className="fade-in" id="Report">
-                  <div className="card-header" data-test="modal-header">
-                    <h4>
-                      <i className="fa fa-table" /> {report.title}
+                  <div className="card-header">
+                    <h4 className="title">
+                      <i data-test="modal-icon" className="fa fa-calendar" />
+                      &nbsp;{report.title}
                     </h4>
                     <Field
                       name="from"
@@ -63,7 +64,7 @@ const ReportModal = ({
                     </Button>
                   </div>
                   <div className="card-block">
-                      <ReportTable columns={report.columns} reportData={[]} />
+                    <ReportTable columns={report.columns} reportData={[]} />
                   </div>
                   <div className="card-footer">
                     <Button

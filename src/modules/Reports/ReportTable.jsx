@@ -8,6 +8,7 @@ const ReportTable = ({ reportData, columns }) => {
         {columns &&
           columns.map(c => (
             <TableHeaderColumn
+              key={c.title}
               isKey={c.isKey}
               dataField={c.title}
               className={c.title}
