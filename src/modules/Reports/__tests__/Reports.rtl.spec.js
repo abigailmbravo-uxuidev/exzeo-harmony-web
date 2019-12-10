@@ -45,5 +45,8 @@ describe('Testing the Reports Page', () => {
     expect(getByTestId('Agency_Activity_run_report')).toHaveTextContent(
       /RUN REPORT/
     );
+
+    const download = getByTestId('Agency_Activity_download');
+    expect(download.className).toEqual('fa fa-file-excel-o');
   });
 });
