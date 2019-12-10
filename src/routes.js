@@ -48,12 +48,15 @@ class Routes extends Component {
 
   render() {
     const { auth, agency, error, userProfile } = this.props;
+    console.log(auth, userProfile);
     auth.isInternal =
       userProfile && userProfile.userType
         ? userProfile.userType.toLowerCase() === 'internal'
         : false;
-    const isAgency =
-      userProfile && userProfile.profile ? userProfile.profile.isAgency : false;
+    const agencyReportsEnabled =
+      userProfile && userProfile.profile
+        ? userProfile.profile.agencyReportsEnabled
+        : false;
     return (
       <React.Fragment>
         <Modal
@@ -140,7 +143,7 @@ class Routes extends Component {
               path="/contacts"
               render={props => <Contacts auth={auth} {...props} />}
             />
-            {isAgency && (
+            {agencyReportsEnabled && (
               <Route
                 exact
                 path="/reports"
