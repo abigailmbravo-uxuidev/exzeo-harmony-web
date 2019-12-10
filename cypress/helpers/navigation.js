@@ -5,8 +5,8 @@ export const navigateThroughLanding = () =>
   cy
     .task('log', 'Navigating through Landing')
     .wait(500)
-    .get('.btn[href="/search/address"]')
-    .click({ force: true });
+    .get('.new-quote[href="/search/address"]')
+    .click();
 
 export const navigateThroughSearchAddress = ({
   address = userHO3.address,
