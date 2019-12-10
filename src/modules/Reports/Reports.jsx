@@ -26,7 +26,6 @@ const Reports = ({ auth, match }) => {
               <i className="fa fa-table" />
               &nbsp;Reports
             </h2>
-            {/* TODO: Get reports from endpoint in the reports-service */}
             <ul className="link-list reference-links">
               {reports &&
                 reports.map(r => (
