@@ -48,7 +48,6 @@ class Routes extends Component {
 
   render() {
     const { auth, agency, error, userProfile } = this.props;
-    console.log(auth, userProfile);
     auth.isInternal =
       userProfile && userProfile.userType
         ? userProfile.userType.toLowerCase() === 'internal'
