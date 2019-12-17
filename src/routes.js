@@ -12,6 +12,7 @@ import { getAgency } from './state/actions/agency.actions';
 import QuoteModule from './modules/Quote';
 import PolicyModule from './modules/Policy';
 import QuoteSearch from './modules/Search/Quote';
+import Reports from './modules/Reports/Reports';
 
 import Login from './containers/Login';
 import Splash from './containers/Splash';
@@ -51,7 +52,10 @@ class Routes extends Component {
       userProfile && userProfile.userType
         ? userProfile.userType.toLowerCase() === 'internal'
         : false;
-
+    const agencyReportsEnabled =
+      userProfile && userProfile.profile
+        ? userProfile.profile.agencyReportsEnabled
+        : false;
     return (
       <React.Fragment>
         <Modal
@@ -138,6 +142,13 @@ class Routes extends Component {
               path="/contacts"
               render={props => <Contacts auth={auth} {...props} />}
             />
+            {agencyReportsEnabled && (
+              <Route
+                exact
+                path="/reports"
+                render={props => <Reports auth={auth} {...props} />}
+              />
+            )}
             <Route
               exact
               path="/logout"

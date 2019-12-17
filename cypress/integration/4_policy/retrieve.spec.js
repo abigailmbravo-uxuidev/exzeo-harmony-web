@@ -41,6 +41,9 @@ describe('Retrieve Policy', () => {
         .should('have.value', '2')
         .get('.policy-list li[tabindex=0] .policy-status')
         .contains('Policy Issued')
+
+        .get('.policy-list .card')
+        .first()
         .click()
         // check for loader
         .findDataTag('loader')

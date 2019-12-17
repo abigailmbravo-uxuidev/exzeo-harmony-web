@@ -29,7 +29,8 @@ class AppWrapper extends React.Component {
       agency,
       errorRedirectUrl,
       match,
-      routeClassName
+      routeClassName,
+      userProfile
     } = this.props;
 
     const isInternal = auth && auth.isInternal;
@@ -37,6 +38,10 @@ class AppWrapper extends React.Component {
     const enableQuote = status === 'Active' || isInternal;
     const enableRetrieve =
       status === 'Active' || status === 'Pending' || isInternal;
+    const agencyReportsEnabled =
+      userProfile && userProfile.profile
+        ? userProfile.profile.agencyReportsEnabled
+        : false;
 
     return (
       <div
@@ -60,7 +65,8 @@ class AppWrapper extends React.Component {
                 navLinks={getNavLinks(
                   match.params,
                   enableQuote,
-                  enableRetrieve
+                  enableRetrieve,
+                  agencyReportsEnabled
                 )}
               />
             </nav>
@@ -112,7 +118,8 @@ AppWrapper.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  agency: state.agencyState.agency
+  agency: state.agencyState.agency,
+  userProfile: state.authState.userProfile
 });
 
 export default connect(mapStateToProps)(AppWrapper);
