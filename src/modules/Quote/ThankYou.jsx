@@ -1,13 +1,10 @@
 import React from 'react';
-import Footer from '../Footer';
+import PropTypes from 'prop-types';
 
-const ThankYou = ({ product }) => {
-  const productNames = {
-    HO3: 'Homeowners',
-    AF3: 'Flood'
-  };
+import { PRODUCT_DISPLAY_NAMES } from './constants/quote';
 
-  const productName = productNames[product || ''];
+const ThankYou = ({ footer, product }) => {
+  const productName = PRODUCT_DISPLAY_NAMES[product] || '';
 
   return (
     <div className="route-content">
@@ -57,11 +54,16 @@ const ThankYou = ({ product }) => {
               Return to Dashboard
             </a>
           </div>
-          <Footer />
+          {footer}
         </div>
       </div>
     </div>
   );
+};
+
+ThankYou.propTypes = {
+  footer: PropTypes.element,
+  product: PropTypes.oneOf(Object.keys(PRODUCT_DISPLAY_NAMES))
 };
 
 export default ThankYou;
