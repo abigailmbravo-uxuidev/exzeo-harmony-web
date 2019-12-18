@@ -58,14 +58,12 @@ export const supportContacts = [
     icon: 'fa fa-building-o',
     name: 'Agency Support',
     title: '',
-    phone: '8442897968',
     email: 'agencysupport@typtap.com'
   },
   {
     icon: 'fa fa-life-ring',
     name: 'Claims',
     title: '',
-    phone: '8442897968',
     extension: 'option 1',
     email: 'claims@typtap.com'
   },
@@ -73,7 +71,6 @@ export const supportContacts = [
     icon: 'fa fa-handshake-o',
     name: 'Customer Service',
     title: '',
-    phone: '8442897968',
     extension: 'option 2',
     email: 'customerservice@typtap.com'
   },
@@ -81,7 +78,6 @@ export const supportContacts = [
     icon: 'fa fa-group',
     name: 'Marketing',
     title: '',
-    phone: '8882105235',
     extension: 'option 5',
     email: 'marketing@typtap.com'
   },
@@ -91,7 +87,6 @@ export const supportContacts = [
     title: '',
     message:
       'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
-    phone: '8442897968',
     extension: 'option 3',
     email: 'customerservice@typtap.com',
     disclaimer:
@@ -120,7 +115,7 @@ const Contacts = ({ auth, match }) => (
         <section className="contacts">
           <h2 className="title">
             <i className="fa fa-address-book" />
-            &nbsp;Support
+            &nbsp;Support | <span>(844) 2889-7968</span>
           </h2>
           {supportContacts.map(contact => (
             <ContactCard key={contact.name} {...contact} />
