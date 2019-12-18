@@ -358,7 +358,7 @@ export class QuoteWorkflow extends Component {
           <Route
             exact
             path={`${match.url}/thankYou`}
-            render={props => <ThankYou {...props} />}
+            render={props => <ThankYou product={quote.product} {...props} />}
           />
           <Route
             exact
