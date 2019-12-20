@@ -23,13 +23,13 @@ import {
   ROUTE_TO_STEP_NAME
 } from './constants/workflowNavigation';
 
-import ThankYou from '../../components/ThankYou/ThankYou';
 import Footer from '../../components/Footer';
 import Error from '../../components/Error/Error';
 import App from '../../components/AppWrapper';
 
 import Assumptions from './Assumptions';
 import Share from './Share';
+import ThankYou from './ThankYou';
 import WorkflowNavigation from './WorkflowNavigation';
 import Verify from './Verify';
 import Warning from './Warning';
@@ -358,7 +358,9 @@ export class QuoteWorkflow extends Component {
           <Route
             exact
             path={`${match.url}/thankYou`}
-            render={props => <ThankYou {...props} />}
+            render={props => (
+              <ThankYou footer={<Footer />} product={quote.product} />
+            )}
           />
           <Route
             exact
