@@ -5,6 +5,7 @@
   flex-direction: column;
   -ms-flex-positive: 1;
   flex-grow: 1;
+
   width: 100%;
   height: auto;
 
@@ -18,6 +19,7 @@
 
     section {
       margin-bottom: 1rem;
+
       border-bottom: 1px dashed $cool-gray-02;
 
       &:last-of-type {
@@ -28,6 +30,7 @@
         .link-list {
           margin: 0;
           padding: 0;
+
           list-style: none;
 
           li {
@@ -39,6 +42,7 @@
 
             a {
               display: flex;
+
               padding: $padding 0;
 
               @include transition(all 0.2s ease-in-out);
@@ -46,28 +50,33 @@
               .home {
                 flex-grow: 0;
                 flex-shrink: 0;
-                margin-left: $padding;
+
                 width: 4rem;
+                margin-left: $padding;
+
                 background-image: url('../../img/TypTap-Home-Insurance-logo.svg');
+                background-repeat: no-repeat;
                 background-position: center center;
                 background-size: 75%;
-                background-repeat: no-repeat;
               }
 
               .generic {
                 flex-grow: 0;
                 flex-shrink: 0;
-                margin-left: $padding;
+
                 width: 4rem;
+                margin-left: $padding;
+
                 background-image: url('../../img/TypTap-ribbon.svg');
+                background-repeat: no-repeat;
                 background-position: center center;
                 background-size: 75%;
-                background-repeat: no-repeat;
               }
 
               .link-details {
                 flex-grow: 1;
                 flex-shrink: 1;
+
                 padding: ($padding/2) $padding;
 
                 h5 {
@@ -78,6 +87,7 @@
 
                 p {
                   margin-bottom: 0;
+
                   color: $cool-gray-10;
 
                   @include transition(all 0.2s ease-in-out);
@@ -90,20 +100,24 @@
                 flex-grow: 0;
                 flex-shrink: 0;
                 justify-content: center;
+
                 width: 4rem;
 
                 span {
                   position: relative;
+
                   color: $bright-blue-lighten-01;
-                  font-size: 1.5rem;
+
                   font-family: $font-family-icon;
+                  font-size: 1.5rem;
 
                   @include transition(all 0.2s ease-in-out);
 
                   &.pdf {
                     &:before {
-                      color: $red;
                       content: '\f1c1';
+
+                      color: $red;
 
                       @include transition(all 0.2s ease-in-out);
                     }
@@ -112,15 +126,20 @@
                       position: absolute;
                       right: -0.5rem;
                       bottom: -0.25rem;
+
                       display: flex;
                       align-items: center;
                       justify-content: center;
+
                       width: 1rem;
                       height: 1rem;
+
+                      content: '\f063';
+
+                      color: $white;
                       border-radius: 50%;
                       background: $bright-blue;
-                      color: $white;
-                      content: '\f063';
+
                       font-size: 0.5rem;
                       line-height: 1;
 
@@ -169,34 +188,41 @@
           &.contact-card {
             align-items: center;
             flex-direction: row;
+
             margin: 0 0 ($padding * 2);
 
             .card-header {
               display: flex;
               align-items: center;
               justify-content: center;
+
               margin-right: $padding;
               padding: $padding;
+
+              color: $green;
               border-bottom-width: 0;
               background: $white;
-              color: $green;
+
               font-size: $font-size-h2;
 
               > div {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
                 width: 3rem;
 
                 &.image {
                   overflow: hidden;
-                  margin: -$padding;
+
                   width: 4rem;
                   height: 4rem;
+                  margin: -$padding;
+
                   border-radius: 50%;
+                  background-repeat: no-repeat;
                   background-position: center center;
                   background-size: cover;
-                  background-repeat: no-repeat;
 
                   &.clark-ramos {
                     background-image: url('../../img/clark-ramos.png');
@@ -208,6 +234,10 @@
 
                   &.jodi-kelley {
                     background-image: url('../../img/jodi-kelley.png');
+                  }
+
+                  &.nigel-cosey {
+                    background-image: url('../../img/nigel-cosey.png');
                   }
 
                   &.victor-ferdinandi {
@@ -239,7 +269,9 @@
                 .contact-phone {
                   display: inline-flex;
                   align-items: center;
+
                   margin-right: $padding;
+
                   line-height: 1;
 
                   i {
@@ -253,16 +285,20 @@
                       flex-grow: 0;
                       flex-shrink: 0;
                       justify-content: center;
-                      padding: $padding/2;
+
                       width: auto;
                       height: 1rem;
+                      padding: $padding/2;
+
+                      color: $white;
                       border-radius: 3px;
                       background: $bright-blue-darken-04;
-                      color: $white;
+
                       font-size: $font-size-xs;
 
                       span {
                         margin-left: $padding/2;
+
                         font-size: $font-size-xs;
                         line-height: 1;
                       }
@@ -273,7 +309,9 @@
                 .contact-email {
                   display: inline-flex;
                   align-items: center;
+
                   margin-right: $padding;
+
                   line-height: 1;
 
                   i {
@@ -284,6 +322,7 @@
                 .contact-address {
                   display: inline-flex;
                   align-items: center;
+
                   margin-right: $padding;
 
                   i {
@@ -294,6 +333,7 @@
 
               .contact-disclaimer {
                 margin-top: $padding/2;
+
                 font-size: $font-size-sm;
               }
             }
@@ -309,12 +349,16 @@
                 &:before {
                   position: absolute;
                   top: 0.375rem;
+
                   display: none;
+
                   width: 0.75rem;
                   height: 0.75rem;
+
+                  content: ' ';
+
                   border-radius: 50%;
                   background: $cool-gray-10;
-                  content: ' ';
 
                   @include for-tablet-landscape-up {
                     display: flex;
@@ -329,11 +373,12 @@
                   }
                   @include for-tablet-landscape-up {
                     flex-direction: row;
+
                     font-size: $font-size-h4;
                   }
                   .contact-title {
-                    font-weight: $font-weight-bold;
                     font-size: $font-size-base;
+                    font-weight: $font-weight-bold;
 
                     @include for-tablet-landscape-up {
                       font-size: $font-size-h4;
@@ -341,7 +386,9 @@
 
                     > span {
                       display: none;
+
                       color: $cool-gray-10;
+
                       font-weight: $font-weight-normal;
 
                       @include for-tablet-landscape-up {
@@ -426,6 +473,7 @@
 
                   @include for-tablet-landscape-up {
                     flex-direction: row;
+
                     font-size: $font-size-h4;
                   }
                   .contact-title {
@@ -460,10 +508,12 @@
 
           .territory-managers {
             order: 3;
+
             width: 100%;
 
             @include for-desktop-up {
               order: 2;
+
               width: 55%;
             }
           }
@@ -472,11 +522,13 @@
             align-items: center;
             justify-content: center;
             order: 2;
-            margin-bottom: $padding;
+
             width: 100%;
+            margin-bottom: $padding;
 
             @include for-desktop-up {
               order: 3;
+
               width: 45%;
             }
 
