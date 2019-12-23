@@ -10,12 +10,6 @@ export const REPORT_TYPES = {
   bookOfBusiness: 'Book_Of_Business'
 };
 
-//TODO : grab this data from the endpoint
-export const REPORT_COLUMNS = {
-  [REPORT_TYPES.agencyActivity]: agencyActivityColumns,
-  [REPORT_TYPES.bookOfBusiness]: bookOfBusinessColumns
-};
-
 export const REPORT_LINK = {
   [REPORT_TYPES.agencyActivity]: noop, // Currently unavailable
   [REPORT_TYPES.bookOfBusiness]: getBookOfBusinessReport
@@ -50,6 +44,12 @@ export const bookOfBusinessColumns = [
   { title: 'Policy Status' },
   { title: 'Billing Status' }
 ];
+
+//TODO : grab this data from the endpoint
+export const REPORT_COLUMNS = {
+  [REPORT_TYPES.agencyActivity]: agencyActivityColumns,
+  [REPORT_TYPES.bookOfBusiness]: bookOfBusinessColumns
+};
 
 // TODO: modify endpoint pass in the ID then return stream for specific report
 async function getBookOfBusinessReport() {
