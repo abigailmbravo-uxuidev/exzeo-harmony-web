@@ -10,6 +10,7 @@ export const REPORT_TYPES = {
   bookOfBusiness: 'Book_Of_Business'
 };
 
+//TODO : grab this data from the endpoint
 export const REPORT_COLUMNS = {
   [REPORT_TYPES.agencyActivity]: agencyActivityColumns,
   [REPORT_TYPES.bookOfBusiness]: bookOfBusinessColumns
@@ -24,13 +25,20 @@ export const agencyActivityColumns = [
   { title: 'Agency Activity' },
   { title: 'Policy Number', isKey: true },
   { title: 'Product' },
-  { title: 'Created Date', format: dateFormatter },
+  { title: 'Company Code' },
   { title: 'Effective Date', format: dateFormatter },
+  { title: 'Created Date', format: dateFormatter },
   { title: 'PolicyHolder' },
-  { title: 'Address' }
+  { title: 'Property Address' },
+  { title: 'Mailing Address' },
+  { title: 'Cancel Date', format: dateFormatter },
+  { title: 'Total Premium', format: amountFormatter },
+  { title: 'Cash Received', format: amountFormatter },
+  { title: 'Agent Name', format: amountFormatter }
 ];
+
 export const bookOfBusinessColumns = [
-  { title: 'textbox10' },
+  { title: 'Agent Name' },
   { title: 'Policy Number', isKey: true },
   { title: 'PolicyHolder' },
   { title: 'Product' },
