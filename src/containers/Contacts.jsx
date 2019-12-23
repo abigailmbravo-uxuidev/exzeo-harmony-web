@@ -114,8 +114,8 @@ const Contacts = ({ auth, match }) => (
         </section>
         <section className="contacts">
           <h2 className="title">
-            <i className="fa fa-address-book" />
-            &nbsp;Support | <span>(844) 289-7968</span>
+            <i className="fa fa-phone-square" />
+            &nbsp;All Departments | <span>(844) 289-7968</span>
           </h2>
           {supportContacts.map(contact => (
             <ContactCard key={contact.name} {...contact} />
