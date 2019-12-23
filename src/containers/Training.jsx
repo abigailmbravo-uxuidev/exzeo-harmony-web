@@ -80,7 +80,7 @@ export const externalLinksHome = [
 export const externalLinksFlood = [
   {
     key: 1,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-County-Map.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Quick-Ref-Guide.pdf`,
     productIcon: 'flood',
     title: 'TypTap Flood Quick Reference Guide',
     description: 'Detailed list of the TypTap Flood underwriting guidelines.',
@@ -88,7 +88,7 @@ export const externalLinksFlood = [
   },
   {
     key: 2,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TypTap-Underwriting-Exception-Req.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Benefits-Flood-Policy.pdf`,
     productIcon: 'flood',
     title: 'Benefits of a TypTap Flood Policy',
     description:
@@ -97,7 +97,7 @@ export const externalLinksFlood = [
   },
   {
     key: 3,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-Opening-Protection.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-TT-vs-NFIP.pdf`,
     productIcon: 'flood',
     title: 'TypTap vs. The NFIP',
     description: 'Coverage comparison for TypTap and the NFIP.',
@@ -105,7 +105,7 @@ export const externalLinksFlood = [
   },
   {
     key: 4,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-Coverage-C-Exclusion-Doc.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Premium-Est.pdf`,
     productIcon: 'flood',
     title: 'TypTap Premium Estimate Chart',
     description:
@@ -114,7 +114,7 @@ export const externalLinksFlood = [
   },
   {
     key: 5,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-Coverage-C-Exclusion-Doc.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Private-Flood-Mortgage-Adequacy.pdf`,
     productIcon: 'flood',
     title: 'Mortgage Adequacy Document',
     description:
