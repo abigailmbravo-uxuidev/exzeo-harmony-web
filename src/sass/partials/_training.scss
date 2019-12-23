@@ -27,11 +27,22 @@
       }
 
       &.reference {
+        h2 {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
         .link-list {
           margin: 0;
           padding: 0;
 
           list-style: none;
+
+          h4 {
+            margin-top: 1.25rem;
+            padding-left: $padding * 10;
+
+            color: $headline-color;
+          }
 
           li {
             border-bottom: 1px dotted $cool-gray-00;
