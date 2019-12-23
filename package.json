@@ -3,7 +3,6 @@
   "version": "0.6.7",
   "private": true,
   "scripts": {
-    "server": "./replace-dotenv.sh && exframe-web",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --watchAll=false",
     "test:watch": "react-scripts test",
@@ -12,14 +11,14 @@
     "cypress": "react-scripts cypress"
   },
   "dependencies": {
-    "@exzeo/core-ui": "0.11.21",
+    "@auth0/auth0-spa-js": "^1.10.0",
+    "@exzeo/core-ui": "0.11.26",
     "@exzeo/react-scripts": "2.6.2",
-    "auth0-js": "9.11.3",
     "classnames": "~2.2.5",
     "core-js": "~2.6.9",
     "csvjson-csv2json": "~5.0.6",
     "font-awesome": "~4.7.0",
-    "history": "~4.6.1",
+    "history": "^4.10.1",
     "jwt-decode": "~2.2.0",
     "localStorage": "~1.0.3",
     "lodash": "~4.17.15",
@@ -46,10 +45,10 @@
     "axios-mock-adapter": "~1.10.0",
     "cypress": "3.8.2",
     "enzyme": "^3.10.0",
-    "husky": "^3.0.0",
+    "husky": "^4.2.5",
     "istanbul": "~0.4.5",
     "jest-teamcity-reporter": "^0.9.0",
-    "lint-staged": "^9.0.2",
+    "lint-staged": "^10.2.11",
     "prettier": "^1.18.2",
     "redux-mock-store": "~1.3.0",
     "sinon": "~2.4.1"
@@ -73,7 +72,7 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 57
+        "statements": 54
       }
     }
   },
@@ -84,12 +83,10 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css,scss,json,md}": [
-      "prettier --single-quote --write",
-      "git add"
+      "prettier --write"
     ],
     "cypress/**/*.js": [
-      "prettier --single-quote --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "browserslist": [

@@ -1,11 +1,8 @@
 import * as types from './actionTypes';
 
 export const setAppError = error => {
-  if (
-    process.env.NODE_ENV !== 'production' ||
-    process.env.NODE_ENV !== 'test'
-  ) {
-    console.error(error);
+  if (process.env.NODE_ENV === 'development') {
+    console.error('Set app error: ', error);
   }
 
   return {

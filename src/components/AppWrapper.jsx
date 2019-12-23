@@ -1,119 +1,106 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
 import { func, object, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
 import { date, Button } from '@exzeo/core-ui';
 
 import { getNavLinks } from '../utilities/navigation';
-import Header from './Header';
-import CheckError from './CheckError';
+import { useAuth0 } from '../context/auth-context';
+import { useUser } from '../context/user-context';
 import { userResources } from '../utilities/userResources';
 
-class AppWrapper extends React.Component {
-  state = {
-    activeSideNav: false
-  };
+import CheckError from './CheckError';
+import Header from './Header';
 
-  handleLogout = () => {
+function AppWrapper({
+  agency,
+  children,
+  errorRedirectUrl,
+  routeClassName = 'workflow'
+}) {
+  const [activeSideNav, setSideNav] = useState(false);
+  const { logout } = useAuth0();
+  const userProfile = useUser();
+  const match = useRouteMatch();
+
+  function handleLogout() {
     window.persistor.purge();
-    this.props.auth.logout();
-  };
+    logout();
+  }
 
-  toggleSideNav = () => {
-    this.setState(state => ({ activeSideNav: !state.activeSideNav }));
-  };
+  const { enableQuote, enableReports, enableRetrieve } = userResources(
+    userProfile,
+    agency
+  );
 
-  render() {
-    const {
-      errorRedirectUrl,
-      userProfile,
-      agency,
-      match,
-      routeClassName
-    } = this.props;
-
-    const { enableQuote, enableReports, enableRetrieve } = userResources(
-      userProfile,
-      agency
-    );
-    return (
-      <div
-        className={classNames('app-wrapper', {
-          active: this.state.activeSideNav
-        })}
-      >
-        <Header toggleSideNav={this.toggleSideNav} active={this.state.active} />
-        <div role="main">
-          <aside className="content-panel-left">
-            <div className="date-wrapper" data-test="date-wrapper">
-              <label htmlFor="date">Date</label>
-              <h5 className="date">
-                <span>
-                  <div>{date.currentDay('ddd MM/DD/YYYY')}</div>
-                </span>
-              </h5>
+  return (
+    <div
+      className={classNames('app-wrapper', {
+        active: activeSideNav
+      })}
+    >
+      <Header toggleSideNav={() => setSideNav(state => !state.activeSideNav)} />
+      <div role="main">
+        <aside className="content-panel-left">
+          <div className="date-wrapper" data-test="date-wrapper">
+            <label htmlFor="date">Date</label>
+            <h5 className="date">
+              <span>
+                <div>{date.currentDay('ddd MM/DD/YYYY')}</div>
+              </span>
+            </h5>
+          </div>
+          <nav className="site-nav">
+            <SideNavigation
+              navLinks={getNavLinks(
+                match.params,
+                enableQuote,
+                enableRetrieve,
+                enableReports
+              )}
+            />
+          </nav>
+          <Button
+            className={Button.constants.classNames.action}
+            customClass="logout"
+            onClick={handleLogout}
+            data-test="logout"
+          >
+            <div>
+              <i className="fa fa-sign-out" />
+              <span>Logout</span>
             </div>
-            <nav className="site-nav">
-              <SideNavigation
-                navLinks={getNavLinks(
-                  match.params,
-                  enableQuote,
-                  enableRetrieve,
-                  enableReports
-                )}
-              />
-            </nav>
-            <Button
-              className={Button.constants.classNames.action}
-              customClass="logout"
-              onClick={this.handleLogout}
-              data-test="sidenav-logout"
-            >
-              <div>
-                <i className="fa fa-sign-out" />
-                <span>Logout</span>
-              </div>
-            </Button>
-          </aside>
+          </Button>
+        </aside>
 
-          {this.state.activeSideNav && (
-            <div className="aside-modal active" onClick={this.toggleSideNav} />
-          )}
+        {activeSideNav && (
+          <div
+            className="aside-modal active"
+            onClick={() => setSideNav(state => !state.activeSideNav)}
+          />
+        )}
 
-          <div className="content-wrapper">
-            <div className={classNames(routeClassName)} role="article">
-              {this.props.children || this.props.render()}
-            </div>
+        <div className="content-wrapper">
+          <div className={classNames(routeClassName)} role="article">
+            {children}
           </div>
         </div>
-
-        <CheckError redirectUrl={errorRedirectUrl} />
       </div>
-    );
-  }
+
+      <CheckError redirectUrl={errorRedirectUrl} />
+    </div>
+  );
 }
 
 AppWrapper.propTypes = {
-  auth: object.isRequired,
-  match: shape({
-    params: shape({})
-  }).isRequired,
-  displayName: string,
   errorRedirectUrl: string,
-  render: func,
   routeClassName: string
 };
 
-AppWrapper.defaultProps = {
-  displayName: '',
-  errorRedirectUrl: undefined,
-  routeClassName: 'workflow'
-};
-
 const mapStateToProps = state => ({
-  agency: state.agencyState.agency,
-  userProfile: state.authState.userProfile
+  agency: state.agencyState.agency
 });
 
 export default connect(mapStateToProps)(AppWrapper);

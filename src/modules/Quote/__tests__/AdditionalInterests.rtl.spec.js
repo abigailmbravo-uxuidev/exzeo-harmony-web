@@ -89,7 +89,9 @@ describe('Testing Additional Interests', () => {
     location: { pathname: '/quote/12-345-67/additionalInterests' }
   };
 
-  const baseRequiredFields = baseAiFields.filter(({ required }) => required);
+  const baseRequiredFields = baseAiFields.filter(({ required }) =>
+    Boolean(required)
+  );
   const stateField = baseAiFields.find(({ dataTest }) => dataTest === 'state');
   const zipField = baseAiFields.find(({ dataTest }) => dataTest === 'zip');
 
@@ -318,7 +320,8 @@ describe('Testing Additional Interests', () => {
       'Additional Interest 2',
       'Premium Finance 1'
     ];
-    const { getByText } = render(<QuoteWorkflow {...newProps} />);
+
+    const { getByText, getByRole } = render(<QuoteWorkflow {...newProps} />);
     await waitForElement(() =>
       getByText(/Please select the type of Additional Interest/i)
     );
@@ -329,10 +332,10 @@ describe('Testing Additional Interests', () => {
     labelTexts.forEach((label, i) =>
       expect(label.textContent).toEqual(expectedLabels[i])
     );
-    expect(getByText('Mortgagee')).toBeDisabled();
-    expect(getByText('Additional Insured')).toBeDisabled();
-    expect(getByText('Additional Interest')).toBeDisabled();
-    expect(getByText('Premium Finance')).toBeDisabled();
+    expect(getByRole('button', { name: 'Mortgagee' })).toBeDisabled();
+    expect(getByRole('button', { name: 'Additional Insured' })).toBeDisabled();
+    expect(getByRole('button', { name: 'Additional Interest' })).toBeDisabled();
+    expect(getByRole('button', { name: 'Premium Finance' })).toBeDisabled();
   });
 
   it('POS:Checks Submit Button', async () => {

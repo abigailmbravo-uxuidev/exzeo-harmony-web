@@ -27,20 +27,13 @@ add `.npmrc` file
 add `.env.local` file  
 **this file is used to override default the configuration which runs locally, and points to a local Harmony backend.*  
 ```.bash
-# target api in specific environment
-#REACT_APP_API_URL=https://api.harmony-ins.com
+# point to specific env
+REACT_APP_API_URL=https://api.harmony-ins.com
 
 # point cypress to a different environment
 #CYPRESS_BASE_URL=https://agency.harmony-ins.com
-#CYPRESS_API_URL=https://api.harmony-ins.com
-#CYPRESS_USE_MOCK_AUTH0=true
-
-# use mock-auth0 (for local dev with docker)
-#REACT_APP_API_URL=http://devapi.harmony-ins.com:8000
-#REACT_APP_AUTH0_DOMAIN=mock-auth0:8888
-#REACT_APP_AUTH0_CLIENT_ID=https://mock-auth0:8888
-#REACT_APP_AUTH0_CONNECTION=ashton-sandbox
-#REACT_APP_AUTH0_AUDIENCE=https://mock-auth0:8888
+CYPRESS_API_URL=https://api.harmony-ins.com
+CYPRESS_AUTH0_CLIENT_SECRET=GET_THIS_FROM_AUTH0
 ```
 
 install dependencies

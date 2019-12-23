@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from './Header';
+import Footer from './Footer';
 
-const NotFound = function NotFound() {
+function NotFound() {
   return (
     <div className="app-wrapper not-found">
       <Header toggleSideNav={x => x} />
@@ -72,10 +71,6 @@ const NotFound = function NotFound() {
       </div>
     </div>
   );
-};
-
-NotFound.propTypes = {
-  className: PropTypes.string
-};
+}
 
 export default NotFound;

@@ -5,6 +5,8 @@ import thunk from 'redux-thunk';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { Auth0Context } from '../context/auth-context';
+import { UserContext } from '../context/user-context';
 
 import rootReducer from '../state/reducers';
 
@@ -16,28 +18,38 @@ import {
   zipCodeSettings
 } from '../test-utils';
 
+export const defaultAuth = {
+  isAuthenticated: true,
+  user: {},
+  userProfile: {
+    entity: {
+      companyCode: 'TTIC',
+      state: 'FL'
+    },
+    appMetadata: { beta: false }
+  },
+  loading: false,
+  popupOpen: false,
+  getIdTokenClaims: x => x,
+  loginWithRedirect: x => x,
+  getTokenSilently: x => x,
+  getTokenWithPopup: x => x,
+  logout: x => x
+};
+
 export const defaultInitialState = {
   policy: {
     policyNumber: null,
-    update: false
+    policy: {},
+    summaryLedger: {}
   },
   service: {
-    zipCodeSettings: {},
-    policyResults: {}
+    zipCodeSettings: {}
   },
   appState: {
     isLoading: false
   },
   error: {},
-  authState: {
-    userProfile: {
-      entity: {
-        companyCode: 'TTIC',
-        state: 'FL'
-      },
-      appMetadata: { beta: false }
-    }
-  },
   quoteState: {
     quote: {
       coverageLimits: {
@@ -162,6 +174,7 @@ export const defaultPolicyWorkflowProps = {
 export const customRender = (
   ui,
   {
+    auth = defaultAuth,
     route = '/',
     history = createMemoryHistory({ initialEntries: [route] }),
     state = defaultInitialState,
@@ -170,7 +183,11 @@ export const customRender = (
 ) => ({
   ...render(
     <Router history={history}>
-      <Provider store={store}>{ui}</Provider>
+      <Auth0Context.Provider value={auth}>
+        <UserContext.Provider value={auth.userProfile}>
+          <Provider store={store}>{ui}</Provider>
+        </UserContext.Provider>
+      </Auth0Context.Provider>
     </Router>
   ),
   // Return our mock store, in case we want to do something with it in a test

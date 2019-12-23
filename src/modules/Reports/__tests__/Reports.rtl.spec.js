@@ -6,7 +6,8 @@ import {
   waitForElement,
   fireEvent,
   mockServiceRunner,
-  defaultInitialState
+  defaultInitialState,
+  defaultAuth
 } from '../../../test-utils';
 
 import Reports from '../Reports';
@@ -79,21 +80,11 @@ describe('Testing the Reports Page', () => {
   };
 
   it('Reports Header and Nav Link Testing Testing', async () => {
-    const {
-      authState,
-      authState: { userProfile }
-    } = defaultInitialState;
-
-    const state = {
-      ...defaultInitialState,
-      authState: {
-        ...authState,
-        userProfile: {
-          ...userProfile,
-          profile: {
-            agencyReportsEnabled: true
-          }
-        }
+    const auth = {
+      ...defaultAuth,
+      profile: {
+        ...defaultAuth.profile,
+        agencyReportsEnabled: true
       }
     };
 
@@ -102,7 +93,7 @@ describe('Testing the Reports Page', () => {
     };
 
     const { getByText, getByTestId } = render(<Reports {...props} />, {
-      state,
+      auth,
       route: '/reports'
     });
     const header = getByText('Reports');
@@ -120,21 +111,11 @@ describe('Testing the Reports Page', () => {
   });
 
   it('No Report Nav Link if agencyReportsEnabled is false ', async () => {
-    const {
-      authState,
-      authState: { userProfile }
-    } = defaultInitialState;
-
-    const state = {
-      ...defaultInitialState,
-      authState: {
-        ...authState,
-        userProfile: {
-          ...userProfile,
-          profile: {
-            agencyReportsEnabled: false
-          }
-        }
+    const auth = {
+      ...defaultAuth,
+      profile: {
+        ...defaultAuth.profile,
+        agencyReportsEnabled: false
       }
     };
 
@@ -142,7 +123,7 @@ describe('Testing the Reports Page', () => {
       ...defaultProps
     };
     const { getByText } = render(<Reports {...props} />, {
-      state
+      auth
     });
 
     await wait(() => {
@@ -151,21 +132,11 @@ describe('Testing the Reports Page', () => {
   });
 
   it('Reports Section 2 Testing', async () => {
-    const {
-      authState,
-      authState: { userProfile }
-    } = defaultInitialState;
-
-    const state = {
-      ...defaultInitialState,
-      authState: {
-        ...authState,
-        userProfile: {
-          ...userProfile,
-          profile: {
-            agencyReportsEnabled: true
-          }
-        }
+    const auth = {
+      ...defaultAuth,
+      profile: {
+        ...defaultAuth.profile,
+        agencyReportsEnabled: true
       }
     };
 
@@ -173,7 +144,7 @@ describe('Testing the Reports Page', () => {
       ...defaultProps
     };
     const { getByTestId, getByText } = render(<Reports {...props} />, {
-      state
+      auth
     });
 
     await waitForElement(() => getByText('Book Of Business'));

@@ -3,7 +3,7 @@ import ScheduleDate from '../ScheduleDate';
 
 import { render, policyHolder, checkButton } from '../../../../test-utils';
 
-describe('Congragulations Schedule Date Modal testing', () => {
+describe('Congratulations Schedule Date Modal testing', () => {
   const props = {
     submitting: false,
     entity: { policyHolders: [policyHolder] },

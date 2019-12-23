@@ -8,9 +8,6 @@ export default {
     agency: undefined,
     agents: []
   },
-  authState: {
-    userProfile: undefined
-  },
   error: {},
   list: {
     agents: []

@@ -16,7 +16,7 @@ import { getQuoteSelector } from '../../state/selectors/quoteState.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 import Footer from '../../components/Footer';
 import Error from '../../components/Error';
-import App from '../../components/AppWrapper';
+import AppWrapper from '../../components/AppWrapper';
 
 import {
   NEXT_PAGE_ROUTING,
@@ -195,7 +195,6 @@ export class QuoteWorkflow extends Component {
 
   render() {
     const {
-      auth,
       history,
       isLoading,
       location,
@@ -234,7 +233,7 @@ export class QuoteWorkflow extends Component {
     );
 
     return (
-      <App auth={auth} errorRedirectUrl={location.pathname} match={match}>
+      <AppWrapper errorRedirectUrl={location.pathname}>
         <div className="route">
           {isLoading && <Loader />}
           {quoteHasError && currentRouteName !== 'error' && (
@@ -356,7 +355,7 @@ export class QuoteWorkflow extends Component {
             render={props => <Error {...props} getQuote={getQuote} />}
           />
         </div>
-      </App>
+      </AppWrapper>
     );
   }
 }
