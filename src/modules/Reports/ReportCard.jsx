@@ -23,10 +23,16 @@ const ReportCard = ({
           RUN REPORT
         </Button>
         <div className="link-icon">
-          <i
-            data-test={`${reportId}_download`}
-            className="fa fa-file-excel-o"
-          />
+          <Button
+            className={Button.constants.classNames.icon}
+            onClick={handleDownload}
+            data-test={`${reportId}_download_report`}
+          >
+            <i
+              data-test={`${reportId}_download`}
+              className="fa fa-file-excel-o"
+            />
+          </Button>
         </div>
       </a>
     </li>

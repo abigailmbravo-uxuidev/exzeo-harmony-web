@@ -5,17 +5,12 @@ import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
-import { agencyActivityColumns, bookOfBusinessColumns } from './utilities';
+import { REPORT_COLUMNS, REPORT_LINK } from './utilities';
 
 const Reports = ({ auth, match }) => {
   const [report, setReport] = useState(null);
 
   const { reports } = useFetchReports();
-
-  const REPORT_COLUMNS = {
-    Agency_Activity: agencyActivityColumns,
-    Book_Of_Business: bookOfBusinessColumns
-  };
 
   return (
     <AppWrapper auth={auth} match={match} routeClassName="main training">
@@ -40,7 +35,7 @@ const Reports = ({ auth, match }) => {
                         columns: REPORT_COLUMNS[r.reportId]
                       })
                     }
-                    handleDownload={x => x}
+                    handleDownload={REPORT_LINK[r.reportId]}
                   />
                 ))}
             </ul>
