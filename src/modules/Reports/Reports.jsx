@@ -28,7 +28,7 @@ const Reports = ({ auth, match }) => {
                     reportId={r.reportId}
                     key={r.reportId}
                     title={r.name}
-                    details={r.details || 'Details Here...'}
+                    details={r.details || ''}
                     openModal={() =>
                       setReport({
                         title: r.name,
