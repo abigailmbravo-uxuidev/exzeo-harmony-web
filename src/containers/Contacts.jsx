@@ -59,6 +59,7 @@ export const supportContacts = [
     name: 'Agency Support',
     title: '',
     phone: '',
+    extension: '',
     email: 'agencysupport@typtap.com'
   },
   {
@@ -66,6 +67,7 @@ export const supportContacts = [
     name: 'Claims',
     title: '',
     phone: '',
+    extension: '',
     email: 'claims@typtap.com'
   },
   {
@@ -73,6 +75,7 @@ export const supportContacts = [
     name: 'Customer Service',
     title: '',
     phone: '',
+    extension: '',
     email: 'customerservice@typtap.com'
   },
   {
@@ -80,15 +83,17 @@ export const supportContacts = [
     name: 'Marketing',
     title: '',
     phone: '',
+    extension: '',
     email: 'marketing@typtap.com'
   },
   {
     icon: 'fa fa-credit-card',
     name: 'Payments',
     title: '',
+    phone: '',
     message:
       'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
-    extension: 'option 3',
+    extension: '',
     email: 'customerservice@typtap.com',
     disclaimer:
       'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
