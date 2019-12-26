@@ -50,7 +50,7 @@ export const REPORT_COLUMNS = {
   [REPORT_TYPES.bookOfBusiness]: bookOfBusinessColumns
 };
 
-export async function downloadReport(reportId) {
+export async function downloadReport(reportId, setAppModalError) {
   const config = {
     method: 'POST',
     url: `${process.env.REACT_APP_API_URL}/svc`,
@@ -75,6 +75,6 @@ export async function downloadReport(reportId) {
       return true;
     })
     .catch(err => {
-      console.log(err);
+      setAppModalError(err.message);
     });
 }

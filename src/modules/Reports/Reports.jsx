@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { shape, func } from 'prop-types';
+import { Loader } from '@exzeo/core-ui/src';
 
 import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
 import { REPORT_COLUMNS, REPORT_TYPES, downloadReport } from './utilities';
-import { Loader } from '@exzeo/core-ui/src';
 
-const Reports = ({ auth, match }) => {
+const Reports = ({ auth, match, setAppModalError }) => {
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +16,7 @@ const Reports = ({ auth, match }) => {
 
   const downloadReportLink = async reportId => {
     setLoading(true);
-    await downloadReport(reportId);
+    await downloadReport(reportId, setAppModalError);
     setLoading(false);
   };
 
