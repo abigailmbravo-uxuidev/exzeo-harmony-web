@@ -1,5 +1,5 @@
 import { callService } from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
-import { http } from '@exzeo/core-ui/src';
+import { http, date } from '@exzeo/core-ui/src';
 
 const dateFormatter = cell => `${cell.substring(0, 10)}`;
 const amountFormatter = amt =>
@@ -73,7 +73,7 @@ export async function downloadReport() {
       const blobUrl = window.URL.createObjectURL(response.data);
       const link = window.document.createElement('a');
       link.href = blobUrl;
-      link.download = 'bookOfBusinessReport.csv';
+      link.download = `bookOfBusinessReport-${date.formatToUTC()}.csv`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
