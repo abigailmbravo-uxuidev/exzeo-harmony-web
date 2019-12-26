@@ -58,27 +58,28 @@ export const supportContacts = [
     icon: 'fa fa-building-o',
     name: 'Agency Support',
     title: '',
+    phone: '',
     email: 'agencysupport@typtap.com'
   },
   {
     icon: 'fa fa-life-ring',
     name: 'Claims',
     title: '',
-    extension: 'option 1',
+    phone: '',
     email: 'claims@typtap.com'
   },
   {
     icon: 'fa fa-handshake-o',
     name: 'Customer Service',
     title: '',
-    extension: 'option 2',
+    phone: '',
     email: 'customerservice@typtap.com'
   },
   {
     icon: 'fa fa-group',
     name: 'Marketing',
     title: '',
-    extension: 'option 5',
+    phone: '',
     email: 'marketing@typtap.com'
   },
   {
