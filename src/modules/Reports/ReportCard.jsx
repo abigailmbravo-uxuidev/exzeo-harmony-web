@@ -6,7 +6,8 @@ const ReportCard = ({
   title,
   details,
   openModal,
-  handleDownload
+  handleDownload,
+  disableDownloadLink
 }) => {
   return (
     <li>
@@ -25,6 +26,7 @@ const ReportCard = ({
         </Button>
         <div className="link-icon">
           <Button
+            disabled={disableDownloadLink}
             className={Button.constants.classNames.icon}
             onClick={handleDownload}
             data-test={`${reportId}_download_report`}

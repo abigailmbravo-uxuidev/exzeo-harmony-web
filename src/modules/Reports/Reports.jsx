@@ -5,15 +5,24 @@ import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
-import { REPORT_COLUMNS, downloadReport } from './utilities';
+import { REPORT_COLUMNS, REPORT_TYPES, downloadReport } from './utilities';
+import { Loader } from '@exzeo/core-ui/src';
 
 const Reports = ({ auth, match }) => {
   const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { reports } = useFetchReports();
 
+  const downloadReportLink = async reportId => {
+    setLoading(true);
+    await downloadReport(reportId);
+    setLoading(false);
+  };
+
   return (
     <AppWrapper auth={auth} match={match} routeClassName="main training">
+      {loading && <Loader />}
       <div className="scroll">
         <div className="detail-wrapper">
           <section className="reference">
@@ -29,13 +38,16 @@ const Reports = ({ auth, match }) => {
                     key={r.reportId}
                     title={r.name}
                     details={r.details || ''}
+                    disableDownloadLink={
+                      r.reportId !== REPORT_TYPES.bookOfBusiness
+                    }
                     openModal={() =>
                       setReport({
                         title: r.name,
                         columns: REPORT_COLUMNS[r.reportId]
                       })
                     }
-                    handleDownload={downloadReport}
+                    handleDownload={() => downloadReportLink(r.reportId)}
                   />
                 ))}
             </ul>

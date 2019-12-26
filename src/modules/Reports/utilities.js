@@ -10,6 +10,10 @@ export const REPORT_TYPES = {
   bookOfBusiness: 'Book_Of_Business'
 };
 
+export const REPORT_ENDPOINTS = {
+  [REPORT_TYPES.bookOfBusiness]: 'v1/getBookOfBusinessReport'
+};
+
 export const agencyActivityColumns = [
   { title: 'Agency Activity' },
   { title: 'Policy Number', isKey: true },
@@ -40,40 +44,31 @@ export const bookOfBusinessColumns = [
   { title: 'Billing Status' }
 ];
 
-//TODO : grab this data from the endpoint
+//TODO : grab this data from the endpoint data when the csv is parsed on the client
 export const REPORT_COLUMNS = {
   [REPORT_TYPES.agencyActivity]: agencyActivityColumns,
   [REPORT_TYPES.bookOfBusiness]: bookOfBusinessColumns
 };
 
-// TODO: modify endpoint to pass in the ID then return stream for specific report
-export async function downloadReport() {
-  // const config = {
-  //   service: 'report-service',
-  //   method: 'GET',
-  //   path: `v1/getBookOfBusinessReport`,
-  //   streamResult: true
-  // };
-  // await callService(config, 'getBookOfBusinessReport');
-
+export async function downloadReport(reportId) {
   const config = {
     method: 'POST',
     url: `${process.env.REACT_APP_API_URL}/svc`,
     data: {
       service: 'report-service',
       method: 'GET',
-      path: `v1/getBookOfBusinessReport`
+      path: REPORT_ENDPOINTS[reportId],
+      streamResult: true
     },
     responseType: 'blob'
   };
 
-  return http(config)
+  return await http(config)
     .then(response => {
-      console.log(response);
       const blobUrl = window.URL.createObjectURL(response.data);
       const link = window.document.createElement('a');
       link.href = blobUrl;
-      link.download = `bookOfBusinessReport-${date.formatToUTC()}.csv`;
+      link.download = `${reportId}-${date.formatToUTC()}.csv`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
