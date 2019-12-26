@@ -71,19 +71,6 @@
                 background-size: 75%;
               }
 
-              .flood {
-                flex-grow: 0;
-                flex-shrink: 0;
-
-                width: 4rem;
-                margin-left: $padding;
-
-                background-image: url('../../img/TypTap-Flood-Insurance-logo.svg');
-                background-repeat: no-repeat;
-                background-position: center center;
-                background-size: 75%;
-              }
-
               .generic {
                 flex-grow: 0;
                 flex-shrink: 0;
@@ -92,6 +79,19 @@
                 margin-left: $padding;
 
                 background-image: url('../../img/TypTap-ribbon.svg');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 75%;
+              }
+
+              .flood {
+                flex-grow: 0;
+                flex-shrink: 0;
+
+                width: 4rem;
+                margin-left: $padding;
+
+                background-image: url('../../img/TypTap-Flood-Insurance-logo.svg');
                 background-repeat: no-repeat;
                 background-position: center center;
                 background-size: 75%;
@@ -258,6 +258,10 @@
 
                   &.jodi-kelley {
                     background-image: url('../../img/jodi-kelley.png');
+                  }
+
+                  &.nigel-cosey {
+                    background-image: url('../../img/nigel-cosey.png');
                   }
 
                   &.victor-ferdinandi {
