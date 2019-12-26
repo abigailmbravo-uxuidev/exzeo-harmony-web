@@ -11,7 +11,7 @@ export const REPORT_TYPE = {
 };
 
 export const REPORT_ENDPOINT = {
-  [REPORT_TYPE.bookOfBusiness]: 'v1/getBookOfBusinessReport'
+  [REPORT_TYPE.bookOfBusiness]: 'getBookOfBusinessReport'
 };
 
 export const agencyActivityColumns = [
@@ -57,7 +57,7 @@ export async function downloadReport(reportId, setAppModalError) {
     data: {
       service: 'report-service',
       method: 'GET',
-      path: REPORT_ENDPOINT[reportId],
+      path: `v1/${REPORT_ENDPOINT[reportId]}`,
       streamResult: true
     },
     responseType: 'blob'
