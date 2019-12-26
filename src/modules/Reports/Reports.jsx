@@ -6,7 +6,7 @@ import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
-import { REPORT_COLUMNS, REPORT_TYPES, downloadReport } from './utilities';
+import { REPORT_COLUMNS, downloadReport } from './utilities';
 
 const Reports = ({ auth, match, setAppModalError }) => {
   const [report, setReport] = useState(null);
@@ -38,9 +38,6 @@ const Reports = ({ auth, match, setAppModalError }) => {
                     key={r.reportId}
                     title={r.name}
                     details={r.details || ''}
-                    disableDownloadLink={
-                      r.reportId !== REPORT_TYPES.bookOfBusiness
-                    }
                     openModal={() =>
                       setReport({
                         title: r.name,

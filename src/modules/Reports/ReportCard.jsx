@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from '@exzeo/core-ui/src';
+import { REPORT_ENDPOINT } from './utilities';
 
 const ReportCard = ({
   reportId,
   title,
   details,
   openModal,
-  handleDownload,
-  disableDownloadLink
+  handleDownload
 }) => {
   return (
     <li>
@@ -26,7 +26,7 @@ const ReportCard = ({
         </Button>
         <div className="link-icon">
           <Button
-            disabled={disableDownloadLink}
+            disabled={!REPORT_ENDPOINT[reportId]}
             className={Button.constants.classNames.icon}
             onClick={handleDownload}
             data-test={`${reportId}_download_report`}

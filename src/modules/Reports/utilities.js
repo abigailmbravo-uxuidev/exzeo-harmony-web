@@ -5,13 +5,13 @@ const dateFormatter = cell => `${cell.substring(0, 10)}`;
 const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
 
-export const REPORT_TYPES = {
+export const REPORT_TYPE = {
   agencyActivity: 'Agency_Activity',
   bookOfBusiness: 'Book_Of_Business'
 };
 
-export const REPORT_ENDPOINTS = {
-  [REPORT_TYPES.bookOfBusiness]: 'v1/getBookOfBusinessReport'
+export const REPORT_ENDPOINT = {
+  [REPORT_TYPE.bookOfBusiness]: 'v1/getBookOfBusinessReport'
 };
 
 export const agencyActivityColumns = [
@@ -46,8 +46,8 @@ export const bookOfBusinessColumns = [
 
 //TODO : grab this data from the endpoint data when the csv is parsed on the client
 export const REPORT_COLUMNS = {
-  [REPORT_TYPES.agencyActivity]: agencyActivityColumns,
-  [REPORT_TYPES.bookOfBusiness]: bookOfBusinessColumns
+  [REPORT_TYPE.agencyActivity]: agencyActivityColumns,
+  [REPORT_TYPE.bookOfBusiness]: bookOfBusinessColumns
 };
 
 export async function downloadReport(reportId, setAppModalError) {
@@ -57,7 +57,7 @@ export async function downloadReport(reportId, setAppModalError) {
     data: {
       service: 'report-service',
       method: 'GET',
-      path: REPORT_ENDPOINTS[reportId],
+      path: REPORT_ENDPOINT[reportId],
       streamResult: true
     },
     responseType: 'blob'
