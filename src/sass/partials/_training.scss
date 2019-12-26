@@ -182,6 +182,25 @@
           margin-bottom: 1rem;
         }
 
+        .support-header {
+          display: flex;
+
+          h2 {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            width: auto;
+            margin: 0 0 $padding;
+            padding: $padding;
+
+            &.telephone-link {
+              padding-left: 0;
+
+              font-weight: $font-weight-normal;
+            }
+          }
+        }
+
         .card {
           padding: ($padding) ($padding * 1.5);
 
