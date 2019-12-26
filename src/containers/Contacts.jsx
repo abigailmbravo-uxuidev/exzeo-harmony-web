@@ -120,8 +120,7 @@ const Contacts = ({ auth, match }) => (
               &nbsp;All Departments
             </h2>
             <h2 className="telephone-link">
-              {' '}
-              | <a href="tel:8442897968">(844) 289-7968</a>
+              &nbsp;|&nbsp;<a href="tel:8442897968">(844) 289-7968</a>
             </h2>
           </div>
           {supportContacts.map(contact => (
