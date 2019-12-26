@@ -87,7 +87,6 @@ describe('Testing the Reports Page', () => {
     expect(getByTestId('Agency_Activity_title')).toHaveTextContent(
       /Agency Activity/
     );
-    expect(getByTestId('Agency_Activity_details')).toHaveTextContent(/\w/);
     expect(getByTestId('Agency_Activity_run_report')).toHaveTextContent(
       /RUN REPORT/
     );
@@ -107,7 +106,6 @@ describe('Testing the Reports Page', () => {
     expect(getByTestId('Book_Of_Business_title')).toHaveTextContent(
       /Book Of Business/
     );
-    expect(getByTestId('Book_Of_Business_details')).toHaveTextContent(/\w/);
     expect(getByTestId('Book_Of_Business_run_report')).toHaveTextContent(
       /RUN REPORT/
     );
