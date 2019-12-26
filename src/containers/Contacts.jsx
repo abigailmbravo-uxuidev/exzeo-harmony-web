@@ -31,7 +31,7 @@ export const territoryManagerContacts = [
     email: 'jkelley@hcpci.com'
   },
   {
-    icon: 'image user',
+    icon: 'image nigel-cosey',
     name: 'Nigel Cosey',
     title: 'Treasure Coast Florida Manager',
     phone: '7865171850',
