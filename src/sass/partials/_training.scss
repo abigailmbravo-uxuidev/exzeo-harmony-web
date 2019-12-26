@@ -184,6 +184,8 @@
 
         .support-header {
           display: flex;
+          align-items: baseline;
+          flex-wrap: wrap;
 
           h2 {
             flex-grow: 0;
@@ -191,12 +193,24 @@
 
             width: auto;
             margin: 0 0 $padding;
-            padding: $padding;
+            padding: $padding 0 $padding $padding;
+
+            line-height: 1;
 
             &.telephone-link {
               padding-left: 0;
 
               font-weight: $font-weight-normal;
+
+              @include for-phone-only {
+                font-size: $font-size-h5;
+              }
+              @include for-tablet-portrait-up {
+                font-size: $font-size-h5;
+              }
+              @include for-tablet-landscape-up {
+                font-size: $font-size-h2;
+              }
             }
           }
         }
