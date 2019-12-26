@@ -5,7 +5,11 @@ import {
   defaultProps,
   checkHeader
 } from '../../test-utils';
-import Training, { externalLinks } from '../Training';
+import Training, {
+  externalLinksGeneric,
+  externalLinksHome,
+  externalLinksFlood
+} from '../Training';
 
 const pageHeaders = [{ text: 'Reference' }];
 
@@ -23,7 +27,31 @@ describe('Testing the Helpful Info (Training) Page', () => {
       <Training {...defaultProps} />
     );
 
-    externalLinks.forEach(link => {
+    externalLinksGeneric.forEach(link => {
+      expect(
+        document.querySelector(`div.${link.productIcon}`)
+      ).toBeInTheDocument();
+      expect(getByText(link.title));
+      expect(getByText(link.description));
+      expect(document.querySelector(`.${link.linkIcon}`)).toBeInTheDocument();
+      expect(
+        document.querySelector(`a[href="${link.url}"]`)
+      ).toBeInTheDocument();
+    });
+
+    externalLinksHome.forEach(link => {
+      expect(
+        document.querySelector(`div.${link.productIcon}`)
+      ).toBeInTheDocument();
+      expect(getByText(link.title));
+      expect(getByText(link.description));
+      expect(document.querySelector(`.${link.linkIcon}`)).toBeInTheDocument();
+      expect(
+        document.querySelector(`a[href="${link.url}"]`)
+      ).toBeInTheDocument();
+    });
+
+    externalLinksFlood.forEach(link => {
       expect(
         document.querySelector(`div.${link.productIcon}`)
       ).toBeInTheDocument();
