@@ -1,5 +1,5 @@
-import { noop } from '@exzeo/core-ui/src';
 import { callService } from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
+import { http } from '@exzeo/core-ui/src';
 
 const dateFormatter = cell => `${cell.substring(0, 10)}`;
 const amountFormatter = amt =>
@@ -8,11 +8,6 @@ const amountFormatter = amt =>
 export const REPORT_TYPES = {
   agencyActivity: 'Agency_Activity',
   bookOfBusiness: 'Book_Of_Business'
-};
-
-export const REPORT_LINK = {
-  [REPORT_TYPES.agencyActivity]: noop, // Currently unavailable
-  [REPORT_TYPES.bookOfBusiness]: getBookOfBusinessReport
 };
 
 export const agencyActivityColumns = [
@@ -51,13 +46,40 @@ export const REPORT_COLUMNS = {
   [REPORT_TYPES.bookOfBusiness]: bookOfBusinessColumns
 };
 
-// TODO: modify endpoint pass in the ID then return stream for specific report
-async function getBookOfBusinessReport() {
+// TODO: modify endpoint to pass in the ID then return stream for specific report
+export async function downloadReport() {
+  // const config = {
+  //   service: 'report-service',
+  //   method: 'GET',
+  //   path: `v1/getBookOfBusinessReport`,
+  //   streamResult: true
+  // };
+  // await callService(config, 'getBookOfBusinessReport');
+
   const config = {
-    service: 'report',
-    method: 'GET',
-    path: `v1/getBookOfBusinessReport`,
-    streamResult: true
+    method: 'POST',
+    url: `${process.env.REACT_APP_API_URL}/svc`,
+    data: {
+      service: 'report-service',
+      method: 'GET',
+      path: `v1/getBookOfBusinessReport`
+    },
+    responseType: 'blob'
   };
-  await callService(config, 'getBookOfBusinessReport');
+
+  return http(config)
+    .then(response => {
+      console.log(response);
+      const blobUrl = window.URL.createObjectURL(response.data);
+      const link = window.document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'bookOfBusinessReport.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      return true;
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }

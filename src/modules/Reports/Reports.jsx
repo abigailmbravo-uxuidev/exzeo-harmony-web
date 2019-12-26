@@ -5,7 +5,7 @@ import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
-import { REPORT_COLUMNS, REPORT_LINK } from './utilities';
+import { REPORT_COLUMNS, downloadReport } from './utilities';
 
 const Reports = ({ auth, match }) => {
   const [report, setReport] = useState(null);
@@ -35,7 +35,7 @@ const Reports = ({ auth, match }) => {
                         columns: REPORT_COLUMNS[r.reportId]
                       })
                     }
-                    handleDownload={REPORT_LINK[r.reportId]}
+                    handleDownload={downloadReport}
                   />
                 ))}
             </ul>
