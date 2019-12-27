@@ -11,7 +11,7 @@ const ReportCard = ({
 }) => {
   return (
     <li>
-      <a href="#">
+      <div className="link-wrapper">
         <div className="link-details">
           <h5 data-test={`${reportId}_title`}>{title}</h5>
           <p data-test={`${reportId}_details`}>{details}</p>
@@ -37,7 +37,7 @@ const ReportCard = ({
             />
           </Button>
         </div>
-      </a>
+      </div>
     </li>
   );
 };

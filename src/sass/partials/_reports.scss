@@ -1,0 +1,59 @@
+.main.reports {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+
+  width: 100%;
+  height: auto;
+  .scroll {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    section {
+      margin-bottom: 1rem;
+
+      border-bottom: 1px dashed $cool-gray-02;
+
+      &:last-of-type {
+        border-bottom-width: 0;
+      }
+
+      &.reports {
+        .link-list {
+          margin: 0;
+          padding: 0;
+
+          list-style: none;
+
+          li {
+            border-bottom: 1px dotted $cool-gray-00;
+
+            &:last-of-type {
+              border-width: 0;
+            }
+
+            .link-wrapper {
+              display: flex;
+              align-items: center;
+
+              padding: $padding 0;
+
+              .link-details {
+                flex-grow: 1;
+                flex-shrink: 1;
+
+                padding: ($padding/2) $padding;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
