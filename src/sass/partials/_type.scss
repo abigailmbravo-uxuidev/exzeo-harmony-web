@@ -1,10 +1,11 @@
 @import '_variables'; //harmonic rule set at 1.250 - major third
 
 body {
-  background-color: $white;
   color: $default-font-color;
-  font-weight: $font-weight-normal;
+  background-color: $white;
+
   font-family: $font-family-base;
+  font-weight: $font-weight-normal;
   line-height: $line-height-base;
 }
 
@@ -36,8 +37,11 @@ h6 {
   flex-basis: auto;
   flex-grow: 0;
   flex-shrink: 0;
+
   margin: $headings-margin-top 0 $headings-margin-bottom;
+
   color: $headline-color;
+
   font-weight: $font-weight-bold;
   line-height: $headings-line-height;
 }
@@ -45,12 +49,17 @@ h6 {
 .h1,
 h1 {
   margin-top: $h1-margin-top;
+
   font-size: $font-size-h1;
 }
 
 .h2,
 h2 {
   font-size: $font-size-h2;
+
+  span {
+    font-weight: $font-weight-normal;
+  }
 }
 
 .h3,
@@ -79,6 +88,7 @@ small {
 
   p {
     margin-bottom: $paragraph-margin-bottom/2;
+
     color: $body-color;
   }
 }
