@@ -27,7 +27,7 @@ export const agencyActivityColumns = [
   { title: 'Cancel Date', format: dateFormatter },
   { title: 'Total Premium', format: amountFormatter },
   { title: 'Cash Received', format: amountFormatter },
-  { title: 'Agent Name', format: amountFormatter }
+  { title: 'Agent Name' }
 ];
 
 export const bookOfBusinessColumns = [
