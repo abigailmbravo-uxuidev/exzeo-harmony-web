@@ -63,18 +63,16 @@ export async function downloadReport(reportId, setAppModalError) {
     responseType: 'blob'
   };
 
-  return await http(config)
-    .then(response => {
-      const blobUrl = window.URL.createObjectURL(response.data);
-      const link = window.document.createElement('a');
-      link.href = blobUrl;
-      link.download = `${reportId}-${date.formatToUTC()}.csv`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      return true;
-    })
-    .catch(err => {
-      setAppModalError(err.message);
-    });
+  const response = await http(config).catch(err => {
+    setAppModalError(err.message);
+  });
+
+  const blobUrl = window.URL.createObjectURL(response.data);
+  const link = window.document.createElement('a');
+  link.href = blobUrl;
+  link.download = `${reportId}-${date.formatToUTC()}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  return true;
 }
