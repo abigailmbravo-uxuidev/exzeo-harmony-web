@@ -27,7 +27,7 @@ const ReportCard = ({
         <div className="link-icon">
           <Button
             disabled={!REPORT_ENDPOINT[reportId]}
-            className={Button.constants.classNames.icon}
+            className={Button.constants.classNames.primary}
             onClick={handleDownload}
             data-test={`${reportId}_download_report`}
           >
