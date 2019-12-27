@@ -21,16 +21,16 @@ const Reports = ({ auth, match, setAppModalError }) => {
   };
 
   return (
-    <AppWrapper auth={auth} match={match} routeClassName="main training">
+    <AppWrapper auth={auth} match={match} routeClassName="main reports">
       {loading && <Loader />}
       <div className="scroll">
         <div className="detail-wrapper">
-          <section className="reference">
+          <section className="reports">
             <h2 className="title">
               <i className="fa fa-table" />
               &nbsp;Reports
             </h2>
-            <ul className="link-list reference-links">
+            <ul className="link-list reports-links">
               {reports &&
                 reports.map(r => (
                   <ReportCard
