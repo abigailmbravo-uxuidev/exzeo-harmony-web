@@ -18,8 +18,8 @@ const pageHeaders = [
     icon: 'fa fa-map-marker'
   },
   {
-    text: 'Support',
-    icon: 'fa fa-address-book'
+    text: 'All Departments',
+    icon: 'fa fa-phone-square'
   }
 ];
 
@@ -60,7 +60,7 @@ describe('Testing the Contacts Page', () => {
         document.querySelector(`div.${support.icon.split(' ')[0]}`)
       ).toBeInTheDocument();
       expect(getByText(support.name));
-      expect(getByText(`${normalize.phone(support.phone)}${extension}`));
+      // expect(getByText(`${normalize.phone(support.phone)}${extension}`));
       expect(getByText(support.email));
       support.message && expect(getByText(support.message));
       support.disclaimer && expect(getByText(support.disclaimer));

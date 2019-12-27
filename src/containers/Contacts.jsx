@@ -58,41 +58,37 @@ export const supportContacts = [
     icon: 'fa fa-building-o',
     name: 'Agency Support',
     title: '',
-    phone: '8442897968',
+    phone: '',
     email: 'agencysupport@typtap.com'
   },
   {
     icon: 'fa fa-life-ring',
     name: 'Claims',
     title: '',
-    phone: '8442897968',
-    extension: 'option 1',
+    phone: '',
     email: 'claims@typtap.com'
   },
   {
     icon: 'fa fa-handshake-o',
     name: 'Customer Service',
     title: '',
-    phone: '8442897968',
-    extension: 'option 2',
+    phone: '',
     email: 'customerservice@typtap.com'
   },
   {
     icon: 'fa fa-group',
     name: 'Marketing',
     title: '',
-    phone: '8882105235',
-    extension: 'option 5',
+    phone: '',
     email: 'marketing@typtap.com'
   },
   {
     icon: 'fa fa-credit-card',
     name: 'Payments',
     title: '',
+    phone: '',
     message:
       'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
-    phone: '8442897968',
-    extension: 'option 3',
     email: 'customerservice@typtap.com',
     disclaimer:
       'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
@@ -118,10 +114,15 @@ const Contacts = ({ auth, match }) => (
           </div>
         </section>
         <section className="contacts">
-          <h2 className="title">
-            <i className="fa fa-address-book" />
-            &nbsp;Support
-          </h2>
+          <div className="support-header">
+            <h2 className="title">
+              <i className="fa fa-phone-square" />
+              &nbsp;All Departments
+            </h2>
+            <h2 className="telephone-link">
+              &nbsp;|&nbsp;<a href="tel:8442897968">(844) 289-7968</a>
+            </h2>
+          </div>
           {supportContacts.map(contact => (
             <ContactCard key={contact.name} {...contact} />
           ))}
