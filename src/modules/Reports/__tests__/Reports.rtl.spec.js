@@ -1,5 +1,5 @@
 import React from 'react';
-import { waitForElement } from 'react-testing-library';
+import { waitForElement, fireEvent } from 'react-testing-library';
 
 import { renderWithForm, mockServiceRunner } from '../../../test-utils';
 
@@ -112,5 +112,7 @@ describe('Testing the Reports Page', () => {
 
     const download = getByTestId('Book_Of_Business_download');
     expect(download.className).toEqual('fa fa-file-excel-o');
+
+    fireEvent.click(download);
   });
 });
