@@ -60,7 +60,13 @@ export function downloadReport(reportId, blob) {
   document.body.removeChild(link);
 }
 
-export async function getReportById(reportId, setAppModalError, responseType) {
+export async function getReportById(
+  reportId,
+  minDate,
+  maxDate,
+  setAppModalError,
+  responseType
+) {
   const config = {
     method: 'POST',
     url: `${process.env.REACT_APP_API_URL}/svc`,

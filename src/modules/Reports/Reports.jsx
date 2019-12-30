@@ -15,13 +15,19 @@ const Reports = ({ auth, match, setAppModalError }) => {
 
   const { reports } = useFetchReports();
 
-  const runReport = async report => {
+  const runReport = async (selectedReport, minDate, maxDate) => {
     setLoading(true);
-    const reportData = await getReportById(report.reportId, setAppModalError);
+    const reportData = await getReportById(
+      selectedReport.reportId,
+      minDate,
+      maxDate,
+      setAppModalError
+    );
     const data = csv2json(reportData);
     setReport({
-      title: report.name,
-      columns: REPORT_COLUMNS[report.reportId],
+      selectedReport: selectedReport,
+      title: selectedReport.name,
+      columns: REPORT_COLUMNS[selectedReport.reportId],
       data
     });
     setLoading(false);
@@ -29,9 +35,24 @@ const Reports = ({ auth, match, setAppModalError }) => {
 
   const downloadReportLink = async reportId => {
     setLoading(true);
-    const reportData = await getReportById(reportId, setAppModalError, 'blob');
+    const reportData = await getReportById(
+      reportId,
+      '',
+      '',
+      setAppModalError,
+      'blob'
+    );
     downloadReport(reportId, reportData);
     setLoading(false);
+  };
+
+  const refreshReport = async data => {
+    await runReport(
+      report.selectedReport,
+      data.minDate,
+      data.maxDate,
+      setAppModalError
+    );
   };
 
   return (
@@ -64,7 +85,7 @@ const Reports = ({ auth, match, setAppModalError }) => {
         <ReportModal
           report={report}
           handleCancel={() => setReport(null)}
-          handleRefresh={x => x}
+          handleRefresh={refreshReport}
           handleDownload={x => x}
         />
       )}
