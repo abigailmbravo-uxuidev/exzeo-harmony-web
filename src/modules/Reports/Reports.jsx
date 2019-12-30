@@ -6,7 +6,7 @@ import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
-import { REPORT_COLUMNS, downloadReport } from './utilities';
+import { REPORT_COLUMNS, downloadReport, getReportById } from './utilities';
 
 const Reports = ({ auth, match, setAppModalError }) => {
   const [report, setReport] = useState(null);
@@ -14,9 +14,22 @@ const Reports = ({ auth, match, setAppModalError }) => {
 
   const { reports } = useFetchReports();
 
+  const runReport = async report => {
+    setLoading(true);
+    const reportData = await getReportById(report.reportId, setAppModalError);
+    console.log(reportData);
+    setReport({
+      title: report.name,
+      columns: REPORT_COLUMNS[report.reportId],
+      data: reportData
+    });
+    setLoading(false);
+  };
+
   const downloadReportLink = async reportId => {
     setLoading(true);
-    await downloadReport(reportId, setAppModalError);
+    const reportData = await getReportById(reportId, setAppModalError);
+    downloadReport(reportId, reportData);
     setLoading(false);
   };
 
@@ -38,12 +51,7 @@ const Reports = ({ auth, match, setAppModalError }) => {
                     key={r.reportId}
                     title={r.name}
                     details={r.details || ''}
-                    openModal={() =>
-                      setReport({
-                        title: r.name,
-                        columns: REPORT_COLUMNS[r.reportId]
-                      })
-                    }
+                    openModal={() => runReport(r)}
                     handleDownload={() => downloadReportLink(r.reportId)}
                   />
                 ))}

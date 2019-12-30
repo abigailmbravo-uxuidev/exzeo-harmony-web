@@ -50,7 +50,17 @@ export const REPORT_COLUMNS = {
   [REPORT_TYPE.bookOfBusiness]: bookOfBusinessColumns
 };
 
-export async function downloadReport(reportId, setAppModalError) {
+export function downloadReport(reportId, responseData) {
+  const blobUrl = window.URL.createObjectURL(responseData);
+  const link = window.document.createElement('a');
+  link.href = blobUrl;
+  link.download = `${reportId}-${date.formatToUTC()}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+export async function getReportById(reportId, setAppModalError) {
   const config = {
     method: 'POST',
     url: `${process.env.REACT_APP_API_URL}/svc`,
@@ -67,12 +77,5 @@ export async function downloadReport(reportId, setAppModalError) {
     setAppModalError(err.message);
   });
 
-  const blobUrl = window.URL.createObjectURL(response.data);
-  const link = window.document.createElement('a');
-  link.href = blobUrl;
-  link.download = `${reportId}-${date.formatToUTC()}.csv`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  return true;
+  return response.data;
 }

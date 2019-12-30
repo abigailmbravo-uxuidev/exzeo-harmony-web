@@ -17,7 +17,7 @@ const ReportCard = ({
           <p data-test={`${reportId}_details`}>{details}</p>
         </div>
         <Button
-          disabled
+          disabled={!REPORT_ENDPOINT[reportId]}
           className={Button.constants.classNames.secondary}
           onClick={openModal}
           data-test={`${reportId}_run_report`}
