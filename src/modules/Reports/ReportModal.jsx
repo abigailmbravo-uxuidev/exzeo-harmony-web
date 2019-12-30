@@ -49,7 +49,7 @@ const ReportModal = ({
       render={({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
           {submitting && <Loader />}
-          <div>
+          <div className="card-block">
             <Field
               name="minDate"
               component={Date}
@@ -81,8 +81,6 @@ const ReportModal = ({
             >
               Refresh
             </Button>
-          </div>
-          <div className="card-block">
             <ReportTable columns={report.columns} reportData={report.data} />
           </div>
           <div className="card-footer">
