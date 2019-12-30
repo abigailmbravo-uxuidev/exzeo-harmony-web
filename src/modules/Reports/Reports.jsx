@@ -10,7 +10,7 @@ import { useFetchReports } from './hooks';
 import { REPORT_COLUMNS, downloadReport, getReportById } from './utilities';
 
 const Reports = ({ auth, match, setAppModalError }) => {
-  const [report, setReport] = useState(null);
+  const [report, setReport] = useState({});
   const [loading, setLoading] = useState(false);
 
   const { reports } = useFetchReports();
@@ -28,7 +28,9 @@ const Reports = ({ auth, match, setAppModalError }) => {
       selectedReport: selectedReport,
       title: selectedReport.name,
       columns: REPORT_COLUMNS[selectedReport.reportId],
-      data
+      data,
+      minDate,
+      maxDate
     });
     setLoading(false);
   };
@@ -37,8 +39,8 @@ const Reports = ({ auth, match, setAppModalError }) => {
     setLoading(true);
     const reportData = await getReportById(
       reportId,
-      '',
-      '',
+      report.minDate,
+      report.maxDate,
       setAppModalError,
       'blob'
     );
@@ -81,12 +83,14 @@ const Reports = ({ auth, match, setAppModalError }) => {
           </section>
         </div>
       </div>
-      {report && (
+      {report.selectedReport && (
         <ReportModal
           report={report}
-          handleCancel={() => setReport(null)}
+          handleCancel={() => setReport({})}
           handleRefresh={refreshReport}
-          handleDownload={x => x}
+          handleDownload={() =>
+            downloadReportLink(report.selectedReport.reportId)
+          }
         />
       )}
     </AppWrapper>
