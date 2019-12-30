@@ -29,12 +29,12 @@ const ReportModal = ({
   <Modal
     className={''}
     size="modal-xl"
-    header={() => (
+    header={
       <h4 className="title">
         <i data-test="modal-icon" className="fa fa-calendar" />
         &nbsp;{report.title}
       </h4>
-    )}
+    }
   >
     <Form
       initialValues={{
