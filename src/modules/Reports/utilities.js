@@ -1,7 +1,7 @@
 import { callService } from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import { http, date } from '@exzeo/core-ui/src';
 
-const dateFormatter = cell => `${cell.substring(0, 10)}`;
+const dateFormatter = cell => (cell ? `${cell.substring(0, 10)}` : '');
 const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
 
@@ -21,7 +21,7 @@ export const agencyActivityColumns = [
   { title: 'Company Code' },
   { title: 'Effective Date', format: dateFormatter },
   { title: 'Created Date', format: dateFormatter },
-  { title: 'PolicyHolder' },
+  { title: 'Policyholder' },
   { title: 'Property Address' },
   { title: 'Mailing Address' },
   { title: 'Cancel Date', format: dateFormatter },
@@ -32,16 +32,16 @@ export const agencyActivityColumns = [
 
 export const bookOfBusinessColumns = [
   { title: 'Agent Name' },
-  { title: 'Policy Number', isKey: true },
-  { title: 'PolicyHolder' },
-  { title: 'Product' },
-  { title: 'Mailing Address' },
-  { title: 'Property Address' },
-  { title: 'Effective Date', format: dateFormatter },
+  { title: 'Billing Status' },
   { title: 'Cancel Date', format: dateFormatter },
-  { title: 'Total Premium', format: amountFormatter },
+  { title: 'Effective Date', format: dateFormatter },
+  { title: 'Mailing Address' },
+  { title: 'Policyholder' },
+  { title: 'Policy Number', isKey: true },
   { title: 'Policy Status' },
-  { title: 'Billing Status' }
+  { title: 'Product' },
+  { title: 'Property Address' },
+  { title: 'Total Premium', format: amountFormatter }
 ];
 
 //TODO : grab this data from the endpoint data when the csv is parsed on the client
@@ -50,8 +50,8 @@ export const REPORT_COLUMNS = {
   [REPORT_TYPE.bookOfBusiness]: bookOfBusinessColumns
 };
 
-export function downloadReport(reportId, responseData) {
-  const blobUrl = window.URL.createObjectURL(responseData);
+export function downloadReport(reportId, blob) {
+  const blobUrl = window.URL.createObjectURL(blob);
   const link = window.document.createElement('a');
   link.href = blobUrl;
   link.download = `${reportId}-${date.formatToUTC()}.csv`;
@@ -60,7 +60,7 @@ export function downloadReport(reportId, responseData) {
   document.body.removeChild(link);
 }
 
-export async function getReportById(reportId, setAppModalError) {
+export async function getReportById(reportId, setAppModalError, responseType) {
   const config = {
     method: 'POST',
     url: `${process.env.REACT_APP_API_URL}/svc`,
@@ -70,7 +70,7 @@ export async function getReportById(reportId, setAppModalError) {
       path: `v1/${REPORT_ENDPOINT[reportId]}`,
       streamResult: true
     },
-    responseType: 'blob'
+    responseType
   };
 
   const response = await http(config).catch(err => {

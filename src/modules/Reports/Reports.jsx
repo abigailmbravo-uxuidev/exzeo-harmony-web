@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { shape, func } from 'prop-types';
 import { Loader } from '@exzeo/core-ui/src';
+import csv2json from 'csvjson-csv2json';
 
 import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
@@ -17,18 +18,18 @@ const Reports = ({ auth, match, setAppModalError }) => {
   const runReport = async report => {
     setLoading(true);
     const reportData = await getReportById(report.reportId, setAppModalError);
-    console.log(reportData);
+    const data = csv2json(reportData);
     setReport({
       title: report.name,
       columns: REPORT_COLUMNS[report.reportId],
-      data: reportData
+      data
     });
     setLoading(false);
   };
 
   const downloadReportLink = async reportId => {
     setLoading(true);
-    const reportData = await getReportById(reportId, setAppModalError);
+    const reportData = await getReportById(reportId, setAppModalError, 'blob');
     downloadReport(reportId, reportData);
     setLoading(false);
   };

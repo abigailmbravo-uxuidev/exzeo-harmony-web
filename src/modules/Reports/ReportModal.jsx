@@ -64,7 +64,10 @@ const ReportModal = ({
                     </Button>
                   </div>
                   <div className="card-block">
-                    <ReportTable columns={report.columns} reportData={[]} />
+                    <ReportTable
+                      columns={report.columns}
+                      reportData={report.data}
+                    />
                   </div>
                   <div className="card-footer">
                     <Button
