@@ -62,8 +62,8 @@ export function downloadReport(reportId, blob) {
 
 export async function getReportById(
   reportId,
-  minDate,
-  maxDate,
+  minDate = '',
+  maxDate = '',
   setAppModalError,
   responseType
 ) {
@@ -73,7 +73,7 @@ export async function getReportById(
     data: {
       service: 'report-service',
       method: 'GET',
-      path: `v1/${REPORT_ENDPOINT[reportId]}`,
+      path: `v1/${REPORT_ENDPOINT[reportId]}?minDate=${minDate}&maxDate=${maxDate}`,
       streamResult: true
     },
     responseType
