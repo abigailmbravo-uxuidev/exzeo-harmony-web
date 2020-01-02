@@ -1,10 +1,11 @@
 .modal {
   position: fixed;
+  z-index: 10000;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 10000;
+
   background: $modal-bg;
 
   &.loader {
@@ -24,20 +25,25 @@
     .card {
       flex-grow: 0;
       flex-shrink: 0;
-      margin: 0;
+
       width: 100%;
       height: auto;
+      margin: 0;
 
       .card-block {
+        position: relative;
+
         flex-grow: 1;
         flex-shrink: 1;
-        max-height: 80vh;
+
         width: 100%;
         height: auto;
+        max-height: 80vh;
 
         .form-group {
           flex-grow: 1;
           flex-shrink: 1;
+
           width: auto;
           height: auto;
 
@@ -59,6 +65,7 @@
           display: flex;
           flex-grow: 1;
           flex-shrink: 1;
+
           width: auto;
 
           @include for-phone-only {
@@ -68,10 +75,12 @@
           &:last-of-type {
             .form-group {
               margin-bottom: 0;
+
               border-bottom-width: 0;
 
               @include for-phone-only {
                 margin-bottom: $padding * 2;
+
                 border-bottom: 1px dashed $cool-gray-02;
 
                 &:last-of-type {
@@ -84,11 +93,13 @@
           .form-group {
             flex-grow: 1;
             flex-shrink: 1;
+
             border-bottom: 1px dashed $cool-gray-02;
 
             &.state {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 8rem;
 
               @include for-phone-only {
@@ -98,6 +109,7 @@
             &.zip {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 16rem;
 
               @include for-phone-only {
@@ -107,6 +119,7 @@
             &.phone {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 20rem;
 
               @include for-phone-only {
@@ -117,7 +130,67 @@
             &.order {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 20rem;
+            }
+          }
+        }
+
+        .date-range-wrapper {
+          position: absolute;
+          top: -3.5rem;
+          right: 1rem;
+
+          display: flex;
+          align-items: flex-start;
+
+          .form-group {
+            position: relative;
+
+            align-items: center;
+            flex-direction: row;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+
+            width: 11rem;
+            margin: 0 2rem 0 0;
+
+            &:last-of-type {
+              margin-right: 0.5rem;
+            }
+
+            span {
+              width: 11rem;
+
+              font-size: $font-size-sm;
+            }
+
+            label {
+              position: absolute;
+              top: 0.5rem;
+              right: 11rem;
+
+              width: auto;
+              margin: 0 $padding 0 0;
+            }
+
+            input {
+              width: 10.5rem;
+            }
+          }
+
+          .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: $padding;
+
+            border-radius: 50%;
+            i {
+              width: 1.25rem;
+              margin: 0;
             }
           }
         }
@@ -126,17 +199,20 @@
       .card-footer {
         flex-grow: 0;
         flex-shrink: 0;
+
         height: auto;
 
         .btn-group {
           flex-grow: 0;
           flex-shrink: 0;
-          margin-bottom: 0;
+
           height: auto;
+          margin-bottom: 0;
 
           .btn {
             flex-grow: 0;
             flex-shrink: 0;
+
             height: auto;
           }
         }
@@ -152,25 +228,39 @@
           }
         }
       }
+
+      &.report-modal {
+        .card-block {
+          overflow: visible;
+
+          .table-view {
+            overflow: auto;
+
+            height: calc(100vh - 12rem);
+          }
+        }
+      }
     }
   }
 
   &.modal-md {
     .card {
-      max-width: 40rem;
       width: 50%;
+      max-width: 40rem;
 
       @include for-phone-only {
         position: absolute;
+        z-index: 1000;
         top: 3.375rem;
         bottom: 0;
-        z-index: 1000;
+
         width: 100%;
+
         border-radius: 0;
 
         .card-block {
-          max-height: 100vh;
           height: calc(100vh - 9.5625rem);
+          max-height: 100vh;
         }
       }
     }
@@ -178,20 +268,22 @@
 
   &.modal-lg {
     .card {
-      max-width: 60rem;
       width: 80%;
+      max-width: 60rem;
 
       @include for-phone-only {
         position: absolute;
+        z-index: 1000;
         top: 3.375rem;
         bottom: 0;
-        z-index: 1000;
+
         width: 100%;
+
         border-radius: 0;
 
         .card-block {
-          max-height: 100vh;
           height: calc(100vh - 9.5625rem);
+          max-height: 100vh;
         }
       }
     }
@@ -199,20 +291,22 @@
 
   &.modal-xl {
     .card {
-      max-width: 80rem;
       width: 80%;
+      max-width: 80rem;
 
       @include for-phone-only {
         position: absolute;
+        z-index: 1000;
         top: 3.375rem;
         bottom: 0;
-        z-index: 1000;
+
         width: 100%;
+
         border-radius: 0;
 
         .card-block {
-          max-height: 100vh;
           height: calc(100vh - 9.5625rem);
+          max-height: 100vh;
         }
       }
     }
@@ -220,20 +314,22 @@
 
   &.modal-lg {
     .card {
-      max-width: 60rem;
       width: 60%;
+      max-width: 60rem;
 
       @include for-phone-only {
         position: absolute;
+        z-index: 1000;
         top: 3.375rem;
         bottom: 0;
-        z-index: 1000;
+
         width: 100%;
+
         border-radius: 0;
 
         .card-block {
-          max-height: 100vh;
           height: calc(100vh - 9.5625rem);
+          max-height: 100vh;
         }
       }
     }
@@ -253,34 +349,34 @@
         flex-direction: column;
 
         .btn {
+          width: 100%;
           margin-bottom: $padding;
           margin-left: 0;
-          width: 100%;
         }
       }
       @include for-tablet-portrait-up {
         flex-direction: column;
 
         .btn {
+          width: 100%;
           margin-bottom: $padding;
           margin-left: 0;
-          width: 100%;
         }
       }
       @include for-desktop-up {
         flex-direction: row;
 
         .btn {
-          margin-left: $padding;
           width: auto;
+          margin-left: $padding;
         }
       }
     }
   }
 
   &.edit-policyholder-modal {
-    top: 3.375rem;
     z-index: 30;
+    top: 3.375rem;
 
     .contact-message {
       width: 60%;
@@ -292,6 +388,7 @@
 
       .card-policyholder {
         position: relative;
+
         max-height: 90%;
 
         @include for-phone-only {
@@ -305,6 +402,7 @@
           display: flex;
           flex-grow: 0;
           flex-shrink: 0;
+
           width: 100%;
 
           @include for-phone-only {
@@ -314,11 +412,13 @@
           .form-group {
             flex-grow: 1;
             flex-shrink: 1;
+
             border-bottom: 1px dashed $cool-gray-02;
 
             @include for-phone-only {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 100%;
             }
           }
@@ -329,6 +429,7 @@
 
   &.root-modal {
     top: 3.375rem;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -345,8 +446,9 @@
     flex-direction: column;
     flex-shrink: 1;
     justify-content: flex-start;
-    padding: $padding * 2;
+
     height: 100%;
+    padding: $padding * 2;
 
     @include for-phone-only {
       padding: $padding 0;
@@ -376,34 +478,40 @@
 /*------------------------------------------------------------------------------------*/
 .nav-modal {
   position: absolute;
+  z-index: 20;
   top: 3.375rem;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 20;
+
   visibility: hidden;
+
   background: $modal-bg;
 
   @include transition(all 0.1s ease-in-out);
 
   &.active {
     visibility: visible;
+
     background: $modal-bg;
   }
 }
 
 .aside-modal {
   position: absolute;
+  z-index: 20;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 20;
+
   visibility: hidden;
+
   background: $modal-bg;
 
   &.active {
     visibility: visible;
+
     background: $modal-bg;
 
     @include for-tablet-landscape-up {

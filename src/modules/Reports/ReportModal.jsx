@@ -27,7 +27,7 @@ const ReportModal = ({
   report
 }) => (
   <Modal
-    className={''}
+    className={'report-modal'}
     size="modal-xl"
     header={
       <h4 className="title">
@@ -50,37 +50,41 @@ const ReportModal = ({
         <form onSubmit={handleSubmit}>
           {submitting && <Loader />}
           <div className="card-block">
-            <Field
-              name="minDate"
-              component={Date}
-              label="From"
-              validate={composeValidators([
-                validation.isRequired,
-                validation.isDate,
-                dateRange
-              ])}
-              dataTest="from"
-            />
+            <div className="date-range-wrapper">
+              <Field
+                name="minDate"
+                component={Date}
+                className="date"
+                label="From"
+                validate={composeValidators([
+                  validation.isRequired,
+                  validation.isDate,
+                  dateRange
+                ])}
+                dataTest="from"
+              />
 
-            <Field
-              name="maxDate"
-              component={Date}
-              label="To"
-              validate={composeValidators([
-                validation.isRequired,
-                validation.isDate,
-                dateRange
-              ])}
-              dataTest="to"
-            />
-            <Button
-              disabled={submitting}
-              type="submit"
-              className={Button.constants.classNames.primary}
-              data-test="modal-submit"
-            >
-              Refresh
-            </Button>
+              <Field
+                name="maxDate"
+                component={Date}
+                label="To"
+                validate={composeValidators([
+                  validation.isRequired,
+                  validation.isDate,
+                  dateRange
+                ])}
+                dataTest="to"
+              />
+
+              <Button
+                disabled={submitting}
+                type="submit"
+                className={Button.constants.classNames.primary}
+                data-test="modal-submit"
+              >
+                <i className="fa fa-refresh" />
+              </Button>
+            </div>
             <ReportTable columns={report.columns} reportData={report.data} />
           </div>
           <div className="card-footer">
