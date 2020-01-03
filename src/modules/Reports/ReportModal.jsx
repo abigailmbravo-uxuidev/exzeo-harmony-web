@@ -13,10 +13,10 @@ import {
 } from '@exzeo/core-ui';
 import ReportTable from './ReportTable';
 
-const dateRange = validation.isDateRange(
+const validateDateRange = validation.isDateRange(
   date
     .toUTC()
-    .subtract(90, 'days')
+    .subtract('days', 90)
     .format(date.FORMATS.SECONDARY),
   date.toUTC().format(date.FORMATS.SECONDARY)
 );
@@ -39,7 +39,7 @@ const ReportModal = ({
     <Form
       initialValues={{
         minDate: date.formattedDate(
-          date.toUTC().subtract(90, 'days'),
+          date.toUTC().subtract('days', 90),
           date.FORMATS.SECONDARY
         ),
         maxDate: date.formattedDate(undefined, date.FORMATS.SECONDARY)
@@ -58,8 +58,7 @@ const ReportModal = ({
                 label="From"
                 validate={composeValidators([
                   validation.isRequired,
-                  validation.isDate,
-                  dateRange
+                  validateDateRange
                 ])}
                 dataTest="from"
               />
@@ -70,8 +69,7 @@ const ReportModal = ({
                 label="To"
                 validate={composeValidators([
                   validation.isRequired,
-                  validation.isDate,
-                  dateRange
+                  validateDateRange
                 ])}
                 dataTest="to"
               />
