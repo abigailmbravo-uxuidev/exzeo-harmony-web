@@ -4,7 +4,20 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 const ReportTable = ({ reportData, columns }) => {
   return (
     <div className="table-view">
-      <BootstrapTable className="" data={reportData} striped hover>
+      <BootstrapTable
+        className=""
+        data={reportData}
+        striped
+        hover
+        pagination
+        options={{
+          hideSizePerPage: true,
+          page: 1,
+          sizePerPage: 100,
+          pageStartIndex: 0,
+          paginationSize: 3
+        }}
+      >
         {columns &&
           columns.map(c => (
             <TableHeaderColumn
