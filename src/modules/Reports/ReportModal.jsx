@@ -27,7 +27,7 @@ const ReportModal = ({
   report
 }) => (
   <Modal
-    className={'report-modal'}
+    className="report-modal"
     size="modal-xl"
     header={
       <h4 className="title">
