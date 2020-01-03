@@ -24,10 +24,10 @@ const ReportTable = ({ reportData, columns }) => {
               key={c.title}
               isKey={c.isKey}
               dataField={c.title}
-              className={c.title}
-              columnClassName={c.title}
+              thStyle={{ minWidth: '150px' }}
               dataFormat={c.format}
-              width="150"
+              width="150px"
+              dataAlign="center"
               dataSort
             >
               {c.title}
