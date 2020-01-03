@@ -12,10 +12,9 @@ const ReportTable = ({ reportData, columns }) => {
         pagination
         options={{
           hideSizePerPage: true,
-          page: 1,
           sizePerPage: 100,
-          pageStartIndex: 0,
-          paginationSize: 3
+          pageStartIndex: 1,
+          paginationSize: 12
         }}
       >
         {columns &&
