@@ -1,8 +1,8 @@
 import { callService } from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import { http, date } from '@exzeo/core-ui/src';
 
-const dateFormatter = cell => (cell ? `${cell.substring(0, 10)}` : '');
-const amountFormatter = amt =>
+export const dateFormatter = cell => (cell ? `${cell.substring(0, 10)}` : '');
+export const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
 
 export const REPORT_TYPE = {
