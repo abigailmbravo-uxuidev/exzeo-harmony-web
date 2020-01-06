@@ -1,5 +1,4 @@
 import React from 'react';
-import { waitForElement, getAllByText } from 'react-testing-library';
 
 import { mockServiceRunner, renderWithForm } from '../../../test-utils';
 
@@ -13,7 +12,7 @@ const defaultProps = {
   handleCancel() {},
   handleDownload() {},
   report: {
-    title: 'Agency Activity',
+    title: 'Book Of Business',
     columns: agencyActivityColumns
   },
   auth: {},
@@ -41,6 +40,6 @@ describe('Testing the Reports Modal', () => {
     expect(toLabel).toHaveTextContent('To');
 
     const title = getByTestId('modal-title');
-    expect(title).toHaveTextContent('Agency Activity');
+    expect(title).toHaveTextContent('Book Of Business');
   });
 });
