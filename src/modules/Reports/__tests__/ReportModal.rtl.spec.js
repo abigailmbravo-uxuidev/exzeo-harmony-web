@@ -41,5 +41,11 @@ describe('Testing the Reports Modal', () => {
 
     const title = getByTestId('modal-title');
     expect(title).toHaveTextContent('Book Of Business');
+
+    const minDate = getByTestId('from');
+    expect(minDate.type).toEqual('date');
+
+    const maxDate = getByTestId('to');
+    expect(maxDate.type).toEqual('date');
   });
 });
