@@ -32,7 +32,7 @@ const ReportModal = ({
     header={
       <h4 className="title">
         <i data-test="modal-icon" className="fa fa-calendar" />
-        &nbsp;{report.title}
+        &nbsp;<span data-test="modal-title">{report.title}</span>
       </h4>
     }
   >
