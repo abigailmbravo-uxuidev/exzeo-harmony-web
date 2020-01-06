@@ -31,7 +31,9 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 
 .react-bs-table table {
   margin-bottom: 0;
+
   table-layout: fixed;
+
   color: $cool-gray-10;
   background-color: transparent;
 }
@@ -39,12 +41,40 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 .react-bs-table table td,
 .react-bs-table table th {
   overflow: hidden;
+
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .react-bs-table-pagination {
-  margin: $padding;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .react-bootstrap-table-page-btns-ul.pagination {
+    .page-item {
+      a {
+        padding: $padding;
+
+        color: $cool-gray-08;
+        border-color: $cool-gray-04;
+
+        font-size: $font-size-sm;
+        line-height: 1;
+
+        &:hover {
+          background: $cool-gray-00;
+        }
+      }
+      &.active {
+        a {
+          color: $white;
+          border-color: $cool-gray-04;
+          background-color: $cool-gray-04;
+        }
+      }
+    }
+  }
 }
 
 .react-bs-table-tool-bar {
@@ -53,17 +83,20 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 
 .react-bs-container-header {
   overflow: hidden;
+
   width: 100%;
 }
 
 .react-bs-container-body {
   overflow: auto;
+
   width: 100%;
 }
 
 .react-bootstrap-table-page-btns-ul {
   float: right;
   /* override the margin-top defined in .pagination class in bootstrap. */
+
   margin-top: 0;
 }
 
@@ -77,6 +110,7 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
     > thead {
       > tr {
         display: table-row;
+
         background: $cool-gray-02;
 
         > th {
@@ -200,6 +234,7 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
   > th
   .select-filter.placeholder-selected {
   color: lightgrey;
+
   font-style: italic;
 }
 
@@ -212,6 +247,7 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
   .select-filter.placeholder-selected
   option:not([value='']) {
   color: initial;
+
   font-style: initial;
 }
 
@@ -247,6 +283,7 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
   > th
   .number-filter-input {
   float: left;
+
   width: calc(100% - 4.5rem - #{$padding});
   margin-left: $padding;
 }
@@ -266,11 +303,13 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
   > th
   .number-filter-comparator {
   float: left;
+
   width: 4.5rem;
 }
 
 .react-bs-table .react-bs-container-header .sort-column {
   position: relative;
+
   cursor: pointer;
 }
 /*inline editor default style*/
@@ -295,7 +334,9 @@ table {
 caption {
   padding-top: $table-cell-padding;
   padding-bottom: $table-cell-padding;
+
   text-align: left;
+
   color: $text-muted;
 }
 
@@ -316,8 +357,11 @@ th {
       > td,
       > th {
         padding: $table-cell-padding;
+
         vertical-align: top;
+
         border-top: 1px solid $table-border-color;
+
         line-height: $line-height-base;
       }
     }
@@ -325,6 +369,7 @@ th {
   // Bottom align for column headings
   > thead > tr > th {
     vertical-align: bottom;
+
     border-bottom: 2px solid $table-border-color;
   }
   // Remove top border from thead by default
@@ -414,6 +459,7 @@ table {
   th {
     &[class*='col-'] {
       position: static; // Prevent border hiding in Firefox and IE9-11 (see https://github.com/twbs/bootstrap/issues/11623)
+
       display: table-cell;
       float: none;
     }
@@ -438,6 +484,7 @@ table {
       .react-bs-container-body {
         .table-bordered {
           display: flex;
+
           margin-bottom: 2rem;
 
           tbody {
@@ -445,6 +492,7 @@ table {
             flex-direction: column;
             flex-grow: 1;
             flex-shrink: 1;
+
             width: 100%;
 
             tr {
@@ -454,10 +502,12 @@ table {
               td {
                 flex-grow: 1;
                 flex-shrink: 0;
+
                 width: auto;
 
                 :before {
                   display: flex;
+
                   font-size: $font-size-sm;
                   font-weight: $font-weight-bold;
                 }
@@ -510,12 +560,15 @@ table {
 
       th {
         padding: $padding ($padding * 1.5);
+
         border: none;
       }
 
       td {
         padding: $padding ($padding * 1.5);
+
         border: none;
+
         font-size: $font-size-base;
       }
     }
@@ -541,6 +594,7 @@ table {
       th {
         align-self: auto;
         order: 0;
+
         width: auto;
       }
     }
@@ -568,6 +622,7 @@ table {
           th {
             align-self: auto;
             order: 0;
+
             width: auto;
           }
 
@@ -575,6 +630,7 @@ table {
             align-self: flex-start;
             flex: 1 1 auto;
             order: 0;
+
             white-space: pre-line;
           }
         }
@@ -595,7 +651,9 @@ table {
           flex-shrink: 0;
           flex-wrap: wrap;
           justify-content: flex-start;
+
           margin-top: $padding;
+
           border: $card-border-width solid $card-border-color;
           border-radius: $card-border-radius;
           background: $card-bg;
@@ -605,7 +663,9 @@ table {
             align-self: center;
             flex: 1 1 auto;
             order: 0;
+
             padding: ($padding/2) $padding;
+
             white-space: pre-line;
           }
         }
@@ -639,9 +699,13 @@ table {
       a {
         &.btn {
           margin-right: 2px;
+
           text-transform: none;
+
           border-radius: 0;
+
           font-weight: $font-weight-normal;
+
           @include button-variant($cool-gray-12, $cool-gray-01, $cool-gray-01);
 
           &:hover {
@@ -659,6 +723,7 @@ table {
 
           &:last-child {
             margin-right: 0;
+
             border-top-right-radius: $border-radius;
             border-bottom-right-radius: $border-radius;
           }
@@ -672,6 +737,7 @@ table {
 
             &:hover {
               cursor: default;
+
               @include button-variant(
                 $white,
                 $bright-blue-darken-04,
@@ -683,6 +749,7 @@ table {
           &.btn-sm {
             i {
               margin: 0;
+
               font-size: 0.875rem;
             }
           }
@@ -710,14 +777,18 @@ table {
 
     .order {
       position: relative;
+
       display: inline-flex;
       flex-direction: column;
       flex-grow: 0;
       flex-shrink: 0;
+
       width: 10px;
       height: 1rem;
       margin: 0 0 0 0.5rem;
+
       color: $cool-gray-10;
+
       line-height: 1rem;
 
       &:hover {
@@ -726,12 +797,15 @@ table {
 
       > .caret {
         top: -0.125rem;
+
         margin: 0 !important;
         padding: 0 !important;
 
         &:before {
           content: '\f0d8';
+
           color: rgba($cool-gray-07, 1);
+
           font: normal normal normal 1rem $font-family-icon;
         }
       }
@@ -742,7 +816,9 @@ table {
 
           &:before {
             content: '\f0d7';
+
             color: rgba($cool-gray-07, 1);
+
             font: normal normal normal 1rem $font-family-icon;
           }
         }
@@ -750,10 +826,13 @@ table {
 
       > span {
         position: absolute;
+
         width: auto;
         margin: 0;
         padding: 0;
+
         text-align: center;
+
         line-height: 1;
 
         &.dropdown {
@@ -761,7 +840,9 @@ table {
 
           &:before {
             content: '\f0d8';
+
             color: rgba($cool-gray-07, 0.25);
+
             font: normal normal normal 1rem $font-family-icon;
           }
 
@@ -776,7 +857,9 @@ table {
 
           &:before {
             content: '\f0d7';
+
             color: rgba($cool-gray-07, 0.25);
+
             font: normal normal normal 1rem $font-family-icon;
           }
         }
