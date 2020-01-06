@@ -13,7 +13,7 @@ const Reports = ({ auth, match, setAppModalError }) => {
   const [report, setReport] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const { reports } = useFetchReports();
+  const { reports, loaded } = useFetchReports();
 
   const runReport = async (selectedReport, minDate, maxDate) => {
     setLoading(true);
@@ -59,7 +59,7 @@ const Reports = ({ auth, match, setAppModalError }) => {
 
   return (
     <AppWrapper auth={auth} match={match} routeClassName="main reports">
-      {loading && <Loader />}
+      {(loading || !loaded) && <Loader />}
       <div className="scroll">
         <div className="detail-wrapper">
           <section className="reports">
