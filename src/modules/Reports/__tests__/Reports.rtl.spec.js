@@ -113,6 +113,6 @@ describe('Testing the Reports Page', () => {
     const download = getByTestId('Book_Of_Business_download');
     expect(download.className).toEqual('fa fa-file-excel-o');
 
-    fireEvent.click(download);
+    expect(fireEvent.click(download)).toEqual(true);
   });
 });
