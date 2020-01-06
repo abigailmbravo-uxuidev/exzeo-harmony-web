@@ -1,4 +1,3 @@
-import { callService } from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import { http, date } from '@exzeo/core-ui/src';
 
 export const dateFormatter = cell => (cell ? `${cell.substring(0, 10)}` : '');
