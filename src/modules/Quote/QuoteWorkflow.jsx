@@ -231,7 +231,7 @@ export class QuoteWorkflow extends Component {
       getQuote
     } = this.props;
 
-    const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
+    const { isRecalc, gandalfTemplate } = this.state;
     const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(
       location.pathname
     );
