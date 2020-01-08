@@ -37,52 +37,47 @@ const ReportModal = ({
     }
   >
     <Form
-      initialValues={{
-        minDate: date.formattedDate(
-          date.toUTC().subtract('days', 90),
-          date.FORMATS.SECONDARY
-        ),
-        maxDate: date.formattedDate(undefined, date.FORMATS.SECONDARY)
-      }}
       onSubmit={handleRefresh}
       subscription={{ submitting: true }}
       render={({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
           {submitting && <Loader />}
           <div className="card-block">
-            <div className="date-range-wrapper">
-              <Field
-                name="minDate"
-                component={Date}
-                className="date"
-                label="From"
-                validate={composeValidators([
-                  validation.isRequired,
-                  validateDateRange
-                ])}
-                dataTest="from"
-              />
+            {report.minDate && report.maxDate && (
+              <div className="date-range-wrapper">
+                <Field
+                  name="minDate"
+                  component={Date}
+                  className="date"
+                  label="From"
+                  validate={composeValidators([
+                    validation.isRequired,
+                    validateDateRange
+                  ])}
+                  dataTest="from"
+                />
 
-              <Field
-                name="maxDate"
-                component={Date}
-                label="To"
-                validate={composeValidators([
-                  validation.isRequired,
-                  validateDateRange
-                ])}
-                dataTest="to"
-              />
+                <Field
+                  name="maxDate"
+                  component={Date}
+                  label="To"
+                  validate={composeValidators([
+                    validation.isRequired,
+                    validateDateRange
+                  ])}
+                  dataTest="to"
+                />
 
-              <Button
-                disabled={submitting}
-                type="submit"
-                className={Button.constants.classNames.primary}
-                data-test="modal-submit"
-              >
-                <i className="fa fa-refresh" />
-              </Button>
-            </div>
+                <Button
+                  disabled={submitting}
+                  type="submit"
+                  className={Button.constants.classNames.primary}
+                  data-test="modal-submit"
+                >
+                  <i className="fa fa-refresh" />
+                </Button>
+              </div>
+            )}
             <ReportTable columns={report.columns} reportData={report.data} />
           </div>
           <div className="card-footer">
