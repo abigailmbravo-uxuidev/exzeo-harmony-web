@@ -68,7 +68,7 @@ export async function getReportById(
 ) {
   const config = {
     method: 'POST',
-    url: `${process.env.REACT_APP_API_URL}/svc`,
+    url: `${process.env.REACT_APP_API_URL}/svc?getReportById`,
     data: {
       service: 'report-service',
       method: 'GET',
