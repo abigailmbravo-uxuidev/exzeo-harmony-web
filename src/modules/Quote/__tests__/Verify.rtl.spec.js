@@ -85,7 +85,6 @@ const ph2Fields = [
     error: 'Field Required',
     label: 'First Name',
     type: 'text',
-    required: true,
     value: 'Dick'
   },
   {
@@ -93,7 +92,6 @@ const ph2Fields = [
     error: 'Field Required',
     label: 'Last Name',
     type: 'text',
-    required: true,
     value: 'Grayson'
   },
   {
@@ -101,7 +99,6 @@ const ph2Fields = [
     error: 'Field Required',
     label: 'Email Address',
     type: 'text',
-    required: true,
     value: 'Robin@hotmail.com'
   },
   {
@@ -109,7 +106,6 @@ const ph2Fields = [
     error: 'Field Required',
     label: 'Primary Phone',
     type: 'phone',
-    required: true,
     value: '1234567890'
   }
 ];
@@ -190,10 +186,6 @@ describe('Verify Testing', () => {
 
     ph2Fields.forEach(field => checkLabel(getByTestId, field));
     submitForm(getByText, 'Save');
-    ph2Fields.forEach(field => checkError(getByTestId, field));
-    ph2Fields.forEach(fieldToLeaveBlank =>
-      verifyForm(getByTestId, ph1Fields, [fieldToLeaveBlank])
-    );
   });
 
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
