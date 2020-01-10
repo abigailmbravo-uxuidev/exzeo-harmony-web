@@ -140,7 +140,7 @@ export const initializePolicyWorkflow = policyNumber => {
       ]);
 
       const payments = orderBy(
-        paymentResponse.data.result,
+        paymentResponse.data,
         ['date', 'createdAt'],
         ['desc', 'desc']
       );
