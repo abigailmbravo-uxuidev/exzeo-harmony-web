@@ -44,7 +44,11 @@ describe('Policy Workflow testing', () => {
     expect(
       document.querySelector(`a[href="${props.match.url}/documents"]`)
     ).toBeInTheDocument();
-    expect(getByText('©2019 TypTap Management Company. All rights reserved.'));
+    expect(
+      getByText(
+        `©${new Date().getFullYear()} TypTap Management Company. All rights reserved.`
+      )
+    );
   });
 
   it('POS:Checks Policy Workflow Sections', () => {
