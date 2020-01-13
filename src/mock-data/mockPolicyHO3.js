@@ -1100,7 +1100,7 @@ const mock = {
                           items: [
                             {
                               format: 'currencyDecimals',
-                              path: 'billing.balance.$numberDecimal'
+                              path: 'billing.balance'
                             }
                           ]
                         }
