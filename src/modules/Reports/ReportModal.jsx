@@ -43,41 +43,42 @@ const ReportModal = ({
         <form onSubmit={handleSubmit}>
           {submitting && <Loader />}
           <div className="card-block">
-            {report.minDate && report.maxDate && (
-              <div className="date-range-wrapper">
-                <Field
-                  name="minDate"
-                  component={Date}
-                  className="date"
-                  label="From"
-                  validate={composeValidators([
-                    validation.isRequired,
-                    validateDateRange
-                  ])}
-                  dataTest="from"
-                />
+            <div className="date-range-wrapper">
+              {report.minDate && report.maxDate && (
+                <React.Fragment>
+                  <Field
+                    name="minDate"
+                    component={Date}
+                    className="date"
+                    label="From"
+                    validate={composeValidators([
+                      validation.isRequired,
+                      validateDateRange
+                    ])}
+                    dataTest="from"
+                  />
 
-                <Field
-                  name="maxDate"
-                  component={Date}
-                  label="To"
-                  validate={composeValidators([
-                    validation.isRequired,
-                    validateDateRange
-                  ])}
-                  dataTest="to"
-                />
-
-                <Button
-                  disabled={submitting}
-                  type="submit"
-                  className={Button.constants.classNames.primary}
-                  data-test="modal-submit"
-                >
-                  <i className="fa fa-refresh" />
-                </Button>
-              </div>
-            )}
+                  <Field
+                    name="maxDate"
+                    component={Date}
+                    label="To"
+                    validate={composeValidators([
+                      validation.isRequired,
+                      validateDateRange
+                    ])}
+                    dataTest="to"
+                  />
+                </React.Fragment>
+              )}
+              <Button
+                disabled={submitting}
+                type="submit"
+                className={Button.constants.classNames.primary}
+                data-test="modal-submit"
+              >
+                <i className="fa fa-refresh" />
+              </Button>
+            </div>
             <ReportTable columns={report.columns} reportData={report.data} />
           </div>
           <div className="card-footer">
