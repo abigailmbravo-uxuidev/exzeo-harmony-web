@@ -154,39 +154,6 @@ describe('Policy Billing Page testing', () => {
       ...props,
       billing: {
         ...props.billing,
-        cashReceived: '0.00'
-      }
-    };
-
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...emptyBillingProps} />
-    );
-
-    expect(getByText('There is no data to display'));
-    expect(getByText('Payments Received: $ 0.00'));
-  });
-  it('POS:No Payments Received', () => {
-    const emptyBillingProps = {
-      ...props,
-      billing: {
-        ...props.billing,
-        cashReceived: undefined
-      }
-    };
-
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...emptyBillingProps} />
-    );
-
-    expect(getByText('There is no data to display'));
-    expect(getByText('Payments Received: $ 0.00'));
-  });
-
-  it('POS:No Payments Received', () => {
-    const emptyBillingProps = {
-      ...props,
-      billing: {
-        ...props.billing,
         cashReceived: 0
       }
     };
