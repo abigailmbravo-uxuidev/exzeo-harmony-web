@@ -23,9 +23,9 @@ const Billing = ({ initialValues }) => {
       paymentDue: billing.invoiceDueDate
         ? date.formatDate(billing.invoiceDueDate, 'MM/DD/YYYY')
         : '-',
-      nextPayment: parseFloat(
-        billing.noticeAmountDue.$numberDecimal
-      ).toLocaleString('en', { minimumFractionDigits: 2 })
+      nextPayment: parseFloat(billing.noticeAmountDue).toLocaleString('en', {
+        minimumFractionDigits: 2
+      })
     };
   });
 
