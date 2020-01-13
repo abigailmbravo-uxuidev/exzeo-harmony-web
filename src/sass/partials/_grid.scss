@@ -82,14 +82,13 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 }
 
 .react-bs-container-header {
-  overflow: hidden;
+  overflow: visible;
 
   width: 100%;
 }
 
 .react-bs-container-body {
-  overflow: auto;
-
+  overflow-x: initial;
   width: 100%;
 }
 
