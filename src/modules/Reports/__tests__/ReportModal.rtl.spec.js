@@ -1,4 +1,5 @@
 import React from 'react';
+import { fireEvent } from 'react-testing-library';
 
 import { mockServiceRunner, renderWithForm } from '../../../test-utils';
 
@@ -49,6 +50,11 @@ describe('Testing the Reports Modal', () => {
 
     const maxDate = getByTestId('to');
     expect(maxDate.type).toEqual('date');
+
+    const refresh = getByTestId('modal-submit');
+    expect(refresh.firstChild.className).toEqual('fa fa-refresh');
+
+    expect(fireEvent.click(refresh)).toEqual(true);
   });
 
   it('Reports Modal Testing with min and max dates', async () => {
@@ -66,5 +72,10 @@ describe('Testing the Reports Modal', () => {
 
     const title = getByTestId('modal-title');
     expect(title).toHaveTextContent('Book Of Business');
+
+    const refresh = getByTestId('modal-submit');
+    expect(refresh.firstChild.className).toEqual('fa fa-refresh');
+
+    expect(fireEvent.click(refresh)).toEqual(true);
   });
 });
