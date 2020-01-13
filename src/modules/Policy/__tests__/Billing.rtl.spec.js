@@ -83,7 +83,7 @@ describe('Policy Billing Page testing', () => {
             date: '2019-06-01T08:00:00.000Z',
             type: 'AAA type',
             description: 'ZZZ description',
-            amount: { $numberDecimal: '40.00' }
+            amount: '40.00'
           }
         ]
       }
@@ -154,7 +154,40 @@ describe('Policy Billing Page testing', () => {
       ...props,
       billing: {
         ...props.billing,
-        cashReceived: { $numberDecimal: '0.00' }
+        cashReceived: '0.00'
+      }
+    };
+
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...emptyBillingProps} />
+    );
+
+    expect(getByText('There is no data to display'));
+    expect(getByText('Payments Received: $ 0.00'));
+  });
+  it('POS:No Payments Received', () => {
+    const emptyBillingProps = {
+      ...props,
+      billing: {
+        ...props.billing,
+        cashReceived: undefined
+      }
+    };
+
+    const { getByText } = renderWithReduxAndRouter(
+      <PolicyWorkflow {...emptyBillingProps} />
+    );
+
+    expect(getByText('There is no data to display'));
+    expect(getByText('Payments Received: $ 0.00'));
+  });
+
+  it('POS:No Payments Received', () => {
+    const emptyBillingProps = {
+      ...props,
+      billing: {
+        ...props.billing,
+        cashReceived: 0
       }
     };
 

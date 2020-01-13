@@ -206,6 +206,18 @@ export class QuoteWorkflow extends Component {
     this.formInstance = formInstance;
   };
 
+  isSubmitDisabled = (submitting, values) => {
+    const { location } = this.props;
+
+    const { currentStepNumber } = getCurrentStepAndPage(location.pathname);
+
+    if (currentStepNumber === PAGE_ROUTING.mailingBilling) {
+      return submitting || !values.billToId;
+    }
+
+    return submitting;
+  };
+
   render() {
     const {
       auth,
@@ -219,7 +231,7 @@ export class QuoteWorkflow extends Component {
       getQuote
     } = this.props;
 
-    const { isRecalc, needsConfirmation, gandalfTemplate } = this.state;
+    const { isRecalc, gandalfTemplate } = this.state;
     const { currentRouteName, currentStepNumber } = getCurrentStepAndPage(
       location.pathname
     );
@@ -295,8 +307,8 @@ export class QuoteWorkflow extends Component {
                   template={gandalfTemplate}
                   transformConfig={transformConfig}
                   renderFooter={
-                    <FormSpy subscription={{ submitting: true }}>
-                      {({ submitting, form }) => (
+                    <FormSpy subscription={{ submitting: true, values: true }}>
+                      {({ submitting, form, values }) => (
                         <React.Fragment>
                           {shouldRenderFooter && (
                             <div className="btn-group">
@@ -304,7 +316,10 @@ export class QuoteWorkflow extends Component {
                                 data-test="submit"
                                 className={Button.constants.classNames.primary}
                                 onClick={this.primaryClickHandler}
-                                disabled={submitting || needsConfirmation}
+                                disabled={this.isSubmitDisabled(
+                                  submitting,
+                                  values
+                                )}
                                 label={
                                   this.state.isRecalc ? 'recalculate' : 'next'
                                 }
