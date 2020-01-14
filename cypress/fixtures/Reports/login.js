@@ -1,11 +1,5 @@
 export default {
-  username: 'meads@hcpci.com',
-  password: 'Password1!',
-  userType: 'CSR'
+  username: 'TTIC-66666',
+  password: 'd83klV563p',
+  userType: 'Agency'
 };
-
-//   export default {
-//     username: 'TTIC-66666',
-//     password: 'd83klV563p',
-//     userType: 'CSR'
-//   };
