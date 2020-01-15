@@ -7,7 +7,8 @@ import AppWrapper from '../../components/AppWrapper';
 import ReportModal from './ReportModal';
 import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
-import { REPORT_COLUMNS, downloadReport, getReportById } from './utilities';
+import { downloadReport, getReportById } from './utilities';
+import { REPORT_COLUMNS } from './constants';
 
 const Reports = ({ auth, match, errorHandlder }) => {
   const [report, setReport] = useState({});

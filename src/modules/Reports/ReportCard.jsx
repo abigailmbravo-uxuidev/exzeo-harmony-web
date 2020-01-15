@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@exzeo/core-ui/src';
-import { REPORT_ENDPOINT } from './utilities';
+import { REPORT_ENDPOINT } from './constants';
 
 const ReportCard = ({
   reportId,
