@@ -4,7 +4,7 @@ import { fireEvent } from 'react-testing-library';
 import { mockServiceRunner, renderWithForm } from '../../../test-utils';
 
 import ReportModal from '../ReportModal';
-import { agencyActivityColumns, bookOfBusinessColumns } from '../utilities';
+import { agencyActivityColumns, bookOfBusinessColumns } from '../constants';
 
 mockServiceRunner([]);
 

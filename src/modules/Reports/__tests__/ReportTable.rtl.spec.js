@@ -6,12 +6,8 @@ import {
 } from '../../../test-utils';
 
 import ReportsTable from '../ReportTable';
-import {
-  agencyActivityColumns,
-  bookOfBusinessColumns,
-  amountFormatter,
-  dateFormatter
-} from '../utilities';
+
+import { bookOfBusinessColumns, agencyActivityColumns } from '../constants';
 
 mockServiceRunner([]);
 
@@ -55,14 +51,6 @@ describe('Reports Table Testing', () => {
         <ReportsTable {...props} />
       );
       bookOfBusinessColumns.forEach(col => expect(getByText(col.title)));
-      expect(getByText(testReport['Agent Name']));
-      expect(getByText(testReport['Billing Status']));
-      expect(getByText(testReport['Mailing Address']));
-      expect(getByText(testReport['Policy Number']));
-      expect(getByText(testReport.Policyholder));
-      expect(getByText(amountFormatter(testReport['Total Premium'])));
-      expect(getByText(dateFormatter(testReport['Effective Date'])));
-      expect(getByText(dateFormatter(testReport['Cancel Date'])));
     });
   });
 });
