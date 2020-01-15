@@ -1,4 +1,6 @@
-import { http, date } from '@exzeo/core-ui/src';
+import { date } from '@exzeo/core-ui/src';
+import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
+
 import { REPORT_ENDPOINT } from './constants';
 
 export const dateFormatter = cell => (cell ? `${cell.substring(0, 10)}` : '');
@@ -22,21 +24,22 @@ export async function getReportById(
   errorHandler,
   responseType
 ) {
-  const config = {
-    method: 'POST',
-    url: `${process.env.REACT_APP_API_URL}/svc?getReportById`,
-    data: {
+  try {
+    const config = {
       service: 'report-service',
       method: 'GET',
       path: `v1/${REPORT_ENDPOINT[reportId]}?minDate=${minDate}&maxDate=${maxDate}`,
       streamResult: true
-    },
-    responseType
-  };
-
-  const response = await http(config).catch(err => {
-    errorHandler(err.message);
-  });
-
-  return response.data;
+    };
+    const headers = { 'Content-Type': 'text/csv; charset=utf-8' };
+    const response = await serviceRunner.callService(
+      config,
+      'getReportById',
+      headers,
+      responseType
+    );
+    return response.data;
+  } catch (ex) {
+    return errorHandler(ex.message);
+  }
 }
