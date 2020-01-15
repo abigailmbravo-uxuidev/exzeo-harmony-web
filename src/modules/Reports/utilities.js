@@ -31,11 +31,9 @@ export async function getReportById(
       path: `v1/${REPORT_ENDPOINT[reportId]}?minDate=${minDate}&maxDate=${maxDate}`,
       streamResult: true
     };
-    const response = await serviceRunner.callService(
-      config,
-      'getReportById',
+    const response = await serviceRunner.callService(config, 'getReportById', {
       responseType
-    );
+    });
     return response.data;
   } catch (ex) {
     return errorHandler(ex.message);
