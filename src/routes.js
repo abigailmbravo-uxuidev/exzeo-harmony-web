@@ -150,7 +150,7 @@ class Routes extends Component {
                 render={props => (
                   <Reports
                     auth={auth}
-                    setAppModalError={setAppModalError}
+                    errorHandlder={setAppModalError}
                     {...props}
                   />
                 )}

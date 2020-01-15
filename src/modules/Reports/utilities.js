@@ -63,7 +63,7 @@ export async function getReportById(
   reportId,
   minDate = '',
   maxDate = '',
-  setAppModalError,
+  errorHandler,
   responseType
 ) {
   const config = {
@@ -79,7 +79,7 @@ export async function getReportById(
   };
 
   const response = await http(config).catch(err => {
-    setAppModalError(err.message);
+    errorHandler(err.message);
   });
 
   return response.data;

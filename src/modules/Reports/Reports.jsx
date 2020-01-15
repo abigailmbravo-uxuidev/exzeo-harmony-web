@@ -9,7 +9,7 @@ import ReportCard from './ReportCard';
 import { useFetchReports } from './hooks';
 import { REPORT_COLUMNS, downloadReport, getReportById } from './utilities';
 
-const Reports = ({ auth, match, setAppModalError }) => {
+const Reports = ({ auth, match, errorHandlder }) => {
   const [report, setReport] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +21,7 @@ const Reports = ({ auth, match, setAppModalError }) => {
       selectedReport.reportId,
       minDate,
       maxDate,
-      setAppModalError
+      errorHandlder
     );
     const data = csv2json(reportData);
     setReport({
@@ -41,7 +41,7 @@ const Reports = ({ auth, match, setAppModalError }) => {
       reportId,
       report.minDate,
       report.maxDate,
-      setAppModalError,
+      errorHandlder,
       'blob'
     );
     downloadReport(reportId, reportData);
@@ -53,7 +53,7 @@ const Reports = ({ auth, match, setAppModalError }) => {
       report.selectedReport,
       data.minDate,
       data.maxDate,
-      setAppModalError
+      errorHandlder
     );
   };
 
