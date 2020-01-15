@@ -31,11 +31,9 @@ export async function getReportById(
       path: `v1/${REPORT_ENDPOINT[reportId]}?minDate=${minDate}&maxDate=${maxDate}`,
       streamResult: true
     };
-    const headers = { 'Content-Type': 'text/csv; charset=utf-8' };
     const response = await serviceRunner.callService(
       config,
       'getReportById',
-      headers,
       responseType
     );
     return response.data;
