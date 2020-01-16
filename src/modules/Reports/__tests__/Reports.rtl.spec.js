@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { waitForElement, fireEvent } from 'react-testing-library';
 
-import { renderWithForm, mockServiceRunner } from '../../../test-utils';
+import {
+  renderWithForm,
+  mockServiceRunner,
+  defaultInitialState
+} from '../../../test-utils';
 
 import Reports from '../Reports';
+import { Route } from 'react-router-dom';
 
 mockServiceRunner([
   {
@@ -25,6 +30,7 @@ mockServiceRunner([
     },
     reportType: 'test',
     name: 'Agency Activity',
+    details: 'Some Agency Activity detail Text',
     __v: 0
   },
   {
@@ -46,6 +52,7 @@ mockServiceRunner([
     },
     reportType: 'agency',
     name: 'Book Of Business',
+    details: 'Some BOB detail Text',
     __v: 0
   }
 ]);
@@ -61,19 +68,65 @@ const defaultProps = {
 };
 
 describe('Testing the Reports Page', () => {
-  it('Reports Header Testing', async () => {
+  it('Reports Header and Nav Link Testing Testing', async () => {
+    const state = { ...defaultInitialState };
+
+    state.authState.userProfile.profile = { agencyReportsEnabled: true };
+
     const props = {
       ...defaultProps
     };
-    const { getByText } = renderWithForm(<Reports {...props} />);
+
+    let history;
+    let location;
+    const { getByText, getByTestId } = renderWithForm(
+      <Fragment>
+        <Route
+          path="*"
+          render={({ history, location }) => {
+            history = history;
+            location = location;
+            return null;
+          }}
+        />
+        <Reports {...props} />
+      </Fragment>,
+      { state, route: '/reports' }
+    );
     const header = getByText('Reports');
 
-    await waitForElement(() => header);
+    const navReportLink = getByTestId('nav-reports');
+
+    expect(navReportLink).toHaveTextContent(/REPORTS/);
+
+    console.log(location, history);
+
+    await waitForElement(() => [
+      expect(navReportLink.childNodes[0].className).toEqual(
+        'reports label active'
+      ),
+      header
+    ]);
 
     const iconElement = Object.values(header.childNodes).find(
       node => node.tagName === 'I'
     );
     expect(iconElement.className).toEqual('fa fa-table');
+  });
+
+  it('No Report Nav Link if agencyReportsEnabled is false ', async () => {
+    const state = { ...defaultInitialState };
+
+    state.authState.userProfile.profile = { agencyReportsEnabled: false };
+
+    const props = {
+      ...defaultProps
+    };
+    const { queryAllByTestId } = renderWithForm(<Reports {...props} />, {
+      state
+    });
+
+    expect(await queryAllByTestId('nav-reports').length).toEqual(0);
   });
 
   it('Reports Section 1 Testing', async () => {
@@ -87,6 +140,11 @@ describe('Testing the Reports Page', () => {
     expect(getByTestId('Agency_Activity_title')).toHaveTextContent(
       /Agency Activity/
     );
+
+    expect(getByTestId('Agency_Activity_details')).toHaveTextContent(
+      /Some Agency Activity detail Text/
+    );
+
     expect(getByTestId('Agency_Activity_run_report')).toHaveTextContent(
       /RUN REPORT/
     );
@@ -106,6 +164,11 @@ describe('Testing the Reports Page', () => {
     expect(getByTestId('Book_Of_Business_title')).toHaveTextContent(
       /Book Of Business/
     );
+
+    expect(getByTestId('Book_Of_Business_details')).toHaveTextContent(
+      /Some BOB detail Text/
+    );
+
     expect(getByTestId('Book_Of_Business_run_report')).toHaveTextContent(
       /RUN REPORT/
     );
