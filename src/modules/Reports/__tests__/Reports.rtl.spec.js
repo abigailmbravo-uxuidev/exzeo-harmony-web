@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { waitForElement, fireEvent } from 'react-testing-library';
 
 import {
@@ -8,7 +8,6 @@ import {
 } from '../../../test-utils';
 
 import Reports from '../Reports';
-import { Route } from 'react-router-dom';
 
 mockServiceRunner([
   {
@@ -77,36 +76,17 @@ describe('Testing the Reports Page', () => {
       ...defaultProps
     };
 
-    let history;
-    let location;
-    const { getByText, getByTestId } = renderWithForm(
-      <Fragment>
-        <Route
-          path="*"
-          render={({ history, location }) => {
-            history = history;
-            location = location;
-            return null;
-          }}
-        />
-        <Reports {...props} />
-      </Fragment>,
-      { state, route: '/reports' }
-    );
+    const { getByText, getByTestId } = renderWithForm(<Reports {...props} />, {
+      state,
+      route: '/reports'
+    });
     const header = getByText('Reports');
 
     const navReportLink = getByTestId('nav-reports');
 
     expect(navReportLink).toHaveTextContent(/REPORTS/);
 
-    console.log(location, history);
-
-    await waitForElement(() => [
-      expect(navReportLink.childNodes[0].className).toEqual(
-        'reports label active'
-      ),
-      header
-    ]);
+    await waitForElement(() => header);
 
     const iconElement = Object.values(header.childNodes).find(
       node => node.tagName === 'I'
