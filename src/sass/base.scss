@@ -87,15 +87,18 @@
 /*------------------------------------------------------------------------------------*/
 @import 'partials/_training';
 /*------------------------------------------------------------------------------------*/
+@import 'partials/_reports';
+/*------------------------------------------------------------------------------------*/
 @import 'partials/_view-grid'; //grid/Gandalf
 /*------------------------------------------------------------------------------------*/
 @import 'partials/_view-grid-theme'; //grid/Gandalf
 /*------------------------------------------------------------------------------------*/
 hr {
   &.section-divider {
+    height: 1px;
     margin: 0 $padding $form-group-margin-bottom;
     padding: 0 $padding/2;
-    height: 1px;
+
     border: 0;
     border-bottom: 1px dashed $cool-gray-02;
   }
@@ -105,6 +108,7 @@ hr {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+
   height: auto;
 }
 
@@ -114,12 +118,12 @@ hr {
 
     .card-footer {
       .btn-block {
-        margin-bottom: $padding;
         width: 100%;
+        margin-bottom: $padding;
 
         @include for-tablet-landscape-up {
-          margin-bottom: 0;
           width: auto;
+          margin-bottom: 0;
         }
       }
     }
@@ -128,6 +132,7 @@ hr {
 
 .nav-and-header-wrapper {
   z-index: 2;
+
   flex-grow: 0;
   flex-shrink: 0;
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { createMemoryHistory } from 'history';
+
 import { render, fireEvent } from 'react-testing-library';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -146,10 +148,15 @@ export const defaultPolicyWorkflowProps = {
  */
 export const renderWithReduxAndRouter = (
   ui,
-  { state = defaultInitialState, store = mockStore(state) } = {}
+  {
+    state = defaultInitialState,
+    store = mockStore(state),
+    route = '/',
+    history = createMemoryHistory({ initialEntries: [route] })
+  } = {}
 ) => ({
   ...render(
-    <Router>
+    <Router history={history}>
       <Provider store={store}>{ui}</Provider>
     </Router>
   ),
@@ -158,7 +165,7 @@ export const renderWithReduxAndRouter = (
   // Provide a function to recreate the internal wrapping of the render function
   // This is useful if we need to rerender within a test
   wrapUi: ui => (
-    <Router>
+    <Router history={history}>
       <Provider store={store}>{ui}</Provider>
     </Router>
   )
@@ -168,10 +175,12 @@ export const renderWithReduxAndRouter = (
 export const renderWithForm = (
   ui,
   {
+    route = '/',
+    history = createMemoryHistory({ initialEntries: [route] }),
     state = defaultInitialState,
     store = createStore(rootReducer, state, applyMiddleware(thunk))
   } = {}
-) => renderWithReduxAndRouter(ui, { state, store });
+) => renderWithReduxAndRouter(ui, { state, store, history, route });
 
 /**
  * A function to handle your query and your field and find the correct DOM element.

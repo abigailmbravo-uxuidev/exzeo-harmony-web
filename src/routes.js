@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Modal from 'react-modal';
 
-import { clearAppError } from './state/actions/errorActions';
+import { clearAppError, setAppModalError } from './state/actions/errorActions';
 import { getAgency } from './state/actions/agency.actions';
 
 import QuoteModule from './modules/Quote';
@@ -47,7 +47,8 @@ class Routes extends Component {
   };
 
   render() {
-    const { auth, agency, error, userProfile } = this.props;
+    const { auth, agency, error, userProfile, setAppModalError } = this.props;
+
     auth.isInternal =
       userProfile && userProfile.userType
         ? userProfile.userType.toLowerCase() === 'internal'
@@ -146,7 +147,13 @@ class Routes extends Component {
               <Route
                 exact
                 path="/reports"
-                render={props => <Reports auth={auth} {...props} />}
+                render={props => (
+                  <Reports
+                    auth={auth}
+                    errorHandlder={setAppModalError}
+                    {...props}
+                  />
+                )}
               />
             )}
             <Route
@@ -181,6 +188,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
+    setAppModalError,
     clearAppErrorAction: clearAppError,
     getAgencyAction: getAgency
   }
