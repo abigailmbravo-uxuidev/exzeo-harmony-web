@@ -9,6 +9,8 @@ const ReportCard = ({
   openModal,
   handleDownload
 }) => {
+  if (!REPORT_ENDPOINT[reportId]) return null;
+
   return (
     <li>
       <div className="link-wrapper">

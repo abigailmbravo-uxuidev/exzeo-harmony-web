@@ -27,16 +27,16 @@ export const agencyActivityColumns = [
 
 export const bookOfBusinessColumns = [
   { title: 'Agent Name' },
-  { title: 'Billing Status' },
-  { title: 'Cancel Date', format: dateFormatter },
-  { title: 'Effective Date', format: dateFormatter },
-  { title: 'Mailing Address' },
-  { title: 'Policyholder' },
   { title: 'Policy Number', isKey: true },
-  { title: 'Policy Status' },
   { title: 'Product' },
+  { title: 'Policyholder' },
+  { title: 'Effective Date' },
+  { title: 'Cancel Date' },
+  { title: 'Policy Status' },
+  { title: 'Billing Status' },
+  { title: 'Mailing Address' },
   { title: 'Property Address' },
-  { title: 'Total Premium', format: amountFormatter }
+  { title: 'Premium', format: amountFormatter }
 ];
 
 //TODO : grab this data from the endpoint data when the csv is parsed on the client
