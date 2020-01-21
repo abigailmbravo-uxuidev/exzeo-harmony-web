@@ -70,7 +70,7 @@ describe('Test Agency Actions', () => {
     });
 
     it('Should call dispatch on getAgentsByAgencyCode', async () => {
-      const agents = [{ agentCode: '1234' }];
+      const agents = [{ agentCode: '1234', state: 'FL' }];
 
       const stateObj = [
         {

@@ -90,10 +90,11 @@ export function getAgency(agencyCode) {
  * @param agencyCode
  * @returns {Function}
  */
-export function getAgentsByAgencyCode(agencyCode) {
+export function getAgentsByAgencyCode(agencyCode, state) {
+  console.log('wow');
   return async dispatch => {
     try {
-      const agents = await fetchAgentsByAgencyCode(agencyCode);
+      const agents = await fetchAgentsByAgencyCode(agencyCode, state);
       dispatch(setAgents(agents));
     } catch (error) {
       dispatch(errorActions.setAppError(error));
@@ -124,12 +125,12 @@ export async function fetchAgency(agencyCode) {
  * @param agencyCode
  * @returns {Promise<Array>}
  */
-export async function fetchAgentsByAgencyCode(agencyCode) {
+export async function fetchAgentsByAgencyCode(agencyCode, state = 'FL') {
   try {
     const config = {
       service: 'agency',
       method: 'GET',
-      path: `agencies/${agencyCode}/agents?status=Active&appointed=true`
+      path: `agencies/${agencyCode}/agents?status=Active&appointed=true&state=${state}`
     };
     const response = await serviceRunner.callService(
       config,
