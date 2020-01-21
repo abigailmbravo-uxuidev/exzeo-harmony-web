@@ -91,7 +91,6 @@ export function getAgency(agencyCode) {
  * @returns {Function}
  */
 export function getAgentsByAgencyCode(agencyCode, state) {
-  console.log('wow');
   return async dispatch => {
     try {
       const agents = await fetchAgentsByAgencyCode(agencyCode, state);
