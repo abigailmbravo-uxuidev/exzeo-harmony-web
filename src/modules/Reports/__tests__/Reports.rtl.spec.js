@@ -109,30 +109,6 @@ describe('Testing the Reports Page', () => {
     expect(await queryAllByTestId('nav-reports').length).toEqual(0);
   });
 
-  it('Reports Section 1 Testing', async () => {
-    const props = {
-      ...defaultProps
-    };
-    const { getByTestId, getByText } = renderWithForm(<Reports {...props} />);
-
-    await waitForElement(() => getByText('Agency Activity'));
-
-    expect(getByTestId('Agency_Activity_title')).toHaveTextContent(
-      /Agency Activity/
-    );
-
-    expect(getByTestId('Agency_Activity_details')).toHaveTextContent(
-      /Some Agency Activity detail Text/
-    );
-
-    expect(getByTestId('Agency_Activity_run_report')).toHaveTextContent(
-      /RUN REPORT/
-    );
-
-    const download = getByTestId('Agency_Activity_download');
-    expect(download.className).toEqual('fa fa-file-excel-o');
-  });
-
   it('Reports Section 2 Testing', async () => {
     const props = {
       ...defaultProps
