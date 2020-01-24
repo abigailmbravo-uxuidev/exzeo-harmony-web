@@ -156,7 +156,9 @@ export const initializePolicyWorkflow = policyNumber => {
         })
       );
 
-      dispatch(getAgentsByAgencyCode(latestPolicy.agencyCode));
+      dispatch(
+        getAgentsByAgencyCode(latestPolicy.agencyCode, latestPolicy.state)
+      );
 
       return latestPolicy;
     } catch (error) {
