@@ -31,11 +31,11 @@ export const territoryManagerContacts = [
     email: 'jkelley@hcpci.com'
   },
   {
-    icon: 'image nigel-cosey',
-    name: 'Nigel Cosey',
+    icon: 'image yanet-coursen',
+    name: 'Yanet Coursen',
     title: 'Treasure Coast Florida Manager',
-    phone: '7865171850',
-    email: 'NCosey@typtap.com'
+    phone: '8134053273',
+    email: 'ycoursen@hcpci.com'
   },
   {
     icon: 'image victor-ferdinandi',
