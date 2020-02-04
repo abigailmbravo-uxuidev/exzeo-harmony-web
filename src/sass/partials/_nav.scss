@@ -309,6 +309,14 @@
             }
           }
 
+          &.reports {
+            i {
+              &:before {
+                content: '\f0ce';
+              }
+            }
+          }
+
           span {
             color: rgba($white, 1);
             text-decoration: none;

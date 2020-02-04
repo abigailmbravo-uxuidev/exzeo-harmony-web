@@ -1,9 +1,14 @@
 import classNames from 'classnames';
 
-export const getNavLinks = (params, enableQuote, enableRetrieve) => {
+export const getNavLinks = (
+  params,
+  enableQuote,
+  enableRetrieve,
+  agencyReportsEnabled
+) => {
   const quoteClasses = enableRetrieve ? 'quote label' : 'quote label disabled';
 
-  return [
+  const links = [
     {
       key: 'home',
       to: '/',
@@ -38,6 +43,13 @@ export const getNavLinks = (params, enableQuote, enableRetrieve) => {
       hasIcon: true
     },
     {
+      key: 'reports',
+      to: '/reports',
+      label: 'REPORTS',
+      styleName: 'reports label',
+      hasIcon: true
+    },
+    {
       key: 'contacts',
       to: '/contacts',
       label: 'CONTACTS',
@@ -52,4 +64,8 @@ export const getNavLinks = (params, enableQuote, enableRetrieve) => {
       hasIcon: true
     }
   ];
+
+  if (!agencyReportsEnabled) return links.filter(l => l.key !== 'reports');
+
+  return links;
 };

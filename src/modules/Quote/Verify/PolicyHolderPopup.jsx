@@ -26,6 +26,7 @@ const PolicyHolderPopup = ({
                 <PolicyHolder
                   fieldPrefix="policyHolders[0]"
                   title="Primary Policyholder"
+                  requirePrimary
                 />
                 <Field name="additionalPolicyholder">
                   {({ input, meta }) => (

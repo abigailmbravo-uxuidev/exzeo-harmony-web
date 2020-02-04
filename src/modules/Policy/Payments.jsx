@@ -10,7 +10,7 @@ const Payments = ({ initialValues }) => {
     billing: { payments, cashReceived }
   } = initialValues;
   const flattenedPaymentHistory = payments.map(({ amount, ...rest }) => ({
-    amount: Number(amount.$numberDecimal),
+    amount: Number(amount),
     ...rest
   }));
 
@@ -65,7 +65,7 @@ const Payments = ({ initialValues }) => {
         </BootstrapTable>
       </div>
       <div className="payments-received">
-        <h4>Payments Received: $ {cashReceived.$numberDecimal}</h4>
+        <h4>Payments Received: {amountFormatter(cashReceived || '0.00')}</h4>
       </div>
     </React.Fragment>
   );

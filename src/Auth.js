@@ -2,8 +2,6 @@ import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
 import { http } from '@exzeo/core-ui/src/Utilities';
 
-import history from './history';
-
 export default class Auth {
   auth0 = new auth0.WebAuth({
     audience: process.env.REACT_APP_AUTH0_AUDIENCE,
@@ -31,8 +29,8 @@ export default class Auth {
     this.logout();
   };
 
-  getProfile = userData => {
-    if (!userData) history.replace(`/logout`);
+  getProfile = (userData, history) => {
+    if (!userData) history.replace('/logout');
     const { appMetadata, profile, userType = 'agent' } = userData;
     let entity = {};
 
@@ -74,7 +72,7 @@ export default class Auth {
     return this.userProfile;
   };
 
-  handleAuthentication = () => {
+  handleAuthentication = history => {
     this.auth0.parseHash(window.location.hash, async (err, authResult) => {
       if (err) {
         history.replace(
@@ -86,7 +84,6 @@ export default class Auth {
       }
 
       if (authResult && authResult.accessToken && authResult.idToken) {
-        const payload = jwtDecode(authResult.idToken);
         const profile = await http
           .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
             headers: { authorization: `bearer ${authResult.idToken}` }
@@ -95,7 +92,7 @@ export default class Auth {
             history.replace(`/accessDenied?error=${error}`);
           });
 
-        const userProfile = this.getProfile(profile.data);
+        const userProfile = this.getProfile(profile.data, history);
         this.setSession(authResult, userProfile);
 
         history.replace('/');
