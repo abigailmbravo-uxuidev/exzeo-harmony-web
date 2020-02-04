@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+
     margin-bottom: $padding * 1.5;
 
     button {
@@ -33,8 +34,8 @@
       }
 
       dl {
-        margin: 0;
         width: auto;
+        margin: 0;
 
         dt {
         }
@@ -46,6 +47,7 @@
       &:last-of-type {
         margin: 0;
         padding-bottom: 0;
+
         border-bottom-width: 0;
       }
 
@@ -74,19 +76,20 @@
       .premium,
       .billing-info {
         flex-direction: column;
+
+        width: 50%;
         margin-bottom: 0;
         padding-bottom: 0;
-        width: 50%;
 
         @include for-phone-only {
-          padding-top: 0;
           width: 100%;
+          padding-top: 0;
         }
 
         dl {
-          padding: ($padding/2) $padding;
           width: 100%;
           height: auto;
+          padding: ($padding/2) $padding;
 
           &:nth-of-type(odd) {
             background: $cool-gray-01;
@@ -116,8 +119,8 @@
 
       &.payments {
         .table-view {
-          padding: 0 $padding;
           width: 100%;
+          padding: 0 $padding;
 
           @include for-phone-only {
             .table-header-wrapper {
@@ -128,18 +131,23 @@
               overflow: hidden;
               .table {
                 display: flex;
+
                 width: 100%;
                 tbody {
                   display: flex;
                   flex-direction: column;
+
                   width: 100%;
                   tr {
                     z-index: 10;
+
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
-                    margin-bottom: $padding;
+
                     width: 100%;
+                    margin-bottom: $padding;
+
                     border: $card-border-width solid $card-border-color;
                     border-radius: $card-border-radius;
                     background: $card-bg;
@@ -152,19 +160,23 @@
                     .date {
                       flex-grow: 0;
                       flex-shrink: 0;
+
+                      width: 5rem;
                       padding-right: 0;
                       padding-bottom: 0;
-                      width: 5rem;
+
                       font-size: $font-size-sm;
                     }
 
                     .type {
                       flex-grow: 1;
                       flex-shrink: 1;
-                      padding-bottom: 0;
+
                       width: calc(100% - 5rem);
-                      font-weight: $font-weight-bold;
+                      padding-bottom: 0;
+
                       font-size: $font-size-sm;
+                      font-weight: $font-weight-bold;
                     }
 
                     .description {
@@ -175,6 +187,7 @@
                     .amount {
                       flex-grow: 0;
                       flex-shrink: 0;
+
                       font-weight: $font-weight-bold;
                     }
                   }
@@ -195,6 +208,7 @@
             .date {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 13.125rem;
             }
           }
@@ -214,6 +228,7 @@
     .address-component {
       margin-bottom: 0;
       padding-bottom: 0;
+
       border-bottom-width: 0;
     }
     .fade-in {
@@ -228,11 +243,14 @@
   section {
     margin-bottom: $padding * 2;
     padding-bottom: $padding * 2;
+
     border-bottom: 1px dashed $cool-gray-02;
 
-    &.slider-component {
+    &.slider-component,
+    &.second-policyholder-wrapper {
       margin-bottom: 0;
       padding-bottom: 0;
+
       border-bottom-width: 0;
     }
 
@@ -255,8 +273,8 @@
       }
 
       h4 {
-        padding: 0;
         width: 100%;
+        padding: 0;
 
         @include for-phone-only {
           padding: 0 1rem 1rem;
@@ -294,8 +312,9 @@
       label {
         flex-grow: 0;
         flex-shrink: 0;
-        margin-bottom: 0;
+
         width: calc(100vw - 12.25rem);
+        margin-bottom: 0;
 
         @include for-phone-only {
           width: calc(100vw - 8.5rem);
@@ -303,6 +322,7 @@
         @include for-tablet-portrait-up {
           flex-grow: 1;
           flex-shrink: 1;
+
           width: auto;
         }
         span {
@@ -314,60 +334,75 @@
       span[data-name='error-field'] {
         flex-grow: 0;
         flex-shrink: 0;
+
         width: 100%;
       }
       .switch-div {
         position: relative;
+
         flex-basis: 3.5rem;
         flex-grow: 0;
         flex-shrink: 0;
-        margin: 0.225rem 0;
+
         width: 3.5rem;
         height: 1.5rem;
-        border-radius: 0.75rem;
-        background: $cool-gray-04;
-        color: $cool-gray-08;
+        margin: 0.225rem 0;
+
         cursor: pointer;
         -webkit-transition: 0.4s;
         transition: 0.4s;
+
+        color: $cool-gray-08;
+        border-radius: 0.75rem;
+        background: $cool-gray-04;
         &:before {
           position: absolute;
           z-index: 2;
+
           width: 1.5rem;
           height: 1.5rem;
+
+          content: '';
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
+
           border: 2px solid $cool-gray-01;
           border-radius: 50%;
           background-color: lighten($cool-gray-00, 10%);
           box-shadow: $input-box-shadow;
-          content: '';
+
           line-height: 1;
-          -webkit-transition: 0.4s;
-          transition: 0.4s;
         }
         &:after {
           position: absolute;
+          z-index: 1;
           top: 0.25rem;
           left: 2rem;
-          z-index: 1;
-          color: $white;
+
           content: 'No';
-          font-weight: $font-weight-bold;
+
+          color: $white;
+
           font-size: 0.7rem;
+          font-weight: $font-weight-bold;
         }
         &.active {
           background: $bright-blue-lighten-02;
           &:before {
-            border-color: $cool-gray-01;
-            background-color: lighten($cool-gray-00, 10%);
             -webkit-transform: translateX(2rem);
             -ms-transform: translateX(2rem);
             transform: translateX(2rem);
+
+            border-color: $cool-gray-01;
+            background-color: lighten($cool-gray-00, 10%);
           }
           &:after {
             top: 0.25rem;
             left: 0.5rem;
-            color: $white;
+
             content: 'Yes';
+
+            color: $white;
           }
           &.disabled {
             background-color: $cool-gray-00;
@@ -384,12 +419,14 @@
     }
     &.display {
       position: relative;
+
       flex-direction: row;
       label {
         flex-grow: 1;
         flex-shrink: 1;
-        margin-bottom: 0;
+
         width: auto;
+        margin-bottom: 0;
         &.disabled {
           color: $warm-gray-14;
           span {
@@ -401,10 +438,12 @@
         position: absolute;
         top: -($padding/2);
         right: $padding;
+
         flex-grow: 0;
         flex-shrink: 0;
-        max-width: 6.5rem;
+
         width: 6.5rem;
+        max-width: 6.5rem;
       }
     }
     &.radio {
@@ -413,6 +452,7 @@
           position: absolute;
           top: -($padding/2);
           right: $padding;
+
           max-width: 6.5rem;
         }
       }
