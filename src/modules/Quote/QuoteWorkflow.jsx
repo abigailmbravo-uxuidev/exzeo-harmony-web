@@ -14,6 +14,9 @@ import { getAgentsByAgencyCode } from '../../state/actions/agency.actions';
 import { getZipcodeSettings } from '../../state/actions/serviceActions';
 import { getQuoteSelector } from '../../state/selectors/quoteState.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
+import Footer from '../../components/Footer';
+import Error from '../../components/Error/Error';
+import App from '../../components/AppWrapper';
 
 import {
   NEXT_PAGE_ROUTING,
@@ -22,11 +25,7 @@ import {
   ROUTES_NOT_USING_FOOTER,
   ROUTE_TO_STEP_NAME
 } from './constants/workflowNavigation';
-
-import Footer from '../../components/Footer';
-import Error from '../../components/Error/Error';
-import App from '../../components/AppWrapper';
-
+import { UW_EXCEPTION_QUOTE_STATES } from './constants/quote';
 import Assumptions from './Assumptions';
 import Share from './Share';
 import ThankYou from './ThankYou';
@@ -34,9 +33,10 @@ import WorkflowNavigation from './WorkflowNavigation';
 import Verify from './Verify';
 import Warning from './Warning';
 
-import AF3 from '../../mock-data/mockAF3';
-import HO3 from '../../mock-data/mockHO3';
-import { UW_EXCEPTION_QUOTE_STATES } from './constants/quote';
+import TTICFLAF3 from '../../csp-templates/ttic-fl-af3-quote';
+import TTICFLHO3 from '../../csp-templates/ttic-fl-ho3-quote';
+import HCPCNJAF3 from '../../csp-templates/hcpc-nj-af3-quote';
+import HCPCSCAF3 from '../../csp-templates/hcpc-sc-af3-quote';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
   const currentRouteName = pathname.split('/')[3];
@@ -47,8 +47,10 @@ const getCurrentStepAndPage = defaultMemoize(pathname => {
 });
 
 const TEMPLATES = {
-  AF3: AF3,
-  HO3: HO3
+  'TTIC:FL:AF3': TTICFLAF3,
+  'TTIC:FL:HO3': TTICFLHO3,
+  'HCPC:NJ:AF3': HCPCNJAF3,
+  'HCPC:SC:AF3': HCPCSCAF3
 };
 
 const FORM_ID = 'QuoteWorkflow';
@@ -121,29 +123,9 @@ export class QuoteWorkflow extends Component {
   }
 
   getTemplate = async () => {
-    const {
-      userProfile: {
-        entity: { companyCode, state }
-      },
-      quote
-    } = this.props;
-    // const transferConfig = {
-    //   exchangeName: 'harmony',
-    //   routingKey:  'harmony.policy.retrieveDocumentTemplate',
-    //   data: {
-    //     companyCode,
-    //     state,
-    //     product: quote.product,
-    //     application: 'agency',
-    //     formName: 'quoteModel',
-    //     version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
-    //   }
-    // };
-
-    // return transferConfig;
-    // const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
-    const { product } = quote;
-    this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
+    const { companyCode, state, product } = this.props.quote;
+    const templateKey = `${companyCode}:${state}:${product}`;
+    this.setState(() => ({ gandalfTemplate: TEMPLATES[templateKey] }));
   };
 
   goToStep = (step, override) => {
@@ -241,8 +223,6 @@ export class QuoteWorkflow extends Component {
     const shouldRenderFooter =
       ROUTES_NOT_USING_FOOTER.indexOf(currentRouteName) === -1;
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
-    // TODO going to use Context to pass these directly to custom components,
-    //  so Gandalf does not need to know about these.
     const customHandlers = {
       handleSubmit: this.handleGandalfSubmit,
       history: history,
