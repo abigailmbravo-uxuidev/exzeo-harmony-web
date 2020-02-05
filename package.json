@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@exzeo/core-ui": "0.9.19",
-    "@exzeo/react-scripts": "2.3.0",
+    "@exzeo/react-scripts": "2.4.1",
     "auth0-js": "~8.10.1",
     "classnames": "~2.2.5",
     "core-js": "^2.6.9",
@@ -89,11 +89,11 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css,scss,json,md}": [
-      "prettier --write",
+      "prettier --single-quote --write",
       "git add"
     ],
     "cypress/**/*.js": [
-      "prettier --write",
+      "prettier --single-quote --write",
       "git add"
     ]
   },
