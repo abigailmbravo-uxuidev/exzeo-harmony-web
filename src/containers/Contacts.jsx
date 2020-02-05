@@ -1,7 +1,7 @@
 import React from 'react';
 import { shape, func } from 'prop-types';
 
-import teritoryMap from '../img/territory-manager-map.png';
+import territoryMap from '../img/territory-manager-map.png';
 
 import AppWrapper from '../components/AppWrapper';
 import ContactCard from '../components/Contacts/ContactCard';
@@ -110,7 +110,7 @@ const Contacts = ({ auth, match }) => (
             ))}
           </div>
           <div className="territory-map">
-            <img src={teritoryMap} alt="Territory Map" />
+            <img src={territoryMap} alt="Territory Map" />
           </div>
         </section>
         <section className="contacts">
@@ -123,8 +123,8 @@ const Contacts = ({ auth, match }) => (
               &nbsp;|&nbsp;<a href="tel:8442897968">(844) 289-7968</a>
             </h2>
           </div>
-          {supportContacts.map(contact => (
-            <ContactCard key={contact.name} {...contact} />
+          {supportContacts.map((contact, i) => (
+            <ContactCard key={i} {...contact} />
           ))}
         </section>
       </div>
