@@ -408,7 +408,9 @@ const mock = {
           id: 3453,
           type: '$SECTION',
           dependencies: [{ additionalPolicyholder: true }],
-          data: {},
+          data: {
+            className: 'second-policyholder-wrapper'
+          },
           formData: {},
           children: [
             {
