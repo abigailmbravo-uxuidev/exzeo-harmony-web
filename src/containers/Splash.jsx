@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import ClearErrorConnect from '../components/Error/ClearError';
+import ClearErrorConnect from '../components/ClearError';
 import Footer from '../components/Footer';
 import AppWrapper from '../components/AppWrapper';
 

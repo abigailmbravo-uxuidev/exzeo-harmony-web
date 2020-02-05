@@ -15,7 +15,7 @@ import { getZipcodeSettings } from '../../state/actions/serviceActions';
 import { getQuoteSelector } from '../../state/selectors/quoteState.selectors';
 import { getQuoteDetails } from '../../state/selectors/detailsHeader.selectors';
 import Footer from '../../components/Footer';
-import Error from '../../components/Error/Error';
+import Error from '../../components/Error';
 import App from '../../components/AppWrapper';
 
 import {

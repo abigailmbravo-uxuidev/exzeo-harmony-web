@@ -73,15 +73,12 @@
       "!src/routes.js",
       "!src/state/reducers/initialState.js",
       "!src/setupTests.js",
-      "!src/**/choreographer.js",
-      "!src/**/reduxFormFailSubmit.js",
-      "!src/test-utils/fixtures/*",
-      "!src/test-utils/index.js",
-      "!src/mock-data/**/*"
+      "!src/test-utils/**/*",
+      "!src/components/Form/**/*"
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 60
+        "statements": 57
       }
     }
   },
@@ -92,11 +89,11 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css,scss,json,md}": [
-      "prettier --single-quote --write",
+      "prettier --write",
       "git add"
     ],
     "cypress/**/*.js": [
-      "prettier --single-quote --write",
+      "prettier --write",
       "git add"
     ]
   },

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as errorActions from '../../state/actions/errorActions';
+import * as errorActions from '../state/actions/errorActions';
 
 export class ClearError extends React.Component {
   constructor(props) {

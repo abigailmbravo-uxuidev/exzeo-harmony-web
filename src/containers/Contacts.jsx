@@ -4,7 +4,7 @@ import { shape, func } from 'prop-types';
 import territoryMap from '../img/territory-manager-map.png';
 
 import AppWrapper from '../components/AppWrapper';
-import ContactCard from '../components/Contacts/ContactCard';
+import ContactCard from '../components/ContactCard';
 import Footer from '../components/Footer';
 
 export const territoryManagerContacts = [

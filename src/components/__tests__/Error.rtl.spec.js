@@ -7,9 +7,9 @@ import {
   quote,
   fatalUnderwritingException,
   reviewUnderwritingExcception
-} from '../../../test-utils';
+} from '../../test-utils';
 
-jest.mock('../../../state/actions/quoteState.actions');
+jest.mock('../../state/actions/quoteState.actions');
 
 describe('Error testing', () => {
   it('Renders and has a fatal error', async () => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { waitForElement, wait } from 'react-testing-library';
 import { reduxForm } from 'redux-form';
 
 import { renderWithReduxAndRouter, defaultProps } from '../../../test-utils';
