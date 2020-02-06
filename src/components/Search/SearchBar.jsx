@@ -13,7 +13,7 @@ import {
   searchAddresses
 } from '../../state/actions/searchActions';
 import Pagination from './Pagination';
-import NewQuoteSearch from '../../modules/Search/Address';
+import NewQuoteSearch from '../../modules/Search/SearchAddress';
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
 
 const handleInitialize = state => ({

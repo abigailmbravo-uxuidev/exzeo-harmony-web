@@ -7,7 +7,7 @@ import { date, Button } from '@exzeo/core-ui';
 
 import { getNavLinks } from '../utilities/navigation';
 import Header from './Header';
-import CheckError from './Error/CheckError';
+import CheckError from './CheckError';
 
 class AppWrapper extends React.Component {
   state = {

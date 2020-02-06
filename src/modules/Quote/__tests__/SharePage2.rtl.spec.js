@@ -9,7 +9,7 @@ import {
   checkButton
 } from '../../../test-utils';
 
-import QuoteWorkflow from '../QuoteWorkflow';
+import { QuoteWorkflow } from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -27,7 +27,7 @@ describe('Testing Share Page 2', () => {
   };
 
   it('"Confirmed" Value Switch Defaults to "No"', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
+    const { getByTestId, getByLabel } = renderWithReduxAndRouter(
       <QuoteWorkflow {...props} />
     );
     fields.forEach(field => {

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@exzeo/core-ui": "0.9.19",
-    "@exzeo/react-scripts": "2.3.0",
+    "@exzeo/react-scripts": "2.4.1",
     "auth0-js": "~8.10.1",
     "classnames": "~2.2.5",
     "core-js": "^2.6.9",
@@ -73,15 +73,12 @@
       "!src/routes.js",
       "!src/state/reducers/initialState.js",
       "!src/setupTests.js",
-      "!src/**/choreographer.js",
-      "!src/**/reduxFormFailSubmit.js",
-      "!src/test-utils/fixtures/*",
-      "!src/test-utils/index.js",
-      "!src/mock-data/**/*"
+      "!src/test-utils/**/*",
+      "!src/components/Form/**/*"
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 60
+        "statements": 57
       }
     }
   },
