@@ -11,7 +11,7 @@ const isRequired = value => {
   return undefined;
 };
 
-const QuoteSearch = ({ disabledSubmit, answers }) => {
+const RetrieveQuote = ({ disabledSubmit, answers }) => {
   const productAnswers = [{ answer: '', label: 'All' }, ...answers.products];
 
   return (
@@ -91,4 +91,4 @@ const QuoteSearch = ({ disabledSubmit, answers }) => {
   );
 };
 
-export default QuoteSearch;
+export default RetrieveQuote;

@@ -5,7 +5,7 @@ import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
 const { isValidAddressFormat, isRequired } = validation;
 
-const NewQuoteSearch = ({
+const SearchAddress = ({
   filterTypeOptions,
   filterTypeLabel,
   filterTypeName,
@@ -52,13 +52,13 @@ const NewQuoteSearch = ({
   </React.Fragment>
 );
 
-NewQuoteSearch.propTypes = {
+SearchAddress.propTypes = {
   changeSearchType: PropTypes.func,
   searchTypeOptions: PropTypes.array
 };
 
-NewQuoteSearch.defaultProps = {
+SearchAddress.defaultProps = {
   canFilter: false
 };
 
-export default NewQuoteSearch;
+export default SearchAddress;
