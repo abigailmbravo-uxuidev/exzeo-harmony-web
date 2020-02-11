@@ -85,7 +85,9 @@ export default class Auth {
 
       if (authResult && authResult.accessToken && authResult.idToken) {
         const profile = await http
-          .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
+          //TODO: DO NOT COMMIT THIS CHANGE ----------------------------------------------------
+          .get(`${process.env.REACT_APP_API_URL}mainUserProfile`, {
+            //TODO: DO NOT COMMIT THIS CHANGE ----------------------------------------------------
             headers: { authorization: `bearer ${authResult.idToken}` }
           })
           .catch(error => {

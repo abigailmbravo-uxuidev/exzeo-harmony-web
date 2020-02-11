@@ -14,7 +14,7 @@ const ho3Headers = [
   {
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
-    value: '$ 314,000'
+    value: '$ 284,000'
   }
 ];
 
@@ -30,7 +30,7 @@ const af3Headers = [
   {
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
-    value: '$ 314,000'
+    value: '$ 267,000'
   }
 ];
 
@@ -68,7 +68,8 @@ export default (product = 'HO3') => {
       'Quote Input State: '
     ).to.equal('AppStarted');
   });
-  cy.get('ul.result-cards li')
+  cy.task('log', 'Delete the mortgagee')
+    .get('ul.result-cards li')
     .should('have.length', 1)
     .within(() => cy.get('a.remove').click())
     .findDataTag('modal-confirm')
@@ -84,6 +85,6 @@ export default (product = 'HO3') => {
     ).to.equal('Qualified');
   });
   cy.get('ul.result-cards li').should('have.length', 0);
-  // move on to next page
+  //move on to next page
   cy.clickSubmit('#QuoteWorkflow');
 };

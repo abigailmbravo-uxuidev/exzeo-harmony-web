@@ -30,4 +30,8 @@ export const setRouteAliases = () =>
     .route({ method: 'POST', url: '/questions' })
     .as('getQuestions')
     .route({ method: 'POST', url: '/svc?fetchAgentsByAgencyCode' })
-    .as('getAgents');
+    .as('getAgents')
+    .route('POST', '/svc?searchPolicy')
+    .as('searchPolicy')
+    .route('POST', '/svc?fetchQuotes')
+    .as('fetchQuotes');

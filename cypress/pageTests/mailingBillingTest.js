@@ -14,7 +14,7 @@ const ho3Headers = [
   {
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
-    value: '$ 314,000'
+    value: '$ 284,000'
   }
 ];
 
@@ -30,7 +30,7 @@ const af3Headers = [
   {
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
-    value: '$ 314,000'
+    value: '$ 267,000'
   }
 ];
 
@@ -98,55 +98,4 @@ export default (product = 'HO3') => {
       'Additional Interests: '
     ).to.equal(1);
   });
-
-  checkBillingOption(2, false);
-
-  goToAiPage();
-  cy.findDataTag('premiumFinance')
-    .click()
-    .findDataTag('modal')
-    .should('exist')
-    .chooseReactSelectOption(
-      'premiumFinance_wrapper',
-      'p1 finance company',
-      'input#premium-finance-search'
-    );
-  cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
-  cy.wait('@updateQuote').then(({ request, response }) => {
-    expect(
-      request.body.data.quote.additionalInterests.length,
-      'Additional Interests: '
-    ).to.equal(2);
-    expect(
-      request.body.data.quote.additionalInterests[1].type,
-      'Additional Interest Type: '
-    ).to.equal('Premium Finance');
-  });
-  cy.clickSubmit('#QuoteWorkflow');
-  cy.wait('@getBillingOptions').then(({ request }) => {
-    expect(
-      request.body.data.additionalInterests.length,
-      'Additional Interests: '
-    ).to.equal(2);
-  });
-
-  checkBillingOption(1);
-
-  goToAiPage();
-
-  cy.get('a.remove i.delete').each((_, index) => {
-    cy.get('a.remove i.delete')
-      .eq(0)
-      .click()
-      .clickSubmit('.ai-modal', 'modal-confirm');
-    cy.wait('@updateQuote').then(({ request }) => {
-      // In this test we know we have 2 AI to start with. The first time we delete, there should be 1 left in the request, the second time, 0
-      expect(
-        request.body.data.quote.additionalInterests.length,
-        'Additional Interests: '
-      ).to.equal(index === 0 ? 1 : 0);
-    });
-  });
-  cy.clickSubmit('#QuoteWorkflow');
-  checkBillingOption(1);
 };

@@ -1,4 +1,10 @@
-import { userHO3, underwritingHO3 } from '../fixtures';
+import {
+  userHO3,
+  underwritingHO3,
+  coverageHO3,
+  coverageAF3
+} from '../fixtures';
+import { envelopeIdCheck, manualBindPolicy, getToken } from '../helpers';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () =>
@@ -39,6 +45,7 @@ export const navigateThroughPolicyDetails = ({
         .find('input')
         .type(`{selectall}{backspace}${value}`)
     );
+
   cy.wait('@getAgents').then(({ response }) => {
     expect(response.body.status).to.equal(200);
   });
@@ -69,13 +76,30 @@ export const navigateThroughUnderwriting = (data = underwritingHO3) =>
       cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
     )
     .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote');
+    .wait('@updateQuote')
+    .then(response => {
+      expect(response.status).to.eq(200);
+    });
 
-export const navigateThroughCustomize = () =>
-  cy
-    .task('log', 'Navigating through Customize')
-    .clickSubmit('#QuoteWorkflow')
-    .wait('@updateQuote');
+export const navigateThroughCustomize = (slider = coverageHO3) => {
+  cy.task('log', 'Navigating through Customize');
+
+  cy.wrap(Object.entries(slider))
+    .each(([name, value]) => cy.sliderSet(`${name}`, `${value}`))
+    .get('button')
+    .contains('recalculate')
+    .click()
+    .wait('@updateQuote')
+    .then(response => {
+      expect(response.status).to.eq(200);
+    });
+  cy.clickSubmit('#QuoteWorkflow')
+    .wait('@updateQuote')
+    .then(response => {
+      expect(response.status).to.eq(200);
+      // cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
+    });
+};
 
 export const navigateThroughShare = () =>
   cy.task('log', 'Navigating through Share').clickSubmit('#QuoteWorkflow');
@@ -137,36 +161,39 @@ export const navigateThroughAdditionalInterests = () => {
   cy.clickSubmit('#QuoteWorkflow');
 };
 
-export const navigateThroughMailingBilling = () => {
+export const navigateThroughMailingBilling = billToChange => {
   cy.task('log', 'Navigating through Mailing Billing')
-    .wait('@getBillingOptions')
-    .then(({ request }) => {
-      expect(request.body.data.additionalInterests.length).to.equal(0);
-    });
-  cy.findDataTag('sameAsPropertyAddress')
+    .findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then(
       $div =>
         (!$div.attr('data-value') || $div.attr('data-value') === 'false') &&
         cy.findDataTag('sameAsPropertyAddress').click()
     );
-  cy.findDataTag('sameAsPropertyAddress')
-    .then($div => {
-      expect($div.attr('data-value') === 'true');
-    })
-    .wait(500);
-  // Get first non-disabled option and select that value
-  cy.get('select[name="billToId"] > option:not([disabled])')
-    .first()
-    .then($option => cy.get('select[name = "billToId"]').select($option.val()))
-    .clickSubmit('#QuoteWorkflow');
+  cy.findDataTag('sameAsPropertyAddress').then($div => {
+    expect($div.attr('data-value') === 'true');
+  });
+  //Change the BillTo option
 
-  cy.wait('@updateQuote').then(({ request }) => {
+  if (billToChange === 'Yes') {
+    cy.get('option')
+      .contains('Mortgagee')
+      .invoke('attr', 'selected', 'selected')
+      .parent()
+      .trigger('change');
+  }
+  cy.clickSubmit('#QuoteWorkflow');
+
+  cy.wait('@updateQuote').then(({ request, response }) => {
     expect(request.body.data.quote.policyHolderMailingAddress.address1).to
       .exist;
     expect(request.body.data.quote.billToId).to.exist;
     expect(request.body.data.quote.billToType).to.exist;
     expect(request.body.data.quote.billPlan).to.exist;
+    cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
+    if (billToChange === 'Yes') {
+      expect(response.body.result.billToType).to.equal('Additional Interest');
+    }
   });
 
   cy.wait('@verifyQuote').then(({ request }) => {
@@ -187,10 +214,34 @@ export const navigateThroughVerify = () =>
     .click()
     .clickSubmit('#QuoteWorkflow', 'next');
 
-export const navigateThroughScheduleDate = () =>
-  cy
-    .task('log', 'Navigating through Schedule Date')
-    .clickSubmit('[data-test="schedule-date-modal"]', 'modal-submit');
+export const navigateThroughSendApplicationAndBind = (
+  verifyEnvId,
+  prod = 'HO3'
+) => {
+  cy.task('log', 'Navigating through Send Application and Bind').clickSubmit(
+    '[data-test="schedule-date-modal"]',
+    'modal-submit'
+  );
+  if (verifyEnvId === 'Yes') {
+    cy.wait('@sendApplication').then(({ request }) => {
+      getToken().then(response => {
+        const token = response.body.id_token;
+        const apiUrl = Cypress.env('API_URL') + '/svc';
+        const quoteNumber = request.body.data.quoteNumber;
+        envelopeIdCheck(quoteNumber, apiUrl, token).then(response => {
+          expect(response.body.result.envelopeId).to.not.be.empty;
+        });
+        if (prod === 'HO3') {
+          manualBindPolicy(quoteNumber, apiUrl, token).then(response => {
+            cy.wrap(response.body.result.transaction.policyNumber).as(
+              'policyNumber'
+            );
+          });
+        }
+      });
+    });
+  }
+};
 
 export const navigateThroughThankYou = () =>
   cy
@@ -199,3 +250,47 @@ export const navigateThroughThankYou = () =>
     .click()
     .get('div.dashboard-message')
     .should('exist');
+
+export const searchPolicy = () => {
+  cy.task('log', 'Searching for the Policy')
+    .findDataTag('nav-policy')
+    .click()
+    .get('@policyNumber')
+    .then(polNum => {
+      cy.findDataTag('policyNumber')
+        .type(polNum)
+        .get('[type="submit"]')
+        .click()
+        .wait('@searchPolicy')
+        .then(({ response }) => {
+          expect(response.body.totalNumberOfRecords).to.equal(1);
+        });
+      cy.get('.policy-no')
+        .invoke('text')
+        .then(number => {
+          expect(number).to.include(polNum);
+        });
+    });
+};
+
+export const searchQoute = () => {
+  cy.task('log', 'Searching for the Quote')
+    .findDataTag('nav-searchQuotes')
+    .click()
+    .get('@quoteNumber')
+    .then(quoteNum => {
+      cy.findDataTag('quoteNumber')
+        .type(quoteNum)
+        .get('[type="submit"]')
+        .click()
+        .wait('@fetchQuotes')
+        .then(({ response }) => {
+          expect(response.body.result.totalNumberOfRecords).to.equal(1);
+        });
+      cy.get('.quote-no')
+        .invoke('text')
+        .then(number => {
+          expect(number).to.include(quoteNum);
+        });
+    });
+};

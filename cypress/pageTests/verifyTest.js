@@ -16,7 +16,7 @@ const ho3Headers = [
   {
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
-    value: '$ 314,000'
+    value: '$ 284,000'
   }
 ];
 
@@ -32,7 +32,7 @@ const af3Headers = [
   {
     name: 'coverageLimits.building.amountDetail',
     label: 'Coverage A',
-    value: '$ 314,000'
+    value: '$ 267,000'
   }
 ];
 

@@ -11,6 +11,7 @@ import {
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling
 } from '../../helpers';
+import { mailingBillingTest } from '../../pageTests';
 import { underwritingHO3, updateQuote } from '../../fixtures';
 
 describe('Underwriting Error Testing', () => {
@@ -41,9 +42,10 @@ describe('Underwriting Error Testing', () => {
       // Policyholder should be able to be navigated through without re-filling out the form.
       .clickSubmit('#QuoteWorkflow')
       .wait('@updateQuote');
+
     // Go back through with good data.
     navigateThroughUnderwriting();
-    navigateThroughCustomize();
+    cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughPolicyholder();
@@ -70,7 +72,6 @@ describe('Underwriting Error Testing', () => {
         ]
       }
     }).as('updateQuote');
-
     navigateThroughMailingBilling();
     cy.get('button.btn-primary').click();
     cy.get('div#Error').should(
