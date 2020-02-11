@@ -8,8 +8,8 @@ export const useFetchReports = () => {
 
   useEffect(() => {
     const getReports = async () => {
-      setLoaded(false);
       try {
+        setLoaded(false);
         const config = {
           exchangeName: 'harmony',
           routingKey: 'harmony.report.listReport',
@@ -18,11 +18,11 @@ export const useFetchReports = () => {
 
         const response = await serviceRunner.callService(config, 'listReport');
         setReports(response.data.result);
-        return true;
       } catch (error) {
         console.error('Error fetching reports: ', error);
+      } finally {
+        setLoaded(true);
       }
-      setLoaded(true);
     };
     // Call function, could use IFEE but that's sorta gross
     getReports();

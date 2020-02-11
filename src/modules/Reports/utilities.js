@@ -1,26 +1,41 @@
-const dateFormatter = cell => `${cell.substring(0, 10)}`;
-const amountFormatter = amt =>
+import { date } from '@exzeo/core-ui/src';
+import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
+
+import { REPORT_ENDPOINT } from './constants';
+
+export const dateFormatter = cell => (cell ? `${cell.substring(0, 10)}` : '');
+export const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
 
-export const agencyActivityColumns = [
-  { title: 'Agency Activity' },
-  { title: 'Policy Number', isKey: true },
-  { title: 'Product' },
-  { title: 'Created Date', format: dateFormatter },
-  { title: 'Effective Date', format: dateFormatter },
-  { title: 'PolicyHolder' },
-  { title: 'Address' }
-];
-export const bookOfBusinessColumns = [
-  { title: 'textbox10' },
-  { title: 'Policy Number', isKey: true },
-  { title: 'PolicyHolder' },
-  { title: 'Product' },
-  { title: 'Mailing Address' },
-  { title: 'Property Address' },
-  { title: 'Effective Date', format: dateFormatter },
-  { title: 'Cancel Date', format: dateFormatter },
-  { title: 'Total Premium', format: amountFormatter },
-  { title: 'Policy Status' },
-  { title: 'Billing Status' }
-];
+export function downloadReport(reportId, blob) {
+  const blobUrl = window.URL.createObjectURL(blob);
+  const link = window.document.createElement('a');
+  link.href = blobUrl;
+  link.download = `${reportId}-${date.formatToUTC()}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+export async function getReportById(
+  reportId,
+  minDate = '',
+  maxDate = '',
+  errorHandler,
+  responseType
+) {
+  try {
+    const config = {
+      service: 'report-service',
+      method: 'GET',
+      path: `v1/${REPORT_ENDPOINT[reportId]}?minDate=${minDate}&maxDate=${maxDate}`,
+      streamResult: true
+    };
+    const response = await serviceRunner.callService(config, 'getReportById', {
+      responseType
+    });
+    return response.data;
+  } catch (ex) {
+    return errorHandler(ex.message);
+  }
+}

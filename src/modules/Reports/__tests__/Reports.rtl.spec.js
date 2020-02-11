@@ -1,7 +1,11 @@
 import React from 'react';
-import { waitForElement } from 'react-testing-library';
+import { waitForElement, fireEvent } from 'react-testing-library';
 
-import { renderWithForm, mockServiceRunner } from '../../../test-utils';
+import {
+  renderWithForm,
+  mockServiceRunner,
+  defaultInitialState
+} from '../../../test-utils';
 
 import Reports from '../Reports';
 
@@ -25,6 +29,7 @@ mockServiceRunner([
     },
     reportType: 'test',
     name: 'Agency Activity',
+    details: 'Some Agency Activity detail Text',
     __v: 0
   },
   {
@@ -46,6 +51,7 @@ mockServiceRunner([
     },
     reportType: 'agency',
     name: 'Book Of Business',
+    details: 'Some BOB detail Text',
     __v: 0
   }
 ]);
@@ -61,12 +67,24 @@ const defaultProps = {
 };
 
 describe('Testing the Reports Page', () => {
-  it('Reports Header Testing', async () => {
+  it('Reports Header and Nav Link Testing Testing', async () => {
+    const state = { ...defaultInitialState };
+
+    state.authState.userProfile.profile = { agencyReportsEnabled: true };
+
     const props = {
       ...defaultProps
     };
-    const { getByText } = renderWithForm(<Reports {...props} />);
+
+    const { getByText, getByTestId } = renderWithForm(<Reports {...props} />, {
+      state,
+      route: '/reports'
+    });
     const header = getByText('Reports');
+
+    const navReportLink = getByTestId('nav-reports');
+
+    expect(navReportLink).toHaveTextContent(/REPORTS/);
 
     await waitForElement(() => header);
 
@@ -76,24 +94,19 @@ describe('Testing the Reports Page', () => {
     expect(iconElement.className).toEqual('fa fa-table');
   });
 
-  it('Reports Section 1 Testing', async () => {
+  it('No Report Nav Link if agencyReportsEnabled is false ', async () => {
+    const state = { ...defaultInitialState };
+
+    state.authState.userProfile.profile = { agencyReportsEnabled: false };
+
     const props = {
       ...defaultProps
     };
-    const { getByTestId, getByText } = renderWithForm(<Reports {...props} />);
+    const { queryAllByTestId } = renderWithForm(<Reports {...props} />, {
+      state
+    });
 
-    await waitForElement(() => getByText('Agency Activity'));
-
-    expect(getByTestId('Agency_Activity_title')).toHaveTextContent(
-      /Agency Activity/
-    );
-    expect(getByTestId('Agency_Activity_details')).toHaveTextContent(/\w/);
-    expect(getByTestId('Agency_Activity_run_report')).toHaveTextContent(
-      /RUN REPORT/
-    );
-
-    const download = getByTestId('Agency_Activity_download');
-    expect(download.className).toEqual('fa fa-file-excel-o');
+    expect(await queryAllByTestId('nav-reports').length).toEqual(0);
   });
 
   it('Reports Section 2 Testing', async () => {
@@ -107,12 +120,18 @@ describe('Testing the Reports Page', () => {
     expect(getByTestId('Book_Of_Business_title')).toHaveTextContent(
       /Book Of Business/
     );
-    expect(getByTestId('Book_Of_Business_details')).toHaveTextContent(/\w/);
+
+    expect(getByTestId('Book_Of_Business_details')).toHaveTextContent(
+      /Some BOB detail Text/
+    );
+
     expect(getByTestId('Book_Of_Business_run_report')).toHaveTextContent(
       /RUN REPORT/
     );
 
     const download = getByTestId('Book_Of_Business_download');
     expect(download.className).toEqual('fa fa-file-excel-o');
+
+    expect(fireEvent.click(download)).toEqual(true);
   });
 });

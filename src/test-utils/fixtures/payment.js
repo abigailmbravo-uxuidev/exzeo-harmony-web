@@ -20,9 +20,7 @@ export default {
   type: 'Paper Deposit',
   description: 'Duplicate Payment Applied in Error',
   batch: '20190515-01',
-  amount: {
-    $numberDecimal: '100.00'
-  },
+  amount: '100.00',
   __v: 0,
   updatedAt: '2019-05-15T17:11:21.201Z',
   createdAt: '2019-05-15T17:11:21.201Z'

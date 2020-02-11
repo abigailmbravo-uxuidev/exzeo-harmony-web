@@ -15,17 +15,19 @@ import {
   initializePolicyWorkflow,
   clearPolicy
 } from '../../state/actions/serviceActions';
-
 import Footer from '../../components/Footer';
 import App from '../../components/AppWrapper';
-import HO3 from '../../mock-data/mockPolicyHO3';
-import AF3 from '../../mock-data/mockPolicyAF3';
 
 import PolicyNavigation from './PolicyNavigation';
 import { PAGE_ROUTING } from './constants/workflowNavigation';
 import Billing from './Billing';
 import Payments from './Payments';
 import Documents from './Documents';
+
+import TTICFLAF3 from '../../csp-templates/ttic-fl-af3-policy';
+import TTICFLHO3 from '../../csp-templates/ttic-fl-ho3-policy';
+import HCPCNJAF3 from '../../csp-templates/hcpc-nj-af3-policy';
+import HCPCSCAF3 from '../../csp-templates/hcpc-sc-af3-policy';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
   const currentRouteName = pathname.split('/')[3];
@@ -36,8 +38,10 @@ const getCurrentStepAndPage = defaultMemoize(pathname => {
 });
 
 const TEMPLATES = {
-  HO3: HO3,
-  AF3: AF3
+  'TTIC:FL:AF3': TTICFLAF3,
+  'TTIC:FL:HO3': TTICFLHO3,
+  'HCPC:NJ:AF3': HCPCNJAF3,
+  'HCPC:SC:AF3': HCPCSCAF3
 };
 
 const FORM_ID = 'PolicyWorkflow';
@@ -89,27 +93,9 @@ export class PolicyWorkflow extends Component {
   };
 
   getTemplate = async () => {
-    // const { userProfile: { entity: { companyCode, state }}, quote } = this.props;
-    const { policy } = this.props;
-    // const transferConfig = {
-    //   exchangeName: 'harmony',
-    //   routingKey:  'harmony.policy.retrieveDocumentTemplate',
-    //   data: {
-    //     companyCode,
-    //     state,
-    //     product: quote.product,
-    //     application: 'agency',
-    //     formName: 'quoteModel',
-    //     version: date.formattedDate(undefined, date.FORMATS.SECONDARY)
-    //   }
-    // };
-
-    // return transferConfig;
-    // const response = await serviceRunner.callService(transferConfig, 'retrieveDocumentTemplate');
-    const { product } = policy;
-    if (product) {
-      this.setState(() => ({ gandalfTemplate: TEMPLATES[product] }));
-    }
+    const { companyCode, state, product } = this.props.policy;
+    const templateKey = `${companyCode}:${state}:${product}`;
+    this.setState(() => ({ gandalfTemplate: TEMPLATES[templateKey] }));
   };
 
   render() {
@@ -132,8 +118,6 @@ export class PolicyWorkflow extends Component {
       location.pathname
     );
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
-    // TODO going to use Context to pass these directly to custom components,
-    //  so Gandalf does not need to know about these.
     const customHandlers = {
       handleSubmit: x => x,
       history: history,

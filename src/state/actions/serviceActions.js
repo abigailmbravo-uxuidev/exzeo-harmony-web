@@ -114,15 +114,15 @@ export const initializePolicyWorkflow = policyNumber => {
     };
 
     const billingConfig = {
-      service: 'billing',
+      service: 'summary-ledger',
       method: 'GET',
       path: `summary-ledgers/${policyNumber}/latest`
     };
 
     const paymentsConfig = {
-      service: 'billing',
+      service: 'payment',
       method: 'GET',
-      path: `payment-history/${policyNumber}`
+      path: `payments/${policyNumber}`
     };
 
     try {
@@ -140,7 +140,7 @@ export const initializePolicyWorkflow = policyNumber => {
       ]);
 
       const payments = orderBy(
-        paymentResponse.data.result,
+        paymentResponse.data,
         ['date', 'createdAt'],
         ['desc', 'desc']
       );
@@ -156,7 +156,9 @@ export const initializePolicyWorkflow = policyNumber => {
         })
       );
 
-      dispatch(getAgentsByAgencyCode(latestPolicy.agencyCode));
+      dispatch(
+        getAgentsByAgencyCode(latestPolicy.agencyCode, latestPolicy.state)
+      );
 
       return latestPolicy;
     } catch (error) {

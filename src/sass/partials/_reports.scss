@@ -1,0 +1,122 @@
+.main.reports {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+
+  width: 100%;
+  height: auto;
+  .scroll {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    section {
+      margin-bottom: 1rem;
+
+      border-bottom: 1px dashed $cool-gray-02;
+
+      &:last-of-type {
+        border-bottom-width: 0;
+      }
+
+      &.reports {
+        .link-list {
+          margin: 0;
+          padding: 0;
+
+          list-style: none;
+
+          li {
+            border-bottom: 1px dotted $cool-gray-00;
+
+            &:last-of-type {
+              border-width: 0;
+            }
+
+            .link-wrapper {
+              display: flex;
+              align-items: center;
+
+              padding: $padding 0;
+
+              .link-details {
+                flex-grow: 1;
+                flex-shrink: 1;
+
+                padding: ($padding/2) $padding;
+              }
+
+              .btn {
+                &.btn-secondary {
+                  margin-right: $padding;
+
+                  &:disabled {
+                    cursor: not-allowed;
+                  }
+                }
+                &.btn-icon {
+                  color: $green-darken-01;
+                  background: transparent;
+
+                  font-family: $font-family-icon;
+
+                  &:disabled {
+                    color: rgba($cool-gray-10, 0.375);
+
+                    i {
+                      &:after {
+                        background: $cool-gray-03;
+                      }
+                    }
+
+                    &:hover {
+                      cursor: not-allowed;
+
+                      background: transparent;
+                    }
+                  }
+
+                  &:hover {
+                    background: rgba($cool-gray-00, 0.75);
+                  }
+
+                  i {
+                    position: relative;
+                    &:after {
+                      position: absolute;
+                      right: -0.5rem;
+                      bottom: -0.5rem;
+
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+
+                      width: 1rem;
+                      height: 1rem;
+
+                      content: '\f063';
+
+                      color: $white;
+                      border-radius: 50%;
+                      background: $bright-blue;
+
+                      font-size: 0.5rem;
+                      line-height: 1;
+
+                      @include transition(all 0.2s ease-in-out);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

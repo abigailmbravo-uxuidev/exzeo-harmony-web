@@ -31,7 +31,11 @@ export const setRouteAliases = () =>
     .as('getQuestions')
     .route({ method: 'POST', url: '/svc?fetchAgentsByAgencyCode' })
     .as('getAgents')
-    .route('POST', '/svc?searchPolicy')
+    .route({ method: 'POST', url: '/svc?searchPolicy' })
     .as('searchPolicy')
-    .route('POST', '/svc?fetchQuotes')
-    .as('fetchQuotes');
+    .route({ method: 'POST', url: '/svc?fetchQuotes' })
+    .as('fetchQuotes')
+    .route({ method: 'POST', url: '/svc?listReport' })
+    .as('listReport')
+    .route({ method: 'POST', url: '/svc?getReportById' })
+    .as('getReportById');

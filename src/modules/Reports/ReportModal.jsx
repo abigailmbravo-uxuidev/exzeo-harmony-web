@@ -7,89 +7,96 @@ import {
   validation,
   Form,
   Field,
-  composeValidators
+  composeValidators,
+  Modal,
+  date
 } from '@exzeo/core-ui';
 import ReportTable from './ReportTable';
 
+const validateDateRange = validation.isDateRange(
+  date
+    .toUTC()
+    .subtract('days', 90)
+    .format(date.FORMATS.SECONDARY),
+  date.toUTC().format(date.FORMATS.SECONDARY)
+);
 const ReportModal = ({
   handleRefresh,
   handleCancel,
   handleDownload,
   report
 }) => (
-  <div className="report-modal modal active" role="article">
-    <div className="survey-wrapper">
-      <div className="contact-message">
-        <Form
-          onSubmit={handleRefresh}
-          subscription={{ submitting: true }}
-          render={({ handleSubmit, submitting }) => (
-            <form onSubmit={handleSubmit}>
-              <div className="card">
-                {submitting && <Loader />}
-                <div className="fade-in" id="Report">
-                  <div className="card-header">
-                    <h4 className="title">
-                      <i data-test="modal-icon" className="fa fa-calendar" />
-                      &nbsp;{report.title}
-                    </h4>
-                    <Field
-                      name="from"
-                      component={Date}
-                      label="From"
-                      validate={composeValidators([
-                        validation.isRequired,
-                        validation.isDate
-                      ])}
-                      dataTest="from"
-                    />
+  <Modal
+    className="report-modal"
+    size="modal-xl"
+    header={
+      <h4 className="title">
+        <i data-test="modal-icon" className="fa fa-calendar" />
+        &nbsp;<span data-test="modal-title">{report.title}</span>
+      </h4>
+    }
+  >
+    <Form
+      onSubmit={handleRefresh}
+      subscription={{ submitting: true }}
+      render={({ handleSubmit, submitting }) => (
+        <form onSubmit={handleSubmit}>
+          {submitting && <Loader />}
+          <div className="card-block">
+            <div className="date-range-wrapper">
+              {report.minDate && report.maxDate && (
+                <React.Fragment>
+                  <Field
+                    name="minDate"
+                    component={Date}
+                    className="date"
+                    label="From"
+                    validate={composeValidators([
+                      validation.isRequired,
+                      validateDateRange
+                    ])}
+                    dataTest="from"
+                  />
 
-                    <Field
-                      name="to"
-                      component={Date}
-                      label="To"
-                      validate={composeValidators([
-                        validation.isRequired,
-                        validation.isDate
-                      ])}
-                      dataTest="to"
-                    />
-                    <Button
-                      className={Button.constants.classNames.primary}
-                      onClick={handleRefresh}
-                      disabled={submitting}
-                      data-test="modal-submit"
-                    >
-                      Refresh
-                    </Button>
-                  </div>
-                  <div className="card-block">
-                    <ReportTable columns={report.columns} reportData={[]} />
-                  </div>
-                  <div className="card-footer">
-                    <Button
-                      className={Button.constants.classNames.secondary}
-                      onClick={handleCancel}
-                      data-test="modal-cancel"
-                    >
-                      Cancel
-                    </Button>
-                    <a
-                      data-test="download-csv"
-                      href="#"
-                      onClick={handleDownload}
-                    >
-                      Download as CSV
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </form>
-          )}
-        />
-      </div>
-    </div>
-  </div>
+                  <Field
+                    name="maxDate"
+                    component={Date}
+                    label="To"
+                    validate={composeValidators([
+                      validation.isRequired,
+                      validateDateRange
+                    ])}
+                    dataTest="to"
+                  />
+                </React.Fragment>
+              )}
+              <Button
+                disabled={submitting}
+                type="submit"
+                className={Button.constants.classNames.primary}
+                data-test="modal-submit"
+              >
+                <i className="fa fa-refresh" />
+              </Button>
+            </div>
+            <ReportTable columns={report.columns} reportData={report.data} />
+          </div>
+          <div className="card-footer">
+            <Button
+              className={Button.constants.classNames.secondary}
+              onClick={handleCancel}
+              data-test="modal-cancel"
+            >
+              Cancel
+            </Button>
+            <a data-test="download-csv" href="#" onClick={handleDownload}>
+              Download as CSV
+            </a>
+          </div>
+        </form>
+      )}
+    />
+  </Modal>
 );
 
 ReportModal.propTypes = {
