@@ -105,8 +105,8 @@ const Contacts = ({ auth, match }) => (
             &nbsp;Territory Managers
           </h2>
           <div className="territory-managers">
-            {territoryManagerContacts.map(contact => (
-              <ContactCard key={contact.name} {...contact} />
+            {territoryManagerContacts.map((contact, i) => (
+              <ContactCard key={i} {...contact} />
             ))}
           </div>
           <div className="territory-map">

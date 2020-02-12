@@ -1,8 +1,9 @@
 import React from 'react';
-import { fireEvent, waitForElement } from 'react-testing-library';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  fireEvent,
+  waitForElement,
   defaultQuoteWorkflowProps,
   mockServiceRunner,
   underwritingResult as result,
@@ -73,9 +74,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   };
 
   it('NEG:All Inputs Empty Value', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() =>
       getByTestId('underwritingAnswers.rented.answer_label')
     );
@@ -90,9 +89,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   describe('NEG:All questions empty value', () => {
     for (let i = 0; i < fields.length; i++) {
       it(`Checks that field ${fields[i].dataTest} errors on an empty value`, async () => {
-        const { getByTestId } = renderWithReduxAndRouter(
-          <QuoteWorkflow {...props} />
-        );
+        const { getByTestId } = render(<QuoteWorkflow {...props} />);
         await waitForElement(() =>
           getByTestId('underwritingAnswers.rented.answer_label')
         );
@@ -110,9 +107,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   });
 
   it('POS:Check All Questions Text / Radio', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() =>
       getByTestId('underwritingAnswers.rented.answer_label')
     );
@@ -127,9 +122,7 @@ describe('Testing the QuoteWorkflow Underwriting Page', () => {
   });
 
   it('POS:Checks Submit Button', async () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() =>
       getByTestId('underwritingAnswers.rented.answer_label')
     );

@@ -536,7 +536,7 @@ describe('Auth', () => {
 
       const auth = new Auth();
       auth.checkAuth();
-      auth.handleAuthentication();
+      auth.handleAuthentication({ replace: x => x });
       auth.setSession({
         expiresIn: new Date(),
         accessToken: '3454',

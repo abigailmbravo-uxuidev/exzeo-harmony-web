@@ -2,11 +2,7 @@ import React from 'react';
 
 import { normalize } from '@exzeo/core-ui';
 
-import {
-  renderWithReduxAndRouter,
-  defaultProps,
-  checkHeader
-} from '../../test-utils';
+import { render, defaultProps, checkHeader } from '../../test-utils';
 import Contacts, {
   territoryManagerContacts,
   supportContacts
@@ -25,17 +21,13 @@ const pageHeaders = [
 
 describe('Testing the Contacts Page', () => {
   it('POS:Contacts Header Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <Contacts {...defaultProps} />
-    );
+    const { getByText } = render(<Contacts {...defaultProps} />);
 
-    pageHeaders.forEach(header => checkHeader(getByText, header));
+    pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 
   it('POS:Territory Managers Cards Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <Contacts {...defaultProps} />
-    );
+    const { getByText } = render(<Contacts {...defaultProps} />);
 
     territoryManagerContacts.forEach(manager => {
       expect(
@@ -50,9 +42,7 @@ describe('Testing the Contacts Page', () => {
   });
 
   it('POS:Support Cards Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <Contacts {...defaultProps} />
-    );
+    const { getByText } = render(<Contacts {...defaultProps} />);
 
     supportContacts.forEach(support => {
       const extension = support.extension ? ` ${support.extension}` : '';

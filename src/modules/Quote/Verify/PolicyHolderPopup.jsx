@@ -9,7 +9,11 @@ const PolicyHolderPopup = ({
   submitting
 }) => {
   return (
-    <div className="modal modal-xl" role="article">
+    <div
+      className="modal modal-xl"
+      role="article"
+      data-test="edit-policyHolder-modal"
+    >
       <Form
         onSubmit={handleFormSubmit}
         initialValues={initialValues}

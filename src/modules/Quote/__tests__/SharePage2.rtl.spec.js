@@ -1,8 +1,9 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  fireEvent,
+  wait,
   defaultQuoteWorkflowProps,
   checkLabel,
   checkSwitch,
@@ -26,24 +27,24 @@ describe('Testing Share Page 2', () => {
     location: { pathname: '/quote/12-345-67/assumptions' }
   };
 
-  it('"Confirmed" Value Switch Defaults to "No"', () => {
-    const { getByTestId, getByLabel } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
-    fields.forEach(field => {
-      checkLabel(getByTestId, field);
-      if (field.type === 'switch') checkSwitch(getByTestId, field);
-    });
+  it('"Confirmed" Value Switch Defaults to "No"', async () => {
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
+    const field = {
+      dataTest: 'confirm-assumptions',
+      type: 'switch',
+      label: 'Confirmed',
+      defaultValue: false
+    };
+
+    await checkSwitch(getByTestId, field);
     // Confirm the submit button is disabled by default and switches after clicking the switch
     expect(getByTestId('submit').disabled).toBe(true);
     fireEvent.click(getByTestId('confirm-assumptions'));
-    expect(getByTestId('submit').disabled).toBe(false);
+    await wait(() => expect(getByTestId('submit').disabled).toBe(false));
   });
 
   it('POS:Share Page 2 Text Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByText } = render(<QuoteWorkflow {...props} />);
     // If we alter this programatically we can use some data structure for these strings
     expect(
       getByText(
@@ -84,9 +85,7 @@ describe('Testing Share Page 2', () => {
   });
 
   it('POS:Checks Submit Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
     checkButton(getByTestId);
   });

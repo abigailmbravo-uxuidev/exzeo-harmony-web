@@ -5,6 +5,10 @@ const jestResolve = (result, error) =>
     error ? Promise.reject(result) : Promise.resolve({ data: { result } })
   );
 
-export default (result, error) => {
+export const mockServiceRunner = (result, error) => {
   serviceRunner.callService = jestResolve(result, error);
+};
+
+export const mockQuestions = (result, error) => {
+  serviceRunner.callQuestions = jestResolve({ data: { result } }, error);
 };

@@ -46,6 +46,7 @@ export const generateField = (
         {getErrorToolTip(formErrors, name)} {labelText}
       </label>
       <Field
+        id={name}
         autoFocus={autoFocus}
         name={name}
         className={''}

@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-  renderWithReduxAndRouter,
-  defaultProps,
-  quote
-} from '../../../test-utils';
+import { render, defaultProps, quote } from '../../../test-utils';
 import WorkflowNavigation from '../WorkflowNavigation';
 
 describe('Testing WorkflowNavigation Component', () => {
@@ -81,7 +77,7 @@ describe('Testing WorkflowNavigation Component', () => {
   ];
 
   it('POS:Tests Detail Header', () => {
-    const { getByText, queryByText } = renderWithReduxAndRouter(
+    const { getByText, queryByText } = render(
       <WorkflowNavigation {...props} />
     );
     // All static data pulled off dummy quote used above
@@ -101,9 +97,7 @@ describe('Testing WorkflowNavigation Component', () => {
   });
 
   it('POS:Tests Workflow Section Classes', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <WorkflowNavigation {...props} />
-    );
+    const { getByTestId } = render(<WorkflowNavigation {...props} />);
 
     workflowSections.forEach(({ name, status }) =>
       expect(getByTestId(name).firstChild).toHaveClass(status)
@@ -116,9 +110,7 @@ describe('Testing WorkflowNavigation Component', () => {
       currentStep: 2
     };
 
-    const { getByText } = renderWithReduxAndRouter(
-      <WorkflowNavigation {...newProps} />
-    );
+    const { getByText } = render(<WorkflowNavigation {...newProps} />);
     expect(getByText('$ 1,999,999'));
   });
 });

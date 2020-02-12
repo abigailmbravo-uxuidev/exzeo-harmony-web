@@ -1,7 +1,6 @@
 import React from 'react';
-import { waitForElement } from 'react-testing-library';
 
-import { renderWithReduxAndRouter, defaultProps } from '../../test-utils';
+import { render, waitForElement, defaultProps } from '../../test-utils';
 import Splash from '../Splash';
 
 const sideNavLinks = [
@@ -15,9 +14,7 @@ const sideNavLinks = [
 
 describe('Testing Splash component', () => {
   it('POS:Dashboard Banner', () => {
-    const { getByAltText, getByText } = renderWithReduxAndRouter(
-      <Splash {...defaultProps} />
-    );
+    const { getByAltText, getByText } = render(<Splash {...defaultProps} />);
 
     expect(getByAltText('TypTap Insurance').parentNode).toHaveAttribute(
       'href',
@@ -30,15 +27,13 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Detail Header', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <Splash {...defaultProps} />
-    );
+    const { getByText } = render(<Splash {...defaultProps} />);
 
     expect(getByText('Date'));
   });
 
   it('POS:Dashboard Side Navigation', () => {
-    const { getByTestId, getByText, getAllByText } = renderWithReduxAndRouter(
+    const { getByTestId, getByText, getAllByText } = render(
       <Splash {...defaultProps} />
     );
 
@@ -51,9 +46,7 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Footer', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <Splash {...defaultProps} />
-    );
+    const { getByText } = render(<Splash {...defaultProps} />);
 
     expect(getByText(/TypTap Management Company/).className).toEqual(
       'copyright'
@@ -61,7 +54,7 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Text', () => {
-    const { getByText, container } = renderWithReduxAndRouter(
+    const { getByText, container } = render(
       <Splash {...defaultProps} agency={{ displayName: 'Test Agency' }} />
     );
 
@@ -70,9 +63,7 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Image', () => {
-    const { container } = renderWithReduxAndRouter(
-      <Splash {...defaultProps} />
-    );
+    const { container } = render(<Splash {...defaultProps} />);
 
     expect(container.querySelector('div.welcome-banner')).toBeInTheDocument();
     expect(container.querySelector('div.typtap-lg')).toBeInTheDocument();
@@ -80,7 +71,7 @@ describe('Testing Splash component', () => {
   });
 
   it('POS:Dashboard Button', () => {
-    const { getByText } = renderWithReduxAndRouter(
+    const { getByText } = render(
       <Splash {...defaultProps} agency={{ status: 'Active' }} />
     );
 

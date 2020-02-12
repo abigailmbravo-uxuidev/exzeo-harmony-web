@@ -1,8 +1,10 @@
 import React from 'react';
-import { waitForElement, fireEvent } from 'react-testing-library';
 
 import {
-  renderWithForm,
+  render,
+  wait,
+  waitForElement,
+  fireEvent,
   mockServiceRunner,
   defaultInitialState
 } from '../../../test-utils';
@@ -84,7 +86,7 @@ describe('Testing the Reports Page', () => {
       ...defaultProps
     };
 
-    const { getByText, getByTestId } = renderWithForm(<Reports {...props} />, {
+    const { getByText, getByTestId } = render(<Reports {...props} />, {
       state,
       route: '/reports'
     });
@@ -104,24 +106,25 @@ describe('Testing the Reports Page', () => {
 
   it('No Report Nav Link if agencyReportsEnabled is false ', async () => {
     const state = { ...defaultInitialState };
-
     state.authState.userProfile.profile = { agencyReportsEnabled: false };
 
     const props = {
       ...defaultProps
     };
-    const { queryAllByTestId } = renderWithForm(<Reports {...props} />, {
+    const { getByText } = render(<Reports {...props} />, {
       state
     });
 
-    expect(await queryAllByTestId('nav-reports').length).toEqual(0);
+    await wait(() => {
+      expect(getByText(/REPORTS/).parentNode).not.toBeVisible();
+    });
   });
 
   it('Reports Section 2 Testing', async () => {
     const props = {
       ...defaultProps
     };
-    const { getByTestId, getByText } = renderWithForm(<Reports {...props} />);
+    const { getByTestId, getByText } = render(<Reports {...props} />);
 
     await waitForElement(() => getByText('Book Of Business'));
 
@@ -135,6 +138,6 @@ describe('Testing the Reports Page', () => {
 
     const download = getByTestId('Book_Of_Business_download_report');
 
-    expect(fireEvent.click(download)).toEqual(true);
+    await wait(() => expect(fireEvent.click(download)).toEqual(true));
   });
 });

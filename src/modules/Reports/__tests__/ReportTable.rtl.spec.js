@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  renderWithReduxAndRouter,
-  mockServiceRunner
-} from '../../../test-utils';
+import { render, mockServiceRunner } from '../../../test-utils';
 
 import ReportsTable from '../ReportTable';
 
@@ -33,9 +30,7 @@ describe('Reports Table Testing', () => {
     };
 
     it('Check Columns', async () => {
-      const { getByText } = renderWithReduxAndRouter(
-        <ReportsTable {...props} />
-      );
+      const { getByText } = render(<ReportsTable {...props} />);
       agencyActivityColumns.forEach(col => expect(getByText(col.title)));
     });
   });
@@ -47,9 +42,7 @@ describe('Reports Table Testing', () => {
     };
 
     it('Check Columns', async () => {
-      const { getByText } = renderWithReduxAndRouter(
-        <ReportsTable {...props} />
-      );
+      const { getByText } = render(<ReportsTable {...props} />);
       bookOfBusinessColumns.forEach(col => expect(getByText(col.title)));
     });
   });
