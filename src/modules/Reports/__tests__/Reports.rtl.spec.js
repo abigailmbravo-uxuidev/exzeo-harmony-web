@@ -67,6 +67,14 @@ const defaultProps = {
 };
 
 describe('Testing the Reports Page', () => {
+  Object.defineProperty(window, 'URL', {
+    configurable: true
+  });
+
+  window.URL = {
+    createObjectURL: jest.fn()
+  };
+
   it('Reports Header and Nav Link Testing Testing', async () => {
     const state = { ...defaultInitialState };
 
@@ -125,12 +133,7 @@ describe('Testing the Reports Page', () => {
       /Some BOB detail Text/
     );
 
-    expect(getByTestId('Book_Of_Business_run_report')).toHaveTextContent(
-      /RUN REPORT/
-    );
-
-    const download = getByTestId('Book_Of_Business_download');
-    expect(download.className).toEqual('fa fa-file-excel-o');
+    const download = getByTestId('Book_Of_Business_download_report');
 
     expect(fireEvent.click(download)).toEqual(true);
   });

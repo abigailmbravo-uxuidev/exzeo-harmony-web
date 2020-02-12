@@ -12,7 +12,7 @@ describe('Run Reports', () => {
       .click()
       .wait('@listReport');
 
-    cy.findDataTag('Book_Of_Business_download')
+    cy.findDataTag('Book_Of_Business_download_report')
       .click()
       .wait('@getReportById')
       .then(response => {
