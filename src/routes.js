@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 import Modal from 'react-modal';
 
 import { clearAppError, setAppModalError } from './state/actions/errorActions';
-import { getAgency } from './state/actions/agency.actions';
+import { getAgency as getAgencyAction } from './state/actions/agency.actions';
 
 import QuoteModule from './modules/Quote';
 import PolicyModule from './modules/Policy';
@@ -26,17 +26,17 @@ import Contacts from './containers/Contacts';
 
 class Routes extends Component {
   componentDidMount() {
-    const { agency, getAgencyAction, userProfile = {} } = this.props;
+    const { agency, getAgency, userProfile = {} } = this.props;
     if (!agency && (userProfile.entity || {}).agencyCode) {
-      getAgencyAction(userProfile.entity.agencyCode);
+      getAgency(userProfile.entity.agencyCode);
     }
   }
 
   componentDidUpdate(prevProps) {
-    const { agency, getAgencyAction, userProfile = {} } = this.props;
+    const { agency, getAgency, userProfile = {} } = this.props;
     if (!prevProps.userProfile) {
       if (!agency && (userProfile.entity || {}).agencyCode) {
-        getAgencyAction(userProfile.entity.agencyCode);
+        getAgency(userProfile.entity.agencyCode);
       }
     }
   }
@@ -190,6 +190,6 @@ export default connect(
   {
     setAppModalError,
     clearAppErrorAction: clearAppError,
-    getAgencyAction: getAgency
+    getAgency: getAgencyAction
   }
 )(Routes);

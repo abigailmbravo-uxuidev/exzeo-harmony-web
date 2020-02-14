@@ -15,12 +15,16 @@ import {
 import Pagination from './Pagination';
 import NewQuoteSearch from '../../modules/Search/SearchAddress';
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
+import { getParamsByContracts } from 'state/selectors/agency.selectors';
 
-const handleInitialize = state => ({
-  address: '',
-  pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
-  totalPages: _get(state.search, 'state.search.totalPages') || 0
-});
+const handleInitialize = state => {
+  const states = getParamsByContracts(state);
+  return {
+    state: states.length === 1 ? states[0].answer : '',
+    pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
+    totalPages: _get(state.search, 'state.search.totalPages') || 0
+  };
+};
 
 export const changePageQuote = async (props, isNext) => {
   const { fieldValues } = props;
@@ -122,7 +126,8 @@ export class SearchBar extends Component {
       handleSubmit,
       searchType,
       fieldValues,
-      searchResults
+      searchResults,
+      stateAnswers
     } = this.props;
     const status = agency && agency.status ? agency.status : null;
     const enableQuote = status === 'Active' || auth.isInternal;
@@ -144,9 +149,8 @@ export class SearchBar extends Component {
         >
           <div className="search-input-wrapper search-new-quote-wrapper">
             <NewQuoteSearch
-              filterTypeName="product"
               answers={answers}
-              filterTypeLabel="Select Product"
+              stateAnswers={stateAnswers}
               disabledSubmit={
                 this.props.appState.isLoading ||
                 !fieldValues.product ||
@@ -211,7 +215,8 @@ const mapStateToProps = state => ({
   policyResults: state.service.policyResults,
   search: state.search,
   userProfile: state.authState.userProfile,
-  searchResults: state.search.results
+  searchResults: state.search.results,
+  stateAnswers: getParamsByContracts(state)
 });
 
 export default connect(

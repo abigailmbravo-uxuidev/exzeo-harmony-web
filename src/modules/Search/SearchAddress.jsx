@@ -5,24 +5,28 @@ import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
 const { isValidAddressFormat, isRequired } = validation;
 
-const SearchAddress = ({
-  filterTypeOptions,
-  filterTypeLabel,
-  filterTypeName,
-  filterTypeOnChange,
-  answers,
-  disabledSubmit
-}) => (
+const SearchAddress = ({ answers, stateAnswers, disabledSubmit }) => (
   <React.Fragment>
     <Field
-      name={filterTypeName}
-      dataTest={filterTypeName}
-      label={filterTypeLabel}
+      name="product"
+      dataTest="product"
+      label="Select Product"
       component={Select}
-      id={filterTypeName}
+      id="product"
       validate={isRequired}
-      onChange={filterTypeOnChange}
       answers={answers.products}
+      styleName="property-search products"
+      segmented
+      errorHint
+    />
+    <Field
+      name="state"
+      dataTest="state"
+      label="Select State"
+      component={Select}
+      id="state"
+      validate={isRequired}
+      answers={stateAnswers}
       styleName="property-search products"
       segmented
       errorHint
