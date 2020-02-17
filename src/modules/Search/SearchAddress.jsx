@@ -19,18 +19,20 @@ const SearchAddress = ({ answers, stateAnswers, disabledSubmit }) => (
       segmented
       errorHint
     />
-    <Field
-      name="state"
-      dataTest="state"
-      label="Select State"
-      component={Select}
-      id="state"
-      validate={isRequired}
-      answers={stateAnswers}
-      styleName="property-search products"
-      segmented
-      errorHint
-    />
+    {stateAnswers && stateAnswers.length ? (
+      <Field
+        name="state"
+        dataTest="state"
+        label="Select State"
+        component={Select}
+        id="state"
+        validate={isRequired}
+        answers={stateAnswers}
+        styleName="property-search products"
+        segmented
+        errorHint
+      />
+    ) : null}
     <div className="property-search-wrappper">
       <Field
         name="address"
