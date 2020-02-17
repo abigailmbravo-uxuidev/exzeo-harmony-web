@@ -13,6 +13,7 @@ const isRequired = value => {
 
 const RetrieveQuote = ({ disabledSubmit, answers, products, states }) => {
   const productAnswers = [{ answer: '', label: 'All' }, ...products];
+  const stateAnswers = [{ answer: '', label: 'All' }, ...states];
 
   return (
     <React.Fragment>
@@ -52,7 +53,7 @@ const RetrieveQuote = ({ disabledSubmit, answers, products, states }) => {
         dataTest="state"
         label="State"
         component={Select}
-        answers={states}
+        answers={stateAnswers}
         showPlaceholder={false}
         styleName="state-search"
       />

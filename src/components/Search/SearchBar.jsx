@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, change } from 'redux-form';
+import { reduxForm, change, formValueSelector } from 'redux-form';
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 
@@ -18,9 +18,9 @@ import QuoteSearch from '../../modules/Search/RetrieveQuote';
 import { getParamsByContracts } from 'state/selectors/agency.selectors';
 
 const handleInitialize = state => {
-  const states = getParamsByContracts(state);
   return {
-    state: states.length === 1 ? states[0].answer : '',
+    state: '',
+    product: '',
     pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
     totalPages: _get(state.search, 'state.search.totalPages') || 0
   };
@@ -95,7 +95,8 @@ export class SearchBar extends Component {
       searchType,
       searchResults,
       search,
-      setQuoteSearch
+      setQuoteSearch,
+      stateAnswers
     } = this.props;
     const {
       totalRecords,
@@ -114,6 +115,10 @@ export class SearchBar extends Component {
       dispatch(change('SearchBar', 'pageNumber', pageNumber));
       dispatch(change('SearchBar', 'totalPages', totalPages));
       setQuoteSearch({ ...search, totalPages, pageNumber });
+    }
+
+    if (stateAnswers && stateAnswers.length === 1) {
+      dispatch(change('SearchBar', 'state', stateAnswers[0].answer));
     }
   }
 
@@ -207,19 +212,23 @@ SearchBar.propTypes = {
   })
 };
 
-const mapStateToProps = state => ({
-  appState: state.appState,
-  fieldValues: _get(state.form, 'SearchBar.values', {
-    address: '',
-    sortBy: 'policyNumber'
-  }),
-  initialValues: handleInitialize(state),
-  policyResults: state.service.policyResults,
-  search: state.search,
-  userProfile: state.authState.userProfile,
-  searchResults: state.search.results,
-  stateAnswers: getParamsByContracts(state)
-});
+const selector = formValueSelector('SearchBar');
+const mapStateToProps = state => {
+  const product = selector(state, 'product');
+  return {
+    appState: state.appState,
+    fieldValues: _get(state.form, 'SearchBar.values', {
+      address: '',
+      sortBy: 'policyNumber'
+    }),
+    initialValues: handleInitialize(state, product),
+    policyResults: state.service.policyResults,
+    search: state.search,
+    userProfile: state.authState.userProfile,
+    searchResults: state.search.results,
+    stateAnswers: getParamsByContracts(state, product)
+  };
+};
 
 export default connect(
   mapStateToProps,
@@ -231,7 +240,6 @@ export default connect(
   }
 )(
   reduxForm({
-    form: 'SearchBar',
-    enableReinitialize: true
+    form: 'SearchBar'
   })(SearchBar)
 );
