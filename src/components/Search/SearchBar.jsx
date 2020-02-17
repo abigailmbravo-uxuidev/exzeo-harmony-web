@@ -79,15 +79,13 @@ export const handleSearchBarSubmit = async (data, dispatch, props) => {
 };
 
 export const handleSearchBarAddressSubmit = (data, dispatch, props) => {
-  const { state, companyCode } = props.userProfile.entity;
-  const { address, product } = data;
-  props.setQuoteSearch({ searchType: 'address', address, product });
-  props.searchAddresses(
-    encodeURIComponent(address),
+  const { address, product, state } = data;
+  props.setQuoteSearch({ searchType: 'address', address, product, state });
+  props.searchAddresses({
+    address,
     product,
-    state,
-    companyCode
-  );
+    state
+  });
 };
 
 export class SearchBar extends Component {
@@ -134,11 +132,13 @@ export class SearchBar extends Component {
     const enableRetrieve =
       status === 'Active' || status === 'Pending' || auth.isInternal;
 
-    const answers = auth.isInternal
-      ? cspAnswers
+    const products = auth.isInternal
+      ? cspAnswers.products
       : agency && agency.cspAnswers
-      ? agency.cspAnswers
+      ? agency.cspAnswers.products
       : [];
+
+    const states = auth.isInternal ? cspAnswers.states : stateAnswers;
 
     // Only Active agencies can start new quote
     if (searchType === 'address' && enableQuote) {
@@ -149,8 +149,8 @@ export class SearchBar extends Component {
         >
           <div className="search-input-wrapper search-new-quote-wrapper">
             <NewQuoteSearch
-              answers={answers}
-              stateAnswers={stateAnswers}
+              products={products}
+              states={states}
               disabledSubmit={
                 this.props.appState.isLoading ||
                 !fieldValues.product ||
@@ -172,7 +172,8 @@ export class SearchBar extends Component {
           <div className="search-input-wrapper retrieve-quote-wrapper">
             <QuoteSearch
               disabledSubmit={this.props.appState.isLoading}
-              answers={answers}
+              products={products}
+              states={states}
             />
           </div>
           {(searchResults || []).length > 0 && fieldValues.totalPages > 1 && (
@@ -217,10 +218,7 @@ const mapStateToProps = state => ({
   search: state.search,
   userProfile: state.authState.userProfile,
   searchResults: state.search.results,
-  stateAnswers: getParamsByContracts(
-    state,
-    _get(state.form, 'SearchBar.values')
-  )
+  stateAnswers: getParamsByContracts(state)
 });
 
 export default connect(

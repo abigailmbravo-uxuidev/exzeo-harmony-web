@@ -5,7 +5,7 @@ import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
 const { isValidAddressFormat, isRequired } = validation;
 
-const SearchAddress = ({ answers, stateAnswers, disabledSubmit }) => (
+const SearchAddress = ({ products, states, disabledSubmit }) => (
   <React.Fragment>
     <Field
       name="product"
@@ -14,7 +14,7 @@ const SearchAddress = ({ answers, stateAnswers, disabledSubmit }) => (
       component={Select}
       id="product"
       validate={isRequired}
-      answers={answers.products}
+      answers={products}
       styleName="property-search products"
       segmented
       errorHint
@@ -26,7 +26,7 @@ const SearchAddress = ({ answers, stateAnswers, disabledSubmit }) => (
       component={Select}
       id="state"
       validate={isRequired}
-      answers={stateAnswers}
+      answers={states}
       styleName="property-search products"
       segmented
       errorHint
@@ -56,13 +56,9 @@ const SearchAddress = ({ answers, stateAnswers, disabledSubmit }) => (
   </React.Fragment>
 );
 
-SearchAddress.propTypes = {
-  changeSearchType: PropTypes.func,
-  searchTypeOptions: PropTypes.array
-};
-
 SearchAddress.defaultProps = {
-  canFilter: false
+  products: [],
+  states: []
 };
 
 export default SearchAddress;

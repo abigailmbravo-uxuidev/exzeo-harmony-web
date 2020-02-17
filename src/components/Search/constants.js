@@ -1,6 +1,10 @@
 export const companies = [{ answer: 'TTIC', label: 'TTIC' }];
 
-export const states = [{ answer: 'FL', label: 'FL' }];
+export const states = [
+  { answer: 'FL', label: 'FL' },
+  { answer: 'SC', label: 'SC' },
+  { answer: 'NJ', label: 'NJ' }
+];
 
 export const products = [
   { answer: 'HO3', label: 'HO3' },
