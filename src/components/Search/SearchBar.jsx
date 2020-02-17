@@ -19,6 +19,7 @@ import { getParamsByContracts } from 'state/selectors/agency.selectors';
 
 const handleInitialize = state => {
   return {
+    address: '',
     state: '',
     product: '',
     pageNumber: _get(state.search, 'state.search.pageNumber') || 1,
