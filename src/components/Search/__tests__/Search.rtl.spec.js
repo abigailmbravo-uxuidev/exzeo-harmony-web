@@ -51,6 +51,11 @@ describe('Testing Search Component', () => {
       target: { value: 'HO3' }
     });
 
+    expect(getByTestId('submit').disabled).toBe(true);
+    fireEvent.change(getByLabelText('Select State'), {
+      target: { value: 'FL' }
+    });
+
     // Search with one bad search and some good ones, to confirm spacing works
     fireEvent.change(addressInput, { target: { value: '     ' } });
     expect(getByTestId('submit').disabled).toBe(true);
