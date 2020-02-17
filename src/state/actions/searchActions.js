@@ -3,7 +3,7 @@ import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRu
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
-import { searchAddress } from '@exzeo/core-ui/src/@Harmony/Search/data';
+import { searchAddress } from '@exzeo/core-ui/src/@Harmony/Search';
 
 export const setPolicySearch = data => ({
   type: types.POLICY_SEARCH,
