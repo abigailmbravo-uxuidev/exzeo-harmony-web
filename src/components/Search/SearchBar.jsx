@@ -155,6 +155,7 @@ export class SearchBar extends Component {
                 this.props.appState.isLoading ||
                 !fieldValues.product ||
                 !fieldValues.address ||
+                !fieldValues.state ||
                 !String(fieldValues.address)
                   .replace(/\./g, '')
                   .trim()
@@ -216,7 +217,10 @@ const mapStateToProps = state => ({
   search: state.search,
   userProfile: state.authState.userProfile,
   searchResults: state.search.results,
-  stateAnswers: getParamsByContracts(state)
+  stateAnswers: getParamsByContracts(
+    state,
+    _get(state.form, 'SearchBar.values')
+  )
 });
 
 export default connect(
