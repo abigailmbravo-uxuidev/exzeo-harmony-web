@@ -241,6 +241,7 @@ export default connect(
   }
 )(
   reduxForm({
-    form: 'SearchBar'
+    form: 'SearchBar',
+    enableReinitialize: true
   })(SearchBar)
 );
