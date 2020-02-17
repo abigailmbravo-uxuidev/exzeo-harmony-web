@@ -4,7 +4,7 @@ import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
 const { isValidAddressFormat, isRequired } = validation;
 
-const SearchAddress = ({ products, states, disabledSubmit }) => (
+const SearchAddress = ({ products, states, disabledSubmit, disabledState }) => (
   <React.Fragment>
     <Field
       name="product"
@@ -29,6 +29,7 @@ const SearchAddress = ({ products, states, disabledSubmit }) => (
       styleName="property-search products"
       segmented
       errorHint
+      disabled={disabledState}
     />
     <div className="property-search-wrappper">
       <Field

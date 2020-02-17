@@ -100,7 +100,9 @@ export class SearchBar extends Component {
       searchResults,
       search,
       setQuoteSearch,
-      stateAnswers
+      stateAnswers,
+      productAnswers,
+      auth = {}
     } = this.props;
     const {
       totalRecords,
@@ -121,8 +123,16 @@ export class SearchBar extends Component {
       setQuoteSearch({ ...search, totalPages, pageNumber });
     }
 
-    if (stateAnswers && stateAnswers.length === 1) {
-      dispatch(change('SearchBar', 'state', stateAnswers[0].answer));
+    const products = auth.isInternal ? cspAnswers.products : productAnswers;
+    const states = auth.isInternal ? cspAnswers.states : stateAnswers;
+
+    console.log(auth);
+
+    if (states && states.length === 1) {
+      dispatch(change('SearchBar', 'state', states[0].answer));
+    }
+    if (products && products.length === 1) {
+      dispatch(change('SearchBar', 'product', products[0].answer));
     }
   }
 
@@ -143,7 +153,6 @@ export class SearchBar extends Component {
       status === 'Active' || status === 'Pending' || auth.isInternal;
 
     const products = auth.isInternal ? cspAnswers.products : productAnswers;
-
     const states = auth.isInternal ? cspAnswers.states : stateAnswers;
 
     // Only Active agencies can start new quote
@@ -157,6 +166,7 @@ export class SearchBar extends Component {
             <NewQuoteSearch
               products={products}
               states={states}
+              disabledState={!fieldValues.product}
               disabledSubmit={
                 this.props.appState.isLoading ||
                 !fieldValues.product ||
