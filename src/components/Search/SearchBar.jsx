@@ -222,7 +222,7 @@ const mapStateToProps = state => {
       address: '',
       sortBy: 'policyNumber'
     }),
-    initialValues: handleInitialize(state, product),
+    initialValues: handleInitialize(state),
     policyResults: state.service.policyResults,
     search: state.search,
     userProfile: state.authState.userProfile,
