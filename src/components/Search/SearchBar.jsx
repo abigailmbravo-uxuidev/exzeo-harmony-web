@@ -126,8 +126,6 @@ export class SearchBar extends Component {
     const products = auth.isInternal ? cspAnswers.products : productAnswers;
     const states = auth.isInternal ? cspAnswers.states : stateAnswers;
 
-    console.log(auth);
-
     if (states && states.length === 1) {
       dispatch(change('SearchBar', 'state', states[0].answer));
     }
