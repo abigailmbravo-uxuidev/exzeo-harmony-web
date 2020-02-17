@@ -15,7 +15,10 @@ import {
 import Pagination from './Pagination';
 import NewQuoteSearch from '../../modules/Search/SearchAddress';
 import QuoteSearch from '../../modules/Search/RetrieveQuote';
-import { getParamsByContracts } from 'state/selectors/agency.selectors';
+import {
+  getStatesByContracts,
+  getProductsByContracts
+} from 'state/selectors/agency.selectors';
 
 const handleInitialize = state => {
   return {
@@ -131,18 +134,15 @@ export class SearchBar extends Component {
       searchType,
       fieldValues,
       searchResults,
-      stateAnswers
+      stateAnswers,
+      productAnswers
     } = this.props;
     const status = agency && agency.status ? agency.status : null;
     const enableQuote = status === 'Active' || auth.isInternal;
     const enableRetrieve =
       status === 'Active' || status === 'Pending' || auth.isInternal;
 
-    const products = auth.isInternal
-      ? cspAnswers.products
-      : agency && agency.cspAnswers
-      ? agency.cspAnswers.products
-      : [];
+    const products = auth.isInternal ? cspAnswers.products : productAnswers;
 
     const states = auth.isInternal ? cspAnswers.states : stateAnswers;
 
@@ -227,7 +227,8 @@ const mapStateToProps = state => {
     search: state.search,
     userProfile: state.authState.userProfile,
     searchResults: state.search.results,
-    stateAnswers: getParamsByContracts(state, product)
+    stateAnswers: getStatesByContracts(state, product),
+    productAnswers: getProductsByContracts(state)
   };
 };
 

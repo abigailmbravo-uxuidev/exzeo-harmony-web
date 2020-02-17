@@ -6,9 +6,13 @@ export const states = [
   { answer: 'NJ', label: 'NJ' }
 ];
 
+export const PRODUCT_NAMES = {
+  AF3: 'Flood',
+  HO3: 'HO3'
+};
 export const products = [
-  { answer: 'HO3', label: 'HO3' },
-  { answer: 'AF3', label: 'Flood' }
+  { answer: 'HO3', label: PRODUCT_NAMES.HO3 },
+  { answer: 'AF3', label: PRODUCT_NAMES.AF3 }
 ];
 
 export const cspAnswers = {

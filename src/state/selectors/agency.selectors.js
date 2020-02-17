@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
+import { PRODUCT_NAMES } from 'components/Search/constants';
 
 const getAgency = state => state.agencyState.agency;
 const getProduct = (state, product) => product;
 
-export const getParamsByContracts = createSelector(
+export const getStatesByContracts = createSelector(
   [getAgency, getProduct],
   (agency, product) => {
     const states = [];
@@ -17,5 +18,22 @@ export const getParamsByContracts = createSelector(
       });
     });
     return states;
+  }
+);
+
+export const getProductsByContracts = createSelector(
+  [getAgency],
+  agency => {
+    const products = [];
+    if (!agency) return products;
+    agency.contracts.forEach(c => {
+      c.stateProducts.map(s => {
+        if (!products.some(p => p.answer === s.product)) {
+          products.push({ answer: s.product, label: PRODUCT_NAMES[s.product] });
+        }
+        return s;
+      });
+    });
+    return products;
   }
 );
