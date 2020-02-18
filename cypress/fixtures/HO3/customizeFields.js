@@ -1,6 +1,6 @@
 import { toCurrency } from '../../helpers';
 
-export const slidersHO3 = [
+export const sliders = [
   {
     path: 'coverageLimits.dwelling.value',
     value: '284000',
@@ -20,7 +20,7 @@ export const slidersHO3 = [
   }
 ];
 
-export const customizeRadiosHO3 = [
+export const customizeRadios = [
   {
     name: 'coverageLimits.otherStructures.value',
     defaultValue: '2',

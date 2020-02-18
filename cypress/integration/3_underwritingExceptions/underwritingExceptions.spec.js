@@ -12,7 +12,7 @@ import {
   navigateThroughMailingBilling
 } from '../../helpers';
 import { mailingBillingTest } from '../../pageTests';
-import { underwritingHO3, updateQuote } from '../../fixtures';
+import { underwriting, updateQuote } from '../../fixtures';
 
 describe('Underwriting Error Testing', () => {
   before('Login and go to Underwriting', () => {
@@ -26,7 +26,7 @@ describe('Underwriting Error Testing', () => {
   it('Underwriting Error', () => {
     // Give underwriting bad data.
     navigateThroughUnderwriting({
-      ...underwritingHO3,
+      ...underwriting,
       previousClaims: '3-5 Years'
     });
     navigateThroughCustomize();

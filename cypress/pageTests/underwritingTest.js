@@ -1,6 +1,6 @@
-import { underwritingHO3 } from '../fixtures/HO3';
+import { underwriting } from '../fixtures/HO3';
 
-const ho3Headers = [
+const headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '-' },
   {
     name: 'propertyAddressDetail',
@@ -21,32 +21,15 @@ const ho3Headers = [
   { name: 'premium', label: 'Premium', value: '$ --' }
 ];
 
-const af3Headers = [
-  { name: 'quoteNumberDetail', label: 'Quote Number', value: '-' },
-  {
-    name: 'propertyAddressDetail',
-    label: 'Address',
-    value: '4131 TEST ADDRESS'
-  },
-  { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
-  { name: 'FEMAfloodZoneDetail', label: 'FEMA Flood Zone', value: 'X' },
-  {
-    name: 'coverageLimits.building.amountDetail',
-    label: 'Coverage A',
-    value: '$ --'
-  },
-  { name: 'premium', label: 'Premium', value: '$ --' }
-];
-
-export default (product = 'HO3', underwriting = underwritingHO3) =>
+export default (data = underwriting) =>
   cy
     .task('log', 'Test Underwriting Page')
-    .wrap(Object.entries(underwriting))
+    .wrap(Object.entries(data))
     .each(([name, value]) =>
       cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
     )
     // Test headers before submit
-    .wrap(product === 'HO3' ? ho3Headers : af3Headers)
+    .wrap(headers)
     .each(header => cy.checkDetailHeader(header))
     // ----------------------------------------------
     .clickSubmit('#QuoteWorkflow')

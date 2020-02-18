@@ -1,4 +1,4 @@
-const ho3Headers = [
+const headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
   {
     name: 'propertyAddressDetail',
@@ -18,23 +18,7 @@ const ho3Headers = [
   }
 ];
 
-const af3Headers = [
-  { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
-  {
-    name: 'propertyAddressDetail',
-    label: 'Address',
-    value: '4131 TEST ADDRESS'
-  },
-  { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
-  { name: 'FEMAfloodZoneDetail', label: 'FEMA Flood Zone', value: 'X' },
-  {
-    name: 'coverageLimits.building.amountDetail',
-    label: 'Coverage A',
-    value: '$ 267,000'
-  }
-];
-
-export default (product = 'HO3') => {
+export default () => {
   cy.task('log', 'Test Additional Interest Page')
     .wait('@getQuestions')
     .then(({ request }) => {
@@ -53,9 +37,7 @@ export default (product = 'HO3') => {
     .findDataTag('name1')
     .should('have.attr', 'value', 'BANK OF AMERICA, NA');
   // Check header before submit
-  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
-    cy.checkDetailHeader(header)
-  );
+  cy.wrap(headers).each(header => cy.checkDetailHeader(header));
 
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ request, response }) => {

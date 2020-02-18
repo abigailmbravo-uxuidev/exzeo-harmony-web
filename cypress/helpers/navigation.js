@@ -1,8 +1,8 @@
 import {
-  userHO3,
-  underwritingHO3,
-  coverageHO3,
-  coverageAF3
+  user,
+  underwriting,
+  coverage
+  // coverageAF3
 } from '../fixtures';
 import { envelopeIdCheck, manualBindPolicy, getToken } from '../helpers';
 
@@ -15,8 +15,8 @@ export const navigateThroughLanding = () =>
     .click();
 
 export const navigateThroughSearchAddress = ({
-  address = userHO3.address,
-  product = userHO3.product
+  address = user.address,
+  product = user.product
 } = {}) =>
   cy
     .task('log', 'Navigating through Searching Address')
@@ -34,8 +34,8 @@ export const navigateThroughSearchAddress = ({
     });
 
 export const navigateThroughPolicyDetails = ({
-  policyDetails = userHO3.policyDetails,
-  agentCode = userHO3.agentCode
+  policyDetails = user.policyDetails,
+  agentCode = user.agentCode
 } = {}) => {
   cy.task('log', 'Navigating through Policy Details')
     .wrap(Object.entries(policyDetails))
@@ -68,7 +68,7 @@ export const navigateThroughPolicyDetails = ({
     });
 };
 
-export const navigateThroughUnderwriting = (data = underwritingHO3) =>
+export const navigateThroughUnderwriting = (data = underwriting) =>
   cy
     .task('log', 'Navigating through Underwriting')
     .wrap(Object.entries(data))
@@ -81,7 +81,7 @@ export const navigateThroughUnderwriting = (data = underwritingHO3) =>
       expect(response.status).to.eq(200);
     });
 
-export const navigateThroughCustomize = (slider = coverageHO3) => {
+export const navigateThroughCustomize = (slider = coverage) => {
   cy.task('log', 'Navigating through Customize');
 
   cy.wrap(Object.entries(slider))
@@ -112,8 +112,8 @@ export const navigateThroughAssumptions = () =>
     .clickSubmit('#QuoteWorkflow');
 
 export const navigateThroughPolicyholder = ({
-  customerInfo = userHO3.customerInfo,
-  secondCustomerInfo = userHO3.secondCustomerInfo
+  customerInfo = user.customerInfo,
+  secondCustomerInfo = user.secondCustomerInfo
 } = {}) =>
   cy
     .task('log', 'Navigating through Policyholder')
@@ -214,10 +214,7 @@ export const navigateThroughVerify = () =>
     .click()
     .clickSubmit('#QuoteWorkflow', 'next');
 
-export const navigateThroughSendApplicationAndBind = (
-  verifyEnvId,
-  prod = 'HO3'
-) => {
+export const navigateThroughSendApplicationAndBind = verifyEnvId => {
   cy.task('log', 'Navigating through Send Application and Bind').clickSubmit(
     '[data-test="schedule-date-modal"]',
     'modal-submit'
@@ -231,13 +228,12 @@ export const navigateThroughSendApplicationAndBind = (
         envelopeIdCheck(quoteNumber, apiUrl, token).then(response => {
           expect(response.body.result.envelopeId).to.not.be.empty;
         });
-        if (prod === 'HO3') {
-          manualBindPolicy(quoteNumber, apiUrl, token).then(response => {
-            cy.wrap(response.body.result.transaction.policyNumber).as(
-              'policyNumber'
-            );
-          });
-        }
+
+        manualBindPolicy(quoteNumber, apiUrl, token).then(response => {
+          cy.wrap(response.body.result.transaction.policyNumber).as(
+            'policyNumber'
+          );
+        });
       });
     });
   }
