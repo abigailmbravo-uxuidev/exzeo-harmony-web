@@ -99,12 +99,18 @@
             display: flex;
 
             dt {
-              flex-grow: 1;
-              flex-shrink: 1;
-            }
-            dd {
               flex-grow: 0;
               flex-shrink: 0;
+
+              margin-right: $padding;
+
+              white-space: nowrap;
+            }
+            dd {
+              flex-grow: 1;
+              flex-shrink: 1;
+
+              text-align: right;
             }
           }
         }
