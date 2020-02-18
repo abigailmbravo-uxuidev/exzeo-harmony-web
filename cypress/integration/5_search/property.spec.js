@@ -18,8 +18,9 @@ describe('HO3: Property Address Search Testing', () => {
 
   it('NEG:Test Invalid Addresses', () => {
     type('ADDRESS NOT FOUND');
-    cy.findDataTag('product').select('HO3');
-    findDataTag('state')
+    cy.findDataTag('product')
+      .select('HO3')
+      .findDataTag('state')
       .select('FL')
       .clickSubmit()
       .findDataTag('no-results')
