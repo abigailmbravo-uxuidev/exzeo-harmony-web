@@ -2,7 +2,7 @@
   "parser": "babel-eslint",
   "extends": "react-app",
   "rules": {
-    # "linebreak-style": [2, "unix"],
+    "linebreak-style": [2, "unix"],
     "no-unused-expressions": 0,
     "no-unused-vars": 0,
     "prefer-const": 1,
