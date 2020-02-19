@@ -86,6 +86,8 @@ describe('AF3: Property Search Testing', () => {
     type('ADDRESS NOT FOUND');
     cy.findDataTag('product')
       .select('AF3')
+      .findDataTag('state')
+      .select('FL')
       .clickSubmit()
       .findDataTag('no-results')
       .find('.no-results .card-header > h4')

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
-import { fireEvent } from 'react-testing-library';
+import { fireEvent, wait } from 'react-testing-library';
 import thunk from 'redux-thunk';
 
 import {
@@ -46,22 +46,26 @@ describe('Testing Search Component', () => {
     const addressInput = getByPlaceholderText(/Search for Property Address/);
     expect(addressInput);
 
-    expect(getByTestId('submit').disabled).toBe(true);
+    await wait(() => expect(getByTestId('submit').disabled).toBe(true));
+
     fireEvent.change(getByLabelText('Select Product'), {
       target: { value: 'HO3' }
     });
 
-    expect(getByTestId('submit').disabled).toBe(true);
+    await wait(() => expect(getByTestId('submit').disabled).toBe(true));
+
     fireEvent.change(getByLabelText('Select State'), {
       target: { value: 'FL' }
     });
 
     // Search with one bad search and some good ones, to confirm spacing works
     fireEvent.change(addressInput, { target: { value: '     ' } });
-    expect(getByTestId('submit').disabled).toBe(true);
+
+    await wait(() => expect(getByTestId('submit').disabled).toBe(true));
 
     fireEvent.change(addressInput, { target: { value: '123 test address' } });
-    expect(getByTestId('submit').disabled).toBe(false);
+
+    await wait(() => expect(getByTestId('submit').disabled).toBe(false));
   });
 
   it('NEG:Test Invalid Addresses', () => {
