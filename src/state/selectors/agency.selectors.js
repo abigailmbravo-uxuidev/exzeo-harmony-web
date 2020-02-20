@@ -10,11 +10,10 @@ export const getStatesByContracts = createSelector(
     const states = [];
     if (!agency || !product) return states;
     agency.contracts.forEach(c => {
-      c.stateProducts.map(s => {
+      c.stateProducts.forEach(s => {
         if (s.product === product && !states.some(p => p.answer === s.state)) {
           states.push({ answer: s.state, label: s.state });
         }
-        return s;
       });
     });
     return states;
@@ -27,11 +26,10 @@ export const getProductsByContracts = createSelector(
     const products = [];
     if (!agency) return products;
     agency.contracts.forEach(c => {
-      c.stateProducts.map(s => {
+      c.stateProducts.forEach(s => {
         if (!products.some(p => p.answer === s.product)) {
           products.push({ answer: s.product, label: PRODUCT_NAMES[s.product] });
         }
-        return s;
       });
     });
     return products;
