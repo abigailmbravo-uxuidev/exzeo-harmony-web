@@ -11,7 +11,8 @@ import {
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling
 } from '../../helpers';
-import { underwritingHO3, updateQuote } from '../../fixtures';
+import { mailingBillingTest } from '../../pageTests';
+import { underwriting, updateQuote } from '../../fixtures';
 
 describe('Underwriting Error Testing', () => {
   before('Login and go to Underwriting', () => {
@@ -25,7 +26,7 @@ describe('Underwriting Error Testing', () => {
   it('Underwriting Error', () => {
     // Give underwriting bad data.
     navigateThroughUnderwriting({
-      ...underwritingHO3,
+      ...underwriting,
       previousClaims: '3-5 Years'
     });
     navigateThroughCustomize();
@@ -41,9 +42,10 @@ describe('Underwriting Error Testing', () => {
       // Policyholder should be able to be navigated through without re-filling out the form.
       .clickSubmit('#QuoteWorkflow')
       .wait('@updateQuote');
+
     // Go back through with good data.
     navigateThroughUnderwriting();
-    navigateThroughCustomize();
+    cy.clickSubmit('#QuoteWorkflow').wait('@updateQuote');
     navigateThroughShare();
     navigateThroughAssumptions();
     navigateThroughPolicyholder();
@@ -70,7 +72,6 @@ describe('Underwriting Error Testing', () => {
         ]
       }
     }).as('updateQuote');
-
     navigateThroughMailingBilling();
     cy.get('button.btn-primary').click();
     cy.get('div#Error').should(

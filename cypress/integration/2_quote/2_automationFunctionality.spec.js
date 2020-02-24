@@ -10,9 +10,11 @@ import {
   navigateThroughPolicyholder,
   navigateThroughAdditionalInterests,
   navigateThroughMailingBilling,
-  navigateThroughScheduleDate,
+  navigateThroughSendApplicationAndBind,
   navigateThroughVerify
 } from '../../helpers';
+
+import { mailingBillingTest } from '../../pageTests';
 
 describe('Back Button Testing', () => {
   // Grab the quote number off the ui and retrieve it to confirm our quote is searchable with the quote number
@@ -86,6 +88,7 @@ describe('Back Button Testing', () => {
     navigateThroughAssumptions();
     navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
+    // mailingBillingTest();
     navigateThroughMailingBilling();
     getQuoteNumberAndRetrieve('Application Ready');
   });
@@ -101,6 +104,7 @@ describe('Back Button Testing', () => {
     navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
+
     navigateThroughVerify();
     getQuoteNumberAndRetrieve('Application Ready');
 
@@ -115,9 +119,9 @@ describe('Back Button Testing', () => {
     navigateThroughAdditionalInterests();
     navigateThroughMailingBilling();
     navigateThroughVerify();
-    navigateThroughScheduleDate();
-    cy.wait('@sendApplication')
-      .go('back')
+    navigateThroughSendApplicationAndBind();
+    cy.wait('@sendApplication');
+    cy.go('back')
       .get('div.dashboard-message')
       .should('exist');
   });

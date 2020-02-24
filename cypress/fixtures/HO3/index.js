@@ -1,4 +1,5 @@
-export { slidersHO3, customizeRadiosHO3 } from './customizeFields';
-export { default as loginHO3 } from './login';
-export { default as underwritingHO3 } from './underwriting';
-export { default as userHO3 } from './user';
+export { sliders, customizeRadios } from './customizeFields';
+export { default as login } from './login';
+export { default as underwriting } from './underwriting';
+export { default as user } from './user';
+export { coverage } from './coverage';
