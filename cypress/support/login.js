@@ -1,6 +1,6 @@
-import { loginHO3 } from '../fixtures';
+import { login } from '../fixtures';
 
-Cypress.Commands.add('login', (loginInfo = loginHO3) => {
+Cypress.Commands.add('login', (loginInfo = login) => {
   cy.visit('/logout');
 
   cy.get('.auth0-loading-screen')

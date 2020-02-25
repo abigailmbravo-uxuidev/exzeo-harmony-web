@@ -135,3 +135,22 @@ Cypress.Commands.add('nativeSetSliderValue', (slider, value) => {
   nativeInputValueSetter.call(slider, value);
   slider.dispatchEvent(new Event('change', { value, bubbles: true }));
 });
+
+/**
+ * @param {string} selector - Name of form to submit.
+ * @param {Number} value element(s) found.
+ */
+Cypress.Commands.add('sliderSet', (selector, val) =>
+  // nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+  cy.findDataTag(selector).then($range => {
+    // get the DOM node
+    const range = $range[0];
+    // set the value manually
+    Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      'value'
+    ).set.call(range, val);
+    // now dispatch the event
+    range.dispatchEvent(new Event('change', { value: val, bubbles: true }));
+  })
+);
