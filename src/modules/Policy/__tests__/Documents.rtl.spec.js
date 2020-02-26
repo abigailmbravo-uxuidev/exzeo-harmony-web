@@ -16,9 +16,9 @@ describe('Policy Document Page testing', () => {
   };
 
   it('POS:Has a table', () => {
-    const { getByText } = render(<PolicyWorkflow {...props} />);
-    expect(getByText('Date'));
-    expect(getByText('Document Type'));
+    const { getAllByText } = render(<PolicyWorkflow {...props} />);
+    expect(getAllByText('Date'));
+    expect(getAllByText('Document Type'));
 
     expect(document.querySelectorAll('tbody tr').length).toEqual(2);
   });
