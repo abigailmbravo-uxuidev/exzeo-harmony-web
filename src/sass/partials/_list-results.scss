@@ -6,7 +6,9 @@ ul.list-cards {
     > a,
     > div {
       align-items: center;
+
       padding: $padding $padding * 1.5;
+
       border: $card-border-width solid $card-border-color;
       border-radius: $card-border-radius;
       background: $white;
@@ -21,6 +23,7 @@ ul.list-cards {
         h5,
         p {
           margin: 0;
+
           color: $warm-gray-08;
         }
       }
@@ -65,12 +68,14 @@ ul.list-cards {
 
 .quote-list {
   flex-grow: 1;
+
   margin-bottom: $padding/2;
   padding: $padding * 2;
 
   .card {
     display: flex;
     flex-direction: row;
+
     margin: 0 0 ($padding/2);
     padding: $padding $padding * 1.5;
 
@@ -78,9 +83,11 @@ ul.list-cards {
 
     &:hover {
       z-index: 2;
-      box-shadow: $card-box-shadow-hover;
+
       cursor: pointer;
       transform: scale(1.004);
+
+      box-shadow: $card-box-shadow-hover;
 
       section {
         ul {
@@ -92,8 +99,8 @@ ul.list-cards {
               color: $bright-blue;
             }
             @include for-tablet-landscape-up {
-              background: rgba($bright-blue, 0.2);
               color: $bright-blue-darken-04;
+              background: rgba($bright-blue, 0.2);
             }
           }
         }
@@ -102,7 +109,9 @@ ul.list-cards {
 
     > a {
       display: flex;
+
       width: 100%;
+
       color: $warm-gray-14;
 
       &:hover {
@@ -117,6 +126,7 @@ ul.list-cards {
       flex-grow: 0;
       flex-shrink: 0;
       justify-content: center;
+
       padding: $padding;
 
       i {
@@ -125,8 +135,10 @@ ul.list-cards {
         flex-grow: 0;
         flex-shrink: 0;
         justify-content: center;
+
         width: 2rem;
         height: 2rem;
+
         font-size: $font-size-h2;
       }
 
@@ -140,6 +152,7 @@ ul.list-cards {
       flex-direction: column;
       flex-grow: 1;
       flex-shrink: 1;
+
       margin-left: $padding;
 
       .quote-no {
@@ -154,26 +167,49 @@ ul.list-cards {
 
         i {
           color: $bright-blue;
+
           font-size: 2rem;
         }
       }
 
       .card-detail-wrapper {
         display: flex;
+        flex-wrap: wrap;
+
         font-size: $font-size-sm;
+
+        @include for-tablet-landscape-up {
+          flex-wrap: nowrap;
+        }
 
         .sub-detail-wrapper {
           display: flex;
           flex-grow: 1;
           flex-shrink: 1;
-          justify-content: flex-end;
+          justify-content: space-between;
+
+          width: 100%;
+
+          @include for-tablet-landscape-up {
+            justify-content: flex-end;
+
+            width: auto;
+          }
 
           span {
             margin-left: 2rem;
 
             label {
               margin-right: $padding / 2;
+
               font-size: $font-size-xs;
+            }
+            &:first-child {
+              margin-left: 0;
+
+              @include for-tablet-landscape-up {
+                margin-left: 2rem;
+              }
             }
           }
         }
@@ -185,17 +221,21 @@ ul.list-cards {
         flex-basis: auto;
         flex-grow: 1;
         flex-shrink: 1;
+
+        width: auto;
         margin: 0;
         padding: 0;
-        width: auto;
+
         text-transform: uppercase;
         text-overflow: ellipsis;
+
         line-height: 1.25;
       }
 
       ul {
         margin: 0;
         padding: 0;
+
         list-style: none;
 
         li {
@@ -203,23 +243,30 @@ ul.list-cards {
           flex-grow: 1;
           flex-shrink: 0;
           justify-content: space-between;
+
           color: $warm-gray-14;
+
           font-size: $font-size-sm;
 
           @include transition(all 0.2s ease-in-out);
           @include for-phone-only {
             flex-direction: column;
+
             padding-top: $padding;
+
             border-top: 1px dashed $cool-gray-01;
 
             &:first-child {
               padding-top: 0;
+
               border-top-width: 0;
             }
           }
           @include for-tablet-portrait-up {
             flex-direction: column;
+
             padding-top: $padding;
+
             border-top: 1px dashed $cool-gray-01;
 
             &:first-child {
@@ -228,8 +275,10 @@ ul.list-cards {
           }
           @include for-tablet-landscape-up {
             flex-direction: row;
+
             padding: ($padding/4) ($padding);
             padding-top: 0;
+
             border-top-width: 0;
           }
 
@@ -237,6 +286,7 @@ ul.list-cards {
           .policy-no {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 5.75rem;
 
             @include for-phone-only {
@@ -250,6 +300,7 @@ ul.list-cards {
 
             @include for-phone-only {
               padding-bottom: $padding;
+
               font-size: $font-size-h5;
             }
             @include for-tablet-portrait-up {
@@ -268,10 +319,12 @@ ul.list-cards {
             @include for-phone-only {
               align-items: flex-end;
               justify-content: space-between;
+
               width: 100%;
             }
             @include for-tablet-portrait-up {
               justify-content: space-between;
+
               width: 100%;
             }
             @include for-tablet-landscape-up {
@@ -296,7 +349,9 @@ ul.list-cards {
             }
             @include for-tablet-landscape-up {
               display: flex;
+
               background: $cool-gray-01;
+
               font-size: $font-size-xs;
             }
 
@@ -335,31 +390,39 @@ ul.list-cards {
               display: flex;
               align-items: flex-start;
               flex-direction: column;
+
               width: auto;
 
               &:before {
                 margin-right: $padding/2;
+
                 content: 'Effective:';
+
                 font-size: $font-size-xs;
               }
             }
             @include for-tablet-portrait-up {
               display: flex;
               align-items: center;
+
               width: auto;
 
               &:before {
                 margin-right: $padding/2;
+
                 content: 'Effective:';
+
                 font-size: $font-size-xs;
               }
             }
             @include for-tablet-landscape-up {
               display: block;
+
               width: 5rem;
 
               &:before {
                 margin-right: 0;
+
                 content: '';
               }
             }
@@ -368,6 +431,7 @@ ul.list-cards {
           .started-on {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 5rem;
 
             @include for-phone-only {
@@ -384,6 +448,7 @@ ul.list-cards {
           .premium {
             flex-grow: 0;
             flex-shrink: 0;
+
             font-weight: $font-weight-bold;
 
             @include for-phone-only {

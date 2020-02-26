@@ -10,27 +10,34 @@
       }
       .loader.modal {
         position: fixed;
+        z-index: 10000;
         top: 3.375rem;
         bottom: 0;
-        z-index: 10000;
       }
       .app-wrapper {
         overflow: hidden;
         header {
           position: fixed;
           z-index: 100;
+
           overflow: visible;
+
           height: auto;
         }
         div[role='main'] {
           top: 3.375rem;
-          overflow: hidden;
+
+          overflow-x: hidden;
+          overflow-y: auto;
+
           height: auto;
           .content-wrapper {
             overflow: hidden;
+
             height: auto;
             .workflow {
               overflow: hidden;
+
               height: auto;
               .route {
                 overflow: hidden;
@@ -77,6 +84,7 @@
 
                   .survey-wrapper {
                     overflow: hidden;
+
                     height: auto;
                   }
                 }
@@ -88,11 +96,13 @@
                     &.route-content {
                       overflow-x: hidden;
                       overflow-y: auto;
+
                       height: calc(100vh - 3.375rem);
 
                       .survey-wrapper {
                         flex-grow: 0;
                         flex-shrink: 0;
+
                         height: auto;
 
                         .results-wrapper {

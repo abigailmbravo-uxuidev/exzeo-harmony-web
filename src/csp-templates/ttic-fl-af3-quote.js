@@ -17,7 +17,13 @@ const mock = {
         }
       },
       { value: 'premium', component: 'PremiumSection' }
-    ]
+    ],
+    banner: {
+      className: 'workflow-banner ttic fl af3 quote',
+      icon: 'af3',
+      title: 'TypTap',
+      subTitle: 'FL'
+    }
   },
   pages: [
     {

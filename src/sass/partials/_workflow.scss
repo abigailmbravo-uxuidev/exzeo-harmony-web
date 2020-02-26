@@ -3,15 +3,19 @@
   //workflow detail header
   .detailHeader {
     position: relative;
+
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: flex-start;
+
     padding-right: 7.5rem;
+
     background: $warm-gray-08;
 
     @include for-phone-only {
       flex-wrap: wrap;
+
       padding-right: 8rem;
     }
 
@@ -19,11 +23,13 @@
       dt {
         display: flex;
         align-items: baseline;
+
         white-space: nowrap;
 
         .btn {
           margin-left: $padding;
           padding: 0;
+
           border: none;
 
           i {
@@ -39,6 +45,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+
         margin: 0;
         padding: ($padding/2) ($padding * 1.5);
 
@@ -56,8 +63,9 @@
 
           dt {
             color: $white;
-            font-weight: $font-weight-bold;
+
             font-size: $font-size-sm;
+            font-weight: $font-weight-bold;
 
             @include for-phone-only {
               font-size: $font-size-xs;
@@ -66,7 +74,9 @@
 
           dd {
             margin: 0 0 0.125rem;
+
             color: $white;
+
             line-height: 1;
 
             @include for-phone-only {
@@ -75,6 +85,7 @@
 
             + dd {
               margin-bottom: $padding/4;
+
               font-size: $font-size-sm;
               line-height: 1;
 
@@ -113,13 +124,16 @@
 
       &.coverageDetails {
         display: flex;
+
         margin-right: 6.875rem;
 
         @include for-phone-only {
           position: absolute;
           top: 0;
           left: 6.875rem;
+
           flex-direction: column;
+
           margin-right: 0;
         }
 
@@ -149,21 +163,24 @@
         position: absolute;
         top: $padding/2;
         right: $padding/2;
+
         align-items: center;
         justify-content: center;
+
+        width: auto;
+        min-width: 7rem;
         margin: 0;
         padding: ($padding/2) $padding;
-        min-width: 7rem;
-        width: auto;
+
         background: $yellow-lighten-05;
         box-shadow: $card-box-shadow-alt;
 
         @include for-phone-only {
           position: fixed;
+          z-index: 10;
           top: 3.6125rem;
           right: $padding/2;
           right: 0;
-          z-index: 10;
         }
         @include for-tablet-portrait-up {
           right: ($padding/2);
@@ -174,6 +191,7 @@
           align-items: center;
           flex-direction: row;
           justify-content: space-between;
+
           padding: 0;
 
           @include for-phone-only {
@@ -185,13 +203,14 @@
               color: $bright-blue-darken-04;
 
               @include for-phone-only {
-                font-weight: $font-weight-bold;
                 font-size: $font-size-h6;
+                font-weight: $font-weight-bold;
               }
             }
 
             dd {
               color: $bright-blue-darken-04;
+
               font-size: $font-size-h4;
 
               @include for-phone-only {
@@ -206,23 +225,29 @@
   //stepper header
   .workflow-header {
     position: relative;
+
     display: flex;
     flex-shrink: 0;
     justify-content: space-around;
+
+    width: 100%;
     margin: 0;
     padding: $padding;
-    width: 100%;
-    background-color: $warm-gray-01;
+
     list-style: none;
+
+    background-color: $warm-gray-01;
 
     .rule {
       position: absolute;
+      z-index: 1;
       top: 1.75rem;
       left: 50%;
-      z-index: 1;
-      margin-left: -42%;
+
       width: 84%;
       height: 1px;
+      margin-left: -42%;
+
       background: $warm-gray-03;
 
       @include for-phone-only {
@@ -235,24 +260,31 @@
     /*li element*/
     li {
       z-index: 5;
+
       display: flex;
       align-items: center;
       flex: 1;
       flex-direction: column;
+
       text-align: center;
 
       a {
         z-index: 2;
+
         display: flex;
         align-items: center;
         flex-basis: auto;
         flex-direction: column;
         flex-grow: 0;
         flex-shrink: 0;
+
         padding: $padding;
-        color: $warm-gray-03;
-        font-weight: $font-weight-bold;
+
         cursor: pointer;
+
+        color: $warm-gray-03;
+
+        font-weight: $font-weight-bold;
 
         @include for-phone-only {
           padding: 0;
@@ -263,17 +295,19 @@
 
         &:focus,
         &:hover {
-          text-decoration: none;
           cursor: default;
+          text-decoration: none;
         }
 
         i {
           padding: 0 $padding * 2;
+
           background: $warm-gray-01;
 
           @include transition(all 0.2s ease-in-out);
           @include for-phone-only {
             padding: 0 $padding/2;
+
             font-size: $font-size-h4;
           }
           @include for-tablet-portrait-up {
@@ -284,6 +318,7 @@
           }
           @include for-big-desktop-up {
             width: 4rem;
+
             font-size: $font-size-h3;
           }
 
@@ -336,6 +371,7 @@
 
         span {
           white-space: nowrap;
+
           font-weight: $font-weight-bold;
 
           @include for-phone-only {
@@ -343,10 +379,12 @@
           }
           @include for-tablet-portrait-up {
             display: block;
+
             font-size: $font-size-xs;
           }
           @include for-tablet-landscape-up {
             display: block;
+
             font-size: $font-size-h6;
           }
           @include for-big-desktop-up {
@@ -355,26 +393,30 @@
         }
 
         &.active {
-          color: $bright-blue;
           cursor: pointer;
+
+          color: $bright-blue;
 
           &:focus,
           &:hover {
-            color: $bright-blue-lighten-01;
             text-decoration: none;
+
+            color: $bright-blue-lighten-01;
           }
         }
 
         &.disabled {
-          outline: none;
-          color: $warm-gray-03;
           cursor: default;
+
+          color: $warm-gray-03;
+          outline: none;
         }
 
         &.selected {
-          outline: none;
-          color: $warm-gray-07;
           cursor: default;
+
+          color: $warm-gray-07;
+          outline: none;
 
           i {
             color: $cool-gray-04;
@@ -382,13 +424,15 @@
         }
 
         &.complete {
-          color: $bright-blue-lighten-03;
           cursor: pointer;
+
+          color: $bright-blue-lighten-03;
 
           &:focus,
           &:hover {
-            color: $bright-blue;
             cursor: pointer;
+
+            color: $bright-blue;
           }
         }
       }
@@ -400,6 +444,7 @@
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: flex-end;
+
     padding: $padding ($padding * 2) ($padding * 2);
 
     .button-label-wrap {
@@ -408,8 +453,10 @@
       align-self: flex-start;
 
       .button-info {
-        color: $bright-blue;
         text-align: right;
+
+        color: $bright-blue;
+
         font-size: $font-size-sm;
       }
     }
@@ -418,4 +465,12 @@
       margin-left: $padding;
     }
   }
+}
+
+.workflow-disclaimer {
+  text-align: center;
+
+  color: $cool-gray-04;
+
+  font-size: $font-size-xs;
 }

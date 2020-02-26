@@ -135,6 +135,82 @@ hr {
 
   flex-grow: 0;
   flex-shrink: 0;
+
+  .workflow-banner {
+    position: fixed;
+    z-index: 100;
+    top: 0.75rem;
+    right: calc(50vw - 15rem);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30rem;
+
+    @include for-phone-only {
+      position: relative;
+      z-index: 10;
+      top: auto;
+      right: auto;
+
+      justify-content: flex-start;
+
+      width: 100%;
+      padding: $padding;
+
+      background: #3a5a70;
+    }
+
+    h3 {
+      margin: 0;
+
+      color: $white;
+
+      font-size: $font-size-base;
+
+      @include for-phone-only {
+        font-size: $font-size-sm;
+      }
+
+      span {
+        font-weight: $font-weight-normal;
+      }
+    }
+
+    .icon {
+      width: 3rem;
+      height: 2rem;
+
+      @include for-phone-only {
+        width: 2rem;
+        height: 1.5rem;
+      }
+
+      &.af3 {
+        flex-grow: 0;
+        flex-shrink: 0;
+
+        margin-right: $padding/2;
+
+        background-image: url('../img/TypTap-Flood-Insurance-logo-white.svg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100%;
+      }
+      &.ho3 {
+        flex-grow: 0;
+        flex-shrink: 0;
+
+        margin-right: $padding/2;
+
+        background-image: url('../img/TypTap-Home-Insurance-logo-white.svg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100%;
+      }
+    }
+  }
 }
 
 .scroll.survey-wrapper {

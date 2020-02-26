@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TabNavigation, DetailsHeader } from '@exzeo/core-ui/src/@Harmony';
 
 import { getNavLinks, STEP_NAMES } from './constants/workflowNavigation';
+import WorkflowBanner from '../../components/WorkflowBanner';
 
 export class WorkflowNavigation extends Component {
   getClassForStep = step => {
@@ -37,6 +38,7 @@ export class WorkflowNavigation extends Component {
 
     return (
       <div className="nav-and-header-wrapper">
+        {header.banner && <WorkflowBanner content={header.banner} />}
         <DetailsHeader
           context="quote"
           handleRecalc={handleRecalc}
