@@ -1,8 +1,10 @@
 import React from 'react';
-import { fireEvent, waitForElement } from 'react-testing-library';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  fireEvent,
+  waitForElement,
+  wait,
   defaultQuoteWorkflowProps,
   mockServiceRunner,
   mailingBillingResult as result,
@@ -120,32 +122,30 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('NEG:Tests all empty values', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     submitForm(getByTestId);
-    requiredFields.forEach(field => checkError(getByTestId, field));
+
+    await wait(() => {
+      requiredFields.forEach(field => checkError(getByTestId, field));
+    });
   });
 
   it('NEG:Tests Mailing Address empty values', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => expect(getByTestId('billPlan_Annual')));
 
-    requiredFields.forEach(fieldToLeaveBlank =>
-      verifyForm(getByTestId, requiredFields, [fieldToLeaveBlank])
-    );
+    await verifyForm(getByTestId, requiredFields, [requiredFields[0]]);
+    await verifyForm(getByTestId, requiredFields, [requiredFields[1]]);
+    await verifyForm(getByTestId, requiredFields, [requiredFields[2]]);
+    await verifyForm(getByTestId, requiredFields, [requiredFields[3]]);
   });
 
   it('NEG:Tests Invalid Input Values', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     const state = fields.find(
       ({ dataTest }) => dataTest === 'policyHolderMailingAddress.state'
     );
@@ -154,14 +154,14 @@ describe('Testing the Mailing/Billing Page', () => {
     );
     await waitForElement(() => getByTestId('billPlan_label'));
 
-    verifyForm(getByTestId, [
+    await verifyForm(getByTestId, [
       {
         ...state,
         value: 'foo',
         error: 'Only 2 letters allowed'
       }
     ]);
-    verifyForm(getByTestId, [
+    await verifyForm(getByTestId, [
       {
         ...zip,
         value: '123456789',
@@ -172,18 +172,18 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks all headers', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
-    pageHeaders.forEach(header => checkHeader(getByTestId, header));
+    await wait(() => {
+      pageHeaders.forEach(header =>
+        checkHeader(getByTestId, header.dataTest, header)
+      );
+    });
   });
 
   it('POS:Checks all labels', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => checkLabel(getByTestId, field));
@@ -191,9 +191,7 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks all inputs', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fields.forEach(field => {
@@ -221,9 +219,7 @@ describe('Testing the Mailing/Billing Page', () => {
         }
       ]
     });
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
     // Should be nothing inside of the bill plan tag since no option is selected by default
     expect(document.getElementById('billPlan').innerHtml).toBeUndefined();
@@ -235,32 +231,32 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks toggle fills out data', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     fireEvent.click(getByTestId('sameAsPropertyAddress'));
-    expect(getByTestId('policyHolderMailingAddress.address1').value).toBe(
-      '4131 TEST ADDRESS'
-    );
-    expect(getByTestId('policyHolderMailingAddress.address2').value).toEqual(
-      'TEST SECOND ADDRESS'
-    );
-    expect(getByTestId('policyHolderMailingAddress.city').value).toEqual(
-      'SARASOTA'
-    );
-    expect(getByTestId('policyHolderMailingAddress.state').value).toEqual('FL');
-    expect(getByTestId('policyHolderMailingAddress.zip').value).toEqual(
-      '00001'
-    );
+    await wait(() => {
+      expect(getByTestId('policyHolderMailingAddress.address1').value).toBe(
+        '4131 TEST ADDRESS'
+      );
+      expect(getByTestId('policyHolderMailingAddress.address2').value).toEqual(
+        'TEST SECOND ADDRESS'
+      );
+      expect(getByTestId('policyHolderMailingAddress.city').value).toEqual(
+        'SARASOTA'
+      );
+      expect(getByTestId('policyHolderMailingAddress.state').value).toEqual(
+        'FL'
+      );
+      expect(getByTestId('policyHolderMailingAddress.zip').value).toEqual(
+        '00001'
+      );
+    });
   });
 
   it('POS:Checks installment text', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
@@ -272,9 +268,7 @@ describe('Testing the Mailing/Billing Page', () => {
 
   it('POS:Checks Submit Button', async () => {
     mockServiceRunner(result);
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
     checkButton(getByTestId);

@@ -88,7 +88,7 @@ export class QuoteWorkflow extends Component {
 
     if (quote && quote.property) {
       this.props.getAgentsByAgencyCode(quote.agencyCode, quote.state);
-      this.props.getZipcodeSettings(quote);
+      this.props.getZipCodeSettings(quote);
     }
     this.getTemplate();
   }
@@ -379,12 +379,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    updateQuote,
-    getAgentsByAgencyCode,
-    getZipcodeSettings,
-    getQuote
-  }
-)(QuoteWorkflow);
+export default connect(mapStateToProps, {
+  updateQuote,
+  getAgentsByAgencyCode,
+  getZipCodeSettings: getZipcodeSettings,
+  getQuote
+})(QuoteWorkflow);

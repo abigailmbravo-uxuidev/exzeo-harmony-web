@@ -1,10 +1,9 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-
-import { render, fireEvent } from 'react-testing-library';
+import { render, fireEvent, wait } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
@@ -17,8 +16,6 @@ import {
   latestPolicy,
   zipCodeSettings
 } from '../test-utils';
-
-const mockStore = configureStore([thunk]);
 
 export const defaultInitialState = {
   search: {},
@@ -128,7 +125,6 @@ export const defaultQuoteWorkflowProps = {
   location: { pathname: '' },
   isLoading: false,
   quote,
-  quoteData: quote,
   headerDetails: {},
   workflowState: {},
   zipCodeSettings,
@@ -140,12 +136,9 @@ export const defaultQuoteWorkflowProps = {
     zipCodeSettings
   },
   userProfile,
-  submitForm: () => {},
   updateQuote: () => Promise.resolve({}),
   getAgentsByAgencyCode: () => {},
-  getZipcodeSettings: () => {},
-  getEnumsForQuoteWorkflow: () => {},
-  getBillingOptions: () => {},
+  getZipCodeSettings: () => {},
   getQuote: () => {}
 };
 
@@ -154,11 +147,8 @@ export const defaultPolicyWorkflowProps = {
   policy: latestPolicy,
   history: { replace: x => x },
   location: { pathname: '/policy' },
-  getPolicyDocumentsAction: () => {},
-  getSummaryLedgerAction: () => {},
-  getLatestPolicyAction: () => {},
   getAgentsByAgencyCode: () => {},
-  setAppModalErrorAction: () => {},
+  setAppModalError: () => {},
   clearPolicy: () => {},
   agents: [],
   policyDocuments: [],
@@ -171,13 +161,13 @@ export const defaultPolicyWorkflowProps = {
  * @param {Object} [{ state = defaultInitialState, store = mockStore(state) }={}] - The state and store, both optional, to be used.
  * If state is provided but store is not, store will be mocked from the given state.
  */
-export const renderWithReduxAndRouter = (
+export const customRender = (
   ui,
   {
-    state = defaultInitialState,
-    store = mockStore(state),
     route = '/',
-    history = createMemoryHistory({ initialEntries: [route] })
+    history = createMemoryHistory({ initialEntries: [route] }),
+    state = defaultInitialState,
+    store = createStore(rootReducer, state, applyMiddleware(thunk))
   } = {}
 ) => ({
   ...render(
@@ -195,17 +185,6 @@ export const renderWithReduxAndRouter = (
     </Router>
   )
 });
-
-// This function creates a real store with a form for use with ReduxForm components
-export const renderWithForm = (
-  ui,
-  {
-    route = '/',
-    history = createMemoryHistory({ initialEntries: [route] }),
-    state = defaultInitialState,
-    store = createStore(rootReducer, state, applyMiddleware(thunk))
-  } = {}
-) => renderWithReduxAndRouter(ui, { state, store, history, route });
 
 /**
  * A function to handle your query and your field and find the correct DOM element.
@@ -227,8 +206,8 @@ const parseQueryType = (query, field) => {
 };
 
 /**
- * @param {Object} query - The function from react-testing-library to be used.
- * @param {regex} [button=/submit/] - The regex used to find the button.
+ * @param {Function} query - The function from react-testing-library to be used.
+ * @param {RegExp} [button] - The regex used to find the button.
  */
 export const submitForm = (query, button = /submit/) =>
   fireEvent.click(query(button));
@@ -246,52 +225,52 @@ export const clearText = (query, field) =>
  */
 export const checkError = (
   query,
-  { dataTest, error = 'Field Required', ...rest } = {}
-) =>
-  expect(
-    parseQueryType(query, { ...rest, dataTest: `${dataTest}_error`, error })
-  ).toHaveTextContent(error);
+  { dataTest, error = 'Field Required' } = {}
+) => expect(query(`${dataTest}_error`)).toHaveTextContent(error);
 
 /**
- * @param {Object} query - The function from react-testing-library to be used.
+ * @param {Function} query - The function from react-testing-library to be used.
  * @param {Object} field { dataTest, label, ...rest } - The field object to find and test.
  */
-export const checkLabel = (query, { dataTest, label, ...rest }) =>
-  expect(
-    parseQueryType(query, { ...rest, dataTest: `${dataTest}_label`, label })
-  ).toHaveTextContent(label);
+export const checkLabel = (query, { dataTest, label }) =>
+  expect(query(`${dataTest}_label`)).toHaveTextContent(label);
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { defaultValue, value, ...rest } - The field object to find and test.
  */
 export const checkTextInput = (query, { defaultValue, value, ...rest }) => {
+  rest.label && checkLabel(query, { ...rest });
+
   const input = parseQueryType(query, { ...rest });
   defaultValue && expect(input.value).toBe(defaultValue);
-  fireEvent.change(input, { target: { value } });
-  expect(input.value).toBe(value);
 };
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field - The field object to find and test.
  */
-export const checkOutput = (query, { dataTest, value, ...rest }) => {
+export const checkOutput = async (query, { dataTest, value, ...rest }) => {
   const wrapper = parseQueryType(query, {
     ...rest,
     dataTest: `${dataTest}_wrapper`
   });
-  expect(wrapper.querySelector('output').textContent).toEqual(value);
+
+  const comp = document.querySelector(
+    '[data-test="coverageLimits.dwelling.value-input"]'
+  ).value;
+  await wait(
+    expect(wrapper.querySelector('output').textContent).toEqual(value)
+  );
 };
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { value, ...rest } - The field object to find and test.
  */
-export const checkPhoneInput = (query, { value, ...rest }) => {
-  const input = parseQueryType(query, { ...rest });
-  fireEvent.change(input, { target: { value } });
-  expect(input.value).toMatch(new RegExp(value.slice(0, 2)));
+export const checkPhoneInput = (query, field) => {
+  field.label && checkLabel(query, field);
+  expect(parseQueryType(query, field));
 };
 
 /**
@@ -300,15 +279,10 @@ export const checkPhoneInput = (query, { value, ...rest }) => {
  */
 export const checkRadio = (
   query,
-  {
-    dataTest,
-    values,
-    defaultValue,
-    format = x => x,
-    outputValues = [],
-    ...rest
-  }
-) =>
+  { dataTest, values, defaultValue, format = x => x, outputValue, ...rest }
+) => {
+  rest.label && checkLabel(query, { dataTest, label: rest.label });
+
   values.forEach((value, i) => {
     // Get the option to select
     const selectedOption = parseQueryType(query, {
@@ -321,49 +295,44 @@ export const checkRadio = (
     // Expect the value of the text is equal to the formatted value
     expect(selectedOption.textContent).toEqual(format(value));
     // If this is the default value it should be checked already, otherwise it should not be
-    value === defaultValue
-      ? expect(selectedOption.parentNode.className).toEqual(selectedClass)
-      : expect(selectedOption.parentNode.className).toEqual(unselectedClass);
-
-    // Click the option
-    fireEvent.click(selectedOption);
-    // If there is an output field, check it now
-    outputValues[i] &&
-      expect(
-        parseQueryType(query, {
-          dataTest: `${dataTest}_wrapper`
-        }).querySelector('output').textContent
-      ).toEqual(outputValues[i]);
-    // Expect the parent wrapper to be selected
-    expect(selectedOption.parentNode.className).toEqual(selectedClass);
-    // Expect all other values' parents to be unchecked
-    values
-      .filter(uncheckedValue => value !== uncheckedValue)
-      .forEach(uncheckedValue =>
-        expect(
-          parseQueryType(query, {
-            ...rest,
-            dataTest: `${dataTest}_${uncheckedValue}`
-          }).parentNode.className
-        ).toEqual(unselectedClass)
-      );
+    if (value === defaultValue) {
+      expect(selectedOption.parentNode.className).toEqual(selectedClass);
+    } else {
+      expect(selectedOption.parentNode.className).toEqual(unselectedClass);
+    }
   });
+
+  // Check the computed output
+  if (outputValue) {
+    expect(
+      parseQueryType(query, {
+        dataTest: `${dataTest}_wrapper`
+      }).querySelector('output').textContent
+    ).toEqual(outputValue);
+  }
+};
 
 /**
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field - The field object to find and test.
  */
-export const checkSwitch = (query, field) => {
+export const checkSwitch = async (query, field) => {
+  field.label && checkLabel(query, { ...field });
+
   const switchDiv = parseQueryType(query, field);
   // Toggle switch twice, check value each time
   expect(switchDiv.getAttribute('data-value')).toEqual(`${field.defaultValue}`);
   fireEvent.click(switchDiv);
-  expect(switchDiv.getAttribute('data-value')).toEqual(
-    `${!field.defaultValue}`
+  await wait(() =>
+    expect(switchDiv.getAttribute('data-value')).toEqual(
+      `${!field.defaultValue}`
+    )
   );
   fireEvent.click(switchDiv);
-  expect(switchDiv.getAttribute('data-value')).toEqual(
-    `${!!field.defaultValue}`
+  await wait(() =>
+    expect(switchDiv.getAttribute('data-value')).toEqual(
+      `${!!field.defaultValue}`
+    )
   );
 };
 
@@ -371,30 +340,39 @@ export const checkSwitch = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { dataTest, ...rest } - The field object to find and test.
  */
-export const checkSlider = (query, { dataTest, ...rest }) => {
+export const checkSlider = async (query, { dataTest, ...rest }) => {
+  rest.label && checkLabel(query, { dataTest, ...rest });
+
   // We check slider min and max value
   const slider = parseQueryType(query, {
     ...rest,
     dataTest: `${dataTest}-slider`
   });
+  const initialVal = slider.getAttribute('value');
+
   const min = slider.getAttribute('min');
   const max = slider.getAttribute('max');
   expect(slider);
   setSliderValue(slider, min);
-  expect(slider.value).toEqual(min);
+  await wait(() => expect(slider.value).toEqual(min));
   setSliderValue(slider, max);
-  expect(slider.value).toEqual(max);
+  await wait(() => expect(slider.value).toEqual(max));
+  // reset slider
+  setSliderValue(slider, initialVal);
+  await wait(() => expect(slider.value).toEqual(initialVal));
 };
 
 /**
- * @param {Object} query - The function from react-testing-library to be used.
+ * @param {Function} query - The function from react-testing-library to be used.
+ * @param {string} queryString - String used in query
  * @param {Object} field { dataTest, icon = false, text, ...rest } - The field object to find and test.
  */
 export const checkHeader = (
   query,
+  queryString,
   { dataTest, icon = false, text, ...rest }
 ) => {
-  const header = parseQueryType(query, { ...rest, dataTest, text });
+  const header = query(queryString);
   expect(header).toHaveTextContent(text);
   if (icon) {
     // find the first icon element and check that it's classname is the icon value in the field
@@ -418,8 +396,6 @@ export const checkSelect = (query, { defaultValue, values = [], ...rest }) => {
     ).toEqual(defaultValue.label);
   }
   values.forEach(({ value, label = value }) => {
-    fireEvent.change(select, { target: { value } });
-    expect(select.getAttribute('data-selected')).toEqual(value);
     expect(
       select.querySelector(`option[value="${value}"]`).textContent
     ).toEqual(label);
@@ -444,9 +420,9 @@ export const checkButton = (
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Array} [baseFields=[]] - Array of field objects to fill out.
  * @param {Array} [fieldsLeftBlank=[]] - Array of field objects to leave blank.
- * @param {regex|string} button - The regex/string used to find the button.
+ * @param {RegExp|String} [button] - The regex/string used to find the button.
  */
-export const verifyForm = (
+export const verifyForm = async (
   query,
   baseFields = [],
   fieldsLeftBlank = [],
@@ -467,7 +443,13 @@ export const verifyForm = (
   // Expect errors to exist on blank fields
   // or if there are no blank fields, then we check for errors on base fields
   // which will generally not be 'Field Required' errors
-  fieldsLeftBlank.length
-    ? fieldsLeftBlank.forEach(field => checkError(query, field))
-    : baseFields.forEach(field => checkError(query, field));
+  await wait(() =>
+    fieldsLeftBlank.length
+      ? fieldsLeftBlank.forEach(field => checkError(query, field))
+      : baseFields.forEach(field => checkError(query, field))
+  );
 };
+
+export * from '@testing-library/react';
+// override render method
+export { customRender as render };

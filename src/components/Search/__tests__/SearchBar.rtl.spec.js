@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 
-import { renderWithReduxAndRouter, defaultProps } from '../../../test-utils';
+import { render, defaultProps } from '../../../test-utils';
 import ConnectedSearchBar, { SearchBar } from '../SearchBar';
 
 describe('Testing SearchBar Component', () => {
@@ -15,36 +15,11 @@ describe('Testing SearchBar Component', () => {
   };
 
   it('POS:Should show basic connected searchbar', () => {
-    const { getByPlaceholderText, getByText } = renderWithReduxAndRouter(
+    const { getByPlaceholderText, getByText } = render(
       <ConnectedSearchBar {...props} />
     );
 
     expect(getByPlaceholderText('Search for Property Address'));
-    expect(getByText('Property Street Address'));
-  });
-
-  it('POS:Should be able to be recreated', async () => {
-    const newProps = {
-      ...props,
-      appState: { isLoading: false },
-      handleSubmit: () => {},
-      fieldValues: {},
-      userProfile: { appMetadata: { beta: false }, entity: { state: {} } },
-      searchType: 'address',
-      agency: {
-        status: 'Active'
-      }
-    };
-
-    const SearchBarForm = reduxForm({
-      form: 'SearchBar',
-      enableReinitialize: true
-    })(SearchBar);
-    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
-      <SearchBarForm {...newProps} />
-    );
-
-    expect(await getByPlaceholderText('Search for Property Address'));
     expect(getByText('Property Street Address'));
   });
 
@@ -69,7 +44,7 @@ describe('Testing SearchBar Component', () => {
       }
     };
 
-    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
+    const { getByText, getByPlaceholderText } = render(
       <ConnectedSearchBar {...newProps} />
     );
 

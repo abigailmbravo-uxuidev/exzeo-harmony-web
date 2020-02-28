@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  renderWithReduxAndRouter,
+  render,
   defaultInitialState,
   policySearchResult
 } from '../../../test-utils';
@@ -20,17 +20,17 @@ describe('Testing Policy Searchbar component', () => {
   };
 
   it('POS:Retrieve Policy Searchbar unit tests', () => {
-    const { getByText, getByPlaceholderText } = renderWithReduxAndRouter(
+    const { getByText, getByLabelText, getByPlaceholderText } = render(
       <ConnectedPolicySearchBar {...props} />
     );
 
-    expect(getByText('First Name'));
+    expect(getByLabelText('First Name'));
     expect(getByPlaceholderText('First Name Search'));
-    expect(getByText('Last Name'));
+    expect(getByLabelText('Last Name'));
     expect(getByPlaceholderText('Last Name Search'));
-    expect(getByText('Property Street Address'));
+    expect(getByLabelText('Property Street Address'));
     expect(getByPlaceholderText('Property Street Address Search'));
-    expect(getByText('Policy Number'));
+    expect(getByLabelText('Policy Number'));
     expect(getByPlaceholderText('Policy No Search'));
     expect(getByText('Search').previousSibling.className).toEqual(
       'fa fa-search'
@@ -50,10 +50,9 @@ describe('Testing Policy Searchbar component', () => {
         }
       }
     };
-    const { getByTestId } = renderWithReduxAndRouter(
-      <ConnectedPolicySearchBar {...props} />,
-      { state }
-    );
+    const { getByTestId } = render(<ConnectedPolicySearchBar {...props} />, {
+      state
+    });
 
     expect(getByTestId('page-back')).toBeInTheDocument();
     expect(getByTestId('page-forward')).toBeInTheDocument();

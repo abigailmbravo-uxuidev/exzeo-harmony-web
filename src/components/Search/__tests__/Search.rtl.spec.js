@@ -1,15 +1,12 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { fireEvent, wait } from 'react-testing-library';
-import thunk from 'redux-thunk';
-
 import {
-  renderWithReduxAndRouter,
+  wait,
+  render,
+  fireEvent,
   defaultProps,
   defaultInitialState,
   searchResult
 } from '../../../test-utils';
-import rootReducer from '../../../state/reducers';
 import ConnectedSearch from '../Search';
 
 describe('Testing Search Component', () => {
@@ -31,15 +28,10 @@ describe('Testing Search Component', () => {
 
   const state = { ...defaultInitialState, form: {} };
 
-  // Create a real store with our actual reducers so we have the formReducer
-  const store = createStore(rootReducer, state, applyMiddleware(thunk));
-
   it('NEG:Property Address Search Bar Empty Value', async () => {
-    const {
-      getByLabelText,
-      getByPlaceholderText,
-      getByTestId
-    } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
+    const { getByLabelText, getByPlaceholderText, getByTestId } = render(
+      <ConnectedSearch {...props} />
+    );
 
     const productSelect = await getByLabelText('Select Product');
     expect(productSelect);
@@ -69,9 +61,8 @@ describe('Testing Search Component', () => {
   });
 
   it('NEG:Test Invalid Addresses', () => {
-    const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(
-      <ConnectedSearch {...props} />,
-      { store }
+    const { getByPlaceholderText, getByTestId } = render(
+      <ConnectedSearch {...props} />
     );
     const searchbar = getByPlaceholderText(/Search for Property Address/);
     fireEvent.change(searchbar, {
@@ -86,10 +77,7 @@ describe('Testing Search Component', () => {
   });
 
   it('POS:Property Search Text', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <ConnectedSearch {...props} />,
-      { state }
-    );
+    const { getByText } = render(<ConnectedSearch {...props} />, { state });
 
     expect(getByText(/If you don't see your address/));
     expect(getByText(/If you still have problems finding an address/));
@@ -110,18 +98,18 @@ describe('Testing Search Component', () => {
         results: [searchResult]
       }
     };
-    const { getByText } = renderWithReduxAndRouter(
-      <ConnectedSearch {...props} />,
-      { state: newState }
-    );
-    const result = newState.search.results[0];
-    const card = document.querySelector(`li#${result.id} a`);
+    const { getByText, getByRole } = render(<ConnectedSearch {...props} />, {
+      state: newState
+    });
+
+    const addressObj = newState.search.results[0];
+    const card = getByRole('listitem');
 
     expect(card.querySelector('i.fa-map-marker')).toBeInTheDocument();
-    expect(getByText(`${result.physicalAddress.address1}`));
+    expect(getByText(`${addressObj.physicalAddress.address1}`));
     expect(
       getByText(
-        `${result.physicalAddress.city}, ${result.physicalAddress.state} ${result.physicalAddress.zip}`
+        `${addressObj.physicalAddress.city}, ${addressObj.physicalAddress.state} ${addressObj.physicalAddress.zip}`
       )
     );
     expect(card.querySelector('i.fa-chevron-circle-right')).toBeInTheDocument();

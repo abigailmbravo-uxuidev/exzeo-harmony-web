@@ -1,8 +1,8 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  fireEvent,
   defaultQuoteWorkflowProps,
   submitForm,
   checkError,
@@ -71,26 +71,20 @@ describe('Testing QuoteWorkflow Policy Details Page', () => {
   };
 
   it('NEG:All Inputs Empty Value', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     submitForm(getByTestId);
     phFields.forEach(field => checkError(getByTestId, field));
   });
 
   it('NEG:Primary Policyholder Empty Value', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     phFields.forEach(fieldToLeaveBlank =>
       verifyForm(getByTestId, phFields, [fieldToLeaveBlank])
     );
   });
 
   it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     [...phFields]
       .filter(({ dataTest }) => !dataTest.includes('Phone'))
       .forEach(({ dataTest }) =>
@@ -105,9 +99,7 @@ describe('Testing QuoteWorkflow Policy Details Page', () => {
   });
 
   it('NEG:Invalid Effective Date', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     submitForm(getByTestId);
     verifyForm(getByTestId, [
       {
@@ -125,17 +117,15 @@ describe('Testing QuoteWorkflow Policy Details Page', () => {
   });
 
   it('POS:Checks Headers', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     getByTestId('Policy Details');
-    pageHeaders.forEach(header => checkHeader(getByTestId, header));
+    pageHeaders.forEach(header =>
+      checkHeader(getByTestId, header.dataTest, header)
+    );
   });
 
   it('POS:Header Label / Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
     [...phFields].forEach(({ dataTest, label, value, type }) => {
       checkLabel(getByTestId, { dataTest, label });
@@ -154,9 +144,7 @@ describe('Testing QuoteWorkflow Policy Details Page', () => {
         ]
       }
     };
-    const { getByTestId, getByText } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...newProps} />
-    );
+    const { getByTestId, getByText } = render(<QuoteWorkflow {...newProps} />);
 
     detailsFields.forEach(field => {
       checkLabel(getByTestId, field);
@@ -167,9 +155,7 @@ describe('Testing QuoteWorkflow Policy Details Page', () => {
   });
 
   it('POS:Checks Submit Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
     checkButton(getByTestId);
   });

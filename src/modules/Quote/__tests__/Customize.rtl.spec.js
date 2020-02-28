@@ -1,8 +1,9 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  fireEvent,
+  wait,
   defaultQuoteWorkflowProps,
   checkRadio,
   checkSwitch,
@@ -14,190 +15,6 @@ import {
 } from '../../../test-utils';
 import { format } from '@exzeo/core-ui';
 import { QuoteWorkflow } from '../QuoteWorkflow';
-
-const fields = [
-  {
-    dataTest: 'coverageLimits.dwelling.value',
-    required: true,
-    type: 'slider',
-    label: 'Dwelling Limit'
-  },
-  {
-    dataTest: 'coverageLimits.otherStructures.value',
-    required: true,
-    type: 'radio',
-    label: 'Other Structures Limit',
-    values: ['0', '2', '5', '10'],
-    format: x => `${x}%`,
-    outputValues: ['$ 0', '$ 8,160', '$ 20,400', '$ 40,800']
-  },
-  {
-    dataTest: 'coverageLimits.personalProperty.value',
-    required: true,
-    type: 'radio',
-    label: 'Personal Property Limit',
-    values: ['0', '25', '35', '50'],
-    outputValues: ['$ 0', '$ 102,000', '$ 142,800', '$ 204,000'],
-    format: x => `${x}%`
-  },
-  {
-    dataTest: 'coverageOptions.personalPropertyReplacementCost.answer',
-    required: true,
-    type: 'switch',
-    label: 'Do you want Personal Property Replacement Cost Coverage?',
-    defaultValue: true
-  },
-  {
-    dataTest: 'coverageLimits.lossOfUse.value',
-    required: true,
-    type: 'output',
-    label: 'Loss of Use Limit',
-    value: '$ 40,800'
-  },
-  {
-    dataTest: 'coverageLimits.personalLiability.value',
-    required: true,
-    type: 'radio',
-    label: 'Personal Liability Limit',
-    values: ['100000', '300000'],
-    format: format.toCurrency
-  },
-  {
-    dataTest: 'coverageLimits.medicalPayments.value',
-    required: true,
-    type: 'output',
-    label: 'Medical Payments to Others',
-    value: '$ 2,000'
-  },
-  {
-    dataTest: 'coverageLimits.moldProperty.value',
-    required: true,
-    type: 'radio',
-    label:
-      'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
-    values: ['10000', '25000', '50000'],
-    defaultValue: '10000',
-    format: format.toCurrency
-  },
-  {
-    dataTest: 'coverageLimits.moldLiability.value',
-    required: true,
-    type: 'radio',
-    label:
-      'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
-    values: ['50000', '100000'],
-    defaultValue: '50000',
-    format: format.toCurrency
-  },
-  {
-    dataTest: 'coverageLimits.ordinanceOrLaw.value',
-    required: true,
-    type: 'radio',
-    label: 'Ordinance or Law Coverage Limit',
-    values: ['25', '50'],
-    defaultValue: '25',
-    format: x => `${x}% of Dwelling Limit`
-  },
-  {
-    dataTest: 'coverageOptions.sinkholePerilCoverage.answer',
-    required: true,
-    type: 'switch',
-    label: 'Do you want Sinkhole Loss Coverage?',
-    defaultValue: true
-  },
-  {
-    dataTest: 'deductibles.allOtherPerils.value',
-    required: true,
-    type: 'radio',
-    label: 'All Other Perils Deductible',
-    values: ['500', '1000', '2500'],
-    format: format.toCurrency
-  },
-  {
-    dataTest: 'deductibles.hurricane.value',
-    required: true,
-    type: 'radio',
-    label: 'Hurricane Deductible',
-    values: ['2', '5', '10'],
-    defaultValue: '2',
-    format: x => `${x}% of Dwelling Limit`,
-    outputValues: ['$ 8,160', '$ 20,400', '$ 40,800']
-  },
-  {
-    dataTest: 'deductibles.sinkhole.value',
-    required: true,
-    type: 'radio',
-    label: 'Sinkhole Deductible',
-    values: ['10'],
-    defaultValue: '10',
-    format: x => `${x}% of Dwelling Limit`,
-    outputValues: ['$ 40,800']
-  },
-  {
-    dataTest: 'property.windMitigation.roofCovering',
-    required: true,
-    type: 'radio',
-    label: 'Roof Covering:',
-    values: ['Non-FBC', 'FBC', 'Other']
-  },
-  {
-    dataTest: 'property.windMitigation.roofDeckAttachment',
-    required: true,
-    type: 'radio',
-    label: 'Roof Deck Attachment:',
-    values: ['A', 'B', 'C', 'D', 'Concrete', 'Other']
-  },
-  {
-    dataTest: 'property.windMitigation.roofToWallConnection',
-    required: true,
-    type: 'radio',
-    label: 'Roof to Wall Attachment:',
-    values: ['Toe Nails', 'Clips', 'Single Wraps', 'Double Wraps', 'Other']
-  },
-  {
-    dataTest: 'property.windMitigation.roofGeometry',
-    required: true,
-    type: 'radio',
-    label: 'Roof Geometry:',
-    values: ['Flat', 'Gable', 'Hip', 'Other']
-  },
-  {
-    dataTest: 'property.windMitigation.secondaryWaterResistance',
-    required: true,
-    type: 'radio',
-    label: 'Secondary Water Resistance (SWR):',
-    values: ['Yes', 'No', 'Other']
-  },
-  {
-    dataTest: 'property.windMitigation.openingProtection',
-    required: true,
-    type: 'radio',
-    label: 'Opening Protection:',
-    values: ['None', 'Basic', 'Hurricane', 'Other']
-  },
-  {
-    dataTest: 'property.burglarAlarm',
-    required: true,
-    type: 'switch',
-    label: 'Does the property have a burglar alarm?',
-    defaultValue: false
-  },
-  {
-    dataTest: 'property.fireAlarm',
-    required: true,
-    type: 'switch',
-    label: 'Does the property have a fire alarm?',
-    defaultValue: false
-  },
-  {
-    dataTest: 'property.sprinkler',
-    required: true,
-    type: 'radio',
-    label: 'Sprinkler',
-    defaultValue: 'N',
-    values: ['N', 'A', 'B']
-  }
-];
 
 const pageHeaders = [
   {
@@ -233,71 +50,272 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     location: { pathname: '/quote/12-345-67/customize' }
   };
 
-  it('NEG:Dwelling Limit', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
+  it('NEG:Dwelling Limit', async () => {
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
+
+    const dataTest = 'coverageLimits.dwelling.value';
+    const input = getByTestId(`${dataTest}-input`);
+
+    fireEvent.change(input, { target: { value: '0' } });
+    fireEvent.blur(input);
+    await wait(() =>
+      expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+        /Not a valid range./
+      )
     );
 
-    fields
-      .filter(({ type }) => type === 'slider')
-      .forEach(({ dataTest }) => {
-        const input = getByTestId(`${dataTest}-input`);
+    fireEvent.change(input, { target: { value: '124000' } });
+    fireEvent.blur(input);
+    await wait(() =>
+      expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+        /Not a valid range./
+      )
+    );
 
-        fireEvent.change(input, { target: { value: '0' } });
-        fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
-          /Not a valid range./
-        );
+    fireEvent.change(input, { target: { value: '2100000' } });
+    fireEvent.blur(input);
+    await wait(() =>
+      expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+        /Not a valid range./
+      )
+    );
 
-        fireEvent.change(input, { target: { value: '124000' } });
-        fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
-          /Not a valid range./
-        );
+    fireEvent.change(input, { target: { value: '3000000' } });
+    fireEvent.blur(input);
+    await wait(() =>
+      expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+        /Not a valid range./
+      )
+    );
 
-        fireEvent.change(input, { target: { value: '2100000' } });
-        fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
-          /Not a valid range./
-        );
-
-        fireEvent.change(input, { target: { value: '3000000' } });
-        fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
-          /Not a valid range./
-        );
-
-        fireEvent.change(input, { target: { value: '999999999' } });
-        fireEvent.blur(input);
-        expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
-          /Not a valid range./
-        );
-      });
+    fireEvent.change(input, { target: { value: '999999999' } });
+    fireEvent.blur(input);
+    await wait(() =>
+      expect(getByTestId(`${dataTest}_error`)).toHaveTextContent(
+        /Not a valid range./
+      )
+    );
   });
 
-  it('POS:Checks all fields', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+  it('POS:Checks all fields', async () => {
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
-    fields.forEach(field => {
-      checkLabel(getByTestId, field);
-      if (field.type === 'radio') checkRadio(getByTestId, field);
-      if (field.type === 'switch') checkSwitch(getByTestId, field);
-      if (field.type === 'slider') checkSlider(getByTestId, field);
-      if (field.type === 'output') checkOutput(getByTestId, field);
+    await checkSlider(getByTestId, {
+      dataTest: 'coverageLimits.dwelling.value',
+      required: true,
+      label: 'Dwelling Limit'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'coverageLimits.otherStructures.value',
+      required: true,
+      label: 'Other Structures Limit',
+      values: ['0', '2', '5', '10'],
+      defaultValue: '2',
+      format: x => `${x}%`,
+      outputValue: '$ 6,280'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'coverageLimits.personalProperty.value',
+      required: true,
+      label: 'Personal Property Limit',
+      values: ['0', '25', '35', '50'],
+      defaultValue: '25',
+      outputValue: '$ 78,500',
+      format: x => `${x}%`
+    });
+
+    await checkSwitch(getByTestId, {
+      dataTest: 'coverageOptions.personalPropertyReplacementCost.answer',
+      required: true,
+      label: 'Do you want Personal Property Replacement Cost Coverage?',
+      defaultValue: true
+    });
+
+    await checkOutput(getByTestId, {
+      dataTest: 'coverageLimits.lossOfUse.value',
+      required: true,
+      label: 'Loss of Use Limit',
+      value: '$ 31,400'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'coverageLimits.personalLiability.value',
+      required: true,
+      label: 'Personal Liability Limit',
+      values: ['100000', '300000'],
+      defaultValue: '300000',
+      format: format.toCurrency
+    });
+
+    await checkOutput(getByTestId, {
+      dataTest: 'coverageLimits.medicalPayments.value',
+      required: true,
+      label: 'Medical Payments to Others',
+      value: '$ 2,000'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'coverageLimits.moldProperty.value',
+      required: true,
+      label:
+        'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
+      values: ['10000', '25000', '50000'],
+      defaultValue: '10000',
+      format: format.toCurrency
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'coverageLimits.moldLiability.value',
+      required: true,
+      type: 'radio',
+      label:
+        'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
+      values: ['50000', '100000'],
+      defaultValue: '50000',
+      format: format.toCurrency
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'coverageLimits.ordinanceOrLaw.value',
+      required: true,
+      type: 'radio',
+      label: 'Ordinance or Law Coverage Limit',
+      values: ['25', '50'],
+      defaultValue: '25',
+      format: x => `${x}% of Dwelling Limit`
+    });
+
+    await checkSwitch(getByTestId, {
+      dataTest: 'coverageOptions.sinkholePerilCoverage.answer',
+      required: true,
+      type: 'switch',
+      label: 'Do you want Sinkhole Loss Coverage?',
+      defaultValue: true
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'deductibles.allOtherPerils.value',
+      required: true,
+      type: 'radio',
+      label: 'All Other Perils Deductible',
+      values: ['500', '1000', '2500'],
+      defaultValue: '1000',
+      format: format.toCurrency
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'deductibles.hurricane.value',
+      required: true,
+      type: 'radio',
+      label: 'Hurricane Deductible',
+      values: ['2', '5', '10'],
+      defaultValue: '2',
+      format: x => `${x}% of Dwelling Limit`,
+      outputValue: '$ 6,280'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'deductibles.sinkhole.value',
+      required: true,
+      type: 'radio',
+      label: 'Sinkhole Deductible',
+      values: ['10'],
+      defaultValue: '10',
+      format: x => `${x}% of Dwelling Limit`,
+      outputValue: '$ 31,400'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'property.windMitigation.roofCovering',
+      required: true,
+      type: 'radio',
+      label: 'Roof Covering:',
+      values: ['Non-FBC', 'FBC', 'Other'],
+      defaultValue: 'Other'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'property.windMitigation.roofDeckAttachment',
+      required: true,
+      type: 'radio',
+      label: 'Roof Deck Attachment:',
+      values: ['A', 'B', 'C', 'D', 'Concrete', 'Other'],
+      defaultValue: 'Other'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'property.windMitigation.roofToWallConnection',
+      required: true,
+      type: 'radio',
+      label: 'Roof to Wall Attachment:',
+      values: ['Toe Nails', 'Clips', 'Single Wraps', 'Double Wraps', 'Other'],
+      defaultValue: 'Other'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'property.windMitigation.roofGeometry',
+      required: true,
+      type: 'radio',
+      label: 'Roof Geometry:',
+      values: ['Flat', 'Gable', 'Hip', 'Other'],
+      defaultValue: 'Other'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'property.windMitigation.secondaryWaterResistance',
+      required: true,
+      type: 'radio',
+      label: 'Secondary Water Resistance (SWR):',
+      values: ['Yes', 'No', 'Other'],
+      defaultValue: 'Other'
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'property.windMitigation.openingProtection',
+      required: true,
+      type: 'radio',
+      label: 'Opening Protection:',
+      values: ['None', 'Basic', 'Hurricane', 'Other'],
+      defaultValue: 'Other'
+    });
+
+    await checkSwitch(getByTestId, {
+      dataTest: 'property.burglarAlarm',
+      required: true,
+      type: 'switch',
+      label: 'Does the property have a burglar alarm?',
+      defaultValue: false
+    });
+
+    await checkSwitch(getByTestId, {
+      dataTest: 'property.fireAlarm',
+      required: true,
+      type: 'switch',
+      label: 'Does the property have a fire alarm?',
+      defaultValue: false
+    });
+
+    checkRadio(getByTestId, {
+      dataTest: 'property.sprinkler',
+      required: true,
+      type: 'radio',
+      label: 'Sprinkler',
+      values: ['N', 'A', 'B'],
+      defaultValue: 'N'
     });
   });
 
   it('POS:Checks Header Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
-    pageHeaders.forEach(header => checkHeader(getByTestId, header));
+    pageHeaders.forEach(header =>
+      checkHeader(getByTestId, header.dataTest, header)
+    );
   });
 
-  it('POS:Checks Output Values for Slider', () => {
+  it('POS:Checks Output Values for Slider', async () => {
     const outputFields = [
       'coverageLimits.otherStructures.value_wrapper',
       'coverageLimits.personalProperty.value_wrapper',
@@ -305,9 +323,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       'coverageLimits.lossOfUse.value_wrapper',
       'deductibles.hurricane.value_wrapper'
     ];
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
     const slider = getByTestId('coverageLimits.dwelling.value-slider');
 
     const setSliderAndCheckOutput = (value, { dataTest, outputValue }) => {
@@ -317,25 +333,39 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       ).toHaveTextContent(outputValue);
     };
 
-    setSliderAndCheckOutput('350000', {
-      dataTest: outputFields[0],
-      outputValue: '$ 7,000'
-    });
-    setSliderAndCheckOutput('380000', {
-      dataTest: outputFields[1],
-      outputValue: '$ 95,000'
-    });
-    setSliderAndCheckOutput('380000', {
-      dataTest: outputFields[2],
-      outputValue: '$ 2,000'
-    });
-    setSliderAndCheckOutput('303000', {
-      dataTest: outputFields[3],
-      outputValue: '$ 30,300'
-    });
-    setSliderAndCheckOutput('295000', {
-      dataTest: outputFields[4],
-      outputValue: '$ 5,900'
-    });
+    await wait(() =>
+      setSliderAndCheckOutput('350000', {
+        dataTest: outputFields[0],
+        outputValue: '$ 7,000'
+      })
+    );
+
+    await wait(() =>
+      setSliderAndCheckOutput('380000', {
+        dataTest: outputFields[1],
+        outputValue: '$ 95,000'
+      })
+    );
+
+    await wait(() =>
+      setSliderAndCheckOutput('380000', {
+        dataTest: outputFields[2],
+        outputValue: '$ 2,000'
+      })
+    );
+
+    await wait(() =>
+      setSliderAndCheckOutput('303000', {
+        dataTest: outputFields[3],
+        outputValue: '$ 30,300'
+      })
+    );
+
+    await wait(() =>
+      setSliderAndCheckOutput('295000', {
+        dataTest: outputFields[4],
+        outputValue: '$ 5,900'
+      })
+    );
   });
 });

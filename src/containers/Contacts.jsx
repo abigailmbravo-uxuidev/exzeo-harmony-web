@@ -31,11 +31,11 @@ export const territoryManagerContacts = [
     email: 'jkelley@hcpci.com'
   },
   {
-    icon: 'image yanet-coursen',
-    name: 'Yanet Coursen',
+    icon: 'image user',
+    name: 'Traci Lebeda',
     title: 'Treasure Coast Florida Manager',
-    phone: '8134053273',
-    email: 'ycoursen@hcpci.com'
+    phone: '8134053610',
+    email: 'tlebeda@typtap.com'
   },
   {
     icon: 'image victor-ferdinandi',
@@ -105,8 +105,8 @@ const Contacts = ({ auth, match }) => (
             &nbsp;Territory Managers
           </h2>
           <div className="territory-managers">
-            {territoryManagerContacts.map(contact => (
-              <ContactCard key={contact.name} {...contact} />
+            {territoryManagerContacts.map((contact, i) => (
+              <ContactCard key={i} {...contact} />
             ))}
           </div>
           <div className="territory-map">

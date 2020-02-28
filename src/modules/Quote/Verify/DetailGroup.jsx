@@ -6,6 +6,7 @@ export const DetailGroup = ({
   children,
   header,
   detailClass,
+  dataTest,
   switchName,
   switchValue,
   switchOnChange,
@@ -13,7 +14,10 @@ export const DetailGroup = ({
   icon
 }) => {
   return (
-    <div className={classNames('detail-group', detailClass)}>
+    <div
+      className={classNames('detail-group', detailClass)}
+      data-test={dataTest}
+    >
       <h3 className="section-group-header">
         <i className={classNames(icon)} /> {header}
         <span

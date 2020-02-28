@@ -1,8 +1,8 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  fireEvent,
   defaultQuoteWorkflowProps,
   checkError,
   checkHeader,
@@ -57,7 +57,7 @@ describe('Testing the Share Page', () => {
   };
 
   it('NEG:All Inputs Empty Value', () => {
-    const { queryByTestId, getByTestId, getByText } = renderWithReduxAndRouter(
+    const { queryByTestId, getByTestId, getByText } = render(
       <QuoteWorkflow {...props} />
     );
     // Confirm share button exists and the modal does not
@@ -93,15 +93,15 @@ describe('Testing the Share Page', () => {
   });
 
   it('POS:Share Header / Text', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
-    pageHeaders.forEach(header => checkHeader(getByTestId, header));
+    pageHeaders.forEach(header =>
+      checkHeader(getByTestId, header.dataTest, header)
+    );
   });
 
   it('POS:Share Button / Share Modal', () => {
-    const { getByText, queryByTestId, getByTestId } = renderWithReduxAndRouter(
+    const { getByText, queryByTestId, getByTestId } = render(
       <QuoteWorkflow {...props} />
     );
 
@@ -126,9 +126,7 @@ describe('Testing the Share Page', () => {
   });
 
   it('POS:Share Text', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByText } = render(<QuoteWorkflow {...props} />);
 
     expect(getByText(/To SHARE this quote/));
     expect(getByText(/To CONTINUE the quote process/));
@@ -144,9 +142,7 @@ describe('Testing the Share Page', () => {
   });
 
   it('POS:Next Button', () => {
-    const { getByTestId } = renderWithReduxAndRouter(
-      <QuoteWorkflow {...props} />
-    );
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
     checkButton(getByTestId);
     checkButton(getByTestId, { dataTest: 'share', text: 'share' });

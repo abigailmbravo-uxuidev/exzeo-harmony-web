@@ -42,17 +42,12 @@ export const SelectInput = ({
           name={name}
           disabled={disabled}
           onChange={onChange}
-          aria-activedescendant={value}
         >
           <option aria-label={'Please select...'} disabled value={''}>
             Please select...
           </option>
           {answers.map((answer, index) => (
-            <option
-              aria-label={answer.label || answer.answer}
-              value={answer.answer}
-              key={index}
-            >
+            <option value={answer.answer} key={index}>
               {answer.label || answer.answer}
             </option>
           ))}

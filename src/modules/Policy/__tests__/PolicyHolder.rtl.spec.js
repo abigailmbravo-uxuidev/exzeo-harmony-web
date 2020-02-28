@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  renderWithReduxAndRouter,
+  render,
   defaultPolicyWorkflowProps,
   agent,
   checkHeader
@@ -56,34 +56,28 @@ describe('Policy Policyholder Page testing', () => {
     };
 
     policyProps.policy = {};
-    const { getByTestId } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...policyProps} />
-    );
+    const { getByTestId } = render(<PolicyWorkflow {...policyProps} />);
     expect(getByTestId('loader')).toBeInTheDocument();
   });
 
   it('Does not show 2nd ph when only one is present', () => {
-    const { queryByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { queryByText } = render(<PolicyWorkflow {...props} />);
 
     expect(queryByText('Policyholder 2')).not.toBeInTheDocument();
   });
 
   it('POS:Checks all headers', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...twoPhProps} />
-    );
+    const { getByText } = render(<PolicyWorkflow {...twoPhProps} />);
 
-    pageHeaders.forEach(header => checkHeader(getByText, header));
+    pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 
   it('POS:Policyholder 1 and Agent Details', () => {
-    const { getByText, getAllByText } = renderWithReduxAndRouter(
+    const { getByText, getAllByText } = render(
       <PolicyWorkflow {...twoPhProps} />
     );
 
-    expect(getByText('Policyholder Name').nextSibling).toHaveTextContent(
+    expect(getAllByText('Policyholder Name')[0].nextSibling).toHaveTextContent(
       'BATMAN ROBIN'
     );
     expect(getAllByText('Phone 1')[0].nextSibling).toHaveTextContent(

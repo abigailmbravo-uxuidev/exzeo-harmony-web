@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  renderWithReduxAndRouter,
+  render,
   defaultPolicyWorkflowProps,
   checkHeader
 } from '../../../test-utils';
@@ -25,17 +25,13 @@ describe('Policy Property Page testing', () => {
   };
 
   it('POS:Checks headers', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByText } = render(<PolicyWorkflow {...props} />);
 
-    pageHeaders.forEach(header => checkHeader(getByText, header));
+    pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 
   it('POS:Home and Location testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByText } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Year Home Built', value: '1998' },
       { label: 'Protection Class', value: '3' },
@@ -56,9 +52,7 @@ describe('Policy Property Page testing', () => {
   });
 
   it('POS:Wind Mitigation testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByText } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Roof Covering', value: 'test covering' },
       { label: 'Roof Geometry', value: 'test geometry' },

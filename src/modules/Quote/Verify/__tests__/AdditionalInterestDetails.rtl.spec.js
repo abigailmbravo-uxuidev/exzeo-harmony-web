@@ -1,7 +1,10 @@
 import React from 'react';
-import { render } from 'react-testing-library';
 
-import { defaultProps, additionalInterest } from '../../../../test-utils';
+import {
+  render,
+  defaultProps,
+  additionalInterest
+} from '../../../../test-utils';
 import AdditionalInterestDetails from '../AdditionalInterestDetails';
 
 describe('Verify Page Additional Interest Details Card Testing', () => {

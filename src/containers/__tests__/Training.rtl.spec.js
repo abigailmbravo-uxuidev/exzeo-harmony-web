@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-  renderWithReduxAndRouter,
-  defaultProps,
-  checkHeader
-} from '../../test-utils';
+import { render, defaultProps, checkHeader } from '../../test-utils';
 import Training, {
   externalLinksGeneric,
   externalLinksHome,
@@ -15,17 +11,13 @@ const pageHeaders = [{ text: 'Reference' }];
 
 describe('Testing the Helpful Info (Training) Page', () => {
   it('POS:Helpful Info Header Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <Training {...defaultProps} />
-    );
+    const { getByText } = render(<Training {...defaultProps} />);
 
-    pageHeaders.forEach(header => checkHeader(getByText, header));
+    pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 
   it('POS:Reference Links Testing', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <Training {...defaultProps} />
-    );
+    const { getByText } = render(<Training {...defaultProps} />);
 
     externalLinksGeneric.forEach(link => {
       expect(

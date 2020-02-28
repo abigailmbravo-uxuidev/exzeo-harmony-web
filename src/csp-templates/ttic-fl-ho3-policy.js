@@ -633,7 +633,8 @@ const mock = {
           type: '$SECTION',
           dependencies: [],
           data: {
-            className: 'coverage-limits'
+            className: 'coverage-limits',
+            dataTest: 'coverage-limits'
           },
           formData: {},
           children: [
@@ -823,7 +824,8 @@ const mock = {
           type: '$SECTION',
           dependencies: [],
           data: {
-            className: 'discount-surcharge'
+            className: 'discount-surcharge',
+            dataTest: 'discount-surcharge'
           },
           formData: {},
           children: [
@@ -964,7 +966,8 @@ const mock = {
           type: '$SECTION',
           dependencies: [],
           data: {
-            className: 'deductible'
+            className: 'deductible',
+            dataTest: 'deductible'
           },
           formData: {},
           children: [
