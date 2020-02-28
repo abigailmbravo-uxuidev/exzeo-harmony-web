@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, fireEvent, wait } from 'react-testing-library';
 
 import Error from '../Error';
 import {
-  defaultInitialState,
+  render,
+  fireEvent,
+  wait,
   quote,
   fatalUnderwritingException,
   reviewUnderwritingExcception

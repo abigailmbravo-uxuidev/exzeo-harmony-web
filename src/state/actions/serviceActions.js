@@ -3,7 +3,6 @@ import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRu
 import orderBy from 'lodash/orderBy';
 
 import { buildQuerystring } from './searchActions';
-import * as listActions from '../actionTypes/list.actionTypes';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { getAgentsByAgencyCode } from './agency.actions';
@@ -196,12 +195,12 @@ export const getZipcodeSettings = quote => {
           ? response.data.result
           : { timezone: '' }
     };
-    // ===== temporary until we remove this 'serviceActions' state slice
-    dispatch({
-      type: listActions.SET_ZIP_SETTINGS,
-      zipCodeSettings: settings.zipCodeSettings || {}
-    });
-    // =====
+    // // ===== temporary until we remove this 'serviceActions' state slice
+    // dispatch({
+    //   type: listActions.SET_ZIP_SETTINGS,
+    //   zipCodeSettings: settings.zipCodeSettings || {}
+    // });
+    // // =====
     return dispatch(serviceRequest(settings));
   };
 };

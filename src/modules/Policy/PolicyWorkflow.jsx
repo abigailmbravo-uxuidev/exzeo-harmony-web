@@ -188,11 +188,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    setAppModalError,
-    initializePolicyWorkflow,
-    clearPolicy
-  }
-)(PolicyWorkflow);
+export default connect(mapStateToProps, {
+  setAppModalError,
+  initializePolicyWorkflow,
+  clearPolicy
+})(PolicyWorkflow);

@@ -1,7 +1,6 @@
 import React from 'react';
-import { fireEvent } from 'react-testing-library';
 
-import { mockServiceRunner, renderWithForm } from '../../../test-utils';
+import { render, fireEvent, mockServiceRunner } from '../../../test-utils';
 
 import ReportModal from '../ReportModal';
 import { agencyActivityColumns, bookOfBusinessColumns } from '../constants';
@@ -32,7 +31,7 @@ describe('Testing the Reports Modal', () => {
     const props = {
       ...defaultProps
     };
-    const { getByTestId } = renderWithForm(<ReportModal {...props} />);
+    const { getByTestId } = render(<ReportModal {...props} />);
     const modalIcon = getByTestId('modal-icon');
     expect(modalIcon.className).toEqual('fa fa-calendar');
 
@@ -66,7 +65,7 @@ describe('Testing the Reports Modal', () => {
       }
     };
 
-    const { getByTestId } = renderWithForm(<ReportModal {...newProps} />);
+    const { getByTestId } = render(<ReportModal {...newProps} />);
     const modalIcon = getByTestId('modal-icon');
     expect(modalIcon.className).toEqual('fa fa-calendar');
 

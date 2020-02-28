@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '../../test-utils';
 import { http as axios } from '@exzeo/core-ui';
 import MockAdapter from 'axios-mock-adapter';
 import Downloader, { downloadFile } from '../Downloader';
@@ -12,8 +12,8 @@ const props = {
 
 describe('Testing Downloader component', () => {
   it('should test downloader', () => {
-    const wrapper = shallow(<Downloader {...props} />);
-    expect(wrapper.props().children).toEqual('testfile');
+    const { getByText } = render(<Downloader {...props} />);
+    expect(getByText(/testfile/i));
   });
 
   it('should test file download', () => {

@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-  renderWithReduxAndRouter,
-  defaultPolicyWorkflowProps
-} from '../../../test-utils';
+import { render, defaultPolicyWorkflowProps } from '../../../test-utils';
 import { PolicyWorkflow } from '../PolicyWorkflow';
 
 describe('Policy Workflow testing', () => {
@@ -25,9 +22,7 @@ describe('Policy Workflow testing', () => {
   ];
 
   it('POS:Has a detail header, tab navs, and footer', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByText } = render(<PolicyWorkflow {...props} />);
 
     expect(
       document.querySelector(`a[href="${props.match.url}/policyHolder"]`)
@@ -52,7 +47,7 @@ describe('Policy Workflow testing', () => {
   });
 
   it('POS:Checks Policy Workflow Sections', () => {
-    const { getAllByText } = renderWithReduxAndRouter(
+    const { getAllByText } = render(
       <PolicyWorkflow {...props} />
       // { state }
     );

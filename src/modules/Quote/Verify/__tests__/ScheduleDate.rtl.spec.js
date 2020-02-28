@@ -1,8 +1,7 @@
 import React from 'react';
-import { render } from 'react-testing-library';
 import ScheduleDate from '../ScheduleDate';
 
-import { policyHolder, checkButton } from '../../../../test-utils';
+import { render, policyHolder, checkButton } from '../../../../test-utils';
 
 describe('Congragulations Schedule Date Modal testing', () => {
   const props = {

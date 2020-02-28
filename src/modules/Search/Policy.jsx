@@ -49,10 +49,7 @@ export class PolicySearch extends Component {
   }
 }
 
-export default connect(
-  null,
-  {
-    clearPolicyResults,
-    setPolicySearch
-  }
-)(PolicySearch);
+export default connect(null, {
+  clearPolicyResults,
+  setPolicySearch
+})(PolicySearch);

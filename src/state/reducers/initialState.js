@@ -24,15 +24,6 @@ export default {
     agents: []
   },
   list: {
-    zipCodeSettings: {},
-    uiQuestions: {},
-    underwritingQuestions: [],
-    agents: [],
-    billingConfig: {
-      billToConfig: {},
-      billingOptions: [],
-      defaultBillToId: '',
-      paymentPlans: {}
-    }
+    agents: []
   }
 };

@@ -25,10 +25,9 @@ export class Search extends React.Component {
     };
   }
 
-  componentWillMount() {
-    const { clearResults, clearQuote } = this.props;
+  componentWillUnmount() {
+    const { clearResults } = this.props;
     clearResults();
-    clearQuote();
   }
 
   closeQuoteError = () => {
@@ -88,7 +87,6 @@ export class Search extends React.Component {
                 handleSelectAddress={this.handleSelectAddress}
                 handleSelectQuote={this.handleSelectQuote}
                 auth={auth}
-                {...this.props}
               />
             </div>
             <Footer />
@@ -117,12 +115,9 @@ const mapStateToProps = state => ({
   userProfile: state.authState.userProfile
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    createQuote,
-    clearQuote,
-    retrieveQuote,
-    clearResults
-  }
-)(Search);
+export default connect(mapStateToProps, {
+  createQuote,
+  clearQuote,
+  retrieveQuote,
+  clearResults
+})(Search);

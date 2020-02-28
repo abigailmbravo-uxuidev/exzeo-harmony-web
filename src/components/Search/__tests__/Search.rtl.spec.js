@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
-import { fireEvent } from 'react-testing-library';
 import thunk from 'redux-thunk';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  fireEvent,
   defaultProps,
   defaultInitialState,
   searchResult
@@ -39,7 +39,7 @@ describe('Testing Search Component', () => {
       getByLabelText,
       getByPlaceholderText,
       getByTestId
-    } = renderWithReduxAndRouter(<ConnectedSearch {...props} />, { store });
+    } = render(<ConnectedSearch {...props} />, { store });
 
     const productSelect = await getByLabelText('Select Product');
     expect(productSelect);
@@ -60,7 +60,7 @@ describe('Testing Search Component', () => {
   });
 
   it('NEG:Test Invalid Addresses', () => {
-    const { getByPlaceholderText, getByTestId } = renderWithReduxAndRouter(
+    const { getByPlaceholderText, getByTestId } = render(
       <ConnectedSearch {...props} />,
       { store }
     );
@@ -77,10 +77,7 @@ describe('Testing Search Component', () => {
   });
 
   it('POS:Property Search Text', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <ConnectedSearch {...props} />,
-      { state }
-    );
+    const { getByText } = render(<ConnectedSearch {...props} />, { state });
 
     expect(getByText(/If you don't see your address/));
     expect(getByText(/If you still have problems finding an address/));
@@ -101,18 +98,18 @@ describe('Testing Search Component', () => {
         results: [searchResult]
       }
     };
-    const { getByText } = renderWithReduxAndRouter(
-      <ConnectedSearch {...props} />,
-      { state: newState }
-    );
-    const result = newState.search.results[0];
-    const card = document.querySelector(`li#${result.id} a`);
+    const { getByText, getByRole } = render(<ConnectedSearch {...props} />, {
+      state: newState
+    });
+
+    const addressObj = newState.search.results[0];
+    const card = getByRole('listitem');
 
     expect(card.querySelector('i.fa-map-marker')).toBeInTheDocument();
-    expect(getByText(`${result.physicalAddress.address1}`));
+    expect(getByText(`${addressObj.physicalAddress.address1}`));
     expect(
       getByText(
-        `${result.physicalAddress.city}, ${result.physicalAddress.state} ${result.physicalAddress.zip}`
+        `${addressObj.physicalAddress.city}, ${addressObj.physicalAddress.state} ${addressObj.physicalAddress.zip}`
       )
     );
     expect(card.querySelector('i.fa-chevron-circle-right')).toBeInTheDocument();

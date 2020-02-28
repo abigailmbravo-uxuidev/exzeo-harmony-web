@@ -8,10 +8,15 @@ const FancyExternalLink = ({
   linkIcon
 }) => (
   <li>
-    <a href={url} target="_blank" rel="noopener noreferrer">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-labelledby="fancy-link-header"
+    >
       <div className={productIcon} />
       <div className="link-details">
-        <h5>{title}</h5>
+        <h5 id="fancy-link-header">{title}</h5>
         <p>{description}</p>
       </div>
       <div className="link-icon">
