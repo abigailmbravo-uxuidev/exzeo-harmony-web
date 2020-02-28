@@ -11,8 +11,9 @@ const isRequired = value => {
   return undefined;
 };
 
-const RetrieveQuote = ({ disabledSubmit, answers }) => {
-  const productAnswers = [{ answer: '', label: 'All' }, ...answers.products];
+const RetrieveQuote = ({ disabledSubmit, answers, products, states }) => {
+  const productAnswers = [{ answer: '', label: 'All' }, ...products];
+  const stateAnswers = [{ answer: '', label: 'All' }, ...states];
 
   return (
     <React.Fragment>
@@ -52,7 +53,7 @@ const RetrieveQuote = ({ disabledSubmit, answers }) => {
         dataTest="state"
         label="State"
         component={Select}
-        answers={answers.states}
+        answers={stateAnswers}
         showPlaceholder={false}
         styleName="state-search"
       />

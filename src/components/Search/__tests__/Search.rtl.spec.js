@@ -1,15 +1,12 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-
 import {
+  wait,
   render,
   fireEvent,
   defaultProps,
   defaultInitialState,
   searchResult
 } from '../../../test-utils';
-import rootReducer from '../../../state/reducers';
 import ConnectedSearch from '../Search';
 
 describe('Testing Search Component', () => {
@@ -31,38 +28,41 @@ describe('Testing Search Component', () => {
 
   const state = { ...defaultInitialState, form: {} };
 
-  // Create a real store with our actual reducers so we have the formReducer
-  const store = createStore(rootReducer, state, applyMiddleware(thunk));
-
   it('NEG:Property Address Search Bar Empty Value', async () => {
-    const {
-      getByLabelText,
-      getByPlaceholderText,
-      getByTestId
-    } = render(<ConnectedSearch {...props} />, { store });
+    const { getByLabelText, getByPlaceholderText, getByTestId } = render(
+      <ConnectedSearch {...props} />
+    );
 
     const productSelect = await getByLabelText('Select Product');
     expect(productSelect);
     const addressInput = getByPlaceholderText(/Search for Property Address/);
     expect(addressInput);
 
-    expect(getByTestId('submit').disabled).toBe(true);
+    await wait(() => expect(getByTestId('submit').disabled).toBe(true));
+
     fireEvent.change(getByLabelText('Select Product'), {
       target: { value: 'HO3' }
     });
 
+    await wait(() => expect(getByTestId('submit').disabled).toBe(true));
+
+    fireEvent.change(getByLabelText('Select State'), {
+      target: { value: 'FL' }
+    });
+
     // Search with one bad search and some good ones, to confirm spacing works
     fireEvent.change(addressInput, { target: { value: '     ' } });
-    expect(getByTestId('submit').disabled).toBe(true);
+
+    await wait(() => expect(getByTestId('submit').disabled).toBe(true));
 
     fireEvent.change(addressInput, { target: { value: '123 test address' } });
-    expect(getByTestId('submit').disabled).toBe(false);
+
+    await wait(() => expect(getByTestId('submit').disabled).toBe(false));
   });
 
   it('NEG:Test Invalid Addresses', () => {
     const { getByPlaceholderText, getByTestId } = render(
-      <ConnectedSearch {...props} />,
-      { store }
+      <ConnectedSearch {...props} />
     );
     const searchbar = getByPlaceholderText(/Search for Property Address/);
     fireEvent.change(searchbar, {

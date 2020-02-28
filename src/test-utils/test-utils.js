@@ -70,7 +70,32 @@ export const defaultInitialState = {
           { answer: 'AF3', label: 'AF3' }
         ],
         states: [{ answer: 'FL', label: 'FL' }]
-      }
+      },
+      contracts: [
+        {
+          stateProducts: [
+            {
+              state: 'FL',
+              product: 'HO3'
+            },
+            {
+              state: 'FL',
+              product: 'AF3'
+            },
+            {
+              state: 'NJ',
+              product: 'AF3'
+            },
+            {
+              state: 'SC',
+              product: 'AF3'
+            }
+          ],
+          companyCode: 'TTIC',
+          contractNumber: 'TT FL 01 19',
+          addendum: 'TT 02 18'
+        }
+      ]
     },
     agents: []
   },

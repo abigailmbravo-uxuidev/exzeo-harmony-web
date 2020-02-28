@@ -20,6 +20,8 @@ describe('HO3: Property Address Search Testing', () => {
     type('ADDRESS NOT FOUND');
     cy.findDataTag('product')
       .select('HO3')
+      .findDataTag('state')
+      .select('FL')
       .clickSubmit()
       .findDataTag('no-results')
       .find('.no-results .card-header > h4')

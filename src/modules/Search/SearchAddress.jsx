@@ -1,31 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Input, Button, Select, validation } from '@exzeo/core-ui';
 
 const { isValidAddressFormat, isRequired } = validation;
 
-const SearchAddress = ({
-  filterTypeOptions,
-  filterTypeLabel,
-  filterTypeName,
-  filterTypeOnChange,
-  answers,
-  disabledSubmit
-}) => (
+const SearchAddress = ({ products, states, disabledSubmit, disabledState }) => (
   <React.Fragment>
     <Field
-      name={filterTypeName}
-      dataTest={filterTypeName}
-      label={filterTypeLabel}
+      name="product"
+      dataTest="product"
+      label="Select Product"
       component={Select}
-      id={filterTypeName}
+      id="product"
       validate={isRequired}
-      onChange={filterTypeOnChange}
-      answers={answers.products}
+      answers={products}
       styleName="property-search products"
       segmented
       errorHint
+    />
+    <Field
+      name="state"
+      dataTest="state"
+      label="Select State"
+      component={Select}
+      id="state"
+      validate={isRequired}
+      answers={states}
+      styleName="property-search products"
+      segmented
+      errorHint
+      disabled={disabledState}
     />
     <div className="property-search-wrappper">
       <Field
@@ -52,13 +56,9 @@ const SearchAddress = ({
   </React.Fragment>
 );
 
-SearchAddress.propTypes = {
-  changeSearchType: PropTypes.func,
-  searchTypeOptions: PropTypes.array
-};
-
 SearchAddress.defaultProps = {
-  canFilter: false
+  products: [],
+  states: []
 };
 
 export default SearchAddress;

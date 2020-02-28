@@ -16,7 +16,8 @@ export const navigateThroughLanding = () =>
 
 export const navigateThroughSearchAddress = ({
   address = user.address,
-  product = user.product
+  product = user.product,
+  state = user.state
 } = {}) =>
   cy
     .task('log', 'Navigating through Searching Address')
@@ -24,6 +25,8 @@ export const navigateThroughSearchAddress = ({
     .type(address)
     .findDataTag('product')
     .select(product)
+    .findDataTag('state')
+    .select(state)
     .clickSubmit('#SearchBar')
     .findDataTag('search-results')
     .find('li[tabindex=0]')
