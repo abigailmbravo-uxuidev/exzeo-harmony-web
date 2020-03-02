@@ -167,6 +167,7 @@ export class Verify extends React.Component {
         <DetailGroup
           icon="fa fa-user-plus"
           header="Additional Parties"
+          dataTest="additional-interests"
           detailClass="additional-interests-details"
           switchName="confirmAdditionalInterest"
           switchValue={confirmAdditionalInterest}

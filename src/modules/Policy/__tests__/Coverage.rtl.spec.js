@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {
-  renderWithReduxAndRouter,
+  render,
+  within,
   defaultPolicyWorkflowProps,
   checkHeader
 } from '../../../test-utils';
@@ -29,17 +30,13 @@ describe('Policy Coverage Page testing', () => {
   };
 
   it('POS:Checks headers', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByText } = render(<PolicyWorkflow {...props} />);
 
-    pageHeaders.forEach(header => checkHeader(getByText, header));
+    pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 
   it('POS:Coverage Limits Details', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByTestId } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'A. Dwelling', value: '$ 314,000' },
       { label: 'B. Other Structures', value: '$ 6,280' },
@@ -56,15 +53,16 @@ describe('Policy Coverage Page testing', () => {
       { label: 'Sinkhole Deductible', value: '$ 31,400' }
     ];
 
+    const section = getByTestId('coverage-limits');
     sectionData.forEach(({ label, value }) =>
-      expect(getByText(label).nextSibling.textContent).toEqual(value)
+      expect(within(section).getByText(label).nextSibling.textContent).toEqual(
+        value
+      )
     );
   });
 
   it('POS:Discount / Surcharge Details', () => {
-    const { getByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByTestId } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Townhouse/Rowhouse', value: 'No' },
       { label: 'Property Ever Rented', value: 'Never' },
@@ -76,24 +74,28 @@ describe('Policy Coverage Page testing', () => {
       { label: 'Wind Mit Factor', value: '0' }
     ];
 
+    const section = getByTestId('discount-surcharge');
     sectionData.forEach(({ label, value }) =>
-      expect(getByText(label).nextSibling.textContent).toEqual(value)
+      expect(within(section).getByText(label).nextSibling.textContent).toEqual(
+        value
+      )
     );
   });
 
   it('POS:Deductible Details with sinkhole value', () => {
-    const { getAllByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...props} />
-    );
+    const { getByTestId } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'All Other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
       { label: 'Sinkhole Deductible', value: '10%' }
     ];
 
+    const section = getByTestId('deductible');
     sectionData.forEach(({ label, value }) =>
       // Since these labels can we repeat we have to confirm we're getting the last one on the page
-      expect(getAllByText(label).pop().nextSibling.textContent).toEqual(value)
+      expect(within(section).getByText(label).nextSibling.textContent).toEqual(
+        value
+      )
     );
   });
 
@@ -105,18 +107,18 @@ describe('Policy Coverage Page testing', () => {
 
     delete policyProps.policy.deductibles.sinkhole;
 
-    const { getAllByText } = renderWithReduxAndRouter(
-      <PolicyWorkflow {...policyProps} />
-    );
+    const { getByTestId } = render(<PolicyWorkflow {...policyProps} />);
     const sectionData = [
       { label: 'All Other Perils', value: '$ 1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
       { label: 'Sinkhole Deductible', value: 'No' }
     ];
-
+    const section = getByTestId('deductible');
     sectionData.forEach(({ label, value }) =>
       // Since these labels can we repeat we have to confirm we're getting the last one on the page
-      expect(getAllByText(label).pop().nextSibling.textContent).toEqual(value)
+      expect(within(section).getByText(label).nextSibling.textContent).toEqual(
+        value
+      )
     );
   });
 });

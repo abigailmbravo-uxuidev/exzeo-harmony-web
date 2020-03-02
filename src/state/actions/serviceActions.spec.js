@@ -3,6 +3,7 @@ import { http as axios } from '@exzeo/core-ui';
 import MockAdapter from 'axios-mock-adapter';
 import * as types from './actionTypes';
 import * as serviceActions from './serviceActions';
+import { buildQuerystring } from './searchActions';
 
 const middlewares = [];
 const mockStore = configureStore(middlewares);
@@ -151,27 +152,6 @@ describe('Service Actions', () => {
   it('should call start searchPolicy', () => {
     const mockAdapter = new MockAdapter(axios);
 
-    const axiosOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      url: `${process.env.REACT_APP_API_URL}/svc?searchPolicy`,
-      data: {
-        service: 'policy-data',
-        method: 'GET',
-        path:
-          'firstName=Test&lastName=Test&policyNumber=12-4001126-01&page=1&pageSize=25&sort=policyNumber&companyCode=TTIC&state=FL'
-      }
-    };
-
-    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
-      data: []
-    });
-
-    const initialState = {};
-    const store = mockStore(initialState);
-
     const params = {
       policyNumber: '12-4001126-01',
       firstName: 'Test',
@@ -184,6 +164,26 @@ describe('Service Actions', () => {
       companyCode: 'TTIC',
       state: 'FL'
     };
+
+    const axiosOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      url: `${process.env.REACT_APP_API_URL}/svc?searchPolicy`,
+      data: {
+        service: 'policy-data',
+        method: 'GET',
+        path: `/transactions?${buildQuerystring(params)}`
+      }
+    };
+
+    mockAdapter.onPost(axiosOptions.url, axiosOptions.data).reply(200, {
+      data: []
+    });
+
+    const initialState = {};
+    const store = mockStore(initialState);
 
     return serviceActions
       .searchPolicy(params)(store.dispatch)

@@ -3,6 +3,7 @@ import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRu
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { toggleLoading } from './appStateActions';
+import { searchAddress } from '@exzeo/core-ui/src/@Harmony/Search';
 
 export const setPolicySearch = data => ({
   type: types.POLICY_SEARCH,
@@ -118,38 +119,17 @@ function formatAddressResults(results) {
     noResults: !results.TotalCount
   };
 }
-/**
- * Build query string and call address search service
- * @param {string} address
- * @returns {Promise<{}>}
- */
-export async function fetchAddresses(address) {
-  const config = {
-    service: 'property-search',
-    method: 'GET',
-    path: `/v1/search/${address}/1/10`
-  };
-
-  try {
-    const response = await serviceRunner.callService(config, 'fetchAddresses');
-    return response && response.data && response.data.result
-      ? response.data.result
-      : {};
-  } catch (error) {
-    throw error;
-  }
-}
 
 /**
  * Search for addresses matching some given criteria, set results as state
  * @param {string} address
  * @returns {Function}
  */
-export function searchAddresses(address) {
+export function searchAddresses({ address, state }) {
   return async dispatch => {
     try {
       dispatch(toggleLoading(true));
-      const results = await fetchAddresses(address);
+      const results = await searchAddress({ address, state });
       dispatch(setSearchResults(formatAddressResults(results)));
     } catch (error) {
       dispatch(errorActions.setAppError(error));

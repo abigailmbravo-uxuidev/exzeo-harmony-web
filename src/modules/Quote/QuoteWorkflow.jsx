@@ -88,7 +88,7 @@ export class QuoteWorkflow extends Component {
 
     if (quote && quote.property) {
       this.props.getAgentsByAgencyCode(quote.agencyCode, quote.state);
-      this.props.getZipcodeSettings(quote);
+      this.props.getZipCodeSettings(quote);
     }
     this.getTemplate();
   }
@@ -210,7 +210,8 @@ export class QuoteWorkflow extends Component {
       options,
       quote,
       headerDetails,
-      getQuote
+      getQuote,
+      zipCodeSettings
     } = this.props;
 
     const { isRecalc, gandalfTemplate } = this.state;
@@ -282,7 +283,7 @@ export class QuoteWorkflow extends Component {
                   customHandlers={customHandlers}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
-                  options={options} // enums for select/radio fields
+                  options={{ ...options, zipCodeSettings }} // enums for select/radio fields
                   path={location.pathname}
                   template={gandalfTemplate}
                   transformConfig={transformConfig}
@@ -379,12 +380,9 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    updateQuote,
-    getAgentsByAgencyCode,
-    getZipcodeSettings,
-    getQuote
-  }
-)(QuoteWorkflow);
+export default connect(mapStateToProps, {
+  updateQuote,
+  getAgentsByAgencyCode,
+  getZipCodeSettings: getZipcodeSettings,
+  getQuote
+})(QuoteWorkflow);
