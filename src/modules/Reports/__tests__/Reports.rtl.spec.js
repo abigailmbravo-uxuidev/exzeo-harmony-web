@@ -65,7 +65,8 @@ const defaultProps = {
     params: {},
     path: '/reports',
     url: '/reports'
-  }
+  },
+  errorHandler: x => x
 };
 
 describe('Testing the Reports Page', () => {
@@ -78,9 +79,23 @@ describe('Testing the Reports Page', () => {
   };
 
   it('Reports Header and Nav Link Testing Testing', async () => {
-    const state = { ...defaultInitialState };
+    const {
+      authState,
+      authState: { userProfile }
+    } = defaultInitialState;
 
-    state.authState.userProfile.profile = { agencyReportsEnabled: true };
+    const state = {
+      ...defaultInitialState,
+      authState: {
+        ...authState,
+        userProfile: {
+          ...userProfile,
+          profile: {
+            agencyReportsEnabled: true
+          }
+        }
+      }
+    };
 
     const props = {
       ...defaultProps
@@ -105,8 +120,23 @@ describe('Testing the Reports Page', () => {
   });
 
   it('No Report Nav Link if agencyReportsEnabled is false ', async () => {
-    const state = { ...defaultInitialState };
-    state.authState.userProfile.profile = { agencyReportsEnabled: false };
+    const {
+      authState,
+      authState: { userProfile }
+    } = defaultInitialState;
+
+    const state = {
+      ...defaultInitialState,
+      authState: {
+        ...authState,
+        userProfile: {
+          ...userProfile,
+          profile: {
+            agencyReportsEnabled: false
+          }
+        }
+      }
+    };
 
     const props = {
       ...defaultProps
@@ -116,15 +146,35 @@ describe('Testing the Reports Page', () => {
     });
 
     await wait(() => {
-      expect(getByText(/REPORTS/).parentNode).not.toBeVisible();
+      expect(getByText(/REPORTS/).parentNode).toHaveAttribute;
     });
   });
 
   it('Reports Section 2 Testing', async () => {
+    const {
+      authState,
+      authState: { userProfile }
+    } = defaultInitialState;
+
+    const state = {
+      ...defaultInitialState,
+      authState: {
+        ...authState,
+        userProfile: {
+          ...userProfile,
+          profile: {
+            agencyReportsEnabled: true
+          }
+        }
+      }
+    };
+
     const props = {
       ...defaultProps
     };
-    const { getByTestId, getByText } = render(<Reports {...props} />);
+    const { getByTestId, getByText } = render(<Reports {...props} />, {
+      state
+    });
 
     await waitForElement(() => getByText('Book Of Business'));
 

@@ -168,11 +168,11 @@ export class PolicyWorkflow extends Component {
 }
 
 PolicyWorkflow.propTypes = {
-  auth: PropTypes.shape(),
-  match: PropTypes.shape(),
+  auth: PropTypes.shape({}),
+  match: PropTypes.shape({}),
   setAppModalError: PropTypes.func,
   initializePolicyWorkflow: PropTypes.func,
-  policy: PropTypes.shape(),
+  policy: PropTypes.shape({}),
   agents: PropTypes.array,
   policyDocuments: PropTypes.array
 };

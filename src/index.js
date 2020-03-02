@@ -36,7 +36,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { asyncSessionStorage } from 'redux-persist/storages';
 import { http as axios, retry } from '@exzeo/core-ui';
 
-import configureStore from './store/configureStore';
+import configureStore from './state/store/configureStore';
 import Authentication from './components/Authentication';
 import Routes from './routes';
 

@@ -5,7 +5,7 @@ export const getNavLinks = (
   params,
   enableQuote,
   enableRetrieve,
-  agencyReportsEnabled
+  enableReports
 ) => {
   return [
     {
@@ -39,7 +39,7 @@ export const getNavLinks = (
     },
     {
       key: 'policy',
-      to: '/policy',
+      to: '/search/policy',
       className: classNames('policy label', {
         'policy-detail': params.policyNumber
       }),
@@ -50,7 +50,7 @@ export const getNavLinks = (
       key: 'reports',
       to: '/reports',
       className: 'reports label',
-      hidden: !agencyReportsEnabled,
+      hidden: !enableReports,
       icon: <i className="fa" />,
       label: <span>REPORTS</span>
     },

@@ -1,5 +1,3 @@
-/* eslint-disable no-multi-spaces */
-/* eslint-disable max-len */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -8,21 +6,22 @@ import Modal from 'react-modal';
 
 import { clearAppError, setAppModalError } from './state/actions/errorActions';
 import { getAgency as getAgencyAction } from './state/actions/agency.actions';
+import { createQuote, retrieveQuote } from './state/actions/quoteState.actions';
 
 import QuoteModule from './modules/Quote';
 import PolicyModule from './modules/Policy';
-import QuoteSearch from './modules/Search/Quote';
-import Reports from './modules/Reports/Reports';
+import Reports from './modules/Reports';
+import Search from './modules/Search';
 
 import Login from './containers/Login';
 import Splash from './containers/Splash';
-import PolicySearch from './modules/Search/Policy';
 import AppError from './containers/AppError';
 import AccessDenied from './containers/AccessDenied';
 import Callback from './containers/Callback';
 import NotFound from './containers/NotFound';
 import Training from './containers/Training';
 import Contacts from './containers/Contacts';
+import { userResources } from './utilities/userResources';
 
 class Routes extends Component {
   componentDidMount() {
@@ -47,16 +46,17 @@ class Routes extends Component {
   };
 
   render() {
-    const { auth, agency, error, userProfile, setAppModalError } = this.props;
+    const {
+      auth,
+      agency,
+      createQuote,
+      error,
+      retrieveQuote,
+      setAppModalError,
+      userProfile
+    } = this.props;
+    const { enableReports } = userResources(userProfile, agency);
 
-    auth.isInternal =
-      userProfile && userProfile.userType
-        ? userProfile.userType.toLowerCase() === 'internal'
-        : false;
-    const agencyReportsEnabled =
-      userProfile && userProfile.profile
-        ? userProfile.profile.agencyReportsEnabled
-        : false;
     return (
       <React.Fragment>
         <Modal
@@ -91,16 +91,58 @@ class Routes extends Component {
               exact
               path="/"
               render={props => (
-                <Splash auth={auth} agency={agency} {...props} />
+                <Splash
+                  auth={auth}
+                  agency={agency}
+                  userProfile={userProfile}
+                  {...props}
+                />
               )}
             />
             <Route
-              exact
-              path="/policy"
+              path="/search"
               render={props => (
-                <PolicySearch auth={auth} agency={agency} {...props} />
+                <Search
+                  auth={auth}
+                  agency={agency}
+                  userProfile={userProfile}
+                  createQuote={createQuote}
+                  retrieveQuote={retrieveQuote}
+                  {...props}
+                />
               )}
             />
+            <Route
+              path="/quote/:quoteNumber"
+              render={props => <QuoteModule auth={auth} {...props} />}
+            />
+            <Route
+              path="/policy/:policyNumber"
+              render={props => <PolicyModule auth={auth} {...props} />}
+            />
+            <Route
+              exact
+              path="/training"
+              render={props => <Training auth={auth} {...props} />}
+            />
+            <Route
+              exact
+              path="/contacts"
+              render={props => <Contacts auth={auth} {...props} />}
+            />
+            {enableReports && (
+              <Route
+                exact
+                path="/reports"
+                render={props => (
+                  <Reports
+                    auth={auth}
+                    errorHandler={setAppModalError}
+                    {...props}
+                  />
+                )}
+              />
+            )}
             <Route
               exact
               path="/login"
@@ -116,46 +158,6 @@ class Routes extends Component {
               path="/accessDenied"
               render={props => <AccessDenied auth={auth} {...props} />}
             />
-            <Route
-              exact
-              path="/training"
-              render={props => <Training auth={auth} {...props} />}
-            />
-
-            <Route
-              path="/search"
-              render={props => (
-                <QuoteSearch auth={auth} agency={agency} {...props} />
-              )}
-            />
-            <Route
-              path="/quote/:quoteNumber"
-              render={props => (
-                <QuoteModule auth={auth} agency={agency} {...props} />
-              )}
-            />
-            <Route
-              path="/policy/:policyNumber"
-              render={props => <PolicyModule auth={auth} {...props} />}
-            />
-            <Route
-              exact
-              path="/contacts"
-              render={props => <Contacts auth={auth} {...props} />}
-            />
-            {agencyReportsEnabled && (
-              <Route
-                exact
-                path="/reports"
-                render={props => (
-                  <Reports
-                    auth={auth}
-                    errorHandlder={setAppModalError}
-                    {...props}
-                  />
-                )}
-              />
-            )}
             <Route
               exact
               path="/logout"
@@ -186,6 +188,8 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
+  createQuote,
+  retrieveQuote,
   setAppModalError,
   clearAppErrorAction: clearAppError,
   getAgency: getAgencyAction

@@ -34,7 +34,7 @@ describe('Back Button Testing', () => {
           .clickSubmit('#SearchBar')
           .findDataTag('quote-list')
           .should('not.be.empty')
-          .find('li.card .quote-state')
+          .findDataTag('quote-state')
           .should('contain', status)
           .go('back')
       );

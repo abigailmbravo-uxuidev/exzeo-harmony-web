@@ -10,7 +10,7 @@ import { useFetchReports } from './hooks';
 import { downloadReport, getReportById } from './utilities';
 import { REPORT_COLUMNS } from './constants';
 
-const Reports = ({ auth, match, errorHandlder }) => {
+const Reports = ({ auth, match, errorHandler }) => {
   const [report, setReport] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +22,7 @@ const Reports = ({ auth, match, errorHandlder }) => {
       selectedReport.reportId,
       minDate,
       maxDate,
-      errorHandlder
+      errorHandler
     );
     const data = csv2json(reportData);
     setReport({
@@ -42,7 +42,7 @@ const Reports = ({ auth, match, errorHandlder }) => {
       reportId,
       report.minDate,
       report.maxDate,
-      errorHandlder,
+      errorHandler,
       'blob'
     );
     downloadReport(reportId, reportData);
@@ -54,7 +54,7 @@ const Reports = ({ auth, match, errorHandlder }) => {
       report.selectedReport,
       data.minDate,
       data.maxDate,
-      errorHandlder
+      errorHandler
     );
   };
 

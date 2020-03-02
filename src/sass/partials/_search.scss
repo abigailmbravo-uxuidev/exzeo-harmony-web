@@ -1,31 +1,37 @@
 .search {
   position: relative;
   z-index: 10;
+
   display: flex;
   overflow: hidden;
   align-items: flex-start;
   flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
-  margin-top: 0;
-  margin-bottom: 0;
+
   width: 100%;
   height: auto;
-  background: $white;
-  opacity: 1;
+  margin-top: 0;
+  margin-bottom: 0;
+
   transition: margin 0.5s;
+
+  opacity: 1;
+  background: $white;
 
   .disabled-message {
     position: absolute;
+    z-index: 10;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 10;
+
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;
+
     background: rgba($warm-gray-10, 0.5);
   }
 
@@ -36,8 +42,10 @@
       display: flex;
       align-items: flex-end;
       flex-grow: 1;
-      padding: $padding ($padding * 2);
+
       min-height: 4.5rem;
+      padding: $padding ($padding * 2);
+
       background-color: $white;
 
       &.search-new-quote-wrapper {
@@ -56,6 +64,7 @@
 
       .property-search-wrappper {
         display: flex;
+
         width: 100%;
 
         button {
@@ -69,6 +78,7 @@
 
       .form-group {
         align-items: flex-start;
+
         margin-bottom: 0;
 
         &.first-name-search {
@@ -77,18 +87,21 @@
           @include for-tablet-landscape-up {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 6rem;
           }
           @include for-desktop-up {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 10rem;
           }
 
           > input {
             overflow: hidden;
-            text-overflow: ellipsis;
+
             white-space: nowrap;
+            text-overflow: ellipsis;
           }
 
           &.error {
@@ -109,18 +122,21 @@
           @include for-tablet-landscape-up {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 6rem;
           }
           @include for-desktop-up {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 10rem;
           }
 
           > input {
             overflow: hidden;
-            text-overflow: ellipsis;
+
             white-space: nowrap;
+            text-overflow: ellipsis;
           }
 
           &.error {
@@ -149,8 +165,9 @@
 
           > input {
             overflow: hidden;
-            text-overflow: ellipsis;
+
             white-space: nowrap;
+            text-overflow: ellipsis;
           }
 
           &.error {
@@ -171,13 +188,15 @@
           @include for-tablet-landscape-up {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 10rem;
           }
 
           > input {
             overflow: hidden;
-            text-overflow: ellipsis;
+
             white-space: nowrap;
+            text-overflow: ellipsis;
           }
 
           &.error {
@@ -196,12 +215,14 @@
           @include for-tablet-landscape-up {
             flex-grow: 0;
             flex-shrink: 0;
+
             width: 7rem;
           }
         }
 
         label {
           margin-bottom: $padding/4;
+
           font-size: $font-size-sm;
         }
 
@@ -218,6 +239,7 @@
             @include for-tablet-landscape-up {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 6rem;
             }
           }
@@ -226,6 +248,7 @@
             @include for-tablet-landscape-up {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 9rem;
             }
           }
@@ -234,6 +257,7 @@
             @include for-tablet-landscape-up {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 9rem;
             }
           }
@@ -242,6 +266,7 @@
             @include for-tablet-landscape-up {
               flex-grow: 0;
               flex-shrink: 0;
+
               width: 9rem;
             }
           }
@@ -254,14 +279,17 @@
 
       input {
         flex: 1;
+
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
 
       button {
         padding: 0.625rem 0.75rem;
+
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+
         line-height: 1;
 
         span {
@@ -278,6 +306,7 @@
 
         &.multi-input {
           margin-left: $padding;
+
           border-top-left-radius: 0.25rem;
           border-bottom-left-radius: 0.25rem;
         }
@@ -287,14 +316,16 @@
 
   .survey-wrapper {
     z-index: 1;
+
     display: flex;
     overflow-y: auto;
     flex-direction: column;
     flex-grow: 1;
     flex-shrink: 1;
     flex-wrap: nowrap;
-    padding: 0;
+
     width: 100%;
+    padding: 0;
 
     .results,
     .results-wrapper {
@@ -310,8 +341,10 @@
         align-items: center;
         flex-direction: row;
         justify-content: space-between;
+
         margin: 0;
         padding: ($padding/2) $padding;
+
         border-top: $card-border-width solid $card-border-color;
 
         &:first-child {
@@ -321,11 +354,18 @@
         span {
           display: inline-flex;
           justify-content: center;
+
           padding: ($padding/2) $padding;
+
           border-radius: 0.71875rem;
+
           font-size: 0.8rem;
         }
       }
     }
+  }
+
+  .search-help {
+    padding: 0.5rem 1rem 0;
   }
 }

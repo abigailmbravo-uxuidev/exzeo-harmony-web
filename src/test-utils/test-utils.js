@@ -1,7 +1,6 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { render, fireEvent, wait } from '@testing-library/react';
-import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -18,7 +17,6 @@ import {
 } from '../test-utils';
 
 export const defaultInitialState = {
-  search: {},
   policy: {
     policyNumber: null,
     update: false
@@ -27,7 +25,6 @@ export const defaultInitialState = {
     zipCodeSettings: {},
     policyResults: {}
   },
-  completedTasks: [],
   appState: {
     isLoading: false
   },

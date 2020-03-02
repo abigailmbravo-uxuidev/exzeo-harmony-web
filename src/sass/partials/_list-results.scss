@@ -63,8 +63,7 @@ ul.list-cards {
   }
 }
 
-.quote-list,
-.policy-list {
+.quote-list {
   flex-grow: 1;
   margin-bottom: $padding/2;
   padding: $padding * 2;
@@ -108,6 +107,349 @@ ul.list-cards {
 
       &:hover {
         color: $warm-gray-14;
+      }
+    }
+
+    .icon {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      flex-grow: 0;
+      flex-shrink: 0;
+      justify-content: center;
+      padding: $padding;
+
+      i {
+        display: flex;
+        flex-basis: 2rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        font-size: $font-size-h2;
+      }
+
+      span {
+        font-size: $font-size-sm;
+      }
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      flex-shrink: 1;
+      margin-left: $padding;
+
+      .quote-no {
+        font-size: $font-size-sm;
+      }
+
+      .name {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+
+        i {
+          color: $bright-blue;
+          font-size: 2rem;
+        }
+      }
+
+      .card-detail-wrapper {
+        display: flex;
+        font-size: $font-size-sm;
+
+        .sub-detail-wrapper {
+          display: flex;
+          flex-grow: 1;
+          flex-shrink: 1;
+          justify-content: flex-end;
+
+          span {
+            margin-left: 2rem;
+
+            label {
+              margin-right: $padding / 2;
+              font-size: $font-size-xs;
+            }
+          }
+        }
+      }
+
+      h4 {
+        display: inline-block;
+        overflow: hidden;
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        line-height: 1.25;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+          display: flex;
+          flex-grow: 1;
+          flex-shrink: 0;
+          justify-content: space-between;
+          color: $warm-gray-14;
+          font-size: $font-size-sm;
+
+          @include transition(all 0.2s ease-in-out);
+          @include for-phone-only {
+            flex-direction: column;
+            padding-top: $padding;
+            border-top: 1px dashed $cool-gray-01;
+
+            &:first-child {
+              padding-top: 0;
+              border-top-width: 0;
+            }
+          }
+          @include for-tablet-portrait-up {
+            flex-direction: column;
+            padding-top: $padding;
+            border-top: 1px dashed $cool-gray-01;
+
+            &:first-child {
+              border-top-width: 0;
+            }
+          }
+          @include for-tablet-landscape-up {
+            flex-direction: row;
+            padding: ($padding/4) ($padding);
+            padding-top: 0;
+            border-top-width: 0;
+          }
+
+          .quote-no,
+          .policy-no {
+            flex-grow: 0;
+            flex-shrink: 0;
+            width: 5.75rem;
+
+            @include for-phone-only {
+              width: auto;
+            }
+          }
+
+          .property-address {
+            flex-grow: 1;
+            flex-shrink: 1;
+
+            @include for-phone-only {
+              padding-bottom: $padding;
+              font-size: $font-size-h5;
+            }
+            @include for-tablet-portrait-up {
+              font-size: $font-size-h5;
+            }
+            @include for-tablet-landscape-up {
+              font-size: $font-size-sm;
+            }
+          }
+
+          .card-detail-wrapper {
+            display: flex;
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            @include for-phone-only {
+              align-items: flex-end;
+              justify-content: space-between;
+              width: 100%;
+            }
+            @include for-tablet-portrait-up {
+              justify-content: space-between;
+              width: 100%;
+            }
+            @include for-tablet-landscape-up {
+              justify-content: flex-start;
+
+              &.quote {
+                width: 23rem;
+              }
+
+              &.policy {
+                width: 14rem;
+              }
+            }
+          }
+
+          &.header {
+            @include for-phone-only {
+              display: none;
+            }
+            @include for-tablet-portrait-up {
+              display: none;
+            }
+            @include for-tablet-landscape-up {
+              display: flex;
+              background: $cool-gray-01;
+              font-size: $font-size-xs;
+            }
+
+            .premium {
+              font-weight: $font-weight-normal;
+            }
+
+            .property-address {
+              @include for-tablet-landscape-up {
+                font-size: $font-size-xs;
+              }
+            }
+          }
+
+          .quote-state,
+          .policy-status {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            @include for-phone-only {
+              width: auto;
+            }
+            @include for-tablet-portrait-up {
+              width: auto;
+            }
+            @include for-tablet-landscape-up {
+              width: 9rem;
+            }
+          }
+
+          .effective-date {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            @include for-phone-only {
+              display: flex;
+              align-items: flex-start;
+              flex-direction: column;
+              width: auto;
+
+              &:before {
+                margin-right: $padding/2;
+                content: 'Effective:';
+                font-size: $font-size-xs;
+              }
+            }
+            @include for-tablet-portrait-up {
+              display: flex;
+              align-items: center;
+              width: auto;
+
+              &:before {
+                margin-right: $padding/2;
+                content: 'Effective:';
+                font-size: $font-size-xs;
+              }
+            }
+            @include for-tablet-landscape-up {
+              display: block;
+              width: 5rem;
+
+              &:before {
+                margin-right: 0;
+                content: '';
+              }
+            }
+          }
+
+          .started-on {
+            flex-grow: 0;
+            flex-shrink: 0;
+            width: 5rem;
+
+            @include for-phone-only {
+              display: none;
+            }
+            @include for-tablet-portrait-up {
+              display: none;
+            }
+            @include for-tablet-landscape-up {
+              display: block;
+            }
+          }
+
+          .premium {
+            flex-grow: 0;
+            flex-shrink: 0;
+            font-weight: $font-weight-bold;
+
+            @include for-phone-only {
+              width: auto;
+            }
+            @include for-tablet-portrait-up {
+              width: auto;
+            }
+            @include for-tablet-landscape-up {
+              width: 4rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.policy-list {
+  flex-grow: 1;
+  margin-bottom: $padding/2;
+  padding: $padding * 2;
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 ($padding/2);
+
+    @include transition(all 0.2s ease-in-out);
+
+    &:hover {
+      z-index: 2;
+      box-shadow: $card-box-shadow-hover;
+      cursor: pointer;
+      transform: scale(1.004);
+
+      section {
+        ul {
+          li {
+            @include for-phone-only {
+              color: $bright-blue;
+            }
+            @include for-tablet-portrait-up {
+              color: $bright-blue;
+            }
+            @include for-tablet-landscape-up {
+              background: rgba($bright-blue, 0.2);
+              color: $bright-blue-darken-04;
+            }
+          }
+        }
+      }
+    }
+
+    > a {
+      display: flex;
+      width: 100%;
+      color: $warm-gray-14;
+      padding: $padding $padding * 1.5;
+
+      &:hover {
+        color: $warm-gray-14;
+      }
+
+      &:focus {
+        text-decoration: none;
       }
     }
 

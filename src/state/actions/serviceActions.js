@@ -1,8 +1,6 @@
-import { http as axios } from '@exzeo/core-ui';
 import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import orderBy from 'lodash/orderBy';
 
-import { buildQuerystring } from './searchActions';
 import * as types from './actionTypes';
 import * as errorActions from './errorActions';
 import { getAgentsByAgencyCode } from './agency.actions';
@@ -14,15 +12,6 @@ export const handleError = error => {
       : 'An error happened';
   return error.message ? error.message : message;
 };
-
-export const runnerSetup = (data, customUrl = '') => ({
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  url: `${process.env.REACT_APP_API_URL}/svc?${customUrl}`,
-  data
-});
 
 export const serviceRequest = data => {
   return {
@@ -40,61 +29,6 @@ export const clearPolicy = () => {
       policyDocuments: []
     }
   };
-};
-
-export const getQuote = quoteId => dispatch => {
-  const axiosConfig = runnerSetup(
-    {
-      service: 'quote-data',
-      method: 'GET',
-      path: `${quoteId}`
-    },
-    'getQuote'
-  );
-
-  return axios(axiosConfig)
-    .then(response => {
-      const data = { quote: response.data.result };
-      return dispatch(serviceRequest(data));
-    })
-    .catch(error => {
-      const message = handleError(error);
-      return dispatch(errorActions.setAppError({ message }));
-    });
-};
-
-export const searchPolicy = query => dispatch => {
-  const queryString = buildQuerystring(query);
-  const axiosConfig = runnerSetup(
-    {
-      service: 'policy-data',
-      method: 'GET',
-      path: `/transactions?${queryString}`
-    },
-    'searchPolicy'
-  );
-
-  return Promise.resolve(axios(axiosConfig))
-    .then(response => {
-      const data = { policyResults: response.data };
-      return dispatch(serviceRequest(data));
-    })
-    .catch(error => {
-      const message = handleError(error);
-      return dispatch(errorActions.setAppError({ message }));
-    });
-};
-
-export const clearPolicyResults = () => dispatch => {
-  const data = {
-    policyResults: {
-      totalNumberOfRecords: 1,
-      pageSize: 1,
-      currentPage: 1
-    }
-  };
-
-  return dispatch(serviceRequest(data));
 };
 
 // Temporary - serviceActions will all be removed in future.
