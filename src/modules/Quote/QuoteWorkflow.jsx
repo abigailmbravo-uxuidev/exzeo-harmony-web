@@ -210,7 +210,8 @@ export class QuoteWorkflow extends Component {
       options,
       quote,
       headerDetails,
-      getQuote
+      getQuote,
+      zipCodeSettings
     } = this.props;
 
     const { isRecalc, gandalfTemplate } = this.state;
@@ -282,7 +283,7 @@ export class QuoteWorkflow extends Component {
                   customHandlers={customHandlers}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
-                  options={options} // enums for select/radio fields
+                  options={{ ...options, zipCodeSettings }} // enums for select/radio fields
                   path={location.pathname}
                   template={gandalfTemplate}
                   transformConfig={transformConfig}
