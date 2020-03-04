@@ -240,15 +240,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    clearAppError,
-    searchQuotes,
-    setQuoteSearch,
-    searchAddresses
-  }
-)(
+export default connect(mapStateToProps, {
+  clearAppError,
+  searchQuotes,
+  setQuoteSearch,
+  searchAddresses
+})(
   reduxForm({
     form: 'SearchBar',
     enableReinitialize: true

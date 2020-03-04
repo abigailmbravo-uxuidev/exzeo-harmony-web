@@ -20,18 +20,15 @@ export const getStatesByContracts = createSelector(
   }
 );
 
-export const getProductsByContracts = createSelector(
-  [getAgency],
-  agency => {
-    const products = [];
-    if (!agency) return products;
-    agency.contracts.forEach(c => {
-      c.stateProducts.forEach(s => {
-        if (!products.some(p => p.answer === s.product)) {
-          products.push({ answer: s.product, label: PRODUCT_NAMES[s.product] });
-        }
-      });
+export const getProductsByContracts = createSelector([getAgency], agency => {
+  const products = [];
+  if (!agency) return products;
+  agency.contracts.forEach(c => {
+    c.stateProducts.forEach(s => {
+      if (!products.some(p => p.answer === s.product)) {
+        products.push({ answer: s.product, label: PRODUCT_NAMES[s.product] });
+      }
     });
-    return products;
-  }
-);
+  });
+  return products;
+});

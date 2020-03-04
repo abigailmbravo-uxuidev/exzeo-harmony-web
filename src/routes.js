@@ -185,11 +185,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    setAppModalError,
-    clearAppErrorAction: clearAppError,
-    getAgency: getAgencyAction
-  }
-)(Routes);
+export default connect(mapStateToProps, {
+  setAppModalError,
+  clearAppErrorAction: clearAppError,
+  getAgency: getAgencyAction
+})(Routes);
