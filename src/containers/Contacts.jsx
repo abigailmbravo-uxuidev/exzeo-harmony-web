@@ -31,7 +31,7 @@ export const territoryManagerContacts = [
     email: 'jkelley@hcpci.com'
   },
   {
-    icon: 'image user',
+    icon: 'image traci-lebeda',
     name: 'Traci Lebeda',
     title: 'Treasure Coast Florida Manager',
     phone: '8134053610',
