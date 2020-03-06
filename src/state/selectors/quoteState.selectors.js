@@ -21,7 +21,10 @@ export const getQuoteSelector = createSelector([getQuote], quoteData => {
     quoteData.additionalPolicyholder = true;
   }
 
-  if (!quoteData.policyHolderMailingAddress.address2) {
+  if (
+    quoteData.policyHolderMailingAddress &&
+    !quoteData.policyHolderMailingAddress.address2
+  ) {
     quoteData.policyHolderMailingAddress.address2 = '';
   }
 
