@@ -9,7 +9,7 @@ import {
   Select,
   Loader
 } from '@exzeo/core-ui';
-import { useRetrieveQuote } from '@exzeo/core-ui/src/@Harmony';
+import { useQuoteSearch } from '@exzeo/core-ui/src/@Harmony';
 
 import { cspConfigForSearch } from '../../../utilities/userResources';
 import NoResults from './NoResults';
@@ -23,7 +23,7 @@ const SearchQuote = ({ userProfile = {}, history, retrieveQuote }) => {
     userProfile,
     'QuoteData:Quotes:*'
   );
-  const { state: searchState, handleSearchSubmit } = useRetrieveQuote();
+  const { state: searchState, handleSearchSubmit } = useQuoteSearch();
   const [blockedQuote, setBlockedQuote] = useState(null);
 
   const handlePagination = values => page => {
