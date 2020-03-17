@@ -16,9 +16,10 @@ export { default as rating } from './rating';
 export { default as payment } from './payment';
 export { default as policyDocuments } from './policyDocuments';
 export { default as policyHolder } from './policyHolder';
-export { default as policySearchResult } from './policySearchResult';
 export { default as quote } from './quote';
-export { default as searchResult } from './searchResult';
+export { default as policySearchResult } from './policySearchResult';
+export { default as addressSearchResult } from './addressSearchResult';
+export { default as quoteSearchResult } from './quoteSearchResult';
 export {
   fatalUnderwritingException,
   reviewUnderwritingExcception

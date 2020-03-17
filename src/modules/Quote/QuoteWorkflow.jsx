@@ -375,8 +375,7 @@ const mapStateToProps = (state, ownProps) => {
     quote: getQuoteSelector(state),
     headerDetails: getQuoteDetails(state, ownProps.location.pathname),
     zipCodeSettings: state.service.zipCodeSettings,
-    options: state.list,
-    userProfile: state.authState.userProfile
+    options: state.list
   };
 };
 

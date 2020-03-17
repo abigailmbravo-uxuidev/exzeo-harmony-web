@@ -1,6 +1,4 @@
-import * as persistTypes from 'redux-persist/constants';
 import * as types from '../actions/actionTypes';
-import * as listTypes from '../actionTypes/list.actionTypes';
 import initialState from './initialState';
 import listReducer from './list.reducer';
 

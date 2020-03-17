@@ -17,11 +17,11 @@ describe('HO3: Property Address Search Testing', () => {
   beforeEach('Set Route Aliases', () => setRouteAliases());
 
   it('NEG:Test Invalid Addresses', () => {
-    type('ADDRESS NOT FOUND');
-    cy.findDataTag('product')
-      .select('HO3')
-      .findDataTag('state')
+    type(`{selectall}{backspace}ADDRESS NOT FOUND`);
+    cy.findDataTag('state')
       .select('FL')
+      .findDataTag('product')
+      .select('HO3')
       .clickSubmit()
       .findDataTag('no-results')
       .find('.no-results .card-header > h4')
@@ -44,16 +44,11 @@ describe('HO3: Property Address Search Testing', () => {
   });
 
   it('POS:Property Search', () => {
-    cy.findDataTag('address_label')
-      .should('contain', 'Property Street Address')
-      .findDataTag('search-results')
-      .find('div small p')
-      .each($el => expect($el).to.contain('If'))
-      .findDataTag('address')
-      .should('have.attr', 'placeholder', 'Search for Property Address');
     type(`{selectall}{backspace}${address}`);
     cy.findDataTag('address')
       .should('have.attr', 'value', address)
+      .findDataTag('state')
+      .select('FL')
       .findDataTag('product')
       .select('HO3')
       .findDataTag('submit')

@@ -42,7 +42,7 @@ export function setAgents(agents) {
 /**
  *
  * @param contracts
- * @returns {Array}
+ * @returns {{states[], products[]}}
  */
 function getSelectOptions(contracts) {
   const states = [];
@@ -76,8 +76,7 @@ export function getAgency(agencyCode) {
   return async dispatch => {
     try {
       const agency = await fetchAgency(agencyCode);
-      const cspAnswers = getSelectOptions(agency.contracts);
-      agency.cspAnswers = cspAnswers;
+      agency.cspAnswers = getSelectOptions(agency.contracts);
       dispatch(setAgency(agency));
     } catch (error) {
       dispatch(errorActions.setAppError(error));

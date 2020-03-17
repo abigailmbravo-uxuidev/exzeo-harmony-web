@@ -77,6 +77,6 @@ describe('Testing Splash component', () => {
 
     expect(getByText('New Quote')).toHaveAttribute('href', '/search/address');
     expect(getByText('Quotes')).toHaveAttribute('href', '/search/retrieve');
-    expect(getByText('Policies')).toHaveAttribute('href', '/policy');
+    expect(getByText('Policies')).toHaveAttribute('href', '/search/policy');
   });
 });

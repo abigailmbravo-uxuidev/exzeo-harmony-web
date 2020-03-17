@@ -21,20 +21,20 @@ export const navigateThroughSearchAddress = ({
 } = {}) =>
   cy
     .task('log', 'Navigating through Searching Address')
-    .get('input[name=address]')
-    .type(address)
-    .findDataTag('product')
-    .select(product)
     .findDataTag('state')
     .select(state)
+    .findDataTag('product')
+    .select(product)
+    .findDataTag('address')
+    .type(address)
     .clickSubmit('#SearchBar')
-    .findDataTag('search-results')
-    .find('li[tabindex=0]')
-    .click()
     .wait('@fetchAddresses')
     .then(({ response }) => {
       expect(response.body.status).to.equal(200);
-    });
+    })
+    .findDataTag('search-results')
+    .find('li[tabindex=0]')
+    .click();
 
 export const navigateThroughPolicyDetails = ({
   policyDetails = user.policyDetails,

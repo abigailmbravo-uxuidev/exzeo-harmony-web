@@ -7,12 +7,15 @@
     header {
       flex-grow: 0;
       flex-shrink: 0;
+
       height: 4.75rem;
+
       background: $white;
     }
     .static-error-message {
       margin-bottom: 1rem;
       padding: 1rem 0;
+
       border-bottom: 1px dotted $cool-gray-02;
     }
   }
@@ -22,17 +25,21 @@
   flex-direction: column;
   flex-grow: 1;
   flex-shrink: 1;
+
   height: 100%;
 
   header {
     position: relative;
+
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: center;
+
+    height: auto;
     margin: 0;
     padding: 0;
-    height: auto;
+
     border-bottom-width: 0;
 
     @include for-phone-only {
@@ -45,23 +52,29 @@
 
     .error-header {
       position: absolute;
+      z-index: 2;
       top: 0;
       bottom: 0;
-      z-index: 2;
+
       display: flex;
       align-items: center;
+
       width: 100%;
-      background: rgba($orange-darken-01, 0.75);
+
       color: $white;
+      background: rgba($orange-darken-01, 0.75);
+
       font-weight: $font-weight-bold;
 
       i {
         margin: 0 $padding 0 ($padding * 4);
+
         font-size: $font-size-h2;
       }
 
       h4 {
         margin: 0;
+
         color: $white;
       }
     }
@@ -76,8 +89,10 @@
 
   .quote-details-error {
     display: flex;
-    padding: $padding;
+
     min-height: 4.75rem;
+    padding: $padding;
+
     background-color: $orange-lighten-03;
 
     .display-element {
@@ -125,9 +140,10 @@
       flex-shrink: 1;
 
       #Error {
+        width: 100%;
         margin: ($padding * 2) 0;
         padding: 0 0 0 ($padding * 2);
-        width: 100%;
+
         border-right: 1px dotted $cool-gray-02;
 
         @include for-phone-only {
@@ -140,16 +156,21 @@
 
         .error-list {
           padding: 1rem;
+
           border-bottom: 1px dotted $cool-gray-02;
           li {
             &.warning-li {
               margin-bottom: $padding/2;
+
               color: $orange-darken-01;
+
               font-weight: $font-weight-bold;
             }
             &.error-li {
               margin-bottom: $padding/2;
+
               color: $red-darken-02;
+
               font-weight: $font-weight-bold;
             }
           }
@@ -158,6 +179,7 @@
         .error-footer {
           display: flex;
           flex-direction: row-reverse;
+
           padding: 0 ($padding * 2) ($padding * 2) 0;
 
           .btn {
@@ -177,11 +199,13 @@
       flex-direction: column;
       flex-grow: 0;
       flex-shrink: 0;
-      padding: $padding;
+
       width: 12rem;
+      padding: $padding;
 
       @include for-phone-only {
         flex-direction: row;
+
         width: 100%;
       }
 
@@ -189,9 +213,11 @@
         flex-basis: 10rem;
         flex-grow: 0;
         flex-shrink: 0;
-        margin: ($padding * 2) $padding 0;
+
         width: 10rem;
         height: 10rem;
+        margin: ($padding * 2) $padding 0;
+
         border: 5px solid $bright-blue-darken-01;
         border-radius: 50%;
         background-image: url('../../img/csr.jpg');
@@ -200,6 +226,7 @@
 
         @include for-phone-only {
           flex-basis: 8rem;
+
           width: 8rem;
           height: 8rem;
         }
@@ -208,10 +235,12 @@
       .contact-info {
         display: flex;
         flex-direction: column;
+
         margin-top: 2rem;
 
         a {
           margin: 0 $padding $padding;
+
           font-size: $font-size-h5;
 
           @include for-phone-only {
@@ -223,59 +252,59 @@
   }
 
   &.modal {
-    .survey-wrapper {
-      .contact-message {
-        .card {
-          .error {
-            color: $red-darken-01;
+    align-items: center;
+    justify-content: center;
+    .card {
+      max-width: 60vw;
+      .error {
+        color: $red-darken-01;
+      }
+
+      .card-header {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          margin-bottom: 0;
+
+          color: $red-darken-01;
+        }
+      }
+
+      .error-property-details {
+        display: flex;
+        flex-shrink: 0;
+
+        .quote-number {
+          margin-right: $padding * 4;
+        }
+
+        .property-information {
+          dd {
+            margin-bottom: 0;
           }
+        }
+      }
 
-          .card-header {
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-              margin-bottom: 0;
-              color: $red-darken-01;
-            }
-          }
+      .contact-methods {
+        display: flex;
+        align-items: center;
 
-          .error-property-details {
-            display: flex;
-            flex-shrink: 0;
+        a {
+          margin: $padding ($padding * 2) ($padding * 2) 0;
+        }
+      }
 
-            .quote-number {
-              margin-right: $padding * 4;
-            }
-
-            .property-information {
-              dd {
-                margin-bottom: 0;
-              }
-            }
-          }
-
-          .contact-methods {
-            display: flex;
-            align-items: center;
-
-            a {
-              margin: $padding ($padding * 2) ($padding * 2) 0;
-            }
-          }
-
-          .card-footer {
-            small {
-              margin-bottom: $padding;
-            }
-            .btn-group {
-              .btn-round {
-                padding: 0;
-                height: 2rem;
-              }
-            }
+      .card-footer {
+        small {
+          margin-bottom: $padding;
+        }
+        .btn-group {
+          .btn-round {
+            height: 2rem;
+            padding: 0;
           }
         }
       }
@@ -291,12 +320,14 @@
 
     .error {
       max-width: 20rem;
+
       border-color: rgba($black, 0.5);
 
       .card-header {
         display: flex;
         align-items: center;
         justify-content: center;
+
         height: 6rem;
 
         > img {
@@ -322,12 +353,15 @@
   > .uw-warning {
     flex-grow: 1;
     flex-shrink: 1;
+
     margin: 0 (-$padding * 2);
     padding: ($padding * 2) ($padding * 3);
-    background: rgba($orange-darken-01, 0.8);
+
     color: $white;
-    font-weight: $font-weight-bold;
+    background: rgba($orange-darken-01, 0.8);
+
     font-size: $font-size-h4;
+    font-weight: $font-weight-bold;
 
     @include for-phone-only {
       font-size: $font-size-h5;

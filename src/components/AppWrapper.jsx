@@ -8,6 +8,7 @@ import { date, Button } from '@exzeo/core-ui';
 import { getNavLinks } from '../utilities/navigation';
 import Header from './Header';
 import CheckError from './CheckError';
+import { userResources } from '../utilities/userResources';
 
 class AppWrapper extends React.Component {
   state = {
@@ -25,24 +26,17 @@ class AppWrapper extends React.Component {
 
   render() {
     const {
-      auth,
-      agency,
       errorRedirectUrl,
+      userProfile,
+      agency,
       match,
-      routeClassName,
-      userProfile
+      routeClassName
     } = this.props;
 
-    const isInternal = auth && auth.isInternal;
-    const status = agency && agency.status ? agency.status : null;
-    const enableQuote = status === 'Active' || isInternal;
-    const enableRetrieve =
-      status === 'Active' || status === 'Pending' || isInternal;
-    const agencyReportsEnabled =
-      userProfile && userProfile.profile
-        ? userProfile.profile.agencyReportsEnabled
-        : false;
-
+    const { enableQuote, enableReports, enableRetrieve } = userResources(
+      userProfile,
+      agency
+    );
     return (
       <div
         className={classNames('app-wrapper', {
@@ -66,7 +60,7 @@ class AppWrapper extends React.Component {
                   match.params,
                   enableQuote,
                   enableRetrieve,
-                  agencyReportsEnabled
+                  enableReports
                 )}
               />
             </nav>

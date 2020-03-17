@@ -1,18 +1,8 @@
 export default {
-  'https://heimdall.security/given_name': 'TTIC',
-  'https://heimdall.security/family_name': 'CSR',
-  nickname: 'tticcsr',
-  name: 'TTIC CSR',
-  updated_at: '2019-05-28T12:00:34.096Z',
-  email: 'tticcsr@typtap.com',
+  nickname: 'homeboy',
+  name: 'ttic-jsr',
+  email: 'thebest@typtap.com',
   email_verified: true,
-  iss: 'https://ashton-sandbox.auth0.com/',
-  sub: 'auth0|59419e3a43e76f16f68c3349',
-  aud: '_aVZ55R37kcyZ3NtQcps0bwZ09YYdPLd',
-  iat: 1559044834,
-  exp: 1559080834,
-  at_hash: 'YXNiPM5RMfEzA6oL_3w-Sw',
-  nonce: '4~QT56Dxo5xNB7~mMIp_JoH7MMEN33Cz',
   groups: [
     {
       name: 'TTICCSR',
@@ -32,11 +22,177 @@ export default {
       }
     }
   ],
-  username: 'tticcsr',
+  username: 'tticjsr',
   appMetadata: {},
   entity: {
     agencyCode: null,
     companyCode: 'TTIC',
     state: 'FL'
-  }
+  },
+  resources: [
+    {
+      right: 'READ',
+      uri: 'TTIC:FL:HO3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:HO3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'TTIC:FL:HO3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:HO3:PolicyData:PremiumEndorse'
+    },
+    {
+      right: 'READ',
+      uri: 'TTIC:FL:HO3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'READ',
+      uri: 'TTIC:FL:HO3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'TTIC:FL:HO3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:HO3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:HO3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'TTIC:FL:HO3:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:HO3:PolicyData:Transactions:PolicyHolders:LastName'
+    },
+    {
+      right: 'READ',
+      uri: 'TTIC:FL:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'TTIC:FL:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:AF3:PolicyData:PremiumEndorse'
+    },
+    {
+      right: 'READ',
+      uri: 'TTIC:FL:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'READ',
+      uri: 'TTIC:FL:AF3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'TTIC:FL:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:AF3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'TTIC:FL:AF3:Quotes:*'
+    },
+    {
+      right: 'READ',
+      uri: 'HCPC:NJ:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:NJ:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'HCPC:NJ:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:NJ:AF3:PolicyData:PremiumEndorse'
+    },
+    {
+      right: 'READ',
+      uri: 'HCPC:NJ:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'READ',
+      uri: 'HCPC:NJ:AF3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'HCPC:NJ:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:NJ:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:NJ:AF3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'HCPC:NJ:AF3:Quotes:*'
+    },
+    {
+      right: 'READ',
+      uri: 'HCPC:SC:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:SC:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'HCPC:SC:AF3:PolicyData:Transactions:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:SC:AF3:PolicyData:PremiumEndorse'
+    },
+    {
+      right: 'READ',
+      uri: 'HCPC:SC:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'READ',
+      uri: 'HCPC:SC:AF3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'HCPC:SC:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:SC:AF3:QuoteData:Quotes:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'HCPC:SC:AF3:Quotes:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'HCPC:SC:AF3:Quotes:*'
+    }
+  ]
 };

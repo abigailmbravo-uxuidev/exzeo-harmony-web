@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { PRODUCT_NAMES } from 'components/Search/constants';
+import { PRODUCT_NAMES } from '../../modules/Search/OLD/constants';
 
 const getAgency = state => state.agencyState.agency;
 const getProduct = (state, product) => product;
