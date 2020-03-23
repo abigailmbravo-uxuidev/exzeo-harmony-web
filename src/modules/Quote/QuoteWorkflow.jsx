@@ -37,6 +37,7 @@ import TTICFLAF3 from '../../csp-templates/ttic-fl-af3-quote';
 import TTICFLHO3 from '../../csp-templates/ttic-fl-ho3-quote';
 import HCPCNJAF3 from '../../csp-templates/hcpc-nj-af3-quote';
 import HCPCSCAF3 from '../../csp-templates/hcpc-sc-af3-quote';
+import WorkflowDisclaimer from '../../components/WorkflowDisclaimer';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
   const currentRouteName = pathname.split('/')[3];
@@ -258,18 +259,18 @@ export class QuoteWorkflow extends Component {
 
           {gandalfTemplate && gandalfTemplate.header && (
             <WorkflowNavigation
+              currentStep={currentStepNumber}
+              goToStep={this.goToStep}
+              handleRecalc={this.primaryClickHandler}
               header={gandalfTemplate.header}
               headerDetails={headerDetails}
-              handleRecalc={this.primaryClickHandler}
-              isRecalc={isRecalc}
               history={history}
-              goToStep={this.goToStep}
               isLoading={isLoading}
+              isRecalc={isRecalc}
+              quote={quote}
               showNavigationTabs={
                 !['thankYou', 'error'].includes(currentRouteName)
               }
-              currentStep={currentStepNumber}
-              quote={quote}
             />
           )}
 
@@ -277,20 +278,20 @@ export class QuoteWorkflow extends Component {
             {shouldUseGandalf && (
               <React.Fragment>
                 <Gandalf
-                  formId={FORM_ID}
                   currentPage={currentStepNumber}
                   customComponents={this.customComponents}
                   customHandlers={customHandlers}
+                  formId={FORM_ID}
                   handleSubmit={this.handleGandalfSubmit}
                   initialValues={quote}
                   options={{ ...options, zipCodeSettings }} // enums for select/radio fields
                   path={location.pathname}
                   template={gandalfTemplate}
                   transformConfig={transformConfig}
-                  renderFooter={
+                  formFooter={
                     <FormSpy subscription={{ submitting: true, values: true }}>
                       {({ submitting, form, values }) => (
-                        <React.Fragment>
+                        <div className="form-footer">
                           {shouldRenderFooter && (
                             <div className="btn-group">
                               <Button
@@ -318,34 +319,36 @@ export class QuoteWorkflow extends Component {
                               )}
                             </div>
                           )}
-                        </React.Fragment>
+                          {gandalfTemplate.disclaimer && (
+                            <WorkflowDisclaimer
+                              content={gandalfTemplate.disclaimer}
+                            />
+                          )}
+                        </div>
                       )}
                     </FormSpy>
                   }
-                  formListeners={
-                    <React.Fragment>
-                      <FormSpy subscription={{}}>
-                        {({ form }) => {
-                          this.setFormInstance(form);
-                          return null;
-                        }}
-                      </FormSpy>
+                >
+                  <FormSpy subscription={{}}>
+                    {({ form }) => {
+                      this.setFormInstance(form);
+                      return null;
+                    }}
+                  </FormSpy>
 
-                      <FormSpy subscription={{ dirty: true }}>
-                        {({ dirty }) => (
-                          <TriggerRecalc
-                            dirty={dirty}
-                            isRecalc={isRecalc}
-                            workflowPage={currentStepNumber}
-                            recalcPage={2}
-                            setRecalc={this.setRecalc}
-                          />
-                        )}
-                      </FormSpy>
-                    </React.Fragment>
-                  }
-                />
-
+                  <FormSpy subscription={{ dirty: true }}>
+                    {({ dirty }) => (
+                      <TriggerRecalc
+                        dirty={dirty}
+                        isRecalc={isRecalc}
+                        workflowPage={currentStepNumber}
+                        recalcPage={2}
+                        setRecalc={this.setRecalc}
+                      />
+                    )}
+                  </FormSpy>
+                  <div id="modal-anchor" />
+                </Gandalf>
                 <Footer />
               </React.Fragment>
             )}

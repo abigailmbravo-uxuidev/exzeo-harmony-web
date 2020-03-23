@@ -1,16 +1,20 @@
 header {
   z-index: 10;
+
   display: flex;
   flex-shrink: 0;
   justify-content: center;
-  padding: $padding $padding * 2;
+
   width: 100%;
   height: 3.375rem;
+  padding: $padding $padding * 2;
+
   border-bottom: 2px solid $white;
 
   div[role='banner'] {
     display: flex;
     align-items: center;
+
     width: 100%;
     height: 2.25rem;
 
@@ -32,16 +36,19 @@ header {
         position: absolute;
         top: 0.5rem;
         left: 1rem;
+
         display: flex;
 
         i {
           color: $body-color;
+
           font-size: 1.5rem;
         }
       }
 
       .userName {
         flex-grow: 1;
+
         text-align: right;
       }
     }
@@ -50,10 +57,12 @@ header {
         position: absolute;
         top: 0.5rem;
         right: 1rem;
+
         display: flex;
 
         i {
           color: $white;
+
           font-size: 1.5rem;
         }
       }
@@ -62,10 +71,12 @@ header {
         position: absolute;
         top: 0.5rem;
         left: 1rem;
+
         display: flex;
 
         i {
           color: $body-color;
+
           font-size: 1.5rem;
         }
       }
@@ -84,13 +95,14 @@ header {
       display: block;
       flex-basis: 10rem;
       flex-shrink: 0;
+
       width: 10rem;
 
       @include for-phone-only {
         margin-left: 4rem;
       }
       @include for-tablet-portrait-up {
-        margin-left: 5rem;
+        margin-left: 4rem;
       }
       @include for-tablet-landscape-up {
         margin-left: 0;
@@ -100,14 +112,17 @@ header {
     > nav {
       @include for-phone-only {
         position: absolute;
+        z-index: 200;
         top: 3.375rem;
         right: $padding;
-        z-index: 200;
+
         display: flex;
         flex-direction: column;
-        padding: 0;
+
         width: auto;
         height: auto;
+        padding: 0;
+
         background: $warm-gray-01;
         box-shadow: $card-box-shadow-alt;
 
@@ -123,13 +138,16 @@ header {
         position: relative;
         top: 0;
         right: 0;
+
         display: flex;
         align-items: center;
         flex: 1;
         flex-direction: row;
         justify-content: flex-end;
-        padding: 0;
+
         width: auto;
+        padding: 0;
+
         border-width: 0;
         border-top-width: 0;
         background-color: transparent;
@@ -140,12 +158,15 @@ header {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 $padding;
+
         height: 3.375rem;
-        text-decoration: none;
+        padding: 0 $padding;
+
         white-space: nowrap;
-        font-weight: $font-weight-bold;
+        text-decoration: none;
+
         font-size: $font-size-h6;
+        font-weight: $font-weight-bold;
 
         @include transition(all 0.2s ease-in-out);
         @include for-phone-only {
@@ -153,22 +174,26 @@ header {
         }
         @include for-tablet-landscape-up {
           margin-left: 1rem;
+
           color: $bright-blue-lighten-04;
         }
 
         &:hover {
-          color: $bright-blue-lighten-01;
           text-decoration: none;
+
+          color: $bright-blue-lighten-01;
         }
 
         &.active {
-          color: $white;
           cursor: default;
+
+          color: $white;
 
           @include for-tablet-landscape-up {
             padding-top: 5px;
-            border-bottom: 5px solid $white;
+
             color: $white;
+            border-bottom: 5px solid $white;
           }
 
           &:hover {
@@ -191,27 +216,37 @@ header {
               top: -3rem;
               //right: 4rem;
               right: 1rem;
+
               display: inline-block;
               overflow: hidden;
+
               width: 2.375rem;
               height: 2.375rem;
-              border-radius: 50%;
-              text-indent: 2.375rem;
+
               white-space: nowrap;
+              text-indent: 2.375rem;
+
+              border-radius: 50%;
+
               font-size: 1.5rem;
 
               &:before {
                 position: absolute;
                 right: 0;
                 left: 0;
+
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
                 width: 2.25rem;
                 height: 2.25rem;
-                color: $bright-blue;
+
                 content: '\f095';
                 text-indent: 0;
+
+                color: $bright-blue;
+
                 font-family: $font-family-icon;
               }
             }
@@ -224,7 +259,9 @@ header {
 
               &:before {
                 margin: ($padding/2) ($padding) 0 0;
+
                 content: '\f095';
+
                 font-family: $font-family-icon;
               }
             }
@@ -235,6 +272,7 @@ header {
       > button {
         i {
           margin: 0;
+
           color: $bright-blue-darken-02;
 
           @include transition(all 0.2s ease-in-out);

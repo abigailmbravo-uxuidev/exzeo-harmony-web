@@ -157,7 +157,8 @@ const SearchAddress = ({ createQuote, userProfile = {}, history }) => {
                     If you don't see your address in the list provided, try
                     entering less address information to see if that improves
                     your search results. Please note, at this time we are only
-                    writing single family dwellings in the state of Florida.
+                    writing single family dwellings in Florida, New Jersey and
+                    South Carolina.
                   </p>
                   <p>
                     If you still have problems finding an address, please{' '}

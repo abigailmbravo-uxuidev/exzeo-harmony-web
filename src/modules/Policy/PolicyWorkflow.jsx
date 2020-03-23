@@ -28,6 +28,8 @@ import TTICFLAF3 from '../../csp-templates/ttic-fl-af3-policy';
 import TTICFLHO3 from '../../csp-templates/ttic-fl-ho3-policy';
 import HCPCNJAF3 from '../../csp-templates/hcpc-nj-af3-policy';
 import HCPCSCAF3 from '../../csp-templates/hcpc-sc-af3-policy';
+import WorkflowDisclaimer from '../../components/WorkflowDisclaimer';
+import WorkflowBanner from '../../components/WorkflowBanner';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
   const currentRouteName = pathname.split('/')[3];
@@ -129,7 +131,8 @@ export class PolicyWorkflow extends Component {
         <div className="route policy">
           {!gandalfTemplate || !policy.policyNumber ? <Loader /> : null}
           {gandalfTemplate && gandalfTemplate.header && (
-            <React.Fragment>
+            <div className="nav-and-header-wrapper">
+              <WorkflowBanner content={gandalfTemplate.header.banner} />
               <DetailsHeader
                 context="policy"
                 detailsFields={gandalfTemplate.header}
@@ -141,23 +144,34 @@ export class PolicyWorkflow extends Component {
                 activeTab={currentRouteName}
                 policyNumber={policy.policyNumber}
               />
-            </React.Fragment>
+            </div>
           )}
           {gandalfTemplate && (
             <React.Fragment>
               <Gandalf
-                formId={FORM_ID}
                 className="survey-wrapper"
                 currentPage={currentStepNumber}
                 customComponents={this.customComponents}
                 customHandlers={customHandlers}
+                formId={FORM_ID}
                 handleSubmit={noop}
                 initialValues={{ ...policy, billing }}
                 options={{ agents, policyDocuments }} // enums for select/radio fields
                 path={location.pathname}
                 template={gandalfTemplate}
                 transformConfig={transformConfig}
-              />
+                formFooter={
+                  <div className="form-footer">
+                    {gandalfTemplate.disclaimer && (
+                      <WorkflowDisclaimer
+                        content={gandalfTemplate.disclaimer}
+                      />
+                    )}
+                  </div>
+                }
+              >
+                <div id="modal-anchor" />
+              </Gandalf>
               <Footer />
             </React.Fragment>
           )}

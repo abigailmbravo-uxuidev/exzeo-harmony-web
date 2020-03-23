@@ -11,7 +11,13 @@ const mock = {
       { value: 'county', label: 'Property County' },
       { value: 'policyNumber' },
       { value: 'effectiveDate' }
-    ]
+    ],
+    banner: {
+      className: 'workflow-banner ttic fl af3 policy',
+      icon: 'af3',
+      title: 'TypTap',
+      subTitle: 'FL'
+    }
   },
   pages: [
     {
