@@ -146,11 +146,11 @@ const Training = ({ auth, match }) => (
         <section className="reference">
           <h2 className="title">
             <i className="fa fa-book" />
-            &nbsp;Reference nnnnnnn
+            &nbsp;Reference
           </h2>
           <ul className="link-list general-reference-links">
             <h4>
-              <u>General Documents</u>
+              <u>General Documents | General Documents</u>
             </h4>
             {externalLinksGeneric.map(link => (
               <FancyExternalLink key={link.key} {...link} />
