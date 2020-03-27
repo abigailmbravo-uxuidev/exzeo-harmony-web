@@ -146,7 +146,7 @@ const Training = ({ auth, match }) => (
         <section className="reference">
           <h2 className="title">
             <i className="fa fa-book" />
-            &nbsp;Reference
+            &nbsp;Reference nnnnnnn
           </h2>
           <ul className="link-list general-reference-links">
             <h4>
