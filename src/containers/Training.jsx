@@ -83,7 +83,8 @@ export const externalLinksFlood = [
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-FL-AF3-Quick-Ref-Guide.pdf`,
     productIcon: 'flood',
     title: 'TypTap FL Flood Quick Reference Guide',
-    description: 'Detailed list of the TypTap Flood underwriting guidelines.',
+    description:
+      'Detailed list of the TypTap Florida Flood underwriting guidelines.',
     linkIcon: 'pdf'
   },
   {
@@ -91,7 +92,8 @@ export const externalLinksFlood = [
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-NJ-AF3-Quick-Ref-Guide.pdf`,
     productIcon: 'flood',
     title: 'TypTap NJ Flood Quick Reference Guide',
-    description: 'Detailed list of the TypTap Flood underwriting guidelines.',
+    description:
+      'Detailed list of the TypTap New Jersey Flood underwriting guidelines.',
     linkIcon: 'pdf'
   },
   {
@@ -99,7 +101,8 @@ export const externalLinksFlood = [
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-SC-AF3-Quick-Ref-Guide.pdf`,
     productIcon: 'flood',
     title: 'TypTap SC Flood Quick Reference Guide',
-    description: 'Detailed list of the TypTap Flood underwriting guidelines.',
+    description:
+      'Detailed list of the TypTap South Carolina Flood underwriting guidelines.',
     linkIcon: 'pdf'
   },
   {
