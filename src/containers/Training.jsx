@@ -80,7 +80,7 @@ export const externalLinksHome = [
 export const externalLinksFlood = [
   {
     key: 1,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-FL-AF3-Quick-Ref-Guide.pdf.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-FL-AF3-Quick-Ref-Guide.pdf`,
     productIcon: 'flood',
     title: 'TypTap FL Flood Quick Reference Guide',
     description: 'Detailed list of the TypTap Flood underwriting guidelines.',
@@ -88,7 +88,7 @@ export const externalLinksFlood = [
   },
   {
     key: 2,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-NJ-AF3-Quick-Ref-Guide.pdf.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-NJ-AF3-Quick-Ref-Guide.pdf`,
     productIcon: 'flood',
     title: 'TypTap NJ Flood Quick Reference Guide',
     description: 'Detailed list of the TypTap Flood underwriting guidelines.',
@@ -96,7 +96,7 @@ export const externalLinksFlood = [
   },
   {
     key: 3,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-SC-AF3-Quick-Ref-Guide.pdf.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-SC-AF3-Quick-Ref-Guide.pdf`,
     productIcon: 'flood',
     title: 'TypTap SC Flood Quick Reference Guide',
     description: 'Detailed list of the TypTap Flood underwriting guidelines.',
