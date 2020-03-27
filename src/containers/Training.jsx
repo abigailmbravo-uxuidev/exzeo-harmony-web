@@ -80,14 +80,30 @@ export const externalLinksHome = [
 export const externalLinksFlood = [
   {
     key: 1,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Quick-Ref-Guide.pdf`,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-FL-AF3-Quick-Ref-Guide.pdf.pdf`,
     productIcon: 'flood',
-    title: 'TypTap Flood Quick Reference Guide',
+    title: 'TypTap FL Flood Quick Reference Guide',
     description: 'Detailed list of the TypTap Flood underwriting guidelines.',
     linkIcon: 'pdf'
   },
   {
     key: 2,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-NJ-AF3-Quick-Ref-Guide.pdf.pdf`,
+    productIcon: 'flood',
+    title: 'TypTap NJ Flood Quick Reference Guide',
+    description: 'Detailed list of the TypTap Flood underwriting guidelines.',
+    linkIcon: 'pdf'
+  },
+  {
+    key: 3,
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-SC-AF3-Quick-Ref-Guide.pdf.pdf`,
+    productIcon: 'flood',
+    title: 'TypTap SC Flood Quick Reference Guide',
+    description: 'Detailed list of the TypTap Flood underwriting guidelines.',
+    linkIcon: 'pdf'
+  },
+  {
+    key: 4,
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Benefits-Flood-Policy.pdf`,
     productIcon: 'flood',
     title: 'Benefits of a TypTap Flood Policy',
@@ -96,7 +112,7 @@ export const externalLinksFlood = [
     linkIcon: 'pdf'
   },
   {
-    key: 3,
+    key: 5,
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-TT-vs-NFIP.pdf`,
     productIcon: 'flood',
     title: 'TypTap vs. The NFIP',
@@ -104,7 +120,7 @@ export const externalLinksFlood = [
     linkIcon: 'pdf'
   },
   {
-    key: 4,
+    key: 6,
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Premium-Est.pdf`,
     productIcon: 'flood',
     title: 'TypTap Premium Estimate Chart',
@@ -113,7 +129,7 @@ export const externalLinksFlood = [
     linkIcon: 'pdf'
   },
   {
-    key: 5,
+    key: 7,
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Private-Flood-Mortgage-Adequacy.pdf`,
     productIcon: 'flood',
     title: 'Mortgage Adequacy Document',
