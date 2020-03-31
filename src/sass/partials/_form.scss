@@ -9,12 +9,14 @@ select,
 textarea {
   // // Make inputs at least the height of their button counterpart (base line-height + padding + border)
   padding: $input-padding-y $input-padding-x;
+
+  color: $input-color;
   border: $input-btn-border-width solid $input-border-color;
   background-color: $input-bg;
   // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214.
   background-image: none;
   background-clip: padding-box;
-  color: $input-color;
+
   font-size: $font-size-base;
   line-height: $input-line-height;
 
@@ -28,9 +30,12 @@ textarea {
 
   &[type='checkbox'] {
     position: relative;
+
     width: 1rem;
     height: 1rem;
+
     box-shadow: none;
+
     line-height: 1;
   }
 
@@ -41,9 +46,12 @@ textarea {
 
   &[type='radio'] {
     position: relative;
+
     width: 1rem;
     height: 1rem;
+
     box-shadow: none;
+
     line-height: 1;
   }
 
@@ -66,10 +74,11 @@ textarea {
   }
   // Placeholder
   &::placeholder {
-    color: $input-color-placeholder;
-    font-style: italic;
     // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
+    color: $input-color-placeholder;
+
+    font-style: italic;
   }
   // Disabled and read-only inputs
   //
@@ -79,9 +88,9 @@ textarea {
   &:disabled,
   &[disabled='disabled'],
   &[readonly] {
-    background-color: $input-bg-disabled;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
+    background-color: $input-bg-disabled;
   }
 
   &:disabled,
@@ -93,8 +102,9 @@ textarea {
 input,
 textarea,
 output {
-  padding: $padding;
   width: 100%;
+  padding: $padding;
+
   border-width: 0;
   border-bottom: 2px solid $cool-gray-03;
   border-radius: 0;
@@ -114,13 +124,13 @@ select {
   }
 
   &:focus::-ms-value {
-    background-color: $input-bg;
     // Suppress the nested default white text on blue background highlight given to
     // the selected option text when the (still closed) <select> receives focus
     // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
     // match the appearance of the native widget.
     // See https://github.com/twbs/bootstrap/issues/19398.
     color: $input-color;
+    background-color: $input-bg;
   }
 }
 //
@@ -133,6 +143,7 @@ select {
   margin-bottom: 0;
   padding-top: $input-padding-y;
   padding-bottom: $input-padding-y;
+
   font-size: $font-size-base;
 }
 // Static form control text
@@ -143,8 +154,10 @@ select {
 .form-control-static {
   padding-top: $input-padding-y;
   padding-bottom: $input-padding-y;
+
   border: solid transparent;
   border-width: 1px 0;
+
   line-height: $input-line-height;
 }
 // Form groups
@@ -154,15 +167,17 @@ select {
 
 label {
   color: $bright-blue-darken-04;
+
   font-weight: $font-weight-bold;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+
+  width: 100%;
   margin-bottom: $form-group-margin-bottom;
   padding: 0 $padding/2;
-  width: 100%;
 
   .h1,
   .h2,
@@ -189,6 +204,7 @@ label {
 
   .__react_component_tooltip {
     z-index: 900;
+
     white-space: pre-line;
   }
 
@@ -198,13 +214,15 @@ label {
     .tooltip-wrapper {
       flex-grow: 1;
       flex-shrink: 0;
+
       margin: 0 ($margin/2);
     }
 
     .secondary-label {
       margin-left: $padding;
-      font-weight: $font-weight-normal;
+
       font-size: $font-size-sm;
+      font-weight: $font-weight-normal;
     }
     // TODO: remove when all inputs are updated with secondary label
     &.date-label-wrapper {
@@ -213,8 +231,9 @@ label {
 
       .date-min-max {
         margin-left: $padding;
-        font-weight: $font-weight-normal;
+
         font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
       }
     }
   }
@@ -277,6 +296,7 @@ label {
         flex-direction: column;
         flex-grow: 1;
         flex-shrink: 0;
+
         width: auto;
 
         &:hover {
@@ -291,10 +311,11 @@ label {
 
           @include for-phone-only {
             flex-basis: 50px;
+
             height: 70px;
+
             -webkit-filter: drop-shadow(0 0 4px rgba($green, 0));
             filter: drop-shadow(0 0 4px rgba($green, 0));
-
             @include transition(all 0.2s ease-in-out);
           }
         }
@@ -311,6 +332,7 @@ label {
           flex-direction: column;
           flex-grow: 1;
           flex-shrink: 0;
+
           border-right: 2px solid $white;
 
           span {
@@ -318,16 +340,20 @@ label {
             align-items: center;
             flex-grow: 1;
             justify-content: center;
+
             width: 100%;
-            border: $input-btn-border-width solid transparent;
-            vertical-align: middle;
+
+            cursor: pointer;
+            user-select: none;
             text-align: center;
+            vertical-align: middle;
             white-space: initial;
+
+            border: $input-btn-border-width solid transparent;
+
             font-weight: $btn-font-weight;
             line-height: $btn-line-height;
-            cursor: pointer;
 
-            user-select: none;
             @include button-size(
               $btn-padding-y,
               $btn-padding-x,
@@ -359,9 +385,22 @@ label {
 
             &:checked {
               + span {
-                background: $bright-blue-darken-04;
                 color: $white;
+                background: $bright-blue-darken-04;
               }
+            }
+          }
+
+          &.disabled,
+          &.disabled:hover {
+            cursor: not-allowed;
+
+            span {
+              cursor: not-allowed;
+
+              color: $text-muted;
+              background-color: $cool-gray-00;
+              box-shadow: 0 0 0 0 rgba($white, 0);
             }
           }
         }
@@ -395,8 +434,8 @@ label {
         div {
           .label-segmented {
             span {
-              border-color: $red-lighten-01;
               color: $red-lighten-01;
+              border-color: $red-lighten-01;
             }
           }
         }
@@ -414,8 +453,9 @@ label {
           cursor: not-allowed;
 
           .label-segmented {
-            border-right: 1px solid $warm-gray-01;
             cursor: not-allowed;
+
+            border-right: 1px solid $warm-gray-01;
 
             span {
               cursor: not-allowed;
@@ -432,9 +472,10 @@ label {
                 cursor: not-allowed;
 
                 + span {
-                  background: $warm-gray-03;
-                  color: $warm-gray-05;
                   cursor: not-allowed;
+
+                  color: $warm-gray-05;
+                  background: $warm-gray-03;
                 }
               }
             }
@@ -443,8 +484,9 @@ label {
       }
 
       span {
-        border-color: $warm-gray-02;
         cursor: not-allowed;
+
+        border-color: $warm-gray-02;
       }
 
       label {
@@ -454,8 +496,9 @@ label {
           cursor: not-allowed;
 
           span {
-            color: $warm-gray-03;
             cursor: not-allowed;
+
+            color: $warm-gray-03;
           }
         }
       }
@@ -467,9 +510,10 @@ label {
           cursor: not-allowed;
 
           + span {
-            background: $warm-gray-01;
-            color: $warm-gray-03;
             cursor: not-allowed;
+
+            color: $warm-gray-03;
+            background: $warm-gray-01;
           }
         }
       }
@@ -487,8 +531,10 @@ label {
       flex-grow: 1;
       flex-shrink: 1;
       justify-content: space-between;
-      margin-bottom: 0;
+
       width: 100%;
+      margin-bottom: 0;
+
       line-height: 1.45;
 
       span {
@@ -504,18 +550,21 @@ label {
             background-color: $bright-blue-darken-04;
 
             &:before {
-              border-color: $cool-gray-01;
-              background-color: lighten($cool-gray-00, 10%);
               -webkit-transform: translateX(2rem);
               -ms-transform: translateX(2rem);
               transform: translateX(2rem);
+
+              border-color: $cool-gray-01;
+              background-color: lighten($cool-gray-00, 10%);
             }
 
             &:after {
               top: 0.25rem;
               left: 0.5rem;
-              color: $white;
+
               content: 'Yes';
+
+              color: $white;
             }
 
             &.disabled {
@@ -531,98 +580,122 @@ label {
 
       div.switch-div {
         position: relative;
+
         flex-basis: 3.5rem;
         flex-grow: 0;
         flex-shrink: 0;
-        margin: 0.225rem 0;
+
         width: 3.5rem;
         height: 1.5rem;
-        border-radius: 0.75rem;
-        background: $warm-gray-03;
-        color: $warm-gray-08;
+        margin: 0.225rem 0;
+
         cursor: pointer;
         -webkit-transition: 0.4s;
         transition: 0.4s;
 
+        color: $warm-gray-08;
+        border-radius: 0.75rem;
+        background: $warm-gray-03;
+
         &:before {
           position: absolute;
           z-index: 2;
+
           width: 1.5rem;
           height: 1.5rem;
+
+          content: '';
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
+
           border: 1px solid $cool-gray-01;
           border-radius: 50%;
           background-color: lighten($cool-gray-00, 10%);
           box-shadow: $input-box-shadow;
-          content: '';
+
           line-height: 1;
-          -webkit-transition: 0.4s;
-          transition: 0.4s;
         }
 
         &:after {
           position: absolute;
+          z-index: 1;
           top: 0.25rem;
           left: 2rem;
-          z-index: 1;
+
           content: 'No';
-          font-weight: $font-weight-bold;
+
           font-size: 0.7rem;
+          font-weight: $font-weight-bold;
         }
       }
     }
 
     .switch-div {
       position: relative;
+
       flex-basis: 3.5rem;
       flex-grow: 0;
       flex-shrink: 0;
-      margin: 0.225rem 0;
+
       width: 3.5rem;
       height: 1.5rem;
-      border-radius: 0.75rem;
-      background: $cool-gray-04;
-      color: $cool-gray-08;
+      margin: 0.225rem 0;
+
       cursor: pointer;
       -webkit-transition: 0.4s;
       transition: 0.4s;
+
+      color: $cool-gray-08;
+      border-radius: 0.75rem;
+      background: $cool-gray-04;
       &:before {
         position: absolute;
         z-index: 2;
+
         width: 1.5rem;
         height: 1.5rem;
+
+        content: '';
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+
         border: 2px solid $cool-gray-01;
         border-radius: 50%;
         background-color: lighten($cool-gray-00, 10%);
         box-shadow: $input-box-shadow;
-        content: '';
+
         line-height: 1;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
       }
       &:after {
         position: absolute;
+        z-index: 1;
         top: 0.25rem;
         left: 2rem;
-        z-index: 1;
-        color: $white;
+
         content: 'No';
-        font-weight: $font-weight-bold;
+
+        color: $white;
+
         font-size: 0.7rem;
+        font-weight: $font-weight-bold;
       }
       &.active {
         background: $bright-blue-lighten-02;
         &:before {
-          border-color: $cool-gray-01;
-          background-color: lighten($cool-gray-00, 10%);
           -webkit-transform: translateX(2rem);
           -ms-transform: translateX(2rem);
           transform: translateX(2rem);
+
+          border-color: $cool-gray-01;
+          background-color: lighten($cool-gray-00, 10%);
         }
         &:after {
           top: 0.25rem;
           left: 0.5rem;
-          color: $white;
+
           content: 'Yes';
+
+          color: $white;
         }
         &.disabled {
           background-color: $cool-gray-00;
@@ -642,18 +715,21 @@ label {
           background-color: $bright-blue-darken-04;
 
           &:before {
-            border-color: $cool-gray-01;
-            background-color: lighten($cool-gray-00, 10%);
             -webkit-transform: translateX(2rem);
             -ms-transform: translateX(2rem);
             transform: translateX(2rem);
+
+            border-color: $cool-gray-01;
+            background-color: lighten($cool-gray-00, 10%);
           }
 
           &:after {
             top: 0.25rem;
             left: 0.5rem;
-            color: $white;
+
             content: 'Yes';
+
+            color: $white;
           }
 
           &.disabled {
@@ -672,23 +748,27 @@ label {
       cursor: not-allowed;
 
       label {
-        color: $text-muted;
         cursor: not-allowed;
+
+        color: $text-muted;
       }
 
       div {
-        background-color: $warm-gray-01;
         cursor: not-allowed;
 
+        background-color: $warm-gray-01;
+
         &:after {
-          color: $warm-gray-03;
           cursor: not-allowed;
+
+          color: $warm-gray-03;
         }
 
         &:before {
+          cursor: not-allowed;
+
           border-color: $warm-gray-02;
           background-color: $warm-gray-01;
-          cursor: not-allowed;
         }
       }
 
@@ -744,33 +824,42 @@ label {
 
     &.verification {
       position: relative;
+
       flex-direction: column;
 
       label {
         flex-direction: row-reverse;
         justify-content: flex-start;
+
         margin-right: 1rem;
 
         &:before {
           position: absolute;
           top: 0.25rem;
           left: -0.25rem;
+
           display: block;
-          padding: 0.25rem;
-          min-width: 9rem;
+
           width: calc(100% - 12rem);
+          min-width: 9rem;
+          padding: 0.25rem;
+
+          content: 'VERIFY HERE';
+          text-align: center;
+
+          color: $red-darken-02;
           border-top-left-radius: 0.125rem;
           border-bottom-left-radius: 0.125rem;
           background: $orange-lighten-01;
-          color: $red-darken-02;
-          content: 'VERIFY HERE';
-          text-align: center;
+
           font: normal normal normal 1rem $font-family-sans-serif;
           line-height: 1;
 
           @include for-phone-only {
             left: -0.75rem;
+
             width: 8rem;
+
             font-size: 0.875rem;
           }
         }
@@ -779,15 +868,19 @@ label {
           position: absolute;
           top: 0.25rem;
           left: calc(100% - 12.25rem);
+
           width: 0;
           height: 0;
+
+          content: '';
+
           border-top: 0.75rem solid transparent;
           border-bottom: 0.75rem solid transparent;
           border-left: 1rem solid $orange-lighten-01;
-          content: '';
 
           @include for-phone-only {
             left: 8.25rem;
+
             border-top: 0.6875rem solid transparent;
             border-bottom: 0.6875rem solid transparent;
           }
@@ -799,25 +892,34 @@ label {
 
         span {
           position: relative;
+
           flex-grow: 1;
-          margin-right: 0.5rem;
+
           height: 1px;
-          background: $warm-gray-02;
+          margin-right: 0.5rem;
+
           cursor: pointer;
+
+          background: $warm-gray-02;
 
           &:before {
             position: absolute;
             top: -0.75rem;
             left: -0.75rem;
+
             display: block;
-            padding: 0.25rem;
+
             width: 1.5rem;
+            padding: 0.25rem;
+
+            content: '\f14a';
+            text-align: center;
+
+            color: $yellow-lighten-05;
             border-top-left-radius: 0.125rem;
             border-bottom-left-radius: 0.125rem;
             background: $yellow;
-            color: $yellow-lighten-05;
-            content: '\f14a';
-            text-align: center;
+
             font: normal normal normal 1rem $font-family-icon;
           }
 
@@ -825,12 +927,15 @@ label {
             position: absolute;
             top: -0.75rem;
             left: 0.75rem;
+
             width: 0;
             height: 0;
+
+            content: '';
+
             border-top: 0.75rem solid transparent;
             border-bottom: 0.75rem solid transparent;
             border-left: 1rem solid $yellow;
-            content: '';
           }
         }
 
@@ -838,9 +943,9 @@ label {
           &:checked {
             ~ span {
               &:before {
-                background: $warm-gray-02;
                 //content: '\f14a';
                 color: $green;
+                background: $warm-gray-02;
               }
 
               &:after {
@@ -854,33 +959,42 @@ label {
 
     &.confirm {
       position: relative;
+
       flex-direction: column;
 
       label {
         flex-direction: row-reverse;
         justify-content: flex-start;
+
         margin-right: 1rem;
 
         &:before {
           position: absolute;
           top: 0.25rem;
           left: -0.25rem;
+
           display: block;
-          padding: 0.25rem;
-          min-width: 9rem;
+
           width: calc(100% - 12rem);
+          min-width: 9rem;
+          padding: 0.25rem;
+
+          content: 'CONFIRM HERE';
+          text-align: center;
+
+          color: $red-darken-02;
           border-top-left-radius: 0.125rem;
           border-bottom-left-radius: 0.125rem;
           background: $orange-lighten-01;
-          color: $red-darken-02;
-          content: 'CONFIRM HERE';
-          text-align: center;
+
           font: normal normal normal 1rem $font-family-sans-serif;
           line-height: 1;
 
           @include for-phone-only {
             left: -0.75rem;
+
             width: 8rem;
+
             font-size: 0.875rem;
           }
         }
@@ -889,15 +1003,19 @@ label {
           position: absolute;
           top: 0.25rem;
           left: calc(100% - 12.25rem);
+
           width: 0;
           height: 0;
+
+          content: '';
+
           border-top: 0.75rem solid transparent;
           border-bottom: 0.75rem solid transparent;
           border-left: 1rem solid $orange-lighten-01;
-          content: '';
 
           @include for-phone-only {
             left: 8.25rem;
+
             border-top: 0.6875rem solid transparent;
             border-bottom: 0.6875rem solid transparent;
           }
@@ -909,25 +1027,34 @@ label {
 
         span {
           position: relative;
+
           flex-grow: 1;
-          margin-right: 0.5rem;
+
           height: 1px;
-          background: $warm-gray-02;
+          margin-right: 0.5rem;
+
           cursor: pointer;
+
+          background: $warm-gray-02;
 
           &:before {
             position: absolute;
             top: -0.75rem;
             left: -0.75rem;
+
             display: block;
-            padding: 0.25rem;
+
             width: 1.5rem;
+            padding: 0.25rem;
+
+            content: '\f14a';
+            text-align: center;
+
+            color: $yellow-lighten-05;
             border-top-left-radius: 0.125rem;
             border-bottom-left-radius: 0.125rem;
             background: $yellow;
-            color: $yellow-lighten-05;
-            content: '\f14a';
-            text-align: center;
+
             font: normal normal normal 1rem $font-family-icon;
           }
 
@@ -935,12 +1062,15 @@ label {
             position: absolute;
             top: -0.75rem;
             left: 0.75rem;
+
             width: 0;
             height: 0;
+
+            content: '';
+
             border-top: 0.75rem solid transparent;
             border-bottom: 0.75rem solid transparent;
             border-left: 1rem solid $yellow;
-            content: '';
           }
         }
 
@@ -948,9 +1078,9 @@ label {
           &:checked {
             ~ span {
               &:before {
-                background: $warm-gray-02;
                 //content: '\f14a';
                 color: $green;
+                background: $warm-gray-02;
               }
 
               &:after {
@@ -988,6 +1118,7 @@ label {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+
   width: 100%;
 
   button[type='submit'] {
@@ -1012,23 +1143,29 @@ label {
 ul.list,
 ul.results {
   z-index: 1;
+
   margin: 0;
   padding: 0;
+
   list-style: none;
 
   &.list-cards {
     li {
       z-index: 1;
+
       display: flex;
       align-items: flex-start;
       flex-direction: row;
-      padding: $padding $padding * 1.5;
+
       width: 100%;
+      padding: $padding $padding * 1.5;
+
+      text-decoration: none;
+
       border: $card-border-width solid $card-border-color;
       border-top-width: 0;
       border-radius: 0;
       box-shadow: $card-box-shadow;
-      text-decoration: none;
 
       @include transition(all 0.2s ease-in-out);
 
@@ -1062,7 +1199,9 @@ ul.results {
         flex-basis: 12rem;
         flex-grow: 0;
         flex-shrink: 0;
+
         width: 12rem;
+
         border-right: 1px solid $border-color;
 
         li {
@@ -1082,11 +1221,14 @@ ul.results {
           flex-basis: 2rem;
           flex-shrink: 0;
           justify-content: flex-end;
-          margin: 0;
+
           width: 2rem;
           height: 2.4rem;
-          font-size: $font-size-h4;
+          margin: 0;
+
           cursor: pointer;
+
+          font-size: $font-size-h4;
 
           @include transition(all 0.2s ease-in-out);
 
@@ -1102,24 +1244,30 @@ ul.results {
     li {
       display: flex;
       flex-direction: row;
+
       margin-bottom: $padding/2;
+
       border-bottom: none;
 
       > div,
       > a {
         z-index: 1;
+
         display: flex;
         align-items: center;
         flex-basis: auto;
         flex-direction: row;
         flex-grow: 0;
         flex-shrink: 0;
-        padding: $padding $padding * 1.5;
+
         width: 100%;
+        padding: $padding $padding * 1.5;
+
+        text-decoration: none;
+
         border: $card-border-width solid $card-border-color;
         border-radius: $card-border-radius;
         box-shadow: $card-box-shadow;
-        text-decoration: none;
 
         @include transition(all 0.2s ease-in-out);
 
@@ -1133,6 +1281,7 @@ ul.results {
             flex-basis: auto;
             flex-grow: 0;
             flex-shrink: 0;
+
             margin: 0;
           }
 
@@ -1140,6 +1289,7 @@ ul.results {
             flex-basis: auto;
             flex-grow: 0;
             flex-shrink: 0;
+
             margin: 0;
           }
         }
@@ -1151,8 +1301,10 @@ ul.results {
           flex-grow: 0;
           flex-shrink: 0;
           justify-content: center;
+
           width: 2rem;
           height: 2rem;
+
           font-size: $font-size-h2;
 
           @include transition(all 0.2s ease-in-out);
@@ -1162,8 +1314,10 @@ ul.results {
       > a {
         &:hover {
           z-index: 2;
-          box-shadow: $card-box-shadow-hover;
+
           transform: scale(1.004);
+
+          box-shadow: $card-box-shadow-hover;
 
           h2,
           h3,

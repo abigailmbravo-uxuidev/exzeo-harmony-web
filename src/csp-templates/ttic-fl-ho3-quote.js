@@ -241,27 +241,37 @@ const mock = {
             component: 'radio',
             label: 'Personal Property Limit',
             size: '12',
+            validation: ['personalPropertyMax'],
             hint:
-              'This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit.',
+              "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit. TypTap's maximum Personal Property Limit is $500,000.",
             extendedProperties: {
-              output: 'currency'
+              output: 'currency',
+              conditionalOptions: true
             },
             dataSource: [
               {
                 label: '0%',
-                answer: 0
+                answer: 0,
+                disabled:
+                  '${Math.ceil(((0) * it.coverageLimits.dwelling.value)) > 500000}'
               },
               {
                 label: '25%',
-                answer: 25
+                answer: 25,
+                disabled:
+                  '${Math.ceil(((0.25) * it.coverageLimits.dwelling.value)) > 500000}'
               },
               {
                 label: '35%',
-                answer: 35
+                answer: 35,
+                disabled:
+                  '${Math.ceil(((0.35) * it.coverageLimits.dwelling.value)) > 500000}'
               },
               {
                 label: '50%',
-                answer: 50
+                answer: 50,
+                disabled:
+                  '${Math.ceil(((0.5) * it.coverageLimits.dwelling.value)) > 500000}'
               }
             ]
           },
