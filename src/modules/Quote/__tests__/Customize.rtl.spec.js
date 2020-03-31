@@ -4,6 +4,7 @@ import {
   render,
   fireEvent,
   wait,
+  waitForElement,
   defaultQuoteWorkflowProps,
   checkRadio,
   checkSwitch,
@@ -367,5 +368,35 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
         outputValue: '$ 5,900'
       })
     );
+  });
+
+  it('POS:Check Conditional Options coverageLimits.personalProperty 500,000 or greater', async () => {
+    const { getByTestId } = render(<QuoteWorkflow {...props} />);
+
+    await waitForElement(() => [
+      getByTestId('coverageLimits.dwelling.value-input'),
+      getByTestId('coverageLimits.personalProperty.value_wrapper')
+    ]);
+
+    const personalPropertyWrapper = getByTestId(
+      'coverageLimits.personalProperty.value_wrapper'
+    );
+    await wait(() => {
+      const disabledOptions = personalPropertyWrapper.querySelectorAll(
+        '[class="label-segmented disabled"]'
+      );
+      expect(disabledOptions.length).toBe(0);
+    });
+
+    fireEvent.change(getByTestId('coverageLimits.dwelling.value-input'), {
+      target: { value: '2000000' }
+    });
+
+    await wait(() => {
+      const disabledOptions = personalPropertyWrapper.querySelectorAll(
+        '[class="label-segmented disabled"]'
+      );
+      expect(disabledOptions.length).toBe(2);
+    });
   });
 });
