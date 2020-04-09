@@ -11,7 +11,7 @@ export function downloadReport(reportId, blob) {
   const fileName = `${reportId}-${date.formatToUTC()}.csv`;
   // IE doesn't allow using a blob object directly as link href
   if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-    window.navigator.msSaveBlob(blob, fileName);
+    window.navigator.msSaveOrOpenBlob(blob, fileName);
   }
   const data = window.URL.createObjectURL(blob);
   const link = document.createElement('a');
