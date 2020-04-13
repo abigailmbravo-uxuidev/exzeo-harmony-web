@@ -32,7 +32,7 @@ const Share = ({
                 className={Button.constants.classNames.link}
                 onClick={() => setPopup(true)}
                 disabled={submitting}
-                data-test="share"
+                data-test="inline-share"
               >
                 Click Here
               </Button>
@@ -61,7 +61,7 @@ const Share = ({
                 className={Button.constants.classNames.link}
                 onClick={handleClick}
                 disabled={submitting}
-                data-test="submit"
+                data-test="inline-submit"
               >
                 Click Here
               </Button>
