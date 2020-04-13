@@ -1217,13 +1217,12 @@ const mock = {
             component: '$ADDITIONAL_INTERESTS',
             extendedProperties: {
               text:
-                'Please select the type of Additional Interest that you would like to add for this policy. (If the policy premium bill needs to go to somewhere other than the policyholder or an additional interest, please select Bill Payer to enter the alternate address.)',
+                'Please select the type of Additional Interest that you would like to add for this policy.',
               types: [
                 'mortgagee',
                 'additionalInsured',
                 'additionalInterest',
-                'premiumFinance',
-                'billPayer'
+                'premiumFinance'
               ],
               subscribe: true,
               useOwnSubmit: true
@@ -1283,9 +1282,7 @@ const mock = {
           data: {
             component: '$BILLING',
             dataSource: 'billPlans',
-            extendedProperties: {
-              subscribe: true
-            }
+            extendedProperties: {}
           },
           formData: {
             required: true

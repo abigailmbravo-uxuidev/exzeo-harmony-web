@@ -105,15 +105,13 @@ describe('Testing Additional Interests', () => {
     await checkButtonTextIcon('Additional Insured');
     await checkButtonTextIcon('Additional Interest');
     await checkButtonTextIcon('Premium Finance');
-    await checkButtonTextIcon('Bill Payer');
   });
 
   it.each([
     ['Mortgagee'],
     ['Additional Insured'],
     ['Additional Interest'],
-    ['Premium Finance'],
-    ['Bill Payer']
+    ['Premium Finance']
   ])('NEG:All Empty %s Testing', async ai => {
     const { getByText, getByTestId } = render(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText(ai));
@@ -129,8 +127,7 @@ describe('Testing Additional Interests', () => {
     ['Mortgagee'],
     ['Additional Insured'],
     ['Additional Interest'],
-    ['Premium Finance'],
-    ['Bill Payer']
+    ['Premium Finance']
   ])('NEG: %s Empty Testing', async ai => {
     const { getByText, getByTestId } = render(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText(ai));
@@ -149,8 +146,7 @@ describe('Testing Additional Interests', () => {
     ['Mortgagee'],
     ['Additional Insured'],
     ['Additional Interest'],
-    ['Premium Finance'],
-    ['Bill Payer']
+    ['Premium Finance']
   ])('NEG: %s Invalid Input Testing', async ai => {
     const { getByText, getByTestId } = render(<QuoteWorkflow {...props} />);
     fireEvent.click(getByText(ai));
@@ -186,8 +182,7 @@ describe('Testing Additional Interests', () => {
     ['Mortgagee', 'mortgage', 'Top Mortgagees'],
     ['Additional Insured', '', ''],
     ['Additional Interest', '', ''],
-    ['Premium Finance', 'premiumFinance', 'Top Premium Finance'],
-    ['Bill Payer', '', '']
+    ['Premium Finance', 'premiumFinance', 'Top Premium Finance']
   ])('POS: %s Testing', async (ai, dataTest, label) => {
     const newProps = {
       ...props,
@@ -338,7 +333,6 @@ describe('Testing Additional Interests', () => {
     expect(getByText('Additional Insured')).toBeDisabled();
     expect(getByText('Additional Interest')).toBeDisabled();
     expect(getByText('Premium Finance')).toBeDisabled();
-    expect(getByText('Bill Payer')).toBeDisabled();
   });
 
   it('POS:Checks Submit Button', async () => {

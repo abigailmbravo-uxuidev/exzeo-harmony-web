@@ -29,6 +29,7 @@ import { UW_EXCEPTION_QUOTE_STATES } from './constants/quote';
 import Assumptions from './Assumptions';
 import Share from './Share';
 import ThankYou from './ThankYou';
+import Billing from './Billing';
 import WorkflowNavigation from './WorkflowNavigation';
 import Verify from './Verify';
 import Warning from './Warning';
@@ -63,7 +64,8 @@ export class QuoteWorkflow extends Component {
       $SHARE: Share,
       $ASSUMPTIONS: Assumptions,
       $VERIFY: Verify,
-      $WARNING: Warning
+      $WARNING: Warning,
+      $BILLING: Billing
     };
 
     this.state = {
@@ -157,7 +159,9 @@ export class QuoteWorkflow extends Component {
           quoteNumber: quote.quoteNumber,
           options: {
             step: stepNumber,
-            shouldVerifyQuote: NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
+            // Make sure the next action after we submit is navigating to verify page
+            shouldVerifyQuote:
+              !remainOnStep && NEXT_PAGE_ROUTING[currentRouteName] === 'verify'
           }
         });
       }
@@ -187,18 +191,6 @@ export class QuoteWorkflow extends Component {
 
   setFormInstance = formInstance => {
     this.formInstance = formInstance;
-  };
-
-  isSubmitDisabled = (submitting, values) => {
-    const { location } = this.props;
-
-    const { currentStepNumber } = getCurrentStepAndPage(location.pathname);
-
-    if (currentStepNumber === PAGE_ROUTING.mailingBilling) {
-      return submitting || !values.billToId;
-    }
-
-    return submitting;
   };
 
   render() {
@@ -298,10 +290,7 @@ export class QuoteWorkflow extends Component {
                                 data-test="submit"
                                 className={Button.constants.classNames.primary}
                                 onClick={this.primaryClickHandler}
-                                disabled={this.isSubmitDisabled(
-                                  submitting,
-                                  values
-                                )}
+                                disabled={submitting}
                                 label={
                                   this.state.isRecalc ? 'recalculate' : 'next'
                                 }

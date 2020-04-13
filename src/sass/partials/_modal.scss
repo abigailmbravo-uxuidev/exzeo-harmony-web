@@ -507,6 +507,21 @@
       }
     }
   }
+  .card.AdditionalInterestModal.billPayer {
+    .other-bill-payer-header {
+      padding: $padding ($padding * 2);
+
+      background: $orange-lighten-04;
+      p {
+        margin-bottom: 0;
+
+        color: $red-darken-02;
+      }
+    }
+    .card-block {
+      max-height: 60vh;
+    }
+  }
 }
 //Modals for navigation menus on phones only
 /*------------------------------------------------------------------------------------*/

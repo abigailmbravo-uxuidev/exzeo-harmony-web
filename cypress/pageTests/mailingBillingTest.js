@@ -62,9 +62,7 @@ export default (product = 'HO3') => {
     .should('not.eq', '')
     .findDataTag('billToId')
     .find('option:not([disabled])')
-    .should('have.length', 1);
-
-  checkBillingOption(1);
+    .should('have.length', 2);
 
   cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
     cy.checkDetailHeader(header)
