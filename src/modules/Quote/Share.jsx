@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
 import { ShareModal } from '@exzeo/core-ui/src/@Harmony';
 
@@ -24,8 +25,19 @@ const Share = ({
           <i className="fa fa-share-alt" /> Share
         </div>
         <p>
-          To SHARE this quote as a PDF via email, click the{' '}
-          <strong>SHARE</strong> button
+          To SHARE this quote as a PDF via email:
+          <FormSpy subscription={{ submitting: true }}>
+            {({ submitting }) => (
+              <Button
+                className={Button.constants.classNames.link}
+                onClick={() => setPopup(true)}
+                disabled={submitting}
+                data-test="inline-share"
+              >
+                Click Here
+              </Button>
+            )}
+          </FormSpy>
         </p>
       </section>
       <section className="section-instructions" data-test="section-2">
@@ -42,8 +54,19 @@ const Share = ({
           </li>
         </ul>
         <p>
-          When you are prepared to move forward, click the <strong>NEXT</strong>{' '}
-          button
+          When you are prepared to move forward:
+          <FormSpy subscription={{ submitting: true }}>
+            {({ submitting }) => (
+              <Button
+                className={Button.constants.classNames.link}
+                onClick={handleClick}
+                disabled={submitting}
+                data-test="inline-submit"
+              >
+                Click Here
+              </Button>
+            )}
+          </FormSpy>
         </p>
       </section>
       <section className="section-instructions" data-test="section-3">
@@ -52,8 +75,10 @@ const Share = ({
         </div>
         <p>
           Your current quote is saved and can be retrieved at any time. To begin
-          a NEW QUOTE, click the <i className="fa fa-dashboard" />{' '}
-          <strong>DASHBOARD</strong> tab
+          a new quote:
+          <Link className="btn link" to="/search/address">
+            Click Here
+          </Link>
         </p>
       </section>
       <FormSpy subscription={{ submitting: true }}>
