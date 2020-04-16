@@ -233,43 +233,203 @@
         }
       }
 
+      &.retrieve-quote-wrapper {
+        flex-wrap: wrap;
+
+        .first-name-search {
+          @include for-tablet-portrait-up {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            width: 12rem;
+            margin-bottom: $padding;
+          }
+          @include for-large-desktop-up {
+            margin-bottom: 0;
+          }
+        }
+
+        .last-name-search {
+          @include for-tablet-portrait-up {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            width: 12rem;
+            margin-bottom: $padding;
+          }
+          @include for-large-desktop-up {
+            margin-bottom: 0;
+          }
+        }
+
+        .property-search {
+          @include for-tablet-portrait-up {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            width: calc(100% - 24rem);
+            margin-bottom: $padding;
+          }
+          @include for-large-desktop-up {
+            width: calc(100% - 51.875rem);
+            margin-bottom: 0;
+          }
+        }
+
+        .state-search,
+        .product-search {
+          @include for-tablet-portrait-up {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            width: 5rem;
+          }
+        }
+
+        .quote-no-search {
+          @include for-tablet-portrait-up {
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            width: calc(100% - 17.875rem);
+          }
+          @include for-large-desktop-up {
+            width: 12rem;
+          }
+        }
+      }
+
       &.search-policy-wrapper {
+        flex-wrap: wrap;
         .form-group {
           &.search-context {
-            @include for-tablet-landscape-up {
+            @include for-tablet-portrait-up {
               flex-grow: 0;
               flex-shrink: 0;
 
               width: 6rem;
+              margin-bottom: $padding;
             }
           }
 
           &.first-name-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: calc(50% - 3rem);
+              margin-bottom: $padding;
+            }
             @include for-tablet-landscape-up {
               flex-grow: 0;
               flex-shrink: 0;
 
-              width: 9rem;
+              width: 10rem;
+              margin-bottom: $padding;
             }
           }
 
           &.last-name-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: calc(50% - 3rem);
+              margin-bottom: $padding;
+            }
             @include for-tablet-landscape-up {
               flex-grow: 0;
               flex-shrink: 0;
 
-              width: 9rem;
+              width: 10rem;
+              margin-bottom: $padding;
+            }
+          }
+
+          &.property-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: 100%;
+              margin-bottom: $padding;
+            }
+            @include for-tablet-landscape-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: calc(100% - 26rem);
+              margin-bottom: $padding;
+            }
+          }
+
+          &.state-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: 5rem;
+              margin-bottom: $padding;
+            }
+            @include for-tablet-landscape-up {
+              margin-bottom: 0;
+            }
+          }
+          &.product-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: 5rem;
+              margin-bottom: $padding;
+            }
+            @include for-tablet-landscape-up {
+              margin-bottom: 0;
             }
           }
 
           &.policy-no-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: calc(100% - 10rem);
+              margin-bottom: $padding;
+            }
             @include for-tablet-landscape-up {
               flex-grow: 0;
               flex-shrink: 0;
 
-              width: 9rem;
+              width: calc(100% - 40.875rem);
+              margin-bottom: 0;
             }
           }
+          &.policy-status-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: calc(100% - 18.875rem);
+            }
+            @include for-tablet-landscape-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: 12rem;
+            }
+          }
+          &.effective-date-search {
+            @include for-tablet-portrait-up {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: 11rem;
+            }
+          }
+        }
+
+        .btn-primary {
+          width: 7.125rem;
         }
       }
 
