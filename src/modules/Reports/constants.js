@@ -54,7 +54,6 @@ export const pendingNonPaymentIssuedColumns = [
   { title: 'Property Address' },
   { title: 'Premium', format: amountFormatter }
 ];
-
 //TODO : grab this data from the endpoint data when the csv is parsed on the client
 export const REPORT_COLUMNS = {
   [REPORT_TYPE.agencyActivity]: agencyActivityColumns,
