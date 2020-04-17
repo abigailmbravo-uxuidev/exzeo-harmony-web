@@ -8,13 +8,20 @@ export const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
 
 export function downloadReport(reportId, blob) {
-  const blobUrl = window.URL.createObjectURL(blob);
-  const link = window.document.createElement('a');
-  link.href = blobUrl;
-  link.download = `${reportId}-${date.formatToUTC()}.csv`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const fileName = `${reportId}-${date.formatToUTC()}.csv`;
+  // IE doesn't allow using a blob object directly as link href
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(blob, fileName);
+  }
+  const data = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = data;
+  link.download = fileName;
+  setTimeout(() => {
+    link.click();
+    // Firefox, necessary delay before revoking the ObjectURL
+    window.URL.revokeObjectURL(data);
+  }, 100);
 }
 
 export async function getReportById(

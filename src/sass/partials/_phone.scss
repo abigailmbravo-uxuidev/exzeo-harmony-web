@@ -54,9 +54,17 @@
                     .first-name-search,
                     .last-name-search {
                       width: 50%;
+                      margin-bottom: $padding;
+                    }
+                    .property-search {
+                      margin-bottom: $padding;
+                    }
+                    .state-search,
+                    .product-search {
+                      width: 4rem;
                     }
                     .quote-no-search {
-                      width: calc(100% - 3.3rem);
+                      width: calc(100% - 11.3rem);
                     }
                   }
 
@@ -65,19 +73,39 @@
 
                     .search-context {
                       width: 5.75rem;
+                      margin-bottom: $padding;
                     }
 
                     .first-name-search {
                       width: calc(55% - 5.75rem);
+                      margin-bottom: $padding;
                     }
                     .last-name-search {
                       width: 45%;
+                      margin-bottom: $padding;
+                    }
+                    .property-search {
+                      margin-bottom: $padding;
+                    }
+                    .state-search,
+                    .product-search {
+                      width: 4rem;
+                      margin-bottom: $padding;
                     }
                     .policy-no-search {
-                      width: calc(100% - 3.25rem);
+                      width: calc(100% - 8rem);
+                      margin-bottom: $padding;
+                    }
+                    .policy-status-search {
+                      margin-bottom: $padding;
+                    }
+
+                    .effective-date-search {
+                      width: calc(100% - 3.3rem);
                     }
 
                     button.multi-input {
+                      width: 3rem;
                       margin-left: $padding/2;
                     }
                   }

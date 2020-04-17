@@ -144,6 +144,11 @@ $link-hover-decoration: underline !default;
     @content;
   }
 }
+@mixin for-large-desktop-up {
+  @media (min-width: 1560px) {
+    @content;
+  }
+}
 @mixin for-big-desktop-up {
   @media (min-width: 1800px) {
     @content;
@@ -156,6 +161,7 @@ body {
 }
 .container {
   display: flex;
+
   margin-right: auto;
   margin-left: auto;
   padding-right: $padding / 2;
@@ -692,8 +698,9 @@ textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px rgba($green-lighten-04, 0.125) inset;
   transition: background-color 5000s ease-in-out 0s;
+
+  -webkit-box-shadow: 0 0 0px 1000px rgba($green-lighten-04, 0.125) inset;
 }
 
 //modal

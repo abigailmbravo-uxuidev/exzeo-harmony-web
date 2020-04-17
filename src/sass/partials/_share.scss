@@ -1,55 +1,6 @@
-#SharePage {
-  overflow-y: auto;
-  flex-grow: 1;
-
-  .detail-wrapper {
-    .section-instructions {
-      margin-bottom: $padding * 2;
-      padding-bottom: $paragraph-margin-bottom;
-      width: 100%;
-    }
-  }
-}
-
-.email-modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: none;
-  align-items: center;
-  flex-direction: column;
-  background: $modal-bg;
-
-  @include animation('fade-in .25s 1');
-
-  &.active {
-    display: flex;
-  }
-
-  .survey-wrapper {
-    display: flex;
-    align-items: center;
-
-    .card-email {
-      position: relative;
-      margin: $padding 0;
-      width: 36rem;
-
-      @include for-phone-only {
-        margin: 0 0 ($padding * 2);
-        max-width: 19.375rem;
-      }
-
-      .loader {
-        position: absolute;
-        top: -1px;
-        right: -1px;
-        bottom: -1px;
-        left: -1px;
-        border-radius: $border-radius;
-      }
-    }
+.section-instructions {
+  button,
+  a {
+    padding: $padding ($padding/2);
   }
 }

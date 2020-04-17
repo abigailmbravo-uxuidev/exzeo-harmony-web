@@ -5,11 +5,17 @@ import {
   FormSpy,
   validation,
   Input,
+  Date,
   Button,
   Select,
-  Loader
+  Loader,
+  date
 } from '@exzeo/core-ui';
-import { AppFooter, usePolicySearch } from '@exzeo/core-ui/src/@Harmony';
+import {
+  AppFooter,
+  usePolicySearch,
+  POLICY_STATUS_OPTIONS
+} from '@exzeo/core-ui/src/@Harmony';
 
 import { cspConfigForSearch } from '../../../utilities/userResources';
 import { SORT_BY_OPTIONS, SORT_DIRECTION_MAP } from '../constants';
@@ -26,7 +32,13 @@ const SearchPolicy = ({ userProfile = {} }) => {
 
   const handleSubmit = async values => {
     const sortDirection = SORT_DIRECTION_MAP[values.sort];
-    await handleSearchSubmit({ ...values, sortDirection });
+    await handleSearchSubmit({
+      ...values,
+      sortDirection,
+      effectiveDate:
+        values.effectiveDate &&
+        date.formatDate(values.effectiveDate, date.FORMATS.SECONDARY)
+    });
   };
 
   const handlePagination = values => page => {
@@ -145,6 +157,31 @@ const SearchPolicy = ({ userProfile = {} }) => {
                     styleName="policy-no-search"
                     placeholder="Policy No Search"
                     label="Policy Number"
+                  />
+                )}
+              </Field>
+
+              <Field name="status">
+                {({ input, meta }) => (
+                  <Select
+                    input={input}
+                    meta={meta}
+                    dataTest="policyStatus"
+                    styleName="policy-status-search"
+                    answers={POLICY_STATUS_OPTIONS}
+                    label="Policy Status"
+                  />
+                )}
+              </Field>
+
+              <Field name="effectiveDate">
+                {({ input, meta }) => (
+                  <Date
+                    input={input}
+                    meta={meta}
+                    dataTest="effectiveDate"
+                    styleName="effective-date-search"
+                    label="Effective Date"
                   />
                 )}
               </Field>
