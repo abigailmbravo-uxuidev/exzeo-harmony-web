@@ -48,7 +48,6 @@ export const pendingNonPaymentIssuedColumns = [
   { title: 'Policyholder' },
   { title: 'Effective Date' },
   { title: 'Notice Date' },
-  { title: 'Notice Date' },
   { title: 'Final Payment Due Date' },
   { title: 'Billing Status' },
   { title: 'Mailing Address' },
