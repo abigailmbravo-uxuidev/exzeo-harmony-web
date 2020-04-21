@@ -8,7 +8,7 @@ import {
   navigateThroughMailingBilling,
   navigateThroughVerify,
   navigateThroughSendApplicationAndBind,
-  navigateThroughThankYou,
+  ////navigateThroughThankYou,
   searchPolicy,
   searchQoute
 } from '../../helpers';
@@ -22,11 +22,11 @@ import {
   verifyTest
 } from '../../pageTests';
 
-const fields = [
-  { name: 'firstName', data: 'batman' },
-  { name: 'lastName', data: 'robin' },
-  { name: 'address', data: 'test' }
-];
+// const fields = [
+//   { name: 'firstName', data: 'batman' },
+//   { name: 'lastName', data: 'robin' },
+//   { name: 'address', data: 'test' }
+// ];
 
 describe('Agency Happy Path', () => {
   before('Login', () => cy.login());
@@ -64,14 +64,9 @@ describe('Agency Happy Path', () => {
     verifyTest();
     navigateThroughVerify();
   });
-  it('Send to DocuSign and Bind', () => {
+  it('Send to DocuSign and Bind Then Search Policy and Quote', () => {
     navigateThroughSendApplicationAndBind('Yes');
+    searchPolicy();
+    searchQoute();
   });
-  // it('Search Policy', () => {
-  //   searchPolicy();
-  // });
-  // it('Search Quote', () => {
-  //   searchQoute();
-  // });
-  //});
 });

@@ -1,4 +1,4 @@
-const ho3Headers = [
+const headers = [
   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
   {
     name: 'propertyAddressDetail',
@@ -75,9 +75,10 @@ export default (product = 'HO3') => {
 
   checkBillingOption(1);
 
-  cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
-    cy.checkDetailHeader(header)
-  );
+  cy.wrap(headers).each(header => cy.checkDetailHeader(header));
+  // cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
+  //   cy.checkDetailHeader(header)
+  // );
 
   goToAiPage();
   cy.findDataTag('mortgagee')

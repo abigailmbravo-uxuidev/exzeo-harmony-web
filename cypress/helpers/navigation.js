@@ -107,7 +107,7 @@ export const navigateThroughCustomize = (slider = coverage) => {
     .wait('@updateQuote')
     .then(response => {
       expect(response.status).to.eq(200);
-      // cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
+      ////cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
     });
 };
 
@@ -200,6 +200,7 @@ export const navigateThroughMailingBilling = billToChange => {
 
   cy.wait('@updateQuote').then(({ response }) => {
     expect(response.body.status).to.equal(200);
+    ////cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
   });
   // cy.wait('@updateQuote').then(({ request, response }) => {
   //   expect(request.body.data.quote.policyHolderMailingAddress.address1).to
@@ -213,12 +214,12 @@ export const navigateThroughMailingBilling = billToChange => {
   //   }
   // });
 
-  cy.wait('@verifyQuote').then(({ response }) => {
-    expect(response.body.status).to.equal(200);
-  });
-  // cy.wait('@verifyQuote').then(({ request }) => {
-  //   expect(request.body.exchangeName).to.equal('harmony');
+  // cy.wait('@verifyQuote').then(({ response }) => {
+  //   expect(response.body.status).to.equal(200);
   // });
+  cy.wait('@verifyQuote').then(({ request }) => {
+    expect(request.body.exchangeName).to.equal('harmony');
+  });
 };
 
 export const navigateThroughVerify = () =>
@@ -235,12 +236,11 @@ export const navigateThroughVerify = () =>
     .clickSubmit('#QuoteWorkflow', 'next');
 
 export const navigateThroughSendApplicationAndBind = verifyEnvId => {
-  cy.task('log', 'Navigating through Send Application and Bind').clickSubmit(
-    '[data-test="schedule-date-modal"]',
-    'modal-submit'
-  );
+  cy.task('log', 'Navigating through Send Application and Bind');
+  cy.clickSubmit('[data-test="schedule-date-modal"]', 'modal-submit');
   if (verifyEnvId === 'Yes') {
-    cy.wait('@sendApplication').then(({ request }) => {
+    cy.wait('@sendApplication').then(({ request, response }) => {
+      cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
       getToken().then(response => {
         const token = response.body.id_token;
         const apiUrl = Cypress.env('API_URL') + '/svc';
@@ -259,13 +259,13 @@ export const navigateThroughSendApplicationAndBind = verifyEnvId => {
   }
 };
 
-export const navigateThroughThankYou = () =>
-  cy
-    .task('log', 'Navigating through Thank You')
-    .get('#thanks a[href="/"]')
-    .click()
-    .get('div.dashboard-message')
-    .should('exist');
+// export const navigateThroughThankYou = () =>
+//   cy
+//     ////.task('log', 'Navigating through Thank You')
+//     .get('#thanks a[href="/"]')
+//     .click()
+//     .get('div.dashboard-message')
+//     .should('exist');
 
 export const searchPolicy = () => {
   cy.task('log', 'Searching for the Policy')
@@ -279,11 +279,8 @@ export const searchPolicy = () => {
         .click()
         .wait('@searchPolicy')
         .then(({ response }) => {
-          expect(response.body.status).to.equal(200);
+          expect(response.body.totalNumberOfRecords).to.equal(1);
         });
-      // .then(({ response }) => {
-      //   expect(response.body.totalNumberOfRecords).to.equal(1);
-      // });
       cy.get('.policy-no')
         .invoke('text')
         .then(number => {
@@ -304,11 +301,8 @@ export const searchQoute = () => {
         .click()
         .wait('@fetchQuotes')
         .then(({ response }) => {
-          expect(response.body.status).to.equal(200);
+          expect(response.body.result.totalNumberOfRecords).to.equal(1);
         });
-      // .then(({ response }) => {
-      //   expect(response.body.result.totalNumberOfRecords).to.equal(1);
-      // });
       cy.get('.quote-no')
         .invoke('text')
         .then(number => {
