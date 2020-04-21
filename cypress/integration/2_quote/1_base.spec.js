@@ -32,22 +32,46 @@ describe('Agency Happy Path', () => {
   before('Login', () => cy.login());
   beforeEach('Set Route Aliases', () => setRouteAliases());
 
-  it('Navigates through the HO3 quote workflow', () => {
+  ////it('Navigates through the HO3 quote workflow', () => {
+  it('Start Creating a New Quote', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();
+  });
+  it('Policy Details Page', () => {
     policyDetailsTest();
+  });
+  it('Underwriting Page', () => {
     underwritingTest();
+  });
+  it('Customize Page', () => {
     navigateThroughCustomize();
+  });
+  it('Share Page', () => {
     shareTest();
     navigateThroughAssumptions();
+  });
+  it('Policyholder Page', () => {
     navigateThroughPolicyholder();
+  });
+  it('Additional Parties Page', () => {
     additionalInterestTest();
+  });
+  it('Mailing / Billing Page', () => {
     mailingBillingTest();
     navigateThroughMailingBilling('Yes');
+  });
+  it('Verify Page', () => {
     verifyTest();
     navigateThroughVerify();
-    navigateThroughSendApplicationAndBind('Yes');
-    searchPolicy();
-    searchQoute();
   });
+  it('Send to DocuSign and Bind', () => {
+    navigateThroughSendApplicationAndBind('Yes');
+  });
+  // it('Search Policy', () => {
+  //   searchPolicy();
+  // });
+  // it('Search Quote', () => {
+  //   searchQoute();
+  // });
+  //});
 });

@@ -35,6 +35,8 @@ export const setRouteAliases = () =>
     .as('searchPolicy')
     .route({ method: 'POST', url: '/svc?quoteManager.searchQuotes' })
     .as('fetchQuotes')
+    .route({ method: 'POST', url: '/svc?quoteManager.createQuote' })
+    .as('createQuote')
     .route({ method: 'POST', url: '/svc?listReport' })
     .as('listReport')
     .route({ method: 'POST', url: '/svc?getReportById' })
