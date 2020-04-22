@@ -23,7 +23,6 @@ const headers = [
 
 export default (data = underwriting) =>
   cy
-    ////.task('log', 'Test Underwriting Page')
     .wrap(Object.entries(data))
     .each(([name, value]) =>
       cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
