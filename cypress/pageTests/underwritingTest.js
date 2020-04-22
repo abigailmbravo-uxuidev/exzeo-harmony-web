@@ -37,6 +37,3 @@ export default (data = underwriting) =>
     .then(({ response }) => {
       expect(response.body.status).to.equal(200);
     });
-//// .then(({ response }) => {
-////   expect(response.body.result.quoteInputState).to.equal('Qualified');
-//// });

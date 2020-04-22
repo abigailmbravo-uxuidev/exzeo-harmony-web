@@ -18,22 +18,6 @@ const headers = [
   }
 ];
 
-// const af3Headers = [
-//   { name: 'quoteNumberDetail', label: 'Quote Number', value: '12-' },
-//   {
-//     name: 'propertyAddressDetail',
-//     label: 'Address',
-//     value: '4131 TEST ADDRESS'
-//   },
-//   { name: 'yearBuiltDetail', label: 'Year Built', value: '1998' },
-//   { name: 'FEMAfloodZoneDetail', label: 'FEMA Flood Zone', value: 'X' },
-//   {
-//     name: 'coverageLimits.building.amountDetail',
-//     label: 'Coverage A',
-//     value: '$ 267,000'
-//   }
-// ];
-
 const goToAiPage = () => {
   cy.findDataTag('tab-nav-6').click();
   cy.wait('@getQuestions').then(({ request, response }) => {
@@ -54,18 +38,6 @@ const checkBillingOption = (numOfOptions = 1, selected = true) =>
 
 export default (product = 'HO3') => {
   cy.task('log', 'Test Mailing Billing Page');
-  ////cy.wait('@getBillingOptions')
-  ////  .then(({ request }) => {
-  ////    expect(request.body.status).to.equal(200);
-  ////   });
-  ////.then(({ request }) => {
-  ////  expect(request.body.data.additionalInterests.length).to.equal(0);
-  ////});
-  ////
-  ////cy.wait('@getBillingOptions')
-  ////.then(({ response }) => {
-  ////     expect(response.body.status).to.equal(200);
-  ////});
   cy.findDataTag('billToId')
     .invoke('attr', 'data-selected')
     .should('not.eq', '')
@@ -76,9 +48,6 @@ export default (product = 'HO3') => {
   checkBillingOption(1);
 
   cy.wrap(headers).each(header => cy.checkDetailHeader(header));
-  // cy.wrap(product === 'HO3' ? ho3Headers : af3Headers).each(header =>
-  //   cy.checkDetailHeader(header)
-  // );
 
   goToAiPage();
   cy.findDataTag('mortgagee')
@@ -93,23 +62,9 @@ export default (product = 'HO3') => {
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
   cy.wait('@updateQuote').then(({ response }) => {
     expect(response.body.status).to.equal(200);
-    //.then(({ request, response }) => {
-    // expect(
-    //   request.body.data.quote.additionalInterests.length,
-    //   'Additional Interests: '
-    // ).to.equal(1);
-    // expect(
-    //   request.body.data.quote.additionalInterests[0].type,
-    //   'Additional Interest Type: '
-    // ).to.equal('Mortgagee');
   });
   cy.clickSubmit('#QuoteWorkflow');
   cy.wait('@getBillingOptions').then(({ response }) => {
     expect(response.body.status).to.equal(200);
   });
-  //   expect(
-  //     request.body.data.additionalInterests.length,
-  //     'Additional Interests: '
-  //   ).to.equal(1);
-  // });
 };

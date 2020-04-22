@@ -8,7 +8,6 @@ import {
   navigateThroughMailingBilling,
   navigateThroughVerify,
   navigateThroughSendApplicationAndBind,
-  ////navigateThroughThankYou,
   searchPolicy,
   searchQoute
 } from '../../helpers';
@@ -22,17 +21,10 @@ import {
   verifyTest
 } from '../../pageTests';
 
-// const fields = [
-//   { name: 'firstName', data: 'batman' },
-//   { name: 'lastName', data: 'robin' },
-//   { name: 'address', data: 'test' }
-// ];
-
 describe('Agency Happy Path', () => {
   before('Login', () => cy.login());
   beforeEach('Set Route Aliases', () => setRouteAliases());
 
-  ////it('Navigates through the HO3 quote workflow', () => {
   it('Start Creating a New Quote', () => {
     navigateThroughLanding();
     navigateThroughSearchAddress();

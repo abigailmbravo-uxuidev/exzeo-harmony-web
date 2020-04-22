@@ -34,9 +34,5 @@ export default () =>
     .wait('@sendQuoteSummary')
     .then(({ response }) => {
       expect(response.body.status).to.equal(200);
-      ////expect(request.body.data.toEmail).to.equal('Batman@gmail.com');
     })
     .clickSubmit('#QuoteWorkflow');
-//// .wait('@updateQuote').then(({ response }) => {
-////   expect(response.body.result.quoteInputState).to.equal('Qualified');
-//// });

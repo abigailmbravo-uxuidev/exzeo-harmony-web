@@ -45,13 +45,6 @@ export default () =>
     .findDataTag('additionalPolicyholder')
     .click()
     .clickSubmit('.modal', 'modal-submit')
-    //.wait('@updateQuote')
-    // .then(({ request }) =>
-    //   expect(
-    //     request.body.data.quote.policyHolders.length,
-    //     'Policyholders in request'
-    //   ).to.equal(1)
-    // )
     .wait('@updateQuote')
     .then(({ response }) => {
       expect(response.body.status).to.equal(200);

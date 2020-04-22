@@ -19,16 +19,6 @@ const headers = [
 ];
 
 export default () => {
-  //// cy.task('log', 'Test Additional Interest Page')
-  ////   .wait('@getQuestions')
-  ////   .then(({ request }) => {
-  ////     expect(request.body.step).to.equal('additionalInterestsCSR');
-  ////   });
-
-  // cy.wait('@updateQuote')
-  //   .then(({ response }) => {
-  //     expect(response.body.status).to.equal(200);
-  //   });
   // Add and remove an additional interest
   cy.findDataTag('mortgagee')
     .click()
@@ -48,16 +38,6 @@ export default () => {
   cy.wait('@updateQuote').then(({ response }) => {
     expect(response.body.status).to.equal(200);
   });
-  // .then(({ request, response }) => {
-  //   expect(
-  //     request.body.data.quote.additionalInterests.length,
-  //     'Additional Interests: '
-  //   ).to.equal(1);
-  //   expect(
-  //     response.body.result.quoteInputState,
-  //     'Quote Input State: '
-  //   ).to.equal('AppStarted');
-  // });
   cy.task('log', 'Delete the mortgagee')
     .get('ul.result-cards li')
     .should('have.length', 1)
@@ -67,16 +47,6 @@ export default () => {
   cy.wait('@updateQuote').then(({ response }) => {
     expect(response.body.status).to.equal(200);
   });
-  // .then(({ request, response }) => {
-  //   expect(
-  //     request.body.data.quote.additionalInterests.length,
-  //     'Additional Interests: '
-  //   ).to.equal(0);
-  //   expect(
-  //     response.body.result.quoteInputState,
-  //     'Quote Input State: '
-  //   ).to.equal('Qualified');
-  // });
   cy.get('ul.result-cards li').should('have.length', 0);
   //move on to next page
   cy.clickSubmit('#QuoteWorkflow');
