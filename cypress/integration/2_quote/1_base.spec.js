@@ -59,6 +59,6 @@ describe('Agency Happy Path', () => {
   it('Send to DocuSign and Bind Then Search Policy and Quote', () => {
     navigateThroughSendApplicationAndBind('Yes');
     searchPolicy();
-    searchQoute();
+    ////searchQoute();
   });
 });

@@ -224,7 +224,7 @@ export const searchPolicy = () => {
         .click()
         .wait('@searchPolicy')
         .then(({ response }) => {
-          expect(response.body.totalNumberOfRecords).to.equal(1);
+          expect(response.body.policies[0].status).to.equal('Policy Issued');
         });
       cy.get('.policy-no')
         .invoke('text')
@@ -246,7 +246,7 @@ export const searchQoute = () => {
         .click()
         .wait('@fetchQuotes')
         .then(({ response }) => {
-          expect(response.body.result.totalNumberOfRecords).to.equal(1);
+          expect(response.body.status).to.equal(200);
         });
       cy.get('.quote-no')
         .invoke('text')
