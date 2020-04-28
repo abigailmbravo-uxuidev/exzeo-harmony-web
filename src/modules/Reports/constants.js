@@ -3,7 +3,7 @@ import { dateFormatter, amountFormatter } from './utilities';
 export const REPORT_TYPE = {
   agencyActivity: 'Agency_Activity',
   bookOfBusiness: 'Book_Of_Business',
-  pendingNonPayment: 'Pending_Non_Payment_Cancellations',
+  pendingNonPayment: 'Pending_Non_Payment_Cancellations_Report',
   pendingUnderwriting: 'Pending_Underwriting'
 };
 
