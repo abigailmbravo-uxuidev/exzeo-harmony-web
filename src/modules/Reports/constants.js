@@ -3,12 +3,14 @@ import { dateFormatter, amountFormatter } from './utilities';
 export const REPORT_TYPE = {
   agencyActivity: 'Agency_Activity',
   bookOfBusiness: 'Book_Of_Business',
-  pendingNonPayment: 'Pending_Non_Payment_Cancellations_Report'
+  pendingNonPayment: 'Pending_Non_Payment_Cancellations',
+  pendingUnderwriting: 'Pending_Underwriting'
 };
 
 export const REPORT_ENDPOINT = {
   [REPORT_TYPE.bookOfBusiness]: 'getBookOfBusinessReport',
-  [REPORT_TYPE.pendingNonPayment]: 'pendingNonPaymentIssuedReport'
+  [REPORT_TYPE.pendingNonPayment]: 'pendingNonPaymentIssuedReport',
+  [REPORT_TYPE.pendingUnderwriting]: 'pendingUnderwritingReport'
 };
 
 export const agencyActivityColumns = [
@@ -54,9 +56,26 @@ export const pendingNonPaymentIssuedColumns = [
   { title: 'Property Address' },
   { title: 'Premium', format: amountFormatter }
 ];
+
+export const pendingUnderwritingColumns = [
+  { title: 'Agent Name' },
+  { title: 'Policy Number', isKey: true },
+  { title: 'Product' },
+  { title: 'Policyholder' },
+  { title: 'Effective Date' },
+  { title: 'Notice Date' },
+  { title: 'Cancel Date' },
+  { title: 'Policy Status' },
+  { title: 'Billing Status' },
+  { title: 'Mailing Address' },
+  { title: 'Property Address' },
+  { title: 'Premium', format: amountFormatter }
+];
+
 //TODO : grab this data from the endpoint data when the csv is parsed on the client
 export const REPORT_COLUMNS = {
   [REPORT_TYPE.agencyActivity]: agencyActivityColumns,
   [REPORT_TYPE.bookOfBusiness]: bookOfBusinessColumns,
-  [REPORT_TYPE.pendingNonPayment]: pendingNonPaymentIssuedColumns
+  [REPORT_TYPE.pendingNonPayment]: pendingNonPaymentIssuedColumns,
+  [REPORT_TYPE.pendingUnderwriting]: pendingUnderwritingColumns
 };
