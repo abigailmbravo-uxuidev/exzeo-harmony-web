@@ -273,4 +273,48 @@ describe('Testing the Mailing/Billing Page', () => {
 
     checkButton(getByTestId);
   });
+
+  describe('Test Other Bill Payer logic', () => {
+    it("Show only 'Other Bill Payer' option when no Bill Payer or Premium Finance present", async () => {
+      mockServiceRunner(result);
+      const { getByTestId } = render(<QuoteWorkflow {...props} />);
+
+      await waitForElement(() => getByTestId('billToId_label'));
+
+      const billToIdField = getByTestId('billToId');
+      expect(
+        billToIdField.querySelectorAll('option:not(:disabled)').length
+      ).toBe(2);
+    });
+
+    it('Show only Bill Payer option if there is a Bill Payer', async () => {
+      mockServiceRunner({
+        ...result,
+        options: [
+          {
+            billToType: 'Additional Interest',
+            billToId: '4242',
+            displayTest: 'Some Bill Payer',
+            payPlans: ['Annual']
+          }
+        ]
+      });
+      const testProps = {
+        ...props,
+        quote: {
+          ...props.quote,
+          additionalInterests: [
+            { ...props.additionalInterest, _id: '4242', type: 'Bill Payer' }
+          ]
+        }
+      };
+      const { getByTestId } = render(<QuoteWorkflow {...testProps} />);
+      await waitForElement(() => getByTestId('billToId_label'));
+
+      const billToIdField = getByTestId('billToId');
+      expect(
+        billToIdField.querySelectorAll('option:not(:disabled)').length
+      ).toBe(1);
+    });
+  });
 });
