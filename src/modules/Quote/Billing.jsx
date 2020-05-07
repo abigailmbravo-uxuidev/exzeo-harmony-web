@@ -14,14 +14,15 @@ import {
 
 const TEMP_BILL_PAYER_VALUE = 'temp_bill_payer';
 
-const Billing = ({ initialValues, customHandlers }) => {
+const Billing = ({ initialValues, customHandlers, formInstance }) => {
   const [showBillPayerModal, setShowBillPayerModal] = useState(false);
   const billToIdField = useField('billToId');
 
-  const handleSubmitBillPayer = async values => {
+  const handleSubmitBillPayer = async billPayer => {
+    const { values: formValues } = formInstance.getState();
     const submitValues = {
-      ...initialValues,
-      additionalInterests: [...initialValues.additionalInterests, values]
+      ...formValues,
+      additionalInterests: [...formValues.additionalInterests, billPayer]
     };
     await customHandlers.handleSubmit({ remainOnStep: true, ...submitValues });
     setShowBillPayerModal(false);
