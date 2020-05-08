@@ -124,15 +124,6 @@ export const externalLinksFlood = [
   },
   {
     key: 6,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Premium-Est.pdf`,
-    productIcon: 'flood',
-    title: 'TypTap Premium Estimate Chart',
-    description:
-      'TypTap Flood premium estimate charts for $2,000 & $5,000 deductibles.',
-    linkIcon: 'pdf'
-  },
-  {
-    key: 7,
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-AF3-Private-Flood-Mortgage-Adequacy.pdf`,
     productIcon: 'flood',
     title: 'Mortgage Adequacy Document',
