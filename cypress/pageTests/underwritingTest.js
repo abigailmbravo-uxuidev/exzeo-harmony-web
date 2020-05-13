@@ -23,7 +23,6 @@ const headers = [
 
 export default (data = underwriting) =>
   cy
-    .task('log', 'Test Underwriting Page')
     .wrap(Object.entries(data))
     .each(([name, value]) =>
       cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
@@ -35,5 +34,5 @@ export default (data = underwriting) =>
     .clickSubmit('#QuoteWorkflow')
     .wait('@updateQuote')
     .then(({ response }) => {
-      expect(response.body.result.quoteInputState).to.equal('Qualified');
+      expect(response.body.status).to.equal(200);
     });

@@ -14,8 +14,6 @@ import {
   navigateThroughVerify
 } from '../../helpers';
 
-import { mailingBillingTest } from '../../pageTests';
-
 describe('Back Button Testing', () => {
   // Grab the quote number off the ui and retrieve it to confirm our quote is searchable with the quote number
   const getQuoteNumberAndRetrieve = status =>
@@ -88,7 +86,6 @@ describe('Back Button Testing', () => {
     navigateThroughAssumptions();
     navigateThroughPolicyholder();
     navigateThroughAdditionalInterests();
-    // mailingBillingTest();
     navigateThroughMailingBilling();
     getQuoteNumberAndRetrieve('Application Ready');
   });

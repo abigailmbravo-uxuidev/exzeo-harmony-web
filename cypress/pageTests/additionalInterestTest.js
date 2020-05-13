@@ -19,11 +19,6 @@ const headers = [
 ];
 
 export default () => {
-  cy.task('log', 'Test Additional Interest Page')
-    .wait('@getQuestions')
-    .then(({ request }) => {
-      expect(request.body.step).to.equal('additionalInterestsCSR');
-    });
   // Add and remove an additional interest
   cy.findDataTag('mortgagee')
     .click()
@@ -40,15 +35,8 @@ export default () => {
   cy.wrap(headers).each(header => cy.checkDetailHeader(header));
 
   cy.clickSubmit('div.AdditionalInterestModal', 'ai-modal-submit');
-  cy.wait('@updateQuote').then(({ request, response }) => {
-    expect(
-      request.body.data.quote.additionalInterests.length,
-      'Additional Interests: '
-    ).to.equal(1);
-    expect(
-      response.body.result.quoteInputState,
-      'Quote Input State: '
-    ).to.equal('AppStarted');
+  cy.wait('@updateQuote').then(({ response }) => {
+    expect(response.body.status).to.equal(200);
   });
   cy.task('log', 'Delete the mortgagee')
     .get('ul.result-cards li')
@@ -56,15 +44,8 @@ export default () => {
     .within(() => cy.get('a.remove').click())
     .findDataTag('modal-confirm')
     .click();
-  cy.wait('@updateQuote').then(({ request, response }) => {
-    expect(
-      request.body.data.quote.additionalInterests.length,
-      'Additional Interests: '
-    ).to.equal(0);
-    expect(
-      response.body.result.quoteInputState,
-      'Quote Input State: '
-    ).to.equal('Qualified');
+  cy.wait('@updateQuote').then(({ response }) => {
+    expect(response.body.status).to.equal(200);
   });
   cy.get('ul.result-cards li').should('have.length', 0);
   //move on to next page

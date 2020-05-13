@@ -46,11 +46,8 @@ export default () =>
     .click()
     .clickSubmit('.modal', 'modal-submit')
     .wait('@updateQuote')
-    .then(({ request }) =>
-      expect(
-        request.body.data.quote.policyHolders.length,
-        'Policyholders in request'
-      ).to.equal(1)
-    )
+    .then(({ response }) => {
+      expect(response.body.status).to.equal(200);
+    })
     .get('.policyholder-details .contact-card-wrapper .contact-card')
     .should('have.length', 1);

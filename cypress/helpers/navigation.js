@@ -1,17 +1,12 @@
-import {
-  user,
-  underwriting,
-  coverage
-  // coverageAF3
-} from '../fixtures';
+import { user, underwriting, coverage } from '../fixtures';
 import { envelopeIdCheck, manualBindPolicy, getToken } from '../helpers';
 
 // Functions which navigate through each page
 export const navigateThroughLanding = () =>
   cy
     .task('log', 'Navigating through Landing')
-    .wait(500)
-    .get('.new-quote[href="/search/address"]')
+    .get('.new-quote[href="/search/address"]', { timeout: 500 })
+    .should('be.visible')
     .click();
 
 export const navigateThroughSearchAddress = ({
@@ -34,7 +29,11 @@ export const navigateThroughSearchAddress = ({
     })
     .findDataTag('search-results')
     .find('li[tabindex=0]')
-    .click();
+    .click()
+    .wait('@createQuote')
+    .then(({ response }) => {
+      expect(response.body.status).to.equal(200);
+    });
 
 export const navigateThroughPolicyDetails = ({
   policyDetails = user.policyDetails,
@@ -57,23 +56,13 @@ export const navigateThroughPolicyDetails = ({
     .select(agentCode)
     // Submit.
     .clickSubmit('#QuoteWorkflow');
-  cy.wait('@updateQuote')
-    // We expect to have 1 policyHolder in the response.
-    .then(({ request, response }) => {
-      expect(
-        request.body.data.quote.policyHolders.length,
-        'Policyholders in request'
-      ).to.equal(1);
-      expect(
-        response.body.result.policyHolders.length,
-        'Policyholders in response'
-      ).to.equal(1);
-    });
+  cy.wait('@updateQuote').then(({ response }) => {
+    expect(response.body.status).to.equal(200);
+  });
 };
 
 export const navigateThroughUnderwriting = (data = underwriting) =>
   cy
-    .task('log', 'Navigating through Underwriting')
     .wrap(Object.entries(data))
     .each(([name, value]) =>
       cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
@@ -85,8 +74,6 @@ export const navigateThroughUnderwriting = (data = underwriting) =>
     });
 
 export const navigateThroughCustomize = (slider = coverage) => {
-  cy.task('log', 'Navigating through Customize');
-
   cy.wrap(Object.entries(slider))
     .each(([name, value]) => cy.sliderSet(`${name}`, `${value}`))
     .get('button')
@@ -100,7 +87,6 @@ export const navigateThroughCustomize = (slider = coverage) => {
     .wait('@updateQuote')
     .then(response => {
       expect(response.status).to.eq(200);
-      // cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
     });
 };
 
@@ -119,7 +105,6 @@ export const navigateThroughPolicyholder = ({
   secondCustomerInfo = user.secondCustomerInfo
 } = {}) =>
   cy
-    .task('log', 'Navigating through Policyholder')
     .wrap(Object.entries(customerInfo))
     .each(([field, value]) =>
       cy
@@ -143,17 +128,11 @@ export const navigateThroughPolicyholder = ({
         .type(`{selectall}{backspace}${value}`)
     )
     .clickSubmit('#QuoteWorkflow')
+    .get('.spinner')
+    .should('not.be.visible')
     .wait('@updateQuote')
-    // We expect to have two policyholders in the response.
-    .then(({ request, response }) => {
-      expect(
-        request.body.data.quote.policyHolders.length,
-        'Policyholders in request'
-      ).to.equal(2);
-      expect(
-        response.body.result.policyHolders.length,
-        'Policyholders in response'
-      ).to.equal(2);
+    .then(({ response }) => {
+      expect(response.body.status).to.equal(200);
     });
 
 export const navigateThroughAdditionalInterests = () => {
@@ -187,16 +166,8 @@ export const navigateThroughMailingBilling = billToChange => {
   }
   cy.clickSubmit('#QuoteWorkflow');
 
-  cy.wait('@updateQuote').then(({ request, response }) => {
-    expect(request.body.data.quote.policyHolderMailingAddress.address1).to
-      .exist;
-    expect(request.body.data.quote.billToId).to.exist;
-    expect(request.body.data.quote.billToType).to.exist;
-    expect(request.body.data.quote.billPlan).to.exist;
-    cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
-    if (billToChange === 'Yes') {
-      expect(response.body.result.billToType).to.equal('Additional Interest');
-    }
+  cy.wait('@updateQuote').then(({ response }) => {
+    expect(response.body.status).to.equal(200);
   });
 
   cy.wait('@verifyQuote').then(({ request }) => {
@@ -218,12 +189,11 @@ export const navigateThroughVerify = () =>
     .clickSubmit('#QuoteWorkflow', 'next');
 
 export const navigateThroughSendApplicationAndBind = verifyEnvId => {
-  cy.task('log', 'Navigating through Send Application and Bind').clickSubmit(
-    '[data-test="schedule-date-modal"]',
-    'modal-submit'
-  );
+  cy.task('log', 'Navigating through Send Application and Bind');
+  cy.clickSubmit('[data-test="schedule-date-modal"]', 'modal-submit');
   if (verifyEnvId === 'Yes') {
-    cy.wait('@sendApplication').then(({ request }) => {
+    cy.wait('@sendApplication').then(({ request, response }) => {
+      cy.wrap(response.body.result.quoteNumber).as('quoteNumber');
       getToken().then(response => {
         const token = response.body.id_token;
         const apiUrl = Cypress.env('API_URL') + '/svc';
@@ -242,14 +212,6 @@ export const navigateThroughSendApplicationAndBind = verifyEnvId => {
   }
 };
 
-export const navigateThroughThankYou = () =>
-  cy
-    .task('log', 'Navigating through Thank You')
-    .get('#thanks a[href="/"]')
-    .click()
-    .get('div.dashboard-message')
-    .should('exist');
-
 export const searchPolicy = () => {
   cy.task('log', 'Searching for the Policy')
     .findDataTag('nav-policy')
@@ -262,7 +224,7 @@ export const searchPolicy = () => {
         .click()
         .wait('@searchPolicy')
         .then(({ response }) => {
-          expect(response.body.totalNumberOfRecords).to.equal(1);
+          expect(response.body.policies[0].status).to.equal('Policy Issued');
         });
       cy.get('.policy-no')
         .invoke('text')
@@ -284,7 +246,7 @@ export const searchQoute = () => {
         .click()
         .wait('@fetchQuotes')
         .then(({ response }) => {
-          expect(response.body.result.totalNumberOfRecords).to.equal(1);
+          expect(response.body.status).to.equal(200);
         });
       cy.get('.quote-no')
         .invoke('text')

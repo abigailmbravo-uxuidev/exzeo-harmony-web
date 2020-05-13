@@ -23,9 +23,8 @@ const headers = [
 ];
 
 export default () =>
+  // Add all main ph fields
   cy
-    .task('log', 'Test Policy Details Page')
-    // Add all main ph fields
     .wrap(Object.entries(user.policyDetails))
     .each(([field, value]) =>
       cy
@@ -50,13 +49,6 @@ export default () =>
     .clickSubmit('#QuoteWorkflow')
     // Expect that there is only one policyholder submitted
     .wait('@updateQuote')
-    .then(({ request, response }) => {
-      expect(
-        request.body.data.quote.policyHolders.length,
-        'Policyholders in request'
-      ).to.equal(1);
-      expect(
-        response.body.result.quoteInputState,
-        'Quote Input State'
-      ).to.equal('Underwriting');
+    .then(({ response }) => {
+      expect(response.body.status).to.equal(200);
     });
