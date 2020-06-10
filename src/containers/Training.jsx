@@ -41,14 +41,7 @@ export const externalLinksHome = [
     description: 'Detailed list of the TypTap HO3 underwriting guidelines.',
     linkIcon: 'pdf'
   },
-  {
-    key: 3,
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-County-Map.pdf`,
-    productIcon: 'home',
-    title: 'TypTap Homeowners County Map',
-    description: 'Where TypTap HO3 product is currently available.',
-    linkIcon: 'pdf'
-  },
+
   {
     key: 4,
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TypTap-Underwriting-Exception-Req.pdf`,
