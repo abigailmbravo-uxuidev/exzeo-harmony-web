@@ -21,7 +21,8 @@ import { VALID_QUOTE_STATES } from '../constants';
 const SearchQuote = ({ userProfile = {}, history, retrieveQuote }) => {
   const { stateOptions, productOptions, productOptionMap } = cspConfigForSearch(
     userProfile,
-    'QuoteData:Quotes:*'
+    'QuoteData:Quotes:*',
+    'READ'
   );
   const { state: searchState, handleSearchSubmit } = useQuoteSearch();
   const [blockedQuote, setBlockedQuote] = useState(null);

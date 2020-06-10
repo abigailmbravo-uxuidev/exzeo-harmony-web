@@ -5,7 +5,7 @@ import authReducer from './authReducer';
 describe('Auth Reducer', () => {
   it('should call authReducer', () => {
     const state = initialState.auth;
-    const inputProps = { userProfile: null };
+    const inputProps = { userProfile: { resources: [] } };
     const action = {
       type: types.AUTH,
       authState: inputProps

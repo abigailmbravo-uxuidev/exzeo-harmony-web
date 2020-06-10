@@ -2,11 +2,8 @@ import React from 'react';
 
 import {
   render,
-  wait,
-  fireEvent,
   defaultPolicyWorkflowProps,
   getSummaryLedger,
-  payment,
   checkHeader
 } from '../../../test-utils';
 import { PolicyWorkflow } from '../PolicyWorkflow';
@@ -30,7 +27,7 @@ describe('Policy Billing Page testing', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
     location: { pathname: '/policy/12-345-67/billing' },
-    billing: getSummaryLedger
+    summaryLedger: getSummaryLedger
   };
 
   it('POS:Checks headers', () => {
@@ -39,7 +36,7 @@ describe('Policy Billing Page testing', () => {
     pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 
-  it('POS:Premium Details Details', () => {
+  it('POS:Premium Details', () => {
     const { getByText } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
       { label: 'Current Premium', value: '$ 2,667.00' },
@@ -149,8 +146,8 @@ describe('Policy Billing Page testing', () => {
   it('POS:No Payments Received', () => {
     const emptyBillingProps = {
       ...props,
-      billing: {
-        ...props.billing,
+      summaryLedger: {
+        ...props.summaryLedger,
         cashReceived: 0
       }
     };

@@ -32,6 +32,18 @@ export default {
   resources: [
     {
       right: 'READ',
+      uri: 'TTIC:FL:HO3:OnlinePayments:*'
+    },
+    {
+      right: 'UPDATE',
+      uri: 'TTIC:FL:HO3:OnlinePayments:*'
+    },
+    {
+      right: 'INSERT',
+      uri: 'TTIC:FL:HO3:OnlinePayments:*'
+    },
+    {
+      right: 'READ',
       uri: 'TTIC:FL:HO3:PolicyData:Transactions:*'
     },
     {

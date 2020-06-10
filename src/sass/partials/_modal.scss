@@ -296,7 +296,7 @@
 
   &.modal-lg {
     .card {
-      width: 80%;
+      width: 60%;
       max-width: 60rem;
 
       @include for-phone-only {
@@ -344,26 +344,210 @@
         }
       }
     }
-  }
+    .electronic-payment-modal {
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      form {
+        > h3 {
+          margin: 0;
+          padding: $padding 1rem;
 
-  &.modal-lg {
-    .card {
-      width: 60%;
-      max-width: 60rem;
+          line-height: 1;
+          &.success {
+            background-color: rgba($green, 0.2);
 
-      @include for-phone-only {
-        position: absolute;
-        z-index: 1000;
-        top: 3.375rem;
-        bottom: 0;
-
-        width: 100%;
-
-        border-radius: 0;
+            i {
+              color: $green;
+            }
+          }
+          &.fail {
+            background-color: rgba($red-darken-02, 0.2);
+            i {
+              color: $red-darken-02;
+            }
+          }
+        }
 
         .card-block {
-          height: calc(100vh - 9.5625rem);
-          max-height: 100vh;
+          @include for-tablet-landscape-up {
+            .flex-row {
+              display: flex;
+
+              .form-group {
+                &.achAmount {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+
+                  width: 10rem;
+                }
+                &.ccCvv {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+
+                  width: 5rem;
+                }
+                &.ccName {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+
+                  width: 35%;
+                }
+                &.ccState {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+
+                  width: 5rem;
+                }
+                &.ccZip {
+                  flex-grow: 0;
+                  flex-shrink: 0;
+
+                  width: 7rem;
+                }
+              }
+            }
+          }
+          @include for-phone-only {
+            height: calc(100vh - 10.125rem);
+          }
+
+          > h4 {
+            .checkwrapper {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              width: 100%;
+              height: 5rem;
+              margin: 0 0 $padding 0;
+
+              img {
+                height: 100%;
+                margin: 0;
+              }
+            }
+          }
+          input[readonly],
+          output {
+            padding: 0;
+
+            text-align: left;
+
+            border-bottom-width: 0;
+            background-color: transparent;
+          }
+          .form-group {
+            &.segmented {
+              .segmented-answer-wrapper {
+                display: flex;
+                flex-direction: row;
+                > div {
+                  label {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    flex-grow: 1;
+                    flex-shrink: 0;
+
+                    margin: 0;
+                    padding: 0.375rem 0.75rem;
+
+                    cursor: pointer;
+
+                    border: 2px solid $cool-gray-02;
+                    box-shadow: 0 0 0 2px $white inset;
+
+                    @include button-variant(
+                      $cool-gray-14,
+                      $white,
+                      $cool-gray-02
+                    );
+                  }
+                  &:first-of-type {
+                    label {
+                      border-radius: $border-radius 0 0 $border-radius;
+                    }
+                  }
+
+                  &:last-of-type {
+                    label {
+                      border-radius: 0 $border-radius $border-radius 0;
+                    }
+                  }
+                  &.selected {
+                    label {
+                      border-color: $bright-blue-lighten-02;
+                      background: $white;
+                      box-shadow: 0 0 0 2px $bright-blue-lighten-02 inset;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .account-type {
+            display: flex;
+            flex-wrap: wrap;
+
+            height: 4.3125rem;
+            margin-bottom: 1rem;
+
+            .label {
+              flex-grow: 0;
+              flex-shrink: 0;
+
+              width: 100%;
+              height: 1.4375rem;
+              margin-bottom: 0.5rem;
+
+              font-weight: $font-weight-bold;
+              line-height: 1;
+            }
+
+            label {
+              display: flex;
+              align-items: center;
+              flex-grow: 1;
+              flex-shrink: 1;
+              justify-content: center;
+
+              height: 2.5rem;
+              margin-bottom: 0;
+
+              cursor: pointer;
+              transition: all 0.2s ease-in-out;
+
+              border: 2px solid $cool-gray-02;
+              background-color: $white;
+
+              &:first-of-type {
+                border-radius: $border-radius 0 0 $border-radius;
+              }
+              &:last-of-type {
+                border-radius: 0 $border-radius $border-radius 0;
+              }
+            }
+            input[type='radio']:checked,
+            input[type='radio']:not(:checked) {
+              position: absolute;
+              left: -9999px;
+
+              visibility: hidden;
+
+              width: 0;
+              height: 0;
+            }
+            input[name='savings']:checked + label {
+              cursor: default;
+
+              border-color: $bright-blue-lighten-02;
+              background: $white;
+              box-shadow: 0 0 0 2px $bright-blue-lighten-02 inset;
+            }
+          }
         }
       }
     }

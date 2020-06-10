@@ -22,6 +22,7 @@ import NotFound from './containers/NotFound';
 import Training from './containers/Training';
 import Contacts from './containers/Contacts';
 import { userResources } from './utilities/userResources';
+import ReceiptHandler from '@exzeo/core-ui/src/@Harmony/OnlinePayments/@components/ReceiptHandler';
 
 class Routes extends Component {
   componentDidMount() {
@@ -129,6 +130,10 @@ class Routes extends Component {
               exact
               path="/contacts"
               render={props => <Contacts auth={auth} {...props} />}
+            />
+            <Route
+              path="/receipt"
+              render={props => <ReceiptHandler {...props} />}
             />
             {enableReports && (
               <Route

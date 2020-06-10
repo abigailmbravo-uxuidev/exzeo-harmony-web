@@ -7,19 +7,21 @@ import {
   DetailsHeader,
   getConfigForJsonTransform
 } from '@exzeo/core-ui/src/@Harmony';
-import { Loader, emptyArray, emptyObject, noop } from '@exzeo/core-ui';
+import { Loader, noop } from '@exzeo/core-ui';
 
 import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
 import { setAppModalError } from '../../state/actions/errorActions';
 import {
-  initializePolicyWorkflow,
-  clearPolicy
-} from '../../state/actions/serviceActions';
+  resetPolicy,
+  getAllPolicyDocuments
+} from '../../state/actions/policyStateActions';
+import WorkflowDisclaimer from '../../components/WorkflowDisclaimer';
+import WorkflowBanner from '../../components/WorkflowBanner';
 import Footer from '../../components/Footer';
 import App from '../../components/AppWrapper';
 
-import PolicyNavigation from './PolicyNavigation';
 import { PAGE_ROUTING } from './constants/workflowNavigation';
+import PolicyNavigation from './PolicyNavigation';
 import Billing from './Billing';
 import Payments from './Payments';
 import Documents from './Documents';
@@ -28,8 +30,6 @@ import TTICFLAF3 from '../../csp-templates/ttic-fl-af3-policy';
 import TTICFLHO3 from '../../csp-templates/ttic-fl-ho3-policy';
 import HCPCNJAF3 from '../../csp-templates/hcpc-nj-af3-policy';
 import HCPCSCAF3 from '../../csp-templates/hcpc-sc-af3-policy';
-import WorkflowDisclaimer from '../../components/WorkflowDisclaimer';
-import WorkflowBanner from '../../components/WorkflowBanner';
 
 const getCurrentStepAndPage = defaultMemoize(pathname => {
   const currentRouteName = pathname.split('/')[3];
@@ -66,19 +66,19 @@ export class PolicyWorkflow extends Component {
     };
 
     this.formInstance = null;
+    this.customHandlers = {};
   }
 
   getConfigForJsonTransform = defaultMemoize(getConfigForJsonTransform);
 
   componentDidMount() {
-    const { match, initializePolicyWorkflow } = this.props;
-    initializePolicyWorkflow(match.params.policyNumber);
-
+    const { match, getAllPolicyDocuments } = this.props;
+    getAllPolicyDocuments(match.params.policyNumber);
     this.getTemplate();
   }
 
   componentWillUnmount() {
-    this.props.clearPolicy();
+    this.props.resetPolicy();
   }
 
   // Temp fix for quote not being in state when component mounts on refresh (mostly a development time problem)
@@ -89,10 +89,6 @@ export class PolicyWorkflow extends Component {
       this.getTemplate();
     }
   }
-
-  getLocalState = () => {
-    return this.state;
-  };
 
   getTemplate = async () => {
     const { companyCode, state, product } = this.props.policy;
@@ -110,9 +106,10 @@ export class PolicyWorkflow extends Component {
       headerDetails,
       policy,
       agents,
-      billing,
-      policyDocuments,
-      setAppModalError
+      summaryLedger,
+      setAppModalError,
+      getAllPolicyDocuments,
+      userProfile
     } = this.props;
 
     const { gandalfTemplate } = this.state;
@@ -120,11 +117,12 @@ export class PolicyWorkflow extends Component {
       location.pathname
     );
     const transformConfig = this.getConfigForJsonTransform(gandalfTemplate);
-    const customHandlers = {
-      handleSubmit: x => x,
-      history: history,
-      setAppModalError: setAppModalError
-    };
+    // This is how to replicate 'useRef' in a Class component - sets us up for refactoring this component to functional component
+    this.customHandlers.handleSubmit = x => x;
+    this.customHandlers.history = history;
+    this.customHandlers.setAppModalError = setAppModalError;
+    this.customHandlers.updatePolicy = getAllPolicyDocuments;
+    this.customHandlers.userProfile = userProfile;
 
     return (
       <App errorRedirectUrl={location.pathname} auth={auth} match={match}>
@@ -152,11 +150,11 @@ export class PolicyWorkflow extends Component {
                 className="survey-wrapper"
                 currentPage={currentStepNumber}
                 customComponents={this.customComponents}
-                customHandlers={customHandlers}
+                customHandlers={this.customHandlers}
                 formId={FORM_ID}
                 handleSubmit={noop}
-                initialValues={{ ...policy, billing }}
-                options={{ agents, policyDocuments }} // enums for select/radio fields
+                initialValues={{ ...policy, summaryLedger }}
+                options={{ agents }} // enums for select/radio fields
                 path={location.pathname}
                 template={gandalfTemplate}
                 transformConfig={transformConfig}
@@ -185,25 +183,24 @@ PolicyWorkflow.propTypes = {
   auth: PropTypes.shape({}),
   match: PropTypes.shape({}),
   setAppModalError: PropTypes.func,
-  initializePolicyWorkflow: PropTypes.func,
+  getAllPolicyDocuments: PropTypes.func,
   policy: PropTypes.shape({}),
-  agents: PropTypes.array,
-  policyDocuments: PropTypes.array
+  agents: PropTypes.array
 };
 
 const mapStateToProps = state => {
   return {
     agents: state.agencyState.agents,
-    billing: state.service.getSummaryLedger,
     error: state.error,
     headerDetails: getPolicyDetails(state),
-    policy: state.service.latestPolicy || emptyObject,
-    policyDocuments: state.service.policyDocuments || emptyArray
+    policy: state.policy.policy,
+    summaryLedger: state.policy.summaryLedger,
+    userProfile: state.authState.userProfile
   };
 };
 
 export default connect(mapStateToProps, {
   setAppModalError,
-  initializePolicyWorkflow,
-  clearPolicy
+  getAllPolicyDocuments,
+  resetPolicy
 })(PolicyWorkflow);

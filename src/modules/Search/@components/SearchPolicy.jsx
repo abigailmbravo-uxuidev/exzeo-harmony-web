@@ -26,7 +26,8 @@ import Pagination from './Pagination';
 const SearchPolicy = ({ userProfile = {} }) => {
   const { stateOptions, productOptions, productOptionMap } = cspConfigForSearch(
     userProfile,
-    'PolicyData:Transactions:*'
+    'PolicyData:Transactions:*',
+    'READ'
   );
   const { state: searchState, handleSearchSubmit } = usePolicySearch();
 
@@ -224,7 +225,7 @@ const SearchPolicy = ({ userProfile = {} }) => {
                 ) : (
                   <ul className="policy-list">
                     {searchState.results.map(policy => (
-                      <PolicyCard key={policy.policyID} policy={policy} />
+                      <PolicyCard key={policy.policyNumber} policy={policy} />
                     ))}
                   </ul>
                 ))}

@@ -17,7 +17,8 @@ export default {
   },
   policy: {
     policyNumber: null,
-    update: false
+    policy: {},
+    summaryLedger: {}
   },
   quoteState: {
     quote: null,

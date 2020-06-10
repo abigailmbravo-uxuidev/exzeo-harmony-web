@@ -43,17 +43,6 @@ add `.env.local` file
 #REACT_APP_AUTH0_AUDIENCE=https://mock-auth0:8888
 ```
 
-**Important!**  
-append the following to `/etc/hosts` file on your machine if you have not already done so
-```bash
-# this covers all harmony front end apps
-127.0.0.1               devapi.harmony-ins.com
-127.0.0.1               devlogin.harmony-ins.com
-127.0.0.1               devcsr.harmony-ins.com
-127.0.0.1               devagent.harmony-ins.com
-127.0.0.1               mock-auth0
-```
-
 install dependencies
 ```bash
 npm ci

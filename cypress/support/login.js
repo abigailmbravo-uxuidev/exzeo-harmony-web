@@ -1,7 +1,12 @@
 import { login } from '../fixtures';
 
 Cypress.Commands.add('login', (loginInfo = login) => {
-  cy.visit('/logout');
+  cy.visit('/logout').visit('/', {
+    onBeforeLoad: win => {
+      win.sessionStorage.clear();
+      win.localStorage.clear();
+    }
+  });
 
   cy.get('.auth0-loading-screen')
     .should('not.exist')

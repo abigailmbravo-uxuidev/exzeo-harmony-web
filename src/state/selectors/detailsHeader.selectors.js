@@ -7,8 +7,8 @@ const STANDARD_DATE_FORMAT = 'MM/DD/YYYY';
 const getCityStateZip = ({ city = '', state = '', zip = '' }) =>
   `${city}, ${state} ${zip}`;
 const getLocation = (state, location) => location;
-const getPolicy = state => state.service.latestPolicy;
-const getSummaryLedger = state => state.service.getSummaryLedger;
+const getPolicy = state => state.policy.policy;
+const getSummaryLedger = state => state.policy.summaryLedger;
 const getQuote = state => state.quoteState.quote || {};
 const baseMapUri = 'https://www.google.com/maps/search/?api=1&query=';
 
