@@ -18,7 +18,7 @@ export default class Auth {
   userProfile;
 
   login = () => {
-    this.auth0.authorize();
+    this.auth0.authorize({});
   };
 
   checkAuth = () => {
@@ -73,33 +73,36 @@ export default class Auth {
   };
 
   handleAuthentication = history => {
-    this.auth0.parseHash(window.location.hash, async (err, authResult) => {
-      if (err) {
-        history.replace(
-          `/accessDenied?error=${
-            err.errorDescription ? err.errorDescription : 'Access Denied'
-          }`
-        );
-        return;
+    this.auth0.parseHash(
+      { hash: window.location.hash },
+      async (err, authResult) => {
+        if (err) {
+          history.replace(
+            `/accessDenied?error=${
+              err.errorDescription ? err.errorDescription : 'Access Denied'
+            }`
+          );
+          return;
+        }
+
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          const profile = await http
+            .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
+              headers: { authorization: `bearer ${authResult.idToken}` }
+            })
+            .catch(error => {
+              history.replace(`/accessDenied?error=${error}`);
+            });
+
+          const userProfile = this.getProfile(profile.data, history);
+          this.setSession(authResult, userProfile);
+
+          history.replace('/');
+        } else {
+          history.replace('/accessDenied?error=Not%20Authorized');
+        }
       }
-
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        const profile = await http
-          .get(`${process.env.REACT_APP_API_URL}/mainUserProfile`, {
-            headers: { authorization: `bearer ${authResult.idToken}` }
-          })
-          .catch(error => {
-            history.replace(`/accessDenied?error=${error}`);
-          });
-
-        const userProfile = this.getProfile(profile.data, history);
-        this.setSession(authResult, userProfile);
-
-        history.replace('/');
-      } else {
-        history.replace('/accessDenied?error=Not%20Authorized');
-      }
-    });
+    );
   };
 
   setSession = (authResult, userProfile) => {

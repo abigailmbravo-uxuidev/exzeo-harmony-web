@@ -1,21 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { defaultMemoize } from 'reselect';
-import { date } from '@exzeo/core-ui';
+import { date, SectionLoader } from '@exzeo/core-ui';
 
 import Downloader from '../../components/Downloader';
 
-const Documents = props => {
-  const { options, customHandlers } = props;
+function formatPolicyDocuments(documents) {
+  return documents.map(({ attachments, ...rest }) => ({
+    ...rest,
+    attachments: [{ ...rest }]
+  }));
+}
 
-  const getPolicyDocuments = defaultMemoize(policyDocuments =>
-    policyDocuments.map(({ attachments, ...rest }) => ({
-      ...rest,
-      attachments: [{ ...rest }]
-    }))
-  );
+function sortAttachments(a, b, order) {
+  const aComesLater = a.attachments[0].fileName > b.attachments[0].fileName;
+  return order === 'desc' ? (aComesLater ? -1 : 1) : aComesLater ? 1 : -1;
+}
 
-  const attachmentUrl = defaultMemoize(attachments => (
+const Documents = ({ initialValues, customHandlers }) => {
+  const [policyDocuments, setPolicyDocuments] = useState();
+  useEffect(() => {
+    async function fetchPolicyDocuments() {
+      try {
+        const config = {
+          service: 'file-index',
+          method: 'GET',
+          path: `v1/fileindex/${initialValues.policyNumber}`
+        };
+        const response = await serviceRunner.callService(
+          config,
+          'getPolicyDocuments'
+        );
+        const documents = formatPolicyDocuments(response.data.result);
+        setPolicyDocuments(documents);
+      } catch (error) {
+        customHandlers.setAppModalError(error);
+      }
+    }
+
+    fetchPolicyDocuments();
+  }, [initialValues.policyNumber, customHandlers]);
+
+  const formatAttachmentUrl = attachments => (
     <span>
       {attachments.map((attachment, i) => (
         <Downloader
@@ -27,19 +53,16 @@ const Documents = props => {
         />
       ))}
     </span>
-  ));
+  );
 
-  const policyDocs = getPolicyDocuments(options.policyDocuments);
-
-  const sortAttachments = (a, b, order) => {
-    const aComesLater = a.attachments[0].fileName > b.attachments[0].fileName;
-    return order === 'desc' ? (aComesLater ? -1 : 1) : aComesLater ? 1 : -1;
-  };
+  if (!policyDocuments) {
+    return <SectionLoader />;
+  }
 
   return (
     <BootstrapTable
       className="table-responsive table-striped policy-documents"
-      data={policyDocs}
+      data={policyDocuments}
       options={{ sortName: 'createdDate', sortOrder: 'desc' }}
     >
       <TableHeaderColumn
@@ -60,7 +83,7 @@ const Documents = props => {
         dataAlign="left"
         dataField="attachments"
         isKey
-        dataFormat={attachmentUrl}
+        dataFormat={formatAttachmentUrl}
         dataSort
         sortFunc={sortAttachments}
       >

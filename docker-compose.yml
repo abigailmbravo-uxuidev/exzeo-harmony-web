@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-      - NPM_TOKEN=c3973c9a-3b6e-4242-8af5-7036269c8f0b
-    command: npm run server
+      - NPM_TOKEN=c8f325cf-d6b4-4b6b-883d-c174c9558b51
+    command: npm run start
     container_name: harmony-web
     environment:
       - PORT=80

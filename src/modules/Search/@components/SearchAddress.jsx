@@ -22,7 +22,8 @@ const { isValidAddressFormat, isRequired } = validation;
 const SearchAddress = ({ createQuote, userProfile = {}, history }) => {
   const { companyCodeMap, stateOptions, productOptionMap } = cspConfigForSearch(
     userProfile,
-    'QuoteData:Quotes:*'
+    'QuoteData:Quotes:*',
+    'READ' // TODO: this needs to be changed to "INSERT" in a separate ticket.
   );
   const { searchState, loading, handleSearchSubmit } = useAddressSearch();
 

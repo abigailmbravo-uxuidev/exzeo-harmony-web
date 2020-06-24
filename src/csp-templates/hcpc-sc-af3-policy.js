@@ -575,7 +575,7 @@ const mock = {
                           items: [
                             {
                               format: 'currencyDecimals',
-                              path: 'billing.currentPremium'
+                              path: 'summaryLedger.currentPremium'
                             }
                           ]
                         },
@@ -584,7 +584,7 @@ const mock = {
                           items: [
                             {
                               format: 'currencyDecimals',
-                              path: 'billing.initialPremium'
+                              path: 'summaryLedger.initialPremium'
                             }
                           ]
                         },
@@ -593,7 +593,7 @@ const mock = {
                           items: [
                             {
                               format: 'currencyDecimals',
-                              path: 'billing.balance'
+                              path: 'summaryLedger.balance'
                             }
                           ]
                         }
@@ -637,17 +637,6 @@ const mock = {
           },
           formData: {},
           children: [
-            {
-              id: 4000010,
-              type: '$TITLE',
-              dependencies: [],
-              data: {
-                text: 'Payments',
-                icon: 'fa fa-credit-card'
-              },
-              formData: {},
-              children: []
-            },
             {
               id: 4000011,
               type: '$CUSTOM',

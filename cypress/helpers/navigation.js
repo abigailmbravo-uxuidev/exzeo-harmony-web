@@ -5,7 +5,7 @@ import { envelopeIdCheck, manualBindPolicy, getToken } from '../helpers';
 export const navigateThroughLanding = () =>
   cy
     .task('log', 'Navigating through Landing')
-    .get('.new-quote[href="/search/address"]', { timeout: 500 })
+    .get('.new-quote[href="/search/address"]')
     .should('be.visible')
     .click();
 
@@ -63,6 +63,8 @@ export const navigateThroughPolicyDetails = ({
 
 export const navigateThroughUnderwriting = (data = underwriting) =>
   cy
+    .get('.spinner')
+    .should('not.exist')
     .wrap(Object.entries(data))
     .each(([name, value]) =>
       cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()
@@ -145,6 +147,8 @@ export const navigateThroughAdditionalInterests = () => {
 
 export const navigateThroughMailingBilling = billToChange => {
   cy.task('log', 'Navigating through Mailing Billing')
+    .get('.spinner')
+    .should('not.exist')
     .findDataTag('sameAsPropertyAddress')
     // If the toggle is off, turn it on
     .then(

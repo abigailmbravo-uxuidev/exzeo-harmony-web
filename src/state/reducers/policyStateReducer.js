@@ -6,19 +6,26 @@ export default function policyStateReducer(
   state = initialState.policy,
   action
 ) {
-  let newState = state;
   switch (action.type) {
-    case types.GET_POLICY:
-      newState = action.policyState ? action.policyState : newState;
-      return newState;
+    case types.SET_POLICY:
+      return {
+        ...state,
+        policyNumber: action.policy.policyNumber,
+        policy: action.policy,
+        summaryLedger: action.summaryLedger
+      };
+    case types.RESET_POLICY:
+      return {
+        ...initialState.policy
+      };
     case persistTypes.REHYDRATE:
-      const policy = action.policy ? action.policy : null;
-      newState =
-        policy ||
-        (action.payload && action.payload.policy
-          ? action.payload.policy
-          : newState);
-      return newState;
+      const { policy = {} } = action.payload;
+      return {
+        ...state,
+        policyNumber: policy.policyNumber || initialState.policy.policyNumber,
+        policy: policy.policy || initialState.policy.policy,
+        summaryLedger: policy.summaryLedger || initialState.policy.summaryLedger
+      };
     default:
       return state;
   }

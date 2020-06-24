@@ -141,16 +141,17 @@ export const defaultQuoteWorkflowProps = {
 
 export const defaultPolicyWorkflowProps = {
   ...defaultProps,
-  policy: latestPolicy,
-  history: { replace: x => x },
+  userProfile,
   location: { pathname: '/policy' },
-  getAgentsByAgencyCode: () => {},
-  setAppModalError: () => {},
-  clearPolicy: () => {},
+  history: { replace: x => x },
+  policy: latestPolicy,
   agents: [],
   policyDocuments: [],
   headerDetails: {},
-  initializePolicyWorkflow: () => {}
+  getAgentsByAgencyCode: () => {},
+  setAppModalError: () => {},
+  resetPolicy: () => {},
+  getAllPolicyDocuments: () => {}
 };
 
 /**

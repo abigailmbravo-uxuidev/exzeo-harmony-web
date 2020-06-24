@@ -1,34 +1,34 @@
 import React from 'react';
-import { defaultMemoize } from 'reselect';
 import Title from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/Title';
 import { date } from '@exzeo/core-ui/src';
 
-const Billing = ({ initialValues }) => {
-  const formatBillingInformation = defaultMemoize(initialValues => {
-    const { billing, additionalInterests, policyHolders } = initialValues;
-    let billToName = '';
+const formatBillingInformation = initialValues => {
+  const { summaryLedger, additionalInterests, policyHolders } = initialValues;
+  let billToName = '';
 
-    if (billing.billToType === 'Additional Interest') {
-      const ai = additionalInterests.find(
-        p => initialValues.billToId === p._id
-      );
-      billToName = `${ai.type}: ${ai.name1} ${ai.name2}`;
-    } else {
-      const ph = policyHolders.find(p => initialValues.billToId === p._id);
-      billToName = `Policyholder: ${ph.firstName} ${ph.lastName}`;
-    }
+  if (summaryLedger.billToType === 'Additional Interest') {
+    const ai = additionalInterests.find(p => initialValues.billToId === p._id);
+    billToName = `${ai.type}: ${ai.name1} ${ai.name2}`;
+  } else {
+    const ph = policyHolders.find(p => initialValues.billToId === p._id);
+    billToName = `Policyholder: ${ph.firstName} ${ph.lastName}`;
+  }
 
-    return {
-      billToName,
-      paymentDue: billing.invoiceDueDate
-        ? date.formatDate(billing.invoiceDueDate, 'MM/DD/YYYY')
-        : '-',
-      nextPayment: parseFloat(billing.noticeAmountDue).toLocaleString('en', {
+  return {
+    billToName,
+    paymentDue: summaryLedger.invoiceDueDate
+      ? date.formatDate(summaryLedger.invoiceDueDate, 'MM/DD/YYYY')
+      : '-',
+    nextPayment: parseFloat(summaryLedger.noticeAmountDue).toLocaleString(
+      'en',
+      {
         minimumFractionDigits: 2
-      })
-    };
-  });
+      }
+    )
+  };
+};
 
+const Billing = ({ initialValues }) => {
   const { billToName, paymentDue, nextPayment } = formatBillingInformation(
     initialValues
   );

@@ -33,14 +33,29 @@ export const PRODUCT_OPTIONS = {
   AF3: { answer: 'AF3', label: PRODUCT_DISPLAY_NAMES.AF3 }
 };
 
-export const cspConfigForSearch = (userProfile = {}, uri) => {
-  const userResources = (userProfile.resources || []).filter(resource => {
-    return (
-      !resource.conditions &&
-      resource.right === 'READ' &&
-      resource.uri.includes(uri)
-    );
+export const getMatchingResources = (resources = [], uri, right) => {
+  return resources.filter(resource => {
+    if (process.env.NODE_ENV !== 'production') {
+      if (!!resource.conditions) {
+        // As we use this more and more, every way we can slim down the resources array will help with perf.
+        throw new Error(
+          'Please filter out legacy resources in store when user logs in'
+        );
+      }
+    }
+
+    return resource.right === right && resource.uri.includes(uri);
   });
+};
+
+export const doesUserHaveAccess = (resources = [], uri, right) => {
+  const matchingResources = getMatchingResources(resources, uri, right);
+
+  return matchingResources.length > 0;
+};
+
+export const cspConfigForSearch = (userProfile = {}, uri, right) => {
+  const userResources = getMatchingResources(userProfile.resources, uri, right);
 
   const companyCodeMap = {};
   const stateOptions = [];

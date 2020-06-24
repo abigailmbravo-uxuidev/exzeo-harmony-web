@@ -23,6 +23,8 @@ const headers = [
 
 export default (data = underwriting) =>
   cy
+    .get('.spinner')
+    .should('not.exist')
     .wrap(Object.entries(data))
     .each(([name, value]) =>
       cy.findDataTag(`underwritingAnswers.${name}.answer_${value}`).click()

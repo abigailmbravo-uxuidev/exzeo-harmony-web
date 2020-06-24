@@ -11,33 +11,19 @@ describe('policyStateActions', () => {
 
     const stateObj = [
       {
-        type: types.GET_POLICY,
-        policyState: {
-          policyNumber: '1',
-          update: false
-        }
+        type: types.SET_POLICY,
+        policy: { policyNumber: '1' },
+        summaryLedger: {}
       }
     ];
 
-    store.dispatch(policyStateActions.updatePolicy(false, '1'));
+    store.dispatch(
+      policyStateActions.setAllPolicyDocuments({
+        policy: { policyNumber: '1' },
+        summaryLedger: {}
+      })
+    );
 
-    expect(store.getActions()).toEqual(stateObj);
-  });
-
-  it('should dispatch policyState', () => {
-    const initialState = {};
-    const store = mockStore(initialState);
-
-    const stateObj = [
-      {
-        type: types.GET_POLICY,
-        policyState: {
-          policyNumber: '1',
-          update: false
-        }
-      }
-    ];
-    store.dispatch(policyStateActions.updatePolicy(false, '1'));
     expect(store.getActions()).toEqual(stateObj);
   });
 });

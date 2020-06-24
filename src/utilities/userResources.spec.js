@@ -8,7 +8,7 @@ describe('Test cspOptions', () => {
       stateOptions,
       productOptions,
       productOptionMap
-    } = cspConfigForSearch(userProfile, 'QuoteData:Quotes:*');
+    } = cspConfigForSearch(userProfile, 'QuoteData:Quotes:*', 'READ');
 
     expect(companyCodeMap).toEqual({
       'FL:HO3': 'TTIC',
