@@ -352,6 +352,9 @@
       }
       form {
         > h3 {
+          display: flex;
+          align-items: center;
+
           margin: 0;
           padding: $padding 1rem;
 
@@ -360,6 +363,8 @@
             background-color: rgba($green, 0.2);
 
             i {
+              margin-right: $padding;
+
               color: $green;
             }
           }
@@ -367,6 +372,20 @@
             background-color: rgba($red-darken-02, 0.2);
             i {
               color: $red-darken-02;
+            }
+          }
+
+          span {
+            align-self: flex-end;
+
+            padding-left: $padding;
+
+            font-size: $font-size-h5;
+
+            &:before {
+              content: 'Transaction ID: ';
+
+              font-size: $font-size-h5;
             }
           }
         }
