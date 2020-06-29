@@ -89,6 +89,7 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 
 .react-bs-container-body {
   overflow-x: initial;
+
   width: 100%;
 }
 
@@ -114,6 +115,10 @@ $table-border-color: $cool-gray-07 !default; //== Media queries breakpoints
 
         > th {
           display: table-cell;
+
+          .order {
+            float: right;
+          }
         }
       }
     }
