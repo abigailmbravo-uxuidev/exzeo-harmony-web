@@ -21,9 +21,6 @@ const Payments = ({ initialValues, customHandlers }) => {
   const flattenedPaymentHistory = getFlattenedPaymentHistory(
     summaryLedger.payments
   );
-
-  // TODO: Before we make wide use of this logic, we need to refactor Auth, use Providers, and then create a custom hook to be used in this components. Doing it this way now to get the feature out.
-  //  then we won't need to pass an "enabled" prop - the OnlinePayment component can be fully responsible for determining if it should be enabled or not.
   const enableOnlinePayments = useMemo(() => {
     const onlinePaymentURI = `${companyCode}:${state}:${product}:OnlinePayments:*`;
     return doesUserHaveAccess(
