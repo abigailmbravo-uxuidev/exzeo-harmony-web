@@ -27,7 +27,7 @@ export const getAllPolicyDocuments = policyNumber => {
     };
 
     const billingConfig = {
-      service: 'summary-ledger',
+      service: 'harmony-data',
       method: 'GET',
       path: `summary-ledgers/${policyNumber}/latest`
     };
