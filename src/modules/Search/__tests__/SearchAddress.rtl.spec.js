@@ -14,7 +14,7 @@ describe('SearchAddress testing', () => {
     userProfile: {
       resources: [
         {
-          right: 'READ',
+          right: 'INSERT',
           uri: 'TTIC:FL:HO3:QuoteData:Quotes:*'
         }
       ]

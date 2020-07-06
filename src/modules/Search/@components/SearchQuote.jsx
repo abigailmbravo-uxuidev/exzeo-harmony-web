@@ -22,7 +22,7 @@ const SearchQuote = ({ userProfile = {}, history, retrieveQuote }) => {
   const { stateOptions, productOptions, productOptionMap } = cspConfigForSearch(
     userProfile,
     'QuoteData:Quotes:*',
-    'READ'
+    'UPDATE'
   );
   const { state: searchState, handleSearchSubmit } = useQuoteSearch();
   const [blockedQuote, setBlockedQuote] = useState(null);

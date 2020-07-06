@@ -15,7 +15,7 @@ describe('SearchQuote testing', () => {
     userProfile: {
       resources: [
         {
-          right: 'READ',
+          right: 'UPDATE',
           uri: 'TTIC:FL:HO3:QuoteData:Quotes:*'
         }
       ]

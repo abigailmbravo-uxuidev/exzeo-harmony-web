@@ -23,7 +23,7 @@ const SearchAddress = ({ createQuote, userProfile = {}, history }) => {
   const { companyCodeMap, stateOptions, productOptionMap } = cspConfigForSearch(
     userProfile,
     'QuoteData:Quotes:*',
-    'READ' // TODO: this needs to be changed to "INSERT" in a separate ticket.
+    'INSERT'
   );
   const { searchState, loading, handleSearchSubmit } = useAddressSearch();
 
