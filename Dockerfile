@@ -2,12 +2,6 @@ FROM cypress/base:12
 
 LABEL maintainer=Exzeo
 
-# there is a built-in user "node" that comes from the very base Docker Node image
-# move test runner binary folder to the non-root's user home directory
-# https://github.com/cypress-io/cypress-docker-images/tree/master/examples/included-as-non-root#solution
-RUN mv /root/.cache /home/node/.cache
-USER node
-
 ARG NPM_TOKEN
 ENV PORT="3000"
 ENV EXTEND_ESLINT="true"
