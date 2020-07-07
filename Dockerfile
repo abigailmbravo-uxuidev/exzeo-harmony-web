@@ -1,10 +1,18 @@
-FROM node:12-alpine
+FROM cypress/base:12
 
 LABEL maintainer=Exzeo
 
-RUN apk update && apk --no-cache add bash libc6-compat g++ make python3
+# there is a built-in user "node" that comes from the very base Docker Node image
+# move test runner binary folder to the non-root's user home directory
+# https://github.com/cypress-io/cypress-docker-images/tree/master/examples/included-as-non-root#solution
+RUN mv /root/.cache /home/node/.cache
+USER node
 
 ARG NPM_TOKEN
+ENV PORT="3000"
+ENV EXTEND_ESLINT="true"
+ENV CYPRESS_BASE_URL="http://localhost:3000"
+ENV CYPRESS_API_URL="http://falcon:3000"
 
 # use changes to package.json to force Docker not to use the cache
 # when we change our application's nodejs dependencies:
