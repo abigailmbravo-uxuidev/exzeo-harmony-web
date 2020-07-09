@@ -37,15 +37,16 @@ const Payments = ({ initialValues, customHandlers }) => {
       <div className="title payments" data-test="Payments">
         <i className="fa fa-credit-card" />
         &nbsp;Payments&nbsp;
-        <OnlinePayment
-          batchID={`${date.moment().format('YYYYMMDD')}-AGT`}
-          enabled={enableOnlinePayments}
-          document={initialValues}
-          label="Make Online Payment"
-          onPaymentComplete={() =>
-            customHandlers.updatePolicy(initialValues.policyNumber)
-          }
-        />
+        {enableOnlinePayments && (
+          <OnlinePayment
+            batchID={`${date.moment().format('YYYYMMDD')}-AGT`}
+            document={initialValues}
+            label="Make Online Payment"
+            onPaymentComplete={() =>
+              customHandlers.updatePolicy(initialValues.policyNumber)
+            }
+          />
+        )}
       </div>
       <div className="table-view">
         <BootstrapTable
