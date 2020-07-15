@@ -1,8 +1,8 @@
 import React from 'react';
 
-import FancyExternalLink from '../components/FancyExternalLink';
-import Footer from '../components/Footer';
-import AppWrapper from '../components/AppWrapper';
+import FancyExternalLink from './FancyExternalLink';
+import Footer from './Footer';
+import AppWrapper from './AppWrapper';
 
 export const externalLinksGeneric = [
   {
@@ -126,8 +126,8 @@ export const externalLinksFlood = [
   }
 ];
 
-const Training = ({ auth, match }) => (
-  <AppWrapper auth={auth} match={match} routeClassName="main training">
+const Training = () => (
+  <AppWrapper routeClassName="main training">
     <div className="scroll">
       <div className="detail-wrapper">
         <section className="reference">

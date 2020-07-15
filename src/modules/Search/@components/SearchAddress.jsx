@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Form,
   Field,
@@ -19,26 +19,37 @@ import AddressCard from './AddressCard';
 
 const { isValidAddressFormat, isRequired } = validation;
 
-const SearchAddress = ({ createQuote, userProfile = {}, history }) => {
+const SearchAddress = ({
+  createQuote,
+  userProfile = {},
+  history,
+  errorHandler
+}) => {
   const { companyCodeMap, stateOptions, productOptionMap } = cspConfigForSearch(
     userProfile,
     'QuoteData:Quotes:*',
     'INSERT'
   );
   const { searchState, loading, handleSearchSubmit } = useAddressSearch();
-
+  const [loadingQuote, setLoadingQuote] = useState(false);
   const handleSelectAddress = formValues => async address => {
-    const companyCode =
-      companyCodeMap[`${formValues.state}:${formValues.product}`];
-    const quote = await createQuote(
-      address.id,
-      formValues.state,
-      companyCode,
-      formValues.product
-    );
+    try {
+      setLoadingQuote(true);
+      const companyCode =
+        companyCodeMap[`${formValues.state}:${formValues.product}`];
+      const quote = await createQuote(
+        address.id,
+        formValues.state,
+        companyCode,
+        formValues.product
+      );
 
-    if (quote) {
-      history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
+      if (quote) {
+        history.replace(`/quote/${quote.quoteNumber}/customerInfo`);
+      }
+    } catch (error) {
+      errorHandler(error);
+      setLoadingQuote(false);
     }
   };
 
@@ -125,7 +136,7 @@ const SearchAddress = ({ createQuote, userProfile = {}, history }) => {
 
           <div className="survey-wrapper">
             <div className="results-wrapper">
-              {loading && <Loader />}
+              {(loading || loadingQuote) && <Loader />}
               {searchState.hasSearched &&
                 (searchState.noResults ? (
                   <NoResults header={<h4>No Results Found</h4>}>

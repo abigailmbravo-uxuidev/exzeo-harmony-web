@@ -1,6 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "components": ["src/components"],
+      "containers": ["src/containers"],
+      "context": ["src/context"],
+      "img": ["src/img"],
+      "mock-data": ["src/mock-data"],
+      "modules": ["src/modules"],
+      "sass": ["src/sass"],
+      "state": ["src/state"],
+      "test-utils": ["src/test-utils"],
+      "utilities": ["src/utilities"]
+    }
   },
   "include": ["src"]
 }

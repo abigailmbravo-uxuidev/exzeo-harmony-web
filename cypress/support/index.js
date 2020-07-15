@@ -16,6 +16,5 @@
 import './globalHooks';
 import './inputs';
 import './login';
-import './persistLocalStorage';
 import './positiveCheckHelpers';
 import './utils';
