@@ -1,9 +1,12 @@
 import React from 'react';
-import logo from '../img/TypTap-alt.svg';
+import { useHistory } from 'react-router-dom';
 import { useAuth0 } from '../context/auth-context';
 
+import logo from '../img/TypTap-alt.svg';
+
 function AccessDenied() {
-  const { logout, error } = useAuth0();
+  const { error } = useAuth0();
+  const history = useHistory();
 
   return (
     <div className="route-content access-denied">
@@ -23,7 +26,10 @@ function AccessDenied() {
             </p>
           </div>
           <div className="card-footer">
-            <button className="btn btn-primary" onClick={() => logout()}>
+            <button
+              className="btn btn-primary"
+              onClick={() => history.replace('/logout')}
+            >
               <i className="fa fa-sign-in" /> Login
             </button>
           </div>
