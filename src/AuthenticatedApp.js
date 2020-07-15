@@ -115,7 +115,8 @@ function AuthenticatedApp({
           exact
           path="/logout"
           render={() => {
-            logout();
+            window.persistor.purge();
+            logout({ returnTo: window.location.origin });
             return null;
           }}
         />

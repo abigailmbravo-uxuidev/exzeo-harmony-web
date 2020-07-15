@@ -70,7 +70,7 @@ export function Auth0Provider({
             });
 
           if (!(profile || '').data) {
-            auth0FromHook.logout();
+            auth0FromHook.logout({ returnTo: window.location.origin });
           } else {
             const userProfile = getUserProfile(profile.data);
             setUserProfile(userProfile);

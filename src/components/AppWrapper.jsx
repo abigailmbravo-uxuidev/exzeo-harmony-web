@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { func, object, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { SideNavigation } from '@exzeo/core-ui/src/@Harmony';
@@ -21,13 +21,12 @@ function AppWrapper({
   routeClassName = 'workflow'
 }) {
   const [activeSideNav, setSideNav] = useState(false);
-  const { logout } = useAuth0();
   const userProfile = useUser();
+  const history = useHistory();
   const match = useRouteMatch();
 
   function handleLogout() {
-    window.persistor.purge();
-    logout();
+    history.replace('/logout');
   }
 
   const { enableQuote, enableReports, enableRetrieve } = userResources(
