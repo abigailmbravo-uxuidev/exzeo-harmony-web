@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
+import { Form, Field, Select, Button } from '@exzeo/core-ui';
+
+import { useUser } from '../context/user-context';
+import { cspConfigForSearch } from '../utilities/userResources';
 
 import FancyExternalLink from './FancyExternalLink';
 import Footer from './Footer';
 import AppWrapper from './AppWrapper';
+import { PRODUCT_TYPES } from '../constants/companyStateProduct';
 
-export const externalLinksGeneric = [
+export const GENERAL = [
   {
     key: 1,
     productIcon: 'generic',
@@ -31,7 +36,7 @@ export const externalLinksGeneric = [
   }
 ];
 
-export const externalLinksHome = [
+export const HO3 = [
   {
     key: 1,
     productIcon: 'home',
@@ -39,7 +44,9 @@ export const externalLinksHome = [
     title: 'TypTap Homeowners Agent Program Guide',
     description:
       'Reference guide for payments, how to login, open counties, year built and agency support.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.home,
+    state: 'FL'
   },
   {
     key: 2,
@@ -47,7 +54,9 @@ export const externalLinksHome = [
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-HO3-Quick-Ref-Guide.pdf`,
     title: 'TypTap Homeowners Quick Reference Guide',
     description: 'Detailed list of the TypTap HO3 underwriting guidelines.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.home,
+    state: 'FL'
   },
 
   {
@@ -56,7 +65,9 @@ export const externalLinksHome = [
     productIcon: 'home',
     title: 'TypTap Underwriting Exception Requirements Document',
     description: 'Information needed for underwriting exception review.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.home,
+    state: 'FL'
   },
   {
     key: 4,
@@ -65,7 +76,9 @@ export const externalLinksHome = [
     title: 'Wind Mitigation Opening Protection Assistance',
     description:
       'Assistance in determining the proper Opening Protection selection in Harmony based on the insured’s Wind Mitigation.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.home,
+    state: 'FL'
   },
   {
     key: 5,
@@ -74,11 +87,13 @@ export const externalLinksHome = [
     title: 'Coverage C Rejection Form',
     description:
       'Form required to reject Coverage C (0% Contents Coverage). All insured’s signatures required.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.home,
+    state: 'FL'
   }
 ];
 
-export const externalLinksFlood = [
+export const AF3 = [
   {
     key: 1,
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/af3/TT-FL-AF3-Quick-Ref-Guide.pdf`,
@@ -86,7 +101,9 @@ export const externalLinksFlood = [
     title: 'TypTap FL Flood Quick Reference Guide',
     description:
       'Detailed list of the TypTap Florida Flood underwriting guidelines.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.flood,
+    state: 'FL'
   },
   {
     key: 2,
@@ -95,7 +112,9 @@ export const externalLinksFlood = [
     title: 'TypTap NJ Flood Quick Reference Guide',
     description:
       'Detailed list of the TypTap New Jersey Flood underwriting guidelines.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.flood,
+    state: 'NJ'
   },
   {
     key: 3,
@@ -104,7 +123,9 @@ export const externalLinksFlood = [
     title: 'TypTap SC Flood Quick Reference Guide',
     description:
       'Detailed list of the TypTap South Carolina Flood underwriting guidelines.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.flood,
+    state: 'SC'
   },
   {
     key: 4,
@@ -113,7 +134,9 @@ export const externalLinksFlood = [
     title: 'Benefits of a TypTap Flood Policy',
     description:
       'Explanation for the benefits of having an admitted, private market, stand-alone flood policy with TypTap Insurance.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.flood,
+    state: ''
   },
   {
     key: 5,
@@ -121,7 +144,9 @@ export const externalLinksFlood = [
     productIcon: 'flood',
     title: 'TypTap vs. The NFIP',
     description: 'Coverage comparison for TypTap and the NFIP.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.flood,
+    state: ''
   },
   {
     key: 6,
@@ -130,49 +155,137 @@ export const externalLinksFlood = [
     title: 'Mortgage Adequacy Document',
     description:
       'Documentation providing proof of proper coverage to satisfy mortgagees.',
-    linkIcon: 'pdf'
+    linkIcon: 'pdf',
+    product: PRODUCT_TYPES.flood,
+    state: ''
   }
 ];
 
-const Training = () => (
-  <AppWrapper routeClassName="main training">
-    <div className="scroll">
-      <div className="detail-wrapper">
-        <section className="reference">
-          <h2 className="title">
-            <i className="fa fa-book" />
-            &nbsp;Reference
-          </h2>
-          <ul className="link-list general-reference-links">
-            <h4>
-              <u>General Documents</u>
-            </h4>
-            {externalLinksGeneric.map(link => (
-              <FancyExternalLink key={link.key} {...link} />
-            ))}
-          </ul>
-          <ul className="link-list homeowners-reference-links">
-            <h4>
-              <u>TypTap Homeowners Documents</u>
-            </h4>
-            {externalLinksHome.map(link => (
-              <FancyExternalLink key={link.key} {...link} />
-            ))}
-          </ul>
+const baseCSPFilter = (links, stateOptions, productOptions) => {
+  return links.filter(link => {
+    const includeState = stateOptions.some(
+      o => !link.state || o.answer === link.state
+    );
+    const includeProduct = productOptions.some(o => o.answer === link.product);
 
-          <ul className="link-list flood-reference-links">
-            <h4>
-              <u>TypTap Flood Documents</u>
-            </h4>
-            {externalLinksFlood.map(link => (
-              <FancyExternalLink key={link.key} {...link} />
-            ))}
-          </ul>
-        </section>
+    return includeState && includeProduct;
+  });
+};
+
+const Training = () => {
+  const [filter, setFilter] = useState({ state: '', product: '' });
+  const userProfile = useUser();
+  const { stateOptions, productOptionMap, productOptions } = useMemo(
+    () => cspConfigForSearch(userProfile, 'PolicyData:Transactions:*', 'READ'),
+    [userProfile]
+  );
+
+  const usersHomeownersLinks = baseCSPFilter(HO3, stateOptions, productOptions);
+  const usersFloodLinks = baseCSPFilter(AF3, stateOptions, productOptions);
+
+  const filterLinks = productType => link => {
+    if (!filter.state && !filter.product) return link;
+
+    if (!filter.product || filter.product === productType) {
+      return !filter.state || !link.state || link.state === filter.state;
+    }
+  };
+
+  const homeownersLinks = usersHomeownersLinks.filter(
+    filterLinks(PRODUCT_TYPES.home)
+  );
+  const floodLinks = usersFloodLinks.filter(filterLinks(PRODUCT_TYPES.flood));
+
+  return (
+    <AppWrapper routeClassName="main training">
+      <div className="filter" style={{ width: '100%' }}>
+        <Form initialValues={filter} onSubmit={values => setFilter(values)}>
+          {({ handleSubmit, values }) => (
+            <>
+              <Field name="state">
+                {({ input, meta }) => (
+                  <Select
+                    input={input}
+                    meta={meta}
+                    dataTest="state-filter"
+                    placeholder="All"
+                    placeholderDisabled={false}
+                    answers={stateOptions}
+                    label="Filter by State"
+                  />
+                )}
+              </Field>
+
+              <Field name="product">
+                {({ input, meta }) => (
+                  <Select
+                    input={input}
+                    meta={meta}
+                    dataTest="product-filter"
+                    placeholder="All"
+                    placeholderDisabled={false}
+                    answers={
+                      values.state
+                        ? productOptionMap[values.state]
+                        : productOptions
+                    }
+                    label="Filter by Product"
+                  />
+                )}
+              </Field>
+
+              <Button onClick={handleSubmit} data-test="set-filter">
+                Update&nbsp;
+                <i className="fa fa-search" />
+              </Button>
+            </>
+          )}
+        </Form>
       </div>
-    </div>
-    <Footer />
-  </AppWrapper>
-);
+      <div className="scroll">
+        <div className="detail-wrapper">
+          <section className="reference">
+            <h2 className="title">
+              <i className="fa fa-book" />
+              &nbsp;Reference
+            </h2>
+
+            <ul className="link-list general-reference-links">
+              <h4>
+                <u>General Documents</u>
+              </h4>
+              {GENERAL.map(link => (
+                <FancyExternalLink key={link.key} {...link} />
+              ))}
+            </ul>
+
+            {homeownersLinks.length > 0 && (
+              <ul className="link-list homeowners-reference-links">
+                <h4>
+                  <u>TypTap Homeowners Documents</u>
+                </h4>
+                {homeownersLinks.map(link => (
+                  <FancyExternalLink key={link.key} {...link} />
+                ))}
+              </ul>
+            )}
+
+            {floodLinks.length > 0 && (
+              <ul className="link-list flood-reference-links">
+                <h4>
+                  <u>TypTap Flood Documents</u>
+                </h4>
+                {floodLinks.map(link => (
+                  <FancyExternalLink key={link.key} {...link} />
+                ))}
+              </ul>
+            )}
+          </section>
+        </div>
+      </div>
+      <Footer />
+    </AppWrapper>
+  );
+};
 
 export default Training;
