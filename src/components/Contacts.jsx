@@ -1,11 +1,11 @@
 import React from 'react';
-import { shape, func } from 'prop-types';
+import { shape } from 'prop-types';
 
 import territoryMap from '../img/territory-manager-map.png';
 
-import AppWrapper from '../components/AppWrapper';
-import ContactCard from '../components/ContactCard';
-import Footer from '../components/Footer';
+import AppWrapper from './AppWrapper';
+import ContactCard from './ContactCard';
+import Footer from './Footer';
 
 export const territoryManagerContacts = [
   {
@@ -95,8 +95,8 @@ export const supportContacts = [
   }
 ];
 
-const Contacts = ({ auth, match }) => (
-  <AppWrapper auth={auth} match={match} routeClassName="main contacts">
+const Contacts = () => (
+  <AppWrapper routeClassName="main contacts">
     <div className="scroll">
       <div className="detail-wrapper">
         <section className="contacts territory">
@@ -132,10 +132,5 @@ const Contacts = ({ auth, match }) => (
     <Footer />
   </AppWrapper>
 );
-
-Contacts.propTypes = {
-  auth: shape({ logout: func }),
-  match: shape({ params: shape({}) })
-};
 
 export default Contacts;

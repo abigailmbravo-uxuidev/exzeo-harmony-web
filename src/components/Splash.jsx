@@ -1,20 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { date } from '@exzeo/core-ui';
 import classNames from 'classnames';
 
+import { useUser } from '../context/user-context';
 import { userResources } from '../utilities/userResources';
-import ClearError from '../components/ClearError';
-import Footer from '../components/Footer';
-import AppWrapper from '../components/AppWrapper';
-
-import { date } from '@exzeo/core-ui';
+import ClearError from './ClearError';
+import Footer from './Footer';
+import AppWrapper from './AppWrapper';
 
 const uniqueNum = date.formatToUTC();
 
-const Splash = ({ agency, auth, match, userProfile }) => {
+const Splash = ({ agency }) => {
+  const userProfile = useUser();
   const { enableQuote, enableRetrieve } = userResources(userProfile, agency);
   return (
-    <AppWrapper auth={auth} match={match} routeClassName="dashboard">
+    <AppWrapper routeClassName="dashboard">
       <React.Fragment>
         <ClearError />
         <div className="route">

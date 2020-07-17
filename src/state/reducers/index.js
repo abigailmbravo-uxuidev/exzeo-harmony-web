@@ -1,6 +1,5 @@
 /* eslint no-param-reassign:0 */
 import { combineReducers } from 'redux';
-import authState from './authReducer';
 import appState from './appStateReducer';
 import error from './errorReducer';
 import service from './serviceReducer';
@@ -12,14 +11,13 @@ import agencyState from './agency.reducer';
 import list from './list.reducer';
 
 const rootReducer = combineReducers({
-  policy,
-  service,
-  appState,
-  authState,
-  error,
-  quoteState,
   agencyState,
-  list
+  appState,
+  error,
+  list,
+  quoteState,
+  policy,
+  service
 });
 
 export default rootReducer;

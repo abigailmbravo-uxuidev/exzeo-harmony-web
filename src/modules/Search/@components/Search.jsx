@@ -7,6 +7,7 @@ import AppWrapper from '../../../components/AppWrapper';
 import SearchAddress from './SearchAddress';
 import SearchQuote from './SearchQuote';
 import SearchPolicy from './SearchPolicy';
+import { useUser } from '../../../context/user-context';
 
 const PermissionDenied = () => (
   <div className="disabled-message">
@@ -15,18 +16,12 @@ const PermissionDenied = () => (
   </div>
 );
 
-const Search = ({
-  auth,
-  agency,
-  createQuote,
-  match,
-  retrieveQuote,
-  userProfile
-}) => {
+const Search = ({ agency, createQuote, match, retrieveQuote }) => {
+  const userProfile = useUser();
   const { enableQuote, enableRetrieve } = userResources(userProfile, agency);
 
   return (
-    <AppWrapper auth={auth} match={match}>
+    <AppWrapper>
       <div className="route">
         <div className="flex grow">
           <div className="search route-content">

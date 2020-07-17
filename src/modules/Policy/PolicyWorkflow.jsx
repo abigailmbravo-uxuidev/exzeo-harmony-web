@@ -18,7 +18,7 @@ import {
 import WorkflowDisclaimer from '../../components/WorkflowDisclaimer';
 import WorkflowBanner from '../../components/WorkflowBanner';
 import Footer from '../../components/Footer';
-import App from '../../components/AppWrapper';
+import AppWrapper from '../../components/AppWrapper';
 
 import { PAGE_ROUTING } from './constants/workflowNavigation';
 import PolicyNavigation from './PolicyNavigation';
@@ -98,18 +98,15 @@ export class PolicyWorkflow extends Component {
 
   render() {
     const {
-      auth,
       history,
       isLoading,
       location,
-      match,
       headerDetails,
       policy,
       agents,
       summaryLedger,
       setAppModalError,
-      getAllPolicyDocuments,
-      userProfile
+      getAllPolicyDocuments
     } = this.props;
 
     const { gandalfTemplate } = this.state;
@@ -122,10 +119,9 @@ export class PolicyWorkflow extends Component {
     this.customHandlers.history = history;
     this.customHandlers.setAppModalError = setAppModalError;
     this.customHandlers.updatePolicy = getAllPolicyDocuments;
-    this.customHandlers.userProfile = userProfile;
 
     return (
-      <App errorRedirectUrl={location.pathname} auth={auth} match={match}>
+      <AppWrapper errorRedirectUrl={location.pathname}>
         <div className="route policy">
           {!gandalfTemplate || !policy.policyNumber ? <Loader /> : null}
           {gandalfTemplate && gandalfTemplate.header && (
@@ -174,13 +170,12 @@ export class PolicyWorkflow extends Component {
             </React.Fragment>
           )}
         </div>
-      </App>
+      </AppWrapper>
     );
   }
 }
 
 PolicyWorkflow.propTypes = {
-  auth: PropTypes.shape({}),
   match: PropTypes.shape({}),
   setAppModalError: PropTypes.func,
   getAllPolicyDocuments: PropTypes.func,
@@ -194,8 +189,7 @@ const mapStateToProps = state => {
     error: state.error,
     headerDetails: getPolicyDetails(state),
     policy: state.policy.policy,
-    summaryLedger: state.policy.summaryLedger,
-    userProfile: state.authState.userProfile
+    summaryLedger: state.policy.summaryLedger
   };
 };
 

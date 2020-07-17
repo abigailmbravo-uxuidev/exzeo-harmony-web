@@ -3,6 +3,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { OnlinePayment } from '@exzeo/core-ui/src/@Harmony';
 import { date } from '@exzeo/core-ui';
 import { doesUserHaveAccess } from '../../utilities/userResources';
+import { useUser } from '../../context/user-context';
 
 const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
@@ -17,6 +18,7 @@ const getFlattenedPaymentHistory = payments =>
 
 const Payments = ({ initialValues, customHandlers }) => {
   const { companyCode, state, product, summaryLedger } = initialValues;
+  const userProfile = useUser();
 
   const flattenedPaymentHistory = getFlattenedPaymentHistory(
     summaryLedger.payments
@@ -24,26 +26,27 @@ const Payments = ({ initialValues, customHandlers }) => {
   const enableOnlinePayments = useMemo(() => {
     const onlinePaymentURI = `${companyCode}:${state}:${product}:OnlinePayments:*`;
     return doesUserHaveAccess(
-      customHandlers.userProfile.resources,
+      userProfile.resources,
       onlinePaymentURI,
       'INSERT'
     );
-  }, [customHandlers.userProfile, companyCode, state, product]);
+  }, [userProfile, companyCode, state, product]);
 
   return (
     <React.Fragment>
       <div className="title payments" data-test="Payments">
         <i className="fa fa-credit-card" />
         &nbsp;Payments&nbsp;
-        <OnlinePayment
-          batchID={`${date.moment().format('YYYYMMDD')}-AGT`}
-          enabled={enableOnlinePayments}
-          document={initialValues}
-          label="Make Online Payment"
-          onPaymentComplete={() =>
-            customHandlers.updatePolicy(initialValues.policyNumber)
-          }
-        />
+        {enableOnlinePayments && (
+          <OnlinePayment
+            batchID={`${date.moment().format('YYYYMMDD')}-AGT`}
+            document={initialValues}
+            label="Make Online Payment"
+            onPaymentComplete={() =>
+              customHandlers.updatePolicy(initialValues.policyNumber)
+            }
+          />
+        )}
       </div>
       <div className="table-view">
         <BootstrapTable

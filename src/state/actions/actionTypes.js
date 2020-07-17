@@ -11,9 +11,6 @@ export const APP_ERROR = 'APP_ERROR';
 export const APP_ERROR_CLEAR = 'APP_ERROR_CLEAR';
 export const APP_MODAL_ERROR = 'APP_MODAL_ERROR';
 
-export const AUTH = 'AUTH';
-
-export const GET_POLICY = 'GET_POLICY';
 export const SET_POLICY = 'SET_POLICY';
 export const RESET_POLICY = 'RESET_POLICY';
 

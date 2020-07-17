@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { shape, func } from 'prop-types';
-import { Loader } from '@exzeo/core-ui/src';
+import { func } from 'prop-types';
+import { Loader } from '@exzeo/core-ui';
 import csv2json from 'csvjson-csv2json';
 
 import AppWrapper from '../../components/AppWrapper';
@@ -10,10 +10,9 @@ import { useFetchReports } from './hooks';
 import { downloadReport, getReportById } from './utilities';
 import { REPORT_COLUMNS } from './constants';
 
-const Reports = ({ auth, match, errorHandler }) => {
+const Reports = ({ errorHandler }) => {
   const [report, setReport] = useState({});
   const [loading, setLoading] = useState(false);
-
   const { reports, loaded } = useFetchReports();
 
   const runReport = async (selectedReport, minDate, maxDate) => {
@@ -59,7 +58,7 @@ const Reports = ({ auth, match, errorHandler }) => {
   };
 
   return (
-    <AppWrapper auth={auth} match={match} routeClassName="main reports">
+    <AppWrapper routeClassName="main reports">
       {(loading || !loaded) && <Loader />}
       <div className="scroll">
         <div className="detail-wrapper">
@@ -99,8 +98,7 @@ const Reports = ({ auth, match, errorHandler }) => {
 };
 
 Reports.propTypes = {
-  auth: shape({ logout: func }),
-  match: shape({ params: shape({}) })
+  errorHandler: func.isRequired
 };
 
 export default Reports;
