@@ -25,7 +25,7 @@ export const externalLinksGeneric = [
     key: 3,
     productIcon: 'generic',
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/generic/How-To-Online-Payments.pdf`,
-    title: 'How To Online Payments',
+    title: 'How To Make Online Payments',
     description: 'Instructions for completing online policy payments.',
     linkIcon: 'pdf'
   }
