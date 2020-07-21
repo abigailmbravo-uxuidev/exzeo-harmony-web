@@ -5,8 +5,11 @@ import { defaultMemoize } from 'reselect';
 import {
   Gandalf,
   DetailsHeader,
-  getConfigForJsonTransform
+  getConfigForJsonTransform,
+  Banner,
+  Disclaimer
 } from '@exzeo/core-ui/src/@Harmony';
+
 import { Loader, noop } from '@exzeo/core-ui';
 
 import { getPolicyDetails } from '../../state/selectors/detailsHeader.selectors';
@@ -15,8 +18,6 @@ import {
   resetPolicy,
   getAllPolicyDocuments
 } from '../../state/actions/policyStateActions';
-import WorkflowDisclaimer from '../../components/WorkflowDisclaimer';
-import WorkflowBanner from '../../components/WorkflowBanner';
 import Footer from '../../components/Footer';
 import AppWrapper from '../../components/AppWrapper';
 
@@ -126,7 +127,9 @@ export class PolicyWorkflow extends Component {
           {!gandalfTemplate || !policy.policyNumber ? <Loader /> : null}
           {gandalfTemplate && gandalfTemplate.header && (
             <div className="nav-and-header-wrapper">
-              <WorkflowBanner content={gandalfTemplate.header.banner} />
+              {gandalfTemplate.header.banner && (
+                <Banner content={gandalfTemplate.header.banner} />
+              )}
               <DetailsHeader
                 context="policy"
                 detailsFields={gandalfTemplate.header}
@@ -157,9 +160,7 @@ export class PolicyWorkflow extends Component {
                 formFooter={
                   <div className="form-footer">
                     {gandalfTemplate.disclaimer && (
-                      <WorkflowDisclaimer
-                        content={gandalfTemplate.disclaimer}
-                      />
+                      <Disclaimer content={gandalfTemplate.disclaimer} />
                     )}
                   </div>
                 }
