@@ -76,10 +76,10 @@ export function Auth0Provider({
             setUserProfile(userProfile);
           }
         }
-
-        setLoading(false);
       } catch (error) {
         setError(error.errorDescription || error.message || 'Not Authorized');
+      } finally {
+        setLoading(false);
       }
     };
     initAuth0();
