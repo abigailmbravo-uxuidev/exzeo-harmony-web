@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { http } from '@exzeo/core-ui';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
+const INVALID_STATE_MESSAGE =
+  'It looks like you need to update your bookmark. Please select login below, enter your credentials, then re-save your bookmark after fully logging in.';
+
 const DEFAULT_REDIRECT_CALLBACK = (appState, history) => {
   history.replace({}, document.title, window.location.pathname);
 };
@@ -77,7 +80,13 @@ export function Auth0Provider({
           }
         }
       } catch (error) {
-        setError(error.errorDescription || error.message || 'Not Authorized');
+        // TODO this is gross, but so far have been unable to debug the error to see what they actually look like. So we have to test all these variations.
+        setError(
+          error?.errorDescription?.match(/invalid state/i) ||
+            error?.message?.match(/invalid state/i)
+            ? INVALID_STATE_MESSAGE
+            : error?.errorDescription || error?.message || 'Not Authorized'
+        );
       } finally {
         setLoading(false);
       }

@@ -1,12 +1,10 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { useAuth0 } from '../context/auth-context';
 
 import logo from '../img/TypTap-alt.svg';
 
 function AccessDenied() {
-  const { error } = useAuth0();
-  const history = useHistory();
+  const { error, logout } = useAuth0();
 
   return (
     <div className="route-content access-denied">
@@ -18,17 +16,14 @@ function AccessDenied() {
           <div className="card-block">
             <h3>
               <i className="fa fa-exclamation-triangle" />
-              &nbsp;Access Denied
+              &nbsp;Oooops!
             </h3>
-            <p>You are not authorized to access this application.</p>
-            <p className="text-danger">
-              <i className="fa fa-exclamation-triangle" /> {error}
-            </p>
+            <p className="text-danger">{error}</p>
           </div>
           <div className="card-footer">
             <button
               className="btn btn-primary"
-              onClick={() => history.replace('/logout')}
+              onClick={() => logout({ returnTo: window.location.origin })}
             >
               <i className="fa fa-sign-in" /> Login
             </button>
