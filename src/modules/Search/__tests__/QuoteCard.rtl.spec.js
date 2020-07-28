@@ -27,7 +27,7 @@ describe('QuoteCard tests', () => {
     const { getByText, getByLabelText } = render(<QuoteCard {...props} />);
 
     expect(getByText('Oberyn Martell')).toBeInTheDocument();
-    expect(getByText('$ 1000')).toBeInTheDocument();
+    expect(getByText('$1,000')).toBeInTheDocument();
     expect(getByText('123 Test Ave Tampa, FL 33607')).toBeInTheDocument();
     expect(getByText('12-3456-78')).toBeInTheDocument();
     expect(getByText('HO3')).toBeInTheDocument();

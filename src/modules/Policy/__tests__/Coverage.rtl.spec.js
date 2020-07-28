@@ -38,19 +38,19 @@ describe('Policy Coverage Page testing', () => {
   it('POS:Coverage Limits Details', () => {
     const { getByTestId } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
-      { label: 'A. Dwelling', value: '$ 314,000' },
-      { label: 'B. Other Structures', value: '$ 6,280' },
-      { label: 'C. Personal Property', value: '$ 78,500' },
-      { label: 'D. Loss of Use', value: '$ 31,400' },
-      { label: 'E. Personal Liability', value: '$ 300,000' },
-      { label: 'F. Medical Payments', value: '$ 2,000' },
+      { label: 'A. Dwelling', value: '$314,000' },
+      { label: 'B. Other Structures', value: '$6,280' },
+      { label: 'C. Personal Property', value: '$78,500' },
+      { label: 'D. Loss of Use', value: '$31,400' },
+      { label: 'E. Personal Liability', value: '$300,000' },
+      { label: 'F. Medical Payments', value: '$2,000' },
       { label: 'Personal Property Replacement Cost', value: 'Yes' },
-      { label: 'Mold Property', value: '$ 10,000' },
-      { label: 'Mold Liability', value: '$ 50,000' },
+      { label: 'Mold Property', value: '$10,000' },
+      { label: 'Mold Liability', value: '$50,000' },
       { label: 'Ordinance or Law', value: '25%' },
-      { label: 'All Other Perils Deductible', value: '$ 1,000' },
-      { label: 'Hurricane Deductible', value: '$ 6,280' },
-      { label: 'Sinkhole Deductible', value: '$ 31,400' }
+      { label: 'All Other Perils Deductible', value: '$1,000' },
+      { label: 'Hurricane Deductible', value: '$6,280' },
+      { label: 'Sinkhole Deductible', value: '$31,400' }
     ];
 
     const section = getByTestId('coverage-limits');
@@ -85,7 +85,7 @@ describe('Policy Coverage Page testing', () => {
   it('POS:Deductible Details with sinkhole value', () => {
     const { getByTestId } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
-      { label: 'All Other Perils', value: '$ 1,000' },
+      { label: 'All Other Perils', value: '$1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
       { label: 'Sinkhole Deductible', value: '10%' }
     ];
@@ -109,7 +109,7 @@ describe('Policy Coverage Page testing', () => {
 
     const { getByTestId } = render(<PolicyWorkflow {...policyProps} />);
     const sectionData = [
-      { label: 'All Other Perils', value: '$ 1,000' },
+      { label: 'All Other Perils', value: '$1,000' },
       { label: 'Hurricane Deductible', value: '2%' },
       { label: 'Sinkhole Deductible', value: 'No' }
     ];

@@ -16,7 +16,7 @@ const headers = [
   {
     name: 'coverageLimits.dwelling.amountDetail',
     label: 'Coverage A',
-    value: '$ 284,000'
+    value: '$284,000'
   }
 ];
 

@@ -39,9 +39,9 @@ describe('Policy Billing Page testing', () => {
   it('POS:Premium Details', () => {
     const { getByText } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
-      { label: 'Current Premium', value: '$ 2,667.00' },
-      { label: 'Initial Premium', value: '$ 2,667.00' },
-      { label: 'Balance Due', value: '$ 3,337.00' }
+      { label: 'Current Premium', value: '$2,667.00' },
+      { label: 'Initial Premium', value: '$2,667.00' },
+      { label: 'Balance Due', value: '$3,337.00' }
     ];
 
     sectionData.forEach(({ label, value }) =>
@@ -52,7 +52,7 @@ describe('Policy Billing Page testing', () => {
   it('POS:Billing Information Details', () => {
     const { getByText } = render(<PolicyWorkflow {...props} />);
     const sectionData = [
-      { label: 'Next Payment', value: '$ 2,667.00' },
+      { label: 'Next Payment', value: '$2,667.00' },
       { label: 'Payment Due', value: '06/07/2019' },
       { label: 'Bill Plan', value: 'Annual' },
       { label: 'Bill To', value: 'Policyholder: BATMAN ROBIN' }
@@ -155,6 +155,6 @@ describe('Policy Billing Page testing', () => {
     const { getByText } = render(<PolicyWorkflow {...emptyBillingProps} />);
 
     expect(getByText('There is no data to display'));
-    expect(getByText('Payments Received: $ 0.00'));
+    expect(getByText('Payments Received: $0.00'));
   });
 });

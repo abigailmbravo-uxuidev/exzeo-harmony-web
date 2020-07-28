@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { OnlinePayment } from '@exzeo/core-ui/src/@Harmony';
-import { date } from '@exzeo/core-ui';
+import { date, format } from '@exzeo/core-ui';
 import { doesUserHaveAccess } from '../../utilities/userResources';
 import { useUser } from '../../context/user-context';
 
-const amountFormatter = amt =>
-  amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
+const amountFormatter = amt => (amt ? `${format.toCurrency(amt, 2)}` : '');
 
 const getFlattenedPaymentHistory = payments =>
   payments.map(({ amount, ...rest }) => ({

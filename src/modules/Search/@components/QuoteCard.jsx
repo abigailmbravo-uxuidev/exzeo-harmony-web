@@ -1,5 +1,5 @@
 import React from 'react';
-import { date } from '@exzeo/core-ui';
+import { date, format } from '@exzeo/core-ui';
 import { PRODUCT_DISPLAY_NAMES } from '../../../constants/companyStateProduct';
 
 const QuoteCard = ({ quote, handleClick }) => {
@@ -55,7 +55,9 @@ const QuoteCard = ({ quote, handleClick }) => {
               {date.formattedLocalDate(createdAt, 'MM/DD/YYYY')}
             </span>
             <span className="premium">
-              <strong>{`$ ${rating?.totalPremium ?? '-'}`}</strong>
+              <strong>
+                {(rating && format.toCurrency(rating.totalPremium)) || '$ -'}
+              </strong>
             </span>
           </div>
         </div>

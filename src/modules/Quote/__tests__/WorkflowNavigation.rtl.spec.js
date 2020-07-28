@@ -90,10 +90,10 @@ describe('Testing WorkflowNavigation Component', () => {
     expect(getByText('Construction Type'));
     expect(getByText('MASONRY'));
     expect(getByText('Coverage A'));
-    expect(queryByText('$ 1,999,999')).not.toBeInTheDocument();
+    expect(queryByText('$1,999,999')).not.toBeInTheDocument();
     expect(getByText('$ --'));
     expect(getByText('Premium'));
-    expect(getByText('$ 2,767'));
+    expect(getByText('$2,767'));
   });
 
   it('POS:Tests Workflow Section Classes', () => {
@@ -111,6 +111,6 @@ describe('Testing WorkflowNavigation Component', () => {
     };
 
     const { getByText } = render(<WorkflowNavigation {...newProps} />);
-    expect(getByText('$ 1,999,999'));
+    expect(getByText('$1,999,999'));
   });
 });
