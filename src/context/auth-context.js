@@ -36,7 +36,6 @@ export function Auth0Provider({
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
   const [userProfile, setUserProfile] = useState({});
-  const [popupOpen, setPopupOpen] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -102,8 +101,8 @@ export function Auth0Provider({
         isAuthenticated,
         user,
         userProfile,
+        setUserProfile,
         loading,
-        popupOpen,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),

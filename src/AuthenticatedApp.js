@@ -72,9 +72,7 @@ function AuthenticatedApp({
         />
         <Route
           path="/quote/:quoteNumber"
-          render={props => (
-            <QuoteModule agency={agency} userProfile={userProfile} {...props} />
-          )}
+          render={props => <QuoteModule {...props} />}
         />
         <Route
           path="/policy/:policyNumber"
