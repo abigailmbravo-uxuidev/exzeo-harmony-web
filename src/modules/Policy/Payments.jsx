@@ -8,8 +8,6 @@ import { useUser } from '../../context/user-context';
 const amountFormatter = amt =>
   amt ? `$ ${amt.toLocaleString('en', { minimumFractionDigits: 2 })}` : '';
 
-const dateFormatter = cell => `${cell.substring(0, 10)}`;
-
 const getFlattenedPaymentHistory = payments =>
   payments.map(({ amount, ...rest }) => ({
     amount: Number(amount),
@@ -58,10 +56,10 @@ const Payments = ({ initialValues, customHandlers }) => {
           <TableHeaderColumn
             isKey
             dataField="date"
-            dataFormat={dateFormatter}
+            dataFormat={x => date.formattedDate(x, date.FORMATS.PRIMARY_LOCALE)}
             className="date"
             columnClassName="date"
-            width="150"
+            width="250"
             dataSort
           >
             Date
