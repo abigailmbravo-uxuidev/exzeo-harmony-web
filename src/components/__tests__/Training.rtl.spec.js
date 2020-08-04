@@ -1,25 +1,36 @@
 import React from 'react';
 
-import { render, defaultProps, checkHeader } from '../../test-utils';
-import Training, {
-  externalLinksGeneric,
-  externalLinksHome,
-  externalLinksFlood
-} from '../Training';
+import {
+  render,
+  defaultProps,
+  checkHeader,
+  userProfile,
+  defaultAuth
+} from '../../test-utils';
+import Training, { GENERAL, HO3, AF3 } from '../Training';
 
 const pageHeaders = [{ text: 'Reference' }];
 
 describe('Testing the Helpful Info (Training) Page', () => {
+  const authContext = {
+    ...defaultAuth,
+    userProfile: userProfile
+  };
+
   it('POS:Helpful Info Header Testing', () => {
-    const { getByText } = render(<Training {...defaultProps} />);
+    const { getByText } = render(<Training {...defaultProps} />, {
+      auth: authContext
+    });
 
     pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 
-  it('POS:Reference Links Testing', () => {
-    const { getByText } = render(<Training {...defaultProps} />);
+  it('POS:Reference Links Testing', async () => {
+    const { getByText } = render(<Training {...defaultProps} />, {
+      auth: authContext
+    });
 
-    externalLinksGeneric.forEach(link => {
+    GENERAL.forEach(link => {
       expect(
         document.querySelector(`div.${link.productIcon}`)
       ).toBeInTheDocument();
@@ -31,7 +42,7 @@ describe('Testing the Helpful Info (Training) Page', () => {
       ).toBeInTheDocument();
     });
 
-    externalLinksHome.forEach(link => {
+    HO3.forEach(link => {
       expect(
         document.querySelector(`div.${link.productIcon}`)
       ).toBeInTheDocument();
@@ -43,7 +54,7 @@ describe('Testing the Helpful Info (Training) Page', () => {
       ).toBeInTheDocument();
     });
 
-    externalLinksFlood.forEach(link => {
+    AF3.forEach(link => {
       expect(
         document.querySelector(`div.${link.productIcon}`)
       ).toBeInTheDocument();

@@ -46,7 +46,9 @@ function AppWrapper({
             <label htmlFor="date">Date</label>
             <h5 className="date">
               <span>
-                <div>{date.currentDay('ddd MM/DD/YYYY')}</div>
+                <div>
+                  {date.moment.tz('America/New_York').format('ddd MM/DD/YYYY')}
+                </div>
               </span>
             </h5>
           </div>
