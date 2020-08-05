@@ -59,7 +59,7 @@ const Payments = ({ initialValues, customHandlers }) => {
             dataFormat={x => date.formattedDate(x, 'MM/DD/YYYY zz')}
             className="date"
             columnClassName="date"
-            width="250"
+            width="150"
             dataSort
           >
             Date
@@ -69,7 +69,7 @@ const Payments = ({ initialValues, customHandlers }) => {
             className="type"
             columnClassName="type"
             dataSort
-            width="150"
+            width="200"
           >
             Type
           </TableHeaderColumn>
