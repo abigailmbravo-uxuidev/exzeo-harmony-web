@@ -56,7 +56,7 @@ const Payments = ({ initialValues, customHandlers }) => {
           <TableHeaderColumn
             isKey
             dataField="date"
-            dataFormat={x => date.formattedDate(x, date.FORMATS.PRIMARY_LOCALE)}
+            dataFormat={x => date.formattedDate(x, 'MM/DD/YYYY zz')}
             className="date"
             columnClassName="date"
             width="250"
