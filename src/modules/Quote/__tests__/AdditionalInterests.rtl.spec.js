@@ -83,6 +83,8 @@ const baseAiFields = [
   }
 ];
 
+// TODO: https://issuecenter.atlassian.net/browse/HAR-7969
+//  the majority of these tests need to be moved into core-ui to strengthen the contract between core-ui and the consuming application.
 describe('Testing Additional Interests', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
