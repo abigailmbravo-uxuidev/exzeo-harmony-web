@@ -84,14 +84,14 @@ export const supportContacts = [
   },
   {
     icon: 'fa fa-credit-card',
-    name: 'Payments',
+    name: 'Payments (Online Payments Available)',
     title: '',
     phone: '',
     message:
       'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
     email: 'customerservice@typtap.com',
     disclaimer:
-      'Provide Policy #, Insured Name, Insured Address. We currently only accept payments via phone using Visa, MasterCard and Discover.'
+      'Provide Policy #, Insured Name, Insured Address. Online payments is available under the policy billing tab. We accept Visa, MasterCard, Discover or Electronic check.'
   }
 ];
 
