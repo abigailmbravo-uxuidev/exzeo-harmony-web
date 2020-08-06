@@ -91,7 +91,7 @@ export const supportContacts = [
       'PAYABLE TO: TYPTAP MANAGEMENT COMPANY, PO BOX 1120, OCALA, FL 34478',
     email: 'customerservice@typtap.com',
     disclaimer:
-      'Provide Policy #, Insured Name, Insured Address. Online payments is available under the policy billing tab. We accept Visa, MasterCard, Discover or Electronic check.'
+      'Provide Policy #, Insured Name, Insured Address. Online payment is available under the policy billing tab. We accept Visa, MasterCard, Discover or Electronic check.'
   }
 ];
 
