@@ -259,11 +259,11 @@ describe('Testing the Mailing/Billing Page', () => {
     const { getByTestId } = render(<QuoteWorkflow {...props} />);
     await waitForElement(() => getByTestId('billPlan_label'));
 
-    expect(getByTestId('annual-plan')).toHaveTextContent('$ 2,667');
-    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,624');
-    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$ 1,059');
-    expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 1,096');
-    expect(getByTestId('quarterly-plan')).toHaveTextContent('$ 531');
+    expect(getByTestId('annual-plan')).toHaveTextContent('$2,667');
+    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$1,624');
+    expect(getByTestId('semi-annual-plan')).toHaveTextContent('$1,059');
+    expect(getByTestId('quarterly-plan')).toHaveTextContent('$1,096');
+    expect(getByTestId('quarterly-plan')).toHaveTextContent('$531');
   });
 
   it('POS:Checks Submit Button', async () => {

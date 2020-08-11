@@ -300,20 +300,20 @@ describe('Verify Testing', () => {
   it('POS:Quote Details', () => {
     const { getByText } = render(<QuoteWorkflow {...props} />);
     const sectionData = [
-      { label: 'Yearly Premium', value: '$ 2,667' },
-      { label: 'A. Dwelling', value: '$ 314,000' },
-      { label: 'B. Other Structures', value: '$ 6,280' },
-      { label: 'C. Personal Property', value: '$ 78,500' },
-      { label: 'D. Loss Of Use', value: '$ 31,400' },
-      { label: 'E. Personal Liability', value: '$ 300,000' },
-      { label: 'F. Medical Payments', value: '$ 2,000' },
+      { label: 'Yearly Premium', value: '$2,667' },
+      { label: 'A. Dwelling', value: '$314,000' },
+      { label: 'B. Other Structures', value: '$6,280' },
+      { label: 'C. Personal Property', value: '$78,500' },
+      { label: 'D. Loss Of Use', value: '$31,400' },
+      { label: 'E. Personal Liability', value: '$300,000' },
+      { label: 'F. Medical Payments', value: '$2,000' },
       { label: 'Personal Property Replacement Cost', value: 'Yes' },
-      { label: 'Mold Property', value: '$ 10,000' },
-      { label: 'Mold Liability', value: '$ 50,000' },
-      { label: 'Ordinance or Law', value: '$ 78,500' },
-      { label: 'All Other Perils Deductible', value: '$ 1,000' },
-      { label: 'Hurricane Deductible', value: '$ 6,280' },
-      { label: 'Sinkhole Deductible', value: '$ 31,400' }
+      { label: 'Mold Property', value: '$10,000' },
+      { label: 'Mold Liability', value: '$50,000' },
+      { label: 'Ordinance or Law', value: '$78,500' },
+      { label: 'All Other Perils Deductible', value: '$1,000' },
+      { label: 'Hurricane Deductible', value: '$6,280' },
+      { label: 'Sinkhole Deductible', value: '$31,400' }
     ];
     // Check each field in order
     getByText('Quote Details').nextSibling.childNodes.forEach((node, i) => {

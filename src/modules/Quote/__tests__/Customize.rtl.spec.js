@@ -114,7 +114,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       values: ['0', '2', '5', '10'],
       defaultValue: '2',
       format: x => `${x}%`,
-      outputValue: '$ 6,280'
+      outputValue: '$6,280'
     });
 
     checkRadio(getByTestId, {
@@ -123,7 +123,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       label: 'Personal Property Limit',
       values: ['0', '25', '35', '50'],
       defaultValue: '25',
-      outputValue: '$ 78,500',
+      outputValue: '$78,500',
       format: x => `${x}%`
     });
 
@@ -138,7 +138,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       dataTest: 'coverageLimits.lossOfUse.value',
       required: true,
       label: 'Loss of Use Limit',
-      value: '$ 31,400'
+      value: '$31,400'
     });
 
     checkRadio(getByTestId, {
@@ -154,7 +154,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       dataTest: 'coverageLimits.medicalPayments.value',
       required: true,
       label: 'Medical Payments to Others',
-      value: '$ 2,000'
+      value: '$2,000'
     });
 
     checkRadio(getByTestId, {
@@ -214,7 +214,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       values: ['2', '5', '10'],
       defaultValue: '2',
       format: x => `${x}% of Dwelling Limit`,
-      outputValue: '$ 6,280'
+      outputValue: '$6,280'
     });
 
     checkRadio(getByTestId, {
@@ -225,7 +225,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       values: ['10'],
       defaultValue: '10',
       format: x => `${x}% of Dwelling Limit`,
-      outputValue: '$ 31,400'
+      outputValue: '$31,400'
     });
 
     checkRadio(getByTestId, {
@@ -337,35 +337,35 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
     await wait(() =>
       setSliderAndCheckOutput('350000', {
         dataTest: outputFields[0],
-        outputValue: '$ 7,000'
+        outputValue: '$7,000'
       })
     );
 
     await wait(() =>
       setSliderAndCheckOutput('380000', {
         dataTest: outputFields[1],
-        outputValue: '$ 95,000'
+        outputValue: '$95,000'
       })
     );
 
     await wait(() =>
       setSliderAndCheckOutput('380000', {
         dataTest: outputFields[2],
-        outputValue: '$ 2,000'
+        outputValue: '$2,000'
       })
     );
 
     await wait(() =>
       setSliderAndCheckOutput('303000', {
         dataTest: outputFields[3],
-        outputValue: '$ 30,300'
+        outputValue: '$30,300'
       })
     );
 
     await wait(() =>
       setSliderAndCheckOutput('295000', {
         dataTest: outputFields[4],
-        outputValue: '$ 5,900'
+        outputValue: '$5,900'
       })
     );
   });

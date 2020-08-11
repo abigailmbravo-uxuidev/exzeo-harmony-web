@@ -349,8 +349,8 @@ const mock = {
             required: true,
             metaData: {
               enum: [
-                { label: '$ 100,000', answer: 100000 },
-                { label: '$ 300,000', answer: 300000 }
+                { label: '$100,000', answer: 100000 },
+                { label: '$300,000', answer: 300000 }
               ]
             }
           },
@@ -399,15 +399,15 @@ const mock = {
             metaData: {
               enum: [
                 {
-                  label: '$ 10,000',
+                  label: '$10,000',
                   answer: 10000
                 },
                 {
-                  label: '$ 25,000',
+                  label: '$25,000',
                   answer: 25000
                 },
                 {
-                  label: '$ 50,000',
+                  label: '$50,000',
                   answer: 50000
                 }
               ]
@@ -434,11 +434,11 @@ const mock = {
             metaData: {
               enum: [
                 {
-                  label: '$ 50,000',
+                  label: '$50,000',
                   answer: 50000
                 },
                 {
-                  label: '$ 100,000',
+                  label: '$100,000',
                   answer: 100000
                 }
               ]
@@ -529,15 +529,15 @@ const mock = {
             segmented: true,
             dataSource: [
               {
-                label: '$ 500',
+                label: '$500',
                 answer: 500
               },
               {
-                label: '$ 1,000',
+                label: '$1,000',
                 answer: 1000
               },
               {
-                label: '$ 2,500',
+                label: '$2,500',
                 answer: 2500
               }
             ]
