@@ -86,13 +86,13 @@ describe('Policy Billing Page testing', () => {
   //       date: '2019-05-15',
   //       type: 'Paper Deposit',
   //       description: 'Duplicate Payment Applied in Error',
-  //       amount: '$ 100.00'
+  //       amount: '$100.00'
   //     },
   //     {
   //       date: '2019-06-01',
   //       type: 'AAA type',
   //       description: 'ZZZ description',
-  //       amount: '$ 40.00'
+  //       amount: '$40.00'
   //     }
   //   ];
   //

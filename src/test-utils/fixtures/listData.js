@@ -43,36 +43,36 @@ export const customizeList = {
     personalLiability: [
       {
         answer: 100000,
-        label: '$ 100,000'
+        label: '$100,000'
       },
       {
         answer: 300000,
-        label: '$ 300,000'
+        label: '$300,000'
       }
     ],
     medicalPayments: [],
     moldProperty: [
       {
         answer: 10000,
-        label: '$ 10,000'
+        label: '$10,000'
       },
       {
         answer: 25000,
-        label: '$ 25,000'
+        label: '$25,000'
       },
       {
         answer: 50000,
-        label: '$ 50,000'
+        label: '$50,000'
       }
     ],
     moldLiability: [
       {
         answer: 50000,
-        label: '$ 50,000'
+        label: '$50,000'
       },
       {
         answer: 100000,
-        label: '$ 100,000'
+        label: '$100,000'
       }
     ],
     ordinanceOrLaw: [
@@ -102,15 +102,15 @@ export const customizeList = {
     allOtherPerils: [
       {
         answer: 500,
-        label: '$ 500'
+        label: '$500'
       },
       {
         answer: 1000,
-        label: '$ 1,000'
+        label: '$1,000'
       },
       {
         answer: 2500,
-        label: '$ 2,500'
+        label: '$2,500'
       }
     ],
     hurricane: [

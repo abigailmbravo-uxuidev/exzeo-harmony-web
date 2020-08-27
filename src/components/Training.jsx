@@ -37,7 +37,7 @@ export const GENERAL = [
 ];
 
 export const HO3 = [
-  {
+  /*{
     key: 1,
     productIcon: 'home',
     url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/ho3/TT-Pilot-Agents-one-pager.pdf`,
@@ -47,7 +47,7 @@ export const HO3 = [
     linkIcon: 'pdf',
     product: PRODUCT_TYPES.home,
     state: 'FL'
-  },
+  },*/
   {
     key: 2,
     productIcon: 'home',
