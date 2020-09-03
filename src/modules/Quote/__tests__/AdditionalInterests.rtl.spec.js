@@ -271,7 +271,8 @@ describe('Testing Additional Interests', () => {
             name1: '',
             mailingAddress: { address1: '', city: '', state: '', zip: '' },
             order: 0,
-            type: 'Mortgagee'
+            type: 'Mortgagee',
+            active: true
           }
         ]
       }

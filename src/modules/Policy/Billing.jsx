@@ -1,6 +1,6 @@
 import React from 'react';
-import Title from '@exzeo/core-ui/src/@Harmony/Gandalf/@components/Title';
 import { date, format } from '@exzeo/core-ui/src';
+import { Title } from '@exzeo/core-ui/src/@Harmony';
 
 const formatBillingInformation = initialValues => {
   const { summaryLedger, additionalInterests, policyHolders } = initialValues;

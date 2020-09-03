@@ -653,6 +653,22 @@ const mock = {
       ]
     },
     {
+      name: 'claims',
+      step: {},
+      components: [
+        {
+          id: '6445baba-e9b0-493c-9461-8a43d309a10b',
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            component: '$POLICY_CLAIMS'
+          },
+          formData: {},
+          children: []
+        }
+      ]
+    },
+    {
       name: 'documents',
       step: {},
       components: [
