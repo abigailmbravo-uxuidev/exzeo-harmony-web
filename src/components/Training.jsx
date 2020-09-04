@@ -33,6 +33,15 @@ export const GENERAL = [
     title: 'How To Make Online Payments',
     description: 'Instructions for completing online policy payments.',
     linkIcon: 'pdf'
+  },
+  {
+    key: 4,
+    productIcon: 'generic',
+    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/generic/TypTap-AOR-Transfer-Form-And-Guidelines.pdf`,
+    title: 'Agent of Record Change Requirements and Form',
+    description:
+      'Requirements and instructions for completing Agent of Record Change.',
+    linkIcon: 'pdf'
   }
 ];
 
