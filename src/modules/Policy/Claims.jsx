@@ -96,7 +96,7 @@ const Claims = ({ initialValues }) => {
             <dl>
               <div>
                 <dt>Closed Date</dt>
-                <dd>{(dateClosed && date.formatDate(dateClosed)) || 'Null'}</dd>
+                <dd>{(dateClosed && date.formatDate(dateClosed)) || 'N/A'}</dd>
               </div>
             </dl>
           </section>

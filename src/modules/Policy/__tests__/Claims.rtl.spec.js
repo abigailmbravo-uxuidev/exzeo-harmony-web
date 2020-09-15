@@ -123,6 +123,6 @@ describe('Policy Claims Page', () => {
     expect(
       within(claimSections[2]).getAllByRole('term')[termOrder.closedDate]
         .nextSibling.textContent
-    ).toBe('Null');
+    ).toBe('N/A');
   });
 });
