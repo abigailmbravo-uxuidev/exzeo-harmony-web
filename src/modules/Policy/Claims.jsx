@@ -11,7 +11,7 @@ const Claims = ({ initialValues }) => {
     policyNumber
   );
 
-  // Remove SIU and Subro claims (which have letters in the last part of the claimNumber)
+  // Remove SIU claims (which have 1 or more letters in the last part of the claimNumber)
   const filteredClaims = claimsData.filter(
     claim => !claim.claimNumber.split('-')[2].match(/[A-Z]/gi)
   );
@@ -111,7 +111,7 @@ const Claims = ({ initialValues }) => {
   return (
     <>
       {claimsData.length === 0 ? (
-        <h4 class="no-results">
+        <h4 className="no-results">
           There are no claims to display for this policy.
         </h4>
       ) : (

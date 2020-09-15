@@ -10,12 +10,11 @@ export const resetPolicy = () => {
   };
 };
 
-export const setAllPolicyDocuments = ({ policy, summaryLedger, claims }) => {
+export const setAllPolicyDocuments = ({ policy, summaryLedger }) => {
   return {
     type: types.SET_POLICY,
     policy,
-    summaryLedger,
-    claims
+    summaryLedger
   };
 };
 
