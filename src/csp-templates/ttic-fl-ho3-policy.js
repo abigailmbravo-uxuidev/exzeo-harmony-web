@@ -1168,6 +1168,22 @@ const mock = {
       ]
     },
     {
+      name: 'claims',
+      step: {},
+      components: [
+        {
+          id: '34fe8493-49f3-4984-a9f7-ba4dd4099b55',
+          type: '$CUSTOM',
+          dependencies: [],
+          data: {
+            component: '$POLICY_CLAIMS'
+          },
+          formData: {},
+          children: []
+        }
+      ]
+    },
+    {
       name: 'documents',
       step: {},
       components: [

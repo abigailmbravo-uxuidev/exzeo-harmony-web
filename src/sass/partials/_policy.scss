@@ -1,4 +1,33 @@
 .route.policy {
+  .no-results {
+    margin: 0;
+
+    text-align: center;
+  }
+  .nav-and-header-wrapper {
+    nav {
+      a {
+        .claims-icon {
+          height: 1.5rem;
+          margin-bottom: 2px;
+
+          fill: $cool-gray-04;
+          @include transition(all 0.2s ease-in-out);
+        }
+
+        &:hover {
+          .claims-icon {
+            fill: $bright-blue;
+          }
+        }
+        &.active {
+          .claims-icon {
+            fill: $green;
+          }
+        }
+      }
+    }
+  }
   .detailHeader {
     padding-right: 0;
   }
@@ -9,6 +38,61 @@
   }
   .scroll {
     padding: ($padding * 2) ($padding * 2) 0;
+
+    .view-grid {
+      .claim {
+        .title {
+          .claims-icon {
+            height: 1.75rem;
+            margin-right: $padding;
+
+            fill: $bright-blue-darken-04;
+          }
+        }
+        .claim-left,
+        .claim-right {
+          display: flex;
+          flex-direction: column;
+
+          width: 50%;
+          padding: 0;
+
+          dl {
+            padding: 0;
+
+            > div {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              padding: ($padding / 2) $padding;
+            }
+
+            &:nth-child(odd) {
+              > div {
+                background: $cool-gray-01;
+              }
+            }
+          }
+        }
+        .claim-left {
+          padding-right: $padding;
+
+          @include for-phone-only {
+            width: 100%;
+            padding-right: 0;
+          }
+        }
+        .claim-right {
+          padding-left: $padding;
+
+          @include for-phone-only {
+            width: 100%;
+            padding-left: 0;
+          }
+        }
+      }
+    }
   }
 }
 .payments-received {

@@ -24,6 +24,7 @@ import AppWrapper from '../../components/AppWrapper';
 import { PAGE_ROUTING } from './constants/workflowNavigation';
 import PolicyNavigation from './PolicyNavigation';
 import Billing from './Billing';
+import Claims from './Claims';
 import Payments from './Payments';
 import Documents from './Documents';
 
@@ -55,7 +56,8 @@ export class PolicyWorkflow extends Component {
     this.customComponents = {
       $POLICY_BILLING: Billing,
       $POLICY_PAYMENTS: Payments,
-      $POLICY_DOCUMENTS: Documents
+      $POLICY_DOCUMENTS: Documents,
+      $POLICY_CLAIMS: Claims
     };
 
     this.state = {

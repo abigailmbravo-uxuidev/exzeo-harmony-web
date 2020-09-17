@@ -3,7 +3,8 @@ export const STEP_NAMES = {
   property: 1,
   coverage: 2,
   billing: 3,
-  documents: 4
+  claims: 4,
+  documents: 5
 };
 
 export const PAGE_ROUTING = {
@@ -11,5 +12,6 @@ export const PAGE_ROUTING = {
   property: 1,
   coverage: 2,
   billing: 3,
-  documents: 4
+  claims: 4,
+  documents: 5
 };
