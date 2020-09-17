@@ -41,7 +41,7 @@
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.0",
     "axios-mock-adapter": "~1.10.0",
-    "cypress": "^4.10.0",
+    "cypress": "^5.2.0",
     "enzyme": "^3.10.0",
     "husky": "^4.2.5",
     "istanbul": "~0.4.5",
