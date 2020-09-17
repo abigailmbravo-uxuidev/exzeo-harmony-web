@@ -37,11 +37,12 @@ export const GENERAL = [
   {
     key: 4,
     productIcon: 'generic',
-    url: `${process.env.REACT_APP_DOCUMENT_URL}/marketing/generic/TypTap-AOR-Transfer-Form-And-Guidelines.pdf`,
+    url:
+      'https://na2.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=a53b4526-430e-4c7c-8489-4fa06b0f36fa&env=na2&acct=58ab9a1a-860f-4ec6-af60-2e7e54411242&v=2',
     title: 'Agent of Record Change Requirements and Form',
     description:
       'Requirements and instructions for completing Agent of Record Change.',
-    linkIcon: 'pdf'
+    linkIcon: 'link'
   }
 ];
 
