@@ -28,7 +28,7 @@ describe('Policy Claims Page', () => {
   };
 
   const formatDate = claimDate =>
-    date.moment.tz(claimDate, 'America/New_York').format('MM/DD/YYYY');
+    date.moment.utc(claimDate).format('MM/DD/YYYY');
 
   it('Policy Claims: No data', async () => {
     mockServiceRunner([]);

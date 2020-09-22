@@ -1,59 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import * as serviceRunner from '@exzeo/core-ui/src/@Harmony/Domain/Api/serviceRunner';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { date, SectionLoader } from '@exzeo/core-ui';
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  date as dateUtils,
+  SectionLoader,
+  BootstrapTable
+} from '@exzeo/core-ui';
 import Downloader from '../../components/Downloader';
-
-function formatPolicyDocuments(documents) {
-  return documents.map(({ attachments, ...rest }) => ({
-    ...rest,
-    attachments: [{ ...rest }]
-  }));
-}
-
-function sortAttachments(a, b, order) {
-  const aComesLater = a.attachments[0].fileName > b.attachments[0].fileName;
-  return order === 'desc' ? (aComesLater ? -1 : 1) : aComesLater ? 1 : -1;
-}
+import { useFetchPolicyDocuments } from './hooks';
 
 const Documents = ({ initialValues, customHandlers }) => {
-  const [policyDocuments, setPolicyDocuments] = useState();
-  useEffect(() => {
-    async function fetchPolicyDocuments() {
-      try {
-        const config = {
-          service: 'file-index',
-          method: 'GET',
-          path: `v1/fileindex/${initialValues.policyNumber}`
-        };
-        const response = await serviceRunner.callService(
-          config,
-          'getPolicyDocuments'
-        );
-        const documents = formatPolicyDocuments(response.data.result);
-        setPolicyDocuments(documents);
-      } catch (error) {
-        customHandlers.setAppModalError(error);
-      }
-    }
+  const { policyNumber, property } = initialValues;
+  const { setAppModalError: setError } = customHandlers;
 
-    fetchPolicyDocuments();
-  }, [initialValues.policyNumber, customHandlers]);
+  const { policyDocuments } = useFetchPolicyDocuments(policyNumber, setError);
 
-  const formatAttachmentUrl = attachments => (
+  const formatAttachmentUrl = attachment => (
     <span>
-      {attachments.map((attachment, i) => (
-        <Downloader
-          key={i}
-          fileName={attachment.fileName}
-          fileUrl={attachment.fileUrl}
-          fileType={attachment.fileType}
-          errorHandler={err => customHandlers.setAppModalError(err.message)}
-        />
-      ))}
+      <Downloader
+        key={attachment.fileUrl}
+        fileName={attachment.fileName}
+        fileUrl={attachment.fileUrl}
+        fileType={attachment.fileType}
+        errorHandler={err => setError(err.message)}
+      />
     </span>
   );
+
+  const formatDate = (val, row, rowIndex, timezone) =>
+    dateUtils.formattedDate(
+      dateUtils.moment.unix(val),
+      dateUtils.FORMATS.PRIMARY_LOCALE,
+      timezone
+    );
+
+  const timezone = property?.timezone ?? 'America/New_York';
+
+  const columns = [
+    {
+      text: 'Date',
+      headerClasses: 'date',
+      columnClassName: 'date',
+      align: 'left',
+      headerAlign: 'left',
+      dataField: 'createdDate',
+      formatter: formatDate,
+      formatExtraData: timezone,
+      sort: true
+    },
+    {
+      text: 'Document Type',
+      headerClasses: 'document-type',
+      columnClassName: 'document-type',
+      align: 'left',
+      headerAlign: 'left',
+      dataField: 'fileName',
+      formatter: (cell, row) => formatAttachmentUrl(row),
+      sort: true
+    }
+  ];
 
   if (!policyDocuments) {
     return <SectionLoader />;
@@ -61,36 +65,22 @@ const Documents = ({ initialValues, customHandlers }) => {
 
   return (
     <BootstrapTable
-      className="table-responsive table-striped policy-documents"
+      keyField="fileUrl"
       data={policyDocuments}
-      options={{ sortName: 'createdDate', sortOrder: 'desc' }}
-    >
-      <TableHeaderColumn
-        className="date"
-        columnClassName="date"
-        headerAlign="left"
-        dataAlign="left"
-        dataField="createdDate"
-        dataFormat={x => date.toLocaleDate(x)}
-        dataSort
-      >
-        Date
-      </TableHeaderColumn>
-      <TableHeaderColumn
-        className="document-type"
-        columnClassName="document-type"
-        headerAlign="left"
-        dataAlign="left"
-        dataField="attachments"
-        isKey
-        dataFormat={formatAttachmentUrl}
-        dataSort
-        sortFunc={sortAttachments}
-      >
-        Document Type
-      </TableHeaderColumn>
-    </BootstrapTable>
+      columns={columns}
+      defaultSorted={[{ dataField: 'createdDate', order: 'desc' }]}
+      noDataIndication="There is no data to display"
+      classes="table-responsive table-striped policy-documents"
+      bordered={false}
+      striped
+      hover
+    />
   );
+};
+
+Documents.propTypes = {
+  initialValues: PropTypes.object,
+  customHandlers: PropTypes.object
 };
 
 export default Documents;
