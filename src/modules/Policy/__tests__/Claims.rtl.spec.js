@@ -46,7 +46,7 @@ describe('Policy Claims Page', () => {
     mockServiceRunner(claimsData);
 
     // Sort and filter mock data to match the expected data 'shape'
-    // this is only needed because these tests use relative dates; all other assertions are hard-coded
+    // This is only needed because these tests use relative dates; all other assertions are hard-coded
     // 1. Remove SIU/Subro claims (those claims have letters in the last part of the claimNumber)
     // 2. sort claims in descending order of claimNumber (oldest should be on the bottom)
     const sortedFilteredClaims = claimsData
