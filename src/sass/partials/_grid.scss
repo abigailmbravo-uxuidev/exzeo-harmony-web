@@ -780,8 +780,27 @@ table {
   .table-striped {
     tbody {
       > tr {
+        &:hover {
+          background-color: $white;
+        }
         &:nth-of-type(even) {
           background: $cool-gray-01;
+          &:hover {
+            background: $cool-gray-01;
+          }
+        }
+        > td {
+          padding: $padding ($padding/2);
+
+          vertical-align: middle;
+
+          line-height: 1;
+
+          > span {
+            > div {
+              padding: 0;
+            }
+          }
         }
       }
     }
