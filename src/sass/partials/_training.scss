@@ -170,6 +170,16 @@
                       @include transition(all 0.2s ease-in-out);
                     }
                   }
+
+                  &.link {
+                    &:before {
+                      content: '\f14c';
+
+                      color: $bright-blue;
+
+                      @include transition(all 0.2s ease-in-out);
+                    }
+                  }
                 }
               }
 
@@ -191,6 +201,11 @@
 
                       &:after {
                         background: $bright-blue-darken-01;
+                      }
+                    }
+                    &.link {
+                      &:before {
+                        color: $bright-blue-darken-01;
                       }
                     }
                   }
@@ -617,7 +632,7 @@
       flex-grow: 1;
       flex-shrink: 1;
 
-      padding-right: .5rem;
+      padding-right: 0.5rem;
 
       label {
         font-size: $font-size-sm;
@@ -626,7 +641,7 @@
     }
 
     button {
-      margin: 1.5rem 24rem 1.5rem .25rem;
+      margin: 1.5rem 24rem 1.5rem 0.25rem;
 
       i {
         margin: 0;
@@ -641,7 +656,7 @@
       display: flex;
 
       background-color: $cool-gray-01;
-  
+
       .form-group {
         display: flex;
         flex-grow: 1;
@@ -654,7 +669,7 @@
 
       button {
         margin: 1.4rem 0;
-  
+
         i {
           margin: 0;
 

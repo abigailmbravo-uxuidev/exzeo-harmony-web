@@ -39,6 +39,26 @@ export function Auth0Provider({
   const history = useHistory();
 
   useEffect(() => {
+    // We don't want to do this during Cypress tests, and its far too complicated to ensure its working during Cypress tests. Also we cannot test this functionality in Cypress either - can't test multiple tabs.
+    if (window.Cypress) return;
+
+    let interval;
+    if (isAuthenticated) {
+      interval = setInterval(async () => {
+        const isAuthenticated = await auth0Client.isAuthenticated();
+        if (
+          !isAuthenticated ||
+          !(localStorage.getItem('isLoggedIn') === 'true')
+        ) {
+          setIsAuthenticated(false);
+        }
+      }, 15000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isAuthenticated, auth0Client]);
+
+  useEffect(() => {
     const initAuth0 = async () => {
       try {
         const auth0FromHook = await createAuth0Client(initOptions);
@@ -57,8 +77,9 @@ export function Auth0Provider({
           const user = await auth0FromHook.getUser();
           setUser(user);
 
-          const accessToken = await auth0FromHook.getTokenSilently();
+          localStorage.setItem('isLoggedIn', 'true');
 
+          const accessToken = await auth0FromHook.getTokenSilently();
           // this way of setting the auth header is specific to Axios.
           http.defaults.headers.common.authorization = `bearer ${accessToken}`;
 
@@ -94,6 +115,11 @@ export function Auth0Provider({
     // eslint-disable-next-line
   }, []);
 
+  const logout = (...p) => {
+    localStorage.removeItem('isLoggedIn');
+    auth0Client.logout(...p);
+  };
+
   return (
     <Auth0Context.Provider
       value={{
@@ -103,11 +129,11 @@ export function Auth0Provider({
         userProfile,
         setUserProfile,
         loading,
+        logout,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
-        getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
-        logout: (...p) => auth0Client.logout(...p)
+        getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p)
       }}
     >
       {children}
