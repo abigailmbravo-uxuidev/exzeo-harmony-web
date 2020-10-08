@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.10.0",
-    "@exzeo/core-ui": "0.12.7",
+    "@exzeo/core-ui": "0.13.1",
     "@exzeo/react-scripts": "2.6.2",
     "classnames": "~2.2.5",
     "core-js": "~2.6.9",
