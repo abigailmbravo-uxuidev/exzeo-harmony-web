@@ -19,12 +19,14 @@ h4 {
 /*------------------------------------------------------------------------------------*/
 a,
 a:visited {
-  color: $bright-blue;
   text-decoration: none;
 
+  color: $bright-blue;
+
   &:hover {
-    color: $bright-blue-darken-02;
     text-decoration: none !important;
+
+    color: $bright-blue-darken-02;
   }
 }
 
@@ -81,9 +83,9 @@ textarea {
 
   // Placeholder
   &::placeholder {
-    color: $cool-gray-02;
     // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
+    color: $cool-gray-02;
   }
 
   &:focus {
@@ -108,10 +110,12 @@ output {
 
 input[readonly],
 output {
+  text-align: right;
+
+  color: $cool-gray-03;
   border-bottom: 2px solid $green-lighten-02;
   background-color: rgba($white, 0);
-  color: $cool-gray-03;
-  text-align: right;
+
   font-weight: $font-weight-normal;
 }
 
@@ -122,9 +126,10 @@ output {
     @include for-phone-only {
       right: $margin * 2;
       left: $margin * 2 !important;
-      margin: 0;
-      max-width: 100%;
+
       width: calc(100% - (#{$margin}* 4));
+      max-width: 100%;
+      margin: 0;
 
       &.place-left,
       &.place-right {
@@ -151,20 +156,20 @@ output {
 
           &.selected {
             span {
+              color: $body-color;
               border-color: $bright-blue-lighten-02;
               background: $white;
               box-shadow: 0 0 0 2px $bright-blue-lighten-02 inset;
-              color: $body-color;
             }
           }
 
           input[type='radio'] {
             &:checked {
               + span {
+                color: $body-color;
                 border-color: $bright-blue-lighten-02;
                 background: $white;
                 box-shadow: 0 0 0 3px $bright-blue-lighten-02 inset;
-                color: $body-color;
               }
             }
           }
@@ -202,10 +207,10 @@ output {
             input[type='radio'] {
               &:checked {
                 + span {
+                  color: $cool-gray-02;
                   border-color: $cool-gray-02;
                   background: $cool-gray-00;
                   box-shadow: 0 0 0 2px $cool-gray-02 inset;
-                  color: $cool-gray-02;
                 }
               }
             }
@@ -226,18 +231,18 @@ output {
 
           .label-segmented {
             span {
+              color: $body-color;
               border-color: $red-lighten-01;
               background-color: lighten($red-lighten-04, 20%);
-              color: $body-color;
             }
 
             input[type='radio'] {
               &:checked {
                 + span {
+                  color: $red;
                   border-color: $red;
                   background: lighten($red-lighten-04, 20%);
                   box-shadow: 0 0 0 2px $red inset;
-                  color: $red;
                 }
               }
             }
@@ -251,15 +256,19 @@ output {
     label {
       div.switch-div {
         flex-basis: 3.5rem;
+
         width: 3.5rem;
         height: 1.5rem;
+
+        cursor: pointer;
+
         border-radius: 0.75rem;
         background: $cool-gray-04;
-        cursor: pointer;
 
         &:before {
           width: 1.5rem;
           height: 1.5rem;
+
           border-width: 2px;
           border-color: $cool-gray-01;
           background-color: lighten($cool-gray-00, 10%);
@@ -267,6 +276,7 @@ output {
 
         &:after {
           left: 2rem;
+
           color: $white;
         }
       }
@@ -277,8 +287,9 @@ output {
             background: $bright-blue-lighten-02;
 
             &:before {
-              border-color: $cool-gray-01;
               transform: translateX(2rem);
+
+              border-color: $cool-gray-01;
             }
 
             &:after {
@@ -533,17 +544,21 @@ output {
 
       .range-value {
         position: relative;
+
         margin-left: 1.5rem;
 
         &:before {
           position: absolute;
           left: -1.5rem;
+
           width: 0;
           height: 0;
+
+          content: '';
+
           border-top: 1.1875rem solid transparent;
           border-right: 1.5rem solid lighten($cool-gray-00, 2.5%);
           border-bottom: 1.1875rem solid transparent;
-          content: '';
         }
       }
 
@@ -712,10 +727,12 @@ output {
   }
 
   i.fa-info-circle {
+    cursor: help;
+
     color: $bright-blue;
+
     font-size: 1rem;
     line-height: 1.25rem;
-    cursor: help;
   }
 }
 
@@ -742,8 +759,9 @@ select {
 
 .detail-wrapper {
   .section-group-header {
-    padding: ($padding);
     width: 100%;
+    padding: ($padding);
+
     color: $bright-blue-darken-03;
 
     &.error {
@@ -805,6 +823,7 @@ header {
   div[role='banner'] {
     > .logo {
       flex-basis: 7rem;
+
       width: 7rem;
 
       @include for-phone-only {
@@ -831,16 +850,16 @@ header {
           }
         }
         @include for-tablet-portrait-up {
-          border-top: 1px dashed $cool-gray-02;
           color: $bright-blue;
+          border-top: 1px dashed $cool-gray-02;
 
           &:first-child {
             border-top-width: 0;
           }
         }
         @include for-tablet-landscape-up {
-          border-top-width: 0;
           color: $cool-gray-04;
+          border-top-width: 0;
         }
 
         &:hover {
@@ -852,8 +871,8 @@ header {
         }
 
         &.active {
-          border-bottom-color: $bright-blue;
           color: $cool-gray-00;
+          border-bottom-color: $bright-blue;
 
           @include for-phone-only {
             color: $body-color;
@@ -1043,10 +1062,10 @@ div[role='main'] {
 .content-panel-left {
   background-color: $cool-gray-12;
   background-image: url('../img/typtap-bg.png');
+  background-repeat: no-repeat;
   background-position-x: center;
   background-position-y: -1.75rem;
   background-size: cover;
-  background-repeat: no-repeat;
 
   @include for-phone-only {
     background-position-y: -6rem;
@@ -1061,6 +1080,7 @@ div[role='main'] {
 
     .date {
       align-items: center;
+
       color: $white;
     }
   }
@@ -1077,8 +1097,9 @@ div[role='main'] {
           }
 
           &.active {
-            border-left-color: $bright-blue;
             color: $body-color;
+            border-left-color: $bright-blue;
+
             font-weight: $font-weight-bold;
 
             i {
@@ -1093,9 +1114,10 @@ div[role='main'] {
           &.disabled {
             color: rgba($white, 0.2);
             &:hover {
+              cursor: not-allowed;
+
               border-left-color: rgba($white, 0);
               background-color: transparent;
-              cursor: not-allowed;
             }
             span {
               color: rgba($white, 0.2);
@@ -1138,8 +1160,8 @@ div[role='main'] {
         color: $cool-gray-08;
 
         span {
-          background: $cool-gray-01;
           color: $cool-gray-06;
+          background: $cool-gray-01;
         }
       }
     }
@@ -1228,8 +1250,9 @@ div[role='main'] {
 
             &:focus,
             &:hover {
-              color: $cool-gray-14;
               cursor: default;
+
+              color: $cool-gray-14;
 
               i {
                 color: $green-darken-01;
@@ -1254,8 +1277,9 @@ div[role='main'] {
 
             &:focus,
             &:hover {
-              color: $cool-gray-08;
               cursor: pointer;
+
+              color: $cool-gray-08;
 
               i {
                 color: $bright-blue;
@@ -1284,6 +1308,7 @@ footer {
   .route {
     .app-header {
       margin-top: 0;
+
       color: $bright-blue-darken-03;
     }
 
@@ -1292,24 +1317,30 @@ footer {
       align-items: center;
       flex-direction: column;
       justify-content: center;
-      margin-bottom: 1rem;
+
       height: 18rem;
+      margin-bottom: 1rem;
+
       background-image: url('../img/welcome-image.jpg');
       background-position: center center;
       background-size: cover;
 
       h1 {
         width: 100%;
-        color: $white;
+
         text-align: center;
         text-transform: uppercase;
+
+        color: $white;
       }
       h2 {
-        margin: 0;
         width: 100%;
-        color: $white;
+        margin: 0;
+
         text-align: center;
         text-transform: uppercase;
+
+        color: $white;
       }
     }
 
@@ -1401,8 +1432,8 @@ ul.result-cards {
   .form-group {
     .FirstName {
       @include for-tablet-portrait-up {
-        padding-right: $padding * 2;
         width: 40%;
+        padding-right: $padding * 2;
       }
     }
 
@@ -1415,32 +1446,36 @@ ul.result-cards {
     .EmailAddress {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: $padding * 2;
+
         width: 60%;
+        padding-right: $padding * 2;
       }
     }
 
     .phoneNumber {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: 0;
+
         width: 40%;
+        padding-right: 0;
       }
     }
 
     .effectiveDate {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: $padding * 2;
+
         width: 40%;
+        padding-right: $padding * 2;
       }
     }
 
     .agentID {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: 0;
+
         width: 60%;
+        padding-right: 0;
       }
     }
   }
@@ -1475,6 +1510,7 @@ ul.result-cards {
   right: 0;
   bottom: 0;
   left: 0;
+
   display: none;
   align-items: center;
   flex-direction: column;
@@ -1518,6 +1554,7 @@ ul.result-cards {
   .m1City,
   .m2City {
     flex-grow: 1;
+
     width: auto;
 
     @include for-phone-only {
@@ -1562,8 +1599,9 @@ ul.result-cards {
     @include for-tablet-portrait-up {
       input {
         flex-grow: 1;
-        padding-right: 0;
+
         width: 40%;
+        padding-right: 0;
       }
     }
   }
@@ -1575,8 +1613,8 @@ ul.result-cards {
   .form-group {
     .firstName {
       @include for-tablet-portrait-up {
-        padding-right: $padding * 2;
         width: 40%;
+        padding-right: $padding * 2;
       }
     }
 
@@ -1589,16 +1627,18 @@ ul.result-cards {
     .emailAddress {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: $padding * 2;
+
         width: 60%;
+        padding-right: $padding * 2;
       }
     }
 
     .primaryPhoneNumber {
       @include for-tablet-portrait-up {
         flex-grow: 1;
-        padding-right: 0;
+
         width: 40%;
+        padding-right: 0;
       }
     }
   }
@@ -1610,6 +1650,7 @@ ul.result-cards {
   .form-group {
     .city {
       flex-grow: 1;
+
       width: auto;
 
       @include for-phone-only {
@@ -1653,7 +1694,7 @@ ul.result-cards {
 /*------------------------------------------------------------------------------------*/
 .verify {
   dt {
-    color: $bright-blue-darken-04;
+    color: $body-color;
   }
 
   .detail-wrapper {
@@ -1736,6 +1777,7 @@ ul.result-cards {
             h5,
             h6 {
               padding: $padding ($padding * 2);
+
               background: rgba($cool-gray-07, 0.9);
             }
           }
@@ -1749,17 +1791,19 @@ ul.result-cards {
 /*------------------------------------------------------------------------------------*/
 .thanks-content {
   .card-thanks {
-    margin-bottom: $padding;
     max-width: 36rem;
+    margin-bottom: $padding;
+
     box-shadow: 0 0 50px rgba($black, 0.4);
 
     @include for-phone-only {
-      margin: 0 0 ($padding * 2);
       max-width: 300px;
+      margin: 0 0 ($padding * 2);
     }
 
     .card-header-image-thanks {
       height: 16rem;
+
       background-image: url('https://media.giphy.com/media/tmFp3w5eSRAGc/giphy.gif');
       background-size: cover;
 
@@ -1775,8 +1819,9 @@ ul.result-cards {
       h6 {
         margin: (-$padding * 1.75) (-$padding * 2.5);
         padding: $padding;
-        background: rgba($green-darken-03, 0.9);
+
         color: $white;
+        background: rgba($green-darken-03, 0.9);
       }
     }
   }
@@ -1797,6 +1842,7 @@ ul.result-cards {
 
                 .section-group-header {
                   z-index: 2;
+
                   flex-basis: auto;
                   flex-grow: 0;
                   flex-shrink: 0;
@@ -1804,6 +1850,7 @@ ul.result-cards {
 
                 .header-wrapper {
                   z-index: 3;
+
                   align-items: flex-start;
                   flex-grow: 1;
                   flex-shrink: 0;
@@ -1811,7 +1858,9 @@ ul.result-cards {
 
                 .btn {
                   z-index: 4;
+
                   align-self: flex-end;
+
                   margin-bottom: $padding * 2;
                 }
               }
