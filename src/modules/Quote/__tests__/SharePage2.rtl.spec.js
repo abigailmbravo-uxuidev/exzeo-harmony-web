@@ -10,7 +10,7 @@ import {
   checkButton
 } from '../../../test-utils';
 
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -24,7 +24,8 @@ const fields = [
 describe('Testing Share Page 2', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-345-67/assumptions' }
+    location: { pathname: '/quote/12-345-67/assumptions' },
+    match: { params: { step: 'assumptions', quoteNumber: '12-345-67' } }
   };
 
   it('"Confirmed" Value Switch Defaults to "No"', async () => {

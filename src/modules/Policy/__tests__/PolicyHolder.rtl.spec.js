@@ -4,9 +4,11 @@ import {
   render,
   defaultPolicyWorkflowProps,
   agent,
-  checkHeader
+  checkHeader,
+  wait,
+  screen
 } from '../../../test-utils';
-import { PolicyWorkflow } from '../PolicyWorkflow';
+import PolicyWorkflow from '../PolicyWorkflow';
 
 const pageHeaders = [
   {
@@ -27,6 +29,7 @@ describe('Policy Policyholder Page testing', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
     location: { pathname: '/policy/12-345-67/policyHolder' },
+    match: { params: { step: 'policyHolder', policyNumber: '12-345-67' } },
     agents: [agent]
   };
 
@@ -52,7 +55,8 @@ describe('Policy Policyholder Page testing', () => {
   it('Loader visible without policy', () => {
     const policyProps = {
       ...defaultPolicyWorkflowProps,
-      location: { pathname: '/policy/12-345-67/coverage' }
+      location: { pathname: '/policy/12-345-67/coverage' },
+      match: { params: { step: 'coverage', policyNumber: '12-345-67' } }
     };
 
     policyProps.policy = {};
@@ -60,10 +64,12 @@ describe('Policy Policyholder Page testing', () => {
     expect(getByTestId('loader')).toBeInTheDocument();
   });
 
-  it('Does not show 2nd ph when only one is present', () => {
+  it('Does not show 2nd ph when only one is present', async () => {
     const { queryByText } = render(<PolicyWorkflow {...props} />);
 
-    expect(queryByText('Policyholder 2')).not.toBeInTheDocument();
+    await wait(() =>
+      expect(queryByText('Policyholder 2')).not.toBeInTheDocument()
+    );
   });
 
   it('POS:Checks all headers', () => {

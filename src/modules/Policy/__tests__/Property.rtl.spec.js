@@ -3,9 +3,11 @@ import React from 'react';
 import {
   render,
   defaultPolicyWorkflowProps,
-  checkHeader
+  checkHeader,
+  wait,
+  screen
 } from '../../../test-utils';
-import { PolicyWorkflow } from '../PolicyWorkflow';
+import PolicyWorkflow from '../PolicyWorkflow';
 
 const pageHeaders = [
   {
@@ -21,12 +23,15 @@ const pageHeaders = [
 describe('Policy Property Page testing', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
-    location: { pathname: '/policy/12-345-67/property' }
+    location: { pathname: '/policy/12-345-67/property' },
+    match: { params: { step: 'property', policyNumber: '12-345-67' } }
   };
 
-  it('POS:Checks headers', () => {
+  it('POS:Checks headers', async () => {
     const { getByText } = render(<PolicyWorkflow {...props} />);
-
+    await wait(() =>
+      expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    );
     pageHeaders.forEach(header => checkHeader(getByText, header.text, header));
   });
 

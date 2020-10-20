@@ -3,8 +3,9 @@ import { date as dateUtils, format, BootstrapTable } from '@exzeo/core-ui';
 import { OnlinePayment } from '@exzeo/core-ui/src/@Harmony';
 import { doesUserHaveAccess } from '../../utilities/userResources';
 import { useUser } from '../../context/user-context';
+import { usePolicyWorkflow } from './context';
 
-const Payments = ({ initialValues, customHandlers }) => {
+const Payments = ({ initialValues }) => {
   const {
     companyCode,
     state,
@@ -15,7 +16,7 @@ const Payments = ({ initialValues, customHandlers }) => {
   const { payments } = summaryLedger;
 
   const userProfile = useUser();
-
+  const { getPolicy } = usePolicyWorkflow();
   const enableOnlinePayments = useMemo(() => {
     const onlinePaymentURI = `${companyCode}:${state}:${product}:OnlinePayments:*`;
     return doesUserHaveAccess(
@@ -88,9 +89,7 @@ const Payments = ({ initialValues, customHandlers }) => {
             batchID={`${date}-AGT`}
             document={initialValues}
             label="Make Online Payment"
-            onPaymentComplete={() =>
-              customHandlers.updatePolicy(initialValues.policyNumber)
-            }
+            onPaymentComplete={() => getPolicy(initialValues.policyNumber)}
           />
         )}
       </div>

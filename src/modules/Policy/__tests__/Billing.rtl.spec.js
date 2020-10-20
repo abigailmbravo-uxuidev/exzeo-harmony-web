@@ -6,7 +6,7 @@ import {
   getSummaryLedger,
   checkHeader
 } from '../../../test-utils';
-import { PolicyWorkflow } from '../PolicyWorkflow';
+import PolicyWorkflow from '../PolicyWorkflow';
 
 const pageHeaders = [
   {
@@ -27,6 +27,7 @@ describe('Policy Billing Page testing', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
     location: { pathname: '/policy/12-345-67/billing' },
+    match: { params: { step: 'billing', policyNumber: '12-345-67' } },
     summaryLedger: getSummaryLedger
   };
 

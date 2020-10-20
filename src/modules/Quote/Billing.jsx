@@ -11,11 +11,13 @@ import {
   AdditionalInterestForm,
   AI_TYPES
 } from '@exzeo/core-ui/src/@Harmony';
+import { useQuoteWorkflow } from './context';
 
 const TEMP_BILL_PAYER_VALUE = 'temp_bill_payer';
 
-const Billing = ({ initialValues, customHandlers, formInstance }) => {
+const Billing = ({ initialValues, formInstance }) => {
   const [showBillPayerModal, setShowBillPayerModal] = useState(false);
+  const { handleSubmit } = useQuoteWorkflow();
   const billToIdField = useField('billToId');
 
   const handleSubmitBillPayer = async billPayer => {
@@ -24,7 +26,7 @@ const Billing = ({ initialValues, customHandlers, formInstance }) => {
       ...formValues,
       additionalInterests: [...formValues.additionalInterests, billPayer]
     };
-    await customHandlers.handleSubmit({ remainOnStep: true, ...submitValues });
+    await handleSubmit({ remainOnStep: true, ...submitValues });
     setShowBillPayerModal(false);
   };
 

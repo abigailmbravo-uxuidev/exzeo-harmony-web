@@ -71,11 +71,11 @@ function AuthenticatedApp({
           )}
         />
         <Route
-          path="/quote/:quoteNumber"
+          path="/quote/:quoteNumber/:step"
           render={props => <QuoteModule {...props} />}
         />
         <Route
-          path="/policy/:policyNumber"
+          path="/policy/:policyNumber/:step"
           render={props => <PolicyModule {...props} />}
         />
         <Route

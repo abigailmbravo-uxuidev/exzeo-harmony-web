@@ -21,7 +21,7 @@ import {
   checkButton,
   checkSelect
 } from '../../../test-utils';
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -115,7 +115,8 @@ describe('Testing the Mailing/Billing Page', () => {
         { ...additionalInterest, _id: '1234', type: 'Mortgagee' }
       ]
     },
-    location: { pathname: '/quote/12-345-67/mailingBilling' }
+    location: { pathname: '/quote/12-345-67/mailingBilling' },
+    match: { params: { step: 'mailingBilling', quoteNumber: '12-345-67' } }
   };
 
   const requiredFields = fields.filter(({ required }) => required);

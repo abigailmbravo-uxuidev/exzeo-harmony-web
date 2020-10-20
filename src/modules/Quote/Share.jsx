@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, ModalPortal, FormSpy } from '@exzeo/core-ui';
+import { Button, ModalPortal, FormSpy, useForm } from '@exzeo/core-ui';
 import { ShareModal } from '@exzeo/core-ui/src/@Harmony';
 
 import { STEP_NAMES } from './constants/workflowNavigation';
+import { useQuoteWorkflow } from './context';
 
-const Share = ({
-  customHandlers,
-  formInstance,
-  config: { extendedProperties = {} }
-}) => {
+const Share = ({ skipNext }) => {
   const [showPopup, setPopup] = useState(false);
-  const { goToStep, handleSubmit } = customHandlers;
-  const { skipNext } = extendedProperties;
+  const formInstance = useForm();
+  const { goToStep, handleSubmit } = useQuoteWorkflow();
 
   const handleClick = skipNext
     ? () => goToStep(STEP_NAMES.policyholder, true)
@@ -121,8 +118,7 @@ const Share = ({
 
 Share.defaultProps = {
   isLoading: false,
-  quote: {},
-  customHandlers: {}
+  quote: {}
 };
 
 export default Share;

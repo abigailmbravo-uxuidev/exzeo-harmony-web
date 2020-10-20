@@ -17,7 +17,7 @@ import {
   checkSelect,
   checkSwitch
 } from '../../../test-utils';
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const ph1Fields = [
   {
@@ -105,7 +105,8 @@ const pageHeaders = [
 describe('Testing QuoteWorkflow Policyholder Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-345-67/policyholder' }
+    location: { pathname: '/quote/12-345-67/policyholder' },
+    match: { params: { step: 'policyholder', quoteNumber: '12-345-67' } }
   };
 
   const toggleSecondUser = (dir = 'on') => {
