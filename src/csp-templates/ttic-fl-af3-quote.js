@@ -32,8 +32,8 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Policy Details',
             icon: 'fa fa-file-text'
@@ -43,55 +43,40 @@ const mock = {
         },
         {
           id: 3,
-          type: '$INPUT',
-          dependencies: [],
+          component: 'text',
+          dependencies: '',
           path: 'policyHolders[0].firstName',
           data: {
-            component: 'text',
             label: 'First Name',
             size: '5',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.firstName',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
+            required: true
           },
           children: []
         },
         {
           id: 4,
-          type: '$INPUT',
+          component: 'text',
           path: 'policyHolders[0].lastName',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'text',
             label: 'Last Name',
             size: '7',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.lastName',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
+            required: true
           },
           children: []
         },
         {
           id: 15,
-          type: '$INPUT',
+          component: 'date',
           path: 'effectiveDate',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'date',
             label: 'Effective Date',
             size: '6',
             extendedProperties: {
@@ -101,31 +86,22 @@ const mock = {
             validation: ['minEffectiveDate', 'isValidDate']
           },
           formData: {
-            path: 'effectiveDate',
-            type: 'string',
-            required: true,
-            metaData: {
-              format: 'date-time'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 16,
-          type: '$INPUT',
+          component: 'selectInteger',
           path: 'agentCode',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'selectInteger',
             label: 'Agent',
             size: '6',
             dataSource: 'agents'
           },
           formData: {
-            path: 'agentCode',
-            type: 'integer',
-            required: true,
-            metaData: {}
+            required: true
           },
           children: []
         }
@@ -137,11 +113,9 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$UNDERWRITING'
-          },
+          component: '$UNDERWRITING',
+          dependencies: '',
+          data: {},
           formData: {},
           children: []
         }
@@ -153,8 +127,8 @@ const mock = {
       components: [
         {
           id: 133333,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Coverage Limits',
             icon: 'fa fa-line-chart'
@@ -164,10 +138,9 @@ const mock = {
         },
         {
           id: 133330,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$WARNING',
+          dependencies: '',
           data: {
-            component: '$WARNING',
             as: 'div'
           },
           formData: {},
@@ -175,10 +148,10 @@ const mock = {
         },
         {
           id: 3456354,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$SLIDER_GROUP',
+          dependencies: '',
           data: {
-            component: '$SLIDER_GROUP',
+            subscribe: true,
             extendedProperties: {
               primaryField: {
                 name: 'coverageLimits.building.value',
@@ -193,8 +166,7 @@ const mock = {
                 label: 'Personal Property',
                 hint:
                   'This is the personal belongings, or items located inside the home. This could include furniture, clothing, bedding, dishes, etc. To have replacement cost coverage on Personal Property, please select Personal Property limits at a minimum of 25% of the Building limit.'
-              },
-              subscribe: true
+              }
             }
           },
           formData: {},
@@ -202,37 +174,33 @@ const mock = {
         },
         {
           id: 678453,
-          type: '$INPUT',
+          component: 'switch',
           path: 'coverageOptions.personalPropertyReplacementCost.answer',
-          dependencies: [{ pprcc: true }],
+          dependencies:
+            '${it.coverageLimits.personalProperty.value >= Math.ceil(it.coverageLimits.building.value / 4)}',
           data: {
-            component: 'switch',
             label: 'Do you want Personal Property Replacement Cost Coverage?',
             size: '12',
             hint:
               "Replacement Cost Coverage replaces damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, loss for personal property will be paid out at Actual Cash Value."
           },
           formData: {
-            path: 'coverageOptions.personalPropertyReplacementCost.answer',
-            type: 'boolean',
-            required: true,
-            metaData: {}
+            required: true
           },
           children: []
         },
         {
           id: 9545674,
-          type: '$INPUT',
+          component: 'radio',
           path: 'deductibles.buildingDeductible.value',
-          dependencies: [],
+          dependencies: '',
           data: {
             segmented: true,
-            component: 'radio',
             label: 'Deductible',
             size: '12',
             hint:
               'Coverage A (Building) and Coverage B (Personal Property) have separate deductibles. However, these deductibles must be the same.',
-            dataSource: [
+            options: [
               {
                 answer: 500,
                 label: '$500'
@@ -255,17 +223,12 @@ const mock = {
               }
             ],
             extendedProperties: {
-              output: 'currency'
+              output:
+                '${format.toCurrency(it.deductibles.buildingDeductible.value)}'
             }
           },
           formData: {
-            path: 'deductibles.buildingDeductible.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target: '${it.deductibles.buildingDeductible.value}',
-              format: 'currency'
-            }
+            required: true
           },
           children: []
         }
@@ -277,14 +240,12 @@ const mock = {
       components: [
         {
           id: 11111,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$SHARE',
+          dependencies: '',
           data: {
             extendedProperties: {
-              subscribe: true,
               skipNext: true
-            },
-            component: '$SHARE'
+            }
           },
           formData: {},
           children: []
@@ -302,8 +263,8 @@ const mock = {
       components: [
         {
           id: 12222221111,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Primary Policyholder',
             icon: 'fa fa-user-circle'
@@ -313,98 +274,70 @@ const mock = {
         },
         {
           id: 3,
-          type: '$INPUT',
-          dependencies: [],
+          component: 'text',
+          dependencies: '',
           path: 'policyHolders[0].firstName',
           data: {
-            component: 'text',
             label: 'First Name',
             size: '5',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.firstName',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
+            required: true
           },
           children: []
         },
         {
           id: 4,
-          type: '$INPUT',
+          component: 'text',
           path: 'policyHolders[0].lastName',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'text',
             label: 'Last Name',
             size: '7',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.lastName',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
+            required: true
           },
           children: []
         },
         {
           id: 5,
-          type: '$INPUT',
+          component: 'text',
           path: 'policyHolders[0].emailAddress',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'text',
             label: 'Email Address',
             size: '8',
             validation: ['isEmail']
           },
           formData: {
-            path: 'policyHolders.policyHolder.emailAddress',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
+            required: true
           },
           children: []
         },
         {
           id: 6,
-          type: '$INPUT',
+          component: 'phone',
           path: 'policyHolders[0].primaryPhoneNumber',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'phone',
             label: 'Contact Phone',
             size: '4',
             validation: ['isPhone']
           },
           formData: {
-            path: 'policyHolders.policyHolder.primaryPhoneNumber',
-            type: 'string',
-            required: true,
-            metaData: {
-              pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 8,
-          type: '$INPUT',
+          component: 'switch',
           path: 'additionalPolicyholder',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'switch',
             label: 'Do you want to add an additional Policyholder?'
           },
           formData: {},
@@ -412,8 +345,9 @@ const mock = {
         },
         {
           id: 3453,
-          type: '$SECTION',
-          dependencies: [{ additionalPolicyholder: true }],
+          component: '$SECTION',
+          path: 'page.policyholder.additionalPolicyHolder',
+          dependencies: '${it.additionalPolicyholder}',
           data: {
             className: 'second-policyholder-wrapper'
           },
@@ -421,8 +355,8 @@ const mock = {
           children: [
             {
               id: 7,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Secondary Policyholder',
                 icon: 'fa fa-user-circle',
@@ -433,88 +367,61 @@ const mock = {
             },
             {
               id: 10,
-              type: '$INPUT',
+              component: 'text',
               path: 'policyHolders[1].firstName',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'text',
                 label: 'First Name',
                 size: '5',
                 validation: ['isValidNameFormat']
               },
               formData: {
-                path: 'policyHolders.policyHolder.firstName',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
+                required: true
               },
               children: []
             },
             {
               id: 11,
-              type: '$INPUT',
+              component: 'text',
               path: 'policyHolders[1].lastName',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'text',
                 label: 'Last Name',
                 size: '7',
                 validation: ['isValidNameFormat']
               },
               formData: {
-                path: 'policyHolders.policyHolder.lastName',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
+                required: true
               },
               children: []
             },
             {
               id: 12,
-              type: '$INPUT',
+              component: 'text',
               path: 'policyHolders[1].emailAddress',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'text',
                 label: 'Email Address',
                 size: '8',
                 validation: ['isEmail']
               },
               formData: {
-                path: 'policyHolders.policyHolder.emailAddress',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
+                required: true
               },
               children: []
             },
             {
               id: 13,
-              type: '$INPUT',
+              component: 'phone',
               path: 'policyHolders[1].primaryPhoneNumber',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'phone',
                 label: 'Contact Phone',
                 size: '4',
                 validation: ['isPhone']
               },
               formData: {
-                path: 'policyHolders.policyHolder.primaryPhoneNumber',
-                type: 'string',
-                required: true,
-                metaData: {
-                  pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
-                }
+                required: true
               },
               children: []
             }
@@ -528,10 +435,9 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$ADDITIONAL_INTERESTS',
+          dependencies: '',
           data: {
-            component: '$ADDITIONAL_INTERESTS',
             extendedProperties: {
               text:
                 'Please select the type of Additional Interest that you would like to add for this policy.',
@@ -556,8 +462,8 @@ const mock = {
       components: [
         {
           id: 3456776,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Mailing Address',
             icon: 'fa fa-envelope'
@@ -567,12 +473,11 @@ const mock = {
         },
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$ADDRESS',
+          dependencies: '',
           data: {
-            component: '$ADDRESS',
+            subscribe: true,
             extendedProperties: {
-              subscribe: true,
               watchField: 'sameAsPropertyAddress',
               fieldPrefix: 'policyHolderMailingAddress',
               matchPrefix: 'property.physicalAddress'
@@ -582,9 +487,9 @@ const mock = {
           children: []
         },
         {
-          id: 3409367443,
-          type: '$TITLE',
-          dependencies: [],
+          id: '342563a3-d8ad-4b27-bcb1-2fb56d618fe7',
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Billing Information',
             icon: 'fa fa-dollar'
@@ -593,13 +498,11 @@ const mock = {
           children: []
         },
         {
-          id: 348833,
-          type: '$CUSTOM',
-          dependencies: [],
+          id: '405aac98-6099-4bb7-b774-43c5706cfd55',
+          component: '$BILLING',
+          dependencies: '',
           data: {
-            component: '$BILLING',
-            dataSource: 'billPlans',
-            extendedProperties: {}
+            dataSource: 'billPlans'
           },
           formData: {
             required: true
@@ -613,11 +516,10 @@ const mock = {
       step: {},
       components: [
         {
-          id: 67786334,
-          type: '$CUSTOM',
-          dependencies: [],
+          id: 'f6f8f272-10db-47a2-b20e-05ff9a66b4c0',
+          component: '$VERIFY',
+          dependencies: '',
           data: {
-            component: '$VERIFY',
             extendedProperties: {
               details: [
                 {
@@ -663,8 +565,7 @@ const mock = {
                 }
               ],
               productDescription: 'Flood',
-              companyName: 'TTIC',
-              subscribe: true
+              companyName: 'TTIC'
             }
           },
           formData: {},

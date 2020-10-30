@@ -163,7 +163,7 @@ export const defaultPolicyWorkflowProps = {
   getAgentsByAgencyCode: () => {},
   setAppModalError: () => {},
   resetPolicy: () => {},
-  getAllPolicyDocuments: () => {}
+  getPolicy: () => {}
 };
 
 /**
@@ -292,7 +292,7 @@ export const checkPhoneInput = (query, field) => {
  * @param {Object} query - The function from react-testing-library to be used.
  * @param {Object} field { dataTest = '', text = '', label = '', values } - The field object to find and test.
  */
-export const checkRadio = (
+export const checkRadio = async (
   query,
   { dataTest, values, defaultValue, format = x => x, outputValue, ...rest }
 ) => {
@@ -319,11 +319,12 @@ export const checkRadio = (
 
   // Check the computed output
   if (outputValue) {
-    expect(
-      parseQueryType(query, {
-        dataTest: `${dataTest}_wrapper`
-      }).querySelector('output').textContent
-    ).toEqual(outputValue);
+    const inputWrapper = parseQueryType(query, {
+      dataTest: `${dataTest}_wrapper`
+    });
+    const output = inputWrapper.querySelector('output').textContent;
+
+    await wait(() => expect(output).toEqual(outputValue));
   }
 };
 

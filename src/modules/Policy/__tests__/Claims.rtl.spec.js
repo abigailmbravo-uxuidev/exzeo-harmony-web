@@ -10,12 +10,13 @@ import {
   defaultPolicyWorkflowProps
 } from '../../../test-utils';
 import claimsData from '../fixtures/fetchClaimsResponse';
-import { PolicyWorkflow } from '../PolicyWorkflow';
+import PolicyWorkflow from '../PolicyWorkflow';
 
 describe('Policy Claims Page', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
-    location: { pathname: '/policy/12-345-67/claims' }
+    location: { pathname: '/policy/12-345-67/claims' },
+    match: { params: { step: 'claims', policyNumber: '12-345-67' } }
   };
 
   const termOrder = {

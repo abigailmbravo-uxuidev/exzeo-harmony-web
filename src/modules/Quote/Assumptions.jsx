@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { AssumptionsMessage } from '@exzeo/core-ui/src/@Harmony';
 import { Switch, Button, noop } from '@exzeo/core-ui';
+import { useQuoteWorkflow } from './context';
 
-export const Assumptions = ({ customHandlers }) => {
+export const Assumptions = () => {
   const [confirmed, setConfirmed] = useState(false);
+  const { handleSubmit } = useQuoteWorkflow();
 
   const input = {
     name: 'confirmAssumptions',
@@ -28,7 +30,7 @@ export const Assumptions = ({ customHandlers }) => {
         <Button
           className={Button.constants.classNames.primary}
           disabled={!confirmed}
-          onClick={() => customHandlers.handleSubmit({ noSubmit: true })}
+          onClick={() => handleSubmit({ noSubmit: true })}
           label="next"
           data-test="submit"
         />

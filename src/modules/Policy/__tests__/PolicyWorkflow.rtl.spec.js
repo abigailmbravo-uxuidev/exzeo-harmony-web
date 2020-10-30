@@ -1,14 +1,17 @@
 import React from 'react';
 
 import { render, defaultPolicyWorkflowProps } from '../../../test-utils';
-import { PolicyWorkflow } from '../PolicyWorkflow';
+import PolicyWorkflow from '../PolicyWorkflow';
 
 describe('Policy Workflow testing', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
     policy: { ...defaultPolicyWorkflowProps.policy, policyNumber: '12' },
     location: { pathname: '/policy/12/policyHolder' },
-    match: { params: { policyNumber: '12' }, url: '/policy/12' },
+    match: {
+      params: { step: 'policyHolder', policyNumber: '12' },
+      url: '/policy/12'
+    },
     auth: { logout: x => x },
     initializePolicyWorkflow: x => x
   };

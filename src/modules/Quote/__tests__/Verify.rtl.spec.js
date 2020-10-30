@@ -18,7 +18,7 @@ import {
   verifyForm,
   checkSwitch
 } from '../../../test-utils';
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const switchFields = [
   {
@@ -160,7 +160,8 @@ describe('Verify Testing', () => {
       },
       rating
     },
-    location: { pathname: '/quote/1/verify' }
+    location: { pathname: '/quote/1/verify' },
+    match: { params: { step: 'verify', quoteNumber: '1' } }
   };
 
   it('NEG:Primary Policyholder Empty Value', async () => {

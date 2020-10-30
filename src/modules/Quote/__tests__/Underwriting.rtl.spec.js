@@ -13,7 +13,7 @@ import {
   checkLabel,
   checkButton
 } from '../../../test-utils';
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const fields = [
   {
@@ -70,7 +70,8 @@ mockServiceRunner(result);
 describe('Testing the QuoteWorkflow Underwriting Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-345-67/underwriting' }
+    location: { pathname: '/quote/12-345-67/underwriting' },
+    match: { params: { step: 'underwriting', quoteNumber: '12-345-67' } }
   };
 
   it('NEG:All Inputs Empty Value', async () => {

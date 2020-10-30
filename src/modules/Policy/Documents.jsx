@@ -7,10 +7,11 @@ import {
 } from '@exzeo/core-ui';
 import Downloader from '../../components/Downloader';
 import { useFetchPolicyDocuments } from './hooks';
+import { usePolicyWorkflow } from './context';
 
-const Documents = ({ initialValues, customHandlers }) => {
+const Documents = ({ initialValues }) => {
   const { policyNumber, property } = initialValues;
-  const { setAppModalError: setError } = customHandlers;
+  const { setAppModalError: setError } = usePolicyWorkflow();
 
   const { policyDocuments } = useFetchPolicyDocuments(policyNumber, setError);
 
@@ -79,8 +80,7 @@ const Documents = ({ initialValues, customHandlers }) => {
 };
 
 Documents.propTypes = {
-  initialValues: PropTypes.object,
-  customHandlers: PropTypes.object
+  initialValues: PropTypes.object
 };
 
 export default Documents;

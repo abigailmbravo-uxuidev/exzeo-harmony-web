@@ -9,12 +9,13 @@ import {
   wait,
   waitForElementToBeRemoved
 } from '../../../test-utils';
-import { PolicyWorkflow } from '../PolicyWorkflow';
+import PolicyWorkflow from '../PolicyWorkflow';
 
 describe('Policy Document Page testing', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
-    location: { pathname: '/policy/12-345-67/documents' }
+    location: { pathname: '/policy/12-345-67/documents' },
+    match: { params: { step: 'documents', policyNumber: '12-345-67' } }
   };
 
   it('POS:Has a table', async () => {

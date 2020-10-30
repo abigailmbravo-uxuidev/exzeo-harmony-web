@@ -26,8 +26,8 @@ const mock = {
       components: [
         {
           id: 100000,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {
             className: 'policyholder-one-demographics'
           },
@@ -35,8 +35,8 @@ const mock = {
           children: [
             {
               id: 1000001,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Policyholder 1',
                 icon: 'fa fa-vcard-o'
@@ -46,8 +46,8 @@ const mock = {
             },
             {
               id: 1000002,
-              type: '$ENTITY_DETAILS',
-              dependencies: [],
+              component: '$ENTITY_DETAILS',
+              dependencies: '',
               data: {
                 extendedProperties: {
                   className: 'row-items',
@@ -89,8 +89,8 @@ const mock = {
             },
             {
               id: 1000005,
-              type: '$ENTITY_DETAILS',
-              dependencies: [],
+              component: '$ENTITY_DETAILS',
+              dependencies: '',
               data: {
                 extendedProperties: {
                   className: 'row-items',
@@ -122,8 +122,9 @@ const mock = {
         },
         {
           id: 44000,
-          type: '$SECTION',
-          dependencies: [{ 'policyHolders[1]': true }],
+          component: '$SECTION',
+          path: 'page.policyHolder.secondaryPolicyHolder',
+          dependencies: '${it.policyHolders[1].firstName}',
           data: {
             className: 'policyholder-two-demographics'
           },
@@ -131,8 +132,8 @@ const mock = {
           children: [
             {
               id: 440003,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Policyholder 2',
                 icon: 'fa fa-vcard-o'
@@ -142,8 +143,8 @@ const mock = {
             },
             {
               id: 440004,
-              type: '$ENTITY_DETAILS',
-              dependencies: [],
+              component: '$ENTITY_DETAILS',
+              dependencies: '',
               data: {
                 extendedProperties: {
                   className: 'row-items',
@@ -187,8 +188,8 @@ const mock = {
         },
         {
           id: 550000,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {
             className: 'agent-demographics'
           },
@@ -196,8 +197,8 @@ const mock = {
           children: [
             {
               id: 5550006,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Agent',
                 icon: 'fa fa-vcard-o'
@@ -207,8 +208,8 @@ const mock = {
             },
             {
               id: 666654007,
-              type: '$ENTITY_DETAILS',
-              dependencies: [],
+              component: '$ENTITY_DETAILS',
+              dependencies: '',
               data: {
                 extendedProperties: {
                   className: 'row-items',
@@ -290,8 +291,8 @@ const mock = {
       components: [
         {
           id: 54353005,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {
             className: 'home-location'
           },
@@ -299,8 +300,8 @@ const mock = {
           children: [
             {
               id: 7654300032323,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Home and Location',
                 icon: 'fa fa-map-marker'
@@ -310,8 +311,8 @@ const mock = {
             },
             {
               id: 655640034,
-              type: '$SECTION',
-              dependencies: [],
+              component: '$SECTION',
+              dependencies: '',
               data: {
                 className: 'home-location-left'
               },
@@ -319,8 +320,8 @@ const mock = {
               children: [
                 {
                   id: 2000004434,
-                  type: '$ENTITY_DETAILS',
-                  dependencies: [],
+                  component: '$ENTITY_DETAILS',
+                  dependencies: '',
                   data: {
                     extendedProperties: {
                       className: 'home-and-location',
@@ -359,8 +360,8 @@ const mock = {
       components: [
         {
           id: 300453322234005,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {
             className: 'coverage-limits'
           },
@@ -368,8 +369,8 @@ const mock = {
           children: [
             {
               id: 2000006232221,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Coverage Limits',
                 icon: 'fa fa-line-chart'
@@ -379,8 +380,8 @@ const mock = {
             },
             {
               id: 3000054354,
-              type: '$SECTION',
-              dependencies: [],
+              component: '$SECTION',
+              dependencies: '',
               data: {
                 className: 'coverage-limits-left'
               },
@@ -388,8 +389,8 @@ const mock = {
               children: [
                 {
                   id: 3056657004,
-                  type: '$ENTITY_DETAILS',
-                  dependencies: [],
+                  component: '$ENTITY_DETAILS',
+                  dependencies: '',
                   data: {
                     extendedProperties: {
                       className: 'coverage',
@@ -460,8 +461,8 @@ const mock = {
         },
         {
           id: 300008,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {
             className: 'deductible'
           },
@@ -469,8 +470,8 @@ const mock = {
           children: [
             {
               id: 3005439,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Deductible',
                 icon: 'fa fa-long-arrow-down'
@@ -480,8 +481,8 @@ const mock = {
             },
             {
               id: 30023232323233340006,
-              type: '$SECTION',
-              dependencies: [],
+              component: '$SECTION',
+              dependencies: '',
               data: {
                 className: 'deductible-left'
               },
@@ -489,8 +490,8 @@ const mock = {
               children: [
                 {
                   id: 3000010,
-                  type: '$ENTITY_DETAILS',
-                  dependencies: [],
+                  component: '$ENTITY_DETAILS',
+                  dependencies: '',
                   data: {
                     extendedProperties: {
                       className: 'deductible',
@@ -532,8 +533,8 @@ const mock = {
       components: [
         {
           id: 400000,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {
             className: 'premium-billing-info'
           },
@@ -541,8 +542,8 @@ const mock = {
           children: [
             {
               id: 40005555555555500,
-              type: '$SECTION',
-              dependencies: [],
+              component: '$SECTION',
+              dependencies: '',
               data: {
                 className: 'premium'
               },
@@ -550,8 +551,8 @@ const mock = {
               children: [
                 {
                   id: 4000006,
-                  type: '$TITLE',
-                  dependencies: [],
+                  component: '$TITLE',
+                  dependencies: '',
                   data: {
                     text: 'Premium',
                     icon: 'fa fa-area-chart'
@@ -561,8 +562,8 @@ const mock = {
                 },
                 {
                   id: 4000007,
-                  type: '$ENTITY_DETAILS',
-                  dependencies: [],
+                  component: '$ENTITY_DETAILS',
+                  dependencies: '',
                   data: {
                     extendedProperties: {
                       details: [
@@ -603,8 +604,8 @@ const mock = {
             },
             {
               id: 4044444444440000,
-              type: '$SECTION',
-              dependencies: [],
+              component: '$SECTION',
+              dependencies: '',
               data: {
                 className: 'billing-info'
               },
@@ -612,11 +613,9 @@ const mock = {
               children: [
                 {
                   id: 4000008,
-                  type: '$CUSTOM',
-                  dependencies: [],
-                  data: {
-                    component: '$POLICY_BILLING'
-                  },
+                  component: '$POLICY_BILLING',
+                  dependencies: '',
+                  data: {},
                   formData: {},
                   children: []
                 }
@@ -626,8 +625,8 @@ const mock = {
         },
         {
           id: 400009,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {
             className: 'payments'
           },
@@ -635,11 +634,9 @@ const mock = {
           children: [
             {
               id: 4000011,
-              type: '$CUSTOM',
-              dependencies: [],
-              data: {
-                component: '$POLICY_PAYMENTS'
-              },
+              component: '$POLICY_PAYMENTS',
+              dependencies: '',
+              data: {},
               formData: {},
               children: []
             }
@@ -653,11 +650,9 @@ const mock = {
       components: [
         {
           id: '2049a6fa-e9ac-4782-8842-f1fb2e016277',
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$POLICY_CLAIMS'
-          },
+          component: '$POLICY_CLAIMS',
+          dependencies: '',
+          data: {},
           formData: {},
           children: []
         }
@@ -669,18 +664,16 @@ const mock = {
       components: [
         {
           id: 500000,
-          type: '$SECTION',
-          dependencies: [],
+          component: '$SECTION',
+          dependencies: '',
           data: {},
           formData: {},
           children: [
             {
               id: 5000001,
-              type: '$CUSTOM',
-              dependencies: [],
-              data: {
-                component: '$POLICY_DOCUMENTS'
-              },
+              component: '$POLICY_DOCUMENTS',
+              dependencies: '',
+              data: {},
               formData: {},
               children: []
             }

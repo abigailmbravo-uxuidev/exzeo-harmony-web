@@ -1,3 +1,3 @@
-import PolicyWorkflow from './PolicyWorkflow';
+import PolicyWorkflowContainer from './PolicyWorkflowContainer';
 
-export default PolicyWorkflow;
+export default PolicyWorkflowContainer;

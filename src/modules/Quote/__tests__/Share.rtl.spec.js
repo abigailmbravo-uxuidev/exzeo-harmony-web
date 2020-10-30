@@ -3,6 +3,7 @@ import React from 'react';
 import {
   render,
   fireEvent,
+  wait,
   defaultQuoteWorkflowProps,
   checkError,
   checkHeader,
@@ -11,7 +12,7 @@ import {
   verifyForm,
   checkButton
 } from '../../../test-utils';
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const modalFields = [
   {
@@ -53,10 +54,11 @@ const pageHeaders = [
 describe('Testing the Share Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-345-67/share' }
+    location: { pathname: '/quote/12-345-67/share' },
+    match: { params: { step: 'share', policyNumber: '12-345-67' } }
   };
 
-  it('NEG:All Inputs Empty Value', () => {
+  it('NEG:All Inputs Empty Value', async () => {
     const { queryByTestId, getByTestId, getByText } = render(
       <QuoteWorkflow {...props} />
     );
@@ -72,17 +74,28 @@ describe('Testing the Share Page', () => {
     fireEvent.click(getByText('Send Email'));
     modalFields.forEach(field => checkError(getByTestId, field));
     // Submit with one blank field
-    modalFields.forEach(fieldToLeaveBlank =>
-      verifyForm(getByTestId, modalFields, [fieldToLeaveBlank], 'modal-submit')
+
+    await verifyForm(
+      getByTestId,
+      modalFields,
+      [modalFields[0]],
+      'modal-submit'
     );
+    await verifyForm(
+      getByTestId,
+      modalFields,
+      [modalFields[1]],
+      'modal-submit'
+    );
+
     // Invalid inputs
-    verifyForm(
+    await verifyForm(
       getByTestId,
       [{ ...modalFields[0], value: '∂ƒ©ƒ', error: 'Invalid characters' }],
       [],
       'modal-submit'
     );
-    verifyForm(
+    await verifyForm(
       getByTestId,
       [
         { ...modalFields[1], value: '∂ƒ©ƒ', error: 'Not a valid email address' }
@@ -100,13 +113,18 @@ describe('Testing the Share Page', () => {
     );
   });
 
-  it('POS:Share Button / Share Modal', () => {
-    const { getByText, queryByTestId, getByTestId } = render(
+  it('POS:Share Button / Share Modal', async () => {
+    const { getByText, queryByTestId, getByTestId, getByRole } = render(
       <QuoteWorkflow {...props} />
     );
 
     expect(queryByTestId('Share Quote'));
     fireEvent.click(getByTestId('share'));
+
+    await wait(() => {
+      expect(getByRole('dialog')).toBeInTheDocument();
+    });
+
     checkButton(getByTestId, { dataTest: 'modal-cancel', text: 'Cancel' });
     checkButton(getByTestId, {
       dataTest: 'modal-submit',

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render, defaultProps, quote } from '../../../test-utils';
 import WorkflowNavigation from '../WorkflowNavigation';
+import { QuoteWorkflowContext } from '../context';
 
 describe('Testing WorkflowNavigation Component', () => {
   const props = {
@@ -78,7 +79,15 @@ describe('Testing WorkflowNavigation Component', () => {
 
   it('POS:Tests Detail Header', () => {
     const { getByText, queryByText } = render(
-      <WorkflowNavigation {...props} />
+      <QuoteWorkflowContext.Provider
+        value={{
+          goToStep: x => x,
+          handleSubmit: x => x,
+          getQuote: x => x
+        }}
+      >
+        <WorkflowNavigation {...props} />
+      </QuoteWorkflowContext.Provider>
     );
     // All static data pulled off dummy quote used above
     expect(getByText('Quote Number'));
@@ -97,7 +106,17 @@ describe('Testing WorkflowNavigation Component', () => {
   });
 
   it('POS:Tests Workflow Section Classes', () => {
-    const { getByTestId } = render(<WorkflowNavigation {...props} />);
+    const { getByTestId } = render(
+      <QuoteWorkflowContext.Provider
+        value={{
+          goToStep: x => x,
+          handleSubmit: x => x,
+          getQuote: x => x
+        }}
+      >
+        <WorkflowNavigation {...props} />
+      </QuoteWorkflowContext.Provider>
+    );
 
     workflowSections.forEach(({ name, status }) =>
       expect(getByTestId(name).firstChild).toHaveClass(status)
@@ -110,7 +129,17 @@ describe('Testing WorkflowNavigation Component', () => {
       currentStep: 2
     };
 
-    const { getByText } = render(<WorkflowNavigation {...newProps} />);
+    const { getByText } = render(
+      <QuoteWorkflowContext.Provider
+        value={{
+          goToStep: x => x,
+          handleSubmit: x => x,
+          getQuote: x => x
+        }}
+      >
+        <WorkflowNavigation {...newProps} />
+      </QuoteWorkflowContext.Provider>
+    );
     expect(getByText('$1,999,999'));
   });
 });

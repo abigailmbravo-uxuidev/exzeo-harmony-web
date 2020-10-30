@@ -32,8 +32,8 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Policy Details',
             icon: 'fa fa-file-text'
@@ -43,52 +43,40 @@ const mock = {
         },
         {
           id: 3,
-          type: '$INPUT',
-          dependencies: [],
+          component: 'text',
+          dependencies: '',
           path: 'policyHolders[0].firstName',
           data: {
-            component: 'text',
             label: 'First Name',
             size: '5',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.firstName',
-            type: 'string',
-            required: true,
-            metaData: { minLength: 1, maxLength: 255 }
+            required: true
           },
           children: []
         },
         {
           id: 4,
-          type: '$INPUT',
+          component: 'text',
           path: 'policyHolders[0].lastName',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'text',
             label: 'Last Name',
             size: '7',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.lastName',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
+            required: true
           },
           children: []
         },
         {
           id: 15,
-          type: '$INPUT',
+          component: 'date',
           path: 'effectiveDate',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'date',
             label: 'Effective Date',
             size: '6',
             extendedProperties: {
@@ -98,32 +86,22 @@ const mock = {
             validation: ['minEffectiveDate', 'isValidDate']
           },
           formData: {
-            path: 'effectiveDate',
-            type: 'string',
-            required: true,
-            metaData: {
-              format: 'date-time'
-              // also need min-date for underwriting
-            }
+            required: true
           },
           children: []
         },
         {
           id: 16,
-          type: '$INPUT',
+          component: 'selectInteger',
           path: 'agentCode',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'selectInteger',
             label: 'Agent',
             size: '6',
             dataSource: 'agents'
           },
           formData: {
-            path: 'agentCode',
-            type: 'integer',
-            required: true,
-            metaData: {}
+            required: true
           },
           children: []
         }
@@ -135,11 +113,9 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$UNDERWRITING'
-          },
+          component: '$UNDERWRITING',
+          dependencies: '',
+          data: {},
           formData: {},
           children: []
         }
@@ -151,8 +127,8 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Coverage Limits',
             icon: 'fa fa-line-chart'
@@ -162,11 +138,10 @@ const mock = {
         },
         {
           id: 2,
-          type: '$INPUT',
+          component: 'slider',
           path: 'coverageLimits.dwelling.value',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'slider',
             label: 'Dwelling Limit',
             hint:
               'This is the dollar amount of coverage for the structure of your home. This amount should represent the total cost to rebuild your home to its current state in the event of a loss. If you have a Declarations Page from your current  policy it may be listed as Coverage A.  (Based on basic information of your home, we provide you a guide for a recommended value. You can move this number up or down based on more detailed information. For example, if you have an upgraded kitchen and bathroom, you may want to increase this number to ensure that you have adequate coverage in the event of a loss.)  ',
@@ -179,26 +154,22 @@ const mock = {
             }
           },
           formData: {
-            path: 'coverageLimits.dwelling.value',
-            type: 'integer',
-            required: true,
-            metaData: {}
+            required: true
           },
           children: []
         },
         {
           id: 3,
-          type: '$INPUT',
+          component: 'radio',
           path: 'coverageLimits.otherStructures.value',
-          dependencies: [],
+          dependencies: '',
           data: {
             segmented: true,
-            component: 'radio',
             label: 'Other Structures Limit',
             size: '12',
             hint:
               'This is the dollar amount of coverage for the other structures on your property not attached to your home. This might include a fence, shed, or unattached garage. If you have a Declarations Page from your current  policy it may be listed as Coverage B.',
-            dataSource: [
+            options: [
               {
                 label: '0%',
                 answer: 0
@@ -217,38 +188,33 @@ const mock = {
               }
             ],
             extendedProperties: {
-              output: 'currency'
+              output:
+                '${format.toCurrency(Math.ceil(((it.coverageLimits.otherStructures.value / 100) * it.coverageLimits.dwelling.value)))}'
             }
           },
           formData: {
-            path: 'coverageLimits.otherStructures.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target:
-                '${Math.ceil(((it.coverageLimits.otherStructures.value / 100) * it.coverageLimits.dwelling.value))}'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 4,
-          type: '$INPUT',
+          component: 'radio',
           path: 'coverageLimits.personalProperty.value',
-          dependencies: [],
+          dependencies: '',
           data: {
             segmented: true,
-            component: 'radio',
             label: 'Personal Property Limit',
             size: '12',
             validation: ['personalPropertyMax'],
             hint:
               "This is your personal belongings, or items located inside the home. This could include your furniture, clothing, bedding, dishes, etc. If you choose to have replacement cost coverage on Personal Property, you will be required to carry Personal Property limits at a minimum of 25% of your Dwelling limit. TypTap's maximum Personal Property Limit is $500,000.",
             extendedProperties: {
-              output: 'currency',
+              output:
+                '${format.toCurrency(Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.value)))}',
               conditionalOptions: true
             },
-            dataSource: [
+            options: [
               {
                 label: '0%',
                 answer: 0,
@@ -276,210 +242,168 @@ const mock = {
             ]
           },
           formData: {
-            path: 'coverageLimits.personalProperty.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target:
-                '${Math.ceil(((it.coverageLimits.personalProperty.value / 100) * it.coverageLimits.dwelling.value))}'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 6,
-          type: '$INPUT',
+          component: 'switch',
           path: 'coverageOptions.personalPropertyReplacementCost.answer',
-          dependencies: [{ 'coverageLimits.personalProperty.value': true }],
+          dependencies: '${it.coverageLimits.personalProperty.value}',
           data: {
-            component: 'switch',
             label: 'Do you want Personal Property Replacement Cost Coverage?',
             size: '12',
             hint:
               "Replacement Cost Coverage replaces your damaged possessions at today's prices without deducting for depreciation. If you choose not to select this coverage, your loss for personal property will be paid out at Actual Cash Value."
           },
           formData: {
-            path: 'coverageOptions.personalPropertyReplacementCost.answer',
-            type: 'boolean',
-            required: true,
-            metaData: {}
+            required: true
           },
           children: []
         },
         {
           id: 7,
-          type: '$INPUT',
+          component: 'display',
           path: 'coverageLimits.lossOfUse.value',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'display',
             label: 'Loss of Use Limit',
             size: '12',
             hint:
               'Loss of Use Coverage is for additional living expenses incurred while your home is being repaired or rebuilt.',
             extendedProperties: {
-              output: 'currency'
+              output:
+                '${format.toCurrency(Math.ceil(((it.coverageLimits.lossOfUse.value / 100) * it.coverageLimits.dwelling.value)))}'
             }
           },
           formData: {
-            path: 'coverageLimits.lossOfUse.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target:
-                '${Math.ceil(((it.coverageLimits.lossOfUse.value / 100) * it.coverageLimits.dwelling.value))}'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 8,
-          type: '$INPUT',
+          component: 'radio',
           path: 'coverageLimits.personalLiability.value',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label: 'Personal Liability Limit',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              { label: '$100,000', answer: 100000 },
+              { label: '$300,000', answer: 300000 }
+            ]
           },
           formData: {
-            path: 'coverageLimits.personalLiability.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              enum: [
-                { label: '$100,000', answer: 100000 },
-                { label: '$300,000', answer: 300000 }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 9,
-          type: '$INPUT',
+          component: 'display',
           path: 'coverageLimits.medicalPayments.value',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'display',
             label: 'Medical Payments to Others',
             size: '12',
             segmented: true,
             extendedProperties: {
-              output: 'currency'
+              output: '${format.toCurrency(2000)}'
             }
           },
           formData: {
-            path: 'coverageLimits.medicalPayments.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target: '${2000}'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 10,
-          type: '$INPUT',
+          component: 'radio',
           path: 'coverageLimits.moldProperty.value',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label:
               'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Property',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: '$10,000',
+                answer: 10000
+              },
+              {
+                label: '$25,000',
+                answer: 25000
+              },
+              {
+                label: '$50,000',
+                answer: 50000
+              }
+            ]
           },
           formData: {
-            path: 'coverageLimits.moldProperty.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: '$10,000',
-                  answer: 10000
-                },
-                {
-                  label: '$25,000',
-                  answer: 25000
-                },
-                {
-                  label: '$50,000',
-                  answer: 50000
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 2342,
-          type: '$INPUT',
+          component: 'radio',
           path: 'coverageLimits.moldLiability.value',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label:
               'Limited Fungi, Wet or Dry Rot, Yeast or Bacteria Coverage - Liability',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: '$50,000',
+                answer: 50000
+              },
+              {
+                label: '$100,000',
+                answer: 100000
+              }
+            ]
           },
           formData: {
-            path: 'coverageLimits.moldLiability.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: '$50,000',
-                  answer: 50000
-                },
-                {
-                  label: '$100,000',
-                  answer: 100000
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 11,
-          type: '$INPUT',
+          component: 'radio',
           path: 'coverageLimits.ordinanceOrLaw.value',
-          dependencies: [],
+          dependencies: '',
           data: {
             segmented: true,
-            component: 'radio',
             label: 'Ordinance or Law Coverage Limit',
-            size: '12'
+            size: '12',
+            options: [
+              {
+                label: '25% of Dwelling Limit',
+                answer: 25
+              },
+              {
+                label: '50% of Dwelling Limit',
+                answer: 50
+              }
+            ]
           },
           formData: {
-            path: 'coverageLimits.ordinanceOrLaw.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: '25% of Dwelling Limit',
-                  answer: 25
-                },
-                {
-                  label: '50% of Dwelling Limit',
-                  answer: 50
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 12,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Coverage Options',
             icon: 'fa fa-tasks'
@@ -489,27 +413,23 @@ const mock = {
         },
         {
           id: 14,
-          type: '$INPUT',
+          component: 'switch',
           path: 'coverageOptions.sinkholePerilCoverage.answer',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'switch',
             label: 'Do you want Sinkhole Loss Coverage?',
             size: '12',
             segmented: true
           },
           formData: {
-            path: 'coverageOptions.sinkholePerilCoverage.answer',
-            type: 'boolean',
-            required: true,
-            metaData: {}
+            required: true
           },
           children: []
         },
         {
           id: 15,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Deductibles',
             icon: 'fa fa-money'
@@ -519,15 +439,14 @@ const mock = {
         },
         {
           id: 16,
-          component: '$INPUT',
+          component: 'radio',
           path: 'deductibles.allOtherPerils.value',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label: 'All Other Perils Deductible',
             size: '12',
             segmented: true,
-            dataSource: [
+            options: [
               {
                 label: '$500',
                 answer: 500
@@ -543,24 +462,20 @@ const mock = {
             ]
           },
           formData: {
-            path: 'deductibles.allOtherPerils.value',
-            type: 'integer',
-            required: true,
-            metaData: {}
+            required: true
           },
           children: []
         },
         {
           id: 17,
-          type: '$INPUT',
+          component: 'radio',
           path: 'deductibles.hurricane.value',
-          dependencies: [],
+          dependencies: '',
           data: {
             segmented: true,
-            component: 'radio',
             label: 'Hurricane Deductible',
             size: '12',
-            dataSource: [
+            options: [
               {
                 label: '2% of Dwelling Limit',
                 answer: 2
@@ -575,57 +490,44 @@ const mock = {
               }
             ],
             extendedProperties: {
-              output: 'currency'
+              output:
+                '${format.toCurrency(Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.value)))}'
             }
           },
           formData: {
-            path: 'deductibles.hurricane.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target:
-                '${Math.ceil(((it.deductibles.hurricane.value / 100) * it.coverageLimits.dwelling.value))}'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 19,
-          type: '$INPUT',
+          component: 'radio',
           path: 'deductibles.sinkhole.value',
-          dependencies: [
-            { 'coverageOptions.sinkholePerilCoverage.answer': true }
-          ],
+          dependencies: '${it.coverageOptions.sinkholePerilCoverage.answer}',
           data: {
-            component: 'radio',
             label: 'Sinkhole Deductible',
             size: '12',
             segmented: true,
-            dataSource: [
+            options: [
               {
                 answer: 10,
                 label: '10% of Dwelling Limit'
               }
             ],
             extendedProperties: {
-              output: 'currency'
+              output:
+                '${format.toCurrency(Math.ceil(((it.deductibles.sinkhole.value / 100) * it.coverageLimits.dwelling.value)))}'
             }
           },
           formData: {
-            path: 'deductibles.sinkhole.value',
-            type: 'integer',
-            required: true,
-            metaData: {
-              target:
-                '${Math.ceil(((it.deductibles.sinkhole.value / 100) * it.coverageLimits.dwelling.value))}'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 20,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Wind Mitigation',
             icon: 'fa fa-flag'
@@ -635,241 +537,210 @@ const mock = {
         },
         {
           id: 21,
-          component: '$INPUT',
+          component: 'radio',
           path: 'property.windMitigation.roofCovering',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label: 'Roof Covering:',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: 'Non-FBC',
+                answer: 'Non-FBC'
+              },
+              {
+                label: 'FBC',
+                answer: 'FBC'
+              },
+              {
+                label: 'Other',
+                answer: 'Other'
+              }
+            ]
           },
           formData: {
-            path: 'property.windMitigation.roofCovering',
-            type: 'string',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: 'Non-FBC',
-                  answer: 'Non-FBC'
-                },
-                {
-                  label: 'FBC',
-                  answer: 'FBC'
-                },
-                {
-                  label: 'Other',
-                  answer: 'Other'
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 22,
-          type: '$INPUT',
+          component: 'radio',
           path: 'property.windMitigation.roofDeckAttachment',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label: 'Roof Deck Attachment:',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: 'A',
+                answer: 'A'
+              },
+              {
+                label: 'B',
+                answer: 'B'
+              },
+              {
+                label: 'C',
+                answer: 'C'
+              },
+              {
+                label: 'D',
+                answer: 'D'
+              },
+              {
+                label: 'Concrete',
+                answer: 'Concrete'
+              },
+              {
+                label: 'Other',
+                answer: 'Other'
+              }
+            ]
           },
           formData: {
-            path: 'property.windMitigation.roofDeckAttachment',
-            type: 'integer',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: 'A',
-                  answer: 'A'
-                },
-                {
-                  label: 'B',
-                  answer: 'B'
-                },
-                {
-                  label: 'C',
-                  answer: 'C'
-                },
-                {
-                  label: 'D',
-                  answer: 'D'
-                },
-                {
-                  label: 'Concrete',
-                  answer: 'Concrete'
-                },
-                {
-                  label: 'Other',
-                  answer: 'Other'
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 23,
-          type: '$INPUT',
+          component: 'radio',
           path: 'property.windMitigation.roofToWallConnection',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label: 'Roof to Wall Attachment:',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: 'Toe Nails',
+                answer: 'Toe Nails'
+              },
+              {
+                label: 'Clips',
+                answer: 'Clips'
+              },
+              {
+                label: 'Single Wraps',
+                answer: 'Single Wraps'
+              },
+              {
+                label: 'Double Wraps',
+                answer: 'Double Wraps'
+              },
+              {
+                label: 'Other',
+                answer: 'Other'
+              }
+            ]
           },
           formData: {
-            path: 'property.windMitigation.roofToWallConnection',
-            type: 'string',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: 'Toe Nails',
-                  answer: 'Toe Nails'
-                },
-                {
-                  label: 'Clips',
-                  answer: 'Clips'
-                },
-                {
-                  label: 'Single Wraps',
-                  answer: 'Single Wraps'
-                },
-                {
-                  label: 'Double Wraps',
-                  answer: 'Double Wraps'
-                },
-                {
-                  label: 'Other',
-                  answer: 'Other'
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 24,
-          type: '$INPUT',
+          component: 'radio',
           path: 'property.windMitigation.roofGeometry',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label: 'Roof Geometry:',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: 'Flat',
+                answer: 'Flat'
+              },
+              {
+                label: 'Gable',
+                answer: 'Gable'
+              },
+              {
+                label: 'Hip',
+                answer: 'Hip'
+              },
+              {
+                label: 'Other',
+                answer: 'Other'
+              }
+            ]
           },
           formData: {
-            path: 'property.windMitigation.roofGeometry',
-            type: 'string',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: 'Flat',
-                  answer: 'Flat'
-                },
-                {
-                  label: 'Gable',
-                  answer: 'Gable'
-                },
-                {
-                  label: 'Hip',
-                  answer: 'Hip'
-                },
-                {
-                  label: 'Other',
-                  answer: 'Other'
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 26,
-          type: '$INPUT',
+          component: 'radio',
           path: 'property.windMitigation.secondaryWaterResistance',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'radio',
             label: 'Secondary Water Resistance (SWR):',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: 'Yes',
+                answer: 'Yes'
+              },
+              {
+                label: 'No',
+                answer: 'No'
+              },
+              {
+                label: 'Other',
+                answer: 'Other'
+              }
+            ]
           },
           formData: {
-            path: 'property.windMitigation.secondaryWaterResistance',
-            type: 'string',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: 'Yes',
-                  answer: 'Yes'
-                },
-                {
-                  label: 'No',
-                  answer: 'No'
-                },
-                {
-                  label: 'Other',
-                  answer: 'Other'
-                }
-              ]
-            }
+            required: true
           },
           children: []
         },
         {
           id: 27,
-          type: '$INPUT',
-          dependencies: [],
+          component: 'radio',
+          dependencies: '',
           path: 'property.windMitigation.openingProtection',
           data: {
-            component: 'radio',
             label: 'Opening Protection:',
             size: '12',
-            segmented: true
+            segmented: true,
+            options: [
+              {
+                label: 'None',
+                answer: 'None'
+              },
+              {
+                label: 'Basic',
+                answer: 'Basic'
+              },
+              {
+                label: 'Hurricane',
+                answer: 'Hurricane'
+              },
+              {
+                label: 'Other',
+                answer: 'Other'
+              }
+            ]
           },
           formData: {
-            path: 'property.windMitigation.openingProtection',
-            type: 'string',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: 'None',
-                  answer: 'None'
-                },
-                {
-                  label: 'Basic',
-                  answer: 'Basic'
-                },
-                {
-                  label: 'Hurricane',
-                  answer: 'Hurricane'
-                },
-                {
-                  label: 'Other',
-                  answer: 'Other'
-                }
-              ]
-            },
-            children: []
+            required: true
           },
           children: []
         },
         {
           id: 28,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Discounts',
             icon: 'fa fa-scissors'
@@ -879,72 +750,54 @@ const mock = {
         },
         {
           id: 29,
-          type: '$INPUT',
+          component: 'switch',
           path: 'property.burglarAlarm',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'switch',
             label: 'Does the property have a burglar alarm?',
             size: '12'
           },
-          formData: {
-            path: 'property.burglarAlarm',
-            type: 'boolean',
-            metaData: {},
-            children: []
-          },
+          formData: {},
           children: []
         },
         {
           id: 30,
-          type: '$INPUT',
+          component: 'switch',
           path: 'property.fireAlarm',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'switch',
             label: 'Does the property have a fire alarm?',
             size: '12'
           },
-          formData: {
-            path: 'property.fireAlarm',
-            type: 'boolean',
-            metaData: {},
-            children: []
-          },
+          formData: {},
           children: []
         },
         {
           id: 31,
-          type: '$INPUT',
+          component: 'radio',
           path: 'property.sprinkler',
-          dependencies: [],
+          dependencies: '',
           data: {
             segmented: true,
-            component: 'radio',
             label: 'Sprinkler',
-            size: '12'
+            size: '12',
+            options: [
+              {
+                label: 'N',
+                answer: 'N'
+              },
+              {
+                label: 'A',
+                answer: 'A'
+              },
+              {
+                label: 'B',
+                answer: 'B'
+              }
+            ]
           },
           formData: {
-            path: 'property.sprinkler',
-            type: 'string',
-            required: true,
-            metaData: {
-              enum: [
-                {
-                  label: 'N',
-                  answer: 'N'
-                },
-                {
-                  label: 'A',
-                  answer: 'A'
-                },
-                {
-                  label: 'B',
-                  answer: 'B'
-                }
-              ]
-            },
-            children: []
+            required: true
           },
           children: []
         }
@@ -956,11 +809,9 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$SHARE'
-          },
+          component: '$SHARE',
+          dependencies: '',
+          data: {},
           formData: {},
           children: []
         }
@@ -972,11 +823,9 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
-          data: {
-            component: '$ASSUMPTIONS'
-          },
+          component: '$ASSUMPTIONS',
+          dependencies: '',
+          data: {},
           formData: {},
           children: []
         }
@@ -988,8 +837,8 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Primary Policyholder',
             icon: 'fa fa-user-circle'
@@ -999,37 +848,30 @@ const mock = {
         },
         {
           id: 3,
-          type: '$INPUT',
-          dependencies: [],
+          component: 'text',
+          dependencies: '',
           path: 'policyHolders[0].firstName',
           data: {
-            component: 'text',
             label: 'First Name',
             size: '5',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.firstName',
-            type: 'string',
-            required: true,
-            metaData: { minLength: 1, maxLength: 255 }
+            required: true
           },
           children: []
         },
         {
           id: 4,
-          type: '$INPUT',
+          component: 'text',
           path: 'policyHolders[0].lastName',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'text',
             label: 'Last Name',
             size: '7',
             validation: ['isValidNameFormat']
           },
           formData: {
-            path: 'policyHolders.policyHolder.lastName',
-            type: 'string',
             required: true,
             metaData: {
               minLength: 1,
@@ -1040,54 +882,40 @@ const mock = {
         },
         {
           id: 5,
-          type: '$INPUT',
+          component: 'text',
           path: 'policyHolders[0].emailAddress',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'text',
             label: 'Email Address',
             size: '8',
             validation: ['isEmail']
           },
           formData: {
-            path: 'policyHolders.policyHolder.emailAddress',
-            type: 'string',
-            required: true,
-            metaData: {
-              minLength: 1,
-              maxLength: 255
-            }
+            required: true
           },
           children: []
         },
         {
           id: 6,
-          type: '$INPUT',
+          component: 'phone',
           path: 'policyHolders[0].primaryPhoneNumber',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'phone',
             label: 'Contact Phone',
             size: '4',
             validation: ['isPhone']
           },
           formData: {
-            path: 'policyHolders.policyHolder.primaryPhoneNumber',
-            type: 'string',
-            required: true,
-            metaData: {
-              pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
-            }
+            required: true
           },
           children: []
         },
         {
           id: 8,
-          type: '$INPUT',
+          component: 'switch',
           path: 'additionalPolicyholder',
-          dependencies: [],
+          dependencies: '',
           data: {
-            component: 'switch',
             label: 'Do you want to add an additional Policyholder?'
           },
           formData: {},
@@ -1095,8 +923,9 @@ const mock = {
         },
         {
           id: 3453,
-          type: '$SECTION',
-          dependencies: [{ additionalPolicyholder: true }],
+          component: '$SECTION',
+          path: 'page.policyholder.additionalPolicyholder',
+          dependencies: '${it.additionalPolicyholder}',
           data: {
             className: 'second-policyholder-wrapper'
           },
@@ -1104,8 +933,8 @@ const mock = {
           children: [
             {
               id: 7,
-              type: '$TITLE',
-              dependencies: [],
+              component: '$TITLE',
+              dependencies: '',
               data: {
                 text: 'Secondary Policyholder',
                 icon: 'fa fa-user-circle',
@@ -1116,88 +945,61 @@ const mock = {
             },
             {
               id: 10,
-              type: '$INPUT',
+              component: 'text',
               path: 'policyHolders[1].firstName',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'text',
                 label: 'First Name',
                 size: '5',
                 validation: ['isValidNameFormat']
               },
               formData: {
-                path: 'policyHolders.policyHolder.firstName',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
+                required: true
               },
               children: []
             },
             {
               id: 11,
-              type: '$INPUT',
+              component: 'text',
               path: 'policyHolders[1].lastName',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'text',
                 label: 'Last Name',
                 size: '7',
                 validation: ['isValidNameFormat']
               },
               formData: {
-                path: 'policyHolders.policyHolder.lastName',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
+                required: true
               },
               children: []
             },
             {
               id: 12,
-              type: '$INPUT',
+              component: 'text',
               path: 'policyHolders[1].emailAddress',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'text',
                 label: 'Email Address',
                 size: '8',
                 validation: ['isEmail']
               },
               formData: {
-                path: 'policyHolders.policyHolder.emailAddress',
-                type: 'string',
-                required: true,
-                metaData: {
-                  minLength: 1,
-                  maxLength: 255
-                }
+                required: true
               },
               children: []
             },
             {
               id: 13,
-              type: '$INPUT',
+              component: 'phone',
               path: 'policyHolders[1].primaryPhoneNumber',
-              dependencies: [],
+              dependencies: '',
               data: {
-                component: 'phone',
                 label: 'Contact Phone',
                 size: '4',
                 validation: ['isPhone']
               },
               formData: {
-                path: 'policyHolders.policyHolder.primaryPhoneNumber',
-                type: 'string',
-                required: true,
-                metaData: {
-                  pattern: '^(+d{1,2}s)?(?d{3})?[s.-]d{3}[s.-]d{4}$'
-                }
+                required: true
               },
               children: []
             }
@@ -1211,10 +1013,9 @@ const mock = {
       components: [
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$ADDITIONAL_INTERESTS',
+          dependencies: '',
           data: {
-            component: '$ADDITIONAL_INTERESTS',
             extendedProperties: {
               text:
                 'Please select the type of Additional Interest that you would like to add for this policy.',
@@ -1224,7 +1025,6 @@ const mock = {
                 'additionalInterest',
                 'premiumFinance'
               ],
-              subscribe: true,
               useOwnSubmit: true
             }
           },
@@ -1240,8 +1040,8 @@ const mock = {
       components: [
         {
           id: 34576,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Mailing Address',
             icon: 'fa fa-envelope'
@@ -1251,10 +1051,9 @@ const mock = {
         },
         {
           id: 1,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$ADDRESS',
+          dependencies: '',
           data: {
-            component: '$ADDRESS',
             extendedProperties: {
               watchField: 'sameAsPropertyAddress',
               fieldPrefix: 'policyHolderMailingAddress',
@@ -1266,8 +1065,8 @@ const mock = {
         },
         {
           id: 340933,
-          type: '$TITLE',
-          dependencies: [],
+          component: '$TITLE',
+          dependencies: '',
           data: {
             text: 'Billing Information',
             icon: 'fa fa-dollar'
@@ -1277,10 +1076,9 @@ const mock = {
         },
         {
           id: 348833,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$BILLING',
+          dependencies: '',
           data: {
-            component: '$BILLING',
             dataSource: 'billPlans',
             extendedProperties: {}
           },
@@ -1297,10 +1095,9 @@ const mock = {
       components: [
         {
           id: 673334,
-          type: '$CUSTOM',
-          dependencies: [],
+          component: '$VERIFY',
+          dependencies: '',
           data: {
-            component: '$VERIFY',
             extendedProperties: {
               details: [
                 {

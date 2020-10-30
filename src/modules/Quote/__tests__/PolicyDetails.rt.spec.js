@@ -15,7 +15,7 @@ import {
   checkSelect,
   checkSwitch
 } from '../../../test-utils';
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const phFields = [
   {
@@ -67,7 +67,8 @@ const pageHeaders = [
 describe('Testing QuoteWorkflow Policy Details Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    setPolicySearch: () => {}
+    setPolicySearch: () => {},
+    match: { params: { step: 'customerInfo', quoteNumber: '12-345-67' } }
   };
 
   it('NEG:All Inputs Empty Value', () => {
@@ -76,38 +77,44 @@ describe('Testing QuoteWorkflow Policy Details Page', () => {
     phFields.forEach(field => checkError(getByTestId, field));
   });
 
-  it('NEG:Primary Policyholder Empty Value', () => {
+  it('NEG:Primary Policyholder Empty Value', async () => {
     const { getByTestId } = render(<QuoteWorkflow {...props} />);
-    phFields.forEach(fieldToLeaveBlank =>
-      verifyForm(getByTestId, phFields, [fieldToLeaveBlank])
-    );
+
+    await verifyForm(getByTestId, phFields, [phFields[0]]);
+    await verifyForm(getByTestId, phFields, [phFields[1]]);
   });
 
-  it('NEG:Primary / Secondary Policyholder Invalid Character', () => {
+  it('NEG:Primary / Secondary Policyholder Invalid Character', async () => {
     const { getByTestId } = render(<QuoteWorkflow {...props} />);
-    [...phFields]
-      .filter(({ dataTest }) => !dataTest.includes('Phone'))
-      .forEach(({ dataTest }) =>
-        verifyForm(getByTestId, [
-          {
-            dataTest,
-            value: '∂',
-            error: 'Invalid characters'
-          }
-        ])
-      );
+    await verifyForm(getByTestId, [
+      {
+        dataTest: phFields[0].dataTest,
+        value: '∂',
+        error: 'Invalid characters'
+      }
+    ]);
+
+    await verifyForm(getByTestId, [
+      {
+        dataTest: phFields[1].dataTest,
+        value: '∂',
+        error: 'Invalid characters'
+      }
+    ]);
   });
 
-  it('NEG:Invalid Effective Date', () => {
+  it('NEG:Invalid Effective Date', async () => {
     const { getByTestId } = render(<QuoteWorkflow {...props} />);
     submitForm(getByTestId);
-    verifyForm(getByTestId, [
+
+    await verifyForm(getByTestId, [
       {
         dataTest: 'effectiveDate',
         value: ''
       }
     ]);
-    verifyForm(getByTestId, [
+
+    await verifyForm(getByTestId, [
       {
         dataTest: 'effectiveDate',
         value: '1900-01-01',

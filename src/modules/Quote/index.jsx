@@ -1,3 +1,3 @@
-import QuoteWorkflow from './QuoteWorkflow';
+import QuoteWorkflow from './QuoteWorkflowContainer';
 
 export default QuoteWorkflow;

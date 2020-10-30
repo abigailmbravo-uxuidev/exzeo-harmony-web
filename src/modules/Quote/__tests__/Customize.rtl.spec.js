@@ -10,12 +10,12 @@ import {
   checkSwitch,
   checkSlider,
   checkHeader,
-  checkLabel,
   checkOutput,
-  setSliderValue
+  setSliderValue,
+  screen
 } from '../../../test-utils';
 import { format } from '@exzeo/core-ui';
-import { QuoteWorkflow } from '../QuoteWorkflow';
+import QuoteWorkflow from '../QuoteWorkflow';
 
 const pageHeaders = [
   {
@@ -48,7 +48,8 @@ const pageHeaders = [
 describe('Testing the QuoteWorkflow Customize Page', () => {
   const props = {
     ...defaultQuoteWorkflowProps,
-    location: { pathname: '/quote/12-345-67/customize' }
+    location: { pathname: '/quote/12-345-67/customize' },
+    match: { params: { step: 'customize', quoteNumber: '12-345-67' } }
   };
 
   it('NEG:Dwelling Limit', async () => {
@@ -101,13 +102,17 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
   it('POS:Checks all fields', async () => {
     const { getByTestId } = render(<QuoteWorkflow {...props} />);
 
+    await wait(() =>
+      expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    );
+
     await checkSlider(getByTestId, {
       dataTest: 'coverageLimits.dwelling.value',
       required: true,
       label: 'Dwelling Limit'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'coverageLimits.otherStructures.value',
       required: true,
       label: 'Other Structures Limit',
@@ -117,7 +122,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       outputValue: '$6,280'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'coverageLimits.personalProperty.value',
       required: true,
       label: 'Personal Property Limit',
@@ -141,7 +146,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       value: '$31,400'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'coverageLimits.personalLiability.value',
       required: true,
       label: 'Personal Liability Limit',
@@ -157,7 +162,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       value: '$2,000'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'coverageLimits.moldProperty.value',
       required: true,
       label:
@@ -167,7 +172,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       format: format.toCurrency
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'coverageLimits.moldLiability.value',
       required: true,
       type: 'radio',
@@ -178,7 +183,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       format: format.toCurrency
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'coverageLimits.ordinanceOrLaw.value',
       required: true,
       type: 'radio',
@@ -196,7 +201,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       defaultValue: true
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'deductibles.allOtherPerils.value',
       required: true,
       type: 'radio',
@@ -206,7 +211,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       format: format.toCurrency
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'deductibles.hurricane.value',
       required: true,
       type: 'radio',
@@ -217,7 +222,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       outputValue: '$6,280'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'deductibles.sinkhole.value',
       required: true,
       type: 'radio',
@@ -228,7 +233,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       outputValue: '$31,400'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'property.windMitigation.roofCovering',
       required: true,
       type: 'radio',
@@ -237,7 +242,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       defaultValue: 'Other'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'property.windMitigation.roofDeckAttachment',
       required: true,
       type: 'radio',
@@ -246,7 +251,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       defaultValue: 'Other'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'property.windMitigation.roofToWallConnection',
       required: true,
       type: 'radio',
@@ -255,7 +260,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       defaultValue: 'Other'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'property.windMitigation.roofGeometry',
       required: true,
       type: 'radio',
@@ -264,7 +269,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       defaultValue: 'Other'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'property.windMitigation.secondaryWaterResistance',
       required: true,
       type: 'radio',
@@ -273,7 +278,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       defaultValue: 'Other'
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'property.windMitigation.openingProtection',
       required: true,
       type: 'radio',
@@ -298,7 +303,7 @@ describe('Testing the QuoteWorkflow Customize Page', () => {
       defaultValue: false
     });
 
-    checkRadio(getByTestId, {
+    await checkRadio(getByTestId, {
       dataTest: 'property.sprinkler',
       required: true,
       type: 'radio',

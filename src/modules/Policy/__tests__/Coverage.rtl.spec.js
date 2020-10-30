@@ -1,4 +1,5 @@
 import React from 'react';
+import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   render,
@@ -6,7 +7,7 @@ import {
   defaultPolicyWorkflowProps,
   checkHeader
 } from '../../../test-utils';
-import { PolicyWorkflow } from '../PolicyWorkflow';
+import PolicyWorkflow from '../PolicyWorkflow';
 
 const pageHeaders = [
   {
@@ -26,7 +27,8 @@ const pageHeaders = [
 describe('Policy Coverage Page testing', () => {
   const props = {
     ...defaultPolicyWorkflowProps,
-    location: { pathname: '/policy/12-345-67/coverage' }
+    location: { pathname: '/policy/12-345-67/coverage' },
+    match: { params: { step: 'coverage', policyNumber: '12-345-67' } }
   };
 
   it('POS:Checks headers', () => {
@@ -100,9 +102,10 @@ describe('Policy Coverage Page testing', () => {
   });
 
   it('POS:Deductible Details without sinkhole', () => {
+    const policyClone = _cloneDeep(defaultPolicyWorkflowProps.policy);
     const policyProps = {
-      ...defaultPolicyWorkflowProps,
-      location: { pathname: '/policy/12-345-67/coverage' }
+      ...props,
+      policy: policyClone
     };
 
     delete policyProps.policy.deductibles.sinkhole;
