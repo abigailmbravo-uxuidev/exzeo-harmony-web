@@ -108,9 +108,7 @@ const QuoteWorkflow = ({
     }
   };
 
-  const handleRecalc = e => {
-    formInstance.current?.submit(e);
-  };
+  const handleRecalc = e => formInstance.current?.submit(e);
 
   const checkForExceptions = () => {
     const exceptions = quote.underwritingExceptions;
