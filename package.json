@@ -1,5 +1,5 @@
 {
-  "name": "harmony-web",
+  "name": "@exzeo/harmony-web",
   "version": "0.6.7",
   "private": true,
   "scripts": {
