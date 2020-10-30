@@ -25,7 +25,8 @@ export const PRODUCT_DISPLAY_NAMES = {
 export const STATE_OPTIONS = {
   FL: { answer: 'FL', label: 'FL' },
   SC: { answer: 'SC', label: 'SC' },
-  NJ: { answer: 'NJ', label: 'NJ' }
+  NJ: { answer: 'NJ', label: 'NJ' },
+  GA: { answer: 'GA', label: 'GA' }
 };
 
 export const PRODUCT_OPTIONS = {
@@ -69,7 +70,8 @@ export const cspConfigForSearch = (userProfile = {}, uri, right) => {
     companyCodeMap[resourceKey] = companyCode;
 
     if (!stateOptions.find(o => o.answer === state)) {
-      stateOptions.push(STATE_OPTIONS[state]);
+      const options = STATE_OPTIONS[state];
+      options && stateOptions.push(options);
     }
     if (!productOptions.find(o => o.answer === product)) {
       productOptions.push(PRODUCT_OPTIONS[product]);
