@@ -4,7 +4,8 @@ import {
   Modal,
   ModalPortal,
   Button,
-  useField
+  useField,
+  useForm
 } from '@exzeo/core-ui';
 import {
   Billing as BillingSection,
@@ -15,9 +16,10 @@ import { useQuoteWorkflow } from './context';
 
 const TEMP_BILL_PAYER_VALUE = 'temp_bill_payer';
 
-const Billing = ({ initialValues, formInstance }) => {
+const Billing = ({ initialValues }) => {
   const [showBillPayerModal, setShowBillPayerModal] = useState(false);
   const { handleSubmit } = useQuoteWorkflow();
+  const formInstance = useForm();
   const billToIdField = useField('billToId');
 
   const handleSubmitBillPayer = async billPayer => {
