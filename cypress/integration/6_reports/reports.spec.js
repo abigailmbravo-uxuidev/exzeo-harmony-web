@@ -1,5 +1,4 @@
 import { setRouteAliases } from '../../helpers';
-import { loginReports } from '../../fixtures';
 
 describe('Run Reports', () => {
   before('Login', () => {
