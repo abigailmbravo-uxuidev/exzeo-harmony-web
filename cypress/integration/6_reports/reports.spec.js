@@ -1,10 +1,9 @@
 import { setRouteAliases } from '../../helpers';
-import { loginReports } from '../../fixtures';
 
 describe('Run Reports', () => {
   before('Login', () => {
     setRouteAliases();
-    cy.login(loginReports);
+    cy.login();
   });
 
   it('Navigate to Reports and download Book Of Business Report', () => {
